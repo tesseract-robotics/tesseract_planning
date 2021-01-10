@@ -1,0 +1,71 @@
+name: Nightly
+
+on:
+  pull_request:
+    types: [labeled]
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  industrial_ci:
+    if: contains(github.event.pull_request.labels.*.name, 'check-tesseract-ros') || github.event.schedule == true
+    name: ${{ matrix.env.CI_NAME }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        env:
+          - {CI_NAME: Bionic-Build-Nightly,
+             OS_NAME: ubuntu,
+             OS_CODE_NAME: bionic,
+             ROS_DISTRO: melodic,
+             ROS_REPO: main,
+             UPSTREAM_WORKSPACE: 'dependencies_with_ext.rosinstall'
+             ROSDEP_SKIP_KEYS: "bullet3 cmake_common_scripts fcl iwyu",
+             DOCKER_IMAGE: "rosindustrial/tesseract:melodic",
+             CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Bionic-Build-Nightly/.ccache",
+             PARALLEL_TESTS: false,
+             UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
+             TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
+             DOWNSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"}
+          - {CI_NAME: Focal-Build-Nightly,
+             OS_NAME: ubuntu
+             OS_CODE_NAME: focal
+             ROS_DISTRO: noetic
+             ROS_REPO: main
+             UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
+             ROSDEP_SKIP_KEYS: "bullet fcl ompl orocos_kdl python-numpy ifopt python descartes_opw descartes_samplers descartes_light opw_kinematics cmake_common_scripts iwyu taskflow"
+             DOCKER_IMAGE: "rosindustrial/tesseract:noetic"
+             CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Focal-Build-Nightly/.ccache",
+             UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
+             TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
+             DOWNSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Free Disk Space
+        run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          docker rmi $(docker image ls -aq)
+          df -h
+
+      - name: Prepare ccache timestamp
+        id: ccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: ccache cache files
+        uses: actions/cache@v1.1.0
+        with:
+          path: ${{ matrix.env.CI_NAME }}/.ccache
+          key: ${{ matrix.env.CI_NAME }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+          restore-keys: |
+            ${{ matrix.env.CI_NAME }}-ccache-
+
+      - uses: 'ros-industrial/industrial_ci@master'
+        env: ${{matrix.env}}
