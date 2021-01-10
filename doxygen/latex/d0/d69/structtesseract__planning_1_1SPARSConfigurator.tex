@@ -1,0 +1,196 @@
+\hypertarget{structtesseract__planning_1_1SPARSConfigurator}{}\doxysection{tesseract\+\_\+planning\+::SPARSConfigurator Struct Reference}
+\label{structtesseract__planning_1_1SPARSConfigurator}\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+
+
+{\ttfamily \#include $<$ompl\+\_\+planner\+\_\+configurator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::SPARSConfigurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{d8/d59/structtesseract__planning_1_1SPARSConfigurator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::SPARSConfigurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{d4/d7e/structtesseract__planning_1_1SPARSConfigurator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a4928e2298834c1fd0cc414c560ac33ee}{SPARSConfigurator}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a3b99a44de7d34e64c39010bec7a62be9}{$\sim$\+SPARSConfigurator}} () override=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a31f0a3630a04e68dd105cf4aeabc3f36}{SPARSConfigurator}} (const \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a7d26feabcd3b913b38576fc4fb7735f3}{operator=}} (const \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a737b0d02e9825913fb0f217caea9c40a}{SPARSConfigurator}} (\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a580ecd62f7649f147a79565209fc1b02}{operator=}} (\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a8b55020ff053f05faa8140ca8ac64c2d}{SPARSConfigurator}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+ompl\+::base\+::\+Planner\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_aae0e993af5465bb7f2710814845b5e53}{create}} (ompl\+::base\+::\+Space\+Information\+Ptr si) const override
+\begin{DoxyCompactList}\small\item\em Create the planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a65d2a40186d09db4c40699903a19895f}{get\+Type}} () const override
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a27940eec82006d93e04c6fc81f4ac7f8}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const override
+\begin{DoxyCompactList}\small\item\em Serialize planner to xml. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_aebdd3c784ba9e931e1db9b03811e1c96}{max\+\_\+failures}} = 1000
+\begin{DoxyCompactList}\small\item\em The maximum number of failures before terminating the algorithm. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_ae027c0e53f88d2c341de99ba0ef72734}{dense\+\_\+delta\+\_\+fraction}} = 0.\+001
+\begin{DoxyCompactList}\small\item\em Dense graph connection distance as a fraction of max. extent. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a808c338ad4f042f2c3490a71aa15bc99}{sparse\+\_\+delta\+\_\+fraction}} = 0.\+25
+\begin{DoxyCompactList}\small\item\em Sparse Roadmap connection distance as a fraction of max. extent. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a2b4e90040a964212b041bdf758cfd9c9}{stretch\+\_\+factor}} = 3
+\begin{DoxyCompactList}\small\item\em The stretch factor in terms of graph spanners for SPARS to check against. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a4928e2298834c1fd0cc414c560ac33ee}\label{structtesseract__planning_1_1SPARSConfigurator_a4928e2298834c1fd0cc414c560ac33ee}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!SPARSConfigurator@{SPARSConfigurator}}
+\index{SPARSConfigurator@{SPARSConfigurator}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{SPARSConfigurator()}{SPARSConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+SPARSConfigurator\+::\+SPARSConfigurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a3b99a44de7d34e64c39010bec7a62be9}\label{structtesseract__planning_1_1SPARSConfigurator_a3b99a44de7d34e64c39010bec7a62be9}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!````~SPARSConfigurator@{$\sim$SPARSConfigurator}}
+\index{````~SPARSConfigurator@{$\sim$SPARSConfigurator}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{$\sim$SPARSConfigurator()}{~SPARSConfigurator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+SPARSConfigurator\+::$\sim$\+SPARSConfigurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a31f0a3630a04e68dd105cf4aeabc3f36}\label{structtesseract__planning_1_1SPARSConfigurator_a31f0a3630a04e68dd105cf4aeabc3f36}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!SPARSConfigurator@{SPARSConfigurator}}
+\index{SPARSConfigurator@{SPARSConfigurator}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{SPARSConfigurator()}{SPARSConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+SPARSConfigurator\+::\+SPARSConfigurator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a737b0d02e9825913fb0f217caea9c40a}\label{structtesseract__planning_1_1SPARSConfigurator_a737b0d02e9825913fb0f217caea9c40a}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!SPARSConfigurator@{SPARSConfigurator}}
+\index{SPARSConfigurator@{SPARSConfigurator}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{SPARSConfigurator()}{SPARSConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+SPARSConfigurator\+::\+SPARSConfigurator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a8b55020ff053f05faa8140ca8ac64c2d}\label{structtesseract__planning_1_1SPARSConfigurator_a8b55020ff053f05faa8140ca8ac64c2d}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!SPARSConfigurator@{SPARSConfigurator}}
+\index{SPARSConfigurator@{SPARSConfigurator}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{SPARSConfigurator()}{SPARSConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+SPARSConfigurator\+::\+SPARSConfigurator (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_aae0e993af5465bb7f2710814845b5e53}\label{structtesseract__planning_1_1SPARSConfigurator_aae0e993af5465bb7f2710814845b5e53}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!create@{create}}
+\index{create@{create}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily ompl\+::base\+::\+Planner\+Ptr tesseract\+\_\+planning\+::\+SPARSConfigurator\+::create (\begin{DoxyParamCaption}\item[{ompl\+::base\+::\+Space\+Information\+Ptr}]{si }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Create the planner. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a86ccc143e057c7e55355ac6c34b30753}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a65d2a40186d09db4c40699903a19895f}\label{structtesseract__planning_1_1SPARSConfigurator_a65d2a40186d09db4c40699903a19895f}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!getType@{getType}}
+\index{getType@{getType}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} tesseract\+\_\+planning\+::\+SPARSConfigurator\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a921d57d99e8045ae77ced935e9c8575f}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a7d26feabcd3b913b38576fc4fb7735f3}\label{structtesseract__planning_1_1SPARSConfigurator_a7d26feabcd3b913b38576fc4fb7735f3}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\& tesseract\+\_\+planning\+::\+SPARSConfigurator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a580ecd62f7649f147a79565209fc1b02}\label{structtesseract__planning_1_1SPARSConfigurator_a580ecd62f7649f147a79565209fc1b02}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\& tesseract\+\_\+planning\+::\+SPARSConfigurator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a27940eec82006d93e04c6fc81f4ac7f8}\label{structtesseract__planning_1_1SPARSConfigurator_a27940eec82006d93e04c6fc81f4ac7f8}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+SPARSConfigurator\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Serialize planner to xml. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a6d2d67f9cb772971c344f891c666cfcc}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_ae027c0e53f88d2c341de99ba0ef72734}\label{structtesseract__planning_1_1SPARSConfigurator_ae027c0e53f88d2c341de99ba0ef72734}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!dense\_delta\_fraction@{dense\_delta\_fraction}}
+\index{dense\_delta\_fraction@{dense\_delta\_fraction}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{dense\_delta\_fraction}{dense\_delta\_fraction}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+SPARSConfigurator\+::dense\+\_\+delta\+\_\+fraction = 0.\+001}
+
+
+
+Dense graph connection distance as a fraction of max. extent. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_aebdd3c784ba9e931e1db9b03811e1c96}\label{structtesseract__planning_1_1SPARSConfigurator_aebdd3c784ba9e931e1db9b03811e1c96}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!max\_failures@{max\_failures}}
+\index{max\_failures@{max\_failures}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{max\_failures}{max\_failures}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+SPARSConfigurator\+::max\+\_\+failures = 1000}
+
+
+
+The maximum number of failures before terminating the algorithm. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a808c338ad4f042f2c3490a71aa15bc99}\label{structtesseract__planning_1_1SPARSConfigurator_a808c338ad4f042f2c3490a71aa15bc99}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!sparse\_delta\_fraction@{sparse\_delta\_fraction}}
+\index{sparse\_delta\_fraction@{sparse\_delta\_fraction}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{sparse\_delta\_fraction}{sparse\_delta\_fraction}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+SPARSConfigurator\+::sparse\+\_\+delta\+\_\+fraction = 0.\+25}
+
+
+
+Sparse Roadmap connection distance as a fraction of max. extent. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1SPARSConfigurator_a2b4e90040a964212b041bdf758cfd9c9}\label{structtesseract__planning_1_1SPARSConfigurator_a2b4e90040a964212b041bdf758cfd9c9}} 
+\index{tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}!stretch\_factor@{stretch\_factor}}
+\index{stretch\_factor@{stretch\_factor}!tesseract\_planning::SPARSConfigurator@{tesseract\_planning::SPARSConfigurator}}
+\doxysubsubsection{\texorpdfstring{stretch\_factor}{stretch\_factor}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+SPARSConfigurator\+::stretch\+\_\+factor = 3}
+
+
+
+The stretch factor in terms of graph spanners for SPARS to check against. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/\mbox{\hyperlink{ompl__planner__configurator_8h}{ompl\+\_\+planner\+\_\+configurator.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/ompl/\mbox{\hyperlink{ompl__planner__configurator_8cpp}{ompl\+\_\+planner\+\_\+configurator.\+cpp}}\end{DoxyCompactItemize}

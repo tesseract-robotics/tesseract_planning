@@ -1,0 +1,176 @@
+\hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{}\doxysection{tesseract\+\_\+planning\+::Fix\+State\+Collision\+Task\+Generator Class Reference}
+\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator}\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+
+
+This generator modifies the const input instructions in order to push waypoints that are in collision out of collision.  
+
+
+
+
+{\ttfamily \#include $<$fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+generator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Fix\+State\+Collision\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{d0/df3/classtesseract__planning_1_1FixStateCollisionTaskGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Fix\+State\+Collision\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/d1a/classtesseract__planning_1_1FixStateCollisionTaskGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a5d3bb03ed187bcea2d227b5f06460991}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a500b5e0e84eabd48beed1eb5c2f27f94}{Fix\+State\+Collision\+Task\+Generator}} (std\+::string name=\char`\"{}Fix State Collision\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a2d0df83d9b8b69dbce36c08ed0044b1c}{$\sim$\+Fix\+State\+Collision\+Task\+Generator}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a1479dea16db622614542d9a7a1405dc3}{Fix\+State\+Collision\+Task\+Generator}} (const \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_ac012ffcb2043a83c528201676b3fbf67}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_af6a6f42ebbf3d5989ce458b4e4d81a2c}{Fix\+State\+Collision\+Task\+Generator}} (\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a5f1ff0cf19599f96a776e28d8d8a0061}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \&\&)=delete
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_af07f634ff4967b6dbced4e3b6ac3d076}{conditional\+Process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generate Conditional Task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_afbc0e2578db8260e2384762c1075ad4a}{process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generated a Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesseract__planning_a5b501e2fb5429f11d3508c8641a553da}{Fix\+State\+Collision\+Profile\+Map}} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a8fc463afffc7ac46f60bf2f09b328ac4}{composite\+\_\+profiles}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This generator modifies the const input instructions in order to push waypoints that are in collision out of collision. 
+
+First it uses Traj\+Opt to correct the waypoint. If that fails, it reverts to random sampling 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a5d3bb03ed187bcea2d227b5f06460991}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a5d3bb03ed187bcea2d227b5f06460991}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a5d3bb03ed187bcea2d227b5f06460991}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a500b5e0e84eabd48beed1eb5c2f27f94}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a500b5e0e84eabd48beed1eb5c2f27f94}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!FixStateCollisionTaskGenerator@{FixStateCollisionTaskGenerator}}
+\index{FixStateCollisionTaskGenerator@{FixStateCollisionTaskGenerator}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTaskGenerator()}{FixStateCollisionTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::\+Fix\+State\+Collision\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}Fix~State~Collision\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a2d0df83d9b8b69dbce36c08ed0044b1c}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a2d0df83d9b8b69dbce36c08ed0044b1c}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!````~FixStateCollisionTaskGenerator@{$\sim$FixStateCollisionTaskGenerator}}
+\index{````~FixStateCollisionTaskGenerator@{$\sim$FixStateCollisionTaskGenerator}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$FixStateCollisionTaskGenerator()}{~FixStateCollisionTaskGenerator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::$\sim$\+Fix\+State\+Collision\+Task\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a1479dea16db622614542d9a7a1405dc3}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a1479dea16db622614542d9a7a1405dc3}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!FixStateCollisionTaskGenerator@{FixStateCollisionTaskGenerator}}
+\index{FixStateCollisionTaskGenerator@{FixStateCollisionTaskGenerator}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTaskGenerator()}{FixStateCollisionTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::\+Fix\+State\+Collision\+Task\+Generator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_af6a6f42ebbf3d5989ce458b4e4d81a2c}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_af6a6f42ebbf3d5989ce458b4e4d81a2c}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!FixStateCollisionTaskGenerator@{FixStateCollisionTaskGenerator}}
+\index{FixStateCollisionTaskGenerator@{FixStateCollisionTaskGenerator}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{FixStateCollisionTaskGenerator()}{FixStateCollisionTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::\+Fix\+State\+Collision\+Task\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_af07f634ff4967b6dbced4e3b6ac3d076}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_af07f634ff4967b6dbced4e3b6ac3d076}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!conditionalProcess@{conditionalProcess}}
+\index{conditionalProcess@{conditionalProcess}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{conditionalProcess()}{conditionalProcess()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::conditional\+Process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generate Conditional Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Conditional Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e60805cfe9276ace7be827f2e}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_ac012ffcb2043a83c528201676b3fbf67}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_ac012ffcb2043a83c528201676b3fbf67}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a5f1ff0cf19599f96a776e28d8d8a0061}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a5f1ff0cf19599f96a776e28d8d8a0061}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_afbc0e2578db8260e2384762c1075ad4a}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_afbc0e2578db8260e2384762c1075ad4a}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!process@{process}}
+\index{process@{process}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generated a Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c150554739834a1d467fc726baba8}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a8fc463afffc7ac46f60bf2f09b328ac4}\label{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a8fc463afffc7ac46f60bf2f09b328ac4}} 
+\index{tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}!composite\_profiles@{composite\_profiles}}
+\index{composite\_profiles@{composite\_profiles}!tesseract\_planning::FixStateCollisionTaskGenerator@{tesseract\_planning::FixStateCollisionTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{composite\_profiles}{composite\_profiles}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a5b501e2fb5429f11d3508c8641a553da}{Fix\+State\+Collision\+Profile\+Map}} tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator\+::composite\+\_\+profiles}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/\mbox{\hyperlink{fix__state__collision__task__generator_8h}{fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+generator.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/task\+\_\+generators/\mbox{\hyperlink{fix__state__collision__task__generator_8cpp}{fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+generator.\+cpp}}\end{DoxyCompactItemize}

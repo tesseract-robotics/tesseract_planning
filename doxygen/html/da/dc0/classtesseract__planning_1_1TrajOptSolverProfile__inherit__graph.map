@@ -1,0 +1,4 @@
+<map id="tesseract_planning::TrajOptSolverProfile" name="tesseract_planning::TrajOptSolverProfile">
+<area shape="rect" id="node1" title=" " alt="" coords="26,5,170,47"/>
+<area shape="rect" id="node2" href="$d9/dc5/classtesseract__planning_1_1TrajOptDefaultSolverProfile.html" title="The contains the default solver parameters available for setting up TrajOpt." alt="" coords="5,95,191,136"/>
+</map>

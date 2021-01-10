@@ -1,0 +1,195 @@
+\hypertarget{classtesseract__planning_1_1TrajOptTaskflow}{}\doxysection{tesseract\+\_\+planning\+::Traj\+Opt\+Taskflow Class Reference}
+\label{classtesseract__planning_1_1TrajOptTaskflow}\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+
+
+{\ttfamily \#include $<$trajopt\+\_\+taskflow.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{d9/db6/classtesseract__planning_1_1TrajOptTaskflow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d38/classtesseract__planning_1_1TrajOptTaskflow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a4dbb672e22735a0eb9f89139c6d319cc}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a9bd4c1eb5232658a91e424bc3f7dffdd}{Traj\+Opt\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1TrajOptTaskflowParams}{Traj\+Opt\+Taskflow\+Params}} params, std\+::string name=\char`\"{}Traj\+Opt\+Taskflow\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a12d28e7dda6728799c5ad4ff85d801a5}{$\sim$\+Traj\+Opt\+Taskflow}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_aea9a909ae4642d69dcf58261aafc99fa}{Traj\+Opt\+Taskflow}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a6c67d59aeed75e4e6057de716e96007d}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_abe1d127c9299182ce026f962e26edcab}{Traj\+Opt\+Taskflow}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a556efcf2b0053933802bec086a5d139e}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \&\&)=delete
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a6ba73c6350f84e36aaec058204bbc806}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of the task flow. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a9bc468bed0b02d072c319a7581aaf478}{generate\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} done\+\_\+cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} error\+\_\+cb) override
+\begin{DoxyCompactList}\small\item\em Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_aabdd764691c70233c52e20c499f2dce4}{check\+Task\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input) const
+\begin{DoxyCompactList}\small\item\em Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_aab2604325bdd2807c5d5a146e23ddf5a}{name\+\_\+}}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TrajOptTaskflowParams}{Traj\+Opt\+Taskflow\+Params}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a8dcee00244a21215e7cf683f7aaee922}{params\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_a4dbb672e22735a0eb9f89139c6d319cc}\label{classtesseract__planning_1_1TrajOptTaskflow_a4dbb672e22735a0eb9f89139c6d319cc}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a4dbb672e22735a0eb9f89139c6d319cc}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_a9bd4c1eb5232658a91e424bc3f7dffdd}\label{classtesseract__planning_1_1TrajOptTaskflow_a9bd4c1eb5232658a91e424bc3f7dffdd}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!TrajOptTaskflow@{TrajOptTaskflow}}
+\index{TrajOptTaskflow@{TrajOptTaskflow}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{TrajOptTaskflow()}{TrajOptTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Traj\+Opt\+Taskflow\+::\+Traj\+Opt\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TrajOptTaskflowParams}{Traj\+Opt\+Taskflow\+Params}}}]{params,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}TrajOptTaskflow\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_a12d28e7dda6728799c5ad4ff85d801a5}\label{classtesseract__planning_1_1TrajOptTaskflow_a12d28e7dda6728799c5ad4ff85d801a5}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!````~TrajOptTaskflow@{$\sim$TrajOptTaskflow}}
+\index{````~TrajOptTaskflow@{$\sim$TrajOptTaskflow}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{$\sim$TrajOptTaskflow()}{~TrajOptTaskflow()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow\+::$\sim$\+Traj\+Opt\+Taskflow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_aea9a909ae4642d69dcf58261aafc99fa}\label{classtesseract__planning_1_1TrajOptTaskflow_aea9a909ae4642d69dcf58261aafc99fa}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!TrajOptTaskflow@{TrajOptTaskflow}}
+\index{TrajOptTaskflow@{TrajOptTaskflow}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{TrajOptTaskflow()}{TrajOptTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow\+::\+Traj\+Opt\+Taskflow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_abe1d127c9299182ce026f962e26edcab}\label{classtesseract__planning_1_1TrajOptTaskflow_abe1d127c9299182ce026f962e26edcab}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!TrajOptTaskflow@{TrajOptTaskflow}}
+\index{TrajOptTaskflow@{TrajOptTaskflow}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{TrajOptTaskflow()}{TrajOptTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow\+::\+Traj\+Opt\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_aabdd764691c70233c52e20c499f2dce4}\label{classtesseract__planning_1_1TrajOptTaskflow_aabdd764691c70233c52e20c499f2dce4}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!checkTaskInput@{checkTaskInput}}
+\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{checkTaskInput()}{checkTaskInput()}}
+{\footnotesize\ttfamily bool Traj\+Opt\+Taskflow\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if in the correct format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_a9bc468bed0b02d072c319a7581aaf478}\label{classtesseract__planning_1_1TrajOptTaskflow_a9bc468bed0b02d072c319a7581aaf478}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!generateTaskflow@{generateTaskflow}}
+\index{generateTaskflow@{generateTaskflow}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{generateTaskflow()}{generateTaskflow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} Traj\+Opt\+Taskflow\+::generate\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{instruction,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{done\+\_\+cb,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{error\+\_\+cb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Instructions passed to this instance of the taskflow \\
+\hline
+{\em done\+\_\+cb} & A user defined callback \\
+\hline
+{\em error\+\_\+cb} & A user defined callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A taskflow container which must stay around during execution of taskflow 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_a6ba73c6350f84e36aaec058204bbc806}\label{classtesseract__planning_1_1TrajOptTaskflow_a6ba73c6350f84e36aaec058204bbc806}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!getName@{getName}}
+\index{getName@{getName}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string \& Traj\+Opt\+Taskflow\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the name of the task flow. 
+
+\begin{DoxyReturn}{Returns}
+The name 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_a6c67d59aeed75e4e6057de716e96007d}\label{classtesseract__planning_1_1TrajOptTaskflow_a6c67d59aeed75e4e6057de716e96007d}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}}\& tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_a556efcf2b0053933802bec086a5d139e}\label{classtesseract__planning_1_1TrajOptTaskflow_a556efcf2b0053933802bec086a5d139e}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}}\& tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_aab2604325bdd2807c5d5a146e23ddf5a}\label{classtesseract__planning_1_1TrajOptTaskflow_aab2604325bdd2807c5d5a146e23ddf5a}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!name\_@{name\_}}
+\index{name\_@{name\_}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow\+::name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptTaskflow_a8dcee00244a21215e7cf683f7aaee922}\label{classtesseract__planning_1_1TrajOptTaskflow_a8dcee00244a21215e7cf683f7aaee922}} 
+\index{tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}!params\_@{params\_}}
+\index{params\_@{params\_}!tesseract\_planning::TrajOptTaskflow@{tesseract\_planning::TrajOptTaskflow}}
+\doxysubsubsection{\texorpdfstring{params\_}{params\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TrajOptTaskflowParams}{Traj\+Opt\+Taskflow\+Params}} tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow\+::params\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/\mbox{\hyperlink{trajopt__taskflow_8h}{trajopt\+\_\+taskflow.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/taskflow\+\_\+generators/\mbox{\hyperlink{trajopt__taskflow_8cpp}{trajopt\+\_\+taskflow.\+cpp}}\end{DoxyCompactItemize}

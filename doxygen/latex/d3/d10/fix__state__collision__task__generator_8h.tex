@@ -1,0 +1,86 @@
+\hypertarget{fix__state__collision__task__generator_8h}{}\doxysection{tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+generator.h File Reference}
+\label{fix__state__collision__task__generator_8h}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_generators/fix\_state\_collision\_task\_generator.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_generators/fix\_state\_collision\_task\_generator.h}}
+
+
+Process generator for process that pushes plan instructions to be out of collision.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/task\+\_\+generator.\+h$>$}\newline
+Include dependency graph for fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+generator.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d76/fix__state__collision__task__generator_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d4b/fix__state__collision__task__generator_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Profile}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator}}
+\begin{DoxyCompactList}\small\item\em This generator modifies the const input instructions in order to push waypoints that are in collision out of collision. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Info}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a5b501e2fb5429f11d3508c8641a553da}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, Fix\+State\+Collision\+Profile\+::\+Ptr $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a627d417f4d206352657ce7f78bc79287}{tesseract\+\_\+planning\+::\+State\+In\+Collision}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start\+\_\+pos, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+\begin{DoxyCompactList}\small\item\em Checks if a joint state is in collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a73655d12321af410a05104228465cbd3}{tesseract\+\_\+planning\+::\+Waypoint\+In\+Collision}} (const Waypoint \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+\begin{DoxyCompactList}\small\item\em Checks if a waypoint is in collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a1879658a88319d5e8fc4798abdaac2d3}{tesseract\+\_\+planning\+::\+Move\+Waypoint\+From\+Collision\+Trajopt}} (Waypoint \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
+\begin{DoxyCompactList}\small\item\em Takes a waypoint and uses a small trajopt problem to push it out of collision if necessary. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a5c1bad9f7a45c68fc162ddd786b7f257}{tesseract\+\_\+planning\+::\+Move\+Waypoint\+From\+Collision\+Random\+Sampler}} (Waypoint \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
+\begin{DoxyCompactList}\small\item\em Takes a waypoint and uses random sampling to find a position that is out of collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ae71c4e857f363d16f291068a588bd5ef}{tesseract\+\_\+planning\+::\+Apply\+Correction\+Workflow}} (Waypoint \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Process generator for process that pushes plan instructions to be out of collision. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Powelson 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 31. 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000146}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

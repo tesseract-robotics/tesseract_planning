@@ -1,0 +1,208 @@
+\hypertarget{classtesseract__planning_1_1ProfileDictionary}{}\doxysection{tesseract\+\_\+planning\+::Profile\+Dictionary Class Reference}
+\label{classtesseract__planning_1_1ProfileDictionary}\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+
+
+This class is used to store profiles for motion planning and process planning.  
+
+
+
+
+{\ttfamily \#include $<$profile\+\_\+dictionary.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Profile\+Dictionary\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{dc/da7/classtesseract__planning_1_1ProfileDictionary__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\bool \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a66f91c118f557aa18e1ea00df92b2a19}{has\+Profile\+Entry}} () const
+\begin{DoxyCompactList}\small\item\em Check if a profile entry exists. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a348faba5df0f70305dcd784cf93de6e7}{remove\+Profile\+Entry}} ()
+\begin{DoxyCompactList}\small\item\em Remove a profile entry. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_abda75ff1a2fe327c2d340eb31f940274}{get\+Profile\+Entry}} () const
+\begin{DoxyCompactList}\small\item\em Get a profile entry. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a1d9833abaf1cad797a287e98d67615a9}{add\+Profile}} (const std\+::string \&profile\+\_\+name, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ profile)
+\begin{DoxyCompactList}\small\item\em Add a profile. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\bool \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a6ee9a6e9060f4c75889a9a620e445a74}{has\+Profile}} (const std\+::string \&profile\+\_\+name) const
+\begin{DoxyCompactList}\small\item\em Check if a profile exists. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aaf28f0475589bac0160610ee53fc5a28}{get\+Profile}} (const std\+::string \&profile\+\_\+name) const
+\begin{DoxyCompactList}\small\item\em Get a profile by name. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a7a2f1070811f705543e772903dbddf5f}{remove\+Profile}} (const std\+::string \&profile\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Remove a profile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::type\+\_\+index, std\+::any $>$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a26ab6bd9d2512f89212cd620375db5a0}{profiles\+\_\+}}
+\item 
+std\+::shared\+\_\+mutex \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}{mutex\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is used to store profiles for motion planning and process planning. 
+
+This is a thread safe class A Profile\+Entry$<$\+T$>$ is a std\+::unordered\+\_\+map$<$std\+::string, std\+::shared\+\_\+ptr$<$const T$>$$>$
+\begin{DoxyItemize}
+\item The key is the profile name
+\item Where std\+::shared\+\_\+ptr$<$const T$>$ is the profile The Profle\+Entry$<$\+T$>$ is also stored in std\+::unordered\+\_\+map where the key here is the std\+::type\+\_\+index(typeid(\+T)) \begin{DoxyNote}{Note}
+When adding a profile entry the T should be the base class type. 
+\end{DoxyNote}
+
+\end{DoxyItemize}
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}\label{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}\label{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}{tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_a1d9833abaf1cad797a287e98d67615a9}\label{classtesseract__planning_1_1ProfileDictionary_a1d9833abaf1cad797a287e98d67615a9}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!addProfile@{addProfile}}
+\index{addProfile@{addProfile}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{addProfile()}{addProfile()}}
+{\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
+void tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::add\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile\+\_\+name,  }\item[{std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$}]{profile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a profile. 
+
+If the profile entry does not exist it will create one 
+\begin{DoxyParams}{Parameters}
+{\em profile\+\_\+name} & The profile name \\
+\hline
+{\em profile} & The profile to add \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_aaf28f0475589bac0160610ee53fc5a28}\label{classtesseract__planning_1_1ProfileDictionary_aaf28f0475589bac0160610ee53fc5a28}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!getProfile@{getProfile}}
+\index{getProfile@{getProfile}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{getProfile()}{getProfile()}}
+{\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
+std\+::shared\+\_\+ptr$<$const Profile\+Type$>$ tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::get\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile\+\_\+name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get a profile by name. 
+
+Check if the profile exist before calling this function, if missing an exception is thrown 
+\begin{DoxyParams}{Parameters}
+{\em profile\+\_\+name} & The profile name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The profile 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_abda75ff1a2fe327c2d340eb31f940274}\label{classtesseract__planning_1_1ProfileDictionary_abda75ff1a2fe327c2d340eb31f940274}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!getProfileEntry@{getProfileEntry}}
+\index{getProfileEntry@{getProfileEntry}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{getProfileEntry()}{getProfileEntry()}}
+{\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
+std\+::unordered\+\_\+map$<$std\+::string, std\+::shared\+\_\+ptr$<$const Profile\+Type$>$ $>$ tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::get\+Profile\+Entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get a profile entry. 
+
+\begin{DoxyReturn}{Returns}
+The profile map associated with the profile entry 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_a6ee9a6e9060f4c75889a9a620e445a74}\label{classtesseract__planning_1_1ProfileDictionary_a6ee9a6e9060f4c75889a9a620e445a74}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!hasProfile@{hasProfile}}
+\index{hasProfile@{hasProfile}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{hasProfile()}{hasProfile()}}
+{\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
+bool tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::has\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile\+\_\+name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if a profile exists. 
+
+If profile entry does not exist it also returns false \begin{DoxyReturn}{Returns}
+True if profile exists, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_a66f91c118f557aa18e1ea00df92b2a19}\label{classtesseract__planning_1_1ProfileDictionary_a66f91c118f557aa18e1ea00df92b2a19}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!hasProfileEntry@{hasProfileEntry}}
+\index{hasProfileEntry@{hasProfileEntry}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{hasProfileEntry()}{hasProfileEntry()}}
+{\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
+bool tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::has\+Profile\+Entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if a profile entry exists. 
+
+\begin{DoxyReturn}{Returns}
+True if exists, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_a7a2f1070811f705543e772903dbddf5f}\label{classtesseract__planning_1_1ProfileDictionary_a7a2f1070811f705543e772903dbddf5f}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!removeProfile@{removeProfile}}
+\index{removeProfile@{removeProfile}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{removeProfile()}{removeProfile()}}
+{\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
+void tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::remove\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Remove a profile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em profile\+\_\+name} & The profile to be removed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_a348faba5df0f70305dcd784cf93de6e7}\label{classtesseract__planning_1_1ProfileDictionary_a348faba5df0f70305dcd784cf93de6e7}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!removeProfileEntry@{removeProfileEntry}}
+\index{removeProfileEntry@{removeProfileEntry}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{removeProfileEntry()}{removeProfileEntry()}}
+{\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
+void tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::remove\+Profile\+Entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Remove a profile entry. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}\label{classtesseract__planning_1_1ProfileDictionary_a303b4cae55aa2bfcaea9aba7adc5d983}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+mutex tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileDictionary_a26ab6bd9d2512f89212cd620375db5a0}\label{classtesseract__planning_1_1ProfileDictionary_a26ab6bd9d2512f89212cd620375db5a0}} 
+\index{tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}!profiles\_@{profiles\_}}
+\index{profiles\_@{profiles\_}!tesseract\_planning::ProfileDictionary@{tesseract\_planning::ProfileDictionary}}
+\doxysubsubsection{\texorpdfstring{profiles\_}{profiles\_}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::type\+\_\+index, std\+::any$>$ tesseract\+\_\+planning\+::\+Profile\+Dictionary\+::profiles\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/core/\mbox{\hyperlink{profile__dictionary_8h}{profile\+\_\+dictionary.\+h}}\end{DoxyCompactItemize}

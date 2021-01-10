@@ -1,0 +1,115 @@
+\hypertarget{process__planning__request_8h}{}\doxysection{tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/process\+\_\+planning\+\_\+request.h File Reference}
+\label{process__planning__request_8h}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/core/process\_planning\_request.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/core/process\_planning\_request.h}}
+
+
+A process planning request and default planner names.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/commands.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/types.\+h$>$}\newline
+Include dependency graph for process\+\_\+planning\+\_\+request.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d4d/process__planning__request_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d35/process__planning__request_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{tesseract\+\_\+planning\+::\+Process\+Planning\+Request}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_ad4b2d9473a19a0877d125d3be6247df4}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+TRAJOPT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Traj\+Opt\+Planner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Traj\+Opt Planner. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a3b2c2355de3db81df58e2fac8f75297e}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+OMPL\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}OMPLPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em OMPL Planner. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_af81be52d9fd2a437967ec44a4e29eb8c}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+DESCARTES\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Descartes\+Planner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Descartes Planner. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_ad0a78ef90ec7f39516b6d31d086f8cb1}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+FREESPACE\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Freespace\+Planner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Freespace Planner. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_aa6f0d62a9d17dd600681a545998b67e2}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+CARTESIAN\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Cartesian\+Planner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Cartesian Planner. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a7c8ab03f50077672f3f18913009e95d9}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+FT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+FTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner using freespace planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_abb63d1a4c2c5c889eded6cae57b0a339}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+FT\+\_\+\+DT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+FTDTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner using freespace planner for transitions providing dual transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a0dd6ebe08c0b27205e00490d3535b251}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+FT\+\_\+\+WAAD\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+FTWAADPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner with approach and departure using freespace planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a924746bab786488bc953def73a60f2a6}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+FT\+\_\+\+WAAD\+\_\+\+DT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+FTWAADDTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner with approach and departure using freespace planner for transitions with dual transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_ae1899dd70358fe468900550742c99daa}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+CT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+CTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner using cartesian planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_af93a83cf6f85d7caa9e533d71337f3ee}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+CT\+\_\+\+DT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+CTDTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner using cartesian planner for transitions providing dual transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_aa4d23579ce0385417d528923be2b4e99}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+CT\+\_\+\+WAAD\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+CTWAADPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner with approach and departure using cartesian planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_ae13410a0b029bf1522ffa315fca8c619}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+CT\+\_\+\+WAAD\+\_\+\+DT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+CTWAADDTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner with approach and departure using cartesian planner for transitions wit dual transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a9409eb4c9c8c6006cc7ab3e3e6b4263d}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+G\+\_\+\+FT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+GFTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner performs global plan first then macro planning using freespace planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a004ab168118948b90a6a3e55ce4653bd}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+G\+\_\+\+CT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+GCTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster planner performs global plan first then macro planning using cartesian planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a3211571ada35b27e8eda8615c3f7a5f9}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+O\+\_\+\+FT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+OFTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster only planner using freespace planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_af98d5a510689ebe55b9268462bc4a496}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+O\+\_\+\+CT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+OCTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster only planner using cartesian planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a015d8a71e41ca0516a7cbf94b21021e9}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+O\+\_\+\+G\+\_\+\+FT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+OGFTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster only planner performs global plan first then macro planning using freespace planner for transitions. \end{DoxyCompactList}\item 
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a1564f4424bdfaeb6e831c51c4f15e32c}{tesseract\+\_\+planning\+::process\+\_\+planner\+\_\+names\+::\+RASTER\+\_\+\+O\+\_\+\+G\+\_\+\+CT\+\_\+\+PLANNER\+\_\+\+NAME}} = \char`\"{}Raster\+OGCTPlanner\char`\"{}
+\begin{DoxyCompactList}\small\item\em Raster only planner performs global plan first then macro planning using cartesian planner for transitions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A process planning request and default planner names. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 18, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000133}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

@@ -1,0 +1,4 @@
+<map id="tesseract_planning::ProfileSwitchTaskGenerator" name="tesseract_planning::ProfileSwitchTaskGenerator">
+<area shape="rect" id="node1" title="This generator simply returns a value specified in the composite profile. This can be used to switch ..." alt="" coords="5,95,196,136"/>
+<area shape="rect" id="node2" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="35,5,166,47"/>
+</map>

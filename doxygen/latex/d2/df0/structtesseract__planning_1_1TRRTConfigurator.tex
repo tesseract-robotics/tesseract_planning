@@ -1,0 +1,220 @@
+\hypertarget{structtesseract__planning_1_1TRRTConfigurator}{}\doxysection{tesseract\+\_\+planning\+::TRRTConfigurator Struct Reference}
+\label{structtesseract__planning_1_1TRRTConfigurator}\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+
+
+{\ttfamily \#include $<$ompl\+\_\+planner\+\_\+configurator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::TRRTConfigurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{d6/d48/structtesseract__planning_1_1TRRTConfigurator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::TRRTConfigurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{de/d7d/structtesseract__planning_1_1TRRTConfigurator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a29b6de388836333320859325aac42a28}{TRRTConfigurator}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a1eb548bd29eff20d169bbef53efd34c5}{$\sim$\+TRRTConfigurator}} () override=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a43184e2329941652e376b0c3aca01f37}{TRRTConfigurator}} (const \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a42c4ca88b45b6e34bd553348d6e6a0cc}{operator=}} (const \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a45a3c82dab4add61f67fed558499d888}{TRRTConfigurator}} (\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_aac535f03ed311cdd645ebab2d06ea17b}{operator=}} (\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_ae5ddba5fbf2d92a8d402ce559108bc59}{TRRTConfigurator}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+ompl\+::base\+::\+Planner\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a49cb1fecd164c799a4377595a76c8661}{create}} (ompl\+::base\+::\+Space\+Information\+Ptr si) const override
+\begin{DoxyCompactList}\small\item\em Create the planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_ab5b934a6f7cbd6fdb5177b959a7bf56b}{get\+Type}} () const override
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_ac24b162b20d2f72c8fcf886097724d22}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const override
+\begin{DoxyCompactList}\small\item\em Serialize planner to xml. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_aa0f3392392439cf08054183fab493949}{range}} = 0
+\begin{DoxyCompactList}\small\item\em Max motion added to tree. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a0021fb52f683eb1adde1ed18e185c019}{goal\+\_\+bias}} = 0.\+05
+\begin{DoxyCompactList}\small\item\em When close to goal select goal, with this probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_acd55d02b6b6fc388b2249efd410e267e}{temp\+\_\+change\+\_\+factor}} = 2.\+0
+\begin{DoxyCompactList}\small\item\em How much to increase or decrease temp. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_af1838c897b528592d9f062ddf17e4563}{init\+\_\+temperature}} = 10e-\/6
+\begin{DoxyCompactList}\small\item\em Initial temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a27c22c6bee564f5fd898af31bbe548a9}{frontier\+\_\+threshold}} = 0.\+0
+\begin{DoxyCompactList}\small\item\em Dist new state to nearest neighbor to disqualify as frontier. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a314173e1a49a2fb77e92595a96ed456c}{frontier\+\_\+node\+\_\+ratio}} = 0.\+1
+\begin{DoxyCompactList}\small\item\em 1/10, or 1 nonfrontier for every 10 frontier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a29b6de388836333320859325aac42a28}\label{structtesseract__planning_1_1TRRTConfigurator_a29b6de388836333320859325aac42a28}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!TRRTConfigurator@{TRRTConfigurator}}
+\index{TRRTConfigurator@{TRRTConfigurator}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{TRRTConfigurator()}{TRRTConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+TRRTConfigurator\+::\+TRRTConfigurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a1eb548bd29eff20d169bbef53efd34c5}\label{structtesseract__planning_1_1TRRTConfigurator_a1eb548bd29eff20d169bbef53efd34c5}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!````~TRRTConfigurator@{$\sim$TRRTConfigurator}}
+\index{````~TRRTConfigurator@{$\sim$TRRTConfigurator}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{$\sim$TRRTConfigurator()}{~TRRTConfigurator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+TRRTConfigurator\+::$\sim$\+TRRTConfigurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a43184e2329941652e376b0c3aca01f37}\label{structtesseract__planning_1_1TRRTConfigurator_a43184e2329941652e376b0c3aca01f37}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!TRRTConfigurator@{TRRTConfigurator}}
+\index{TRRTConfigurator@{TRRTConfigurator}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{TRRTConfigurator()}{TRRTConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+TRRTConfigurator\+::\+TRRTConfigurator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a45a3c82dab4add61f67fed558499d888}\label{structtesseract__planning_1_1TRRTConfigurator_a45a3c82dab4add61f67fed558499d888}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!TRRTConfigurator@{TRRTConfigurator}}
+\index{TRRTConfigurator@{TRRTConfigurator}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{TRRTConfigurator()}{TRRTConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+TRRTConfigurator\+::\+TRRTConfigurator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_ae5ddba5fbf2d92a8d402ce559108bc59}\label{structtesseract__planning_1_1TRRTConfigurator_ae5ddba5fbf2d92a8d402ce559108bc59}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!TRRTConfigurator@{TRRTConfigurator}}
+\index{TRRTConfigurator@{TRRTConfigurator}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{TRRTConfigurator()}{TRRTConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+TRRTConfigurator\+::\+TRRTConfigurator (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a49cb1fecd164c799a4377595a76c8661}\label{structtesseract__planning_1_1TRRTConfigurator_a49cb1fecd164c799a4377595a76c8661}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!create@{create}}
+\index{create@{create}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily ompl\+::base\+::\+Planner\+Ptr tesseract\+\_\+planning\+::\+TRRTConfigurator\+::create (\begin{DoxyParamCaption}\item[{ompl\+::base\+::\+Space\+Information\+Ptr}]{si }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Create the planner. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a86ccc143e057c7e55355ac6c34b30753}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_ab5b934a6f7cbd6fdb5177b959a7bf56b}\label{structtesseract__planning_1_1TRRTConfigurator_ab5b934a6f7cbd6fdb5177b959a7bf56b}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!getType@{getType}}
+\index{getType@{getType}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} tesseract\+\_\+planning\+::\+TRRTConfigurator\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a921d57d99e8045ae77ced935e9c8575f}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a42c4ca88b45b6e34bd553348d6e6a0cc}\label{structtesseract__planning_1_1TRRTConfigurator_a42c4ca88b45b6e34bd553348d6e6a0cc}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\& tesseract\+\_\+planning\+::\+TRRTConfigurator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_aac535f03ed311cdd645ebab2d06ea17b}\label{structtesseract__planning_1_1TRRTConfigurator_aac535f03ed311cdd645ebab2d06ea17b}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\& tesseract\+\_\+planning\+::\+TRRTConfigurator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_ac24b162b20d2f72c8fcf886097724d22}\label{structtesseract__planning_1_1TRRTConfigurator_ac24b162b20d2f72c8fcf886097724d22}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+TRRTConfigurator\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Serialize planner to xml. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a6d2d67f9cb772971c344f891c666cfcc}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a314173e1a49a2fb77e92595a96ed456c}\label{structtesseract__planning_1_1TRRTConfigurator_a314173e1a49a2fb77e92595a96ed456c}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!frontier\_node\_ratio@{frontier\_node\_ratio}}
+\index{frontier\_node\_ratio@{frontier\_node\_ratio}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{frontier\_node\_ratio}{frontier\_node\_ratio}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+TRRTConfigurator\+::frontier\+\_\+node\+\_\+ratio = 0.\+1}
+
+
+
+1/10, or 1 nonfrontier for every 10 frontier. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a27c22c6bee564f5fd898af31bbe548a9}\label{structtesseract__planning_1_1TRRTConfigurator_a27c22c6bee564f5fd898af31bbe548a9}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!frontier\_threshold@{frontier\_threshold}}
+\index{frontier\_threshold@{frontier\_threshold}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{frontier\_threshold}{frontier\_threshold}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+TRRTConfigurator\+::frontier\+\_\+threshold = 0.\+0}
+
+
+
+Dist new state to nearest neighbor to disqualify as frontier. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_a0021fb52f683eb1adde1ed18e185c019}\label{structtesseract__planning_1_1TRRTConfigurator_a0021fb52f683eb1adde1ed18e185c019}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!goal\_bias@{goal\_bias}}
+\index{goal\_bias@{goal\_bias}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{goal\_bias}{goal\_bias}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+TRRTConfigurator\+::goal\+\_\+bias = 0.\+05}
+
+
+
+When close to goal select goal, with this probability. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_af1838c897b528592d9f062ddf17e4563}\label{structtesseract__planning_1_1TRRTConfigurator_af1838c897b528592d9f062ddf17e4563}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!init\_temperature@{init\_temperature}}
+\index{init\_temperature@{init\_temperature}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{init\_temperature}{init\_temperature}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+TRRTConfigurator\+::init\+\_\+temperature = 10e-\/6}
+
+
+
+Initial temperature. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_aa0f3392392439cf08054183fab493949}\label{structtesseract__planning_1_1TRRTConfigurator_aa0f3392392439cf08054183fab493949}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!range@{range}}
+\index{range@{range}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{range}{range}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+TRRTConfigurator\+::range = 0}
+
+
+
+Max motion added to tree. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TRRTConfigurator_acd55d02b6b6fc388b2249efd410e267e}\label{structtesseract__planning_1_1TRRTConfigurator_acd55d02b6b6fc388b2249efd410e267e}} 
+\index{tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}!temp\_change\_factor@{temp\_change\_factor}}
+\index{temp\_change\_factor@{temp\_change\_factor}!tesseract\_planning::TRRTConfigurator@{tesseract\_planning::TRRTConfigurator}}
+\doxysubsubsection{\texorpdfstring{temp\_change\_factor}{temp\_change\_factor}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+TRRTConfigurator\+::temp\+\_\+change\+\_\+factor = 2.\+0}
+
+
+
+How much to increase or decrease temp. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/\mbox{\hyperlink{ompl__planner__configurator_8h}{ompl\+\_\+planner\+\_\+configurator.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/ompl/\mbox{\hyperlink{ompl__planner__configurator_8cpp}{ompl\+\_\+planner\+\_\+configurator.\+cpp}}\end{DoxyCompactItemize}

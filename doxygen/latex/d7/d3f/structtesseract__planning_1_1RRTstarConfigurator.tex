@@ -1,0 +1,184 @@
+\hypertarget{structtesseract__planning_1_1RRTstarConfigurator}{}\doxysection{tesseract\+\_\+planning\+::RRTstar\+Configurator Struct Reference}
+\label{structtesseract__planning_1_1RRTstarConfigurator}\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+
+
+{\ttfamily \#include $<$ompl\+\_\+planner\+\_\+configurator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::RRTstar\+Configurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{da/dc6/structtesseract__planning_1_1RRTstarConfigurator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::RRTstar\+Configurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{d2/d77/structtesseract__planning_1_1RRTstarConfigurator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ac9add0ff233f692f9287274098d94da5}{RRTstar\+Configurator}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ad7c418de340ea2916f7a80538643105f}{$\sim$\+RRTstar\+Configurator}} () override=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ad7b2644c66becba7c7e2a3953992a6d1}{RRTstar\+Configurator}} (const \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a7ec095b4ce43abcc75031f6a14326ea3}{operator=}} (const \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a04cd9591fd63155d235524abd8c4bac3}{RRTstar\+Configurator}} (\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ab3154a157e18632d80046a044037d99f}{operator=}} (\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_afd063ddde7bab067de8292da16749a06}{RRTstar\+Configurator}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+ompl\+::base\+::\+Planner\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ac9daef3ca723632cae9116759b91d9a6}{create}} (ompl\+::base\+::\+Space\+Information\+Ptr si) const override
+\begin{DoxyCompactList}\small\item\em Create the planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_aa59d04e261e4caa95b79defc9f094979}{get\+Type}} () const override
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a0564464706f7b40a345ac6519994e161}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const override
+\begin{DoxyCompactList}\small\item\em Serialize planner to xml. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a28f3b7350792394bbd1b96509296aab7}{range}} = 0
+\begin{DoxyCompactList}\small\item\em Max motion added to tree. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a77bd78f7c97d68748baca06457a51ae2}{goal\+\_\+bias}} = 0.\+05
+\begin{DoxyCompactList}\small\item\em When close to goal select goal, with this probability. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a3d97701e131375248cf67f9e29c602e4}{delay\+\_\+collision\+\_\+checking}} = true
+\begin{DoxyCompactList}\small\item\em Stop collision checking as soon as C-\/free parent found. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_ac9add0ff233f692f9287274098d94da5}\label{structtesseract__planning_1_1RRTstarConfigurator_ac9add0ff233f692f9287274098d94da5}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!RRTstarConfigurator@{RRTstarConfigurator}}
+\index{RRTstarConfigurator@{RRTstarConfigurator}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{RRTstarConfigurator()}{RRTstarConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::\+RRTstar\+Configurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_ad7c418de340ea2916f7a80538643105f}\label{structtesseract__planning_1_1RRTstarConfigurator_ad7c418de340ea2916f7a80538643105f}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!````~RRTstarConfigurator@{$\sim$RRTstarConfigurator}}
+\index{````~RRTstarConfigurator@{$\sim$RRTstarConfigurator}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{$\sim$RRTstarConfigurator()}{~RRTstarConfigurator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::$\sim$\+RRTstar\+Configurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_ad7b2644c66becba7c7e2a3953992a6d1}\label{structtesseract__planning_1_1RRTstarConfigurator_ad7b2644c66becba7c7e2a3953992a6d1}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!RRTstarConfigurator@{RRTstarConfigurator}}
+\index{RRTstarConfigurator@{RRTstarConfigurator}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{RRTstarConfigurator()}{RRTstarConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::\+RRTstar\+Configurator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_a04cd9591fd63155d235524abd8c4bac3}\label{structtesseract__planning_1_1RRTstarConfigurator_a04cd9591fd63155d235524abd8c4bac3}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!RRTstarConfigurator@{RRTstarConfigurator}}
+\index{RRTstarConfigurator@{RRTstarConfigurator}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{RRTstarConfigurator()}{RRTstarConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::\+RRTstar\+Configurator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_afd063ddde7bab067de8292da16749a06}\label{structtesseract__planning_1_1RRTstarConfigurator_afd063ddde7bab067de8292da16749a06}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!RRTstarConfigurator@{RRTstarConfigurator}}
+\index{RRTstarConfigurator@{RRTstarConfigurator}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{RRTstarConfigurator()}{RRTstarConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::\+RRTstar\+Configurator (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_ac9daef3ca723632cae9116759b91d9a6}\label{structtesseract__planning_1_1RRTstarConfigurator_ac9daef3ca723632cae9116759b91d9a6}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!create@{create}}
+\index{create@{create}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily ompl\+::base\+::\+Planner\+Ptr tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::create (\begin{DoxyParamCaption}\item[{ompl\+::base\+::\+Space\+Information\+Ptr}]{si }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Create the planner. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a86ccc143e057c7e55355ac6c34b30753}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_aa59d04e261e4caa95b79defc9f094979}\label{structtesseract__planning_1_1RRTstarConfigurator_aa59d04e261e4caa95b79defc9f094979}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!getType@{getType}}
+\index{getType@{getType}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a921d57d99e8045ae77ced935e9c8575f}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_a7ec095b4ce43abcc75031f6a14326ea3}\label{structtesseract__planning_1_1RRTstarConfigurator_a7ec095b4ce43abcc75031f6a14326ea3}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}}\& tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_ab3154a157e18632d80046a044037d99f}\label{structtesseract__planning_1_1RRTstarConfigurator_ab3154a157e18632d80046a044037d99f}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}}\& tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_a0564464706f7b40a345ac6519994e161}\label{structtesseract__planning_1_1RRTstarConfigurator_a0564464706f7b40a345ac6519994e161}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Serialize planner to xml. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a6d2d67f9cb772971c344f891c666cfcc}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_a3d97701e131375248cf67f9e29c602e4}\label{structtesseract__planning_1_1RRTstarConfigurator_a3d97701e131375248cf67f9e29c602e4}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!delay\_collision\_checking@{delay\_collision\_checking}}
+\index{delay\_collision\_checking@{delay\_collision\_checking}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{delay\_collision\_checking}{delay\_collision\_checking}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::delay\+\_\+collision\+\_\+checking = true}
+
+
+
+Stop collision checking as soon as C-\/free parent found. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_a77bd78f7c97d68748baca06457a51ae2}\label{structtesseract__planning_1_1RRTstarConfigurator_a77bd78f7c97d68748baca06457a51ae2}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!goal\_bias@{goal\_bias}}
+\index{goal\_bias@{goal\_bias}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{goal\_bias}{goal\_bias}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::goal\+\_\+bias = 0.\+05}
+
+
+
+When close to goal select goal, with this probability. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1RRTstarConfigurator_a28f3b7350792394bbd1b96509296aab7}\label{structtesseract__planning_1_1RRTstarConfigurator_a28f3b7350792394bbd1b96509296aab7}} 
+\index{tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}!range@{range}}
+\index{range@{range}!tesseract\_planning::RRTstarConfigurator@{tesseract\_planning::RRTstarConfigurator}}
+\doxysubsubsection{\texorpdfstring{range}{range}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+RRTstar\+Configurator\+::range = 0}
+
+
+
+Max motion added to tree. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/\mbox{\hyperlink{ompl__planner__configurator_8h}{ompl\+\_\+planner\+\_\+configurator.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/ompl/\mbox{\hyperlink{ompl__planner__configurator_8cpp}{ompl\+\_\+planner\+\_\+configurator.\+cpp}}\end{DoxyCompactItemize}

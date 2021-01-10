@@ -1,0 +1,5 @@
+<map id="tesseract_planning::TaskGenerator" name="tesseract_planning::TaskGenerator">
+<area shape="rect" id="node1" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="5,185,136,227"/>
+<area shape="rect" id="node2" title=" " alt="" coords="31,96,110,123"/>
+<area shape="rect" id="node3" title=" " alt="" coords="9,5,133,47"/>
+</map>

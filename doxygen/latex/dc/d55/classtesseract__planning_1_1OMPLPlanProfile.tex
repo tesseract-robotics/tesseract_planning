@@ -1,0 +1,180 @@
+\hypertarget{classtesseract__planning_1_1OMPLPlanProfile}{}\doxysection{tesseract\+\_\+planning\+::OMPLPlan\+Profile Class Reference}
+\label{classtesseract__planning_1_1OMPLPlanProfile}\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+
+
+{\ttfamily \#include $<$ompl\+\_\+profile.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::OMPLPlan\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{d7/dd4/classtesseract__planning_1_1OMPLPlanProfile__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a83c4a65439b6ad2e3b6e5257846f3e13}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_aa66df30df5a8bf9c2ea1eb69e78b6517}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_adc10936820427ab6a2584935c7a7d57c}{OMPLPlan\+Profile}} ()=default
+\item 
+virtual \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a53126f969284a44aef8a29118a4f38a7}{$\sim$\+OMPLPlan\+Profile}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_ac7a230b37c43cf876d513807ba427e55}{OMPLPlan\+Profile}} (const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a44482d7d00e77e486a51342e5b8d58df}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a9bf82bcf0a230870a2e7418cdec3f917}{OMPLPlan\+Profile}} (\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a457192cbc7630429066b93160ad26938}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_ad8daa4af359760b3343e4904e03add3e}{OMPLPlan\+Profile}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a62808c3408bb70633b2b6ac8f2f53597}{setup}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob) const =0
+\item 
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a743dccd6c17bbbad02d30cceb9ffd9a7}{apply\+Goal\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Isometry3d \&cartesian\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
+\item 
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_aad8fff6552991cc86f77519374873f23}{apply\+Goal\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Vector\+Xd \&joint\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
+\item 
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_ab92f4ff018fcb73f432eeb718ddbabbe}{apply\+Start\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Isometry3d \&cartesian\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
+\item 
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a660ff9eed1bdfdbe23f2120f5fc8d5ac}{apply\+Start\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Vector\+Xd \&joint\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
+\item 
+virtual tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a147f1d18bcd0c85e5ccc6193a805f5f8}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_aa66df30df5a8bf9c2ea1eb69e78b6517}\label{classtesseract__planning_1_1OMPLPlanProfile_aa66df30df5a8bf9c2ea1eb69e78b6517}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_aa66df30df5a8bf9c2ea1eb69e78b6517}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a83c4a65439b6ad2e3b6e5257846f3e13}\label{classtesseract__planning_1_1OMPLPlanProfile_a83c4a65439b6ad2e3b6e5257846f3e13}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a83c4a65439b6ad2e3b6e5257846f3e13}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_adc10936820427ab6a2584935c7a7d57c}\label{classtesseract__planning_1_1OMPLPlanProfile_adc10936820427ab6a2584935c7a7d57c}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!OMPLPlanProfile@{OMPLPlanProfile}}
+\index{OMPLPlanProfile@{OMPLPlanProfile}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{OMPLPlanProfile()}{OMPLPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::\+OMPLPlan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a53126f969284a44aef8a29118a4f38a7}\label{classtesseract__planning_1_1OMPLPlanProfile_a53126f969284a44aef8a29118a4f38a7}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!````~OMPLPlanProfile@{$\sim$OMPLPlanProfile}}
+\index{````~OMPLPlanProfile@{$\sim$OMPLPlanProfile}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{$\sim$OMPLPlanProfile()}{~OMPLPlanProfile()}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::$\sim$\+OMPLPlan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_ac7a230b37c43cf876d513807ba427e55}\label{classtesseract__planning_1_1OMPLPlanProfile_ac7a230b37c43cf876d513807ba427e55}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!OMPLPlanProfile@{OMPLPlanProfile}}
+\index{OMPLPlanProfile@{OMPLPlanProfile}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{OMPLPlanProfile()}{OMPLPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::\+OMPLPlan\+Profile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a9bf82bcf0a230870a2e7418cdec3f917}\label{classtesseract__planning_1_1OMPLPlanProfile_a9bf82bcf0a230870a2e7418cdec3f917}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!OMPLPlanProfile@{OMPLPlanProfile}}
+\index{OMPLPlanProfile@{OMPLPlanProfile}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{OMPLPlanProfile()}{OMPLPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::\+OMPLPlan\+Profile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_ad8daa4af359760b3343e4904e03add3e}\label{classtesseract__planning_1_1OMPLPlanProfile_ad8daa4af359760b3343e4904e03add3e}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!OMPLPlanProfile@{OMPLPlanProfile}}
+\index{OMPLPlanProfile@{OMPLPlanProfile}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{OMPLPlanProfile()}{OMPLPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::\+OMPLPlan\+Profile (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a743dccd6c17bbbad02d30cceb9ffd9a7}\label{classtesseract__planning_1_1OMPLPlanProfile_a743dccd6c17bbbad02d30cceb9ffd9a7}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!applyGoalStates@{applyGoalStates}}
+\index{applyGoalStates@{applyGoalStates}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{applyGoalStates()}{applyGoalStates()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::apply\+Goal\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Isometry3d \&}]{cartesian\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac9464c4e33be2c8d30e1e4bcefeabab}{tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_aad8fff6552991cc86f77519374873f23}\label{classtesseract__planning_1_1OMPLPlanProfile_aad8fff6552991cc86f77519374873f23}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!applyGoalStates@{applyGoalStates}}
+\index{applyGoalStates@{applyGoalStates}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{applyGoalStates()}{applyGoalStates()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::apply\+Goal\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{joint\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a547f4f1bf9830029df37fed95ef5b26d}{tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_ab92f4ff018fcb73f432eeb718ddbabbe}\label{classtesseract__planning_1_1OMPLPlanProfile_ab92f4ff018fcb73f432eeb718ddbabbe}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!applyStartStates@{applyStartStates}}
+\index{applyStartStates@{applyStartStates}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{applyStartStates()}{applyStartStates()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::apply\+Start\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Isometry3d \&}]{cartesian\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a86c28634aa87b3783d1fd971cbeea9da}{tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a660ff9eed1bdfdbe23f2120f5fc8d5ac}\label{classtesseract__planning_1_1OMPLPlanProfile_a660ff9eed1bdfdbe23f2120f5fc8d5ac}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!applyStartStates@{applyStartStates}}
+\index{applyStartStates@{applyStartStates}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{applyStartStates()}{applyStartStates()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::apply\+Start\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{joint\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_af03d90afd0172d9759ce8c2067c11123}{tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a44482d7d00e77e486a51342e5b8d58df}\label{classtesseract__planning_1_1OMPLPlanProfile_a44482d7d00e77e486a51342e5b8d58df}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}}\& tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a457192cbc7630429066b93160ad26938}\label{classtesseract__planning_1_1OMPLPlanProfile_a457192cbc7630429066b93160ad26938}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}}\& tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a62808c3408bb70633b2b6ac8f2f53597}\label{classtesseract__planning_1_1OMPLPlanProfile_a62808c3408bb70633b2b6ac8f2f53597}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!setup@{setup}}
+\index{setup@{setup}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::setup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aab83f4dbd16afcf39d77877b088a36e8}{tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLPlanProfile_a147f1d18bcd0c85e5ccc6193a805f5f8}\label{classtesseract__planning_1_1OMPLPlanProfile_a147f1d18bcd0c85e5ccc6193a805f5f8}} 
+\index{tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::OMPLPlanProfile@{tesseract\_planning::OMPLPlanProfile}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily virtual tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::\+OMPLPlan\+Profile\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9ceeaf8d8a01e483992a71b15cb32df4}{tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/profile/\mbox{\hyperlink{ompl__profile_8h}{ompl\+\_\+profile.\+h}}\end{DoxyCompactItemize}

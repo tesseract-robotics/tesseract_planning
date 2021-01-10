@@ -1,0 +1,123 @@
+\hypertarget{structtesseract__planning_1_1PlannerRequest}{}\doxysection{tesseract\+\_\+planning\+::Planner\+Request Struct Reference}
+\label{structtesseract__planning_1_1PlannerRequest}\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+
+
+{\ttfamily \#include $<$types.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Planner\+Request\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/dbe/structtesseract__planning_1_1PlannerRequest__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_afa12fe79c6dae69afc0e13d1cfd3c37d}{name}}
+\begin{DoxyCompactList}\small\item\em The name of the process manager to use. \end{DoxyCompactList}\item 
+tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}}
+\begin{DoxyCompactList}\small\item\em The environment. \end{DoxyCompactList}\item 
+tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a3d8e8938be52bd9aea4c37147202eb40}{env\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em The start state to use for planning. \end{DoxyCompactList}\item 
+Composite\+Instruction \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}
+\begin{DoxyCompactList}\small\item\em The program instruction This must containt a minimum of two move instruction the first move instruction is the start state. \end{DoxyCompactList}\item 
+Composite\+Instruction \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}
+\begin{DoxyCompactList}\small\item\em This should be a one to one match with the instructions where the Plan\+Instruction is replaced with a Composite\+Instruction of Move\+Instructions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\+\_\+profile\+\_\+remapping}}
+\begin{DoxyCompactList}\small\item\em This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a57f97df33c6644837d93650818be4d67}{composite\+\_\+profile\+\_\+remapping}}
+\begin{DoxyCompactList}\small\item\em This allows the remapping of the Composite Profile identified in the command language to a specific profile for a given motion planner. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ void $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}{data}}
+\begin{DoxyCompactList}\small\item\em data Planner specific data. For planners included in Tesseract\+\_\+planning this is the planner problem that will be used if it is not null \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a57f97df33c6644837d93650818be4d67}\label{structtesseract__planning_1_1PlannerRequest_a57f97df33c6644837d93650818be4d67}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!composite\_profile\_remapping@{composite\_profile\_remapping}}
+\index{composite\_profile\_remapping@{composite\_profile\_remapping}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{composite\_profile\_remapping}{composite\_profile\_remapping}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} tesseract\+\_\+planning\+::\+Planner\+Request\+::composite\+\_\+profile\+\_\+remapping}
+
+
+
+This allows the remapping of the Composite Profile identified in the command language to a specific profile for a given motion planner. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}\label{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!data@{data}}
+\index{data@{data}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$void$>$ tesseract\+\_\+planning\+::\+Planner\+Request\+::data}
+
+
+
+data Planner specific data. For planners included in Tesseract\+\_\+planning this is the planner problem that will be used if it is not null 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}\label{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!env@{env}}
+\index{env@{env}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{env}{env}}
+{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Planner\+Request\+::env}
+
+
+
+The environment. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a3d8e8938be52bd9aea4c37147202eb40}\label{structtesseract__planning_1_1PlannerRequest_a3d8e8938be52bd9aea4c37147202eb40}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!env\_state@{env\_state}}
+\index{env\_state@{env\_state}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
+{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Planner\+Request\+::env\+\_\+state}
+
+
+
+The start state to use for planning. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}\label{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!instructions@{instructions}}
+\index{instructions@{instructions}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{instructions}{instructions}}
+{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Planner\+Request\+::instructions}
+
+
+
+The program instruction This must containt a minimum of two move instruction the first move instruction is the start state. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_afa12fe79c6dae69afc0e13d1cfd3c37d}\label{structtesseract__planning_1_1PlannerRequest_afa12fe79c6dae69afc0e13d1cfd3c37d}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!name@{name}}
+\index{name@{name}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Planner\+Request\+::name}
+
+
+
+The name of the process manager to use. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}\label{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!plan\_profile\_remapping@{plan\_profile\_remapping}}
+\index{plan\_profile\_remapping@{plan\_profile\_remapping}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{plan\_profile\_remapping}{plan\_profile\_remapping}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} tesseract\+\_\+planning\+::\+Planner\+Request\+::plan\+\_\+profile\+\_\+remapping}
+
+
+
+This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}\label{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!seed@{seed}}
+\index{seed@{seed}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{seed}{seed}}
+{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Planner\+Request\+::seed}
+
+
+
+This should be a one to one match with the instructions where the Plan\+Instruction is replaced with a Composite\+Instruction of Move\+Instructions. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/core/\mbox{\hyperlink{tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h}{types.\+h}}\end{DoxyCompactItemize}

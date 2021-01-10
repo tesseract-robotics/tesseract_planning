@@ -1,0 +1,235 @@
+\hypertarget{structtesseract__planning_1_1OMPLProblem}{}\doxysection{tesseract\+\_\+planning\+::OMPLProblem Struct Reference}
+\label{structtesseract__planning_1_1OMPLProblem}\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+
+
+{\ttfamily \#include $<$ompl\+\_\+problem.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::OMPLProblem\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{d0/dcd/structtesseract__planning_1_1OMPLProblem__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} $>$
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_afde9c91edc5399805e7cba38d32d998d}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} $>$
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aed58d94be3bbfd492aacfd28046fd2a9}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} $>$
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a609a1f297d1dd74738eb99f8a22fca71}{Const\+UPtr}} = std\+::unique\+\_\+ptr$<$ const \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+common\+::\+Traj\+Array \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a7fe01bba4cea672cec9939e70474484c}{get\+Trajectory}} () const
+\begin{DoxyCompactList}\small\item\em Convert the path stored in simple\+\_\+setup to tesseract trajectory This is required because the motion planner is not aware of the state space type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad5ac188e15baa1ba64f0b9887426faa2}{env}}
+\item 
+tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a9f8aa1a928300e8cd569df342a859184}{env\+\_\+state}}
+\item 
+tesseract\+\_\+environment\+::\+State\+Solver\+::\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ac25c33c1c78c3b43e6d082407d9c1e8a}{state\+\_\+solver}}
+\item 
+tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager\+::\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a7cf3d069c6ab887bc8affb95d84b3bb6}{contact\+\_\+checker}}
+\item 
+\mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{OMPLProblem\+State\+Space}} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a4be2e36ea5f0d35abe0a1d9086d78927}{state\+\_\+space}} \{ \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{OMPLProblem\+State\+Space\+::\+REAL\+\_\+\+STATE\+\_\+\+SPACE}} \}
+\item 
+tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a9fbf8893d7d05ff2f17f0484306c230d}{manip\+\_\+fwd\+\_\+kin}}
+\item 
+tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a70d77a1259823401e192796b116837ef}{manip\+\_\+inv\+\_\+kin}}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a5b9b1991b3797c9d6fd9dd2fd822d4f6}{planning\+\_\+time}} = 5.\+0
+\begin{DoxyCompactList}\small\item\em Max planning time allowed in seconds. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ab3d5e68d86aa548e545dc6d13591f150}{max\+\_\+solutions}} = 10
+\begin{DoxyCompactList}\small\item\em The max number of solutions. If max solutions are hit it will exit even if other threads are running. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_af6ff9802f34283621e069c9f6b06895e}{simplify}} = false
+\begin{DoxyCompactList}\small\item\em Simplify trajectory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad188305efe4b0781b4157765927c7103}{n\+\_\+output\+\_\+states}} = 20
+\begin{DoxyCompactList}\small\item\em Number of states in the output trajectory Note\+: This is ignored if the simplify is set to true. Note\+: The trajectory can be longer if original trajectory is longer and reducing the number of states causes the solution to be invalid. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a5b863d8c426fd824c9e021f3e94b8aeb}{optimize}} = true
+\begin{DoxyCompactList}\small\item\em This uses all available planning time to create the most optimized trajectory given the objective function. \end{DoxyCompactList}\item 
+ompl\+::geometric\+::\+Simple\+Setup\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ac65bd9b7d78b61673baf1fdca28a3224}{simple\+\_\+setup}}
+\begin{DoxyCompactList}\small\item\em OMPL problem to be solved {\itshape {\bfseries{REQUIRED}}} \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aecd7bfc8d1a2b291435ed3a4bc8a65be}{OMPLPlanner\+Configurator\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad5efa2cec9c2dec7511908cb6e1b8987}{planners}}
+\begin{DoxyCompactList}\small\item\em The planner configurators {\itshape {\bfseries{REQUIRED}}} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLState\+Extractor}} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a0f300ebd721cae520e029df0f1f18234}{extractor}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_afde9c91edc5399805e7cba38d32d998d}\label{structtesseract__planning_1_1OMPLProblem_afde9c91edc5399805e7cba38d32d998d}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_afde9c91edc5399805e7cba38d32d998d}{tesseract\+\_\+planning\+::\+OMPLProblem\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}$>$}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a609a1f297d1dd74738eb99f8a22fca71}\label{structtesseract__planning_1_1OMPLProblem_a609a1f297d1dd74738eb99f8a22fca71}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!ConstUPtr@{ConstUPtr}}
+\index{ConstUPtr@{ConstUPtr}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{ConstUPtr}{ConstUPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a609a1f297d1dd74738eb99f8a22fca71}{tesseract\+\_\+planning\+::\+OMPLProblem\+::\+Const\+UPtr}} =  std\+::unique\+\_\+ptr$<$const \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}$>$}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}\label{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{tesseract\+\_\+planning\+::\+OMPLProblem\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}$>$}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_aed58d94be3bbfd492aacfd28046fd2a9}\label{structtesseract__planning_1_1OMPLProblem_aed58d94be3bbfd492aacfd28046fd2a9}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aed58d94be3bbfd492aacfd28046fd2a9}{tesseract\+\_\+planning\+::\+OMPLProblem\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}$>$}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a7fe01bba4cea672cec9939e70474484c}\label{structtesseract__planning_1_1OMPLProblem_a7fe01bba4cea672cec9939e70474484c}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!getTrajectory@{getTrajectory}}
+\index{getTrajectory@{getTrajectory}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{getTrajectory()}{getTrajectory()}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Traj\+Array tesseract\+\_\+planning\+::\+OMPLProblem\+::get\+Trajectory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Convert the path stored in simple\+\_\+setup to tesseract trajectory This is required because the motion planner is not aware of the state space type. 
+
+\begin{DoxyReturn}{Returns}
+Tesseract Trajectory 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a7cf3d069c6ab887bc8affb95d84b3bb6}\label{structtesseract__planning_1_1OMPLProblem_a7cf3d069c6ab887bc8affb95d84b3bb6}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!contact\_checker@{contact\_checker}}
+\index{contact\_checker@{contact\_checker}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{contact\_checker}{contact\_checker}}
+{\footnotesize\ttfamily tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager\+::\+Ptr tesseract\+\_\+planning\+::\+OMPLProblem\+::contact\+\_\+checker}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_ad5ac188e15baa1ba64f0b9887426faa2}\label{structtesseract__planning_1_1OMPLProblem_ad5ac188e15baa1ba64f0b9887426faa2}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!env@{env}}
+\index{env@{env}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{env}{env}}
+{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+OMPLProblem\+::env}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a9f8aa1a928300e8cd569df342a859184}\label{structtesseract__planning_1_1OMPLProblem_a9f8aa1a928300e8cd569df342a859184}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!env\_state@{env\_state}}
+\index{env\_state@{env\_state}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
+{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+OMPLProblem\+::env\+\_\+state}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a0f300ebd721cae520e029df0f1f18234}\label{structtesseract__planning_1_1OMPLProblem_a0f300ebd721cae520e029df0f1f18234}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!extractor@{extractor}}
+\index{extractor@{extractor}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{extractor}{extractor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLState\+Extractor}} tesseract\+\_\+planning\+::\+OMPLProblem\+::extractor}
+
+@bried This will extract an Eigen\+::\+Vector\+Xd from the OMPL State {\itshape {\bfseries{REQUIRED}}} \mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a9fbf8893d7d05ff2f17f0484306c230d}\label{structtesseract__planning_1_1OMPLProblem_a9fbf8893d7d05ff2f17f0484306c230d}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!manip\_fwd\_kin@{manip\_fwd\_kin}}
+\index{manip\_fwd\_kin@{manip\_fwd\_kin}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{manip\_fwd\_kin}{manip\_fwd\_kin}}
+{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+OMPLProblem\+::manip\+\_\+fwd\+\_\+kin}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a70d77a1259823401e192796b116837ef}\label{structtesseract__planning_1_1OMPLProblem_a70d77a1259823401e192796b116837ef}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!manip\_inv\_kin@{manip\_inv\_kin}}
+\index{manip\_inv\_kin@{manip\_inv\_kin}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{manip\_inv\_kin}{manip\_inv\_kin}}
+{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+OMPLProblem\+::manip\+\_\+inv\+\_\+kin}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_ab3d5e68d86aa548e545dc6d13591f150}\label{structtesseract__planning_1_1OMPLProblem_ab3d5e68d86aa548e545dc6d13591f150}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!max\_solutions@{max\_solutions}}
+\index{max\_solutions@{max\_solutions}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{max\_solutions}{max\_solutions}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+OMPLProblem\+::max\+\_\+solutions = 10}
+
+
+
+The max number of solutions. If max solutions are hit it will exit even if other threads are running. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_ad188305efe4b0781b4157765927c7103}\label{structtesseract__planning_1_1OMPLProblem_ad188305efe4b0781b4157765927c7103}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!n\_output\_states@{n\_output\_states}}
+\index{n\_output\_states@{n\_output\_states}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{n\_output\_states}{n\_output\_states}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+OMPLProblem\+::n\+\_\+output\+\_\+states = 20}
+
+
+
+Number of states in the output trajectory Note\+: This is ignored if the simplify is set to true. Note\+: The trajectory can be longer if original trajectory is longer and reducing the number of states causes the solution to be invalid. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a5b863d8c426fd824c9e021f3e94b8aeb}\label{structtesseract__planning_1_1OMPLProblem_a5b863d8c426fd824c9e021f3e94b8aeb}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!optimize@{optimize}}
+\index{optimize@{optimize}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{optimize}{optimize}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLProblem\+::optimize = true}
+
+
+
+This uses all available planning time to create the most optimized trajectory given the objective function. 
+
+This is required because not all OMPL planners are optimize graph planners. If the planner you choose is an optimize graph planner then setting this to true has no affect. In the case of non-\/optimize planners they still use the Optimize\+Objective function but only when searching the graph to find the most optimize solution based on the provided optimize objective function. In the case of these type of planners like RRT and RRTConnect if set to true it will leverage all planning time to keep finding solutions up to your max solutions count to find the most optimal solution. \mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_ad5efa2cec9c2dec7511908cb6e1b8987}\label{structtesseract__planning_1_1OMPLProblem_ad5efa2cec9c2dec7511908cb6e1b8987}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!planners@{planners}}
+\index{planners@{planners}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{planners}{planners}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aecd7bfc8d1a2b291435ed3a4bc8a65be}{OMPLPlanner\+Configurator\+::\+Const\+Ptr}}$>$ tesseract\+\_\+planning\+::\+OMPLProblem\+::planners}
+
+
+
+The planner configurators {\itshape {\bfseries{REQUIRED}}} 
+
+This will create a new thead for each planner configurator provided. T \mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a5b9b1991b3797c9d6fd9dd2fd822d4f6}\label{structtesseract__planning_1_1OMPLProblem_a5b9b1991b3797c9d6fd9dd2fd822d4f6}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!planning\_time@{planning\_time}}
+\index{planning\_time@{planning\_time}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{planning\_time}{planning\_time}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+OMPLProblem\+::planning\+\_\+time = 5.\+0}
+
+
+
+Max planning time allowed in seconds. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_ac65bd9b7d78b61673baf1fdca28a3224}\label{structtesseract__planning_1_1OMPLProblem_ac65bd9b7d78b61673baf1fdca28a3224}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!simple\_setup@{simple\_setup}}
+\index{simple\_setup@{simple\_setup}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{simple\_setup}{simple\_setup}}
+{\footnotesize\ttfamily ompl\+::geometric\+::\+Simple\+Setup\+Ptr tesseract\+\_\+planning\+::\+OMPLProblem\+::simple\+\_\+setup}
+
+
+
+OMPL problem to be solved {\itshape {\bfseries{REQUIRED}}} 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_af6ff9802f34283621e069c9f6b06895e}\label{structtesseract__planning_1_1OMPLProblem_af6ff9802f34283621e069c9f6b06895e}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!simplify@{simplify}}
+\index{simplify@{simplify}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{simplify}{simplify}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLProblem\+::simplify = false}
+
+
+
+Simplify trajectory. 
+
+Note\+: If set to true it ignores n\+\_\+output\+\_\+states and returns the simplest trajectory. \mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_ac25c33c1c78c3b43e6d082407d9c1e8a}\label{structtesseract__planning_1_1OMPLProblem_ac25c33c1c78c3b43e6d082407d9c1e8a}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!state\_solver@{state\_solver}}
+\index{state\_solver@{state\_solver}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{state\_solver}{state\_solver}}
+{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+State\+Solver\+::\+Ptr tesseract\+\_\+planning\+::\+OMPLProblem\+::state\+\_\+solver}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1OMPLProblem_a4be2e36ea5f0d35abe0a1d9086d78927}\label{structtesseract__planning_1_1OMPLProblem_a4be2e36ea5f0d35abe0a1d9086d78927}} 
+\index{tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}!state\_space@{state\_space}}
+\index{state\_space@{state\_space}!tesseract\_planning::OMPLProblem@{tesseract\_planning::OMPLProblem}}
+\doxysubsubsection{\texorpdfstring{state\_space}{state\_space}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{OMPLProblem\+State\+Space}} tesseract\+\_\+planning\+::\+OMPLProblem\+::state\+\_\+space \{ \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{OMPLProblem\+State\+Space\+::\+REAL\+\_\+\+STATE\+\_\+\+SPACE}} \}}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/\mbox{\hyperlink{ompl__problem_8h}{ompl\+\_\+problem.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/ompl/\mbox{\hyperlink{ompl__problem_8cpp}{ompl\+\_\+problem.\+cpp}}\end{DoxyCompactItemize}

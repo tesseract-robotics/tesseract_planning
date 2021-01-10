@@ -1,0 +1,136 @@
+\hypertarget{ompl__constrained__planner__tests_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/test/ompl\+\_\+constrained\+\_\+planner\+\_\+tests.cpp File Reference}
+\label{ompl__constrained__planner__tests_8cpp}\index{tesseract\_motion\_planners/test/ompl\_constrained\_planner\_tests.cpp@{tesseract\_motion\_planners/test/ompl\_constrained\_planner\_tests.cpp}}
+
+
+This contains unit test ompl constrained planning.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$boost/filesystem/path.\+hpp$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/sbl/\+SBL.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/est/\+EST.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/kpiece/\+LBKPIECE1.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/kpiece/\+BKPIECE1.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/kpiece/\+KPIECE1.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/rrt/\+RRT.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/rrt/\+RRTConnect.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/rrt/\+RRTstar.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/rrt/\+TRRT.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/prm/\+PRM.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/prm/\+PRMstar.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/prm/\+Lazy\+PRMstar.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/planners/prm/\+SPARS.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/util/\+Random\+Numbers.\+h$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract/tesseract.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+planner\+\_\+configurator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/config/ompl\+\_\+planner\+\_\+constrained\+\_\+config.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt/problem\+\_\+description.\+hpp$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+utils/logging.\+hpp$>$}\newline
+Include dependency graph for ompl\+\_\+constrained\+\_\+planner\+\_\+tests.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/d9c/ompl__constrained__planner__tests_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classGlassUprightConstraint}{Glass\+Upright\+Constraint}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}{locate\+Resource}} (const std\+::string \&url)
+\item 
+\mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_aae9d5b0f669ebdff33dc200407c39a7a}{TEST}} (OMPLConstraint\+Planner, OMPLConstraint\+Planner\+Unit)
+\item 
+int \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const int \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a4c0d5cbc910bbc8cac68735cb0afd76a}{SEED}} = 1
+\item 
+static const std\+::vector$<$ double $>$ \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}} = \{ -\/0.\+5, 0.\+5, 0.\+0, -\/1.\+3348, 0.\+0, 1.\+4959, 0.\+0 \}
+\item 
+static const std\+::vector$<$ double $>$ \mbox{\hyperlink{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}{end\+\_\+state}} = \{ 0.\+5, 0.\+5, 0.\+0, -\/1.\+3348, 0.\+0, 1.\+4959, 0.\+0 \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This contains unit test ompl constrained planning. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 24, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000117}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ompl__constrained__planner__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}\label{ompl__constrained__planner__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}} 
+\index{ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}!locateResource@{locateResource}}
+\index{locateResource@{locateResource}!ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{locateResource()}{locateResource()}}
+{\footnotesize\ttfamily std\+::string locate\+Resource (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{url }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ompl__constrained__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{ompl__constrained__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}!main@{main}}
+\index{main@{main}!ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ompl__constrained__planner__tests_8cpp_aae9d5b0f669ebdff33dc200407c39a7a}\label{ompl__constrained__planner__tests_8cpp_aae9d5b0f669ebdff33dc200407c39a7a}} 
+\index{ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{OMPLConstraint\+Planner}]{,  }\item[{OMPLConstraint\+Planner\+Unit}]{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}\label{ompl__constrained__planner__tests_8cpp_a33df652be8e68c853b03222aed100f68}} 
+\index{ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}!end\_state@{end\_state}}
+\index{end\_state@{end\_state}!ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{end\_state}{end\_state}}
+{\footnotesize\ttfamily const std\+::vector$<$double$>$ end\+\_\+state = \{ 0.\+5, 0.\+5, 0.\+0, -\/1.\+3348, 0.\+0, 1.\+4959, 0.\+0 \}\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{ompl__constrained__planner__tests_8cpp_a4c0d5cbc910bbc8cac68735cb0afd76a}\label{ompl__constrained__planner__tests_8cpp_a4c0d5cbc910bbc8cac68735cb0afd76a}} 
+\index{ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}!SEED@{SEED}}
+\index{SEED@{SEED}!ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{SEED}{SEED}}
+{\footnotesize\ttfamily const int SEED = 1\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}\label{ompl__constrained__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}} 
+\index{ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}!start\_state@{start\_state}}
+\index{start\_state@{start\_state}!ompl\_constrained\_planner\_tests.cpp@{ompl\_constrained\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{start\_state}{start\_state}}
+{\footnotesize\ttfamily const std\+::vector$<$double$>$ start\+\_\+state = \{ -\/0.\+5, 0.\+5, 0.\+0, -\/1.\+3348, 0.\+0, 1.\+4959, 0.\+0 \}\hspace{0.3cm}{\ttfamily [static]}}
+

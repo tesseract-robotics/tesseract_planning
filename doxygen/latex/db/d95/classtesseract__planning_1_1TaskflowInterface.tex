@@ -1,0 +1,170 @@
+\hypertarget{classtesseract__planning_1_1TaskflowInterface}{}\doxysection{tesseract\+\_\+planning\+::Taskflow\+Interface Class Reference}
+\label{classtesseract__planning_1_1TaskflowInterface}\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+
+
+This is a thread safe class used for aborting a process along with checking if a process was succesful.  
+
+
+
+
+{\ttfamily \#include $<$taskflow\+\_\+interface.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Taskflow\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d70/classtesseract__planning_1_1TaskflowInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a9faf63e6869fde4268637551ce1f0774}{is\+Aborted}} () const
+\begin{DoxyCompactList}\small\item\em Check if the process was aborted. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_abf3ae2851bf6906c3dbfd33162cce011}{is\+Successful}} () const
+\begin{DoxyCompactList}\small\item\em Check if the process finished without error. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_aa52f465d4226ba1e9c68b3d556abb49d}{abort}} ()
+\begin{DoxyCompactList}\small\item\em Abort the process associated with this interface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a2b512f216e946ba6311cd8bbb0716193}{get\+Task\+Info}} (const std\+::size\+\_\+t \&index) const
+\begin{DoxyCompactList}\small\item\em Get \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} for a specific task by unique ID. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a4fcb59fd3f6c894f1d556f2c2f56908e}{get\+Task\+Info\+Map}} () const
+\begin{DoxyCompactList}\small\item\em Get the entire stored map of Task\+Infos. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{Task\+Info\+Container\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a08e43b2328567c9d4b7ed3eb226f5996}{get\+Task\+Info\+Container}} () const
+\begin{DoxyCompactList}\small\item\em Not meant to be used by users. Exposes \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}} so that the. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::atomic$<$ bool $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\+\_\+}} \{ false \}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{Task\+Info\+Container\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\+\_\+infos\+\_\+}} \{ std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}}$>$() \}
+\begin{DoxyCompactList}\small\item\em Threadsafe container for Task\+Infos. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This is a thread safe class used for aborting a process along with checking if a process was succesful. 
+
+If a process failed then the process has been abort by some child process 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}\label{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}}$>$}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_aa52f465d4226ba1e9c68b3d556abb49d}\label{classtesseract__planning_1_1TaskflowInterface_aa52f465d4226ba1e9c68b3d556abb49d}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!abort@{abort}}
+\index{abort@{abort}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{abort()}{abort()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::abort (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Abort the process associated with this interface. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a2b512f216e946ba6311cd8bbb0716193}\label{classtesseract__planning_1_1TaskflowInterface_a2b512f216e946ba6311cd8bbb0716193}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!getTaskInfo@{getTaskInfo}}
+\index{getTaskInfo@{getTaskInfo}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{getTaskInfo()}{getTaskInfo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::get\+Task\+Info (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Get \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} for a specific task by unique ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Unique ID assigned the task from taskflow \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} associated with this task 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a08e43b2328567c9d4b7ed3eb226f5996}\label{classtesseract__planning_1_1TaskflowInterface_a08e43b2328567c9d4b7ed3eb226f5996}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!getTaskInfoContainer@{getTaskInfoContainer}}
+\index{getTaskInfoContainer@{getTaskInfoContainer}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{getTaskInfoContainer()}{getTaskInfoContainer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{Task\+Info\+Container\+::\+Ptr}} tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::get\+Task\+Info\+Container (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Not meant to be used by users. Exposes \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}} so that the. 
+
+\begin{DoxyReturn}{Returns}
+Threadsafe \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} container 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a4fcb59fd3f6c894f1d556f2c2f56908e}\label{classtesseract__planning_1_1TaskflowInterface_a4fcb59fd3f6c894f1d556f2c2f56908e}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!getTaskInfoMap@{getTaskInfoMap}}
+\index{getTaskInfoMap@{getTaskInfoMap}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{getTaskInfoMap()}{getTaskInfoMap()}}
+{\footnotesize\ttfamily std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::get\+Task\+Info\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the entire stored map of Task\+Infos. 
+
+\begin{DoxyReturn}{Returns}
+The map of Task\+Infos stored by unique ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a9faf63e6869fde4268637551ce1f0774}\label{classtesseract__planning_1_1TaskflowInterface_a9faf63e6869fde4268637551ce1f0774}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!isAborted@{isAborted}}
+\index{isAborted@{isAborted}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{isAborted()}{isAborted()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::is\+Aborted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if the process was aborted. 
+
+\begin{DoxyReturn}{Returns}
+True if aborted, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_abf3ae2851bf6906c3dbfd33162cce011}\label{classtesseract__planning_1_1TaskflowInterface_abf3ae2851bf6906c3dbfd33162cce011}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!isSuccessful@{isSuccessful}}
+\index{isSuccessful@{isSuccessful}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{isSuccessful()}{isSuccessful()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::is\+Successful (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if the process finished without error. 
+
+\begin{DoxyReturn}{Returns}
+True if the process was not aborted, otherwise false 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}\label{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!abort\_@{abort\_}}
+\index{abort\_@{abort\_}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{abort\_}{abort\_}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$ tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::abort\+\_\+ \{ false \}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}\label{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}} 
+\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!task\_infos\_@{task\_infos\_}}
+\index{task\_infos\_@{task\_infos\_}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
+\doxysubsubsection{\texorpdfstring{task\_infos\_}{task\_infos\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{Task\+Info\+Container\+::\+Ptr}} tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::task\+\_\+infos\+\_\+ \{ std\+::make\+\_\+shared$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}}$>$() \}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Threadsafe container for Task\+Infos. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/\mbox{\hyperlink{taskflow__interface_8h}{taskflow\+\_\+interface.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/core/\mbox{\hyperlink{taskflow__interface_8cpp}{taskflow\+\_\+interface.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,453 @@
+\hypertarget{structtesseract__planning_1_1TaskInput}{}\doxysection{tesseract\+\_\+planning\+::Task\+Input Struct Reference}
+\label{structtesseract__planning_1_1TaskInput}\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+
+
+This struct is passed as an input to each process in the decision tree.  
+
+
+
+
+{\ttfamily \#include $<$task\+\_\+input.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Task\+Input\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/dce/structtesseract__planning_1_1TaskInput__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a1f70b873de1a541036bf05e671f814c1}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} $>$
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a86f0d692b3c09dab97a697d2947da93d}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a4dc5ef4fee4f10cc2703dea1aa5e6892}{Task\+Input}} (tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}}, const Instruction $\ast$instruction, const Manipulator\+Info \&\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac88fae26732697dc64374bf79d47bf31}{manip\+\_\+info}}, Instruction $\ast$seed, bool \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\+\_\+seed}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}})
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aab7f8546f20254f1ee552976865911e5}{Task\+Input}} (tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}}, const Instruction $\ast$instruction, const Manipulator\+Info \&\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac88fae26732697dc64374bf79d47bf31}{manip\+\_\+info}}, const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aa49bed364cfc77d1ed0a6b47094fd3ae}{plan\+\_\+profile\+\_\+remapping}}, const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9deec6337b4aa783f63a03a0250d2b66}{composite\+\_\+profile\+\_\+remapping}}, Instruction $\ast$seed, bool \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\+\_\+seed}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}})
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a8400a09c9fbea6580612aad4f802f3d2}{Task\+Input}} (tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}}, const Instruction $\ast$instruction, const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aa49bed364cfc77d1ed0a6b47094fd3ae}{plan\+\_\+profile\+\_\+remapping}}, const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9deec6337b4aa783f63a03a0250d2b66}{composite\+\_\+profile\+\_\+remapping}}, Instruction $\ast$seed, bool \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\+\_\+seed}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}})
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a65f03e686105ccd535db93217b558c89}{Task\+Input}} (tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}}, const Instruction $\ast$instruction, Instruction $\ast$seed, bool \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\+\_\+seed}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}})
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ae78a64883f3445f92d00b813b57bc2c3}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Creates a sub-\/\+Task\+Input from instruction\mbox{[}index\mbox{]} and seed\mbox{[}index\mbox{]}. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a76282121b3d486b03a098cdc8124ad39}{size}} ()
+\begin{DoxyCompactList}\small\item\em Gets the number of instructions contained in the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}. \end{DoxyCompactList}\item 
+const Instruction $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a026ae6e5c958cb320cea9eb3d4d81bb6}{get\+Instruction}} () const
+\begin{DoxyCompactList}\small\item\em Get the process inputs instructions. \end{DoxyCompactList}\item 
+Instruction $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a43982511f386b453034d237ce7e6f630}{get\+Results}} ()
+\begin{DoxyCompactList}\small\item\em Get the process inputs results instruction. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Taskflow\+Interface\+::\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a069e1079b41ce681b600bee95129b29f}{get\+Task\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em Gets the task interface for checking success and aborting active process. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aa57bcfbd44b5f82a20f968faa57c06f1}{is\+Aborted}} () const
+\begin{DoxyCompactList}\small\item\em Check if process has been aborted. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac73314a8adf0eefa27d1cf87b04c2378}{abort}} ()
+\begin{DoxyCompactList}\small\item\em Abort the process intput. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a6cdd881d177b798ba50ad0b7fe20a5ed}{set\+Start\+Instruction}} (Instruction start)
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a4a4e8022c492ac40c0e9a814b2fd33f8}{set\+Start\+Instruction}} (std\+::vector$<$ std\+::size\+\_\+t $>$ start)
+\item 
+Instruction \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a183b077af8e4c361ccb5b10026282cda}{get\+Start\+Instruction}} () const
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ada56c385ece8b3af9f82e8d44c3e76fd}{set\+End\+Instruction}} (Instruction end)
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a386baa6447e670fb2918a31a08697e30}{set\+End\+Instruction}} (std\+::vector$<$ std\+::size\+\_\+t $>$ end)
+\item 
+Instruction \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a3585d1d5778d749269dbbf0d53c4af48}{get\+End\+Instruction}} () const
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aafa9f67d552e87a9a14090e0d302cd48}{add\+Task\+Info}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \&task\+\_\+info)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_adce6f163a196f73968b6e9f82f818f02}{get\+Task\+Info}} (const std\+::size\+\_\+t \&index) const
+\item 
+std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a13a6c6afb107ce0fef54b05f5ceffdb6}{get\+Task\+Info\+Map}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}}
+\begin{DoxyCompactList}\small\item\em Tesseract associated with current state of the system. \end{DoxyCompactList}\item 
+const Manipulator\+Info \& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac88fae26732697dc64374bf79d47bf31}{manip\+\_\+info}}
+\begin{DoxyCompactList}\small\item\em Global Manipulator Information. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aa49bed364cfc77d1ed0a6b47094fd3ae}{plan\+\_\+profile\+\_\+remapping}}
+\begin{DoxyCompactList}\small\item\em This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9deec6337b4aa783f63a03a0250d2b66}{composite\+\_\+profile\+\_\+remapping}}
+\begin{DoxyCompactList}\small\item\em This allows the remapping of the Composite Profile identified in the command language to a specific profile for a given motion planner. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}}
+\begin{DoxyCompactList}\small\item\em The Profiles to use. \end{DoxyCompactList}\item 
+const bool \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\+\_\+seed}} \{ false \}
+\begin{DoxyCompactList}\small\item\em This indicates if a seed was provided. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const Instruction $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac0ae7d951978b405c399f1224da9c26d}{instruction\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Instructions to be carried out by process. \end{DoxyCompactList}\item 
+Instruction $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_abbbf89b490693aa3fea9d8efa16ed4f8}{results\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Results/\+Seed for this process. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a1963307f607b38990134de796b65e519}{instruction\+\_\+indice\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The indicies used to access this process inputs instructions and results. \end{DoxyCompactList}\item 
+Instruction \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ab147783b0f2db81daf99b9f237622d51}{start\+\_\+instruction\+\_\+}} \{ Null\+Instruction() \}
+\begin{DoxyCompactList}\small\item\em This proccess inputs start instruction. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a60ae2d0e2229116539883ab4115f8562}{start\+\_\+instruction\+\_\+indice\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Indices to the start instruction in the results data struction. \end{DoxyCompactList}\item 
+Instruction \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a7dfbc3c0aedbfe9ab8b7cc6023b8cb9d}{end\+\_\+instruction\+\_\+}} \{ Null\+Instruction() \}
+\begin{DoxyCompactList}\small\item\em This proccess inputs end instruction. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a8d5ff9ef9112a9c404f8a0114e55430e}{end\+\_\+instruction\+\_\+indice\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Indices to the end instruction in the results data struction. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Taskflow\+Interface\+::\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a3b6b243d44c555bc22d956d1aa1a5eb8}{interface\+\_\+}} \{ std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}}$>$() \}
+\begin{DoxyCompactList}\small\item\em Used to store if process input is aborted which is thread safe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This struct is passed as an input to each process in the decision tree. 
+
+Note that it does not have ownership of any of its members (except the pointer). This means that if a \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} spawns a child that is a subset, it does not have to remain in scope as the references will still be valid 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a86f0d692b3c09dab97a697d2947da93d}\label{structtesseract__planning_1_1TaskInput_a86f0d692b3c09dab97a697d2947da93d}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a86f0d692b3c09dab97a697d2947da93d}{tesseract\+\_\+planning\+::\+Task\+Input\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}$>$}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a1f70b873de1a541036bf05e671f814c1}\label{structtesseract__planning_1_1TaskInput_a1f70b873de1a541036bf05e671f814c1}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a1f70b873de1a541036bf05e671f814c1}{tesseract\+\_\+planning\+::\+Task\+Input\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a4dc5ef4fee4f10cc2703dea1aa5e6892}\label{structtesseract__planning_1_1TaskInput_a4dc5ef4fee4f10cc2703dea1aa5e6892}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!TaskInput@{TaskInput}}
+\index{TaskInput@{TaskInput}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{TaskInput()}{TaskInput()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Task\+Input\+::\+Task\+Input (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr}]{env,  }\item[{const Instruction $\ast$}]{instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{Instruction $\ast$}]{seed,  }\item[{bool}]{has\+\_\+seed,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}}}]{profiles }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_aab7f8546f20254f1ee552976865911e5}\label{structtesseract__planning_1_1TaskInput_aab7f8546f20254f1ee552976865911e5}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!TaskInput@{TaskInput}}
+\index{TaskInput@{TaskInput}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{TaskInput()}{TaskInput()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Task\+Input\+::\+Task\+Input (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr}]{env,  }\item[{const Instruction $\ast$}]{instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&}]{plan\+\_\+profile\+\_\+remapping,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&}]{composite\+\_\+profile\+\_\+remapping,  }\item[{Instruction $\ast$}]{seed,  }\item[{bool}]{has\+\_\+seed,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}}}]{profiles }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a8400a09c9fbea6580612aad4f802f3d2}\label{structtesseract__planning_1_1TaskInput_a8400a09c9fbea6580612aad4f802f3d2}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!TaskInput@{TaskInput}}
+\index{TaskInput@{TaskInput}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{TaskInput()}{TaskInput()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Task\+Input\+::\+Task\+Input (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr}]{env,  }\item[{const Instruction $\ast$}]{instruction,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&}]{plan\+\_\+profile\+\_\+remapping,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&}]{composite\+\_\+profile\+\_\+remapping,  }\item[{Instruction $\ast$}]{seed,  }\item[{bool}]{has\+\_\+seed,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}}}]{profiles }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a65f03e686105ccd535db93217b558c89}\label{structtesseract__planning_1_1TaskInput_a65f03e686105ccd535db93217b558c89}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!TaskInput@{TaskInput}}
+\index{TaskInput@{TaskInput}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{TaskInput()}{TaskInput()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Task\+Input\+::\+Task\+Input (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr}]{env,  }\item[{const Instruction $\ast$}]{instruction,  }\item[{Instruction $\ast$}]{seed,  }\item[{bool}]{has\+\_\+seed,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}}}]{profiles }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_ac73314a8adf0eefa27d1cf87b04c2378}\label{structtesseract__planning_1_1TaskInput_ac73314a8adf0eefa27d1cf87b04c2378}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!abort@{abort}}
+\index{abort@{abort}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{abort()}{abort()}}
+{\footnotesize\ttfamily void Task\+Input\+::abort (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Abort the process intput. 
+
+This accesses the internal process interface class to abort the process \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_aafa9f67d552e87a9a14090e0d302cd48}\label{structtesseract__planning_1_1TaskInput_aafa9f67d552e87a9a14090e0d302cd48}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!addTaskInfo@{addTaskInfo}}
+\index{addTaskInfo@{addTaskInfo}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{addTaskInfo()}{addTaskInfo()}}
+{\footnotesize\ttfamily void Task\+Input\+::add\+Task\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \&}]{task\+\_\+info }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a3585d1d5778d749269dbbf0d53c4af48}\label{structtesseract__planning_1_1TaskInput_a3585d1d5778d749269dbbf0d53c4af48}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getEndInstruction@{getEndInstruction}}
+\index{getEndInstruction@{getEndInstruction}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{getEndInstruction()}{getEndInstruction()}}
+{\footnotesize\ttfamily Instruction Task\+Input\+::get\+End\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a026ae6e5c958cb320cea9eb3d4d81bb6}\label{structtesseract__planning_1_1TaskInput_a026ae6e5c958cb320cea9eb3d4d81bb6}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getInstruction@{getInstruction}}
+\index{getInstruction@{getInstruction}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{getInstruction()}{getInstruction()}}
+{\footnotesize\ttfamily const Instruction $\ast$ Task\+Input\+::get\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the process inputs instructions. 
+
+\begin{DoxyReturn}{Returns}
+A const pointer to the instruction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a43982511f386b453034d237ce7e6f630}\label{structtesseract__planning_1_1TaskInput_a43982511f386b453034d237ce7e6f630}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getResults@{getResults}}
+\index{getResults@{getResults}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{getResults()}{getResults()}}
+{\footnotesize\ttfamily Instruction $\ast$ Task\+Input\+::get\+Results (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the process inputs results instruction. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the results instruction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a183b077af8e4c361ccb5b10026282cda}\label{structtesseract__planning_1_1TaskInput_a183b077af8e4c361ccb5b10026282cda}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getStartInstruction@{getStartInstruction}}
+\index{getStartInstruction@{getStartInstruction}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{getStartInstruction()}{getStartInstruction()}}
+{\footnotesize\ttfamily Instruction Task\+Input\+::get\+Start\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_adce6f163a196f73968b6e9f82f818f02}\label{structtesseract__planning_1_1TaskInput_adce6f163a196f73968b6e9f82f818f02}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getTaskInfo@{getTaskInfo}}
+\index{getTaskInfo@{getTaskInfo}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{getTaskInfo()}{getTaskInfo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} Task\+Input\+::get\+Task\+Info (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{index }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a13a6c6afb107ce0fef54b05f5ceffdb6}\label{structtesseract__planning_1_1TaskInput_a13a6c6afb107ce0fef54b05f5ceffdb6}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getTaskInfoMap@{getTaskInfoMap}}
+\index{getTaskInfoMap@{getTaskInfoMap}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{getTaskInfoMap()}{getTaskInfoMap()}}
+{\footnotesize\ttfamily std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ Task\+Input\+::get\+Task\+Info\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a069e1079b41ce681b600bee95129b29f}\label{structtesseract__planning_1_1TaskInput_a069e1079b41ce681b600bee95129b29f}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getTaskInterface@{getTaskInterface}}
+\index{getTaskInterface@{getTaskInterface}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{getTaskInterface()}{getTaskInterface()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Taskflow\+Interface\+::\+Ptr}} Task\+Input\+::get\+Task\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the task interface for checking success and aborting active process. 
+
+\begin{DoxyReturn}{Returns}
+The task interface for checking success and aborting active process 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_aa57bcfbd44b5f82a20f968faa57c06f1}\label{structtesseract__planning_1_1TaskInput_aa57bcfbd44b5f82a20f968faa57c06f1}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!isAborted@{isAborted}}
+\index{isAborted@{isAborted}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{isAborted()}{isAborted()}}
+{\footnotesize\ttfamily bool Task\+Input\+::is\+Aborted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if process has been aborted. 
+
+This accesses the internal process interface class \begin{DoxyReturn}{Returns}
+True if aborted otherwise false; 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_ae78a64883f3445f92d00b813b57bc2c3}\label{structtesseract__planning_1_1TaskInput_ae78a64883f3445f92d00b813b57bc2c3}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} Task\+Input\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+
+
+Creates a sub-\/\+Task\+Input from instruction\mbox{[}index\mbox{]} and seed\mbox{[}index\mbox{]}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & sub-\/\+Instruction used to create the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} containing a subset of the original\textquotesingle{}s instructions 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_ada56c385ece8b3af9f82e8d44c3e76fd}\label{structtesseract__planning_1_1TaskInput_ada56c385ece8b3af9f82e8d44c3e76fd}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!setEndInstruction@{setEndInstruction}}
+\index{setEndInstruction@{setEndInstruction}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{setEndInstruction()}{setEndInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Task\+Input\+::set\+End\+Instruction (\begin{DoxyParamCaption}\item[{Instruction}]{end }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a386baa6447e670fb2918a31a08697e30}\label{structtesseract__planning_1_1TaskInput_a386baa6447e670fb2918a31a08697e30}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!setEndInstruction@{setEndInstruction}}
+\index{setEndInstruction@{setEndInstruction}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{setEndInstruction()}{setEndInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Task\+Input\+::set\+End\+Instruction (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::size\+\_\+t $>$}]{end }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a6cdd881d177b798ba50ad0b7fe20a5ed}\label{structtesseract__planning_1_1TaskInput_a6cdd881d177b798ba50ad0b7fe20a5ed}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!setStartInstruction@{setStartInstruction}}
+\index{setStartInstruction@{setStartInstruction}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{setStartInstruction()}{setStartInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Task\+Input\+::set\+Start\+Instruction (\begin{DoxyParamCaption}\item[{Instruction}]{start }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a4a4e8022c492ac40c0e9a814b2fd33f8}\label{structtesseract__planning_1_1TaskInput_a4a4e8022c492ac40c0e9a814b2fd33f8}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!setStartInstruction@{setStartInstruction}}
+\index{setStartInstruction@{setStartInstruction}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{setStartInstruction()}{setStartInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Task\+Input\+::set\+Start\+Instruction (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::size\+\_\+t $>$}]{start }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a76282121b3d486b03a098cdc8124ad39}\label{structtesseract__planning_1_1TaskInput_a76282121b3d486b03a098cdc8124ad39}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!size@{size}}
+\index{size@{size}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily std\+::size\+\_\+t Task\+Input\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the number of instructions contained in the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}. 
+
+\begin{DoxyReturn}{Returns}
+1 instruction if not a composite, otherwise size of the composite 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000056}{Todo}}]Should this be -\/1, becuase composite size could be 1, 0, or other? \end{DoxyRefDesc}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a9deec6337b4aa783f63a03a0250d2b66}\label{structtesseract__planning_1_1TaskInput_a9deec6337b4aa783f63a03a0250d2b66}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!composite\_profile\_remapping@{composite\_profile\_remapping}}
+\index{composite\_profile\_remapping@{composite\_profile\_remapping}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{composite\_profile\_remapping}{composite\_profile\_remapping}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}}\& tesseract\+\_\+planning\+::\+Task\+Input\+::composite\+\_\+profile\+\_\+remapping}
+
+
+
+This allows the remapping of the Composite Profile identified in the command language to a specific profile for a given motion planner. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a7dfbc3c0aedbfe9ab8b7cc6023b8cb9d}\label{structtesseract__planning_1_1TaskInput_a7dfbc3c0aedbfe9ab8b7cc6023b8cb9d}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!end\_instruction\_@{end\_instruction\_}}
+\index{end\_instruction\_@{end\_instruction\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{end\_instruction\_}{end\_instruction\_}}
+{\footnotesize\ttfamily Instruction tesseract\+\_\+planning\+::\+Task\+Input\+::end\+\_\+instruction\+\_\+ \{ Null\+Instruction() \}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+This proccess inputs end instruction. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a8d5ff9ef9112a9c404f8a0114e55430e}\label{structtesseract__planning_1_1TaskInput_a8d5ff9ef9112a9c404f8a0114e55430e}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!end\_instruction\_indice\_@{end\_instruction\_indice\_}}
+\index{end\_instruction\_indice\_@{end\_instruction\_indice\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{end\_instruction\_indice\_}{end\_instruction\_indice\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::size\+\_\+t$>$ tesseract\+\_\+planning\+::\+Task\+Input\+::end\+\_\+instruction\+\_\+indice\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Indices to the end instruction in the results data struction. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}\label{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!env@{env}}
+\index{env@{env}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{env}{env}}
+{\footnotesize\ttfamily const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Task\+Input\+::env}
+
+
+
+Tesseract associated with current state of the system. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}\label{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!has\_seed@{has\_seed}}
+\index{has\_seed@{has\_seed}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{has\_seed}{has\_seed}}
+{\footnotesize\ttfamily const bool tesseract\+\_\+planning\+::\+Task\+Input\+::has\+\_\+seed \{ false \}}
+
+
+
+This indicates if a seed was provided. 
+
+In the case of the raster process planner a skeleton seed is provided which make it computationaly intensive to determine if a seed was provide so this was added. \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_ac0ae7d951978b405c399f1224da9c26d}\label{structtesseract__planning_1_1TaskInput_ac0ae7d951978b405c399f1224da9c26d}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!instruction\_@{instruction\_}}
+\index{instruction\_@{instruction\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{instruction\_}{instruction\_}}
+{\footnotesize\ttfamily const Instruction$\ast$ tesseract\+\_\+planning\+::\+Task\+Input\+::instruction\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Instructions to be carried out by process. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a1963307f607b38990134de796b65e519}\label{structtesseract__planning_1_1TaskInput_a1963307f607b38990134de796b65e519}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!instruction\_indice\_@{instruction\_indice\_}}
+\index{instruction\_indice\_@{instruction\_indice\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{instruction\_indice\_}{instruction\_indice\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::size\+\_\+t$>$ tesseract\+\_\+planning\+::\+Task\+Input\+::instruction\+\_\+indice\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The indicies used to access this process inputs instructions and results. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a3b6b243d44c555bc22d956d1aa1a5eb8}\label{structtesseract__planning_1_1TaskInput_a3b6b243d44c555bc22d956d1aa1a5eb8}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!interface\_@{interface\_}}
+\index{interface\_@{interface\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{interface\_}{interface\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Taskflow\+Interface\+::\+Ptr}} tesseract\+\_\+planning\+::\+Task\+Input\+::interface\+\_\+ \{ std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}}$>$() \}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Used to store if process input is aborted which is thread safe. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_ac88fae26732697dc64374bf79d47bf31}\label{structtesseract__planning_1_1TaskInput_ac88fae26732697dc64374bf79d47bf31}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!manip\_info@{manip\_info}}
+\index{manip\_info@{manip\_info}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{manip\_info}{manip\_info}}
+{\footnotesize\ttfamily const Manipulator\+Info\& tesseract\+\_\+planning\+::\+Task\+Input\+::manip\+\_\+info}
+
+
+
+Global Manipulator Information. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_aa49bed364cfc77d1ed0a6b47094fd3ae}\label{structtesseract__planning_1_1TaskInput_aa49bed364cfc77d1ed0a6b47094fd3ae}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!plan\_profile\_remapping@{plan\_profile\_remapping}}
+\index{plan\_profile\_remapping@{plan\_profile\_remapping}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{plan\_profile\_remapping}{plan\_profile\_remapping}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}}\& tesseract\+\_\+planning\+::\+Task\+Input\+::plan\+\_\+profile\+\_\+remapping}
+
+
+
+This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}\label{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!profiles@{profiles}}
+\index{profiles@{profiles}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{profiles}{profiles}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::\+Task\+Input\+::profiles}
+
+
+
+The Profiles to use. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_abbbf89b490693aa3fea9d8efa16ed4f8}\label{structtesseract__planning_1_1TaskInput_abbbf89b490693aa3fea9d8efa16ed4f8}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!results\_@{results\_}}
+\index{results\_@{results\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{results\_}{results\_}}
+{\footnotesize\ttfamily Instruction$\ast$ tesseract\+\_\+planning\+::\+Task\+Input\+::results\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Results/\+Seed for this process. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_ab147783b0f2db81daf99b9f237622d51}\label{structtesseract__planning_1_1TaskInput_ab147783b0f2db81daf99b9f237622d51}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!start\_instruction\_@{start\_instruction\_}}
+\index{start\_instruction\_@{start\_instruction\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{start\_instruction\_}{start\_instruction\_}}
+{\footnotesize\ttfamily Instruction tesseract\+\_\+planning\+::\+Task\+Input\+::start\+\_\+instruction\+\_\+ \{ Null\+Instruction() \}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+This proccess inputs start instruction. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a60ae2d0e2229116539883ab4115f8562}\label{structtesseract__planning_1_1TaskInput_a60ae2d0e2229116539883ab4115f8562}} 
+\index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!start\_instruction\_indice\_@{start\_instruction\_indice\_}}
+\index{start\_instruction\_indice\_@{start\_instruction\_indice\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
+\doxysubsubsection{\texorpdfstring{start\_instruction\_indice\_}{start\_instruction\_indice\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::size\+\_\+t$>$ tesseract\+\_\+planning\+::\+Task\+Input\+::start\+\_\+instruction\+\_\+indice\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Indices to the start instruction in the results data struction. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/\mbox{\hyperlink{task__input_8h}{task\+\_\+input.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/core/\mbox{\hyperlink{task__input_8cpp}{task\+\_\+input.\+cpp}}\end{DoxyCompactItemize}

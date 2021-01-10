@@ -1,0 +1,16 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$d1/d32/classtesseract__planning_1_1TaskflowGenerator.html" title="Base class for generating a taskflow." alt="" coords="5,397,143,439"/>
+<area shape="rect" id="node2" href="$df/df5/classtesseract__planning_1_1CartesianTaskflow.html" title=" " alt="" coords="214,5,349,47"/>
+<area shape="rect" id="node3" href="$da/d48/classtesseract__planning_1_1DescartesTaskflow.html" title=" " alt="" coords="212,71,351,112"/>
+<area shape="rect" id="node4" href="$d8/d57/classtesseract__planning_1_1FreespaceTaskflow.html" title=" " alt="" coords="211,136,352,177"/>
+<area shape="rect" id="node5" href="$de/da1/classtesseract__planning_1_1GraphTaskflow.html" title="This class generates taskflow graph. It allows you to connect different channels from the source to t..." alt="" coords="216,201,347,243"/>
+<area shape="rect" id="node6" href="$da/d4e/classtesseract__planning_1_1OMPLTaskflow.html" title=" " alt="" coords="216,267,347,308"/>
+<area shape="rect" id="node7" href="$d1/dd7/classtesseract__planning_1_1RasterDTTaskflow.html" title="This class provides a taskflow generator for a raster process." alt="" coords="214,332,349,373"/>
+<area shape="rect" id="node8" href="$de/d33/classtesseract__planning_1_1RasterGlobalTaskflow.html" title="This class provides a process manager for a raster process." alt="" coords="204,397,359,439"/>
+<area shape="rect" id="node9" href="$d4/d54/classtesseract__planning_1_1RasterOnlyGlobalTaskflow.html" title="This class provides a taskflow for a raster process." alt="" coords="191,463,372,504"/>
+<area shape="rect" id="node10" href="$da/da3/classtesseract__planning_1_1RasterOnlyTaskflow.html" title="This class provides a taskflow for a raster process." alt="" coords="209,528,353,569"/>
+<area shape="rect" id="node11" href="$d4/d6b/classtesseract__planning_1_1RasterTaskflow.html" title="This class provides a taskflow for a raster process." alt="" coords="216,593,347,635"/>
+<area shape="rect" id="node12" href="$d3/de2/classtesseract__planning_1_1RasterWAADDTTaskflow.html" title="This class provides a taskflow for a raster process." alt="" coords="194,659,369,700"/>
+<area shape="rect" id="node13" href="$d4/d95/classtesseract__planning_1_1RasterWAADTaskflow.html" title="This class provides a process manager for a raster process." alt="" coords="203,724,360,765"/>
+<area shape="rect" id="node14" href="$df/d16/classtesseract__planning_1_1TrajOptTaskflow.html" title=" " alt="" coords="216,789,347,831"/>
+</map>

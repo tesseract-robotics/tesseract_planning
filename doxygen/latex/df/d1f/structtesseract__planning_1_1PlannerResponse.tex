@@ -1,0 +1,83 @@
+\hypertarget{structtesseract__planning_1_1PlannerResponse}{}\doxysection{tesseract\+\_\+planning\+::Planner\+Response Struct Reference}
+\label{structtesseract__planning_1_1PlannerResponse}\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+
+
+{\ttfamily \#include $<$types.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Planner\+Response\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{d0/d19/structtesseract__planning_1_1PlannerResponse__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Composite\+Instruction \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}}
+\item 
+tesseract\+\_\+common\+::\+Status\+Code \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}}
+\begin{DoxyCompactList}\small\item\em The status information. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$ $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a6d76c7a5b1cfc4bc21bb3a6037fe4332}{succeeded\+\_\+instructions}}
+\begin{DoxyCompactList}\small\item\em Waypoints for which the planner succeeded. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$ $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a516c58180eae07880a0b9da74077af6c}{failed\+\_\+instructions}}
+\begin{DoxyCompactList}\small\item\em Waypoints for which the planner failed. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ void $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}{data}}
+\begin{DoxyCompactList}\small\item\em data Planner specific data. For planners included in Tesseract\+\_\+planning this is the planner problem that was solved \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}\label{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}} 
+\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!data@{data}}
+\index{data@{data}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$void$>$ tesseract\+\_\+planning\+::\+Planner\+Response\+::data}
+
+
+
+data Planner specific data. For planners included in Tesseract\+\_\+planning this is the planner problem that was solved 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a516c58180eae07880a0b9da74077af6c}\label{structtesseract__planning_1_1PlannerResponse_a516c58180eae07880a0b9da74077af6c}} 
+\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!failed\_instructions@{failed\_instructions}}
+\index{failed\_instructions@{failed\_instructions}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+\doxysubsubsection{\texorpdfstring{failed\_instructions}{failed\_instructions}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::reference\+\_\+wrapper$<$Instruction$>$ $>$ tesseract\+\_\+planning\+::\+Planner\+Response\+::failed\+\_\+instructions}
+
+
+
+Waypoints for which the planner failed. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}\label{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}} 
+\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!results@{results}}
+\index{results@{results}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+\doxysubsubsection{\texorpdfstring{results}{results}}
+{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Planner\+Response\+::results}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}\label{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}} 
+\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!status@{status}}
+\index{status@{status}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+\doxysubsubsection{\texorpdfstring{status}{status}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Status\+Code tesseract\+\_\+planning\+::\+Planner\+Response\+::status}
+
+
+
+The status information. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a6d76c7a5b1cfc4bc21bb3a6037fe4332}\label{structtesseract__planning_1_1PlannerResponse_a6d76c7a5b1cfc4bc21bb3a6037fe4332}} 
+\index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!succeeded\_instructions@{succeeded\_instructions}}
+\index{succeeded\_instructions@{succeeded\_instructions}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
+\doxysubsubsection{\texorpdfstring{succeeded\_instructions}{succeeded\_instructions}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::reference\+\_\+wrapper$<$Instruction$>$ $>$ tesseract\+\_\+planning\+::\+Planner\+Response\+::succeeded\+\_\+instructions}
+
+
+
+Waypoints for which the planner succeeded. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/core/\mbox{\hyperlink{tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h}{types.\+h}}\end{DoxyCompactItemize}

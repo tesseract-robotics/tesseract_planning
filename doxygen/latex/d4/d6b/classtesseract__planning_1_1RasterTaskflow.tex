@@ -1,0 +1,225 @@
+\hypertarget{classtesseract__planning_1_1RasterTaskflow}{}\doxysection{tesseract\+\_\+planning\+::Raster\+Taskflow Class Reference}
+\label{classtesseract__planning_1_1RasterTaskflow}\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+
+
+This class provides a taskflow for a raster process.  
+
+
+
+
+{\ttfamily \#include $<$raster\+\_\+taskflow.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Raster\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{db/d45/classtesseract__planning_1_1RasterTaskflow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Raster\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/d47/classtesseract__planning_1_1RasterTaskflow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_ab810483143730d3ead5ecdb79684294b}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a1b753a14c725f952a91ce1fdecfdd3c3}{Raster\+Taskflow}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} freespace\+\_\+taskflow\+\_\+generator, \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} transition\+\_\+taskflow\+\_\+generator, \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} raster\+\_\+taskflow\+\_\+generator, std\+::string name=\char`\"{}Raster\+Taskflow\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_ae929d11554d000b1064491e2dfd5135c}{$\sim$\+Raster\+Taskflow}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a4fb4fa6031d4c5895aba30c61c9bae7a}{Raster\+Taskflow}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a507974000ab6ceb7d6497d12de5d10d1}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a300d17bfd076b356a7c216fba22533c2}{Raster\+Taskflow}} (\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a2e8bf2d0f33e1442b92a831d63cdf5ba}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \&\&)=delete
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a35d0beb046a07f84554bb3949eb7cb55}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of the task flow. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a896e99077c9ca93d806fb1cd4c0b7095}{generate\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} done\+\_\+cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} error\+\_\+cb) override
+\begin{DoxyCompactList}\small\item\em Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a30163202b2f910405a72cd938903b48b}{check\+Task\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input) const
+\begin{DoxyCompactList}\small\item\em Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a5c5d3f0af93695d113d8e16d9e548c92}{freespace\+\_\+taskflow\+\_\+generator\+\_\+}}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_acedd5f7bc6ea6fc6ff6aa626346ecb26}{transition\+\_\+taskflow\+\_\+generator\+\_\+}}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a6eeb8df7d751e3122cacd6cd52487b9b}{raster\+\_\+taskflow\+\_\+generator\+\_\+}}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_adfcff48ad68881f916e4f46f222ea17f}{name\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class provides a taskflow for a raster process. 
+
+Given a \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} in the correct format, it handles the creation of the process dependencies and uses Taskflow to execute them efficiently in a parallel based on those dependencies.
+
+The required format is below. for skipping of rasters without replanning. This logic must be handled in the execute process.
+
+Composite \{ Composite -\/ from start Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ Transitions Composite -\/ Raster segment Composite -\/ to end \} 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_ab810483143730d3ead5ecdb79684294b}\label{classtesseract__planning_1_1RasterTaskflow_ab810483143730d3ead5ecdb79684294b}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_ab810483143730d3ead5ecdb79684294b}{tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a1b753a14c725f952a91ce1fdecfdd3c3}\label{classtesseract__planning_1_1RasterTaskflow_a1b753a14c725f952a91ce1fdecfdd3c3}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!RasterTaskflow@{RasterTaskflow}}
+\index{RasterTaskflow@{RasterTaskflow}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{RasterTaskflow()}{RasterTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Raster\+Taskflow\+::\+Raster\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}}}]{freespace\+\_\+taskflow\+\_\+generator,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}}}]{transition\+\_\+taskflow\+\_\+generator,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}}}]{raster\+\_\+taskflow\+\_\+generator,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}RasterTaskflow\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_ae929d11554d000b1064491e2dfd5135c}\label{classtesseract__planning_1_1RasterTaskflow_ae929d11554d000b1064491e2dfd5135c}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!````~RasterTaskflow@{$\sim$RasterTaskflow}}
+\index{````~RasterTaskflow@{$\sim$RasterTaskflow}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{$\sim$RasterTaskflow()}{~RasterTaskflow()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::$\sim$\+Raster\+Taskflow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a4fb4fa6031d4c5895aba30c61c9bae7a}\label{classtesseract__planning_1_1RasterTaskflow_a4fb4fa6031d4c5895aba30c61c9bae7a}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!RasterTaskflow@{RasterTaskflow}}
+\index{RasterTaskflow@{RasterTaskflow}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{RasterTaskflow()}{RasterTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::\+Raster\+Taskflow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a300d17bfd076b356a7c216fba22533c2}\label{classtesseract__planning_1_1RasterTaskflow_a300d17bfd076b356a7c216fba22533c2}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!RasterTaskflow@{RasterTaskflow}}
+\index{RasterTaskflow@{RasterTaskflow}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{RasterTaskflow()}{RasterTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::\+Raster\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a30163202b2f910405a72cd938903b48b}\label{classtesseract__planning_1_1RasterTaskflow_a30163202b2f910405a72cd938903b48b}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!checkTaskInput@{checkTaskInput}}
+\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{checkTaskInput()}{checkTaskInput()}}
+{\footnotesize\ttfamily bool Raster\+Taskflow\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if in the correct format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a896e99077c9ca93d806fb1cd4c0b7095}\label{classtesseract__planning_1_1RasterTaskflow_a896e99077c9ca93d806fb1cd4c0b7095}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!generateTaskflow@{generateTaskflow}}
+\index{generateTaskflow@{generateTaskflow}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{generateTaskflow()}{generateTaskflow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} Raster\+Taskflow\+::generate\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{instruction,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{done\+\_\+cb,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{error\+\_\+cb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Instructions passed to this instance of the taskflow \\
+\hline
+{\em done\+\_\+cb} & A user defined callback \\
+\hline
+{\em error\+\_\+cb} & A user defined callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A taskflow container which must stay around during execution of taskflow 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a35d0beb046a07f84554bb3949eb7cb55}\label{classtesseract__planning_1_1RasterTaskflow_a35d0beb046a07f84554bb3949eb7cb55}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!getName@{getName}}
+\index{getName@{getName}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string \& Raster\+Taskflow\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the name of the task flow. 
+
+\begin{DoxyReturn}{Returns}
+The name 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a507974000ab6ceb7d6497d12de5d10d1}\label{classtesseract__planning_1_1RasterTaskflow_a507974000ab6ceb7d6497d12de5d10d1}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}}\& tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a2e8bf2d0f33e1442b92a831d63cdf5ba}\label{classtesseract__planning_1_1RasterTaskflow_a2e8bf2d0f33e1442b92a831d63cdf5ba}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}}\& tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow}{Raster\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a5c5d3f0af93695d113d8e16d9e548c92}\label{classtesseract__planning_1_1RasterTaskflow_a5c5d3f0af93695d113d8e16d9e548c92}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!freespace\_taskflow\_generator\_@{freespace\_taskflow\_generator\_}}
+\index{freespace\_taskflow\_generator\_@{freespace\_taskflow\_generator\_}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{freespace\_taskflow\_generator\_}{freespace\_taskflow\_generator\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::freespace\+\_\+taskflow\+\_\+generator\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_adfcff48ad68881f916e4f46f222ea17f}\label{classtesseract__planning_1_1RasterTaskflow_adfcff48ad68881f916e4f46f222ea17f}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!name\_@{name\_}}
+\index{name\_@{name\_}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_a6eeb8df7d751e3122cacd6cd52487b9b}\label{classtesseract__planning_1_1RasterTaskflow_a6eeb8df7d751e3122cacd6cd52487b9b}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!raster\_taskflow\_generator\_@{raster\_taskflow\_generator\_}}
+\index{raster\_taskflow\_generator\_@{raster\_taskflow\_generator\_}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{raster\_taskflow\_generator\_}{raster\_taskflow\_generator\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::raster\+\_\+taskflow\+\_\+generator\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1RasterTaskflow_acedd5f7bc6ea6fc6ff6aa626346ecb26}\label{classtesseract__planning_1_1RasterTaskflow_acedd5f7bc6ea6fc6ff6aa626346ecb26}} 
+\index{tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}!transition\_taskflow\_generator\_@{transition\_taskflow\_generator\_}}
+\index{transition\_taskflow\_generator\_@{transition\_taskflow\_generator\_}!tesseract\_planning::RasterTaskflow@{tesseract\_planning::RasterTaskflow}}
+\doxysubsubsection{\texorpdfstring{transition\_taskflow\_generator\_}{transition\_taskflow\_generator\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::\+Raster\+Taskflow\+::transition\+\_\+taskflow\+\_\+generator\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/\mbox{\hyperlink{raster__taskflow_8h}{raster\+\_\+taskflow.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/taskflow\+\_\+generators/\mbox{\hyperlink{raster__taskflow_8cpp}{raster\+\_\+taskflow.\+cpp}}\end{DoxyCompactItemize}

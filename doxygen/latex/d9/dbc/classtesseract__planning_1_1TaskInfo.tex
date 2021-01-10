@@ -1,0 +1,160 @@
+\hypertarget{classtesseract__planning_1_1TaskInfo}{}\doxysection{tesseract\+\_\+planning\+::Task\+Info Class Reference}
+\label{classtesseract__planning_1_1TaskInfo}\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+
+
+{\ttfamily \#include $<$task\+\_\+info.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Task\+Info\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d9c/classtesseract__planning_1_1TaskInfo__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Task\+Info\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{d0/d30/classtesseract__planning_1_1TaskInfo__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a3fddf41987a058276cddc05b7ab9795c}{Task\+Info}} (std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}}, std\+::string name=\char`\"{}\char`\"{})
+\item 
+virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ab87d7477633c44a5a19b97fddb6e7589}{$\sim$\+Task\+Info}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a05c78070a46fc8b826f838a5612b0f66}{Task\+Info}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \& \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac8ff8368448ce5c088d706e8f09dc28f}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a34452e9cc3fe27d5713b40bc67659a27}{Task\+Info}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \& \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a282136071af6ae187a20a5eebdc6abb7}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&\&)=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ace8c85481552083472c05e92a9f395fd}{return\+\_\+value}}
+\begin{DoxyCompactList}\small\item\em Value returned from the Task on completion. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}}
+\begin{DoxyCompactList}\small\item\em Unique ID generated for the Task by Taskflow. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a9b96aab3e6bcf8593fdafda89476a999}{task\+\_\+name}}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_aa9931c1dcc3e4f5ee9331067e1088915}{message}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores information about a Task 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}\label{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{tesseract\+\_\+planning\+::\+Task\+Info\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}\label{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{tesseract\+\_\+planning\+::\+Task\+Info\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_a3fddf41987a058276cddc05b7ab9795c}\label{classtesseract__planning_1_1TaskInfo_a3fddf41987a058276cddc05b7ab9795c}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!TaskInfo@{TaskInfo}}
+\index{TaskInfo@{TaskInfo}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{TaskInfo()}{TaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Info\+::\+Task\+Info (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{unique\+\_\+id,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_ab87d7477633c44a5a19b97fddb6e7589}\label{classtesseract__planning_1_1TaskInfo_ab87d7477633c44a5a19b97fddb6e7589}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!````~TaskInfo@{$\sim$TaskInfo}}
+\index{````~TaskInfo@{$\sim$TaskInfo}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{$\sim$TaskInfo()}{~TaskInfo()}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+planning\+::\+Task\+Info\+::$\sim$\+Task\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_a05c78070a46fc8b826f838a5612b0f66}\label{classtesseract__planning_1_1TaskInfo_a05c78070a46fc8b826f838a5612b0f66}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!TaskInfo@{TaskInfo}}
+\index{TaskInfo@{TaskInfo}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{TaskInfo()}{TaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Info\+::\+Task\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_a34452e9cc3fe27d5713b40bc67659a27}\label{classtesseract__planning_1_1TaskInfo_a34452e9cc3fe27d5713b40bc67659a27}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!TaskInfo@{TaskInfo}}
+\index{TaskInfo@{TaskInfo}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{TaskInfo()}{TaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Info\+::\+Task\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_ac8ff8368448ce5c088d706e8f09dc28f}\label{classtesseract__planning_1_1TaskInfo_ac8ff8368448ce5c088d706e8f09dc28f}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}\& tesseract\+\_\+planning\+::\+Task\+Info\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_a282136071af6ae187a20a5eebdc6abb7}\label{classtesseract__planning_1_1TaskInfo_a282136071af6ae187a20a5eebdc6abb7}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}\& tesseract\+\_\+planning\+::\+Task\+Info\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_aa9931c1dcc3e4f5ee9331067e1088915}\label{classtesseract__planning_1_1TaskInfo_aa9931c1dcc3e4f5ee9331067e1088915}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!message@{message}}
+\index{message@{message}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{message}{message}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Task\+Info\+::message}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_ace8c85481552083472c05e92a9f395fd}\label{classtesseract__planning_1_1TaskInfo_ace8c85481552083472c05e92a9f395fd}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!return\_value@{return\_value}}
+\index{return\_value@{return\_value}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{return\_value}{return\_value}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Task\+Info\+::return\+\_\+value}
+
+
+
+Value returned from the Task on completion. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_a9b96aab3e6bcf8593fdafda89476a999}\label{classtesseract__planning_1_1TaskInfo_a9b96aab3e6bcf8593fdafda89476a999}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!task\_name@{task\_name}}
+\index{task\_name@{task\_name}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{task\_name}{task\_name}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Task\+Info\+::task\+\_\+name}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}\label{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}} 
+\index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!unique\_id@{unique\_id}}
+\index{unique\_id@{unique\_id}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{unique\_id}{unique\_id}}
+{\footnotesize\ttfamily std\+::size\+\_\+t tesseract\+\_\+planning\+::\+Task\+Info\+::unique\+\_\+id}
+
+
+
+Unique ID generated for the Task by Taskflow. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/\mbox{\hyperlink{task__info_8h}{task\+\_\+info.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/core/\mbox{\hyperlink{task__info_8cpp}{task\+\_\+info.\+cpp}}\end{DoxyCompactItemize}

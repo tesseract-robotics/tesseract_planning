@@ -1,0 +1,131 @@
+\hypertarget{structtesseract__planning_1_1CollisionConstraintConfig}{}\doxysection{tesseract\+\_\+planning\+::Collision\+Constraint\+Config Struct Reference}
+\label{structtesseract__planning_1_1CollisionConstraintConfig}\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+
+
+Config settings for collision constraint terms.  
+
+
+
+
+{\ttfamily \#include $<$trajopt\+\_\+collision\+\_\+config.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ab5138886faa0d30de30030746085e3c6}{Collision\+Constraint\+Config}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ae7d8c5be20c2c13e2b97c465147ccabe}{Collision\+Constraint\+Config}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ac299f01ad1c06b906f535323953d8133}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ac6398f5c88e56cae6720c143987fa30b}{enabled}} = true
+\begin{DoxyCompactList}\small\item\em If true, a collision cost term will be added to the problem. Default\+: true. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_aba3c9164666b0d99191bd2ee896430db}{use\+\_\+weighted\+\_\+sum}} = false
+\begin{DoxyCompactList}\small\item\em Use the weighted sum for each link pair. This reduces the number equations added to the problem If set to true, it is recommended to start with the coeff set to one. \end{DoxyCompactList}\item 
+trajopt\+::\+Collision\+Evaluator\+Type \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_a41fe83e461bd840f4e78b8ee25c094de}{type}} = trajopt\+::\+Collision\+Evaluator\+Type\+::\+CAST\+\_\+\+CONTINUOUS
+\begin{DoxyCompactList}\small\item\em The evaluator type that will be used for collision checking. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ad23bb69b859a3267bdbb119bce19eab0}{safety\+\_\+margin}} = 0.\+01
+\begin{DoxyCompactList}\small\item\em Max distance in which collision constraints will be evaluated. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_a3435a7ea81e12637b97b096d0d487a51}{safety\+\_\+margin\+\_\+buffer}} = 0.\+05
+\begin{DoxyCompactList}\small\item\em Distance beyond safety\+\_\+margin in which collision optimization will be evaluated. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_af1c72680e820ab29362f9ca3eb9000f2}{coeff}} = 20
+\begin{DoxyCompactList}\small\item\em The collision coeff/weight. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Config settings for collision constraint terms. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_ab5138886faa0d30de30030746085e3c6}\label{structtesseract__planning_1_1CollisionConstraintConfig_ab5138886faa0d30de30030746085e3c6}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!CollisionConstraintConfig@{CollisionConstraintConfig}}
+\index{CollisionConstraintConfig@{CollisionConstraintConfig}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{CollisionConstraintConfig()}{CollisionConstraintConfig()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::\+Collision\+Constraint\+Config (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_ae7d8c5be20c2c13e2b97c465147ccabe}\label{structtesseract__planning_1_1CollisionConstraintConfig_ae7d8c5be20c2c13e2b97c465147ccabe}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!CollisionConstraintConfig@{CollisionConstraintConfig}}
+\index{CollisionConstraintConfig@{CollisionConstraintConfig}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{CollisionConstraintConfig()}{CollisionConstraintConfig()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::\+Collision\+Constraint\+Config (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_ac299f01ad1c06b906f535323953d8133}\label{structtesseract__planning_1_1CollisionConstraintConfig_ac299f01ad1c06b906f535323953d8133}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_af1c72680e820ab29362f9ca3eb9000f2}\label{structtesseract__planning_1_1CollisionConstraintConfig_af1c72680e820ab29362f9ca3eb9000f2}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!coeff@{coeff}}
+\index{coeff@{coeff}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{coeff}{coeff}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::coeff = 20}
+
+
+
+The collision coeff/weight. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_ac6398f5c88e56cae6720c143987fa30b}\label{structtesseract__planning_1_1CollisionConstraintConfig_ac6398f5c88e56cae6720c143987fa30b}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!enabled@{enabled}}
+\index{enabled@{enabled}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{enabled}{enabled}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::enabled = true}
+
+
+
+If true, a collision cost term will be added to the problem. Default\+: true. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_ad23bb69b859a3267bdbb119bce19eab0}\label{structtesseract__planning_1_1CollisionConstraintConfig_ad23bb69b859a3267bdbb119bce19eab0}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!safety\_margin@{safety\_margin}}
+\index{safety\_margin@{safety\_margin}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{safety\_margin}{safety\_margin}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::safety\+\_\+margin = 0.\+01}
+
+
+
+Max distance in which collision constraints will be evaluated. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_a3435a7ea81e12637b97b096d0d487a51}\label{structtesseract__planning_1_1CollisionConstraintConfig_a3435a7ea81e12637b97b096d0d487a51}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!safety\_margin\_buffer@{safety\_margin\_buffer}}
+\index{safety\_margin\_buffer@{safety\_margin\_buffer}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{safety\_margin\_buffer}{safety\_margin\_buffer}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::safety\+\_\+margin\+\_\+buffer = 0.\+05}
+
+
+
+Distance beyond safety\+\_\+margin in which collision optimization will be evaluated. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_a41fe83e461bd840f4e78b8ee25c094de}\label{structtesseract__planning_1_1CollisionConstraintConfig_a41fe83e461bd840f4e78b8ee25c094de}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!type@{type}}
+\index{type@{type}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily trajopt\+::\+Collision\+Evaluator\+Type tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::type = trajopt\+::\+Collision\+Evaluator\+Type\+::\+CAST\+\_\+\+CONTINUOUS}
+
+
+
+The evaluator type that will be used for collision checking. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CollisionConstraintConfig_aba3c9164666b0d99191bd2ee896430db}\label{structtesseract__planning_1_1CollisionConstraintConfig_aba3c9164666b0d99191bd2ee896430db}} 
+\index{tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}!use\_weighted\_sum@{use\_weighted\_sum}}
+\index{use\_weighted\_sum@{use\_weighted\_sum}!tesseract\_planning::CollisionConstraintConfig@{tesseract\_planning::CollisionConstraintConfig}}
+\doxysubsubsection{\texorpdfstring{use\_weighted\_sum}{use\_weighted\_sum}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Collision\+Constraint\+Config\+::use\+\_\+weighted\+\_\+sum = false}
+
+
+
+Use the weighted sum for each link pair. This reduces the number equations added to the problem If set to true, it is recommended to start with the coeff set to one. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/trajopt/\mbox{\hyperlink{trajopt__collision__config_8h}{trajopt\+\_\+collision\+\_\+config.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/trajopt/\mbox{\hyperlink{trajopt__collision__config_8cpp}{trajopt\+\_\+collision\+\_\+config.\+cpp}}\end{DoxyCompactItemize}

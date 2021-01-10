@@ -1,0 +1,4 @@
+<map id="tesseract_planning::FixStateCollisionTaskGenerator" name="tesseract_planning::FixStateCollisionTaskGenerator">
+<area shape="rect" id="node1" title="This generator modifies the const input instructions in order to push waypoints that are in collision..." alt="" coords="5,95,216,136"/>
+<area shape="rect" id="node2" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="45,5,176,47"/>
+</map>

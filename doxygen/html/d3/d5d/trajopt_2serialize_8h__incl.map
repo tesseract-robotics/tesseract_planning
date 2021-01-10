@@ -1,0 +1,13 @@
+<map id="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/serialize.h" name="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/serialize.h">
+<area shape="rect" id="node1" title="Provide methods for serializing trajopt plans to xml." alt="" coords="263,5,442,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,221,196,247"/>
+<area shape="rect" id="node3" title=" " alt="" coords="313,124,392,151"/>
+<area shape="rect" id="node4" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="475,109,654,165"/>
+<area shape="rect" id="node5" title=" " alt="" coords="221,221,423,247"/>
+<area shape="rect" id="node6" title=" " alt="" coords="447,221,506,247"/>
+<area shape="rect" id="node7" title=" " alt="" coords="531,221,599,247"/>
+<area shape="rect" id="node8" title=" " alt="" coords="623,213,821,255"/>
+<area shape="rect" id="node9" title=" " alt="" coords="845,213,1044,255"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1068,213,1267,255"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1291,213,1489,255"/>
+</map>

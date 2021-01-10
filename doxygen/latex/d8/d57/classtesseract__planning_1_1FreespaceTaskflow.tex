@@ -1,0 +1,195 @@
+\hypertarget{classtesseract__planning_1_1FreespaceTaskflow}{}\doxysection{tesseract\+\_\+planning\+::Freespace\+Taskflow Class Reference}
+\label{classtesseract__planning_1_1FreespaceTaskflow}\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+
+
+{\ttfamily \#include $<$freespace\+\_\+taskflow.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Freespace\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{db/d28/classtesseract__planning_1_1FreespaceTaskflow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Freespace\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d59/classtesseract__planning_1_1FreespaceTaskflow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_aa1e8265dc02ac9b3d640625e32fc7ae2}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_a13ae0b8464613438340d3a2130826591}{Freespace\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1FreespaceTaskflowParams}{Freespace\+Taskflow\+Params}} params, std\+::string name=\char`\"{}Freespace\+Taskflow\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_aea79f38fb6d28a1e2256eab04963423e}{$\sim$\+Freespace\+Taskflow}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_ae57381eb5e922d7137a13deb1c674de1}{Freespace\+Taskflow}} (const \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_a5be61072ff3f727a0121624c4b72aa12}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_a16657303abad9db2be8fa7346c2f0c43}{Freespace\+Taskflow}} (\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_ad57f098bdbeeb7878b76bc169b4e8ec8}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \&\&)=delete
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_aefeb5312e7197cc25c12a83c6daaec06}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of the task flow. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_a63fc32b61b8310e48eab1416a6eac532}{generate\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} done\+\_\+cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} error\+\_\+cb) override
+\begin{DoxyCompactList}\small\item\em Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_a192626e9c769ee2e2b916a762b903709}{check\+Task\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input) const
+\begin{DoxyCompactList}\small\item\em Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_aa512ae49ee9abc6edd565573752bd01d}{name\+\_\+}}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1FreespaceTaskflowParams}{Freespace\+Taskflow\+Params}} \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_a4a5feab166321290c2fc13bb9fe7f22b}{params\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_aa1e8265dc02ac9b3d640625e32fc7ae2}\label{classtesseract__planning_1_1FreespaceTaskflow_aa1e8265dc02ac9b3d640625e32fc7ae2}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_aa1e8265dc02ac9b3d640625e32fc7ae2}{tesseract\+\_\+planning\+::\+Freespace\+Taskflow\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_a13ae0b8464613438340d3a2130826591}\label{classtesseract__planning_1_1FreespaceTaskflow_a13ae0b8464613438340d3a2130826591}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!FreespaceTaskflow@{FreespaceTaskflow}}
+\index{FreespaceTaskflow@{FreespaceTaskflow}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{FreespaceTaskflow()}{FreespaceTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Freespace\+Taskflow\+::\+Freespace\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1FreespaceTaskflowParams}{Freespace\+Taskflow\+Params}}}]{params,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}FreespaceTaskflow\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_aea79f38fb6d28a1e2256eab04963423e}\label{classtesseract__planning_1_1FreespaceTaskflow_aea79f38fb6d28a1e2256eab04963423e}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!````~FreespaceTaskflow@{$\sim$FreespaceTaskflow}}
+\index{````~FreespaceTaskflow@{$\sim$FreespaceTaskflow}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{$\sim$FreespaceTaskflow()}{~FreespaceTaskflow()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Freespace\+Taskflow\+::$\sim$\+Freespace\+Taskflow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_ae57381eb5e922d7137a13deb1c674de1}\label{classtesseract__planning_1_1FreespaceTaskflow_ae57381eb5e922d7137a13deb1c674de1}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!FreespaceTaskflow@{FreespaceTaskflow}}
+\index{FreespaceTaskflow@{FreespaceTaskflow}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{FreespaceTaskflow()}{FreespaceTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Freespace\+Taskflow\+::\+Freespace\+Taskflow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_a16657303abad9db2be8fa7346c2f0c43}\label{classtesseract__planning_1_1FreespaceTaskflow_a16657303abad9db2be8fa7346c2f0c43}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!FreespaceTaskflow@{FreespaceTaskflow}}
+\index{FreespaceTaskflow@{FreespaceTaskflow}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{FreespaceTaskflow()}{FreespaceTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Freespace\+Taskflow\+::\+Freespace\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_a192626e9c769ee2e2b916a762b903709}\label{classtesseract__planning_1_1FreespaceTaskflow_a192626e9c769ee2e2b916a762b903709}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!checkTaskInput@{checkTaskInput}}
+\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{checkTaskInput()}{checkTaskInput()}}
+{\footnotesize\ttfamily bool Freespace\+Taskflow\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if in the correct format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_a63fc32b61b8310e48eab1416a6eac532}\label{classtesseract__planning_1_1FreespaceTaskflow_a63fc32b61b8310e48eab1416a6eac532}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!generateTaskflow@{generateTaskflow}}
+\index{generateTaskflow@{generateTaskflow}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{generateTaskflow()}{generateTaskflow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} Freespace\+Taskflow\+::generate\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{instruction,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{done\+\_\+cb,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{error\+\_\+cb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Instructions passed to this instance of the taskflow \\
+\hline
+{\em done\+\_\+cb} & A user defined callback \\
+\hline
+{\em error\+\_\+cb} & A user defined callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A taskflow container which must stay around during execution of taskflow 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_aefeb5312e7197cc25c12a83c6daaec06}\label{classtesseract__planning_1_1FreespaceTaskflow_aefeb5312e7197cc25c12a83c6daaec06}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!getName@{getName}}
+\index{getName@{getName}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string \& Freespace\+Taskflow\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the name of the task flow. 
+
+\begin{DoxyReturn}{Returns}
+The name 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_a5be61072ff3f727a0121624c4b72aa12}\label{classtesseract__planning_1_1FreespaceTaskflow_a5be61072ff3f727a0121624c4b72aa12}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}}\& tesseract\+\_\+planning\+::\+Freespace\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_ad57f098bdbeeb7878b76bc169b4e8ec8}\label{classtesseract__planning_1_1FreespaceTaskflow_ad57f098bdbeeb7878b76bc169b4e8ec8}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}}\& tesseract\+\_\+planning\+::\+Freespace\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow}{Freespace\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_aa512ae49ee9abc6edd565573752bd01d}\label{classtesseract__planning_1_1FreespaceTaskflow_aa512ae49ee9abc6edd565573752bd01d}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!name\_@{name\_}}
+\index{name\_@{name\_}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Freespace\+Taskflow\+::name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FreespaceTaskflow_a4a5feab166321290c2fc13bb9fe7f22b}\label{classtesseract__planning_1_1FreespaceTaskflow_a4a5feab166321290c2fc13bb9fe7f22b}} 
+\index{tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}!params\_@{params\_}}
+\index{params\_@{params\_}!tesseract\_planning::FreespaceTaskflow@{tesseract\_planning::FreespaceTaskflow}}
+\doxysubsubsection{\texorpdfstring{params\_}{params\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1FreespaceTaskflowParams}{Freespace\+Taskflow\+Params}} tesseract\+\_\+planning\+::\+Freespace\+Taskflow\+::params\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/\mbox{\hyperlink{freespace__taskflow_8h}{freespace\+\_\+taskflow.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/taskflow\+\_\+generators/\mbox{\hyperlink{freespace__taskflow_8cpp}{freespace\+\_\+taskflow.\+cpp}}\end{DoxyCompactItemize}

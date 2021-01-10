@@ -1,0 +1,77 @@
+\hypertarget{tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h}{}\doxysection{tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/utils.h File Reference}
+\label{tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/core/utils.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/core/utils.h}}
+
+
+Tesseract process managers utility functions.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/composite\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/task\+\_\+input.\+h$>$}\newline
+Include dependency graph for utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/da5/tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d00/tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacetesseract__planning_afa3626408640368d63608d050329f4a1}{tesseract\+\_\+planning\+::success\+Task}} (const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&, const std\+::string \&name, const std\+::string \&message, const Taskflow\+Void\+Fn \&user\+\_\+callback=nullptr)
+\begin{DoxyCompactList}\small\item\em The default success task to be used. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacetesseract__planning_a4a082cae593b327f12943022ad5cf5f7}{tesseract\+\_\+planning\+::failure\+Task}} (\mbox{\hyperlink{structTaskInput}{Task\+Input}} instruction, const std\+::string \&name, const std\+::string \&message, const Taskflow\+Void\+Fn \&user\+\_\+callback=nullptr)
+\begin{DoxyCompactList}\small\item\em The default failure task to be used. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ad650c5f30094ce1ee9f44381657d9da7}{tesseract\+\_\+planning\+::is\+Composite\+Empty}} (const Composite\+Instruction \&composite)
+\begin{DoxyCompactList}\small\item\em Check if composite is empty along with children composites. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{namespacetesseract__planning_a6e3bc51fc2552d2913c17d1f020c23b4}{tesseract\+\_\+planning\+::has\+Seed\+Task}} (\mbox{\hyperlink{structTaskInput}{Task\+Input}} input)
+\begin{DoxyCompactList}\small\item\em Check if the input has a seed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tesseract process managers utility functions. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Powelson 
+
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+July 15. 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000142}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

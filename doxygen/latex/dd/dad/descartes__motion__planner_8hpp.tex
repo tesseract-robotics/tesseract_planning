@@ -1,0 +1,77 @@
+\hypertarget{descartes__motion__planner_8hpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/descartes/impl/descartes\+\_\+motion\+\_\+planner.hpp File Reference}
+\label{descartes__motion__planner_8hpp}\index{tesseract\_motion\_planners/include/tesseract\_motion\_planners/descartes/impl/descartes\_motion\_planner.hpp@{tesseract\_motion\_planners/include/tesseract\_motion\_planners/descartes/impl/descartes\_motion\_planner.hpp}}
+
+
+Tesseract ROS Descartes planner.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+collision/core/discrete\+\_\+contact\+\_\+manager.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+collision/core/continuous\+\_\+contact\+\_\+manager.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/environment.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+light/descartes\+\_\+light.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+light/interface/position\+\_\+sampler.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+samplers/samplers/railed\+\_\+cartesian\+\_\+point\+\_\+sampler.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+samplers/samplers/railed\+\_\+axial\+\_\+symmetric\+\_\+sampler.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+samplers/samplers/axial\+\_\+symmetric\+\_\+sampler.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+samplers/samplers/cartesian\+\_\+point\+\_\+sampler.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+samplers/samplers/fixed\+\_\+joint\+\_\+pose\+\_\+sampler.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+samplers/evaluators/timing\+\_\+edge\+\_\+evaluator.\+h$>$}\newline
+{\ttfamily \#include $<$boost/date\+\_\+time/posix\+\_\+time/posix\+\_\+time.\+hpp$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/profile/descartes\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+Include dependency graph for descartes\+\_\+motion\+\_\+planner.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0c/descartes__motion__planner_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{d9/d74/descartes__motion__planner_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tesseract ROS Descartes planner. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+April 18, 2018 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000019}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2017, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

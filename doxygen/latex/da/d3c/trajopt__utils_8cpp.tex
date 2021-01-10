@@ -1,0 +1,75 @@
+\hypertarget{trajopt__utils_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/src/trajopt/trajopt\+\_\+utils.cpp File Reference}
+\label{trajopt__utils_8cpp}\index{tesseract\_motion\_planners/src/trajopt/trajopt\_utils.cpp@{tesseract\_motion\_planners/src/trajopt/trajopt\_utils.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt/trajopt\+\_\+utils.\+h$>$}\newline
+Include dependency graph for trajopt\+\_\+utils.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d9e/trajopt__utils_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_aaaf96ab8d7cc657c3302477ce1d4e166}{tesseract\+\_\+planning\+::create\+Cartesian\+Waypoint\+Term\+Info}} (const Eigen\+::\+Isometry3d \&c\+\_\+wp, int index, std\+::string working\+\_\+frame, Eigen\+::\+Isometry3d tcp, const Eigen\+::\+Vector\+Xd \&coeffs, std\+::string link, trajopt\+::\+Term\+Type type)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a095e0b0a5e5b23e615647705ac63f3b2}{tesseract\+\_\+planning\+::create\+Dynamic\+Cartesian\+Waypoint\+Term\+Info}} (const Eigen\+::\+Isometry3d \&c\+\_\+wp, int index, std\+::string working\+\_\+frame, const Eigen\+::\+Isometry3d \&tcp, const Eigen\+::\+Vector\+Xd \&coeffs, const std\+::string \&link, trajopt\+::\+Term\+Type type)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a9d674bb8a647b4c66cfd60fcd2b9d449}{tesseract\+\_\+planning\+::create\+Near\+Joint\+State\+Term\+Info}} (const Eigen\+::\+Vector\+Xd \&target, const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, int index, const Eigen\+::\+Vector\+Xd \&coeffs, trajopt\+::\+Term\+Type type)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_ad93bb03fdbd2da70052e05a160252fea}{tesseract\+\_\+planning\+::create\+Joint\+Waypoint\+Term\+Info}} (const Eigen\+::\+Vector\+Xd \&j\+\_\+wp, int index, const Eigen\+::\+Vector\+Xd \&coeffs, trajopt\+::\+Term\+Type type)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a574e6fb3ce47508345013ba55e3d6656}{tesseract\+\_\+planning\+::create\+Toleranced\+Joint\+Waypoint\+Term\+Info}} (const Eigen\+::\+Vector\+Xd \&j\+\_\+wp, const Eigen\+::\+Vector\+Xd \&lower\+\_\+tol, const Eigen\+::\+Vector\+Xd \&upper\+\_\+tol, int index, const Eigen\+::\+Vector\+Xd \&coeffs, trajopt\+::\+Term\+Type type)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a59171342f42f98b1c7dcf07b503ac190}{tesseract\+\_\+planning\+::create\+Collision\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, double collision\+\_\+safety\+\_\+margin, double collision\+\_\+safety\+\_\+margin\+\_\+buffer, trajopt\+::\+Collision\+Evaluator\+Type evaluator\+\_\+type, bool use\+\_\+weighted\+\_\+sum=false, double coeff=20.\+0, tesseract\+\_\+collision\+::\+Contact\+Test\+Type contact\+\_\+test\+\_\+type=tesseract\+\_\+collision\+::\+Contact\+Test\+Type\+::\+ALL, double longest\+\_\+valid\+\_\+segment\+\_\+length=0.\+5, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a0746f7f2bf8a5eccbf86f2396f1ea2e0}{tesseract\+\_\+planning\+::create\+Smooth\+Velocity\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, int n\+\_\+joints, double coeff=5.\+0, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_affe7c7d3367068d932365075ef9102fc}{tesseract\+\_\+planning\+::create\+Smooth\+Velocity\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_acd9cd7e37c21ba0a2f7e70c413451236}{tesseract\+\_\+planning\+::create\+Smooth\+Acceleration\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, int n\+\_\+joints, double coeff=1.\+0, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_ab9387c1eecc792722d72430c83f0ca0e}{tesseract\+\_\+planning\+::create\+Smooth\+Acceleration\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_affb186f7431f9202b975b2d674643ce5}{tesseract\+\_\+planning\+::create\+Smooth\+Jerk\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, int n\+\_\+joints, double coeff=1.\+0, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a60a48d120ed74e2c807772db08826a17}{tesseract\+\_\+planning\+::create\+Smooth\+Jerk\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_acb79748a9c7c851b1b53a74aadba0b56}{tesseract\+\_\+planning\+::create\+User\+Defined\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, sco\+::\+Vector\+Of\+Vector\+::func error\+\_\+function, sco\+::\+Matrix\+Of\+Vector\+::func jacobian\+\_\+function, trajopt\+::\+Term\+Type type)
+\item 
+trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a089f108f9cc718b567607006aefc506e}{tesseract\+\_\+planning\+::create\+Avoid\+Singularity\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, const std\+::string \&link, double coeff=5.\+0, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 18, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000109}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

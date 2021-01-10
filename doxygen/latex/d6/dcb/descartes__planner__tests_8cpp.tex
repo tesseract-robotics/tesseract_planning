@@ -1,0 +1,125 @@
+\hypertarget{descartes__planner__tests_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/test/descartes\+\_\+planner\+\_\+tests.cpp File Reference}
+\label{descartes__planner__tests_8cpp}\index{tesseract\_motion\_planners/test/descartes\_planner\_tests.cpp@{tesseract\_motion\_planners/test/descartes\_planner\_tests.cpp}}
+
+
+This contains unit test for the tesseract descartes planner.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+collision.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+samplers/evaluators/euclidean\+\_\+distance\+\_\+edge\+\_\+evaluator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+kinematics/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/environment.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/ofkt/ofkt\+\_\+state\+\_\+solver.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/profile/descartes\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/problem\+\_\+generators/default\+\_\+problem\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/interface\+\_\+utils.\+h$>$}\newline
+Include dependency graph for descartes\+\_\+planner\+\_\+tests.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/de7/descartes__planner__tests_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{descartes__planner__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}{locate\+Resource}} (const std\+::string \&url)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a0827317eaf5f848aa4c21fbbc435c2f0}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}, Descartes\+Planner\+Fixed\+Poses)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a412eafa4c0d411dfab4d08df7a091e1d}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}, Descartes\+Planner\+Axial\+Symetric)
+\item 
+\mbox{\hyperlink{descartes__planner__tests_8cpp_a581fe58a08afc372a6545e2c369350c6}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}, Descartes\+Planner\+Collision\+Edge\+Evaluator)
+\item 
+int \mbox{\hyperlink{descartes__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{descartes__planner__tests_8cpp_a9c4ab189c2f018bc7ccc8ba4f6e04b9d}{DEBUG}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This contains unit test for the tesseract descartes planner. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+September 16, 2019 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000115}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}\label{descartes__planner__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!locateResource@{locateResource}}
+\index{locateResource@{locateResource}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{locateResource()}{locateResource()}}
+{\footnotesize\ttfamily std\+::string locate\+Resource (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{url }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{descartes__planner__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!main@{main}}
+\index{main@{main}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a412eafa4c0d411dfab4d08df7a091e1d}\label{descartes__planner__tests_8cpp_a412eafa4c0d411dfab4d08df7a091e1d}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}}]{,  }\item[{Descartes\+Planner\+Axial\+Symetric}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a581fe58a08afc372a6545e2c369350c6}\label{descartes__planner__tests_8cpp_a581fe58a08afc372a6545e2c369350c6}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}}]{,  }\item[{Descartes\+Planner\+Collision\+Edge\+Evaluator}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a0827317eaf5f848aa4c21fbbc435c2f0}\label{descartes__planner__tests_8cpp_a0827317eaf5f848aa4c21fbbc435c2f0}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTesseractPlanningDescartesUnit}{Tesseract\+Planning\+Descartes\+Unit}}}]{,  }\item[{Descartes\+Planner\+Fixed\+Poses}]{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{descartes__planner__tests_8cpp_a9c4ab189c2f018bc7ccc8ba4f6e04b9d}\label{descartes__planner__tests_8cpp_a9c4ab189c2f018bc7ccc8ba4f6e04b9d}} 
+\index{descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}!DEBUG@{DEBUG}}
+\index{DEBUG@{DEBUG}!descartes\_planner\_tests.cpp@{descartes\_planner\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{DEBUG}{DEBUG}}
+{\footnotesize\ttfamily const bool DEBUG = false}
+

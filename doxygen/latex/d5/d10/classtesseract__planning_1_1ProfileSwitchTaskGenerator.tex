@@ -1,0 +1,174 @@
+\hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{}\doxysection{tesseract\+\_\+planning\+::Profile\+Switch\+Task\+Generator Class Reference}
+\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator}\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+
+
+This generator simply returns a value specified in the composite profile. This can be used to switch execution based on the profile.  
+
+
+
+
+{\ttfamily \#include $<$profile\+\_\+switch\+\_\+task\+\_\+generator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Profile\+Switch\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{d7/d43/classtesseract__planning_1_1ProfileSwitchTaskGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Profile\+Switch\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/da0/classtesseract__planning_1_1ProfileSwitchTaskGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a16e960085bf6db5cde85af59a7cc4055}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a9890f6a0d518fcabb6679fdb490e030d}{Profile\+Switch\+Task\+Generator}} (std\+::string name=\char`\"{}Profile Switch\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_ab5037d8c43d305fca923c9e30ec17d02}{$\sim$\+Profile\+Switch\+Task\+Generator}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a85c2527baaa9924a5781bd24286fb541}{Profile\+Switch\+Task\+Generator}} (const \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a346540cfd641fa3929aa28a1c7188983}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a92780f052138e09df57f34601ccc54f9}{Profile\+Switch\+Task\+Generator}} (\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_af52dca15068ce0b2e06097afb726a773}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \&\&)=delete
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a4f7cf0e5d029bdcdf62a2d74f0fb5086}{conditional\+Process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generate Conditional Task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a828fabbb9a3ec455227475d3baae3f10}{process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generated a Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesseract__planning_a5bc05735cc05cb4e74ff500e6dfe5645}{Profile\+Switch\+Profile\+Map}} \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a4f044f658c0f0ec03f40d3a43efa8e9c}{composite\+\_\+profiles}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This generator simply returns a value specified in the composite profile. This can be used to switch execution based on the profile. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a16e960085bf6db5cde85af59a7cc4055}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a16e960085bf6db5cde85af59a7cc4055}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a16e960085bf6db5cde85af59a7cc4055}{tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a9890f6a0d518fcabb6679fdb490e030d}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a9890f6a0d518fcabb6679fdb490e030d}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!ProfileSwitchTaskGenerator@{ProfileSwitchTaskGenerator}}
+\index{ProfileSwitchTaskGenerator@{ProfileSwitchTaskGenerator}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTaskGenerator()}{ProfileSwitchTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::\+Profile\+Switch\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}Profile~Switch\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_ab5037d8c43d305fca923c9e30ec17d02}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_ab5037d8c43d305fca923c9e30ec17d02}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!````~ProfileSwitchTaskGenerator@{$\sim$ProfileSwitchTaskGenerator}}
+\index{````~ProfileSwitchTaskGenerator@{$\sim$ProfileSwitchTaskGenerator}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$ProfileSwitchTaskGenerator()}{~ProfileSwitchTaskGenerator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::$\sim$\+Profile\+Switch\+Task\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a85c2527baaa9924a5781bd24286fb541}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a85c2527baaa9924a5781bd24286fb541}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!ProfileSwitchTaskGenerator@{ProfileSwitchTaskGenerator}}
+\index{ProfileSwitchTaskGenerator@{ProfileSwitchTaskGenerator}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTaskGenerator()}{ProfileSwitchTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::\+Profile\+Switch\+Task\+Generator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a92780f052138e09df57f34601ccc54f9}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a92780f052138e09df57f34601ccc54f9}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!ProfileSwitchTaskGenerator@{ProfileSwitchTaskGenerator}}
+\index{ProfileSwitchTaskGenerator@{ProfileSwitchTaskGenerator}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{ProfileSwitchTaskGenerator()}{ProfileSwitchTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::\+Profile\+Switch\+Task\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a4f7cf0e5d029bdcdf62a2d74f0fb5086}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a4f7cf0e5d029bdcdf62a2d74f0fb5086}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!conditionalProcess@{conditionalProcess}}
+\index{conditionalProcess@{conditionalProcess}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{conditionalProcess()}{conditionalProcess()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::conditional\+Process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generate Conditional Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Conditional Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e60805cfe9276ace7be827f2e}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a346540cfd641fa3929aa28a1c7188983}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a346540cfd641fa3929aa28a1c7188983}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_af52dca15068ce0b2e06097afb726a773}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_af52dca15068ce0b2e06097afb726a773}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a828fabbb9a3ec455227475d3baae3f10}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a828fabbb9a3ec455227475d3baae3f10}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!process@{process}}
+\index{process@{process}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generated a Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c150554739834a1d467fc726baba8}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a4f044f658c0f0ec03f40d3a43efa8e9c}\label{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a4f044f658c0f0ec03f40d3a43efa8e9c}} 
+\index{tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}!composite\_profiles@{composite\_profiles}}
+\index{composite\_profiles@{composite\_profiles}!tesseract\_planning::ProfileSwitchTaskGenerator@{tesseract\_planning::ProfileSwitchTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{composite\_profiles}{composite\_profiles}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a5bc05735cc05cb4e74ff500e6dfe5645}{Profile\+Switch\+Profile\+Map}} tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator\+::composite\+\_\+profiles}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/\mbox{\hyperlink{profile__switch__task__generator_8h}{profile\+\_\+switch\+\_\+task\+\_\+generator.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/task\+\_\+generators/\mbox{\hyperlink{profile__switch__task__generator_8cpp}{profile\+\_\+switch\+\_\+task\+\_\+generator.\+cpp}}\end{DoxyCompactItemize}

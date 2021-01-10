@@ -1,0 +1,112 @@
+\hypertarget{classtesseract__planning_1_1DebugObserver}{}\doxysection{tesseract\+\_\+planning\+::Debug\+Observer Class Reference}
+\label{classtesseract__planning_1_1DebugObserver}\index{tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}}
+
+
+This is currently simple debug observer which prints a message when each of the functions below are called.  
+
+
+
+
+{\ttfamily \#include $<$debug\+\_\+observer.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Debug\+Observer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{df/d27/classtesseract__planning_1_1DebugObserver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Debug\+Observer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{da/d70/classtesseract__planning_1_1DebugObserver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver_acaec2f5a90d627d4e0aea65f3f7081dd}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver}{Debug\+Observer}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver_ac75dfc74266d14ebeef2b8c4c1ca00b5}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver}{Debug\+Observer}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DebugObserver_afe31c77d05554e493736d10a46d3e0eb}{Debug\+Observer}} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver_a826b9b4dc74f31bfd9f315433538ffc4}{set\+\_\+up}} (size\+\_\+t num\+\_\+workers) final
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver_a831da8aa40a6ad7fe3c89bfc677b35f1}{on\+\_\+entry}} (size\+\_\+t w, tf\+::\+Task\+View tv) final
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver_a986bfb9fb5f2d5698a538fcb0958a062}{on\+\_\+exit}} (size\+\_\+t w, tf\+::\+Task\+View tv) final
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This is currently simple debug observer which prints a message when each of the functions below are called. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DebugObserver_ac75dfc74266d14ebeef2b8c4c1ca00b5}\label{classtesseract__planning_1_1DebugObserver_ac75dfc74266d14ebeef2b8c4c1ca00b5}} 
+\index{tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver_ac75dfc74266d14ebeef2b8c4c1ca00b5}{tesseract\+\_\+planning\+::\+Debug\+Observer\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver}{Debug\+Observer}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DebugObserver_acaec2f5a90d627d4e0aea65f3f7081dd}\label{classtesseract__planning_1_1DebugObserver_acaec2f5a90d627d4e0aea65f3f7081dd}} 
+\index{tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1DebugObserver_acaec2f5a90d627d4e0aea65f3f7081dd}{tesseract\+\_\+planning\+::\+Debug\+Observer\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1DebugObserver}{Debug\+Observer}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DebugObserver_afe31c77d05554e493736d10a46d3e0eb}\label{classtesseract__planning_1_1DebugObserver_afe31c77d05554e493736d10a46d3e0eb}} 
+\index{tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}!DebugObserver@{DebugObserver}}
+\index{DebugObserver@{DebugObserver}!tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}}
+\doxysubsubsection{\texorpdfstring{DebugObserver()}{DebugObserver()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Debug\+Observer\+::\+Debug\+Observer (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name given to the Observer which also gets printed out. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DebugObserver_a831da8aa40a6ad7fe3c89bfc677b35f1}\label{classtesseract__planning_1_1DebugObserver_a831da8aa40a6ad7fe3c89bfc677b35f1}} 
+\index{tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}!on\_entry@{on\_entry}}
+\index{on\_entry@{on\_entry}!tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}}
+\doxysubsubsection{\texorpdfstring{on\_entry()}{on\_entry()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Debug\+Observer\+::on\+\_\+entry (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{w,  }\item[{tf\+::\+Task\+View}]{tv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DebugObserver_a986bfb9fb5f2d5698a538fcb0958a062}\label{classtesseract__planning_1_1DebugObserver_a986bfb9fb5f2d5698a538fcb0958a062}} 
+\index{tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}!on\_exit@{on\_exit}}
+\index{on\_exit@{on\_exit}!tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}}
+\doxysubsubsection{\texorpdfstring{on\_exit()}{on\_exit()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Debug\+Observer\+::on\+\_\+exit (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{w,  }\item[{tf\+::\+Task\+View}]{tv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DebugObserver_a826b9b4dc74f31bfd9f315433538ffc4}\label{classtesseract__planning_1_1DebugObserver_a826b9b4dc74f31bfd9f315433538ffc4}} 
+\index{tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}!set\_up@{set\_up}}
+\index{set\_up@{set\_up}!tesseract\_planning::DebugObserver@{tesseract\_planning::DebugObserver}}
+\doxysubsubsection{\texorpdfstring{set\_up()}{set\_up()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Debug\+Observer\+::set\+\_\+up (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{num\+\_\+workers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/\mbox{\hyperlink{debug__observer_8h}{debug\+\_\+observer.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/core/\mbox{\hyperlink{debug__observer_8cpp}{debug\+\_\+observer.\+cpp}}\end{DoxyCompactItemize}

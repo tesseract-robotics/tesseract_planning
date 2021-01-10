@@ -1,0 +1,438 @@
+\hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile}{}\doxysection{tesseract\+\_\+planning\+::OMPLDefault\+Plan\+Profile Class Reference}
+\label{classtesseract__planning_1_1OMPLDefaultPlanProfile}\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+
+
+OMPL does not support the concept of multi waypoint planning like descartes and trajopt. Because of this every plan instruction will be its a seperate ompl motion plan and therefore planning information is relevent for this motion planner in the profile.  
+
+
+
+
+{\ttfamily \#include $<$ompl\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::OMPLDefault\+Plan\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{dd/dbf/classtesseract__planning_1_1OMPLDefaultPlanProfile__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::OMPLDefault\+Plan\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d36/classtesseract__planning_1_1OMPLDefaultPlanProfile__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac3d614b69557ff94595d41491143d2ea}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aa43be7d8ae2529c29a30456432ec8209}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a8d3d9e889e2a432b06a954956b58ecc2}{OMPLDefault\+Plan\+Profile}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac3464923d631c5eadd260864f7ed6fd}{$\sim$\+OMPLDefault\+Plan\+Profile}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ad0a30f4788e38a522e74d58d49999df2}{OMPLDefault\+Plan\+Profile}} (const \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_accd31fa60fffec6e6ee3d9b9e16736a0}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a6e661bf0fcbef89a41df4887d0cf0a7b}{OMPLDefault\+Plan\+Profile}} (\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9d915daff536cbdb96ca9fec9af12e86}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a46c010d4fcdb918631ac92016d3bfccd}{OMPLDefault\+Plan\+Profile}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aab83f4dbd16afcf39d77877b088a36e8}{setup}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob) const override
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac9464c4e33be2c8d30e1e4bcefeabab}{apply\+Goal\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Isometry3d \&cartesian\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const override
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a547f4f1bf9830029df37fed95ef5b26d}{apply\+Goal\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Vector\+Xd \&joint\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const override
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a86c28634aa87b3783d1fd971cbeea9da}{apply\+Start\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Isometry3d \&cartesian\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const override
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_af03d90afd0172d9759ce8c2067c11123}{apply\+Start\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Vector\+Xd \&joint\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const override
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9ceeaf8d8a01e483992a71b15cb32df4}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{OMPLProblem\+State\+Space}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac281ec8dfa7fbc41636933f7c8941ca7}{state\+\_\+space}} \{ \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{OMPLProblem\+State\+Space\+::\+REAL\+\_\+\+STATE\+\_\+\+SPACE}} \}
+\begin{DoxyCompactList}\small\item\em The OMPL state space to use when planning. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ad23a1b6c4773f47e528a8308eddbb17f}{planning\+\_\+time}} = 5.\+0
+\begin{DoxyCompactList}\small\item\em Max planning time allowed in seconds. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aada5f680b3b34da25c4076e01d140a88}{max\+\_\+solutions}} = 10
+\begin{DoxyCompactList}\small\item\em The max number of solutions. If max solutions are hit it will exit even if other threads are running. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a18dc4b97e0916d68f4dda78f730498f8}{simplify}} = false
+\begin{DoxyCompactList}\small\item\em Simplify trajectory. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a19c00def077054fa09c8e786fa8cafe2}{optimize}} = true
+\begin{DoxyCompactList}\small\item\em This uses all available planning time to create the most optimized trajectory given the objective function. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aecd7bfc8d1a2b291435ed3a4bc8a65be}{OMPLPlanner\+Configurator\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ab6e85fae7f88345ed6bdf4768c3f616c}{planners}}
+\begin{DoxyCompactList}\small\item\em The planner configurators. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aeda482ff03b91c4f5f598ec741ecfe3e}{collision\+\_\+check}} = true
+\begin{DoxyCompactList}\small\item\em If true, collision checking will be enabled. Default\+: true. \end{DoxyCompactList}\item 
+tesseract\+\_\+collision\+::\+Collision\+Margin\+Data \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a4dc63bb41f22752525f8a762b59d7e31}{collision\+\_\+margin\+\_\+data}}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a91efc62229ff213aa39c83ffeebed52b}{collision\+\_\+continuous}} = false
+\begin{DoxyCompactList}\small\item\em If true, use continuous collision checking. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a451603d5b1dceb1fbc9a2df65aae1226}{longest\+\_\+valid\+\_\+segment\+\_\+fraction}} = 0.\+01
+\begin{DoxyCompactList}\small\item\em Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid in post checking of trajectory returned by trajopt. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a5682dc1d33159e0e80953ec5c1411d12}{longest\+\_\+valid\+\_\+segment\+\_\+length}} = 0.\+1
+\begin{DoxyCompactList}\small\item\em Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 -\/ state0) $>$ longest\+\_\+valid\+\_\+segment\+\_\+length. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}{State\+Sampler\+Allocator}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9734d05f7edd9ead62877cb7f42b1765}{state\+\_\+sampler\+\_\+allocator}}
+\begin{DoxyCompactList}\small\item\em The state sampler allocator. This can be null and it will use Tesseract default state sampler allocator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_a7bd709d31d5445aafb082d85b1dced53}{Optimization\+Objective\+Allocator}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac712f2a02f03fffa63def84aa458eb6b}{optimization\+\_\+objective\+\_\+allocator}}
+\begin{DoxyCompactList}\small\item\em Set the optimization objective function allocator. Default is to minimize path length. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_a4998b57113ac39511185f381ce61a6fd}{State\+Validity\+Checker\+Allocator}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a05375d52391209d1eea6c6cfb931d707}{svc\+\_\+allocator}}
+\begin{DoxyCompactList}\small\item\em The ompl state validity checker. If nullptr and collision checking enabled it uses \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator}{State\+Collision\+Validator}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_a49e2e11b198d0aa7480130b9f18021d5}{Motion\+Validator\+Allocator}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_afc03ce7dd6213efcd899f686b428587f}{mv\+\_\+allocator}}
+\begin{DoxyCompactList}\small\item\em The ompl motion validator. If nullptr and continuous collision checking enabled it used \mbox{\hyperlink{classtesseract__planning_1_1ContinuousMotionValidator}{Continuous\+Motion\+Validator}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a6fe4bc322be56609822da67b84081ff5}{process\+Start\+And\+Goal\+State}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&kin) const
+\item 
+ompl\+::base\+::\+State\+Validity\+Checker\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ab64f3077838fd56177e6d3ae672f1fbc}{process\+State\+Validator}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&kin) const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a80a00ba348af0086bd8eba3ac4e449e4}{process\+Motion\+Validator}} (ompl\+::base\+::\+State\+Validity\+Checker\+Ptr svc\+\_\+without\+\_\+collision, \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&kin) const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a74ece06a7fbee5cf6bd861f88f581d2f}{process\+Optimization\+Objective}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+OMPL does not support the concept of multi waypoint planning like descartes and trajopt. Because of this every plan instruction will be its a seperate ompl motion plan and therefore planning information is relevent for this motion planner in the profile. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aa43be7d8ae2529c29a30456432ec8209}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aa43be7d8ae2529c29a30456432ec8209}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aa43be7d8ae2529c29a30456432ec8209}{tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac3d614b69557ff94595d41491143d2ea}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac3d614b69557ff94595d41491143d2ea}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac3d614b69557ff94595d41491143d2ea}{tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a8d3d9e889e2a432b06a954956b58ecc2}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a8d3d9e889e2a432b06a954956b58ecc2}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!OMPLDefaultPlanProfile@{OMPLDefaultPlanProfile}}
+\index{OMPLDefaultPlanProfile@{OMPLDefaultPlanProfile}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{OMPLDefaultPlanProfile()}{OMPLDefaultPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::\+OMPLDefault\+Plan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac3464923d631c5eadd260864f7ed6fd}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac3464923d631c5eadd260864f7ed6fd}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!````~OMPLDefaultPlanProfile@{$\sim$OMPLDefaultPlanProfile}}
+\index{````~OMPLDefaultPlanProfile@{$\sim$OMPLDefaultPlanProfile}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{$\sim$OMPLDefaultPlanProfile()}{~OMPLDefaultPlanProfile()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::$\sim$\+OMPLDefault\+Plan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_ad0a30f4788e38a522e74d58d49999df2}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_ad0a30f4788e38a522e74d58d49999df2}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!OMPLDefaultPlanProfile@{OMPLDefaultPlanProfile}}
+\index{OMPLDefaultPlanProfile@{OMPLDefaultPlanProfile}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{OMPLDefaultPlanProfile()}{OMPLDefaultPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::\+OMPLDefault\+Plan\+Profile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a6e661bf0fcbef89a41df4887d0cf0a7b}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a6e661bf0fcbef89a41df4887d0cf0a7b}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!OMPLDefaultPlanProfile@{OMPLDefaultPlanProfile}}
+\index{OMPLDefaultPlanProfile@{OMPLDefaultPlanProfile}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{OMPLDefaultPlanProfile()}{OMPLDefaultPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::\+OMPLDefault\+Plan\+Profile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a46c010d4fcdb918631ac92016d3bfccd}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a46c010d4fcdb918631ac92016d3bfccd}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!OMPLDefaultPlanProfile@{OMPLDefaultPlanProfile}}
+\index{OMPLDefaultPlanProfile@{OMPLDefaultPlanProfile}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{OMPLDefaultPlanProfile()}{OMPLDefaultPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::\+OMPLDefault\+Plan\+Profile (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000015}{Todo}}]Update XML \end{DoxyRefDesc}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac9464c4e33be2c8d30e1e4bcefeabab}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac9464c4e33be2c8d30e1e4bcefeabab}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!applyGoalStates@{applyGoalStates}}
+\index{applyGoalStates@{applyGoalStates}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{applyGoalStates()}{applyGoalStates()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::apply\+Goal\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Isometry3d \&}]{cartesian\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000016}{Todo}}]Need to add descartes pose sample to ompl profile \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a743dccd6c17bbbad02d30cceb9ffd9a7}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a547f4f1bf9830029df37fed95ef5b26d}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a547f4f1bf9830029df37fed95ef5b26d}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!applyGoalStates@{applyGoalStates}}
+\index{applyGoalStates@{applyGoalStates}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{applyGoalStates()}{applyGoalStates()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::apply\+Goal\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{joint\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_aad8fff6552991cc86f77519374873f23}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a86c28634aa87b3783d1fd971cbeea9da}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a86c28634aa87b3783d1fd971cbeea9da}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!applyStartStates@{applyStartStates}}
+\index{applyStartStates@{applyStartStates}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{applyStartStates()}{applyStartStates()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::apply\+Start\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Isometry3d \&}]{cartesian\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000017}{Todo}}]Need to add descartes pose sampler to ompl profile \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000018}{Todo}}]Need to also provide the seed instruction to use here \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_ab92f4ff018fcb73f432eeb718ddbabbe}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_af03d90afd0172d9759ce8c2067c11123}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_af03d90afd0172d9759ce8c2067c11123}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!applyStartStates@{applyStartStates}}
+\index{applyStartStates@{applyStartStates}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{applyStartStates()}{applyStartStates()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::apply\+Start\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{joint\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a660ff9eed1bdfdbe23f2120f5fc8d5ac}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_accd31fa60fffec6e6ee3d9b9e16736a0}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_accd31fa60fffec6e6ee3d9b9e16736a0}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}}\& tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9d915daff536cbdb96ca9fec9af12e86}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9d915daff536cbdb96ca9fec9af12e86}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}}\& tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a80a00ba348af0086bd8eba3ac4e449e4}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a80a00ba348af0086bd8eba3ac4e449e4}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!processMotionValidator@{processMotionValidator}}
+\index{processMotionValidator@{processMotionValidator}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{processMotionValidator()}{processMotionValidator()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::process\+Motion\+Validator (\begin{DoxyParamCaption}\item[{ompl\+::base\+::\+State\+Validity\+Checker\+Ptr}]{svc\+\_\+without\+\_\+collision,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&}]{env,  }\item[{const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&}]{kin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a74ece06a7fbee5cf6bd861f88f581d2f}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a74ece06a7fbee5cf6bd861f88f581d2f}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!processOptimizationObjective@{processOptimizationObjective}}
+\index{processOptimizationObjective@{processOptimizationObjective}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{processOptimizationObjective()}{processOptimizationObjective()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::process\+Optimization\+Objective (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a6fe4bc322be56609822da67b84081ff5}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a6fe4bc322be56609822da67b84081ff5}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!processStartAndGoalState@{processStartAndGoalState}}
+\index{processStartAndGoalState@{processStartAndGoalState}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{processStartAndGoalState()}{processStartAndGoalState()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::process\+Start\+And\+Goal\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&}]{env,  }\item[{const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&}]{kin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_ab64f3077838fd56177e6d3ae672f1fbc}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_ab64f3077838fd56177e6d3ae672f1fbc}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!processStateValidator@{processStateValidator}}
+\index{processStateValidator@{processStateValidator}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{processStateValidator()}{processStateValidator()}}
+{\footnotesize\ttfamily ompl\+::base\+::\+State\+Validity\+Checker\+Ptr tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::process\+State\+Validator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&}]{env,  }\item[{const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&}]{kin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aab83f4dbd16afcf39d77877b088a36e8}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aab83f4dbd16afcf39d77877b088a36e8}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!setup@{setup}}
+\index{setup@{setup}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::setup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a62808c3408bb70633b2b6ac8f2f53597}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9ceeaf8d8a01e483992a71b15cb32df4}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9ceeaf8d8a01e483992a71b15cb32df4}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000019}{Todo}}]Update XML \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a147f1d18bcd0c85e5ccc6193a805f5f8}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aeda482ff03b91c4f5f598ec741ecfe3e}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aeda482ff03b91c4f5f598ec741ecfe3e}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!collision\_check@{collision\_check}}
+\index{collision\_check@{collision\_check}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{collision\_check}{collision\_check}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::collision\+\_\+check = true}
+
+
+
+If true, collision checking will be enabled. Default\+: true. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a91efc62229ff213aa39c83ffeebed52b}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a91efc62229ff213aa39c83ffeebed52b}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!collision\_continuous@{collision\_continuous}}
+\index{collision\_continuous@{collision\_continuous}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{collision\_continuous}{collision\_continuous}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::collision\+\_\+continuous = false}
+
+
+
+If true, use continuous collision checking. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a4dc63bb41f22752525f8a762b59d7e31}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a4dc63bb41f22752525f8a762b59d7e31}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!collision\_margin\_data@{collision\_margin\_data}}
+\index{collision\_margin\_data@{collision\_margin\_data}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{collision\_margin\_data}{collision\_margin\_data}}
+{\footnotesize\ttfamily tesseract\+\_\+collision\+::\+Collision\+Margin\+Data tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::collision\+\_\+margin\+\_\+data}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a451603d5b1dceb1fbc9a2df65aae1226}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a451603d5b1dceb1fbc9a2df65aae1226}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!longest\_valid\_segment\_fraction@{longest\_valid\_segment\_fraction}}
+\index{longest\_valid\_segment\_fraction@{longest\_valid\_segment\_fraction}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{longest\_valid\_segment\_fraction}{longest\_valid\_segment\_fraction}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::longest\+\_\+valid\+\_\+segment\+\_\+fraction = 0.\+01}
+
+
+
+Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid in post checking of trajectory returned by trajopt. 
+
+The resolution is equal to longest\+\_\+valid\+\_\+segment\+\_\+fraction $\ast$ state\+\_\+space.\+get\+Maximum\+Extent()
+
+Note\+: The planner takes the conservative of either longest\+\_\+valid\+\_\+segment\+\_\+fraction or longest\+\_\+valid\+\_\+segment\+\_\+length. \mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a5682dc1d33159e0e80953ec5c1411d12}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a5682dc1d33159e0e80953ec5c1411d12}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!longest\_valid\_segment\_length@{longest\_valid\_segment\_length}}
+\index{longest\_valid\_segment\_length@{longest\_valid\_segment\_length}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{longest\_valid\_segment\_length}{longest\_valid\_segment\_length}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::longest\+\_\+valid\+\_\+segment\+\_\+length = 0.\+1}
+
+
+
+Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 -\/ state0) $>$ longest\+\_\+valid\+\_\+segment\+\_\+length. 
+
+Note\+: This gets converted to longest\+\_\+valid\+\_\+segment\+\_\+fraction. longest\+\_\+valid\+\_\+segment\+\_\+fraction = longest\+\_\+valid\+\_\+segment\+\_\+length / state\+\_\+space.\+get\+Maximum\+Extent() \mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aada5f680b3b34da25c4076e01d140a88}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aada5f680b3b34da25c4076e01d140a88}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!max\_solutions@{max\_solutions}}
+\index{max\_solutions@{max\_solutions}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{max\_solutions}{max\_solutions}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::max\+\_\+solutions = 10}
+
+
+
+The max number of solutions. If max solutions are hit it will exit even if other threads are running. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_afc03ce7dd6213efcd899f686b428587f}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_afc03ce7dd6213efcd899f686b428587f}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!mv\_allocator@{mv\_allocator}}
+\index{mv\_allocator@{mv\_allocator}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{mv\_allocator}{mv\_allocator}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a49e2e11b198d0aa7480130b9f18021d5}{Motion\+Validator\+Allocator}} tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::mv\+\_\+allocator}
+
+
+
+The ompl motion validator. If nullptr and continuous collision checking enabled it used \mbox{\hyperlink{classtesseract__planning_1_1ContinuousMotionValidator}{Continuous\+Motion\+Validator}}. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac712f2a02f03fffa63def84aa458eb6b}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac712f2a02f03fffa63def84aa458eb6b}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!optimization\_objective\_allocator@{optimization\_objective\_allocator}}
+\index{optimization\_objective\_allocator@{optimization\_objective\_allocator}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{optimization\_objective\_allocator}{optimization\_objective\_allocator}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a7bd709d31d5445aafb082d85b1dced53}{Optimization\+Objective\+Allocator}} tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::optimization\+\_\+objective\+\_\+allocator}
+
+
+
+Set the optimization objective function allocator. Default is to minimize path length. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a19c00def077054fa09c8e786fa8cafe2}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a19c00def077054fa09c8e786fa8cafe2}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!optimize@{optimize}}
+\index{optimize@{optimize}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{optimize}{optimize}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::optimize = true}
+
+
+
+This uses all available planning time to create the most optimized trajectory given the objective function. 
+
+This is required because not all OMPL planners are optimize graph planners. If the planner you choose is an optimize graph planner then setting this to true has no affect. In the case of non-\/optimize planners they still use the Optimize\+Objective function but only when searching the graph to find the most optimize solution based on the provided optimize objective function. In the case of these type of planners like RRT and RRTConnect if set to true it will leverage all planning time to keep finding solutions up to your max solutions count to find the most optimal solution. \mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_ab6e85fae7f88345ed6bdf4768c3f616c}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_ab6e85fae7f88345ed6bdf4768c3f616c}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!planners@{planners}}
+\index{planners@{planners}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{planners}{planners}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aecd7bfc8d1a2b291435ed3a4bc8a65be}{OMPLPlanner\+Configurator\+::\+Const\+Ptr}}$>$ tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::planners}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{ std::make\_shared<const RRTConnectConfigurator>(),}
+\DoxyCodeLine{                                                              std::make\_shared<const RRTConnectConfigurator>() \}}
+
+\end{DoxyCode}
+
+
+The planner configurators. 
+
+This defaults to two \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnect\+Configurator}}
+
+This will create a new thead for each planner configurator provided. T \mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_ad23a1b6c4773f47e528a8308eddbb17f}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_ad23a1b6c4773f47e528a8308eddbb17f}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!planning\_time@{planning\_time}}
+\index{planning\_time@{planning\_time}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{planning\_time}{planning\_time}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::planning\+\_\+time = 5.\+0}
+
+
+
+Max planning time allowed in seconds. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a18dc4b97e0916d68f4dda78f730498f8}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a18dc4b97e0916d68f4dda78f730498f8}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!simplify@{simplify}}
+\index{simplify@{simplify}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{simplify}{simplify}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::simplify = false}
+
+
+
+Simplify trajectory. 
+
+Note\+: If set to true it ignores n\+\_\+output\+\_\+states and returns the simplest trajectory. \mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9734d05f7edd9ead62877cb7f42b1765}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9734d05f7edd9ead62877cb7f42b1765}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!state\_sampler\_allocator@{state\_sampler\_allocator}}
+\index{state\_sampler\_allocator@{state\_sampler\_allocator}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{state\_sampler\_allocator}{state\_sampler\_allocator}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}{State\+Sampler\+Allocator}} tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::state\+\_\+sampler\+\_\+allocator}
+
+
+
+The state sampler allocator. This can be null and it will use Tesseract default state sampler allocator. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac281ec8dfa7fbc41636933f7c8941ca7}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac281ec8dfa7fbc41636933f7c8941ca7}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!state\_space@{state\_space}}
+\index{state\_space@{state\_space}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{state\_space}{state\_space}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{OMPLProblem\+State\+Space}} tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::state\+\_\+space \{ \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{OMPLProblem\+State\+Space\+::\+REAL\+\_\+\+STATE\+\_\+\+SPACE}} \}}
+
+
+
+The OMPL state space to use when planning. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a05375d52391209d1eea6c6cfb931d707}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a05375d52391209d1eea6c6cfb931d707}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!svc\_allocator@{svc\_allocator}}
+\index{svc\_allocator@{svc\_allocator}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{svc\_allocator}{svc\_allocator}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a4998b57113ac39511185f381ce61a6fd}{State\+Validity\+Checker\+Allocator}} tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::svc\+\_\+allocator}
+
+
+
+The ompl state validity checker. If nullptr and collision checking enabled it uses \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator}{State\+Collision\+Validator}}. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/profile/\mbox{\hyperlink{ompl__default__plan__profile_8h}{ompl\+\_\+default\+\_\+plan\+\_\+profile.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/ompl/profile/\mbox{\hyperlink{ompl__default__plan__profile_8cpp}{ompl\+\_\+default\+\_\+plan\+\_\+profile.\+cpp}}\end{DoxyCompactItemize}

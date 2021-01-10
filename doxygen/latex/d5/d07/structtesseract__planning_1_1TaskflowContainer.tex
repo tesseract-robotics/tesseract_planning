@@ -1,0 +1,132 @@
+\hypertarget{structtesseract__planning_1_1TaskflowContainer}{}\doxysection{tesseract\+\_\+planning\+::Taskflow\+Container Struct Reference}
+\label{structtesseract__planning_1_1TaskflowContainer}\index{tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}}
+
+
+Taskflow Container.  
+
+
+
+
+{\ttfamily \#include $<$taskflow\+\_\+container.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Taskflow\+Container\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/d9f/structtesseract__planning_1_1TaskflowContainer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a60badc5958a411d500d5dcda184051aa}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Clear the Taskflow Container. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ tf\+::\+Taskflow $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a0e048e6b0dfe4507768445cdb7144ca7}{taskflow}}
+\begin{DoxyCompactList}\small\item\em If not a nullptr this should be added using taskflow composition. \end{DoxyCompactList}\item 
+tf\+::\+Task \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a75d193ffb9c416de192e8c6821bc8d3c}{input}}
+\begin{DoxyCompactList}\small\item\em The input task associated with a taskflow. \end{DoxyCompactList}\item 
+std\+::vector$<$ tf\+::\+Task $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a5ee740711c275b3836b736667dd3e5b6}{outputs}}
+\begin{DoxyCompactList}\small\item\em The output task associated with a taskflow. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a696d65a9b9b48b66f06811e2a3caa42d}{containers}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}}\textquotesingle{}s associated with the taskflow. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a4d9ece2b4c856ac92de4035e2eb3ea6b}{generators}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{Task\+Generator}}\textquotesingle{}s associated with the taskflow. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Taskflow Container. 
+
+Taskflow composition does not allow connecting to tasks within another taskflow. This is to support similar functionality where all tasks are added to the highest level taskflow and stores all tasks from a generator and the identified input and output tasks for composition
+
+
+\begin{DoxyItemize}
+\item Input Task\+: input
+\item Output Tasks\+:
+\begin{DoxyItemize}
+\item On Error\+: outputs\mbox{[}0\mbox{]}
+\item On Success\+: outputs\mbox{[}1\mbox{]} 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskflowContainer_a60badc5958a411d500d5dcda184051aa}\label{structtesseract__planning_1_1TaskflowContainer_a60badc5958a411d500d5dcda184051aa}} 
+\index{tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}!clear@{clear}}
+\index{clear@{clear}!tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Taskflow\+Container\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clear the Taskflow Container. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskflowContainer_a696d65a9b9b48b66f06811e2a3caa42d}\label{structtesseract__planning_1_1TaskflowContainer_a696d65a9b9b48b66f06811e2a3caa42d}} 
+\index{tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}!containers@{containers}}
+\index{containers@{containers}!tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}}
+\doxysubsubsection{\texorpdfstring{containers}{containers}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}}$>$ tesseract\+\_\+planning\+::\+Taskflow\+Container\+::containers}
+
+
+
+\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}}\textquotesingle{}s associated with the taskflow. 
+
+This must stay around during execution of taskflow \mbox{\Hypertarget{structtesseract__planning_1_1TaskflowContainer_a4d9ece2b4c856ac92de4035e2eb3ea6b}\label{structtesseract__planning_1_1TaskflowContainer_a4d9ece2b4c856ac92de4035e2eb3ea6b}} 
+\index{tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}!generators@{generators}}
+\index{generators@{generators}!tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}}
+\doxysubsubsection{\texorpdfstring{generators}{generators}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}}$>$ tesseract\+\_\+planning\+::\+Taskflow\+Container\+::generators}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{Task\+Generator}}\textquotesingle{}s associated with the taskflow. 
+
+This must stay around during execution of taskflow \mbox{\Hypertarget{structtesseract__planning_1_1TaskflowContainer_a75d193ffb9c416de192e8c6821bc8d3c}\label{structtesseract__planning_1_1TaskflowContainer_a75d193ffb9c416de192e8c6821bc8d3c}} 
+\index{tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}!input@{input}}
+\index{input@{input}!tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}}
+\doxysubsubsection{\texorpdfstring{input}{input}}
+{\footnotesize\ttfamily tf\+::\+Task tesseract\+\_\+planning\+::\+Taskflow\+Container\+::input}
+
+
+
+The input task associated with a taskflow. 
+
+\begin{DoxyWarning}{Warning}
+If taskflow is not a nullptr, then input is associated with the above taskflow and connections cannot span multiple taskflows 
+\end{DoxyWarning}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskflowContainer_a5ee740711c275b3836b736667dd3e5b6}\label{structtesseract__planning_1_1TaskflowContainer_a5ee740711c275b3836b736667dd3e5b6}} 
+\index{tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}!outputs@{outputs}}
+\index{outputs@{outputs}!tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}}
+\doxysubsubsection{\texorpdfstring{outputs}{outputs}}
+{\footnotesize\ttfamily std\+::vector$<$tf\+::\+Task$>$ tesseract\+\_\+planning\+::\+Taskflow\+Container\+::outputs}
+
+
+
+The output task associated with a taskflow. 
+
+\begin{DoxyWarning}{Warning}
+If taskflow is not a nullptr, then input is associated with the above taskflow and connections cannot span multiple taskflows 
+\end{DoxyWarning}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskflowContainer_a0e048e6b0dfe4507768445cdb7144ca7}\label{structtesseract__planning_1_1TaskflowContainer_a0e048e6b0dfe4507768445cdb7144ca7}} 
+\index{tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}!taskflow@{taskflow}}
+\index{taskflow@{taskflow}!tesseract\_planning::TaskflowContainer@{tesseract\_planning::TaskflowContainer}}
+\doxysubsubsection{\texorpdfstring{taskflow}{taskflow}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$tf\+::\+Taskflow$>$ tesseract\+\_\+planning\+::\+Taskflow\+Container\+::taskflow}
+
+
+
+If not a nullptr this should be added using taskflow composition. 
+
+If a nullptr then input and outputs may be used. 
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/\mbox{\hyperlink{taskflow__container_8h}{taskflow\+\_\+container.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/core/\mbox{\hyperlink{taskflow__container_8cpp}{taskflow\+\_\+container.\+cpp}}\end{DoxyCompactItemize}

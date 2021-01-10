@@ -1,0 +1,305 @@
+\hypertarget{classtesseract__planning_1_1GraphTaskflow}{}\doxysection{tesseract\+\_\+planning\+::Graph\+Taskflow Class Reference}
+\label{classtesseract__planning_1_1GraphTaskflow}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+
+
+This class generates taskflow graph. It allows you to connect different channels from the source to the destination process.  
+
+
+
+
+{\ttfamily \#include $<$graph\+\_\+taskflow.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Graph\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{dd/d16/classtesseract__planning_1_1GraphTaskflow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Graph\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d59/classtesseract__planning_1_1GraphTaskflow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Edge}{Edge}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node}{Node}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162}{Node\+Type}} \+: int \{ \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162a0ed9b001ca1cd2667302a9be876ede9d}{TASK}} = 0
+, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162a6685384d880fca387e09391a6e53e3a8}{CONDITIONAL}} = 1
+ \}
+\item 
+enum class \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7}{Source\+Channel}} \+: int \{ \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7ab50339a10e1de285ac99d4c3990b8693}{NONE}} = 0
+, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7ac49d5c80c31192ba7ba58d7e3a01cade}{ON\+\_\+\+SUCCESS}} = 1
+, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7af25f3dc246dfc82bb48c48e4760ad7cc}{ON\+\_\+\+FAILURE}} = 2
+ \}
+\item 
+enum class \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044b}{Destination\+Channel}} \+: int \{ \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba672a444bad65afdc88279258b06f8eda}{PROCESS\+\_\+\+NODE}} = 0
+, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba53bdfd810531fb4d8e0c96ecbd56b534}{DONE\+\_\+\+CALLBACK}} = 1
+, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba5c9e64380d2d671d0b7744af7bcee7cd}{ERROR\+\_\+\+CALLBACK}} = 2
+ \}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_abb81a789c742a90df025d5d329cc639e}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a02e730e399a30322d5b069d2cce144ca}{Graph\+Taskflow}} (std\+::string name=\char`\"{}Graph\+Taskflow\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ac58d5697b16cd3d310ac06974597be7b}{$\sim$\+Graph\+Taskflow}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a8744d2007fd04fb4caa28fe4767ff6df}{Graph\+Taskflow}} (const \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0ddcd59223e34c565c164d2e0322ded1}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_afd628bbd3298dcf1d050d60594bece3e}{Graph\+Taskflow}} (\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_aab1b9898b40df33a2c8679122dc3a7bf}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&\&)=delete
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a69e66fd067bc9b8a06f80efd91190c80}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of the task flow. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_abb28fe9e4192e83d86d693d88cff9b15}{generate\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} done\+\_\+cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} error\+\_\+cb) override
+\begin{DoxyCompactList}\small\item\em Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab18b5beef5e9b051ce206850c19b6645}{add\+Node}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}} process, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162}{Node\+Type}} process\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Add a node to the taskflow graph along with setting the process type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a251c85491a480ac6f357fda70834e1ff}{add\+Edge}} (int src, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7}{Source\+Channel}} src\+\_\+channel, int dest, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044b}{Destination\+Channel}} dest\+\_\+channel)
+\begin{DoxyCompactList}\small\item\em Add an edge to the taskflow graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node}{Node}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab2ee8f84450f96bf550889ae1279be8f}{nodes\+\_\+}}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a9a783069508a9746304aefb7168b8207}{name\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class generates taskflow graph. It allows you to connect different channels from the source to the destination process. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_abb81a789c742a90df025d5d329cc639e}\label{classtesseract__planning_1_1GraphTaskflow_abb81a789c742a90df025d5d329cc639e}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_abb81a789c742a90df025d5d329cc639e}{tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}}$>$}
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044b}\label{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044b}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!DestinationChannel@{DestinationChannel}}
+\index{DestinationChannel@{DestinationChannel}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{DestinationChannel}{DestinationChannel}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044b}{tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Destination\+Channel}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PROCESS\_NODE@{PROCESS\_NODE}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!PROCESS\_NODE@{PROCESS\_NODE}}}\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba672a444bad65afdc88279258b06f8eda}\label{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba672a444bad65afdc88279258b06f8eda}} 
+PROCESS\+\_\+\+NODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DONE\_CALLBACK@{DONE\_CALLBACK}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!DONE\_CALLBACK@{DONE\_CALLBACK}}}\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba53bdfd810531fb4d8e0c96ecbd56b534}\label{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba53bdfd810531fb4d8e0c96ecbd56b534}} 
+DONE\+\_\+\+CALLBACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_CALLBACK@{ERROR\_CALLBACK}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!ERROR\_CALLBACK@{ERROR\_CALLBACK}}}\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba5c9e64380d2d671d0b7744af7bcee7cd}\label{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044ba5c9e64380d2d671d0b7744af7bcee7cd}} 
+ERROR\+\_\+\+CALLBACK&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162}\label{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!NodeType@{NodeType}}
+\index{NodeType@{NodeType}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{NodeType}{NodeType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162}{tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Node\+Type}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TASK@{TASK}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!TASK@{TASK}}}\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162a0ed9b001ca1cd2667302a9be876ede9d}\label{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162a0ed9b001ca1cd2667302a9be876ede9d}} 
+TASK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CONDITIONAL@{CONDITIONAL}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!CONDITIONAL@{CONDITIONAL}}}\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162a6685384d880fca387e09391a6e53e3a8}\label{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162a6685384d880fca387e09391a6e53e3a8}} 
+CONDITIONAL&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7}\label{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!SourceChannel@{SourceChannel}}
+\index{SourceChannel@{SourceChannel}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{SourceChannel}{SourceChannel}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7}{tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Source\+Channel}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NONE@{NONE}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!NONE@{NONE}}}\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7ab50339a10e1de285ac99d4c3990b8693}\label{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7ab50339a10e1de285ac99d4c3990b8693}} 
+NONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ON\_SUCCESS@{ON\_SUCCESS}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!ON\_SUCCESS@{ON\_SUCCESS}}}\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7ac49d5c80c31192ba7ba58d7e3a01cade}\label{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7ac49d5c80c31192ba7ba58d7e3a01cade}} 
+ON\+\_\+\+SUCCESS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ON\_FAILURE@{ON\_FAILURE}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!ON\_FAILURE@{ON\_FAILURE}}}\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7af25f3dc246dfc82bb48c48e4760ad7cc}\label{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7af25f3dc246dfc82bb48c48e4760ad7cc}} 
+ON\+\_\+\+FAILURE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a02e730e399a30322d5b069d2cce144ca}\label{classtesseract__planning_1_1GraphTaskflow_a02e730e399a30322d5b069d2cce144ca}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!GraphTaskflow@{GraphTaskflow}}
+\index{GraphTaskflow@{GraphTaskflow}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{GraphTaskflow()}{GraphTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Graph\+Taskflow (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}GraphTaskflow\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_ac58d5697b16cd3d310ac06974597be7b}\label{classtesseract__planning_1_1GraphTaskflow_ac58d5697b16cd3d310ac06974597be7b}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!````~GraphTaskflow@{$\sim$GraphTaskflow}}
+\index{````~GraphTaskflow@{$\sim$GraphTaskflow}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{$\sim$GraphTaskflow()}{~GraphTaskflow()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::$\sim$\+Graph\+Taskflow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a8744d2007fd04fb4caa28fe4767ff6df}\label{classtesseract__planning_1_1GraphTaskflow_a8744d2007fd04fb4caa28fe4767ff6df}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!GraphTaskflow@{GraphTaskflow}}
+\index{GraphTaskflow@{GraphTaskflow}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{GraphTaskflow()}{GraphTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Graph\+Taskflow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_afd628bbd3298dcf1d050d60594bece3e}\label{classtesseract__planning_1_1GraphTaskflow_afd628bbd3298dcf1d050d60594bece3e}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!GraphTaskflow@{GraphTaskflow}}
+\index{GraphTaskflow@{GraphTaskflow}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{GraphTaskflow()}{GraphTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Graph\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a251c85491a480ac6f357fda70834e1ff}\label{classtesseract__planning_1_1GraphTaskflow_a251c85491a480ac6f357fda70834e1ff}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::add\+Edge (\begin{DoxyParamCaption}\item[{int}]{src,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a54c9844ce9d2d4409aeb15762c36bbd7}{Source\+Channel}}}]{src\+\_\+channel,  }\item[{int}]{dest,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ab2b17d3576da1e80cffa18e1c6f7044b}{Destination\+Channel}}}]{dest\+\_\+channel }\end{DoxyParamCaption})}
+
+
+
+Add an edge to the taskflow graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em src} & The source node ID \\
+\hline
+{\em src\+\_\+channel} & The source channel (ON\+\_\+\+SUCCESS, ON\+\_\+\+FAILURE) \\
+\hline
+{\em dest} & The destination node ID (This is only required for destination channels PROCESS\+\_\+\+NODE) othewise pass a -\/1 \\
+\hline
+{\em dest\+\_\+channel} & The destination channel to connect with the source channel (PROCESS\+\_\+\+NODE, DONE\+\_\+\+CALLBACK, ERROR\+\_\+\+CALLBACK). \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_ab18b5beef5e9b051ce206850c19b6645}\label{classtesseract__planning_1_1GraphTaskflow_ab18b5beef5e9b051ce206850c19b6645}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!addNode@{addNode}}
+\index{addNode@{addNode}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{addNode()}{addNode()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::add\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}}}]{process,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162}{Node\+Type}}}]{process\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Add a node to the taskflow graph along with setting the process type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & The process generator assigned to the node \\
+\hline
+{\em process\+\_\+type} & The process type assigned to the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The node ID which should be used with adding edges 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_abb28fe9e4192e83d86d693d88cff9b15}\label{classtesseract__planning_1_1GraphTaskflow_abb28fe9e4192e83d86d693d88cff9b15}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!generateTaskflow@{generateTaskflow}}
+\index{generateTaskflow@{generateTaskflow}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{generateTaskflow()}{generateTaskflow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::generate\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{instruction,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{done\+\_\+cb,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{error\+\_\+cb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Instructions passed to this instance of the taskflow \\
+\hline
+{\em done\+\_\+cb} & A user defined callback \\
+\hline
+{\em error\+\_\+cb} & A user defined callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A taskflow container which must stay around during execution of taskflow 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a69e66fd067bc9b8a06f80efd91190c80}\label{classtesseract__planning_1_1GraphTaskflow_a69e66fd067bc9b8a06f80efd91190c80}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!getName@{getName}}
+\index{getName@{getName}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the name of the task flow. 
+
+\begin{DoxyReturn}{Returns}
+The name 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a0ddcd59223e34c565c164d2e0322ded1}\label{classtesseract__planning_1_1GraphTaskflow_a0ddcd59223e34c565c164d2e0322ded1}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}}\& tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_aab1b9898b40df33a2c8679122dc3a7bf}\label{classtesseract__planning_1_1GraphTaskflow_aab1b9898b40df33a2c8679122dc3a7bf}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}}\& tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_a9a783069508a9746304aefb7168b8207}\label{classtesseract__planning_1_1GraphTaskflow_a9a783069508a9746304aefb7168b8207}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!name\_@{name\_}}
+\index{name\_@{name\_}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1GraphTaskflow_ab2ee8f84450f96bf550889ae1279be8f}\label{classtesseract__planning_1_1GraphTaskflow_ab2ee8f84450f96bf550889ae1279be8f}} 
+\index{tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}!nodes\_@{nodes\_}}
+\index{nodes\_@{nodes\_}!tesseract\_planning::GraphTaskflow@{tesseract\_planning::GraphTaskflow}}
+\doxysubsubsection{\texorpdfstring{nodes\_}{nodes\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node}{Node}}$>$ tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::nodes\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/\mbox{\hyperlink{graph__taskflow_8h}{graph\+\_\+taskflow.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/taskflow\+\_\+generators/\mbox{\hyperlink{graph__taskflow_8cpp}{graph\+\_\+taskflow.\+cpp}}\end{DoxyCompactItemize}

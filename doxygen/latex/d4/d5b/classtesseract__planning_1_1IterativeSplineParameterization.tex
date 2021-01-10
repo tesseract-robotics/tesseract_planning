@@ -1,0 +1,333 @@
+\hypertarget{classtesseract__planning_1_1IterativeSplineParameterization}{}\doxysection{tesseract\+\_\+planning\+::Iterative\+Spline\+Parameterization Class Reference}
+\label{classtesseract__planning_1_1IterativeSplineParameterization}\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+
+
+This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints. Initial/final velocities and accelerations may be specified in the trajectory. Velocity and acceleration limits are specified in the model.  
+
+
+
+
+{\ttfamily \#include $<$iterative\+\_\+spline\+\_\+parameterization.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a257b973a5c78c14bd15a05d589615ad9}{Iterative\+Spline\+Parameterization}} (bool add\+\_\+points=true)
+\item 
+virtual \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a18d1f20951dc6c942132d25b605a085f}{$\sim$\+Iterative\+Spline\+Parameterization}} ()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a743cebf39c03aa8f47a4c2e111252437}{Iterative\+Spline\+Parameterization}} (const \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \& \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a4b0d2be7f4dc9bc653401a78c8552b4f}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a935ada7ee7932b61446acb8890ec69c9}{Iterative\+Spline\+Parameterization}} (\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \& \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_adc5c51b8ee59ae22a9fb9f2c05507346}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \&\&)=default
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a144a75090249ab941818014d2c8da8b2}{compute}} (Composite\+Instruction \&program, const double \&max\+\_\+velocity, const double \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const
+\begin{DoxyCompactList}\small\item\em Compute the time stamps for a provided program. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a010f4a5169de400ff5677154b60a0eea}{compute}} (Composite\+Instruction \&program, const std\+::vector$<$ double $>$ \&max\+\_\+velocity, const std\+::vector$<$ double $>$ \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const
+\begin{DoxyCompactList}\small\item\em Compute the time stamps for a provided program. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_acd617a0c36c80576ead1fb4a48a1344f}{compute}} (Composite\+Instruction \&program, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const
+\begin{DoxyCompactList}\small\item\em Compute the time stamps for a provided program. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a4987db0d380abe899886ec443cc15a95}{compute}} (Composite\+Instruction \&program, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity\+\_\+scaling\+\_\+factor, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration\+\_\+scaling\+\_\+factor) const
+\begin{DoxyCompactList}\small\item\em Compute the time stamps for a provided program. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_a63124a8248ef3f63a857b7f55d6dc111}{compute}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$$>$ \&trajectory, const double \&max\+\_\+velocity, const double \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const
+\begin{DoxyCompactList}\small\item\em Compute the time stamps for a flattened vector of move instruction. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_ad5bb3b9af15838fc8cc1e9495edc892f}{compute}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$$>$ \&trajectory, const std\+::vector$<$ double $>$ \&max\+\_\+velocity, const std\+::vector$<$ double $>$ \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const
+\begin{DoxyCompactList}\small\item\em Compute the time stamps for a flattened vector of move instruction. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_af3f0f45f2df50cb54791f99e318a0c85}{compute}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$$>$ \&trajectory, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const
+\begin{DoxyCompactList}\small\item\em Compute the time stamps for a flattened vector of move instruction. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_afa3c7794d76e29c7c6ae4250478ec9c8}{compute}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$$>$ \&trajectory, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity\+\_\+scaling\+\_\+factors, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration\+\_\+scaling\+\_\+factors) const
+\begin{DoxyCompactList}\small\item\em Compute the time stamps for a flattened vector of move instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization_af59064894e97d7861a3b44ed76d5db20}{add\+\_\+points\+\_\+}}
+\begin{DoxyCompactList}\small\item\em If true, add two points to trajectory (first and last segments). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints. Initial/final velocities and accelerations may be specified in the trajectory. Velocity and acceleration limits are specified in the model. 
+
+This algorithm repeatedly fits a cubic spline, adjusts the timing intervals, and repeats until all constraints are satisfied. When finished, each trajectory waypoint will have the time set, as well as the velocities and accelerations for each joint. Since we fit to a cubic spline, the position, velocity, and acceleration will be continuous and within bounds. The jerk will be discontinuous.
+
+To match the velocity and acceleration at the endpoints, the second and second-\/last point locations need to move. By default, two extra points are added to leave the original trajectory unaffected. If points are not added, the trajectory could potentially be faster, but the 2nd and 2nd-\/last points should be re-\/checked for collisions.
+
+Migration notes\+: If migrating from Iterative Parabolic Time Parameterization, be aware that the velocity and acceleration limits are more strictly enforced using this technique. This means that time-\/parameterizing the same trajectory with the same velocity and acceleration limits, will result in a longer trajectory. If this is a problem, try retuning (increasing) the limits. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a257b973a5c78c14bd15a05d589615ad9}\label{classtesseract__planning_1_1IterativeSplineParameterization_a257b973a5c78c14bd15a05d589615ad9}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!IterativeSplineParameterization@{IterativeSplineParameterization}}
+\index{IterativeSplineParameterization@{IterativeSplineParameterization}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{IterativeSplineParameterization()}{IterativeSplineParameterization()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::\+Iterative\+Spline\+Parameterization (\begin{DoxyParamCaption}\item[{bool}]{add\+\_\+points = {\ttfamily true} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a18d1f20951dc6c942132d25b605a085f}\label{classtesseract__planning_1_1IterativeSplineParameterization_a18d1f20951dc6c942132d25b605a085f}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!````~IterativeSplineParameterization@{$\sim$IterativeSplineParameterization}}
+\index{````~IterativeSplineParameterization@{$\sim$IterativeSplineParameterization}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{$\sim$IterativeSplineParameterization()}{~IterativeSplineParameterization()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::$\sim$\+Iterative\+Spline\+Parameterization (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a743cebf39c03aa8f47a4c2e111252437}\label{classtesseract__planning_1_1IterativeSplineParameterization_a743cebf39c03aa8f47a4c2e111252437}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!IterativeSplineParameterization@{IterativeSplineParameterization}}
+\index{IterativeSplineParameterization@{IterativeSplineParameterization}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{IterativeSplineParameterization()}{IterativeSplineParameterization()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::\+Iterative\+Spline\+Parameterization (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a935ada7ee7932b61446acb8890ec69c9}\label{classtesseract__planning_1_1IterativeSplineParameterization_a935ada7ee7932b61446acb8890ec69c9}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!IterativeSplineParameterization@{IterativeSplineParameterization}}
+\index{IterativeSplineParameterization@{IterativeSplineParameterization}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{IterativeSplineParameterization()}{IterativeSplineParameterization()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::\+Iterative\+Spline\+Parameterization (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a144a75090249ab941818014d2c8da8b2}\label{classtesseract__planning_1_1IterativeSplineParameterization_a144a75090249ab941818014d2c8da8b2}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!compute@{compute}}
+\index{compute@{compute}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::compute (\begin{DoxyParamCaption}\item[{Composite\+Instruction \&}]{program,  }\item[{const double \&}]{max\+\_\+velocity,  }\item[{const double \&}]{max\+\_\+acceleration,  }\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor = {\ttfamily 1.0},  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor = {\ttfamily 1.0} }\end{DoxyParamCaption}) const}
+
+
+
+Compute the time stamps for a provided program. 
+
+This will flatten the program to a vector of move instructions
+
+
+\begin{DoxyParams}{Parameters}
+{\em program} & The program to compute time stamps \\
+\hline
+{\em max\+\_\+velocities} & The max velocities for each joint \\
+\hline
+{\em max\+\_\+accelerations} & The max acceleration for each joint \\
+\hline
+{\em max\+\_\+velocity\+\_\+scaling\+\_\+factor} & The max velocity scaling factor \\
+\hline
+{\em max\+\_\+acceleration\+\_\+scaling\+\_\+factor} & The max acceleration scaling factor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a4987db0d380abe899886ec443cc15a95}\label{classtesseract__planning_1_1IterativeSplineParameterization_a4987db0d380abe899886ec443cc15a95}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!compute@{compute}}
+\index{compute@{compute}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::compute (\begin{DoxyParamCaption}\item[{Composite\+Instruction \&}]{program,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor }\end{DoxyParamCaption}) const}
+
+
+
+Compute the time stamps for a provided program. 
+
+This will flatten the program to a vector of move instructions
+
+
+\begin{DoxyParams}{Parameters}
+{\em program} & The program to compute time stamps \\
+\hline
+{\em max\+\_\+velocities} & The max velocities for each joint \\
+\hline
+{\em max\+\_\+accelerations} & The max acceleration for each joint \\
+\hline
+{\em max\+\_\+velocity\+\_\+scaling\+\_\+factor} & The max velocity scaling factor. Size should be program.\+size() \\
+\hline
+{\em max\+\_\+acceleration\+\_\+scaling\+\_\+factor} & The max acceleration scaling factor. Size should be program.\+size() \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_acd617a0c36c80576ead1fb4a48a1344f}\label{classtesseract__planning_1_1IterativeSplineParameterization_acd617a0c36c80576ead1fb4a48a1344f}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!compute@{compute}}
+\index{compute@{compute}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::compute (\begin{DoxyParamCaption}\item[{Composite\+Instruction \&}]{program,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration,  }\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor = {\ttfamily 1.0},  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor = {\ttfamily 1.0} }\end{DoxyParamCaption}) const}
+
+
+
+Compute the time stamps for a provided program. 
+
+This will flatten the program to a vector of move instructions
+
+
+\begin{DoxyParams}{Parameters}
+{\em program} & The program to compute time stamps \\
+\hline
+{\em max\+\_\+velocities} & The max velocities for each joint \\
+\hline
+{\em max\+\_\+accelerations} & The max acceleration for each joint \\
+\hline
+{\em max\+\_\+velocity\+\_\+scaling\+\_\+factor} & The max velocity scaling factor \\
+\hline
+{\em max\+\_\+acceleration\+\_\+scaling\+\_\+factor} & The max acceleration scaling factor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a010f4a5169de400ff5677154b60a0eea}\label{classtesseract__planning_1_1IterativeSplineParameterization_a010f4a5169de400ff5677154b60a0eea}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!compute@{compute}}
+\index{compute@{compute}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::compute (\begin{DoxyParamCaption}\item[{Composite\+Instruction \&}]{program,  }\item[{const std\+::vector$<$ double $>$ \&}]{max\+\_\+velocity,  }\item[{const std\+::vector$<$ double $>$ \&}]{max\+\_\+acceleration,  }\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor = {\ttfamily 1.0},  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor = {\ttfamily 1.0} }\end{DoxyParamCaption}) const}
+
+
+
+Compute the time stamps for a provided program. 
+
+This will flatten the program to a vector of move instructions
+
+
+\begin{DoxyParams}{Parameters}
+{\em program} & The program to compute time stamps \\
+\hline
+{\em max\+\_\+velocities} & The max velocities for each joint \\
+\hline
+{\em max\+\_\+accelerations} & The max acceleration for each joint \\
+\hline
+{\em max\+\_\+velocity\+\_\+scaling\+\_\+factor} & The max velocity scaling factor \\
+\hline
+{\em max\+\_\+acceleration\+\_\+scaling\+\_\+factor} & The max acceleration scaling factor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a63124a8248ef3f63a857b7f55d6dc111}\label{classtesseract__planning_1_1IterativeSplineParameterization_a63124a8248ef3f63a857b7f55d6dc111}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!compute@{compute}}
+\index{compute@{compute}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::compute (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$$>$ \&}]{trajectory,  }\item[{const double \&}]{max\+\_\+velocity,  }\item[{const double \&}]{max\+\_\+acceleration,  }\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor = {\ttfamily 1.0},  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor = {\ttfamily 1.0} }\end{DoxyParamCaption}) const}
+
+
+
+Compute the time stamps for a flattened vector of move instruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trajectory} & Flattended vector of move instruction \\
+\hline
+{\em max\+\_\+velocities} & The max velocities for each joint \\
+\hline
+{\em max\+\_\+accelerations} & The max acceleration for each joint \\
+\hline
+{\em max\+\_\+velocity\+\_\+scaling\+\_\+factor} & The max velocity scaling factor \\
+\hline
+{\em max\+\_\+acceleration\+\_\+scaling\+\_\+factor} & The max acceleration scaling factor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_afa3c7794d76e29c7c6ae4250478ec9c8}\label{classtesseract__planning_1_1IterativeSplineParameterization_afa3c7794d76e29c7c6ae4250478ec9c8}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!compute@{compute}}
+\index{compute@{compute}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::compute (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$$>$ \&}]{trajectory,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity\+\_\+scaling\+\_\+factors,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factors }\end{DoxyParamCaption}) const}
+
+
+
+Compute the time stamps for a flattened vector of move instruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trajectory} & Flattended vector of move instruction \\
+\hline
+{\em max\+\_\+velocities} & The max velocities for each joint \\
+\hline
+{\em max\+\_\+accelerations} & The max acceleration for each joint \\
+\hline
+{\em max\+\_\+velocity\+\_\+scaling\+\_\+factor} & The max velocity scaling factor. Size should be trajectory.\+size() \\
+\hline
+{\em max\+\_\+acceleration\+\_\+scaling\+\_\+factor} & The max acceleration scaling factor. Size should be trajectory.\+size() \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_af3f0f45f2df50cb54791f99e318a0c85}\label{classtesseract__planning_1_1IterativeSplineParameterization_af3f0f45f2df50cb54791f99e318a0c85}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!compute@{compute}}
+\index{compute@{compute}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::compute (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$$>$ \&}]{trajectory,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration,  }\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor = {\ttfamily 1.0},  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor = {\ttfamily 1.0} }\end{DoxyParamCaption}) const}
+
+
+
+Compute the time stamps for a flattened vector of move instruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trajectory} & Flattended vector of move instruction \\
+\hline
+{\em max\+\_\+velocities} & The max velocities for each joint \\
+\hline
+{\em max\+\_\+accelerations} & The max acceleration for each joint \\
+\hline
+{\em max\+\_\+velocity\+\_\+scaling\+\_\+factor} & The max velocity scaling factor \\
+\hline
+{\em max\+\_\+acceleration\+\_\+scaling\+\_\+factor} & The max acceleration scaling factor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_ad5bb3b9af15838fc8cc1e9495edc892f}\label{classtesseract__planning_1_1IterativeSplineParameterization_ad5bb3b9af15838fc8cc1e9495edc892f}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!compute@{compute}}
+\index{compute@{compute}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::compute (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$$>$ \&}]{trajectory,  }\item[{const std\+::vector$<$ double $>$ \&}]{max\+\_\+velocity,  }\item[{const std\+::vector$<$ double $>$ \&}]{max\+\_\+acceleration,  }\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor = {\ttfamily 1.0},  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor = {\ttfamily 1.0} }\end{DoxyParamCaption}) const}
+
+
+
+Compute the time stamps for a flattened vector of move instruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trajectory} & Flattended vector of move instruction \\
+\hline
+{\em max\+\_\+velocities} & The max velocities for each joint \\
+\hline
+{\em max\+\_\+accelerations} & The max acceleration for each joint \\
+\hline
+{\em max\+\_\+velocity\+\_\+scaling\+\_\+factor} & The max velocity scaling factor \\
+\hline
+{\em max\+\_\+acceleration\+\_\+scaling\+\_\+factor} & The max acceleration scaling factor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_a4b0d2be7f4dc9bc653401a78c8552b4f}\label{classtesseract__planning_1_1IterativeSplineParameterization_a4b0d2be7f4dc9bc653401a78c8552b4f}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}}\& tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_adc5c51b8ee59ae22a9fb9f2c05507346}\label{classtesseract__planning_1_1IterativeSplineParameterization_adc5c51b8ee59ae22a9fb9f2c05507346}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}}\& tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterization_af59064894e97d7861a3b44ed76d5db20}\label{classtesseract__planning_1_1IterativeSplineParameterization_af59064894e97d7861a3b44ed76d5db20}} 
+\index{tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}!add\_points\_@{add\_points\_}}
+\index{add\_points\_@{add\_points\_}!tesseract\_planning::IterativeSplineParameterization@{tesseract\_planning::IterativeSplineParameterization}}
+\doxysubsubsection{\texorpdfstring{add\_points\_}{add\_points\_}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+::add\+\_\+points\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If true, add two points to trajectory (first and last segments). 
+
+If false, move the 2nd and 2nd-\/last points. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+time\+\_\+parameterization/include/tesseract\+\_\+time\+\_\+parameterization/\mbox{\hyperlink{iterative__spline__parameterization_8h}{iterative\+\_\+spline\+\_\+parameterization.\+h}}\item 
+tesseract\+\_\+time\+\_\+parameterization/src/\mbox{\hyperlink{iterative__spline__parameterization_8cpp}{iterative\+\_\+spline\+\_\+parameterization.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,109 @@
+\hypertarget{fixed__size__interpolation_8h}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/simple/step\+\_\+generators/fixed\+\_\+size\+\_\+interpolation.h File Reference}
+\label{fixed__size__interpolation_8h}\index{tesseract\_motion\_planners/include/tesseract\_motion\_planners/simple/step\_generators/fixed\_size\_interpolation.h@{tesseract\_motion\_planners/include/tesseract\_motion\_planners/simple/step\_generators/fixed\_size\_interpolation.h}}
+
+
+Provides interpolators where the number of steps are specified.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/types.\+h$>$}\newline
+Include dependency graph for fixed\+\_\+size\+\_\+interpolation.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dff/fixed__size__interpolation_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d72/fixed__size__interpolation_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a9383340e931491b2de9f3292e1bdae26}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const Planner\+Request \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)
+\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_af43a652454f562e022435bb14f55d7a9}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const Planner\+Request \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)
+\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a96223b36a77dabe1bf33ec11ed8ed97b}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const Planner\+Request \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)
+\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a392b0c232da908a1110f17427e917eb2}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const Planner\+Request \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)
+\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_adddc7aa17fc164a35ea0004da350f8be}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Joint\+Waypoint \&, const Plan\+Instruction \&base\+\_\+instruction, const Planner\+Request \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)
+\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a27b5ac961c9912d8062c5fbd142a47f6}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const Planner\+Request \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)
+\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a431474549cef35ad4ba73dd8dae836b4}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const Planner\+Request \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)
+\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_aed64797564037b85e5ffbad6d81bd863}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const Planner\+Request \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides interpolators where the number of steps are specified. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Powelson 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+July 23, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000052}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+\end{DoxyParagraph}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+
+Matthew Powelson 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+July 23, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000099}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

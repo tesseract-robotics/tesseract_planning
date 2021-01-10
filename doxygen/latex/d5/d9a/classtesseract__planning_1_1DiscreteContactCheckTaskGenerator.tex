@@ -1,0 +1,174 @@
+\hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{}\doxysection{tesseract\+\_\+planning\+::Discrete\+Contact\+Check\+Task\+Generator Class Reference}
+\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+
+
+{\ttfamily \#include $<$discrete\+\_\+contact\+\_\+check\+\_\+task\+\_\+generator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Discrete\+Contact\+Check\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{dd/d5e/classtesseract__planning_1_1DiscreteContactCheckTaskGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Discrete\+Contact\+Check\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{d8/d5f/classtesseract__planning_1_1DiscreteContactCheckTaskGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a1b9a85aff2bd01a9f053dc2a4c30ed15}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_afc44e59b0db6dd902f228490f40644c5}{Discrete\+Contact\+Check\+Task\+Generator}} (std\+::string name=\char`\"{}Discrete Contact Check Trajectory\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a25c1b74c73a65b45ae7114c45c4c628e}{Discrete\+Contact\+Check\+Task\+Generator}} (double longest\+\_\+valid\+\_\+segment\+\_\+length, double contact\+\_\+distance, std\+::string name=\char`\"{}Discrete Contact Check Trajectory\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_ae9ef63e3ab3b4a73485539d7e1a52167}{$\sim$\+Discrete\+Contact\+Check\+Task\+Generator}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a1c7d577387629a82c783deb74d0b8b63}{Discrete\+Contact\+Check\+Task\+Generator}} (const \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a7ebed564da001c1c617f9f329d696c60}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a9753a24dca4ece71fcf43e55e1874d14}{Discrete\+Contact\+Check\+Task\+Generator}} (\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a452f3c3fbfb493ad4570396b05bc7058}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \&\&)=delete
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_aa2798b938c8776caaa49f8129f20ee7c}{conditional\+Process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generate Conditional Task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_aa3ec878111e7ca708084177ca15b5312}{process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generated a Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+collision\+::\+Collision\+Check\+Config \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_adf9bb8bb494eaf21da5008da9f8f3962}{config}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a1b9a85aff2bd01a9f053dc2a4c30ed15}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a1b9a85aff2bd01a9f053dc2a4c30ed15}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a1b9a85aff2bd01a9f053dc2a4c30ed15}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_afc44e59b0db6dd902f228490f40644c5}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_afc44e59b0db6dd902f228490f40644c5}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!DiscreteContactCheckTaskGenerator@{DiscreteContactCheckTaskGenerator}}
+\index{DiscreteContactCheckTaskGenerator@{DiscreteContactCheckTaskGenerator}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTaskGenerator()}{DiscreteContactCheckTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::\+Discrete\+Contact\+Check\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}Discrete~Contact~Check~Trajectory\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a25c1b74c73a65b45ae7114c45c4c628e}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a25c1b74c73a65b45ae7114c45c4c628e}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!DiscreteContactCheckTaskGenerator@{DiscreteContactCheckTaskGenerator}}
+\index{DiscreteContactCheckTaskGenerator@{DiscreteContactCheckTaskGenerator}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTaskGenerator()}{DiscreteContactCheckTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::\+Discrete\+Contact\+Check\+Task\+Generator (\begin{DoxyParamCaption}\item[{double}]{longest\+\_\+valid\+\_\+segment\+\_\+length,  }\item[{double}]{contact\+\_\+distance,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}Discrete~Contact~Check~Trajectory\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_ae9ef63e3ab3b4a73485539d7e1a52167}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_ae9ef63e3ab3b4a73485539d7e1a52167}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!````~DiscreteContactCheckTaskGenerator@{$\sim$DiscreteContactCheckTaskGenerator}}
+\index{````~DiscreteContactCheckTaskGenerator@{$\sim$DiscreteContactCheckTaskGenerator}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$DiscreteContactCheckTaskGenerator()}{~DiscreteContactCheckTaskGenerator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::$\sim$\+Discrete\+Contact\+Check\+Task\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a1c7d577387629a82c783deb74d0b8b63}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a1c7d577387629a82c783deb74d0b8b63}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!DiscreteContactCheckTaskGenerator@{DiscreteContactCheckTaskGenerator}}
+\index{DiscreteContactCheckTaskGenerator@{DiscreteContactCheckTaskGenerator}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTaskGenerator()}{DiscreteContactCheckTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::\+Discrete\+Contact\+Check\+Task\+Generator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a9753a24dca4ece71fcf43e55e1874d14}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a9753a24dca4ece71fcf43e55e1874d14}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!DiscreteContactCheckTaskGenerator@{DiscreteContactCheckTaskGenerator}}
+\index{DiscreteContactCheckTaskGenerator@{DiscreteContactCheckTaskGenerator}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{DiscreteContactCheckTaskGenerator()}{DiscreteContactCheckTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::\+Discrete\+Contact\+Check\+Task\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_aa2798b938c8776caaa49f8129f20ee7c}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_aa2798b938c8776caaa49f8129f20ee7c}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!conditionalProcess@{conditionalProcess}}
+\index{conditionalProcess@{conditionalProcess}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{conditionalProcess()}{conditionalProcess()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::conditional\+Process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generate Conditional Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Conditional Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e60805cfe9276ace7be827f2e}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a7ebed564da001c1c617f9f329d696c60}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a7ebed564da001c1c617f9f329d696c60}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a452f3c3fbfb493ad4570396b05bc7058}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a452f3c3fbfb493ad4570396b05bc7058}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator}{Discrete\+Contact\+Check\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_aa3ec878111e7ca708084177ca15b5312}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_aa3ec878111e7ca708084177ca15b5312}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!process@{process}}
+\index{process@{process}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generated a Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c150554739834a1d467fc726baba8}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_adf9bb8bb494eaf21da5008da9f8f3962}\label{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_adf9bb8bb494eaf21da5008da9f8f3962}} 
+\index{tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}!config@{config}}
+\index{config@{config}!tesseract\_planning::DiscreteContactCheckTaskGenerator@{tesseract\_planning::DiscreteContactCheckTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{config}{config}}
+{\footnotesize\ttfamily tesseract\+\_\+collision\+::\+Collision\+Check\+Config tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator\+::config}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/\mbox{\hyperlink{discrete__contact__check__task__generator_8h}{discrete\+\_\+contact\+\_\+check\+\_\+task\+\_\+generator.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/task\+\_\+generators/\mbox{\hyperlink{discrete__contact__check__task__generator_8cpp}{discrete\+\_\+contact\+\_\+check\+\_\+task\+\_\+generator.\+cpp}}\end{DoxyCompactItemize}

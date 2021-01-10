@@ -1,0 +1,4 @@
+<map id="tesseract_planning::DiscreteMotionValidator" name="tesseract_planning::DiscreteMotionValidator">
+<area shape="rect" id="node1" title="Continuous collision check between two states." alt="" coords="12,80,179,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,185,32"/>
+</map>

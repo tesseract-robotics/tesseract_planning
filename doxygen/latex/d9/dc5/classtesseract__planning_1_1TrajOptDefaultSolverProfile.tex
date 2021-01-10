@@ -1,0 +1,173 @@
+\hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{}\doxysection{tesseract\+\_\+planning\+::Traj\+Opt\+Default\+Solver\+Profile Class Reference}
+\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile}\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+
+
+The contains the default solver parameters available for setting up Traj\+Opt.  
+
+
+
+
+{\ttfamily \#include $<$trajopt\+\_\+default\+\_\+solver\+\_\+profile.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Default\+Solver\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{d9/d4d/classtesseract__planning_1_1TrajOptDefaultSolverProfile__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Default\+Solver\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{d8/d70/classtesseract__planning_1_1TrajOptDefaultSolverProfile__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_af6441e1b2c07be1f18e9f6f9653e5034}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ac9fd47257b5980d3bb3ac3eea5c2c34f}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_acc4acb1dffd4a42109a45bfdb15d42e7}{Traj\+Opt\+Default\+Solver\+Profile}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad7ffb9c5910cfdd746305aff1cfc40e2}{$\sim$\+Traj\+Opt\+Default\+Solver\+Profile}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad06941368a815d278d8f6b925171e117}{Traj\+Opt\+Default\+Solver\+Profile}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a0d25b0b2371400a38a2e873e95328358}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a34a81526b31cc42c4f104d07c38b98ce}{Traj\+Opt\+Default\+Solver\+Profile}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_aee81b87b5b35d4378c6cad4b6809950b}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \&\&)=default
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a944cb3cf440abccc752398c723c1fea1}{apply}} (trajopt\+::\+Problem\+Construction\+Info \&pci) const override
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad23e09c9b05915b56a9c4adf412c9378}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+sco\+::\+Model\+Type \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a68bc22f75793bef4d4665f168944926b}{convex\+\_\+solver}} \{ sco\+::\+Model\+Type\+::\+OSQP \}
+\begin{DoxyCompactList}\small\item\em The Convex solver to use. \end{DoxyCompactList}\item 
+sco\+::\+Basic\+Trust\+Region\+SQPParameters \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a67b241436e8f35c35012a2be860772e6}{opt\+\_\+info}}
+\begin{DoxyCompactList}\small\item\em Optimization paramters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The contains the default solver parameters available for setting up Traj\+Opt. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ac9fd47257b5980d3bb3ac3eea5c2c34f}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ac9fd47257b5980d3bb3ac3eea5c2c34f}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ac9fd47257b5980d3bb3ac3eea5c2c34f}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_af6441e1b2c07be1f18e9f6f9653e5034}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_af6441e1b2c07be1f18e9f6f9653e5034}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_af6441e1b2c07be1f18e9f6f9653e5034}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_acc4acb1dffd4a42109a45bfdb15d42e7}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_acc4acb1dffd4a42109a45bfdb15d42e7}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!TrajOptDefaultSolverProfile@{TrajOptDefaultSolverProfile}}
+\index{TrajOptDefaultSolverProfile@{TrajOptDefaultSolverProfile}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{TrajOptDefaultSolverProfile()}{TrajOptDefaultSolverProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::\+Traj\+Opt\+Default\+Solver\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad7ffb9c5910cfdd746305aff1cfc40e2}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad7ffb9c5910cfdd746305aff1cfc40e2}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!````~TrajOptDefaultSolverProfile@{$\sim$TrajOptDefaultSolverProfile}}
+\index{````~TrajOptDefaultSolverProfile@{$\sim$TrajOptDefaultSolverProfile}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{$\sim$TrajOptDefaultSolverProfile()}{~TrajOptDefaultSolverProfile()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::$\sim$\+Traj\+Opt\+Default\+Solver\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad06941368a815d278d8f6b925171e117}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad06941368a815d278d8f6b925171e117}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!TrajOptDefaultSolverProfile@{TrajOptDefaultSolverProfile}}
+\index{TrajOptDefaultSolverProfile@{TrajOptDefaultSolverProfile}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{TrajOptDefaultSolverProfile()}{TrajOptDefaultSolverProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::\+Traj\+Opt\+Default\+Solver\+Profile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a34a81526b31cc42c4f104d07c38b98ce}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a34a81526b31cc42c4f104d07c38b98ce}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!TrajOptDefaultSolverProfile@{TrajOptDefaultSolverProfile}}
+\index{TrajOptDefaultSolverProfile@{TrajOptDefaultSolverProfile}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{TrajOptDefaultSolverProfile()}{TrajOptDefaultSolverProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::\+Traj\+Opt\+Default\+Solver\+Profile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a944cb3cf440abccc752398c723c1fea1}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a944cb3cf440abccc752398c723c1fea1}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!apply@{apply}}
+\index{apply@{apply}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{apply()}{apply()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::apply (\begin{DoxyParamCaption}\item[{trajopt\+::\+Problem\+Construction\+Info \&}]{pci }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajOptSolverProfile_ab78e403ab65bfa6db6ac71421b23e806}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Solver\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a0d25b0b2371400a38a2e873e95328358}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a0d25b0b2371400a38a2e873e95328358}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}}\& tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_aee81b87b5b35d4378c6cad4b6809950b}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_aee81b87b5b35d4378c6cad4b6809950b}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}}\& tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{Traj\+Opt\+Default\+Solver\+Profile}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad23e09c9b05915b56a9c4adf412c9378}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad23e09c9b05915b56a9c4adf412c9378}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajOptSolverProfile_af132db4df6528d6fb57f227f2ffa4cf2}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Solver\+Profile}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a68bc22f75793bef4d4665f168944926b}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a68bc22f75793bef4d4665f168944926b}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!convex\_solver@{convex\_solver}}
+\index{convex\_solver@{convex\_solver}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{convex\_solver}{convex\_solver}}
+{\footnotesize\ttfamily sco\+::\+Model\+Type tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::convex\+\_\+solver \{ sco\+::\+Model\+Type\+::\+OSQP \}}
+
+
+
+The Convex solver to use. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a67b241436e8f35c35012a2be860772e6}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a67b241436e8f35c35012a2be860772e6}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!opt\_info@{opt\_info}}
+\index{opt\_info@{opt\_info}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{opt\_info}{opt\_info}}
+{\footnotesize\ttfamily sco\+::\+Basic\+Trust\+Region\+SQPParameters tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::opt\+\_\+info}
+
+
+
+Optimization paramters. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/trajopt/profile/\mbox{\hyperlink{trajopt__default__solver__profile_8h}{trajopt\+\_\+default\+\_\+solver\+\_\+profile.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/trajopt/profile/\mbox{\hyperlink{trajopt__default__solver__profile_8cpp}{trajopt\+\_\+default\+\_\+solver\+\_\+profile.\+cpp}}\end{DoxyCompactItemize}

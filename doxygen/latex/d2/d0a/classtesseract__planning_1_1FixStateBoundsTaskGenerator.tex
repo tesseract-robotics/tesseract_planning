@@ -1,0 +1,174 @@
+\hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{}\doxysection{tesseract\+\_\+planning\+::Fix\+State\+Bounds\+Task\+Generator Class Reference}
+\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator}\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+
+
+This generator modifies the const input instructions in order to push waypoints that are outside of their limits back within them.  
+
+
+
+
+{\ttfamily \#include $<$fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+generator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Fix\+State\+Bounds\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{d2/d24/classtesseract__planning_1_1FixStateBoundsTaskGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Fix\+State\+Bounds\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d79/classtesseract__planning_1_1FixStateBoundsTaskGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_ab1f613bc1e5e2047ae158a24ce16686b}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a23421c7bde4dda49c9cc8bf661d4a700}{Fix\+State\+Bounds\+Task\+Generator}} (std\+::string name=\char`\"{}Fix State Bounds\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_afc09d31729b1c0e669e7bd7724606978}{$\sim$\+Fix\+State\+Bounds\+Task\+Generator}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a4a1bf0ba023ff05b74ac3d04bfae3887}{Fix\+State\+Bounds\+Task\+Generator}} (const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_aa783d9883572001bfa8b373a3370c8b5}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_ad196fd7dffaf41f7c53240074292c6bc}{Fix\+State\+Bounds\+Task\+Generator}} (\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_abe77a9ccf10226f659437908c865a53f}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \&\&)=delete
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_add1b70028b615cf85bc006d4c1334678}{conditional\+Process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generate Conditional Task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a8f9dfb2f21f459dabcf8b3ca33d5beba}{process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generated a Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesseract__planning_a62edf06ea5ab3a18e6021309281780db}{Fix\+State\+Bounds\+Profile\+Map}} \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a35ead167504ad7927b3a6eeffb517ae6}{composite\+\_\+profiles}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This generator modifies the const input instructions in order to push waypoints that are outside of their limits back within them. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_ab1f613bc1e5e2047ae158a24ce16686b}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_ab1f613bc1e5e2047ae158a24ce16686b}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_ab1f613bc1e5e2047ae158a24ce16686b}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a23421c7bde4dda49c9cc8bf661d4a700}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a23421c7bde4dda49c9cc8bf661d4a700}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!FixStateBoundsTaskGenerator@{FixStateBoundsTaskGenerator}}
+\index{FixStateBoundsTaskGenerator@{FixStateBoundsTaskGenerator}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{FixStateBoundsTaskGenerator()}{FixStateBoundsTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::\+Fix\+State\+Bounds\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}Fix~State~Bounds\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_afc09d31729b1c0e669e7bd7724606978}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_afc09d31729b1c0e669e7bd7724606978}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!````~FixStateBoundsTaskGenerator@{$\sim$FixStateBoundsTaskGenerator}}
+\index{````~FixStateBoundsTaskGenerator@{$\sim$FixStateBoundsTaskGenerator}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$FixStateBoundsTaskGenerator()}{~FixStateBoundsTaskGenerator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::$\sim$\+Fix\+State\+Bounds\+Task\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a4a1bf0ba023ff05b74ac3d04bfae3887}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a4a1bf0ba023ff05b74ac3d04bfae3887}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!FixStateBoundsTaskGenerator@{FixStateBoundsTaskGenerator}}
+\index{FixStateBoundsTaskGenerator@{FixStateBoundsTaskGenerator}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{FixStateBoundsTaskGenerator()}{FixStateBoundsTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::\+Fix\+State\+Bounds\+Task\+Generator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_ad196fd7dffaf41f7c53240074292c6bc}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_ad196fd7dffaf41f7c53240074292c6bc}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!FixStateBoundsTaskGenerator@{FixStateBoundsTaskGenerator}}
+\index{FixStateBoundsTaskGenerator@{FixStateBoundsTaskGenerator}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{FixStateBoundsTaskGenerator()}{FixStateBoundsTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::\+Fix\+State\+Bounds\+Task\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_add1b70028b615cf85bc006d4c1334678}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_add1b70028b615cf85bc006d4c1334678}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!conditionalProcess@{conditionalProcess}}
+\index{conditionalProcess@{conditionalProcess}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{conditionalProcess()}{conditionalProcess()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::conditional\+Process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generate Conditional Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Conditional Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e60805cfe9276ace7be827f2e}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_aa783d9883572001bfa8b373a3370c8b5}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_aa783d9883572001bfa8b373a3370c8b5}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_abe77a9ccf10226f659437908c865a53f}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_abe77a9ccf10226f659437908c865a53f}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a8f9dfb2f21f459dabcf8b3ca33d5beba}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a8f9dfb2f21f459dabcf8b3ca33d5beba}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!process@{process}}
+\index{process@{process}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generated a Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c150554739834a1d467fc726baba8}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a35ead167504ad7927b3a6eeffb517ae6}\label{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a35ead167504ad7927b3a6eeffb517ae6}} 
+\index{tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}!composite\_profiles@{composite\_profiles}}
+\index{composite\_profiles@{composite\_profiles}!tesseract\_planning::FixStateBoundsTaskGenerator@{tesseract\_planning::FixStateBoundsTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{composite\_profiles}{composite\_profiles}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a62edf06ea5ab3a18e6021309281780db}{Fix\+State\+Bounds\+Profile\+Map}} tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator\+::composite\+\_\+profiles}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/\mbox{\hyperlink{fix__state__bounds__task__generator_8h}{fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+generator.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/task\+\_\+generators/\mbox{\hyperlink{fix__state__bounds__task__generator_8cpp}{fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+generator.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,195 @@
+\hypertarget{classtesseract__planning_1_1DescartesTaskflow}{}\doxysection{tesseract\+\_\+planning\+::Descartes\+Taskflow Class Reference}
+\label{classtesseract__planning_1_1DescartesTaskflow}\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+
+
+{\ttfamily \#include $<$descartes\+\_\+taskflow.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Descartes\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{d7/d69/classtesseract__planning_1_1DescartesTaskflow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Taskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d57/classtesseract__planning_1_1DescartesTaskflow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a628b14c831f967621548a3d3d10d5561}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_ad6bd88612d4b4411d868d0461b0a72ee}{Descartes\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1DescartesTaskflowParams}{Descartes\+Taskflow\+Params}} params, std\+::string name=\char`\"{}Descartes\+Taskflow\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a7216678aedeb2e03d8329552abe64cdb}{$\sim$\+Descartes\+Taskflow}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a7ef40bd7c00882efd11116319b6f255e}{Descartes\+Taskflow}} (const \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a9a9f938c6883985e82ca518edd9e21fa}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a5184b003929d6bfc540364983d4cffb1}{Descartes\+Taskflow}} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_aba45156732a2efeef6695196bdbc358c}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \&\&)=delete
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_ab96fcb456fab474948ab6144a886888e}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of the task flow. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_ad0377446ecea067d200eafab1d51e549}{generate\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} done\+\_\+cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} error\+\_\+cb) override
+\begin{DoxyCompactList}\small\item\em Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a6e31b3a356dcea423e1c4be50952312e}{check\+Task\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input) const
+\begin{DoxyCompactList}\small\item\em Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a91b92389bc8c1d0e3847db94faec2d27}{name\+\_\+}}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1DescartesTaskflowParams}{Descartes\+Taskflow\+Params}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a36aae872120642775894f648c87860bf}{params\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_a628b14c831f967621548a3d3d10d5561}\label{classtesseract__planning_1_1DescartesTaskflow_a628b14c831f967621548a3d3d10d5561}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_a628b14c831f967621548a3d3d10d5561}{tesseract\+\_\+planning\+::\+Descartes\+Taskflow\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_ad6bd88612d4b4411d868d0461b0a72ee}\label{classtesseract__planning_1_1DescartesTaskflow_ad6bd88612d4b4411d868d0461b0a72ee}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!DescartesTaskflow@{DescartesTaskflow}}
+\index{DescartesTaskflow@{DescartesTaskflow}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{DescartesTaskflow()}{DescartesTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Descartes\+Taskflow\+::\+Descartes\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1DescartesTaskflowParams}{Descartes\+Taskflow\+Params}}}]{params,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}DescartesTaskflow\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_a7216678aedeb2e03d8329552abe64cdb}\label{classtesseract__planning_1_1DescartesTaskflow_a7216678aedeb2e03d8329552abe64cdb}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!````~DescartesTaskflow@{$\sim$DescartesTaskflow}}
+\index{````~DescartesTaskflow@{$\sim$DescartesTaskflow}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{$\sim$DescartesTaskflow()}{~DescartesTaskflow()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Descartes\+Taskflow\+::$\sim$\+Descartes\+Taskflow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_a7ef40bd7c00882efd11116319b6f255e}\label{classtesseract__planning_1_1DescartesTaskflow_a7ef40bd7c00882efd11116319b6f255e}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!DescartesTaskflow@{DescartesTaskflow}}
+\index{DescartesTaskflow@{DescartesTaskflow}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{DescartesTaskflow()}{DescartesTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Descartes\+Taskflow\+::\+Descartes\+Taskflow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_a5184b003929d6bfc540364983d4cffb1}\label{classtesseract__planning_1_1DescartesTaskflow_a5184b003929d6bfc540364983d4cffb1}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!DescartesTaskflow@{DescartesTaskflow}}
+\index{DescartesTaskflow@{DescartesTaskflow}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{DescartesTaskflow()}{DescartesTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Descartes\+Taskflow\+::\+Descartes\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_a6e31b3a356dcea423e1c4be50952312e}\label{classtesseract__planning_1_1DescartesTaskflow_a6e31b3a356dcea423e1c4be50952312e}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!checkTaskInput@{checkTaskInput}}
+\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{checkTaskInput()}{checkTaskInput()}}
+{\footnotesize\ttfamily bool Descartes\+Taskflow\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if in the correct format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_ad0377446ecea067d200eafab1d51e549}\label{classtesseract__planning_1_1DescartesTaskflow_ad0377446ecea067d200eafab1d51e549}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!generateTaskflow@{generateTaskflow}}
+\index{generateTaskflow@{generateTaskflow}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{generateTaskflow()}{generateTaskflow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} Descartes\+Taskflow\+::generate\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{instruction,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{done\+\_\+cb,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{error\+\_\+cb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Instructions passed to this instance of the taskflow \\
+\hline
+{\em done\+\_\+cb} & A user defined callback \\
+\hline
+{\em error\+\_\+cb} & A user defined callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A taskflow container which must stay around during execution of taskflow 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_ab96fcb456fab474948ab6144a886888e}\label{classtesseract__planning_1_1DescartesTaskflow_ab96fcb456fab474948ab6144a886888e}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!getName@{getName}}
+\index{getName@{getName}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string \& Descartes\+Taskflow\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the name of the task flow. 
+
+\begin{DoxyReturn}{Returns}
+The name 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_a9a9f938c6883985e82ca518edd9e21fa}\label{classtesseract__planning_1_1DescartesTaskflow_a9a9f938c6883985e82ca518edd9e21fa}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}}\& tesseract\+\_\+planning\+::\+Descartes\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_aba45156732a2efeef6695196bdbc358c}\label{classtesseract__planning_1_1DescartesTaskflow_aba45156732a2efeef6695196bdbc358c}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}}\& tesseract\+\_\+planning\+::\+Descartes\+Taskflow\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow}{Descartes\+Taskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_a91b92389bc8c1d0e3847db94faec2d27}\label{classtesseract__planning_1_1DescartesTaskflow_a91b92389bc8c1d0e3847db94faec2d27}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!name\_@{name\_}}
+\index{name\_@{name\_}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Descartes\+Taskflow\+::name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTaskflow_a36aae872120642775894f648c87860bf}\label{classtesseract__planning_1_1DescartesTaskflow_a36aae872120642775894f648c87860bf}} 
+\index{tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}!params\_@{params\_}}
+\index{params\_@{params\_}!tesseract\_planning::DescartesTaskflow@{tesseract\_planning::DescartesTaskflow}}
+\doxysubsubsection{\texorpdfstring{params\_}{params\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1DescartesTaskflowParams}{Descartes\+Taskflow\+Params}} tesseract\+\_\+planning\+::\+Descartes\+Taskflow\+::params\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/\mbox{\hyperlink{descartes__taskflow_8h}{descartes\+\_\+taskflow.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/taskflow\+\_\+generators/\mbox{\hyperlink{descartes__taskflow_8cpp}{descartes\+\_\+taskflow.\+cpp}}\end{DoxyCompactItemize}

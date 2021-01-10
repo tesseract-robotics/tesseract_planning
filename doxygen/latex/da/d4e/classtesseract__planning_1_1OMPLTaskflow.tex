@@ -1,0 +1,195 @@
+\hypertarget{classtesseract__planning_1_1OMPLTaskflow}{}\doxysection{tesseract\+\_\+planning\+::OMPLTaskflow Class Reference}
+\label{classtesseract__planning_1_1OMPLTaskflow}\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+
+
+{\ttfamily \#include $<$ompl\+\_\+taskflow.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::OMPLTaskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{d9/d4e/classtesseract__planning_1_1OMPLTaskflow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::OMPLTaskflow\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/dbd/classtesseract__planning_1_1OMPLTaskflow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a3556743ae390736f94be35cc49007401}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a8451c089f06ddfd56ffb128c8db9cef3}{OMPLTaskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLTaskflowParams}{OMPLTaskflow\+Params}} params, std\+::string name=\char`\"{}OMPLTaskflow\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a8ef3e6a2dda0e2ddee30ff6a595e470e}{$\sim$\+OMPLTaskflow}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a45273768e92cef6f4bcbf9788684d600}{OMPLTaskflow}} (const \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_ab5887f470db4a3b49021c4b1d6589043}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a17d58eb7b6bd528751d5d3e5a97a669b}{OMPLTaskflow}} (\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \& \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_accf315b57de1512ef874e163f1f56b55}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \&\&)=delete
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_adeae7b4c2214ccb907b3e57ecaacc8fc}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of the task flow. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a03d19d60bd71ca8017a0ae66eca458ff}{generate\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} done\+\_\+cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} error\+\_\+cb) override
+\begin{DoxyCompactList}\small\item\em Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a588f06382f8502cc3b912ed15f6f508b}{check\+Task\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input) const
+\begin{DoxyCompactList}\small\item\em Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_aca6ea12bf87d8173370f180ebf10548c}{name\+\_\+}}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1OMPLTaskflowParams}{OMPLTaskflow\+Params}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a1fc48efc308d4fb847852dcd6935c008}{params\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_a3556743ae390736f94be35cc49007401}\label{classtesseract__planning_1_1OMPLTaskflow_a3556743ae390736f94be35cc49007401}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a3556743ae390736f94be35cc49007401}{tesseract\+\_\+planning\+::\+OMPLTaskflow\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_a8451c089f06ddfd56ffb128c8db9cef3}\label{classtesseract__planning_1_1OMPLTaskflow_a8451c089f06ddfd56ffb128c8db9cef3}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!OMPLTaskflow@{OMPLTaskflow}}
+\index{OMPLTaskflow@{OMPLTaskflow}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{OMPLTaskflow()}{OMPLTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily OMPLTaskflow\+::\+OMPLTaskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLTaskflowParams}{OMPLTaskflow\+Params}}}]{params,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}OMPLTaskflow\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_a8ef3e6a2dda0e2ddee30ff6a595e470e}\label{classtesseract__planning_1_1OMPLTaskflow_a8ef3e6a2dda0e2ddee30ff6a595e470e}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!````~OMPLTaskflow@{$\sim$OMPLTaskflow}}
+\index{````~OMPLTaskflow@{$\sim$OMPLTaskflow}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{$\sim$OMPLTaskflow()}{~OMPLTaskflow()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLTaskflow\+::$\sim$\+OMPLTaskflow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_a45273768e92cef6f4bcbf9788684d600}\label{classtesseract__planning_1_1OMPLTaskflow_a45273768e92cef6f4bcbf9788684d600}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!OMPLTaskflow@{OMPLTaskflow}}
+\index{OMPLTaskflow@{OMPLTaskflow}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{OMPLTaskflow()}{OMPLTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLTaskflow\+::\+OMPLTaskflow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_a17d58eb7b6bd528751d5d3e5a97a669b}\label{classtesseract__planning_1_1OMPLTaskflow_a17d58eb7b6bd528751d5d3e5a97a669b}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!OMPLTaskflow@{OMPLTaskflow}}
+\index{OMPLTaskflow@{OMPLTaskflow}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{OMPLTaskflow()}{OMPLTaskflow()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLTaskflow\+::\+OMPLTaskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_a588f06382f8502cc3b912ed15f6f508b}\label{classtesseract__planning_1_1OMPLTaskflow_a588f06382f8502cc3b912ed15f6f508b}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!checkTaskInput@{checkTaskInput}}
+\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{checkTaskInput()}{checkTaskInput()}}
+{\footnotesize\ttfamily bool OMPLTaskflow\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if in the correct format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_a03d19d60bd71ca8017a0ae66eca458ff}\label{classtesseract__planning_1_1OMPLTaskflow_a03d19d60bd71ca8017a0ae66eca458ff}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!generateTaskflow@{generateTaskflow}}
+\index{generateTaskflow@{generateTaskflow}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{generateTaskflow()}{generateTaskflow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} OMPLTaskflow\+::generate\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{instruction,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{done\+\_\+cb,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{error\+\_\+cb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Instructions passed to this instance of the taskflow \\
+\hline
+{\em done\+\_\+cb} & A user defined callback \\
+\hline
+{\em error\+\_\+cb} & A user defined callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A taskflow container which must stay around during execution of taskflow 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_adeae7b4c2214ccb907b3e57ecaacc8fc}\label{classtesseract__planning_1_1OMPLTaskflow_adeae7b4c2214ccb907b3e57ecaacc8fc}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!getName@{getName}}
+\index{getName@{getName}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string \& OMPLTaskflow\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the name of the task flow. 
+
+\begin{DoxyReturn}{Returns}
+The name 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}{tesseract\+\_\+planning\+::\+Taskflow\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_ab5887f470db4a3b49021c4b1d6589043}\label{classtesseract__planning_1_1OMPLTaskflow_ab5887f470db4a3b49021c4b1d6589043}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}}\& tesseract\+\_\+planning\+::\+OMPLTaskflow\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_accf315b57de1512ef874e163f1f56b55}\label{classtesseract__planning_1_1OMPLTaskflow_accf315b57de1512ef874e163f1f56b55}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}}\& tesseract\+\_\+planning\+::\+OMPLTaskflow\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow}{OMPLTaskflow}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_aca6ea12bf87d8173370f180ebf10548c}\label{classtesseract__planning_1_1OMPLTaskflow_aca6ea12bf87d8173370f180ebf10548c}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!name\_@{name\_}}
+\index{name\_@{name\_}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+OMPLTaskflow\+::name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLTaskflow_a1fc48efc308d4fb847852dcd6935c008}\label{classtesseract__planning_1_1OMPLTaskflow_a1fc48efc308d4fb847852dcd6935c008}} 
+\index{tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}!params\_@{params\_}}
+\index{params\_@{params\_}!tesseract\_planning::OMPLTaskflow@{tesseract\_planning::OMPLTaskflow}}
+\doxysubsubsection{\texorpdfstring{params\_}{params\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1OMPLTaskflowParams}{OMPLTaskflow\+Params}} tesseract\+\_\+planning\+::\+OMPLTaskflow\+::params\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/\mbox{\hyperlink{ompl__taskflow_8h}{ompl\+\_\+taskflow.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/taskflow\+\_\+generators/\mbox{\hyperlink{ompl__taskflow_8cpp}{ompl\+\_\+taskflow.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,208 @@
+\hypertarget{structtesseract__planning_1_1KPIECE1Configurator}{}\doxysection{tesseract\+\_\+planning\+::KPIECE1\+Configurator Struct Reference}
+\label{structtesseract__planning_1_1KPIECE1Configurator}\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+
+
+{\ttfamily \#include $<$ompl\+\_\+planner\+\_\+configurator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::KPIECE1\+Configurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{de/d5f/structtesseract__planning_1_1KPIECE1Configurator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::KPIECE1\+Configurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{d5/d28/structtesseract__planning_1_1KPIECE1Configurator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a6396f5150a3b8834eeb9773d7cbbe032}{KPIECE1\+Configurator}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a23ca2fadfbf4c993972dac1d7e77160e}{$\sim$\+KPIECE1\+Configurator}} () override=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_adda76a62c8a8d8f060db5e9021e04374}{KPIECE1\+Configurator}} (const \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a1dc7db38bdad6a0df8f82761602f11cd}{operator=}} (const \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ac8389f6dd3813a1002f0f06d147dc49e}{KPIECE1\+Configurator}} (\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a90a66cde50c3e66fea1536707f53a819}{operator=}} (\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ab83615a0e3414e4e0de034ec4e0a4a43}{KPIECE1\+Configurator}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+ompl\+::base\+::\+Planner\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a6415258e024f7b724bdb78197341e79f}{create}} (ompl\+::base\+::\+Space\+Information\+Ptr si) const override
+\begin{DoxyCompactList}\small\item\em Create the planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ae4660b430dafe69e716cb716f4f3d50f}{get\+Type}} () const override
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_abae8f2ff990ed9b1d036b30b3ab97c59}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const override
+\begin{DoxyCompactList}\small\item\em Serialize planner to xml. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a5bbdad3cc9437fbe7495262a9a0c7b92}{range}} = 0
+\begin{DoxyCompactList}\small\item\em Max motion added to tree. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a50e78f07cacac3d88fa69f52b6ecf5f0}{goal\+\_\+bias}} = 0.\+05
+\begin{DoxyCompactList}\small\item\em When close to goal select goal, with this probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ad7e6e49e28bebdc8705f0c91f20e5fbe}{border\+\_\+fraction}} = 0.\+9
+\begin{DoxyCompactList}\small\item\em Fraction of time focused on boarder (0.\+0,1.\mbox{]}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a9bc57d0ed3a03e9e52e63ee2e0b97b9a}{failed\+\_\+expansion\+\_\+score\+\_\+factor}} = 0.\+5
+\begin{DoxyCompactList}\small\item\em When extending motion fails, scale score by factor. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_aa655fa13699ff4b0259a53760d82096a}{min\+\_\+valid\+\_\+path\+\_\+fraction}} = 0.\+5
+\begin{DoxyCompactList}\small\item\em Accept partially valid moves above fraction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_a6396f5150a3b8834eeb9773d7cbbe032}\label{structtesseract__planning_1_1KPIECE1Configurator_a6396f5150a3b8834eeb9773d7cbbe032}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!KPIECE1Configurator@{KPIECE1Configurator}}
+\index{KPIECE1Configurator@{KPIECE1Configurator}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{KPIECE1Configurator()}{KPIECE1Configurator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::\+KPIECE1\+Configurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_a23ca2fadfbf4c993972dac1d7e77160e}\label{structtesseract__planning_1_1KPIECE1Configurator_a23ca2fadfbf4c993972dac1d7e77160e}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!````~KPIECE1Configurator@{$\sim$KPIECE1Configurator}}
+\index{````~KPIECE1Configurator@{$\sim$KPIECE1Configurator}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{$\sim$KPIECE1Configurator()}{~KPIECE1Configurator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::$\sim$\+KPIECE1\+Configurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_adda76a62c8a8d8f060db5e9021e04374}\label{structtesseract__planning_1_1KPIECE1Configurator_adda76a62c8a8d8f060db5e9021e04374}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!KPIECE1Configurator@{KPIECE1Configurator}}
+\index{KPIECE1Configurator@{KPIECE1Configurator}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{KPIECE1Configurator()}{KPIECE1Configurator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::\+KPIECE1\+Configurator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_ac8389f6dd3813a1002f0f06d147dc49e}\label{structtesseract__planning_1_1KPIECE1Configurator_ac8389f6dd3813a1002f0f06d147dc49e}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!KPIECE1Configurator@{KPIECE1Configurator}}
+\index{KPIECE1Configurator@{KPIECE1Configurator}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{KPIECE1Configurator()}{KPIECE1Configurator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::\+KPIECE1\+Configurator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_ab83615a0e3414e4e0de034ec4e0a4a43}\label{structtesseract__planning_1_1KPIECE1Configurator_ab83615a0e3414e4e0de034ec4e0a4a43}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!KPIECE1Configurator@{KPIECE1Configurator}}
+\index{KPIECE1Configurator@{KPIECE1Configurator}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{KPIECE1Configurator()}{KPIECE1Configurator()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::\+KPIECE1\+Configurator (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_a6415258e024f7b724bdb78197341e79f}\label{structtesseract__planning_1_1KPIECE1Configurator_a6415258e024f7b724bdb78197341e79f}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!create@{create}}
+\index{create@{create}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily ompl\+::base\+::\+Planner\+Ptr tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::create (\begin{DoxyParamCaption}\item[{ompl\+::base\+::\+Space\+Information\+Ptr}]{si }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Create the planner. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a86ccc143e057c7e55355ac6c34b30753}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_ae4660b430dafe69e716cb716f4f3d50f}\label{structtesseract__planning_1_1KPIECE1Configurator_ae4660b430dafe69e716cb716f4f3d50f}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!getType@{getType}}
+\index{getType@{getType}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a921d57d99e8045ae77ced935e9c8575f}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_a1dc7db38bdad6a0df8f82761602f11cd}\label{structtesseract__planning_1_1KPIECE1Configurator_a1dc7db38bdad6a0df8f82761602f11cd}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}}\& tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_a90a66cde50c3e66fea1536707f53a819}\label{structtesseract__planning_1_1KPIECE1Configurator_a90a66cde50c3e66fea1536707f53a819}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}}\& tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1\+Configurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_abae8f2ff990ed9b1d036b30b3ab97c59}\label{structtesseract__planning_1_1KPIECE1Configurator_abae8f2ff990ed9b1d036b30b3ab97c59}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Serialize planner to xml. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a6d2d67f9cb772971c344f891c666cfcc}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_ad7e6e49e28bebdc8705f0c91f20e5fbe}\label{structtesseract__planning_1_1KPIECE1Configurator_ad7e6e49e28bebdc8705f0c91f20e5fbe}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!border\_fraction@{border\_fraction}}
+\index{border\_fraction@{border\_fraction}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{border\_fraction}{border\_fraction}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::border\+\_\+fraction = 0.\+9}
+
+
+
+Fraction of time focused on boarder (0.\+0,1.\mbox{]}. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_a9bc57d0ed3a03e9e52e63ee2e0b97b9a}\label{structtesseract__planning_1_1KPIECE1Configurator_a9bc57d0ed3a03e9e52e63ee2e0b97b9a}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!failed\_expansion\_score\_factor@{failed\_expansion\_score\_factor}}
+\index{failed\_expansion\_score\_factor@{failed\_expansion\_score\_factor}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{failed\_expansion\_score\_factor}{failed\_expansion\_score\_factor}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::failed\+\_\+expansion\+\_\+score\+\_\+factor = 0.\+5}
+
+
+
+When extending motion fails, scale score by factor. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_a50e78f07cacac3d88fa69f52b6ecf5f0}\label{structtesseract__planning_1_1KPIECE1Configurator_a50e78f07cacac3d88fa69f52b6ecf5f0}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!goal\_bias@{goal\_bias}}
+\index{goal\_bias@{goal\_bias}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{goal\_bias}{goal\_bias}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::goal\+\_\+bias = 0.\+05}
+
+
+
+When close to goal select goal, with this probability. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_aa655fa13699ff4b0259a53760d82096a}\label{structtesseract__planning_1_1KPIECE1Configurator_aa655fa13699ff4b0259a53760d82096a}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!min\_valid\_path\_fraction@{min\_valid\_path\_fraction}}
+\index{min\_valid\_path\_fraction@{min\_valid\_path\_fraction}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{min\_valid\_path\_fraction}{min\_valid\_path\_fraction}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::min\+\_\+valid\+\_\+path\+\_\+fraction = 0.\+5}
+
+
+
+Accept partially valid moves above fraction. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1KPIECE1Configurator_a5bbdad3cc9437fbe7495262a9a0c7b92}\label{structtesseract__planning_1_1KPIECE1Configurator_a5bbdad3cc9437fbe7495262a9a0c7b92}} 
+\index{tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}!range@{range}}
+\index{range@{range}!tesseract\_planning::KPIECE1Configurator@{tesseract\_planning::KPIECE1Configurator}}
+\doxysubsubsection{\texorpdfstring{range}{range}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+KPIECE1\+Configurator\+::range = 0}
+
+
+
+Max motion added to tree. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/\mbox{\hyperlink{ompl__planner__configurator_8h}{ompl\+\_\+planner\+\_\+configurator.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/ompl/\mbox{\hyperlink{ompl__planner__configurator_8cpp}{ompl\+\_\+planner\+\_\+configurator.\+cpp}}\end{DoxyCompactItemize}

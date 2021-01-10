@@ -1,0 +1,73 @@
+\hypertarget{classtesseract__planning_1_1DiscreteMotionValidator}{}\doxysection{tesseract\+\_\+planning\+::Discrete\+Motion\+Validator Class Reference}
+\label{classtesseract__planning_1_1DiscreteMotionValidator}\index{tesseract\_planning::DiscreteMotionValidator@{tesseract\_planning::DiscreteMotionValidator}}
+
+
+Continuous collision check between two states.  
+
+
+
+
+{\ttfamily \#include $<$discrete\+\_\+motion\+\_\+validator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Discrete\+Motion\+Validator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{df/d96/classtesseract__planning_1_1DiscreteMotionValidator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Discrete\+Motion\+Validator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{d4/d72/classtesseract__planning_1_1DiscreteMotionValidator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DiscreteMotionValidator_aaa1812baa0ce152a6894251851686d63}{Discrete\+Motion\+Validator}} (const ompl\+::base\+::\+Space\+Information\+Ptr \&space\+\_\+info)
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DiscreteMotionValidator_af03cb8f2108e2063f0ef55352b2e078c}{check\+Motion}} (const ompl\+::base\+::\+State $\ast$s1, const ompl\+::base\+::\+State $\ast$s2) const override
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DiscreteMotionValidator_aa8ed8bee54da4754f4421362eb8fb4e4}{check\+Motion}} (const ompl\+::base\+::\+State $\ast$s1, const ompl\+::base\+::\+State $\ast$s2, std\+::pair$<$ ompl\+::base\+::\+State $\ast$, double $>$ \&last\+Valid) const override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Continuous collision check between two states. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteMotionValidator_aaa1812baa0ce152a6894251851686d63}\label{classtesseract__planning_1_1DiscreteMotionValidator_aaa1812baa0ce152a6894251851686d63}} 
+\index{tesseract\_planning::DiscreteMotionValidator@{tesseract\_planning::DiscreteMotionValidator}!DiscreteMotionValidator@{DiscreteMotionValidator}}
+\index{DiscreteMotionValidator@{DiscreteMotionValidator}!tesseract\_planning::DiscreteMotionValidator@{tesseract\_planning::DiscreteMotionValidator}}
+\doxysubsubsection{\texorpdfstring{DiscreteMotionValidator()}{DiscreteMotionValidator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Discrete\+Motion\+Validator\+::\+Discrete\+Motion\+Validator (\begin{DoxyParamCaption}\item[{const ompl\+::base\+::\+Space\+Information\+Ptr \&}]{space\+\_\+info }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteMotionValidator_af03cb8f2108e2063f0ef55352b2e078c}\label{classtesseract__planning_1_1DiscreteMotionValidator_af03cb8f2108e2063f0ef55352b2e078c}} 
+\index{tesseract\_planning::DiscreteMotionValidator@{tesseract\_planning::DiscreteMotionValidator}!checkMotion@{checkMotion}}
+\index{checkMotion@{checkMotion}!tesseract\_planning::DiscreteMotionValidator@{tesseract\_planning::DiscreteMotionValidator}}
+\doxysubsubsection{\texorpdfstring{checkMotion()}{checkMotion()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Discrete\+Motion\+Validator\+::check\+Motion (\begin{DoxyParamCaption}\item[{const ompl\+::base\+::\+State $\ast$}]{s1,  }\item[{const ompl\+::base\+::\+State $\ast$}]{s2 }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DiscreteMotionValidator_aa8ed8bee54da4754f4421362eb8fb4e4}\label{classtesseract__planning_1_1DiscreteMotionValidator_aa8ed8bee54da4754f4421362eb8fb4e4}} 
+\index{tesseract\_planning::DiscreteMotionValidator@{tesseract\_planning::DiscreteMotionValidator}!checkMotion@{checkMotion}}
+\index{checkMotion@{checkMotion}!tesseract\_planning::DiscreteMotionValidator@{tesseract\_planning::DiscreteMotionValidator}}
+\doxysubsubsection{\texorpdfstring{checkMotion()}{checkMotion()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Discrete\+Motion\+Validator\+::check\+Motion (\begin{DoxyParamCaption}\item[{const ompl\+::base\+::\+State $\ast$}]{s1,  }\item[{const ompl\+::base\+::\+State $\ast$}]{s2,  }\item[{std\+::pair$<$ ompl\+::base\+::\+State $\ast$, double $>$ \&}]{last\+Valid }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/\mbox{\hyperlink{discrete__motion__validator_8h}{discrete\+\_\+motion\+\_\+validator.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/ompl/\mbox{\hyperlink{discrete__motion__validator_8cpp}{discrete\+\_\+motion\+\_\+validator.\+cpp}}\end{DoxyCompactItemize}

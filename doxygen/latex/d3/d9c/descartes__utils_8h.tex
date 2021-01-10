@@ -1,0 +1,96 @@
+\hypertarget{descartes__utils_8h}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+utils.h File Reference}
+\label{descartes__utils_8h}\index{tesseract\_motion\_planners/include/tesseract\_motion\_planners/descartes/descartes\_utils.h@{tesseract\_motion\_planners/include/tesseract\_motion\_planners/descartes/descartes\_utils.h}}
+{\ttfamily \#include $<$tesseract\+\_\+common/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
+Include dependency graph for descartes\+\_\+utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d1d/descartes__utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d4a/descartes__utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{tesseract\+\_\+planning\+::\+Pose\+Sampler\+Fn}} = std\+::function$<$ tesseract\+\_\+common\+::\+Vector\+Isometry3d(const Eigen\+::\+Isometry3d \&tool\+\_\+pose)$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_adf2bb32372d00e42763932cdde163c01}{tesseract\+\_\+planning\+::sample\+Tool\+Axis}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose, double resolution, const Eigen\+::\+Vector3d \&axis)
+\begin{DoxyCompactList}\small\item\em Given a tool pose create samples from \mbox{[}-\/PI, PI) around the provided axis. \end{DoxyCompactList}\item 
+tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a2e764ea5552076ce638ecc666d19f193}{tesseract\+\_\+planning\+::sample\+Tool\+XAxis}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose, double resolution)
+\begin{DoxyCompactList}\small\item\em Given a tool pose create samples from \mbox{[}-\/PI, PI) around the x axis. \end{DoxyCompactList}\item 
+tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_abbb704ce9eb5e224a1462e09ac93d1a2}{tesseract\+\_\+planning\+::sample\+Tool\+YAxis}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose, double resolution)
+\begin{DoxyCompactList}\small\item\em Given a tool pose create samples from \mbox{[}-\/PI, PI) around the y axis. \end{DoxyCompactList}\item 
+tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a76bb74926e4356e2c7ae23eb24bcfe90}{tesseract\+\_\+planning\+::sample\+Tool\+ZAxis}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose, double resolution)
+\begin{DoxyCompactList}\small\item\em Given a tool pose create samples from \mbox{[}-\/PI, PI) around the z axis. \end{DoxyCompactList}\item 
+tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a7783726ef3508bc3baf1bd8b96829e07}{tesseract\+\_\+planning\+::sample\+Fixed}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose)
+\begin{DoxyCompactList}\small\item\em This is the default sample with if a fixed pose sampler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 18, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000014}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+\end{DoxyParagraph}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 18, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000077}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

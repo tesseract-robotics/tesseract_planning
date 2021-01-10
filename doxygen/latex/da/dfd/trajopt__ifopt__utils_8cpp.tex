@@ -1,0 +1,76 @@
+\hypertarget{trajopt__ifopt__utils_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/src/trajopt\+\_\+ifopt/trajopt\+\_\+ifopt\+\_\+utils.cpp File Reference}
+\label{trajopt__ifopt__utils_8cpp}\index{tesseract\_motion\_planners/src/trajopt\_ifopt/trajopt\_ifopt\_utils.cpp@{tesseract\_motion\_planners/src/trajopt\_ifopt/trajopt\_ifopt\_utils.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt\+\_\+ifopt/trajopt\+\_\+ifopt\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/trajopt\+\_\+ifopt.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt\+\_\+ifopt/trajopt\+\_\+ifopt\+\_\+problem.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/types.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/constraints/collision\+\_\+evaluators.\+h$>$}\newline
+{\ttfamily \#include $<$ifopt/problem.\+h$>$}\newline
+Include dependency graph for trajopt\+\_\+ifopt\+\_\+utils.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd5/trajopt__ifopt__utils_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_ac1268a3f64c14f4780b26e5e46a73b96}{tesseract\+\_\+planning\+::create\+Cartesian\+Position\+Constraint}} (const Cartesian\+Waypoint \&cart\+\_\+waypoint, trajopt\+::\+Joint\+Position\+::\+Const\+Ptr var, const trajopt\+::\+Cart\+Pos\+Kinematic\+Info\+::\+Const\+Ptr \&kin\+\_\+info, const Eigen\+::\+Vector\+Xd \&coeffs)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ae72dc09cf96ec6e201be8109963ee371}{tesseract\+\_\+planning\+::add\+Cartesian\+Position\+Constraint}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, const Cartesian\+Waypoint \&cart\+\_\+waypoint, trajopt\+::\+Joint\+Position\+::\+Const\+Ptr var, const trajopt\+::\+Cart\+Pos\+Kinematic\+Info\+::\+Const\+Ptr \&kin\+\_\+info, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a912bb7921310f143d78675c14cc28b9d}{tesseract\+\_\+planning\+::add\+Cartesian\+Position\+Squared\+Cost}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, const Cartesian\+Waypoint \&cart\+\_\+waypoint, trajopt\+::\+Joint\+Position\+::\+Const\+Ptr var, const trajopt\+::\+Cart\+Pos\+Kinematic\+Info\+::\+Const\+Ptr \&kin\+\_\+info, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a5ad2e2ffd0e0945d9581b5db300de9d9}{tesseract\+\_\+planning\+::create\+Joint\+Position\+Constraint}} (const Joint\+Waypoint \&joint\+\_\+waypoint, trajopt\+::\+Joint\+Position\+::\+Const\+Ptr var, const Eigen\+::\+Vector\+Xd \&)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a3209caec6a89b9c18984276b28a2f513}{tesseract\+\_\+planning\+::add\+Joint\+Position\+Constraint}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, const Joint\+Waypoint \&joint\+\_\+waypoint, trajopt\+::\+Joint\+Position\+::\+Const\+Ptr var, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ac2dd0325d6640759e255d7a8795a1716}{tesseract\+\_\+planning\+::add\+Joint\+Position\+Squared\+Cost}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, const Joint\+Waypoint \&joint\+\_\+waypoint, trajopt\+::\+Joint\+Position\+::\+Const\+Ptr var, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+std\+::vector$<$ ifopt\+::\+Constraint\+Set\+::\+Ptr $>$ \mbox{\hyperlink{namespacetesseract__planning_a9194fb89fb889c29681553b1d60e4500}{tesseract\+\_\+planning\+::create\+Collision\+Constraints}} (std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const Manipulator\+Info \&manip\+\_\+info, const trajopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a712638c571bba84deb90f107197dd5fc}{tesseract\+\_\+planning\+::add\+Collision\+Constraint}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const Manipulator\+Info \&manip\+\_\+info, const trajopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_afcddce3e4bdee753832b6fe0f1e6ed0a}{tesseract\+\_\+planning\+::add\+Collision\+Squared\+Cost}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const Manipulator\+Info \&manip\+\_\+info, const trajopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config)
+\item 
+ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_ac8628a4d480ac144195f323a246d490e}{tesseract\+\_\+planning\+::create\+Joint\+Velocity\+Constraint}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&target, const std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Vector\+Xd \&coeffs)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ad1bb7b2c051670161546ddd6d9f20927}{tesseract\+\_\+planning\+::add\+Joint\+Velocity\+Constraint}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a204d4baf6c7f28609ac19b52f3cf3873}{tesseract\+\_\+planning\+::add\+Joint\+Velocity\+Squared\+Cost}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 18, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000114}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

@@ -1,0 +1,147 @@
+\hypertarget{classtesseract__planning_1_1TaskflowGenerator}{}\doxysection{tesseract\+\_\+planning\+::Taskflow\+Generator Class Reference}
+\label{classtesseract__planning_1_1TaskflowGenerator}\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+
+
+Base class for generating a taskflow.  
+
+
+
+
+{\ttfamily \#include $<$taskflow\+\_\+generator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Taskflow\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{d5/df8/classtesseract__planning_1_1TaskflowGenerator__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a08048d44674fc7c1852549f7b906fb86}{Taskflow\+Generator}} ()=default
+\item 
+virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_ae23c4d22ad60874601074bc8ad5fa4ba}{$\sim$\+Taskflow\+Generator}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a1224dd7ac22424c2287673810c652ead}{Taskflow\+Generator}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a904266a6d04948dad6258bf4bb469b81}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a2a9a05b5f27efa71bd2aa2a28ca48884}{Taskflow\+Generator}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a3111a136f0afe8af2ea9ed123a5d40b0}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \&\&)=delete
+\item 
+virtual const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}{get\+Name}} () const =0
+\begin{DoxyCompactList}\small\item\em Get the name of the task flow. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}{generate\+Taskflow}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} instruction, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} done\+\_\+cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}} error\+\_\+cb)=0
+\begin{DoxyCompactList}\small\item\em Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for generating a taskflow. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}\label{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_a08048d44674fc7c1852549f7b906fb86}\label{classtesseract__planning_1_1TaskflowGenerator_a08048d44674fc7c1852549f7b906fb86}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!TaskflowGenerator@{TaskflowGenerator}}
+\index{TaskflowGenerator@{TaskflowGenerator}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{TaskflowGenerator()}{TaskflowGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::\+Taskflow\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_ae23c4d22ad60874601074bc8ad5fa4ba}\label{classtesseract__planning_1_1TaskflowGenerator_ae23c4d22ad60874601074bc8ad5fa4ba}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!````~TaskflowGenerator@{$\sim$TaskflowGenerator}}
+\index{````~TaskflowGenerator@{$\sim$TaskflowGenerator}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$TaskflowGenerator()}{~TaskflowGenerator()}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::$\sim$\+Taskflow\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_a1224dd7ac22424c2287673810c652ead}\label{classtesseract__planning_1_1TaskflowGenerator_a1224dd7ac22424c2287673810c652ead}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!TaskflowGenerator@{TaskflowGenerator}}
+\index{TaskflowGenerator@{TaskflowGenerator}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{TaskflowGenerator()}{TaskflowGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::\+Taskflow\+Generator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_a2a9a05b5f27efa71bd2aa2a28ca48884}\label{classtesseract__planning_1_1TaskflowGenerator_a2a9a05b5f27efa71bd2aa2a28ca48884}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!TaskflowGenerator@{TaskflowGenerator}}
+\index{TaskflowGenerator@{TaskflowGenerator}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{TaskflowGenerator()}{TaskflowGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::\+Taskflow\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}\label{classtesseract__planning_1_1TaskflowGenerator_a308bc96f63fa1dec12416fb3316c57d6}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!generateTaskflow@{generateTaskflow}}
+\index{generateTaskflow@{generateTaskflow}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{generateTaskflow()}{generateTaskflow()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{Taskflow\+Container}} tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::generate\+Taskflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{instruction,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{done\+\_\+cb,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{Taskflow\+Void\+Fn}}}]{error\+\_\+cb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Generates unique taskflows for using as a component (e.\+g. with taskflow.\+composed\+\_\+of) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Instructions passed to this instance of the taskflow \\
+\hline
+{\em done\+\_\+cb} & A user defined callback \\
+\hline
+{\em error\+\_\+cb} & A user defined callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A taskflow container which must stay around during execution of taskflow 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a9bc468bed0b02d072c319a7581aaf478}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_a7ee71d7cf938b0237a8f5ec719a9916f}{tesseract\+\_\+planning\+::\+Raster\+WAADTaskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADDTTaskflow_a69f52109124e8370e01d87c901bd5217}{tesseract\+\_\+planning\+::\+Raster\+WAADDTTaskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a896e99077c9ca93d806fb1cd4c0b7095}{tesseract\+\_\+planning\+::\+Raster\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyTaskflow_a172fb9c583fe117084d50813605270da}{tesseract\+\_\+planning\+::\+Raster\+Only\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyGlobalTaskflow_a41a3b009ccab6973c83d97bd6f7dac43}{tesseract\+\_\+planning\+::\+Raster\+Only\+Global\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalTaskflow_a9e1379a15bd1aa5ec4abc863ff7e5e32}{tesseract\+\_\+planning\+::\+Raster\+Global\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterDTTaskflow_a2943d6a7a629fc1b184c00d5fe02c72e}{tesseract\+\_\+planning\+::\+Raster\+DTTaskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_a03d19d60bd71ca8017a0ae66eca458ff}{tesseract\+\_\+planning\+::\+OMPLTaskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_abb28fe9e4192e83d86d693d88cff9b15}{tesseract\+\_\+planning\+::\+Graph\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_a63fc32b61b8310e48eab1416a6eac532}{tesseract\+\_\+planning\+::\+Freespace\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_ad0377446ecea067d200eafab1d51e549}{tesseract\+\_\+planning\+::\+Descartes\+Taskflow}}, and \mbox{\hyperlink{classtesseract__planning_1_1CartesianTaskflow_a4704afbf2495d2b635150ac372f1105e}{tesseract\+\_\+planning\+::\+Cartesian\+Taskflow}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}\label{classtesseract__planning_1_1TaskflowGenerator_aae429680d7c2767f7bdaf1a6240187bc}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!getName@{getName}}
+\index{getName@{getName}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily virtual const std\+::string\& tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the name of the task flow. 
+
+\begin{DoxyReturn}{Returns}
+The name 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow_a6ba73c6350f84e36aaec058204bbc806}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_ab3448bd47775374520ff52d3cf8c8af6}{tesseract\+\_\+planning\+::\+Raster\+WAADTaskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADDTTaskflow_a9db559007084f52eba0d61851e71dff2}{tesseract\+\_\+planning\+::\+Raster\+WAADDTTaskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterTaskflow_a35d0beb046a07f84554bb3949eb7cb55}{tesseract\+\_\+planning\+::\+Raster\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyTaskflow_a39495461712fbf8b312401dfef4c988c}{tesseract\+\_\+planning\+::\+Raster\+Only\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterOnlyGlobalTaskflow_a0552a059d09f29354fe58e63d7d5fc6d}{tesseract\+\_\+planning\+::\+Raster\+Only\+Global\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterGlobalTaskflow_ab1740bee9c260c6a4ef649693b48f28b}{tesseract\+\_\+planning\+::\+Raster\+Global\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1RasterDTTaskflow_aafdf28aed3a5f29fe76346b478ac72be}{tesseract\+\_\+planning\+::\+Raster\+DTTaskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1OMPLTaskflow_adeae7b4c2214ccb907b3e57ecaacc8fc}{tesseract\+\_\+planning\+::\+OMPLTaskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a69e66fd067bc9b8a06f80efd91190c80}{tesseract\+\_\+planning\+::\+Graph\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1FreespaceTaskflow_aefeb5312e7197cc25c12a83c6daaec06}{tesseract\+\_\+planning\+::\+Freespace\+Taskflow}}, \mbox{\hyperlink{classtesseract__planning_1_1DescartesTaskflow_ab96fcb456fab474948ab6144a886888e}{tesseract\+\_\+planning\+::\+Descartes\+Taskflow}}, and \mbox{\hyperlink{classtesseract__planning_1_1CartesianTaskflow_a12e0cc42ea7c7dccca9b09a20f6eaafc}{tesseract\+\_\+planning\+::\+Cartesian\+Taskflow}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_a904266a6d04948dad6258bf4bb469b81}\label{classtesseract__planning_1_1TaskflowGenerator_a904266a6d04948dad6258bf4bb469b81}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}}\& tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowGenerator_a3111a136f0afe8af2ea9ed123a5d40b0}\label{classtesseract__planning_1_1TaskflowGenerator_a3111a136f0afe8af2ea9ed123a5d40b0}} 
+\index{tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TaskflowGenerator@{tesseract\_planning::TaskflowGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}}\& tesseract\+\_\+planning\+::\+Taskflow\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/\mbox{\hyperlink{taskflow__generator_8h}{taskflow\+\_\+generator.\+h}}\end{DoxyCompactItemize}

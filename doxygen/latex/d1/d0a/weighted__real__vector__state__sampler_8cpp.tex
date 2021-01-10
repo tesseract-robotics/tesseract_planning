@@ -1,0 +1,49 @@
+\hypertarget{weighted__real__vector__state__sampler_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/src/ompl/weighted\+\_\+real\+\_\+vector\+\_\+state\+\_\+sampler.cpp File Reference}
+\label{weighted__real__vector__state__sampler_8cpp}\index{tesseract\_motion\_planners/src/ompl/weighted\_real\_vector\_state\_sampler.cpp@{tesseract\_motion\_planners/src/ompl/weighted\_real\_vector\_state\_sampler.cpp}}
+
+
+Tesseract OMPL Weighted State Sampler.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/\+State\+Space.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/spaces/\+Real\+Vector\+State\+Space.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/\+Scoped\+State.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/weighted\+\_\+real\+\_\+vector\+\_\+state\+\_\+sampler.\+h$>$}\newline
+Include dependency graph for weighted\+\_\+real\+\_\+vector\+\_\+state\+\_\+sampler.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/d08/weighted__real__vector__state__sampler_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tesseract OMPL Weighted State Sampler. 
+
+This allows you to provided a weight factor different joint when sampling. This is useful when you have a gantry with two linear axis with a robot attached. When sampling near you may want to scale down the rail sampling.
+
+\begin{DoxyAuthor}{Author}
+Ioan Sucan, Levi Armstrong
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2010, Rice University 
+
+Copyright (c) 2019, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

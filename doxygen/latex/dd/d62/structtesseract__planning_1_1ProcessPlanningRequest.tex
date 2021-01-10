@@ -1,0 +1,125 @@
+\hypertarget{structtesseract__planning_1_1ProcessPlanningRequest}{}\doxysection{tesseract\+\_\+planning\+::Process\+Planning\+Request Struct Reference}
+\label{structtesseract__planning_1_1ProcessPlanningRequest}\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+
+
+{\ttfamily \#include $<$process\+\_\+planning\+\_\+request.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Process\+Planning\+Request\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d1c/structtesseract__planning_1_1ProcessPlanningRequest__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_afc60e75cd751d1c616cabe3f105294b8}{name}}
+\begin{DoxyCompactList}\small\item\em The name of the Process Pipeline (aka. Taskflow) to use. \end{DoxyCompactList}\item 
+Instruction \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_ae5a302b8d1c7b1024054709f84baa2b6}{instructions}} \{ Null\+Instruction() \}
+\begin{DoxyCompactList}\small\item\em This should an xml string of the command language instructions. \end{DoxyCompactList}\item 
+Instruction \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a2cc972679537d139c511a1409086f3b2}{seed}} \{ Null\+Instruction() \}
+\begin{DoxyCompactList}\small\item\em This should an xml string of the command language instructions (Optional) \end{DoxyCompactList}\item 
+tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_af6cd695b1854d81a00a6f1ccf1185449}{env\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em Environment state to start planning with (Optional) ~\newline
+ \end{DoxyCompactList}\item 
+tesseract\+\_\+environment\+::\+Commands \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_abd9fdaf610b171569ed357fd126bb358}{commands}}
+\begin{DoxyCompactList}\small\item\em Additional Commands to be applied to environment prior to planning (Optional) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a2775b01cc935c233d8e19b27edb535c3}{profile}} \{ false \}
+\begin{DoxyCompactList}\small\item\em Enable profiling of the planning request (Optional) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a6383ab82508b0f59826b540792fc451b}{plan\+\_\+profile\+\_\+remapping}}
+\begin{DoxyCompactList}\small\item\em This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. (Optional) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a98ef542902a7ecda89b51752bcf57986}{composite\+\_\+profile\+\_\+remapping}}
+\begin{DoxyCompactList}\small\item\em This allows the remapping of the Composite Profile identified in the command language to a specific profile for a given motion planner. (Optional) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningRequest_abd9fdaf610b171569ed357fd126bb358}\label{structtesseract__planning_1_1ProcessPlanningRequest_abd9fdaf610b171569ed357fd126bb358}} 
+\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}!commands@{commands}}
+\index{commands@{commands}!tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+\doxysubsubsection{\texorpdfstring{commands}{commands}}
+{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Commands tesseract\+\_\+planning\+::\+Process\+Planning\+Request\+::commands}
+
+
+
+Additional Commands to be applied to environment prior to planning (Optional) 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningRequest_a98ef542902a7ecda89b51752bcf57986}\label{structtesseract__planning_1_1ProcessPlanningRequest_a98ef542902a7ecda89b51752bcf57986}} 
+\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}!composite\_profile\_remapping@{composite\_profile\_remapping}}
+\index{composite\_profile\_remapping@{composite\_profile\_remapping}!tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+\doxysubsubsection{\texorpdfstring{composite\_profile\_remapping}{composite\_profile\_remapping}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} tesseract\+\_\+planning\+::\+Process\+Planning\+Request\+::composite\+\_\+profile\+\_\+remapping}
+
+
+
+This allows the remapping of the Composite Profile identified in the command language to a specific profile for a given motion planner. (Optional) 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningRequest_af6cd695b1854d81a00a6f1ccf1185449}\label{structtesseract__planning_1_1ProcessPlanningRequest_af6cd695b1854d81a00a6f1ccf1185449}} 
+\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}!env\_state@{env\_state}}
+\index{env\_state@{env\_state}!tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+\doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
+{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Process\+Planning\+Request\+::env\+\_\+state}
+
+
+
+Environment state to start planning with (Optional) ~\newline
+ 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningRequest_ae5a302b8d1c7b1024054709f84baa2b6}\label{structtesseract__planning_1_1ProcessPlanningRequest_ae5a302b8d1c7b1024054709f84baa2b6}} 
+\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}!instructions@{instructions}}
+\index{instructions@{instructions}!tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+\doxysubsubsection{\texorpdfstring{instructions}{instructions}}
+{\footnotesize\ttfamily Instruction tesseract\+\_\+planning\+::\+Process\+Planning\+Request\+::instructions \{ Null\+Instruction() \}}
+
+
+
+This should an xml string of the command language instructions. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningRequest_afc60e75cd751d1c616cabe3f105294b8}\label{structtesseract__planning_1_1ProcessPlanningRequest_afc60e75cd751d1c616cabe3f105294b8}} 
+\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}!name@{name}}
+\index{name@{name}!tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Process\+Planning\+Request\+::name}
+
+
+
+The name of the Process Pipeline (aka. Taskflow) to use. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningRequest_a6383ab82508b0f59826b540792fc451b}\label{structtesseract__planning_1_1ProcessPlanningRequest_a6383ab82508b0f59826b540792fc451b}} 
+\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}!plan\_profile\_remapping@{plan\_profile\_remapping}}
+\index{plan\_profile\_remapping@{plan\_profile\_remapping}!tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+\doxysubsubsection{\texorpdfstring{plan\_profile\_remapping}{plan\_profile\_remapping}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} tesseract\+\_\+planning\+::\+Process\+Planning\+Request\+::plan\+\_\+profile\+\_\+remapping}
+
+
+
+This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. (Optional) 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningRequest_a2775b01cc935c233d8e19b27edb535c3}\label{structtesseract__planning_1_1ProcessPlanningRequest_a2775b01cc935c233d8e19b27edb535c3}} 
+\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}!profile@{profile}}
+\index{profile@{profile}!tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+\doxysubsubsection{\texorpdfstring{profile}{profile}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Process\+Planning\+Request\+::profile \{ false \}}
+
+
+
+Enable profiling of the planning request (Optional) 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningRequest_a2cc972679537d139c511a1409086f3b2}\label{structtesseract__planning_1_1ProcessPlanningRequest_a2cc972679537d139c511a1409086f3b2}} 
+\index{tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}!seed@{seed}}
+\index{seed@{seed}!tesseract\_planning::ProcessPlanningRequest@{tesseract\_planning::ProcessPlanningRequest}}
+\doxysubsubsection{\texorpdfstring{seed}{seed}}
+{\footnotesize\ttfamily Instruction tesseract\+\_\+planning\+::\+Process\+Planning\+Request\+::seed \{ Null\+Instruction() \}}
+
+
+
+This should an xml string of the command language instructions (Optional) 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/core/\mbox{\hyperlink{process__planning__request_8h}{process\+\_\+planning\+\_\+request.\+h}}\end{DoxyCompactItemize}

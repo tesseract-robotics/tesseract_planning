@@ -1,0 +1,261 @@
+\hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics}{}\doxysection{tesseract\+\_\+planning\+::Descartes\+Tesseract\+Kinematics$<$ Float\+Type $>$ Class Template Reference}
+\label{classtesseract__planning_1_1DescartesTesseractKinematics}\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+
+
+Provides a Descartes interface for Tesseract Kinematics.  
+
+
+
+
+{\ttfamily \#include $<$descartes\+\_\+tesseract\+\_\+kinematics.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Descartes\+Tesseract\+Kinematics$<$ Float\+Type $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{de/d3e/classtesseract__planning_1_1DescartesTesseractKinematics__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Tesseract\+Kinematics$<$ Float\+Type $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{d7/da5/classtesseract__planning_1_1DescartesTesseractKinematics__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a0a1c676a9553d0f68bef45cbf7a600f5}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{Descartes\+Tesseract\+Kinematics}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a1a0a3026767b4420b488ea043ac7730f}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{Descartes\+Tesseract\+Kinematics}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a75b4cd7a355876a0c4be94b955107d61}{Descartes\+Tesseract\+Kinematics}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&tesseract\+\_\+fk, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \&tesseract\+\_\+ik)
+\begin{DoxyCompactList}\small\item\em This constructor defaults to using is\+Within\+Limits as the is\+Valid\+Fn and gets redundant solutions within joint limits. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a84ac267766bd37f6fb0c216ea7cacfae}{Descartes\+Tesseract\+Kinematics}} (tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr tesseract\+\_\+fk, tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr tesseract\+\_\+ik, descartes\+\_\+light\+::\+Is\+Valid\+Fn$<$ Float\+Type $>$ is\+\_\+valid\+\_\+fn, descartes\+\_\+light\+::\+Get\+Redundant\+Solutions\+Fn$<$ Float\+Type $>$ redundant\+\_\+sol\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{Descartes\+Tesseract\+Kinematics}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_af10f9d147511d4295aa8a41e412aaba7}{ik}} (const Eigen\+::\+Transform$<$ Float\+Type, 3, Eigen\+::\+Isometry $>$ \&p, std\+::vector$<$ Float\+Type $>$ \&solution\+\_\+set) const override
+\begin{DoxyCompactList}\small\item\em Calculate inverse kinematics using is\+Valid\+Fn, Get\+Redundant\+Solutions\+Fn, and ik\+\_\+seed provided. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a1b74e8e9b030737baa17a0370bf8b08b}{fk}} (const Float\+Type $\ast$pose, Eigen\+::\+Transform$<$ Float\+Type, 3, Eigen\+::\+Isometry $>$ \&solution) const override
+\begin{DoxyCompactList}\small\item\em Calculate forward kinematics. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_afbed49b3f710b11e85442494a2be47a1}{dof}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the number of joints in the kinematics object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_ab2218a8fcce72693e60fd29ddfa2cde4}{analyze\+IK}} (const Eigen\+::\+Transform$<$ Float\+Type, 3, Eigen\+::\+Isometry $>$ \&p) const override
+\begin{DoxyCompactList}\small\item\em Analyzes the effect of the is\+Valid\+Fn and redundant solutions on the number of returned solutions and prints the results. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_afff51223f4f3284e0da847f3b89e4509}{set\+IKSeed}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&seed)
+\begin{DoxyCompactList}\small\item\em Sets the seed used by inverse kinematics. Must be length \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_afbed49b3f710b11e85442494a2be47a1}{dof()}}. Default\+: Eigen\+::\+Vector\+Xd\+::\+Zero(dof()) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a82a16f9907f822297c7fdbef4d1d0350}{set\+IKSeed}} (const std\+::vector$<$ Float\+Type $>$ \&seed)
+\begin{DoxyCompactList}\small\item\em Sets the seed used by inverse kinematics. Must be length \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_afbed49b3f710b11e85442494a2be47a1}{dof()}}. Default\+: Eigen\+::\+Vector\+Xd\+::\+Zero(dof()) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_ab1107776a386976d5816b2ade13520cc}{ik}} (const Eigen\+::\+Transform$<$ Float\+Type, 3, Eigen\+::\+Isometry $>$ \&p, const descartes\+\_\+light\+::\+Is\+Valid\+Fn$<$ Float\+Type $>$ \&is\+\_\+valid\+\_\+fn, const descartes\+\_\+light\+::\+Get\+Redundant\+Solutions\+Fn$<$ Float\+Type $>$ \&redundant\+\_\+sol\+\_\+fn, std\+::vector$<$ Float\+Type $>$ \&solution\+\_\+set) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a5316bca5aa6a2d4493366f1722a6a316}{tesseract\+\_\+fk\+\_\+}}
+\item 
+tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a52ec1aca379aeb45731df3cc6c7d3663}{tesseract\+\_\+ik\+\_\+}}
+\item 
+descartes\+\_\+light\+::\+Is\+Valid\+Fn$<$ Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_aa68299a01b6d1efc1884ebbaadb8bac6}{is\+\_\+valid\+\_\+fn\+\_\+}}
+\item 
+descartes\+\_\+light\+::\+Get\+Redundant\+Solutions\+Fn$<$ Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a4b7429d1227b005c134d1789a7ffef89}{redundant\+\_\+sol\+\_\+fn\+\_\+}}
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a3a209974248d2adb9f2df71f02b3efc0}{ik\+\_\+seed\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Float\+Type$>$\newline
+class tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics$<$ Float\+Type $>$}
+
+Provides a Descartes interface for Tesseract Kinematics. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a1a0a3026767b4420b488ea043ac7730f}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a1a0a3026767b4420b488ea043ac7730f}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a1a0a3026767b4420b488ea043ac7730f}{Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{Descartes\+Tesseract\+Kinematics}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a0a1c676a9553d0f68bef45cbf7a600f5}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a0a1c676a9553d0f68bef45cbf7a600f5}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_a0a1c676a9553d0f68bef45cbf7a600f5}{Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{Descartes\+Tesseract\+Kinematics}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a75b4cd7a355876a0c4be94b955107d61}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a75b4cd7a355876a0c4be94b955107d61}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!DescartesTesseractKinematics@{DescartesTesseractKinematics}}
+\index{DescartesTesseractKinematics@{DescartesTesseractKinematics}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesTesseractKinematics()}{DescartesTesseractKinematics()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{Descartes\+Tesseract\+Kinematics}} (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&}]{tesseract\+\_\+fk,  }\item[{const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \&}]{tesseract\+\_\+ik }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This constructor defaults to using is\+Within\+Limits as the is\+Valid\+Fn and gets redundant solutions within joint limits. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tesseract\+\_\+fk} & Forward kinematics object \\
+\hline
+{\em tesseract\+\_\+ik} & Inverse kinematics object \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a84ac267766bd37f6fb0c216ea7cacfae}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a84ac267766bd37f6fb0c216ea7cacfae}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!DescartesTesseractKinematics@{DescartesTesseractKinematics}}
+\index{DescartesTesseractKinematics@{DescartesTesseractKinematics}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesTesseractKinematics()}{DescartesTesseractKinematics()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{Descartes\+Tesseract\+Kinematics}} (\begin{DoxyParamCaption}\item[{tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr}]{tesseract\+\_\+fk,  }\item[{tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr}]{tesseract\+\_\+ik,  }\item[{descartes\+\_\+light\+::\+Is\+Valid\+Fn$<$ Float\+Type $>$}]{is\+\_\+valid\+\_\+fn,  }\item[{descartes\+\_\+light\+::\+Get\+Redundant\+Solutions\+Fn$<$ Float\+Type $>$}]{redundant\+\_\+sol\+\_\+fn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{Descartes\+Tesseract\+Kinematics}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tesseract\+\_\+fk} & Forward kinematics object \\
+\hline
+{\em tesseract\+\_\+ik} & Inverse kinematic object \\
+\hline
+{\em is\+\_\+valid\+\_\+fn} & Function that is used to determine if a vertex is valid \\
+\hline
+{\em redundant\+\_\+sol\+\_\+fn} & Function called to get redundant solutions beyond what tesseract\+\_\+ik returns \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_ab2218a8fcce72693e60fd29ddfa2cde4}\label{classtesseract__planning_1_1DescartesTesseractKinematics_ab2218a8fcce72693e60fd29ddfa2cde4}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!analyzeIK@{analyzeIK}}
+\index{analyzeIK@{analyzeIK}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{analyzeIK()}{analyzeIK()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+void \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::analyze\+IK (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Transform$<$ Float\+Type, 3, Eigen\+::\+Isometry $>$ \&}]{p }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Analyzes the effect of the is\+Valid\+Fn and redundant solutions on the number of returned solutions and prints the results. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_afbed49b3f710b11e85442494a2be47a1}\label{classtesseract__planning_1_1DescartesTesseractKinematics_afbed49b3f710b11e85442494a2be47a1}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!dof@{dof}}
+\index{dof@{dof}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{dof()}{dof()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+int \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::dof\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Returns the number of joints in the kinematics object. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a1b74e8e9b030737baa17a0370bf8b08b}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a1b74e8e9b030737baa17a0370bf8b08b}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!fk@{fk}}
+\index{fk@{fk}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{fk()}{fk()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::fk (\begin{DoxyParamCaption}\item[{const Float\+Type $\ast$}]{pose,  }\item[{Eigen\+::\+Transform$<$ Float\+Type, 3, Eigen\+::\+Isometry $>$ \&}]{solution }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Calculate forward kinematics. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_ab1107776a386976d5816b2ade13520cc}\label{classtesseract__planning_1_1DescartesTesseractKinematics_ab1107776a386976d5816b2ade13520cc}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!ik@{ik}}
+\index{ik@{ik}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{ik()}{ik()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::ik (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Transform$<$ Float\+Type, 3, Eigen\+::\+Isometry $>$ \&}]{p,  }\item[{const descartes\+\_\+light\+::\+Is\+Valid\+Fn$<$ Float\+Type $>$ \&}]{is\+\_\+valid\+\_\+fn,  }\item[{const descartes\+\_\+light\+::\+Get\+Redundant\+Solutions\+Fn$<$ Float\+Type $>$ \&}]{redundant\+\_\+sol\+\_\+fn,  }\item[{std\+::vector$<$ Float\+Type $>$ \&}]{solution\+\_\+set }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_af10f9d147511d4295aa8a41e412aaba7}\label{classtesseract__planning_1_1DescartesTesseractKinematics_af10f9d147511d4295aa8a41e412aaba7}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!ik@{ik}}
+\index{ik@{ik}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{ik()}{ik()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::ik (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Transform$<$ Float\+Type, 3, Eigen\+::\+Isometry $>$ \&}]{p,  }\item[{std\+::vector$<$ Float\+Type $>$ \&}]{solution\+\_\+set }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Calculate inverse kinematics using is\+Valid\+Fn, Get\+Redundant\+Solutions\+Fn, and ik\+\_\+seed provided. 
+
+Note\+: This currenlty only supports single solutions \mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_afff51223f4f3284e0da847f3b89e4509}\label{classtesseract__planning_1_1DescartesTesseractKinematics_afff51223f4f3284e0da847f3b89e4509}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!setIKSeed@{setIKSeed}}
+\index{setIKSeed@{setIKSeed}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{setIKSeed()}{setIKSeed()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+void \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::set\+IKSeed (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&}]{seed }\end{DoxyParamCaption})}
+
+
+
+Sets the seed used by inverse kinematics. Must be length \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_afbed49b3f710b11e85442494a2be47a1}{dof()}}. Default\+: Eigen\+::\+Vector\+Xd\+::\+Zero(dof()) 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a82a16f9907f822297c7fdbef4d1d0350}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a82a16f9907f822297c7fdbef4d1d0350}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!setIKSeed@{setIKSeed}}
+\index{setIKSeed@{setIKSeed}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{setIKSeed()}{setIKSeed()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+void \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::set\+IKSeed (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Float\+Type $>$ \&}]{seed }\end{DoxyParamCaption})}
+
+
+
+Sets the seed used by inverse kinematics. Must be length \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics_afbed49b3f710b11e85442494a2be47a1}{dof()}}. Default\+: Eigen\+::\+Vector\+Xd\+::\+Zero(dof()) 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a3a209974248d2adb9f2df71f02b3efc0}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a3a209974248d2adb9f2df71f02b3efc0}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!ik\_seed\_@{ik\_seed\_}}
+\index{ik\_seed\_@{ik\_seed\_}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{ik\_seed\_}{ik\_seed\_}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::ik\+\_\+seed\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_aa68299a01b6d1efc1884ebbaadb8bac6}\label{classtesseract__planning_1_1DescartesTesseractKinematics_aa68299a01b6d1efc1884ebbaadb8bac6}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!is\_valid\_fn\_@{is\_valid\_fn\_}}
+\index{is\_valid\_fn\_@{is\_valid\_fn\_}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{is\_valid\_fn\_}{is\_valid\_fn\_}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+descartes\+\_\+light\+::\+Is\+Valid\+Fn$<$Float\+Type$>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::is\+\_\+valid\+\_\+fn\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a4b7429d1227b005c134d1789a7ffef89}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a4b7429d1227b005c134d1789a7ffef89}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!redundant\_sol\_fn\_@{redundant\_sol\_fn\_}}
+\index{redundant\_sol\_fn\_@{redundant\_sol\_fn\_}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{redundant\_sol\_fn\_}{redundant\_sol\_fn\_}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+descartes\+\_\+light\+::\+Get\+Redundant\+Solutions\+Fn$<$Float\+Type$>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::redundant\+\_\+sol\+\_\+fn\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a5316bca5aa6a2d4493366f1722a6a316}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a5316bca5aa6a2d4493366f1722a6a316}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!tesseract\_fk\_@{tesseract\_fk\_}}
+\index{tesseract\_fk\_@{tesseract\_fk\_}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{tesseract\_fk\_}{tesseract\_fk\_}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::tesseract\+\_\+fk\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesTesseractKinematics_a52ec1aca379aeb45731df3cc6c7d3663}\label{classtesseract__planning_1_1DescartesTesseractKinematics_a52ec1aca379aeb45731df3cc6c7d3663}} 
+\index{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}!tesseract\_ik\_@{tesseract\_ik\_}}
+\index{tesseract\_ik\_@{tesseract\_ik\_}!tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$@{tesseract\_planning::DescartesTesseractKinematics$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{tesseract\_ik\_}{tesseract\_ik\_}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ Float\+Type $>$\+::tesseract\+\_\+ik\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/descartes/\mbox{\hyperlink{descartes__tesseract__kinematics_8h}{descartes\+\_\+tesseract\+\_\+kinematics.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/descartes/impl/\mbox{\hyperlink{descartes__tesseract__kinematics_8hpp}{descartes\+\_\+tesseract\+\_\+kinematics.\+hpp}}\end{DoxyCompactItemize}

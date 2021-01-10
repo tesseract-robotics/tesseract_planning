@@ -1,0 +1,120 @@
+\hypertarget{ompl__planner__configurator_8h}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+planner\+\_\+configurator.h File Reference}
+\label{ompl__planner__configurator_8h}\index{tesseract\_motion\_planners/include/tesseract\_motion\_planners/ompl/ompl\_planner\_configurator.h@{tesseract\_motion\_planners/include/tesseract\_motion\_planners/ompl/ompl\_planner\_configurator.h}}
+
+
+Tesseract OMPL planner configurator.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/\+Space\+Information.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/\+Planner.\+h$>$}\newline
+{\ttfamily \#include $<$tinyxml2.\+h$>$}\newline
+Include dependency graph for ompl\+\_\+planner\+\_\+configurator.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0c/ompl__planner__configurator_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d67/ompl__planner__configurator_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{tesseract\+\_\+planning\+::\+SBLConfigurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{tesseract\+\_\+planning\+::\+ESTConfigurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{tesseract\+\_\+planning\+::\+LBKPIECE1\+Configurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{tesseract\+\_\+planning\+::\+BKPIECE1\+Configurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{tesseract\+\_\+planning\+::\+KPIECE1\+Configurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{tesseract\+\_\+planning\+::\+Bi\+TRRTConfigurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{tesseract\+\_\+planning\+::\+RRTConfigurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{tesseract\+\_\+planning\+::\+RRTConnect\+Configurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{tesseract\+\_\+planning\+::\+RRTstar\+Configurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{tesseract\+\_\+planning\+::\+TRRTConfigurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{tesseract\+\_\+planning\+::\+PRMConfigurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{tesseract\+\_\+planning\+::\+PRMstar\+Configurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{tesseract\+\_\+planning\+::\+Lazy\+PRMstar\+Configurator}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{tesseract\+\_\+planning\+::\+SPARSConfigurator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Type}} \{ \newline
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a4fb76af6644df80663ac679b7fa308cd}{tesseract\+\_\+planning\+::\+SBL}} = 0
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a33a61062aa4da2b795b7f9616c138b89}{tesseract\+\_\+planning\+::\+EST}} = 1
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a7add8dcabb8ec7cd4b9df9f81e770b06}{tesseract\+\_\+planning\+::\+LBKPIECE1}} = 2
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009aecc78a1ae26fb1cb1dbb606ea2d2ef8e}{tesseract\+\_\+planning\+::\+BKPIECE1}} = 3
+, \newline
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab005fc528f1fbf89a4d478ec63e1ad6f}{tesseract\+\_\+planning\+::\+KPIECE1}} = 4
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a15a8493631543a9f9926b07052e4af16}{tesseract\+\_\+planning\+::\+Bi\+TRRT}} = 5
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a6f7cce8fc2d350b13e6c346b5ac086fa}{tesseract\+\_\+planning\+::\+RRT}} = 6
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a305e3d61a2d49bc862f34c7c65aa55ae}{tesseract\+\_\+planning\+::\+RRTConnect}} = 7
+, \newline
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009aad869033ef49142115dfa3dfeaef82ff}{tesseract\+\_\+planning\+::\+RRTstar}} = 8
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a0e7d873ffa5066604ead6d4e85cb535e}{tesseract\+\_\+planning\+::\+TRRT}} = 9
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab8decd29b0a1f5e36ef8ec4e7c35e986}{tesseract\+\_\+planning\+::\+PRM}} = 10
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a416610e2cda76d2153d65c4c57682ec4}{tesseract\+\_\+planning\+::\+PRMstar}} = 11
+, \newline
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a047fad3f3eff568f580d6ef5796e1e8f}{tesseract\+\_\+planning\+::\+Lazy\+PRMstar}} = 12
+, \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab48a99cb2f527e03dfbd95bc49c4fceb}{tesseract\+\_\+planning\+::\+SPARS}} = 13
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tesseract OMPL planner configurator. 
+
+If a settings class does not exist for a planner available in ompl you may simply create your own that has an apply method that takes the specific planner you would like to use and construct the OMPLFreespace\+Planner with the desired planner and newly created config class and everything should work.
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 1, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000035}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

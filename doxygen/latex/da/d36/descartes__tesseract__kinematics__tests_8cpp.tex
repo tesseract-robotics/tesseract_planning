@@ -1,0 +1,182 @@
+\hypertarget{descartes__tesseract__kinematics__tests_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/test/descartes\+\_\+tesseract\+\_\+kinematics\+\_\+tests.cpp File Reference}
+\label{descartes__tesseract__kinematics__tests_8cpp}\index{tesseract\_motion\_planners/test/descartes\_tesseract\_kinematics\_tests.cpp@{tesseract\_motion\_planners/test/descartes\_tesseract\_kinematics\_tests.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/environment.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/ofkt/ofkt\+\_\+state\+\_\+solver.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/impl/descartes\+\_\+tesseract\+\_\+kinematics.\+hpp$>$}\newline
+Include dependency graph for descartes\+\_\+tesseract\+\_\+kinematics\+\_\+tests.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/daf/descartes__tesseract__kinematics__tests_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classDescartesTesseractKinematicsTest}{Descartes\+Tesseract\+Kinematics\+Test$<$ Float\+Type $>$}}
+\begin{DoxyCompactList}\small\item\em This is used to test that private members are set correctly. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}{locate\+Resource}} (const std\+::string \&url)
+\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_aa2fcd966d00d6ef304a2e11b611a6fac}{is\+Not\+Valid}} (const Float\+Type $\ast$)
+\begin{DoxyCompactList}\small\item\em Always returns false. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_ae854b9a0054477776866d81377227ab3}{is\+Completely\+Valid}} (const Float\+Type $\ast$)
+\begin{DoxyCompactList}\small\item\em Always returns true. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\std\+::vector$<$ Float\+Type $>$ \mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_a4d470c58a75718aafafd8783b005b10b}{no\+Redundant\+Solutions}} (const Float\+Type $\ast$, unsigned int \&)
+\begin{DoxyCompactList}\small\item\em Returns an empty vector corresponding to no redundant solutions. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\std\+::vector$<$ Float\+Type $>$ \mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_a20b25e4134432e430bbafbb52e10d2ef}{one\+Redundant\+Solution}} (const Float\+Type $\ast$sol, unsigned int \&dof)
+\begin{DoxyCompactList}\small\item\em Returns the first solution as a duplicate redundant solution. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_a7fc901304de48504616f391b599a9457}{test\+IKDouble}} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ double $>$ kin, const Eigen\+::\+Isometry3d \&pose\+\_\+d, const Eigen\+::\+Vector\+Xd \&seed\+\_\+d, int expected\+\_\+sols)
+\begin{DoxyCompactList}\small\item\em Used to test IK by running the IK results through FK to check that they match up. This also checks that the number of solutions matches the user defined expected number and that ik returns false when no solutions are found. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_ada71178acc0344b2dc680d3156c1808d}{test\+IKFloat}} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ float $>$ kin, Eigen\+::\+Isometry3f pose\+\_\+f, const Eigen\+::\+Vector\+Xf \&seed\+\_\+f, int expected\+\_\+sols)
+\begin{DoxyCompactList}\small\item\em Used to test IK by running the IK results through FK to check that they match up. This also checks that the number of solutions matches the user defined expected number and that ik returns false when no solutions are found. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_a5f3f8c269b3e5b2a71a22645c30fb7e5}{TEST\+\_\+F}} (\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}, IKTest)
+\begin{DoxyCompactList}\small\item\em Tests IK by calculating it for a pose and then testing each solution that is returned against the fk solution. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_a85156346d72e1a65941321274eaa7175}{TEST\+\_\+F}} (\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}, FKTest)
+\begin{DoxyCompactList}\small\item\em This checks fk() against calling the tesseract kinematics object directly. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_a951488257b903953d99131e4a84e47f5}{TEST\+\_\+F}} (\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}, DOFTest)
+\begin{DoxyCompactList}\small\item\em This checks that that dof() returns the correct value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_aa6fbf419b5db675c80b31921d5a35f21}{TEST\+\_\+F}} (\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}, Analyze\+IKTest)
+\begin{DoxyCompactList}\small\item\em Since analyze\+IK() does not have any results, this just checkst that it doesn\textquotesingle{}t crash. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_af86fac525f79f56e7bba2cebb77506ce}{TEST\+\_\+F}} (\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}, Set\+IKSeed\+Test)
+\begin{DoxyCompactList}\small\item\em This tests that the ik seed is set correctly. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{descartes__tesseract__kinematics__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_ae854b9a0054477776866d81377227ab3}\label{descartes__tesseract__kinematics__tests_8cpp_ae854b9a0054477776866d81377227ab3}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!isCompletelyValid@{isCompletelyValid}}
+\index{isCompletelyValid@{isCompletelyValid}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{isCompletelyValid()}{isCompletelyValid()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool is\+Completely\+Valid (\begin{DoxyParamCaption}\item[{const Float\+Type $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Always returns true. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_aa2fcd966d00d6ef304a2e11b611a6fac}\label{descartes__tesseract__kinematics__tests_8cpp_aa2fcd966d00d6ef304a2e11b611a6fac}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!isNotValid@{isNotValid}}
+\index{isNotValid@{isNotValid}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{isNotValid()}{isNotValid()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool is\+Not\+Valid (\begin{DoxyParamCaption}\item[{const Float\+Type $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Always returns false. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}\label{descartes__tesseract__kinematics__tests_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!locateResource@{locateResource}}
+\index{locateResource@{locateResource}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{locateResource()}{locateResource()}}
+{\footnotesize\ttfamily std\+::string locate\+Resource (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{url }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{descartes__tesseract__kinematics__tests_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!main@{main}}
+\index{main@{main}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_a4d470c58a75718aafafd8783b005b10b}\label{descartes__tesseract__kinematics__tests_8cpp_a4d470c58a75718aafafd8783b005b10b}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!noRedundantSolutions@{noRedundantSolutions}}
+\index{noRedundantSolutions@{noRedundantSolutions}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{noRedundantSolutions()}{noRedundantSolutions()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+std\+::vector$<$Float\+Type$>$ no\+Redundant\+Solutions (\begin{DoxyParamCaption}\item[{const Float\+Type $\ast$}]{,  }\item[{unsigned int \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns an empty vector corresponding to no redundant solutions. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_a20b25e4134432e430bbafbb52e10d2ef}\label{descartes__tesseract__kinematics__tests_8cpp_a20b25e4134432e430bbafbb52e10d2ef}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!oneRedundantSolution@{oneRedundantSolution}}
+\index{oneRedundantSolution@{oneRedundantSolution}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{oneRedundantSolution()}{oneRedundantSolution()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+std\+::vector$<$Float\+Type$>$ one\+Redundant\+Solution (\begin{DoxyParamCaption}\item[{const Float\+Type $\ast$}]{sol,  }\item[{unsigned int \&}]{dof }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the first solution as a duplicate redundant solution. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_aa6fbf419b5db675c80b31921d5a35f21}\label{descartes__tesseract__kinematics__tests_8cpp_aa6fbf419b5db675c80b31921d5a35f21}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}}]{,  }\item[{Analyze\+IKTest}]{ }\end{DoxyParamCaption})}
+
+
+
+Since analyze\+IK() does not have any results, this just checkst that it doesn\textquotesingle{}t crash. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_a951488257b903953d99131e4a84e47f5}\label{descartes__tesseract__kinematics__tests_8cpp_a951488257b903953d99131e4a84e47f5}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}}]{,  }\item[{DOFTest}]{ }\end{DoxyParamCaption})}
+
+
+
+This checks that that dof() returns the correct value. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_a85156346d72e1a65941321274eaa7175}\label{descartes__tesseract__kinematics__tests_8cpp_a85156346d72e1a65941321274eaa7175}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}}]{,  }\item[{FKTest}]{ }\end{DoxyParamCaption})}
+
+
+
+This checks fk() against calling the tesseract kinematics object directly. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_a5f3f8c269b3e5b2a71a22645c30fb7e5}\label{descartes__tesseract__kinematics__tests_8cpp_a5f3f8c269b3e5b2a71a22645c30fb7e5}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}}]{,  }\item[{IKTest}]{ }\end{DoxyParamCaption})}
+
+
+
+Tests IK by calculating it for a pose and then testing each solution that is returned against the fk solution. 
+
+Note that these tests assume that the default IK solver only returns one solution \mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_af86fac525f79f56e7bba2cebb77506ce}\label{descartes__tesseract__kinematics__tests_8cpp_af86fac525f79f56e7bba2cebb77506ce}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDescartesTesseractKinematicsUnit}{Descartes\+Tesseract\+Kinematics\+Unit}}}]{,  }\item[{Set\+IKSeed\+Test}]{ }\end{DoxyParamCaption})}
+
+
+
+This tests that the ik seed is set correctly. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_a7fc901304de48504616f391b599a9457}\label{descartes__tesseract__kinematics__tests_8cpp_a7fc901304de48504616f391b599a9457}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!testIKDouble@{testIKDouble}}
+\index{testIKDouble@{testIKDouble}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{testIKDouble()}{testIKDouble()}}
+{\footnotesize\ttfamily static void test\+IKDouble (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ double $>$}]{kin,  }\item[{const Eigen\+::\+Isometry3d \&}]{pose\+\_\+d,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{seed\+\_\+d,  }\item[{int}]{expected\+\_\+sols }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Used to test IK by running the IK results through FK to check that they match up. This also checks that the number of solutions matches the user defined expected number and that ik returns false when no solutions are found. 
+
+\mbox{\Hypertarget{descartes__tesseract__kinematics__tests_8cpp_ada71178acc0344b2dc680d3156c1808d}\label{descartes__tesseract__kinematics__tests_8cpp_ada71178acc0344b2dc680d3156c1808d}} 
+\index{descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}!testIKFloat@{testIKFloat}}
+\index{testIKFloat@{testIKFloat}!descartes\_tesseract\_kinematics\_tests.cpp@{descartes\_tesseract\_kinematics\_tests.cpp}}
+\doxysubsubsection{\texorpdfstring{testIKFloat()}{testIKFloat()}}
+{\footnotesize\ttfamily static void test\+IKFloat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesTesseractKinematics}{tesseract\+\_\+planning\+::\+Descartes\+Tesseract\+Kinematics}}$<$ float $>$}]{kin,  }\item[{Eigen\+::\+Isometry3f}]{pose\+\_\+f,  }\item[{const Eigen\+::\+Vector\+Xf \&}]{seed\+\_\+f,  }\item[{int}]{expected\+\_\+sols }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Used to test IK by running the IK results through FK to check that they match up. This also checks that the number of solutions matches the user defined expected number and that ik returns false when no solutions are found. 
+

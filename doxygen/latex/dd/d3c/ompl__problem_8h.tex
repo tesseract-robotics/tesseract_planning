@@ -1,0 +1,115 @@
+\hypertarget{ompl__problem_8h}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+problem.h File Reference}
+\label{ompl__problem_8h}\index{tesseract\_motion\_planners/include/tesseract\_motion\_planners/ompl/ompl\_problem.h@{tesseract\_motion\_planners/include/tesseract\_motion\_planners/ompl/ompl\_problem.h}}
+
+
+Tesseract OMPL problem definition.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/geometric/\+Simple\+Setup.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/\+Optimization\+Objective.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/tools/multiplan/\+Parallel\+Plan.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/objectives/\+Path\+Length\+Optimization\+Objective.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+planner\+\_\+configurator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/environment.\+h$>$}\newline
+Include dependency graph for ompl\+\_\+problem.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d10/ompl__problem_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d51/ompl__problem_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{tesseract\+\_\+planning\+::\+OMPLProblem}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}{tesseract\+\_\+planning\+::\+State\+Sampler\+Allocator}} = std\+::function$<$ ompl\+::base\+::\+State\+Sampler\+Ptr(const ompl\+::base\+::\+State\+Space $\ast$, const OMPLProblem \&)$>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a7bd709d31d5445aafb082d85b1dced53}{tesseract\+\_\+planning\+::\+Optimization\+Objective\+Allocator}} = std\+::function$<$ ompl\+::base\+::\+Optimization\+Objective\+Ptr(const ompl\+::base\+::\+Space\+Information\+Ptr \&, const OMPLProblem \&)$>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a4998b57113ac39511185f381ce61a6fd}{tesseract\+\_\+planning\+::\+State\+Validity\+Checker\+Allocator}} = std\+::function$<$ ompl\+::base\+::\+State\+Validity\+Checker\+Ptr(const ompl\+::base\+::\+Space\+Information\+Ptr \&, const OMPLProblem \&)$>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a49e2e11b198d0aa7480130b9f18021d5}{tesseract\+\_\+planning\+::\+Motion\+Validator\+Allocator}} = std\+::function$<$ ompl\+::base\+::\+Motion\+Validator\+Ptr(const ompl\+::base\+::\+Space\+Information\+Ptr \&, const OMPLProblem \&)$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{tesseract\+\_\+planning\+::\+OMPLProblem\+State\+Space}} \{ \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{tesseract\+\_\+planning\+::\+REAL\+\_\+\+STATE\+\_\+\+SPACE}}
+, \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62a86b43f975a794464ccbca127da14aea0}{tesseract\+\_\+planning\+::\+REAL\+\_\+\+CONSTRAINTED\+\_\+\+STATE\+\_\+\+SPACE}}
+, \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62a660ce4b7bd4b4a899f9a46c870ac4d2b}{tesseract\+\_\+planning\+::\+SE3\+\_\+\+STATE\+\_\+\+SPACE}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tesseract OMPL problem definition. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 18, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000036}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+\end{DoxyParagraph}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 18, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000088}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

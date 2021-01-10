@@ -1,0 +1,46 @@
+\hypertarget{iterative__spline__parameterization_8cpp}{}\doxysection{tesseract\+\_\+time\+\_\+parameterization/src/iterative\+\_\+spline\+\_\+parameterization.cpp File Reference}
+\label{iterative__spline__parameterization_8cpp}\index{tesseract\_time\_parameterization/src/iterative\_spline\_parameterization.cpp@{tesseract\_time\_parameterization/src/iterative\_spline\_parameterization.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+time\+\_\+parameterization/iterative\+\_\+spline\+\_\+parameterization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+Include dependency graph for iterative\+\_\+spline\+\_\+parameterization.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/dca/iterative__spline__parameterization_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{tesseract\+\_\+planning\+::\+Single\+Joint\+Trajectory}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{namespacetesseract__planning_a1430f1d1119b09b6c6b46624435e69e9}{tesseract\+\_\+planning\+::fit\+\_\+cubic\+\_\+spline}} (const int n, const double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]})
+\item 
+static void \mbox{\hyperlink{namespacetesseract__planning_afdb9cb7ac7909cfcf06827a19b67771a}{tesseract\+\_\+planning\+::adjust\+\_\+two\+\_\+positions}} (const int n, const double dt\mbox{[}$\,$\mbox{]}, double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]}, const double x2\+\_\+i, const double x2\+\_\+f)
+\item 
+static void \mbox{\hyperlink{namespacetesseract__planning_aafaaff65bdb8c59e6c2cbaedf3934f0c}{tesseract\+\_\+planning\+::init\+\_\+times}} (int n, double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&min\+\_\+velocity)
+\item 
+static double \mbox{\hyperlink{namespacetesseract__planning_adcac602c6a5d31583876cc69dfc52ba5}{tesseract\+\_\+planning\+::global\+\_\+adjustment\+\_\+factor}} (int n, double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]}, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&min\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&min\+\_\+acceleration)
+\item 
+void \mbox{\hyperlink{namespacetesseract__planning_aa839d132d8adcf4f0fbc0483d23c81c5}{tesseract\+\_\+planning\+::global\+Adjustment}} (std\+::vector$<$ Single\+Joint\+Trajectory $>$ \&t2, int num\+\_\+joints, const int num\+\_\+points, std\+::vector$<$ double $>$ \&time\+\_\+diff)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static flatten\+Filter\+Fn \mbox{\hyperlink{namespacetesseract__planning_a1dd218f776ae0ba1ef79388d499caea2}{tesseract\+\_\+planning\+::program\+Flatten\+Move\+Instruction\+Filter}}
+\end{DoxyCompactItemize}

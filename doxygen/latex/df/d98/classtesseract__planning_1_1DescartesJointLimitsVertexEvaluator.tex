@@ -1,0 +1,104 @@
+\hypertarget{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{}\doxysection{tesseract\+\_\+planning\+::Descartes\+Joint\+Limits\+Vertex\+Evaluator$<$ Float\+Type $>$ Class Template Reference}
+\label{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}\index{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}}
+
+
+{\ttfamily \#include $<$descartes\+\_\+vertex\+\_\+evaluator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Descartes\+Joint\+Limits\+Vertex\+Evaluator$<$ Float\+Type $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{d9/dfd/classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Joint\+Limits\+Vertex\+Evaluator$<$ Float\+Type $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{d0/dd3/classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a5361b9d0b40255733b4082987fc41535}{Ptr}} = typename std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{Descartes\+Joint\+Limits\+Vertex\+Evaluator}}$<$ Float\+Type $>$ $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a3df800d4aa1f1a5b0b8a739ecef2ab45}{Descartes\+Joint\+Limits\+Vertex\+Evaluator}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&limits)
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a4273add73fbb6ba67ad4c19aaeb58f80}{operator()}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&vertex) const override
+\begin{DoxyCompactList}\small\item\em Determines whether the vertex is valid and, if so, its cost. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Matrix\+X2d \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a3814d72d8b9000191b40e9043b6ecd53}{limits\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a5361b9d0b40255733b4082987fc41535}\label{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a5361b9d0b40255733b4082987fc41535}} 
+\index{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Joint\+Limits\+Vertex\+Evaluator}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_ab03d5117478686437788887321f20c5d}{Ptr}} =  typename std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{Descartes\+Joint\+Limits\+Vertex\+Evaluator}}$<$Float\+Type$>$ $>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a3df800d4aa1f1a5b0b8a739ecef2ab45}\label{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a3df800d4aa1f1a5b0b8a739ecef2ab45}} 
+\index{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}!DescartesJointLimitsVertexEvaluator@{DescartesJointLimitsVertexEvaluator}}
+\index{DescartesJointLimitsVertexEvaluator@{DescartesJointLimitsVertexEvaluator}!tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesJointLimitsVertexEvaluator()}{DescartesJointLimitsVertexEvaluator()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Joint\+Limits\+Vertex\+Evaluator}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{Descartes\+Joint\+Limits\+Vertex\+Evaluator}} (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&}]{limits }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a4273add73fbb6ba67ad4c19aaeb58f80}\label{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a4273add73fbb6ba67ad4c19aaeb58f80}} 
+\index{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Joint\+Limits\+Vertex\+Evaluator}}$<$ Float\+Type $>$\+::operator() (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&}]{vertex }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Determines whether the vertex is valid and, if so, its cost. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & The vertex to consider \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if vertex is valid, false otherwise. The relative cost associated with the vertex 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_a77aca01ced31ed8b4b67b1ee91144b40}{tesseract\+\_\+planning\+::\+Descartes\+Vertex\+Evaluator$<$ Float\+Type $>$}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a3814d72d8b9000191b40e9043b6ecd53}\label{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a3814d72d8b9000191b40e9043b6ecd53}} 
+\index{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}!limits\_@{limits\_}}
+\index{limits\_@{limits\_}!tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesJointLimitsVertexEvaluator$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{limits\_}{limits\_}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+Eigen\+::\+Matrix\+X2d \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Joint\+Limits\+Vertex\+Evaluator}}$<$ Float\+Type $>$\+::limits\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/descartes/\mbox{\hyperlink{descartes__vertex__evaluator_8h}{descartes\+\_\+vertex\+\_\+evaluator.\+h}}\end{DoxyCompactItemize}

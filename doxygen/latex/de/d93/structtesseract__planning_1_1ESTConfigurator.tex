@@ -1,0 +1,172 @@
+\hypertarget{structtesseract__planning_1_1ESTConfigurator}{}\doxysection{tesseract\+\_\+planning\+::ESTConfigurator Struct Reference}
+\label{structtesseract__planning_1_1ESTConfigurator}\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+
+
+{\ttfamily \#include $<$ompl\+\_\+planner\+\_\+configurator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::ESTConfigurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{d4/d93/structtesseract__planning_1_1ESTConfigurator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::ESTConfigurator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{d4/dbb/structtesseract__planning_1_1ESTConfigurator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a1c91ef2115c47670e06caf3fef267710}{ESTConfigurator}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a99dd1b7b5fb7ab2d2e5c028b75051373}{$\sim$\+ESTConfigurator}} () override=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a049d427f76e16be4163c651a708b0ff7}{ESTConfigurator}} (const \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a1088a3ddb7bf12906964ab0c7c8a551b}{operator=}} (const \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_ad118fb2732cb929fb11d826e5b816389}{ESTConfigurator}} (\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \& \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a278e237dbb210e6aaaa2830f9b07adc7}{operator=}} (\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \&\&)=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_aeaa10d3e4963eb68c5d7bd5f66e439cd}{ESTConfigurator}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+ompl\+::base\+::\+Planner\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_aa4092ae47c82ccea684ecf7deeb49895}{create}} (ompl\+::base\+::\+Space\+Information\+Ptr si) const override
+\begin{DoxyCompactList}\small\item\em Create the planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_afcb324ce368fbad4a50afd6dba0deb51}{get\+Type}} () const override
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_afe7df1a97f95a29c6da37f0cad067d6d}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const override
+\begin{DoxyCompactList}\small\item\em Serialize planner to xml. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_aa86dd58a7b16def6a41e301615675a6d}{range}} = 0
+\begin{DoxyCompactList}\small\item\em Max motion added to tree. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_aecb0861836fee6f9d1b97724a6451a44}{goal\+\_\+bias}} = 0.\+05
+\begin{DoxyCompactList}\small\item\em When close to goal select goal, with this probability. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_a1c91ef2115c47670e06caf3fef267710}\label{structtesseract__planning_1_1ESTConfigurator_a1c91ef2115c47670e06caf3fef267710}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!ESTConfigurator@{ESTConfigurator}}
+\index{ESTConfigurator@{ESTConfigurator}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{ESTConfigurator()}{ESTConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+ESTConfigurator\+::\+ESTConfigurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_a99dd1b7b5fb7ab2d2e5c028b75051373}\label{structtesseract__planning_1_1ESTConfigurator_a99dd1b7b5fb7ab2d2e5c028b75051373}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!````~ESTConfigurator@{$\sim$ESTConfigurator}}
+\index{````~ESTConfigurator@{$\sim$ESTConfigurator}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{$\sim$ESTConfigurator()}{~ESTConfigurator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+ESTConfigurator\+::$\sim$\+ESTConfigurator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_a049d427f76e16be4163c651a708b0ff7}\label{structtesseract__planning_1_1ESTConfigurator_a049d427f76e16be4163c651a708b0ff7}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!ESTConfigurator@{ESTConfigurator}}
+\index{ESTConfigurator@{ESTConfigurator}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{ESTConfigurator()}{ESTConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+ESTConfigurator\+::\+ESTConfigurator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_ad118fb2732cb929fb11d826e5b816389}\label{structtesseract__planning_1_1ESTConfigurator_ad118fb2732cb929fb11d826e5b816389}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!ESTConfigurator@{ESTConfigurator}}
+\index{ESTConfigurator@{ESTConfigurator}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{ESTConfigurator()}{ESTConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+ESTConfigurator\+::\+ESTConfigurator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_aeaa10d3e4963eb68c5d7bd5f66e439cd}\label{structtesseract__planning_1_1ESTConfigurator_aeaa10d3e4963eb68c5d7bd5f66e439cd}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!ESTConfigurator@{ESTConfigurator}}
+\index{ESTConfigurator@{ESTConfigurator}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{ESTConfigurator()}{ESTConfigurator()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+ESTConfigurator\+::\+ESTConfigurator (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_aa4092ae47c82ccea684ecf7deeb49895}\label{structtesseract__planning_1_1ESTConfigurator_aa4092ae47c82ccea684ecf7deeb49895}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!create@{create}}
+\index{create@{create}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily ompl\+::base\+::\+Planner\+Ptr tesseract\+\_\+planning\+::\+ESTConfigurator\+::create (\begin{DoxyParamCaption}\item[{ompl\+::base\+::\+Space\+Information\+Ptr}]{si }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Create the planner. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a86ccc143e057c7e55355ac6c34b30753}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_afcb324ce368fbad4a50afd6dba0deb51}\label{structtesseract__planning_1_1ESTConfigurator_afcb324ce368fbad4a50afd6dba0deb51}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!getType@{getType}}
+\index{getType@{getType}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} tesseract\+\_\+planning\+::\+ESTConfigurator\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a921d57d99e8045ae77ced935e9c8575f}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_a1088a3ddb7bf12906964ab0c7c8a551b}\label{structtesseract__planning_1_1ESTConfigurator_a1088a3ddb7bf12906964ab0c7c8a551b}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\& tesseract\+\_\+planning\+::\+ESTConfigurator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_a278e237dbb210e6aaaa2830f9b07adc7}\label{structtesseract__planning_1_1ESTConfigurator_a278e237dbb210e6aaaa2830f9b07adc7}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\& tesseract\+\_\+planning\+::\+ESTConfigurator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_afe7df1a97f95a29c6da37f0cad067d6d}\label{structtesseract__planning_1_1ESTConfigurator_afe7df1a97f95a29c6da37f0cad067d6d}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+ESTConfigurator\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Serialize planner to xml. 
+
+
+
+Implements \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a6d2d67f9cb772971c344f891c666cfcc}{tesseract\+\_\+planning\+::\+OMPLPlanner\+Configurator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_aecb0861836fee6f9d1b97724a6451a44}\label{structtesseract__planning_1_1ESTConfigurator_aecb0861836fee6f9d1b97724a6451a44}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!goal\_bias@{goal\_bias}}
+\index{goal\_bias@{goal\_bias}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{goal\_bias}{goal\_bias}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+ESTConfigurator\+::goal\+\_\+bias = 0.\+05}
+
+
+
+When close to goal select goal, with this probability. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ESTConfigurator_aa86dd58a7b16def6a41e301615675a6d}\label{structtesseract__planning_1_1ESTConfigurator_aa86dd58a7b16def6a41e301615675a6d}} 
+\index{tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}!range@{range}}
+\index{range@{range}!tesseract\_planning::ESTConfigurator@{tesseract\_planning::ESTConfigurator}}
+\doxysubsubsection{\texorpdfstring{range}{range}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+ESTConfigurator\+::range = 0}
+
+
+
+Max motion added to tree. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/ompl/\mbox{\hyperlink{ompl__planner__configurator_8h}{ompl\+\_\+planner\+\_\+configurator.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/ompl/\mbox{\hyperlink{ompl__planner__configurator_8cpp}{ompl\+\_\+planner\+\_\+configurator.\+cpp}}\end{DoxyCompactItemize}

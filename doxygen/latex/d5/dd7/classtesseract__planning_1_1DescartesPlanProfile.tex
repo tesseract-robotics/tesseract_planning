@@ -1,0 +1,147 @@
+\hypertarget{classtesseract__planning_1_1DescartesPlanProfile}{}\doxysection{tesseract\+\_\+planning\+::Descartes\+Plan\+Profile$<$ Float\+Type $>$ Class Template Reference}
+\label{classtesseract__planning_1_1DescartesPlanProfile}\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+
+
+{\ttfamily \#include $<$descartes\+\_\+profile.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Descartes\+Plan\+Profile$<$ Float\+Type $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{d4/db8/classtesseract__planning_1_1DescartesPlanProfile__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_ad78e94403b66cad018078421561c3c96}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ Float\+Type $>$ $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_abe98e5195e9b401c4a06ce4e29399e5d}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ Float\+Type $>$ $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a6fa99f0c44507c78a80513f045508a9e}{Descartes\+Plan\+Profile}} ()=default
+\item 
+virtual \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a459a2549c73d6f0d8e3ae4cae3ae1fcb}{$\sim$\+Descartes\+Plan\+Profile}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_afb79a293f24ddf9828d28e5579dfe2d4}{Descartes\+Plan\+Profile}} (const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a9c606e77924bf79de442084d3678960e}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a9818c9638292c1029e64782ffa3912bf}{Descartes\+Plan\+Profile}} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_ac51908388436812e8a0a11dd0fa58ad2}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} \&\&) noexcept=default
+\item 
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_af92e6d0fedc32a1bfa2648653ea57940}{apply}} (\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&prob, const Eigen\+::\+Isometry3d \&cartesian\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
+\item 
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a9a869e725b11cc2c29526f7d40366c76}{apply}} (\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&prob, const Eigen\+::\+Vector\+Xd \&joint\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
+\item 
+virtual tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_afae1499852e2ab905d28a659d32892c9}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_abe98e5195e9b401c4a06ce4e29399e5d}\label{classtesseract__planning_1_1DescartesPlanProfile_abe98e5195e9b401c4a06ce4e29399e5d}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_abe98e5195e9b401c4a06ce4e29399e5d}{Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$Float\+Type$>$ $>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_ad78e94403b66cad018078421561c3c96}\label{classtesseract__planning_1_1DescartesPlanProfile_ad78e94403b66cad018078421561c3c96}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+using \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_ad78e94403b66cad018078421561c3c96}{Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$Float\+Type$>$ $>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_a6fa99f0c44507c78a80513f045508a9e}\label{classtesseract__planning_1_1DescartesPlanProfile_a6fa99f0c44507c78a80513f045508a9e}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!DescartesPlanProfile@{DescartesPlanProfile}}
+\index{DescartesPlanProfile@{DescartesPlanProfile}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesPlanProfile()}{DescartesPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_a459a2549c73d6f0d8e3ae4cae3ae1fcb}\label{classtesseract__planning_1_1DescartesPlanProfile_a459a2549c73d6f0d8e3ae4cae3ae1fcb}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!````~DescartesPlanProfile@{$\sim$DescartesPlanProfile}}
+\index{````~DescartesPlanProfile@{$\sim$DescartesPlanProfile}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$DescartesPlanProfile()}{~DescartesPlanProfile()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+virtual \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::$\sim$\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_afb79a293f24ddf9828d28e5579dfe2d4}\label{classtesseract__planning_1_1DescartesPlanProfile_afb79a293f24ddf9828d28e5579dfe2d4}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!DescartesPlanProfile@{DescartesPlanProfile}}
+\index{DescartesPlanProfile@{DescartesPlanProfile}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesPlanProfile()}{DescartesPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ Float\+Type $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_a9818c9638292c1029e64782ffa3912bf}\label{classtesseract__planning_1_1DescartesPlanProfile_a9818c9638292c1029e64782ffa3912bf}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!DescartesPlanProfile@{DescartesPlanProfile}}
+\index{DescartesPlanProfile@{DescartesPlanProfile}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{DescartesPlanProfile()}{DescartesPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ Float\+Type $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_af92e6d0fedc32a1bfa2648653ea57940}\label{classtesseract__planning_1_1DescartesPlanProfile_af92e6d0fedc32a1bfa2648653ea57940}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!apply@{apply}}
+\index{apply@{apply}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{apply()}{apply()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::apply (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&}]{prob,  }\item[{const Eigen\+::\+Isometry3d \&}]{cartesian\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ac4c3eeddb7672846dd1cc6c84a63c650}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile$<$ Float\+Type $>$}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_a9a869e725b11cc2c29526f7d40366c76}\label{classtesseract__planning_1_1DescartesPlanProfile_a9a869e725b11cc2c29526f7d40366c76}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!apply@{apply}}
+\index{apply@{apply}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{apply()}{apply()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::apply (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&}]{prob,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{joint\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a0eb7be1d29dc1a9b60438c2d180c32c2}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile$<$ Float\+Type $>$}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_a9c606e77924bf79de442084d3678960e}\label{classtesseract__planning_1_1DescartesPlanProfile_a9c606e77924bf79de442084d3678960e}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ Float\+Type $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_ac51908388436812e8a0a11dd0fa58ad2}\label{classtesseract__planning_1_1DescartesPlanProfile_ac51908388436812e8a0a11dd0fa58ad2}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ Float\+Type $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesPlanProfile_afae1499852e2ab905d28a659d32892c9}\label{classtesseract__planning_1_1DescartesPlanProfile_afae1499852e2ab905d28a659d32892c9}} 
+\index{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+virtual tinyxml2\+::\+XMLElement$\ast$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ab0ef1a785193fd3a1b91dba16e547462}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile$<$ Float\+Type $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/descartes/profile/\mbox{\hyperlink{descartes__profile_8h}{descartes\+\_\+profile.\+h}}\end{DoxyCompactItemize}

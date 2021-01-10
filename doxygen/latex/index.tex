@@ -1,0 +1,158 @@
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+ \href{https://codecov.io/gh/ros-industrial-consortium/tesseract_planning}{\texttt{ }}
+
+\href{https://github.com/ros-industrial-consortium/tesseract_python}{\texttt{ }}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Platform   }&\cellcolor{\tableheadbgcolor}\textbf{ CI Status    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Platform   }&\cellcolor{\tableheadbgcolor}\textbf{ CI Status    }\\\cline{1-2}
+\endhead
+Linux (Focal)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Linux (Bionic)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Windows   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Lint (Clang-\/\+Format)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Lint (Clang-\/\+Tidy)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Lint (Code\+Cov)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}   \\\cline{1-2}
+\end{longtabu}
+
+
+\href{http://github.com/ros-industrial-consortium/tesseract_planning/issues}{\texttt{ }}
+
+\href{https://opensource.org/licenses/Apache-2.0}{\texttt{ }} \href{https://opensource.org/licenses/BSD-2-Clause}{\texttt{ }}
+
+\href{http://rosindustrial.org/news/2016/10/7/better-supporting-a-growing-ros-industrial-software-platform}{\texttt{ }}
+
+This include packages related to both motion and process planning for the Tesseract Motion Planning Environment.\hypertarget{index_autotoc_md1}{}\doxysection{Tesseract Setup Wizard and Visualization Tools}\label{index_autotoc_md1}
+\href{https://snapcraft.io/tesseract-ignition}{\texttt{ }}\hypertarget{index_autotoc_md2}{}\doxysection{Tesseract Planning Packages}\label{index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item {\bfseries{tesseract\+\_\+motion\+\_\+planners}} – This package contains a common interface for Planners and includes implementation for OMPL, Traj\+Opt, Traj\+Opt IFOPT and Descartes.
+\item {\bfseries{tesseract\+\_\+process\+\_\+managers}} – This package contains a common interface for Process Planning and includes implementation for a wide variaty of process found industrial automation like painting, griding, welding, pick and place and more.
+\item {\bfseries{tesseract\+\_\+time\+\_\+parameterization}} – This package contains a time parameterization algorithms and includes iteritive spline.
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Related Repositories}\label{index_autotoc_md3}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/ros-industrial-consortium/tesseract}{\texttt{ Tesseract}}
+\item \href{https://github.com/ros-industrial-consortium/tesseract_python}{\texttt{ Tesseract Python}}
+\item \href{https://github.com/ros-industrial-consortium/tesseract_ros}{\texttt{ Tesseract ROS}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysection{Documentation}\label{index_autotoc_md4}
+
+\begin{DoxyItemize}
+\item \href{https://ros-industrial-tesseract-planning.rtfd.io}{\texttt{ Wiki}}
+\item \href{https://ros-industrial-consortium.github.io/tesseract_planning/}{\texttt{ Doxygen}}
+\item \href{https://ros-industrial-consortium.github.io/tesseract_planning/dev/bench}{\texttt{ Benchmark}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md5}{}\doxysection{Evolution}\label{index_autotoc_md5}
+\href{https://www.youtube.com/watch?v=rxlzlsSBxAY}{\texttt{ }}
+
+How to create\+:
+
+
+\begin{DoxyItemize}
+\item Create Video\+: {\ttfamily gource -\/1280x720 -\/seconds-\/per-\/day 0.\+2 -\/-\/auto-\/skip-\/seconds 0.\+2 -\/-\/disable-\/bloom -\/background d0d3d4 -\/-\/hide filenames,mouse,progress -\/o -\/ $\vert$ ffmpeg -\/y -\/r 60 -\/f image2pipe -\/vcodec ppm -\/i -\/ -\/vcodec libx264 -\/preset ultrafast -\/pix\+\_\+fmt yuv420p -\/crf 1 -\/threads 0 -\/bf 0 gource.\+mp4}
+\item Create Gif\+: {\ttfamily ffmpeg -\/i gource.\+mp4 -\/r 10 -\/vf \char`\"{}scale=800\+:-\/1,split\mbox{[}s0\mbox{]}\mbox{[}s1\mbox{]};\mbox{[}s0\mbox{]}palettegen\mbox{[}p\mbox{]};\mbox{[}s1\mbox{]}\mbox{[}p\mbox{]}paletteuse\char`\"{} tesseract\+\_\+evolution.\+gif}
+\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysection{TODO\textquotesingle{}s}\label{index_autotoc_md6}
+Warning\+: These packages are under heavy development and are subject to change.
+
+See \href{https://github.com/ros-industrial-consortium/tesseract/issues/66}{\texttt{ issue \#66}}\hypertarget{index_autotoc_md7}{}\doxysection{Build Instructions}\label{index_autotoc_md7}
+1) Clone repository into your workspace 2) Clone the repositories in the dependencies.\+rosinstall file using wstool or some other method (e.\+g. manually git cloning them) 3) Build the workspace using catkin tools, colcon, or a similar tool
+
+NOTE\+: To speed up clean build you may want to add tesseract\+\_\+ext to an extended workspace.
+
+NOTE\+: Install Task\+Flow from \href{https://launchpad.net/~ros-industrial/+archive/ubuntu/ppa}{\texttt{ ROS-\/\+Industrial PPA}}.\hypertarget{index_autotoc_md8}{}\doxysubsection{Building with Clang-\/\+Tidy Enabled}\label{index_autotoc_md8}
+Must pass the -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+CLANG\+\_\+\+TIDY=ON to cmake when building. This is automatically enabled if cmake argument -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING\+\_\+\+ALL=ON is passed.\hypertarget{index_autotoc_md9}{}\doxysubsection{Building Tests}\label{index_autotoc_md9}
+Must pass the -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING=ON to cmake when wanting to build tests. This is automatically enabled if cmake argument -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING\+\_\+\+ALL=ON is passed.
+
+NOTE\+: If you are building using catkin tools, use {\ttfamily catkin build -\/-\/force-\/cmake -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING=ON}.\hypertarget{index_autotoc_md10}{}\doxysubsubsection{Running Tests}\label{index_autotoc_md10}
+Tesseract packages use ctest because it is ROS agnostic, so to run the test call {\ttfamily catkin test -\/-\/no-\/deps tesseract\+\_\+motion\+\_\+planners tesseract\+\_\+process\+\_\+managers tesseract\+\_\+time\+\_\+parameterization}\hypertarget{index_autotoc_md11}{}\doxysubsection{Building Code Coverage}\label{index_autotoc_md11}
+Must pass the -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+CODE\+\_\+\+COVERAGE=ON to cmake when wanting to build code coverage. The code coverage report is located in each individuals build directory inside a ccov/all-\/merged folder. Open the index.\+html file to see the packages code coverage report.
+
+NOTE\+: Must be a clean build when generating a code coverage report. Also must build in debug.\hypertarget{index_autotoc_md12}{}\doxysubsubsection{Exclude Code From Code Coverage}\label{index_autotoc_md12}
+
+\begin{DoxyItemize}
+\item LCOV\+\_\+\+EXCL\+\_\+\+LINE
+\begin{DoxyItemize}
+\item Lines containing this marker will be excluded.
+\end{DoxyItemize}
+\item LCOV\+\_\+\+EXCL\+\_\+\+START
+\begin{DoxyItemize}
+\item Marks the beginning of an excluded section. The current line is part of this section.
+\end{DoxyItemize}
+\item LCOV\+\_\+\+EXCL\+\_\+\+STOP
+\begin{DoxyItemize}
+\item Marks the end of an excluded section. The current line not part of this section.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+.. NOTE\+: You can replace {\bfseries{LCOV}} above with {\bfseries{GCOV}} or {\bfseries{GCOVR}}.\hypertarget{index_autotoc_md13}{}\doxysection{Quality Tools Leverage}\label{index_autotoc_md13}
+Tesseract currently leverages Compiler Warnigs, Clang Tidy and Code Coverage. All warnings produced by Compiler and Clang Tidy are treated as errors during CI builds.
+
+
+\begin{DoxyItemize}
+\item Compiler
+\begin{DoxyItemize}
+\item Wall
+\item Wextra
+\item Wconversion
+\item Wsign-\/conversion
+\item Wno-\/sign-\/compare
+\item Wnon-\/virtual-\/dtor
+\end{DoxyItemize}
+\item Clang Tidy
+\begin{DoxyItemize}
+\item clang-\/analyzer-\/$\ast$
+\item bugprone-\/$\ast$
+\item cppcoreguidelines-\/avoid-\/goto
+\item cppcoreguidelines-\/c-\/copy-\/assignment-\/signature
+\item cppcoreguidelines-\/interfaces-\/global-\/init
+\item cppcoreguidelines-\/narrowing-\/conversions
+\item cppcoreguidelines-\/no-\/malloc
+\item cppcoreguidelines-\/slicing
+\item cppcoreguidelines-\/special-\/member-\/functions
+\item misc-\/$\ast$,-\/misc-\/non-\/private-\/member-\/variables-\/in-\/classes
+\item modernize-\/$\ast$,-\/modernize-\/use-\/trailing-\/return-\/type,-\/modernize-\/use-\/nodiscard
+\item performance-\/$\ast$
+\item readability-\/avoid-\/const-\/params-\/in-\/decls
+\item readability-\/container-\/size-\/empty
+\item readability-\/delete-\/null-\/pointer
+\item readability-\/deleted-\/default
+\item readability-\/else-\/after-\/return
+\item readability-\/function-\/size
+\item readability-\/identifier-\/naming
+\item readability-\/inconsistent-\/declaration-\/parameter-\/name
+\item readability-\/misleading-\/indentation
+\item readability-\/misplaced-\/array-\/index
+\item readability-\/non-\/const-\/parameter
+\item readability-\/redundant-\/$\ast$
+\item readability-\/simplify-\/$\ast$
+\item readability-\/static-\/$\ast$
+\item readability-\/string-\/compare
+\item readability-\/uniqueptr-\/delete-\/release
+\item readability-\/rary-\/objects
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{index_autotoc_md14}{}\doxysection{Build Branch Sphinx Documentation}\label{index_autotoc_md14}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd gh\_pages}
+\DoxyCodeLine{sphinx-\/build . output}
+
+\end{DoxyCode}
+ Now open gh\+\_\+pages/output/index.\+rst and remove {\itshape output} directory before commiting changes.\hypertarget{index_autotoc_md15}{}\doxysection{Debugging Windows Build}\label{index_autotoc_md15}
+
+\begin{DoxyItemize}
+\item Search Directories CI
+\begin{DoxyItemize}
+\item dir /s /b c\+:\textbackslash{}opt\textbackslash{}ros\textbackslash{}noetic$\ast$assimp$\ast$
+\end{DoxyItemize}
+\item Location of ROS Windows Builds
+\begin{DoxyItemize}
+\item \href{https://ros-win.visualstudio.com/ros-win/_build}{\texttt{ https\+://ros-\/win.\+visualstudio.\+com/ros-\/win/\+\_\+build}}
+\item \href{https://ros-win.visualstudio.com/ros-win/_build/results?buildId=8711&view=artifacts&type=publishedArtifacts}{\texttt{ https\+://ros-\/win.\+visualstudio.\+com/ros-\/win/\+\_\+build/results?build\+Id=8711\&view=artifacts\&type=published\+Artifacts}} 
+\end{DoxyItemize}
+\end{DoxyItemize}

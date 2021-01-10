@@ -1,0 +1,108 @@
+\hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory}{}\doxysection{tesseract\+\_\+planning\+::Traj\+Opt\+Motion\+Planner\+Status\+Category Class Reference}
+\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory}\index{tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}}
+
+
+{\ttfamily \#include $<$trajopt\+\_\+motion\+\_\+planner.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Motion\+Planner\+Status\+Category\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{da/d97/classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Motion\+Planner\+Status\+Category\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{d4/d16/classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faaeaa7d277b6b12d83d81a187c49b32487}{Solution\+Found}} = 0
+, \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faab39a01711ecec6b97ad7721fc82e1c8d}{Error\+Invalid\+Input}} = -\/1
+, \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faab92059a3077bbe04a22144bd52dea3dd}{Failed\+To\+Find\+Valid\+Solution}} = -\/3
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_afe6d0fc3f5257543d52bde4ff8a3b004}{Traj\+Opt\+Motion\+Planner\+Status\+Category}} (std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a56ec9bf8696f3b42aef1687af3b6cdd9}{name}})
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a56ec9bf8696f3b42aef1687af3b6cdd9}{name}} () const noexcept override
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_acf1749cb3075b40aa0f110281e63cf79}{message}} (int code) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a6112efb8a1d729a4f16fa3cae19611ee}{name\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502fa}\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502fa}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SolutionFound@{SolutionFound}!tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}}\index{tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}!SolutionFound@{SolutionFound}}}\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faaeaa7d277b6b12d83d81a187c49b32487}\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faaeaa7d277b6b12d83d81a187c49b32487}} 
+Solution\+Found&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ErrorInvalidInput@{ErrorInvalidInput}!tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}}\index{tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}!ErrorInvalidInput@{ErrorInvalidInput}}}\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faab39a01711ecec6b97ad7721fc82e1c8d}\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faab39a01711ecec6b97ad7721fc82e1c8d}} 
+Error\+Invalid\+Input&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FailedToFindValidSolution@{FailedToFindValidSolution}!tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}}\index{tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}!FailedToFindValidSolution@{FailedToFindValidSolution}}}\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faab92059a3077bbe04a22144bd52dea3dd}\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a57b3852ecb269b5c6ab5ea7fad1502faab92059a3077bbe04a22144bd52dea3dd}} 
+Failed\+To\+Find\+Valid\+Solution&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_afe6d0fc3f5257543d52bde4ff8a3b004}\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_afe6d0fc3f5257543d52bde4ff8a3b004}} 
+\index{tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}!TrajOptMotionPlannerStatusCategory@{TrajOptMotionPlannerStatusCategory}}
+\index{TrajOptMotionPlannerStatusCategory@{TrajOptMotionPlannerStatusCategory}!tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}}
+\doxysubsubsection{\texorpdfstring{TrajOptMotionPlannerStatusCategory()}{TrajOptMotionPlannerStatusCategory()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+Status\+Category\+::\+Traj\+Opt\+Motion\+Planner\+Status\+Category (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_acf1749cb3075b40aa0f110281e63cf79}\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_acf1749cb3075b40aa0f110281e63cf79}} 
+\index{tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}!message@{message}}
+\index{message@{message}!tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}}
+\doxysubsubsection{\texorpdfstring{message()}{message()}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+Status\+Category\+::message (\begin{DoxyParamCaption}\item[{int}]{code }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a56ec9bf8696f3b42aef1687af3b6cdd9}\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a56ec9bf8696f3b42aef1687af3b6cdd9}} 
+\index{tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}!name@{name}}
+\index{name@{name}!tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+Status\+Category\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [noexcept]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a6112efb8a1d729a4f16fa3cae19611ee}\label{classtesseract__planning_1_1TrajOptMotionPlannerStatusCategory_a6112efb8a1d729a4f16fa3cae19611ee}} 
+\index{tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}!name\_@{name\_}}
+\index{name\_@{name\_}!tesseract\_planning::TrajOptMotionPlannerStatusCategory@{tesseract\_planning::TrajOptMotionPlannerStatusCategory}}
+\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+Status\+Category\+::name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/trajopt/\mbox{\hyperlink{trajopt__motion__planner_8h}{trajopt\+\_\+motion\+\_\+planner.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/trajopt/\mbox{\hyperlink{trajopt__motion__planner_8cpp}{trajopt\+\_\+motion\+\_\+planner.\+cpp}}\end{DoxyCompactItemize}
