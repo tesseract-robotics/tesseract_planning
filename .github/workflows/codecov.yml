@@ -24,8 +24,8 @@ jobs:
       CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/CodeCov/.ccache"
       UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
       TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON"
- #     AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args ccov-all
- #                    && bash <(curl -s https://codecov.io/bash) -t c4af0da7-9fc3-4d3c-bb2e-6b2523ddd382 -s $target_ws/build -f *all-merged.info'
+      AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args ccov-all
+                     && bash <(curl -s https://codecov.io/bash) -t a89e6f59-5409-4686-b615-b2341c7ef69a -s $target_ws/build -f *all-merged.info'
     steps:
       - uses: actions/checkout@v1
 
