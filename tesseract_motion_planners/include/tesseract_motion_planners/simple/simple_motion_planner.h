@@ -108,12 +108,12 @@ protected:
   std::string name_{ "SIMPLE_PLANNER" };
   std::shared_ptr<const SimpleMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
 
-  MoveInstruction getStartInstruction(const PlannerRequest& request,
+  PlanInstruction getStartInstruction(const PlannerRequest& request,
                                       const tesseract_environment::EnvState::ConstPtr& current_state,
                                       const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin) const;
 
   CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,
-                                                   Waypoint& start_waypoint,
+                                                   PlanInstruction& prev_instruction,
                                                    const PlannerRequest& request) const;
 };
 

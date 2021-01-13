@@ -86,26 +86,6 @@ protected:
   }
 };
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, Eigen_AssignJointPosition)  // NOLINT
-{
-  PlannerRequest request;
-  request.env = env_;
-  request.env_state = env_->getCurrentState();
-  Eigen::VectorXd vec1 = Eigen::VectorXd::Zero(7);
-  JointWaypoint wp1(joint_names_, vec1);
-  PlanInstruction instr(wp1, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
-  auto composite = fixedSizeAssignStateWaypoint(vec1, instr, request, ManipulatorInfo(), 10);
-  EXPECT_EQ(composite.size(), 10);
-  for (const auto& c : composite)
-  {
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.cast_const<MoveInstruction>()->getWaypoint()));
-    const auto* mi = c.cast_const<MoveInstruction>();
-    EXPECT_TRUE(wp1.isApprox(mi->getWaypoint().cast_const<StateWaypoint>()->position, 1e-5));
-    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr.getProfile());
-  }
-}
-
 TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian_AssignJointPosition)  // NOLINT
 {
   PlannerRequest request;
@@ -113,8 +93,10 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
   request.env_state = env_->getCurrentState();
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
   CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
-  PlanInstruction instr(wp1, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
-  auto composite = fixedSizeAssignStateWaypoint(wp1, wp2, instr, request, ManipulatorInfo(), 10);
+  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+
+  auto composite = simplePlannerGeneratorFixedSizeAssign(instr1, instr2, request, ManipulatorInfo(), 10, 10);
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {
@@ -122,7 +104,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
     EXPECT_TRUE(isStateWaypoint(c.cast_const<MoveInstruction>()->getWaypoint()));
     const auto* mi = c.cast_const<MoveInstruction>();
     EXPECT_TRUE(wp1.isApprox(mi->getWaypoint().cast_const<StateWaypoint>()->position, 1e-5));
-    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr.getProfile());
+    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr2.getProfile());
   }
 }
 
@@ -133,8 +115,9 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
   request.env_state = env_->getCurrentState();
   CartesianWaypoint wp1 = Eigen::Isometry3d::Identity();
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Zero(7));
-  PlanInstruction instr(wp1, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
-  auto composite = fixedSizeAssignStateWaypoint(wp1, wp2, instr, request, ManipulatorInfo(), 10);
+  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  auto composite = simplePlannerGeneratorFixedSizeAssign(instr1, instr2, request, ManipulatorInfo(), 10, 10);
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {
@@ -142,7 +125,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
     EXPECT_TRUE(isStateWaypoint(c.cast_const<MoveInstruction>()->getWaypoint()));
     const auto* mi = c.cast_const<MoveInstruction>();
     EXPECT_TRUE(wp2.isApprox(mi->getWaypoint().cast_const<StateWaypoint>()->position, 1e-5));
-    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr.getProfile());
+    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr2.getProfile());
   }
 }
 
@@ -153,8 +136,9 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
   request.env_state = env_->getCurrentState();
   CartesianWaypoint wp1 = Eigen::Isometry3d::Identity();
   CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
-  PlanInstruction instr(wp1, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
-  auto composite = fixedSizeAssignStateWaypoint(wp1, wp2, instr, request, manip_info_, 10);
+  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  auto composite = simplePlannerGeneratorFixedSizeAssign(instr1, instr2, request, manip_info_, 10, 10);
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
   Eigen::VectorXd position = request.env_state->getJointValues(fwd_kin->getJointNames());
   EXPECT_EQ(composite.size(), 10);
@@ -164,7 +148,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
     EXPECT_TRUE(isStateWaypoint(c.cast_const<MoveInstruction>()->getWaypoint()));
     const auto* mi = c.cast_const<MoveInstruction>();
     EXPECT_TRUE(position.isApprox(mi->getWaypoint().cast_const<StateWaypoint>()->position, 1e-5));
-    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr.getProfile());
+    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr2.getProfile());
   }
 }
 

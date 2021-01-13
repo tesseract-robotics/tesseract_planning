@@ -35,85 +35,26 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_motion_planners/core/types.h>
+#include <tesseract_motion_planners/simple/step_generators/utils.h>
 
 namespace tesseract_planning
 {
 /**
- * @brief fixedSizeAssignStateWaypoint
- *
- * This will create the fixed set of move instruction and assign the provided position for the state waypoint.
- *
- * @param position The position to assign to the all interpolated state waypoints
- * @param base_instruction The base plan instruction
- * @param manip_info The manipulator information provided by the parent composite instruction.
- * @param steps The fixed number of steps
- * @return A composite instruction of move instruction with state waypoints
- */
-CompositeInstruction fixedSizeAssignStateWaypoint(const Eigen::Ref<const Eigen::VectorXd>& position,
-                                                  const PlanInstruction& base_instruction,
-                                                  const PlannerRequest& request,
-                                                  const ManipulatorInfo& manip_info,
-                                                  int steps);
-/**
- * @brief fixedSizeAssignStateWaypoint
- *
- * This will create the fixed set of move instruction and assign the start as the position for the state waypoint.
- *
- * @param start The start joint waypoint
- * @param end The end cartesian waypoint
- * @param base_instruction The base plan instruction
+ * @brief This function used to generate a seed
+ * @param prev_instruction The previous instruction
+ * @param base_instruction The current instruction
  * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction.
- * @param steps The fixed number of steps
+ * @param manip_info The manipulator information provided by the parent composite instruction
+ * @param freespace_steps The number of steps to use for freespace instruction
+ * @param linear_steps The number of steps to use for linear instruction
  * @return A composite instruction of move instruction with state waypoints
  */
-CompositeInstruction fixedSizeAssignStateWaypoint(const JointWaypoint& start,
-                                                  const CartesianWaypoint& end,
-                                                  const PlanInstruction& base_instruction,
-                                                  const PlannerRequest& request,
-                                                  const ManipulatorInfo& manip_info,
-                                                  int steps);
-
-/**
- * @brief fixedSizeAssignStateWaypoint
- *
- * This will create the fixed set of move instruction and assign the end as the position for the state waypoint.
- *
- * @param start The start cartesian waypoint
- * @param end The end joint waypoint
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction.
- * @param steps The fixed number of steps
- * @return A composite instruction of move instruction with state waypoints
- */
-CompositeInstruction fixedSizeAssignStateWaypoint(const CartesianWaypoint& start,
-                                                  const JointWaypoint& end,
-                                                  const PlanInstruction& base_instruction,
-                                                  const PlannerRequest& request,
-                                                  const ManipulatorInfo& manip_info,
-                                                  int steps);
-
-/**
- * @brief fixedSizeAssignStateWaypoint
- *
- * This will create the fixed set of move instruction and assign the current environment state as the position for
- * the state waypoint.
- *
- * @param start The start cartesian waypoint
- * @param end The end joint waypoint
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction.
- * @param steps The fixed number of steps
- * @return A composite instruction of move instruction with state waypoints
- */
-CompositeInstruction fixedSizeAssignStateWaypoint(const CartesianWaypoint& start,
-                                                  const CartesianWaypoint& end,
-                                                  const PlanInstruction& base_instruction,
-                                                  const PlannerRequest& request,
-                                                  const ManipulatorInfo& manip_info,
-                                                  int steps);
+CompositeInstruction simplePlannerGeneratorFixedSizeAssign(const PlanInstruction& prev_instruction,
+                                                           const PlanInstruction& base_instruction,
+                                                           const PlannerRequest& request,
+                                                           const ManipulatorInfo& manip_info,
+                                                           int freespace_steps,
+                                                           int linear_steps);
 
 }  // namespace tesseract_planning
 

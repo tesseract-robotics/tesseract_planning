@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_default_lvs_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
 
 namespace tesseract_planning
 {
@@ -58,10 +58,10 @@ static CompositeInstruction generateSeed(const CompositeInstruction& instruction
   // Set up planner
   SimpleMotionPlanner planner;
 
-  auto profile = std::make_shared<SimplePlannerDefaultLVSPlanProfile>(state_longest_valid_segment_length,
-                                                                      translation_longest_valid_segment_length,
-                                                                      rotation_longest_valid_segment_length,
-                                                                      min_steps);
+  auto profile = std::make_shared<SimplePlannerLVSPlanProfile>(state_longest_valid_segment_length,
+                                                               translation_longest_valid_segment_length,
+                                                               rotation_longest_valid_segment_length,
+                                                               min_steps);
   planner.plan_profiles[instructions.getProfile()] = profile;
   auto flat = flattenProgram(instructions);
   for (const auto& i : flat)

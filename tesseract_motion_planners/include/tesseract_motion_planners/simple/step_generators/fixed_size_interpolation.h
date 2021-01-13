@@ -34,64 +34,46 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_motion_planners/core/types.h>
+#include <tesseract_motion_planners/simple/step_generators/utils.h>
 
 namespace tesseract_planning
 {
-CompositeInstruction fixedSizeInterpolateStateWaypoint(const JointWaypoint& start,
-                                                       const JointWaypoint& end,
-                                                       const PlanInstruction& base_instruction,
-                                                       const PlannerRequest& request,
-                                                       const ManipulatorInfo& manip_info,
-                                                       int steps);
+/** @brief A container of the transition information used */
+struct FixedSizeTransitionInfo
+{
+  FixedSizeTransitionInfo(const InstructionInfo& prev, const InstructionInfo& base, const PlannerRequest& request);
 
-CompositeInstruction fixedSizeInterpolateStateWaypoint(const JointWaypoint& start,
-                                                       const CartesianWaypoint& end,
-                                                       const PlanInstruction& base_instruction,
-                                                       const PlannerRequest& request,
-                                                       const ManipulatorInfo& manip_info,
-                                                       int steps);
+  const InstructionInfo& prev;
+  const InstructionInfo& base;
+  const PlannerRequest& request;
+  int freespace_steps;
+  int linear_steps;
+};
 
-CompositeInstruction fixedSizeInterpolateStateWaypoint(const CartesianWaypoint& start,
-                                                       const JointWaypoint& end,
-                                                       const PlanInstruction& base_instruction,
-                                                       const PlannerRequest& request,
-                                                       const ManipulatorInfo& manip_info,
-                                                       int steps);
+/**
+ * @brief This function used to generate a seed
+ * @param prev_instruction The previous instruction
+ * @param base_instruction The current instruction
+ * @param request The planning request information
+ * @param manip_info The manipulator information provided by the parent composite instruction
+ * @param freespace_steps The number of steps to use for freespace instruction
+ * @param linear_steps The number of steps to use for linear instruction
+ * @return A composite instruction of move instruction with state waypoints
+ */
+CompositeInstruction simplePlannerGeneratorFixedSize(const PlanInstruction& prev_instruction,
+                                                     const PlanInstruction& base_instruction,
+                                                     const PlannerRequest& request,
+                                                     const ManipulatorInfo& manip_info,
+                                                     int freespace_steps,
+                                                     int linear_steps);
 
-CompositeInstruction fixedSizeInterpolateStateWaypoint(const CartesianWaypoint& start,
-                                                       const CartesianWaypoint& end,
-                                                       const PlanInstruction& base_instruction,
-                                                       const PlannerRequest& request,
-                                                       const ManipulatorInfo& manip_info,
-                                                       int steps);
+CompositeInstruction stateJointJointWaypointFixedSize(const FixedSizeTransitionInfo& trans_info);
 
-CompositeInstruction fixedSizeInterpolateCartStateWaypoint(const JointWaypoint& start,
-                                                           const JointWaypoint&,
-                                                           const PlanInstruction& base_instruction,
-                                                           const PlannerRequest& request,
-                                                           const ManipulatorInfo& manip_info,
-                                                           int steps);
+CompositeInstruction stateJointCartWaypointFixedSize(const FixedSizeTransitionInfo& trans_info);
 
-CompositeInstruction fixedSizeInterpolateCartStateWaypoint(const JointWaypoint& start,
-                                                           const CartesianWaypoint& end,
-                                                           const PlanInstruction& base_instruction,
-                                                           const PlannerRequest& request,
-                                                           const ManipulatorInfo& manip_info,
-                                                           int steps);
+CompositeInstruction stateCartJointWaypointFixedSize(const FixedSizeTransitionInfo& trans_info);
 
-CompositeInstruction fixedSizeInterpolateCartStateWaypoint(const CartesianWaypoint& start,
-                                                           const JointWaypoint& end,
-                                                           const PlanInstruction& base_instruction,
-                                                           const PlannerRequest& request,
-                                                           const ManipulatorInfo& manip_info,
-                                                           int steps);
-
-CompositeInstruction fixedSizeInterpolateCartStateWaypoint(const CartesianWaypoint& start,
-                                                           const CartesianWaypoint& end,
-                                                           const PlanInstruction& base_instruction,
-                                                           const PlannerRequest& request,
-                                                           const ManipulatorInfo& manip_info,
-                                                           int steps);
+CompositeInstruction stateCartCartWaypointFixedSize(const FixedSizeTransitionInfo& trans_info);
 
 }  // namespace tesseract_planning
 

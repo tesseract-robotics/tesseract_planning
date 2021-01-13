@@ -8,7 +8,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_default_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/interface_utils.h>
 
@@ -125,7 +125,7 @@ TEST_F(TesseractProcessManagerUnit, SeedMinLengthTaskGeneratorTest)
   EXPECT_TRUE(final_length3 >= (3 * current_length));
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultPlanProfileTest)
+TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlanProfileTest)
 {
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
@@ -147,8 +147,8 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultPlanProfileT
   request.env_state = env_->getCurrentState();
 
   PlannerResponse response;
-  interpolator->plan_profiles[process_profile] = std::make_shared<SimplePlannerDefaultPlanProfile>();
-  interpolator->plan_profiles[freespace_profile] = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  interpolator->plan_profiles[process_profile] = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
+  interpolator->plan_profiles[freespace_profile] = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
@@ -183,8 +183,8 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSPlanProfi
   request.env_state = env_->getCurrentState();
 
   PlannerResponse response;
-  interpolator->plan_profiles[process_profile] = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
-  interpolator->plan_profiles[freespace_profile] = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  interpolator->plan_profiles[process_profile] = std::make_shared<SimplePlannerLVSPlanProfile>();
+  interpolator->plan_profiles[freespace_profile] = std::make_shared<SimplePlannerLVSPlanProfile>();
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
@@ -197,7 +197,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSPlanProfi
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
-TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultPlanProfileTest)
+TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignPlanProfileTest)
 {
   CompositeInstruction program = freespaceExampleProgramABB(DEFAULT_PROFILE_KEY, DEFAULT_PROFILE_KEY);
   EXPECT_FALSE(program.getManipulatorInfo().empty());
@@ -215,7 +215,7 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultPlanProfi
   request.env_state = env_->getCurrentState();
 
   PlannerResponse response;
-  interpolator->plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  interpolator->plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
@@ -247,7 +247,7 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanPr
   request.env_state = env_->getCurrentState();
 
   PlannerResponse response;
-  interpolator->plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  interpolator->plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerLVSPlanProfile>();
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
@@ -278,7 +278,7 @@ TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultPlanProfileTest)
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -312,7 +312,7 @@ TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultLVSPlanProfileTes
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -346,7 +346,7 @@ TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultPlanProfile
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -380,7 +380,7 @@ TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultLVSPlanProf
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -414,7 +414,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultPlanProfileTe
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -448,7 +448,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultLVSPlanProfil
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -482,7 +482,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultPlanPro
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -516,7 +516,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultLVSPlan
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -550,7 +550,7 @@ TEST_F(TesseractProcessManagerUnit, RasterDTProcessManagerDefaultPlanProfileTest
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -584,7 +584,7 @@ TEST_F(TesseractProcessManagerUnit, RasterDTProcessManagerDefaultLVSPlanProfileT
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(process_profile, default_simple_plan_profile);
@@ -621,7 +621,7 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADProcessManagerDefaultPlanProfileTe
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(approach_profile, default_simple_plan_profile);
@@ -660,7 +660,7 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADProcessManagerDefaultLVSPlanProfil
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(approach_profile, default_simple_plan_profile);
@@ -699,7 +699,7 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADDTProcessManagerDefaultPlanProfile
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(approach_profile, default_simple_plan_profile);
@@ -738,7 +738,7 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADDTProcessManagerDefaultLVSPlanProf
   request.instructions = Instruction(program);
 
   // Add profiles to planning server
-  auto default_simple_plan_profile = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
   ProfileDictionary::Ptr profiles = planning_server.getProfiles();
   profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, default_simple_plan_profile);
   profiles->addProfile<SimplePlannerPlanProfile>(approach_profile, default_simple_plan_profile);

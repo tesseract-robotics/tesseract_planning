@@ -124,12 +124,13 @@ endif()
 # Simple Planner
 add_library(${PROJECT_NAME}_simple
   src/simple/simple_motion_planner.cpp
-  src/simple/profile/simple_planner_default_lvs_plan_profile.cpp
-  src/simple/profile/simple_planner_default_plan_profile.cpp
-  src/simple/profile/simple_planner_interpolation_plan_profile.cpp
+  src/simple/profile/simple_planner_lvs_plan_profile.cpp
+  src/simple/profile/simple_planner_fixed_size_assign_plan_profile.cpp
+  src/simple/profile/simple_planner_fixed_size_plan_profile.cpp
   src/simple/step_generators/fixed_size_assign_position.cpp
   src/simple/step_generators/fixed_size_interpolation.cpp
-  src/simple/step_generators/lvs_interpolation.cpp)
+  src/simple/step_generators/lvs_interpolation.cpp
+  src/simple/step_generators/utils.cpp)
 target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${Boost_LIBRARIES} ${PROJECT_NAME}_core)
 target_compile_options(${PROJECT_NAME}_simple PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

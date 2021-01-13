@@ -23,9 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_INTERPOLATION_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_INTERPOLATION_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_PLAN_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_PLAN_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -35,33 +34,33 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 #ifdef SWIG
-%shared_ptr(tesseract_planning::SimplePlannerInterpolationPlanProfile)
+%shared_ptr(tesseract_planning::SimplePlannerFixedSizePlanProfile)
 #endif  // SWIG
 
 namespace tesseract_planning
 {
-class SimplePlannerInterpolationPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerFixedSizePlanProfile : public SimplePlannerPlanProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerInterpolationPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerInterpolationPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerFixedSizePlanProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizePlanProfile>;
 
-  SimplePlannerInterpolationPlanProfile(int freespace_steps = 10, int cartesian_steps = 10);
+  SimplePlannerFixedSizePlanProfile(int freespace_steps = 10, int linear_steps = 10);
 
   /** @brief apply Sets the function handles based on the number of steps specified */
   void apply();
 
-  const int& getFreespaceSteps();
+  int getFreespaceSteps();
   void setFreespaceSteps(int freespace_steps);
 
-  const int& getCartesianSteps();
-  void setCartesianSteps(int cartesian_steps);
+  int getLinearSteps();
+  void setLinearSteps(int linear_steps);
 
 protected:
   int freespace_steps_;
-  int cartesian_steps_;
+  int linear_steps_;
 };
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_DEFAULT_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_FIXED_SIZE_PLAN_PROFILE_H

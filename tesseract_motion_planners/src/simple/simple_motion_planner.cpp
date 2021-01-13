@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_default_lvs_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
@@ -70,13 +70,13 @@ std::string SimpleMotionPlannerStatusCategory::message(int code) const
 SimpleMotionPlanner::SimpleMotionPlanner()
   : status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
 {
-  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerLVSPlanProfile>();
 }
 
 SimpleMotionPlanner::SimpleMotionPlanner(const std::string& name)
   : name_(name), status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
 {
-  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerDefaultLVSPlanProfile>();
+  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerLVSPlanProfile>();
 }
 
 const std::string& SimpleMotionPlanner::getName() const { return name_; }
@@ -116,13 +116,13 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   CompositeInstruction seed;
 
   // Get the start waypoint/instruction
-  MoveInstruction start_instruction = getStartInstruction(request, current_state, fwd_kin);
-  start_waypoint = start_instruction.getWaypoint();
+  PlanInstruction start_instruction = getStartInstruction(request, current_state, fwd_kin);
 
   // Process the instructions into the seed
   try
   {
-    seed = processCompositeInstruction(request.instructions, start_waypoint, request);
+    PlanInstruction start_instruction_copy = start_instruction;
+    seed = processCompositeInstruction(request.instructions, start_instruction_copy, request);
   }
   catch (std::exception& e)
   {
@@ -133,7 +133,11 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   }
 
   // Set start instruction
-  seed.setStartInstruction(start_instruction);
+  MoveInstruction move_start_instruction_seed(start_instruction.getWaypoint(),
+                                              MoveInstructionType::START,
+                                              start_instruction.getProfile(),
+                                              start_instruction.getManipulatorInfo());
+  seed.setStartInstruction(move_start_instruction_seed);
 
   // Fill out the response
   response.results = seed;
@@ -143,14 +147,14 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   return response.status;
 }
 
-MoveInstruction
+PlanInstruction
 SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
                                          const tesseract_environment::EnvState::ConstPtr& current_state,
                                          const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin) const
 {
   // Create start instruction
   Waypoint start_waypoint{ NullWaypoint() };
-  MoveInstruction start_instruction_seed(start_waypoint, MoveInstructionType::START);
+  PlanInstruction start_instruction_seed(start_waypoint, PlanInstructionType::START);
 
   if (request.instructions.hasStartInstruction())
   {
@@ -181,7 +185,7 @@ SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
     {
       throw std::runtime_error("Unsupported waypoint type!");
     }
-
+    start_instruction_seed.setProfile(start_instruction->getProfile());
     start_instruction_seed.setManipulatorInfo(start_instruction->getManipulatorInfo());
   }
   else
@@ -196,243 +200,38 @@ SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
 }
 
 CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
-                                                                      Waypoint& start_waypoint,
+                                                                      PlanInstruction& prev_instruction,
                                                                       const PlannerRequest& request) const
 {
   CompositeInstruction seed(instructions.getProfile(), instructions.getOrder(), instructions.getManipulatorInfo());
+
   for (const auto& instruction : instructions)
   {
     if (isCompositeInstruction(instruction))
     {
       seed.push_back(
-          processCompositeInstruction(*instruction.cast_const<CompositeInstruction>(), start_waypoint, request));
+          processCompositeInstruction(*instruction.cast_const<CompositeInstruction>(), prev_instruction, request));
     }
     else if (isPlanInstruction(instruction))
     {
-      const auto* plan_instruction = instruction.cast_const<PlanInstruction>();
+      const auto* base_instruction = instruction.cast_const<PlanInstruction>();
 
-      bool is_cwp1 = isCartesianWaypoint(start_waypoint);
-      bool is_jwp1 = isJointWaypoint(start_waypoint);
-      bool is_swp1 = isStateWaypoint(start_waypoint);
-
-      bool is_cwp2 = isCartesianWaypoint(plan_instruction->getWaypoint());
-      bool is_jwp2 = isJointWaypoint(plan_instruction->getWaypoint());
-      bool is_swp2 = isStateWaypoint(plan_instruction->getWaypoint());
-
-      assert(is_cwp1 || is_jwp1 || is_swp1);
-      assert(is_cwp2 || is_jwp2 || is_swp2);
-
-      std::string profile = getProfileString(plan_instruction->getProfile(), name_, request.plan_profile_remapping);
-      SimplePlannerPlanProfile::ConstPtr start_plan_profile = getProfile<SimplePlannerPlanProfile>(
-          profile, plan_profiles, std::make_shared<SimplePlannerDefaultLVSPlanProfile>());
+      std::string profile = getProfileString(base_instruction->getProfile(), name_, request.plan_profile_remapping);
+      SimplePlannerPlanProfile::ConstPtr start_plan_profile =
+          getProfile<SimplePlannerPlanProfile>(profile, plan_profiles, std::make_shared<SimplePlannerLVSPlanProfile>());
       if (!start_plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid start profile");
 
-      if (plan_instruction->isLinear())
-      {
-        if (is_cwp1 && is_cwp2)
-        {
-          const auto* pre_cwp = start_waypoint.cast_const<CartesianWaypoint>();
-          const auto* cur_cwp = plan_instruction->getWaypoint().cast_const<CartesianWaypoint>();
+      seed.push_back(start_plan_profile->state_generator(
+          prev_instruction, *base_instruction, request, request.instructions.getManipulatorInfo()));
 
-          auto step = start_plan_profile->cart_cart_linear(
-              *pre_cwp, *cur_cwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_cwp1 && is_jwp2)
-        {
-          const auto* pre_cwp = start_waypoint.cast_const<CartesianWaypoint>();
-          const auto* cur_jwp = plan_instruction->getWaypoint().cast_const<JointWaypoint>();
-
-          auto step = start_plan_profile->cart_joint_linear(
-              *pre_cwp, *cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_jwp1 && is_cwp2)
-        {
-          const auto* pre_jwp = start_waypoint.cast_const<JointWaypoint>();
-          const auto* cur_cwp = plan_instruction->getWaypoint().cast_const<CartesianWaypoint>();
-
-          auto step = start_plan_profile->joint_cart_linear(
-              *pre_jwp, *cur_cwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_jwp1 && is_jwp2)
-        {
-          const auto* pre_jwp = start_waypoint.cast_const<JointWaypoint>();
-          const auto* cur_jwp = plan_instruction->getWaypoint().cast_const<JointWaypoint>();
-
-          auto step = start_plan_profile->joint_joint_linear(
-              *pre_jwp, *cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_swp1 && is_cwp2)
-        {
-          const auto* pre_swp = start_waypoint.cast_const<StateWaypoint>();
-          const auto* cur_cwp = plan_instruction->getWaypoint().cast_const<CartesianWaypoint>();
-
-          JointWaypoint pre_jwp(pre_swp->joint_names, pre_swp->position);
-
-          auto step = start_plan_profile->joint_cart_linear(
-              pre_jwp, *cur_cwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_swp1 && is_jwp2)
-        {
-          const auto* pre_swp = start_waypoint.cast_const<StateWaypoint>();
-          const auto* cur_jwp = plan_instruction->getWaypoint().cast_const<JointWaypoint>();
-
-          JointWaypoint pre_jwp(pre_swp->joint_names, pre_swp->position);
-
-          auto step = start_plan_profile->joint_joint_linear(
-              pre_jwp, *cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_cwp1 && is_swp2)
-        {
-          const auto* pre_cwp = start_waypoint.cast_const<CartesianWaypoint>();
-          const auto* cur_swp = plan_instruction->getWaypoint().cast_const<StateWaypoint>();
-
-          JointWaypoint cur_jwp(cur_swp->joint_names, cur_swp->position);
-
-          auto step = start_plan_profile->cart_joint_linear(
-              *pre_cwp, cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_jwp1 && is_swp2)
-        {
-          const auto* pre_jwp = start_waypoint.cast_const<JointWaypoint>();
-          const auto* cur_swp = plan_instruction->getWaypoint().cast_const<StateWaypoint>();
-
-          JointWaypoint cur_jwp(cur_swp->joint_names, cur_swp->position);
-
-          auto step = start_plan_profile->joint_joint_linear(
-              *pre_jwp, cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_swp1 && is_swp2)
-        {
-          const auto* pre_swp = start_waypoint.cast_const<StateWaypoint>();
-          const auto* cur_swp = plan_instruction->getWaypoint().cast_const<StateWaypoint>();
-
-          JointWaypoint pre_jwp(pre_swp->joint_names, pre_swp->position);
-          JointWaypoint cur_jwp(cur_swp->joint_names, cur_swp->position);
-
-          auto step = start_plan_profile->joint_joint_linear(
-              pre_jwp, cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else
-        {
-          throw std::runtime_error("SimpleMotionPlanner::processCompositeInstruction: Unsupported waypoints provided!");
-        }
-      }
-      else if (plan_instruction->isFreespace())
-      {
-        if (is_cwp1 && is_cwp2)
-        {
-          const auto* pre_cwp = start_waypoint.cast_const<CartesianWaypoint>();
-          const auto* cur_cwp = plan_instruction->getWaypoint().cast_const<CartesianWaypoint>();
-
-          auto step = start_plan_profile->cart_cart_freespace(
-              *pre_cwp, *cur_cwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_cwp1 && is_jwp2)
-        {
-          const auto* pre_cwp = start_waypoint.cast_const<CartesianWaypoint>();
-          const auto* cur_jwp = plan_instruction->getWaypoint().cast_const<JointWaypoint>();
-
-          auto step = start_plan_profile->cart_joint_freespace(
-              *pre_cwp, *cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_jwp1 && is_cwp2)
-        {
-          const auto* pre_jwp = start_waypoint.cast_const<JointWaypoint>();
-          const auto* cur_cwp = plan_instruction->getWaypoint().cast_const<CartesianWaypoint>();
-
-          auto step = start_plan_profile->joint_cart_freespace(
-              *pre_jwp, *cur_cwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_jwp1 && is_jwp2)
-        {
-          const auto* pre_jwp = start_waypoint.cast_const<JointWaypoint>();
-          const auto* cur_jwp = plan_instruction->getWaypoint().cast_const<JointWaypoint>();
-
-          auto step = start_plan_profile->joint_joint_freespace(
-              *pre_jwp, *cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_swp1 && is_cwp2)
-        {
-          const auto* pre_swp = start_waypoint.cast_const<StateWaypoint>();
-          const auto* cur_cwp = plan_instruction->getWaypoint().cast_const<CartesianWaypoint>();
-
-          JointWaypoint pre_jwp(pre_swp->joint_names, pre_swp->position);
-
-          auto step = start_plan_profile->joint_cart_freespace(
-              pre_jwp, *cur_cwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_swp1 && is_jwp2)
-        {
-          const auto* pre_swp = start_waypoint.cast_const<StateWaypoint>();
-          const auto* cur_jwp = plan_instruction->getWaypoint().cast_const<JointWaypoint>();
-
-          JointWaypoint pre_jwp(pre_swp->joint_names, pre_swp->position);
-
-          auto step = start_plan_profile->joint_joint_freespace(
-              pre_jwp, *cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_cwp1 && is_swp2)
-        {
-          const auto* pre_cwp = start_waypoint.cast_const<CartesianWaypoint>();
-          const auto* cur_swp = plan_instruction->getWaypoint().cast_const<StateWaypoint>();
-
-          JointWaypoint cur_jwp(cur_swp->joint_names, cur_swp->position);
-
-          auto step = start_plan_profile->cart_joint_freespace(
-              *pre_cwp, cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_jwp1 && is_swp2)
-        {
-          const auto* pre_jwp = start_waypoint.cast_const<JointWaypoint>();
-          const auto* cur_swp = plan_instruction->getWaypoint().cast_const<StateWaypoint>();
-
-          JointWaypoint cur_jwp(cur_swp->joint_names, cur_swp->position);
-
-          auto step = start_plan_profile->joint_joint_freespace(
-              *pre_jwp, cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else if (is_swp1 && is_swp2)
-        {
-          const auto* pre_swp = start_waypoint.cast_const<StateWaypoint>();
-          const auto* cur_swp = plan_instruction->getWaypoint().cast_const<StateWaypoint>();
-
-          JointWaypoint pre_jwp(pre_swp->joint_names, pre_swp->position);
-          JointWaypoint cur_jwp(cur_swp->joint_names, cur_swp->position);
-
-          auto step = start_plan_profile->joint_joint_freespace(
-              pre_jwp, cur_jwp, *plan_instruction, request, request.instructions.getManipulatorInfo());
-          seed.push_back(step);
-        }
-        else
-        {
-          throw std::runtime_error("SimpleMotionPlanner::processCompositeInstruction: Unsupported waypoints provided!");
-        }
-      }
-      else
-      {
-        throw std::runtime_error("Unsupported!");
-      }
-      start_waypoint = plan_instruction->getWaypoint();
+      prev_instruction = *base_instruction;
     }
-    else  // isPlanInstruction(instruction)
+    else if (isMoveInstruction(instruction))
+    {
+      throw std::runtime_error("SimpleMotionPlanner: The input program includes MoveInstructions!");
+    }
+    else
     {
       seed.push_back(instruction);
     }
