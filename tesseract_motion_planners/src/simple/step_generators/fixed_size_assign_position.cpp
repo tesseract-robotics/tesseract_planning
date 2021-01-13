@@ -37,96 +37,59 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-CompositeInstruction fixedSizeAssignStateWaypoint(const Eigen::Ref<const Eigen::VectorXd>& position,
-                                                  const PlanInstruction& base_instruction,
-                                                  const PlannerRequest& request,
-                                                  const ManipulatorInfo& manip_info,
-                                                  int steps)
+CompositeInstruction simplePlannerGeneratorFixedSizeAssign(const PlanInstruction& prev_instruction,
+                                                           const PlanInstruction& base_instruction,
+                                                           const PlannerRequest& request,
+                                                           const ManipulatorInfo& manip_info,
+                                                           int freespace_steps,
+                                                           int linear_steps)
 {
-  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  InstructionInfo info1(prev_instruction, request, manip_info);
+  InstructionInfo info2(base_instruction, request, manip_info);
 
-  // Get Kinematics Object
-  auto fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(mi.manipulator);
-
-  // Convert to MoveInstructions
-  MoveInstructionType mv_type;
-  if (base_instruction.isLinear())
-    mv_type = MoveInstructionType::LINEAR;
-  else if (base_instruction.isFreespace())
-    mv_type = MoveInstructionType::FREESPACE;
-  else
-    throw std::runtime_error("fixedSizeAssignStateWaypoint: Unsupport plan instruction type!");
-
-  CompositeInstruction composite;
-  composite.setManipulatorInfo(mi);
-
-  for (int i = 1; i <= steps; ++i)
+  Eigen::MatrixXd states;
+  if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
   {
-    MoveInstruction move_instruction(StateWaypoint(fwd_kin->getJointNames(), position), mv_type);
-    move_instruction.setManipulatorInfo(base_instruction.getManipulatorInfo());
-    move_instruction.setDescription(base_instruction.getDescription());
-    move_instruction.setProfile(base_instruction.getProfile());
-    composite.push_back(move_instruction);
+    const Eigen::VectorXd& jp = getJointPosition(info2.instruction.getWaypoint());
+    if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
+      states = jp.replicate(1, linear_steps + 1);
+    else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
+      states = jp.replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
+  }
+  else if (!info1.has_cartesian_waypoint && info2.has_cartesian_waypoint)
+  {
+    const Eigen::VectorXd& jp = getJointPosition(info1.instruction.getWaypoint());
+    if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
+      states = jp.replicate(1, linear_steps + 1);
+    else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
+      states = jp.replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
+  }
+  else if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
+  {
+    const Eigen::VectorXd& jp = getJointPosition(info2.instruction.getWaypoint());
+    if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
+      states = jp.replicate(1, linear_steps + 1);
+    else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
+      states = jp.replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
+  }
+  else
+  {
+    Eigen::VectorXd seed = request.env_state->getJointValues(info2.inv_kin->getJointNames());
+    if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
+      states = seed.replicate(1, linear_steps + 1);
+    else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
+      states = seed.replicate(1, freespace_steps + 1);
+    else
+      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
   }
 
-  return composite;
-}
-
-CompositeInstruction fixedSizeAssignStateWaypoint(const JointWaypoint& start,
-                                                  const CartesianWaypoint& /*end*/,
-                                                  const PlanInstruction& base_instruction,
-                                                  const PlannerRequest& request,
-                                                  const ManipulatorInfo& manip_info,
-                                                  int steps)
-{
-  // Joint waypoints should have joint names
-  assert(static_cast<long>(start.joint_names.size()) == start.size());
-
-  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-
-  assert([=]() {
-    ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
-    auto fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(mi.manipulator);
-    return checkJointPositionFormat(fwd_kin->getJointNames(), start);
-  }());
-
-  return fixedSizeAssignStateWaypoint(start, base_instruction, request, manip_info, steps);
-}
-
-CompositeInstruction fixedSizeAssignStateWaypoint(const CartesianWaypoint& /*start*/,
-                                                  const JointWaypoint& end,
-                                                  const PlanInstruction& base_instruction,
-                                                  const PlannerRequest& request,
-                                                  const ManipulatorInfo& manip_info,
-                                                  int steps)
-{
-  // Joint waypoints should have joint names
-  assert(static_cast<long>(end.joint_names.size()) == end.size());
-
-  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-
-  assert([=]() {
-    ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
-    auto fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(mi.manipulator);
-    return checkJointPositionFormat(fwd_kin->getJointNames(), end);
-  }());
-
-  return fixedSizeAssignStateWaypoint(end, base_instruction, request, manip_info, steps);
-}
-
-CompositeInstruction fixedSizeAssignStateWaypoint(const CartesianWaypoint& /*start*/,
-                                                  const CartesianWaypoint& /*end*/,
-                                                  const PlanInstruction& base_instruction,
-                                                  const PlannerRequest& request,
-                                                  const ManipulatorInfo& manip_info,
-                                                  int steps)
-{
-  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
-  auto fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(mi.manipulator);
-  Eigen::VectorXd position = request.env_state->getJointValues(fwd_kin->getJointNames());
-  return fixedSizeAssignStateWaypoint(position, base_instruction, request, manip_info, steps);
+  return getInterpolatedComposite(states, info2.fwd_kin, info2.instruction);
 }
 
 }  // namespace tesseract_planning

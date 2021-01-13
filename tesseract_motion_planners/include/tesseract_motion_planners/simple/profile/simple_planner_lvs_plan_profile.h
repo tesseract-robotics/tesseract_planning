@@ -1,5 +1,5 @@
 /**
- * @file simple_planner_default_plan_profile.h
+ * @file simple_planner_lvs_plan_profile.h
  * @brief
  *
  * @author Tyler Marr
@@ -24,8 +24,8 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_DEFAULT_LVS_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_DEFAULT_LVS_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -36,35 +36,35 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 #ifdef SWIG
-%shared_ptr(tesseract_planning::SimplePlannerDefaultLVSPlanProfile)
+%shared_ptr(tesseract_planning::SimplePlannerLVSPlanProfile)
 #endif  // SWIG
 
 namespace tesseract_planning
 {
-class SimplePlannerDefaultLVSPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerLVSPlanProfile : public SimplePlannerPlanProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerDefaultLVSPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerDefaultLVSPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerLVSPlanProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerLVSPlanProfile>;
 
-  SimplePlannerDefaultLVSPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
-                                     double translation_longest_valid_segment_length = 0.1,
-                                     double rotation_longest_valid_segment_length = 5 * M_PI / 180,
-                                     int min_steps = 1);
+  SimplePlannerLVSPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
+                              double translation_longest_valid_segment_length = 0.1,
+                              double rotation_longest_valid_segment_length = 5 * M_PI / 180,
+                              int min_steps = 1);
 
   /** @brief apply Sets the function handles based on the number of steps specified */
   void apply();
 
-  const double& getStateLongestValidSegmentLength();
+  double getStateLongestValidSegmentLength();
   void setStateLongestValidSegmentLength(double state_longest_valid_segment_length);
 
-  const double& getTranslationLongestValidSegmentLength();
+  double getTranslationLongestValidSegmentLength();
   void setTranslationLongestValidSegmentLength(double translation_longest_valid_segment_length);
 
-  const double& getRotationLongestValidSegmentLength();
+  double getRotationLongestValidSegmentLength();
   void setRotationLongestValidSegmentLength(double rotation_longest_valid_segment_length);
 
-  const int& getMinSteps();
+  int getMinSteps();
   void setMinSteps(int min_steps);
 
 protected:
@@ -76,4 +76,4 @@ protected:
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_DEFAULT_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H

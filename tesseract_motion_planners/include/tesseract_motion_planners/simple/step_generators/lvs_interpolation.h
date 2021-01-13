@@ -34,11 +34,48 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_motion_planners/core/types.h>
+#include <tesseract_motion_planners/simple/step_generators/utils.h>
 
 namespace tesseract_planning
 {
+/** @brief A container of the transition information used */
+struct LVSTransitionInfo
+{
+  LVSTransitionInfo(const InstructionInfo& prev, const InstructionInfo& base, const PlannerRequest& request);
+
+  const InstructionInfo& prev;
+  const InstructionInfo& base;
+  const PlannerRequest& request;
+  double state_longest_valid_segment_length;
+  double translation_longest_valid_segment_length;
+  double rotation_longest_valid_segment_length;
+  int min_steps;
+};
+
 /**
- * @brief LVSInterpolateStateWaypoint(JointWaypoint to JointWaypoint)
+ * @brief This uses the functions below to generate a seed
+ * @param prev_instruction The previous instruction
+ * @param base_instruction The current instruction
+ * @param request The planning request information
+ * @param manip_info The manipulator information provided by the parent composite instruction
+ * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions) between
+ *successive steps
+ * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
+ * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
+ * @param min_steps The minimum number of steps for the plan
+ * @return A composite instruction of move instruction with state waypoints
+ */
+CompositeInstruction simplePlannerGeneratorLVS(const PlanInstruction& prev_instruction,
+                                               const PlanInstruction& base_instruction,
+                                               const PlannerRequest& request,
+                                               const ManipulatorInfo& manip_info,
+                                               double state_longest_valid_segment_length,
+                                               double translation_longest_valid_segment_length,
+                                               double rotation_longest_valid_segment_length,
+                                               int min_steps);
+
+/**
+ * @brief JointWaypoint to JointWaypoint
  *
  * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
  *
@@ -50,30 +87,13 @@ namespace tesseract_planning
  *   - the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen
  * - the interpolation will be done in joint space
  *
- * @param start The joint state at the start of the plan
- * @param end The joint state at the end of the plan
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction
- * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions) between
- *successive steps
- * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
- * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
- * @param min_steps The minimum number of steps for the plan
+ * @param trans_info Transition information used for interpolation
  * @return A composite instruction of move instruction with state waypoints
  **/
-CompositeInstruction LVSInterpolateStateWaypoint(const JointWaypoint& start,
-                                                 const JointWaypoint& end,
-                                                 const PlanInstruction& base_instruction,
-                                                 const PlannerRequest& request,
-                                                 const ManipulatorInfo& manip_info,
-                                                 double state_longest_valid_segment_length,
-                                                 double translation_longest_valid_segment_length,
-                                                 double rotation_longest_valid_segment_length,
-                                                 int min_steps);
+CompositeInstruction stateJointJointWaypointLVS(const LVSTransitionInfo& trans_info);
 
 /**
- * @brief LVSInterpolateStateWaypoint(JointWaypoint to CartesianWaypoint)
+ * @brief JointWaypoint to CartesianWaypoint
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
@@ -87,27 +107,13 @@ CompositeInstruction LVSInterpolateStateWaypoint(const JointWaypoint& start,
  *   - Case 2: Unable to find joint solution for end cartesian waypoint
  *     - It creates number states based on the steps and sets the value to start joint waypoint
  *
- * @param start The joint state at the start of the plan
- * @param end The cartesian state at the end of the plan
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction
- * @param state_longest_valid_segment_length The longest valid joint distance (norm of all joint movements) per step
- * @param min_steps The minimum number of steps for the plan
+ * @param trans_info Transition information used for interpolation
  * @return A composite instruction of move instruction with state waypoints
  **/
-CompositeInstruction LVSInterpolateStateWaypoint(const JointWaypoint& start,
-                                                 const CartesianWaypoint& end,
-                                                 const PlanInstruction& base_instruction,
-                                                 const PlannerRequest& request,
-                                                 const ManipulatorInfo& manip_info,
-                                                 double state_longest_valid_segment_length,
-                                                 double translation_longest_valid_segment_length,
-                                                 double rotation_longest_valid_segment_length,
-                                                 int min_steps);
+CompositeInstruction stateJointCartWaypointLVS(const LVSTransitionInfo& trans_info);
 
 /**
- * @brief LVSInterpolateStateWaypoint(CartesianWaypoint to JointWaypoint)
+ * @brief CartesianWaypoint to JointWaypoint
  *
  * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
  *
@@ -123,30 +129,13 @@ CompositeInstruction LVSInterpolateStateWaypoint(const JointWaypoint& start,
  *   - Case 2: Unable to find joint solution for start cartesian waypoint
  *     - It creates number states based on the steps and sets the value to end joint waypoint
  *
- * @param start The joint state at the start of the plan
- * @param end The joint state at the end of the plan
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction
- * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions) between
- *successive steps
- * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
- * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
- * @param min_steps The minimum number of steps for the plan
+ * @param trans_info Transition information used for interpolation
  * @return A composite instruction of move instruction with state waypoints
  **/
-CompositeInstruction LVSInterpolateStateWaypoint(const CartesianWaypoint& start,
-                                                 const JointWaypoint& end,
-                                                 const PlanInstruction& base_instruction,
-                                                 const PlannerRequest& request,
-                                                 const ManipulatorInfo& manip_info,
-                                                 double state_longest_valid_segment_length,
-                                                 double translation_longest_valid_segment_length,
-                                                 double rotation_longest_valid_segment_length,
-                                                 int min_steps);
+CompositeInstruction stateCartJointWaypointLVS(const LVSTransitionInfo& trans_info);
 
 /**
- * @brief LVSInterpolateStateWaypoint(CartesianWaypoint to CartesianWaypoint)
+ * @brief CartesianWaypoint to CartesianWaypoint
  *
  * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
  *
@@ -166,135 +155,10 @@ CompositeInstruction LVSInterpolateStateWaypoint(const CartesianWaypoint& start,
  *   - Case 4: No joint solution found for end and start cartesian waypoint
  *     - It creates number states based on the steps and sets the value to the current state of the environment
  *
- * @param start The joint state at the start of the plan
- * @param end The joint state at the end of the plan
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction
- * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions) between
- *successive steps
- * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
- * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
- * @param min_steps The minimum number of steps for the plan
+ * @param trans_info Transition information used for interpolation
  * @return A composite instruction of move instruction with state waypoints
  **/
-CompositeInstruction LVSInterpolateStateWaypoint(const CartesianWaypoint& start,
-                                                 const CartesianWaypoint& end,
-                                                 const PlanInstruction& base_instruction,
-                                                 const PlannerRequest& request,
-                                                 const ManipulatorInfo& manip_info,
-                                                 double state_longest_valid_segment_length,
-                                                 double translation_longest_valid_segment_length,
-                                                 double rotation_longest_valid_segment_length,
-                                                 int min_steps);
-
-/**
- * @brief LVSInterpolateCartStateWaypoint(JointWaypoint to JointWaypoint)
- *
- * This function interpolates the motion from start state to end state. Results are stored in CartesianWaypoint objects.
- *
- * @param start The joint state at the start of the plan
- * @param end The joint state at the end of the plan
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction
- * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions) between
- *successive steps
- * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
- * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
- * @param min_steps The minimum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
- **/
-CompositeInstruction LVSInterpolateCartStateWaypoint(const JointWaypoint& start,
-                                                     const JointWaypoint& end,
-                                                     const PlanInstruction& base_instruction,
-                                                     const PlannerRequest& request,
-                                                     const ManipulatorInfo& manip_info,
-                                                     double state_longest_valid_segment_length,
-                                                     double translation_longest_valid_segment_length,
-                                                     double rotation_longest_valid_segment_length,
-                                                     int min_steps);
-
-/**
- * @brief LVSInterpolateCartStateWaypoint(JointWaypoint to CartesianWaypoint)
- *
- * This function interpolates the motion from start state to end state. Results are stored in CartesianWaypoint objects.
- *
- * @param start The joint state at the start of the plan
- * @param end The joint state at the end of the plan
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction
- * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions) between
- *successive steps
- * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
- * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
- * @param min_steps The minimum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
- **/
-CompositeInstruction LVSInterpolateCartStateWaypoint(const JointWaypoint& start,
-                                                     const CartesianWaypoint& end,
-                                                     const PlanInstruction& base_instruction,
-                                                     const PlannerRequest& request,
-                                                     const ManipulatorInfo& manip_info,
-                                                     double state_longest_valid_segment_length,
-                                                     double translation_longest_valid_segment_length,
-                                                     double rotation_longest_valid_segment_length,
-                                                     int min_steps);
-
-/**
- * @brief LVSInterpolateCartStateWaypoint(CartesianWaypoint to JointWaypoint)
- *
- * This function interpolates the motion from start state to end state. Results are stored in CartesianWaypoint objects.
- *
- * @param start The joint state at the start of the plan
- * @param end The joint state at the end of the plan
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction
- * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions) between
- *successive steps
- * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
- * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
- * @param min_steps The minimum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
- **/
-CompositeInstruction LVSInterpolateCartStateWaypoint(const CartesianWaypoint& start,
-                                                     const JointWaypoint& end,
-                                                     const PlanInstruction& base_instruction,
-                                                     const PlannerRequest& request,
-                                                     const ManipulatorInfo& manip_info,
-                                                     double state_longest_valid_segment_length,
-                                                     double translation_longest_valid_segment_length,
-                                                     double rotation_longest_valid_segment_length,
-                                                     int min_steps);
-
-/**
- * @brief LVSInterpolateCartStateWaypoint(CartesianWaypoint to CartesianWaypoint)
- *
- * This function interpolates the motion from start state to end state. Results are stored in CartesianWaypoint objects.
- *
- * @param start The joint state at the start of the plan
- * @param end The joint state at the end of the plan
- * @param base_instruction The base plan instruction
- * @param request The planning request information
- * @param manip_info The manipulator information provided by the parent composite instruction
- * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions) between
- *successive steps
- * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
- * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
- * @param min_steps The minimum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
- **/
-CompositeInstruction LVSInterpolateCartStateWaypoint(const CartesianWaypoint& start,
-                                                     const CartesianWaypoint& end,
-                                                     const PlanInstruction& base_instruction,
-                                                     const PlannerRequest& request,
-                                                     const ManipulatorInfo& manip_info,
-                                                     double state_longest_valid_segment_length,
-                                                     double translation_longest_valid_segment_length,
-                                                     double rotation_longest_valid_segment_length,
-                                                     int min_steps);
+CompositeInstruction stateCartCartWaypointLVS(const LVSTransitionInfo& trans_info);
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H

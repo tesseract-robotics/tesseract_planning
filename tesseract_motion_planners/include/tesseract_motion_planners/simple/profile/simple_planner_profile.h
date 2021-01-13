@@ -42,26 +42,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-using JointJointStepGenerator = std::function<CompositeInstruction(const JointWaypoint&,
-                                                                   const JointWaypoint&,
-                                                                   const PlanInstruction&,
-                                                                   const PlannerRequest&,
-                                                                   const ManipulatorInfo&)>;
-using JointCartStepGenerator = std::function<CompositeInstruction(const JointWaypoint&,
-                                                                  const CartesianWaypoint&,
-                                                                  const PlanInstruction&,
-                                                                  const PlannerRequest&,
-                                                                  const ManipulatorInfo&)>;
-using CartJointStepGenerator = std::function<CompositeInstruction(const CartesianWaypoint&,
-                                                                  const JointWaypoint&,
-                                                                  const PlanInstruction&,
-                                                                  const PlannerRequest&,
-                                                                  const ManipulatorInfo&)>;
-using CartCartStepGenerator = std::function<CompositeInstruction(const CartesianWaypoint&,
-                                                                 const CartesianWaypoint&,
-                                                                 const PlanInstruction&,
-                                                                 const PlannerRequest&,
-                                                                 const ManipulatorInfo&)>;
+using SimplePlannerStepGeneratorFn = std::function<CompositeInstruction(const PlanInstruction&,
+                                                                        const PlanInstruction&,
+                                                                        const PlannerRequest&,
+                                                                        const ManipulatorInfo&)>;
 
 /**
  * @brief Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The
@@ -73,15 +57,11 @@ public:
   using Ptr = std::shared_ptr<SimplePlannerPlanProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerPlanProfile>;
 
-  /** @brief Used to fill out the seed for the joint-joint freespace case*/
-  JointJointStepGenerator joint_joint_freespace;
-  JointCartStepGenerator joint_cart_freespace;
-  CartJointStepGenerator cart_joint_freespace;
-  CartCartStepGenerator cart_cart_freespace;
-  JointJointStepGenerator joint_joint_linear;
-  JointCartStepGenerator joint_cart_linear;
-  CartJointStepGenerator cart_joint_linear;
-  CartCartStepGenerator cart_cart_linear;
+  /** @brief Seed generator function */
+  SimplePlannerStepGeneratorFn state_generator;
+
+  // @todo This is currently not support but cartesian state generator is a future plan
+  // SimplePlannerStepGeneratorFn cart_state_generator;
 };
 
 class SimplePlannerCompositeProfile
