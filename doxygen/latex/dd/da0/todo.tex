@@ -1,13 +1,21 @@
 
 \begin{DoxyRefList}
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_a5479a76ec33cda8924d0e54d336e5ccc}{tesseract\+\_\+planning\+::Default\+Descartes\+Problem\+Generator}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Descartes\+Plan\+Profile\+Map$<$ Float\+Type $>$ \&plan\+\_\+profiles)]\label{todo__todo000006}%
-\Hypertarget{todo__todo000006}%
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_a5479a76ec33cda8924d0e54d336e5ccc}{tesseract\+\_\+planning\+::Default\+Descartes\+Problem\+Generator}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Descartes\+Plan\+Profile\+Map$<$ Float\+Type $>$ \&plan\+\_\+profiles)]\label{todo__todo000005}%
+\Hypertarget{todo__todo000005}%
 Should check that the joint names match the order of the manipulator 
 
-\label{todo__todo000005}%
-\Hypertarget{todo__todo000005}%
+\label{todo__todo000006}%
+\Hypertarget{todo__todo000006}%
 Should check that the joint names match the order of the manipulator  
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_aad1ed7198d10eba864130666e92d9b1f}{tesseract\+\_\+planning\+::Default\+Trajopt\+Ifopt\+Problem\+Generator}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Traj\+Opt\+Ifopt\+Plan\+Profile\+Map \&plan\+\_\+profiles, const Traj\+Opt\+Ifopt\+Composite\+Profile\+Map \&composite\+\_\+profiles)]\label{todo__todo000041}%
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_aad1ed7198d10eba864130666e92d9b1f}{tesseract\+\_\+planning\+::Default\+Trajopt\+Ifopt\+Problem\+Generator}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Traj\+Opt\+Ifopt\+Plan\+Profile\+Map \&plan\+\_\+profiles, const Traj\+Opt\+Ifopt\+Composite\+Profile\+Map \&composite\+\_\+profiles)]\label{todo__todo000037}%
+\Hypertarget{todo__todo000037}%
+\+: Restructure this into several smaller functions that are testable and easier to understand 
+
+\label{todo__todo000038}%
+\Hypertarget{todo__todo000038}%
+Write a path constraint for this 
+
+\label{todo__todo000041}%
 \Hypertarget{todo__todo000041}%
 Should check that the joint names match the order of the manipulator 
 
@@ -17,15 +25,7 @@ Should check that the joint names match the order of the manipulator
 
 \label{todo__todo000039}%
 \Hypertarget{todo__todo000039}%
-Add path constraint for this 
-
-\label{todo__todo000038}%
-\Hypertarget{todo__todo000038}%
-Write a path constraint for this 
-
-\label{todo__todo000037}%
-\Hypertarget{todo__todo000037}%
-\+: Restructure this into several smaller functions that are testable and easier to understand  
+Add path constraint for this  
 \item[Member \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a8bbf9dd170dfc5da44f4117d74ca7a6a}{tesseract\+\_\+planning\+::Descartes\+Default\+Plan\+Profile$<$ Float\+Type $>$\+::Descartes\+Default\+Plan\+Profile}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)]\label{todo__todo000002}%
 \Hypertarget{todo__todo000002}%
 Update XML 
@@ -43,44 +43,44 @@ Update XML
 \item[Member \mbox{\hyperlink{namespacetesseract__planning_adddc7aa17fc164a35ea0004da350f8be}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Joint\+Waypoint \&, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000023}%
 \Hypertarget{todo__todo000023}%
 \+: Need to create a cartesian state waypoint and update the code below  
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_a27b5ac961c9912d8062c5fbd142a47f6}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000024}%
-\Hypertarget{todo__todo000024}%
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_aed64797564037b85e5ffbad6d81bd863}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000026}%
+\Hypertarget{todo__todo000026}%
 \+: Need to create a cartesian state waypoint and update the code below  
 \item[Member \mbox{\hyperlink{namespacetesseract__planning_a431474549cef35ad4ba73dd8dae836b4}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000025}%
 \Hypertarget{todo__todo000025}%
 \+: Need to create a cartesian state waypoint and update the code below  
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_aed64797564037b85e5ffbad6d81bd863}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000026}%
-\Hypertarget{todo__todo000026}%
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_a27b5ac961c9912d8062c5fbd142a47f6}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+Cart\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000024}%
+\Hypertarget{todo__todo000024}%
 \+: Need to create a cartesian state waypoint and update the code below  
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_af43a652454f562e022435bb14f55d7a9}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000020}%
-\Hypertarget{todo__todo000020}%
-\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed.  
 \item[Member \mbox{\hyperlink{namespacetesseract__planning_a96223b36a77dabe1bf33ec11ed8ed97b}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000021}%
 \Hypertarget{todo__todo000021}%
+\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed.  
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_af43a652454f562e022435bb14f55d7a9}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000020}%
+\Hypertarget{todo__todo000020}%
 \+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed.  
 \item[Member \mbox{\hyperlink{namespacetesseract__planning_a392b0c232da908a1110f17427e917eb2}{tesseract\+\_\+planning\+::fixed\+Size\+Interpolate\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, int steps)]\label{todo__todo000022}%
 \Hypertarget{todo__todo000022}%
 \+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed.  
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_a8c34e1b8540f0f4abaf9b6911853abf0}{tesseract\+\_\+planning\+::LVSInterpolate\+Cart\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000031}%
+\Hypertarget{todo__todo000031}%
+\+: Need to create a cartesian state waypoint and update the code below  
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_ac53f28bcd55f3636acc1f44315c1a5ff}{tesseract\+\_\+planning\+::LVSInterpolate\+Cart\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000032}%
+\Hypertarget{todo__todo000032}%
+\+: Need to create a cartesian state waypoint and update the code below  
 \item[Member \mbox{\hyperlink{namespacetesseract__planning_af4152e9479fe80f589ac11fc1a203b03}{tesseract\+\_\+planning\+::LVSInterpolate\+Cart\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000033}%
 \Hypertarget{todo__todo000033}%
 \+: Need to create a cartesian state waypoint and update the code below  
 \item[Member \mbox{\hyperlink{namespacetesseract__planning_ae8c7dbc50a3abe5561cd5b0e470b1630}{tesseract\+\_\+planning\+::LVSInterpolate\+Cart\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000030}%
 \Hypertarget{todo__todo000030}%
 \+: Need to create a cartesian state waypoint and update the code below  
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_ac53f28bcd55f3636acc1f44315c1a5ff}{tesseract\+\_\+planning\+::LVSInterpolate\+Cart\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000032}%
-\Hypertarget{todo__todo000032}%
-\+: Need to create a cartesian state waypoint and update the code below  
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_a8c34e1b8540f0f4abaf9b6911853abf0}{tesseract\+\_\+planning\+::LVSInterpolate\+Cart\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000031}%
-\Hypertarget{todo__todo000031}%
-\+: Need to create a cartesian state waypoint and update the code below  
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_ae7162d24545a8706b2796dfb09d37cc8}{tesseract\+\_\+planning\+::LVSInterpolate\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000029}%
-\Hypertarget{todo__todo000029}%
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_ab7c266ec9ba52e3b9c8df61adee05aa3}{tesseract\+\_\+planning\+::LVSInterpolate\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000027}%
+\Hypertarget{todo__todo000027}%
 \+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed.  
 \item[Member \mbox{\hyperlink{namespacetesseract__planning_a27da2f146862e49568505b61eeb8e9ce}{tesseract\+\_\+planning\+::LVSInterpolate\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Joint\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000028}%
 \Hypertarget{todo__todo000028}%
 \+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed.  
-\item[Member \mbox{\hyperlink{namespacetesseract__planning_ab7c266ec9ba52e3b9c8df61adee05aa3}{tesseract\+\_\+planning\+::LVSInterpolate\+State\+Waypoint}} (const Joint\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000027}%
-\Hypertarget{todo__todo000027}%
+\item[Member \mbox{\hyperlink{namespacetesseract__planning_ae7162d24545a8706b2796dfb09d37cc8}{tesseract\+\_\+planning\+::LVSInterpolate\+State\+Waypoint}} (const Cartesian\+Waypoint \&start, const Cartesian\+Waypoint \&end, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length, int min\+\_\+steps)]\label{todo__todo000029}%
+\Hypertarget{todo__todo000029}%
 \+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed.  
 \item[Member \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac9464c4e33be2c8d30e1e4bcefeabab}{tesseract\+\_\+planning\+::OMPLDefault\+Plan\+Profile\+::apply\+Goal\+States}} (\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&prob, const Eigen\+::\+Isometry3d \&cartesian\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const override]\label{todo__todo000016}%
 \Hypertarget{todo__todo000016}%
@@ -110,36 +110,36 @@ Need to figure out if these can associated with an individual run versus global
 \item[Member \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a76282121b3d486b03a098cdc8124ad39}{tesseract\+\_\+planning\+::Task\+Input\+::size}} ()]\label{todo__todo000056}%
 \Hypertarget{todo__todo000056}%
 Should this be -\/1, becuase composite size could be 1, 0, or other?  
-\item[Member \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{tesseract\+\_\+planning\+::Traj\+Opt\+Ifopt\+Motion\+Planner\+::solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \&response, bool verbose=false) const override]\label{todo__todo000043}%
-\Hypertarget{todo__todo000043}%
-Set these as the defaults in trajopt and allow setting 
-
-\label{todo__todo000042}%
+\item[Member \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{tesseract\+\_\+planning\+::Traj\+Opt\+Ifopt\+Motion\+Planner\+::solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \&response, bool verbose=false) const override]\label{todo__todo000042}%
 \Hypertarget{todo__todo000042}%
-Enable solver selection (e.\+g. IPOPT)  
-\item[Member \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a372209d1b7f18b2c86bbdad3a849ce95}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Joint\+Joint\+\_\+\+Cartesian\+Interpolation)]\label{todo__todo000044}%
-\Hypertarget{todo__todo000044}%
-\+: Update once implemented  
-\item[Member \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a761d17e2c96f1aa5feb07194c3e3ea3a}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Joint\+Cart\+\_\+\+Cartesian\+Interpolation)]\label{todo__todo000045}%
-\Hypertarget{todo__todo000045}%
-\+: Update once implemented  
-\item[Member \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a5782d4de775a131b4199b426bcfd98a7}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Cart\+Joint\+\_\+\+Cartesian\+Interpolation)]\label{todo__todo000046}%
-\Hypertarget{todo__todo000046}%
-\+: Update once implemented  
-\item[Member \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_af96566303672bf4396197af107dfa1c3}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Cart\+Cart\+\_\+\+Cartesian\+Interpolation)]\label{todo__todo000047}%
-\Hypertarget{todo__todo000047}%
-\+: Update once implemented  
-\item[Member \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aaebb36f8d2d1de9595e7b41adb5110d6}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+Cart\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Freespace)]\label{todo__todo000048}%
-\Hypertarget{todo__todo000048}%
-\+: Update once implemented  
-\item[Member \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a9397630ae3de783c8e04011e618f2dc3}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+Cart\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Linear)]\label{todo__todo000049}%
-\Hypertarget{todo__todo000049}%
+Enable solver selection (e.\+g. IPOPT) 
+
+\label{todo__todo000043}%
+\Hypertarget{todo__todo000043}%
+Set these as the defaults in trajopt and allow setting  
+\item[Member \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ae0f2c0581c6dfc1e9c99a92cff8f06da}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+Cart\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Linear)]\label{todo__todo000051}%
+\Hypertarget{todo__todo000051}%
 \+: Update once implemented  
 \item[Member \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ab7c8f46ac74a070245b5c1b6ac3cc483}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+Cart\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Freespace)]\label{todo__todo000050}%
 \Hypertarget{todo__todo000050}%
 \+: Update once implemented  
-\item[Member \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_ae0f2c0581c6dfc1e9c99a92cff8f06da}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+Cart\+State\+Waypoint\+\_\+\+Joint\+Cart\+\_\+\+Linear)]\label{todo__todo000051}%
-\Hypertarget{todo__todo000051}%
+\item[Member \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a9397630ae3de783c8e04011e618f2dc3}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+Cart\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Linear)]\label{todo__todo000049}%
+\Hypertarget{todo__todo000049}%
+\+: Update once implemented  
+\item[Member \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_aaebb36f8d2d1de9595e7b41adb5110d6}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+Cart\+State\+Waypoint\+\_\+\+Joint\+Joint\+\_\+\+Freespace)]\label{todo__todo000048}%
+\Hypertarget{todo__todo000048}%
+\+: Update once implemented  
+\item[Member \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_af96566303672bf4396197af107dfa1c3}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Cart\+Cart\+\_\+\+Cartesian\+Interpolation)]\label{todo__todo000047}%
+\Hypertarget{todo__todo000047}%
+\+: Update once implemented  
+\item[Member \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a5782d4de775a131b4199b426bcfd98a7}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Cart\+Joint\+\_\+\+Cartesian\+Interpolation)]\label{todo__todo000046}%
+\Hypertarget{todo__todo000046}%
+\+: Update once implemented  
+\item[Member \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a761d17e2c96f1aa5feb07194c3e3ea3a}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Joint\+Cart\+\_\+\+Cartesian\+Interpolation)]\label{todo__todo000045}%
+\Hypertarget{todo__todo000045}%
+\+: Update once implemented  
+\item[Member \mbox{\hyperlink{simple__planner__fixed__size__interpolation_8cpp_a372209d1b7f18b2c86bbdad3a849ce95}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerFixedSizeInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+Fixed\+Size\+Interpolation\+Unit}}, Joint\+Joint\+\_\+\+Cartesian\+Interpolation)]\label{todo__todo000044}%
+\Hypertarget{todo__todo000044}%
 \+: Update once implemented  
 \item[Member \mbox{\hyperlink{simple__planner__lvs__interpolation_8cpp_a6715fc0b8cf5df1a75ddb1dd9f2daa37}{TEST\+\_\+F}} (\mbox{\hyperlink{classTesseractPlanningSimplePlannerLVSInterpolationUnit}{Tesseract\+Planning\+Simple\+Planner\+LVSInterpolation\+Unit}}, Interpolate\+Cart\+State\+Waypoint\+\_\+\+Cart\+Joint\+\_\+\+Freespace)]\label{todo__todo000052}%
 \Hypertarget{todo__todo000052}%
