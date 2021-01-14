@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/core/environment.h>
 #include <tesseract_environment/ofkt/ofkt_state_solver.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/step_generators/lvs_interpolation.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
 
 using namespace tesseract_environment;
 using namespace tesseract_planning;
@@ -99,7 +99,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 3.14, 0.5, 1.57, 5);
+  SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
@@ -111,18 +112,18 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
-  auto composite_short =
-      simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 6.28, 0.5, 1.57, min_steps);
-  EXPECT_EQ(composite_short.size(), min_steps);
+  SimplePlannerLVSPlanProfile cs_profile(6.28, 0.5, 1.57, min_steps);
+  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure state_longest_valid_segment_length is used
   double longest_valid_segment_length = 0.05;
-  auto composite_long = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), longest_valid_segment_length, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
+  auto cl = cl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   double dist = (wp1 - wp2).norm();
   int steps = int(dist / longest_valid_segment_length) + 1;
-  EXPECT_TRUE(static_cast<int>(composite_long.size()) > min_steps);
-  EXPECT_EQ(composite_long.size(), steps);
+  EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
+  EXPECT_EQ(cl.size(), steps);
 }
 
 TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_JointJoint_Linear)  // NOLINT
@@ -137,7 +138,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 3.14, 0.5, 1.57, 5);
+  SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
@@ -149,13 +151,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
-  auto cs = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 6.28, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
+  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure translation_longest_valid_segment_length is used when large motion given
   double translation_longest_valid_segment_length = 0.01;
-  auto ctl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), 6.28, translation_longest_valid_segment_length, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
+  auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   Eigen::Isometry3d p1, p2;
   fwd_kin->calcFwdKin(p1, wp1);
   fwd_kin->calcFwdKin(p2, wp2);
@@ -166,8 +169,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure rotation_longest_valid_segment_length is used
   double rotation_longest_valid_segment_length = 0.01;
-  auto crl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), 6.28, 10, rotation_longest_valid_segment_length, min_steps);
+  SimplePlannerLVSPlanProfile crl_profile(6.28, 10, rotation_longest_valid_segment_length, min_steps);
+  auto crl = crl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(p1.linear()).angularDistance(Eigen::Quaterniond(p2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
@@ -187,7 +190,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 3.14, 0.5, 1.57, 5);
+  SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
@@ -202,13 +206,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
-  auto cs = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 6.28, 0.5, 1.57, min_steps);
+  SimplePlannerLVSPlanProfile cs_profile(6.28, 0.5, 1.57, min_steps);
+  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure state_longest_valid_segment_length is used
   double longest_valid_segment_length = 0.01;
-  auto cl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), longest_valid_segment_length, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
+  auto cl = cl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
@@ -226,7 +231,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 3.14, 0.5, 1.57, 5);
+  SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
@@ -241,13 +247,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
-  auto cs = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 6.28, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
+  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure translation_longest_valid_segment_length is used
   double translation_longest_valid_segment_length = 0.01;
-  auto ctl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), 6.28, translation_longest_valid_segment_length, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
+  auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   Eigen::Isometry3d p1;
   fwd_kin->calcFwdKin(p1, wp1);
   double trans_dist = (wp2.translation() - p1.translation()).norm();
@@ -257,8 +264,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure rotation_longest_valid_segment_length is used
   double rotation_longest_valid_segment_length = 0.01;
-  auto crl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), 6.28, 10, rotation_longest_valid_segment_length, min_steps);
+  SimplePlannerLVSPlanProfile crl_profile(6.28, 10, rotation_longest_valid_segment_length, min_steps);
+  auto crl = crl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(p1.linear()).angularDistance(Eigen::Quaterniond(wp2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
@@ -279,7 +286,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 3.14, 0.5, 1.57, 5);
+  SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
@@ -291,13 +299,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
-  auto cs = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 6.28, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
+  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure state_longest_valid_segment_length is used
   double longest_valid_segment_length = 0.01;
-  auto cl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), longest_valid_segment_length, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
+  auto cl = cl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
@@ -315,7 +324,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 3.14, 0.5, 1.57, 5);
+  SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
@@ -327,13 +337,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
-  auto cs = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 6.28, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
+  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure translation_longest_valid_segment_length is used
   double translation_longest_valid_segment_length = 0.01;
-  auto ctl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), 6.28, translation_longest_valid_segment_length, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
+  auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   Eigen::Isometry3d p2;
   fwd_kin->calcFwdKin(p2, wp2);
   double trans_dist = (p2.translation() - wp1.translation()).norm();
@@ -343,8 +354,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure rotation_longest_valid_segment_length is used
   double rotation_longest_valid_segment_length = 0.01;
-  auto crl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), 6.28, 10, rotation_longest_valid_segment_length, min_steps);
+  SimplePlannerLVSPlanProfile crl_profile(6.28, 10, rotation_longest_valid_segment_length, min_steps);
+  auto crl = crl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(wp1.linear()).angularDistance(Eigen::Quaterniond(p2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
@@ -366,7 +377,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 3.14, 0.5, 1.57, 5);
+  SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
@@ -381,13 +393,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
-  auto cs = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 6.28, 0.5, 1.57, min_steps);
+  SimplePlannerLVSPlanProfile cs_profile(6.28, 0.5, 1.57, min_steps);
+  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure state_longest_valid_segment_length is used
   double longest_valid_segment_length = 0.01;
-  auto cl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), longest_valid_segment_length, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
+  auto cl = cl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
@@ -406,7 +419,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 3.14, 0.5, 1.57, 5);
+  SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
@@ -421,13 +435,14 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
-  auto cs = simplePlannerGeneratorLVS(instr1, instr2, request, ManipulatorInfo(), 6.28, 10, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
+  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure translation_longest_valid_segment_length is used
   double translation_longest_valid_segment_length = 0.01;
-  auto ctl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), 6.28, translation_longest_valid_segment_length, 6.28, min_steps);
+  SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
+  auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   double trans_dist = (wp2.translation() - wp1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
@@ -435,8 +450,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 
   // Ensure rotation_longest_valid_segment_length is used
   double rotation_longest_valid_segment_length = 0.01;
-  auto crl = simplePlannerGeneratorLVS(
-      instr1, instr2, request, ManipulatorInfo(), 6.28, 10, rotation_longest_valid_segment_length, min_steps);
+  SimplePlannerLVSPlanProfile crl_profile(6.28, 10, rotation_longest_valid_segment_length, min_steps);
+  auto crl = crl_profile.generate(instr1, instr2, request, ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(wp1.linear()).angularDistance(Eigen::Quaterniond(wp2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);

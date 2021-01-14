@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::SimplePlannerLVSPlanProfile)
@@ -47,13 +48,23 @@ public:
   using Ptr = std::shared_ptr<SimplePlannerLVSPlanProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerLVSPlanProfile>;
 
+  /**
+   * @brief SimplePlannerLVSPlanProfile
+   * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions)
+   *between successive steps
+   * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
+   * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
+   * @param min_steps The minimum number of steps for the plan
+   */
   SimplePlannerLVSPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
                               double translation_longest_valid_segment_length = 0.1,
                               double rotation_longest_valid_segment_length = 5 * M_PI / 180,
                               int min_steps = 1);
 
-  /** @brief apply Sets the function handles based on the number of steps specified */
-  void apply();
+  CompositeInstruction generate(const PlanInstruction& prev_instruction,
+                                const PlanInstruction& base_instruction,
+                                const PlannerRequest& request,
+                                const ManipulatorInfo& global_manip_info) const override;
 
   double getStateLongestValidSegmentLength();
   void setStateLongestValidSegmentLength(double state_longest_valid_segment_length);
@@ -72,6 +83,90 @@ protected:
   double translation_longest_valid_segment_length_;
   double rotation_longest_valid_segment_length_;
   int min_steps_;
+
+  /**
+   * @brief JointWaypoint to JointWaypoint
+   *
+   * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+   *
+   * - the number of steps for the plan will be calculated such that:
+   *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
+   *   - the rotational distance between successive steps is no longer than rotation_longest_valid_segment
+   *   - the number of steps for the plan will be calculated such that the norm of all joint distances between
+   *successive steps is no longer than state_longest_valid_segment_length
+   *   - the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen
+   * - the interpolation will be done in joint space
+   *
+   * @return A composite instruction of move instruction with state waypoints
+   **/
+  CompositeInstruction stateJointJointWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+
+  /**
+   * @brief JointWaypoint to CartesianWaypoint
+   *
+   * - the number of steps for the plan will be calculated such that:
+   *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
+   *   - the rotational distance between successive steps is no longer than rotation_longest_valid_segment
+   *   - the number of steps for the plan will be calculated such that the norm of all joint distances between
+   *successive steps is no longer than state_longest_valid_segment_length
+   *   - the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen
+   * - the interpolation will be done based on the condition below
+   *   - Case 1: Joint solution found for end cartesian waypoint
+   *     - It interpolates the joint position from the start to the end state
+   *   - Case 2: Unable to find joint solution for end cartesian waypoint
+   *     - It creates number states based on the steps and sets the value to start joint waypoint
+   *
+   * @return A composite instruction of move instruction with state waypoints
+   **/
+  CompositeInstruction stateJointCartWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+
+  /**
+   * @brief CartesianWaypoint to JointWaypoint
+   *
+   * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+   *
+   * - the number of steps for the plan will be calculated such that:
+   *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
+   *   - the rotational distance between successive steps is no longer than rotation_longest_valid_segment
+   *   - the number of steps for the plan will be calculated such that the norm of all joint distances between
+   *successive steps is no longer than state_longest_valid_segment_length
+   *   - the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen
+   * - the interpolation will be done based on the condition below
+   *   - Case 1: Joint solution found for start cartesian waypoint
+   *     - It interpolates the joint position from the start to the end state
+   *   - Case 2: Unable to find joint solution for start cartesian waypoint
+   *     - It creates number states based on the steps and sets the value to end joint waypoint
+   *
+   * @return A composite instruction of move instruction with state waypoints
+   **/
+  CompositeInstruction stateCartJointWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+
+  /**
+   * @brief CartesianWaypoint to CartesianWaypoint
+   *
+   * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+   *
+   * - the number of steps for the plan will be calculated such that:
+   *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
+   *   - the rotational distance between successive steps is no longer than rotation_longest_valid_segment
+   *   - the number of steps for the plan will be calculated such that the norm of all joint distances between
+   *successive steps is no longer than state_longest_valid_segment_length
+   *   - the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen
+   * - the interpolation will be done based on the condition below
+   *   - Case 1: Joint solution found for start and end cartesian waypoint
+   *     - It interpolates the joint position from the start to the end state
+   *   - Case 2: Joint solution only found for start cartesian waypoint
+   *     - It creates number states based on the steps and sets the value to found start solution
+   *   - Case 3: Joint solution only found for end cartesian waypoint
+   *     - It creates number states based on the steps and sets the value to found end solution
+   *   - Case 4: No joint solution found for end and start cartesian waypoint
+   *     - It creates number states based on the steps and sets the value to the current state of the environment
+   *
+   * @return A composite instruction of move instruction with state waypoints
+   **/
+  CompositeInstruction stateCartCartWaypoint(const InstructionInfo& prev,
+                                             const InstructionInfo& base,
+                                             const PlannerRequest& request) const;
 };
 
 }  // namespace tesseract_planning

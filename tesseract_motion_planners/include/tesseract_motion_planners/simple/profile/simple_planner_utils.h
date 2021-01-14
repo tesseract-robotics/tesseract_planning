@@ -1,6 +1,6 @@
 /**
- * @file utils.h
- * @brief Provides interpolation utils structs
+ * @file simple_planner_utils.h
+ * @brief Provides interpolation utils for simple planner profiles
  *
  * @author Levi Armstrong
  * @date January 12, 2021
@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_STEP_GENERATOR_UTILS_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_STEP_GENERATOR_UTILS_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_SIMPLE_PLANNER_UTILS_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_SIMPLE_PLANNER_UTILS_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-/** @brief The Instruction Infomation struct */
+/** @brief The Instruction Information struct */
 struct InstructionInfo
 {
   InstructionInfo(const PlanInstruction& plan_instruction,
@@ -72,18 +72,54 @@ struct InstructionInfo
    * @return Cartesian pose in the world
    */
   Eigen::Isometry3d extractCartesianWorldPose() const;
+
+  /**
+   * @brief Extract the joint positiion from the instruction waypoint
+   * @details If the instruction does not have a joint/state waypoint this throws an exception
+   * @return Joint Position
+   */
+  const Eigen::VectorXd& extractJointPosition() const;
 };
 
+/**
+ * @brief Get the associated move instruction type for the give plan instruction type
+ * @param base_instruction The plan instruction
+ * @returnThe associated move instruction type for the give plan instruction type
+ */
 MoveInstructionType getMoveInstructionType(const PlanInstruction& base_instruction);
 
-CompositeInstruction getInterpolatedComposite(const Eigen::MatrixXd& states,
-                                              const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin,
+/**
+ * @brief This takes the provided seed state for the base_instruction and create a corresponding composite instruction
+ * @param joint_names The joint names associated with the states
+ * @param states The joint states to populate the composite instruction with
+ * @param base_instruction The base instruction used to extract profile and manipulator information from
+ * @return The composite instruction
+ */
+CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
+                                              const Eigen::MatrixXd& states,
                                               const PlanInstruction& base_instruction);
 
+/**
+ * @brief Find the closest joint solution for p to the provided seed
+ * @param p The cartesian position to solve inverse kinematics
+ * @param inv_kin The inverse kinematics
+ * @param seed The seed to find the closest solution
+ * @return The closest solution to the seed. This will be empty if a solution was not found during inverse kinematics
+ */
 Eigen::VectorXd getClosestJointSolution(const Eigen::Isometry3d& p,
                                         const tesseract_kinematics::InverseKinematics::Ptr& inv_kin,
                                         const Eigen::VectorXd& seed);
 
+/**
+ * @brief Find the closest joint solution for the two provided cartesian poses.
+ * @param p1 The first cartesian position to solve inverse kinematics
+ * @param p2 The second cartesian position to solve inverse kinematics
+ * @param inv_kin1 The inverse kinematics associated to the first cartesian position
+ * @param inv_kin2 The inverse kinematics associated to the first cartesian position
+ * @param seed The seed to use during inverse kinematics
+ * @return The closest joint solution for the provided cartesian positions. If either are empty then it failed to solve
+ * inverse kinematics.
+ */
 std::array<Eigen::VectorXd, 2> getClosestJointSolution(const Eigen::Isometry3d& p1,
                                                        const Eigen::Isometry3d& p2,
                                                        const tesseract_kinematics::InverseKinematics::Ptr& inv_kin1,
@@ -91,4 +127,4 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const Eigen::Isometry3d& 
                                                        const Eigen::VectorXd& seed);
 
 }  // namespace tesseract_planning
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_STEP_GENERATOR_UTILS_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_SIMPLE_PLANNER_UTILS_H

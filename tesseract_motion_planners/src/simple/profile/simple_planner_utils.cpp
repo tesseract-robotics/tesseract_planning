@@ -1,5 +1,5 @@
 /**
- * @file utils.cpp
+ * @file simple_planner_utils.cpp
  * @brief Provides interpolation utils structs
  *
  * @author Levi Armstrong
@@ -24,7 +24,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_motion_planners/simple/step_generators/utils.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
 #include <tesseract_command_language/utils/utils.h>
 
 namespace tesseract_planning
@@ -81,6 +81,11 @@ Eigen::Isometry3d InstructionInfo::extractCartesianWorldPose() const
   return working_frame * (*instruction.getWaypoint().cast_const<CartesianWaypoint>());
 }
 
+const Eigen::VectorXd& InstructionInfo::extractJointPosition() const
+{
+  return getJointPosition(instruction.getWaypoint());
+}
+
 MoveInstructionType getMoveInstructionType(const PlanInstruction& base_instruction)
 {
   // Get move type base on base instruction type
@@ -95,8 +100,8 @@ MoveInstructionType getMoveInstructionType(const PlanInstruction& base_instructi
   return move_type;
 }
 
-CompositeInstruction getInterpolatedComposite(const Eigen::MatrixXd& states,
-                                              const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin,
+CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
+                                              const Eigen::MatrixXd& states,
                                               const PlanInstruction& base_instruction)
 {
   CompositeInstruction composite;
@@ -107,7 +112,7 @@ CompositeInstruction getInterpolatedComposite(const Eigen::MatrixXd& states,
   // Convert to MoveInstructions
   for (long i = 1; i < states.cols(); ++i)
   {
-    MoveInstruction move_instruction(StateWaypoint(fwd_kin->getJointNames(), states.col(i)), move_type);
+    MoveInstruction move_instruction(StateWaypoint(joint_names, states.col(i)), move_type);
     move_instruction.setManipulatorInfo(base_instruction.getManipulatorInfo());
     move_instruction.setDescription(base_instruction.getDescription());
     move_instruction.setProfile(base_instruction.getProfile());

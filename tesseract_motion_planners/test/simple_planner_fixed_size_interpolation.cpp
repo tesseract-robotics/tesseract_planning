@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/core/environment.h>
 #include <tesseract_environment/ofkt/ofkt_state_solver.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/step_generators/fixed_size_interpolation.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h>
 
 using namespace tesseract_environment;
 using namespace tesseract_planning;
@@ -98,7 +98,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorFixedSize(instr1, instr2, request, ManipulatorInfo(), 10, 10);
+  SimplePlannerFixedSizePlanProfile profile(10, 10);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {
@@ -120,7 +121,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorFixedSize(instr1, instr2, request, ManipulatorInfo(), 10, 10);
+  SimplePlannerFixedSizePlanProfile profile(10, 10);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {
@@ -146,7 +148,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorFixedSize(instr1, instr2, request, ManipulatorInfo(), 10, 10);
+  SimplePlannerFixedSizePlanProfile profile(10, 10);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {
@@ -168,7 +171,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointI
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorFixedSize(instr1, instr2, request, ManipulatorInfo(), 10, 10);
+  SimplePlannerFixedSizePlanProfile profile(10, 10);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {

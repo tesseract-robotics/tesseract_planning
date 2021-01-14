@@ -42,11 +42,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-using SimplePlannerStepGeneratorFn = std::function<CompositeInstruction(const PlanInstruction&,
-                                                                        const PlanInstruction&,
-                                                                        const PlannerRequest&,
-                                                                        const ManipulatorInfo&)>;
-
 /**
  * @brief Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The
  * planner then simply loops over all of the plan instructions and calls the correct function
@@ -57,11 +52,20 @@ public:
   using Ptr = std::shared_ptr<SimplePlannerPlanProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerPlanProfile>;
 
-  /** @brief Seed generator function */
-  SimplePlannerStepGeneratorFn state_generator;
+  virtual ~SimplePlannerPlanProfile() = default;
 
-  // @todo This is currently not support but cartesian state generator is a future plan
-  // SimplePlannerStepGeneratorFn cart_state_generator;
+  /**
+   * @brief Generate a seed for the provided base_instruction
+   * @param prev_instruction The previous instruction
+   * @param base_instruction The base/current instruction to generate the seed for
+   * @param request The planning request
+   * @param global_manip_info The global manipulator information
+   * @return A composite instruction representing the seed for the base_instruction
+   */
+  virtual CompositeInstruction generate(const PlanInstruction& prev_instruction,
+                                        const PlanInstruction& base_instruction,
+                                        const PlannerRequest& request,
+                                        const ManipulatorInfo& global_manip_info) const = 0;
 };
 
 class SimplePlannerCompositeProfile
@@ -69,6 +73,8 @@ class SimplePlannerCompositeProfile
 public:
   using Ptr = std::shared_ptr<SimplePlannerCompositeProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerCompositeProfile>;
+
+  virtual ~SimplePlannerCompositeProfile() = default;
 
   // This contains functions for composite processing. Get start for example
 };

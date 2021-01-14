@@ -222,7 +222,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       if (!start_plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid start profile");
 
-      seed.push_back(start_plan_profile->state_generator(
+      seed.push_back(start_plan_profile->generate(
           prev_instruction, *base_instruction, request, request.instructions.getManipulatorInfo()));
 
       prev_instruction = *base_instruction;
