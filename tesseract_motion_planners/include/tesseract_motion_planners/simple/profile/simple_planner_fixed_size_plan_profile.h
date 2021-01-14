@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::SimplePlannerFixedSizePlanProfile)
@@ -45,10 +46,17 @@ public:
   using Ptr = std::shared_ptr<SimplePlannerFixedSizePlanProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerFixedSizePlanProfile>;
 
+  /**
+   * @brief SimplePlannerFixedSizePlanProfile
+   * @param freespace_steps The number of steps to use for freespace instruction
+   * @param linear_steps The number of steps to use for linear instruction
+   */
   SimplePlannerFixedSizePlanProfile(int freespace_steps = 10, int linear_steps = 10);
 
-  /** @brief apply Sets the function handles based on the number of steps specified */
-  void apply();
+  CompositeInstruction generate(const PlanInstruction& prev_instruction,
+                                const PlanInstruction& base_instruction,
+                                const PlannerRequest& request,
+                                const ManipulatorInfo& global_manip_info) const override;
 
   int getFreespaceSteps();
   void setFreespaceSteps(int freespace_steps);
@@ -59,6 +67,16 @@ public:
 protected:
   int freespace_steps_;
   int linear_steps_;
+
+  CompositeInstruction stateJointJointWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+
+  CompositeInstruction stateJointCartWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+
+  CompositeInstruction stateCartJointWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+
+  CompositeInstruction stateCartCartWaypoint(const InstructionInfo& prev,
+                                             const InstructionInfo& base,
+                                             const PlannerRequest& request) const;
 };
 
 }  // namespace tesseract_planning

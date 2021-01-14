@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/core/environment.h>
 #include <tesseract_environment/ofkt/ofkt_state_solver.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/step_generators/fixed_size_assign_position.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 
 using namespace tesseract_environment;
 using namespace tesseract_planning;
@@ -96,7 +96,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  auto composite = simplePlannerGeneratorFixedSizeAssign(instr1, instr2, request, ManipulatorInfo(), 10, 10);
+  SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {
@@ -117,7 +118,9 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Zero(7));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
-  auto composite = simplePlannerGeneratorFixedSizeAssign(instr1, instr2, request, ManipulatorInfo(), 10, 10);
+
+  SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {
@@ -138,7 +141,9 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
   CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
-  auto composite = simplePlannerGeneratorFixedSizeAssign(instr1, instr2, request, manip_info_, 10, 10);
+
+  SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
+  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
   Eigen::VectorXd position = request.env_state->getJointValues(fwd_kin->getJointNames());
   EXPECT_EQ(composite.size(), 10);
