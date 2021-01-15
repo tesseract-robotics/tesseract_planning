@@ -33,10 +33,10 @@ SimplePlannerLVSPlanProfile::SimplePlannerLVSPlanProfile(double state_longest_va
                                                          double translation_longest_valid_segment_length,
                                                          double rotation_longest_valid_segment_length,
                                                          int min_steps)
-  : state_longest_valid_segment_length_(state_longest_valid_segment_length)
-  , translation_longest_valid_segment_length_(translation_longest_valid_segment_length)
-  , rotation_longest_valid_segment_length_(rotation_longest_valid_segment_length)
-  , min_steps_(min_steps)
+  : state_longest_valid_segment_length(state_longest_valid_segment_length)
+  , translation_longest_valid_segment_length(translation_longest_valid_segment_length)
+  , rotation_longest_valid_segment_length(rotation_longest_valid_segment_length)
+  , min_steps(min_steps)
 {
 }
 
@@ -60,35 +60,6 @@ CompositeInstruction SimplePlannerLVSPlanProfile::generate(const PlanInstruction
   return stateCartCartWaypoint(info1, info2, request);
 }
 
-double SimplePlannerLVSPlanProfile::getStateLongestValidSegmentLength() { return state_longest_valid_segment_length_; }
-void SimplePlannerLVSPlanProfile::setStateLongestValidSegmentLength(double state_longest_valid_segment_length)
-{
-  state_longest_valid_segment_length_ = state_longest_valid_segment_length;
-}
-
-double SimplePlannerLVSPlanProfile::getTranslationLongestValidSegmentLength()
-{
-  return translation_longest_valid_segment_length_;
-}
-void SimplePlannerLVSPlanProfile::setTranslationLongestValidSegmentLength(
-    double translation_longest_valid_segment_length)
-{
-  translation_longest_valid_segment_length_ = translation_longest_valid_segment_length;
-}
-
-double SimplePlannerLVSPlanProfile::getRotationLongestValidSegmentLength()
-{
-  return rotation_longest_valid_segment_length_;
-}
-
-void SimplePlannerLVSPlanProfile::setRotationLongestValidSegmentLength(double rotation_longest_valid_segment_length)
-{
-  rotation_longest_valid_segment_length_ = rotation_longest_valid_segment_length;
-}
-
-int SimplePlannerLVSPlanProfile::getMinSteps() { return min_steps_; }
-void SimplePlannerLVSPlanProfile::setMinSteps(int min_steps) { min_steps_ = min_steps; }
-
 CompositeInstruction SimplePlannerLVSPlanProfile::stateJointJointWaypoint(const InstructionInfo& prev,
                                                                           const InstructionInfo& base) const
 {
@@ -103,13 +74,13 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointJointWaypoint(const 
   double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
   double joint_dist = (j2 - j1).norm();
 
-  int trans_steps = int(trans_dist / translation_longest_valid_segment_length_) + 1;
-  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length_) + 1;
-  int joint_steps = int(joint_dist / state_longest_valid_segment_length_) + 1;
+  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
+  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
+  int joint_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
 
   int steps = std::max(trans_steps, rot_steps);
   steps = std::max(steps, joint_steps);
-  steps = std::max(steps, min_steps_);
+  steps = std::max(steps, min_steps);
 
   // Linearly interpolate in joint space
   Eigen::MatrixXd states = interpolate(j1, j2, steps);
@@ -130,19 +101,19 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const I
   // Calculate steps based on cartesian information
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
   double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
-  int trans_steps = int(trans_dist / translation_longest_valid_segment_length_) + 1;
-  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length_) + 1;
+  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
+  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
   Eigen::VectorXd j2_final = getClosestJointSolution(p2, base.inv_kin, j1);
   if (j2_final.size() != 0)
   {
     double joint_dist = (j2_final - j1).norm();
-    int state_steps = int(joint_dist / state_longest_valid_segment_length_) + 1;
+    int state_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
     steps = std::max(steps, state_steps);
 
     // Check min steps requirement
-    steps = std::max(steps, min_steps_);
+    steps = std::max(steps, min_steps);
 
     // Linearly interpolate in joint space
     Eigen::MatrixXd states = interpolate(j1, j2_final, steps);
@@ -150,7 +121,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const I
   }
 
   // Check min steps requirement
-  steps = std::max(steps, min_steps_);
+  steps = std::max(steps, min_steps);
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = j1.replicate(1, steps + 1);
@@ -171,19 +142,19 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const I
   // Calculate steps based on cartesian information
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
   double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
-  int trans_steps = int(trans_dist / translation_longest_valid_segment_length_) + 1;
-  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length_) + 1;
+  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
+  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
   Eigen::VectorXd j1_final = getClosestJointSolution(p1, prev.inv_kin, j2);
   if (j1_final.size() != 0)
   {
     double joint_dist = (j2 - j1_final).norm();
-    int state_steps = int(joint_dist / state_longest_valid_segment_length_) + 1;
+    int state_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
     steps = std::max(steps, state_steps);
 
     // Check min steps requirement
-    steps = std::max(steps, min_steps_);
+    steps = std::max(steps, min_steps);
 
     // Linearly interpolate in joint space
     Eigen::MatrixXd states = interpolate(j1_final, j2, steps);
@@ -191,7 +162,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const I
   }
 
   // Check min steps requirement
-  steps = std::max(steps, min_steps_);
+  steps = std::max(steps, min_steps);
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = j2.replicate(1, steps + 1);
@@ -214,8 +185,8 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
 
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
   double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
-  int trans_steps = int(trans_dist / translation_longest_valid_segment_length_) + 1;
-  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length_) + 1;
+  int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
+  int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
   std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(p1, p2, prev.inv_kin, base.inv_kin, seed);
@@ -224,11 +195,11 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
   if (sol[0].size() != 0 && sol[1].size() != 0)
   {
     double joint_dist = (sol[1] - sol[0]).norm();
-    int state_steps = int(joint_dist / state_longest_valid_segment_length_) + 1;
+    int state_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
     steps = std::max(steps, state_steps);
 
     // Check min steps requirement
-    steps = std::max(steps, min_steps_);
+    steps = std::max(steps, min_steps);
 
     // Interpolate
     states = interpolate(sol[0], sol[1], steps);
@@ -236,7 +207,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
   else if (sol[0].size() != 0)
   {
     // Check min steps requirement
-    steps = std::max(steps, min_steps_);
+    steps = std::max(steps, min_steps);
 
     // Interpolate
     states = sol[0].replicate(1, steps + 1);
@@ -244,7 +215,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
   else if (sol[1].size() != 0)
   {
     // Check min steps requirement
-    steps = std::max(steps, min_steps_);
+    steps = std::max(steps, min_steps);
 
     // Interpolate
     states = sol[1].replicate(1, steps + 1);
@@ -252,7 +223,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
   else
   {
     // Check min steps requirement
-    steps = std::max(steps, min_steps_);
+    steps = std::max(steps, min_steps);
 
     states = seed.replicate(1, steps + 1);
   }

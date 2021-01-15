@@ -58,16 +58,13 @@ public:
                                 const PlannerRequest& request,
                                 const ManipulatorInfo& global_manip_info) const override;
 
-  int getFreespaceSteps();
-  void setFreespaceSteps(int freespace_steps);
+  /** @brief The number of steps to use for freespace instruction */
+  int freespace_steps;
 
-  int getLinearSteps();
-  void setLinearSteps(int linear_steps);
+  /** @brief The number of steps to use for linear instruction */
+  int linear_steps;
 
 protected:
-  int freespace_steps_;
-  int linear_steps_;
-
   CompositeInstruction stateJointJointWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
 
   CompositeInstruction stateJointCartWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
