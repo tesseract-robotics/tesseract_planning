@@ -66,24 +66,19 @@ public:
                                 const PlannerRequest& request,
                                 const ManipulatorInfo& global_manip_info) const override;
 
-  double getStateLongestValidSegmentLength();
-  void setStateLongestValidSegmentLength(double state_longest_valid_segment_length);
+  /** @brief The maximum joint distance, the norm of changes to all joint positions between successive steps. */
+  double state_longest_valid_segment_length;
 
-  double getTranslationLongestValidSegmentLength();
-  void setTranslationLongestValidSegmentLength(double translation_longest_valid_segment_length);
+  /** @brief The maximum translational distance between successive steps */
+  double translation_longest_valid_segment_length;
 
-  double getRotationLongestValidSegmentLength();
-  void setRotationLongestValidSegmentLength(double rotation_longest_valid_segment_length);
+  /** @brief The maximaum rotational distance between successive steps */
+  double rotation_longest_valid_segment_length;
 
-  int getMinSteps();
-  void setMinSteps(int min_steps);
+  /** @brief The minimum number of steps for the plan */
+  int min_steps;
 
 protected:
-  double state_longest_valid_segment_length_;
-  double translation_longest_valid_segment_length_;
-  double rotation_longest_valid_segment_length_;
-  int min_steps_;
-
   /**
    * @brief JointWaypoint to JointWaypoint
    *

@@ -30,7 +30,7 @@
 namespace tesseract_planning
 {
 SimplePlannerFixedSizeAssignPlanProfile::SimplePlannerFixedSizeAssignPlanProfile(int freespace_steps, int linear_steps)
-  : freespace_steps_(freespace_steps), linear_steps_(linear_steps)
+  : freespace_steps(freespace_steps), linear_steps(linear_steps)
 {
 }
 
@@ -47,9 +47,9 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
   {
     const Eigen::VectorXd& jp = info2.extractJointPosition();
     if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
-      states = jp.replicate(1, linear_steps_ + 1);
+      states = jp.replicate(1, linear_steps + 1);
     else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
-      states = jp.replicate(1, freespace_steps_ + 1);
+      states = jp.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
   }
@@ -57,9 +57,9 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
   {
     const Eigen::VectorXd& jp = info1.extractJointPosition();
     if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
-      states = jp.replicate(1, linear_steps_ + 1);
+      states = jp.replicate(1, linear_steps + 1);
     else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
-      states = jp.replicate(1, freespace_steps_ + 1);
+      states = jp.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
   }
@@ -67,9 +67,9 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
   {
     const Eigen::VectorXd& jp = info2.extractJointPosition();
     if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
-      states = jp.replicate(1, linear_steps_ + 1);
+      states = jp.replicate(1, linear_steps + 1);
     else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
-      states = jp.replicate(1, freespace_steps_ + 1);
+      states = jp.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
   }
@@ -77,9 +77,9 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
   {
     Eigen::VectorXd seed = request.env_state->getJointValues(info2.inv_kin->getJointNames());
     if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
-      states = seed.replicate(1, linear_steps_ + 1);
+      states = seed.replicate(1, linear_steps + 1);
     else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
-      states = seed.replicate(1, freespace_steps_ + 1);
+      states = seed.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
   }
@@ -87,12 +87,4 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
   return getInterpolatedComposite(info2.fwd_kin->getJointNames(), states, info2.instruction);
 }
 
-int SimplePlannerFixedSizeAssignPlanProfile::getFreespaceSteps() { return freespace_steps_; }
-void SimplePlannerFixedSizeAssignPlanProfile::setFreespaceSteps(int freespace_steps)
-{
-  freespace_steps_ = freespace_steps;
-}
-
-int SimplePlannerFixedSizeAssignPlanProfile::getLinearSteps() { return linear_steps_; }
-void SimplePlannerFixedSizeAssignPlanProfile::setLinearSteps(int linear_steps) { linear_steps_ = linear_steps; }
 }  // namespace tesseract_planning

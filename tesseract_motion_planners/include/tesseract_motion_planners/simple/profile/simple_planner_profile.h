@@ -52,7 +52,12 @@ public:
   using Ptr = std::shared_ptr<SimplePlannerPlanProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerPlanProfile>;
 
+  SimplePlannerPlanProfile() = default;
   virtual ~SimplePlannerPlanProfile() = default;
+  SimplePlannerPlanProfile(const SimplePlannerPlanProfile&) = default;
+  SimplePlannerPlanProfile& operator=(const SimplePlannerPlanProfile&) = default;
+  SimplePlannerPlanProfile(SimplePlannerPlanProfile&&) noexcept = default;
+  SimplePlannerPlanProfile& operator=(SimplePlannerPlanProfile&&) noexcept = default;
 
   /**
    * @brief Generate a seed for the provided base_instruction
@@ -74,7 +79,12 @@ public:
   using Ptr = std::shared_ptr<SimplePlannerCompositeProfile>;
   using ConstPtr = std::shared_ptr<const SimplePlannerCompositeProfile>;
 
+  SimplePlannerCompositeProfile() = default;
   virtual ~SimplePlannerCompositeProfile() = default;
+  SimplePlannerCompositeProfile(const SimplePlannerCompositeProfile&) = default;
+  SimplePlannerCompositeProfile& operator=(const SimplePlannerCompositeProfile&) = default;
+  SimplePlannerCompositeProfile(SimplePlannerCompositeProfile&&) noexcept = default;
+  SimplePlannerCompositeProfile& operator=(SimplePlannerCompositeProfile&&) noexcept = default;
 
   // This contains functions for composite processing. Get start for example
 };
