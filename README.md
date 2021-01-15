@@ -45,7 +45,7 @@ This include packages related to both motion and process planning for the Tesser
 * [Benchmark](https://ros-industrial-consortium.github.io/tesseract_planning/dev/bench)
 
 ## Process Planning Server Tuning
-The planning server is built leveraging the library taskflow which enable you to quickly write parallel and heterogeneous tasks programs which aligns well with process motion planning. These types of libraries leverage thread pools to quickly spinning up different tasks as needed. One interesting thing found, if a task consumes a lot of memory libc will make performance decision to allow the thread to hold onto the memory it has for subsequent tasks opposed to giving the memory back to your system. This may be fine if this was the only set of tasks being ran but typically in our use case there are other computationally intensive processes which could use this memory.
+The planning server is built leveraging the library taskflow which enables you to quickly write parallel and heterogeneous tasks programs which aligns well with process motion planning. These types of libraries leverage thread pools to quickly spin up different tasks as needed. One interesting thing found, if a task consumes a lot of memory libc will make a performance decision to allow the thread to hold onto the memory it has for subsequent tasks opposed to giving the memory back to your system. This may be fine if this was the only set of tasks being run but typically in our use case there are other computationally intensive processes which could use this memory.
 
 The great thing is, libc provided run-time [tunnables](https://www.gnu.org/software/libc/manual/html_node/Tunables.html), leveraging a set of environment variables.
 
