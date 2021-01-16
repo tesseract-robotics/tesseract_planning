@@ -174,14 +174,19 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d11/classtesseract__planning_1_1WeightedRealVectorStateSampler.html">WeightedRealVectorStateSampler</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tesseract OMPL Weighted State Sampler.  <a href="../../d8/d11/classtesseract__planning_1_1WeightedRealVectorStateSampler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da4/classtesseract__planning_1_1SimplePlannerDefaultLVSPlanProfile.html">SimplePlannerDefaultLVSPlanProfile</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da8/classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile.html">SimplePlannerFixedSizeAssignPlanProfile</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dac/classtesseract__planning_1_1SimplePlannerInterpolationPlanProfile.html">SimplePlannerInterpolationPlanProfile</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dec/classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile.html">SimplePlannerFixedSizePlanProfile</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html">SimplePlannerLVSPlanProfile</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The planner then simply loops over all of the plan instructions and calls the correct function.  <a href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/da7/classtesseract__planning_1_1SimplePlannerCompositeProfile.html">SimplePlannerCompositeProfile</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Instruction Information struct.  <a href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html">SimpleMotionPlanner</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the PlanInstructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#details">More...</a><br /></td></tr>
@@ -423,14 +428,6 @@ Typedefs</h2></td></tr>
 <tr class="separator:a0baf978812f03229209b3f8fe481788a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb4bcd86c07988cf075625fde644e497"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> = std::function&lt; Eigen::Map&lt; Eigen::VectorXd &gt;(const ompl::base::State *)&gt;</td></tr>
 <tr class="separator:abb4bcd86c07988cf075625fde644e497"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9074108ba324eb31f09a4b21cdca95a8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9074108ba324eb31f09a4b21cdca95a8">JointJointStepGenerator</a> = std::function&lt; CompositeInstruction(const JointWaypoint &amp;, const JointWaypoint &amp;, const PlanInstruction &amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;, const ManipulatorInfo &amp;)&gt;</td></tr>
-<tr class="separator:a9074108ba324eb31f09a4b21cdca95a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c7aedeaef04f975a29e26a9e199857e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7c7aedeaef04f975a29e26a9e199857e">JointCartStepGenerator</a> = std::function&lt; CompositeInstruction(const JointWaypoint &amp;, const CartesianWaypoint &amp;, const PlanInstruction &amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;, const ManipulatorInfo &amp;)&gt;</td></tr>
-<tr class="separator:a7c7aedeaef04f975a29e26a9e199857e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4746d2fc186d9c11f8727c1fda772123"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4746d2fc186d9c11f8727c1fda772123">CartJointStepGenerator</a> = std::function&lt; CompositeInstruction(const CartesianWaypoint &amp;, const JointWaypoint &amp;, const PlanInstruction &amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;, const ManipulatorInfo &amp;)&gt;</td></tr>
-<tr class="separator:a4746d2fc186d9c11f8727c1fda772123"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8daf27969762da86da765622248f5d02"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8daf27969762da86da765622248f5d02">CartCartStepGenerator</a> = std::function&lt; CompositeInstruction(const CartesianWaypoint &amp;, const CartesianWaypoint &amp;, const PlanInstruction &amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;, const ManipulatorInfo &amp;)&gt;</td></tr>
-<tr class="separator:a8daf27969762da86da765622248f5d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44a3bd50194e415e51a5f2e2e5e1c5ec"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a44a3bd50194e415e51a5f2e2e5e1c5ec">SimplePlannerPlanProfileMap</a> = std::unordered_map&lt; std::string, <a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#ab3e9b839cfdea0466f7a4428502bd065">SimplePlannerPlanProfile::ConstPtr</a> &gt;</td></tr>
 <tr class="separator:a44a3bd50194e415e51a5f2e2e5e1c5ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2b7d23fdf0bef79f8646e6ae8bf2acf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae2b7d23fdf0bef79f8646e6ae8bf2acf">SimplePlannerCompositeProfileMap</a> = std::unordered_map&lt; std::string, <a class="el" href="../../d7/da7/classtesseract__planning_1_1SimplePlannerCompositeProfile.html#a8b136def5dd54719765810af6136d4c7">SimplePlannerCompositeProfile::ConstPtr</a> &gt;</td></tr>
@@ -652,58 +649,18 @@ Functions</h2></td></tr>
 <tr class="memitem:aee7d67141adc2f34a528d4ce1191e6ae"><td class="memTemplItemLeft" align="right" valign="top">Eigen::Vector3i&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">getRobotRedundancy</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</td></tr>
 <tr class="memdesc:aee7d67141adc2f34a528d4ce1191e6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds redundancy of joints that allow rotation beyond +- 180 degrees.  <a href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">More...</a><br /></td></tr>
 <tr class="separator:aee7d67141adc2f34a528d4ce1191e6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3531bbb692b464f09c0d9215d25336c3"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3531bbb692b464f09c0d9215d25336c3">fixedSizeAssignStateWaypoint</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;position, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="memdesc:a3531bbb692b464f09c0d9215d25336c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">fixedSizeAssignStateWaypoint  <a href="../../d9/dcd/namespacetesseract__planning.html#a3531bbb692b464f09c0d9215d25336c3">More...</a><br /></td></tr>
-<tr class="separator:a3531bbb692b464f09c0d9215d25336c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ca11abd404988f40669f9166d83a7ee"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0ca11abd404988f40669f9166d83a7ee">fixedSizeAssignStateWaypoint</a> (const JointWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="memdesc:a0ca11abd404988f40669f9166d83a7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">fixedSizeAssignStateWaypoint  <a href="../../d9/dcd/namespacetesseract__planning.html#a0ca11abd404988f40669f9166d83a7ee">More...</a><br /></td></tr>
-<tr class="separator:a0ca11abd404988f40669f9166d83a7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0de637f82acfa3df86d3c99b9e4cbbce"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0de637f82acfa3df86d3c99b9e4cbbce">fixedSizeAssignStateWaypoint</a> (const CartesianWaypoint &amp;start, const JointWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="memdesc:a0de637f82acfa3df86d3c99b9e4cbbce"><td class="mdescLeft">&#160;</td><td class="mdescRight">fixedSizeAssignStateWaypoint  <a href="../../d9/dcd/namespacetesseract__planning.html#a0de637f82acfa3df86d3c99b9e4cbbce">More...</a><br /></td></tr>
-<tr class="separator:a0de637f82acfa3df86d3c99b9e4cbbce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a335e8c40b40fac4baad34fa59d124328"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a335e8c40b40fac4baad34fa59d124328">fixedSizeAssignStateWaypoint</a> (const CartesianWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="memdesc:a335e8c40b40fac4baad34fa59d124328"><td class="mdescLeft">&#160;</td><td class="mdescRight">fixedSizeAssignStateWaypoint  <a href="../../d9/dcd/namespacetesseract__planning.html#a335e8c40b40fac4baad34fa59d124328">More...</a><br /></td></tr>
-<tr class="separator:a335e8c40b40fac4baad34fa59d124328"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9383340e931491b2de9f3292e1bdae26"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9383340e931491b2de9f3292e1bdae26">fixedSizeInterpolateStateWaypoint</a> (const JointWaypoint &amp;start, const JointWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="separator:a9383340e931491b2de9f3292e1bdae26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af43a652454f562e022435bb14f55d7a9"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af43a652454f562e022435bb14f55d7a9">fixedSizeInterpolateStateWaypoint</a> (const JointWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="separator:af43a652454f562e022435bb14f55d7a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96223b36a77dabe1bf33ec11ed8ed97b"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a96223b36a77dabe1bf33ec11ed8ed97b">fixedSizeInterpolateStateWaypoint</a> (const CartesianWaypoint &amp;start, const JointWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="separator:a96223b36a77dabe1bf33ec11ed8ed97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a392b0c232da908a1110f17427e917eb2"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a392b0c232da908a1110f17427e917eb2">fixedSizeInterpolateStateWaypoint</a> (const CartesianWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="separator:a392b0c232da908a1110f17427e917eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adddc7aa17fc164a35ea0004da350f8be"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adddc7aa17fc164a35ea0004da350f8be">fixedSizeInterpolateCartStateWaypoint</a> (const JointWaypoint &amp;start, const JointWaypoint &amp;, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="separator:adddc7aa17fc164a35ea0004da350f8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27b5ac961c9912d8062c5fbd142a47f6"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a27b5ac961c9912d8062c5fbd142a47f6">fixedSizeInterpolateCartStateWaypoint</a> (const JointWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="separator:a27b5ac961c9912d8062c5fbd142a47f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a431474549cef35ad4ba73dd8dae836b4"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a431474549cef35ad4ba73dd8dae836b4">fixedSizeInterpolateCartStateWaypoint</a> (const CartesianWaypoint &amp;start, const JointWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="separator:a431474549cef35ad4ba73dd8dae836b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed64797564037b85e5ffbad6d81bd863"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aed64797564037b85e5ffbad6d81bd863">fixedSizeInterpolateCartStateWaypoint</a> (const CartesianWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, int steps)</td></tr>
-<tr class="separator:aed64797564037b85e5ffbad6d81bd863"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeed71beb6eb33f5246c8642de9bac5fc"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeed71beb6eb33f5246c8642de9bac5fc">LVSInterpolateStateWaypoint</a> (const JointWaypoint &amp;start, const JointWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, double state_longest_valid_segment_length, double translation_longest_valid_segment_length, double rotation_longest_valid_segment_length, int min_steps)</td></tr>
-<tr class="memdesc:aeed71beb6eb33f5246c8642de9bac5fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">LVSInterpolateStateWaypoint(JointWaypoint to JointWaypoint)  <a href="../../d9/dcd/namespacetesseract__planning.html#aeed71beb6eb33f5246c8642de9bac5fc">More...</a><br /></td></tr>
-<tr class="separator:aeed71beb6eb33f5246c8642de9bac5fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7c266ec9ba52e3b9c8df61adee05aa3"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab7c266ec9ba52e3b9c8df61adee05aa3">LVSInterpolateStateWaypoint</a> (const JointWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, double state_longest_valid_segment_length, double translation_longest_valid_segment_length, double rotation_longest_valid_segment_length, int min_steps)</td></tr>
-<tr class="memdesc:ab7c266ec9ba52e3b9c8df61adee05aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">LVSInterpolateStateWaypoint(JointWaypoint to CartesianWaypoint)  <a href="../../d9/dcd/namespacetesseract__planning.html#ab7c266ec9ba52e3b9c8df61adee05aa3">More...</a><br /></td></tr>
-<tr class="separator:ab7c266ec9ba52e3b9c8df61adee05aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27da2f146862e49568505b61eeb8e9ce"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a27da2f146862e49568505b61eeb8e9ce">LVSInterpolateStateWaypoint</a> (const CartesianWaypoint &amp;start, const JointWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, double state_longest_valid_segment_length, double translation_longest_valid_segment_length, double rotation_longest_valid_segment_length, int min_steps)</td></tr>
-<tr class="memdesc:a27da2f146862e49568505b61eeb8e9ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">LVSInterpolateStateWaypoint(CartesianWaypoint to JointWaypoint)  <a href="../../d9/dcd/namespacetesseract__planning.html#a27da2f146862e49568505b61eeb8e9ce">More...</a><br /></td></tr>
-<tr class="separator:a27da2f146862e49568505b61eeb8e9ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7162d24545a8706b2796dfb09d37cc8"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae7162d24545a8706b2796dfb09d37cc8">LVSInterpolateStateWaypoint</a> (const CartesianWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, double state_longest_valid_segment_length, double translation_longest_valid_segment_length, double rotation_longest_valid_segment_length, int min_steps)</td></tr>
-<tr class="memdesc:ae7162d24545a8706b2796dfb09d37cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">LVSInterpolateStateWaypoint(CartesianWaypoint to CartesianWaypoint)  <a href="../../d9/dcd/namespacetesseract__planning.html#ae7162d24545a8706b2796dfb09d37cc8">More...</a><br /></td></tr>
-<tr class="separator:ae7162d24545a8706b2796dfb09d37cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8c7dbc50a3abe5561cd5b0e470b1630"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae8c7dbc50a3abe5561cd5b0e470b1630">LVSInterpolateCartStateWaypoint</a> (const JointWaypoint &amp;start, const JointWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, double state_longest_valid_segment_length, double translation_longest_valid_segment_length, double rotation_longest_valid_segment_length, int min_steps)</td></tr>
-<tr class="memdesc:ae8c7dbc50a3abe5561cd5b0e470b1630"><td class="mdescLeft">&#160;</td><td class="mdescRight">LVSInterpolateCartStateWaypoint(JointWaypoint to JointWaypoint)  <a href="../../d9/dcd/namespacetesseract__planning.html#ae8c7dbc50a3abe5561cd5b0e470b1630">More...</a><br /></td></tr>
-<tr class="separator:ae8c7dbc50a3abe5561cd5b0e470b1630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c34e1b8540f0f4abaf9b6911853abf0"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8c34e1b8540f0f4abaf9b6911853abf0">LVSInterpolateCartStateWaypoint</a> (const JointWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, double state_longest_valid_segment_length, double translation_longest_valid_segment_length, double rotation_longest_valid_segment_length, int min_steps)</td></tr>
-<tr class="memdesc:a8c34e1b8540f0f4abaf9b6911853abf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">LVSInterpolateCartStateWaypoint(JointWaypoint to CartesianWaypoint)  <a href="../../d9/dcd/namespacetesseract__planning.html#a8c34e1b8540f0f4abaf9b6911853abf0">More...</a><br /></td></tr>
-<tr class="separator:a8c34e1b8540f0f4abaf9b6911853abf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac53f28bcd55f3636acc1f44315c1a5ff"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac53f28bcd55f3636acc1f44315c1a5ff">LVSInterpolateCartStateWaypoint</a> (const CartesianWaypoint &amp;start, const JointWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, double state_longest_valid_segment_length, double translation_longest_valid_segment_length, double rotation_longest_valid_segment_length, int min_steps)</td></tr>
-<tr class="memdesc:ac53f28bcd55f3636acc1f44315c1a5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">LVSInterpolateCartStateWaypoint(CartesianWaypoint to JointWaypoint)  <a href="../../d9/dcd/namespacetesseract__planning.html#ac53f28bcd55f3636acc1f44315c1a5ff">More...</a><br /></td></tr>
-<tr class="separator:ac53f28bcd55f3636acc1f44315c1a5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4152e9479fe80f589ac11fc1a203b03"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af4152e9479fe80f589ac11fc1a203b03">LVSInterpolateCartStateWaypoint</a> (const CartesianWaypoint &amp;start, const CartesianWaypoint &amp;end, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;manip_info, double state_longest_valid_segment_length, double translation_longest_valid_segment_length, double rotation_longest_valid_segment_length, int min_steps)</td></tr>
-<tr class="memdesc:af4152e9479fe80f589ac11fc1a203b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">LVSInterpolateCartStateWaypoint(CartesianWaypoint to CartesianWaypoint)  <a href="../../d9/dcd/namespacetesseract__planning.html#af4152e9479fe80f589ac11fc1a203b03">More...</a><br /></td></tr>
-<tr class="separator:af4152e9479fe80f589ac11fc1a203b03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="memItemLeft" align="right" valign="top">MoveInstructionType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aaec1f7a5aa934efc7e7771e5cdd158ff">getMoveInstructionType</a> (const PlanInstruction &amp;base_instruction)</td></tr>
+<tr class="memdesc:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the associated move instruction type for the give plan instruction type.  <a href="../../d9/dcd/namespacetesseract__planning.html#aaec1f7a5aa934efc7e7771e5cdd158ff">More...</a><br /></td></tr>
+<tr class="separator:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;joint_names, const Eigen::MatrixXd &amp;states, const PlanInstruction &amp;base_instruction)</td></tr>
+<tr class="memdesc:a279ab58cb9c7b07e9e678f077bb4d932"><td class="mdescLeft">&#160;</td><td class="mdescRight">This takes the provided seed state for the base_instruction and create a corresponding composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">More...</a><br /></td></tr>
+<tr class="separator:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae29bc88fbc476c1b22d8e5ce0fdfb8d1">getClosestJointSolution</a> (const Eigen::Isometry3d &amp;p, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae29bc88fbc476c1b22d8e5ce0fdfb8d1">More...</a><br /></td></tr>
+<tr class="separator:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed53b814bf5812f2272a14264314d601"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aed53b814bf5812f2272a14264314d601">getClosestJointSolution</a> (const Eigen::Isometry3d &amp;p1, const Eigen::Isometry3d &amp;p2, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin1, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin2, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:aed53b814bf5812f2272a14264314d601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#aed53b814bf5812f2272a14264314d601">More...</a><br /></td></tr>
+<tr class="separator:aed53b814bf5812f2272a14264314d601"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71b8091da4834d0db8a14fc29bad929b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d50/classtesseract__planning_1_1TrajOptDefaultPlanProfile.html">TrajOptDefaultPlanProfile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a71b8091da4834d0db8a14fc29bad929b">trajOptPlanParser</a> (const tinyxml2::XMLElement &amp;xml_element)</td></tr>
 <tr class="separator:a71b8091da4834d0db8a14fc29bad929b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a196abf916e5fa3062ff116cbb731367b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d50/classtesseract__planning_1_1TrajOptDefaultPlanProfile.html">TrajOptDefaultPlanProfile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a196abf916e5fa3062ff116cbb731367b">trajOptPlanFromXMLElement</a> (const tinyxml2::XMLElement *profile_xml)</td></tr>
@@ -927,34 +884,6 @@ Variables</h2></td></tr>
 <tr class="separator:a1dd218f776ae0ba1ef79388d499caea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a8daf27969762da86da765622248f5d02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8daf27969762da86da765622248f5d02">&#9670;&nbsp;</a></span>CartCartStepGenerator</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8daf27969762da86da765622248f5d02">tesseract_planning::CartCartStepGenerator</a> = typedef std::function&lt;CompositeInstruction(const CartesianWaypoint&amp;, const CartesianWaypoint&amp;, const PlanInstruction&amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a>&amp;, const ManipulatorInfo&amp;)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4746d2fc186d9c11f8727c1fda772123"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4746d2fc186d9c11f8727c1fda772123">&#9670;&nbsp;</a></span>CartJointStepGenerator</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4746d2fc186d9c11f8727c1fda772123">tesseract_planning::CartJointStepGenerator</a> = typedef std::function&lt;CompositeInstruction(const CartesianWaypoint&amp;, const JointWaypoint&amp;, const PlanInstruction&amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a>&amp;, const ManipulatorInfo&amp;)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2399ed751796531d6e84dc3b0138db8b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2399ed751796531d6e84dc3b0138db8b">&#9670;&nbsp;</a></span>DescartesCollisionD</h2>
 
@@ -1312,34 +1241,6 @@ template&lt;typename FloatType &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8b3f0cd7f00cdcfcd2f7467b4b2249be">tesseract_planning::IterativeSplineParameterizationProfileMap</a> = typedef std::unordered_map&lt;std::string, <a class="el" href="../../d1/d35/structtesseract__planning_1_1IterativeSplineParameterizationProfile.html#ad8b06635b63e3acfad61bed7b9730f94">IterativeSplineParameterizationProfile::ConstPtr</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7c7aedeaef04f975a29e26a9e199857e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c7aedeaef04f975a29e26a9e199857e">&#9670;&nbsp;</a></span>JointCartStepGenerator</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7c7aedeaef04f975a29e26a9e199857e">tesseract_planning::JointCartStepGenerator</a> = typedef std::function&lt;CompositeInstruction(const JointWaypoint&amp;, const CartesianWaypoint&amp;, const PlanInstruction&amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a>&amp;, const ManipulatorInfo&amp;)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9074108ba324eb31f09a4b21cdca95a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9074108ba324eb31f09a4b21cdca95a8">&#9670;&nbsp;</a></span>JointJointStepGenerator</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9074108ba324eb31f09a4b21cdca95a8">tesseract_planning::JointJointStepGenerator</a> = typedef std::function&lt;CompositeInstruction(const JointWaypoint&amp;, const JointWaypoint&amp;, const PlanInstruction&amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a>&amp;, const ManipulatorInfo&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -3954,11 +3855,11 @@ template&lt;typename FloatType &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000037">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000038">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000039">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000040">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000041">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000028">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000029">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
 
 </div>
 </div>
@@ -4045,9 +3946,9 @@ template&lt;typename FloatType &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000034">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000035">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000036">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
 
 </div>
 </div>
@@ -4241,696 +4142,6 @@ template&lt;typename FloatType &gt; </div>
 <span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a335e8c40b40fac4baad34fa59d124328"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a335e8c40b40fac4baad34fa59d124328">&#9670;&nbsp;</a></span>fixedSizeAssignStateWaypoint() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeAssignStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>fixedSizeAssignStateWaypoint </p>
-<p>This will create the fixed set of move instruction and assign the current environment state as the position for the state waypoint.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The start cartesian waypoint </td></tr>
-    <tr><td class="paramname">end</td><td>The end joint waypoint </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction. </td></tr>
-    <tr><td class="paramname">steps</td><td>The fixed number of steps </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-
-</div>
-</div>
-<a id="a0de637f82acfa3df86d3c99b9e4cbbce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0de637f82acfa3df86d3c99b9e4cbbce">&#9670;&nbsp;</a></span>fixedSizeAssignStateWaypoint() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeAssignStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>fixedSizeAssignStateWaypoint </p>
-<p>This will create the fixed set of move instruction and assign the end as the position for the state waypoint.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The start cartesian waypoint </td></tr>
-    <tr><td class="paramname">end</td><td>The end joint waypoint </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction. </td></tr>
-    <tr><td class="paramname">steps</td><td>The fixed number of steps </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-
-</div>
-</div>
-<a id="a3531bbb692b464f09c0d9215d25336c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3531bbb692b464f09c0d9215d25336c3">&#9670;&nbsp;</a></span>fixedSizeAssignStateWaypoint() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeAssignStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>fixedSizeAssignStateWaypoint </p>
-<p>This will create the fixed set of move instruction and assign the provided position for the state waypoint.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The position to assign to the all interpolated state waypoints </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction. </td></tr>
-    <tr><td class="paramname">steps</td><td>The fixed number of steps </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-
-</div>
-</div>
-<a id="a0ca11abd404988f40669f9166d83a7ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ca11abd404988f40669f9166d83a7ee">&#9670;&nbsp;</a></span>fixedSizeAssignStateWaypoint() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeAssignStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>fixedSizeAssignStateWaypoint </p>
-<p>This will create the fixed set of move instruction and assign the start as the position for the state waypoint.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The start joint waypoint </td></tr>
-    <tr><td class="paramname">end</td><td>The end cartesian waypoint </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction. </td></tr>
-    <tr><td class="paramname">steps</td><td>The fixed number of steps </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-
-</div>
-</div>
-<a id="aed64797564037b85e5ffbad6d81bd863"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed64797564037b85e5ffbad6d81bd863">&#9670;&nbsp;</a></span>fixedSizeInterpolateCartStateWaypoint() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeInterpolateCartStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-
-</div>
-</div>
-<a id="a431474549cef35ad4ba73dd8dae836b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a431474549cef35ad4ba73dd8dae836b4">&#9670;&nbsp;</a></span>fixedSizeInterpolateCartStateWaypoint() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeInterpolateCartStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-
-</div>
-</div>
-<a id="a27b5ac961c9912d8062c5fbd142a47f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27b5ac961c9912d8062c5fbd142a47f6">&#9670;&nbsp;</a></span>fixedSizeInterpolateCartStateWaypoint() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeInterpolateCartStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-
-</div>
-</div>
-<a id="adddc7aa17fc164a35ea0004da350f8be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adddc7aa17fc164a35ea0004da350f8be">&#9670;&nbsp;</a></span>fixedSizeInterpolateCartStateWaypoint() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeInterpolateCartStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-
-</div>
-</div>
-<a id="a392b0c232da908a1110f17427e917eb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a392b0c232da908a1110f17427e917eb2">&#9670;&nbsp;</a></span>fixedSizeInterpolateStateWaypoint() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeInterpolateStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-
-</div>
-</div>
-<a id="a96223b36a77dabe1bf33ec11ed8ed97b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96223b36a77dabe1bf33ec11ed8ed97b">&#9670;&nbsp;</a></span>fixedSizeInterpolateStateWaypoint() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeInterpolateStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-
-</div>
-</div>
-<a id="af43a652454f562e022435bb14f55d7a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af43a652454f562e022435bb14f55d7a9">&#9670;&nbsp;</a></span>fixedSizeInterpolateStateWaypoint() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeInterpolateStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000020">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000020">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-
-</div>
-</div>
-<a id="a9383340e931491b2de9f3292e1bdae26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9383340e931491b2de9f3292e1bdae26">&#9670;&nbsp;</a></span>fixedSizeInterpolateStateWaypoint() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::fixedSizeInterpolateStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>
@@ -5358,6 +4569,185 @@ template&lt;typename FloatType &gt; </div>
 </div><div class="memdoc">
 
 <p>Provided for backwards compatibility. </p>
+
+</div>
+</div>
+<a id="ae29bc88fbc476c1b22d8e5ce0fdfb8d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae29bc88fbc476c1b22d8e5ce0fdfb8d1">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd tesseract_planning::getClosestJointSolution </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const tesseract_kinematics::InverseKinematics::Ptr &amp;&#160;</td>
+          <td class="paramname"><em>inv_kin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>seed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the closest joint solution for p to the provided seed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>The cartesian position to solve inverse kinematics </td></tr>
+    <tr><td class="paramname">inv_kin</td><td>The inverse kinematics </td></tr>
+    <tr><td class="paramname">seed</td><td>The seed to find the closest solution </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The closest solution to the seed. This will be empty if a solution was not found during inverse kinematics </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000020">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000020">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
+
+</div>
+</div>
+<a id="aed53b814bf5812f2272a14264314d601"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed53b814bf5812f2272a14264314d601">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt; Eigen::VectorXd, 2 &gt; tesseract_planning::getClosestJointSolution </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const tesseract_kinematics::InverseKinematics::Ptr &amp;&#160;</td>
+          <td class="paramname"><em>inv_kin1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const tesseract_kinematics::InverseKinematics::Ptr &amp;&#160;</td>
+          <td class="paramname"><em>inv_kin2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>seed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the closest joint solution for the two provided cartesian poses. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p1</td><td>The first cartesian position to solve inverse kinematics </td></tr>
+    <tr><td class="paramname">p2</td><td>The second cartesian position to solve inverse kinematics </td></tr>
+    <tr><td class="paramname">inv_kin1</td><td>The inverse kinematics associated to the first cartesian position </td></tr>
+    <tr><td class="paramname">inv_kin2</td><td>The inverse kinematics associated to the first cartesian position </td></tr>
+    <tr><td class="paramname">seed</td><td>The seed to use during inverse kinematics </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The closest joint solution for the provided cartesian positions. If either are empty then it failed to solve inverse kinematics. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
+
+</div>
+</div>
+<a id="a279ab58cb9c7b07e9e678f077bb4d932"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a279ab58cb9c7b07e9e678f077bb4d932">&#9670;&nbsp;</a></span>getInterpolatedComposite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CompositeInstruction tesseract_planning::getInterpolatedComposite </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>joint_names</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
+          <td class="paramname"><em>base_instruction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This takes the provided seed state for the base_instruction and create a corresponding composite instruction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">joint_names</td><td>The joint names associated with the states </td></tr>
+    <tr><td class="paramname">states</td><td>The joint states to populate the composite instruction with </td></tr>
+    <tr><td class="paramname">base_instruction</td><td>The base instruction used to extract profile and manipulator information from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The composite instruction </dd></dl>
+
+</div>
+</div>
+<a id="aaec1f7a5aa934efc7e7771e5cdd158ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec1f7a5aa934efc7e7771e5cdd158ff">&#9670;&nbsp;</a></span>getMoveInstructionType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MoveInstructionType tesseract_planning::getMoveInstructionType </td>
+          <td>(</td>
+          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
+          <td class="paramname"><em>base_instruction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the associated move instruction type for the give plan instruction type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base_instruction</td><td>The plan instruction @returnThe associated move instruction type for the give plan instruction type </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -6063,799 +5453,6 @@ template&lt;typename FloatType &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if within limits otherwise false </dd></dl>
-
-</div>
-</div>
-<a id="af4152e9479fe80f589ac11fc1a203b03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4152e9479fe80f589ac11fc1a203b03">&#9670;&nbsp;</a></span>LVSInterpolateCartStateWaypoint() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::LVSInterpolateCartStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>state_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>translation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rotation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min_steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LVSInterpolateCartStateWaypoint(CartesianWaypoint to CartesianWaypoint) </p>
-<p>This function interpolates the motion from start state to end state. Results are stored in CartesianWaypoint objects.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The joint state at the start of the plan </td></tr>
-    <tr><td class="paramname">end</td><td>The joint state at the end of the plan </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction </td></tr>
-    <tr><td class="paramname">state_longest_valid_segment_length</td><td>The maximum joint distance (norm of changes to all joint positions) between successive steps </td></tr>
-    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translational distance between successive steps </td></tr>
-    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximaum rotational distance between successive steps </td></tr>
-    <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000033">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000033">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-
-</div>
-</div>
-<a id="ac53f28bcd55f3636acc1f44315c1a5ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac53f28bcd55f3636acc1f44315c1a5ff">&#9670;&nbsp;</a></span>LVSInterpolateCartStateWaypoint() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::LVSInterpolateCartStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>state_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>translation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rotation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min_steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LVSInterpolateCartStateWaypoint(CartesianWaypoint to JointWaypoint) </p>
-<p>This function interpolates the motion from start state to end state. Results are stored in CartesianWaypoint objects.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The joint state at the start of the plan </td></tr>
-    <tr><td class="paramname">end</td><td>The joint state at the end of the plan </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction </td></tr>
-    <tr><td class="paramname">state_longest_valid_segment_length</td><td>The maximum joint distance (norm of changes to all joint positions) between successive steps </td></tr>
-    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translational distance between successive steps </td></tr>
-    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximaum rotational distance between successive steps </td></tr>
-    <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000032">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000032">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-
-</div>
-</div>
-<a id="a8c34e1b8540f0f4abaf9b6911853abf0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c34e1b8540f0f4abaf9b6911853abf0">&#9670;&nbsp;</a></span>LVSInterpolateCartStateWaypoint() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::LVSInterpolateCartStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>state_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>translation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rotation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min_steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LVSInterpolateCartStateWaypoint(JointWaypoint to CartesianWaypoint) </p>
-<p>This function interpolates the motion from start state to end state. Results are stored in CartesianWaypoint objects.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The joint state at the start of the plan </td></tr>
-    <tr><td class="paramname">end</td><td>The joint state at the end of the plan </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction </td></tr>
-    <tr><td class="paramname">state_longest_valid_segment_length</td><td>The maximum joint distance (norm of changes to all joint positions) between successive steps </td></tr>
-    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translational distance between successive steps </td></tr>
-    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximaum rotational distance between successive steps </td></tr>
-    <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000031">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000031">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-
-</div>
-</div>
-<a id="ae8c7dbc50a3abe5561cd5b0e470b1630"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8c7dbc50a3abe5561cd5b0e470b1630">&#9670;&nbsp;</a></span>LVSInterpolateCartStateWaypoint() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::LVSInterpolateCartStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>state_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>translation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rotation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min_steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LVSInterpolateCartStateWaypoint(JointWaypoint to JointWaypoint) </p>
-<p>This function interpolates the motion from start state to end state. Results are stored in CartesianWaypoint objects.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The joint state at the start of the plan </td></tr>
-    <tr><td class="paramname">end</td><td>The joint state at the end of the plan </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction </td></tr>
-    <tr><td class="paramname">state_longest_valid_segment_length</td><td>The maximum joint distance (norm of changes to all joint positions) between successive steps </td></tr>
-    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translational distance between successive steps </td></tr>
-    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximaum rotational distance between successive steps </td></tr>
-    <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000030">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000030">Todo:</a></b></dt><dd>: Need to create a cartesian state waypoint and update the code below </dd></dl>
-
-</div>
-</div>
-<a id="ae7162d24545a8706b2796dfb09d37cc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7162d24545a8706b2796dfb09d37cc8">&#9670;&nbsp;</a></span>LVSInterpolateStateWaypoint() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::LVSInterpolateStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>state_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>translation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rotation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min_steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LVSInterpolateStateWaypoint(CartesianWaypoint to CartesianWaypoint) </p>
-<p>This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.</p>
-<ul>
-<li>the number of steps for the plan will be calculated such that:<ul>
-<li>the translational distance between successive steps is no longer than translation_longest_valid_segment</li>
-<li>the rotational distance between successive steps is no longer than rotation_longest_valid_segment</li>
-<li>the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state_longest_valid_segment_length</li>
-<li>the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen</li>
-</ul>
-</li>
-<li>the interpolation will be done based on the condition below<ul>
-<li>Case 1: Joint solution found for start and end cartesian waypoint<ul>
-<li>It interpolates the joint position from the start to the end state</li>
-</ul>
-</li>
-<li>Case 2: Joint solution only found for start cartesian waypoint<ul>
-<li>It creates number states based on the steps and sets the value to found start solution</li>
-</ul>
-</li>
-<li>Case 3: Joint solution only found for end cartesian waypoint<ul>
-<li>It creates number states based on the steps and sets the value to found end solution</li>
-</ul>
-</li>
-<li>Case 4: No joint solution found for end and start cartesian waypoint<ul>
-<li>It creates number states based on the steps and sets the value to the current state of the environment</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The joint state at the start of the plan </td></tr>
-    <tr><td class="paramname">end</td><td>The joint state at the end of the plan </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction </td></tr>
-    <tr><td class="paramname">state_longest_valid_segment_length</td><td>The maximum joint distance (norm of changes to all joint positions) between successive steps </td></tr>
-    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translational distance between successive steps </td></tr>
-    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximaum rotational distance between successive steps </td></tr>
-    <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000029">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000029">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-
-</div>
-</div>
-<a id="a27da2f146862e49568505b61eeb8e9ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27da2f146862e49568505b61eeb8e9ce">&#9670;&nbsp;</a></span>LVSInterpolateStateWaypoint() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::LVSInterpolateStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>state_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>translation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rotation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min_steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LVSInterpolateStateWaypoint(CartesianWaypoint to JointWaypoint) </p>
-<p>This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.</p>
-<ul>
-<li>the number of steps for the plan will be calculated such that:<ul>
-<li>the translational distance between successive steps is no longer than translation_longest_valid_segment</li>
-<li>the rotational distance between successive steps is no longer than rotation_longest_valid_segment</li>
-<li>the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state_longest_valid_segment_length</li>
-<li>the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen</li>
-</ul>
-</li>
-<li>the interpolation will be done based on the condition below<ul>
-<li>Case 1: Joint solution found for start cartesian waypoint<ul>
-<li>It interpolates the joint position from the start to the end state</li>
-</ul>
-</li>
-<li>Case 2: Unable to find joint solution for start cartesian waypoint<ul>
-<li>It creates number states based on the steps and sets the value to end joint waypoint</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The joint state at the start of the plan </td></tr>
-    <tr><td class="paramname">end</td><td>The joint state at the end of the plan </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction </td></tr>
-    <tr><td class="paramname">state_longest_valid_segment_length</td><td>The maximum joint distance (norm of changes to all joint positions) between successive steps </td></tr>
-    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translational distance between successive steps </td></tr>
-    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximaum rotational distance between successive steps </td></tr>
-    <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000028">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000028">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-
-</div>
-</div>
-<a id="ab7c266ec9ba52e3b9c8df61adee05aa3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7c266ec9ba52e3b9c8df61adee05aa3">&#9670;&nbsp;</a></span>LVSInterpolateStateWaypoint() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::LVSInterpolateStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const CartesianWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>state_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>translation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rotation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min_steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LVSInterpolateStateWaypoint(JointWaypoint to CartesianWaypoint) </p>
-<ul>
-<li>the number of steps for the plan will be calculated such that:<ul>
-<li>the translational distance between successive steps is no longer than translation_longest_valid_segment</li>
-<li>the rotational distance between successive steps is no longer than rotation_longest_valid_segment</li>
-<li>the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state_longest_valid_segment_length</li>
-<li>the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen</li>
-</ul>
-</li>
-<li>the interpolation will be done based on the condition below<ul>
-<li>Case 1: Joint solution found for end cartesian waypoint<ul>
-<li>It interpolates the joint position from the start to the end state</li>
-</ul>
-</li>
-<li>Case 2: Unable to find joint solution for end cartesian waypoint<ul>
-<li>It creates number states based on the steps and sets the value to start joint waypoint</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The joint state at the start of the plan </td></tr>
-    <tr><td class="paramname">end</td><td>The cartesian state at the end of the plan </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction </td></tr>
-    <tr><td class="paramname">state_longest_valid_segment_length</td><td>The longest valid joint distance (norm of all joint movements) per step </td></tr>
-    <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-
-</div>
-</div>
-<a id="aeed71beb6eb33f5246c8642de9bac5fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeed71beb6eb33f5246c8642de9bac5fc">&#9670;&nbsp;</a></span>LVSInterpolateStateWaypoint() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CompositeInstruction tesseract_planning::LVSInterpolateStateWaypoint </td>
-          <td>(</td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const JointWaypoint &amp;&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>state_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>translation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rotation_longest_valid_segment_length</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>min_steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LVSInterpolateStateWaypoint(JointWaypoint to JointWaypoint) </p>
-<p>This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.</p>
-<ul>
-<li>the number of steps for the plan will be calculated such that:<ul>
-<li>the translational distance between successive steps is no longer than translation_longest_valid_segment</li>
-<li>the rotational distance between successive steps is no longer than rotation_longest_valid_segment</li>
-<li>the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state_longest_valid_segment_length</li>
-<li>the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen</li>
-</ul>
-</li>
-<li>the interpolation will be done in joint space</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The joint state at the start of the plan </td></tr>
-    <tr><td class="paramname">end</td><td>The joint state at the end of the plan </td></tr>
-    <tr><td class="paramname">base_instruction</td><td>The base plan instruction </td></tr>
-    <tr><td class="paramname">request</td><td>The planning request information </td></tr>
-    <tr><td class="paramname">manip_info</td><td>The manipulator information provided by the parent composite instruction </td></tr>
-    <tr><td class="paramname">state_longest_valid_segment_length</td><td>The maximum joint distance (norm of changes to all joint positions) between successive steps </td></tr>
-    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translational distance between successive steps </td></tr>
-    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximaum rotational distance between successive steps </td></tr>
-    <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A composite instruction of move instruction with state waypoints </dd></dl>
 
 </div>
 </div>
@@ -8258,7 +6855,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 15 2021 19:49:15 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0
+Generated on Sat Jan 16 2021 01:50:37 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0
 </small></address>
 </body>
 </html>

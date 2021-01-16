@@ -26,25 +26,23 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a50c
 \item 
 using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} $>$
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a9074108ba324eb31f09a4b21cdca95a8}{Joint\+Joint\+Step\+Generator}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a07b0586f930ce893f17e3891add12813}{joint\+\_\+joint\+\_\+freespace}}
-\begin{DoxyCompactList}\small\item\em Used to fill out the seed for the joint-\/joint freespace case. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{namespacetesseract__planning_a7c7aedeaef04f975a29e26a9e199857e}{Joint\+Cart\+Step\+Generator}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a856f288004c5c9cd8aebdb01941b77e6}{joint\+\_\+cart\+\_\+freespace}}
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a863695ea69b2de668f3a7d46ed6a3046}{Simple\+Planner\+Plan\+Profile}} ()=default
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a4746d2fc186d9c11f8727c1fda772123}{Cart\+Joint\+Step\+Generator}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a07da9d1e3e303b4d854d58ef1a6ee745}{cart\+\_\+joint\+\_\+freespace}}
+virtual \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a42896a1c7e2c28ab148e67ffe6421c62}{$\sim$\+Simple\+Planner\+Plan\+Profile}} ()=default
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a8daf27969762da86da765622248f5d02}{Cart\+Cart\+Step\+Generator}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a2b95fa4181a1697b6fc73065d96d6ba8}{cart\+\_\+cart\+\_\+freespace}}
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a43c88e19e9117567be301810ee7c6063}{Simple\+Planner\+Plan\+Profile}} (const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \&)=default
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a9074108ba324eb31f09a4b21cdca95a8}{Joint\+Joint\+Step\+Generator}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ac8425c49b8a1fef4e24997e91c0ad80f}{joint\+\_\+joint\+\_\+linear}}
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ae6de6ae9056c27d1d01aa9aa42cbe542}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \&)=default
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a7c7aedeaef04f975a29e26a9e199857e}{Joint\+Cart\+Step\+Generator}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a0f96b2f1ee0d3f249576bf5bcf006fcb}{joint\+\_\+cart\+\_\+linear}}
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a14f46167a0c8c86658a2ee52971ecbfd}{Simple\+Planner\+Plan\+Profile}} (\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \&\&) noexcept=default
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a4746d2fc186d9c11f8727c1fda772123}{Cart\+Joint\+Step\+Generator}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a309889b290dd23fc974bf273e530f3a3}{cart\+\_\+joint\+\_\+linear}}
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a807a8c5fd128b5095506a188fd6b389b}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \&\&) noexcept=default
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a8daf27969762da86da765622248f5d02}{Cart\+Cart\+Step\+Generator}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a73f7f45af8cc6067ff01aadb1c55b8f5}{cart\+\_\+cart\+\_\+linear}}
-\end{DoxyCompactItemize}
+virtual Composite\+Instruction \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ac928c2f283feed84dea1a471c70bcf81}{generate}} (const Plan\+Instruction \&prev\+\_\+instruction, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&global\+\_\+manip\+\_\+info) const =0
+\begin{DoxyCompactList}\small\item\em Generate a seed for the provided base\+\_\+instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -65,58 +63,73 @@ Plan Profile for the simple planner. It defines some functions that handle each 
 
 
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a2b95fa4181a1697b6fc73065d96d6ba8}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a2b95fa4181a1697b6fc73065d96d6ba8}} 
-\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!cart\_cart\_freespace@{cart\_cart\_freespace}}
-\index{cart\_cart\_freespace@{cart\_cart\_freespace}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
-\doxysubsubsection{\texorpdfstring{cart\_cart\_freespace}{cart\_cart\_freespace}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a8daf27969762da86da765622248f5d02}{Cart\+Cart\+Step\+Generator}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::cart\+\_\+cart\+\_\+freespace}
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a863695ea69b2de668f3a7d46ed6a3046}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a863695ea69b2de668f3a7d46ed6a3046}} 
+\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!SimplePlannerPlanProfile@{SimplePlannerPlanProfile}}
+\index{SimplePlannerPlanProfile@{SimplePlannerPlanProfile}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
+\doxysubsubsection{\texorpdfstring{SimplePlannerPlanProfile()}{SimplePlannerPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::\+Simple\+Planner\+Plan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a73f7f45af8cc6067ff01aadb1c55b8f5}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a73f7f45af8cc6067ff01aadb1c55b8f5}} 
-\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!cart\_cart\_linear@{cart\_cart\_linear}}
-\index{cart\_cart\_linear@{cart\_cart\_linear}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
-\doxysubsubsection{\texorpdfstring{cart\_cart\_linear}{cart\_cart\_linear}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a8daf27969762da86da765622248f5d02}{Cart\+Cart\+Step\+Generator}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::cart\+\_\+cart\+\_\+linear}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a42896a1c7e2c28ab148e67ffe6421c62}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a42896a1c7e2c28ab148e67ffe6421c62}} 
+\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!````~SimplePlannerPlanProfile@{$\sim$SimplePlannerPlanProfile}}
+\index{````~SimplePlannerPlanProfile@{$\sim$SimplePlannerPlanProfile}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
+\doxysubsubsection{\texorpdfstring{$\sim$SimplePlannerPlanProfile()}{~SimplePlannerPlanProfile()}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::$\sim$\+Simple\+Planner\+Plan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a07da9d1e3e303b4d854d58ef1a6ee745}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a07da9d1e3e303b4d854d58ef1a6ee745}} 
-\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!cart\_joint\_freespace@{cart\_joint\_freespace}}
-\index{cart\_joint\_freespace@{cart\_joint\_freespace}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
-\doxysubsubsection{\texorpdfstring{cart\_joint\_freespace}{cart\_joint\_freespace}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a4746d2fc186d9c11f8727c1fda772123}{Cart\+Joint\+Step\+Generator}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::cart\+\_\+joint\+\_\+freespace}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a43c88e19e9117567be301810ee7c6063}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a43c88e19e9117567be301810ee7c6063}} 
+\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!SimplePlannerPlanProfile@{SimplePlannerPlanProfile}}
+\index{SimplePlannerPlanProfile@{SimplePlannerPlanProfile}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
+\doxysubsubsection{\texorpdfstring{SimplePlannerPlanProfile()}{SimplePlannerPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::\+Simple\+Planner\+Plan\+Profile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a309889b290dd23fc974bf273e530f3a3}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a309889b290dd23fc974bf273e530f3a3}} 
-\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!cart\_joint\_linear@{cart\_joint\_linear}}
-\index{cart\_joint\_linear@{cart\_joint\_linear}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
-\doxysubsubsection{\texorpdfstring{cart\_joint\_linear}{cart\_joint\_linear}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a4746d2fc186d9c11f8727c1fda772123}{Cart\+Joint\+Step\+Generator}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::cart\+\_\+joint\+\_\+linear}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a856f288004c5c9cd8aebdb01941b77e6}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a856f288004c5c9cd8aebdb01941b77e6}} 
-\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!joint\_cart\_freespace@{joint\_cart\_freespace}}
-\index{joint\_cart\_freespace@{joint\_cart\_freespace}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
-\doxysubsubsection{\texorpdfstring{joint\_cart\_freespace}{joint\_cart\_freespace}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a7c7aedeaef04f975a29e26a9e199857e}{Joint\+Cart\+Step\+Generator}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::joint\+\_\+cart\+\_\+freespace}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a0f96b2f1ee0d3f249576bf5bcf006fcb}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a0f96b2f1ee0d3f249576bf5bcf006fcb}} 
-\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!joint\_cart\_linear@{joint\_cart\_linear}}
-\index{joint\_cart\_linear@{joint\_cart\_linear}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
-\doxysubsubsection{\texorpdfstring{joint\_cart\_linear}{joint\_cart\_linear}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a7c7aedeaef04f975a29e26a9e199857e}{Joint\+Cart\+Step\+Generator}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::joint\+\_\+cart\+\_\+linear}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a07b0586f930ce893f17e3891add12813}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a07b0586f930ce893f17e3891add12813}} 
-\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!joint\_joint\_freespace@{joint\_joint\_freespace}}
-\index{joint\_joint\_freespace@{joint\_joint\_freespace}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
-\doxysubsubsection{\texorpdfstring{joint\_joint\_freespace}{joint\_joint\_freespace}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a9074108ba324eb31f09a4b21cdca95a8}{Joint\+Joint\+Step\+Generator}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::joint\+\_\+joint\+\_\+freespace}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a14f46167a0c8c86658a2ee52971ecbfd}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a14f46167a0c8c86658a2ee52971ecbfd}} 
+\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!SimplePlannerPlanProfile@{SimplePlannerPlanProfile}}
+\index{SimplePlannerPlanProfile@{SimplePlannerPlanProfile}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
+\doxysubsubsection{\texorpdfstring{SimplePlannerPlanProfile()}{SimplePlannerPlanProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::\+Simple\+Planner\+Plan\+Profile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
 
 
 
-Used to fill out the seed for the joint-\/joint freespace case. 
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_ac928c2f283feed84dea1a471c70bcf81}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_ac928c2f283feed84dea1a471c70bcf81}} 
+\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!generate@{generate}}
+\index{generate@{generate}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily virtual Composite\+Instruction tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const Plan\+Instruction \&}]{prev\+\_\+instruction,  }\item[{const Plan\+Instruction \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const Manipulator\+Info \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_ac8425c49b8a1fef4e24997e91c0ad80f}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_ac8425c49b8a1fef4e24997e91c0ad80f}} 
-\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!joint\_joint\_linear@{joint\_joint\_linear}}
-\index{joint\_joint\_linear@{joint\_joint\_linear}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
-\doxysubsubsection{\texorpdfstring{joint\_joint\_linear}{joint\_joint\_linear}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a9074108ba324eb31f09a4b21cdca95a8}{Joint\+Joint\+Step\+Generator}} tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::joint\+\_\+joint\+\_\+linear}
+
+
+Generate a seed for the provided base\+\_\+instruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prev\+\_\+instruction} & The previous instruction \\
+\hline
+{\em base\+\_\+instruction} & The base/current instruction to generate the seed for \\
+\hline
+{\em request} & The planning request \\
+\hline
+{\em global\+\_\+manip\+\_\+info} & The global manipulator information \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A composite instruction representing the seed for the base\+\_\+instruction 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a23e2d8f7919f463cabe6aa3e5a3a89e3}{tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile}}, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_ada10f6a367aca67e4fcd9b526ac70cb8}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Plan\+Profile}}, and \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_aa710d2195e7da1aed57f6a58ef90b904}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_ae6de6ae9056c27d1d01aa9aa42cbe542}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_ae6de6ae9056c27d1d01aa9aa42cbe542}} 
+\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}}\& tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerPlanProfile_a807a8c5fd128b5095506a188fd6b389b}\label{classtesseract__planning_1_1SimplePlannerPlanProfile_a807a8c5fd128b5095506a188fd6b389b}} 
+\index{tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::SimplePlannerPlanProfile@{tesseract\_planning::SimplePlannerPlanProfile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}}\& tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
 
 
 

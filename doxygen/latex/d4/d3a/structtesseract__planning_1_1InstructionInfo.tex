@@ -1,0 +1,164 @@
+\hypertarget{structtesseract__planning_1_1InstructionInfo}{}\doxysection{tesseract\+\_\+planning\+::Instruction\+Info Struct Reference}
+\label{structtesseract__planning_1_1InstructionInfo}\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+
+
+The Instruction Information struct.  
+
+
+
+
+{\ttfamily \#include $<$simple\+\_\+planner\+\_\+utils.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a8763c0bfef96f8b4cd2965fece7e20c0}{Instruction\+Info}} (const Plan\+Instruction \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info)
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a0547c890202f6d402568572222a863b5}{calc\+Cartesian\+World\+Pose}} (const Eigen\+::\+Vector\+Xd \&jp) const
+\begin{DoxyCompactList}\small\item\em Calculate the cartesian pose in world coordinate given the joint solution. \end{DoxyCompactList}\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a7fc39ede77698502027d308b7bc02f01}{calc\+Cartesian\+Local\+Pose}} (const Eigen\+::\+Isometry3d \&world) const
+\begin{DoxyCompactList}\small\item\em Covert cartesian pose in world to the local robot base frame. \end{DoxyCompactList}\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a334b342dd81c7a4c62938a9f390ed39f}{extract\+Cartesian\+World\+Pose}} () const
+\begin{DoxyCompactList}\small\item\em Extract the cartesian pose in the world. \end{DoxyCompactList}\item 
+const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_ab940ebcbd7504d772ef29211fb3c33a8}{extract\+Joint\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Extract the joint positiion from the instruction waypoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const Plan\+Instruction \& \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a31e7c956d61572bec7aa2250d7560067}{instruction}}
+\item 
+tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a9962a7b08a14b18ca170b43ca6629cc4}{fwd\+\_\+kin}}
+\item 
+tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a893e2fc411ac8dec7a6dfd7818379bf2}{inv\+\_\+kin}}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a1bed56a342bebe913f7ba1130d606bb5}{world\+\_\+to\+\_\+base}}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a2cd717ec90e98956c43e3daf5437993a}{working\+\_\+frame}}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_aab5a2e9b2390ae05784a77af93bf9ecd}{tcp}}
+\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_aba253231c3a10b49f593672a99bad585}{has\+\_\+cartesian\+\_\+waypoint}} \{ false \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The Instruction Information struct. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a8763c0bfef96f8b4cd2965fece7e20c0}\label{structtesseract__planning_1_1InstructionInfo_a8763c0bfef96f8b4cd2965fece7e20c0}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!InstructionInfo@{InstructionInfo}}
+\index{InstructionInfo@{InstructionInfo}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{InstructionInfo()}{InstructionInfo()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Instruction\+Info\+::\+Instruction\+Info (\begin{DoxyParamCaption}\item[{const Plan\+Instruction \&}]{plan\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a7fc39ede77698502027d308b7bc02f01}\label{structtesseract__planning_1_1InstructionInfo_a7fc39ede77698502027d308b7bc02f01}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!calcCartesianLocalPose@{calcCartesianLocalPose}}
+\index{calcCartesianLocalPose@{calcCartesianLocalPose}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{calcCartesianLocalPose()}{calcCartesianLocalPose()}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Instruction\+Info\+::calc\+Cartesian\+Local\+Pose (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{world }\end{DoxyParamCaption}) const}
+
+
+
+Covert cartesian pose in world to the local robot base frame. 
+
+\begin{DoxyReturn}{Returns}
+Cartesian pose in the local robot base frame 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a0547c890202f6d402568572222a863b5}\label{structtesseract__planning_1_1InstructionInfo_a0547c890202f6d402568572222a863b5}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!calcCartesianWorldPose@{calcCartesianWorldPose}}
+\index{calcCartesianWorldPose@{calcCartesianWorldPose}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{calcCartesianWorldPose()}{calcCartesianWorldPose()}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Instruction\+Info\+::calc\+Cartesian\+World\+Pose (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{jp }\end{DoxyParamCaption}) const}
+
+
+
+Calculate the cartesian pose in world coordinate given the joint solution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jp} & The joint solution to calculate the world pose \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The world pose give the joint solution 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a334b342dd81c7a4c62938a9f390ed39f}\label{structtesseract__planning_1_1InstructionInfo_a334b342dd81c7a4c62938a9f390ed39f}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!extractCartesianWorldPose@{extractCartesianWorldPose}}
+\index{extractCartesianWorldPose@{extractCartesianWorldPose}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{extractCartesianWorldPose()}{extractCartesianWorldPose()}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Instruction\+Info\+::extract\+Cartesian\+World\+Pose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Extract the cartesian pose in the world. 
+
+If the instruction does not have a cartesian waypoint this throws an exception \begin{DoxyReturn}{Returns}
+Cartesian pose in the world 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_ab940ebcbd7504d772ef29211fb3c33a8}\label{structtesseract__planning_1_1InstructionInfo_ab940ebcbd7504d772ef29211fb3c33a8}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!extractJointPosition@{extractJointPosition}}
+\index{extractJointPosition@{extractJointPosition}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{extractJointPosition()}{extractJointPosition()}}
+{\footnotesize\ttfamily const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Instruction\+Info\+::extract\+Joint\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Extract the joint positiion from the instruction waypoint. 
+
+If the instruction does not have a joint/state waypoint this throws an exception \begin{DoxyReturn}{Returns}
+Joint Position 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a9962a7b08a14b18ca170b43ca6629cc4}\label{structtesseract__planning_1_1InstructionInfo_a9962a7b08a14b18ca170b43ca6629cc4}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!fwd\_kin@{fwd\_kin}}
+\index{fwd\_kin@{fwd\_kin}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{fwd\_kin}{fwd\_kin}}
+{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr tesseract\+\_\+planning\+::\+Instruction\+Info\+::fwd\+\_\+kin}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_aba253231c3a10b49f593672a99bad585}\label{structtesseract__planning_1_1InstructionInfo_aba253231c3a10b49f593672a99bad585}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!has\_cartesian\_waypoint@{has\_cartesian\_waypoint}}
+\index{has\_cartesian\_waypoint@{has\_cartesian\_waypoint}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{has\_cartesian\_waypoint}{has\_cartesian\_waypoint}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Instruction\+Info\+::has\+\_\+cartesian\+\_\+waypoint \{ false \}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a31e7c956d61572bec7aa2250d7560067}\label{structtesseract__planning_1_1InstructionInfo_a31e7c956d61572bec7aa2250d7560067}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!instruction@{instruction}}
+\index{instruction@{instruction}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{instruction}{instruction}}
+{\footnotesize\ttfamily const Plan\+Instruction\& tesseract\+\_\+planning\+::\+Instruction\+Info\+::instruction}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a893e2fc411ac8dec7a6dfd7818379bf2}\label{structtesseract__planning_1_1InstructionInfo_a893e2fc411ac8dec7a6dfd7818379bf2}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!inv\_kin@{inv\_kin}}
+\index{inv\_kin@{inv\_kin}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{inv\_kin}{inv\_kin}}
+{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr tesseract\+\_\+planning\+::\+Instruction\+Info\+::inv\+\_\+kin}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_aab5a2e9b2390ae05784a77af93bf9ecd}\label{structtesseract__planning_1_1InstructionInfo_aab5a2e9b2390ae05784a77af93bf9ecd}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!tcp@{tcp}}
+\index{tcp@{tcp}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{tcp}{tcp}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Instruction\+Info\+::tcp}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a2cd717ec90e98956c43e3daf5437993a}\label{structtesseract__planning_1_1InstructionInfo_a2cd717ec90e98956c43e3daf5437993a}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!working\_frame@{working\_frame}}
+\index{working\_frame@{working\_frame}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{working\_frame}{working\_frame}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Instruction\+Info\+::working\+\_\+frame}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a1bed56a342bebe913f7ba1130d606bb5}\label{structtesseract__planning_1_1InstructionInfo_a1bed56a342bebe913f7ba1130d606bb5}} 
+\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!world\_to\_base@{world\_to\_base}}
+\index{world\_to\_base@{world\_to\_base}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
+\doxysubsubsection{\texorpdfstring{world\_to\_base}{world\_to\_base}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Instruction\+Info\+::world\+\_\+to\+\_\+base}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/simple/profile/\mbox{\hyperlink{simple__planner__utils_8h}{simple\+\_\+planner\+\_\+utils.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/src/simple/profile/\mbox{\hyperlink{simple__planner__utils_8cpp}{simple\+\_\+planner\+\_\+utils.\+cpp}}\end{DoxyCompactItemize}

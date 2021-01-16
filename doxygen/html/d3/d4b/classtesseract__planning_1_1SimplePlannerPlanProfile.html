@@ -71,10 +71,10 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../dc/db6/classtesseract__planning_1_1SimplePlannerPlanProfile-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">tesseract_planning::SimplePlannerPlanProfile Class Reference</div>  </div>
+<div class="title">tesseract_planning::SimplePlannerPlanProfile Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -87,9 +87,10 @@ Inheritance diagram for tesseract_planning::SimplePlannerPlanProfile:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/dc4/classtesseract__planning_1_1SimplePlannerPlanProfile__inherit__graph.png" border="0" usemap="#atesseract__planning_1_1SimplePlannerPlanProfile_inherit__map" alt="Inheritance graph"/></div>
 <map name="atesseract__planning_1_1SimplePlannerPlanProfile_inherit__map" id="atesseract__planning_1_1SimplePlannerPlanProfile_inherit__map">
-<area shape="rect" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="5,53,180,94"/>
-<area shape="rect" href="../../d4/da4/classtesseract__planning_1_1SimplePlannerDefaultLVSPlanProfile.html" title=" " alt="" coords="228,5,433,61"/>
-<area shape="rect" href="../../d5/dac/classtesseract__planning_1_1SimplePlannerInterpolationPlanProfile.html" title=" " alt="" coords="239,85,422,141"/>
+<area shape="rect" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="5,93,180,134"/>
+<area shape="rect" href="../../d4/da8/classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile.html" title=" " alt="" coords="228,5,436,61"/>
+<area shape="rect" href="../../d6/dec/classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile.html" title=" " alt="" coords="235,85,429,141"/>
+<area shape="rect" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html" title=" " alt="" coords="232,165,432,206"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -100,25 +101,23 @@ Public Types</h2></td></tr>
 <tr class="memitem:ab3e9b839cfdea0466f7a4428502bd065"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#ab3e9b839cfdea0466f7a4428502bd065">ConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &gt;</td></tr>
 <tr class="separator:ab3e9b839cfdea0466f7a4428502bd065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a07b0586f930ce893f17e3891add12813"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9074108ba324eb31f09a4b21cdca95a8">JointJointStepGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a07b0586f930ce893f17e3891add12813">joint_joint_freespace</a></td></tr>
-<tr class="memdesc:a07b0586f930ce893f17e3891add12813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to fill out the seed for the joint-joint freespace case.  <a href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a07b0586f930ce893f17e3891add12813">More...</a><br /></td></tr>
-<tr class="separator:a07b0586f930ce893f17e3891add12813"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a856f288004c5c9cd8aebdb01941b77e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7c7aedeaef04f975a29e26a9e199857e">JointCartStepGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a856f288004c5c9cd8aebdb01941b77e6">joint_cart_freespace</a></td></tr>
-<tr class="separator:a856f288004c5c9cd8aebdb01941b77e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07da9d1e3e303b4d854d58ef1a6ee745"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4746d2fc186d9c11f8727c1fda772123">CartJointStepGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a07da9d1e3e303b4d854d58ef1a6ee745">cart_joint_freespace</a></td></tr>
-<tr class="separator:a07da9d1e3e303b4d854d58ef1a6ee745"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b95fa4181a1697b6fc73065d96d6ba8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8daf27969762da86da765622248f5d02">CartCartStepGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a2b95fa4181a1697b6fc73065d96d6ba8">cart_cart_freespace</a></td></tr>
-<tr class="separator:a2b95fa4181a1697b6fc73065d96d6ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8425c49b8a1fef4e24997e91c0ad80f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9074108ba324eb31f09a4b21cdca95a8">JointJointStepGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#ac8425c49b8a1fef4e24997e91c0ad80f">joint_joint_linear</a></td></tr>
-<tr class="separator:ac8425c49b8a1fef4e24997e91c0ad80f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f96b2f1ee0d3f249576bf5bcf006fcb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7c7aedeaef04f975a29e26a9e199857e">JointCartStepGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a0f96b2f1ee0d3f249576bf5bcf006fcb">joint_cart_linear</a></td></tr>
-<tr class="separator:a0f96b2f1ee0d3f249576bf5bcf006fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a309889b290dd23fc974bf273e530f3a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4746d2fc186d9c11f8727c1fda772123">CartJointStepGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a309889b290dd23fc974bf273e530f3a3">cart_joint_linear</a></td></tr>
-<tr class="separator:a309889b290dd23fc974bf273e530f3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73f7f45af8cc6067ff01aadb1c55b8f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8daf27969762da86da765622248f5d02">CartCartStepGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a73f7f45af8cc6067ff01aadb1c55b8f5">cart_cart_linear</a></td></tr>
-<tr class="separator:a73f7f45af8cc6067ff01aadb1c55b8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a863695ea69b2de668f3a7d46ed6a3046"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a863695ea69b2de668f3a7d46ed6a3046">SimplePlannerPlanProfile</a> ()=default</td></tr>
+<tr class="separator:a863695ea69b2de668f3a7d46ed6a3046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42896a1c7e2c28ab148e67ffe6421c62"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a42896a1c7e2c28ab148e67ffe6421c62">~SimplePlannerPlanProfile</a> ()=default</td></tr>
+<tr class="separator:a42896a1c7e2c28ab148e67ffe6421c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43c88e19e9117567be301810ee7c6063"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a43c88e19e9117567be301810ee7c6063">SimplePlannerPlanProfile</a> (const <a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;)=default</td></tr>
+<tr class="separator:a43c88e19e9117567be301810ee7c6063"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6de6ae9056c27d1d01aa9aa42cbe542"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#ae6de6ae9056c27d1d01aa9aa42cbe542">operator=</a> (const <a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;)=default</td></tr>
+<tr class="separator:ae6de6ae9056c27d1d01aa9aa42cbe542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f46167a0c8c86658a2ee52971ecbfd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a14f46167a0c8c86658a2ee52971ecbfd">SimplePlannerPlanProfile</a> (<a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&amp;) noexcept=default</td></tr>
+<tr class="separator:a14f46167a0c8c86658a2ee52971ecbfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a807a8c5fd128b5095506a188fd6b389b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a807a8c5fd128b5095506a188fd6b389b">operator=</a> (<a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&amp;) noexcept=default</td></tr>
+<tr class="separator:a807a8c5fd128b5095506a188fd6b389b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac928c2f283feed84dea1a471c70bcf81"><td class="memItemLeft" align="right" valign="top">virtual CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#ac928c2f283feed84dea1a471c70bcf81">generate</a> (const PlanInstruction &amp;prev_instruction, const PlanInstruction &amp;base_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const ManipulatorInfo &amp;global_manip_info) const =0</td></tr>
+<tr class="memdesc:ac928c2f283feed84dea1a471c70bcf81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a seed for the provided base_instruction.  <a href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#ac928c2f283feed84dea1a471c70bcf81">More...</a><br /></td></tr>
+<tr class="separator:ac928c2f283feed84dea1a471c70bcf81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The planner then simply loops over all of the plan instructions and calls the correct function. </p>
@@ -151,117 +150,220 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2b95fa4181a1697b6fc73065d96d6ba8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b95fa4181a1697b6fc73065d96d6ba8">&#9670;&nbsp;</a></span>cart_cart_freespace</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a863695ea69b2de668f3a7d46ed6a3046"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a863695ea69b2de668f3a7d46ed6a3046">&#9670;&nbsp;</a></span>SimplePlannerPlanProfile() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8daf27969762da86da765622248f5d02">CartCartStepGenerator</a> tesseract_planning::SimplePlannerPlanProfile::cart_cart_freespace</td>
+          <td class="memname">tesseract_planning::SimplePlannerPlanProfile::SimplePlannerPlanProfile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a73f7f45af8cc6067ff01aadb1c55b8f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73f7f45af8cc6067ff01aadb1c55b8f5">&#9670;&nbsp;</a></span>cart_cart_linear</h2>
+<a id="a42896a1c7e2c28ab148e67ffe6421c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42896a1c7e2c28ab148e67ffe6421c62">&#9670;&nbsp;</a></span>~SimplePlannerPlanProfile()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8daf27969762da86da765622248f5d02">CartCartStepGenerator</a> tesseract_planning::SimplePlannerPlanProfile::cart_cart_linear</td>
+          <td class="memname">virtual tesseract_planning::SimplePlannerPlanProfile::~SimplePlannerPlanProfile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a07da9d1e3e303b4d854d58ef1a6ee745"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07da9d1e3e303b4d854d58ef1a6ee745">&#9670;&nbsp;</a></span>cart_joint_freespace</h2>
+<a id="a43c88e19e9117567be301810ee7c6063"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43c88e19e9117567be301810ee7c6063">&#9670;&nbsp;</a></span>SimplePlannerPlanProfile() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4746d2fc186d9c11f8727c1fda772123">CartJointStepGenerator</a> tesseract_planning::SimplePlannerPlanProfile::cart_joint_freespace</td>
+          <td class="memname">tesseract_planning::SimplePlannerPlanProfile::SimplePlannerPlanProfile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a309889b290dd23fc974bf273e530f3a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a309889b290dd23fc974bf273e530f3a3">&#9670;&nbsp;</a></span>cart_joint_linear</h2>
+<a id="a14f46167a0c8c86658a2ee52971ecbfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f46167a0c8c86658a2ee52971ecbfd">&#9670;&nbsp;</a></span>SimplePlannerPlanProfile() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4746d2fc186d9c11f8727c1fda772123">CartJointStepGenerator</a> tesseract_planning::SimplePlannerPlanProfile::cart_joint_linear</td>
+          <td class="memname">tesseract_planning::SimplePlannerPlanProfile::SimplePlannerPlanProfile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a856f288004c5c9cd8aebdb01941b77e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a856f288004c5c9cd8aebdb01941b77e6">&#9670;&nbsp;</a></span>joint_cart_freespace</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac928c2f283feed84dea1a471c70bcf81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac928c2f283feed84dea1a471c70bcf81">&#9670;&nbsp;</a></span>generate()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7c7aedeaef04f975a29e26a9e199857e">JointCartStepGenerator</a> tesseract_planning::SimplePlannerPlanProfile::joint_cart_freespace</td>
+          <td class="memname">virtual CompositeInstruction tesseract_planning::SimplePlannerPlanProfile::generate </td>
+          <td>(</td>
+          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
+          <td class="paramname"><em>prev_instruction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const PlanInstruction &amp;&#160;</td>
+          <td class="paramname"><em>base_instruction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
+          <td class="paramname"><em>request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
+          <td class="paramname"><em>global_manip_info</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generate a seed for the provided base_instruction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prev_instruction</td><td>The previous instruction </td></tr>
+    <tr><td class="paramname">base_instruction</td><td>The base/current instruction to generate the seed for </td></tr>
+    <tr><td class="paramname">request</td><td>The planning request </td></tr>
+    <tr><td class="paramname">global_manip_info</td><td>The global manipulator information </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A composite instruction representing the seed for the base_instruction </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a23e2d8f7919f463cabe6aa3e5a3a89e3">tesseract_planning::SimplePlannerLVSPlanProfile</a>, <a class="el" href="../../d6/dec/classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile.html#ada10f6a367aca67e4fcd9b526ac70cb8">tesseract_planning::SimplePlannerFixedSizePlanProfile</a>, and <a class="el" href="../../d4/da8/classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile.html#aa710d2195e7da1aed57f6a58ef90b904">tesseract_planning::SimplePlannerFixedSizeAssignPlanProfile</a>.</p>
+
+</div>
+</div>
+<a id="ae6de6ae9056c27d1d01aa9aa42cbe542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6de6ae9056c27d1d01aa9aa42cbe542">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a>&amp; tesseract_planning::SimplePlannerPlanProfile::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a0f96b2f1ee0d3f249576bf5bcf006fcb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f96b2f1ee0d3f249576bf5bcf006fcb">&#9670;&nbsp;</a></span>joint_cart_linear</h2>
+<a id="a807a8c5fd128b5095506a188fd6b389b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a807a8c5fd128b5095506a188fd6b389b">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7c7aedeaef04f975a29e26a9e199857e">JointCartStepGenerator</a> tesseract_planning::SimplePlannerPlanProfile::joint_cart_linear</td>
+          <td class="memname"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a>&amp; tesseract_planning::SimplePlannerPlanProfile::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a> &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a07b0586f930ce893f17e3891add12813"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07b0586f930ce893f17e3891add12813">&#9670;&nbsp;</a></span>joint_joint_freespace</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9074108ba324eb31f09a4b21cdca95a8">JointJointStepGenerator</a> tesseract_planning::SimplePlannerPlanProfile::joint_joint_freespace</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Used to fill out the seed for the joint-joint freespace case. </p>
-
-</div>
-</div>
-<a id="ac8425c49b8a1fef4e24997e91c0ad80f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8425c49b8a1fef4e24997e91c0ad80f">&#9670;&nbsp;</a></span>joint_joint_linear</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9074108ba324eb31f09a4b21cdca95a8">JointJointStepGenerator</a> tesseract_planning::SimplePlannerPlanProfile::joint_joint_linear</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -272,7 +374,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 15 2021 19:49:15 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0
+Generated on Sat Jan 16 2021 01:50:37 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0
 </small></address>
 </body>
 </html>

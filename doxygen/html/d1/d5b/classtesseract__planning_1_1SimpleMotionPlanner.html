@@ -185,11 +185,11 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a96694d45b4bc1e8ddb61db6554f239d5"><td class="memItemLeft" align="right" valign="top">MoveInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a96694d45b4bc1e8ddb61db6554f239d5">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_environment::EnvState::ConstPtr &amp;current_state, const tesseract_kinematics::ForwardKinematics::Ptr &amp;fwd_kin) const</td></tr>
-<tr class="memdesc:a96694d45b4bc1e8ddb61db6554f239d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planners status codes.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a96694d45b4bc1e8ddb61db6554f239d5">More...</a><br /></td></tr>
-<tr class="separator:a96694d45b4bc1e8ddb61db6554f239d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d846203422580fb36c394ccb17a07d1"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a8d846203422580fb36c394ccb17a07d1">processCompositeInstruction</a> (const CompositeInstruction &amp;instructions, Waypoint &amp;start_waypoint, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</td></tr>
-<tr class="separator:a8d846203422580fb36c394ccb17a07d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a0f3da0327a61f421c34502078a31fb"><td class="memItemLeft" align="right" valign="top">PlanInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a5a0f3da0327a61f421c34502078a31fb">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_environment::EnvState::ConstPtr &amp;current_state, const tesseract_kinematics::ForwardKinematics::Ptr &amp;fwd_kin) const</td></tr>
+<tr class="memdesc:a5a0f3da0327a61f421c34502078a31fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planners status codes.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a5a0f3da0327a61f421c34502078a31fb">More...</a><br /></td></tr>
+<tr class="separator:a5a0f3da0327a61f421c34502078a31fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2820c0d406b29dd303b2dd2320d081e1"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a2820c0d406b29dd303b2dd2320d081e1">processCompositeInstruction</a> (const CompositeInstruction &amp;instructions, PlanInstruction &amp;prev_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</td></tr>
+<tr class="separator:a2820c0d406b29dd303b2dd2320d081e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -450,8 +450,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a96694d45b4bc1e8ddb61db6554f239d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96694d45b4bc1e8ddb61db6554f239d5">&#9670;&nbsp;</a></span>getStartInstruction()</h2>
+<a id="a5a0f3da0327a61f421c34502078a31fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a0f3da0327a61f421c34502078a31fb">&#9670;&nbsp;</a></span>getStartInstruction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -460,7 +460,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">MoveInstruction tesseract_planning::SimpleMotionPlanner::getStartInstruction </td>
+          <td class="memname">PlanInstruction tesseract_planning::SimpleMotionPlanner::getStartInstruction </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
           <td class="paramname"><em>request</em>, </td>
@@ -546,8 +546,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8d846203422580fb36c394ccb17a07d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d846203422580fb36c394ccb17a07d1">&#9670;&nbsp;</a></span>processCompositeInstruction()</h2>
+<a id="a2820c0d406b29dd303b2dd2320d081e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2820c0d406b29dd303b2dd2320d081e1">&#9670;&nbsp;</a></span>processCompositeInstruction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -564,8 +564,8 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Waypoint &amp;&#160;</td>
-          <td class="paramname"><em>start_waypoint</em>, </td>
+          <td class="paramtype">PlanInstruction &amp;&#160;</td>
+          <td class="paramname"><em>prev_instruction</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -758,7 +758,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 15 2021 19:49:15 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0
+Generated on Sat Jan 16 2021 01:50:37 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0
 </small></address>
 </body>
 </html>

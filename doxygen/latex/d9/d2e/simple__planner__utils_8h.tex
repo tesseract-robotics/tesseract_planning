@@ -1,0 +1,80 @@
+\hypertarget{simple__planner__utils_8h}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+utils.h File Reference}
+\label{simple__planner__utils_8h}\index{tesseract\_motion\_planners/include/tesseract\_motion\_planners/simple/profile/simple\_planner\_utils.h@{tesseract\_motion\_planners/include/tesseract\_motion\_planners/simple/profile/simple\_planner\_utils.h}}
+
+
+Provides interpolation utils for simple planner profiles.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/types.\+h$>$}\newline
+Include dependency graph for simple\+\_\+planner\+\_\+utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d1a/simple__planner__utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/db8/simple__planner__utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{tesseract\+\_\+planning\+::\+Instruction\+Info}}
+\begin{DoxyCompactList}\small\item\em The Instruction Information struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Move\+Instruction\+Type \mbox{\hyperlink{namespacetesseract__planning_aaec1f7a5aa934efc7e7771e5cdd158ff}{tesseract\+\_\+planning\+::get\+Move\+Instruction\+Type}} (const Plan\+Instruction \&base\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the associated move instruction type for the give plan instruction type. \end{DoxyCompactList}\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a279ab58cb9c7b07e9e678f077bb4d932}{tesseract\+\_\+planning\+::get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const Plan\+Instruction \&base\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae29bc88fbc476c1b22d8e5ce0fdfb8d1}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Eigen\+::\+Isometry3d \&p, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin, const Eigen\+::\+Vector\+Xd \&seed)
+\begin{DoxyCompactList}\small\item\em Find the closest joint solution for p to the provided seed. \end{DoxyCompactList}\item 
+std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_aed53b814bf5812f2272a14264314d601}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Eigen\+::\+Isometry3d \&p1, const Eigen\+::\+Isometry3d \&p2, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin1, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin2, const Eigen\+::\+Vector\+Xd \&seed)
+\begin{DoxyCompactList}\small\item\em Find the closest joint solution for the two provided cartesian poses. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides interpolation utils for simple planner profiles. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+January 12, 2021 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000050}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}
