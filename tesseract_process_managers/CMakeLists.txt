@@ -13,11 +13,12 @@ endif()
 find_package(Eigen3 REQUIRED)
 find_package(Taskflow REQUIRED)
 find_package(console_bridge REQUIRED)
-find_package(tesseract_common REQUIRED)
+find_package(tesseract_common REQUIRED) # This must be before tcmalloc because it contains the Findtcmalloc.cmake
 find_package(tesseract_support REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(tesseract_motion_planners REQUIRED)
 find_package(tesseract_time_parameterization REQUIRED)
+find_package(tcmalloc REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -76,6 +77,7 @@ add_library(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PUBLIC
     console_bridge::console_bridge
     Taskflow::Taskflow
+    tcmalloc::tcmalloc
     tesseract::tesseract_common
     tesseract::tesseract_command_language
     tesseract::tesseract_motion_planners_simple

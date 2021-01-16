@@ -13,6 +13,7 @@ find_dependency(tesseract_support)
 find_dependency(tesseract_command_language)
 find_dependency(tesseract_motion_planners)
 find_dependency(tesseract_time_parameterization)
+find_dependency(tcmalloc)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
