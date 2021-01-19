@@ -77,22 +77,19 @@ TaskflowContainer GraphTaskflow::generateTaskflow(TaskInput input, TaskflowVoidF
   {
     // Ensure the current task precedes the tasks that it is connected to
     const Node& node = nodes_[i];
-
-    // Make sure the 0th connection of a conditional task goes to the error task
-    if (node.is_conditional)
-    {
-      tasks.at(i).precede(error_task);
-    }
-
-    // Add the other edges
     for (int idx : node.edges)
     {
       tasks.at(i).precede(tasks.at(static_cast<std::size_t>(idx)));
     }
 
-    // If no edges exist for the current node, then make sure this node precedes the done task
+    // If no edges exist for the current node, make sure it precedes the done task (and error task if conditional)
     if (node.edges.empty())
     {
+      // Make sure the 0th connection of a conditional task goes to the error task
+      if (node.is_conditional)
+      {
+        tasks.at(i).precede(error_task);
+      }
       tasks.at(i).precede(done_task);
     }
   }

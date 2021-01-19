@@ -69,16 +69,12 @@ public:
 
   /**
    * @brief Adds directed edges from a source node to desintation nodes in the taskflow graph
-   * @details If source is a non-conditional task, it is only relevant to provide one destination
-   * as the output of a non-conditional tf::Task is void. If source is a conditional task, the order
-   * of the destinations should correspond to the integer output of the conditional tf::Task **plus one**.
-   * The connection at index zero is reserved for the error callback. As an example,if the output of the
-   * conditional tf::Task is 2, the taskflow would transition to the node identified by the ID at index 1 in the
-   * destinations input A leaf node is always connected to the done callback. When the leaf node is a conditional node,
-   * the done callback is the connection at index 1
-   *
-   * Remember: when source is a conditional node, the connection at index 0 is always to the error callback
-   *
+   * @details If source is a non-conditional task, it is only relevant to provide one destination as the output of a
+   * non-conditional tf::Task is void. If source is a conditional task, the order of the destinations should correspond
+   * to the integer output of the conditional tf::Task. For example,if the output of the conditional tf::Task is 0, the
+   * taskflow would transition to the node identified by the ID at index 0 in the destinations input. A leaf node (i.e.
+   * node without defined edges) is always connected to the done callback. If the leaf node is a conditional node, it is
+   * connected to the error task at index 0 and the done task at index 1
    * @param from The ID of the source node of the edge
    * @param dest A list of IDs of the destination nodes of the edges.
    */
