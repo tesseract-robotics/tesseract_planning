@@ -11,12 +11,12 @@ using namespace tesseract_planning;
 class TestGenerator : public TaskGenerator
 {
 public:
-  TestGenerator(std::string name, int conditional_ret_val) : TaskGenerator(name), conditional_ret_val_(conditional_ret_val) {}
-
-  virtual void process(TaskInput, std::size_t) const override
+  TestGenerator(std::string name, int conditional_ret_val)
+    : TaskGenerator(name), conditional_ret_val_(conditional_ret_val)
   {
-    std::cout << "Task " << name_ << std::endl;
   }
+
+  virtual void process(TaskInput, std::size_t) const override { std::cout << "Task " << name_ << std::endl; }
 
   virtual int conditionalProcess(TaskInput, std::size_t) const override
   {

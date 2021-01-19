@@ -73,8 +73,9 @@ public:
    * as the output of a non-conditional tf::Task is void. If source is a conditional task, the order
    * of the destinations should correspond to the integer output of the conditional tf::Task **plus one**.
    * The connection at index zero is reserved for the error callback. As an example,if the output of the
-   * conditional tf::Task is 2, the taskflow would transition to the node identified by the ID at index 1 in the destinations input
-   * A leaf node is always connected to the done callback. When the leaf node is a conditional node, the done callback is the connection at index 1
+   * conditional tf::Task is 2, the taskflow would transition to the node identified by the ID at index 1 in the
+   * destinations input A leaf node is always connected to the done callback. When the leaf node is a conditional node,
+   * the done callback is the connection at index 1
    *
    * Remember: when source is a conditional node, the connection at index 0 is always to the error callback
    *
