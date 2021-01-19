@@ -43,20 +43,20 @@ public:
 TEST(GraphTaskflowGenerator, CreateAndRun)
 {
   GraphTaskflow graph;
-  int A = graph.addNode(std::make_unique<TestGenerator>("A", 1), true);
-  int A1 = graph.addNode(std::make_unique<TestGenerator>("A1", 3), true);
+  int A = graph.addNode(std::make_unique<TestGenerator>("A", 0), true);
+  int A0 = graph.addNode(std::make_unique<TestGenerator>("A0", 2), true);
+  int A1 = graph.addNode(std::make_unique<TestGenerator>("A1", -1), false);
   int A2 = graph.addNode(std::make_unique<TestGenerator>("A2", -1), false);
-  int A3 = graph.addNode(std::make_unique<TestGenerator>("A3", -1), false);
-  int A11 = graph.addNode(std::make_unique<TestGenerator>("A11", -1), false);
-  int A12 = graph.addNode(std::make_unique<TestGenerator>("A12", -1), false);
-  int A13 = graph.addNode(std::make_unique<TestGenerator>("A13", 1), true);
+  int A00 = graph.addNode(std::make_unique<TestGenerator>("A00", -1), false);
+  int A01 = graph.addNode(std::make_unique<TestGenerator>("A01", -1), false);
+  int A02 = graph.addNode(std::make_unique<TestGenerator>("A02", 1), true);
 
-  ASSERT_NO_THROW(graph.addEdges(A, { A1, A2, A3 }));
-  ASSERT_NO_THROW(graph.addEdges(A1, { A11, A12, A13 }));
+  ASSERT_NO_THROW(graph.addEdges(A, { A0, A1, A2 }));
+  ASSERT_NO_THROW(graph.addEdges(A0, { A00, A01, A02 }));
 
   // Adding more than one edge to non-conditional nodes is not allowed
-  ASSERT_THROW(graph.addEdges(A2, { A11, A12, A13 }), std::runtime_error);
-  ASSERT_THROW(graph.addEdges(A3, { A11, A12, A13 }), std::runtime_error);
+  ASSERT_THROW(graph.addEdges(A1, { A00, A01, A02 }), std::runtime_error);
+  ASSERT_THROW(graph.addEdges(A2, { A00, A01, A02 }), std::runtime_error);
 
   TaskInput input(nullptr, nullptr, {}, nullptr, false, {});
 
@@ -76,7 +76,7 @@ TEST(GraphTaskflowGenerator, CreateAndRun)
   auto obs = executor.make_observer<TestObserver>();
   executor.run(*container.taskflow).wait();
 
-  std::vector<std::string> expected_executed_tasks = { "A", "A1", "A13", "Done Callback" };
+  std::vector<std::string> expected_executed_tasks = { "A", "A0", "A02", "Done Callback" };
   ASSERT_EQ(expected_executed_tasks, obs->executed_tasks);
 }
 
