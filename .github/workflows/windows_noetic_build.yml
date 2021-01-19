@@ -28,8 +28,6 @@ jobs:
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat" -arch=amd64 -host_arch=amd64
         call "C:\opt\ros\%ROS_DISTRO%\x64\setup.bat"
 
-        vcpkg install gperftools
-
         rosdep update
 
         vcs import --input "${{ github.workspace }}/src/tesseract_planning/dependencies_with_ext.rosinstall" src/

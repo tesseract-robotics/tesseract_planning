@@ -18,7 +18,10 @@ find_package(tesseract_support REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(tesseract_motion_planners REQUIRED)
 find_package(tesseract_time_parameterization REQUIRED)
-find_package(tcmalloc REQUIRED)
+
+if(NOT WIN32)
+  find_package(tcmalloc REQUIRED)
+endif()
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -77,7 +80,6 @@ add_library(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PUBLIC
     console_bridge::console_bridge
     Taskflow::Taskflow
-    tcmalloc::tcmalloc
     tesseract::tesseract_common
     tesseract::tesseract_command_language
     tesseract::tesseract_motion_planners_simple
@@ -85,6 +87,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     tesseract::tesseract_motion_planners_descartes
     tesseract::tesseract_motion_planners_ompl
     tesseract::tesseract_time_parameterization)
+if(NOT WIN32)
+  target_link_libraries(${PROJECT_NAME} PUBLIC tcmalloc::tcmalloc)
+endif()
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
