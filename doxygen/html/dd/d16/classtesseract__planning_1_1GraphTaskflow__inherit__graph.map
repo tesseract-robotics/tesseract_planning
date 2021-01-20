@@ -1,4 +1,4 @@
 <map id="tesseract_planning::GraphTaskflow" name="tesseract_planning::GraphTaskflow">
-<area shape="rect" id="node1" title="This class generates taskflow graph. It allows you to connect different channels from the source to t..." alt="" coords="9,95,139,136"/>
+<area shape="rect" id="node1" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="9,95,139,136"/>
 <area shape="rect" id="node2" href="$d1/d32/classtesseract__planning_1_1TaskflowGenerator.html" title="Base class for generating a taskflow." alt="" coords="5,5,143,47"/>
 </map>

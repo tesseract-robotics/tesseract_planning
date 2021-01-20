@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['omplplannertype_2179',['OMPLPlannerType',['../d9/dcd/namespacetesseract__planning.html#aaced124f80faedf64173b4b9ae5bf009',1,'tesseract_planning']]],
-  ['omplproblemstatespace_2180',['OMPLProblemStateSpace',['../d9/dcd/namespacetesseract__planning.html#ac337c63f13aba30328a8cd25f863be62',1,'tesseract_planning']]]
+  ['settings_2174',['Settings',['../d3/df1/structtesseract__planning_1_1FixStateBoundsProfile.html#a5ca76ba80aa9d3a8fe819937ee1a0560',1,'tesseract_planning::FixStateBoundsProfile::Settings()'],['../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9',1,'tesseract_planning::FixStateCollisionProfile::Settings()']]]
 ];

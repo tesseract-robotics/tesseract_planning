@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['robotconfig_2181',['RobotConfig',['../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579',1,'tesseract_planning']]]
+  ['trajoptifopttermtype_2175',['TrajOptIfoptTermType',['../d9/dcd/namespacetesseract__planning.html#a4075aba51db3be039f29037d09d85a94',1,'tesseract_planning']]]
 ];

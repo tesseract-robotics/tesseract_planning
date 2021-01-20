@@ -2,7 +2,8 @@
 \label{structtesseract__planning_1_1GraphTaskflow_1_1Node}\index{tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}}
 
 
-{\ttfamily \#include $<$graph\+\_\+taskflow.\+h$>$}
+Helper struct for holding relevant information about the nodes.  
+
 
 
 
@@ -11,26 +12,53 @@ Collaboration diagram for tesseract\+\_\+planning\+::Graph\+Taskflow\+::Node\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{d5/da8/structtesseract__planning_1_1GraphTaskflow_1_1Node__coll__graph}
+\includegraphics[width=348pt]{d5/da8/structtesseract__planning_1_1GraphTaskflow_1_1Node__coll__graph}
 \end{center}
 \end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node_a31d054c8e39494c69eb1828f90aa8186}{Node}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}} process\+\_\+, bool is\+\_\+conditional\+\_\+)
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}} \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node_aef0539bb4beac4c86290a306caebe9b1}{process}}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162}{Node\+Type}} \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node_a03d4391b7615c5089958e0bf2e401888}{process\+\_\+type}}
+const bool \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node_a60cc53ee10f20c45422ca5a0ecbfb06a}{is\+\_\+conditional}}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Edge}{Edge}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node_a516e7ab81ae1f8a31797c8b23364085b}{edges}}
-\end{DoxyCompactItemize}
+std\+::vector$<$ int $>$ \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Node_a78b2838e73f0e62e272fc4cf38108170}{edges}}
+\begin{DoxyCompactList}\small\item\em IDs of nodes (i.\+e. tasks) that should run after this node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Helper struct for holding relevant information about the nodes. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1GraphTaskflow_1_1Node_a31d054c8e39494c69eb1828f90aa8186}\label{structtesseract__planning_1_1GraphTaskflow_1_1Node_a31d054c8e39494c69eb1828f90aa8186}} 
+\index{tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}!Node@{Node}}
+\index{Node@{Node}!tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}}}]{process\+\_\+,  }\item[{bool}]{is\+\_\+conditional\+\_\+ }\end{DoxyParamCaption})}
+
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structtesseract__planning_1_1GraphTaskflow_1_1Node_a516e7ab81ae1f8a31797c8b23364085b}\label{structtesseract__planning_1_1GraphTaskflow_1_1Node_a516e7ab81ae1f8a31797c8b23364085b}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1GraphTaskflow_1_1Node_a78b2838e73f0e62e272fc4cf38108170}\label{structtesseract__planning_1_1GraphTaskflow_1_1Node_a78b2838e73f0e62e272fc4cf38108170}} 
 \index{tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}!edges@{edges}}
 \index{edges@{edges}!tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}}
 \doxysubsubsection{\texorpdfstring{edges}{edges}}
-{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1Edge}{Edge}}$>$ tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Node\+::edges}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Node\+::edges}
+
+
+
+IDs of nodes (i.\+e. tasks) that should run after this node. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1GraphTaskflow_1_1Node_a60cc53ee10f20c45422ca5a0ecbfb06a}\label{structtesseract__planning_1_1GraphTaskflow_1_1Node_a60cc53ee10f20c45422ca5a0ecbfb06a}} 
+\index{tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}!is\_conditional@{is\_conditional}}
+\index{is\_conditional@{is\_conditional}!tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}}
+\doxysubsubsection{\texorpdfstring{is\_conditional}{is\_conditional}}
+{\footnotesize\ttfamily const bool tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Node\+::is\+\_\+conditional}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1GraphTaskflow_1_1Node_aef0539bb4beac4c86290a306caebe9b1}\label{structtesseract__planning_1_1GraphTaskflow_1_1Node_aef0539bb4beac4c86290a306caebe9b1}} 
 \index{tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}!process@{process}}
@@ -38,14 +66,9 @@ std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflow_1_1
 \doxysubsubsection{\texorpdfstring{process}{process}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Node\+::process}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1GraphTaskflow_1_1Node_a03d4391b7615c5089958e0bf2e401888}\label{structtesseract__planning_1_1GraphTaskflow_1_1Node_a03d4391b7615c5089958e0bf2e401888}} 
-\index{tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}!process\_type@{process\_type}}
-\index{process\_type@{process\_type}!tesseract\_planning::GraphTaskflow::Node@{tesseract\_planning::GraphTaskflow::Node}}
-\doxysubsubsection{\texorpdfstring{process\_type}{process\_type}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a0db33d64ff701d34d0418d95808b4162}{Node\+Type}} tesseract\+\_\+planning\+::\+Graph\+Taskflow\+::\+Node\+::process\+\_\+type}
 
 
-
-The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/\mbox{\hyperlink{graph__taskflow_8h}{graph\+\_\+taskflow.\+h}}\end{DoxyCompactItemize}
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/\mbox{\hyperlink{graph__taskflow_8h}{graph\+\_\+taskflow.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/taskflow\+\_\+generators/\mbox{\hyperlink{graph__taskflow_8cpp}{graph\+\_\+taskflow.\+cpp}}\end{DoxyCompactItemize}

@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d7/d0a/classtesseract__planning_1_1TrajOptSolverProfile.html" title=" " alt="" coords="5,5,149,47"/>
-<area shape="rect" id="node2" href="$d9/dc5/classtesseract__planning_1_1TrajOptDefaultSolverProfile.html" title="The contains the default solver parameters available for setting up TrajOpt." alt="" coords="197,5,383,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,175,39"/>
+<area shape="rect" id="node2" href="$d8/d11/classtesseract__planning_1_1WeightedRealVectorStateSampler.html" title="Tesseract OMPL Weighted State Sampler." alt="" coords="223,5,448,47"/>
 </map>

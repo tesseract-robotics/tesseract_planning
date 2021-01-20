@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nodetype_2178',['NodeType',['../de/da1/classtesseract__planning_1_1GraphTaskflow.html#a0db33d64ff701d34d0418d95808b4162',1,'tesseract_planning::GraphTaskflow']]]
+  ['robotconfig_2173',['RobotConfig',['../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579',1,'tesseract_planning']]]
 ];
