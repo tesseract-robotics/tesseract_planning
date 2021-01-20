@@ -40,9 +40,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/inverse_kinematics.h>
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
+#include <tesseract_common/types.h>
 
 namespace tesseract_planning
 {
+/**
+ * @brief Extract toolpath from a composite instruction
+ * @param instruction The instruction to extract toolpath
+ * @param env The environment object used for getting kinematics and tcp information
+ * @return A toolpath in world coordinate system
+ */
+tesseract_common::Toolpath toToolpath(const Instruction& instruction,
+                                      const tesseract_environment::Environment::ConstPtr& env);
+
 /**
  * @brief Inerpolate between two transforms return a vector of Eigen::Isometry transforms.
  * @param start The Start Transform

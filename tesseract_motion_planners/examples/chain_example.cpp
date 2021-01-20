@@ -50,6 +50,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/interface_utils.h>
 
 #include <tesseract_visualization/visualization_loader.h>
+#include <tesseract_command_language/utils/utils.h>
 
 using namespace tesseract_planning;
 
@@ -96,9 +97,8 @@ int main(int /*argc*/, char** /*argv*/)
 
   if (plotter != nullptr)
   {
-    plotter->init(env);
     plotter->waitForConnection();
-    plotter->plotEnvironment();
+    plotter->plotEnvironment(env);
   }
 
   ManipulatorInfo manip;
@@ -184,7 +184,7 @@ int main(int /*argc*/, char** /*argv*/)
   if (plotter)
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(descartes_response.results);
+    plotter->plotTrajectory(toJointTrajectory(descartes_response.results), env->getStateSolver());
   }
 
   // Update Seed
@@ -202,6 +202,6 @@ int main(int /*argc*/, char** /*argv*/)
   if (plotter)
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(trajopt_response.results);
+    plotter->plotTrajectory(toJointTrajectory(trajopt_response.results), env->getStateSolver());
   }
 }

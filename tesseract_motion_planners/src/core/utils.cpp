@@ -40,6 +40,133 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+Eigen::Isometry3d calcPose(const Waypoint& wp,
+                           const std::string& working_frame,
+                           const std::string& tip_link,
+                           const Eigen::Isometry3d& tcp,
+                           const tesseract_environment::EnvState::ConstPtr& current_state,
+                           tesseract_environment::StateSolver& state_solver)
+{
+  if (isStateWaypoint(wp))
+  {
+    const auto* swp = wp.cast_const<StateWaypoint>();
+    assert(static_cast<long>(swp->joint_names.size()) == swp->position.size());
+    tesseract_environment::EnvState::Ptr state = state_solver.getState(swp->joint_names, swp->position);
+    return (state->link_transforms[tip_link] * tcp);
+  }
+
+  if (isJointWaypoint(wp))
+  {
+    const auto* jwp = wp.cast_const<JointWaypoint>();
+    assert(static_cast<long>(jwp->joint_names.size()) == jwp->size());
+    tesseract_environment::EnvState::Ptr state = state_solver.getState(jwp->joint_names, *jwp);
+    return (state->link_transforms[tip_link] * tcp);
+  }
+
+  if (isCartesianWaypoint(wp))
+  {
+    const auto* cwp = wp.cast_const<CartesianWaypoint>();
+    if (working_frame.empty())
+      return (*cwp);
+
+    return (current_state->link_transforms.at(working_frame) * (*cwp));
+  }
+
+  throw std::runtime_error("toToolpath: Unsupported Waypoint Type!");
+}
+
+tesseract_common::Toolpath toToolpath(const Instruction& instruction,
+                                      const tesseract_environment::Environment::ConstPtr& env)
+{
+  using namespace tesseract_planning;
+
+  if (env == nullptr)
+    throw std::runtime_error("toToolpath: The environment is a nullptr!");
+
+  tesseract_common::Toolpath toolpath;
+  tesseract_common::VectorIsometry3d poses;
+
+  tesseract_environment::StateSolver::Ptr state_solver = env->getStateSolver();
+  tesseract_environment::EnvState::ConstPtr state = env->getCurrentState();
+  if (isCompositeInstruction(instruction))
+  {
+    const auto* ci = instruction.cast_const<CompositeInstruction>();
+
+    // Assume all the plan instructions have the same manipulator as the composite
+    assert(!ci->getManipulatorInfo().empty());
+    const ManipulatorInfo& composite_mi = ci->getManipulatorInfo();
+
+    auto composite_mi_fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(composite_mi.manipulator);
+    if (composite_mi_fwd_kin == nullptr)
+      throw std::runtime_error("toToolpath: Manipulator: " + composite_mi.manipulator + " does not exist!");
+
+    const std::string& tip_link = composite_mi_fwd_kin->getTipLinkName();
+
+    std::vector<std::reference_wrapper<const Instruction>> fi = tesseract_planning::flatten(*ci, planFilter);
+    if (fi.empty())
+      fi = tesseract_planning::flatten(*ci, moveFilter);
+
+    for (const auto& i : fi)
+    {
+      ManipulatorInfo manip_info;
+
+      // Check for updated manipulator information and get waypoint
+      Waypoint wp = NullWaypoint();
+      if (isPlanInstruction(i.get()))
+      {
+        const auto* pi = i.get().cast_const<PlanInstruction>();
+        manip_info = composite_mi.getCombined(pi->getManipulatorInfo());
+        wp = pi->getWaypoint();
+      }
+      else if (isMoveInstruction(i.get()))
+      {
+        const auto* mi = i.get().cast_const<MoveInstruction>();
+        manip_info = composite_mi.getCombined(mi->getManipulatorInfo());
+        wp = mi->getWaypoint();
+      }
+      else
+      {
+        throw std::runtime_error("toToolpath: Unsupported Instruction Type!");
+      }
+
+      // Extract TCP
+      Eigen::Isometry3d tcp = env->findTCP(manip_info);
+
+      // Caculate pose
+      poses.push_back(calcPose(wp, manip_info.working_frame, tip_link, tcp, state, *state_solver));
+    }
+  }
+  else if (isPlanInstruction(instruction))
+  {
+    assert(isPlanInstruction(instruction));
+    const auto* pi = instruction.cast_const<PlanInstruction>();
+
+    // Assume all the plan instructions have the same manipulator as the composite
+    assert(!pi->getManipulatorInfo().empty());
+    const ManipulatorInfo& composite_mi = pi->getManipulatorInfo();
+    ManipulatorInfo manip_info = composite_mi.getCombined(pi->getManipulatorInfo());
+
+    auto composite_mi_fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
+    if (composite_mi_fwd_kin == nullptr)
+      throw std::runtime_error("toToolpath: Manipulator: " + composite_mi.manipulator + " does not exist!");
+
+    const std::string& tip_link = composite_mi_fwd_kin->getTipLinkName();
+
+    // Extract TCP
+    Eigen::Isometry3d tcp = env->findTCP(manip_info);
+
+    // Calculate pose
+    poses.push_back(calcPose(pi->getWaypoint(), manip_info.working_frame, tip_link, tcp, state, *state_solver));
+  }
+  else
+  {
+    throw std::runtime_error("toToolpath: Unsupported Instruction Type!");
+  }
+
+  toolpath.push_back(poses);
+  return toolpath;
+}
+
 tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start, const Eigen::Isometry3d& stop, int steps)
 {
   // Required position change
