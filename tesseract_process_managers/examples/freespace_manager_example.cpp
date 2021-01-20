@@ -61,10 +61,9 @@ int main()
 
   if (plotter != nullptr)
   {
-    plotter->init(env);
     plotter->waitForConnection(3);
     if (plotter->isConnected())
-      plotter->plotEnvironment();
+      plotter->plotEnvironment(env);
   }
 
   // Create Process Planning Server
@@ -90,7 +89,8 @@ int main()
   if (plotter != nullptr && plotter->isConnected())
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(*(response.results));
+    plotter->plotTrajectory(toJointTrajectory(*(response.results->cast_const<CompositeInstruction>())),
+                            env->getStateSolver());
   }
 
   std::cout << "Execution Complete" << std::endl;
