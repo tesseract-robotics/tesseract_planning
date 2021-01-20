@@ -1,8 +1,9 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/core/process_planning_request.h" name="tesseract_process_managers/include/tesseract_process_managers/core/process_planning_request.h">
-<area shape="rect" id="node1" title="A process planning request and default planner names." alt="" coords="323,5,543,76"/>
-<area shape="rect" id="node2" href="$dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="323,124,543,195"/>
+<area shape="rect" id="node1" title="A process planning request and default planner names." alt="" coords="491,5,711,76"/>
+<area shape="rect" id="node2" href="$dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="491,124,711,195"/>
 <area shape="rect" id="node3" href="$de/d04/freespace__manager__example_8cpp.html" title=" " alt="" coords="5,243,204,299"/>
-<area shape="rect" id="node4" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="228,243,421,299"/>
-<area shape="rect" id="node5" href="$df/dc1/process__planning__server_8cpp.html" title="A process planning server with a default set of process planners." alt="" coords="445,243,639,299"/>
-<area shape="rect" id="node6" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="663,243,856,299"/>
+<area shape="rect" id="node4" href="$de/da3/memory__usage__example_8cpp.html" title="This example it to evaluate the memory the usage of the planning server." alt="" coords="228,250,480,291"/>
+<area shape="rect" id="node5" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="504,243,697,299"/>
+<area shape="rect" id="node6" href="$df/dc1/process__planning__server_8cpp.html" title="A process planning server with a default set of process planners." alt="" coords="721,243,915,299"/>
+<area shape="rect" id="node7" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="939,243,1132,299"/>
 </map>

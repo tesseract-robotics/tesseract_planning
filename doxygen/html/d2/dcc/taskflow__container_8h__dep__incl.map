@@ -1,41 +1,42 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/core/taskflow_container.h" name="tesseract_process_managers/include/tesseract_process_managers/core/taskflow_container.h">
-<area shape="rect" id="node1" title="Taskflow container is used to contain everything that must stay around until it finishes." alt="" coords="2174,5,2411,61"/>
-<area shape="rect" id="node2" href="$db/d75/taskflow__generator_8h.html" title="Taskflow generator." alt="" coords="2049,109,2288,165"/>
-<area shape="rect" id="node39" href="$db/db8/taskflow__container_8cpp.html" title="Taskflow container is used to contain everything that must stay around until it finishes." alt="" coords="2312,117,2521,158"/>
-<area shape="rect" id="node3" href="$df/d74/default__process__planners_8h.html" title="The default process planners provided by Tesseract." alt="" coords="1023,213,1234,284"/>
-<area shape="rect" id="node6" href="$d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="335,213,555,284"/>
-<area shape="rect" id="node7" href="$dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="104,332,324,403"/>
-<area shape="rect" id="node12" href="$d1/da8/cartesian__taskflow_8h.html" title="Cartesian Graph Taskflow." alt="" coords="2181,213,2388,284"/>
-<area shape="rect" id="node14" href="$d2/df5/descartes__taskflow_8h.html" title="Descartes Graph Taskflow." alt="" coords="4144,213,4351,284"/>
-<area shape="rect" id="node16" href="$de/d79/freespace__taskflow_8h.html" title="Freespace Graph Taskflow." alt="" coords="1720,213,1927,284"/>
-<area shape="rect" id="node18" href="$db/da3/graph__taskflow_8h.html" title="Creates a directed graph taskflow." alt="" coords="776,213,983,284"/>
-<area shape="rect" id="node21" href="$dd/df3/ompl__taskflow_8h.html" title="OMPL Graph Taskflow." alt="" coords="1489,213,1696,284"/>
-<area shape="rect" id="node23" href="$dc/d06/raster__dt__taskflow_8h.html" title="Plans raster paths with dual transitions." alt="" coords="3551,213,3757,284"/>
-<area shape="rect" id="node25" href="$d4/dd6/raster__global__taskflow_8h.html" title="Plans raster paths." alt="" coords="1951,213,2157,284"/>
-<area shape="rect" id="node27" href="$d2/d8c/raster__only__global__taskflow_8h.html" title="Plans raster paths." alt="" coords="2476,213,2683,284"/>
-<area shape="rect" id="node29" href="$d5/d47/raster__only__taskflow_8h.html" title="Plans raster paths." alt="" coords="2739,213,2945,284"/>
-<area shape="rect" id="node31" href="$d4/d78/raster__taskflow_8h.html" title="Plans raster paths." alt="" coords="1259,213,1465,284"/>
-<area shape="rect" id="node33" href="$d2/d8c/raster__waad__dt__taskflow_8h.html" title="Plans raster paths with approach, departure and dual transitions." alt="" coords="3292,213,3499,284"/>
-<area shape="rect" id="node35" href="$d6/d98/raster__waad__taskflow_8h.html" title="Plans raster paths with approach and departure." alt="" coords="3856,213,4063,284"/>
-<area shape="rect" id="node37" href="$d6/dfa/trajopt__taskflow_8h.html" title="TrajOpt Graph Taskflow." alt="" coords="3005,213,3212,284"/>
-<area shape="rect" id="node4" href="$d1/d5e/default__process__planners_8cpp.html" title=" " alt="" coords="2579,339,2772,395"/>
-<area shape="rect" id="node5" href="$df/dc1/process__planning__server_8cpp.html" title="A process planning server with a default set of process planners." alt="" coords="681,451,875,507"/>
-<area shape="rect" id="node11" href="$d8/db0/process__planning__future_8cpp.html" title="A process planning future." alt="" coords="348,339,541,395"/>
+<area shape="rect" id="node1" title="Taskflow container is used to contain everything that must stay around until it finishes." alt="" coords="2314,5,2551,61"/>
+<area shape="rect" id="node2" href="$db/d75/taskflow__generator_8h.html" title="Taskflow generator." alt="" coords="2189,109,2428,165"/>
+<area shape="rect" id="node40" href="$db/db8/taskflow__container_8cpp.html" title="Taskflow container is used to contain everything that must stay around until it finishes." alt="" coords="2452,117,2661,158"/>
+<area shape="rect" id="node3" href="$df/d74/default__process__planners_8h.html" title="The default process planners provided by Tesseract." alt="" coords="1163,213,1374,284"/>
+<area shape="rect" id="node6" href="$d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="475,213,695,284"/>
+<area shape="rect" id="node7" href="$dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="244,332,464,403"/>
+<area shape="rect" id="node13" href="$d1/da8/cartesian__taskflow_8h.html" title="Cartesian Graph Taskflow." alt="" coords="2321,213,2528,284"/>
+<area shape="rect" id="node15" href="$d2/df5/descartes__taskflow_8h.html" title="Descartes Graph Taskflow." alt="" coords="4284,213,4491,284"/>
+<area shape="rect" id="node17" href="$de/d79/freespace__taskflow_8h.html" title="Freespace Graph Taskflow." alt="" coords="1860,213,2067,284"/>
+<area shape="rect" id="node19" href="$db/da3/graph__taskflow_8h.html" title="Creates a directed graph taskflow." alt="" coords="916,213,1123,284"/>
+<area shape="rect" id="node22" href="$dd/df3/ompl__taskflow_8h.html" title="OMPL Graph Taskflow." alt="" coords="1629,213,1836,284"/>
+<area shape="rect" id="node24" href="$dc/d06/raster__dt__taskflow_8h.html" title="Plans raster paths with dual transitions." alt="" coords="3691,213,3897,284"/>
+<area shape="rect" id="node26" href="$d4/dd6/raster__global__taskflow_8h.html" title="Plans raster paths." alt="" coords="2091,213,2297,284"/>
+<area shape="rect" id="node28" href="$d2/d8c/raster__only__global__taskflow_8h.html" title="Plans raster paths." alt="" coords="2616,213,2823,284"/>
+<area shape="rect" id="node30" href="$d5/d47/raster__only__taskflow_8h.html" title="Plans raster paths." alt="" coords="2879,213,3085,284"/>
+<area shape="rect" id="node32" href="$d4/d78/raster__taskflow_8h.html" title="Plans raster paths." alt="" coords="1399,213,1605,284"/>
+<area shape="rect" id="node34" href="$d2/d8c/raster__waad__dt__taskflow_8h.html" title="Plans raster paths with approach, departure and dual transitions." alt="" coords="3432,213,3639,284"/>
+<area shape="rect" id="node36" href="$d6/d98/raster__waad__taskflow_8h.html" title="Plans raster paths with approach and departure." alt="" coords="3996,213,4203,284"/>
+<area shape="rect" id="node38" href="$d6/dfa/trajopt__taskflow_8h.html" title="TrajOpt Graph Taskflow." alt="" coords="3145,213,3352,284"/>
+<area shape="rect" id="node4" href="$d1/d5e/default__process__planners_8cpp.html" title=" " alt="" coords="2719,339,2912,395"/>
+<area shape="rect" id="node5" href="$df/dc1/process__planning__server_8cpp.html" title="A process planning server with a default set of process planners." alt="" coords="889,451,1083,507"/>
+<area shape="rect" id="node12" href="$d8/db0/process__planning__future_8cpp.html" title="A process planning future." alt="" coords="488,339,681,395"/>
 <area shape="rect" id="node8" href="$de/d04/freespace__manager__example_8cpp.html" title=" " alt="" coords="5,451,204,507"/>
-<area shape="rect" id="node9" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="228,451,421,507"/>
-<area shape="rect" id="node10" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="2739,451,2932,507"/>
-<area shape="rect" id="node13" href="$d5/de3/cartesian__taskflow_8cpp.html" title="Cartesian Graph Taskflow." alt="" coords="2128,339,2321,395"/>
-<area shape="rect" id="node15" href="$dd/d54/descartes__taskflow_8cpp.html" title="Descartes Taskflow." alt="" coords="4193,339,4387,395"/>
-<area shape="rect" id="node17" href="$d4/d9a/freespace__taskflow_8cpp.html" title="Freespace Graph Taskflow." alt="" coords="1539,339,1732,395"/>
-<area shape="rect" id="node19" href="$da/d94/graph__taskflow_8cpp.html" title="Creates a directed graph taskflow." alt="" coords="783,339,976,395"/>
-<area shape="rect" id="node20" href="$d0/dfa/graph__taskflow__unit_8cpp.html" title=" " alt="" coords="565,347,759,388"/>
-<area shape="rect" id="node22" href="$df/d97/ompl__taskflow_8cpp.html" title="OMPL Graph Taskflow." alt="" coords="1321,339,1515,395"/>
-<area shape="rect" id="node24" href="$d5/d75/raster__dt__taskflow_8cpp.html" title="Plans raster paths with dual transitions." alt="" coords="3707,339,3900,395"/>
-<area shape="rect" id="node26" href="$d1/d31/raster__global__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="1808,339,2001,395"/>
-<area shape="rect" id="node28" href="$d3/dd0/raster__only__global__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="2345,339,2555,395"/>
-<area shape="rect" id="node30" href="$d9/d66/raster__only__taskflow_8cpp.html" title=" " alt="" coords="2899,339,3092,395"/>
-<area shape="rect" id="node32" href="$dc/d52/raster__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="1052,339,1245,395"/>
-<area shape="rect" id="node34" href="$df/d0a/raster__waad__dt__taskflow_8cpp.html" title="Plans raster paths with approach, departure and dual transitions." alt="" coords="3386,339,3581,395"/>
-<area shape="rect" id="node36" href="$d4/d65/raster__waad__taskflow_8cpp.html" title="Plans raster paths with approach and departure." alt="" coords="3924,339,4117,395"/>
-<area shape="rect" id="node38" href="$d9/d27/trajopt__taskflow_8cpp.html" title="TrajOpt Graph Taskflow." alt="" coords="3168,339,3361,395"/>
+<area shape="rect" id="node9" href="$de/da3/memory__usage__example_8cpp.html" title="This example it to evaluate the memory the usage of the planning server." alt="" coords="228,458,480,499"/>
+<area shape="rect" id="node10" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="504,451,697,507"/>
+<area shape="rect" id="node11" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="2879,451,3072,507"/>
+<area shape="rect" id="node14" href="$d5/de3/cartesian__taskflow_8cpp.html" title="Cartesian Graph Taskflow." alt="" coords="2268,339,2461,395"/>
+<area shape="rect" id="node16" href="$dd/d54/descartes__taskflow_8cpp.html" title="Descartes Taskflow." alt="" coords="4333,339,4527,395"/>
+<area shape="rect" id="node18" href="$d4/d9a/freespace__taskflow_8cpp.html" title="Freespace Graph Taskflow." alt="" coords="1679,339,1872,395"/>
+<area shape="rect" id="node20" href="$da/d94/graph__taskflow_8cpp.html" title="Creates a directed graph taskflow." alt="" coords="923,339,1116,395"/>
+<area shape="rect" id="node21" href="$d0/dfa/graph__taskflow__unit_8cpp.html" title=" " alt="" coords="705,347,899,388"/>
+<area shape="rect" id="node23" href="$df/d97/ompl__taskflow_8cpp.html" title="OMPL Graph Taskflow." alt="" coords="1461,339,1655,395"/>
+<area shape="rect" id="node25" href="$d5/d75/raster__dt__taskflow_8cpp.html" title="Plans raster paths with dual transitions." alt="" coords="3847,339,4040,395"/>
+<area shape="rect" id="node27" href="$d1/d31/raster__global__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="1948,339,2141,395"/>
+<area shape="rect" id="node29" href="$d3/dd0/raster__only__global__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="2485,339,2695,395"/>
+<area shape="rect" id="node31" href="$d9/d66/raster__only__taskflow_8cpp.html" title=" " alt="" coords="3039,339,3232,395"/>
+<area shape="rect" id="node33" href="$dc/d52/raster__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="1192,339,1385,395"/>
+<area shape="rect" id="node35" href="$df/d0a/raster__waad__dt__taskflow_8cpp.html" title="Plans raster paths with approach, departure and dual transitions." alt="" coords="3526,339,3721,395"/>
+<area shape="rect" id="node37" href="$d4/d65/raster__waad__taskflow_8cpp.html" title="Plans raster paths with approach and departure." alt="" coords="4064,339,4257,395"/>
+<area shape="rect" id="node39" href="$d9/d27/trajopt__taskflow_8cpp.html" title="TrajOpt Graph Taskflow." alt="" coords="3308,339,3501,395"/>
 </map>

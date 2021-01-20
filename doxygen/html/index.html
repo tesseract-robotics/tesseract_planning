@@ -118,19 +118,17 @@ Documentation</h1>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Process Planning Server Tuning</h1>
 <p>The planning server is built leveraging the library taskflow which enables you to quickly write parallel and heterogeneous tasks programs which aligns well with process motion planning. These types of libraries leverage thread pools to quickly spin up different tasks as needed. One interesting thing found, if a task consumes a lot of memory libc will make a performance decision to allow the thread to hold onto the memory it has for subsequent tasks opposed to giving the memory back to your system. This may be fine if this was the only set of tasks being run but typically in our use case there are other computationally intensive processes which could use this memory.</p>
-<p>The great thing is, libc provided run-time <a href="https://www.gnu.org/software/libc/manual/html_node/Tunables.html">tunables</a>, leveraging a set of environment variables.</p>
-<p>The one parameter that has been used to configure libc so it always gives back the memory to the system is setting following memory tunnable:</p>
-<div class="fragment"><div class="line">Tunable: glibc.malloc.mmap_threshold</div>
-<div class="line"> </div>
-<div class="line">export GLIBC_TUNABLES=glibc.malloc.mmap_threshold=1000000</div>
-<div class="line"> </div>
-<div class="line">This tunable supersedes the MALLOC_MMAP_THRESHOLD_ environment variable and is identical in features.</div>
-<div class="line"> </div>
-<div class="line">When this tunable is set, all chunks larger than this value in bytes are allocated outside the normal heap, using the mmap system call. This way it is guaranteed that the memory for these chunks can be returned to the system on free. Note that requests smaller than this threshold might still be allocated via mmap.</div>
-<div class="line"> </div>
-<div class="line">If this tunable is not set, the default value is set to ‘131072’ bytes and the threshold is adjusted dynamically to suit the allocation patterns of the program. If the tunable is set, the dynamic adjustment is disabled and the value is set as static.</div>
-</div><!-- fragment --><p>Note: This is typically set in the roslaunch file for the planning server node leveraging the <code>&lt;env name="GLIBC_TUNABLES" value="glibc.malloc.mmap_threshold=1000000"&gt;</code> tag.</p>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Ubuntu</h2>
+<p>This was addressed by leveraging tcmalloc library which is part of google performance tools (gperftools). This has shown to provided more stable memory management when leveraging the planning server.</p>
+<p>This library provides a set of run-time <a href="https://gperftools.github.io/gperftools/tcmalloc.html">tunables</a>, leveraging a set of environment variables.</p>
+<p>The one parameter that has been used to configure tcmalloc to give memory back to the OS is <code>TCMALLOC_RELEASE_RATE</code>:</p>
+<div class="fragment"><div class="line">TCMALLOC_RELEASE_RATE   default: 1.0    Rate at which we release unused memory to the system, via madvise(MADV_DONTNEED), on systems that support it. Zero means we never release memory back to the system. Increase this flag to return memory faster; decrease it to return memory slower. Reasonable rates are in the range [0,10].</div>
+</div><!-- fragment --><p>Note: This is typically set in the roslaunch file for the planning server node leveraging the <code>&lt;env name="TCMALLOC_RELEASE_RATE" value="10"&gt;</code> tag.</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Windows</h2>
+<p>TBD</p>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Evolution</h1>
 <p><a href="https://www.youtube.com/watch?v=rxlzlsSBxAY"><img src="gh_pages/_static/tesseract_evolution.png" alt="Tesseract Evolution Video" class="inline"/></a></p>
 <p>How to create:</p>
@@ -138,30 +136,30 @@ Evolution</h1>
 <li>Create Video: <code>gource -1280x720 -seconds-per-day 0.2 --auto-skip-seconds 0.2 --disable-bloom -background d0d3d4 --hide filenames,mouse,progress -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 gource.mp4</code></li>
 <li>Create Gif: <code>ffmpeg -i gource.mp4 -r 10 -vf "scale=800:-1,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" tesseract_evolution.gif</code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 TODO's</h1>
 <p>Warning: These packages are under heavy development and are subject to change.</p>
 <p>See <a href="https://github.com/ros-industrial-consortium/tesseract/issues/66">issue #66</a></p>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Build Instructions</h1>
 <p>1) Clone repository into your workspace 2) Clone the repositories in the dependencies.rosinstall file using wstool or some other method (e.g. manually git cloning them) 3) Build the workspace using catkin tools, colcon, or a similar tool</p>
 <p>NOTE: To speed up clean build you may want to add tesseract_ext to an extended workspace.</p>
 <p>NOTE: Install TaskFlow from <a href="https://launchpad.net/~ros-industrial/+archive/ubuntu/ppa">ROS-Industrial PPA</a>.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Building with Clang-Tidy Enabled</h2>
 <p>Must pass the -DTESSERACT_ENABLE_CLANG_TIDY=ON to cmake when building. This is automatically enabled if cmake argument -DTESSERACT_ENABLE_TESTING_ALL=ON is passed.</p>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Building Tests</h2>
 <p>Must pass the -DTESSERACT_ENABLE_TESTING=ON to cmake when wanting to build tests. This is automatically enabled if cmake argument -DTESSERACT_ENABLE_TESTING_ALL=ON is passed.</p>
 <p>NOTE: If you are building using catkin tools, use <code>catkin build --force-cmake -DTESSERACT_ENABLE_TESTING=ON</code>.</p>
-<h3><a class="anchor" id="autotoc_md11"></a>
+<h3><a class="anchor" id="autotoc_md13"></a>
 Running Tests</h3>
 <p>Tesseract packages use ctest because it is ROS agnostic, so to run the test call <code>catkin test --no-deps tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization</code></p>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Building Code Coverage</h2>
 <p>Must pass the -DTESSERACT_ENABLE_CODE_COVERAGE=ON to cmake when wanting to build code coverage. The code coverage report is located in each individuals build directory inside a ccov/all-merged folder. Open the index.html file to see the packages code coverage report.</p>
 <p>NOTE: Must be a clean build when generating a code coverage report. Also must build in debug.</p>
-<h3><a class="anchor" id="autotoc_md13"></a>
+<h3><a class="anchor" id="autotoc_md15"></a>
 Exclude Code From Code Coverage</h3>
 <ul>
 <li>LCOV_EXCL_LINE<ul>
@@ -178,7 +176,7 @@ Exclude Code From Code Coverage</h3>
 </li>
 </ul>
 <p>.. NOTE: You can replace <b>LCOV</b> above with <b>GCOV</b> or <b>GCOVR</b>.</p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Quality Tools Leverage</h1>
 <p>Tesseract currently leverages Compiler Warnigs, Clang Tidy and Code Coverage. All warnings produced by Compiler and Clang Tidy are treated as errors during CI builds.</p>
 <ul>
@@ -224,12 +222,12 @@ Quality Tools Leverage</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 Build Branch Sphinx Documentation</h1>
 <div class="fragment"><div class="line">cd gh_pages</div>
 <div class="line">sphinx-build . output</div>
 </div><!-- fragment --><p> Now open gh_pages/output/index.rst and remove <em>output</em> directory before commiting changes.</p>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Debugging Windows Build</h1>
 <ul>
 <li>Search Directories CI<ul>
@@ -246,7 +244,7 @@ Debugging Windows Build</h1>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 20 2021 16:05:39 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0
+Generated on Wed Jan 20 2021 17:23:19 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0
 </small></address>
 </body>
 </html>

@@ -1,7 +1,8 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/core/process_planning_server.h" name="tesseract_process_managers/include/tesseract_process_managers/core/process_planning_server.h">
-<area shape="rect" id="node1" title="A process planning server with a default set of process planners." alt="" coords="323,5,543,76"/>
+<area shape="rect" id="node1" title="A process planning server with a default set of process planners." alt="" coords="491,5,711,76"/>
 <area shape="rect" id="node2" href="$de/d04/freespace__manager__example_8cpp.html" title=" " alt="" coords="5,124,204,180"/>
-<area shape="rect" id="node3" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="228,124,421,180"/>
-<area shape="rect" id="node4" href="$df/dc1/process__planning__server_8cpp.html" title="A process planning server with a default set of process planners." alt="" coords="445,124,639,180"/>
-<area shape="rect" id="node5" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="663,124,856,180"/>
+<area shape="rect" id="node3" href="$de/da3/memory__usage__example_8cpp.html" title="This example it to evaluate the memory the usage of the planning server." alt="" coords="228,131,480,173"/>
+<area shape="rect" id="node4" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="504,124,697,180"/>
+<area shape="rect" id="node5" href="$df/dc1/process__planning__server_8cpp.html" title="A process planning server with a default set of process planners." alt="" coords="721,124,915,180"/>
+<area shape="rect" id="node6" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="939,124,1132,180"/>
 </map>
