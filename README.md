@@ -47,23 +47,23 @@ This include packages related to both motion and process planning for the Tesser
 ## Process Planning Server Tuning
 The planning server is built leveraging the library taskflow which enables you to quickly write parallel and heterogeneous tasks programs which aligns well with process motion planning. These types of libraries leverage thread pools to quickly spin up different tasks as needed. One interesting thing found, if a task consumes a lot of memory libc will make a performance decision to allow the thread to hold onto the memory it has for subsequent tasks opposed to giving the memory back to your system. This may be fine if this was the only set of tasks being run but typically in our use case there are other computationally intensive processes which could use this memory.
 
-The great thing is, libc provided run-time [tunables](https://www.gnu.org/software/libc/manual/html_node/Tunables.html), leveraging a set of environment variables.
+### Ubuntu
 
-The one parameter that has been used to configure libc so it always gives back the memory to the system is setting following memory tunnable:
+This was addressed by leveraging tcmalloc library which is part of google performance tools (gperftools). This has shown to provided more stable memory management when leveraging the planning server.
+
+This library provides a set of run-time [tunables](https://gperftools.github.io/gperftools/tcmalloc.html), leveraging a set of environment variables.
+
+The one parameter that has been used to configure tcmalloc to give memory back to the OS is `TCMALLOC_RELEASE_RATE`:
 
 ```
-Tunable: glibc.malloc.mmap_threshold
-
-export GLIBC_TUNABLES=glibc.malloc.mmap_threshold=1000000
-
-This tunable supersedes the MALLOC_MMAP_THRESHOLD_ environment variable and is identical in features.
-
-When this tunable is set, all chunks larger than this value in bytes are allocated outside the normal heap, using the mmap system call. This way it is guaranteed that the memory for these chunks can be returned to the system on free. Note that requests smaller than this threshold might still be allocated via mmap.
-
-If this tunable is not set, the default value is set to ‘131072’ bytes and the threshold is adjusted dynamically to suit the allocation patterns of the program. If the tunable is set, the dynamic adjustment is disabled and the value is set as static.
+TCMALLOC_RELEASE_RATE 	default: 1.0 	Rate at which we release unused memory to the system, via madvise(MADV_DONTNEED), on systems that support it. Zero means we never release memory back to the system. Increase this flag to return memory faster; decrease it to return memory slower. Reasonable rates are in the range [0,10].
 ```
 
-Note: This is typically set in the roslaunch file for the planning server node leveraging the `<env name="GLIBC_TUNABLES" value="glibc.malloc.mmap_threshold=1000000">` tag.
+Note: This is typically set in the roslaunch file for the planning server node leveraging the `<env name="TCMALLOC_RELEASE_RATE" value="10">` tag.
+
+### Windows
+
+TBD
 
 ## Evolution
 
