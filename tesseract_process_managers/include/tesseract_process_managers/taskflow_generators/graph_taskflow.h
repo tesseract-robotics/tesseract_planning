@@ -40,47 +40,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 /**
- * @brief This class generates taskflow graph. It allows you to connect different channels from the source to the
- *        destination process
+ * @brief This class facilitates the composition of an arbitrary taskflow graph.
+ * Tasks are nodes in the graph connected to each other in a configurable order by directed edges
  */
 class GraphTaskflow : public TaskflowGenerator
 {
 public:
   using UPtr = std::unique_ptr<GraphTaskflow>;
-
-  enum class NodeType : int
-  {
-    TASK = 0,
-    CONDITIONAL = 1
-  };
-
-  enum class SourceChannel : int
-  {
-    NONE = 0,
-    ON_SUCCESS = 1,
-    ON_FAILURE = 2
-  };
-
-  enum class DestinationChannel : int
-  {
-    PROCESS_NODE = 0,
-    DONE_CALLBACK = 1,
-    ERROR_CALLBACK = 2
-  };
-
-  struct Edge
-  {
-    SourceChannel src_channel;
-    int dest{ -1 };
-    DestinationChannel dest_channel;
-  };
-
-  struct Node
-  {
-    TaskGenerator::UPtr process;
-    NodeType process_type;
-    std::vector<Edge> edges;
-  };
 
   GraphTaskflow(std::string name = "GraphTaskflow");
   ~GraphTaskflow() override = default;
@@ -96,23 +62,36 @@ public:
   /**
    * @brief Add a node to the taskflow graph along with setting the process type.
    * @param process The process generator assigned to the node
-   * @param process_type The process type assigned to the node
+   * @param is_conditional Flag indicating if this process is conditional
    * @return The node ID which should be used with adding edges
    */
-  int addNode(TaskGenerator::UPtr process, NodeType process_type);
+  int addNode(TaskGenerator::UPtr process, bool is_conditional = false);
 
   /**
-   * @brief Add an edge to the taskflow graph
-   * @param src The source node ID
-   * @param src_channel The source channel (ON_SUCCESS, ON_FAILURE)
-   * @param dest The destination node ID (This is only required for destination channels PROCESS_NODE) othewise pass a
-   * -1
-   * @param dest_channel The destination channel to connect with the source channel (PROCESS_NODE, DONE_CALLBACK,
-   * ERROR_CALLBACK).
+   * @brief Adds directed edges from a source node to desintation nodes in the taskflow graph
+   * @details If source is a non-conditional task, it is only relevant to provide one destination as the output of a
+   * non-conditional tf::Task is void. If source is a conditional task, the order of the destinations should correspond
+   * to the integer output of the conditional tf::Task. For example,if the output of the conditional tf::Task is 0, the
+   * taskflow would transition to the node identified by the ID at index 0 in the destinations input. A leaf node (i.e.
+   * node without defined edges) is always connected to the done callback. If the leaf node is a conditional node, it is
+   * connected to the error task at index 0 and the done task at index 1
+   * @param from The ID of the source node of the edge
+   * @param dest A list of IDs of the destination nodes of the edges.
    */
-  void addEdge(int src, SourceChannel src_channel, int dest, DestinationChannel dest_channel);
+  void addEdges(int source, std::vector<int> destinations);
 
 private:
+  /** @brief Helper struct for holding relevant information about the nodes */
+  struct Node
+  {
+    Node(TaskGenerator::UPtr process_, bool is_conditional_);
+
+    TaskGenerator::UPtr process;
+    const bool is_conditional;
+    /** @brief IDs of nodes (i.e. tasks) that should run after this node */
+    std::vector<int> edges;
+  };
+
   std::vector<Node> nodes_;
   std::string name_;
 };

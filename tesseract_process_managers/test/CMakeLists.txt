@@ -54,3 +54,13 @@ target_cxx_version(${PROJECT_NAME}_fix_state_collision_task_generator_unit PRIVA
 target_code_coverage(${PROJECT_NAME}_fix_state_collision_task_generator_unit ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_fix_state_collision_task_generator_unit)
 add_dependencies(run_tests ${PROJECT_NAME}_fix_state_collision_task_generator_unit)
+
+add_executable(${PROJECT_NAME}_graph_taskflow_unit graph_taskflow_unit.cpp)
+target_link_libraries(${PROJECT_NAME}_graph_taskflow_unit PUBLIC ${PROJECT_NAME} GTest::GTest GTest::Main)
+target_include_directories(${PROJECT_NAME}_graph_taskflow_unit PRIVATE
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
+target_cxx_version(${PROJECT_NAME}_graph_taskflow_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
+target_clang_tidy(${PROJECT_NAME}_graph_taskflow_unit ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_code_coverage(${PROJECT_NAME}_graph_taskflow_unit ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
+add_gtest_discover_tests(${PROJECT_NAME}_graph_taskflow_unit)
+add_dependencies(run_tests ${PROJECT_NAME}_graph_taskflow_unit)
