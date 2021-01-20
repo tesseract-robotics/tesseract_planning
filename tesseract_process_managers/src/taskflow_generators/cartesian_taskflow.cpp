@@ -111,12 +111,12 @@ TaskflowContainer CartesianTaskflow::generateTaskflow(TaskInput input, TaskflowV
   container.generators.push_back(std::move(seed_min_length_generator));
 
   // Setup Descartes
-  auto descartes_planner = std::make_shared<DescartesMotionPlanner<double>>();
-  descartes_planner->problem_generator = &DefaultDescartesProblemGenerator<double>;
+  auto descartes_planner = std::make_shared<DescartesMotionPlanner<float>>();
+  descartes_planner->problem_generator = &DefaultDescartesProblemGenerator<float>;
   if (input.profiles)
   {
-    if (input.profiles->hasProfileEntry<DescartesPlanProfile<double>>())
-      descartes_planner->plan_profiles = input.profiles->getProfileEntry<DescartesPlanProfile<double>>();
+    if (input.profiles->hasProfileEntry<DescartesPlanProfile<float>>())
+      descartes_planner->plan_profiles = input.profiles->getProfileEntry<DescartesPlanProfile<float>>();
   }
   auto descartes_generator = std::make_unique<MotionPlannerTaskGenerator>(descartes_planner);
   descartes_generator->assignConditionalTask(input, descartes_task);
