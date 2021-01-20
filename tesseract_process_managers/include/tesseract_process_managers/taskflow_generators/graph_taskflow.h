@@ -84,7 +84,7 @@ private:
   /** @brief Helper struct for holding relevant information about the nodes */
   struct Node
   {
-    Node(TaskGenerator::UPtr process_, const bool is_conditional_);
+    Node(TaskGenerator::UPtr process_, bool is_conditional_);
 
     TaskGenerator::UPtr process;
     const bool is_conditional;

@@ -37,7 +37,7 @@ namespace tesseract_planning
 {
 GraphTaskflow::GraphTaskflow(std::string name) : name_(std::move(name)) {}
 
-GraphTaskflow::Node::Node(TaskGenerator::UPtr process_, const bool is_conditional_)
+GraphTaskflow::Node::Node(TaskGenerator::UPtr process_, bool is_conditional_)
   : process(std::move(process_)), is_conditional(is_conditional_)
 {
 }
