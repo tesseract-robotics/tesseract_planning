@@ -38,13 +38,14 @@ namespace tesseract_planning
 {
 /// @todo: Restructure this into several smaller functions that are testable and easier to understand
 std::shared_ptr<TrajOptIfoptProblem>
-DefaultTrajoptIfoptProblemGenerator(const std::string& name,
+DefaultTrajOptIfoptProblemGenerator(const std::string& name,
                                     const PlannerRequest& request,
                                     const TrajOptIfoptPlanProfileMap& plan_profiles,
                                     const TrajOptIfoptCompositeProfileMap& composite_profiles)
 {
   // Create the problem
   auto problem = std::make_shared<TrajOptIfoptProblem>();
+  problem->environment = request.env;
   problem->env_state = request.env_state;
   problem->nlp = std::make_shared<ifopt::Problem>();
 
@@ -66,7 +67,8 @@ DefaultTrajoptIfoptProblemGenerator(const std::string& name,
 
   // Flatten input instructions
   auto instructions_flat = flattenProgram(request.instructions);
-  auto seed_flat = flattenProgramToPattern(request.seed, request.instructions);
+  auto seed_flat_pattern = flattenProgramToPattern(request.seed, request.instructions);
+  auto seed_flat = flattenProgram(request.seed);
 
   // ----------------
   // Setup variables
@@ -144,9 +146,9 @@ DefaultTrajoptIfoptProblemGenerator(const std::string& name,
       ManipulatorInfo manip_info = composite_mi.getCombined(plan_instruction->getManipulatorInfo());
       Eigen::Isometry3d tcp = request.env->findTCP(manip_info);
 
-      assert(isCompositeInstruction(seed_flat[static_cast<std::size_t>(i)].get()));
+      assert(isCompositeInstruction(seed_flat_pattern[static_cast<std::size_t>(i)].get()));
       const auto* seed_composite =
-          seed_flat[static_cast<std::size_t>(i)].get().cast_const<tesseract_planning::CompositeInstruction>();
+          seed_flat_pattern[static_cast<std::size_t>(i)].get().cast_const<tesseract_planning::CompositeInstruction>();
       auto interpolate_cnt = static_cast<int>(seed_composite->size());
 
       std::string profile = getProfileString(plan_instruction->getProfile(), name, request.plan_profile_remapping);

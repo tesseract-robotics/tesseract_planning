@@ -46,19 +46,21 @@ public:
   TrajOptIfoptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Configuration info for collisions that are modeled as costs */
-  trajopt::TrajOptCollisionConfig::Ptr collision_cost_config;
+  trajopt::TrajOptCollisionConfig::Ptr collision_cost_config{ std::make_shared<trajopt::TrajOptCollisionConfig>() };
   /** @brief Configuration info for collisions that are modeled as constraints */
-  trajopt::TrajOptCollisionConfig::Ptr collision_constraint_config;
+  trajopt::TrajOptCollisionConfig::Ptr collision_constraint_config{
+    std::make_shared<trajopt::TrajOptCollisionConfig>()
+  };
   /** @brief If true, a joint velocity cost with a target of 0 will be applied for all timesteps Default: true*/
   bool smooth_velocities = true;
   /** @brief This default to all ones, but allows you to weight different joints */
   Eigen::VectorXd velocity_coeff;
   /** @brief If true, a joint acceleration cost with a target of 0 will be applied for all timesteps Default: false*/
-  bool smooth_accelerations = true;
+  bool smooth_accelerations = false;
   /** @brief This default to all ones, but allows you to weight different joints */
   Eigen::VectorXd acceleration_coeff;
   /** @brief If true, a joint jerk cost with a target of 0 will be applied for all timesteps Default: false*/
-  bool smooth_jerks = true;
+  bool smooth_jerks = false;
   /** @brief This default to all ones, but allows you to weight different joints */
   Eigen::VectorXd jerk_coeff;
 

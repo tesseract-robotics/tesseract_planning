@@ -363,8 +363,6 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           else
             throw std::runtime_error("Unsupported start_waypoint type.");
 
-          cur_plan_profile->apply(*pci, cur_position, *plan_instruction, composite_mi, active_links, index);
-
           // Add to fixed indices
           if (!toleranced)
             fixed_steps.push_back(index);

@@ -89,6 +89,8 @@ void TrajOptIfoptMotionPlanner::clear()
   callbacks.clear();
 }
 
+MotionPlanner::Ptr TrajOptIfoptMotionPlanner::clone() const { return std::make_shared<TrajOptIfoptMotionPlanner>(); }
+
 tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request,
                                                               PlannerResponse& response,
                                                               bool verbose) const
