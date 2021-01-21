@@ -102,6 +102,8 @@ public:
 
   void clear() override;
 
+  MotionPlanner::Ptr clone() const override;
+
 protected:
   /** @brief Name of planner */
   std::string name_{ "TrajOptIfopt" };
