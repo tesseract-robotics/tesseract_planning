@@ -140,9 +140,16 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
     assert(checkJointPositionFormat(pci->kin->getJointNames(), start_waypoint));
-    JointWaypoint position_wp;
-    position_wp.waypoint = getJointPosition(start_waypoint);
-    start_plan_profile->apply(*pci, position_wp, *start_instruction, composite_mi, active_links, index);
+
+    if (isJointWaypoint(start_waypoint))
+      start_plan_profile->apply(*pci, *start_waypoint.cast_const<JointWaypoint>(), *start_instruction, composite_mi, active_links, index);
+    else if (isStateWaypoint(start_waypoint))
+    {
+      JointWaypoint jwp(start_waypoint.cast_const<StateWaypoint>()->joint_names, start_waypoint.cast_const<StateWaypoint>()->position);
+      start_plan_profile->apply(*pci, jwp, *start_instruction, composite_mi, active_links, index);
+    }
+    else
+      throw std::runtime_error("Unsupported start_waypoint type.");
 
     // Add to fixed indices
     fixed_steps.push_back(index);
@@ -236,7 +243,13 @@ DefaultTrajoptProblemGenerator(const std::string& name,
         {
           assert(checkJointPositionFormat(pci->kin->getJointNames(), plan_instruction->getWaypoint()));
           JointWaypoint cur_position;
-          cur_position.waypoint = getJointPosition(plan_instruction->getWaypoint());
+          if (isJointWaypoint(plan_instruction->getWaypoint()))
+            cur_position = *plan_instruction->getWaypoint().cast_const<JointWaypoint>();
+          else if (isStateWaypoint(plan_instruction->getWaypoint()))
+            cur_position = JointWaypoint(plan_instruction->getWaypoint().cast_const<StateWaypoint>()->joint_names, plan_instruction->getWaypoint().cast_const<StateWaypoint>()->position);
+          else
+            throw std::runtime_error("Unsupported waypoint type.");
+
           Eigen::Isometry3d cur_pose = Eigen::Isometry3d::Identity();
           if (!pci->kin->calcFwdKin(cur_pose, cur_position))
             throw std::runtime_error("TrajOptPlannerUniversalConfig: failed to solve forward kinematics!");
@@ -301,8 +314,6 @@ DefaultTrajoptProblemGenerator(const std::string& name,
         if (isJointWaypoint(plan_instruction->getWaypoint()) || isStateWaypoint(plan_instruction->getWaypoint()))
         {
           assert(checkJointPositionFormat(pci->kin->getJointNames(), plan_instruction->getWaypoint()));
-          JointWaypoint cur_position;
-          cur_position.waypoint = getJointPosition(plan_instruction->getWaypoint());
 
           // Add intermediate points with path costs and constraints
           for (std::size_t s = 0; s < seed_composite->size() - 1; ++s)
@@ -317,7 +328,16 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           }
 
           // Add final point with waypoint costs and contraints
-          /** @todo Should check that the joint names match the order of the manipulator */
+          if (isJointWaypoint(plan_instruction->getWaypoint()))
+            cur_plan_profile->apply(*pci, *plan_instruction->getWaypoint().cast_const<JointWaypoint>(), *start_instruction, composite_mi, active_links, index);
+          else if (isStateWaypoint(plan_instruction->getWaypoint()))
+          {
+            JointWaypoint jwp(plan_instruction->getWaypoint().cast_const<StateWaypoint>()->joint_names, plan_instruction->getWaypoint().cast_const<StateWaypoint>()->position);
+            cur_plan_profile->apply(*pci, jwp, *plan_instruction, composite_mi, active_links, index);
+          }
+          else
+            throw std::runtime_error("Unsupported start_waypoint type.");
+
           cur_plan_profile->apply(*pci, cur_position, *plan_instruction, composite_mi, active_links, index);
 
           // Add to fixed indices
