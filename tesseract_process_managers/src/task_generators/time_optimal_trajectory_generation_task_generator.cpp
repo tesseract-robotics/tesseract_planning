@@ -3,7 +3,8 @@
  * @brief Perform TOTG
  *
  * @author Levi Armstrong
- * @date August 11. 2020
+ * @author Matthew Powelson
+ * @date January 22, 2021
  * @version TODO
  * @bug No known bugs
  *
@@ -30,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>
-#include <tesseract_process_managers/task_generators/time_optimal_trajectory_generation_task_generator.h>.h>
+#include <tesseract_process_managers/task_generators/time_optimal_trajectory_generation_task_generator.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils/filter_functions.h>

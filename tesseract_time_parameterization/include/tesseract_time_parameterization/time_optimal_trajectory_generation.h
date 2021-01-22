@@ -67,7 +67,6 @@ private:
   const double resample_dt_;
   const double min_angle_change_;
 };
-}  // namespace tesseract_planning
 
 namespace totg
 {
@@ -192,6 +191,6 @@ private:
   mutable std::list<TrajectoryStep>::const_iterator cached_trajectory_segment_;
 };
 }  // namespace totg
-   // namespace trajectory_processing
+}  // namespace tesseract_planning
 
 #endif

@@ -197,7 +197,6 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
 
   return true;
 }
-}  // namespace tesseract_planning
 
 namespace totg
 {
@@ -821,10 +820,10 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
   end_trajectory_ = trajectory;
 }
 
-double Trajectory::getMinMaxPathAcceleration(double path_pos, double path_vel, bool max)
+double Trajectory::getMinMaxPathAcceleration(double path_position, double path_velocity, bool max)
 {
-  Eigen::VectorXd config_deriv = path_.getTangent(path_pos);
-  Eigen::VectorXd config_deriv2 = path_.getCurvature(path_pos);
+  Eigen::VectorXd config_deriv = path_.getTangent(path_position);
+  Eigen::VectorXd config_deriv2 = path_.getCurvature(path_position);
   double factor = max ? 1.0 : -1.0;
   double max_path_acceleration = std::numeric_limits<double>::max();
   for (unsigned int i = 0; i < joint_num_; ++i)
@@ -833,15 +832,15 @@ double Trajectory::getMinMaxPathAcceleration(double path_pos, double path_vel, b
     {
       max_path_acceleration = std::min(max_path_acceleration,
                                        max_acceleration_[i] / std::abs(config_deriv[i]) -
-                                           factor * config_deriv2[i] * path_vel * path_vel / config_deriv[i]);
+                                           factor * config_deriv2[i] * path_velocity * path_velocity / config_deriv[i]);
     }
   }
   return factor * max_path_acceleration;
 }
 
-double Trajectory::getMinMaxPhaseSlope(double path_pos, double path_vel, bool max)
+double Trajectory::getMinMaxPhaseSlope(double path_position, double path_velocity, bool max)
 {
-  return getMinMaxPathAcceleration(path_pos, path_vel, max) / path_vel;
+  return getMinMaxPathAcceleration(path_position, path_velocity, max) / path_velocity;
 }
 
 double Trajectory::getAccelerationMaxPathVelocity(double path_pos) const
@@ -994,3 +993,4 @@ Eigen::VectorXd Trajectory::getAcceleration(double time) const
   return path_acc;
 }
 }  // namespace totg
+}  // namespace tesseract_planning

@@ -3,7 +3,8 @@
  * @brief Perform TOTG
  *
  * @author Levi Armstrong
- * @date August 11. 2020
+ * @author Matthew Powelson
+ * @date Jan 22, 2021
  * @version TODO
  * @bug No known bugs
  *
@@ -48,16 +49,19 @@ struct TimeOptimalTrajectoryGenerationProfile
                                          double resample_dt = 0.1,
                                          double min_angle_change = 0.001);
 
-  /** @brief max_velocity_scaling_factor The max velocity scaling factor passed to the solver */
+  /** @brief The max velocity scaling factor passed to the solver. Default: 1.0*/
   double max_velocity_scaling_factor;
 
-  /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
+  /** @brief The max acceleration scaling factor passed to the solver. Default: 1.0 */
   double max_acceleration_scaling_factor;
 
+  /** @brief path_tolerance. Default: 0.1*/
   double path_tolerance;
 
+  /** @brief Timestep used to resample trajectory. Default: 0.1*/
   double resample_dt;
 
+  /** @brief At least one joint must change by greater than this amount for the point to be added. Default: 0.001*/
   double min_angle_change;
 };
 using TimeOptimalTrajectoryGenerationProfileMap =
