@@ -1,0 +1,95 @@
+\hypertarget{get__instruction__utils_8h}{}\doxysection{tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/utils/get\+\_\+instruction\+\_\+utils.h File Reference}
+\label{get__instruction__utils_8h}\index{tesseract\_command\_language/include/tesseract\_command\_language/utils/get\_instruction\_utils.h@{tesseract\_command\_language/include/tesseract\_command\_language/utils/get\_instruction\_utils.h}}
+
+
+Utilities such as get$<$First/\+Last$>$$<$\+Type$>$Instruction.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/plan\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/composite\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/filter\+\_\+functions.\+h$>$}\newline
+Include dependency graph for get\+\_\+instruction\+\_\+utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d61/get__instruction__utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d9a/get__instruction__utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a402118e80eb25983310d748c5b4c94a6}{tesseract\+\_\+planning\+::get\+First\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction, locate\+Filter\+Fn locate\+\_\+filter=nullptr, bool process\+\_\+child\+\_\+composites=true)
+\begin{DoxyCompactList}\small\item\em Get the first \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} that is identified by the filter. \end{DoxyCompactList}\item 
+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a6de789f62c5f509d40240cd8a50436a2}{tesseract\+\_\+planning\+::get\+First\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction, locate\+Filter\+Fn locate\+\_\+filter=nullptr, bool process\+\_\+child\+\_\+composites=true)
+\begin{DoxyCompactList}\small\item\em Get the first \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} that is identified by the filter. \end{DoxyCompactList}\item 
+const Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_aa2d031670612ef72c14523b0d42c3098}{tesseract\+\_\+planning\+::get\+Last\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction, locate\+Filter\+Fn locate\+\_\+filter=nullptr, bool process\+\_\+child\+\_\+composites=true)
+\begin{DoxyCompactList}\small\item\em Get the last \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} that is identified by the filter. \end{DoxyCompactList}\item 
+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_aa7417258de60ffad7407d37c9c68a8bd}{tesseract\+\_\+planning\+::get\+Last\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction, locate\+Filter\+Fn locate\+\_\+filter=nullptr, bool process\+\_\+child\+\_\+composites=true)
+\begin{DoxyCompactList}\small\item\em Get the last \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} that is identified by the filter. \end{DoxyCompactList}\item 
+Move\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_ac29067009356ea19800024324f9a565d}{tesseract\+\_\+planning\+::get\+First\+Move\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the first Move \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
+const Move\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_acb69fe617b0dfebf99804e9f066d721d}{tesseract\+\_\+planning\+::get\+First\+Move\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the first Move \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
+Plan\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_ad97ebd98cf92300a1949822fa4d885e9}{tesseract\+\_\+planning\+::get\+First\+Plan\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the first Plan \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
+const Plan\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a8d62a3bdf2d56991ad56065955bed3f6}{tesseract\+\_\+planning\+::get\+First\+Plan\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the first Plan \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
+Move\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_adee6f2163971e6e6f0856b0134c0bebe}{tesseract\+\_\+planning\+::get\+Last\+Move\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the last Move \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
+const Move\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_ad295a562f32de5635581c7816c51c2d2}{tesseract\+\_\+planning\+::get\+Last\+Move\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the last Move \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
+Plan\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_ab381757c480b36fe5182a2361cff3109}{tesseract\+\_\+planning\+::get\+Last\+Plan\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the last Plan \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
+const Plan\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_aeaebee951a86927d8d1e841bb19e6f84}{tesseract\+\_\+planning\+::get\+Last\+Plan\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the last Plan \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
+long \mbox{\hyperlink{namespacetesseract__planning_a220ca8b7769080e8eacb9a5e7f1dd75d}{tesseract\+\_\+planning\+::get\+Instruction\+Count}} (const Composite\+Instruction \&composite\+\_\+instruction, locate\+Filter\+Fn locate\+\_\+filter=nullptr, bool process\+\_\+child\+\_\+composites=true)
+\begin{DoxyCompactList}\small\item\em Get number of \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}. \end{DoxyCompactList}\item 
+long \mbox{\hyperlink{namespacetesseract__planning_adfe8f834e3ef52d7a83e4d39d4d584d4}{tesseract\+\_\+planning\+::get\+Move\+Instruction\+Count}} (const Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get number of Move \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in the child composite instruction. \end{DoxyCompactList}\item 
+long \mbox{\hyperlink{namespacetesseract__planning_ad2314582d78deda35f1533d63c9bd732}{tesseract\+\_\+planning\+::get\+Plan\+Instruction\+Count}} (const Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get number of Plan \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in the child composite instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utilities such as get$<$First/\+Last$>$$<$\+Type$>$Instruction. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 15, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000019}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

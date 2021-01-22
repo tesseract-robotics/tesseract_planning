@@ -82,8 +82,8 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;trajopt/problem_description.hpp&gt;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;TESSERACT_COMMON_IGNORE_WARNINGS_POP</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;tesseract_command_language/cartesian_waypoint.h&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;tesseract_command_language/joint_waypoint.h&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d3/d18/cartesian__waypoint_8h.html">tesseract_command_language/cartesian_waypoint.h</a>&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d7/d1f/joint__waypoint_8h.html">tesseract_command_language/joint_waypoint.h</a>&gt;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
@@ -180,7 +180,9 @@ $(function() {
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_MOTION_PLANNERS_TRAJOPT_UTILS_H</span></div>
-<div class="ttc" id="anamespacetesseract__planning_html"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div><div class="ttdef"><b>Definition:</b> planner.h:42</div></div>
+<div class="ttc" id="acartesian__waypoint_8h_html"><div class="ttname"><a href="../../d3/d18/cartesian__waypoint_8h.html">cartesian_waypoint.h</a></div></div>
+<div class="ttc" id="ajoint__waypoint_8h_html"><div class="ttname"><a href="../../d7/d1f/joint__waypoint_8h.html">joint_waypoint.h</a></div></div>
+<div class="ttc" id="anamespacetesseract__planning_html"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div><div class="ttdef"><b>Definition:</b> cartesian_waypoint.h:41</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a0746f7f2bf8a5eccbf86f2396f1ea2e0"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a0746f7f2bf8a5eccbf86f2396f1ea2e0">tesseract_planning::createSmoothVelocityTermInfo</a></div><div class="ttdeci">trajopt::TermInfo::Ptr createSmoothVelocityTermInfo(int start_index, int end_index, int n_joints, double coeff=5.0, trajopt::TermType type=trajopt::TermType::TT_COST)</div><div class="ttdef"><b>Definition:</b> trajopt_utils.cpp:194</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a089f108f9cc718b567607006aefc506e"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a089f108f9cc718b567607006aefc506e">tesseract_planning::createAvoidSingularityTermInfo</a></div><div class="ttdeci">trajopt::TermInfo::Ptr createAvoidSingularityTermInfo(int start_index, int end_index, const std::string &amp;link, double coeff=5.0, trajopt::TermType type=trajopt::TermType::TT_COST)</div><div class="ttdef"><b>Definition:</b> trajopt_utils.cpp:317</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a095e0b0a5e5b23e615647705ac63f3b2"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a095e0b0a5e5b23e615647705ac63f3b2">tesseract_planning::createDynamicCartesianWaypointTermInfo</a></div><div class="ttdeci">trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(const Eigen::Isometry3d &amp;c_wp, int index, std::string working_frame, const Eigen::Isometry3d &amp;tcp, const Eigen::VectorXd &amp;coeffs, const std::string &amp;link, trajopt::TermType type)</div><div class="ttdef"><b>Definition:</b> trajopt_utils.cpp:65</div></div>
@@ -195,7 +197,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 22 2021 17:30:40 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 22 2021 20:04:49 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

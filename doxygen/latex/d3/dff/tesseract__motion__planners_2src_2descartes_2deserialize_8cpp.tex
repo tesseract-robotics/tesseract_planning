@@ -1,0 +1,72 @@
+\hypertarget{tesseract__motion__planners_2src_2descartes_2deserialize_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/src/descartes/deserialize.cpp File Reference}
+\label{tesseract__motion__planners_2src_2descartes_2deserialize_8cpp}\index{tesseract\_motion\_planners/src/descartes/deserialize.cpp@{tesseract\_motion\_planners/src/descartes/deserialize.cpp}}
+
+
+Provide methods for deserialize instructions to xml and deserialization.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$boost/algorithm/string/classification.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/algorithm/string/split.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/deserialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/profile/descartes\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
+Include dependency graph for deserialize.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/d95/tesseract__motion__planners_2src_2descartes_2deserialize_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Descartes\+Default\+Plan\+Profile$<$ double $>$ \mbox{\hyperlink{namespacetesseract__planning_a0ad510e7a8c963b588b4726454bc0757}{tesseract\+\_\+planning\+::descartes\+Plan\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+Descartes\+Default\+Plan\+Profile$<$ double $>$ \mbox{\hyperlink{namespacetesseract__planning_a11dc6dd5696a5d921ef46b7804689594}{tesseract\+\_\+planning\+::descartes\+Plan\+From\+XMLElement}} (const tinyxml2\+::\+XMLElement $\ast$profile\+\_\+xml)
+\item 
+Descartes\+Default\+Plan\+Profile$<$ double $>$ \mbox{\hyperlink{namespacetesseract__planning_ab6c029e5547e27960c05a22d6d18e8e1}{tesseract\+\_\+planning\+::descartes\+Plan\+From\+XMLDocument}} (const tinyxml2\+::\+XMLDocument \&xml\+\_\+doc)
+\item 
+Descartes\+Default\+Plan\+Profile$<$ double $>$ \mbox{\hyperlink{namespacetesseract__planning_a551fbbd466c2c528a7bbf80f4b219ca0}{tesseract\+\_\+planning\+::descartes\+Plan\+From\+XMLString}} (const std\+::string \&xml\+\_\+string)
+\item 
+Descartes\+Default\+Plan\+Profile$<$ double $>$ \mbox{\hyperlink{namespacetesseract__planning_a3d32bf7f0ce6ae3027d3c00ad8791d09}{tesseract\+\_\+planning\+::descartes\+Plan\+From\+XMLFile}} (const std\+::string \&file\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provide methods for deserialize instructions to xml and deserialization. 
+
+\begin{DoxyAuthor}{Author}
+Tyler Marr 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 21, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000113}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

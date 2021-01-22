@@ -1,0 +1,101 @@
+\hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/test/serialize\+\_\+test.cpp File Reference}
+\label{tesseract__motion__planners_2test_2serialize__test_8cpp}\index{tesseract\_motion\_planners/test/serialize\_test.cpp@{tesseract\_motion\_planners/test/serialize\_test.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt/profile/trajopt\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt/profile/trajopt\+\_\+default\+\_\+composite\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt/serialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt/deserialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/profile/ompl\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/serialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/deserialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/profile/descartes\+\_\+default\+\_\+plan\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/serialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/deserialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+Include dependency graph for serialize\+\_\+test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d5f/tesseract__motion__planners_2test_2serialize__test_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile}{Traj\+Opt\+Default\+Composite\+Profile}} \mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_a10d931b6fdc8a39186765b9b57a36cae}{get\+Traj\+Opt\+Composite\+Profile}} ()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultPlanProfile}{Traj\+Opt\+Default\+Plan\+Profile}} \mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_adb5dd38882a9c215bba984bcbd19fdfa}{get\+Traj\+Opt\+Plan\+Profile}} ()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_a7c2bbc9fa8662b537c803244862a9752}{get\+OMPLPlan\+Profile}} ()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{Descartes\+Default\+Plan\+Profile}}$<$ double $>$ \mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_aaab60a68392e42409af494177f1dc606}{gen\+Descartes\+Plan\+Profile}} ()
+\item 
+\mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_a92a3b43b3cc7ffbab15e6516057fed21}{TEST}} (Tesseract\+Motion\+Planners\+Trajopt\+Serialize\+Unit, Serialize\+Trajopt\+Default\+Composite\+To\+Xml)
+\item 
+\mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_a09b1744503e507e21b57124614c8939f}{TEST}} (Tesseract\+Motion\+Planners\+Trajopt\+Serialize\+Unit, Serialize\+Trajopt\+Default\+Plan\+To\+Xml)
+\item 
+\mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_aaf2e07531541653d0ce9f53cbc4f8163}{TEST}} (Tesseract\+Motion\+Planners\+OMPLSerialize\+Unit, Serialize\+OMPLDefault\+Plan\+To\+Xml)
+\item 
+\mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_af66e59995dbfcce23841d26b0eccedff}{TEST}} (Tesseract\+Motion\+Planners\+Descartes\+Serialize\+Unit, Serialize\+Descartes\+Default\+Plan\+To\+Xml)
+\item 
+int \mbox{\hyperlink{tesseract__motion__planners_2test_2serialize__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_aaab60a68392e42409af494177f1dc606}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_aaab60a68392e42409af494177f1dc606}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!genDescartesPlanProfile@{genDescartesPlanProfile}}
+\index{genDescartesPlanProfile@{genDescartesPlanProfile}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{genDescartesPlanProfile()}{genDescartesPlanProfile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{Descartes\+Default\+Plan\+Profile}}$<$double$>$ gen\+Descartes\+Plan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_a7c2bbc9fa8662b537c803244862a9752}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_a7c2bbc9fa8662b537c803244862a9752}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!getOMPLPlanProfile@{getOMPLPlanProfile}}
+\index{getOMPLPlanProfile@{getOMPLPlanProfile}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{getOMPLPlanProfile()}{getOMPLPlanProfile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} get\+OMPLPlan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_a10d931b6fdc8a39186765b9b57a36cae}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_a10d931b6fdc8a39186765b9b57a36cae}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!getTrajOptCompositeProfile@{getTrajOptCompositeProfile}}
+\index{getTrajOptCompositeProfile@{getTrajOptCompositeProfile}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{getTrajOptCompositeProfile()}{getTrajOptCompositeProfile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile}{Traj\+Opt\+Default\+Composite\+Profile}} get\+Traj\+Opt\+Composite\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_adb5dd38882a9c215bba984bcbd19fdfa}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_adb5dd38882a9c215bba984bcbd19fdfa}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!getTrajOptPlanProfile@{getTrajOptPlanProfile}}
+\index{getTrajOptPlanProfile@{getTrajOptPlanProfile}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{getTrajOptPlanProfile()}{getTrajOptPlanProfile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultPlanProfile}{Traj\+Opt\+Default\+Plan\+Profile}} get\+Traj\+Opt\+Plan\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!main@{main}}
+\index{main@{main}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_af66e59995dbfcce23841d26b0eccedff}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_af66e59995dbfcce23841d26b0eccedff}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Motion\+Planners\+Descartes\+Serialize\+Unit}]{,  }\item[{Serialize\+Descartes\+Default\+Plan\+To\+Xml}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_aaf2e07531541653d0ce9f53cbc4f8163}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_aaf2e07531541653d0ce9f53cbc4f8163}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Motion\+Planners\+OMPLSerialize\+Unit}]{,  }\item[{Serialize\+OMPLDefault\+Plan\+To\+Xml}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_a92a3b43b3cc7ffbab15e6516057fed21}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_a92a3b43b3cc7ffbab15e6516057fed21}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Motion\+Planners\+Trajopt\+Serialize\+Unit}]{,  }\item[{Serialize\+Trajopt\+Default\+Composite\+To\+Xml}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__motion__planners_2test_2serialize__test_8cpp_a09b1744503e507e21b57124614c8939f}\label{tesseract__motion__planners_2test_2serialize__test_8cpp_a09b1744503e507e21b57124614c8939f}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Motion\+Planners\+Trajopt\+Serialize\+Unit}]{,  }\item[{Serialize\+Trajopt\+Default\+Plan\+To\+Xml}]{ }\end{DoxyParamCaption})}
+

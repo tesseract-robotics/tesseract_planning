@@ -1,0 +1,70 @@
+\hypertarget{tesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2serialize_8h}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/include/tesseract\+\_\+motion\+\_\+planners/descartes/serialize.h File Reference}
+\label{tesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2serialize_8h}\index{tesseract\_motion\_planners/include/tesseract\_motion\_planners/descartes/serialize.h@{tesseract\_motion\_planners/include/tesseract\_motion\_planners/descartes/serialize.h}}
+
+
+Provide methods for serializing descartes plans to xml.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$tinyxml2.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/profile/descartes\+\_\+profile.\+h$>$}\newline
+Include dependency graph for serialize.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d34/tesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2serialize_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dc5/tesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2serialize_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ \mbox{\hyperlink{namespacetesseract__planning_a9c57998c284f6a812ace92cedca6112e}{tesseract\+\_\+planning\+::to\+XMLDocument}} (const Descartes\+Plan\+Profile$<$ double $>$ \&plan\+\_\+profile)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ac6a12208aece9acb089b28c8bb08fc14}{tesseract\+\_\+planning\+::to\+XMLFile}} (const Descartes\+Plan\+Profile$<$ double $>$ \&plan\+\_\+profile, const std\+::string \&file\+\_\+path)
+\item 
+std\+::string \mbox{\hyperlink{namespacetesseract__planning_a40727d3173b509d3f3e102d96a358586}{tesseract\+\_\+planning\+::to\+XMLString}} (const Descartes\+Plan\+Profile$<$ double $>$ \&plan\+\_\+profile)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provide methods for serializing descartes plans to xml. 
+
+\begin{DoxyAuthor}{Author}
+Tyler Marr 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 25, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000063}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

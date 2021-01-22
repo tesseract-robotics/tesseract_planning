@@ -1,23 +1,47 @@
 <map id="tesseract_motion_planners/test/simple_planner_fixed_size_assign_position.cpp" name="tesseract_motion_planners/test/simple_planner_fixed_size_assign_position.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="250,5,429,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="497,339,688,366"/>
-<area shape="rect" id="node3" title=" " alt="" coords="43,131,137,158"/>
-<area shape="rect" id="node4" title=" " alt="" coords="161,131,301,158"/>
-<area shape="rect" id="node5" title=" " alt="" coords="89,421,243,463"/>
-<area shape="rect" id="node6" title=" " alt="" coords="377,124,539,165"/>
-<area shape="rect" id="node7" href="$de/dd7/simple__motion__planner_8h.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="563,124,774,165"/>
-<area shape="rect" id="node17" href="$d0/d22/simple__planner__fixed__size__assign__plan__profile_8h.html" title=" " alt="" coords="858,109,1037,180"/>
-<area shape="rect" id="node8" title=" " alt="" coords="1049,339,1117,366"/>
-<area shape="rect" id="node9" href="$d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="377,235,555,277"/>
-<area shape="rect" id="node15" href="$df/df0/simple__planner__profile_8h.html" title=" " alt="" coords="681,228,859,284"/>
-<area shape="rect" id="node10" title=" " alt="" coords="311,339,421,366"/>
-<area shape="rect" id="node11" title=" " alt="" coords="401,421,574,463"/>
-<area shape="rect" id="node12" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="713,332,891,373"/>
-<area shape="rect" id="node13" title=" " alt="" coords="669,429,847,455"/>
-<area shape="rect" id="node14" title=" " alt="" coords="872,421,1071,463"/>
-<area shape="rect" id="node16" title=" " alt="" coords="966,339,1025,366"/>
-<area shape="rect" id="node18" title=" " alt="" coords="935,235,1077,277"/>
-<area shape="rect" id="node19" title=" " alt="" coords="1102,243,1217,269"/>
-<area shape="rect" id="node20" href="$d9/d2e/simple__planner__utils_8h.html" title="Provides interpolation utils for simple planner profiles." alt="" coords="1241,228,1419,284"/>
-<area shape="rect" id="node21" title=" " alt="" coords="1305,339,1355,366"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2149,5,2328,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="2157,786,2347,813"/>
+<area shape="rect" id="node3" title=" " alt="" coords="2277,131,2371,158"/>
+<area shape="rect" id="node4" title=" " alt="" coords="2395,131,2535,158"/>
+<area shape="rect" id="node5" title=" " alt="" coords="2161,421,2316,463"/>
+<area shape="rect" id="node6" title=" " alt="" coords="2560,124,2723,165"/>
+<area shape="rect" id="node7" href="$de/dd7/simple__motion__planner_8h.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="284,124,495,165"/>
+<area shape="rect" id="node42" href="$d0/d22/simple__planner__fixed__size__assign__plan__profile_8h.html" title=" " alt="" coords="1851,109,2029,180"/>
+<area shape="rect" id="node8" title=" " alt="" coords="326,786,394,813"/>
+<area shape="rect" id="node9" href="$d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="300,235,479,277"/>
+<area shape="rect" id="node41" href="$df/df0/simple__planner__profile_8h.html" title=" " alt="" coords="503,228,681,284"/>
+<area shape="rect" id="node10" title=" " alt="" coords="190,339,301,366"/>
+<area shape="rect" id="node11" title=" " alt="" coords="579,421,752,463"/>
+<area shape="rect" id="node12" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="579,332,757,373"/>
+<area shape="rect" id="node13" title=" " alt="" coords="347,697,525,723"/>
+<area shape="rect" id="node14" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="1939,421,2138,463"/>
+<area shape="rect" id="node15" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1949,689,2147,731"/>
+<area shape="rect" id="node17" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1373,600,1571,641"/>
+<area shape="rect" id="node22" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="650,689,849,731"/>
+<area shape="rect" id="node24" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2383,511,2582,552"/>
+<area shape="rect" id="node30" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2866,689,3065,731"/>
+<area shape="rect" id="node31" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="2322,689,2521,731"/>
+<area shape="rect" id="node32" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="3103,600,3302,641"/>
+<area shape="rect" id="node34" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="1150,600,1349,641"/>
+<area shape="rect" id="node35" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="1949,600,2147,641"/>
+<area shape="rect" id="node36" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="3690,689,3889,731"/>
+<area shape="rect" id="node37" href="$d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2171,600,2370,641"/>
+<area shape="rect" id="node38" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="927,600,1126,641"/>
+<area shape="rect" id="node39" href="$d2/d61/timer__instruction_8h.html" title=" " alt="" coords="3375,600,3574,641"/>
+<area shape="rect" id="node40" href="$d0/d25/wait__instruction_8h.html" title=" " alt="" coords="3598,600,3797,641"/>
+<area shape="rect" id="node16" title=" " alt="" coords="1929,779,2133,820"/>
+<area shape="rect" id="node18" title=" " alt="" coords="1364,697,1449,723"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1809,697,1924,723"/>
+<area shape="rect" id="node20" title=" " alt="" coords="3214,786,3293,813"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1068,697,1239,723"/>
+<area shape="rect" id="node23" title=" " alt="" coords="873,697,1044,723"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1676,697,1735,723"/>
+<area shape="rect" id="node26" title=" " alt="" coords="3898,786,3953,813"/>
+<area shape="rect" id="node27" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="2881,600,3079,641"/>
+<area shape="rect" id="node28" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="2594,689,2793,731"/>
+<area shape="rect" id="node29" title=" " alt="" coords="2813,779,2984,820"/>
+<area shape="rect" id="node33" title=" " alt="" coords="3443,697,3515,723"/>
+<area shape="rect" id="node43" title=" " alt="" coords="1923,235,2066,277"/>
+<area shape="rect" id="node44" href="$d9/d2e/simple__planner__utils_8h.html" title="Provides interpolation utils for simple planner profiles." alt="" coords="1620,228,1799,284"/>
+<area shape="rect" id="node45" title=" " alt="" coords="1747,339,1797,366"/>
 </map>

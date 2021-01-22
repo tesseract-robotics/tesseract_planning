@@ -1,5 +1,12 @@
 <map id="tesseract_motion_planners/include/tesseract_motion_planners/descartes/descartes_utils.h" name="tesseract_motion_planners/include/tesseract_motion_planners/descartes/descartes_utils.h">
-<area shape="rect" id="node1" title=" " alt="" coords="101,5,301,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,131,184,158"/>
-<area shape="rect" id="node3" title=" " alt="" coords="209,124,407,165"/>
+<area shape="rect" id="node1" title=" " alt="" coords="302,5,502,76"/>
+<area shape="rect" id="node2" title=" " alt="" coords="206,131,385,158"/>
+<area shape="rect" id="node3" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="409,124,608,165"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,221,196,247"/>
+<area shape="rect" id="node5" title=" " alt="" coords="221,221,306,247"/>
+<area shape="rect" id="node6" title=" " alt="" coords="330,221,445,247"/>
+<area shape="rect" id="node7" title=" " alt="" coords="469,221,548,247"/>
+<area shape="rect" id="node8" title=" " alt="" coords="573,221,743,247"/>
+<area shape="rect" id="node9" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="768,213,967,255"/>
+<area shape="rect" id="node10" title=" " alt="" coords="991,221,1162,247"/>
 </map>

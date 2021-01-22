@@ -110,9 +110,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9818c9638292c1029e64782ffa3912bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac51908388436812e8a0a11dd0fa58ad2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/dd7/classtesseract__planning_1_1DescartesPlanProfile.html">DescartesPlanProfile</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd7/classtesseract__planning_1_1DescartesPlanProfile.html#ac51908388436812e8a0a11dd0fa58ad2">operator=</a> (<a class="el" href="../../d5/dd7/classtesseract__planning_1_1DescartesPlanProfile.html">DescartesPlanProfile</a> &amp;&amp;) noexcept=default</td></tr>
 <tr class="separator:ac51908388436812e8a0a11dd0fa58ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af92e6d0fedc32a1bfa2648653ea57940"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd7/classtesseract__planning_1_1DescartesPlanProfile.html#af92e6d0fedc32a1bfa2648653ea57940">apply</a> (<a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">DescartesProblem</a>&lt; FloatType &gt; &amp;prob, const Eigen::Isometry3d &amp;cartesian_waypoint, const Instruction &amp;parent_instruction, const ManipulatorInfo &amp;manip_info, const std::vector&lt; std::string &gt; &amp;active_links, int index) const =0</td></tr>
+<tr class="memitem:af92e6d0fedc32a1bfa2648653ea57940"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd7/classtesseract__planning_1_1DescartesPlanProfile.html#af92e6d0fedc32a1bfa2648653ea57940">apply</a> (<a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">DescartesProblem</a>&lt; FloatType &gt; &amp;prob, const Eigen::Isometry3d &amp;cartesian_waypoint, const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;parent_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const std::vector&lt; std::string &gt; &amp;active_links, int index) const =0</td></tr>
 <tr class="separator:af92e6d0fedc32a1bfa2648653ea57940"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a869e725b11cc2c29526f7d40366c76"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd7/classtesseract__planning_1_1DescartesPlanProfile.html#a9a869e725b11cc2c29526f7d40366c76">apply</a> (<a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">DescartesProblem</a>&lt; FloatType &gt; &amp;prob, const Eigen::VectorXd &amp;joint_waypoint, const Instruction &amp;parent_instruction, const ManipulatorInfo &amp;manip_info, const std::vector&lt; std::string &gt; &amp;active_links, int index) const =0</td></tr>
+<tr class="memitem:a9a869e725b11cc2c29526f7d40366c76"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd7/classtesseract__planning_1_1DescartesPlanProfile.html#a9a869e725b11cc2c29526f7d40366c76">apply</a> (<a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">DescartesProblem</a>&lt; FloatType &gt; &amp;prob, const Eigen::VectorXd &amp;joint_waypoint, const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;parent_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const std::vector&lt; std::string &gt; &amp;active_links, int index) const =0</td></tr>
 <tr class="separator:a9a869e725b11cc2c29526f7d40366c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afae1499852e2ab905d28a659d32892c9"><td class="memItemLeft" align="right" valign="top">virtual tinyxml2::XMLElement *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd7/classtesseract__planning_1_1DescartesPlanProfile.html#afae1499852e2ab905d28a659d32892c9">toXML</a> (tinyxml2::XMLDocument &amp;doc) const =0</td></tr>
 <tr class="separator:afae1499852e2ab905d28a659d32892c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -288,13 +288,13 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Instruction &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
           <td class="paramname"><em>parent_instruction</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;&#160;</td>
           <td class="paramname"><em>manip_info</em>, </td>
         </tr>
         <tr>
@@ -352,13 +352,13 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Instruction &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
           <td class="paramname"><em>parent_instruction</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ManipulatorInfo &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;&#160;</td>
           <td class="paramname"><em>manip_info</em>, </td>
         </tr>
         <tr>
@@ -482,7 +482,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 22 2021 17:30:41 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 22 2021 20:04:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

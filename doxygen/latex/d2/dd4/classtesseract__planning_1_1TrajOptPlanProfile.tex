@@ -36,9 +36,9 @@ virtual \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile_aa33fde7
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile}{Traj\+Opt\+Plan\+Profile}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile_ae6e543acaf6c07e9e89390584953408d}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile}{Traj\+Opt\+Plan\+Profile}} \&\&)=default
 \item 
-virtual void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile_aea789e8694b5d90b43045d05e608bb6a}{apply}} (trajopt\+::\+Problem\+Construction\+Info \&pci, const Cartesian\+Waypoint \&cartesian\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile_aea789e8694b5d90b43045d05e608bb6a}{apply}} (trajopt\+::\+Problem\+Construction\+Info \&pci, const \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \&cartesian\+\_\+waypoint, const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&parent\+\_\+instruction, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
 \item 
-virtual void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile_ac7f0faee3445a780e43d4d6ef6f969be}{apply}} (trajopt\+::\+Problem\+Construction\+Info \&pci, const Joint\+Waypoint \&joint\+\_\+waypoint, const Instruction \&parent\+\_\+instruction, const Manipulator\+Info \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile_ac7f0faee3445a780e43d4d6ef6f969be}{apply}} (trajopt\+::\+Problem\+Construction\+Info \&pci, const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&joint\+\_\+waypoint, const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&parent\+\_\+instruction, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+links, int index) const =0
 \item 
 virtual tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile_a0a5d84f86c9f34c1ef0761aea9310f50}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const =0
 \end{DoxyCompactItemize}
@@ -91,7 +91,7 @@ virtual tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__plannin
 \index{tesseract\_planning::TrajOptPlanProfile@{tesseract\_planning::TrajOptPlanProfile}!apply@{apply}}
 \index{apply@{apply}!tesseract\_planning::TrajOptPlanProfile@{tesseract\_planning::TrajOptPlanProfile}}
 \doxysubsubsection{\texorpdfstring{apply()}{apply()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+Traj\+Opt\+Plan\+Profile\+::apply (\begin{DoxyParamCaption}\item[{trajopt\+::\+Problem\+Construction\+Info \&}]{pci,  }\item[{const Cartesian\+Waypoint \&}]{cartesian\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+Traj\+Opt\+Plan\+Profile\+::apply (\begin{DoxyParamCaption}\item[{trajopt\+::\+Problem\+Construction\+Info \&}]{pci,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \&}]{cartesian\+\_\+waypoint,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{parent\+\_\+instruction,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -101,7 +101,7 @@ Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultPlanPr
 \index{tesseract\_planning::TrajOptPlanProfile@{tesseract\_planning::TrajOptPlanProfile}!apply@{apply}}
 \index{apply@{apply}!tesseract\_planning::TrajOptPlanProfile@{tesseract\_planning::TrajOptPlanProfile}}
 \doxysubsubsection{\texorpdfstring{apply()}{apply()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+Traj\+Opt\+Plan\+Profile\+::apply (\begin{DoxyParamCaption}\item[{trajopt\+::\+Problem\+Construction\+Info \&}]{pci,  }\item[{const Joint\+Waypoint \&}]{joint\+\_\+waypoint,  }\item[{const Instruction \&}]{parent\+\_\+instruction,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+Traj\+Opt\+Plan\+Profile\+::apply (\begin{DoxyParamCaption}\item[{trajopt\+::\+Problem\+Construction\+Info \&}]{pci,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&}]{joint\+\_\+waypoint,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{parent\+\_\+instruction,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 

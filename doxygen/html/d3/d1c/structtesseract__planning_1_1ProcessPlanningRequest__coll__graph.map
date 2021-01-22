@@ -1,6 +1,8 @@
 <map id="tesseract_planning::ProcessPlanningRequest" name="tesseract_planning::ProcessPlanningRequest">
-<area shape="rect" id="node1" title=" " alt="" coords="739,29,913,70"/>
-<area shape="rect" id="node2" title=" " alt="" coords="336,55,519,126"/>
-<area shape="rect" id="node3" title=" " alt="" coords="179,35,257,61"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,27,129,69"/>
+<area shape="rect" id="node1" title=" " alt="" coords="881,68,1056,109"/>
+<area shape="rect" id="node2" title=" " alt="" coords="479,53,661,124"/>
+<area shape="rect" id="node3" title=" " alt="" coords="230,13,309,39"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,5,129,47"/>
+<area shape="rect" id="node5" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="505,148,635,189"/>
+<area shape="rect" id="node6" title=" " alt="" coords="179,141,360,197"/>
 </map>

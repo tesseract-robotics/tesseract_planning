@@ -1,11 +1,13 @@
 \doxysection{Class Hierarchy}
 This inheritance list is sorted roughly, but not completely, alphabetically\+:\begin{DoxyCompactList}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Cartesian\+Taskflow\+Params}{\pageref{structtesseract__planning_1_1CartesianTaskflowParams}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Cartesian\+Waypoint}{\pageref{classtesseract__planning_1_1CartesianWaypoint}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Collision\+Constraint\+Config}{\pageref{structtesseract__planning_1_1CollisionConstraintConfig}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Collision\+Cost\+Config}{\pageref{structtesseract__planning_1_1CollisionCostConfig}}{}
 \item descartes\+\_\+light\+::Collision\+Interface\begin{DoxyCompactList}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Descartes\+Collision$<$ Float\+Type $>$}{\pageref{classtesseract__planning_1_1DescartesCollision}}{}
 \end{DoxyCompactList}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Composite\+Instruction}{\pageref{classtesseract__planning_1_1CompositeInstruction}}{}
 \item ompl\+::base\+::Constraint\begin{DoxyCompactList}
 \item \contentsline{section}{Glass\+Upright\+Constraint}{\pageref{classGlassUprightConstraint}}{}
 \end{DoxyCompactList}
@@ -29,9 +31,18 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{tesseract\+\_\+planning\+::Fix\+State\+Bounds\+Profile}{\pageref{structtesseract__planning_1_1FixStateBoundsProfile}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Fix\+State\+Collision\+Profile}{\pageref{structtesseract__planning_1_1FixStateCollisionProfile}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Freespace\+Taskflow\+Params}{\pageref{structtesseract__planning_1_1FreespaceTaskflowParams}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Instruction}{\pageref{classtesseract__planning_1_1Instruction}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Instruction\+Info}{\pageref{structtesseract__planning_1_1InstructionInfo}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::Instruction\+Inner\+Base}{\pageref{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::Instruction\+Inner$<$ T $>$}{\pageref{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}}{}
+\end{DoxyCompactList}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Iterative\+Spline\+Parameterization}{\pageref{classtesseract__planning_1_1IterativeSplineParameterization}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Iterative\+Spline\+Parameterization\+Profile}{\pageref{structtesseract__planning_1_1IterativeSplineParameterizationProfile}}{}
+\item tesseract\+\_\+common\+::Joint\+State\begin{DoxyCompactList}
+\item \contentsline{section}{tesseract\+\_\+planning\+::State\+Waypoint}{\pageref{classtesseract__planning_1_1StateWaypoint}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Joint\+Waypoint}{\pageref{classtesseract__planning_1_1JointWaypoint}}{}
 \item descartes\+\_\+light\+::Kinematics\+Interface\begin{DoxyCompactList}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Descartes\+Tesseract\+Kinematics$<$ double $>$}{\pageref{classtesseract__planning_1_1DescartesTesseractKinematics}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Descartes\+Tesseract\+Kinematics$<$ float $>$}{\pageref{classtesseract__planning_1_1DescartesTesseractKinematics}}{}
@@ -52,7 +63,10 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{tesseract\+\_\+planning\+::Continuous\+Motion\+Validator}{\pageref{classtesseract__planning_1_1ContinuousMotionValidator}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Discrete\+Motion\+Validator}{\pageref{classtesseract__planning_1_1DiscreteMotionValidator}}{}
 \end{DoxyCompactList}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Move\+Instruction}{\pageref{classtesseract__planning_1_1MoveInstruction}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Graph\+Taskflow\+::Node}{\pageref{structtesseract__planning_1_1GraphTaskflow_1_1Node}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Null\+Instruction}{\pageref{classtesseract__planning_1_1NullInstruction}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Null\+Waypoint}{\pageref{classtesseract__planning_1_1NullWaypoint}}{}
 \item tf\+::Observer\+Interface\begin{DoxyCompactList}
 \item \contentsline{section}{Test\+Observer}{\pageref{classTestObserver}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Debug\+Observer}{\pageref{classtesseract__planning_1_1DebugObserver}}{}
@@ -80,6 +94,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \end{DoxyCompactList}
 \item \contentsline{section}{tesseract\+\_\+planning\+::OMPLProblem}{\pageref{structtesseract__planning_1_1OMPLProblem}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::OMPLTaskflow\+Params}{\pageref{structtesseract__planning_1_1OMPLTaskflowParams}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Plan\+Instruction}{\pageref{classtesseract__planning_1_1PlanInstruction}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Planner\+Request}{\pageref{structtesseract__planning_1_1PlannerRequest}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Planner\+Response}{\pageref{structtesseract__planning_1_1PlannerResponse}}{}
 \item descartes\+\_\+light\+::Position\+Sampler\begin{DoxyCompactList}
@@ -176,6 +191,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{Tesseract\+Planning\+Utils\+Unit}{\pageref{classTesseractPlanningUtilsUnit}}{}
 \item \contentsline{section}{Tesseract\+Process\+Manager\+Unit}{\pageref{classTesseractProcessManagerUnit}}{}
 \end{DoxyCompactList}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Timer\+Instruction}{\pageref{classtesseract__planning_1_1TimerInstruction}}{}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Traj\+Opt\+Composite\+Profile}{\pageref{classtesseract__planning_1_1TrajOptCompositeProfile}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Traj\+Opt\+Default\+Composite\+Profile}{\pageref{classtesseract__planning_1_1TrajOptDefaultCompositeProfile}}{}
@@ -198,4 +214,10 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{tesseract\+\_\+planning\+::Traj\+Opt\+Default\+Solver\+Profile}{\pageref{classtesseract__planning_1_1TrajOptDefaultSolverProfile}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{tesseract\+\_\+planning\+::Traj\+Opt\+Taskflow\+Params}{\pageref{structtesseract__planning_1_1TrajOptTaskflowParams}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Wait\+Instruction}{\pageref{classtesseract__planning_1_1WaitInstruction}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::Waypoint}{\pageref{classtesseract__planning_1_1Waypoint}}{}
+\item \contentsline{section}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::Waypoint\+Inner\+Base}{\pageref{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::Waypoint\+Inner$<$ T $>$}{\pageref{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}}{}
+\end{DoxyCompactList}
 \end{DoxyCompactList}

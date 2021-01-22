@@ -23,10 +23,10 @@ tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{str
 \begin{DoxyCompactList}\small\item\em The environment. \end{DoxyCompactList}\item 
 tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a3d8e8938be52bd9aea4c37147202eb40}{env\+\_\+state}}
 \begin{DoxyCompactList}\small\item\em The start state to use for planning. \end{DoxyCompactList}\item 
-Composite\+Instruction \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}
 \begin{DoxyCompactList}\small\item\em The program instruction This must containt a minimum of two move instruction the first move instruction is the start state. \end{DoxyCompactList}\item 
-Composite\+Instruction \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}
-\begin{DoxyCompactList}\small\item\em This should be a one to one match with the instructions where the Plan\+Instruction is replaced with a Composite\+Instruction of Move\+Instructions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}
+\begin{DoxyCompactList}\small\item\em This should be a one to one match with the instructions where the \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} is replaced with a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} of Move\+Instructions. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\+\_\+profile\+\_\+remapping}}
 \begin{DoxyCompactList}\small\item\em This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a57f97df33c6644837d93650818be4d67}{composite\+\_\+profile\+\_\+remapping}}
@@ -80,7 +80,7 @@ The start state to use for planning.
 \index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!instructions@{instructions}}
 \index{instructions@{instructions}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
 \doxysubsubsection{\texorpdfstring{instructions}{instructions}}
-{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Planner\+Request\+::instructions}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Planner\+Request\+::instructions}
 
 
 
@@ -110,11 +110,11 @@ This allows the remapping of the Plan Profile identified in the command language
 \index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!seed@{seed}}
 \index{seed@{seed}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
 \doxysubsubsection{\texorpdfstring{seed}{seed}}
-{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Planner\+Request\+::seed}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Planner\+Request\+::seed}
 
 
 
-This should be a one to one match with the instructions where the Plan\+Instruction is replaced with a Composite\+Instruction of Move\+Instructions. 
+This should be a one to one match with the instructions where the \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} is replaced with a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} of Move\+Instructions. 
 
 
 

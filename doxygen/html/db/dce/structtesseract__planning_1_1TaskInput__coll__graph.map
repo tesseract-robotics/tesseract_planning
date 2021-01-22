@@ -1,10 +1,12 @@
 <map id="tesseract_planning::TaskInput" name="tesseract_planning::TaskInput">
-<area shape="rect" id="node1" title="This struct is passed as an input to each process in the decision tree." alt="" coords="739,175,869,217"/>
-<area shape="rect" id="node2" title=" " alt="" coords="346,69,509,96"/>
-<area shape="rect" id="node3" title=" " alt="" coords="336,121,519,191"/>
-<area shape="rect" id="node4" title=" " alt="" coords="179,143,257,169"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,135,129,177"/>
-<area shape="rect" id="node6" title=" " alt="" coords="342,215,513,257"/>
-<area shape="rect" id="node7" title=" " alt="" coords="359,281,496,308"/>
-<area shape="rect" id="node8" title=" " alt="" coords="199,281,237,308"/>
+<area shape="rect" id="node1" title="This struct is passed as an input to each process in the decision tree." alt="" coords="881,205,1012,246"/>
+<area shape="rect" id="node2" title=" " alt="" coords="489,68,651,95"/>
+<area shape="rect" id="node3" title=" " alt="" coords="479,119,661,190"/>
+<area shape="rect" id="node4" title=" " alt="" coords="230,141,309,168"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,134,129,175"/>
+<area shape="rect" id="node6" title=" " alt="" coords="485,214,655,255"/>
+<area shape="rect" id="node7" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="505,287,635,329"/>
+<area shape="rect" id="node8" title=" " alt="" coords="179,277,360,333"/>
+<area shape="rect" id="node9" title=" " alt="" coords="501,355,639,381"/>
+<area shape="rect" id="node10" title=" " alt="" coords="250,357,289,384"/>
 </map>

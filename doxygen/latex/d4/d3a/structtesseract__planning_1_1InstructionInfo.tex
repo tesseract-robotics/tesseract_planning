@@ -2,17 +2,27 @@
 \label{structtesseract__planning_1_1InstructionInfo}\index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
 
 
-The Instruction Information struct.  
+The \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct.  
 
 
 
 
 {\ttfamily \#include $<$simple\+\_\+planner\+\_\+utils.\+h$>$}
 
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Instruction\+Info\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d8b/structtesseract__planning_1_1InstructionInfo__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a8763c0bfef96f8b4cd2965fece7e20c0}{Instruction\+Info}} (const Plan\+Instruction \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&manip\+\_\+info)
+\mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a8763c0bfef96f8b4cd2965fece7e20c0}{Instruction\+Info}} (const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info)
 \item 
 Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a0547c890202f6d402568572222a863b5}{calc\+Cartesian\+World\+Pose}} (const Eigen\+::\+Vector\+Xd \&jp) const
 \begin{DoxyCompactList}\small\item\em Calculate the cartesian pose in world coordinate given the joint solution. \end{DoxyCompactList}\item 
@@ -25,7 +35,7 @@ const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1Ins
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-const Plan\+Instruction \& \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a31e7c956d61572bec7aa2250d7560067}{instruction}}
+const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \& \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a31e7c956d61572bec7aa2250d7560067}{instruction}}
 \item 
 tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_a9962a7b08a14b18ca170b43ca6629cc4}{fwd\+\_\+kin}}
 \item 
@@ -42,14 +52,14 @@ bool \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo_aba253231c3a1
 
 
 \doxysubsection{Detailed Description}
-The Instruction Information struct. 
+The \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a8763c0bfef96f8b4cd2965fece7e20c0}\label{structtesseract__planning_1_1InstructionInfo_a8763c0bfef96f8b4cd2965fece7e20c0}} 
 \index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!InstructionInfo@{InstructionInfo}}
 \index{InstructionInfo@{InstructionInfo}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
 \doxysubsubsection{\texorpdfstring{InstructionInfo()}{InstructionInfo()}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Instruction\+Info\+::\+Instruction\+Info (\begin{DoxyParamCaption}\item[{const Plan\+Instruction \&}]{plan\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const Manipulator\+Info \&}]{manip\+\_\+info }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Instruction\+Info\+::\+Instruction\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{plan\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info }\end{DoxyParamCaption})}
 
 
 
@@ -130,7 +140,7 @@ Joint Position
 \index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!instruction@{instruction}}
 \index{instruction@{instruction}!tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}}
 \doxysubsubsection{\texorpdfstring{instruction}{instruction}}
-{\footnotesize\ttfamily const Plan\+Instruction\& tesseract\+\_\+planning\+::\+Instruction\+Info\+::instruction}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}}\& tesseract\+\_\+planning\+::\+Instruction\+Info\+::instruction}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1InstructionInfo_a893e2fc411ac8dec7a6dfd7818379bf2}\label{structtesseract__planning_1_1InstructionInfo_a893e2fc411ac8dec7a6dfd7818379bf2}} 
 \index{tesseract\_planning::InstructionInfo@{tesseract\_planning::InstructionInfo}!inv\_kin@{inv\_kin}}

@@ -11,19 +11,19 @@ Collaboration diagram for tesseract\+\_\+planning\+::Planner\+Response\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=342pt]{d0/d19/structtesseract__planning_1_1PlannerResponse__coll__graph}
+\includegraphics[width=350pt]{d0/d19/structtesseract__planning_1_1PlannerResponse__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-Composite\+Instruction \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}}
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}}
 \item 
 tesseract\+\_\+common\+::\+Status\+Code \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}}
 \begin{DoxyCompactList}\small\item\em The status information. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$ $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a6d76c7a5b1cfc4bc21bb3a6037fe4332}{succeeded\+\_\+instructions}}
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$ $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a6d76c7a5b1cfc4bc21bb3a6037fe4332}{succeeded\+\_\+instructions}}
 \begin{DoxyCompactList}\small\item\em Waypoints for which the planner succeeded. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$ $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a516c58180eae07880a0b9da74077af6c}{failed\+\_\+instructions}}
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$ $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a516c58180eae07880a0b9da74077af6c}{failed\+\_\+instructions}}
 \begin{DoxyCompactList}\small\item\em Waypoints for which the planner failed. \end{DoxyCompactList}\item 
 std\+::shared\+\_\+ptr$<$ void $>$ \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}{data}}
 \begin{DoxyCompactList}\small\item\em data Planner specific data. For planners included in Tesseract\+\_\+planning this is the planner problem that was solved \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -44,7 +44,7 @@ data Planner specific data. For planners included in Tesseract\+\_\+planning thi
 \index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!failed\_instructions@{failed\_instructions}}
 \index{failed\_instructions@{failed\_instructions}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
 \doxysubsubsection{\texorpdfstring{failed\_instructions}{failed\_instructions}}
-{\footnotesize\ttfamily std\+::vector$<$std\+::reference\+\_\+wrapper$<$Instruction$>$ $>$ tesseract\+\_\+planning\+::\+Planner\+Response\+::failed\+\_\+instructions}
+{\footnotesize\ttfamily std\+::vector$<$std\+::reference\+\_\+wrapper$<$\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}$>$ $>$ tesseract\+\_\+planning\+::\+Planner\+Response\+::failed\+\_\+instructions}
 
 
 
@@ -54,7 +54,7 @@ Waypoints for which the planner failed.
 \index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!results@{results}}
 \index{results@{results}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
 \doxysubsubsection{\texorpdfstring{results}{results}}
-{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Planner\+Response\+::results}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Planner\+Response\+::results}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}\label{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}} 
 \index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!status@{status}}
@@ -70,7 +70,7 @@ The status information.
 \index{tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}!succeeded\_instructions@{succeeded\_instructions}}
 \index{succeeded\_instructions@{succeeded\_instructions}!tesseract\_planning::PlannerResponse@{tesseract\_planning::PlannerResponse}}
 \doxysubsubsection{\texorpdfstring{succeeded\_instructions}{succeeded\_instructions}}
-{\footnotesize\ttfamily std\+::vector$<$std\+::reference\+\_\+wrapper$<$Instruction$>$ $>$ tesseract\+\_\+planning\+::\+Planner\+Response\+::succeeded\+\_\+instructions}
+{\footnotesize\ttfamily std\+::vector$<$std\+::reference\+\_\+wrapper$<$\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}$>$ $>$ tesseract\+\_\+planning\+::\+Planner\+Response\+::succeeded\+\_\+instructions}
 
 
 

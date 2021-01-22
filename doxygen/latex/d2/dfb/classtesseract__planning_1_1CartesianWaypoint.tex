@@ -1,0 +1,300 @@
+\hypertarget{classtesseract__planning_1_1CartesianWaypoint}{}\doxysection{tesseract\+\_\+planning\+::Cartesian\+Waypoint Class Reference}
+\label{classtesseract__planning_1_1CartesianWaypoint}\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+
+
+{\ttfamily \#include $<$cartesian\+\_\+waypoint.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a0df055a110d6a265a3ca88668c818acf}{Const\+Linear\+Part}} = Eigen\+::\+Isometry3d\+::\+Const\+Linear\+Part
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aea5ab89511e02e50821809ee86f9c9f1}{Linear\+Part}} = Eigen\+::\+Isometry3d\+::\+Linear\+Part
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a3d616e0fa725e68f78540020b95cf32d}{Const\+Translation\+Part}} = Eigen\+::\+Isometry3d\+::\+Const\+Translation\+Part
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_af7353c55b607c1de43d0538c07c7f6fc}{Translation\+Part}} = Eigen\+::\+Isometry3d\+::\+Translation\+Part
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+EIGEN\+\_\+\+MAKE\+\_\+\+ALIGNED\+\_\+\+OPERATOR\+\_\+\+NEW \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a3f80f2efcea6d4500f79aadf3726324f}{Cartesian\+Waypoint}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a143a2e9b66aff65faba5b0214e55e564}{Cartesian\+Waypoint}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a11cbfe9df328ab708356a31c2f65a48a}{get\+Type}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_afa44b78ad6498907631a0d10f304155a}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
+\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a37d80d5db9299298920486a653fd3f38}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
+\item 
+{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a929597f1be7a8567fa97cc9ed8bd416e}{Cartesian\+Waypoint}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a8ae263c7c940cfb57738e35d3f2a19a4}{Cartesian\+Waypoint}} (const Eigen\+::\+Isometry3d \&other)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a0df055a110d6a265a3ca88668c818acf}{Const\+Linear\+Part}} \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a1c8167c78a7b72763cfdbcebfa1c25be}{linear}} () const
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aea5ab89511e02e50821809ee86f9c9f1}{Linear\+Part}} \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a8a6d6be6ec7829242b26a728909f5452}{linear}} ()
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a3d616e0fa725e68f78540020b95cf32d}{Const\+Translation\+Part}} \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a962638718a6a1a7927bc6fefaad4a614}{translation}} () const
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_af7353c55b607c1de43d0538c07c7f6fc}{Translation\+Part}} \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a2879eca9d2ba40ae6c07f69f89bb1f9f}{translation}} ()
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a34205beec61267f8fc333eb499b47fd8}{is\+Approx}} (const Eigen\+::\+Isometry3d \&other, double prec=1e-\/12)
+\item 
+{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aff81fefd48a799a7eb058bed7be93b91}{operator=}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other)
+\item 
+{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a32324e95dbc17bf399c4b941e8efd022}{operator$\ast$=}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other)
+\item 
+{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a2b6b5d7adefaee661b6fd1ea7a226bea}{operator$\ast$}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other) const
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a750c4cd2d9745cbaf013754c4b77bfe9}{operator=}} (const Eigen\+::\+Isometry3d \&other)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aac749d9d33a7f10a79af17956f69738f}{operator$\ast$=}} (const Eigen\+::\+Isometry3d \&other)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a699d1cff52430dc11b7d9476b03637a2}{operator$\ast$}} (const Eigen\+::\+Isometry3d \&other) const
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_adb86b3fd996536dca76f037eb225eedc}{operator const Eigen\+::\+Isometry3d \&}} () const
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aa4d92c367361046248a0823430eb2427}{operator Eigen\+::\+Isometry3d \&}} ()
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_abc9a862e008f530b644e331c0aba9c24}{is\+Toleranced}} () const
+\begin{DoxyCompactList}\small\item\em Returns true if waypoint is toleranced. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a19e6c09de8ae462827b67b9eeff3cdba}{waypoint}}
+\begin{DoxyCompactList}\small\item\em The Cartesian \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_ac1b7fe49f6f66274db17ee2bdd4894ea}{lower\+\_\+tolerance}}
+\begin{DoxyCompactList}\small\item\em Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen\+::\+Angle\+Axisd.\+axis() $\ast$ Eigen\+::\+Angle\+Axisd.\+angle()) \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_acb2234c33b744233913fa43229100616}{upper\+\_\+tolerance}}
+\begin{DoxyCompactList}\small\item\em Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen\+::\+Angle\+Axisd.\+axis() $\ast$ Eigen\+::\+Angle\+Axisd.\+angle()) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a0df055a110d6a265a3ca88668c818acf}\label{classtesseract__planning_1_1CartesianWaypoint_a0df055a110d6a265a3ca88668c818acf}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!ConstLinearPart@{ConstLinearPart}}
+\index{ConstLinearPart@{ConstLinearPart}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{ConstLinearPart}{ConstLinearPart}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a0df055a110d6a265a3ca88668c818acf}{tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::\+Const\+Linear\+Part}} =  Eigen\+::\+Isometry3d\+::\+Const\+Linear\+Part}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a3d616e0fa725e68f78540020b95cf32d}\label{classtesseract__planning_1_1CartesianWaypoint_a3d616e0fa725e68f78540020b95cf32d}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!ConstTranslationPart@{ConstTranslationPart}}
+\index{ConstTranslationPart@{ConstTranslationPart}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{ConstTranslationPart}{ConstTranslationPart}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a3d616e0fa725e68f78540020b95cf32d}{tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::\+Const\+Translation\+Part}} =  Eigen\+::\+Isometry3d\+::\+Const\+Translation\+Part}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_aea5ab89511e02e50821809ee86f9c9f1}\label{classtesseract__planning_1_1CartesianWaypoint_aea5ab89511e02e50821809ee86f9c9f1}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!LinearPart@{LinearPart}}
+\index{LinearPart@{LinearPart}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{LinearPart}{LinearPart}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aea5ab89511e02e50821809ee86f9c9f1}{tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::\+Linear\+Part}} =  Eigen\+::\+Isometry3d\+::\+Linear\+Part}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_af7353c55b607c1de43d0538c07c7f6fc}\label{classtesseract__planning_1_1CartesianWaypoint_af7353c55b607c1de43d0538c07c7f6fc}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!TranslationPart@{TranslationPart}}
+\index{TranslationPart@{TranslationPart}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{TranslationPart}{TranslationPart}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_af7353c55b607c1de43d0538c07c7f6fc}{tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::\+Translation\+Part}} =  Eigen\+::\+Isometry3d\+::\+Translation\+Part}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a3f80f2efcea6d4500f79aadf3726324f}\label{classtesseract__planning_1_1CartesianWaypoint_a3f80f2efcea6d4500f79aadf3726324f}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!CartesianWaypoint@{CartesianWaypoint}}
+\index{CartesianWaypoint@{CartesianWaypoint}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{CartesianWaypoint()}{CartesianWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily EIGEN\+\_\+\+MAKE\+\_\+\+ALIGNED\+\_\+\+OPERATOR\+\_\+\+NEW tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::\+Cartesian\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a143a2e9b66aff65faba5b0214e55e564}\label{classtesseract__planning_1_1CartesianWaypoint_a143a2e9b66aff65faba5b0214e55e564}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!CartesianWaypoint@{CartesianWaypoint}}
+\index{CartesianWaypoint@{CartesianWaypoint}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{CartesianWaypoint()}{CartesianWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::\+Cartesian\+Waypoint (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a929597f1be7a8567fa97cc9ed8bd416e}\label{classtesseract__planning_1_1CartesianWaypoint_a929597f1be7a8567fa97cc9ed8bd416e}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!CartesianWaypoint@{CartesianWaypoint}}
+\index{CartesianWaypoint@{CartesianWaypoint}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{CartesianWaypoint()}{CartesianWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
+tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::\+Cartesian\+Waypoint (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a8ae263c7c940cfb57738e35d3f2a19a4}\label{classtesseract__planning_1_1CartesianWaypoint_a8ae263c7c940cfb57738e35d3f2a19a4}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!CartesianWaypoint@{CartesianWaypoint}}
+\index{CartesianWaypoint@{CartesianWaypoint}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{CartesianWaypoint()}{CartesianWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::\+Cartesian\+Waypoint (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a11cbfe9df328ab708356a31c2f65a48a}\label{classtesseract__planning_1_1CartesianWaypoint_a11cbfe9df328ab708356a31c2f65a48a}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!getType@{getType}}
+\index{getType@{getType}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a34205beec61267f8fc333eb499b47fd8}\label{classtesseract__planning_1_1CartesianWaypoint_a34205beec61267f8fc333eb499b47fd8}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!isApprox@{isApprox}}
+\index{isApprox@{isApprox}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{isApprox()}{isApprox()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::is\+Approx (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{other,  }\item[{double}]{prec = {\ttfamily 1e-\/12} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+true if two are approximate 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_abc9a862e008f530b644e331c0aba9c24}\label{classtesseract__planning_1_1CartesianWaypoint_abc9a862e008f530b644e331c0aba9c24}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!isToleranced@{isToleranced}}
+\index{isToleranced@{isToleranced}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{isToleranced()}{isToleranced()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::is\+Toleranced (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns true if waypoint is toleranced. 
+
+\begin{DoxyReturn}{Returns}
+True if waypoint is toleranced 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a8a6d6be6ec7829242b26a728909f5452}\label{classtesseract__planning_1_1CartesianWaypoint_a8a6d6be6ec7829242b26a728909f5452}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!linear@{linear}}
+\index{linear@{linear}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{linear()}{linear()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aea5ab89511e02e50821809ee86f9c9f1}{Linear\+Part}} tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::linear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+a writable expression of the linear part of the transformation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a1c8167c78a7b72763cfdbcebfa1c25be}\label{classtesseract__planning_1_1CartesianWaypoint_a1c8167c78a7b72763cfdbcebfa1c25be}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!linear@{linear}}
+\index{linear@{linear}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{linear()}{linear()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a0df055a110d6a265a3ca88668c818acf}{Const\+Linear\+Part}} tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::linear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+a read-\/only expression of the linear part of the transformation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_adb86b3fd996536dca76f037eb225eedc}\label{classtesseract__planning_1_1CartesianWaypoint_adb86b3fd996536dca76f037eb225eedc}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!operator const Eigen::Isometry3d \&@{operator const Eigen::Isometry3d \&}}
+\index{operator const Eigen::Isometry3d \&@{operator const Eigen::Isometry3d \&}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{operator const Eigen::Isometry3d \&()}{operator const Eigen::Isometry3d \&()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::operator const Eigen\+::\+Isometry3d \& (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+Implicit Conversions to read-\/only Eigen\+::\+Isometry3d 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_aa4d92c367361046248a0823430eb2427}\label{classtesseract__planning_1_1CartesianWaypoint_aa4d92c367361046248a0823430eb2427}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!operator Eigen::Isometry3d \&@{operator Eigen::Isometry3d \&}}
+\index{operator Eigen::Isometry3d \&@{operator Eigen::Isometry3d \&}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{operator Eigen::Isometry3d \&()}{operator Eigen::Isometry3d \&()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::operator Eigen\+::\+Isometry3d \& (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+Implicit Conversions to writable Eigen\+::\+Isometry3d 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a699d1cff52430dc11b7d9476b03637a2}\label{classtesseract__planning_1_1CartesianWaypoint_a699d1cff52430dc11b7d9476b03637a2}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a2b6b5d7adefaee661b6fd1ea7a226bea}\label{classtesseract__planning_1_1CartesianWaypoint_a2b6b5d7adefaee661b6fd1ea7a226bea}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_aac749d9d33a7f10a79af17956f69738f}\label{classtesseract__planning_1_1CartesianWaypoint_aac749d9d33a7f10a79af17956f69738f}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}\& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a32324e95dbc17bf399c4b941e8efd022}\label{classtesseract__planning_1_1CartesianWaypoint_a32324e95dbc17bf399c4b941e8efd022}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}\& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a750c4cd2d9745cbaf013754c4b77bfe9}\label{classtesseract__planning_1_1CartesianWaypoint_a750c4cd2d9745cbaf013754c4b77bfe9}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}\& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::operator= (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_aff81fefd48a799a7eb058bed7be93b91}\label{classtesseract__planning_1_1CartesianWaypoint_aff81fefd48a799a7eb058bed7be93b91}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}\& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::operator= (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_afa44b78ad6498907631a0d10f304155a}\label{classtesseract__planning_1_1CartesianWaypoint_afa44b78ad6498907631a0d10f304155a}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!print@{print}}
+\index{print@{print}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a37d80d5db9299298920486a653fd3f38}\label{classtesseract__planning_1_1CartesianWaypoint_a37d80d5db9299298920486a653fd3f38}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a2879eca9d2ba40ae6c07f69f89bb1f9f}\label{classtesseract__planning_1_1CartesianWaypoint_a2879eca9d2ba40ae6c07f69f89bb1f9f}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!translation@{translation}}
+\index{translation@{translation}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{translation()}{translation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_af7353c55b607c1de43d0538c07c7f6fc}{Translation\+Part}} tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::translation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+a writable expression of the translation vector of the transformation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a962638718a6a1a7927bc6fefaad4a614}\label{classtesseract__planning_1_1CartesianWaypoint_a962638718a6a1a7927bc6fefaad4a614}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!translation@{translation}}
+\index{translation@{translation}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{translation()}{translation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a3d616e0fa725e68f78540020b95cf32d}{Const\+Translation\+Part}} tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::translation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+a read-\/only expression of the translation vector of the transformation 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_ac1b7fe49f6f66274db17ee2bdd4894ea}\label{classtesseract__planning_1_1CartesianWaypoint_ac1b7fe49f6f66274db17ee2bdd4894ea}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!lower\_tolerance@{lower\_tolerance}}
+\index{lower\_tolerance@{lower\_tolerance}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{lower\_tolerance}{lower\_tolerance}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::lower\+\_\+tolerance}
+
+
+
+Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen\+::\+Angle\+Axisd.\+axis() $\ast$ Eigen\+::\+Angle\+Axisd.\+angle()) 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_acb2234c33b744233913fa43229100616}\label{classtesseract__planning_1_1CartesianWaypoint_acb2234c33b744233913fa43229100616}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!upper\_tolerance@{upper\_tolerance}}
+\index{upper\_tolerance@{upper\_tolerance}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{upper\_tolerance}{upper\_tolerance}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::upper\+\_\+tolerance}
+
+
+
+Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen\+::\+Angle\+Axisd.\+axis() $\ast$ Eigen\+::\+Angle\+Axisd.\+angle()) 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a19e6c09de8ae462827b67b9eeff3cdba}\label{classtesseract__planning_1_1CartesianWaypoint_a19e6c09de8ae462827b67b9eeff3cdba}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!waypoint@{waypoint}}
+\index{waypoint@{waypoint}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{waypoint}{waypoint}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::waypoint}
+
+
+
+The Cartesian \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/\mbox{\hyperlink{cartesian__waypoint_8h}{cartesian\+\_\+waypoint.\+h}}\end{DoxyCompactItemize}

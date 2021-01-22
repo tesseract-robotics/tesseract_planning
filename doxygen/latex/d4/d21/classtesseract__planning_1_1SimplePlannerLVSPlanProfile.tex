@@ -36,7 +36,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a2a4477d13e4d7fbcf265671b38a94bea}{Simple\+Planner\+LVSPlan\+Profile}} (double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a58ee7a1921b88ff7137f2b120f7dfef1}{state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}=5 $\ast$M\+\_\+\+PI/180, double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a7f5a90a2b2503640fcdc511f600d6bdc}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}=0.\+1, double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a8ae5221cb38f1afe3c9a6a5fe2d69be4}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}=5 $\ast$M\+\_\+\+PI/180, int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a094adae734ad0ba03704b781b51b68a6}{min\+\_\+steps}}=1)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}}. \end{DoxyCompactList}\item 
-Composite\+Instruction \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a23e2d8f7919f463cabe6aa3e5a3a89e3}{generate}} (const Plan\+Instruction \&prev\+\_\+instruction, const Plan\+Instruction \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const Manipulator\+Info \&global\+\_\+manip\+\_\+info) const override
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a23e2d8f7919f463cabe6aa3e5a3a89e3}{generate}} (const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&prev\+\_\+instruction, const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&global\+\_\+manip\+\_\+info) const override
 \begin{DoxyCompactList}\small\item\em Generate a seed for the provided base\+\_\+instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -52,14 +52,14 @@ int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a09
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-Composite\+Instruction \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a1834ea8da4cf23e339c1bb26a578bf69}{state\+Joint\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&base) const
-\begin{DoxyCompactList}\small\item\em Joint\+Waypoint to Joint\+Waypoint. \end{DoxyCompactList}\item 
-Composite\+Instruction \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a0ccdbbd47570d4ab59992f901362321f}{state\+Joint\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&base) const
-\begin{DoxyCompactList}\small\item\em Joint\+Waypoint to Cartesian\+Waypoint. \end{DoxyCompactList}\item 
-Composite\+Instruction \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a04a5a5843ad451bd424a8c56b6bfae0e}{state\+Cart\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&base) const
-\begin{DoxyCompactList}\small\item\em Cartesian\+Waypoint to Joint\+Waypoint. \end{DoxyCompactList}\item 
-Composite\+Instruction \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a93d09856acad6370c5e99c78ac5d40e7}{state\+Cart\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&base, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
-\begin{DoxyCompactList}\small\item\em Cartesian\+Waypoint to Cartesian\+Waypoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a1834ea8da4cf23e339c1bb26a578bf69}{state\+Joint\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&base) const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a0ccdbbd47570d4ab59992f901362321f}{state\+Joint\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&base) const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a04a5a5843ad451bd424a8c56b6bfae0e}{state\+Cart\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&base) const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a93d09856acad6370c5e99c78ac5d40e7}{state\+Cart\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&base, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -106,7 +106,7 @@ Composite\+Instruction \mbox{\hyperlink{classtesseract__planning_1_1SimplePlanne
 \index{tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}!generate@{generate}}
 \index{generate@{generate}!tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}}
 \doxysubsubsection{\texorpdfstring{generate()}{generate()}}
-{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const Plan\+Instruction \&}]{prev\+\_\+instruction,  }\item[{const Plan\+Instruction \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const Manipulator\+Info \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{prev\+\_\+instruction,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -134,13 +134,13 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile
 \index{tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}!stateCartCartWaypoint@{stateCartCartWaypoint}}
 \index{stateCartCartWaypoint@{stateCartCartWaypoint}!tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}}
 \doxysubsubsection{\texorpdfstring{stateCartCartWaypoint()}{stateCartCartWaypoint()}}
-{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::state\+Cart\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{base,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::state\+Cart\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{base,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Cartesian\+Waypoint to Cartesian\+Waypoint. 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}. 
 
-This function interpolates the motion from start state to end state. Results are stored in State\+Waypoint objects.
+This function interpolates the motion from start state to end state. Results are stored in \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} objects.
 
 
 \begin{DoxyItemize}
@@ -179,13 +179,13 @@ A composite instruction of move instruction with state waypoints
 \index{tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}!stateCartJointWaypoint@{stateCartJointWaypoint}}
 \index{stateCartJointWaypoint@{stateCartJointWaypoint}!tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}}
 \doxysubsubsection{\texorpdfstring{stateCartJointWaypoint()}{stateCartJointWaypoint()}}
-{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::state\+Cart\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::state\+Cart\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Cartesian\+Waypoint to Joint\+Waypoint. 
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}. 
 
-This function interpolates the motion from start state to end state. Results are stored in State\+Waypoint objects.
+This function interpolates the motion from start state to end state. Results are stored in \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} objects.
 
 
 \begin{DoxyItemize}
@@ -216,11 +216,11 @@ A composite instruction of move instruction with state waypoints
 \index{tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}!stateJointCartWaypoint@{stateJointCartWaypoint}}
 \index{stateJointCartWaypoint@{stateJointCartWaypoint}!tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}}
 \doxysubsubsection{\texorpdfstring{stateJointCartWaypoint()}{stateJointCartWaypoint()}}
-{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::state\+Joint\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::state\+Joint\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Joint\+Waypoint to Cartesian\+Waypoint. 
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}. 
 
 
 \begin{DoxyItemize}
@@ -251,13 +251,13 @@ A composite instruction of move instruction with state waypoints
 \index{tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}!stateJointJointWaypoint@{stateJointJointWaypoint}}
 \index{stateJointJointWaypoint@{stateJointJointWaypoint}!tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}}
 \doxysubsubsection{\texorpdfstring{stateJointJointWaypoint()}{stateJointJointWaypoint()}}
-{\footnotesize\ttfamily Composite\+Instruction tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::state\+Joint\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSPlan\+Profile\+::state\+Joint\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Joint\+Waypoint to Joint\+Waypoint. 
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}. 
 
-This function interpolates the motion from start state to end state. Results are stored in State\+Waypoint objects.
+This function interpolates the motion from start state to end state. Results are stored in \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} objects.
 
 
 \begin{DoxyItemize}
