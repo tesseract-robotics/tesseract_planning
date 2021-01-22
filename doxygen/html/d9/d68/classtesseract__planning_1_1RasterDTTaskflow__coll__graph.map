@@ -1,7 +1,7 @@
 <map id="tesseract_planning::RasterDTTaskflow" name="tesseract_planning::RasterDTTaskflow">
-<area shape="rect" id="node1" title="This class provides a taskflow generator for a raster process." alt="" coords="576,108,711,149"/>
-<area shape="rect" id="node2" href="$d1/d32/classtesseract__planning_1_1TaskflowGenerator.html" title="Base class for generating a taskflow." alt="" coords="5,27,143,68"/>
-<area shape="rect" id="node5" title=" " alt="" coords="209,76,379,117"/>
-<area shape="rect" id="node3" title=" " alt="" coords="255,161,333,187"/>
-<area shape="rect" id="node4" title=" " alt="" coords="12,153,136,195"/>
+<area shape="rect" id="node1" title="This class provides a taskflow generator for a raster process." alt="" coords="545,52,680,93"/>
+<area shape="rect" id="node2" href="$d1/d32/classtesseract__planning_1_1TaskflowGenerator.html" title="Base class for generating a taskflow." alt="" coords="195,5,332,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="224,71,303,98"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,64,129,105"/>
+<area shape="rect" id="node5" title=" " alt="" coords="179,171,348,212"/>
 </map>

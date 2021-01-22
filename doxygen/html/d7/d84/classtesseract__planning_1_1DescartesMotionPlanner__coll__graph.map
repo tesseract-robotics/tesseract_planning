@@ -1,9 +1,7 @@
 <map id="tesseract_planning::DescartesMotionPlanner&lt; FloatType &gt;" name="tesseract_planning::DescartesMotionPlanner&lt; FloatType &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="1101,70,1272,126"/>
-<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="783,5,913,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="228,139,307,166"/>
-<area shape="rect" id="node6" href="$d5/d4d/classtesseract__planning_1_1DescartesMotionPlannerStatusCategory.html" title="The Descartes motion planner status category." alt="" coords="447,70,655,126"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,132,129,173"/>
-<area shape="rect" id="node5" title=" " alt="" coords="745,70,951,126"/>
-<area shape="rect" id="node7" title=" " alt="" coords="179,64,356,105"/>
+<area shape="rect" id="node1" title=" " alt="" coords="535,57,705,113"/>
+<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="216,5,347,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="242,71,321,98"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,64,129,105"/>
+<area shape="rect" id="node5" title=" " alt="" coords="179,122,384,178"/>
 </map>

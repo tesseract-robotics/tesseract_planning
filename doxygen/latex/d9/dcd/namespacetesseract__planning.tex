@@ -390,6 +390,8 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a5f5cbd9566c58361976715
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_aad3c64a902f813fd357ae4b9f17631fc}{to\+Toolpath}} (const Instruction \&instruction, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env)
+\begin{DoxyCompactList}\small\item\em Extract toolpath from a composite instruction. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}{interpolate}} (const Eigen\+::\+Isometry3d \&start, const Eigen\+::\+Isometry3d \&stop, int steps)
 \begin{DoxyCompactList}\small\item\em Inerpolate between two transforms return a vector of Eigen\+::\+Isometry transforms. \end{DoxyCompactList}\item 
 Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae5d6d72fa7462d658a7a9e04c0d35d72}{interpolate}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&stop, int steps)
@@ -585,6 +587,8 @@ ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__plannin
 bool \mbox{\hyperlink{namespacetesseract__planning_ad1bb7b2c051670161546ddd6d9f20927}{add\+Joint\+Velocity\+Constraint}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a204d4baf6c7f28609ac19b52f3cf3873}{add\+Joint\+Velocity\+Squared\+Cost}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ad8eb3f36ec354c71fac2d04e3a6c166a}{calc\+Pose}} (const Waypoint \&wp, const std\+::string \&working\+\_\+frame, const std\+::string \&tip\+\_\+link, const Eigen\+::\+Isometry3d \&tcp, const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&current\+\_\+state, tesseract\+\_\+environment\+::\+State\+Solver \&state\+\_\+solver)
 \item 
 void \mbox{\hyperlink{namespacetesseract__planning_a9fdd1c21a9abe55ec08548f16761ddf5}{generate\+Naive\+Seed\+Helper}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const tesseract\+\_\+environment\+::\+Env\+State \&env\+\_\+state, const Manipulator\+Info \&manip\+\_\+info)
 \item 
@@ -1235,6 +1239,12 @@ OMPL state sampler shared pointer
 \index{ApplyCorrectionWorkflow@{ApplyCorrectionWorkflow}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{ApplyCorrectionWorkflow()}{ApplyCorrectionWorkflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Apply\+Correction\+Workflow (\begin{DoxyParamCaption}\item[{Waypoint \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile,  }\item[{tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&}]{contacts }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_ad8eb3f36ec354c71fac2d04e3a6c166a}\label{namespacetesseract__planning_ad8eb3f36ec354c71fac2d04e3a6c166a}} 
+\index{tesseract\_planning@{tesseract\_planning}!calcPose@{calcPose}}
+\index{calcPose@{calcPose}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{calcPose()}{calcPose()}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+planning\+::calc\+Pose (\begin{DoxyParamCaption}\item[{const Waypoint \&}]{wp,  }\item[{const std\+::string \&}]{working\+\_\+frame,  }\item[{const std\+::string \&}]{tip\+\_\+link,  }\item[{const Eigen\+::\+Isometry3d \&}]{tcp,  }\item[{const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&}]{current\+\_\+state,  }\item[{tesseract\+\_\+environment\+::\+State\+Solver \&}]{state\+\_\+solver }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ab6a97e73f80873b61a00a24efb86eb86}\label{namespacetesseract__planning_ab6a97e73f80873b61a00a24efb86eb86}} 
 \index{tesseract\_planning@{tesseract\_planning}!checkGoalState@{checkGoalState}}
@@ -2625,6 +2635,26 @@ The default success task to be used.
 {\em user\+\_\+callback} & A user callback function \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{namespacetesseract__planning_aad3c64a902f813fd357ae4b9f17631fc}\label{namespacetesseract__planning_aad3c64a902f813fd357ae4b9f17631fc}} 
+\index{tesseract\_planning@{tesseract\_planning}!toToolpath@{toToolpath}}
+\index{toToolpath@{toToolpath}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{toToolpath()}{toToolpath()}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Toolpath tesseract\+\_\+planning\+::to\+Toolpath (\begin{DoxyParamCaption}\item[{const Instruction \&}]{instruction,  }\item[{const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&}]{env }\end{DoxyParamCaption})}
+
+
+
+Extract toolpath from a composite instruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & The instruction to extract toolpath \\
+\hline
+{\em env} & The environment object used for getting kinematics and tcp information \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A toolpath in world coordinate system 
+\end{DoxyReturn}
 \mbox{\Hypertarget{namespacetesseract__planning_a87e1a794cf84e24e7a9816580e617355}\label{namespacetesseract__planning_a87e1a794cf84e24e7a9816580e617355}} 
 \index{tesseract\_planning@{tesseract\_planning}!toTrajArray@{toTrajArray}}
 \index{toTrajArray@{toTrajArray}!tesseract\_planning@{tesseract\_planning}}

@@ -1,52 +1,52 @@
 <map id="tesseract_motion_planners/src/ompl/ompl_motion_planner.cpp" name="tesseract_motion_planners/src/ompl/ompl_motion_planner.cpp">
-<area shape="rect" id="node1" title="Tesseract OMPL motion planner." alt="" coords="2555,5,2782,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1713,607,1904,634"/>
-<area shape="rect" id="node3" title=" " alt="" coords="3466,317,3634,344"/>
-<area shape="rect" id="node4" title=" " alt="" coords="1347,109,1537,136"/>
-<area shape="rect" id="node5" title=" " alt="" coords="1561,109,1757,136"/>
-<area shape="rect" id="node6" title=" " alt="" coords="31,503,170,545"/>
-<area shape="rect" id="node7" href="$d4/d92/ompl__motion__planner__status__category_8h.html" title="Tesseract OMPL motion planner status category." alt="" coords="2033,303,2214,359"/>
-<area shape="rect" id="node10" href="$d6/dfd/ompl_2problem__generators_2default__problem__generator_8h.html" title="Generates a OMPL problem from a planner request." alt="" coords="1782,95,1971,151"/>
-<area shape="rect" id="node15" title=" " alt="" coords="4020,407,4219,448"/>
-<area shape="rect" id="node16" href="$d8/d16/ompl__default__plan__profile_8h.html" title="Tesseract OMPL default plan profile." alt="" coords="437,199,615,255"/>
-<area shape="rect" id="node35" title=" " alt="" coords="4293,310,4447,351"/>
-<area shape="rect" id="node36" href="$d2/dec/ompl__motion__planner_8h.html" title="Tesseract OMPL motion planner." alt="" coords="2325,102,2516,143"/>
-<area shape="rect" id="node39" href="$d3/d7a/continuous__motion__validator_8h.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="2829,199,3007,255"/>
-<area shape="rect" id="node44" href="$d9/d64/discrete__motion__validator_8h.html" title="Tesseract OMPL planner discrete collision check between two states." alt="" coords="1914,206,2130,247"/>
-<area shape="rect" id="node45" href="$dc/d1a/weighted__real__vector__state__sampler_8h.html" title="Tesseract OMPL Weighted State Sampler." alt="" coords="4293,496,4474,552"/>
-<area shape="rect" id="node47" href="$d3/d8c/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="3741,206,3919,247"/>
-<area shape="rect" id="node50" title=" " alt="" coords="4471,310,4669,351"/>
-<area shape="rect" id="node8" title=" " alt="" coords="2460,414,2515,441"/>
-<area shape="rect" id="node9" title=" " alt="" coords="2539,407,2713,448"/>
-<area shape="rect" id="node11" title=" " alt="" coords="589,414,647,441"/>
-<area shape="rect" id="node12" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="1830,310,2009,351"/>
-<area shape="rect" id="node13" title=" " alt="" coords="2163,503,2318,545"/>
-<area shape="rect" id="node14" title=" " alt="" coords="1959,414,2138,441"/>
-<area shape="rect" id="node17" title=" " alt="" coords="1929,607,2043,634"/>
-<area shape="rect" id="node18" title=" " alt="" coords="378,317,463,344"/>
-<area shape="rect" id="node19" href="$dc/d80/tesseract__motion__planners_2include_2tesseract__motion__planners_2ompl_2utils_8h.html" title="Tesseract OMPL planner utility functions." alt="" coords="1627,310,1806,351"/>
-<area shape="rect" id="node26" href="$d7/dbb/tesseract__motion__planners_2include_2tesseract__motion__planners_2ompl_2types_8h.html" title="Tesseract OMPL types." alt="" coords="694,503,873,545"/>
-<area shape="rect" id="node27" href="$de/d1e/ompl__planner__configurator_8h.html" title="Tesseract OMPL planner configurator." alt="" coords="194,503,413,545"/>
-<area shape="rect" id="node31" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="1061,310,1239,351"/>
-<area shape="rect" id="node20" title=" " alt="" coords="1707,414,1833,441"/>
-<area shape="rect" id="node21" title=" " alt="" coords="1471,414,1683,441"/>
-<area shape="rect" id="node22" title=" " alt="" coords="2305,414,2384,441"/>
-<area shape="rect" id="node23" href="$dd/d3c/ompl__problem_8h.html" title="Tesseract OMPL problem definition." alt="" coords="1167,407,1346,448"/>
+<area shape="rect" id="node1" title="Tesseract OMPL motion planner." alt="" coords="3166,5,3393,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1253,607,1444,634"/>
+<area shape="rect" id="node3" title=" " alt="" coords="3865,414,4033,441"/>
+<area shape="rect" id="node4" title=" " alt="" coords="4507,109,4697,136"/>
+<area shape="rect" id="node5" title=" " alt="" coords="4721,109,4917,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1071,503,1210,545"/>
+<area shape="rect" id="node7" href="$d4/d92/ompl__motion__planner__status__category_8h.html" title="Tesseract OMPL motion planner status category." alt="" coords="2215,303,2397,359"/>
+<area shape="rect" id="node10" href="$d6/dfd/ompl_2problem__generators_2default__problem__generator_8h.html" title="Generates a OMPL problem from a planner request." alt="" coords="439,95,629,151"/>
+<area shape="rect" id="node15" title=" " alt="" coords="2905,407,3104,448"/>
+<area shape="rect" id="node16" href="$d8/d16/ompl__default__plan__profile_8h.html" title="Tesseract OMPL default plan profile." alt="" coords="267,199,446,255"/>
+<area shape="rect" id="node35" title=" " alt="" coords="4057,407,4211,448"/>
+<area shape="rect" id="node36" href="$d2/dec/ompl__motion__planner_8h.html" title="Tesseract OMPL motion planner." alt="" coords="1845,102,2036,143"/>
+<area shape="rect" id="node39" href="$d3/d7a/continuous__motion__validator_8h.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="2910,199,3089,255"/>
+<area shape="rect" id="node44" href="$d9/d64/discrete__motion__validator_8h.html" title="Tesseract OMPL planner discrete collision check between two states." alt="" coords="2619,206,2835,247"/>
+<area shape="rect" id="node45" href="$dc/d1a/weighted__real__vector__state__sampler_8h.html" title="Tesseract OMPL Weighted State Sampler." alt="" coords="3662,496,3843,552"/>
+<area shape="rect" id="node47" href="$d3/d8c/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="3411,310,3590,351"/>
+<area shape="rect" id="node50" title=" " alt="" coords="4235,407,4433,448"/>
+<area shape="rect" id="node8" title=" " alt="" coords="2275,414,2329,441"/>
+<area shape="rect" id="node9" title=" " alt="" coords="2354,407,2527,448"/>
+<area shape="rect" id="node11" title=" " alt="" coords="402,414,461,441"/>
+<area shape="rect" id="node12" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2471,310,2650,351"/>
+<area shape="rect" id="node13" title=" " alt="" coords="2582,503,2737,545"/>
+<area shape="rect" id="node14" title=" " alt="" coords="2602,414,2781,441"/>
+<area shape="rect" id="node17" title=" " alt="" coords="2078,607,2193,634"/>
+<area shape="rect" id="node18" title=" " alt="" coords="141,317,226,344"/>
+<area shape="rect" id="node19" href="$dc/d80/tesseract__motion__planners_2include_2tesseract__motion__planners_2ompl_2utils_8h.html" title="Tesseract OMPL planner utility functions." alt="" coords="1605,310,1783,351"/>
+<area shape="rect" id="node26" href="$d7/dbb/tesseract__motion__planners_2include_2tesseract__motion__planners_2ompl_2types_8h.html" title="Tesseract OMPL types." alt="" coords="767,503,946,545"/>
+<area shape="rect" id="node27" href="$de/d1e/ompl__planner__configurator_8h.html" title="Tesseract OMPL planner configurator." alt="" coords="154,503,373,545"/>
+<area shape="rect" id="node31" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="874,310,1053,351"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1437,414,1564,441"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1588,414,1800,441"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1824,414,1903,441"/>
+<area shape="rect" id="node23" href="$dd/d3c/ompl__problem_8h.html" title="Tesseract OMPL problem definition." alt="" coords="981,407,1159,448"/>
 <area shape="rect" id="node24" title=" " alt="" coords="495,607,717,634"/>
 <area shape="rect" id="node25" title=" " alt="" coords="741,600,972,641"/>
 <area shape="rect" id="node28" title=" " alt="" coords="108,607,307,634"/>
 <area shape="rect" id="node29" title=" " alt="" coords="331,607,471,634"/>
 <area shape="rect" id="node30" title=" " alt="" coords="5,607,84,634"/>
-<area shape="rect" id="node32" title=" " alt="" coords="2213,414,2281,441"/>
-<area shape="rect" id="node33" title=" " alt="" coords="721,407,920,448"/>
-<area shape="rect" id="node34" title=" " alt="" coords="944,407,1143,448"/>
-<area shape="rect" id="node37" href="$d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="2205,206,2383,247"/>
-<area shape="rect" id="node38" title=" " alt="" coords="2239,317,2349,344"/>
-<area shape="rect" id="node40" title=" " alt="" coords="2526,317,2713,344"/>
-<area shape="rect" id="node41" title=" " alt="" coords="2971,317,3188,344"/>
-<area shape="rect" id="node42" title=" " alt="" coords="2889,317,2947,344"/>
-<area shape="rect" id="node43" title=" " alt="" coords="3213,310,3391,351"/>
-<area shape="rect" id="node46" title=" " alt="" coords="4296,607,4471,634"/>
-<area shape="rect" id="node48" title=" " alt="" coords="3810,310,3965,351"/>
-<area shape="rect" id="node49" title=" " alt="" coords="3989,310,4167,351"/>
+<area shape="rect" id="node32" title=" " alt="" coords="1979,414,2047,441"/>
+<area shape="rect" id="node33" title=" " alt="" coords="757,407,956,448"/>
+<area shape="rect" id="node34" title=" " alt="" coords="535,407,733,448"/>
+<area shape="rect" id="node37" href="$d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="2046,206,2225,247"/>
+<area shape="rect" id="node38" title=" " alt="" coords="2080,317,2191,344"/>
+<area shape="rect" id="node40" title=" " alt="" coords="2674,317,2861,344"/>
+<area shape="rect" id="node41" title=" " alt="" coords="3037,317,3255,344"/>
+<area shape="rect" id="node42" title=" " alt="" coords="3279,317,3336,344"/>
+<area shape="rect" id="node43" title=" " alt="" coords="3129,407,3307,448"/>
+<area shape="rect" id="node46" title=" " alt="" coords="3665,607,3840,634"/>
+<area shape="rect" id="node48" title=" " alt="" coords="3433,407,3587,448"/>
+<area shape="rect" id="node49" title=" " alt="" coords="3663,407,3840,448"/>
 </map>

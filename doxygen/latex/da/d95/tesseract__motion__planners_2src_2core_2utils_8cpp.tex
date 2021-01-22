@@ -27,6 +27,10 @@ Include dependency graph for utils.\+cpp\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ad8eb3f36ec354c71fac2d04e3a6c166a}{tesseract\+\_\+planning\+::calc\+Pose}} (const Waypoint \&wp, const std\+::string \&working\+\_\+frame, const std\+::string \&tip\+\_\+link, const Eigen\+::\+Isometry3d \&tcp, const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&current\+\_\+state, tesseract\+\_\+environment\+::\+State\+Solver \&state\+\_\+solver)
+\item 
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_aad3c64a902f813fd357ae4b9f17631fc}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Instruction \&instruction, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env)
+\begin{DoxyCompactList}\small\item\em Extract toolpath from a composite instruction. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}{tesseract\+\_\+planning\+::interpolate}} (const Eigen\+::\+Isometry3d \&start, const Eigen\+::\+Isometry3d \&stop, int steps)
 \begin{DoxyCompactList}\small\item\em Inerpolate between two transforms return a vector of Eigen\+::\+Isometry transforms. \end{DoxyCompactList}\item 
 Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae5d6d72fa7462d658a7a9e04c0d35d72}{tesseract\+\_\+planning\+::interpolate}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&stop, int steps)

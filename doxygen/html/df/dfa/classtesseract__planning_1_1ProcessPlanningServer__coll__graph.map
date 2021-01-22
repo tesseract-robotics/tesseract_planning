@@ -1,16 +1,12 @@
 <map id="tesseract_planning::ProcessPlanningServer" name="tesseract_planning::ProcessPlanningServer">
-<area shape="rect" id="node1" title="A process planning server that support asynchronous exectuion of process planning requests." alt="" coords="857,194,1021,235"/>
-<area shape="rect" id="node2" title=" " alt="" coords="491,49,696,105"/>
-<area shape="rect" id="node3" title=" " alt="" coords="249,8,385,35"/>
-<area shape="rect" id="node4" title=" " alt="" coords="57,5,96,32"/>
-<area shape="rect" id="node5" title=" " alt="" coords="277,64,356,91"/>
-<area shape="rect" id="node6" title=" " alt="" coords="15,57,139,98"/>
-<area shape="rect" id="node7" title=" " alt="" coords="516,129,671,170"/>
-<area shape="rect" id="node8" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="251,129,382,170"/>
-<area shape="rect" id="node9" title=" " alt="" coords="5,121,148,177"/>
-<area shape="rect" id="node10" title=" " alt="" coords="13,201,140,228"/>
-<area shape="rect" id="node11" title=" " alt="" coords="530,194,657,235"/>
-<area shape="rect" id="node12" title=" " alt="" coords="527,259,659,301"/>
-<area shape="rect" id="node13" title=" " alt="" coords="498,325,689,366"/>
-<area shape="rect" id="node14" href="$dc/d6f/classtesseract__planning_1_1EnvironmentCache.html" title=" " alt="" coords="248,325,385,366"/>
+<area shape="rect" id="node1" title="A process planning server that support asynchronous exectuion of process planning requests." alt="" coords="804,165,968,206"/>
+<area shape="rect" id="node2" title=" " alt="" coords="437,20,643,76"/>
+<area shape="rect" id="node3" title=" " alt="" coords="196,7,332,33"/>
+<area shape="rect" id="node4" title=" " alt="" coords="48,5,87,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="225,61,303,88"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,57,129,98"/>
+<area shape="rect" id="node7" title=" " alt="" coords="463,99,617,141"/>
+<area shape="rect" id="node8" title=" " alt="" coords="477,165,603,206"/>
+<area shape="rect" id="node9" title=" " alt="" coords="474,230,606,271"/>
+<area shape="rect" id="node10" title=" " alt="" coords="445,295,635,337"/>
 </map>

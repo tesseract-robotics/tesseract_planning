@@ -16,6 +16,7 @@ Planner utility functions.
 {\ttfamily \#include $<$tesseract\+\_\+kinematics/core/inverse\+\_\+kinematics.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/types.\+h$>$}\newline
 Include dependency graph for utils.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -40,6 +41,8 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_aad3c64a902f813fd357ae4b9f17631fc}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Instruction \&instruction, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env)
+\begin{DoxyCompactList}\small\item\em Extract toolpath from a composite instruction. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}{tesseract\+\_\+planning\+::interpolate}} (const Eigen\+::\+Isometry3d \&start, const Eigen\+::\+Isometry3d \&stop, int steps)
 \begin{DoxyCompactList}\small\item\em Inerpolate between two transforms return a vector of Eigen\+::\+Isometry transforms. \end{DoxyCompactList}\item 
 Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae5d6d72fa7462d658a7a9e04c0d35d72}{tesseract\+\_\+planning\+::interpolate}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&stop, int steps)
