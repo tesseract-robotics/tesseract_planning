@@ -26,7 +26,7 @@ jobs:
       PARALLEL_TESTS: false
       UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
       TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_TESTING=ON"
-      AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args test'
+      AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_command_language tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args test'
     steps:
       - uses: actions/checkout@v1
 
