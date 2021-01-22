@@ -726,8 +726,8 @@ Functions</h2></td></tr>
 <tr class="separator:acb79748a9c7c851b1b53a74aadba0b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a089f108f9cc718b567607006aefc506e"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a089f108f9cc718b567607006aefc506e">createAvoidSingularityTermInfo</a> (int start_index, int end_index, const std::string &amp;link, double coeff=5.0, trajopt::TermType type=trajopt::TermType::TT_COST)</td></tr>
 <tr class="separator:a089f108f9cc718b567607006aefc506e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59daf059f389c60d0b61e9fc9a8f6173"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html">TrajOptIfoptProblem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a59daf059f389c60d0b61e9fc9a8f6173">DefaultTrajoptProblemGenerator</a> (const std::string &amp;name, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1e9bf5e3f3e5c2fc319a1c0c5718313b">TrajOptIfoptPlanProfileMap</a> &amp;plan_profiles, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abede68600c57fb593dc36ee9efbd1b0b">TrajOptIfoptCompositeProfileMap</a> &amp;composite_profiles)</td></tr>
-<tr class="separator:a59daf059f389c60d0b61e9fc9a8f6173"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bf73d52cb7fd8a5f5998ae62847957d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html">TrajOptIfoptProblem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8bf73d52cb7fd8a5f5998ae62847957d">DefaultTrajOptIfoptProblemGenerator</a> (const std::string &amp;name, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1e9bf5e3f3e5c2fc319a1c0c5718313b">TrajOptIfoptPlanProfileMap</a> &amp;plan_profiles, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abede68600c57fb593dc36ee9efbd1b0b">TrajOptIfoptCompositeProfileMap</a> &amp;composite_profiles)</td></tr>
+<tr class="separator:a8bf73d52cb7fd8a5f5998ae62847957d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1268a3f64c14f4780b26e5e46a73b96"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac1268a3f64c14f4780b26e5e46a73b96">createCartesianPositionConstraint</a> (const CartesianWaypoint &amp;cart_waypoint, trajopt::JointPosition::ConstPtr var, const trajopt::CartPosKinematicInfo::ConstPtr &amp;kin_info, const Eigen::VectorXd &amp;coeffs)</td></tr>
 <tr class="separator:ac1268a3f64c14f4780b26e5e46a73b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae72dc09cf96ec6e201be8109963ee371"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae72dc09cf96ec6e201be8109963ee371">addCartesianPositionConstraint</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, const CartesianWaypoint &amp;cart_waypoint, trajopt::JointPosition::ConstPtr var, const trajopt::CartPosKinematicInfo::ConstPtr &amp;kin_info, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
@@ -764,8 +764,6 @@ Functions</h2></td></tr>
 <tr class="separator:ab6a97e73f80873b61a00a24efb86eb86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab426fca18d5631d971d837bdf955a9b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html#aea12893d0ff5db7190406bc2822d343c">OMPLProblem::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab426fca18d5631d971d837bdf955a9b1">CreateOMPLSubProblem</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_kinematics::ForwardKinematics::Ptr &amp;manip_fwd_kin, const tesseract_kinematics::InverseKinematics::Ptr &amp;manip_inv_kin, const std::vector&lt; std::string &gt; &amp;active_link_names)</td></tr>
 <tr class="separator:ab426fca18d5631d971d837bdf955a9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad1ed7198d10eba864130666e92d9b1f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html">TrajOptIfoptProblem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aad1ed7198d10eba864130666e92d9b1f">DefaultTrajoptIfoptProblemGenerator</a> (const std::string &amp;name, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1e9bf5e3f3e5c2fc319a1c0c5718313b">TrajOptIfoptPlanProfileMap</a> &amp;plan_profiles, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abede68600c57fb593dc36ee9efbd1b0b">TrajOptIfoptCompositeProfileMap</a> &amp;composite_profiles)</td></tr>
-<tr class="separator:aad1ed7198d10eba864130666e92d9b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa020807b618d06c3ce62557d79d47fb"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afa020807b618d06c3ce62557d79d47fb">freespaceExampleProgramIIWA</a> (const std::string &amp;composite_profile=DEFAULT_PROFILE_KEY, const std::string &amp;freespace_profile=DEFAULT_PROFILE_KEY)</td></tr>
 <tr class="separator:afa020807b618d06c3ce62557d79d47fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a236b4cbeff0939c5cbfd2cc2581ef9f9"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a236b4cbeff0939c5cbfd2cc2581ef9f9">freespaceExampleProgramABB</a> (const std::string &amp;composite_profile=DEFAULT_PROFILE_KEY, const std::string &amp;freespace_profile=DEFAULT_PROFILE_KEY)</td></tr>
@@ -3875,14 +3873,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="aad1ed7198d10eba864130666e92d9b1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad1ed7198d10eba864130666e92d9b1f">&#9670;&nbsp;</a></span>DefaultTrajoptIfoptProblemGenerator()</h2>
+<a id="a8bf73d52cb7fd8a5f5998ae62847957d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bf73d52cb7fd8a5f5998ae62847957d">&#9670;&nbsp;</a></span>DefaultTrajOptIfoptProblemGenerator()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html">TrajOptIfoptProblem</a>&gt; tesseract_planning::DefaultTrajoptIfoptProblemGenerator </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html">TrajOptIfoptProblem</a>&gt; tesseract_planning::DefaultTrajOptIfoptProblemGenerator </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -3912,56 +3910,16 @@ template&lt;typename FloatType &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000028">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000029">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
-
-</div>
-</div>
-<a id="a59daf059f389c60d0b61e9fc9a8f6173"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59daf059f389c60d0b61e9fc9a8f6173">&#9670;&nbsp;</a></span>DefaultTrajoptProblemGenerator() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html">TrajOptIfoptProblem</a>&gt; tesseract_planning::DefaultTrajoptProblemGenerator </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
-          <td class="paramname"><em>request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1e9bf5e3f3e5c2fc319a1c0c5718313b">TrajOptIfoptPlanProfileMap</a> &amp;&#160;</td>
-          <td class="paramname"><em>plan_profiles</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abede68600c57fb593dc36ee9efbd1b0b">TrajOptIfoptCompositeProfileMap</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite_profiles</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
 <a id="ac74703213c0362a1270ad91dc7f7c326"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac74703213c0362a1270ad91dc7f7c326">&#9670;&nbsp;</a></span>DefaultTrajoptProblemGenerator() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac74703213c0362a1270ad91dc7f7c326">&#9670;&nbsp;</a></span>DefaultTrajoptProblemGenerator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4005,7 +3963,6 @@ template&lt;typename FloatType &gt; </div>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
 
 </div>
 </div>
@@ -6950,7 +6907,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 22 2021 02:33:36 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 22 2021 17:30:40 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

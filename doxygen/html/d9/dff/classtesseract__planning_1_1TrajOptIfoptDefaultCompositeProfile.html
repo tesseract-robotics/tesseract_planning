@@ -124,7 +124,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a253064e0ee7379e31c0f9fa4c350ad27"><td class="memItemLeft" align="right" valign="top">trajopt::TrajOptCollisionConfig::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a253064e0ee7379e31c0f9fa4c350ad27">collision_cost_config</a></td></tr>
+<tr class="memitem:a253064e0ee7379e31c0f9fa4c350ad27"><td class="memItemLeft" align="right" valign="top">trajopt::TrajOptCollisionConfig::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a253064e0ee7379e31c0f9fa4c350ad27">collision_cost_config</a> { std::make_shared&lt;trajopt::TrajOptCollisionConfig&gt;() }</td></tr>
 <tr class="memdesc:a253064e0ee7379e31c0f9fa4c350ad27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration info for collisions that are modeled as costs.  <a href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a253064e0ee7379e31c0f9fa4c350ad27">More...</a><br /></td></tr>
 <tr class="separator:a253064e0ee7379e31c0f9fa4c350ad27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a698cf0ba0e2712e9741f3dddcf24c43e"><td class="memItemLeft" align="right" valign="top">trajopt::TrajOptCollisionConfig::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a698cf0ba0e2712e9741f3dddcf24c43e">collision_constraint_config</a></td></tr>
@@ -136,13 +136,13 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a4a83f5549c87a122935a96bdd0fc05d2"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a4a83f5549c87a122935a96bdd0fc05d2">velocity_coeff</a></td></tr>
 <tr class="memdesc:a4a83f5549c87a122935a96bdd0fc05d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This default to all ones, but allows you to weight different joints.  <a href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a4a83f5549c87a122935a96bdd0fc05d2">More...</a><br /></td></tr>
 <tr class="separator:a4a83f5549c87a122935a96bdd0fc05d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ff0d69837d6de209dbe64aa04cee05c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a4ff0d69837d6de209dbe64aa04cee05c">smooth_accelerations</a> = true</td></tr>
+<tr class="memitem:a4ff0d69837d6de209dbe64aa04cee05c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a4ff0d69837d6de209dbe64aa04cee05c">smooth_accelerations</a> = false</td></tr>
 <tr class="memdesc:a4ff0d69837d6de209dbe64aa04cee05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, a joint acceleration cost with a target of 0 will be applied for all timesteps Default: false.  <a href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a4ff0d69837d6de209dbe64aa04cee05c">More...</a><br /></td></tr>
 <tr class="separator:a4ff0d69837d6de209dbe64aa04cee05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7950e891af271fdbb327b5b9b08928fd"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a7950e891af271fdbb327b5b9b08928fd">acceleration_coeff</a></td></tr>
 <tr class="memdesc:a7950e891af271fdbb327b5b9b08928fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This default to all ones, but allows you to weight different joints.  <a href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a7950e891af271fdbb327b5b9b08928fd">More...</a><br /></td></tr>
 <tr class="separator:a7950e891af271fdbb327b5b9b08928fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd27a78ced3766a482981542e695e8aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#afd27a78ced3766a482981542e695e8aa">smooth_jerks</a> = true</td></tr>
+<tr class="memitem:afd27a78ced3766a482981542e695e8aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#afd27a78ced3766a482981542e695e8aa">smooth_jerks</a> = false</td></tr>
 <tr class="memdesc:afd27a78ced3766a482981542e695e8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, a joint jerk cost with a target of 0 will be applied for all timesteps Default: false.  <a href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#afd27a78ced3766a482981542e695e8aa">More...</a><br /></td></tr>
 <tr class="separator:afd27a78ced3766a482981542e695e8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8744cc58b30ce9c960dfa210421a7c75"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dff/classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile.html#a8744cc58b30ce9c960dfa210421a7c75">jerk_coeff</a></td></tr>
@@ -332,7 +332,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">    std::make_shared&lt;trajopt::TrajOptCollisionConfig&gt;()</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
 <p>Configuration info for collisions that are modeled as constraints. </p>
 
 </div>
@@ -344,7 +347,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">trajopt::TrajOptCollisionConfig::Ptr tesseract_planning::TrajOptIfoptDefaultCompositeProfile::collision_cost_config</td>
+          <td class="memname">trajopt::TrajOptCollisionConfig::Ptr tesseract_planning::TrajOptIfoptDefaultCompositeProfile::collision_cost_config { std::make_shared&lt;trajopt::TrajOptCollisionConfig&gt;() }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -411,7 +414,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::TrajOptIfoptDefaultCompositeProfile::smooth_accelerations = true</td>
+          <td class="memname">bool tesseract_planning::TrajOptIfoptDefaultCompositeProfile::smooth_accelerations = false</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -427,7 +430,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::TrajOptIfoptDefaultCompositeProfile::smooth_jerks = true</td>
+          <td class="memname">bool tesseract_planning::TrajOptIfoptDefaultCompositeProfile::smooth_jerks = false</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -507,7 +510,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 22 2021 02:33:37 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 22 2021 17:30:41 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

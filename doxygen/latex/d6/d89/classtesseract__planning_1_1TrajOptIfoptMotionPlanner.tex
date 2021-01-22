@@ -48,7 +48,9 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ae8c
 bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_ad8b5ef60c1c201b78186f231749df74d}{terminate}} () override
 \begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_aa86732e70ee5102815d15b896927e14d}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a67fe43bcd925997b52ae5cad310bfa24}{clear}} () override
-\begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_adf6b8132dc0ec281f9c186ed389c2342}{clone}} () const override
+\begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -122,6 +124,20 @@ Clear the data structures used by the planner.
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ae4bed503b1e52732b3908858be1ccfcc}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_adf6b8132dc0ec281f9c186ed389c2342}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_adf6b8132dc0ec281f9c186ed389c2342}} 
+\index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!clone@{clone}}
+\index{clone@{clone}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Motion\+Planner\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Clone the motion planner. 
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d77127016c7aa39afc4125e2744}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
+
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a33ade95277cfdcecae3aad41f3dd3048}\label{classtesseract__planning_1_1TrajOptIfoptMotionPlanner_a33ade95277cfdcecae3aad41f3dd3048}} 
 \index{tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}!getName@{getName}}
 \index{getName@{getName}!tesseract\_planning::TrajOptIfoptMotionPlanner@{tesseract\_planning::TrajOptIfoptMotionPlanner}}
@@ -171,11 +187,11 @@ Sets up the opimizer and solves a SQP problem read from json with no callbacks a
 true if optimization complete 
 \end{DoxyReturn}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000030}{Todo}}]Enable solver selection (e.\+g. IPOPT) \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000029}{Todo}}]Enable solver selection (e.\+g. IPOPT) \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000031}{Todo}}]Set these as the defaults in trajopt and allow setting \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000030}{Todo}}]Set these as the defaults in trajopt and allow setting \end{DoxyRefDesc}
 
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a1f19a1753347fd841e7c7320cd34cd02}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.

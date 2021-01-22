@@ -562,7 +562,7 @@ trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a
 \item 
 trajopt\+::\+Term\+Info\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a089f108f9cc718b567607006aefc506e}{create\+Avoid\+Singularity\+Term\+Info}} (int start\+\_\+index, int end\+\_\+index, const std\+::string \&link, double coeff=5.\+0, trajopt\+::\+Term\+Type type=trajopt\+::\+Term\+Type\+::\+TT\+\_\+\+COST)
 \item 
-std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}} $>$ \mbox{\hyperlink{namespacetesseract__planning_a59daf059f389c60d0b61e9fc9a8f6173}{Default\+Trajopt\+Problem\+Generator}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const \mbox{\hyperlink{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}{Traj\+Opt\+Ifopt\+Plan\+Profile\+Map}} \&plan\+\_\+profiles, const \mbox{\hyperlink{namespacetesseract__planning_abede68600c57fb593dc36ee9efbd1b0b}{Traj\+Opt\+Ifopt\+Composite\+Profile\+Map}} \&composite\+\_\+profiles)
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}} $>$ \mbox{\hyperlink{namespacetesseract__planning_a8bf73d52cb7fd8a5f5998ae62847957d}{Default\+Traj\+Opt\+Ifopt\+Problem\+Generator}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const \mbox{\hyperlink{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}{Traj\+Opt\+Ifopt\+Plan\+Profile\+Map}} \&plan\+\_\+profiles, const \mbox{\hyperlink{namespacetesseract__planning_abede68600c57fb593dc36ee9efbd1b0b}{Traj\+Opt\+Ifopt\+Composite\+Profile\+Map}} \&composite\+\_\+profiles)
 \item 
 ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_ac1268a3f64c14f4780b26e5e46a73b96}{create\+Cartesian\+Position\+Constraint}} (const Cartesian\+Waypoint \&cart\+\_\+waypoint, trajopt\+::\+Joint\+Position\+::\+Const\+Ptr var, const trajopt\+::\+Cart\+Pos\+Kinematic\+Info\+::\+Const\+Ptr \&kin\+\_\+info, const Eigen\+::\+Vector\+Xd \&coeffs)
 \item 
@@ -599,8 +599,6 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ab874903f32419c2a3c858027027e
 bool \mbox{\hyperlink{namespacetesseract__planning_ab6a97e73f80873b61a00a24efb86eb86}{check\+Goal\+State}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLState\+Extractor}} \&extractor)
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}} \mbox{\hyperlink{namespacetesseract__planning_ab426fca18d5631d971d837bdf955a9b1}{Create\+OMPLSub\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr \&manip\+\_\+fwd\+\_\+kin, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&manip\+\_\+inv\+\_\+kin, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+link\+\_\+names)
-\item 
-std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}} $>$ \mbox{\hyperlink{namespacetesseract__planning_aad1ed7198d10eba864130666e92d9b1f}{Default\+Trajopt\+Ifopt\+Problem\+Generator}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const \mbox{\hyperlink{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}{Traj\+Opt\+Ifopt\+Plan\+Profile\+Map}} \&plan\+\_\+profiles, const \mbox{\hyperlink{namespacetesseract__planning_abede68600c57fb593dc36ee9efbd1b0b}{Traj\+Opt\+Ifopt\+Composite\+Profile\+Map}} \&composite\+\_\+profiles)
 \item 
 Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_afa020807b618d06c3ce62557d79d47fb}{freespace\+Example\+Program\+IIWA}} (const std\+::string \&composite\+\_\+profile=DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY, const std\+::string \&freespace\+\_\+profile=DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY)
 \item 
@@ -1699,48 +1697,38 @@ std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1Descartes
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000014}{Todo}}]need to extract the solution \end{DoxyRefDesc}
-\mbox{\Hypertarget{namespacetesseract__planning_aad1ed7198d10eba864130666e92d9b1f}\label{namespacetesseract__planning_aad1ed7198d10eba864130666e92d9b1f}} 
-\index{tesseract\_planning@{tesseract\_planning}!DefaultTrajoptIfoptProblemGenerator@{DefaultTrajoptIfoptProblemGenerator}}
-\index{DefaultTrajoptIfoptProblemGenerator@{DefaultTrajoptIfoptProblemGenerator}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{DefaultTrajoptIfoptProblemGenerator()}{DefaultTrajoptIfoptProblemGenerator()}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}}$>$ tesseract\+\_\+planning\+::\+Default\+Trajopt\+Ifopt\+Problem\+Generator (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}{Traj\+Opt\+Ifopt\+Plan\+Profile\+Map}} \&}]{plan\+\_\+profiles,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_abede68600c57fb593dc36ee9efbd1b0b}{Traj\+Opt\+Ifopt\+Composite\+Profile\+Map}} \&}]{composite\+\_\+profiles }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacetesseract__planning_a8bf73d52cb7fd8a5f5998ae62847957d}\label{namespacetesseract__planning_a8bf73d52cb7fd8a5f5998ae62847957d}} 
+\index{tesseract\_planning@{tesseract\_planning}!DefaultTrajOptIfoptProblemGenerator@{DefaultTrajOptIfoptProblemGenerator}}
+\index{DefaultTrajOptIfoptProblemGenerator@{DefaultTrajOptIfoptProblemGenerator}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{DefaultTrajOptIfoptProblemGenerator()}{DefaultTrajOptIfoptProblemGenerator()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}}$>$ tesseract\+\_\+planning\+::\+Default\+Traj\+Opt\+Ifopt\+Problem\+Generator (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}{Traj\+Opt\+Ifopt\+Plan\+Profile\+Map}} \&}]{plan\+\_\+profiles,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_abede68600c57fb593dc36ee9efbd1b0b}{Traj\+Opt\+Ifopt\+Composite\+Profile\+Map}} \&}]{composite\+\_\+profiles }\end{DoxyParamCaption})}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000025}{Todo}}]\+: Restructure this into several smaller functions that are testable and easier to understand \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000024}{Todo}}]\+: Restructure this into several smaller functions that are testable and easier to understand \end{DoxyRefDesc}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000026}{Todo}}]Write a path constraint for this \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000025}{Todo}}]Write a path constraint for this \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000027}{Todo}}]Add path constraint for this \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000026}{Todo}}]Add path constraint for this \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000027}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000028}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
-
-
-\begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000029}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
-\mbox{\Hypertarget{namespacetesseract__planning_a59daf059f389c60d0b61e9fc9a8f6173}\label{namespacetesseract__planning_a59daf059f389c60d0b61e9fc9a8f6173}} 
-\index{tesseract\_planning@{tesseract\_planning}!DefaultTrajoptProblemGenerator@{DefaultTrajoptProblemGenerator}}
-\index{DefaultTrajoptProblemGenerator@{DefaultTrajoptProblemGenerator}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{DefaultTrajoptProblemGenerator()}{DefaultTrajoptProblemGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{Traj\+Opt\+Ifopt\+Problem}}$>$ tesseract\+\_\+planning\+::\+Default\+Trajopt\+Problem\+Generator (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a1e9bf5e3f3e5c2fc319a1c0c5718313b}{Traj\+Opt\+Ifopt\+Plan\+Profile\+Map}} \&}]{plan\+\_\+profiles,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_abede68600c57fb593dc36ee9efbd1b0b}{Traj\+Opt\+Ifopt\+Composite\+Profile\+Map}} \&}]{composite\+\_\+profiles }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_ac74703213c0362a1270ad91dc7f7c326}\label{namespacetesseract__planning_ac74703213c0362a1270ad91dc7f7c326}} 
 \index{tesseract\_planning@{tesseract\_planning}!DefaultTrajoptProblemGenerator@{DefaultTrajoptProblemGenerator}}
 \index{DefaultTrajoptProblemGenerator@{DefaultTrajoptProblemGenerator}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{DefaultTrajoptProblemGenerator()}{DefaultTrajoptProblemGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{DefaultTrajoptProblemGenerator()}{DefaultTrajoptProblemGenerator()}}
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$trajopt\+::\+Problem\+Construction\+Info$>$ tesseract\+\_\+planning\+::\+Default\+Trajopt\+Problem\+Generator (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a236fae69ae2291021feaa4f865803781}{Traj\+Opt\+Plan\+Profile\+Map}} \&}]{plan\+\_\+profiles,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_ab3cb92652402bb6903e4b0333bc02520}{Traj\+Opt\+Composite\+Profile\+Map}} \&}]{composite\+\_\+profiles,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_ab990993d1a2002f7e044ba3693f8b2d7}{Traj\+Opt\+Solver\+Profile\+Map}} \&}]{solver\+\_\+profiles }\end{DoxyParamCaption})}
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000022}{Todo}}]\+: Restructure this into several smaller functions that are testable and easier to understand \end{DoxyRefDesc}
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000023}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
-
-
-\begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000024}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
 \mbox{\Hypertarget{namespacetesseract__planning_ab6c029e5547e27960c05a22d6d18e8e1}\label{namespacetesseract__planning_ab6c029e5547e27960c05a22d6d18e8e1}} 
 \index{tesseract\_planning@{tesseract\_planning}!descartesPlanFromXMLDocument@{descartesPlanFromXMLDocument}}
 \index{descartesPlanFromXMLDocument@{descartesPlanFromXMLDocument}!tesseract\_planning@{tesseract\_planning}}
