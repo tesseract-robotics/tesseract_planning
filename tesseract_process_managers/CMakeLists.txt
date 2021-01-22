@@ -64,6 +64,7 @@ add_library(${PROJECT_NAME}
     src/task_generators/motion_planner_task_generator.cpp
     src/task_generators/profile_switch_task_generator.cpp
     src/task_generators/seed_min_length_task_generator.cpp
+    src/task_generators/time_optimal_trajectory_generation_task_generator.cpp
     src/taskflow_generators/graph_taskflow.cpp
     src/taskflow_generators/raster_taskflow.cpp
     src/taskflow_generators/raster_global_taskflow.cpp
