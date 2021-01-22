@@ -39,8 +39,8 @@
 #include <gtest/gtest.h>
 #include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
 
-using totg::Path;
-using totg::Trajectory;
+using tesseract_planning::totg::Path;
+using tesseract_planning::totg::Trajectory;
 
 TEST(time_optimal_trajectory_generation, test1)
 {
