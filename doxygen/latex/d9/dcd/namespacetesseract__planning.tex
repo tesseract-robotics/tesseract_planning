@@ -8,6 +8,8 @@
  \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint}{detail\+\_\+waypoint}}
 \item 
  \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names}{process\+\_\+planner\+\_\+names}}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning_1_1totg}{totg}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
@@ -232,6 +234,12 @@ class \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator}{S
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskInfo}{Seed\+Min\+Length\+Task\+Info}}
 \item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile}{Time\+Optimal\+Trajectory\+Generation\+Profile}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator}{Time\+Optimal\+Trajectory\+Generation\+Task\+Generator}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}}
+\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1CartesianTaskflowParams}{Cartesian\+Taskflow\+Params}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1CartesianTaskflow}{Cartesian\+Taskflow}}
@@ -270,6 +278,8 @@ class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptTaskflow}{Traj\+Opt\+T
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}}
 \begin{DoxyCompactList}\small\item\em This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints. Initial/final velocities and accelerations may be specified in the trajectory. Velocity and acceleration limits are specified in the model. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration}{Time\+Optimal\+Trajectory\+Generation}}
+\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{Single\+Joint\+Trajectory}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
@@ -378,6 +388,8 @@ using \mbox{\hyperlink{namespacetesseract__planning_a5b501e2fb5429f11d3508c8641a
 using \mbox{\hyperlink{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}{Iterative\+Spline\+Parameterization\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1IterativeSplineParameterizationProfile_ad8b06635b63e3acfad61bed7b9730f94}{Iterative\+Spline\+Parameterization\+Profile\+::\+Const\+Ptr}} $>$
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_a5bc05735cc05cb4e74ff500e6dfe5645}{Profile\+Switch\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1ProfileSwitchProfile_a815532d5f39b7a910f0e59f0175b545a}{Profile\+Switch\+Profile\+::\+Const\+Ptr}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a9f65d17b8c6b778c35ea85dfdd20e142}{Time\+Optimal\+Trajectory\+Generation\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_af5d1e750ed57cdb38bdccb563074a3ed}{Time\+Optimal\+Trajectory\+Generation\+Profile\+::\+Const\+Ptr}} $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -939,6 +951,8 @@ static const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3
 static const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{namespacetesseract__planning_a6ca21ea741039a14db5391083d9c2139}{EMPTY\+\_\+\+PROFILE\+\_\+\+MAPPING}}
 \item 
 static \mbox{\hyperlink{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}{flatten\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_a1dd218f776ae0ba1ef79388d499caea2}{program\+Flatten\+Move\+Instruction\+Filter}}
+\item 
+static \mbox{\hyperlink{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}{flatten\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_a1dd218f776ae0ba1ef79388d499caea2}{program\+Flatten\+Move\+Instruction\+Filter}}
 \end{DoxyCompactItemize}
 
 
@@ -1220,6 +1234,12 @@ For example say you have a profile named Raster in your command language. Say yo
 \index{TaskflowVoidFn@{TaskflowVoidFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{TaskflowVoidFn}{TaskflowVoidFn}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{tesseract\+\_\+planning\+::\+Taskflow\+Void\+Fn}} = typedef std\+::function$<$void()$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a9f65d17b8c6b778c35ea85dfdd20e142}\label{namespacetesseract__planning_a9f65d17b8c6b778c35ea85dfdd20e142}} 
+\index{tesseract\_planning@{tesseract\_planning}!TimeOptimalTrajectoryGenerationProfileMap@{TimeOptimalTrajectoryGenerationProfileMap}}
+\index{TimeOptimalTrajectoryGenerationProfileMap@{TimeOptimalTrajectoryGenerationProfileMap}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalTrajectoryGenerationProfileMap}{TimeOptimalTrajectoryGenerationProfileMap}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a9f65d17b8c6b778c35ea85dfdd20e142}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_af5d1e750ed57cdb38bdccb563074a3ed}{Time\+Optimal\+Trajectory\+Generation\+Profile\+::\+Const\+Ptr}}$>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_aee75294c532e61c8a920439a38497490}\label{namespacetesseract__planning_aee75294c532e61c8a920439a38497490}} 
 \index{tesseract\_planning@{tesseract\_planning}!ToolCenterPoint@{ToolCenterPoint}}
@@ -4280,7 +4300,29 @@ Set to DEFAULT. Default profiles are given this name.
 \mbox{\Hypertarget{namespacetesseract__planning_a1dd218f776ae0ba1ef79388d499caea2}\label{namespacetesseract__planning_a1dd218f776ae0ba1ef79388d499caea2}} 
 \index{tesseract\_planning@{tesseract\_planning}!programFlattenMoveInstructionFilter@{programFlattenMoveInstructionFilter}}
 \index{programFlattenMoveInstructionFilter@{programFlattenMoveInstructionFilter}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{programFlattenMoveInstructionFilter}{programFlattenMoveInstructionFilter}}
+\doxysubsubsection{\texorpdfstring{programFlattenMoveInstructionFilter}{programFlattenMoveInstructionFilter}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}{flatten\+Filter\+Fn}} tesseract\+\_\+planning\+::program\+Flatten\+Move\+Instruction\+Filter\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{    [](\textcolor{keyword}{const} Instruction\& i, \textcolor{keyword}{const} CompositeInstruction\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
+\DoxyCodeLine{      \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(i))}
+\DoxyCodeLine{      \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.cast\_const<MoveInstruction>()-\/>isStart())}
+\DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{      \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{      \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{namespacetesseract__planning_a1dd218f776ae0ba1ef79388d499caea2}\label{namespacetesseract__planning_a1dd218f776ae0ba1ef79388d499caea2}} 
+\index{tesseract\_planning@{tesseract\_planning}!programFlattenMoveInstructionFilter@{programFlattenMoveInstructionFilter}}
+\index{programFlattenMoveInstructionFilter@{programFlattenMoveInstructionFilter}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{programFlattenMoveInstructionFilter}{programFlattenMoveInstructionFilter}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}{flatten\+Filter\+Fn}} tesseract\+\_\+planning\+::program\+Flatten\+Move\+Instruction\+Filter\hspace{0.3cm}{\ttfamily [static]}}
 
 {\bfseries Initial value\+:}

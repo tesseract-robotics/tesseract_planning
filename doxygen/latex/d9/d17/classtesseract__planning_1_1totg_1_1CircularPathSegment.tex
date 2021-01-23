@@ -1,0 +1,143 @@
+\hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment}{}\doxysection{tesseract\+\_\+planning\+::totg\+::Circular\+Path\+Segment Class Reference}
+\label{classtesseract__planning_1_1totg_1_1CircularPathSegment}\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::totg\+::Circular\+Path\+Segment\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{d5/d83/classtesseract__planning_1_1totg_1_1CircularPathSegment__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::totg\+::Circular\+Path\+Segment\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{de/dc8/classtesseract__planning_1_1totg_1_1CircularPathSegment__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_acd617d67d5359770cf3b8867c3ab1385}{Circular\+Path\+Segment}} (const Eigen\+::\+Vector\+Xd \&start, const Eigen\+::\+Vector\+Xd \&intersection, const Eigen\+::\+Vector\+Xd \&end, double max\+\_\+deviation)
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_a7e1c85a9680d7e50843c866efc0c829d}{get\+Config}} (double s) const override
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_a16525fd0cbcce3da9bb7a8860f2051ed}{get\+Tangent}} (double s) const override
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_a4f290f08e060a1e0142b8f2aafe41d92}{get\+Curvature}} (double s) const override
+\item 
+std\+::list$<$ double $>$ \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_a9d0f5e51435475df1325c30caf166fc1}{get\+Switching\+Points}} () const override
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment}{Circular\+Path\+Segment}} $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_a829b9b7e0c87acea48520a70ff8b0cc2}{clone}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_a90f819e6f05d828644f2eb33c8cc2e5b}{radius}}
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_ad22bfaa96bd7af79e9052b64deff325b}{center}}
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_aa80f5fa19f96d9c6ca653fa4be3db40d}{x}}
+\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment_a64a0962c34193d98224bb8c6466acc00}{y}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_acd617d67d5359770cf3b8867c3ab1385}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_acd617d67d5359770cf3b8867c3ab1385}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!CircularPathSegment@{CircularPathSegment}}
+\index{CircularPathSegment@{CircularPathSegment}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{CircularPathSegment()}{CircularPathSegment()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::\+Circular\+Path\+Segment (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{start,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{intersection,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{end,  }\item[{double}]{max\+\_\+deviation }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_a829b9b7e0c87acea48520a70ff8b0cc2}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_a829b9b7e0c87acea48520a70ff8b0cc2}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!clone@{clone}}
+\index{clone@{clone}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1CircularPathSegment}{Circular\+Path\+Segment}}$\ast$ tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_af057040cf6c3f728584f46d333b99dfd}{tesseract\+\_\+planning\+::totg\+::\+Path\+Segment}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_a7e1c85a9680d7e50843c866efc0c829d}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_a7e1c85a9680d7e50843c866efc0c829d}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!getConfig@{getConfig}}
+\index{getConfig@{getConfig}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{getConfig()}{getConfig()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::get\+Config (\begin{DoxyParamCaption}\item[{double}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_ae74e9ed2da4856b2d3a7a2e7fd7f44bf}{tesseract\+\_\+planning\+::totg\+::\+Path\+Segment}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_a4f290f08e060a1e0142b8f2aafe41d92}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_a4f290f08e060a1e0142b8f2aafe41d92}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!getCurvature@{getCurvature}}
+\index{getCurvature@{getCurvature}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{getCurvature()}{getCurvature()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::get\+Curvature (\begin{DoxyParamCaption}\item[{double}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_ad60ae94c06d867ce85b6eee1ea8ce599}{tesseract\+\_\+planning\+::totg\+::\+Path\+Segment}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_a9d0f5e51435475df1325c30caf166fc1}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_a9d0f5e51435475df1325c30caf166fc1}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!getSwitchingPoints@{getSwitchingPoints}}
+\index{getSwitchingPoints@{getSwitchingPoints}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{getSwitchingPoints()}{getSwitchingPoints()}}
+{\footnotesize\ttfamily std\+::list$<$double$>$ tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::get\+Switching\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a1f853043a013c42b972c53c0da2f7bb4}{tesseract\+\_\+planning\+::totg\+::\+Path\+Segment}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_a16525fd0cbcce3da9bb7a8860f2051ed}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_a16525fd0cbcce3da9bb7a8860f2051ed}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!getTangent@{getTangent}}
+\index{getTangent@{getTangent}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{getTangent()}{getTangent()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::get\+Tangent (\begin{DoxyParamCaption}\item[{double}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a761d9992074e8330da30be8de36c6419}{tesseract\+\_\+planning\+::totg\+::\+Path\+Segment}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_ad22bfaa96bd7af79e9052b64deff325b}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_ad22bfaa96bd7af79e9052b64deff325b}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!center@{center}}
+\index{center@{center}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{center}{center}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::center\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_a90f819e6f05d828644f2eb33c8cc2e5b}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_a90f819e6f05d828644f2eb33c8cc2e5b}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!radius@{radius}}
+\index{radius@{radius}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{radius}{radius}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::radius\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_aa80f5fa19f96d9c6ca653fa4be3db40d}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_aa80f5fa19f96d9c6ca653fa4be3db40d}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!x@{x}}
+\index{x@{x}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::x\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1CircularPathSegment_a64a0962c34193d98224bb8c6466acc00}\label{classtesseract__planning_1_1totg_1_1CircularPathSegment_a64a0962c34193d98224bb8c6466acc00}} 
+\index{tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}!y@{y}}
+\index{y@{y}!tesseract\_planning::totg::CircularPathSegment@{tesseract\_planning::totg::CircularPathSegment}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::totg\+::\+Circular\+Path\+Segment\+::y\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+time\+\_\+parameterization/src/\mbox{\hyperlink{time__optimal__trajectory__generation_8cpp}{time\+\_\+optimal\+\_\+trajectory\+\_\+generation.\+cpp}}\end{DoxyCompactItemize}

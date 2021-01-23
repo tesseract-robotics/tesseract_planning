@@ -1,0 +1,4 @@
+<map id="tesseract_planning::TimeOptimalTrajectoryGenerationTaskGenerator" name="tesseract_planning::TimeOptimalTrajectoryGenerationTaskGenerator">
+<area shape="rect" id="node1" title=" " alt="" coords="5,95,228,151"/>
+<area shape="rect" id="node2" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="51,5,182,47"/>
+</map>
