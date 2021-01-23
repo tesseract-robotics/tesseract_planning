@@ -32,7 +32,10 @@ add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
 
-add_library(${PROJECT_NAME} src/iterative_spline_parameterization)
+add_library(${PROJECT_NAME}
+    src/iterative_spline_parameterization
+    src/time_optimal_trajectory_generation
+    )
 target_link_libraries(${PROJECT_NAME} PUBLIC console_bridge::console_bridge tesseract::tesseract_common tesseract::tesseract_command_language)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
