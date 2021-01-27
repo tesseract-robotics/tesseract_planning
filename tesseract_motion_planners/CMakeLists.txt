@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5.0)
 
 # Extract package name and version
-find_package(cmake_common_scripts REQUIRED)
+find_package(ros_industrial_cmake_boilerplate REQUIRED)
 extract_package_metadata(pkg)
 project(${pkg_extracted_name} VERSION ${pkg_extracted_version} LANGUAGES CXX)
 
@@ -21,7 +21,7 @@ find_package(trajopt REQUIRED)
 find_package(trajopt_ifopt REQUIRED)
 find_package(trajopt_sco REQUIRED)
 find_package(trajopt_sqp REQUIRED)
-find_package(cmake_common_scripts REQUIRED)
+find_package(ros_industrial_cmake_boilerplate REQUIRED)
 # serialization was required because ompl does not include find_dependency for its required dependencies
 find_package(Boost REQUIRED COMPONENTS serialization system filesystem program_options)
 

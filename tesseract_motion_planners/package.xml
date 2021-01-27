@@ -16,7 +16,7 @@
   <depend>tesseract_environment</depend>
   <depend>tesseract_kinematics</depend>
   <depend>tesseract_command_language</depend>
-  <build_depend>cmake_common_scripts</build_depend>
+  <build_depend>ros_industrial_cmake_boilerplate</build_depend>
 
   <depend>descartes_light</depend>
   <depend>descartes_samplers</depend>
