@@ -3,8 +3,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <descartes_light/interface/collision_interface.h>
-#include <descartes_light/interface/kinematics_interface.h>
 #include <descartes_light/interface/edge_evaluator.h>
 #include <descartes_light/interface/position_sampler.h>
 #include <descartes_light/descartes_light.h>

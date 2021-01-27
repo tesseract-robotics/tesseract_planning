@@ -33,10 +33,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/descartes_light.h>
 #include <descartes_light/interface/position_sampler.h>
-#include <descartes_samplers/samplers/railed_cartesian_point_sampler.h>
-#include <descartes_samplers/samplers/railed_axial_symmetric_sampler.h>
-#include <descartes_samplers/samplers/axial_symmetric_sampler.h>
-#include <descartes_samplers/samplers/cartesian_point_sampler.h>
 #include <descartes_samplers/samplers/fixed_joint_pose_sampler.h>
 #include <descartes_samplers/evaluators/timing_edge_evaluator.h>
 #include <boost/date_time/posix_time/posix_time.hpp>

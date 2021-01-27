@@ -29,7 +29,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <descartes_light/interface/collision_interface.h>
 #include <tesseract_environment/core/environment.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/types.h>
@@ -37,10 +36,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-template <typename FloatType>
-class DescartesCollision : public descartes_light::CollisionInterface<FloatType>
+class DescartesCollision
 {
 public:
+  using Ptr = std::shared_ptr<DescartesCollision>;
+  using ConstPtr = std::shared_ptr<const DescartesCollision>;
+
   /**
    * @brief TesseractCollision
    * @param collision_env The collision Environment
@@ -57,7 +58,7 @@ public:
                      tesseract_collision::CollisionCheckConfig collision_check_config =
                          tesseract_collision::CollisionCheckConfig{ 0.025 },
                      bool debug = false);
-  ~DescartesCollision() override = default;
+  virtual ~DescartesCollision() = default;
 
   /**
    * @brief Copy constructor that clones the object
@@ -71,24 +72,22 @@ public:
   /**
    * @brief This check is the provided solution passes the collision test defined by this class
    * @param pos The joint values array to validate
-   * @param size The length of the array
    * @return True if passes collision test, otherwise false
    */
-  bool validate(const FloatType* pos, std::size_t size) override;
+  bool validate(const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
    * @brief This gets the distance to the closest object
    * @param pos The joint values array to calculate the distance to the closest object
-   * @param size The length of the array
    * @return The distance to the closest object
    */
-  FloatType distance(const FloatType* pos, std::size_t size) override;
+  double distance(const Eigen::Ref<const Eigen::VectorXd>& pos);
 
   /**
    * @brief This should clone the object and make new instance of objects that are not safe to share across threads
    * @return Descartes collision interface
    */
-  typename descartes_light::CollisionInterface<FloatType>::Ptr clone() const override;
+  DescartesCollision::Ptr clone() const;
 
 private:
   /**
@@ -107,9 +106,6 @@ private:
   tesseract_collision::CollisionCheckConfig collision_check_config_;
   bool debug_; /**< @brief Enable debug information to be printed to the terminal */
 };
-
-using DescartesCollisionF = DescartesCollision<float>;
-using DescartesCollisionD = DescartesCollision<double>;
 
 }  // namespace tesseract_planning
 

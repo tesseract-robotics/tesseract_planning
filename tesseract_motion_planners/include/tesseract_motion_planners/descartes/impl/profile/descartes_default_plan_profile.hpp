@@ -34,7 +34,6 @@
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h>
 
-#include <descartes_light/interface/collision_interface.h>
 #include <descartes_samplers/evaluators/euclidean_distance_edge_evaluator.h>
 #include <descartes_samplers/evaluators/compound_edge_evaluator.h>
 #include <descartes_samplers/samplers/fixed_joint_pose_sampler.h>
@@ -182,9 +181,9 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
     throw std::runtime_error("DescartesDefaultPlanProfile: Assigned dynamic waypoint but parent instruction working is "
                              "not set to the base link of manipulator!");
 
-  typename descartes_light::CollisionInterface<FloatType>::Ptr ci = nullptr;
+  DescartesCollision::Ptr ci = nullptr;
   if (enable_collision)
-    ci = std::make_shared<DescartesCollision<FloatType>>(
+    ci = std::make_shared<DescartesCollision>(
         prob.env, active_links, prob.manip_inv_kin->getJointNames(), vertex_collision_check_config, debug);
 
   Eigen::Isometry3d manip_baselink_to_waypoint = Eigen::Isometry3d::Identity();
