@@ -21,13 +21,13 @@ Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Robot\+Sampler$<
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=207pt]{d4/d4f/classtesseract__planning_1_1DescartesRobotSampler__coll__graph}
+\includegraphics[width=350pt]{d4/d4f/classtesseract__planning_1_1DescartesRobotSampler__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a37c8b0a4b5e3fbbf57c2144a0851c83b}{Descartes\+Robot\+Sampler}} (const Eigen\+::\+Isometry3d \&target\+\_\+pose, \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}} target\+\_\+pose\+\_\+sampler, tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr robot\+\_\+kinematics, typename descartes\+\_\+light\+::\+Collision\+Interface$<$ Float\+Type $>$\+::Ptr collision, const Eigen\+::\+Isometry3d \&tcp, bool allow\+\_\+collision, typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{Descartes\+Vertex\+Evaluator}}$<$ Float\+Type $>$\+::Ptr is\+\_\+valid)
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_acb2998c43c9ed35f14b413631a01eadc}{Descartes\+Robot\+Sampler}} (const Eigen\+::\+Isometry3d \&target\+\_\+pose, \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}} target\+\_\+pose\+\_\+sampler, tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr robot\+\_\+kinematics, \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{Descartes\+Collision\+::\+Ptr}} collision, const Eigen\+::\+Isometry3d \&tcp, bool allow\+\_\+collision, typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{Descartes\+Vertex\+Evaluator}}$<$ Float\+Type $>$\+::Ptr is\+\_\+valid)
 \begin{DoxyCompactList}\small\item\em This is a descartes sampler for a robot. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_abf881e15dd3f83a3950fdf7b91257713}{sample}} (std\+::vector$<$ Float\+Type $>$ \&solution\+\_\+set) override
 \end{DoxyCompactItemize}
@@ -49,7 +49,7 @@ Eigen\+::\+Isometry3d \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobo
 \begin{DoxyCompactList}\small\item\em Target pose sampler function. \end{DoxyCompactList}\item 
 tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a39218cfd2fc808209835f7f7fa18b913}{robot\+\_\+kinematics\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The robot inverse kinematics. \end{DoxyCompactList}\item 
-descartes\+\_\+light\+::\+Collision\+Interface$<$ Float\+Type $>$\+::Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_add393ca5248e75652a98f938d306bd57}{collision\+\_\+}}
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{Descartes\+Collision\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a5ed558bfff6ed31e2db223688c35995f}{collision\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The collision interface. \end{DoxyCompactList}\item 
 Eigen\+::\+Isometry3d \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a625734f55898899a923ba7b9f84f29c0}{tcp\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The robot tool center point. \end{DoxyCompactList}\item 
@@ -64,12 +64,12 @@ Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobo
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_a37c8b0a4b5e3fbbf57c2144a0851c83b}\label{classtesseract__planning_1_1DescartesRobotSampler_a37c8b0a4b5e3fbbf57c2144a0851c83b}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_acb2998c43c9ed35f14b413631a01eadc}\label{classtesseract__planning_1_1DescartesRobotSampler_acb2998c43c9ed35f14b413631a01eadc}} 
 \index{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}!DescartesRobotSampler@{DescartesRobotSampler}}
 \index{DescartesRobotSampler@{DescartesRobotSampler}!tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{DescartesRobotSampler()}{DescartesRobotSampler()}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+Sampler}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{Descartes\+Robot\+Sampler}} (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{target\+\_\+pose,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}}}]{target\+\_\+pose\+\_\+sampler,  }\item[{tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr}]{robot\+\_\+kinematics,  }\item[{typename descartes\+\_\+light\+::\+Collision\+Interface$<$ Float\+Type $>$\+::Ptr}]{collision,  }\item[{const Eigen\+::\+Isometry3d \&}]{tcp,  }\item[{bool}]{allow\+\_\+collision,  }\item[{typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{Descartes\+Vertex\+Evaluator}}$<$ Float\+Type $>$\+::Ptr}]{is\+\_\+valid }\end{DoxyParamCaption})}
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+Sampler}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{Descartes\+Robot\+Sampler}} (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{target\+\_\+pose,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}}}]{target\+\_\+pose\+\_\+sampler,  }\item[{tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr}]{robot\+\_\+kinematics,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{Descartes\+Collision\+::\+Ptr}}}]{collision,  }\item[{const Eigen\+::\+Isometry3d \&}]{tcp,  }\item[{bool}]{allow\+\_\+collision,  }\item[{typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{Descartes\+Vertex\+Evaluator}}$<$ Float\+Type $>$\+::Ptr}]{is\+\_\+valid }\end{DoxyParamCaption})}
 
 
 
@@ -183,12 +183,12 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tessera
 
 If true and no valid solution was found it will return the best of the worst. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_add393ca5248e75652a98f938d306bd57}\label{classtesseract__planning_1_1DescartesRobotSampler_add393ca5248e75652a98f938d306bd57}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_a5ed558bfff6ed31e2db223688c35995f}\label{classtesseract__planning_1_1DescartesRobotSampler_a5ed558bfff6ed31e2db223688c35995f}} 
 \index{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}!collision\_@{collision\_}}
 \index{collision\_@{collision\_}!tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{collision\_}{collision\_}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-descartes\+\_\+light\+::\+Collision\+Interface$<$Float\+Type$>$\+::Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+Sampler}}$<$ Float\+Type $>$\+::collision\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{Descartes\+Collision\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+Sampler}}$<$ Float\+Type $>$\+::collision\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

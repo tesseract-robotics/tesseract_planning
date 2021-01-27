@@ -1,9 +1,8 @@
 <map id="tesseract_motion_planners/include/tesseract_motion_planners/descartes/descartes_collision.h" name="tesseract_motion_planners/include/tesseract_motion_planners/descartes/descartes_collision.h">
-<area shape="rect" id="node1" title="Tesseract Descartes Collision Implementation." alt="" coords="386,5,586,76"/>
+<area shape="rect" id="node1" title="Tesseract Descartes Collision Implementation." alt="" coords="289,5,489,76"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,139,196,165"/>
 <area shape="rect" id="node3" title=" " alt="" coords="220,139,288,165"/>
-<area shape="rect" id="node4" title=" " alt="" coords="312,131,476,173"/>
-<area shape="rect" id="node5" title=" " alt="" coords="501,131,655,173"/>
-<area shape="rect" id="node6" title=" " alt="" coords="680,124,831,180"/>
-<area shape="rect" id="node7" title=" " alt="" coords="855,131,986,173"/>
+<area shape="rect" id="node4" title=" " alt="" coords="311,131,466,173"/>
+<area shape="rect" id="node5" title=" " alt="" coords="491,124,641,180"/>
+<area shape="rect" id="node6" title=" " alt="" coords="666,131,797,173"/>
 </map>
