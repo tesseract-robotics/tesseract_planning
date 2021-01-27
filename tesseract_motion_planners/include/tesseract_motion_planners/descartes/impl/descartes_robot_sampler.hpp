@@ -43,7 +43,7 @@ DescartesRobotSampler<FloatType>::DescartesRobotSampler(
     const Eigen::Isometry3d& target_pose,
     PoseSamplerFn target_pose_sampler,
     tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics,
-    typename descartes_light::CollisionInterface<FloatType>::Ptr collision,
+    DescartesCollision::Ptr collision,
     const Eigen::Isometry3d& tcp,
     bool allow_collision,
     typename DescartesVertexEvaluator<FloatType>::Ptr is_valid)
@@ -83,7 +83,8 @@ bool DescartesRobotSampler<FloatType>::isCollisionFree(const FloatType* vertex)
   if (collision_ == nullptr)
     return true;
 
-  return collision_->validate(vertex, static_cast<size_t>(dof_));
+  return collision_->validate(
+      Eigen::Map<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>(vertex, dof_).template cast<double>());
 }
 
 template <typename FloatType>
@@ -117,7 +118,9 @@ bool DescartesRobotSampler<FloatType>::ikAt(std::vector<FloatType>& solution_set
     }
     else
     {
-      double cur_distance = collision_->distance(full_sol.data(), full_sol.size());
+      double cur_distance = collision_->distance(Eigen::Map<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>(
+                                                     full_sol.data(), static_cast<long>(full_sol.size()))
+                                                     .template cast<double>());
       if (cur_distance > distance)
       {
         distance = cur_distance;

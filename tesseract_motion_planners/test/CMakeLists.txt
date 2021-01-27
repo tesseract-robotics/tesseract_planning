@@ -31,18 +31,6 @@ endif()
 
 include(GoogleTest)
 
-# Descartes Tesseract Kinematics Test
-add_executable(${PROJECT_NAME}_descartes_kin_unit descartes_tesseract_kinematics_tests.cpp)
-target_link_libraries(${PROJECT_NAME}_descartes_kin_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME}_descartes tesseract::tesseract_support tesseract::tesseract_environment_ofkt ${PROJECT_NAME}_simple)
-target_compile_options(${PROJECT_NAME}_descartes_kin_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
-target_compile_definitions(${PROJECT_NAME}_descartes_kin_unit PRIVATE ${TESSERACT_COMPILE_DEFINITIONS})
-target_clang_tidy(${PROJECT_NAME}_descartes_kin_unit ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
-target_cxx_version(${PROJECT_NAME}_descartes_kin_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
-target_code_coverage(${PROJECT_NAME}_descartes_kin_unit ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-add_gtest_discover_tests(${PROJECT_NAME}_descartes_kin_unit)
-add_dependencies(${PROJECT_NAME}_descartes_kin_unit ${PROJECT_NAME}_descartes)
-add_dependencies(run_tests ${PROJECT_NAME}_descartes_kin_unit)
-
 # OMPL Planning Test/Example Program
 add_executable(${PROJECT_NAME}_ompl_unit ompl_planner_tests.cpp)
 target_link_libraries(${PROJECT_NAME}_ompl_unit PRIVATE ${Boost_LIBRARIES} GTest::GTest GTest::Main ${PROJECT_NAME}_ompl tesseract::tesseract_support tesseract::tesseract_environment_ofkt trajopt::trajopt ${PROJECT_NAME}_simple)

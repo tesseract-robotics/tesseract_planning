@@ -28,7 +28,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/interface/position_sampler.h>
-#include <descartes_light/interface/collision_interface.h>
 #include <descartes_light/utils.h>
 #include <Eigen/Dense>
 #include <vector>
@@ -37,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/inverse_kinematics.h>
 #include <tesseract_environment/core/types.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
+#include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/types.h>
 
 namespace tesseract_planning
@@ -59,7 +59,7 @@ public:
   DescartesRobotSampler(const Eigen::Isometry3d& target_pose,
                         PoseSamplerFn target_pose_sampler,
                         tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics,
-                        typename descartes_light::CollisionInterface<FloatType>::Ptr collision,
+                        DescartesCollision::Ptr collision,
                         const Eigen::Isometry3d& tcp,
                         bool allow_collision,
                         typename DescartesVertexEvaluator<FloatType>::Ptr is_valid);
@@ -67,11 +67,11 @@ public:
   bool sample(std::vector<FloatType>& solution_set) override;
 
 private:
-  Eigen::Isometry3d target_pose_;                                          /**< @brief The target pose to sample */
-  PoseSamplerFn target_pose_sampler_;                                      /**< @brief Target pose sampler function */
-  tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics_;     /**< @brief The robot inverse kinematics */
-  typename descartes_light::CollisionInterface<FloatType>::Ptr collision_; /**< @brief The collision interface */
-  Eigen::Isometry3d tcp_;                                                  /**< @brief The robot tool center point */
+  Eigen::Isometry3d target_pose_;                                      /**< @brief The target pose to sample */
+  PoseSamplerFn target_pose_sampler_;                                  /**< @brief Target pose sampler function */
+  tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics_; /**< @brief The robot inverse kinematics */
+  DescartesCollision::Ptr collision_;                                  /**< @brief The collision interface */
+  Eigen::Isometry3d tcp_;                                              /**< @brief The robot tool center point */
   bool allow_collision_;    /**< @brief If true and no valid solution was found it will return the best of the worst */
   int dof_;                 /**< @brief The number of joints in the robot */
   Eigen::VectorXd ik_seed_; /**< @brief The seed for inverse kinematics which is zeros */
