@@ -185,7 +185,9 @@ SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
     {
       throw std::runtime_error("Unsupported waypoint type!");
     }
+    start_instruction_seed.setDescription(start_instruction->getDescription());
     start_instruction_seed.setProfile(start_instruction->getProfile());
+    start_instruction_seed.profile_overrides = start_instruction->profile_overrides;
     start_instruction_seed.setManipulatorInfo(start_instruction->getManipulatorInfo());
   }
   else
@@ -219,6 +221,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       std::string profile = getProfileString(base_instruction->getProfile(), name_, request.plan_profile_remapping);
       SimplePlannerPlanProfile::ConstPtr start_plan_profile =
           getProfile<SimplePlannerPlanProfile>(profile, plan_profiles, std::make_shared<SimplePlannerLVSPlanProfile>());
+      start_plan_profile = applyProfileOverrides(name_, start_plan_profile, base_instruction->profile_overrides);
       if (!start_plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid start profile");
 

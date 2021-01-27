@@ -36,6 +36,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_command_language/utils/filter_functions.h>
+#include <tesseract_motion_planners/planner_utils.h>
+#include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
 
 namespace tesseract_planning
 {
@@ -298,32 +300,13 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   }
 
   const auto* ci = input_intruction->cast_const<CompositeInstruction>();
-  const ManipulatorInfo& manip_info = input.manip_info;
-  const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
 
-  // Get Composite profile
+  // Get Composite Profile
   std::string profile = ci->getProfile();
-  if (profile.empty())
-    profile = "DEFAULT";
-
-  // Check for remapping of composite profile
-  {
-    auto remap = input.composite_profile_remapping.find(name_);
-    if (remap != input.composite_profile_remapping.end())
-    {
-      auto p = remap->second.find(profile);
-      if (p != remap->second.end())
-        profile = p->second;
-    }
-  }
-
-  // Get the parameters associated with this profile
-  typename FixStateCollisionProfile::Ptr cur_composite_profile{ nullptr };
-  auto it = composite_profiles.find(profile);
-  if (it == composite_profiles.end())
-    cur_composite_profile = std::make_shared<FixStateCollisionProfile>();
-  else
-    cur_composite_profile = it->second;
+  profile = getProfileString(profile, name_, input.composite_profile_remapping);
+  auto cur_composite_profile =
+      getProfile<FixStateCollisionProfile>(profile, composite_profiles, std::make_shared<FixStateCollisionProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci->profile_overrides);
 
   switch (cur_composite_profile->mode)
   {

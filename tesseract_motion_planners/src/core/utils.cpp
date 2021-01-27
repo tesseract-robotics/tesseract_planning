@@ -620,6 +620,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       ci.setProfile(base_instruction->getProfile());
       ci.setDescription(base_instruction->getDescription());
       ci.setManipulatorInfo(base_instruction->getManipulatorInfo());
+      ci.profile_overrides = base_instruction->profile_overrides;
 
       auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(mi.manipulator);
       Eigen::VectorXd jv = env_state.getJointValues(fwd_kin->getJointNames());
@@ -640,6 +641,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
         move_instruction.setManipulatorInfo(base_instruction->getManipulatorInfo());
         move_instruction.setDescription(base_instruction->getDescription());
         move_instruction.setProfile(base_instruction->getProfile());
+        move_instruction.profile_overrides = base_instruction->profile_overrides;
         ci.push_back(move_instruction);
       }
       else if (isJointWaypoint(base_instruction->getWaypoint()))
@@ -650,6 +652,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
         move_instruction.setManipulatorInfo(base_instruction->getManipulatorInfo());
         move_instruction.setDescription(base_instruction->getDescription());
         move_instruction.setProfile(base_instruction->getProfile());
+        move_instruction.profile_overrides = base_instruction->profile_overrides;
         ci.push_back(move_instruction);
       }
       else
@@ -658,6 +661,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
         move_instruction.setManipulatorInfo(base_instruction->getManipulatorInfo());
         move_instruction.setDescription(base_instruction->getDescription());
         move_instruction.setProfile(base_instruction->getProfile());
+        move_instruction.profile_overrides = base_instruction->profile_overrides;
         ci.push_back(move_instruction);
       }
 
@@ -680,6 +684,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   ManipulatorInfo base_mi;
   std::string description;
   std::string profile;
+  ProfileDictionary::Ptr profile_overrides;
   if (isPlanInstruction(seed.getStartInstruction()))
   {
     const auto* pi = seed.getStartInstruction().cast_const<PlanInstruction>();
@@ -687,6 +692,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     base_mi = pi->getManipulatorInfo();
     description = pi->getDescription();
     profile = pi->getProfile();
+    profile_overrides = pi->profile_overrides;
   }
   else if (isMoveInstruction(seed.getStartInstruction()))
   {
@@ -695,6 +701,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     base_mi = pi->getManipulatorInfo();
     description = pi->getDescription();
     profile = pi->getProfile();
+    profile_overrides = pi->profile_overrides;
   }
   else
     throw std::runtime_error("Top most composite instruction start instruction has invalid waypoint type!");
@@ -710,6 +717,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     move_instruction.setManipulatorInfo(base_mi);
     move_instruction.setDescription(description);
     move_instruction.setProfile(profile);
+    move_instruction.profile_overrides = profile_overrides;
     seed.setStartInstruction(move_instruction);
   }
   else if (isJointWaypoint(wp))
@@ -720,6 +728,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     move_instruction.setManipulatorInfo(base_mi);
     move_instruction.setDescription(description);
     move_instruction.setProfile(profile);
+    move_instruction.profile_overrides = profile_overrides;
     seed.setStartInstruction(move_instruction);
   }
   else
@@ -728,6 +737,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     move_instruction.setManipulatorInfo(base_mi);
     move_instruction.setDescription(description);
     move_instruction.setProfile(profile);
+    move_instruction.profile_overrides = profile_overrides;
     seed.setStartInstruction(move_instruction);
   }
 

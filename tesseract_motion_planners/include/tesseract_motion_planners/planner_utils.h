@@ -36,6 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/core/forward_kinematics.h>
 #include <tesseract_motion_planners/robot_config.h>
 #include <tesseract_motion_planners/core/types.h>
+#include <tesseract_command_language/profile_dictionary.h>
 
 namespace tesseract_planning
 {
@@ -149,8 +150,8 @@ getProfile(const std::string& profile,
            std::shared_ptr<const ProfileType> default_profile = nullptr)
 {
   std::shared_ptr<const ProfileType> results;
-  auto it = profile_map.find(profile);
 
+  auto it = profile_map.find(profile);
   if (it == profile_map.end())
   {
     CONSOLE_BRIDGE_logDebug("Profile %s was not found. Using default if available. Available profiles:",
@@ -164,6 +165,29 @@ getProfile(const std::string& profile,
 
   return results;
 }
+
+/**
+ * @brief Returns either nominal_profile or override based on task name passed in
+ * @param task_name Task name used to look up if there is a profile override
+ * @param nominal_profile Profile that will be used if no override is present
+ * @param overrides Dictionary of profile overrides that will override the nominal profile if present for this task.
+ * Default = nullptr
+ * @return The nominal_profile or override based on the task name passed in
+ */
+template <typename ProfileType>
+std::shared_ptr<const ProfileType> applyProfileOverrides(const std::string task_name,
+                                                         const std::shared_ptr<ProfileType>& nominal_profile,
+                                                         const ProfileDictionary::ConstPtr& overrides = nullptr)
+{
+  if (!overrides)
+    return nominal_profile;
+
+  if (overrides->hasProfile<ProfileType>(task_name))
+    return overrides->getProfile<ProfileType>(task_name);
+
+  return nominal_profile;
+}
+
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_PLANNER_UTILS_H

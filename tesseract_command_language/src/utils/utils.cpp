@@ -321,6 +321,7 @@ void generateSkeletonSeedHelper(CompositeInstruction& composite_instructions)
       ci.setProfile(pi->getProfile());
       ci.setDescription(pi->getDescription());
       ci.setManipulatorInfo(pi->getManipulatorInfo());
+      ci.profile_overrides = pi->profile_overrides;
 
       i = ci;
     }
