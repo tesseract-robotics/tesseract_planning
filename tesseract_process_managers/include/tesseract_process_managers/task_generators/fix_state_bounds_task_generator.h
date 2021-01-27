@@ -52,7 +52,7 @@ struct FixStateBoundsProfile
   /** @brief Maximum amount the process is allowed to correct. If deviation is further than this, it will fail */
   double max_deviation_global = std::numeric_limits<double>::max();
 };
-using FixStateBoundsProfileMap = std::unordered_map<std::string, FixStateBoundsProfile::Ptr>;
+using FixStateBoundsProfileMap = std::unordered_map<std::string, FixStateBoundsProfile::ConstPtr>;
 
 /**
  * @brief This generator modifies the const input instructions in order to push waypoints that are outside of their

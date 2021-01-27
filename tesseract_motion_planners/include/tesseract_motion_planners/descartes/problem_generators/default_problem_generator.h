@@ -89,6 +89,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
   std::string profile;
+  ProfileDictionary::ConstPtr profile_overrides;
   Waypoint start_waypoint = NullWaypoint();
   Instruction placeholder_instruction = NullInstruction();
   const Instruction* start_instruction = nullptr;
@@ -102,6 +103,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
       assert(temp->isStart());
       start_waypoint = temp->getWaypoint();
       profile = temp->getProfile();
+      profile_overrides = temp->profile_overrides;
     }
     else
     {
@@ -123,6 +125,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
   profile = getProfileString(profile, name, request.plan_profile_remapping);
   auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
       profile, plan_profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+  cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, profile_overrides);
   if (!cur_plan_profile)
     throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
 
@@ -171,6 +174,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
       profile = getProfileString(profile, name, request.plan_profile_remapping);
       auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
           profile, plan_profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+      cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, plan_instruction->profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
 

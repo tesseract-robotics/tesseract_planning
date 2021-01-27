@@ -28,7 +28,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/core/profile_dictionary.h>
+#include <tesseract_command_language/profile_dictionary.h>
 
 struct ProfileBase
 {

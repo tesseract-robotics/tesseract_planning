@@ -69,7 +69,7 @@ struct FixStateCollisionProfile
   /** @brief Number of sampling attempts if TrajOpt correction fails*/
   int sampling_attempts{ 100 };
 };
-using FixStateCollisionProfileMap = std::unordered_map<std::string, FixStateCollisionProfile::Ptr>;
+using FixStateCollisionProfileMap = std::unordered_map<std::string, FixStateCollisionProfile::ConstPtr>;
 
 /**
  * @brief This generator modifies the const input instructions in order to push waypoints that are in collision out of

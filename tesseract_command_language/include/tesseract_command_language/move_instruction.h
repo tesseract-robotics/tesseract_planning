@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/constants.h>
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/types.h>
 
 namespace tesseract_planning
@@ -65,6 +66,9 @@ public:
 
   void setProfile(const std::string& profile);
   const std::string& getProfile() const;
+
+  /** @brief Dictionary of profiles that will override named profiles for a specific task*/
+  ProfileDictionary::Ptr profile_overrides;
 
   int getType() const;
 

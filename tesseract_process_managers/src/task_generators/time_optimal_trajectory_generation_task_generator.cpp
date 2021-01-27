@@ -88,13 +88,12 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   const ManipulatorInfo& manip_info = ci->getManipulatorInfo();
   const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
 
-  // Get Plan Profile
+  // Get Composite Profile
   std::string profile = ci->getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(
       profile, composite_profiles, std::make_shared<TimeOptimalTrajectoryGenerationProfile>());
-  if (!cur_composite_profile)
-    cur_composite_profile = std::make_shared<TimeOptimalTrajectoryGenerationProfile>();
+  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci->profile_overrides);
 
   // Create data structures for checking for plan profile overrides
   auto flattened = flatten(*ci, moveFilter);
@@ -119,8 +118,8 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
 
     // Check for remapping of the plan profile
     std::string remap = getProfileString(profile, name_, input.plan_profile_remapping);
-    auto cur_move_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(
-        remap, composite_profiles, nullptr, mi->getProfileOverride(name_));
+    auto cur_move_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(remap, composite_profiles, nullptr);
+    cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi->profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)

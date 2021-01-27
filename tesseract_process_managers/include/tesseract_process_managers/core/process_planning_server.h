@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <taskflow/taskflow.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/core/profile_dictionary.h>
+#include <tesseract_command_language/profile_dictionary.h>
 
 #include <tesseract_process_managers/core/process_environment_cache.h>
 #include <tesseract_process_managers/core/taskflow_generator.h>

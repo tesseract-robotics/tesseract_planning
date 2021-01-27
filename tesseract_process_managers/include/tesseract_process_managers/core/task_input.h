@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/taskflow_interface.h>
 #include <tesseract_process_managers/core/task_info.h>
 
-#include <tesseract_motion_planners/core/profile_dictionary.h>
+#include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_motion_planners/core/types.h>
 
 #include <tesseract_command_language/core/instruction.h>
