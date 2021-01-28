@@ -788,12 +788,12 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
   std::list<TrajectoryStep>::iterator start1 = start2;
   --start1;
   std::list<TrajectoryStep> trajectory;
-  double slope;
+  double slope{ 0 };
   assert(start1->path_pos_ <= path_pos);
 
   while (start1 != start_trajectory.begin() || path_pos >= 0.0)
   {
-    if (start1->path_pos_ <= path_pos)
+    if (start1->path_pos_ < path_pos || tesseract_common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS))
     {
       trajectory.push_front(TrajectoryStep(path_pos, path_vel));
       path_vel -= time_step_ * acceleration;
@@ -820,8 +820,15 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
     const double start_slope = (start2->path_vel_ - start1->path_vel_) / (start2->path_pos_ - start1->path_pos_);
     const double intersection_path_pos =
         (start1->path_vel_ - path_vel + slope * path_pos - start_slope * start1->path_pos_) / (slope - start_slope);
-    if (std::max(start1->path_pos_, path_pos) - EPS <= intersection_path_pos &&
-        intersection_path_pos <= EPS + std::min(start2->path_pos_, trajectory.front().path_pos_))
+
+    double pos_max = std::max(start1->path_pos_, path_pos);
+    double pos_min = std::min(start2->path_pos_, trajectory.front().path_pos_);
+    bool check1 = (pos_max < intersection_path_pos) ||
+                  tesseract_common::almostEqualRelativeAndAbs(pos_max, intersection_path_pos, EPS);
+    bool check2 = (intersection_path_pos < pos_min) ||
+                  tesseract_common::almostEqualRelativeAndAbs(pos_min, intersection_path_pos, EPS);
+
+    if (check1 && check2)
     {
       const double intersection_path_vel =
           start1->path_vel_ + start_slope * (intersection_path_pos - start1->path_pos_);
@@ -913,7 +920,7 @@ double Trajectory::getVelocityMaxPathVelocityDeriv(double path_pos)
 {
   const Eigen::VectorXd tangent = path_.getTangent(path_pos);
   double max_path_velocity = std::numeric_limits<double>::max();
-  unsigned int active_constraint;
+  unsigned int active_constraint{ 0 };
   for (unsigned int i = 0; i < joint_num_; ++i)
   {
     const double this_max_path_velocity = max_velocity_[i] / std::abs(tangent[i]);
