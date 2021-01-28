@@ -161,8 +161,25 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
     return true;
   }
 
+  // Append a dummy joint as a workaround to https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
+  std::list<Eigen::VectorXd> new_points;
+  double dummy = 1.0;
+  for (auto& point : points)
+  {
+    Eigen::VectorXd new_point(point.size() + 1);
+    new_point << point, dummy;
+    new_points.push_back(new_point);
+    dummy += 1.0;
+  }
+
+  Eigen::VectorXd max_velocity_dummy_appended(max_velocity.size() + 1);
+  max_velocity_dummy_appended << max_velocity, std::numeric_limits<double>::max();
+  Eigen::VectorXd max_acceleration_dummy_appended(max_acceleration.size() + 1);
+  max_acceleration_dummy_appended << max_acceleration, std::numeric_limits<double>::max();
+
   // Now actually call the algorithm
-  totg::Trajectory parameterized(totg::Path(points, path_tolerance_), max_velocity, max_acceleration, 0.001);
+  totg::Trajectory parameterized(
+      totg::Path(new_points, path_tolerance_), max_velocity_dummy_appended, max_acceleration_dummy_appended, 0.001);
   if (!parameterized.isValid())
   {
     CONSOLE_BRIDGE_logError("Unable to parameterize trajectory.");
@@ -183,9 +200,9 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
     // always sample the end of the trajectory as well
     double t = std::min(parameterized.getDuration(), static_cast<double>(sample) * resample_dt_);
     StateWaypoint wp(*input_instruction->getWaypoint().cast<StateWaypoint>());
-    wp.position = parameterized.getPosition(t);
-    wp.velocity = parameterized.getVelocity(t);
-    wp.acceleration = parameterized.getAcceleration(t);
+    wp.position = parameterized.getPosition(t).topRows(num_joints);
+    wp.velocity = parameterized.getVelocity(t).topRows(num_joints);
+    wp.acceleration = parameterized.getAcceleration(t).topRows(num_joints);
     wp.time = t;
 
     MoveInstruction output_instruction(*input_instruction);
