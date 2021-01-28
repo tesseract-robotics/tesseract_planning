@@ -121,7 +121,17 @@ private:
 class Trajectory
 {
 public:
-  /// @brief Generates a time-optimal trajectory
+  /**
+   * @brief Generates a time-optimal trajectory
+   * @param path Path that will be parameterized
+   * @param max_velocity Maximum velocity per joint
+   * @param max_acceleration Maximum acceleration per joint
+   * @param time_step Time step used when integrating forward and backward
+   * @bug A negative path velocity error will occur if the path contains points that are close to but not equal to the
+   * start or end point. A workaround (implemented in TimeOptimalTrajectoryGeneration::computeTimesteps) is to append an
+   * extra joint that increments such that no point is ever repeated. See
+   * https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
+   */
   Trajectory(const Path& path,
              const Eigen::VectorXd& max_velocity,
              const Eigen::VectorXd& max_acceleration,

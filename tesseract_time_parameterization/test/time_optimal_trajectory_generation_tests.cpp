@@ -38,6 +38,7 @@
 
 #include <gtest/gtest.h>
 #include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
+#include <tesseract_command_language/command_language.h>
 
 using tesseract_planning::totg::Path;
 using tesseract_planning::totg::Trajectory;
@@ -226,6 +227,78 @@ TEST(time_optimal_trajectory_generation, testLargeAccel)
       EXPECT_NEAR(acceleration(static_cast<Eigen::Index>(i)), 0.0, 100.0)
           << "Invalid acceleration at position " << sample_count << "\n";
   }
+}
+
+// Caues the issue below. Workaround is applied when using computeTimestamps interface like in
+// testCommandLanguageInterface https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
+// TEST(time_optimal_trajectory_generation, test_return_home)
+//{
+//  Eigen::VectorXd waypoint(7);
+//  std::list<Eigen::VectorXd> waypoints;
+
+//  waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
+//  waypoints.push_back(waypoint);
+//  waypoint << 0, 0, 0, 0, 0, 0;
+//  waypoints.push_back(waypoint);
+//  waypoint << 0, 0.70001, -2.1, 0, -0.25, 0;
+//  waypoints.push_back(waypoint);
+//  waypoint << 0, 0, 0, 0, 0, 0.1;
+//  waypoints.push_back(waypoint);
+
+//  Eigen::VectorXd max_velocities(7);
+//  max_velocities.setOnes();
+//  Eigen::VectorXd max_accelerations(7);
+//  max_accelerations.setOnes();
+
+//  Trajectory trajectory(Path(waypoints, 0.001), max_velocities, max_accelerations, 0.001);
+//  EXPECT_TRUE(trajectory.isValid());
+//}
+
+TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)
+{
+  tesseract_planning::CompositeInstruction program;
+  Eigen::VectorXd waypoint(6);
+  std::list<Eigen::VectorXd> waypoints;
+
+  std::vector<std::string> joint_names = { "j1", "j2", "j3", "j4", "j5", "j6" };
+
+  {
+    waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
+    tesseract_planning::StateWaypoint wp(joint_names, waypoint);
+    tesseract_planning::MoveInstruction plan_f0(wp, tesseract_planning::MoveInstructionType::FREESPACE, "profile_name");
+    plan_f0.setDescription("freespace_motion");
+    program.push_back(plan_f0);
+  }
+  {
+    waypoint << 0, 0, 0, 0, 0, 0;
+    tesseract_planning::StateWaypoint wp(joint_names, waypoint);
+    tesseract_planning::MoveInstruction plan_f0(wp, tesseract_planning::MoveInstructionType::FREESPACE, "profile_name");
+    plan_f0.setDescription("freespace_motion");
+    program.push_back(plan_f0);
+  }
+  {
+    waypoint << 0, 0.70001, -2.1, 0, -0.25, 0;
+    tesseract_planning::StateWaypoint wp(joint_names, waypoint);
+    tesseract_planning::MoveInstruction plan_f0(wp, tesseract_planning::MoveInstructionType::FREESPACE, "profile_name");
+    plan_f0.setDescription("freespace_motion");
+    program.push_back(plan_f0);
+  }
+  {
+    waypoint << 0, 0, 0, 0, 0, 0.1;
+    tesseract_planning::StateWaypoint wp(joint_names, waypoint);
+    tesseract_planning::MoveInstruction plan_f0(wp, tesseract_planning::MoveInstructionType::FREESPACE, "profile_name");
+    plan_f0.setDescription("freespace_motion");
+    program.push_back(plan_f0);
+  }
+
+  Eigen::VectorXd max_velocities(6);
+  max_velocities.setOnes();
+  Eigen::VectorXd max_accelerations(6);
+  max_accelerations.setOnes();
+
+  tesseract_planning::TimeOptimalTrajectoryGeneration solver(0.001, 0.1, 1e-3);
+
+  EXPECT_TRUE(solver.computeTimeStamps(program, max_velocities, max_accelerations, 1.0, 1.0));
 }
 
 int main(int argc, char** argv)
