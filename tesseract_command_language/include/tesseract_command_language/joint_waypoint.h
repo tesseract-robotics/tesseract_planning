@@ -287,10 +287,9 @@ public:
     if (lower_tolerance.size() == 0 || upper_tolerance.size() == 0)
       return false;
 
-    // Check if they are close to 0
-    Eigen::VectorXd range = upper_tolerance - lower_tolerance;
-    double sum = range.sum();
-    return (sum > 1e-5);
+    // Check if they are the same
+    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+    return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
   }
 };
 }  // namespace tesseract_planning
