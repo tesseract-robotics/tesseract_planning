@@ -36,6 +36,8 @@ else()
   endif()
 endif()
 
+link_directories(BEFORE ${OMPL_LIBRARY_DIRS})
+
 initialize_code_coverage()
 set(COVERAGE_EXCLUDE /usr/* /opt/* ${CMAKE_CURRENT_LIST_DIR}/test/* /*/gtest/* /*/include/descartes_light/* /*/include/opw_kinematics/* /*/include/trajopt/* /*/include/trajopt_sco/*)
 add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
