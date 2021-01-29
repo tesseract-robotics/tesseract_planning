@@ -289,6 +289,13 @@ public:
 
     // Check if they are the same
     static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+    if ((lower_tolerance.array() > max_diff).any())
+      throw std::runtime_error("JointWaypoint: lower tolerance was provided but must be <= 0,");
+
+    if ((upper_tolerance.array() < -max_diff).any())
+      throw std::runtime_error("JointWaypoint: upper tolerance was provided but must be >= 0,");
+
     return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
   }
 };

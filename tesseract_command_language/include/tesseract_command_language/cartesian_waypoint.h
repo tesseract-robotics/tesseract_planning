@@ -281,10 +281,16 @@ public:
     if (lower_tolerance.size() == 0 || upper_tolerance.size() == 0)
       return false;
 
-    // Check if they are close to 0
-    Eigen::VectorXd range = upper_tolerance - lower_tolerance;
-    double sum = range.sum();
-    return (sum > 1e-5);
+    // Check if they are the same
+    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+    if ((lower_tolerance.array() > max_diff).any())
+      throw std::runtime_error("CartesianWaypoint: lower tolerance was provided but must be <= 0,");
+
+    if ((upper_tolerance.array() < -max_diff).any())
+      throw std::runtime_error("CartesianWaypoint: upper tolerance was provided but must be >= 0,");
+
+    return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
   }
 };
 
