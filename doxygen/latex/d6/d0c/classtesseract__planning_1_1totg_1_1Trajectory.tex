@@ -98,6 +98,19 @@ std\+::list$<$ \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_
 Generates a time-\/optimal trajectory. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em path} & \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}} that will be parameterized \\
+\hline
+{\em max\+\_\+velocity} & Maximum velocity per joint \\
+\hline
+{\em max\+\_\+acceleration} & Maximum acceleration per joint \\
+\hline
+{\em time\+\_\+step} & Time step used when integrating forward and backward \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000228}{Bug}}]A negative path velocity error will occur if the path contains points that are close to but not equal to the start or end point. A workaround (implemented in Time\+Optimal\+Trajectory\+Generation\+::compute\+Timesteps) is to append an extra joint that increments such that no point is ever repeated. See \href{https://github.com/ros-industrial-consortium/tesseract_planning/issues/27}{\texttt{ https\+://github.\+com/ros-\/industrial-\/consortium/tesseract\+\_\+planning/issues/27}} \end{DoxyRefDesc}
+
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}\label{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}} 
