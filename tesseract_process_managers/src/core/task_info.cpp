@@ -28,7 +28,7 @@
 
 namespace tesseract_planning
 {
-TaskInfo::TaskInfo(std::size_t unique_id, std::string name) : unique_id(unique_id), message(std::move(name)) {}
+TaskInfo::TaskInfo(std::size_t unique_id, std::string name) : unique_id(unique_id), task_name(std::move(name)) {}
 
 void TaskInfoContainer::addTaskInfo(TaskInfo::ConstPtr task_info)
 {
