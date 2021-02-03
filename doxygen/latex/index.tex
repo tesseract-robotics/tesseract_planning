@@ -49,8 +49,22 @@ This include packages related to both motion and process planning for the Tesser
 \item \href{https://ros-industrial-consortium.github.io/tesseract_planning/}{\texttt{ Doxygen}}
 \item \href{https://ros-industrial-consortium.github.io/tesseract_planning/dev/bench}{\texttt{ Benchmark}}
 \end{DoxyItemize}\hypertarget{index_autotoc_md5}{}\doxysection{Process Planning Server Tuning}\label{index_autotoc_md5}
-The planning server is built leveraging the library taskflow which enables you to quickly write parallel and heterogeneous tasks programs which aligns well with process motion planning. These types of libraries leverage thread pools to quickly spin up different tasks as needed. One interesting thing found, if a task consumes a lot of memory libc will make a performance decision to allow the thread to hold onto the memory it has for subsequent tasks opposed to giving the memory back to your system. This may be fine if this was the only set of tasks being run but typically in our use case there are other computationally intensive processes which could use this memory.\hypertarget{index_autotoc_md6}{}\doxysubsection{Ubuntu}\label{index_autotoc_md6}
-This was addressed by leveraging tcmalloc library which is part of google performance tools (gperftools). This has shown to provided more stable memory management when leveraging the planning server.
+The planning server is built leveraging the library taskflow which enables you to quickly write parallel and heterogeneous tasks programs which aligns well with process motion planning. These types of libraries leverage thread pools to quickly spin up different tasks as needed. One interesting thing found, if a task consumes a lot of memory, then the malloc library can make a performance decision to allow the thread to hold onto the memory it has for subsequent tasks opposed to giving the memory back to your system. This may be fine if this was the only set of tasks being run but typically in our use case there are other computationally intensive processes which could use this memory.\hypertarget{index_autotoc_md6}{}\doxysubsection{Ubuntu}\label{index_autotoc_md6}
+\hypertarget{index_autotoc_md7}{}\doxysubsection{tcmalloc (\+Recommend)}\label{index_autotoc_md7}
+The recommended approach to address memory management is to leverage the {\ttfamily tcmalloc} library which is part of Google Performance Tools ({\ttfamily gperftools}). Experimentation has shown {\ttfamily tcmalloc} to provide more stable memory management when leveraging the planning server.
+
+This capability can be leveraged by linking the exectuable that contains the planning server against {\ttfamily tcmalloc} using the following commands\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{find\_package(tesseract\_common REQUIRED)}
+\DoxyCodeLine{find\_package(tcmalloc REQUIRED)}
+\DoxyCodeLine{}
+\DoxyCodeLine{add\_executable(my\_executable src/my\_executable.cpp)}
+\DoxyCodeLine{target\_link\_libraries(my\_executable PUBLIC tcmalloc::tcmalloc)}
+
+\end{DoxyCode}
+
 
 This library provides a set of run-\/time \href{https://gperftools.github.io/gperftools/tcmalloc.html}{\texttt{ tunables}}, leveraging a set of environment variables.
 
@@ -63,8 +77,28 @@ The one parameter that has been used to configure tcmalloc to give memory back t
 \end{DoxyCode}
 
 
-Note\+: This is typically set in the roslaunch file for the planning server node leveraging the {\ttfamily $<$env name=\char`\"{}\+TCMALLOC\+\_\+\+RELEASE\+\_\+\+RATE\char`\"{} value=\char`\"{}10\char`\"{}$>$} tag.\hypertarget{index_autotoc_md7}{}\doxysubsection{Windows}\label{index_autotoc_md7}
-TBD\hypertarget{index_autotoc_md8}{}\doxysection{Evolution}\label{index_autotoc_md8}
+Note\+: This is typically set in the roslaunch file for the planning server node leveraging the {\ttfamily $<$env name=\char`\"{}\+TCMALLOC\+\_\+\+RELEASE\+\_\+\+RATE\char`\"{} value=\char`\"{}10\char`\"{}$>$} tag.\hypertarget{index_autotoc_md8}{}\doxysubsection{$<$tt$>$ptmalloc$<$/tt$>$ (\+Ubuntu OS default)}\label{index_autotoc_md8}
+The great thing is, the default malloc library {\ttfamily ptmalloc} provides run-\/time \href{https://www.gnu.org/software/libc/manual/html_node/Tunables.html}{\texttt{ tunables}} through a set of environment variables.
+
+The one parameter that has been used to configure libc so it always gives back the memory to the system is setting following memory tunnable\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Tunable: glibc.malloc.mmap\_threshold}
+\DoxyCodeLine{}
+\DoxyCodeLine{export GLIBC\_TUNABLES=glibc.malloc.mmap\_threshold=1000000}
+\DoxyCodeLine{}
+\DoxyCodeLine{This tunable supersedes the MALLOC\_MMAP\_THRESHOLD\_ environment variable and is identical in features.}
+\DoxyCodeLine{}
+\DoxyCodeLine{When this tunable is set, all chunks larger than this value in bytes are allocated outside the normal heap, using the mmap system call. This way it is guaranteed that the memory for these chunks can be returned to the system on free. Note that requests smaller than this threshold might still be allocated via mmap.}
+\DoxyCodeLine{}
+\DoxyCodeLine{If this tunable is not set, the default value is set to ‘131072’ bytes and the threshold is adjusted dynamically to suit the allocation patterns of the program. If the tunable is set, the dynamic adjustment is disabled and the value is set as static.}
+
+\end{DoxyCode}
+
+
+Note\+: This is typically set in the roslaunch file for the planning server node leveraging the {\ttfamily $<$env name=\char`\"{}\+GLIBC\+\_\+\+TUNABLES\char`\"{} value=\char`\"{}glibc.\+malloc.\+mmap\+\_\+threshold=1000000\char`\"{}$>$} tag.\hypertarget{index_autotoc_md9}{}\doxysubsection{Windows}\label{index_autotoc_md9}
+TBD\hypertarget{index_autotoc_md10}{}\doxysection{Evolution}\label{index_autotoc_md10}
 \href{https://www.youtube.com/watch?v=rxlzlsSBxAY}{\texttt{ }}
 
 How to create\+:
@@ -73,23 +107,23 @@ How to create\+:
 \begin{DoxyItemize}
 \item Create Video\+: {\ttfamily gource -\/1280x720 -\/seconds-\/per-\/day 0.\+2 -\/-\/auto-\/skip-\/seconds 0.\+2 -\/-\/disable-\/bloom -\/background d0d3d4 -\/-\/hide filenames,mouse,progress -\/o -\/ $\vert$ ffmpeg -\/y -\/r 60 -\/f image2pipe -\/vcodec ppm -\/i -\/ -\/vcodec libx264 -\/preset ultrafast -\/pix\+\_\+fmt yuv420p -\/crf 1 -\/threads 0 -\/bf 0 gource.\+mp4}
 \item Create Gif\+: {\ttfamily ffmpeg -\/i gource.\+mp4 -\/r 10 -\/vf \char`\"{}scale=800\+:-\/1,split\mbox{[}s0\mbox{]}\mbox{[}s1\mbox{]};\mbox{[}s0\mbox{]}palettegen\mbox{[}p\mbox{]};\mbox{[}s1\mbox{]}\mbox{[}p\mbox{]}paletteuse\char`\"{} tesseract\+\_\+evolution.\+gif}
-\end{DoxyItemize}\hypertarget{index_autotoc_md9}{}\doxysection{TODO\textquotesingle{}s}\label{index_autotoc_md9}
+\end{DoxyItemize}\hypertarget{index_autotoc_md11}{}\doxysection{TODO\textquotesingle{}s}\label{index_autotoc_md11}
 Warning\+: These packages are under heavy development and are subject to change.
 
-See \href{https://github.com/ros-industrial-consortium/tesseract/issues/66}{\texttt{ issue \#66}}\hypertarget{index_autotoc_md10}{}\doxysection{Build Instructions}\label{index_autotoc_md10}
+See \href{https://github.com/ros-industrial-consortium/tesseract/issues/66}{\texttt{ issue \#66}}\hypertarget{index_autotoc_md12}{}\doxysection{Build Instructions}\label{index_autotoc_md12}
 1) Clone repository into your workspace 2) Clone the repositories in the dependencies.\+rosinstall file using wstool or some other method (e.\+g. manually git cloning them) 3) Build the workspace using catkin tools, colcon, or a similar tool
 
 NOTE\+: To speed up clean build you may want to add tesseract\+\_\+ext to an extended workspace.
 
-NOTE\+: Install Task\+Flow from \href{https://launchpad.net/~ros-industrial/+archive/ubuntu/ppa}{\texttt{ ROS-\/\+Industrial PPA}}.\hypertarget{index_autotoc_md11}{}\doxysubsection{Building with Clang-\/\+Tidy Enabled}\label{index_autotoc_md11}
-Must pass the -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+CLANG\+\_\+\+TIDY=ON to cmake when building. This is automatically enabled if cmake argument -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING\+\_\+\+ALL=ON is passed.\hypertarget{index_autotoc_md12}{}\doxysubsection{Building Tests}\label{index_autotoc_md12}
+NOTE\+: Install Task\+Flow from \href{https://launchpad.net/~ros-industrial/+archive/ubuntu/ppa}{\texttt{ ROS-\/\+Industrial PPA}}.\hypertarget{index_autotoc_md13}{}\doxysubsection{Building with Clang-\/\+Tidy Enabled}\label{index_autotoc_md13}
+Must pass the -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+CLANG\+\_\+\+TIDY=ON to cmake when building. This is automatically enabled if cmake argument -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING\+\_\+\+ALL=ON is passed.\hypertarget{index_autotoc_md14}{}\doxysubsection{Building Tests}\label{index_autotoc_md14}
 Must pass the -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING=ON to cmake when wanting to build tests. This is automatically enabled if cmake argument -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING\+\_\+\+ALL=ON is passed.
 
-NOTE\+: If you are building using catkin tools, use {\ttfamily catkin build -\/-\/force-\/cmake -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING=ON}.\hypertarget{index_autotoc_md13}{}\doxysubsubsection{Running Tests}\label{index_autotoc_md13}
-Tesseract packages use ctest because it is ROS agnostic, so to run the test call {\ttfamily catkin test -\/-\/no-\/deps tesseract\+\_\+motion\+\_\+planners tesseract\+\_\+process\+\_\+managers tesseract\+\_\+time\+\_\+parameterization}\hypertarget{index_autotoc_md14}{}\doxysubsection{Building Code Coverage}\label{index_autotoc_md14}
+NOTE\+: If you are building using catkin tools, use {\ttfamily catkin build -\/-\/force-\/cmake -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+TESTING=ON}.\hypertarget{index_autotoc_md15}{}\doxysubsubsection{Running Tests}\label{index_autotoc_md15}
+Tesseract packages use ctest because it is ROS agnostic, so to run the test call {\ttfamily catkin test -\/-\/no-\/deps tesseract\+\_\+motion\+\_\+planners tesseract\+\_\+process\+\_\+managers tesseract\+\_\+time\+\_\+parameterization}\hypertarget{index_autotoc_md16}{}\doxysubsection{Building Code Coverage}\label{index_autotoc_md16}
 Must pass the -\/DTESSERACT\+\_\+\+ENABLE\+\_\+\+CODE\+\_\+\+COVERAGE=ON to cmake when wanting to build code coverage. The code coverage report is located in each individuals build directory inside a ccov/all-\/merged folder. Open the index.\+html file to see the packages code coverage report.
 
-NOTE\+: Must be a clean build when generating a code coverage report. Also must build in debug.\hypertarget{index_autotoc_md15}{}\doxysubsubsection{Exclude Code From Code Coverage}\label{index_autotoc_md15}
+NOTE\+: Must be a clean build when generating a code coverage report. Also must build in debug.\hypertarget{index_autotoc_md17}{}\doxysubsubsection{Exclude Code From Code Coverage}\label{index_autotoc_md17}
 
 \begin{DoxyItemize}
 \item LCOV\+\_\+\+EXCL\+\_\+\+LINE
@@ -106,7 +140,7 @@ NOTE\+: Must be a clean build when generating a code coverage report. Also must 
 \end{DoxyItemize}
 \end{DoxyItemize}
 
-.. NOTE\+: You can replace {\bfseries{LCOV}} above with {\bfseries{GCOV}} or {\bfseries{GCOVR}}.\hypertarget{index_autotoc_md16}{}\doxysection{Quality Tools Leverage}\label{index_autotoc_md16}
+.. NOTE\+: You can replace {\bfseries{LCOV}} above with {\bfseries{GCOV}} or {\bfseries{GCOVR}}.\hypertarget{index_autotoc_md18}{}\doxysection{Quality Tools Leverage}\label{index_autotoc_md18}
 Tesseract currently leverages Compiler Warnigs, Clang Tidy and Code Coverage. All warnings produced by Compiler and Clang Tidy are treated as errors during CI builds.
 
 
@@ -152,14 +186,14 @@ Tesseract currently leverages Compiler Warnigs, Clang Tidy and Code Coverage. Al
 \item readability-\/uniqueptr-\/delete-\/release
 \item readability-\/rary-\/objects
 \end{DoxyItemize}
-\end{DoxyItemize}\hypertarget{index_autotoc_md17}{}\doxysection{Build Branch Sphinx Documentation}\label{index_autotoc_md17}
+\end{DoxyItemize}\hypertarget{index_autotoc_md19}{}\doxysection{Build Branch Sphinx Documentation}\label{index_autotoc_md19}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{cd gh\_pages}
 \DoxyCodeLine{sphinx-\/build . output}
 
 \end{DoxyCode}
- Now open gh\+\_\+pages/output/index.\+rst and remove {\itshape output} directory before commiting changes.\hypertarget{index_autotoc_md18}{}\doxysection{Debugging Windows Build}\label{index_autotoc_md18}
+ Now open gh\+\_\+pages/output/index.\+rst and remove {\itshape output} directory before commiting changes.\hypertarget{index_autotoc_md20}{}\doxysection{Debugging Windows Build}\label{index_autotoc_md20}
 
 \begin{DoxyItemize}
 \item Search Directories CI
