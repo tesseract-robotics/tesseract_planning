@@ -277,13 +277,23 @@ public:
     }
 
     // directions must be different at this point so angle is always non-zero
+    // Calls to acos can result in nan values if not careful due to numerical floating point errors.
+    // If there is a possibility of calling acos on values that are approximately -1.
+    // Then it will result in nan, which leads to a segfault
+    // This was solved by addeding std::max(-1.0, start_direction.dot(end_direction))
+    // See https://github.com/ros-planning/moveit/pull/1861 for more details
     const double angle = acos(std::max(-1.0, start_direction.dot(end_direction)));
     const double start_distance = (start - intersection).norm();
     const double end_distance = (end - intersection).norm();
 
     // enforce max deviation
-    double distance = std::min(start_distance, end_distance);
-    distance = std::min(distance, max_deviation * sin(0.5 * angle) / (1.0 - cos(0.5 * angle)));
+    // The paper multiplies start_distance and end_distance by 0.5 but the original implementation
+    // does not. Changing to match the paper increases the trajectory duration.
+    double l1 = start_distance;
+    double l2 = end_distance;
+    double l3 = max_deviation * sin(0.5 * angle) / (1.0 - cos(0.5 * angle));
+    double distance = std::min(l1, l2);
+    distance = std::min(distance, l3);
 
     radius = distance / tan(0.5 * angle);
     length_ = angle * radius;
@@ -308,7 +318,7 @@ public:
   Eigen::VectorXd getCurvature(double s) const override
   {
     const double angle = s / radius;
-    return -1.0 / radius * (x * cos(angle) + y * sin(angle));
+    return (-1.0 / radius) * (x * cos(angle) + y * sin(angle));
   }
 
   std::list<double> getSwitchingPoints() const override
@@ -789,7 +799,7 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
   --start1;
   std::list<TrajectoryStep> trajectory;
   double slope{ 0 };
-  assert(start1->path_pos_ <= path_pos);
+  assert(start1->path_pos_ < path_pos || tesseract_common::almostEqualRelativeAndAbs(start1->path_pos_, path_pos, EPS));
 
   while (start1 != start_trajectory.begin() || path_pos >= 0.0)
   {
@@ -818,8 +828,17 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
     // Check for intersection between current start trajectory and backward
     // trajectory segments
     const double start_slope = (start2->path_vel_ - start1->path_vel_) / (start2->path_pos_ - start1->path_pos_);
-    const double intersection_path_pos =
-        (start1->path_vel_ - path_vel + slope * path_pos - start_slope * start1->path_pos_) / (slope - start_slope);
+
+    // It is possible to have both slope and start_slope to be equal
+    // This occurs if two consecutive TrajectorySteps have the same acceleration.
+    // Resulting in intersection_path_pos being nan because it divides by zero
+    bool check_eq_slope = tesseract_common::almostEqualRelativeAndAbs(slope, start_slope, EPS);
+    double intersection_path_pos{ 0 };
+    if (check_eq_slope)
+      intersection_path_pos = start1->path_pos_ + (start2->path_pos_ - start1->path_pos_) / 2.0;
+    else
+      intersection_path_pos =
+          (start1->path_vel_ - path_vel + slope * path_pos - start_slope * start1->path_pos_) / (slope - start_slope);
 
     double pos_max = std::max(start1->path_pos_, path_pos);
     double pos_min = std::min(start2->path_pos_, trajectory.front().path_pos_);
@@ -852,7 +871,7 @@ double Trajectory::getMinMaxPathAcceleration(double path_position, double path_v
   double max_path_acceleration = std::numeric_limits<double>::max();
   for (unsigned int i = 0; i < joint_num_; ++i)
   {
-    if (config_deriv[i] != 0.0)
+    if (!tesseract_common::almostEqualRelativeAndAbs(config_deriv[i], 0.0, std::numeric_limits<double>::epsilon()))
     {
       max_path_acceleration = std::min(max_path_acceleration,
                                        max_acceleration_[i] / std::abs(config_deriv[i]) -

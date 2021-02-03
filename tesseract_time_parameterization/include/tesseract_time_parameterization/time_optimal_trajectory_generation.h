@@ -145,8 +145,7 @@ public:
   /// @brief Returns the optimal duration of the trajectory
   double getDuration() const;
 
-  /** @brief Return the position/configuration vector for a given point in time
-   */
+  /** @brief Return the position/configuration vector for a given point in time */
   Eigen::VectorXd getPosition(double time) const;
   /** @brief Return the velocity vector for a given point in time */
   Eigen::VectorXd getVelocity(double time) const;
@@ -157,9 +156,13 @@ private:
   struct TrajectoryStep
   {
     TrajectoryStep() = default;
-    TrajectoryStep(double path_pos, double path_vel) : path_pos_(path_pos), path_vel_(path_vel) {}
-    double path_pos_;
-    double path_vel_;
+    TrajectoryStep(double path_pos, double path_vel) : path_pos_(path_pos), path_vel_(path_vel)
+    {
+      assert(!std::isnan(path_pos));
+      assert(!std::isnan(path_vel));
+    }
+    double path_pos_{ 0 };
+    double path_vel_{ 0 };
     double time_{ 0 };
   };
 

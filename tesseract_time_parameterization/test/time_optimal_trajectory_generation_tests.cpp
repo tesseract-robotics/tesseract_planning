@@ -233,7 +233,7 @@ TEST(time_optimal_trajectory_generation, testLargeAccel)
 // testCommandLanguageInterface https://github.com/ros-industrial-consortium/tesseract_planning/issues/27
 // TEST(time_optimal_trajectory_generation, test_return_home)
 //{
-//  Eigen::VectorXd waypoint(7);
+//  Eigen::VectorXd waypoint(6);
 //  std::list<Eigen::VectorXd> waypoints;
 
 //  waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
@@ -245,9 +245,9 @@ TEST(time_optimal_trajectory_generation, testLargeAccel)
 //  waypoint << 0, 0, 0, 0, 0, 0.1;
 //  waypoints.push_back(waypoint);
 
-//  Eigen::VectorXd max_velocities(7);
+//  Eigen::VectorXd max_velocities(6);
 //  max_velocities.setOnes();
-//  Eigen::VectorXd max_accelerations(7);
+//  Eigen::VectorXd max_accelerations(6);
 //  max_accelerations.setOnes();
 
 //  Trajectory trajectory(Path(waypoints, 0.001), max_velocities, max_accelerations, 0.001);
