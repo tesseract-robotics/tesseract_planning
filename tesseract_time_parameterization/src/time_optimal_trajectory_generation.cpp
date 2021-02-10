@@ -288,7 +288,7 @@ public:
 
     // enforce max deviation
     // The paper multiplies start_distance and end_distance by 0.5 but the original implementation
-    // does not. Changing to match the paper increases the trajectory duration.
+    // does not.
     double l1 = start_distance;
     double l2 = end_distance;
     double l3 = max_deviation * sin(0.5 * angle) / (1.0 - cos(0.5 * angle));

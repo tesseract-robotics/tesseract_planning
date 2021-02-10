@@ -668,6 +668,12 @@ void OMPLDefaultPlanProfile::processOptimizationObjective(OMPLProblem& prob) con
     prob.simple_setup->getProblemDefinition()->setOptimizationObjective(
         optimization_objective_allocator(prob.simple_setup->getSpaceInformation(), prob));
   }
+  else if (prob.optimize)
+  {
+    // Add default optimization function to minimize path length
+    prob.simple_setup->getProblemDefinition()->setOptimizationObjective(
+        std::make_shared<ompl::base::PathLengthOptimizationObjective>(prob.simple_setup->getSpaceInformation()));
+  }
 }
 
 }  // namespace tesseract_planning

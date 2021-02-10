@@ -30,6 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <class_loader/class_loader.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/types.h>
+
 #include <tesseract_kinematics/opw/opw_inv_kin.h>
 #include <tesseract_kinematics/core/utils.h>
 
@@ -86,8 +88,8 @@ int main(int /*argc*/, char** /*argv*/)
   tesseract_scene_graph::ResourceLocator::Ptr locator =
       std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
   auto env = std::make_shared<tesseract_environment::Environment>();
-  boost::filesystem::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
-  boost::filesystem::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
+  tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
+  tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
   env->init<tesseract_environment::OFKTStateSolver>(urdf_path, srdf_path, locator);
 
   // Dynamically load ignition visualizer if exist

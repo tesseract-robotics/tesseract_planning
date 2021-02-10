@@ -26,9 +26,9 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
-#include <boost/filesystem.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/types.h>
 #include <tesseract_environment/core/environment.h>
 #include <tesseract_environment/ofkt/ofkt_state_solver.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -77,8 +77,8 @@ protected:
     tesseract_scene_graph::ResourceLocator::Ptr locator =
         std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
     Environment::Ptr env = std::make_shared<Environment>();
-    boost::filesystem::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
-    boost::filesystem::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
+    tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
+    tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
     EXPECT_TRUE(env->init<OFKTStateSolver>(urdf_path, srdf_path, locator));
     env_ = env;
   }

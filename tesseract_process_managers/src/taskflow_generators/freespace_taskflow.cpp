@@ -176,14 +176,13 @@ TaskflowContainer FreespaceTaskflow::generateTaskflow(TaskInput input, TaskflowV
     trajopt_generator2->assignConditionalTask(input, trajopt_second_task);
     container.generators.push_back(std::move(trajopt_generator2));
 
-    ompl_task.precede(trajopt_second_task);
-
     // Add Final Continuous Contact Check of trajectory and Time parameterization trajectory
     if (has_contact_check && params_.enable_time_parameterization)
     {
       tf::Task contact_task = container.taskflow->placeholder();
       contact_check_generator->assignConditionalTask(input, contact_task);
       trajopt_task.precede(ompl_task, contact_task);
+      ompl_task.precede(trajopt_second_task);
       trajopt_second_task.precede(error_task, contact_task);
       container.generators.push_back(std::move(contact_check_generator));
 
@@ -199,6 +198,7 @@ TaskflowContainer FreespaceTaskflow::generateTaskflow(TaskInput input, TaskflowV
       tf::Task contact_task = container.taskflow->placeholder();
       contact_check_generator->assignConditionalTask(input, contact_task);
       trajopt_task.precede(ompl_task, contact_task);
+      ompl_task.precede(trajopt_second_task);
       trajopt_second_task.precede(error_task, contact_task);
       contact_task.precede(error_task, done_task);
       container.generators.push_back(std::move(contact_check_generator));
@@ -208,7 +208,8 @@ TaskflowContainer FreespaceTaskflow::generateTaskflow(TaskInput input, TaskflowV
       tf::Task time_task = container.taskflow->placeholder();
       time_parameterization_generator->assignConditionalTask(input, time_task);
       container.generators.push_back(std::move(time_parameterization_generator));
-      trajopt_task.precede(error_task, time_task);
+      trajopt_task.precede(ompl_task, time_task);
+      ompl_task.precede(trajopt_second_task);
       trajopt_second_task.precede(error_task, time_task);
       time_task.precede(error_task, done_task);
       container.generators.push_back(std::move(time_parameterization_generator));
@@ -216,6 +217,7 @@ TaskflowContainer FreespaceTaskflow::generateTaskflow(TaskInput input, TaskflowV
     else
     {
       trajopt_task.precede(ompl_task, done_task);
+      ompl_task.precede(trajopt_second_task);
       trajopt_second_task.precede(error_task, done_task);
     }
   }
@@ -243,7 +245,7 @@ TaskflowContainer FreespaceTaskflow::generateTaskflow(TaskInput input, TaskflowV
     {
       tf::Task contact_task = container.taskflow->placeholder();
       contact_check_generator->assignConditionalTask(input, contact_task);
-      trajopt_task.precede(ompl_task, contact_task);
+      trajopt_task.precede(error_task, contact_task);
       contact_task.precede(error_task, done_task);
       container.generators.push_back(std::move(contact_check_generator));
     }

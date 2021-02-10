@@ -169,7 +169,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   response.taskflow_container = it->second->generateTaskflow(task_input, nullptr, nullptr);
 
   // Dump taskflow graph before running
-  if (console_bridge::getLogLevel() >= console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
+  if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
   {
     std::ofstream out_data;
     out_data.open(tesseract_common::getTempPath() + request.name + "-" + tesseract_common::getTimestampString() +
