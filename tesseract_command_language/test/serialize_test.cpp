@@ -61,8 +61,7 @@ CompositeInstruction getProgram()
                                    Eigen::Quaterniond(0, 0, -1.0, 0));
   Waypoint wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
                                    Eigen::Quaterniond(0, 0, -1.0, 0));
-  Waypoint wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.3, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
+  Waypoint wp7 = JointWaypoint(joint_names, Eigen::VectorXd::Ones(6));
 
   // Define raster move instruction
   PlanInstruction plan_c0(wp2, PlanInstructionType::LINEAR, "RASTER");

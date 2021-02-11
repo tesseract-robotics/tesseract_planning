@@ -127,6 +127,44 @@ public:
         linear() = q.toRotationMatrix();
       }
     }
+
+    // Parse tolerances
+    const tinyxml2::XMLElement* upper_tolerance_element = xml_element.FirstChildElement("UpperTolerance");
+    const tinyxml2::XMLElement* lower_tolerance_element = xml_element.FirstChildElement("LowerTolerance");
+
+    if (upper_tolerance_element && lower_tolerance_element)
+    {
+      std::string upper_tolerance_string, lower_tolerance_string;
+
+      status = tesseract_common::QueryStringText(upper_tolerance_element, upper_tolerance_string);
+      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+        throw std::runtime_error("CartesianWaypoint: Error parsing UpperTolerance string");
+
+      status = tesseract_common::QueryStringText(lower_tolerance_element, lower_tolerance_string);
+      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+        throw std::runtime_error("CartesianWaypoint: Error parsing LowerTolerance string");
+
+      std::vector<std::string> upper_tolerance_tokens, lower_tolerance_tokens;
+      if (!upper_tolerance_string.empty() && !lower_tolerance_string.empty())
+      {
+        boost::split(upper_tolerance_tokens, upper_tolerance_string, boost::is_any_of(" "), boost::token_compress_on);
+        boost::split(lower_tolerance_tokens, lower_tolerance_string, boost::is_any_of(" "), boost::token_compress_on);
+      }
+
+      if (!tesseract_common::isNumeric(upper_tolerance_tokens))
+        throw std::runtime_error("CartesianWaypoint: UpperTolerance are not all numeric values.");
+
+      if (!tesseract_common::isNumeric(lower_tolerance_tokens))
+        throw std::runtime_error("CartesianWaypoint: LowerTolerance are not all numeric values.");
+
+      upper_tolerance.resize(static_cast<Eigen::Index>(upper_tolerance_tokens.size()));
+      lower_tolerance.resize(static_cast<Eigen::Index>(lower_tolerance_tokens.size()));
+      for (long i = 0; i < static_cast<long>(upper_tolerance_tokens.size()); ++i)
+      {
+        tesseract_common::toNumeric<double>(upper_tolerance_tokens[static_cast<std::size_t>(i)], upper_tolerance[i]);
+        tesseract_common::toNumeric<double>(lower_tolerance_tokens[static_cast<std::size_t>(i)], lower_tolerance[i]);
+      }
+    }
   }
 
   int getType() const { return static_cast<int>(WaypointType::CARTESIAN_WAYPOINT); }
@@ -136,7 +174,7 @@ public:
     std::cout << prefix << "Cart WP: xyz=" << this->translation().x() << ", " << this->translation().y() << ", "
               << this->translation().z() << std::endl;
     // TODO: Add rotation
-  };
+  }
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
   {
@@ -155,6 +193,26 @@ public:
 
     xml_cartesian_waypoint->SetAttribute("wxyz", wxyz_string.str().c_str());
     xml_waypoint->InsertEndChild(xml_cartesian_waypoint);
+
+    // Write upper tolerance
+    {
+      std::stringstream upper_string;
+      upper_string << upper_tolerance.format(eigen_format);
+
+      tinyxml2::XMLElement* xml_upper = doc.NewElement("UpperTolerance");
+      xml_upper->SetText(upper_string.str().c_str());
+      xml_cartesian_waypoint->InsertEndChild(xml_upper);
+    }
+
+    // Write lower tolerance
+    {
+      std::stringstream lower_string;
+      lower_string << lower_tolerance.format(eigen_format);
+
+      tinyxml2::XMLElement* xml_lower = doc.NewElement("LowerTolerance");
+      xml_lower->SetText(lower_string.str().c_str());
+      xml_cartesian_waypoint->InsertEndChild(xml_lower);
+    }
 
     return xml_waypoint;
   }
