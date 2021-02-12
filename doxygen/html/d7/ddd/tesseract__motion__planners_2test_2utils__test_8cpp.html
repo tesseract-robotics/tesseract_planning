@@ -79,7 +79,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;tesseract_common/macros.h&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
-<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
+<code>#include &lt;tesseract_common/types.h&gt;</code><br />
 <code>#include &lt;tesseract_environment/core/environment.h&gt;</code><br />
 <code>#include &lt;tesseract_environment/ofkt/ofkt_state_solver.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d3/d8c/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2utils_8h_source.html">tesseract_motion_planners/core/utils.h</a>&gt;</code><br />
@@ -90,55 +90,54 @@ Include dependency graph for utils_test.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/df4/tesseract__motion__planners_2test_2utils__test_8cpp__incl.png" border="0" usemap="#atesseract__motion__planners_2test_2utils__test_8cpp" alt=""/></div>
 <map name="atesseract__motion__planners_2test_2utils__test_8cpp" id="atesseract__motion__planners_2test_2utils__test_8cpp">
-<area shape="rect" title=" " alt="" coords="1760,5,1939,47"/>
-<area shape="rect" title=" " alt="" coords="1990,727,2181,754"/>
-<area shape="rect" title=" " alt="" coords="1379,102,1474,129"/>
-<area shape="rect" title=" " alt="" coords="1498,102,1638,129"/>
-<area shape="rect" title=" " alt="" coords="1941,363,2096,404"/>
-<area shape="rect" title=" " alt="" coords="1865,95,2028,136"/>
-<area shape="rect" href="../../d3/d8c/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="1663,95,1841,136"/>
-<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="882,452,1081,493"/>
-<area shape="rect" href="../../da/de3/planner__utils_8h.html" title=" " alt="" coords="2189,184,2368,225"/>
-<area shape="rect" title=" " alt="" coords="2116,549,2231,575"/>
-<area shape="rect" title=" " alt="" coords="1026,727,1094,754"/>
-<area shape="rect" title=" " alt="" coords="1823,281,1991,307"/>
-<area shape="rect" title=" " alt="" coords="1873,184,2028,225"/>
-<area shape="rect" title=" " alt="" coords="1276,184,1431,225"/>
-<area shape="rect" title=" " alt="" coords="2820,363,2999,404"/>
-<area shape="rect" title=" " alt="" coords="1455,184,1633,225"/>
-<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="1395,363,1594,404"/>
-<area shape="rect" title=" " alt="" coords="3380,549,3559,575"/>
-<area shape="rect" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="891,184,1090,225"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="93,541,291,583"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2542,452,2741,493"/>
-<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="2406,541,2605,583"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="559,452,758,493"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="638,541,837,583"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="1298,631,1497,672"/>
-<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1742,541,1941,583"/>
-<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2270,452,2469,493"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="1105,452,1303,493"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="975,631,1174,672"/>
-<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="2765,452,2963,493"/>
-<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="1297,541,1495,583"/>
-<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="1519,541,1718,583"/>
-<area shape="rect" title=" " alt="" coords="94,631,298,672"/>
-<area shape="rect" title=" " alt="" coords="2628,549,2713,575"/>
-<area shape="rect" title=" " alt="" coords="1494,727,1573,754"/>
-<area shape="rect" title=" " alt="" coords="2788,549,2959,575"/>
-<area shape="rect" title=" " alt="" coords="2983,549,3153,575"/>
-<area shape="rect" title=" " alt="" coords="1063,549,1121,575"/>
-<area shape="rect" title=" " alt="" coords="573,727,627,754"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="315,541,514,583"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="501,631,699,672"/>
-<area shape="rect" title=" " alt="" coords="328,720,499,761"/>
-<area shape="rect" title=" " alt="" coords="1672,638,1744,665"/>
-<area shape="rect" href="../../de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="645,363,843,404"/>
-<area shape="rect" href="../../d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="1003,273,1202,315"/>
-<area shape="rect" href="../../d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="781,273,979,315"/>
-<area shape="rect" href="../../d2/d80/robot__config_8h.html" title=" " alt="" coords="2944,273,3123,315"/>
-<area shape="rect" href="../../d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2116,273,2295,315"/>
-<area shape="rect" title=" " alt="" coords="2120,363,2293,404"/>
+<area shape="rect" title=" " alt="" coords="1899,5,2077,47"/>
+<area shape="rect" title=" " alt="" coords="1489,727,1679,754"/>
+<area shape="rect" title=" " alt="" coords="2350,102,2445,129"/>
+<area shape="rect" title=" " alt="" coords="1359,549,1537,575"/>
+<area shape="rect" title=" " alt="" coords="2184,363,2339,404"/>
+<area shape="rect" title=" " alt="" coords="2469,95,2632,136"/>
+<area shape="rect" href="../../d3/d8c/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="1625,95,1804,136"/>
+<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2817,452,3015,493"/>
+<area shape="rect" href="../../da/de3/planner__utils_8h.html" title=" " alt="" coords="556,184,735,225"/>
+<area shape="rect" title=" " alt="" coords="195,549,309,575"/>
+<area shape="rect" title=" " alt="" coords="3247,727,3315,754"/>
+<area shape="rect" title=" " alt="" coords="697,281,865,307"/>
+<area shape="rect" title=" " alt="" coords="1637,184,1792,225"/>
+<area shape="rect" title=" " alt="" coords="1816,184,1971,225"/>
+<area shape="rect" title=" " alt="" coords="245,363,424,404"/>
+<area shape="rect" title=" " alt="" coords="1995,184,2173,225"/>
+<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="1911,363,2110,404"/>
+<area shape="rect" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="2731,184,2930,225"/>
+<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="3089,541,3287,583"/>
+<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="767,452,966,493"/>
+<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="434,541,633,583"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="3089,452,3287,493"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2766,541,2965,583"/>
+<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="2173,631,2371,672"/>
+<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1713,541,1911,583"/>
+<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="990,452,1189,493"/>
+<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="2494,452,2693,493"/>
+<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="2495,631,2694,672"/>
+<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="1213,452,1411,493"/>
+<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="1935,541,2134,583"/>
+<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="2158,541,2357,583"/>
+<area shape="rect" title=" " alt="" coords="3022,631,3226,672"/>
+<area shape="rect" title=" " alt="" coords="1047,549,1132,575"/>
+<area shape="rect" title=" " alt="" coords="2097,727,2175,754"/>
+<area shape="rect" title=" " alt="" coords="657,549,828,575"/>
+<area shape="rect" title=" " alt="" coords="852,549,1023,575"/>
+<area shape="rect" title=" " alt="" coords="2633,549,2692,575"/>
+<area shape="rect" title=" " alt="" coords="2957,727,3011,754"/>
+<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="3462,541,3661,583"/>
+<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="3301,631,3499,672"/>
+<area shape="rect" title=" " alt="" coords="3433,720,3604,761"/>
+<area shape="rect" title=" " alt="" coords="1925,638,1997,665"/>
+<area shape="rect" href="../../de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="2927,363,3126,404"/>
+<area shape="rect" href="../../d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="2621,273,2819,315"/>
+<area shape="rect" href="../../d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="2843,273,3042,315"/>
+<area shape="rect" href="../../d2/d80/robot__config_8h.html" title=" " alt="" coords="409,273,588,315"/>
+<area shape="rect" href="../../d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="1232,273,1411,315"/>
+<area shape="rect" title=" " alt="" coords="1235,363,1408,404"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -301,7 +300,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 3 2021 18:50:10 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Feb 12 2021 02:49:36 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
