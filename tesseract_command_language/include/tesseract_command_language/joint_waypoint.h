@@ -298,6 +298,18 @@ public:
 
     return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
   }
+  bool operator==(const JointWaypoint& rhs) const
+  {
+    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+    bool equal = true;
+    equal &= tesseract_common::almostEqualRelativeAndAbs(waypoint, rhs.waypoint, max_diff);
+    equal &= tesseract_common::isIdentical(joint_names, rhs.joint_names);
+    equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
+    equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
+    return equal;
+  }
+  bool operator!=(const JointWaypoint& rhs) const { return !operator==(rhs); }
 };
 }  // namespace tesseract_planning
 

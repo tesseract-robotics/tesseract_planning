@@ -1,6 +1,6 @@
 /**
  * @file joint_waypoint_unit.cpp
- * @brief
+ * @brief Contains unit tests for JointWaypoint
  *
  * @author Levi Armstrong
  * @date January 28, 2021
@@ -54,6 +54,65 @@ TEST(TesseractCommandLanguageJointWaypointUnit, isToleranced)
   jw.upper_tolerance = Eigen::VectorXd::Constant(3, 0);
   jw.lower_tolerance = Eigen::VectorXd::Constant(3, 0);
   EXPECT_FALSE(jw.isToleranced());
+}
+
+TEST(TesseractCommandLanguageJointWaypointUnit, equalityOperator)
+{
+  // Equal
+  {
+    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+    JointWaypoint wp2(wp1);
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+  }
+  {
+    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 });
+    JointWaypoint wp2(wp1);
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+  }
+  {
+    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 });
+    wp1.upper_tolerance.resize(3);
+    wp1.upper_tolerance << 1, 2, 3;
+    JointWaypoint wp2(wp1);
+    EXPECT_TRUE(wp1 == wp2);
+    EXPECT_TRUE(wp2 == wp1);
+    EXPECT_FALSE(wp2 != wp1);
+  }
+  // Not equal
+  {
+    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+    JointWaypoint wp2({ "j1" }, { 0 });
+    EXPECT_FALSE(wp1 == wp2);
+    EXPECT_FALSE(wp2 == wp1);
+    EXPECT_TRUE(wp2 != wp1);
+  }
+  {
+    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+    JointWaypoint wp2({ "j1", "j2", "j4" }, { 0, 0, 0 });
+    EXPECT_FALSE(wp1 == wp2);
+    EXPECT_FALSE(wp2 == wp1);
+    EXPECT_TRUE(wp2 != wp1);
+  }
+  {
+    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+    JointWaypoint wp2({ "j1", "j2", "j3" }, { 0.001, 0, 0 });
+    EXPECT_FALSE(wp1 == wp2);
+    EXPECT_FALSE(wp2 == wp1);
+    EXPECT_TRUE(wp2 != wp1);
+  }
+  {
+    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+    JointWaypoint wp2(wp1);
+    wp2.upper_tolerance.resize(3);
+    wp2.upper_tolerance << 1, 2, 3;
+    EXPECT_FALSE(wp1 == wp2);
+    EXPECT_FALSE(wp2 == wp1);
+    EXPECT_TRUE(wp2 != wp1);
+  }
 }
 
 int main(int argc, char** argv)

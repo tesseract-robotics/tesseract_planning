@@ -292,6 +292,17 @@ public:
 
     return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
   }
+  bool operator==(const CartesianWaypoint& rhs) const
+  {
+    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+    bool equal = true;
+    equal &= waypoint.isApprox(rhs.waypoint);
+    equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
+    equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
+    return equal;
+  }
+  bool operator!=(const CartesianWaypoint& rhs) const { return !operator==(rhs); }
 };
 
 }  // namespace tesseract_planning
