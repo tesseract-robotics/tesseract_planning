@@ -29,6 +29,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/serialize.h>
+#include <tesseract_command_language/deserialize.h>
 
 using namespace tesseract_planning;
 
@@ -56,7 +58,15 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, isToleranced)
   EXPECT_FALSE(cw.isToleranced());
 }
 
-TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperator)
+inline void SerializeDeserializeTest(const CartesianWaypoint& wp)
+{
+  toXMLFile<Waypoint>(wp, tesseract_common::getTempPath() + "cartesian_waypoint_unit.xml");
+  Waypoint deserialized =
+      fromXMLFile<Waypoint>(tesseract_common::getTempPath() + "cartesian_waypoint_unit.xml", defaultWaypointParser);
+  EXPECT_TRUE(wp == *(deserialized.cast<CartesianWaypoint>()));
+}
+
+TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperatorAndSerialization)
 {
   // Equal
   {
@@ -65,6 +75,7 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperator)
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
+    SerializeDeserializeTest(wp1);
   }
   {
     CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
@@ -73,15 +84,19 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperator)
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
+    SerializeDeserializeTest(wp1);
   }
   {
     CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
     wp1.upper_tolerance.resize(3);
     wp1.upper_tolerance << 1, 2, 3;
+    wp1.lower_tolerance.resize(3);
+    wp1.lower_tolerance << -4, -5, -6;
     CartesianWaypoint wp2(wp1);
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
+    SerializeDeserializeTest(wp1);
   }
   // Not equal
   {
@@ -91,6 +106,7 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperator)
     EXPECT_FALSE(wp1 == wp2);
     EXPECT_FALSE(wp2 == wp1);
     EXPECT_TRUE(wp2 != wp1);
+    SerializeDeserializeTest(wp2);
   }
   {
     CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
@@ -99,15 +115,19 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperator)
     EXPECT_FALSE(wp1 == wp2);
     EXPECT_FALSE(wp2 == wp1);
     EXPECT_TRUE(wp2 != wp1);
+    SerializeDeserializeTest(wp2);
   }
   {
     CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
     CartesianWaypoint wp2(wp1);
     wp2.upper_tolerance.resize(3);
     wp2.upper_tolerance << 1, 2, 3;
+    wp2.lower_tolerance.resize(3);
+    wp2.lower_tolerance << -4, -5, -6;
     EXPECT_FALSE(wp1 == wp2);
     EXPECT_FALSE(wp2 == wp1);
     EXPECT_TRUE(wp2 != wp1);
+    SerializeDeserializeTest(wp2);
   }
 }
 

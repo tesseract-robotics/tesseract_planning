@@ -34,48 +34,17 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string/split.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/utils.h>
-#include <tesseract_command_language/serialize.h>
-#include <tesseract_command_language/command_language.h>
-
-static const std::array<int, 3> VERSION{ { 1, 0, 0 } };
-static const Eigen::IOFormat eigen_format(Eigen::StreamPrecision, Eigen::DontAlignCols, " ", " ");
+#include <tesseract_command_language/impl/serialize.hpp>
+#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/waypoint.h>
 
 namespace tesseract_planning
 {
-std::shared_ptr<tinyxml2::XMLDocument> toXMLDocument(const Instruction& instruction)
-{
-  auto doc = std::make_shared<tinyxml2::XMLDocument>();
-  tinyxml2::XMLElement* xml_root = doc->NewElement("CommandLanguage");
-  xml_root->SetAttribute(
-      "version",
-      (std::to_string(VERSION[0]) + "." + std::to_string(VERSION[1]) + "." + std::to_string(VERSION[2])).c_str());
+template std::shared_ptr<tinyxml2::XMLDocument> toXMLDocument<Instruction>(const Instruction& input);
+template bool toXMLFile<Instruction>(const Instruction& instruction, const std::string& file_path);
+template std::string toXMLString<Instruction>(const Instruction& instruction);
 
-  tinyxml2::XMLElement* xml_instruction = instruction.toXML(*doc);
-  xml_root->InsertEndChild(xml_instruction);
-  doc->InsertFirstChild(xml_root);
-  return doc;
-}
-
-bool toXMLFile(const Instruction& instruction, const std::string& file_path)
-{
-  std::shared_ptr<tinyxml2::XMLDocument> doc = toXMLDocument(instruction);
-  tinyxml2::XMLError status = doc->SaveFile(file_path.c_str());
-  if (status != tinyxml2::XMLError::XML_SUCCESS)
-  {
-    CONSOLE_BRIDGE_logError("Failed to save Instruction XML File: %s", file_path.c_str());
-    return false;
-  }
-
-  return true;
-}
-
-std::string toXMLString(const Instruction& instruction)
-{
-  std::shared_ptr<tinyxml2::XMLDocument> doc = toXMLDocument(instruction);
-  tinyxml2::XMLPrinter printer;
-  doc->Print(&printer);
-  return std::string(printer.CStr());
-}
-
+template std::shared_ptr<tinyxml2::XMLDocument> toXMLDocument<Waypoint>(const Waypoint& input);
+template bool toXMLFile<Waypoint>(const Waypoint& input, const std::string& file_path);
+template std::string toXMLString<Waypoint>(const Waypoint& input);
 }  // namespace tesseract_planning

@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_COMMAND_LANGUAGE_DESERAILIZE_H
-#define TESSERACT_COMMAND_LANGUAGE_DESERAILIZE_H
+#ifndef TESSERACT_COMMAND_LANGUAGE_DESERIALIZE_H
+#define TESSERACT_COMMAND_LANGUAGE_DESERIALIZE_H
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tinyxml2.h>
@@ -39,22 +39,22 @@ using WaypointParserFn = std::function<Waypoint(const tinyxml2::XMLElement&, int
 using InstructionParserFn = std::function<Instruction(const tinyxml2::XMLElement&, int, WaypointParserFn)>;
 
 Waypoint defaultWaypointParser(const tinyxml2::XMLElement& xml_element, int type);
-Instruction defaultInstructionParser(const tinyxml2::XMLElement& xml_element,
-                                     int type,
-                                     WaypointParserFn waypoint_parser);
+Instruction InstructionParser(const tinyxml2::XMLElement& xml_element, int type, WaypointParserFn waypoint_parser);
+/** @brief Default instruction parser. Uses the defaultWaypointParser as the WaypointParserFn*/
+Instruction defaultInstructionParser(const tinyxml2::XMLElement& xml_element, int type);
 
-Instruction fromXMLDocument(const tinyxml2::XMLDocument& xml_doc,
-                            InstructionParserFn instruction_parser = defaultInstructionParser,
-                            WaypointParserFn waypoint_parser = defaultWaypointParser);
+template <typename SerializableType>
+SerializableType fromXMLDocument(const tinyxml2::XMLDocument& xml_doc,
+                                 std::function<SerializableType(const tinyxml2::XMLElement&, int)> parser);
 
-Instruction fromXMLFile(const std::string& file_path,
-                        InstructionParserFn instruction_parser = defaultInstructionParser,
-                        WaypointParserFn waypoint_parser = defaultWaypointParser);
+template <typename SerializableType>
+SerializableType fromXMLFile(const std::string& file_path,
+                             std::function<SerializableType(const tinyxml2::XMLElement&, int)> parser);
 
-Instruction fromXMLString(const std::string& xml_string,
-                          InstructionParserFn instruction_parser = defaultInstructionParser,
-                          WaypointParserFn waypoint_parser = defaultWaypointParser);
+template <typename SerializableType>
+SerializableType fromXMLString(const std::string& xml_string,
+                               std::function<SerializableType(const tinyxml2::XMLElement&, int)> parser);
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_COMMAND_LANGUAGE_DESERAILIZE_H
+#endif  // TESSERACT_COMMAND_LANGUAGE_DESERIALIZE_H

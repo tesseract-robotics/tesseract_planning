@@ -107,8 +107,8 @@ public:
 
     if (!upper_tolerance_string.empty() && !lower_tolerance_string.empty())
     {
-      boost::split(lower_tolerance_tokens, upper_tolerance_string, boost::is_any_of(" "), boost::token_compress_on);
       boost::split(lower_tolerance_tokens, lower_tolerance_string, boost::is_any_of(" "), boost::token_compress_on);
+      boost::split(upper_tolerance_tokens, upper_tolerance_string, boost::is_any_of(" "), boost::token_compress_on);
 
       if (upper_tolerance_tokens.size() != lower_tolerance_tokens.size())
         throw std::runtime_error("JointWaypoint: UpperTolerance and LowerTolerance are not the same size.");

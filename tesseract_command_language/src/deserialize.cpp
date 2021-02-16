@@ -26,17 +26,13 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <string>
-#include <fstream>
-#include <array>
-#include <console_bridge/console.h>
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
+#include <tinyxml2.h>
+#include <functional>
+#include <map>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-#include <tesseract_common/utils.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/deserialize.h>
+#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/impl/deserialize.hpp>
 
 namespace tesseract_planning
 {
@@ -318,9 +314,7 @@ Instruction getCompositeInstruction(const tinyxml2::XMLElement& instruction_elem
   return composite;
 }
 
-Instruction defaultInstructionParser(const tinyxml2::XMLElement& xml_element,
-                                     int type,
-                                     WaypointParserFn waypoint_parser)
+Instruction InstructionParser(const tinyxml2::XMLElement& xml_element, int type, WaypointParserFn waypoint_parser)
 {
   switch (type)
   {
@@ -346,13 +340,18 @@ Instruction defaultInstructionParser(const tinyxml2::XMLElement& xml_element,
     }
     case static_cast<int>(InstructionType::COMPOSITE_INSTRUCTION):
     {
-      return getCompositeInstruction(xml_element, defaultInstructionParser, waypoint_parser);
+      return getCompositeInstruction(xml_element, InstructionParser, waypoint_parser);
     }
     default:
     {
       throw std::runtime_error("Unsupported Instruction Type!");
     }
   }
+}
+
+Instruction defaultInstructionParser(const tinyxml2::XMLElement& xml_element, int type)
+{
+  return InstructionParser(xml_element, type, defaultWaypointParser);
 }
 
 Waypoint defaultWaypointParser(const tinyxml2::XMLElement& xml_element, int type)
@@ -382,90 +381,36 @@ Waypoint defaultWaypointParser(const tinyxml2::XMLElement& xml_element, int type
   }
 }
 
-Instruction fromXMLElement(const tinyxml2::XMLElement* cl_xml,
-                           InstructionParserFn instruction_parser,
-                           WaypointParserFn waypoint_parser)
+// Explicit specialization
+// Instruction
+template Instruction fromXMLDocument<Instruction>(const tinyxml2::XMLDocument& xml_doc,
+                                                  std::function<Instruction(const tinyxml2::XMLElement&, int)>);
+
+template Instruction fromXMLFile(const std::string& file_path,
+                                 std::function<Instruction(const tinyxml2::XMLElement&, int)> parser);
+
+template Instruction fromXMLString(const std::string& xml_string,
+                                   std::function<Instruction(const tinyxml2::XMLElement&, int)> parser);
+
+template <>
+struct XMLElementName<Instruction>
 {
-  std::array<int, 3> version;
-  std::string version_string;
-  tinyxml2::XMLError status = tesseract_common::QueryStringAttribute(cl_xml, "version", version_string);
-  if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-    throw std::runtime_error("fromXML: Error parsing robot attribute 'version'");
+  static constexpr char value[] = "Instruction";
+};
 
-  if (status != tinyxml2::XML_NO_ATTRIBUTE)
-  {
-    std::vector<std::string> tokens;
-    boost::split(tokens, version_string, boost::is_any_of("."), boost::token_compress_on);
-    if (tokens.size() < 2 || tokens.size() > 3 || !tesseract_common::isNumeric(tokens))
-      throw std::runtime_error("fromXML: Error parsing robot attribute 'version'");
+// Waypoint
+template Waypoint fromXMLDocument<Waypoint>(const tinyxml2::XMLDocument& xml_doc,
+                                            std::function<Waypoint(const tinyxml2::XMLElement&, int)> parser);
 
-    tesseract_common::toNumeric<int>(tokens[0], version[0]);
-    tesseract_common::toNumeric<int>(tokens[1], version[1]);
-    if (tokens.size() == 3)
-      tesseract_common::toNumeric<int>(tokens[2], version[2]);
-    else
-      version[2] = 0;
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("No version number was provided so latest parser will be used.");
-  }
+template Waypoint fromXMLFile(const std::string& file_path,
+                              std::function<Waypoint(const tinyxml2::XMLElement&, int)> parser);
 
-  const tinyxml2::XMLElement* instruction_xml = cl_xml->FirstChildElement("Instruction");
-  if (!instruction_xml)
-    throw std::runtime_error("fromXML: Could not find the 'Instruction' element in the xml file.");
+template Waypoint fromXMLString(const std::string& xml_string,
+                                std::function<Waypoint(const tinyxml2::XMLElement&, int)> parser);
 
-  int type = static_cast<int>(InstructionType::NULL_INSTRUCTION);
-  status = instruction_xml->QueryIntAttribute("type", &type);
-  if (status != tinyxml2::XML_SUCCESS)
-    throw std::runtime_error("fromXML: Failed to parse instruction type attribute.");
-
-  return instruction_parser(*instruction_xml, type, waypoint_parser);
-}
-
-Instruction fromXMLDocument(const tinyxml2::XMLDocument& xml_doc,
-                            InstructionParserFn instruction_parser,
-                            WaypointParserFn waypoint_parser)
+template <>
+struct XMLElementName<Waypoint>
 {
-  const tinyxml2::XMLElement* cl_xml = xml_doc.FirstChildElement("CommandLanguage");
-  if (!cl_xml)
-    throw std::runtime_error("Could not find the 'CommandLanguage' element in the xml file");
-
-  return fromXMLElement(cl_xml, instruction_parser, waypoint_parser);
-}
-
-Instruction fromXMLString(const std::string& xml_string,
-                          InstructionParserFn instruction_parser,
-                          WaypointParserFn waypoint_parser)
-{
-  tinyxml2::XMLDocument xml_doc;
-  tinyxml2::XMLError status = xml_doc.Parse(xml_string.c_str());
-  if (status != tinyxml2::XMLError::XML_SUCCESS)
-    throw std::runtime_error("Could not parse the Instruction XML File.");
-
-  return fromXMLDocument(xml_doc, instruction_parser, waypoint_parser);
-}
-
-Instruction fromXMLFile(const std::string& file_path,
-                        InstructionParserFn instruction_parser,
-                        WaypointParserFn waypoint_parser)
-{
-  // get the entire file
-  std::string xml_string;
-  std::fstream xml_file(file_path.c_str(), std::fstream::in);
-  if (xml_file.is_open())
-  {
-    while (xml_file.good())
-    {
-      std::string line;
-      std::getline(xml_file, line);
-      xml_string += (line + "\n");
-    }
-    xml_file.close();
-    return fromXMLString(xml_string, instruction_parser, waypoint_parser);
-  }
-
-  throw std::runtime_error("Could not open file " + file_path + "for parsing.");
-}
-
+  static constexpr char value[] = "Waypoint";
+};
 }  // namespace tesseract_planning

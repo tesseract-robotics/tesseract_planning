@@ -173,9 +173,10 @@ TEST(TesseractCommandLanguageSerializeUnit, SerializeToXml)  // NOLINT
 {
   // Write program to file
   CompositeInstruction program = getProgram();
-  toXMLFile(program, tesseract_common::getTempPath() + "raster_example_input.xml");
+  toXMLFile<Instruction>(program, tesseract_common::getTempPath() + "raster_example_input.xml");
 
-  Instruction imported_program = fromXMLFile(tesseract_common::getTempPath() + "raster_example_input.xml");
+  Instruction imported_program =
+      fromXMLFile<Instruction>(tesseract_common::getTempPath() + "raster_example_input.xml", defaultInstructionParser);
 
   EXPECT_TRUE(isCompositeInstruction(imported_program));
   const auto* ci = imported_program.cast_const<CompositeInstruction>();

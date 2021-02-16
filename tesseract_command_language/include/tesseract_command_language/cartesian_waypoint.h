@@ -52,6 +52,8 @@ public:
         xml_element.Attribute("wxyz") == nullptr)
       throw std::runtime_error("CartesianWaypoint: Missing Required Attributes");
 
+    waypoint = Eigen::Isometry3d::Identity();
+
     std::string xyz_string, rpy_string, wxyz_string;
     tinyxml2::XMLError status = tesseract_common::QueryStringAttribute(&xml_element, "xyz", xyz_string);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
