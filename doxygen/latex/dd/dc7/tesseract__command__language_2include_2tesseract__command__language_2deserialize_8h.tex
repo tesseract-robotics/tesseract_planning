@@ -43,13 +43,15 @@ using \mbox{\hyperlink{namespacetesseract__planning_aeb01b648b5a7d2601dd775da875
 \item 
 Waypoint \mbox{\hyperlink{namespacetesseract__planning_ad0b121cfd471a9070cbe722019151e80}{tesseract\+\_\+planning\+::default\+Waypoint\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element, int type)
 \item 
-Instruction \mbox{\hyperlink{namespacetesseract__planning_a289227cb3c39108cf32d4a29da6b8299}{tesseract\+\_\+planning\+::default\+Instruction\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element, int type, Waypoint\+Parser\+Fn waypoint\+\_\+parser)
+Instruction \mbox{\hyperlink{namespacetesseract__planning_afb3a9307557ffa1b00786dcea738c2b2}{tesseract\+\_\+planning\+::\+Instruction\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element, int type, Waypoint\+Parser\+Fn waypoint\+\_\+parser)
 \item 
-Instruction \mbox{\hyperlink{namespacetesseract__planning_a6d5d2e43555c1bfddb32ff0e82c37819}{tesseract\+\_\+planning\+::from\+XMLDocument}} (const tinyxml2\+::\+XMLDocument \&xml\+\_\+doc, Instruction\+Parser\+Fn instruction\+\_\+parser=default\+Instruction\+Parser, Waypoint\+Parser\+Fn waypoint\+\_\+parser=default\+Waypoint\+Parser)
+Instruction \mbox{\hyperlink{namespacetesseract__planning_a8b1cbe67eb82a2b4a9f55461b099888d}{tesseract\+\_\+planning\+::default\+Instruction\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element, int type)
+\begin{DoxyCompactList}\small\item\em Default instruction parser. Uses the default\+Waypoint\+Parser as the Waypoint\+Parser\+Fn. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a0462ba8288eead9b2e23488ff3a005f5}{tesseract\+\_\+planning\+::from\+XMLDocument}} (const tinyxml2\+::\+XMLDocument \&xml\+\_\+doc, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
 \item 
-Instruction \mbox{\hyperlink{namespacetesseract__planning_a01fa1bdc8cfa66d1dc731d632d94cca3}{tesseract\+\_\+planning\+::from\+XMLFile}} (const std\+::string \&file\+\_\+path, Instruction\+Parser\+Fn instruction\+\_\+parser=default\+Instruction\+Parser, Waypoint\+Parser\+Fn waypoint\+\_\+parser=default\+Waypoint\+Parser)
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a60bedaa7f5bd32de181837caa35dbd92}{tesseract\+\_\+planning\+::from\+XMLFile}} (const std\+::string \&file\+\_\+path, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
 \item 
-Instruction \mbox{\hyperlink{namespacetesseract__planning_a0c1e55f86e9916a96c3be54873720ed7}{tesseract\+\_\+planning\+::from\+XMLString}} (const std\+::string \&xml\+\_\+string, Instruction\+Parser\+Fn instruction\+\_\+parser=default\+Instruction\+Parser, Waypoint\+Parser\+Fn waypoint\+\_\+parser=default\+Waypoint\+Parser)
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a825e196d4527829691b91355c24eb23d}{tesseract\+\_\+planning\+::from\+XMLString}} (const std\+::string \&xml\+\_\+string, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
 \end{DoxyCompactItemize}
 
 

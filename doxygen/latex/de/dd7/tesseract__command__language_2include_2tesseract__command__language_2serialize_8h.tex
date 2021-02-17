@@ -7,7 +7,7 @@ Provide methods for serializing instructions to xml and deserialization.
 
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$tinyxml2.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
 Include dependency graph for serialize.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -32,11 +32,11 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ \mbox{\hyperlink{namespacetesseract__planning_a380066ae9718a3f1bf451749ae256a57}{tesseract\+\_\+planning\+::to\+XMLDocument}} (const Instruction \&instruction)
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ \mbox{\hyperlink{namespacetesseract__planning_a9b8cd019191e90ec9539744ba382b86b}{tesseract\+\_\+planning\+::to\+XMLDocument}} (const Serializable\+Type \&input)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a057a05317d8ae233d7a1fc67dbc92eae}{tesseract\+\_\+planning\+::to\+XMLFile}} (const Instruction \&instruction, const std\+::string \&file\+\_\+path)
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_a6a9770828d4f01c5fbfc8696f66fc29c}{tesseract\+\_\+planning\+::to\+XMLFile}} (const Serializable\+Type \&input, const std\+::string \&file\+\_\+path)
 \item 
-std\+::string \mbox{\hyperlink{namespacetesseract__planning_ad3b4abec42c4893b456cf5cdb6c1502a}{tesseract\+\_\+planning\+::to\+XMLString}} (const Instruction \&instruction)
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\std\+::string \mbox{\hyperlink{namespacetesseract__planning_a3fb58e408a6a525d074b72b2ef15d8f2}{tesseract\+\_\+planning\+::to\+XMLString}} (const Serializable\+Type \&input)
 \end{DoxyCompactItemize}
 
 
@@ -53,7 +53,7 @@ August 17, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000013}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000015}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

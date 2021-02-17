@@ -107,9 +107,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d28/tesseract__command__language_2include_2tesseract__command__language_2deserialize_8h__dep__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2deserialize_8hdep" alt=""/></div>
 <map name="atesseract__command__language_2include_2tesseract__command__language_2deserialize_8hdep" id="atesseract__command__language_2include_2tesseract__command__language_2deserialize_8hdep">
-<area shape="rect" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="116,5,315,61"/>
-<area shape="rect" href="../../d9/df9/tesseract__command__language_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="5,109,204,151"/>
-<area shape="rect" href="../../de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="228,109,427,151"/>
+<area shape="rect" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="339,5,537,61"/>
+<area shape="rect" href="../../d2/dc6/deserialize_8hpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="5,109,204,165"/>
+<area shape="rect" href="../../d5/d4d/cartesian__waypoint__unit_8cpp.html" title="Contains unit tests for CartesianWaypoint." alt="" coords="228,109,427,165"/>
+<area shape="rect" href="../../dc/d43/joint__waypoint__unit_8cpp.html" title="Contains unit tests for JointWaypoint." alt="" coords="451,117,649,158"/>
+<area shape="rect" href="../../de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="673,117,872,158"/>
+<area shape="rect" href="../../d9/df9/tesseract__command__language_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="5,213,204,255"/>
 </map>
 </div>
 </div>
@@ -131,14 +134,20 @@ Typedefs</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ad0b121cfd471a9070cbe722019151e80"><td class="memItemLeft" align="right" valign="top">Waypoint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad0b121cfd471a9070cbe722019151e80">tesseract_planning::defaultWaypointParser</a> (const tinyxml2::XMLElement &amp;xml_element, int type)</td></tr>
 <tr class="separator:ad0b121cfd471a9070cbe722019151e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a289227cb3c39108cf32d4a29da6b8299"><td class="memItemLeft" align="right" valign="top">Instruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a289227cb3c39108cf32d4a29da6b8299">tesseract_planning::defaultInstructionParser</a> (const tinyxml2::XMLElement &amp;xml_element, int type, WaypointParserFn waypoint_parser)</td></tr>
-<tr class="separator:a289227cb3c39108cf32d4a29da6b8299"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d5d2e43555c1bfddb32ff0e82c37819"><td class="memItemLeft" align="right" valign="top">Instruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d5d2e43555c1bfddb32ff0e82c37819">tesseract_planning::fromXMLDocument</a> (const tinyxml2::XMLDocument &amp;xml_doc, InstructionParserFn instruction_parser=defaultInstructionParser, WaypointParserFn waypoint_parser=defaultWaypointParser)</td></tr>
-<tr class="separator:a6d5d2e43555c1bfddb32ff0e82c37819"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01fa1bdc8cfa66d1dc731d632d94cca3"><td class="memItemLeft" align="right" valign="top">Instruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a01fa1bdc8cfa66d1dc731d632d94cca3">tesseract_planning::fromXMLFile</a> (const std::string &amp;file_path, InstructionParserFn instruction_parser=defaultInstructionParser, WaypointParserFn waypoint_parser=defaultWaypointParser)</td></tr>
-<tr class="separator:a01fa1bdc8cfa66d1dc731d632d94cca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c1e55f86e9916a96c3be54873720ed7"><td class="memItemLeft" align="right" valign="top">Instruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0c1e55f86e9916a96c3be54873720ed7">tesseract_planning::fromXMLString</a> (const std::string &amp;xml_string, InstructionParserFn instruction_parser=defaultInstructionParser, WaypointParserFn waypoint_parser=defaultWaypointParser)</td></tr>
-<tr class="separator:a0c1e55f86e9916a96c3be54873720ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb3a9307557ffa1b00786dcea738c2b2"><td class="memItemLeft" align="right" valign="top">Instruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afb3a9307557ffa1b00786dcea738c2b2">tesseract_planning::InstructionParser</a> (const tinyxml2::XMLElement &amp;xml_element, int type, WaypointParserFn waypoint_parser)</td></tr>
+<tr class="separator:afb3a9307557ffa1b00786dcea738c2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b1cbe67eb82a2b4a9f55461b099888d"><td class="memItemLeft" align="right" valign="top">Instruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8b1cbe67eb82a2b4a9f55461b099888d">tesseract_planning::defaultInstructionParser</a> (const tinyxml2::XMLElement &amp;xml_element, int type)</td></tr>
+<tr class="memdesc:a8b1cbe67eb82a2b4a9f55461b099888d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default instruction parser. Uses the defaultWaypointParser as the WaypointParserFn.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8b1cbe67eb82a2b4a9f55461b099888d">More...</a><br /></td></tr>
+<tr class="separator:a8b1cbe67eb82a2b4a9f55461b099888d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0462ba8288eead9b2e23488ff3a005f5"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a0462ba8288eead9b2e23488ff3a005f5"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0462ba8288eead9b2e23488ff3a005f5">tesseract_planning::fromXMLDocument</a> (const tinyxml2::XMLDocument &amp;xml_doc, std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a0462ba8288eead9b2e23488ff3a005f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60bedaa7f5bd32de181837caa35dbd92"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a60bedaa7f5bd32de181837caa35dbd92"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a60bedaa7f5bd32de181837caa35dbd92">tesseract_planning::fromXMLFile</a> (const std::string &amp;file_path, std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a60bedaa7f5bd32de181837caa35dbd92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a825e196d4527829691b91355c24eb23d"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a825e196d4527829691b91355c24eb23d"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a825e196d4527829691b91355c24eb23d">tesseract_planning::fromXMLString</a> (const std::string &amp;xml_string, std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a825e196d4527829691b91355c24eb23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provide methods for deserialize instructions to xml and deserialization. </p>
@@ -153,7 +162,7 @@ Functions</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 12 2021 02:49:36 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Feb 17 2021 21:34:36 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

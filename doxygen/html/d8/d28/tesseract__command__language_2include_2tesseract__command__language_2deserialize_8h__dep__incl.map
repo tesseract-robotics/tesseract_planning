@@ -1,5 +1,8 @@
 <map id="tesseract_command_language/include/tesseract_command_language/deserialize.h" name="tesseract_command_language/include/tesseract_command_language/deserialize.h">
-<area shape="rect" id="node1" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="116,5,315,61"/>
-<area shape="rect" id="node2" href="$d9/df9/tesseract__command__language_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="5,109,204,151"/>
-<area shape="rect" id="node3" href="$de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="228,109,427,151"/>
+<area shape="rect" id="node1" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="339,5,537,61"/>
+<area shape="rect" id="node2" href="$d2/dc6/deserialize_8hpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="5,109,204,165"/>
+<area shape="rect" id="node4" href="$d5/d4d/cartesian__waypoint__unit_8cpp.html" title="Contains unit tests for CartesianWaypoint." alt="" coords="228,109,427,165"/>
+<area shape="rect" id="node5" href="$dc/d43/joint__waypoint__unit_8cpp.html" title="Contains unit tests for JointWaypoint." alt="" coords="451,117,649,158"/>
+<area shape="rect" id="node6" href="$de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="673,117,872,158"/>
+<area shape="rect" id="node3" href="$d9/df9/tesseract__command__language_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="5,213,204,255"/>
 </map>

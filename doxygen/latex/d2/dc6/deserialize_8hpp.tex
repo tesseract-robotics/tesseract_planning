@@ -1,0 +1,79 @@
+\hypertarget{deserialize_8hpp}{}\doxysection{tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/impl/deserialize.hpp File Reference}
+\label{deserialize_8hpp}\index{tesseract\_command\_language/include/tesseract\_command\_language/impl/deserialize.hpp@{tesseract\_command\_language/include/tesseract\_command\_language/impl/deserialize.hpp}}
+
+
+Provide methods for deserialize instructions to xml and deserialization.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$boost/algorithm/string/classification.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/algorithm/string/split.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/deserialize.\+h$>$}\newline
+Include dependency graph for deserialize.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d3c/deserialize_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{d6/d09/deserialize_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a3cc3069fa5dc6e192f3826c096c66295}{tesseract\+\_\+planning\+::from\+XMLElement}} (const tinyxml2\+::\+XMLElement $\ast$cl\+\_\+xml, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
+\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a0462ba8288eead9b2e23488ff3a005f5}{tesseract\+\_\+planning\+::from\+XMLDocument}} (const tinyxml2\+::\+XMLDocument \&xml\+\_\+doc, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
+\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a60bedaa7f5bd32de181837caa35dbd92}{tesseract\+\_\+planning\+::from\+XMLFile}} (const std\+::string \&file\+\_\+path, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
+\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a825e196d4527829691b91355c24eb23d}{tesseract\+\_\+planning\+::from\+XMLString}} (const std\+::string \&xml\+\_\+string, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provide methods for deserialize instructions to xml and deserialization. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 17, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000007}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

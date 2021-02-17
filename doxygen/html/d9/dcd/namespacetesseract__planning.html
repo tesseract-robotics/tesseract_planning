@@ -98,6 +98,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d3a/structtesseract__planning_1_1XMLElementName.html">XMLElementName</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to lookup the XML element name for a type.  <a href="../../dd/d3a/structtesseract__planning_1_1XMLElementName.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a></td></tr>
@@ -115,6 +118,10 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d2c/classtesseract__planning_1_1WaitInstruction.html">WaitInstruction</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a wait instruction similar to wait instruction on industrial controllers.  <a href="../../d9/d2c/classtesseract__planning_1_1WaitInstruction.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d58/structtesseract__planning_1_1XMLElementName_3_01Instruction_01_4.html">XMLElementName&lt; Instruction &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd4/structtesseract__planning_1_1XMLElementName_3_01Waypoint_01_4.html">XMLElementName&lt; Waypoint &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html">MotionPlanner</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -616,14 +623,32 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ad0b121cfd471a9070cbe722019151e80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad0b121cfd471a9070cbe722019151e80">defaultWaypointParser</a> (const tinyxml2::XMLElement &amp;xml_element, int type)</td></tr>
 <tr class="separator:ad0b121cfd471a9070cbe722019151e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a289227cb3c39108cf32d4a29da6b8299"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a289227cb3c39108cf32d4a29da6b8299">defaultInstructionParser</a> (const tinyxml2::XMLElement &amp;xml_element, int type, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a> waypoint_parser)</td></tr>
-<tr class="separator:a289227cb3c39108cf32d4a29da6b8299"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d5d2e43555c1bfddb32ff0e82c37819"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d5d2e43555c1bfddb32ff0e82c37819">fromXMLDocument</a> (const tinyxml2::XMLDocument &amp;xml_doc, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a> instruction_parser=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a289227cb3c39108cf32d4a29da6b8299">defaultInstructionParser</a>, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a> waypoint_parser=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad0b121cfd471a9070cbe722019151e80">defaultWaypointParser</a>)</td></tr>
-<tr class="separator:a6d5d2e43555c1bfddb32ff0e82c37819"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01fa1bdc8cfa66d1dc731d632d94cca3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a01fa1bdc8cfa66d1dc731d632d94cca3">fromXMLFile</a> (const std::string &amp;file_path, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a> instruction_parser=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a289227cb3c39108cf32d4a29da6b8299">defaultInstructionParser</a>, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a> waypoint_parser=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad0b121cfd471a9070cbe722019151e80">defaultWaypointParser</a>)</td></tr>
-<tr class="separator:a01fa1bdc8cfa66d1dc731d632d94cca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c1e55f86e9916a96c3be54873720ed7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0c1e55f86e9916a96c3be54873720ed7">fromXMLString</a> (const std::string &amp;xml_string, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a> instruction_parser=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a289227cb3c39108cf32d4a29da6b8299">defaultInstructionParser</a>, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a> waypoint_parser=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad0b121cfd471a9070cbe722019151e80">defaultWaypointParser</a>)</td></tr>
-<tr class="separator:a0c1e55f86e9916a96c3be54873720ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb3a9307557ffa1b00786dcea738c2b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afb3a9307557ffa1b00786dcea738c2b2">InstructionParser</a> (const tinyxml2::XMLElement &amp;xml_element, int type, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a> waypoint_parser)</td></tr>
+<tr class="separator:afb3a9307557ffa1b00786dcea738c2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b1cbe67eb82a2b4a9f55461b099888d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8b1cbe67eb82a2b4a9f55461b099888d">defaultInstructionParser</a> (const tinyxml2::XMLElement &amp;xml_element, int type)</td></tr>
+<tr class="memdesc:a8b1cbe67eb82a2b4a9f55461b099888d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default instruction parser. Uses the defaultWaypointParser as the WaypointParserFn.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8b1cbe67eb82a2b4a9f55461b099888d">More...</a><br /></td></tr>
+<tr class="separator:a8b1cbe67eb82a2b4a9f55461b099888d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0462ba8288eead9b2e23488ff3a005f5"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a0462ba8288eead9b2e23488ff3a005f5"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0462ba8288eead9b2e23488ff3a005f5">fromXMLDocument</a> (const tinyxml2::XMLDocument &amp;xml_doc, std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a0462ba8288eead9b2e23488ff3a005f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60bedaa7f5bd32de181837caa35dbd92"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a60bedaa7f5bd32de181837caa35dbd92"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a60bedaa7f5bd32de181837caa35dbd92">fromXMLFile</a> (const std::string &amp;file_path, std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a60bedaa7f5bd32de181837caa35dbd92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a825e196d4527829691b91355c24eb23d"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a825e196d4527829691b91355c24eb23d"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a825e196d4527829691b91355c24eb23d">fromXMLString</a> (const std::string &amp;xml_string, std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a825e196d4527829691b91355c24eb23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cc3069fa5dc6e192f3826c096c66295"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a3cc3069fa5dc6e192f3826c096c66295"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3cc3069fa5dc6e192f3826c096c66295">fromXMLElement</a> (const tinyxml2::XMLElement *cl_xml, std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a3cc3069fa5dc6e192f3826c096c66295"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b8cd019191e90ec9539744ba382b86b"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a9b8cd019191e90ec9539744ba382b86b"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; tinyxml2::XMLDocument &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9b8cd019191e90ec9539744ba382b86b">toXMLDocument</a> (const SerializableType &amp;input)</td></tr>
+<tr class="separator:a9b8cd019191e90ec9539744ba382b86b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a9770828d4f01c5fbfc8696f66fc29c"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a6a9770828d4f01c5fbfc8696f66fc29c"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6a9770828d4f01c5fbfc8696f66fc29c">toXMLFile</a> (const SerializableType &amp;input, const std::string &amp;file_path)</td></tr>
+<tr class="separator:a6a9770828d4f01c5fbfc8696f66fc29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fb58e408a6a525d074b72b2ef15d8f2"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
+<tr class="memitem:a3fb58e408a6a525d074b72b2ef15d8f2"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3fb58e408a6a525d074b72b2ef15d8f2">toXMLString</a> (const SerializableType &amp;input)</td></tr>
+<tr class="separator:a3fb58e408a6a525d074b72b2ef15d8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f42a719816e6dea334fe383044b600e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3f42a719816e6dea334fe383044b600e">isCommentInstruction</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
 <tr class="separator:a3f42a719816e6dea334fe383044b600e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71a4541552162b88b58aaad64cdcbc3c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a71a4541552162b88b58aaad64cdcbc3c">isVariableInstruction</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
@@ -640,12 +665,6 @@ Functions</h2></td></tr>
 <tr class="separator:a7c15fced3d0a2819bef3c874d85b1f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a113ddfa3992fee8b8bdb1adcc6ee297e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a113ddfa3992fee8b8bdb1adcc6ee297e">isNullInstruction</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
 <tr class="separator:a113ddfa3992fee8b8bdb1adcc6ee297e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a380066ae9718a3f1bf451749ae256a57"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; tinyxml2::XMLDocument &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a380066ae9718a3f1bf451749ae256a57">toXMLDocument</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
-<tr class="separator:a380066ae9718a3f1bf451749ae256a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a057a05317d8ae233d7a1fc67dbc92eae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a057a05317d8ae233d7a1fc67dbc92eae">toXMLFile</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const std::string &amp;file_path)</td></tr>
-<tr class="separator:a057a05317d8ae233d7a1fc67dbc92eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3b4abec42c4893b456cf5cdb6c1502a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad3b4abec42c4893b456cf5cdb6c1502a">toXMLString</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
-<tr class="separator:ad3b4abec42c4893b456cf5cdb6c1502a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a156eaa9e3dde1379bf9200c43c351d3f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a156eaa9e3dde1379bf9200c43c351d3f">moveFilter</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, bool parent_is_first_composite)</td></tr>
 <tr class="separator:a156eaa9e3dde1379bf9200c43c351d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adeeccffb6d57f3e11925e31af40b13a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adeeccffb6d57f3e11925e31af40b13a4">planFilter</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, bool parent_is_first_composite)</td></tr>
@@ -773,8 +792,30 @@ Functions</h2></td></tr>
 <tr class="separator:a44bf9c62ba66308dc54abaf1d721b8f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1eee4dce180780748b0b11a7df79ee02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1eee4dce180780748b0b11a7df79ee02">getCompositeInstruction</a> (const tinyxml2::XMLElement &amp;instruction_element, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a> instruction_parser, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a> waypoint_parser)</td></tr>
 <tr class="separator:a1eee4dce180780748b0b11a7df79ee02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a4a08d53ec46afc74f1851161bef48a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3a4a08d53ec46afc74f1851161bef48a">fromXMLElement</a> (const tinyxml2::XMLElement *cl_xml, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a> instruction_parser, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a> waypoint_parser)</td></tr>
-<tr class="separator:a3a4a08d53ec46afc74f1851161bef48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac93e7adac649ccc7d1c6882816839fb3"><td class="memItemLeft" align="right" valign="top">template <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac93e7adac649ccc7d1c6882816839fb3">fromXMLDocument&lt; Instruction &gt;</a> (const tinyxml2::XMLDocument &amp;xml_doc, std::function&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>(const tinyxml2::XMLElement &amp;, int)&gt;)</td></tr>
+<tr class="separator:ac93e7adac649ccc7d1c6882816839fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7addc70c346cc50c0c025d76d90ab563"><td class="memItemLeft" align="right" valign="top">template <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7addc70c346cc50c0c025d76d90ab563">fromXMLFile</a> (const std::string &amp;file_path, std::function&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a7addc70c346cc50c0c025d76d90ab563"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf91c56f91134446ba9f626d93e7175e"><td class="memItemLeft" align="right" valign="top">template <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acf91c56f91134446ba9f626d93e7175e">fromXMLString</a> (const std::string &amp;xml_string, std::function&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:acf91c56f91134446ba9f626d93e7175e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacb2e3d821e1aa9ba7bde41638f13a1a"><td class="memItemLeft" align="right" valign="top">template <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aacb2e3d821e1aa9ba7bde41638f13a1a">fromXMLDocument&lt; Waypoint &gt;</a> (const tinyxml2::XMLDocument &amp;xml_doc, std::function&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:aacb2e3d821e1aa9ba7bde41638f13a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a56d6f3a840954b3c1796c71f306e8e"><td class="memItemLeft" align="right" valign="top">template <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8a56d6f3a840954b3c1796c71f306e8e">fromXMLFile</a> (const std::string &amp;file_path, std::function&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:a8a56d6f3a840954b3c1796c71f306e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa370ec8da7deb75a70c0d3a383207c58"><td class="memItemLeft" align="right" valign="top">template <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa370ec8da7deb75a70c0d3a383207c58">fromXMLString</a> (const std::string &amp;xml_string, std::function&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>(const tinyxml2::XMLElement &amp;, int)&gt; parser)</td></tr>
+<tr class="separator:aa370ec8da7deb75a70c0d3a383207c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbac051c41607966d0c70d9b6086794a"><td class="memItemLeft" align="right" valign="top">template std::shared_ptr&lt; tinyxml2::XMLDocument &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abbac051c41607966d0c70d9b6086794a">toXMLDocument&lt; Instruction &gt;</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;input)</td></tr>
+<tr class="separator:abbac051c41607966d0c70d9b6086794a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea41b830f9f7b783c57a01edaa1426f7"><td class="memItemLeft" align="right" valign="top">template bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aea41b830f9f7b783c57a01edaa1426f7">toXMLFile&lt; Instruction &gt;</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const std::string &amp;file_path)</td></tr>
+<tr class="separator:aea41b830f9f7b783c57a01edaa1426f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b81bf0afca4195bdbea8610f67d8989"><td class="memItemLeft" align="right" valign="top">template std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7b81bf0afca4195bdbea8610f67d8989">toXMLString&lt; Instruction &gt;</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
+<tr class="separator:a7b81bf0afca4195bdbea8610f67d8989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0272509aa07e8c16a69323cc1892eae4"><td class="memItemLeft" align="right" valign="top">template std::shared_ptr&lt; tinyxml2::XMLDocument &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0272509aa07e8c16a69323cc1892eae4">toXMLDocument&lt; Waypoint &gt;</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;input)</td></tr>
+<tr class="separator:a0272509aa07e8c16a69323cc1892eae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1152a54988d0bb45c1e25172969f529"><td class="memItemLeft" align="right" valign="top">template bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af1152a54988d0bb45c1e25172969f529">toXMLFile&lt; Waypoint &gt;</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;input, const std::string &amp;file_path)</td></tr>
+<tr class="separator:af1152a54988d0bb45c1e25172969f529"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a540cd1e15edc446896a85e40fb7307c2"><td class="memItemLeft" align="right" valign="top">template std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a540cd1e15edc446896a85e40fb7307c2">toXMLString&lt; Waypoint &gt;</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;input)</td></tr>
+<tr class="separator:a540cd1e15edc446896a85e40fb7307c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af18d888a01fceb5a2290afb0d791d174"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af18d888a01fceb5a2290afb0d791d174">flattenHelper</a> (std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter, bool first_composite)</td></tr>
 <tr class="memdesc:af18d888a01fceb5a2290afb0d791d174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by Flatten. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#af18d888a01fceb5a2290afb0d791d174">More...</a><br /></td></tr>
 <tr class="separator:af18d888a01fceb5a2290afb0d791d174"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4507,8 +4548,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a289227cb3c39108cf32d4a29da6b8299"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a289227cb3c39108cf32d4a29da6b8299">&#9670;&nbsp;</a></span>defaultInstructionParser()</h2>
+<a id="a8b1cbe67eb82a2b4a9f55461b099888d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b1cbe67eb82a2b4a9f55461b099888d">&#9670;&nbsp;</a></span>defaultInstructionParser()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4523,13 +4564,7 @@ template&lt;typename FloatType &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a>&#160;</td>
-          <td class="paramname"><em>waypoint_parser</em>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -4538,6 +4573,8 @@ template&lt;typename FloatType &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Default instruction parser. Uses the defaultWaypointParser as the WaypointParserFn. </p>
 
 </div>
 </div>
@@ -5599,14 +5636,16 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a6d5d2e43555c1bfddb32ff0e82c37819"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d5d2e43555c1bfddb32ff0e82c37819">&#9670;&nbsp;</a></span>fromXMLDocument()</h2>
+<a id="a0462ba8288eead9b2e23488ff3a005f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0462ba8288eead9b2e23488ff3a005f5">&#9670;&nbsp;</a></span>fromXMLDocument()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename SerializableType &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> tesseract_planning::fromXMLDocument </td>
+          <td class="memname">SerializableType tesseract_planning::fromXMLDocument </td>
           <td>(</td>
           <td class="paramtype">const tinyxml2::XMLDocument &amp;&#160;</td>
           <td class="paramname"><em>xml_doc</em>, </td>
@@ -5614,14 +5653,8 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a>&#160;</td>
-          <td class="paramname"><em>instruction_parser</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a289227cb3c39108cf32d4a29da6b8299">defaultInstructionParser</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a>&#160;</td>
-          <td class="paramname"><em>waypoint_parser</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad0b121cfd471a9070cbe722019151e80">defaultWaypointParser</a></code>&#160;</td>
+          <td class="paramtype">std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -5633,14 +5666,72 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a3a4a08d53ec46afc74f1851161bef48a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a4a08d53ec46afc74f1851161bef48a">&#9670;&nbsp;</a></span>fromXMLElement()</h2>
+<a id="ac93e7adac649ccc7d1c6882816839fb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac93e7adac649ccc7d1c6882816839fb3">&#9670;&nbsp;</a></span>fromXMLDocument&lt; Instruction &gt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> tesseract_planning::fromXMLElement </td>
+          <td class="memname">template <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0462ba8288eead9b2e23488ff3a005f5">tesseract_planning::fromXMLDocument</a>&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const tinyxml2::XMLDocument &amp;&#160;</td>
+          <td class="paramname"><em>xml_doc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aacb2e3d821e1aa9ba7bde41638f13a1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb2e3d821e1aa9ba7bde41638f13a1a">&#9670;&nbsp;</a></span>fromXMLDocument&lt; Waypoint &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0462ba8288eead9b2e23488ff3a005f5">tesseract_planning::fromXMLDocument</a>&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const tinyxml2::XMLDocument &amp;&#160;</td>
+          <td class="paramname"><em>xml_doc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3cc3069fa5dc6e192f3826c096c66295"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc3069fa5dc6e192f3826c096c66295">&#9670;&nbsp;</a></span>fromXMLElement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SerializableType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableType tesseract_planning::fromXMLElement </td>
           <td>(</td>
           <td class="paramtype">const tinyxml2::XMLElement *&#160;</td>
           <td class="paramname"><em>cl_xml</em>, </td>
@@ -5648,14 +5739,8 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a>&#160;</td>
-          <td class="paramname"><em>instruction_parser</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a>&#160;</td>
-          <td class="paramname"><em>waypoint_parser</em>&#160;</td>
+          <td class="paramtype">std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -5667,14 +5752,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a01fa1bdc8cfa66d1dc731d632d94cca3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01fa1bdc8cfa66d1dc731d632d94cca3">&#9670;&nbsp;</a></span>fromXMLFile()</h2>
+<a id="a7addc70c346cc50c0c025d76d90ab563"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7addc70c346cc50c0c025d76d90ab563">&#9670;&nbsp;</a></span>fromXMLFile() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> tesseract_planning::fromXMLFile </td>
+          <td class="memname">template <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> tesseract_planning::fromXMLFile </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>file_path</em>, </td>
@@ -5682,14 +5767,8 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a>&#160;</td>
-          <td class="paramname"><em>instruction_parser</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a289227cb3c39108cf32d4a29da6b8299">defaultInstructionParser</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a>&#160;</td>
-          <td class="paramname"><em>waypoint_parser</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad0b121cfd471a9070cbe722019151e80">defaultWaypointParser</a></code>&#160;</td>
+          <td class="paramtype">std::function&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -5701,14 +5780,72 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a0c1e55f86e9916a96c3be54873720ed7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c1e55f86e9916a96c3be54873720ed7">&#9670;&nbsp;</a></span>fromXMLString()</h2>
+<a id="a60bedaa7f5bd32de181837caa35dbd92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60bedaa7f5bd32de181837caa35dbd92">&#9670;&nbsp;</a></span>fromXMLFile() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SerializableType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableType tesseract_planning::fromXMLFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8a56d6f3a840954b3c1796c71f306e8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a56d6f3a840954b3c1796c71f306e8e">&#9670;&nbsp;</a></span>fromXMLFile() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> tesseract_planning::fromXMLString </td>
+          <td class="memname">template <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> tesseract_planning::fromXMLFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acf91c56f91134446ba9f626d93e7175e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf91c56f91134446ba9f626d93e7175e">&#9670;&nbsp;</a></span>fromXMLString() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> tesseract_planning::fromXMLString </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>xml_string</em>, </td>
@@ -5716,14 +5853,66 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a>&#160;</td>
-          <td class="paramname"><em>instruction_parser</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a289227cb3c39108cf32d4a29da6b8299">defaultInstructionParser</a></code>, </td>
+          <td class="paramtype">std::function&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a825e196d4527829691b91355c24eb23d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a825e196d4527829691b91355c24eb23d">&#9670;&nbsp;</a></span>fromXMLString() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SerializableType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableType tesseract_planning::fromXMLString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>xml_string</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a>&#160;</td>
-          <td class="paramname"><em>waypoint_parser</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad0b121cfd471a9070cbe722019151e80">defaultWaypointParser</a></code>&#160;</td>
+          <td class="paramtype">std::function&lt; SerializableType(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa370ec8da7deb75a70c0d3a383207c58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa370ec8da7deb75a70c0d3a383207c58">&#9670;&nbsp;</a></span>fromXMLString() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> tesseract_planning::fromXMLString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>xml_string</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a>(const tinyxml2::XMLElement &amp;, int)&gt;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -7600,6 +7789,40 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="afb3a9307557ffa1b00786dcea738c2b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb3a9307557ffa1b00786dcea738c2b2">&#9670;&nbsp;</a></span>InstructionParser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> tesseract_planning::InstructionParser </td>
+          <td>(</td>
+          <td class="paramtype">const tinyxml2::XMLElement &amp;&#160;</td>
+          <td class="paramname"><em>xml_element</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a>&#160;</td>
+          <td class="paramname"><em>waypoint_parser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac20c8f9c8b01209fe4ced44c6964bba0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac20c8f9c8b01209fe4ced44c6964bba0">&#9670;&nbsp;</a></span>interpolate() <span class="overload">[1/2]</span></h2>
 
@@ -9204,26 +9427,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a380066ae9718a3f1bf451749ae256a57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a380066ae9718a3f1bf451749ae256a57">&#9670;&nbsp;</a></span>toXMLDocument() <span class="overload">[2/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt; tinyxml2::XMLDocument &gt; tesseract_planning::toXMLDocument </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aadfc7ff8daa8b78ace7986d660a0864c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadfc7ff8daa8b78ace7986d660a0864c">&#9670;&nbsp;</a></span>toXMLDocument() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aadfc7ff8daa8b78ace7986d660a0864c">&#9670;&nbsp;</a></span>toXMLDocument() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9233,6 +9438,26 @@ template&lt;typename FloatType &gt; </div>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../dc/d55/classtesseract__planning_1_1OMPLPlanProfile.html">OMPLPlanProfile</a> &amp;&#160;</td>
           <td class="paramname"><em>plan_profile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b8cd019191e90ec9539744ba382b86b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b8cd019191e90ec9539744ba382b86b">&#9670;&nbsp;</a></span>toXMLDocument() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SerializableType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; tinyxml2::XMLDocument &gt; tesseract_planning::toXMLDocument </td>
+          <td>(</td>
+          <td class="paramtype">const SerializableType &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -9276,6 +9501,42 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="abbac051c41607966d0c70d9b6086794a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbac051c41607966d0c70d9b6086794a">&#9670;&nbsp;</a></span>toXMLDocument&lt; Instruction &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template std::shared_ptr&lt;tinyxml2::XMLDocument&gt; <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9b8cd019191e90ec9539744ba382b86b">tesseract_planning::toXMLDocument</a>&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0272509aa07e8c16a69323cc1892eae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0272509aa07e8c16a69323cc1892eae4">&#9670;&nbsp;</a></span>toXMLDocument&lt; Waypoint &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template std::shared_ptr&lt;tinyxml2::XMLDocument&gt; <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9b8cd019191e90ec9539744ba382b86b">tesseract_planning::toXMLDocument</a>&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac6a12208aece9acb089b28c8bb08fc14"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6a12208aece9acb089b28c8bb08fc14">&#9670;&nbsp;</a></span>toXMLFile() <span class="overload">[1/5]</span></h2>
 
@@ -9304,8 +9565,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a057a05317d8ae233d7a1fc67dbc92eae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a057a05317d8ae233d7a1fc67dbc92eae">&#9670;&nbsp;</a></span>toXMLFile() <span class="overload">[2/5]</span></h2>
+<a id="ae03fa26df427b9f7475d90becdab140e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae03fa26df427b9f7475d90becdab140e">&#9670;&nbsp;</a></span>toXMLFile() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9313,8 +9574,8 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">bool tesseract_planning::toXMLFile </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>instruction</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../dc/d55/classtesseract__planning_1_1OMPLPlanProfile.html">OMPLPlanProfile</a> &amp;&#160;</td>
+          <td class="paramname"><em>plan_profile</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -9332,17 +9593,19 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ae03fa26df427b9f7475d90becdab140e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae03fa26df427b9f7475d90becdab140e">&#9670;&nbsp;</a></span>toXMLFile() <span class="overload">[3/5]</span></h2>
+<a id="a6a9770828d4f01c5fbfc8696f66fc29c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a9770828d4f01c5fbfc8696f66fc29c">&#9670;&nbsp;</a></span>toXMLFile() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename SerializableType &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">bool tesseract_planning::toXMLFile </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../dc/d55/classtesseract__planning_1_1OMPLPlanProfile.html">OMPLPlanProfile</a> &amp;&#160;</td>
-          <td class="paramname"><em>plan_profile</em>, </td>
+          <td class="paramtype">const SerializableType &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -9416,6 +9679,62 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="aea41b830f9f7b783c57a01edaa1426f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea41b830f9f7b783c57a01edaa1426f7">&#9670;&nbsp;</a></span>toXMLFile&lt; Instruction &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template bool <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6a9770828d4f01c5fbfc8696f66fc29c">tesseract_planning::toXMLFile</a>&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>instruction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af1152a54988d0bb45c1e25172969f529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1152a54988d0bb45c1e25172969f529">&#9670;&nbsp;</a></span>toXMLFile&lt; Waypoint &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template bool <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6a9770828d4f01c5fbfc8696f66fc29c">tesseract_planning::toXMLFile</a>&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a40727d3173b509d3f3e102d96a358586"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a40727d3173b509d3f3e102d96a358586">&#9670;&nbsp;</a></span>toXMLString() <span class="overload">[1/5]</span></h2>
 
@@ -9434,26 +9753,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ad3b4abec42c4893b456cf5cdb6c1502a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3b4abec42c4893b456cf5cdb6c1502a">&#9670;&nbsp;</a></span>toXMLString() <span class="overload">[2/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string tesseract_planning::toXMLString </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2656f659bc8c4466ef56d9cf6ea17f9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2656f659bc8c4466ef56d9cf6ea17f9d">&#9670;&nbsp;</a></span>toXMLString() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2656f659bc8c4466ef56d9cf6ea17f9d">&#9670;&nbsp;</a></span>toXMLString() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9463,6 +9764,26 @@ template&lt;typename FloatType &gt; </div>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../dc/d55/classtesseract__planning_1_1OMPLPlanProfile.html">OMPLPlanProfile</a> &amp;&#160;</td>
           <td class="paramname"><em>plan_profile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3fb58e408a6a525d074b72b2ef15d8f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fb58e408a6a525d074b72b2ef15d8f2">&#9670;&nbsp;</a></span>toXMLString() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SerializableType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string tesseract_planning::toXMLString </td>
+          <td>(</td>
+          <td class="paramtype">const SerializableType &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -9499,6 +9820,42 @@ template&lt;typename FloatType &gt; </div>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d2/dd4/classtesseract__planning_1_1TrajOptPlanProfile.html">TrajOptPlanProfile</a> &amp;&#160;</td>
           <td class="paramname"><em>plan_profile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b81bf0afca4195bdbea8610f67d8989"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b81bf0afca4195bdbea8610f67d8989">&#9670;&nbsp;</a></span>toXMLString&lt; Instruction &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template std::string <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3fb58e408a6a525d074b72b2ef15d8f2">tesseract_planning::toXMLString</a>&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>instruction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a540cd1e15edc446896a85e40fb7307c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a540cd1e15edc446896a85e40fb7307c2">&#9670;&nbsp;</a></span>toXMLString&lt; Waypoint &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">template std::string <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3fb58e408a6a525d074b72b2ef15d8f2">tesseract_planning::toXMLString</a>&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -9956,7 +10313,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 12 2021 02:49:37 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Feb 17 2021 21:34:37 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
