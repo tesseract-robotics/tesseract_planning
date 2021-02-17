@@ -29,16 +29,18 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tinyxml2.h>
+#include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_command_language/core/instruction.h>
 
 namespace tesseract_planning
 {
-std::shared_ptr<tinyxml2::XMLDocument> toXMLDocument(const Instruction& instruction);
+template <typename SerializableType>
+std::shared_ptr<tinyxml2::XMLDocument> toXMLDocument(const SerializableType& input);
 
-bool toXMLFile(const Instruction& instruction, const std::string& file_path);
+template <typename SerializableType>
+bool toXMLFile(const SerializableType& input, const std::string& file_path);
 
-std::string toXMLString(const Instruction& instruction);
-
+template <typename SerializableType>
+std::string toXMLString(const SerializableType& input);
 }  // namespace tesseract_planning
 #endif  // TESSERACT_COMMAND_LANGUAGE_SERIALIZE_H

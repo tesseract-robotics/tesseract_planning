@@ -52,13 +52,16 @@ public:
   {
     const tinyxml2::XMLElement* names_element = xml_element.FirstChildElement("Names");
     const tinyxml2::XMLElement* position_element = xml_element.FirstChildElement("Position");
+    const tinyxml2::XMLElement* upper_tolerance_element = xml_element.FirstChildElement("UpperTolerance");
+    const tinyxml2::XMLElement* lower_tolerance_element = xml_element.FirstChildElement("LowerTolerance");
+
     if (!names_element)
       throw std::runtime_error("JointWaypoint: Must have Names element.");
 
     if (!position_element)
       throw std::runtime_error("JointWaypoint: Must have Position element.");
 
-    std::vector<std::string> names_tokens, position_tokens;
+    std::vector<std::string> names_tokens, position_tokens, upper_tolerance_tokens, lower_tolerance_tokens;
     std::string names_string;
     tinyxml2::XMLError status = tesseract_common::QueryStringText(names_element, names_string);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
@@ -68,6 +71,22 @@ public:
     status = tesseract_common::QueryStringText(position_element, position_string);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("JointWaypoint: Error parsing Position string");
+
+    std::string upper_tolerance_string;
+    if (upper_tolerance_element)
+    {
+      status = tesseract_common::QueryStringText(upper_tolerance_element, upper_tolerance_string);
+      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+        throw std::runtime_error("JointWaypoint: Error parsing UpperTolerance string");
+    }
+
+    std::string lower_tolerance_string;
+    if (lower_tolerance_element)
+    {
+      status = tesseract_common::QueryStringText(lower_tolerance_element, lower_tolerance_string);
+      if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+        throw std::runtime_error("JointWaypoint: Error parsing LowerTolerance string");
+    }
 
     boost::split(names_tokens, names_string, boost::is_any_of(" "), boost::token_compress_on);
     boost::split(position_tokens, position_string, boost::is_any_of(" "), boost::token_compress_on);
@@ -85,6 +104,29 @@ public:
     waypoint.resize(static_cast<long>(names_tokens.size()));
     for (long i = 0; i < static_cast<long>(position_tokens.size()); ++i)
       tesseract_common::toNumeric<double>(position_tokens[static_cast<std::size_t>(i)], waypoint[i]);
+
+    if (!upper_tolerance_string.empty() && !lower_tolerance_string.empty())
+    {
+      boost::split(lower_tolerance_tokens, lower_tolerance_string, boost::is_any_of(" "), boost::token_compress_on);
+      boost::split(upper_tolerance_tokens, upper_tolerance_string, boost::is_any_of(" "), boost::token_compress_on);
+
+      if (upper_tolerance_tokens.size() != lower_tolerance_tokens.size())
+        throw std::runtime_error("JointWaypoint: UpperTolerance and LowerTolerance are not the same size.");
+
+      if (!tesseract_common::isNumeric(upper_tolerance_tokens))
+        throw std::runtime_error("JointWaypoint: UpperTolerance are not all numeric values.");
+
+      if (!tesseract_common::isNumeric(lower_tolerance_tokens))
+        throw std::runtime_error("JointWaypoint: LowerTolerance are not all numeric values.");
+
+      upper_tolerance.resize(static_cast<Eigen::Index>(upper_tolerance_tokens.size()));
+      lower_tolerance.resize(static_cast<Eigen::Index>(lower_tolerance_tokens.size()));
+      for (long i = 0; i < static_cast<long>(upper_tolerance_tokens.size()); ++i)
+      {
+        tesseract_common::toNumeric<double>(upper_tolerance_tokens[static_cast<std::size_t>(i)], upper_tolerance[i]);
+        tesseract_common::toNumeric<double>(lower_tolerance_tokens[static_cast<std::size_t>(i)], lower_tolerance[i]);
+      }
+    }
   }
 
   int getType() const { return static_cast<int>(WaypointType::JOINT_WAYPOINT); }
@@ -92,7 +134,7 @@ public:
   void print(const std::string& prefix = "") const
   {
     std::cout << prefix << "Joint WP: " << this->transpose() << std::endl;
-  };
+  }
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
   {
@@ -112,15 +154,37 @@ public:
     }
     xml_joint_waypoint->InsertEndChild(xml_joint_names);
 
-    std::stringstream position_string;
-    position_string << waypoint.format(eigen_format);
+    // Write position
+    {
+      std::stringstream position_string;
+      position_string << waypoint.format(eigen_format);
 
-    tinyxml2::XMLElement* xml_joint_position = doc.NewElement("Position");
-    xml_joint_position->SetText(position_string.str().c_str());
-    xml_joint_waypoint->InsertEndChild(xml_joint_position);
+      tinyxml2::XMLElement* xml_joint_position = doc.NewElement("Position");
+      xml_joint_position->SetText(position_string.str().c_str());
+      xml_joint_waypoint->InsertEndChild(xml_joint_position);
+    }
+
+    // Write upper tolerance
+    {
+      std::stringstream upper_string;
+      upper_string << upper_tolerance.format(eigen_format);
+
+      tinyxml2::XMLElement* xml_upper = doc.NewElement("UpperTolerance");
+      xml_upper->SetText(upper_string.str().c_str());
+      xml_joint_waypoint->InsertEndChild(xml_upper);
+    }
+
+    // Write lower tolerance
+    {
+      std::stringstream lower_string;
+      lower_string << lower_tolerance.format(eigen_format);
+
+      tinyxml2::XMLElement* xml_lower = doc.NewElement("LowerTolerance");
+      xml_lower->SetText(lower_string.str().c_str());
+      xml_joint_waypoint->InsertEndChild(xml_lower);
+    }
 
     xml_waypoint->InsertEndChild(xml_joint_waypoint);
-
     return xml_waypoint;
   }
 
@@ -298,6 +362,18 @@ public:
 
     return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
   }
+  bool operator==(const JointWaypoint& rhs) const
+  {
+    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+    bool equal = true;
+    equal &= tesseract_common::almostEqualRelativeAndAbs(waypoint, rhs.waypoint, max_diff);
+    equal &= tesseract_common::isIdentical(joint_names, rhs.joint_names);
+    equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
+    equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
+    return equal;
+  }
+  bool operator!=(const JointWaypoint& rhs) const { return !operator==(rhs); }
 };
 }  // namespace tesseract_planning
 
