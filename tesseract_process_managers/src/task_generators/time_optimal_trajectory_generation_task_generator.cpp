@@ -213,6 +213,7 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
     // If all joints are within the tolerance, then this point hopefully corresponds
     if (isMoveInstruction(flattened_input.at(resample_idx)))
     {
+      // Get the current position to see if we should increment original_idx
       Eigen::VectorXd current_pt =
           getJointPosition(flattened_input.at(resample_idx).cast_const<MoveInstruction>()->getWaypoint());
       error = (last_pt_in_input - current_pt).cwiseAbs().maxCoeff();
@@ -246,6 +247,17 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
 
     // Add flattened point to the subcomposite
     unflattened[original_idx].cast<CompositeInstruction>()->push_back(flattened_input.at(resample_idx));
+
+    // Correct the meta information, taking information from the last element of each composite in the original
+    if (isMoveInstruction(unflattened[original_idx].cast_const<CompositeInstruction>()->back()))
+    {
+      const auto pattern_instr =
+          pattern.at(original_idx).cast_const<CompositeInstruction>()->back().cast_const<MoveInstruction>();
+      unflattened[original_idx].cast<CompositeInstruction>()->back().cast<MoveInstruction>()->setMoveType(
+          static_cast<MoveInstructionType>(pattern_instr->getMoveType()));
+      unflattened[original_idx].cast<CompositeInstruction>()->back().cast<MoveInstruction>()->setProfile(
+          pattern_instr->getProfile());
+    }
   }
   return unflattened;
 }
