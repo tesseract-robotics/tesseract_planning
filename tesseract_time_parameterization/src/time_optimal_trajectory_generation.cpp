@@ -190,7 +190,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   size_t sample_count = static_cast<std::size_t>(std::ceil(parameterized.getDuration() / resample_dt_));
 
   // Resample and fill in trajectory
-  auto input_instruction = trajectory[0].get().cast<MoveInstruction>();
+  auto input_instruction = trajectory.back().get().cast<MoveInstruction>();
   CompositeInstruction new_program(program);
   new_program.clear();
 
@@ -205,6 +205,8 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
     wp.acceleration = parameterized.getAcceleration(t).topRows(num_joints);
     wp.time = t;
 
+    // Note that meta information like MoveInstructionType, profile, and ManipulatorInfo will be set to that of the last
+    // instruction (last used since first will usually be MoveInstructionType::START)
     MoveInstruction output_instruction(*input_instruction);
     output_instruction.setWaypoint(wp);
 
