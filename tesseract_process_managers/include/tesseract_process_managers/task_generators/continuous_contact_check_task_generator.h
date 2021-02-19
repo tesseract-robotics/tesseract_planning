@@ -61,6 +61,9 @@ public:
 class ContinuousContactCheckTaskInfo : public TaskInfo
 {
 public:
+  using Ptr = std::shared_ptr<ContinuousContactCheckTaskInfo>;
+  using ConstPtr = std::shared_ptr<const ContinuousContactCheckTaskInfo>;
+
   ContinuousContactCheckTaskInfo(std::size_t unique_id, std::string name = "Continuous Contact Check Trajectory");
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;

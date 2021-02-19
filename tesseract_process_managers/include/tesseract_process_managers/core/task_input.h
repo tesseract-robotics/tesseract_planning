@@ -172,6 +172,9 @@ struct TaskInput
   TaskInfo::ConstPtr getTaskInfo(const std::size_t& index) const;
   std::map<std::size_t, TaskInfo::ConstPtr> getTaskInfoMap() const;
 
+  /** @brief If true the task will save the inputs and outputs to the TaskInfo*/
+  bool save_io{ false };
+
 protected:
   /** @brief Instructions to be carried out by process */
   const Instruction* instruction_;

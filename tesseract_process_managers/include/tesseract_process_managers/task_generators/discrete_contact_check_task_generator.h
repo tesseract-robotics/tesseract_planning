@@ -62,6 +62,9 @@ public:
 class DiscreteContactCheckTaskInfo : public TaskInfo
 {
 public:
+  using Ptr = std::shared_ptr<DiscreteContactCheckTaskInfo>;
+  using ConstPtr = std::shared_ptr<const DiscreteContactCheckTaskInfo>;
+
   DiscreteContactCheckTaskInfo(std::size_t unique_id, std::string name = "Discrete Contact Check Trajectory");
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;

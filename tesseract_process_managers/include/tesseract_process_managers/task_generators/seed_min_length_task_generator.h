@@ -67,6 +67,9 @@ private:
 class SeedMinLengthTaskInfo : public TaskInfo
 {
 public:
+  using Ptr = std::shared_ptr<SeedMinLengthTaskInfo>;
+  using ConstPtr = std::shared_ptr<const SeedMinLengthTaskInfo>;
+
   SeedMinLengthTaskInfo(std::size_t unique_id, std::string name = "Seed Min Length");
 };
 }  // namespace tesseract_planning

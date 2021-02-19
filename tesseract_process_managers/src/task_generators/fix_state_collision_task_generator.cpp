@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <trajopt/problem_description.hpp>
 #include <tesseract_environment/core/utils.h>
 
+#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_command_language/utils/filter_functions.h>
@@ -282,6 +283,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   auto info = std::make_shared<FixStateCollisionTaskInfo>(unique_id, name_);
   info->return_value = 0;
   input.addTaskInfo(info);
+  saveInputs(info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -291,6 +293,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   {
     info->message = "Input seed to FixStateCollision must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    saveOutputs(info, input);
     return 0;
   }
 
@@ -337,7 +340,10 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           CONSOLE_BRIDGE_logInform("FixStateCollisionTaskGenerator is modifying the const input instructions");
           if (!ApplyCorrectionWorkflow(
                   mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
+          {
+            saveOutputs(info, input);
             return 0;
+          }
         }
       }
     }
@@ -355,7 +361,10 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           CONSOLE_BRIDGE_logInform("FixStateCollisionTaskGenerator is modifying the const input instructions");
           if (!ApplyCorrectionWorkflow(
                   mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
+          {
+            saveOutputs(info, input);
             return 0;
+          }
         }
       }
     }
@@ -390,17 +399,22 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
         PlanInstruction* plan = mutable_instruction->cast<PlanInstruction>();
 
         if (!ApplyCorrectionWorkflow(plan->getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
+        {
+          saveOutputs(info, input);
           return 0;
+        }
       }
     }
     break;
     case FixStateCollisionProfile::Settings::DISABLED:
       info->return_value = 1;
+      saveOutputs(info, input);
       return 1;
   }
 
   CONSOLE_BRIDGE_logDebug("FixStateCollisionTaskGenerator succeeded");
   info->return_value = 1;
+  saveOutputs(info, input);
   return 1;
 }
 

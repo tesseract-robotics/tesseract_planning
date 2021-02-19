@@ -29,6 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/discrete_contact_check_task_generator.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -65,6 +66,7 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   auto info = std::make_shared<DiscreteContactCheckTaskInfo>(unique_id, name_);
   info->return_value = 0;
   input.addTaskInfo(info);
+  saveInputs(info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -74,6 +76,7 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   {
     info->message = "Input seed to DiscreteContactCheckTaskGenerator must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    saveOutputs(info, input);
     return 0;
   }
 
@@ -108,11 +111,13 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
                                    contact.link_names[1] + " Dist: " + std::to_string(contact.distance))
                                       .c_str());
     info->contact_results = contacts;
+    saveOutputs(info, input);
     return 0;
   }
 
   CONSOLE_BRIDGE_logDebug("Discrete contact check succeeded");
   info->return_value = 1;
+  saveOutputs(info, input);
   return 1;
 }
 
