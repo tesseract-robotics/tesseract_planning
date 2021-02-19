@@ -36,7 +36,7 @@
 
 #include <descartes_samplers/evaluators/euclidean_distance_edge_evaluator.h>
 #include <descartes_samplers/evaluators/compound_edge_evaluator.h>
-#include <descartes_samplers/samplers/fixed_joint_pose_sampler.h>
+#include <descartes_samplers/samplers/fixed_joint_waypoint_sampler.h>
 
 #include <tesseract_kinematics/core/utils.h>
 
@@ -199,11 +199,10 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
   }
 
   // Add vertex evaluator
-  std::shared_ptr<descartes_light::PositionSampler<FloatType>> sampler;
+  std::shared_ptr<descartes_light::WaypointSampler<FloatType>> sampler;
   if (vertex_evaluator == nullptr)
   {
-    auto ve =
-        std::make_shared<DescartesJointLimitsVertexEvaluator<FloatType>>(prob.manip_inv_kin->getLimits().joint_limits);
+    auto ve = std::make_shared<DescartesJointLimitsVertexEvaluator>(prob.manip_inv_kin->getLimits().joint_limits);
     sampler = std::make_shared<DescartesRobotSampler<FloatType>>(
         manip_baselink_to_waypoint, target_pose_sampler, prob.manip_inv_kin, ci, tcp, allow_collision, ve);
   }
@@ -226,11 +225,9 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
     {
       if (enable_edge_collision)
       {
-        auto compound_evaluator =
-            std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>(prob.manip_inv_kin->numJoints());
+        auto compound_evaluator = std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>();
         compound_evaluator->evaluators.push_back(
-            std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>(
-                prob.manip_inv_kin->numJoints()));
+            std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
         compound_evaluator->evaluators.push_back(
             std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(prob.env,
                                                                          active_links,
@@ -242,8 +239,7 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
       }
       else
       {
-        prob.edge_evaluators.push_back(std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>(
-            prob.manip_inv_kin->numJoints()));
+        prob.edge_evaluators.push_back(std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
       }
     }
     else
@@ -263,9 +259,8 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
                                                    const std::vector<std::string>& active_links,
                                                    int index) const
 {
-  std::vector<FloatType> joint_pose(joint_waypoint.data(),
-                                    joint_waypoint.data() + joint_waypoint.rows() * joint_waypoint.cols());
-  auto sampler = std::make_shared<descartes_light::FixedJointPoseSampler<FloatType>>(joint_pose);
+  auto sampler =
+      std::make_shared<descartes_light::FixedJointWaypointSampler<FloatType>>(joint_waypoint.cast<FloatType>());
   prob.samplers.push_back(std::move(sampler));
 
   if (index != 0)
@@ -275,11 +270,9 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
     {
       if (enable_edge_collision)
       {
-        auto compound_evaluator =
-            std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>(prob.manip_inv_kin->numJoints());
+        auto compound_evaluator = std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>();
         compound_evaluator->evaluators.push_back(
-            std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>(
-                prob.manip_inv_kin->numJoints()));
+            std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
         compound_evaluator->evaluators.push_back(
             std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(prob.env,
                                                                          active_links,
@@ -291,8 +284,7 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
       }
       else
       {
-        prob.edge_evaluators.push_back(std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>(
-            prob.manip_inv_kin->numJoints()));
+        prob.edge_evaluators.push_back(std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
       }
     }
     else

@@ -46,7 +46,7 @@ DescartesRobotSampler<FloatType>::DescartesRobotSampler(
     DescartesCollision::Ptr collision,
     const Eigen::Isometry3d& tcp,
     bool allow_collision,
-    typename DescartesVertexEvaluator<FloatType>::Ptr is_valid)
+    DescartesVertexEvaluator::Ptr is_valid)
   : target_pose_(target_pose)
   , target_pose_sampler_(std::move(target_pose_sampler))
   , robot_kinematics_(std::move(robot_kinematics))
@@ -60,10 +60,11 @@ DescartesRobotSampler<FloatType>::DescartesRobotSampler(
 }
 
 template <typename FloatType>
-bool DescartesRobotSampler<FloatType>::sample(std::vector<FloatType>& solution_set)
+std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> DescartesRobotSampler<FloatType>::sample() const
 {
   double distance = std::numeric_limits<double>::min();
   tesseract_common::VectorIsometry3d target_poses = target_pose_sampler_(target_pose_);
+  std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> solution_set;
   for (const auto& sp : target_poses)
   {
     // Tool pose in rail coordinate system
@@ -74,58 +75,45 @@ bool DescartesRobotSampler<FloatType>::sample(std::vector<FloatType>& solution_s
   if (solution_set.empty() && allow_collision_)
     getBestSolution(solution_set, target_poses);
 
-  return !solution_set.empty();
+  return solution_set;
 }
 
 template <typename FloatType>
-bool DescartesRobotSampler<FloatType>::isCollisionFree(const FloatType* vertex)
+bool DescartesRobotSampler<FloatType>::isCollisionFree(const Eigen::VectorXd& vertex) const
 {
   if (collision_ == nullptr)
     return true;
 
-  return collision_->validate(
-      Eigen::Map<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>(vertex, dof_).template cast<double>());
+  return collision_->validate(vertex);
 }
 
 template <typename FloatType>
-bool DescartesRobotSampler<FloatType>::ikAt(std::vector<FloatType>& solution_set,
+bool DescartesRobotSampler<FloatType>::ikAt(std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& solution_set,
                                             const Eigen::Isometry3d& target_pose,
                                             bool get_best_solution,
-                                            double& distance)
+                                            double& distance) const
 {
-  Eigen::VectorXd robot_solution_set;
-  auto robot_dof = static_cast<int>(robot_kinematics_->numJoints());
-  if (!robot_kinematics_->calcInvKin(robot_solution_set, target_pose, ik_seed_))
+  tesseract_kinematics::IKSolutions robot_solution_set = robot_kinematics_->calcInvKin(target_pose, ik_seed_);
+  if (robot_solution_set.empty())
     return false;
 
-  long num_sols = robot_solution_set.size() / robot_dof;
-  for (long i = 0; i < num_sols; i++)
+  for (const auto& sol : robot_solution_set)
   {
-    double* sol = robot_solution_set.data() + robot_dof * i;
-
-    std::vector<FloatType> full_sol;
-    full_sol.insert(end(full_sol), std::make_move_iterator(sol), std::make_move_iterator(sol + robot_dof));
-
-    if ((is_valid_ != nullptr) && !(*is_valid_)(Eigen::Map<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>(
-                                      full_sol.data(), static_cast<long>(full_sol.size()))))
+    if ((is_valid_ != nullptr) && !(*is_valid_)(sol))
       continue;
 
     if (!get_best_solution)
     {
-      if (isCollisionFree(full_sol.data()))
-        solution_set.insert(
-            end(solution_set), std::make_move_iterator(full_sol.begin()), std::make_move_iterator(full_sol.end()));
+      if (isCollisionFree(sol))
+        solution_set.push_back(sol.cast<FloatType>());
     }
     else
     {
-      double cur_distance = collision_->distance(Eigen::Map<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>(
-                                                     full_sol.data(), static_cast<long>(full_sol.size()))
-                                                     .template cast<double>());
+      double cur_distance = collision_->distance(sol);
       if (cur_distance > distance)
       {
         distance = cur_distance;
-        solution_set.insert(
-            begin(solution_set), std::make_move_iterator(full_sol.begin()), std::make_move_iterator(full_sol.end()));
+        solution_set.push_back(sol.cast<FloatType>());
       }
     }
   }
@@ -134,8 +122,9 @@ bool DescartesRobotSampler<FloatType>::ikAt(std::vector<FloatType>& solution_set
 }
 
 template <typename FloatType>
-bool DescartesRobotSampler<FloatType>::getBestSolution(std::vector<FloatType>& solution_set,
-                                                       const tesseract_common::VectorIsometry3d& target_poses)
+bool DescartesRobotSampler<FloatType>::getBestSolution(
+    std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& solution_set,
+    const tesseract_common::VectorIsometry3d& target_poses) const
 {
   double distance = std::numeric_limits<double>::min();
   for (const auto& sp : target_poses)

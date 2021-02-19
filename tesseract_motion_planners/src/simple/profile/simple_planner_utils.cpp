@@ -62,9 +62,7 @@ InstructionInfo::InstructionInfo(const PlanInstruction& plan_instruction,
 
 Eigen::Isometry3d InstructionInfo::calcCartesianWorldPose(const Eigen::VectorXd& jp) const
 {
-  Eigen::Isometry3d p1 = Eigen::Isometry3d::Identity();
-  if (!fwd_kin->calcFwdKin(p1, jp))
-    throw std::runtime_error("Interpolation: failed to find forward kinematics solution!");
+  Eigen::Isometry3d p1 = fwd_kin->calcFwdKin(jp);
   return world_to_base * p1 * tcp;
 }
 
@@ -126,20 +124,17 @@ Eigen::VectorXd getClosestJointSolution(const Eigen::Isometry3d& p,
                                         const tesseract_kinematics::InverseKinematics::Ptr& inv_kin,
                                         const Eigen::VectorXd& seed)
 {
-  Eigen::VectorXd jp, jp_final;
-  bool jp_found = inv_kin->calcInvKin(jp, p, seed);
-  if (jp_found)
+  Eigen::VectorXd jp_final;
+  tesseract_kinematics::IKSolutions jp = inv_kin->calcInvKin(p, seed);
+  if (!jp.empty())
   {
     // Find closest solution to the start state
     double dist = std::numeric_limits<double>::max();
-    const auto dof = inv_kin->numJoints();
-    long num_solutions = jp.size() / dof;
-    jp_final = jp.middleRows(0, dof);
-    for (long i = 0; i < num_solutions; ++i)
+    jp_final = jp[0];
+    for (const auto& solution : jp)
     {
       /// @todo: May be nice to add contact checking to find best solution, but may not be neccessary because this is
-      /// used to generate the seed.
-      auto solution = jp.middleRows(i * dof, dof);
+      /// used to generate the seed
       double d = (solution - seed).norm();
       if (d < dist)
       {
@@ -160,29 +155,24 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const Eigen::Isometry3d& 
   std::array<Eigen::VectorXd, 2> results;
 
   // Calculate IK for start and end
-  Eigen::VectorXd j1, j1_final;
-  bool found_j1 = inv_kin1->calcInvKin(j1, p1, seed);
+  Eigen::VectorXd j1_final;
+  tesseract_kinematics::IKSolutions j1 = inv_kin1->calcInvKin(p1, seed);
 
-  Eigen::VectorXd j2, j2_final;
-  bool found_j2 = inv_kin2->calcInvKin(j2, p2, seed);
+  Eigen::VectorXd j2_final;
+  tesseract_kinematics::IKSolutions j2 = inv_kin2->calcInvKin(p2, seed);
 
-  if (found_j1 && found_j2)
+  if (!j1.empty() && !j2.empty())
   {
     // Find closest solution to the end state
     double dist = std::numeric_limits<double>::max();
-    const auto dof = inv_kin2->numJoints();
-    long j1_num_solutions = j1.size() / dof;
-    long j2_num_solutions = j2.size() / dof;
-    j1_final = j1.middleRows(0, dof);
-    j2_final = j2.middleRows(0, dof);
-    for (long i = 0; i < j1_num_solutions; ++i)
+    j1_final = j1[0];
+    j2_final = j2[0];
+    for (const auto& j1_solution : j1)
     {
-      auto j1_solution = j1.middleRows(i * dof, dof);
-      for (long j = 0; j < j2_num_solutions; ++j)
+      for (const auto& j2_solution : j2)
       {
         /// @todo: May be nice to add contact checking to find best solution, but may not be neccessary because this is
         /// used to generate the seed.
-        auto j2_solution = j2.middleRows(j * dof, dof);
         double d = (j2_solution - j1_solution).norm();
         if (d < dist)
         {
@@ -195,15 +185,12 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const Eigen::Isometry3d& 
     results[0] = j1_final;
     results[1] = j2_final;
   }
-  else if (found_j1)
+  else if (!j1.empty())
   {
     double dist = std::numeric_limits<double>::max();
-    const auto dof = inv_kin1->numJoints();
-    long j1_num_solutions = j1.size() / dof;
-    j1_final = j1.middleRows(0, dof);
-    for (long i = 0; i < j1_num_solutions; ++i)
+    j1_final = j1[0];
+    for (const auto& j1_solution : j1)
     {
-      auto j1_solution = j1.middleRows(i * dof, dof);
       double d = (seed - j1_solution).norm();
       if (d < dist)
       {
@@ -214,15 +201,12 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const Eigen::Isometry3d& 
 
     results[0] = j1_final;
   }
-  else if (found_j2)
+  else if (!j2.empty())
   {
     double dist = std::numeric_limits<double>::max();
-    const auto dof = inv_kin2->numJoints();
-    long j2_num_solutions = j2.size() / dof;
-    j2_final = j2.middleRows(0, dof);
-    for (long i = 0; i < j2_num_solutions; ++i)
+    j2_final = j2[0];
+    for (const auto& j2_solution : j2)
     {
-      auto j2_solution = j2.middleRows(i * dof, dof);
       double d = (seed - j2_solution).norm();
       if (d < dist)
       {

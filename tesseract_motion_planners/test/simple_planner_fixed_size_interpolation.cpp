@@ -133,8 +133,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   const auto* mi = composite.back().cast_const<MoveInstruction>();
   const Eigen::VectorXd& last_position = mi->getWaypoint().cast_const<StateWaypoint>()->position;
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
-  Eigen::Isometry3d final_pose = Eigen::Isometry3d::Identity();
-  fwd_kin->calcFwdKin(final_pose, last_position);
+  Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
 }
 
@@ -183,8 +182,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointI
   const auto* mi = composite.back().cast_const<MoveInstruction>();
   const Eigen::VectorXd& last_position = mi->getWaypoint().cast_const<StateWaypoint>()->position;
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
-  Eigen::Isometry3d final_pose = Eigen::Isometry3d::Identity();
-  fwd_kin->calcFwdKin(final_pose, last_position);
+  Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
 }
 

@@ -27,7 +27,7 @@
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_ROBOT_SAMPLER_H
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <descartes_light/interface/position_sampler.h>
+#include <descartes_light/interface/waypoint_sampler.h>
 #include <descartes_light/utils.h>
 #include <Eigen/Dense>
 #include <vector>
@@ -42,7 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 template <typename FloatType>
-class DescartesRobotSampler : public descartes_light::PositionSampler<FloatType>
+class DescartesRobotSampler : public descartes_light::WaypointSampler<FloatType>
 {
 public:
   /**
@@ -62,28 +62,44 @@ public:
                         DescartesCollision::Ptr collision,
                         const Eigen::Isometry3d& tcp,
                         bool allow_collision,
-                        typename DescartesVertexEvaluator<FloatType>::Ptr is_valid);
+                        DescartesVertexEvaluator::Ptr is_valid);
 
-  bool sample(std::vector<FloatType>& solution_set) override;
+  std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> sample() const override;
 
 private:
-  Eigen::Isometry3d target_pose_;                                      /**< @brief The target pose to sample */
-  PoseSamplerFn target_pose_sampler_;                                  /**< @brief Target pose sampler function */
-  tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics_; /**< @brief The robot inverse kinematics */
-  DescartesCollision::Ptr collision_;                                  /**< @brief The collision interface */
-  Eigen::Isometry3d tcp_;                                              /**< @brief The robot tool center point */
-  bool allow_collision_;    /**< @brief If true and no valid solution was found it will return the best of the worst */
-  int dof_;                 /**< @brief The number of joints in the robot */
-  Eigen::VectorXd ik_seed_; /**< @brief The seed for inverse kinematics which is zeros */
-  typename DescartesVertexEvaluator<FloatType>::Ptr is_valid_; /**< @brief This is the vertex evaluator to filter out
-                                                                  solution */
+  /** @brief The target pose to sample */
+  Eigen::Isometry3d target_pose_;
+
+  /** @brief The target pose to sample */
+  PoseSamplerFn target_pose_sampler_;
+
+  /** @brief The robot inverse kinematics */
+  tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics_;
+
+  /** @brief The collision interface */
+  DescartesCollision::Ptr collision_;
+
+  /** @brief The robot tool center point */
+  Eigen::Isometry3d tcp_;
+
+  /** @brief If true and no valid solution was found it will return the best of the worst */
+  bool allow_collision_;
+
+  /** @brief The number of joints in the robot */
+  int dof_;
+
+  /** @brief The seed for inverse kinematics which is zeros */
+  Eigen::VectorXd ik_seed_;
+
+  /** @brief This is the vertex evaluator to filter out solution */
+  DescartesVertexEvaluator::Ptr is_valid_;
 
   /**
    * @brief Check if a solution is passes collision test
    * @param vertex The joint solution to check
    * @return True if collision test passed, otherwise false
    */
-  bool isCollisionFree(const FloatType* vertex);
+  bool isCollisionFree(const Eigen::VectorXd& vertex) const;
 
   /**
    * @brief This will return the best of the worst solution
@@ -91,7 +107,8 @@ private:
    * @param target_poses The target pose to sample
    * @return True if a solution was found, otherwise false
    */
-  bool getBestSolution(std::vector<FloatType>& solution_set, const tesseract_common::VectorIsometry3d& target_poses);
+  bool getBestSolution(std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& solution_set,
+                       const tesseract_common::VectorIsometry3d& target_poses) const;
 
   /**
    * @brief Solve inverse kinematics for the target pose
@@ -101,10 +118,10 @@ private:
    * @param distance The current best distance
    * @return True if a solution was found, otherwise false
    */
-  bool ikAt(std::vector<FloatType>& solution_set,
+  bool ikAt(std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& solution_set,
             const Eigen::Isometry3d& target_pose,
             bool get_best_solution,
-            double& distance);
+            double& distance) const;
 };
 
 using DescartesRobotSamplerF = DescartesRobotSampler<float>;

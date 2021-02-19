@@ -32,8 +32,8 @@
 #include <tesseract_environment/core/utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/descartes_light.h>
-#include <descartes_light/interface/position_sampler.h>
-#include <descartes_samplers/samplers/fixed_joint_pose_sampler.h>
+#include <descartes_light/interface/waypoint_sampler.h>
+#include <descartes_samplers/samplers/fixed_joint_waypoint_sampler.h>
 #include <descartes_samplers/evaluators/timing_edge_evaluator.h>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <vector>
@@ -97,7 +97,11 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   }
 
   descartes_light::Solver<FloatType> graph_builder(problem->manip_inv_kin->numJoints());
-  if (!graph_builder.build(problem->samplers, problem->edge_evaluators, problem->num_threads))
+  try
+  {
+    graph_builder.build(problem->samplers, problem->edge_evaluators, problem->num_threads);
+  }
+  catch (...)
   {
     //    CONSOLE_BRIDGE_logError("Failed to build vertices");
     //    for (const auto& i : graph_builder.getFailedVertices())
@@ -116,13 +120,14 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         tesseract_common::StatusCode(DescartesMotionPlannerStatusCategory::ErrorFailedToBuildGraph, status_category_);
     return response.status;
   }
+
   //  // No failed waypoints
   //  response.succeeded_waypoints = config_->waypoints;
   //  response.failed_waypoints.clear();
 
   // Search for edges
-  std::vector<FloatType> solution;
-  if (!graph_builder.search(solution))
+  std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> solution = graph_builder.search();
+  if (solution.empty())
   {
     CONSOLE_BRIDGE_logError("Search for graph completion failed");
     response.status = tesseract_common::StatusCode(DescartesMotionPlannerStatusCategory::ErrorFailedToFindValidSolution,
@@ -140,8 +145,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
     throw std::runtime_error("Forward and Inverse Kinematic objects joints are not ordered the same!");
 
   // Loop over the flattened results and add them to response if the input was a plan instruction
-  Eigen::Index dof = problem->manip_fwd_kin->numJoints();
-  Eigen::Index result_index = 0;
+  std::size_t result_index = 0;
   for (std::size_t idx = 0; idx < instructions_flattened.size(); idx++)
   {
     // If idx is zero then this should be the start instruction
@@ -156,9 +160,8 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         assert(isMoveInstruction(results_flattened[idx].get()));
         auto* move_instruction = results_flattened[idx].get().cast<MoveInstruction>();
 
-        Eigen::Map<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> temp(solution.data() + dof * result_index++, dof);
         auto* swp = move_instruction->getWaypoint().cast<StateWaypoint>();
-        swp->position = temp.template cast<double>();
+        swp->position = solution[result_index++].template cast<double>();
         assert(swp->joint_names == problem->manip_fwd_kin->getJointNames());
       }
       else if (plan_instruction->isLinear())
@@ -168,10 +171,8 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         auto* move_instructions = results_flattened[idx].get().cast<CompositeInstruction>();
         for (auto& instruction : *move_instructions)
         {
-          Eigen::Map<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> temp(solution.data() + dof * result_index++,
-                                                                             dof);
           auto* swp = instruction.cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>();
-          swp->position = temp.template cast<double>();
+          swp->position = solution[result_index++].template cast<double>();
           assert(swp->joint_names == problem->manip_fwd_kin->getJointNames());
         }
       }
@@ -180,9 +181,8 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         assert(result_index > 0);
         // Because descartes does not support freespace it just includes the plan instruction waypoint so we will
         // fill out the results with a joint interpolated trajectory.
-        Eigen::Map<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> start(solution.data() + dof * (result_index - 1),
-                                                                            dof);
-        Eigen::Map<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> stop(solution.data() + dof * result_index++, dof);
+        Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& start = solution[result_index - 1];
+        Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& stop = solution[result_index++];
 
         // This instruction corresponds to a composite. Set all results in that composite to the results
         assert(isCompositeInstruction(results_flattened[idx].get()));

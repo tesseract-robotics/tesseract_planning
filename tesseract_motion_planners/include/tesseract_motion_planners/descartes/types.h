@@ -46,7 +46,7 @@ namespace tesseract_planning
  */
 template <typename FloatType>
 using DescartesVertexEvaluatorAllocatorFn =
-    std::function<typename DescartesVertexEvaluator<FloatType>::Ptr(const DescartesProblem<FloatType>&)>;
+    std::function<DescartesVertexEvaluator::Ptr(const DescartesProblem<FloatType>&)>;
 
 /**
  * @brief This is used to create edge evaluator within tesseract, to allow thread safe creation of descartes edge

@@ -4,7 +4,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/interface/edge_evaluator.h>
-#include <descartes_light/interface/position_sampler.h>
+#include <descartes_light/interface/waypoint_sampler.h>
 #include <descartes_light/descartes_light.h>
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
