@@ -45,8 +45,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
     tesseract_collision::CollisionCheckConfig config,
     bool allow_collision,
     bool debug)
-  : descartes_light::EdgeEvaluator<FloatType>(joint_names.size())
-  , state_solver_(collision_env->getStateSolver())
+  : state_solver_(collision_env->getStateSolver())
   , acm_(*(collision_env->getAllowedCollisionMatrix()))
   , active_link_names_(std::move(active_links))
   , joint_names_(std::move(joint_names))
@@ -68,16 +67,19 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
 }
 
 template <typename FloatType>
-std::pair<bool, FloatType> DescartesCollisionEdgeEvaluator<FloatType>::considerEdge(const FloatType* start,
-                                                                                    const FloatType* end)
+std::pair<bool, FloatType>
+DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& start,
+                                                     const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& end) const
 {
+  assert(start.rows() == end.rows());
+
   // Happens in two phases:
   // 1. Compute the transform of all objects
-  tesseract_common::TrajArray segment(2, this->dof_);
-  for (size_t i = 0; i < this->dof_; ++i)
+  tesseract_common::TrajArray segment(2, start.rows());
+  for (Eigen::Index i = 0; i < start.rows(); ++i)
   {
-    segment(0, static_cast<long>(i)) = start[i];
-    segment(1, static_cast<long>(i)) = end[i];
+    segment(0, i) = start[i];
+    segment(1, i) = end[i];
   }
 
   std::vector<tesseract_collision::ContactResultMap> discrete_results;
@@ -118,7 +120,7 @@ template <typename FloatType>
 bool DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck(
     std::vector<tesseract_collision::ContactResultMap>& results,
     const tesseract_common::TrajArray& segment,
-    bool find_best)
+    bool find_best) const
 {
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
@@ -156,7 +158,7 @@ template <typename FloatType>
 bool DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck(
     std::vector<tesseract_collision::ContactResultMap>& results,
     const tesseract_common::TrajArray& segment,
-    bool find_best)
+    bool find_best) const
 {
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());

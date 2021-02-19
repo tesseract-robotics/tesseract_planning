@@ -368,22 +368,22 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
     /** @todo Need to add descartes pose sample to ompl profile */
-    Eigen::VectorXd joint_solutions;
-    prob.manip_inv_kin->calcInvKin(joint_solutions, manip_baselink_to_tool0, Eigen::VectorXd::Zero(dof));
-    long num_solutions = joint_solutions.size() / dof;
+    tesseract_kinematics::IKSolutions joint_solutions =
+        prob.manip_inv_kin->calcInvKin(manip_baselink_to_tool0, Eigen::VectorXd::Zero(dof));
     auto goal_states = std::make_shared<ompl::base::GoalStates>(prob.simple_setup->getSpaceInformation());
-    std::vector<tesseract_collision::ContactResultMap> contact_map_vec(static_cast<std::size_t>(num_solutions));
-    for (long i = 0; i < num_solutions; ++i)
+    std::vector<tesseract_collision::ContactResultMap> contact_map_vec(
+        static_cast<std::size_t>(joint_solutions.size()));
+    for (std::size_t i = 0; i < joint_solutions.size(); ++i)
     {
-      auto solution = joint_solutions.middleRows(i * dof, dof);
+      Eigen::VectorXd& solution = joint_solutions[i];
       // Get discrete contact manager for testing provided start and end position
       // This is required because collision checking happens in motion validators now
       // instead of the isValid function to avoid unnecessary collision checks.
-      if (!checkStateInCollision(prob, solution, contact_map_vec[static_cast<std::size_t>(i)]))
+      if (!checkStateInCollision(prob, solution, contact_map_vec[i]))
       {
         ompl::base::ScopedState<> goal_state(prob.simple_setup->getStateSpace());
-        for (unsigned i = 0; i < dof; ++i)
-          goal_state[i] = solution(i);
+        for (unsigned j = 0; j < dof; ++j)
+          goal_state[j] = solution[static_cast<Eigen::Index>(j)];
 
         goal_states->addState(goal_state);
       }
@@ -411,7 +411,6 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
                                              int /*index*/) const
 {
   const auto dof = prob.manip_fwd_kin->numJoints();
-
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
     // Get discrete contact manager for testing provided start and end position
@@ -462,25 +461,23 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
     /** @todo Need to add descartes pose sampler to ompl profile */
-    Eigen::VectorXd joint_solutions;
-
     /** @todo Need to also provide the seed instruction to use here */
-    prob.manip_inv_kin->calcInvKin(joint_solutions, manip_baselink_to_tool0, Eigen::VectorXd::Zero(dof));
-    long num_solutions = joint_solutions.size() / dof;
+    tesseract_kinematics::IKSolutions joint_solutions =
+        prob.manip_inv_kin->calcInvKin(manip_baselink_to_tool0, Eigen::VectorXd::Zero(dof));
     bool found_start_state = false;
-    std::vector<tesseract_collision::ContactResultMap> contact_map_vec(static_cast<std::size_t>(num_solutions));
-    for (long i = 0; i < num_solutions; ++i)
+    std::vector<tesseract_collision::ContactResultMap> contact_map_vec(joint_solutions.size());
+    for (std::size_t i = 0; i < joint_solutions.size(); ++i)
     {
-      auto solution = joint_solutions.middleRows(i * dof, dof);
+      Eigen::VectorXd& solution = joint_solutions[i];
       // Get discrete contact manager for testing provided start and end position
       // This is required because collision checking happens in motion validators now
       // instead of the isValid function to avoid unnecessary collision checks.
-      if (!checkStateInCollision(prob, solution, contact_map_vec[static_cast<std::size_t>(i)]))
+      if (!checkStateInCollision(prob, solution, contact_map_vec[i]))
       {
         found_start_state = true;
         ompl::base::ScopedState<> start_state(prob.simple_setup->getStateSpace());
-        for (unsigned i = 0; i < dof; ++i)
-          start_state[i] = solution(i);
+        for (unsigned j = 0; j < dof; ++j)
+          start_state[j] = solution[static_cast<Eigen::Index>(j)];
 
         prob.simple_setup->addStartState(start_state);
       }

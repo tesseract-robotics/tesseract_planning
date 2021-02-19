@@ -171,9 +171,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            if (!kin->calcFwdKin(prev_pose, position))
-              throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator: failed to solve forward kinematics!");
-
+            prev_pose = kin->calcFwdKin(position);
             prev_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * prev_pose * tcp;
           }
           else
@@ -211,10 +209,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
             cur_position = temp.get();
           }
 
-          Eigen::Isometry3d cur_pose = Eigen::Isometry3d::Identity();
-          if (!kin->calcFwdKin(cur_pose, *cur_position))
-            throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator: failed to solve forward kinematics!");
-
+          Eigen::Isometry3d cur_pose = kin->calcFwdKin(*cur_position);
           cur_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * cur_pose * tcp;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
@@ -225,9 +220,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            if (!kin->calcFwdKin(prev_pose, position))
-              throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator: failed to solve forward kinematics!");
-
+            prev_pose = kin->calcFwdKin(position);
             prev_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * prev_pose * tcp;
           }
           else

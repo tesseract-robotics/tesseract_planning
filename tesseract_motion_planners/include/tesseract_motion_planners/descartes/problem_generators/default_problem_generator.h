@@ -190,9 +190,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
           {
             assert(checkJointPositionFormat(prob->manip_fwd_kin->getJointNames(), start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            if (!prob->manip_fwd_kin->calcFwdKin(prev_pose, position))
-              throw std::runtime_error("DescartesMotionPlannerConfig: failed to solve forward kinematics!");
-
+            prev_pose = prob->manip_fwd_kin->calcFwdKin(position);
             prev_pose = prob->env_state->link_transforms.at(prob->manip_fwd_kin->getBaseLinkName()) * prev_pose * tcp;
           }
           else
@@ -218,10 +216,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
         {
           assert(checkJointPositionFormat(prob->manip_fwd_kin->getJointNames(), plan_instruction->getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction->getWaypoint());
-          Eigen::Isometry3d cur_pose = Eigen::Isometry3d::Identity();
-          if (!prob->manip_fwd_kin->calcFwdKin(cur_pose, cur_position))
-            throw std::runtime_error("DescartesMotionPlannerConfig: failed to solve forward kinematics!");
-
+          Eigen::Isometry3d cur_pose = prob->manip_fwd_kin->calcFwdKin(cur_position);
           cur_pose = prob->env_state->link_transforms.at(prob->manip_fwd_kin->getBaseLinkName()) * cur_pose * tcp;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
@@ -233,9 +228,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
           {
             assert(checkJointPositionFormat(prob->manip_fwd_kin->getJointNames(), start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            if (!prob->manip_fwd_kin->calcFwdKin(prev_pose, position))
-              throw std::runtime_error("DescartesMotionPlannerConfig: failed to solve forward kinematics!");
-
+            prev_pose = prob->manip_fwd_kin->calcFwdKin(position);
             prev_pose = prob->env_state->link_transforms.at(prob->manip_fwd_kin->getBaseLinkName()) * prev_pose * tcp;
           }
           else

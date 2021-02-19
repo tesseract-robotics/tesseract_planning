@@ -29,7 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/interface/edge_evaluator.h>
-#include <descartes_light/interface/position_sampler.h>
+#include <descartes_light/interface/waypoint_sampler.h>
 #include <descartes_light/ladder_graph.h>
 #include <descartes_light/descartes_light.h>
 #include <vector>
@@ -56,8 +56,8 @@ struct DescartesProblem
   tesseract_kinematics::InverseKinematics::ConstPtr manip_inv_kin;
 
   // These are required for descartes
-  std::vector<typename descartes_light::EdgeEvaluator<FloatType>::Ptr> edge_evaluators;
-  std::vector<typename descartes_light::PositionSampler<FloatType>::Ptr> samplers;
+  std::vector<typename descartes_light::EdgeEvaluator<FloatType>::ConstPtr> edge_evaluators;
+  std::vector<typename descartes_light::WaypointSampler<FloatType>::ConstPtr> samplers;
   int num_threads = descartes_light::Solver<double>::getMaxThreads();
 };
 using DescartesProblemF = DescartesProblem<float>;

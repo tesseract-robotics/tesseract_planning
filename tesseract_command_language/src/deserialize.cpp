@@ -386,11 +386,11 @@ Waypoint defaultWaypointParser(const tinyxml2::XMLElement& xml_element, int type
 template Instruction fromXMLDocument<Instruction>(const tinyxml2::XMLDocument& xml_doc,
                                                   std::function<Instruction(const tinyxml2::XMLElement&, int)>);
 
-template Instruction fromXMLFile(const std::string& file_path,
-                                 std::function<Instruction(const tinyxml2::XMLElement&, int)> parser);
+template Instruction fromXMLFile<Instruction>(const std::string& file_path,
+                                              std::function<Instruction(const tinyxml2::XMLElement&, int)> parser);
 
-template Instruction fromXMLString(const std::string& xml_string,
-                                   std::function<Instruction(const tinyxml2::XMLElement&, int)> parser);
+template Instruction fromXMLString<Instruction>(const std::string& xml_string,
+                                                std::function<Instruction(const tinyxml2::XMLElement&, int)> parser);
 
 template <>
 struct XMLElementName<Instruction>
@@ -402,11 +402,11 @@ struct XMLElementName<Instruction>
 template Waypoint fromXMLDocument<Waypoint>(const tinyxml2::XMLDocument& xml_doc,
                                             std::function<Waypoint(const tinyxml2::XMLElement&, int)> parser);
 
-template Waypoint fromXMLFile(const std::string& file_path,
-                              std::function<Waypoint(const tinyxml2::XMLElement&, int)> parser);
+template Waypoint fromXMLFile<Waypoint>(const std::string& file_path,
+                                        std::function<Waypoint(const tinyxml2::XMLElement&, int)> parser);
 
-template Waypoint fromXMLString(const std::string& xml_string,
-                                std::function<Waypoint(const tinyxml2::XMLElement&, int)> parser);
+template Waypoint fromXMLString<Waypoint>(const std::string& xml_string,
+                                          std::function<Waypoint(const tinyxml2::XMLElement&, int)> parser);
 
 template <>
 struct XMLElementName<Waypoint>

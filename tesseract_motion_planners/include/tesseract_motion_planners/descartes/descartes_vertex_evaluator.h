@@ -29,15 +29,15 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
+#include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-template <typename FloatType>
 class DescartesVertexEvaluator
 {
 public:
-  using Ptr = typename std::shared_ptr<DescartesVertexEvaluator<FloatType>>;
+  using Ptr = std::shared_ptr<DescartesVertexEvaluator>;
   DescartesVertexEvaluator() = default;
   virtual ~DescartesVertexEvaluator() = default;
   DescartesVertexEvaluator(const DescartesVertexEvaluator&) = delete;
@@ -50,19 +50,18 @@ public:
    * @param vertex The vertex to consider
    * @return True if vertex is valid, false otherwise. The relative cost associated with the vertex
    */
-  virtual bool operator()(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& vertex) const = 0;
+  virtual bool operator()(const Eigen::Ref<const Eigen::VectorXd>& vertex) const = 0;
 };
 
-template <typename FloatType>
-class DescartesJointLimitsVertexEvaluator : public DescartesVertexEvaluator<FloatType>
+class DescartesJointLimitsVertexEvaluator : public DescartesVertexEvaluator
 {
 public:
-  using Ptr = typename std::shared_ptr<DescartesJointLimitsVertexEvaluator<FloatType>>;
+  using Ptr = std::shared_ptr<DescartesJointLimitsVertexEvaluator>;
   DescartesJointLimitsVertexEvaluator(const Eigen::Ref<const Eigen::MatrixX2d>& limits) : limits_(limits) {}
 
-  bool operator()(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& vertex) const override
+  bool operator()(const Eigen::Ref<const Eigen::VectorXd>& vertex) const override
   {
-    assert(limits_.rows() == vertex.size());
+    assert(limits_.rows() == vertex.rows());
 
     for (int i = 0; i < limits_.rows(); ++i)
       if ((vertex(i) < limits_(i, 0)) || (vertex(i) > limits_(i, 1)))

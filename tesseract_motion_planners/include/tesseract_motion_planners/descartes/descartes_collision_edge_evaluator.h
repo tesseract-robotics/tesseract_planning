@@ -50,7 +50,8 @@ public:
                                   bool allow_collision = false,
                                   bool debug = false);
 
-  std::pair<bool, FloatType> considerEdge(const FloatType* start, const FloatType* end) override;
+  std::pair<bool, FloatType> evaluate(const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& start,
+                                      const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& end) const override;
 
 protected:
   /** @brief The tesseract state solver */
@@ -105,7 +106,7 @@ protected:
    */
   bool continuousCollisionCheck(std::vector<tesseract_collision::ContactResultMap>& results,
                                 const tesseract_common::TrajArray& segment,
-                                bool find_best);
+                                bool find_best) const;
 
   /**
    * @brief Perform a continuous discrete check between two states
@@ -115,7 +116,7 @@ protected:
    */
   bool discreteCollisionCheck(std::vector<tesseract_collision::ContactResultMap>& results,
                               const tesseract_common::TrajArray& segment,
-                              bool find_best);
+                              bool find_best) const;
 };
 
 using DescartesCollisionEdgeEvaluatorF = DescartesCollisionEdgeEvaluator<float>;

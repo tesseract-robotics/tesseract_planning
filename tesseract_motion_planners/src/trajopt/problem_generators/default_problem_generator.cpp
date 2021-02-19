@@ -210,9 +210,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           {
             assert(checkJointPositionFormat(pci->kin->getJointNames(), start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            if (!pci->kin->calcFwdKin(prev_pose, position))
-              throw std::runtime_error("TrajOptPlannerUniversalConfig: failed to solve forward kinematics!");
-
+            prev_pose = pci->kin->calcFwdKin(position);
             prev_pose = pci->env->getCurrentState()->link_transforms.at(pci->kin->getBaseLinkName()) * prev_pose * tcp;
           }
           else
@@ -263,10 +261,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           else
             throw std::runtime_error("Unsupported waypoint type.");
 
-          Eigen::Isometry3d cur_pose = Eigen::Isometry3d::Identity();
-          if (!pci->kin->calcFwdKin(cur_pose, cur_position))
-            throw std::runtime_error("TrajOptPlannerUniversalConfig: failed to solve forward kinematics!");
-
+          Eigen::Isometry3d cur_pose = pci->kin->calcFwdKin(cur_position);
           cur_pose = pci->env->getCurrentState()->link_transforms.at(pci->kin->getBaseLinkName()) * cur_pose * tcp;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
@@ -278,9 +273,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           {
             assert(checkJointPositionFormat(pci->kin->getJointNames(), start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            if (!pci->kin->calcFwdKin(prev_pose, position))
-              throw std::runtime_error("TrajOptPlannerUniversalConfig: failed to solve forward kinematics!");
-
+            prev_pose = pci->kin->calcFwdKin(position);
             prev_pose = pci->env->getCurrentState()->link_transforms.at(pci->kin->getBaseLinkName()) * prev_pose * tcp;
           }
           else
