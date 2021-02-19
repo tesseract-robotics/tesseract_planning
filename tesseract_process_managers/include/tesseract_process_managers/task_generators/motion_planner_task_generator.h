@@ -56,6 +56,9 @@ private:
 class MotionPlannerTaskInfo : public TaskInfo
 {
 public:
+  using Ptr = std::shared_ptr<MotionPlannerTaskInfo>;
+  using ConstPtr = std::shared_ptr<const MotionPlannerTaskInfo>;
+
   MotionPlannerTaskInfo(std::size_t unique_id, std::string name = "Motion Planner Process Generator");
 };
 

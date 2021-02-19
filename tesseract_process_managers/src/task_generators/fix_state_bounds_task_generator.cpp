@@ -29,6 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_command_language/utils/filter_functions.h>
@@ -49,6 +50,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   auto info = std::make_shared<FixStateBoundsTaskInfo>(unique_id, name_);
   info->return_value = 0;
   input.addTaskInfo(info);
+  saveInputs(info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -58,6 +60,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   {
     info->message = "Input instruction to FixStateBounds must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    saveOutputs(info, input);
     return 0;
   }
 
@@ -92,6 +95,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
   {
     info->return_value = 1;
+    saveOutputs(info, input);
     return 1;
   }
 
@@ -109,7 +113,10 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
           if (!clampToJointLimits(
                   mutable_instruction->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
+          {
+            saveOutputs(info, input);
             return 0;
+          }
         }
       }
     }
@@ -125,7 +132,10 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
           if (!clampToJointLimits(
                   mutable_instruction->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
+          {
+            saveOutputs(info, input);
             return 0;
+          }
         }
       }
     }
@@ -137,6 +147,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       {
         CONSOLE_BRIDGE_logWarn("FixStateBoundsTaskGenerator found no PlanInstructions to process");
         info->return_value = 1;
+        saveOutputs(info, input);
         return 1;
       }
 
@@ -155,17 +166,22 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
         Instruction* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);
         PlanInstruction* plan = mutable_instruction->cast<PlanInstruction>();
         if (!clampToJointLimits(plan->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
+        {
+          saveOutputs(info, input);
           return 0;
+        }
       }
     }
     break;
     case FixStateBoundsProfile::Settings::DISABLED:
       info->return_value = 1;
+      saveOutputs(info, input);
       return 1;
   }
 
   CONSOLE_BRIDGE_logDebug("FixStateBoundsTaskGenerator succeeded");
   info->return_value = 1;
+  saveOutputs(info, input);
   return 1;
 }
 

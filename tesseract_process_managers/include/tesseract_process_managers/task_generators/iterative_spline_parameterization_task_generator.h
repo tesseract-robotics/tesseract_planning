@@ -82,6 +82,9 @@ private:
 class IterativeSplineParameterizationTaskInfo : public TaskInfo
 {
 public:
+  using Ptr = std::shared_ptr<IterativeSplineParameterizationTaskInfo>;
+  using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationTaskInfo>;
+
   IterativeSplineParameterizationTaskInfo(std::size_t unique_id,
                                           std::string name = "Iterative Spline Parameterization");
 };

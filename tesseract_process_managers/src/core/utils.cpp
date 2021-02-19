@@ -88,4 +88,23 @@ int hasSeedTask(TaskInput input)
   }
   return 1;
 }
+
+void saveInputs(TaskInfo::Ptr info, TaskInput& input)
+{
+  if (input.save_io)
+  {
+    info->environment = input.env->clone();
+    info->instructions_input = *input.getInstruction();
+    info->results_input = *input.getResults();
+  }
+}
+
+void saveOutputs(TaskInfo::Ptr info, TaskInput& input)
+{
+  if (input.save_io)
+  {
+    info->instructions_output = *input.getInstruction();
+    info->results_output = *input.getResults();
+  }
+}
 }  // namespace tesseract_planning

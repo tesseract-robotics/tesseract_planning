@@ -91,6 +91,9 @@ public:
 class TimeOptimalTrajectoryGenerationTaskInfo : public TaskInfo
 {
 public:
+  using Ptr = std::shared_ptr<TimeOptimalTrajectoryGenerationTaskInfo>;
+  using ConstPtr = std::shared_ptr<const TimeOptimalTrajectoryGenerationTaskInfo>;
+
   TimeOptimalTrajectoryGenerationTaskInfo(std::size_t unique_id, std::string name = "TOTG");
 };
 }  // namespace tesseract_planning

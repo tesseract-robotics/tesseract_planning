@@ -100,6 +100,9 @@ public:
 class FixStateCollisionTaskInfo : public TaskInfo
 {
 public:
+  using Ptr = std::shared_ptr<FixStateCollisionTaskInfo>;
+  using ConstPtr = std::shared_ptr<const FixStateCollisionTaskInfo>;
+
   FixStateCollisionTaskInfo(std::size_t unique_id, std::string name = "Fix State Collision");
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;

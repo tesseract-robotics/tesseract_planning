@@ -72,6 +72,9 @@ public:
 class ProfileSwitchTaskInfo : public TaskInfo
 {
 public:
+  using Ptr = std::shared_ptr<ProfileSwitchTaskInfo>;
+  using ConstPtr = std::shared_ptr<const ProfileSwitchTaskInfo>;
+
   ProfileSwitchTaskInfo(std::size_t unique_id, std::string name = "Profile Switch");
 };
 }  // namespace tesseract_planning

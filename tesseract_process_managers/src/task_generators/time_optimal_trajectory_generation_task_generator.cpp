@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>
+#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/time_optimal_trajectory_generation_task_generator.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
@@ -68,6 +69,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   auto info = std::make_shared<TimeOptimalTrajectoryGenerationTaskInfo>(unique_id, name_);
   info->return_value = 0;
   input.addTaskInfo(info);
+  saveInputs(info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -76,6 +78,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   if (!isCompositeInstruction(*input_results))
   {
     CONSOLE_BRIDGE_logError("Input results to TOTG must be a composite instruction");
+    saveOutputs(info, input);
     return 0;
   }
 
@@ -97,6 +100,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   {
     CONSOLE_BRIDGE_logWarn("TOTG found no MoveInstructions to process");
     info->return_value = 1;
+    saveOutputs(info, input);
     return 1;
   }
 
@@ -134,11 +138,13 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
                                 acceleration_scaling_factors))
   {
     CONSOLE_BRIDGE_logInform("Failed to perform TOTG for process input: %s!", input_results->getDescription().c_str());
+    saveOutputs(info, input);
     return 0;
   }
 
   CONSOLE_BRIDGE_logDebug("TOTG succeeded");
   info->return_value = 1;
+  saveOutputs(info, input);
   return 1;
 }
 
