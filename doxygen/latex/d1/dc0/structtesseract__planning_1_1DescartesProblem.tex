@@ -25,21 +25,21 @@ tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \mbox{\hyperl
 \item 
 tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ada0fe37d0fdaccd3b0c064fe3f24447f}{manip\+\_\+inv\+\_\+kin}}
 \item 
-std\+::vector$<$ typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$ Float\+Type $>$\+::Ptr $>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a4ee90c5875379d9dacaa6daa038c6e5a}{edge\+\_\+evaluators}}
+std\+::vector$<$ typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$ Float\+Type $>$\+::Const\+Ptr $>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\+\_\+evaluators}}
 \item 
-std\+::vector$<$ typename descartes\+\_\+light\+::\+Position\+Sampler$<$ Float\+Type $>$\+::Ptr $>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a0c4da8022dad601e14a38b6e43c2ecec}{samplers}}
+std\+::vector$<$ typename descartes\+\_\+light\+::\+Waypoint\+Sampler$<$ Float\+Type $>$\+::Const\+Ptr $>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_abeb575d4b7d1c7a8901ef479d4737a1d}{samplers}}
 \item 
 int \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}{num\+\_\+threads}} = descartes\+\_\+light\+::\+Solver$<$double$>$\+::get\+Max\+Threads()
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_a4ee90c5875379d9dacaa6daa038c6e5a}\label{structtesseract__planning_1_1DescartesProblem_a4ee90c5875379d9dacaa6daa038c6e5a}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}\label{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}} 
 \index{tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}!edge\_evaluators@{edge\_evaluators}}
 \index{edge\_evaluators@{edge\_evaluators}!tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{edge\_evaluators}{edge\_evaluators}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-std\+::vector$<$typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$Float\+Type$>$\+::Ptr$>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::edge\+\_\+evaluators}
+std\+::vector$<$typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$Float\+Type$>$\+::Const\+Ptr$>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::edge\+\_\+evaluators}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_a457714fd35071442603378470abe3bb3}\label{structtesseract__planning_1_1DescartesProblem_a457714fd35071442603378470abe3bb3}} 
 \index{tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}!env@{env}}
@@ -76,12 +76,12 @@ tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperl
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 int \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::num\+\_\+threads = descartes\+\_\+light\+::\+Solver$<$double$>$\+::get\+Max\+Threads()}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_a0c4da8022dad601e14a38b6e43c2ecec}\label{structtesseract__planning_1_1DescartesProblem_a0c4da8022dad601e14a38b6e43c2ecec}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_abeb575d4b7d1c7a8901ef479d4737a1d}\label{structtesseract__planning_1_1DescartesProblem_abeb575d4b7d1c7a8901ef479d4737a1d}} 
 \index{tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}!samplers@{samplers}}
 \index{samplers@{samplers}!tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{samplers}{samplers}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-std\+::vector$<$typename descartes\+\_\+light\+::\+Position\+Sampler$<$Float\+Type$>$\+::Ptr$>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::samplers}
+std\+::vector$<$typename descartes\+\_\+light\+::\+Waypoint\+Sampler$<$Float\+Type$>$\+::Const\+Ptr$>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::samplers}
 
 
 
