@@ -939,6 +939,10 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ad650c5f30094ce1ee9f44381657d
 \begin{DoxyCompactList}\small\item\em Check if composite is empty along with children composites. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{namespacetesseract__planning_a6e3bc51fc2552d2913c17d1f020c23b4}{has\+Seed\+Task}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input)
 \begin{DoxyCompactList}\small\item\em Check if the input has a seed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacetesseract__planning_a021e462b7a4a10652f49589d709bf6c4}{save\+Inputs}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Task\+Info\+::\+Ptr}} info, \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input)
+\begin{DoxyCompactList}\small\item\em Saves the appropriate inputs to the \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacetesseract__planning_ae74ef8c59952e273152e1e81679f6c63}{save\+Outputs}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Task\+Info\+::\+Ptr}} info, \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input)
+\begin{DoxyCompactList}\small\item\em Saves the appropriate outputs to the \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a627d417f4d206352657ce7f78bc79287}{State\+In\+Collision}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start\+\_\+pos, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
 \begin{DoxyCompactList}\small\item\em Checks if a joint state is in collision. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a73655d12321af410a05104228465cbd3}{Waypoint\+In\+Collision}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
@@ -4005,6 +4009,40 @@ Given a tool pose create samples from \mbox{[}-\/PI, PI) around the z axis.
 \begin{DoxyReturn}{Returns}
 A vector of tool poses 
 \end{DoxyReturn}
+\mbox{\Hypertarget{namespacetesseract__planning_a021e462b7a4a10652f49589d709bf6c4}\label{namespacetesseract__planning_a021e462b7a4a10652f49589d709bf6c4}} 
+\index{tesseract\_planning@{tesseract\_planning}!saveInputs@{saveInputs}}
+\index{saveInputs@{saveInputs}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{saveInputs()}{saveInputs()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::save\+Inputs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Task\+Info\+::\+Ptr}}}]{info,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input }\end{DoxyParamCaption})}
+
+
+
+Saves the appropriate inputs to the \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em info} & \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} to which the inputs are saved \\
+\hline
+{\em input} & \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} from which the inputs are taken \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespacetesseract__planning_ae74ef8c59952e273152e1e81679f6c63}\label{namespacetesseract__planning_ae74ef8c59952e273152e1e81679f6c63}} 
+\index{tesseract\_planning@{tesseract\_planning}!saveOutputs@{saveOutputs}}
+\index{saveOutputs@{saveOutputs}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{saveOutputs()}{saveOutputs()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::save\+Outputs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Task\+Info\+::\+Ptr}}}]{info,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input }\end{DoxyParamCaption})}
+
+
+
+Saves the appropriate outputs to the \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em info} & \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} to which the outputs are saved \\
+\hline
+{\em input} & \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} from which the outputs are taken \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{namespacetesseract__planning_afbee7a7e2aeca68854a8282030d2fbc8}\label{namespacetesseract__planning_afbee7a7e2aeca68854a8282030d2fbc8}} 
 \index{tesseract\_planning@{tesseract\_planning}!setJointPosition@{setJointPosition}}
 \index{setJointPosition@{setJointPosition}!tesseract\_planning@{tesseract\_planning}}

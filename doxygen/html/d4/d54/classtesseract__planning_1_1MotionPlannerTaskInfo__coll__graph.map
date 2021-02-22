@@ -1,6 +1,8 @@
 <map id="tesseract_planning::MotionPlannerTaskInfo" name="tesseract_planning::MotionPlannerTaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="5,291,168,332"/>
-<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="21,200,152,241"/>
-<area shape="rect" id="node3" title=" " alt="" coords="47,96,126,123"/>
-<area shape="rect" id="node4" title=" " alt="" coords="25,5,149,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="775,66,937,107"/>
+<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="595,66,725,107"/>
+<area shape="rect" id="node3" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="305,31,436,73"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,23,187,79"/>
+<area shape="rect" id="node5" title=" " alt="" coords="331,108,410,135"/>
+<area shape="rect" id="node6" title=" " alt="" coords="34,102,158,143"/>
 </map>

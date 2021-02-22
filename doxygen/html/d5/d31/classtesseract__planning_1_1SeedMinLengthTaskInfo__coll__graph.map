@@ -1,6 +1,8 @@
 <map id="tesseract_planning::SeedMinLengthTaskInfo" name="tesseract_planning::SeedMinLengthTaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="5,291,176,332"/>
-<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="25,200,156,241"/>
-<area shape="rect" id="node3" title=" " alt="" coords="51,96,130,123"/>
-<area shape="rect" id="node4" title=" " alt="" coords="29,5,153,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="775,66,945,107"/>
+<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="595,66,725,107"/>
+<area shape="rect" id="node3" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="305,31,436,73"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,23,187,79"/>
+<area shape="rect" id="node5" title=" " alt="" coords="331,108,410,135"/>
+<area shape="rect" id="node6" title=" " alt="" coords="34,102,158,143"/>
 </map>

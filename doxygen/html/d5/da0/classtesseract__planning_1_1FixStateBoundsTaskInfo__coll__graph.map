@@ -1,7 +1,9 @@
 <map id="tesseract_planning::FixStateBoundsTaskInfo" name="tesseract_planning::FixStateBoundsTaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="80,304,251,345"/>
-<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="5,200,136,241"/>
-<area shape="rect" id="node3" title=" " alt="" coords="31,96,110,123"/>
-<area shape="rect" id="node4" title=" " alt="" coords="9,5,133,47"/>
-<area shape="rect" id="node5" title=" " alt="" coords="160,200,360,241"/>
+<area shape="rect" id="node1" title=" " alt="" coords="936,113,1107,154"/>
+<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="629,65,760,106"/>
+<area shape="rect" id="node3" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="305,33,436,74"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,24,187,80"/>
+<area shape="rect" id="node5" title=" " alt="" coords="331,109,410,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="34,103,158,145"/>
+<area shape="rect" id="node7" title=" " alt="" coords="595,130,795,171"/>
 </map>

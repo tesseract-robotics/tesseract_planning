@@ -1,9 +1,18 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/core/taskflow_interface.h" name="tesseract_process_managers/include/tesseract_process_managers/core/taskflow_interface.h">
-<area shape="rect" id="node1" title="Process Inteface." alt="" coords="199,5,434,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,199,196,225"/>
-<area shape="rect" id="node3" title=" " alt="" coords="489,117,550,143"/>
-<area shape="rect" id="node4" title=" " alt="" coords="220,199,267,225"/>
-<area shape="rect" id="node5" title=" " alt="" coords="417,199,485,225"/>
-<area shape="rect" id="node6" href="$dd/d0f/task__info_8h.html" title="Process Info." alt="" coords="220,109,413,151"/>
-<area shape="rect" id="node7" title=" " alt="" coords="291,199,393,225"/>
+<area shape="rect" id="node1" title="Process Inteface." alt="" coords="278,5,513,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="97,385,288,411"/>
+<area shape="rect" id="node3" title=" " alt="" coords="567,117,629,143"/>
+<area shape="rect" id="node4" title=" " alt="" coords="808,206,855,233"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,385,73,411"/>
+<area shape="rect" id="node6" href="$dd/d0f/task__info_8h.html" title="Process Info." alt="" coords="299,109,492,151"/>
+<area shape="rect" id="node7" title=" " alt="" coords="501,206,604,233"/>
+<area shape="rect" id="node8" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="228,199,427,240"/>
+<area shape="rect" id="node13" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="652,288,851,329"/>
+<area shape="rect" id="node16" title=" " alt="" coords="629,199,783,240"/>
+<area shape="rect" id="node9" title=" " alt="" coords="508,385,563,411"/>
+<area shape="rect" id="node10" title=" " alt="" coords="587,385,665,411"/>
+<area shape="rect" id="node11" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="329,288,528,329"/>
+<area shape="rect" id="node12" title=" " alt="" coords="313,377,483,419"/>
+<area shape="rect" id="node14" title=" " alt="" coords="911,385,983,411"/>
+<area shape="rect" id="node15" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="689,377,888,419"/>
 </map>

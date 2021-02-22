@@ -1178,6 +1178,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a6e3bc51fc2552d2913c17d1f020c23b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6e3bc51fc2552d2913c17d1f020c23b4">hasSeedTask</a> (<a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> input)</td></tr>
 <tr class="memdesc:a6e3bc51fc2552d2913c17d1f020c23b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the input has a seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a6e3bc51fc2552d2913c17d1f020c23b4">More...</a><br /></td></tr>
 <tr class="separator:a6e3bc51fc2552d2913c17d1f020c23b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a021e462b7a4a10652f49589d709bf6c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a021e462b7a4a10652f49589d709bf6c4">saveInputs</a> (<a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2ddc8ab5484c9af3ff7167200467bd3e">TaskInfo::Ptr</a> info, <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input)</td></tr>
+<tr class="memdesc:a021e462b7a4a10652f49589d709bf6c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the appropriate inputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#a021e462b7a4a10652f49589d709bf6c4">More...</a><br /></td></tr>
+<tr class="separator:a021e462b7a4a10652f49589d709bf6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae74ef8c59952e273152e1e81679f6c63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae74ef8c59952e273152e1e81679f6c63">saveOutputs</a> (<a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2ddc8ab5484c9af3ff7167200467bd3e">TaskInfo::Ptr</a> info, <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input)</td></tr>
+<tr class="memdesc:ae74ef8c59952e273152e1e81679f6c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the appropriate outputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae74ef8c59952e273152e1e81679f6c63">More...</a><br /></td></tr>
+<tr class="separator:ae74ef8c59952e273152e1e81679f6c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a627d417f4d206352657ce7f78bc79287"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a627d417f4d206352657ce7f78bc79287">StateInCollision</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;start_pos, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
 <tr class="memdesc:a627d417f4d206352657ce7f78bc79287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a joint state is in collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#a627d417f4d206352657ce7f78bc79287">More...</a><br /></td></tr>
 <tr class="separator:a627d417f4d206352657ce7f78bc79287"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -9134,6 +9140,80 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="a021e462b7a4a10652f49589d709bf6c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a021e462b7a4a10652f49589d709bf6c4">&#9670;&nbsp;</a></span>saveInputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::saveInputs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2ddc8ab5484c9af3ff7167200467bd3e">TaskInfo::Ptr</a>&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves the appropriate inputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> to which the inputs are saved </td></tr>
+    <tr><td class="paramname">input</td><td><a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html" title="This struct is passed as an input to each process in the decision tree.">TaskInput</a> from which the inputs are taken </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae74ef8c59952e273152e1e81679f6c63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae74ef8c59952e273152e1e81679f6c63">&#9670;&nbsp;</a></span>saveOutputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::saveOutputs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2ddc8ab5484c9af3ff7167200467bd3e">TaskInfo::Ptr</a>&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves the appropriate outputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> to which the outputs are saved </td></tr>
+    <tr><td class="paramname">input</td><td><a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html" title="This struct is passed as an input to each process in the decision tree.">TaskInput</a> from which the outputs are taken </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="afbee7a7e2aeca68854a8282030d2fbc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afbee7a7e2aeca68854a8282030d2fbc8">&#9670;&nbsp;</a></span>setJointPosition()</h2>
 
@@ -10313,7 +10393,7 @@ template&lt;typename SerializableType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 20 2021 16:36:04 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Feb 22 2021 21:49:45 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

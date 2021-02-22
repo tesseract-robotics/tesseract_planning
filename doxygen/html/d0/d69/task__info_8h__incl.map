@@ -1,7 +1,16 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/core/task_info.h" name="tesseract_process_managers/include/tesseract_process_managers/core/task_info.h">
-<area shape="rect" id="node1" title="Process Info." alt="" coords="212,5,405,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,109,196,136"/>
-<area shape="rect" id="node3" title=" " alt="" coords="220,109,288,136"/>
-<area shape="rect" id="node4" title=" " alt="" coords="312,109,415,136"/>
-<area shape="rect" id="node5" title=" " alt="" coords="439,109,485,136"/>
+<area shape="rect" id="node1" title="Process Info." alt="" coords="412,5,605,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="475,295,665,322"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,295,73,322"/>
+<area shape="rect" id="node4" title=" " alt="" coords="359,117,461,143"/>
+<area shape="rect" id="node5" title=" " alt="" coords="485,117,532,143"/>
+<area shape="rect" id="node6" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="136,109,335,151"/>
+<area shape="rect" id="node11" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="607,199,805,240"/>
+<area shape="rect" id="node14" title=" " alt="" coords="658,109,813,151"/>
+<area shape="rect" id="node7" title=" " alt="" coords="97,295,152,322"/>
+<area shape="rect" id="node8" title=" " alt="" coords="372,295,451,322"/>
+<area shape="rect" id="node9" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="133,199,332,240"/>
+<area shape="rect" id="node10" title=" " alt="" coords="177,288,347,329"/>
+<area shape="rect" id="node12" title=" " alt="" coords="690,295,762,322"/>
+<area shape="rect" id="node13" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="785,288,984,329"/>
 </map>
