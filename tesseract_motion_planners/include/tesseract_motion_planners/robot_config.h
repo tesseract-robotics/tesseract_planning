@@ -72,8 +72,7 @@ inline RobotConfig getRobotConfig(const tesseract_kinematics::ForwardKinematics:
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
   // Get the pose at tool0
-  Eigen::Isometry3d pose;
-  robot_kin->calcFwdKin(pose, joint_values.template cast<double>());
+  Eigen::Isometry3d pose = robot_kin->calcFwdKin(joint_values.template cast<double>());
 
   // Get the base rotated by joint 1
   Eigen::Isometry3d prime_pose(Eigen::AngleAxisd(static_cast<double>(joint_values(0)), Eigen::Vector3d::UnitZ()));
