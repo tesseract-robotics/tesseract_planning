@@ -26,6 +26,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
+#include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
@@ -478,6 +479,34 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)
       EXPECT_EQ(skeleton_i.getType(), composite_i.getType());
     }
   }
+}
+
+TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)
+{
+  CompositeInstruction composite;
+  composite.setDescription("To Delimited File: Composite");
+
+  std::vector<std::string> joint_names = { "1", "2", "3" };
+  Eigen::VectorXd values = Eigen::VectorXd::Constant(3, 5);
+  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  values = Eigen::VectorXd::Constant(3, 10);
+  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  values = Eigen::VectorXd::Constant(3, 15);
+  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+
+  std::string path = tesseract_common::getTempPath() + "to_delimited_file.csv";
+  toDelimitedFile(composite, path);
+
+  std::string check_string = "";
+
+  //  std::string outputstring;
+  //  std::string buffer;
+  //  std::ifstream input(path);
+
+  //  while (std::getline(input, buffer))
+  //      outputstring += (buffer + '\n');
+
+  //  EXPECT_EQ(outputstring, check_string);
 }
 
 int main(int argc, char** argv)

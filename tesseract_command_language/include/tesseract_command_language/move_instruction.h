@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/constants.h>
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/types.h>
 
 namespace tesseract_planning
@@ -50,6 +49,7 @@ enum class MoveInstructionType : int
 class MoveInstruction
 {
 public:
+  MoveInstruction() = default;  // Required for boost serialization do not use
   MoveInstruction(Waypoint waypoint,
                   MoveInstructionType type,
                   const std::string& profile = DEFAULT_PROFILE_KEY,
@@ -72,7 +72,7 @@ public:
 
   void setDescription(const std::string& description);
 
-  void print(std::string prefix = "") const;
+  void print(const std::string& prefix = "") const;
 
   void setMoveType(MoveInstructionType move_type);
 
@@ -88,9 +88,10 @@ public:
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
 
-private:
-  int type_{ static_cast<int>(InstructionType::MOVE_INSTRUCTION) };
+  bool operator==(const MoveInstruction& rhs) const;
+  bool operator!=(const MoveInstruction& rhs) const;
 
+private:
   MoveInstructionType move_type_;
   std::string description_;
 
@@ -98,10 +99,21 @@ private:
   std::string profile_{ DEFAULT_PROFILE_KEY };
 
   /** @brief The assigned waypoint (Cartesian or Joint) */
-  Waypoint waypoint_;
+  Waypoint waypoint_{ NullWaypoint() };
 
   /** @brief Contains information about the manipulator associated with this instruction*/
   ManipulatorInfo manipulator_info_;
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& boost::serialization::make_nvp("move_type", move_type_);
+    ar& boost::serialization::make_nvp("description", description_);
+    ar& boost::serialization::make_nvp("profile", profile_);
+    ar& boost::serialization::make_nvp("waypoint", waypoint_);
+    ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
+  }
 };
 
 }  // namespace tesseract_planning

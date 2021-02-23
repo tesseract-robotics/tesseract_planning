@@ -30,9 +30,13 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <tinyxml2.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/null_instruction.h>
 #include <tesseract_common/sfinae_utils.h>
 
 #ifdef SWIG
@@ -41,6 +45,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 %pythondynamic tesseract_planning::Instruction;
 %template(Instructions) std::vector<tesseract_planning::Instruction>;
 #endif  // SWIG
+
+#define TESSERACT_INSTRUCTION_EXPORT(inst)                                                                             \
+  BOOST_CLASS_EXPORT_GUID(tesseract_planning::detail_instruction::InstructionInner<inst>, #inst)                       \
+  BOOST_CLASS_TRACKING(tesseract_planning::detail_instruction::InstructionInner<inst>,                                 \
+                       boost::serialization::track_never)
 
 namespace tesseract_planning
 {
@@ -73,7 +82,7 @@ struct InstructionInnerBase
 
   virtual void setDescription(const std::string& description) = 0;
 
-  virtual void print(std::string prefix) const = 0;
+  virtual void print(const std::string& prefix) const = 0;
 
   virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
 
@@ -82,6 +91,13 @@ struct InstructionInnerBase
 
   // This is not required for user defined implementation
   virtual std::unique_ptr<InstructionInnerBase> clone() const = 0;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/)
+  {
+  }
 };
 
 template <typename T>
@@ -154,9 +170,19 @@ struct InstructionInner final : InstructionInnerBase
 
   void setDescription(const std::string& description) final { instruction_.setDescription(description); }
 
-  void print(std::string prefix) const final { instruction_.print(prefix); }
+  void print(const std::string& prefix) const final { instruction_.print(prefix); }
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const final { return instruction_.toXML(doc); }
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    // If this line is removed a exception is thrown for unregistered cast need to too look into this.
+    ar& boost::serialization::make_nvp("base", boost::serialization::base_object<InstructionInnerBase>(*this));
+    ar& boost::serialization::make_nvp("impl", instruction_);
+  }
 
   T instruction_;
 };
@@ -179,6 +205,11 @@ public:
   template <typename T, generic_ctor_enabler<T> = 0>
   Instruction(T&& instruction)  // NOLINT
     : instruction_(std::make_unique<detail_instruction::InstructionInner<uncvref_t<T>>>(instruction))
+  {
+  }
+
+  Instruction()  // NOLINT
+    : instruction_(std::make_unique<detail_instruction::InstructionInner<uncvref_t<NullInstruction>>>())
   {
   }
 
@@ -217,7 +248,7 @@ public:
 
   void setDescription(const std::string& description) { instruction_->setDescription(description); }
 
-  void print(std::string prefix = "") const { instruction_->print(std::move(prefix)); }
+  void print(const std::string& prefix = "") const { instruction_->print(prefix); }
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const { return instruction_->toXML(doc); }
 
@@ -234,9 +265,18 @@ public:
   }
 
 private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& boost::serialization::make_nvp("instruction", instruction_);
+  }
+
   std::unique_ptr<detail_instruction::InstructionInnerBase> instruction_;
 };
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_TRACKING(tesseract_planning::Instruction, boost::serialization::track_never);
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H

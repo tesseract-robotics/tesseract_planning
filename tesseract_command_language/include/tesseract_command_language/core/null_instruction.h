@@ -29,23 +29,23 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
+#include <string>
 #include <tinyxml2.h>
+#include <boost/serialization/base_object.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
-#include <tesseract_command_language/instruction_type.h>
 
 namespace tesseract_planning
 {
 class NullInstruction
 {
 public:
-  int getType() const { return static_cast<int>(InstructionType::NULL_INSTRUCTION); }
+  int getType() const { return 0; }
 
   const std::string& getDescription() const { return description_; }
 
   void setDescription(const std::string& description) { description_ = description; }
 
-  void print(std::string prefix = "") const  // NOLINT
+  void print(const std::string& prefix = "") const  // NOLINT
   {
     std::cout << prefix + "Null Instruction, Type: " << getType() << "  Description: " << getDescription() << std::endl;
   }
@@ -68,6 +68,12 @@ public:
 private:
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Null Instruction" };
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/)
+  {
+  }
 };
 }  // namespace tesseract_planning
 

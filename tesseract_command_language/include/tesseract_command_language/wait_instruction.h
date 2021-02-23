@@ -31,9 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <string>
 #include <tinyxml2.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/instruction_type.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -59,6 +62,7 @@ enum class WaitInstructionType : int
 class WaitInstruction
 {
 public:
+  WaitInstruction() = default;  // Required for boost serialization do not use
   WaitInstruction(double time) : wait_type_(WaitInstructionType::TIME), wait_time_(time) {}
   WaitInstruction(WaitInstructionType type, int io) : wait_type_(type), wait_io_(io)
   {
@@ -72,7 +76,7 @@ public:
 
   void setDescription(const std::string& description) { description_ = description; }
 
-  void print(std::string prefix = "") const  // NOLINT
+  void print(const std::string& prefix = "") const  // NOLINT
   {
     std::cout << prefix + "Wait Instruction, Type: " << getType() << ", Wait Type: " << static_cast<int>(wait_type_)
               << ", ";
@@ -137,12 +141,46 @@ public:
     return xml_instruction;
   }
 
+  /**
+   * @brief Equal operator. Does not compare descriptions
+   * @param rhs TimerInstruction
+   * @return True if equal, otherwise false
+   */
+  bool operator==(const WaitInstruction& rhs) const
+  {
+    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+    bool equal = true;
+    equal &= tesseract_common::almostEqualRelativeAndAbs(wait_time_, rhs.wait_time_, max_diff);
+    equal &= (wait_type_ == rhs.wait_type_);
+    equal &= (wait_io_ == rhs.wait_io_);
+
+    return equal;
+  }
+
+  /**
+   * @brief Not equal operator. Does not compare descriptions
+   * @param rhs TimerInstruction
+   * @return True if not equal, otherwise false
+   */
+  bool operator!=(const WaitInstruction& rhs) const { return !operator==(rhs); }
+
 private:
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Wait Instruction" };
   WaitInstructionType wait_type_;
   double wait_time_{ 0 };
   int wait_io_{ -1 };
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& boost::serialization::make_nvp("description", description_);
+    ar& boost::serialization::make_nvp("wait_type", wait_type_);
+    ar& boost::serialization::make_nvp("wait_time", wait_time_);
+    ar& boost::serialization::make_nvp("wait_io", wait_io_);
+  }
 };
 }  // namespace tesseract_planning
 

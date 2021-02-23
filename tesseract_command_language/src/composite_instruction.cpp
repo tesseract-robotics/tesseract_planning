@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/plan_instruction.h>
+#include <tesseract_command_language/compare_instruction.h>
 
 namespace tesseract_planning
 {
@@ -70,7 +70,14 @@ Instruction& CompositeInstruction::getStartInstruction() { return start_instruct
 
 bool CompositeInstruction::hasStartInstruction() const { return (!isNullInstruction(start_instruction_)); }
 
-void CompositeInstruction::print(std::string prefix) const
+void CompositeInstruction::setInstructions(std::vector<tesseract_planning::Instruction> instructions)
+{
+  container_.swap(instructions);
+}
+std::vector<tesseract_planning::Instruction>& CompositeInstruction::getInstructions() { return container_; }
+const std::vector<tesseract_planning::Instruction>& CompositeInstruction::getInstructions() const { return container_; }
+
+void CompositeInstruction::print(const std::string& prefix) const
 {
   std::cout << prefix + "Composite Instruction, Description: " << getDescription() << std::endl;
   std::cout << prefix + "--- Start Instruction, Description: " << start_instruction_.getDescription() << std::endl;
@@ -116,6 +123,24 @@ tinyxml2::XMLElement* CompositeInstruction::toXML(tinyxml2::XMLDocument& doc) co
 
   return xml_instruction;
 }
+
+bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
+{
+  bool equal = true;
+  equal &= (static_cast<int>(order_) == static_cast<int>(rhs.order_));
+  equal &= (profile_ == rhs.profile_);  // NOLINT
+  equal &= (manipulator_info_ == rhs.manipulator_info_);
+  equal &= (start_instruction_ == rhs.start_instruction_);
+  equal &= (container_.size() == rhs.container_.size());
+  if (equal)
+  {
+    for (std::size_t i = 0; i < container_.size(); ++i)
+      equal &= (container_[i] == rhs.container_[i]);
+  }
+  return equal;
+}
+
+bool CompositeInstruction::operator!=(const CompositeInstruction& rhs) const { return !operator==(rhs); }
 
 ///////////////
 // Iterators //

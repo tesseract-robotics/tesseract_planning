@@ -30,6 +30,8 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tinyxml2.h>
 #include <string>
+#include <iostream>
+#include <boost/serialization/base_object.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
@@ -38,13 +40,29 @@ class NullWaypoint
 {
 public:
   NullWaypoint() = default;
-  NullWaypoint(const tinyxml2::XMLElement& xml_element);
+  NullWaypoint(const tinyxml2::XMLElement& /*xml_element*/) {}
 
-  int getType() const;
+  int getType() const { return 0; }
 
-  void print(const std::string& prefix = "") const;
+  void print(const std::string& prefix = "") const { std::cout << prefix << "Null WP"; }
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
+  {
+    tinyxml2::XMLElement* xml_waypoint = doc.NewElement("Waypoint");
+    xml_waypoint->SetAttribute("type", std::to_string(getType()).c_str());
+
+    tinyxml2::XMLElement* xml_null_waypoint = doc.NewElement("NullWaypoint");
+    xml_waypoint->InsertEndChild(xml_null_waypoint);
+
+    return xml_waypoint;
+  }
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/)
+  {
+  }
 };
 }  // namespace tesseract_planning
 

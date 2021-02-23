@@ -12,7 +12,7 @@ endif()
 find_package(console_bridge REQUIRED)
 find_package(tesseract_common REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED COMPONENTS serialization)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -40,8 +40,9 @@ add_library(${PROJECT_NAME}
   src/waypoint_type.cpp
   src/serialize.cpp
   src/deserialize.cpp
-  src/null_waypoint.cpp
   src/state_waypoint.cpp
+  src/compare_waypoint.cpp
+  src/compare_instruction.cpp
   src/utils/flatten_utils.cpp
   src/utils/filter_functions.cpp
   src/utils/get_instruction_utils.cpp

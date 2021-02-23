@@ -31,16 +31,26 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <string>
 #include <tinyxml2.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/sfinae_utils.h>
+#include <tesseract_command_language/core/null_waypoint.h>
 
 #ifdef SWIG
 //%template(Waypoints) std::vector<tesseract_planning::Waypoint>;
 #endif  // SWIG
 
+#define TESSERACT_WAYPOINT_EXPORT(wp)                                                                                  \
+  BOOST_CLASS_EXPORT_GUID(tesseract_planning::detail_waypoint::WaypointInner<wp>, #wp)                                 \
+  BOOST_CLASS_TRACKING(tesseract_planning::detail_waypoint::WaypointInner<wp>, boost::serialization::track_never)
+
 namespace tesseract_planning
 {
+class Waypoint;
+
 #ifndef SWIG
 namespace detail_waypoint
 {
@@ -50,7 +60,6 @@ CREATE_MEMBER_CHECK(toXML);
 CREATE_MEMBER_FUNC_SIGNATURE_NOARGS_CHECK(getType, int);
 CREATE_MEMBER_FUNC_SIGNATURE_CHECK(print, void, std::string);
 CREATE_MEMBER_FUNC_SIGNATURE_CHECK(toXML, tinyxml2::XMLElement*, tinyxml2::XMLDocument&);
-
 struct WaypointInnerBase
 {
   WaypointInnerBase() = default;
@@ -71,6 +80,13 @@ struct WaypointInnerBase
 
   // This is not required for user defined implementation
   virtual std::unique_ptr<WaypointInnerBase> clone() const = 0;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/)
+  {
+  }
 };
 
 template <typename T>
@@ -121,9 +137,18 @@ struct WaypointInner final : WaypointInnerBase
 
   void* recover() final { return &waypoint_; }
 
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    // If this line is removed a exception is thrown for unregistered cast need to too look into this.
+    ar& boost::serialization::make_nvp("base", boost::serialization::base_object<WaypointInnerBase>(*this));
+    ar& boost::serialization::make_nvp("impl", waypoint_);
+  }
+
   T waypoint_;
 };
-
 }  // namespace detail_waypoint
 #endif  // SWIG
 
@@ -141,6 +166,11 @@ public:
   template <typename T, generic_ctor_enabler<T> = 0>
   Waypoint(T&& waypoint)  // NOLINT
     : waypoint_(std::make_unique<detail_waypoint::WaypointInner<uncvref_t<T>>>(waypoint))
+  {
+  }
+
+  Waypoint()  // NOLINT
+    : waypoint_(std::make_unique<detail_waypoint::WaypointInner<uncvref_t<NullWaypoint>>>())
   {
   }
 
@@ -192,9 +222,18 @@ public:
   }
 
 private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& boost::serialization::make_nvp("waypoint", waypoint_);
+  }
+
   std::unique_ptr<detail_waypoint::WaypointInnerBase> waypoint_;
 };
 
 }  // namespace tesseract_planning
+
+BOOST_CLASS_TRACKING(tesseract_planning::Waypoint, boost::serialization::track_never);
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAYPOINT_H

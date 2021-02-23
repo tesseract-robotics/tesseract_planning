@@ -36,7 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/types.h>
 
 #include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/null_instruction.h>
 
 #include <tesseract_environment/core/commands.h>
 #include <tesseract_environment/core/types.h>

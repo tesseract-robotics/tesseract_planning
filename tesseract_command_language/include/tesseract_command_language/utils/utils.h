@@ -34,6 +34,7 @@
 
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/types.h>
+#include <tesseract_common/joint_state.h>
 
 namespace tesseract_planning
 {
@@ -149,6 +150,17 @@ bool clampToJointLimits(Waypoint& wp,
  * @return
  */
 CompositeInstruction generateSkeletonSeed(const CompositeInstruction& composite_instructions);
+
+/**
+ * @brief Convert a CompositeInstruction to delimited formate file by extracting all MoveInstructions
+ * @param composite_instructions The CompositeInstruction to extract data from
+ * @param file_path The location to save the file
+ * @param separator The separator to use
+ * @return true if successful
+ */
+bool toDelimitedFile(const CompositeInstruction& composite_instructions,
+                     const std::string& file_path,
+                     char separator = ',');
 
 // TODO: implement validateSeedStructure
 #ifndef SWIG

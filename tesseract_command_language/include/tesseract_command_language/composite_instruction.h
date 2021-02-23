@@ -31,12 +31,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <string>
 #include <tinyxml2.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/vector.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/types.h>
 
 namespace tesseract_planning
@@ -76,9 +78,17 @@ public:
   Instruction& getStartInstruction();
   bool hasStartInstruction() const;
 
-  void print(std::string prefix = "") const;
+  void setInstructions(std::vector<tesseract_planning::Instruction> instructions);
+  std::vector<tesseract_planning::Instruction>& getInstructions();
+  const std::vector<tesseract_planning::Instruction>& getInstructions() const;
+
+  void print(const std::string& prefix = "") const;
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+
+  bool operator==(const CompositeInstruction& rhs) const;
+
+  bool operator!=(const CompositeInstruction& rhs) const;
 
   // C++ container support
 
@@ -271,12 +281,17 @@ private:
    */
   value_type start_instruction_{ NullInstruction() };
 
-public:
-  std::vector<tesseract_planning::Instruction>& getInstructions() { return container_; }
-
-  const std::vector<tesseract_planning::Instruction>& getInstructions() const { return container_; }
-
-  void setInstructions(std::vector<tesseract_planning::Instruction> instructions) { container_.swap(instructions); }
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& boost::serialization::make_nvp("description", description_);
+    ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
+    ar& boost::serialization::make_nvp("profile", profile_);
+    ar& boost::serialization::make_nvp("order", order_);
+    ar& boost::serialization::make_nvp("start_instruction", start_instruction_);
+    ar& boost::serialization::make_nvp("container", container_);
+  }
 };
 
 }  // namespace tesseract_planning
