@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/unique_ptr.hpp>
+#include <boost/type_traits/is_virtual_base_of.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/sfinae_utils.h>
@@ -127,7 +128,7 @@ struct WaypointInner final : WaypointInnerBase
     static_assert(has_member_func_signature_toXML<T>::value, "Class 'toXML' function has incorrect signature");
   }
 
-  std::unique_ptr<WaypointInnerBase> clone() const override { return std::make_unique<WaypointInner>(waypoint_); }
+  std::unique_ptr<WaypointInnerBase> clone() const final { return std::make_unique<WaypointInner>(waypoint_); }
 
   int getType() const final { return waypoint_.getType(); }
 
@@ -151,7 +152,27 @@ private:
 };
 }  // namespace detail_waypoint
 #endif  // SWIG
+}  // namespace tesseract_planning
 
+namespace boost
+{
+// Taken from pagmo to address the same issue
+// NOTE: in some earlier versions of Boost (i.e., at least up to 1.67)
+// the is_virtual_base_of type trait, used by the Boost serialization library, fails
+// with a compile time error if a class is declared final. Thus, we provide a specialised
+// implementation of this type trait to work around the issue. See:
+// https://www.boost.org/doc/libs/1_52_0/libs/type_traits/doc/html/boost_typetraits/reference/is_virtual_base_of.html
+// https://stackoverflow.com/questions/18982064/boost-serialization-of-base-class-of-final-subclass-error
+// We never use virtual inheritance, thus the specialisation is always false.
+template <typename T>
+struct is_virtual_base_of<tesseract_planning::detail_waypoint::WaypointInnerBase,
+                          tesseract_planning::detail_waypoint::WaypointInner<T>> : false_type
+{
+};
+}  // namespace boost
+
+namespace tesseract_planning
+{
 class Waypoint
 {
   template <typename T>
