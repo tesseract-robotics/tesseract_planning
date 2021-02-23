@@ -104,86 +104,85 @@ $(function() {
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                  <span class="keyword">const</span> Eigen::Ref&lt;const Eigen::Vector2i&gt;&amp; sign_correction = Eigen::Vector2i::Ones())</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="comment">// Get the pose at tool0</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  Eigen::Isometry3d pose;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  robot_kin-&gt;calcFwdKin(pose, joint_values.template cast&lt;double&gt;());</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="comment">// Get the base rotated by joint 1</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  Eigen::Isometry3d prime_pose(Eigen::AngleAxisd(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(joint_values(0)), Eigen::Vector3d::UnitZ()));</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="comment">// Transform tool0 pose into new frame</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  Eigen::Isometry3d pose_prime = prime_pose.inverse() * pose;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="comment">// If pose_prime.x is greater than and equal to zero then it is in the forward configuration, otherwise</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="comment">// in the backward configuration.</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &gt;= 0 &amp;&amp; pose_prime.translation().x() &gt;= 0 &amp;&amp;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      (sign_correction[0] * joint_values(2)) &lt; M_PI / 2)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf">RobotConfig::FUT</a>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &lt; 0 &amp;&amp; pose_prime.translation().x() &gt;= 0 &amp;&amp;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      (sign_correction[0] * joint_values(2)) &lt; M_PI / 2)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0">RobotConfig::NUT</a>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &gt;= 0 &amp;&amp; pose_prime.translation().x() &gt;= 0 &amp;&amp;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      (sign_correction[0] * joint_values(2)) &gt;= M_PI / 2)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a97d38c259b5e41097c285878bdc750ba">RobotConfig::FDT</a>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &lt; 0 &amp;&amp; pose_prime.translation().x() &gt;= 0 &amp;&amp;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      (sign_correction[0] * joint_values(2)) &gt;= M_PI / 2)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42">RobotConfig::NDT</a>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &gt;= 0 &amp;&amp; pose_prime.translation().x() &lt; 0 &amp;&amp;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      (sign_correction[0] * joint_values(2)) &lt; M_PI / 2)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a5def066398a04b9d615c6a9d4cf63d3b">RobotConfig::FUB</a>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &lt; 0 &amp;&amp; pose_prime.translation().x() &lt; 0 &amp;&amp;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      (sign_correction[0] * joint_values(2)) &lt; M_PI / 2)</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020">RobotConfig::NUB</a>;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &gt;= 0 &amp;&amp; pose_prime.translation().x() &lt; 0 &amp;&amp;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      (sign_correction[0] * joint_values(2)) &gt;= M_PI / 2)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aa26eb45c36831fefc4e66aabddd7b450">RobotConfig::FDB</a>;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a57eaecb0d3cb5d6855b841b911f6778c">RobotConfig::NDB</a>;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> FloatType&gt;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">inline</span> Eigen::Vector3i</div>
-<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">  140</a></span>&#160;<a class="code" href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">getRobotRedundancy</a>(<span class="keyword">const</span> Eigen::Ref&lt;<span class="keyword">const</span> Eigen::Matrix&lt;FloatType, Eigen::Dynamic, 1&gt;&gt;&amp; joint_values,</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                   <span class="keyword">const</span> Eigen::Ref&lt;const Eigen::Vector2i&gt;&amp; sign_correction = Eigen::Vector2i::Ones())</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;{</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  Eigen::Vector3i redundancy;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <span class="comment">// The joints on a 6 dof robot with redundancy capability are axis 1, 5, and 6.</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="keywordtype">int</span> red_1 = int(joint_values(0) / M_PI);</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="keywordtype">int</span> red_2 = int(sign_correction[1] * joint_values(4) / M_PI);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  <span class="keywordtype">int</span> red_3 = int(joint_values(5) / M_PI);</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  redundancy &lt;&lt; red_1, red_2, red_3;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="keywordflow">return</span> redundancy;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#ifdef SWIG</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;%<span class="keyword">template</span>(<a class="code" href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">getRobotConfig</a>) tesseract_planning::getRobotConfig&lt;double&gt;;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SWIG</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_COMMAND_LANGUAGE_ROBOT_CONFIG_H</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  Eigen::Isometry3d pose = robot_kin-&gt;calcFwdKin(joint_values.template cast&lt;double&gt;());</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="comment">// Get the base rotated by joint 1</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  Eigen::Isometry3d prime_pose(Eigen::AngleAxisd(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(joint_values(0)), Eigen::Vector3d::UnitZ()));</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="comment">// Transform tool0 pose into new frame</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  Eigen::Isometry3d pose_prime = prime_pose.inverse() * pose;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="comment">// If pose_prime.x is greater than and equal to zero then it is in the forward configuration, otherwise</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="comment">// in the backward configuration.</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &gt;= 0 &amp;&amp; pose_prime.translation().x() &gt;= 0 &amp;&amp;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      (sign_correction[0] * joint_values(2)) &lt; M_PI / 2)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf">RobotConfig::FUT</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &lt; 0 &amp;&amp; pose_prime.translation().x() &gt;= 0 &amp;&amp;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      (sign_correction[0] * joint_values(2)) &lt; M_PI / 2)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0">RobotConfig::NUT</a>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &gt;= 0 &amp;&amp; pose_prime.translation().x() &gt;= 0 &amp;&amp;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      (sign_correction[0] * joint_values(2)) &gt;= M_PI / 2)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a97d38c259b5e41097c285878bdc750ba">RobotConfig::FDT</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &lt; 0 &amp;&amp; pose_prime.translation().x() &gt;= 0 &amp;&amp;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      (sign_correction[0] * joint_values(2)) &gt;= M_PI / 2)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42">RobotConfig::NDT</a>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &gt;= 0 &amp;&amp; pose_prime.translation().x() &lt; 0 &amp;&amp;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      (sign_correction[0] * joint_values(2)) &lt; M_PI / 2)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a5def066398a04b9d615c6a9d4cf63d3b">RobotConfig::FUB</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &lt; 0 &amp;&amp; pose_prime.translation().x() &lt; 0 &amp;&amp;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      (sign_correction[0] * joint_values(2)) &lt; M_PI / 2)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020">RobotConfig::NUB</a>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keywordflow">if</span> ((sign_correction[1] * joint_values(4)) &gt;= 0 &amp;&amp; pose_prime.translation().x() &lt; 0 &amp;&amp;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      (sign_correction[0] * joint_values(2)) &gt;= M_PI / 2)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aa26eb45c36831fefc4e66aabddd7b450">RobotConfig::FDB</a>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579a57eaecb0d3cb5d6855b841b911f6778c">RobotConfig::NDB</a>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> FloatType&gt;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">inline</span> Eigen::Vector3i</div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">  139</a></span>&#160;<a class="code" href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">getRobotRedundancy</a>(<span class="keyword">const</span> Eigen::Ref&lt;<span class="keyword">const</span> Eigen::Matrix&lt;FloatType, Eigen::Dynamic, 1&gt;&gt;&amp; joint_values,</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                   <span class="keyword">const</span> Eigen::Ref&lt;const Eigen::Vector2i&gt;&amp; sign_correction = Eigen::Vector2i::Ones())</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;{</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  Eigen::Vector3i redundancy;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <span class="comment">// The joints on a 6 dof robot with redundancy capability are axis 1, 5, and 6.</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <span class="keywordtype">int</span> red_1 = int(joint_values(0) / M_PI);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="keywordtype">int</span> red_2 = int(sign_correction[1] * joint_values(4) / M_PI);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="keywordtype">int</span> red_3 = int(joint_values(5) / M_PI);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  redundancy &lt;&lt; red_1, red_2, red_3;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <span class="keywordflow">return</span> redundancy;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;}</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#ifdef SWIG</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;%<span class="keyword">template</span>(<a class="code" href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">getRobotConfig</a>) tesseract_planning::getRobotConfig&lt;double&gt;;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SWIG</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_COMMAND_LANGUAGE_ROBOT_CONFIG_H</span></div>
 <div class="ttc" id="anamespaceTESSERACT__COMMON__IGNORE__WARNINGS__POP_html"><div class="ttname"><a href="../../df/d21/namespaceTESSERACT__COMMON__IGNORE__WARNINGS__POP.html">TESSERACT_COMMON_IGNORE_WARNINGS_POP</a></div><div class="ttdef"><b>Definition:</b> serialize.hpp:45</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div><div class="ttdef"><b>Definition:</b> cartesian_waypoint.h:41</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_adc15a5456ea446dfa3dc95852bc9d579"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579">tesseract_planning::RobotConfig</a></div><div class="ttdeci">RobotConfig</div><div class="ttdoc">The RobotConfig enum.</div><div class="ttdef"><b>Definition:</b> robot_config.h:51</div></div>
@@ -195,12 +194,12 @@ $(function() {
 <div class="ttc" id="anamespacetesseract__planning_html_adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0">tesseract_planning::RobotConfig::NUT</a></div><div class="ttdeci">@ NUT</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020">tesseract_planning::RobotConfig::NUB</a></div><div class="ttdeci">@ NUB</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42">tesseract_planning::RobotConfig::NDT</a></div><div class="ttdeci">@ NDT</div></div>
-<div class="ttc" id="anamespacetesseract__planning_html_aee7d67141adc2f34a528d4ce1191e6ae"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">tesseract_planning::getRobotRedundancy</a></div><div class="ttdeci">Eigen::Vector3i getRobotRedundancy(const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</div><div class="ttdoc">Finds redundancy of joints that allow rotation beyond +- 180 degrees.</div><div class="ttdef"><b>Definition:</b> robot_config.h:140</div></div>
+<div class="ttc" id="anamespacetesseract__planning_html_aee7d67141adc2f34a528d4ce1191e6ae"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">tesseract_planning::getRobotRedundancy</a></div><div class="ttdeci">Eigen::Vector3i getRobotRedundancy(const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</div><div class="ttdoc">Finds redundancy of joints that allow rotation beyond +- 180 degrees.</div><div class="ttdef"><b>Definition:</b> robot_config.h:139</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_af607325ca089b6dafd5b521c4b16351a"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">tesseract_planning::getRobotConfig</a></div><div class="ttdeci">RobotConfig getRobotConfig(const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;robot_kin, const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</div><div class="ttdoc">Get the configuration of a six axis industrial robot.</div><div class="ttdef"><b>Definition:</b> robot_config.h:70</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 22 2021 21:49:44 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Feb 23 2021 18:03:48 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
