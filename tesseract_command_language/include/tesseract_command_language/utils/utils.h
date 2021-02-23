@@ -32,6 +32,7 @@
 #include <tesseract_command_language/utils/flatten_utils.h>
 #include <tesseract_command_language/utils/get_instruction_utils.h>
 
+#include <tesseract_common/joint_state.h>
 #include <tesseract_common/types.h>
 
 namespace tesseract_planning
