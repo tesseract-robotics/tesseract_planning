@@ -28,6 +28,8 @@
 
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/plan_instruction.h>
+#include <tesseract_command_language/instruction_type.h>
+#include <tesseract_command_language/waypoint_type.h>
 
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
 #include <tesseract_motion_planners/descartes/descartes_robot_sampler.h>

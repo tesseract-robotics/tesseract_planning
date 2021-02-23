@@ -26,10 +26,14 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+#include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/serialize.h>
 #include <tesseract_command_language/deserialize.h>
+#include <tesseract_command_language/serialization.h>
 
 using namespace tesseract_planning;
 
@@ -56,6 +60,34 @@ TEST(TesseractCommandLanguageJointWaypointUnit, isToleranced)
   jw.upper_tolerance = Eigen::VectorXd::Constant(3, 0);
   jw.lower_tolerance = Eigen::VectorXd::Constant(3, 0);
   EXPECT_FALSE(jw.isToleranced());
+}
+
+TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)
+{
+  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3" };
+  Eigen::VectorXd joint_values = Eigen::VectorXd::Constant(3, 1);
+
+  JointWaypoint jw(joint_names, joint_values);
+
+  Waypoint wp = jw;
+
+  {
+    std::ofstream os("/tmp/joint_waypoint_boost.xml");
+    boost::archive::xml_oarchive oa(os);
+    oa << BOOST_SERIALIZATION_NVP(wp);
+  }
+
+  Waypoint nwp{ NullWaypoint() };
+  {
+    std::ifstream ifs("/tmp/joint_waypoint_boost.xml");
+    assert(ifs.good());
+    boost::archive::xml_iarchive ia(ifs);
+
+    // restore the schedule from the archive
+    ia >> BOOST_SERIALIZATION_NVP(nwp);
+  }
+
+  EXPECT_TRUE(jw == (*nwp.cast<JointWaypoint>()));
 }
 
 inline void SerializeDeserializeTest(const JointWaypoint& wp)

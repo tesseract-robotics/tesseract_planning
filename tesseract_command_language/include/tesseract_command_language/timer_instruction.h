@@ -31,9 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <string>
 #include <tinyxml2.h>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/instruction_type.h>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -53,6 +56,7 @@ enum class TimerInstructionType : int
 class TimerInstruction
 {
 public:
+  TimerInstruction() = default;  // Required for boost serialization do not use
   TimerInstruction(TimerInstructionType type, double time, int io) : timer_type_(type), timer_time_(time), timer_io_(io)
   {
   }
@@ -63,7 +67,7 @@ public:
 
   void setDescription(const std::string& description) { description_ = description; }
 
-  void print(std::string prefix = "") const  // NOLINT
+  void print(const std::string& prefix = "") const  // NOLINT
   {
     std::cout << prefix + "Timer Instruction, Type: " << getType() << ", Timer Type: " << static_cast<int>(timer_type_)
               << ", Time: " << timer_time_ << ", IO: " << timer_io_;
@@ -125,12 +129,46 @@ public:
     return xml_instruction;
   }
 
+  /**
+   * @brief Equal operator. Does not compare descriptions
+   * @param rhs TimerInstruction
+   * @return True if equal, otherwise false
+   */
+  bool operator==(const TimerInstruction& rhs) const
+  {
+    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
+
+    bool equal = true;
+    equal &= tesseract_common::almostEqualRelativeAndAbs(timer_time_, rhs.timer_time_, max_diff);
+    equal &= (timer_type_ == rhs.timer_type_);
+    equal &= (timer_io_ == rhs.timer_io_);
+
+    return equal;
+  }
+
+  /**
+   * @brief Not equal operator. Does not compare descriptions
+   * @param rhs TimerInstruction
+   * @return True if not equal, otherwise false
+   */
+  bool operator!=(const TimerInstruction& rhs) const { return !operator==(rhs); }
+
 private:
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Timer Instruction" };
   TimerInstructionType timer_type_;
   double timer_time_{ 0 };
   int timer_io_{ -1 };
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& boost::serialization::make_nvp("description", description_);
+    ar& boost::serialization::make_nvp("timer_type", timer_type_);
+    ar& boost::serialization::make_nvp("timer_time", timer_time_);
+    ar& boost::serialization::make_nvp("timer_io", timer_io_);
+  }
 };
 }  // namespace tesseract_planning
 

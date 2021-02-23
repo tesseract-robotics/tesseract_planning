@@ -31,7 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/compare_waypoint.h>
 
 namespace tesseract_planning
 {
@@ -64,13 +66,13 @@ void MoveInstruction::setProfile(const std::string& profile)
 }
 const std::string& MoveInstruction::getProfile() const { return profile_; }
 
-int MoveInstruction::getType() const { return type_; }
+int MoveInstruction::getType() const { return static_cast<int>(InstructionType::MOVE_INSTRUCTION); }
 
 const std::string& MoveInstruction::getDescription() const { return description_; }
 
 void MoveInstruction::setDescription(const std::string& description) { description_ = description; }
 
-void MoveInstruction::print(std::string prefix) const
+void MoveInstruction::print(const std::string& prefix) const
 {
   std::cout << prefix + "Move Instruction, Type: " << getType() << ", Move Type: " << static_cast<int>(move_type_)
             << ", ";
@@ -119,5 +121,17 @@ tinyxml2::XMLElement* MoveInstruction::toXML(tinyxml2::XMLDocument& doc) const
 
   return xml_instruction;
 }
+
+bool MoveInstruction::operator==(const MoveInstruction& rhs) const
+{
+  bool equal = true;
+  equal &= (static_cast<int>(move_type_) == static_cast<int>(rhs.move_type_));
+  equal &= (waypoint_ == rhs.waypoint_);
+  equal &= (manipulator_info_ == rhs.manipulator_info_);
+  equal &= (profile_ == rhs.profile_);  // NO LINT
+  return equal;
+}
+
+bool MoveInstruction::operator!=(const MoveInstruction& rhs) const { return !operator==(rhs); }
 
 }  // namespace tesseract_planning

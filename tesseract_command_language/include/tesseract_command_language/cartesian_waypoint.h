@@ -32,9 +32,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <tinyxml2.h>
 #include <boost/algorithm/string.hpp>
+#include <boost/serialization/base_object.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -323,7 +325,7 @@ public:
   //////////////////////////////////
 
   /** @brief The Cartesian Waypoint */
-  Eigen::Isometry3d waypoint;
+  Eigen::Isometry3d waypoint{ Eigen::Isometry3d::Identity() };
   /** @brief Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3
    * elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle()) */
   Eigen::VectorXd lower_tolerance;
@@ -363,6 +365,16 @@ public:
     return equal;
   }
   bool operator!=(const CartesianWaypoint& rhs) const { return !operator==(rhs); }
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& BOOST_SERIALIZATION_NVP(waypoint);
+    ar& BOOST_SERIALIZATION_NVP(upper_tolerance);
+    ar& BOOST_SERIALIZATION_NVP(lower_tolerance);
+  }
 };
 
 }  // namespace tesseract_planning

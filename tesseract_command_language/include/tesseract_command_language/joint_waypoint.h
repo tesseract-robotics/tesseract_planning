@@ -33,9 +33,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <tinyxml2.h>
 #include <boost/algorithm/string.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/array.hpp>
+#include <boost/serialization/vector.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -374,6 +378,17 @@ public:
     return equal;
   }
   bool operator!=(const JointWaypoint& rhs) const { return !operator==(rhs); }
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/)
+  {
+    ar& BOOST_SERIALIZATION_NVP(joint_names);
+    ar& BOOST_SERIALIZATION_NVP(waypoint);
+    ar& BOOST_SERIALIZATION_NVP(upper_tolerance);
+    ar& BOOST_SERIALIZATION_NVP(lower_tolerance);
+  }
 };
 }  // namespace tesseract_planning
 

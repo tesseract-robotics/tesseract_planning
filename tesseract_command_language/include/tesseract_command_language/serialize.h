@@ -43,4 +43,5 @@ bool toXMLFile(const SerializableType& input, const std::string& file_path);
 template <typename SerializableType>
 std::string toXMLString(const SerializableType& input);
 }  // namespace tesseract_planning
+
 #endif  // TESSERACT_COMMAND_LANGUAGE_SERIALIZE_H
