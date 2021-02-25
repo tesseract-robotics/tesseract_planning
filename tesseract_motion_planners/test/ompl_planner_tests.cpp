@@ -203,6 +203,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
   plan_profile->collision_margin_data.setDefaultCollisionMarginData(0.025);
   plan_profile->planning_time = 10;
+  plan_profile->optimize = false;
   plan_profile->max_solutions = 2;
   plan_profile->longest_valid_segment_fraction = 0.01;
   plan_profile->collision_continuous = true;
@@ -352,6 +353,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
   plan_profile->collision_margin_data.setDefaultCollisionMarginData(0.02);
   plan_profile->planning_time = 10;
+  plan_profile->optimize = false;
   plan_profile->max_solutions = 2;
   plan_profile->longest_valid_segment_fraction = 0.01;
   plan_profile->collision_continuous = true;
@@ -440,6 +442,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
   plan_profile->collision_margin_data.setDefaultCollisionMarginData(0.02);
   plan_profile->planning_time = 10;
+  plan_profile->optimize = false;
   plan_profile->max_solutions = 2;
   plan_profile->longest_valid_segment_fraction = 0.01;
   plan_profile->collision_continuous = true;

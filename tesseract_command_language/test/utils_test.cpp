@@ -495,18 +495,16 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)
   composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
 
   std::string path = tesseract_common::getTempPath() + "to_delimited_file.csv";
-  toDelimitedFile(composite, path);
+  EXPECT_TRUE(toDelimitedFile(composite, path));
 
-  std::string check_string = "";
+  std::ifstream file(path);
+  std::stringstream buffer;
+  buffer << file.rdbuf();
+  file.close();
 
-  //  std::string outputstring;
-  //  std::string buffer;
-  //  std::ifstream input(path);
-
-  //  while (std::getline(input, buffer))
-  //      outputstring += (buffer + '\n');
-
-  //  EXPECT_EQ(outputstring, check_string);
+  std::string check = "1,2,3\n5,5,5\n10,10,10\n15,15,15\n";
+  std::cout << buffer.str() << std::endl;
+  EXPECT_EQ(check, buffer.str());
 }
 
 int main(int argc, char** argv)
