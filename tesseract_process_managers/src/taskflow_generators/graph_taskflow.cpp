@@ -79,7 +79,14 @@ TaskflowContainer GraphTaskflow::generateTaskflow(TaskInput input, TaskflowVoidF
     const Node& node = nodes_[i];
     for (int idx : node.edges)
     {
-      tasks.at(i).precede(tasks.at(static_cast<std::size_t>(idx)));
+      if (idx >= 0)
+        tasks.at(i).precede(tasks.at(static_cast<std::size_t>(idx)));
+      else if (idx == DONE_NODE)
+        tasks.at(i).precede(done_task);
+      else if (idx == ERROR_NODE)
+        tasks.at(i).precede(error_task);
+      else
+        CONSOLE_BRIDGE_logError("GraphTaskflow invalid edge: %d", idx);
     }
 
     // If no edges exist for the current node, make sure it precedes the done task (and error task if conditional)

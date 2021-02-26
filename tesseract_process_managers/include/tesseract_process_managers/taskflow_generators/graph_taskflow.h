@@ -48,6 +48,11 @@ class GraphTaskflow : public TaskflowGenerator
 public:
   using UPtr = std::unique_ptr<GraphTaskflow>;
 
+  /** @brief ID for the Done node */
+  const static int DONE_NODE = -1;
+  /** @brief ID for the Error node */
+  const static int ERROR_NODE = -2;
+
   GraphTaskflow(std::string name = "GraphTaskflow");
   ~GraphTaskflow() override = default;
   GraphTaskflow(const GraphTaskflow&) = delete;
