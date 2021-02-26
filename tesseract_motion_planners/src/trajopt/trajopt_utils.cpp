@@ -300,7 +300,7 @@ trajopt::TermInfo::Ptr createUserDefinedTermInfo(int start_index,
 {
   if (error_function == nullptr)
   {
-    throw std::runtime_error("TrajOpt Planner Config constraint from error function recieved nullptr!");
+    throw std::runtime_error("TrajOpt Planner Config constraint from error function received nullptr!");
   }
 
   auto ef = std::make_shared<trajopt::UserDefinedTermInfo>();

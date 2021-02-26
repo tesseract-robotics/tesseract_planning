@@ -156,7 +156,8 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   // Optimize
   auto tStart = boost::posix_time::second_clock::local_time();
   opt.optimize();
-  CONSOLE_BRIDGE_logInform("planning time: %.3f", (boost::posix_time::second_clock::local_time() - tStart).seconds());
+  CONSOLE_BRIDGE_logInform("trajopt planning time: %.3f",
+                           (boost::posix_time::second_clock::local_time() - tStart).seconds());
   if (opt.results().status != sco::OptStatus::OPT_CONVERGED)
   {
     response.status =

@@ -155,7 +155,7 @@ struct TaskInput
   bool isAborted() const;
 
   /**
-   * @brief Abort the process intput
+   * @brief Abort the process input
    * @details This accesses the internal process interface class to abort the process
    */
   void abort();

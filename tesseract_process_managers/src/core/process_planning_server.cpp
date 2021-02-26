@@ -110,7 +110,7 @@ std::vector<std::string> ProcessPlanningServer::getAvailableProcessPlanners() co
 
 ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& request)
 {
-  CONSOLE_BRIDGE_logInform("Tesseract Planning Server Recieved Request!");
+  CONSOLE_BRIDGE_logInform("Tesseract Planning Server Received Request!");
   ProcessPlanningFuture response;
   response.plan_profile_remapping = std::make_unique<const PlannerProfileRemapping>(request.plan_profile_remapping);
   response.composite_profile_remapping =
