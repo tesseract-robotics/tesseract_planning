@@ -102,7 +102,7 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   std::vector<tesseract_collision::ContactResultMap> contacts;
   if (contactCheckProgram(contacts, *manager, *state_solver, *ci, config))
   {
-    CONSOLE_BRIDGE_logInform("Results are not contact free for process intput: %s !",
+    CONSOLE_BRIDGE_logInform("Results are not contact free for process input: %s !",
                              input_result->getDescription().c_str());
     for (std::size_t i = 0; i < contacts.size(); i++)
       for (const auto& contact_vec : contacts[i])
