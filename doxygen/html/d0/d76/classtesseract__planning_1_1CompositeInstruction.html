@@ -72,7 +72,9 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../d9/d34/classtesseract__planning_1_1CompositeInstruction-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">tesseract_planning::CompositeInstruction Class Reference</div>  </div>
@@ -151,10 +153,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a39761238394cd4866750302abc7cc075"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2160219a45049b04b5fdf68bd27e882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ae2160219a45049b04b5fdf68bd27e882">hasStartInstruction</a> () const</td></tr>
 <tr class="separator:ae2160219a45049b04b5fdf68bd27e882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a841b013820bd5e872906311fe34311b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a841b013820bd5e872906311fe34311b3">print</a> (std::string prefix=&quot;&quot;) const</td></tr>
-<tr class="separator:a841b013820bd5e872906311fe34311b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c249972eb2c977ba2277e00b7757fde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a0c249972eb2c977ba2277e00b7757fde">setInstructions</a> (std::vector&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a> &gt; instructions)</td></tr>
+<tr class="separator:a0c249972eb2c977ba2277e00b7757fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d466bec9e43e846cd0e8866a4ed23a8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a7d466bec9e43e846cd0e8866a4ed23a8">getInstructions</a> ()</td></tr>
+<tr class="separator:a7d466bec9e43e846cd0e8866a4ed23a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c8f51ed69282948deae84c3bbd3e100"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a8c8f51ed69282948deae84c3bbd3e100">getInstructions</a> () const</td></tr>
+<tr class="separator:a8c8f51ed69282948deae84c3bbd3e100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6efcfcc2a9f14cec588405e4c147f036"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a6efcfcc2a9f14cec588405e4c147f036">print</a> (const std::string &amp;prefix=&quot;&quot;) const</td></tr>
+<tr class="separator:a6efcfcc2a9f14cec588405e4c147f036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab3108ff4ae3b7d4bb55a9ef050b7dc0"><td class="memItemLeft" align="right" valign="top">tinyxml2::XMLElement *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#aab3108ff4ae3b7d4bb55a9ef050b7dc0">toXML</a> (tinyxml2::XMLDocument &amp;doc) const</td></tr>
 <tr class="separator:aab3108ff4ae3b7d4bb55a9ef050b7dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a038e64d00d68e35ba9b7e7ca6eccdb68"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a038e64d00d68e35ba9b7e7ca6eccdb68">operator==</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;rhs) const</td></tr>
+<tr class="separator:a038e64d00d68e35ba9b7e7ca6eccdb68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d4afc80f2b29ee8fcbbc4e68dce390"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ab7d4afc80f2b29ee8fcbbc4e68dce390">operator!=</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;rhs) const</td></tr>
+<tr class="separator:ab7d4afc80f2b29ee8fcbbc4e68dce390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf08d90b2f96f7625b3b3ddc69b38c0b"><td class="memTemplParams" colspan="2">template&lt;class InputIt &gt; </td></tr>
 <tr class="memitem:acf08d90b2f96f7625b3b3ddc69b38c0b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#acf08d90b2f96f7625b3b3ddc69b38c0b">CompositeInstruction</a> (InputIt first, InputIt last)</td></tr>
 <tr class="separator:acf08d90b2f96f7625b3b3ddc69b38c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -287,12 +299,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a21e91726e26e030d95d688715257566c"><td class="mdescLeft">&#160;</td><td class="mdescRight">swaps the contents <br  />
   <a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a21e91726e26e030d95d688715257566c">More...</a><br /></td></tr>
 <tr class="separator:a21e91726e26e030d95d688715257566c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39408488d95f9da3943fa7138df642ee"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a39408488d95f9da3943fa7138df642ee">getInstructions</a> ()</td></tr>
-<tr class="separator:a39408488d95f9da3943fa7138df642ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf026ce72081b79a2bff351a035b9e59"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#abf026ce72081b79a2bff351a035b9e59">getInstructions</a> () const</td></tr>
-<tr class="separator:abf026ce72081b79a2bff351a035b9e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c249972eb2c977ba2277e00b7757fde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a0c249972eb2c977ba2277e00b7757fde">setInstructions</a> (std::vector&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a> &gt; instructions)</td></tr>
-<tr class="separator:a0c249972eb2c977ba2277e00b7757fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ad706e0bc3f614f67ac59c260ec65d651"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:ad706e0bc3f614f67ac59c260ec65d651"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ad706e0bc3f614f67ac59c260ec65d651">serialize</a> (Archive &amp;ar, const unsigned int)</td></tr>
+<tr class="separator:ad706e0bc3f614f67ac59c260ec65d651"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -315,6 +327,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ad2389ebfc118674eb11579cceb44df00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a57dfa4a2baa95dd872d200ffb84079c4">value_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ad2389ebfc118674eb11579cceb44df00">start_instruction_</a> { <a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html">NullInstruction</a>() }</td></tr>
 <tr class="memdesc:ad2389ebfc118674eb11579cceb44df00"><td class="mdescLeft">&#160;</td><td class="mdescRight">The start instruction to use for composite instruction. This should be of type <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> or <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> but is stored as type <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> because it is not required.  <a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ad2389ebfc118674eb11579cceb44df00">More...</a><br /></td></tr>
 <tr class="separator:ad2389ebfc118674eb11579cceb44df00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
+<tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a4802dfe947444886ce5ddf1403d4af10"></a>
@@ -1060,52 +1077,36 @@ template&lt;typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="a39408488d95f9da3943fa7138df642ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39408488d95f9da3943fa7138df642ee">&#9670;&nbsp;</a></span>getInstructions() <span class="overload">[1/2]</span></h2>
+<a id="a7d466bec9e43e846cd0e8866a4ed23a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d466bec9e43e846cd0e8866a4ed23a8">&#9670;&nbsp;</a></span>getInstructions() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a>&gt;&amp; tesseract_planning::CompositeInstruction::getInstructions </td>
+          <td class="memname">std::vector&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a> &gt; &amp; tesseract_planning::CompositeInstruction::getInstructions </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="abf026ce72081b79a2bff351a035b9e59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf026ce72081b79a2bff351a035b9e59">&#9670;&nbsp;</a></span>getInstructions() <span class="overload">[2/2]</span></h2>
+<a id="a8c8f51ed69282948deae84c3bbd3e100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c8f51ed69282948deae84c3bbd3e100">&#9670;&nbsp;</a></span>getInstructions() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt;<a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a>&gt;&amp; tesseract_planning::CompositeInstruction::getInstructions </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a> &gt; &amp; tesseract_planning::CompositeInstruction::getInstructions </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -1395,6 +1396,42 @@ template&lt;class InputIt &gt; </div>
 
 </div>
 </div>
+<a id="ab7d4afc80f2b29ee8fcbbc4e68dce390"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d4afc80f2b29ee8fcbbc4e68dce390">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::CompositeInstruction::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a038e64d00d68e35ba9b7e7ca6eccdb68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a038e64d00d68e35ba9b7e7ca6eccdb68">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::CompositeInstruction::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a526aea384c9767ef43b9892298f6e500"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a526aea384c9767ef43b9892298f6e500">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
 
@@ -1454,8 +1491,8 @@ template&lt;class InputIt &gt; </div>
 
 </div>
 </div>
-<a id="a841b013820bd5e872906311fe34311b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a841b013820bd5e872906311fe34311b3">&#9670;&nbsp;</a></span>print()</h2>
+<a id="a6efcfcc2a9f14cec588405e4c147f036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6efcfcc2a9f14cec588405e4c147f036">&#9670;&nbsp;</a></span>print()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1463,7 +1500,7 @@ template&lt;class InputIt &gt; </div>
         <tr>
           <td class="memname">void tesseract_planning::CompositeInstruction::print </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>prefix</em> = <code>&quot;&quot;</code></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1623,6 +1660,44 @@ template&lt;class InputIt &gt; </div>
 
 </div>
 </div>
+<a id="ad706e0bc3f614f67ac59c260ec65d651"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad706e0bc3f614f67ac59c260ec65d651">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Archive &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::CompositeInstruction::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Archive &amp;&#160;</td>
+          <td class="paramname"><em>ar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abd2810afe8084f2db4b7ddf70c1fc88c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abd2810afe8084f2db4b7ddf70c1fc88c">&#9670;&nbsp;</a></span>setDescription()</h2>
 
@@ -1646,9 +1721,6 @@ template&lt;class InputIt &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void tesseract_planning::CompositeInstruction::setInstructions </td>
@@ -1658,11 +1730,6 @@ template&lt;class InputIt &gt; </div>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -1795,6 +1862,29 @@ template&lt;class InputIt &gt; </div>
           <td> const</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class boost::serialization::access</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -1973,7 +2063,7 @@ template&lt;class InputIt &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 23 2021 18:03:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Feb 26 2021 14:45:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

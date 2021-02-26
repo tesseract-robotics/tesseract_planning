@@ -5,6 +5,7 @@
 {\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/instruction\+\_\+type.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/null\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/state\+\_\+waypoint.\+h$>$}\newline
@@ -46,6 +47,8 @@ bool \mbox{\hyperlink{namespacetesseract__planning_a4b3d1f786cca3489d07922700cf4
 \begin{DoxyCompactList}\small\item\em Clamps a waypoint to be within joint limits. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacetesseract__planning_a63dfee6d2a2b430c8fb8d17ee2c1db4e}{tesseract\+\_\+planning\+::generate\+Skeleton\+Seed\+Helper}} (Composite\+Instruction \&composite\+\_\+instructions)
 \item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a2b65f19a72bd238c13d1cf24ffaec7c1}{tesseract\+\_\+planning\+::to\+Delimited\+File}} (const Composite\+Instruction \&composite\+\_\+instructions, const std\+::string \&file\+\_\+path, char separator=\textquotesingle{},\textquotesingle{})
+\begin{DoxyCompactList}\small\item\em Convert a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} to delimited formate file by extracting all Move\+Instructions. \end{DoxyCompactList}\item 
 Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_af96ba7a9b3db3684f21122e62032c0e3}{tesseract\+\_\+planning\+::generate\+Skeleton\+Seed}} (const Composite\+Instruction \&composite\+\_\+instructions)
 \begin{DoxyCompactList}\small\item\em This creates a seed by looping over and replacing every plan instruction with a composite instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
@@ -66,7 +69,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000036}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000040}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

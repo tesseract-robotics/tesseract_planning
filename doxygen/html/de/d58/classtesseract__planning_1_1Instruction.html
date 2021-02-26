@@ -72,7 +72,9 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../d4/d4e/classtesseract__planning_1_1Instruction-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">tesseract_planning::Instruction Class Reference</div>  </div>
@@ -95,6 +97,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a389c8182e2a0bf5eaa88c8a896580fda"><td class="memTemplParams" colspan="2">template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </td></tr>
 <tr class="memitem:a389c8182e2a0bf5eaa88c8a896580fda"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a389c8182e2a0bf5eaa88c8a896580fda">Instruction</a> (T &amp;&amp;instruction)</td></tr>
 <tr class="separator:a389c8182e2a0bf5eaa88c8a896580fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfb7a849704288c412cd44fa3ef38599"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#abfb7a849704288c412cd44fa3ef38599">Instruction</a> ()</td></tr>
+<tr class="separator:abfb7a849704288c412cd44fa3ef38599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08eed8e813b8e7b50c6b57572a2b69f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a08eed8e813b8e7b50c6b57572a2b69f4">~Instruction</a> ()=default</td></tr>
 <tr class="separator:a08eed8e813b8e7b50c6b57572a2b69f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af80b939185ccedefda166b567f973f42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#af80b939185ccedefda166b567f973f42">Instruction</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;other)</td></tr>
@@ -114,8 +118,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acfc6de5733a13292f7db7ebb78e0e0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cf824c8a81c15e6dac697abfda4d322"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a8cf824c8a81c15e6dac697abfda4d322">setDescription</a> (const std::string &amp;description)</td></tr>
 <tr class="separator:a8cf824c8a81c15e6dac697abfda4d322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abca9ba1476edc86dd1ef92fffc50cee3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#abca9ba1476edc86dd1ef92fffc50cee3">print</a> (std::string prefix=&quot;&quot;) const</td></tr>
-<tr class="separator:abca9ba1476edc86dd1ef92fffc50cee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a76318ace036c3676cb761a6a9faaae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a3a76318ace036c3676cb761a6a9faaae">print</a> (const std::string &amp;prefix=&quot;&quot;) const</td></tr>
+<tr class="separator:a3a76318ace036c3676cb761a6a9faaae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ad642b6fb0262a7befa80c77af060e6"><td class="memItemLeft" align="right" valign="top">tinyxml2::XMLElement *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a4ad642b6fb0262a7befa80c77af060e6">toXML</a> (tinyxml2::XMLDocument &amp;doc) const</td></tr>
 <tr class="separator:a4ad642b6fb0262a7befa80c77af060e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29e24aeb1048c71e940506df91d71206"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -134,10 +138,21 @@ Private Types</h2></td></tr>
 <tr class="memitem:aee506656f02124f268872af9cb901bc7"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#aee506656f02124f268872af9cb901bc7">generic_ctor_enabler</a> = std::enable_if_t&lt;!std::is_same&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>, <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a342ce7e68d6ed1aa496eef389aeb39fc">uncvref_t</a>&lt; T &gt; &gt;::value, int &gt;</td></tr>
 <tr class="separator:aee506656f02124f268872af9cb901bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:af247d593deb976654bfc4d242e41a31d"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:af247d593deb976654bfc4d242e41a31d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#af247d593deb976654bfc4d242e41a31d">serialize</a> (Archive &amp;ar, const unsigned int)</td></tr>
+<tr class="separator:af247d593deb976654bfc4d242e41a31d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a6900302fd1be0e286d8a26967df84411"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="../../d7/d3a/structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase.html">detail_instruction::InstructionInnerBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a6900302fd1be0e286d8a26967df84411">instruction_</a></td></tr>
 <tr class="separator:a6900302fd1be0e286d8a26967df84411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
+<tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="aee506656f02124f268872af9cb901bc7"></a>
@@ -190,7 +205,7 @@ template&lt;typename T &gt; </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a389c8182e2a0bf5eaa88c8a896580fda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a389c8182e2a0bf5eaa88c8a896580fda">&#9670;&nbsp;</a></span>Instruction() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a389c8182e2a0bf5eaa88c8a896580fda">&#9670;&nbsp;</a></span>Instruction() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,6 +220,31 @@ template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </div>
           <td>(</td>
           <td class="paramtype">T &amp;&amp;&#160;</td>
           <td class="paramname"><em>instruction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abfb7a849704288c412cd44fa3ef38599"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfb7a849704288c412cd44fa3ef38599">&#9670;&nbsp;</a></span>Instruction() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::Instruction::Instruction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -243,7 +283,7 @@ template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </div>
 </div>
 </div>
 <a id="af80b939185ccedefda166b567f973f42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af80b939185ccedefda166b567f973f42">&#9670;&nbsp;</a></span>Instruction() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af80b939185ccedefda166b567f973f42">&#9670;&nbsp;</a></span>Instruction() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,7 +309,7 @@ template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </div>
 </div>
 </div>
 <a id="ae2b0313f9f43ce27f736f77842dfa617"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2b0313f9f43ce27f736f77842dfa617">&#9670;&nbsp;</a></span>Instruction() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b0313f9f43ce27f736f77842dfa617">&#9670;&nbsp;</a></span>Instruction() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -479,8 +519,8 @@ template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </div>
 
 </div>
 </div>
-<a id="abca9ba1476edc86dd1ef92fffc50cee3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abca9ba1476edc86dd1ef92fffc50cee3">&#9670;&nbsp;</a></span>print()</h2>
+<a id="a3a76318ace036c3676cb761a6a9faaae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a76318ace036c3676cb761a6a9faaae">&#9670;&nbsp;</a></span>print()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -491,7 +531,7 @@ template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </div>
         <tr>
           <td class="memname">void tesseract_planning::Instruction::print </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>prefix</em> = <code>&quot;&quot;</code></td><td>)</td>
           <td> const</td>
         </tr>
@@ -499,6 +539,44 @@ template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </div>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af247d593deb976654bfc4d242e41a31d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af247d593deb976654bfc4d242e41a31d">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Archive &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::Instruction::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Archive &amp;&#160;</td>
+          <td class="paramname"><em>ar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -557,6 +635,29 @@ template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </div>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class boost::serialization::access</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a6900302fd1be0e286d8a26967df84411"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6900302fd1be0e286d8a26967df84411">&#9670;&nbsp;</a></span>instruction_</h2>
@@ -586,7 +687,7 @@ template&lt;typename T , generic_ctor_enabler&lt; T &gt;  = 0&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 23 2021 18:03:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Feb 26 2021 14:45:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

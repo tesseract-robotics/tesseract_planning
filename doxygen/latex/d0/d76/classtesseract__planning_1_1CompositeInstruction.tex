@@ -72,9 +72,19 @@ const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ae2160219a45049b04b5fdf68bd27e882}{has\+Start\+Instruction}} () const
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a841b013820bd5e872906311fe34311b3}{print}} (std\+::string prefix=\char`\"{}\char`\"{}) const
+void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a0c249972eb2c977ba2277e00b7757fde}{set\+Instructions}} (std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$ instructions)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$ \& \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a7d466bec9e43e846cd0e8866a4ed23a8}{get\+Instructions}} ()
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$ \& \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a8c8f51ed69282948deae84c3bbd3e100}{get\+Instructions}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a6efcfcc2a9f14cec588405e4c147f036}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
 \item 
 tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_aab3108ff4ae3b7d4bb55a9ef050b7dc0}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a038e64d00d68e35ba9b7e7ca6eccdb68}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ab7d4afc80f2b29ee8fcbbc4e68dce390}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&rhs) const
 \item 
 {\footnotesize template$<$class Input\+It $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_acf08d90b2f96f7625b3b3ddc69b38c0b}{Composite\+Instruction}} (Input\+It first, Input\+It last)
 \item 
@@ -166,12 +176,11 @@ void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a99dfa567
 \begin{DoxyCompactList}\small\item\em removes the last element \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a21e91726e26e030d95d688715257566c}{swap}} (std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a57dfa4a2baa95dd872d200ffb84079c4}{value\+\_\+type}} $>$ \&other)
 \begin{DoxyCompactList}\small\item\em swaps the contents ~\newline
- \end{DoxyCompactList}\item 
-std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$ \& \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a39408488d95f9da3943fa7138df642ee}{get\+Instructions}} ()
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
 \item 
-const std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$ \& \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abf026ce72081b79a2bff351a035b9e59}{get\+Instructions}} () const
-\item 
-void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a0c249972eb2c977ba2277e00b7757fde}{set\+Instructions}} (std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$ instructions)
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ad706e0bc3f614f67ac59c260ec65d651}{serialize}} (Archive \&ar, const unsigned int)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -190,6 +199,11 @@ std\+::string \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_
 \begin{DoxyCompactList}\small\item\em The order of the composite instruction. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a57dfa4a2baa95dd872d200ffb84079c4}{value\+\_\+type}} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ad2389ebfc118674eb11579cceb44df00}{start\+\_\+instruction\+\_\+}} \{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}}() \}
 \begin{DoxyCompactList}\small\item\em The start instruction to use for composite instruction. This should be of type \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} or \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} but is stored as type \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} because it is not required. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -525,17 +539,17 @@ access the first element
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
 {\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Composite\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a39408488d95f9da3943fa7138df642ee}\label{classtesseract__planning_1_1CompositeInstruction_a39408488d95f9da3943fa7138df642ee}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a7d466bec9e43e846cd0e8866a4ed23a8}\label{classtesseract__planning_1_1CompositeInstruction_a7d466bec9e43e846cd0e8866a4ed23a8}} 
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!getInstructions@{getInstructions}}
 \index{getInstructions@{getInstructions}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
 \doxysubsubsection{\texorpdfstring{getInstructions()}{getInstructions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}$>$\& tesseract\+\_\+planning\+::\+Composite\+Instruction\+::get\+Instructions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$ \& tesseract\+\_\+planning\+::\+Composite\+Instruction\+::get\+Instructions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_abf026ce72081b79a2bff351a035b9e59}\label{classtesseract__planning_1_1CompositeInstruction_abf026ce72081b79a2bff351a035b9e59}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a8c8f51ed69282948deae84c3bbd3e100}\label{classtesseract__planning_1_1CompositeInstruction_a8c8f51ed69282948deae84c3bbd3e100}} 
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!getInstructions@{getInstructions}}
 \index{getInstructions@{getInstructions}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
 \doxysubsubsection{\texorpdfstring{getInstructions()}{getInstructions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily const std\+::vector$<$\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}$>$\& tesseract\+\_\+planning\+::\+Composite\+Instruction\+::get\+Instructions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$ \& tesseract\+\_\+planning\+::\+Composite\+Instruction\+::get\+Instructions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a13d711cf9a3a182cde2dee3140fbb937}\label{classtesseract__planning_1_1CompositeInstruction_a13d711cf9a3a182cde2dee3140fbb937}} 
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!getManipulatorInfo@{getManipulatorInfo}}
@@ -624,6 +638,18 @@ void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::insert (\begin{DoxyP
 
 returns the maximum possible number of elements 
 
+\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_ab7d4afc80f2b29ee8fcbbc4e68dce390}\label{classtesseract__planning_1_1CompositeInstruction_ab7d4afc80f2b29ee8fcbbc4e68dce390}} 
+\index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Composite\+Instruction\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a038e64d00d68e35ba9b7e7ca6eccdb68}\label{classtesseract__planning_1_1CompositeInstruction_a038e64d00d68e35ba9b7e7ca6eccdb68}} 
+\index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Composite\+Instruction\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a526aea384c9767ef43b9892298f6e500}\label{classtesseract__planning_1_1CompositeInstruction_a526aea384c9767ef43b9892298f6e500}} 
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
@@ -654,11 +680,11 @@ access specified element
 
 removes the last element 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a841b013820bd5e872906311fe34311b3}\label{classtesseract__planning_1_1CompositeInstruction_a841b013820bd5e872906311fe34311b3}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a6efcfcc2a9f14cec588405e4c147f036}\label{classtesseract__planning_1_1CompositeInstruction_a6efcfcc2a9f14cec588405e4c147f036}} 
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!print@{print}}
 \index{print@{print}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::print (\begin{DoxyParamCaption}\item[{std\+::string}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a48f5740ce69a3dcb2d476860e3403592}\label{classtesseract__planning_1_1CompositeInstruction_a48f5740ce69a3dcb2d476860e3403592}} 
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!push\_back@{push\_back}}
@@ -732,6 +758,13 @@ reserve number of elements
 \doxysubsubsection{\texorpdfstring{resetStartInstruction()}{resetStartInstruction()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::reset\+Start\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_ad706e0bc3f614f67ac59c260ec65d651}\label{classtesseract__planning_1_1CompositeInstruction_ad706e0bc3f614f67ac59c260ec65d651}} 
+\index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}\label{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}} 
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!setDescription@{setDescription}}
 \index{setDescription@{setDescription}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
@@ -742,7 +775,7 @@ reserve number of elements
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!setInstructions@{setInstructions}}
 \index{setInstructions@{setInstructions}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
 \doxysubsubsection{\texorpdfstring{setInstructions()}{setInstructions()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::set\+Instructions (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$}]{instructions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Composite\+Instruction\+::set\+Instructions (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}} $>$}]{instructions }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_a25ebc00d45a0ac8684ef1dc612ca8d49}\label{classtesseract__planning_1_1CompositeInstruction_a25ebc00d45a0ac8684ef1dc612ca8d49}} 
 \index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!setManipulatorInfo@{setManipulatorInfo}}
@@ -799,6 +832,15 @@ swaps the contents ~\newline
 \index{toXML@{toXML}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
 \doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
 {\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+Composite\+Instruction\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CompositeInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1CompositeInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::CompositeInstruction@{tesseract\_planning::CompositeInstruction}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

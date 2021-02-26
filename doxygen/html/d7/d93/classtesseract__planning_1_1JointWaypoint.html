@@ -73,6 +73,8 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../dc/da3/classtesseract__planning_1_1JointWaypoint-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">tesseract_planning::JointWaypoint Class Reference</div>  </div>
@@ -182,6 +184,17 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:afae1cdc8b5a952c209b98f5523421ca7"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#afae1cdc8b5a952c209b98f5523421ca7">upper_tolerance</a></td></tr>
 <tr class="memdesc:afae1cdc8b5a952c209b98f5523421ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joint distance above waypoint that is allowed. Each element should be &gt;= 0.  <a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#afae1cdc8b5a952c209b98f5523421ca7">More...</a><br /></td></tr>
 <tr class="separator:afae1cdc8b5a952c209b98f5523421ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac0bff42ccbe3f22ec499b5f39e8c339f"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:ac0bff42ccbe3f22ec499b5f39e8c339f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ac0bff42ccbe3f22ec499b5f39e8c339f">serialize</a> (Archive &amp;ar, const unsigned int)</td></tr>
+<tr class="separator:ac0bff42ccbe3f22ec499b5f39e8c339f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
+<tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a7be5bac313b8a5b357c5b6e52a0844e6"></a>
@@ -973,6 +986,44 @@ template&lt;typename OtherDerived &gt; </div>
 
 </div>
 </div>
+<a id="ac0bff42ccbe3f22ec499b5f39e8c339f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0bff42ccbe3f22ec499b5f39e8c339f">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Archive &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::JointWaypoint::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Archive &amp;&#160;</td>
+          <td class="paramname"><em>ar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6dc4ac21db865d41851190726bf80fb3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6dc4ac21db865d41851190726bf80fb3">&#9670;&nbsp;</a></span>size()</h2>
 
@@ -1051,6 +1102,29 @@ template&lt;typename OtherDerived &gt; </div>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class boost::serialization::access</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a9924c18bddc6f7d393ab25de245a4eb9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9924c18bddc6f7d393ab25de245a4eb9">&#9670;&nbsp;</a></span>joint_names</h2>
@@ -1118,7 +1192,7 @@ template&lt;typename OtherDerived &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 23 2021 18:03:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Feb 26 2021 14:45:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

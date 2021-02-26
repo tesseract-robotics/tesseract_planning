@@ -4,7 +4,12 @@
 {\ttfamily \#include $<$memory$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$tinyxml2.\+h$>$}\newline
+{\ttfamily \#include $<$boost/serialization/base\+\_\+object.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/serialization/nvp.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/serialization/unique\+\_\+ptr.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/type\+\_\+traits/is\+\_\+virtual\+\_\+base\+\_\+of.\+hpp$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/sfinae\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/null\+\_\+waypoint.\+h$>$}\newline
 Include dependency graph for waypoint.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -28,6 +33,8 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1Waypoin
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}
 \item 
+struct \mbox{\hyperlink{structboost_1_1is__virtual__base__of_3_01tesseract__planning_1_1detail__waypoint_1_1WaypointInne94baa73b7cde4ac8a2f17c799ea14dca}{boost\+::is\+\_\+virtual\+\_\+base\+\_\+of$<$ tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base, tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$ $>$}}
+\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
@@ -36,6 +43,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+plan
  \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
 \item 
  \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint}{tesseract\+\_\+planning\+::detail\+\_\+waypoint}}
+\item 
+ \mbox{\hyperlink{namespaceboost}{boost}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{waypoint_8h_a9a2c84f5a463366339aaab71d2e54d9b}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT}}(wp)
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -51,6 +65,8 @@ class \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+plan
 \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint_aee4cafa219303554570b0d3b13607d26}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+FUNC\+\_\+\+SIGNATURE\+\_\+\+CHECK}} (print, void, std\+::string)
 \item 
 \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint_aece11d15e63b3902d456f3379f7772c9}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+FUNC\+\_\+\+SIGNATURE\+\_\+\+CHECK}} (to\+XML, tinyxml2\+::\+XMLElement $\ast$, tinyxml2\+::\+XMLDocument \&)
+\item 
+\mbox{\hyperlink{waypoint_8h_af7c56dbaa4ac7d73153dd5bb77359646}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}, boost\+::serialization\+::track\+\_\+never)
 \end{DoxyCompactItemize}
 
 
@@ -65,7 +81,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000005}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000009}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -80,3 +96,27 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
 \end{DoxyParagraph}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{waypoint_8h_a9a2c84f5a463366339aaab71d2e54d9b}\label{waypoint_8h_a9a2c84f5a463366339aaab71d2e54d9b}} 
+\index{waypoint.h@{waypoint.h}!TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}}
+\index{TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}!waypoint.h@{waypoint.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT}{TESSERACT\_WAYPOINT\_EXPORT}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT(\begin{DoxyParamCaption}\item[{}]{wp }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_GUID(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\_planning::detail\_waypoint::WaypointInner<wp>}}, \#wp)                                 \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\_planning::detail\_waypoint::WaypointInner<wp>}}, boost::serialization::track\_never)}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{waypoint_8h_af7c56dbaa4ac7d73153dd5bb77359646}\label{waypoint_8h_af7c56dbaa4ac7d73153dd5bb77359646}} 
+\index{waypoint.h@{waypoint.h}!BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}}
+\index{BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}!waypoint.h@{waypoint.h}}
+\doxysubsubsection{\texorpdfstring{BOOST\_CLASS\_TRACKING()}{BOOST\_CLASS\_TRACKING()}}
+{\footnotesize\ttfamily BOOST\+\_\+\+CLASS\+\_\+\+TRACKING (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}}]{,  }\item[{boost\+::serialization\+::track\+\_\+never}]{ }\end{DoxyParamCaption})}
+

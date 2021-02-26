@@ -57,6 +57,8 @@ bool \mbox{\hyperlink{namespacetesseract__planning_a4b3d1f786cca3489d07922700cf4
 \begin{DoxyCompactList}\small\item\em Clamps a waypoint to be within joint limits. \end{DoxyCompactList}\item 
 Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_af96ba7a9b3db3684f21122e62032c0e3}{tesseract\+\_\+planning\+::generate\+Skeleton\+Seed}} (const Composite\+Instruction \&composite\+\_\+instructions)
 \begin{DoxyCompactList}\small\item\em This creates a seed by looping over and replacing every plan instruction with a composite instruction. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a2b65f19a72bd238c13d1cf24ffaec7c1}{tesseract\+\_\+planning\+::to\+Delimited\+File}} (const Composite\+Instruction \&composite\+\_\+instructions, const std\+::string \&file\+\_\+path, char separator=\textquotesingle{},\textquotesingle{})
+\begin{DoxyCompactList}\small\item\em Convert a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} to delimited formate file by extracting all Move\+Instructions. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_afcaff79ee52a09033c310489053ec2ee}{tesseract\+\_\+planning\+::validate\+Seed\+Structure}} (const Composite\+Instruction \&composite\+\_\+instructions, const Composite\+Instruction \&composite\+\_\+seed)
 \begin{DoxyCompactList}\small\item\em This loops over the instructions validates the structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -74,7 +76,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000022}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000025}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

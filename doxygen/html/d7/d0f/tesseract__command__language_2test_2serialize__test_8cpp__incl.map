@@ -1,43 +1,52 @@
 <map id="tesseract_command_language/test/serialize_test.cpp" name="tesseract_command_language/test/serialize_test.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2603,5,2801,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="2016,638,2207,665"/>
-<area shape="rect" id="node3" title=" " alt="" coords="4107,102,4201,129"/>
-<area shape="rect" id="node4" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="2063,273,2261,315"/>
-<area shape="rect" id="node13" title=" " alt="" coords="203,459,374,486"/>
-<area shape="rect" id="node34" href="$da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="2603,95,2801,136"/>
-<area shape="rect" id="node38" href="$de/dd7/tesseract__command__language_2include_2tesseract__command__language_2serialize_8h.html" title="Provide methods for serializing instructions to xml and deserialization." alt="" coords="3608,541,3807,583"/>
-<area shape="rect" id="node39" href="$dd/dc7/tesseract__command__language_2include_2tesseract__command__language_2deserialize_8h.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="3719,363,3917,404"/>
-<area shape="rect" id="node5" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="2759,452,2957,493"/>
-<area shape="rect" id="node7" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="724,363,923,404"/>
-<area shape="rect" id="node12" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="399,452,597,493"/>
-<area shape="rect" id="node14" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2981,363,3180,404"/>
-<area shape="rect" id="node21" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2981,452,3180,493"/>
-<area shape="rect" id="node22" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="2199,541,2397,583"/>
-<area shape="rect" id="node23" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="2063,452,2261,493"/>
-<area shape="rect" id="node25" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="399,363,597,404"/>
-<area shape="rect" id="node26" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="2436,363,2635,404"/>
-<area shape="rect" id="node27" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1577,541,1776,583"/>
-<area shape="rect" id="node28" href="$d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2759,363,2957,404"/>
-<area shape="rect" id="node29" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="956,363,1155,404"/>
-<area shape="rect" id="node32" href="$d2/d61/timer__instruction_8h.html" title=" " alt="" coords="1228,452,1427,493"/>
-<area shape="rect" id="node33" href="$d0/d25/wait__instruction_8h.html" title=" " alt="" coords="1840,452,2039,493"/>
-<area shape="rect" id="node6" title=" " alt="" coords="2703,541,2907,583"/>
-<area shape="rect" id="node8" title=" " alt="" coords="621,459,706,486"/>
-<area shape="rect" id="node9" title=" " alt="" coords="2437,459,2551,486"/>
-<area shape="rect" id="node10" title=" " alt="" coords="2231,638,2309,665"/>
-<area shape="rect" id="node11" title=" " alt="" coords="730,459,901,486"/>
-<area shape="rect" id="node15" title=" " alt="" coords="2575,459,2634,486"/>
-<area shape="rect" id="node16" title=" " alt="" coords="3361,638,3416,665"/>
-<area shape="rect" id="node17" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="3507,452,3705,493"/>
-<area shape="rect" id="node18" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="3133,541,3332,583"/>
-<area shape="rect" id="node20" title=" " alt="" coords="3753,631,3923,672"/>
-<area shape="rect" id="node19" title=" " alt="" coords="5,638,73,665"/>
-<area shape="rect" id="node24" title=" " alt="" coords="2002,549,2074,575"/>
-<area shape="rect" id="node30" title=" " alt="" coords="1451,452,1612,493"/>
-<area shape="rect" id="node31" title=" " alt="" coords="1637,459,1815,486"/>
-<area shape="rect" id="node35" href="$de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="2851,273,3049,315"/>
-<area shape="rect" id="node36" href="$d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="2492,184,2691,225"/>
-<area shape="rect" id="node37" href="$d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="2715,184,2913,225"/>
-<area shape="rect" id="node40" title=" " alt="" coords="3881,459,3960,486"/>
-<area shape="rect" id="node41" title=" " alt="" coords="3984,459,4031,486"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3367,5,3565,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="2717,727,2908,754"/>
+<area shape="rect" id="node3" title=" " alt="" coords="3981,102,4076,129"/>
+<area shape="rect" id="node4" title=" " alt="" coords="3427,281,3631,307"/>
+<area shape="rect" id="node5" title=" " alt="" coords="3655,281,3855,307"/>
+<area shape="rect" id="node6" title=" " alt="" coords="4101,102,4167,129"/>
+<area shape="rect" id="node7" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="2160,273,2359,315"/>
+<area shape="rect" id="node22" title=" " alt="" coords="2554,638,2725,665"/>
+<area shape="rect" id="node40" href="$da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="2476,95,2675,136"/>
+<area shape="rect" id="node44" href="$dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="3252,184,3451,225"/>
+<area shape="rect" id="node46" href="$de/dd7/tesseract__command__language_2include_2tesseract__command__language_2serialize_8h.html" title="Provide methods for serializing instructions to xml and deserialization." alt="" coords="3103,631,3301,672"/>
+<area shape="rect" id="node47" href="$dd/dc7/tesseract__command__language_2include_2tesseract__command__language_2deserialize_8h.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="3844,363,4043,404"/>
+<area shape="rect" id="node50" href="$d4/d1c/compare__instruction_8h.html" title="This contains the comparison operators for Instruction by recovering the type and comparing." alt="" coords="3615,363,3813,404"/>
+<area shape="rect" id="node8" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="4679,631,4877,672"/>
+<area shape="rect" id="node13" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="3527,631,3725,672"/>
+<area shape="rect" id="node14" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="256,541,455,583"/>
+<area shape="rect" id="node16" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1841,541,2040,583"/>
+<area shape="rect" id="node20" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="1137,631,1336,672"/>
+<area shape="rect" id="node23" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2748,363,2947,404"/>
+<area shape="rect" id="node30" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2391,541,2589,583"/>
+<area shape="rect" id="node31" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="4204,631,4403,672"/>
+<area shape="rect" id="node32" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2079,541,2277,583"/>
+<area shape="rect" id="node33" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="973,452,1172,493"/>
+<area shape="rect" id="node34" href="$d0/d65/plan__instruction_8h.html" title=" " alt="" coords="1245,452,1444,493"/>
+<area shape="rect" id="node35" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="1619,541,1817,583"/>
+<area shape="rect" id="node38" href="$d2/d61/timer__instruction_8h.html" title=" " alt="" coords="3951,541,4149,583"/>
+<area shape="rect" id="node39" href="$d0/d25/wait__instruction_8h.html" title=" " alt="" coords="4273,541,4472,583"/>
+<area shape="rect" id="node9" title=" " alt="" coords="4861,727,4933,754"/>
+<area shape="rect" id="node10" title=" " alt="" coords="4140,727,4195,754"/>
+<area shape="rect" id="node11" title=" " alt="" coords="3400,727,3479,754"/>
+<area shape="rect" id="node12" title=" " alt="" coords="3776,720,3903,761"/>
+<area shape="rect" id="node15" title=" " alt="" coords="47,631,251,672"/>
+<area shape="rect" id="node17" title=" " alt="" coords="1650,638,1735,665"/>
+<area shape="rect" id="node18" title=" " alt="" coords="579,638,694,665"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1759,638,1930,665"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1360,638,1575,665"/>
+<area shape="rect" id="node24" title=" " alt="" coords="903,638,962,665"/>
+<area shape="rect" id="node25" title=" " alt="" coords="3901,631,4028,672"/>
+<area shape="rect" id="node26" title=" " alt="" coords="2352,631,2479,672"/>
+<area shape="rect" id="node27" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="3607,452,3805,493"/>
+<area shape="rect" id="node28" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="3001,541,3200,583"/>
+<area shape="rect" id="node29" title=" " alt="" coords="2157,638,2225,665"/>
+<area shape="rect" id="node36" title=" " alt="" coords="719,631,880,672"/>
+<area shape="rect" id="node37" title=" " alt="" coords="326,638,505,665"/>
+<area shape="rect" id="node41" href="$de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="2612,273,2811,315"/>
+<area shape="rect" id="node42" href="$d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="2253,184,2452,225"/>
+<area shape="rect" id="node43" href="$d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="2476,184,2675,225"/>
+<area shape="rect" id="node45" title=" " alt="" coords="3173,273,3300,315"/>
+<area shape="rect" id="node48" title=" " alt="" coords="4052,459,4131,486"/>
+<area shape="rect" id="node49" title=" " alt="" coords="3981,459,4028,486"/>
 </map>

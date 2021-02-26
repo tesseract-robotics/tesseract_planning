@@ -71,7 +71,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../da/dd9/classtesseract__planning_1_1NullInstruction-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">tesseract_planning::NullInstruction Class Reference</div>  </div>
@@ -98,16 +100,27 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a630e3531d906846ec934eda750ae8332"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32cd4b6131081d6511edc592eccc8885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html#a32cd4b6131081d6511edc592eccc8885">setDescription</a> (const std::string &amp;description)</td></tr>
 <tr class="separator:a32cd4b6131081d6511edc592eccc8885"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06c3c1b9c4571c95521b7fa2419e9c60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html#a06c3c1b9c4571c95521b7fa2419e9c60">print</a> (std::string prefix=&quot;&quot;) const</td></tr>
-<tr class="separator:a06c3c1b9c4571c95521b7fa2419e9c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea240a54272b303cac66ca2b6b8588c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html#aea240a54272b303cac66ca2b6b8588c4">print</a> (const std::string &amp;prefix=&quot;&quot;) const</td></tr>
+<tr class="separator:aea240a54272b303cac66ca2b6b8588c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b17688ce05da44798cfe6f883d2bba7"><td class="memItemLeft" align="right" valign="top">tinyxml2::XMLElement *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html#a5b17688ce05da44798cfe6f883d2bba7">toXML</a> (tinyxml2::XMLDocument &amp;doc) const</td></tr>
 <tr class="separator:a5b17688ce05da44798cfe6f883d2bba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ada426b6bcda999f74a86be57fea0accf"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:ada426b6bcda999f74a86be57fea0accf"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html#ada426b6bcda999f74a86be57fea0accf">serialize</a> (Archive &amp;, const unsigned int)</td></tr>
+<tr class="separator:ada426b6bcda999f74a86be57fea0accf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a19cd92894e100e235a3b3dd3cd609d72"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html#a19cd92894e100e235a3b3dd3cd609d72">description_</a> { &quot;Tesseract Null <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&quot; }</td></tr>
 <tr class="memdesc:a19cd92894e100e235a3b3dd3cd609d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">The description of the instruction.  <a href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html#a19cd92894e100e235a3b3dd3cd609d72">More...</a><br /></td></tr>
 <tr class="separator:a19cd92894e100e235a3b3dd3cd609d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
+<tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a630e3531d906846ec934eda750ae8332"></a>
@@ -160,8 +173,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a06c3c1b9c4571c95521b7fa2419e9c60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06c3c1b9c4571c95521b7fa2419e9c60">&#9670;&nbsp;</a></span>print()</h2>
+<a id="aea240a54272b303cac66ca2b6b8588c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea240a54272b303cac66ca2b6b8588c4">&#9670;&nbsp;</a></span>print()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +185,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void tesseract_planning::NullInstruction::print </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>prefix</em> = <code>&quot;&quot;</code></td><td>)</td>
           <td> const</td>
         </tr>
@@ -180,6 +193,44 @@ Private Attributes</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada426b6bcda999f74a86be57fea0accf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada426b6bcda999f74a86be57fea0accf">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Archive &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::NullInstruction::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Archive &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -238,6 +289,29 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class boost::serialization::access</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a19cd92894e100e235a3b3dd3cd609d72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19cd92894e100e235a3b3dd3cd609d72">&#9670;&nbsp;</a></span>description_</h2>
@@ -264,12 +338,12 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract_command_language/include/tesseract_command_language/<a class="el" href="../../dc/d2f/null__instruction_8h_source.html">null_instruction.h</a></li>
+<li>tesseract_command_language/include/tesseract_command_language/core/<a class="el" href="../../dc/d2f/null__instruction_8h_source.html">null_instruction.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 23 2021 18:03:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Feb 26 2021 14:45:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

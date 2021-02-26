@@ -3,7 +3,12 @@
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$tinyxml2.\+h$>$}\newline
+{\ttfamily \#include $<$boost/serialization/base\+\_\+object.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/serialization/nvp.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/serialization/unique\+\_\+ptr.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/type\+\_\+traits/is\+\_\+virtual\+\_\+base\+\_\+of.\+hpp$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/null\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/sfinae\+\_\+utils.\+h$>$}\newline
 Include dependency graph for instruction.\+h\+:
 \nopagebreak
@@ -28,6 +33,8 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1Inst
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner$<$ T $>$}}
 \item 
+struct \mbox{\hyperlink{structboost_1_1is__virtual__base__of_3_01tesseract__planning_1_1detail__instruction_1_1Instructi4bac2ff43cf5ebc6e54bdec93ebc6d01}{boost\+::is\+\_\+virtual\+\_\+base\+\_\+of$<$ tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner\+Base, tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner$<$ T $>$ $>$}}
+\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
@@ -36,6 +43,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+p
  \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
 \item 
  \mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction}{tesseract\+\_\+planning\+::detail\+\_\+instruction}}
+\item 
+ \mbox{\hyperlink{namespaceboost}{boost}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{instruction_8h_aba30606adde75c1aa6c3f7e1e862cee9}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}}(inst)
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -59,6 +73,8 @@ class \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+p
 \mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction_a4c51d252fea8f4ba001b4b47b3e53dc6}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+FUNC\+\_\+\+SIGNATURE\+\_\+\+CHECK}} (print, void, std\+::string)
 \item 
 \mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction_a6c6ff4d197e0da52a32124ed8d4f5f06}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+FUNC\+\_\+\+SIGNATURE\+\_\+\+CHECK}} (to\+XML, tinyxml2\+::\+XMLElement $\ast$, tinyxml2\+::\+XMLDocument \&)
+\item 
+\mbox{\hyperlink{instruction_8h_a117374dd98af81801c0ccb8018e93215}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}} (\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}, boost\+::serialization\+::track\+\_\+never)
 \end{DoxyCompactItemize}
 
 
@@ -73,7 +89,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000004}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000006}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -88,3 +104,28 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
 \end{DoxyParagraph}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{instruction_8h_aba30606adde75c1aa6c3f7e1e862cee9}\label{instruction_8h_aba30606adde75c1aa6c3f7e1e862cee9}} 
+\index{instruction.h@{instruction.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
+\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!instruction.h@{instruction.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT}{TESSERACT\_INSTRUCTION\_EXPORT}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT(\begin{DoxyParamCaption}\item[{}]{inst }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_GUID(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}{tesseract\_planning::detail\_instruction::InstructionInner<inst>}}, \#inst)                       \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}{tesseract\_planning::detail\_instruction::InstructionInner<inst>}},                                 \(\backslash\)}
+\DoxyCodeLine{                       boost::serialization::track\_never)}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{instruction_8h_a117374dd98af81801c0ccb8018e93215}\label{instruction_8h_a117374dd98af81801c0ccb8018e93215}} 
+\index{instruction.h@{instruction.h}!BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}}
+\index{BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}!instruction.h@{instruction.h}}
+\doxysubsubsection{\texorpdfstring{BOOST\_CLASS\_TRACKING()}{BOOST\_CLASS\_TRACKING()}}
+{\footnotesize\ttfamily BOOST\+\_\+\+CLASS\+\_\+\+TRACKING (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}}]{,  }\item[{boost\+::serialization\+::track\+\_\+never}]{ }\end{DoxyParamCaption})}
+

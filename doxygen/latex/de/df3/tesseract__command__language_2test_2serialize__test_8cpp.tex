@@ -2,10 +2,15 @@
 \label{tesseract__command__language_2test_2serialize__test_8cpp}\index{tesseract\_command\_language/test/serialize\_test.cpp@{tesseract\_command\_language/test/serialize\_test.cpp}}
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+oarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/serialization.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/serialize.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/deserialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/compare\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
 Include dependency graph for serialize\+\_\+test.\+cpp\+:
 \nopagebreak
@@ -21,6 +26,8 @@ Include dependency graph for serialize\+\_\+test.\+cpp\+:
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a0521c81eb85dd98338887525d5a1d9c9}{get\+Program}} ()
 \item 
 \mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a2ce989ed94cbf3967bbfc1e21fcd22c3}{TEST}} (Tesseract\+Command\+Language\+Serialize\+Unit, Serialize\+To\+Xml)
+\item 
+\mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_ada1343ecaacb2a2102e5c45267a6b08f}{TEST}} (Tesseract\+Command\+Language\+Serialize\+Unit, serialization\+Composite\+Instruction)
 \item 
 int \mbox{\hyperlink{tesseract__command__language_2test_2serialize__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
@@ -42,7 +49,7 @@ August 20, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000040}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000044}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -72,10 +79,16 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_ada1343ecaacb2a2102e5c45267a6b08f}\label{tesseract__command__language_2test_2serialize__test_8cpp_ada1343ecaacb2a2102e5c45267a6b08f}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Serialize\+Unit}]{,  }\item[{serialization\+Composite\+Instruction}]{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{tesseract__command__language_2test_2serialize__test_8cpp_a2ce989ed94cbf3967bbfc1e21fcd22c3}\label{tesseract__command__language_2test_2serialize__test_8cpp_a2ce989ed94cbf3967bbfc1e21fcd22c3}} 
 \index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
 \index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Serialize\+Unit}]{,  }\item[{Serialize\+To\+Xml}]{ }\end{DoxyParamCaption})}
 
 

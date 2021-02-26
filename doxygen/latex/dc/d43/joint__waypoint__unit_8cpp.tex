@@ -7,9 +7,13 @@ Contains unit tests for Joint\+Waypoint.
 
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+oarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/serialize.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/deserialize.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/serialization.\+h$>$}\newline
 Include dependency graph for joint\+\_\+waypoint\+\_\+unit.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -22,6 +26,8 @@ Include dependency graph for joint\+\_\+waypoint\+\_\+unit.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{joint__waypoint__unit_8cpp_af4e02d80804447e104dca5da0ced3f12}{TEST}} (Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit, is\+Toleranced)
+\item 
+\mbox{\hyperlink{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}{TEST}} (Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit, boost\+Serialization)
 \item 
 void \mbox{\hyperlink{joint__waypoint__unit_8cpp_a4c4ce853defd5cfbdf463c802a8d1fd6}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&wp)
 \item 
@@ -44,7 +50,7 @@ January 28, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000039}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000043}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -74,15 +80,21 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{SerializeDeserializeTest()}{SerializeDeserializeTest()}}
 {\footnotesize\ttfamily void Serialize\+Deserialize\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&}]{wp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}\label{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}} 
+\index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit}]{,  }\item[{boost\+Serialization}]{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{joint__waypoint__unit_8cpp_a62023d30009b1e2c6e7128f4ed8cfa1f}\label{joint__waypoint__unit_8cpp_a62023d30009b1e2c6e7128f4ed8cfa1f}} 
 \index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!TEST@{TEST}}
 \index{TEST@{TEST}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit}]{,  }\item[{equality\+Operator\+And\+Serialization}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{joint__waypoint__unit_8cpp_af4e02d80804447e104dca5da0ced3f12}\label{joint__waypoint__unit_8cpp_af4e02d80804447e104dca5da0ced3f12}} 
 \index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!TEST@{TEST}}
 \index{TEST@{TEST}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit}]{,  }\item[{is\+Toleranced}]{ }\end{DoxyParamCaption})}
 

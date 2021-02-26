@@ -71,7 +71,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../d7/d6f/classtesseract__planning_1_1TimerInstruction-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">tesseract_planning::TimerInstruction Class Reference</div>  </div>
@@ -95,6 +97,8 @@ Collaboration diagram for tesseract_planning::TimerInstruction:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a0cf210e59f1618b7630616a7a9e15793"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#a0cf210e59f1618b7630616a7a9e15793">TimerInstruction</a> ()=default</td></tr>
+<tr class="separator:a0cf210e59f1618b7630616a7a9e15793"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3d2c2c49c4f46240541184bfdd22c58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#ad3d2c2c49c4f46240541184bfdd22c58">TimerInstruction</a> (<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2">TimerInstructionType</a> type, double time, int io)</td></tr>
 <tr class="separator:ad3d2c2c49c4f46240541184bfdd22c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56c3b174acfe6a669b2540ec226946f3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#a56c3b174acfe6a669b2540ec226946f3">getType</a> () const</td></tr>
@@ -103,8 +107,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1d5007110b09f26384d63ae2648b3f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa455b335032848e22c714adff13de4e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#aa455b335032848e22c714adff13de4e8">setDescription</a> (const std::string &amp;description)</td></tr>
 <tr class="separator:aa455b335032848e22c714adff13de4e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc2720ae7a04b538e60a20030ad52df9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#afc2720ae7a04b538e60a20030ad52df9">print</a> (std::string prefix=&quot;&quot;) const</td></tr>
-<tr class="separator:afc2720ae7a04b538e60a20030ad52df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a972fdfd8165fb869425980eb4530061a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#a972fdfd8165fb869425980eb4530061a">print</a> (const std::string &amp;prefix=&quot;&quot;) const</td></tr>
+<tr class="separator:a972fdfd8165fb869425980eb4530061a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d54437343e0353ba1e1dc3908f8ce2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2">TimerInstructionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#a3d54437343e0353ba1e1dc3908f8ce2a">getTimerType</a> () const</td></tr>
 <tr class="memdesc:a3d54437343e0353ba1e1dc3908f8ce2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the timer type.  <a href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#a3d54437343e0353ba1e1dc3908f8ce2a">More...</a><br /></td></tr>
 <tr class="separator:a3d54437343e0353ba1e1dc3908f8ce2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,6 +129,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a762405f2f3c9f9a4cbefaebdec13bb0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a524b8b93af0f6001f98930bf75170de9"><td class="memItemLeft" align="right" valign="top">tinyxml2::XMLElement *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#a524b8b93af0f6001f98930bf75170de9">toXML</a> (tinyxml2::XMLDocument &amp;doc) const</td></tr>
 <tr class="separator:a524b8b93af0f6001f98930bf75170de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf83026ab15866b7d1ae5ed390b7870e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#acf83026ab15866b7d1ae5ed390b7870e">operator==</a> (const <a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html">TimerInstruction</a> &amp;rhs) const</td></tr>
+<tr class="memdesc:acf83026ab15866b7d1ae5ed390b7870e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equal operator. Does not compare descriptions.  <a href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#acf83026ab15866b7d1ae5ed390b7870e">More...</a><br /></td></tr>
+<tr class="separator:acf83026ab15866b7d1ae5ed390b7870e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a286fa3e47fbb07c30e0532bc7d4c6e0a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#a286fa3e47fbb07c30e0532bc7d4c6e0a">operator!=</a> (const <a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html">TimerInstruction</a> &amp;rhs) const</td></tr>
+<tr class="memdesc:a286fa3e47fbb07c30e0532bc7d4c6e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not equal operator. Does not compare descriptions.  <a href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#a286fa3e47fbb07c30e0532bc7d4c6e0a">More...</a><br /></td></tr>
+<tr class="separator:a286fa3e47fbb07c30e0532bc7d4c6e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aee81d68a236e6c522a3cf4a6d958364b"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:aee81d68a236e6c522a3cf4a6d958364b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#aee81d68a236e6c522a3cf4a6d958364b">serialize</a> (Archive &amp;ar, const unsigned int)</td></tr>
+<tr class="separator:aee81d68a236e6c522a3cf4a6d958364b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -137,6 +153,11 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a711e35d61bc776766f0669a820ef9a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7cb5b0a66d8aa4671904e668247cf60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#aa7cb5b0a66d8aa4671904e668247cf60">timer_io_</a> { -1 }</td></tr>
 <tr class="separator:aa7cb5b0a66d8aa4671904e668247cf60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
+<tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This instruction indicates that a timer should be started and when the time expires it either sets a digital output high(1) or low(0). </p>
@@ -145,8 +166,33 @@ Private Attributes</h2></td></tr>
 <li>DIGITAL_OUTPUT_LOW : The digital output will be set to low(0) when the timer expires </li>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0cf210e59f1618b7630616a7a9e15793"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf210e59f1618b7630616a7a9e15793">&#9670;&nbsp;</a></span>TimerInstruction() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::TimerInstruction::TimerInstruction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad3d2c2c49c4f46240541184bfdd22c58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3d2c2c49c4f46240541184bfdd22c58">&#9670;&nbsp;</a></span>TimerInstruction()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3d2c2c49c4f46240541184bfdd22c58">&#9670;&nbsp;</a></span>TimerInstruction() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,8 +368,78 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afc2720ae7a04b538e60a20030ad52df9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc2720ae7a04b538e60a20030ad52df9">&#9670;&nbsp;</a></span>print()</h2>
+<a id="a286fa3e47fbb07c30e0532bc7d4c6e0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a286fa3e47fbb07c30e0532bc7d4c6e0a">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::TimerInstruction::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html">TimerInstruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Not equal operator. Does not compare descriptions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rhs</td><td><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html" title="This instruction indicates that a timer should be started and when the time expires it either sets a ...">TimerInstruction</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if not equal, otherwise false </dd></dl>
+
+</div>
+</div>
+<a id="acf83026ab15866b7d1ae5ed390b7870e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf83026ab15866b7d1ae5ed390b7870e">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::TimerInstruction::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html">TimerInstruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equal operator. Does not compare descriptions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rhs</td><td><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html" title="This instruction indicates that a timer should be started and when the time expires it either sets a ...">TimerInstruction</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if equal, otherwise false </dd></dl>
+
+</div>
+</div>
+<a id="a972fdfd8165fb869425980eb4530061a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a972fdfd8165fb869425980eb4530061a">&#9670;&nbsp;</a></span>print()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,7 +450,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void tesseract_planning::TimerInstruction::print </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>prefix</em> = <code>&quot;&quot;</code></td><td>)</td>
           <td> const</td>
         </tr>
@@ -342,6 +458,44 @@ Private Attributes</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee81d68a236e6c522a3cf4a6d958364b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee81d68a236e6c522a3cf4a6d958364b">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Archive &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::TimerInstruction::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Archive &amp;&#160;</td>
+          <td class="paramname"><em>ar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -502,6 +656,29 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class boost::serialization::access</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="af68e25dcab9170a1322cbba7c4fcd55a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af68e25dcab9170a1322cbba7c4fcd55a">&#9670;&nbsp;</a></span>description_</h2>
@@ -599,7 +776,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 23 2021 18:03:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Feb 26 2021 14:45:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
