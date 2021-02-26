@@ -44,7 +44,7 @@ TEST(GraphTaskflowGenerator, CreateAndRun)
 {
   GraphTaskflow graph;
   int A = graph.addNode(std::make_unique<TestGenerator>("A", 0), true);
-  int A0 = graph.addNode(std::make_unique<TestGenerator>("A0", 2), true);
+  int A0 = graph.addNode(std::make_unique<TestGenerator>("A0", 3), true);
   int A1 = graph.addNode(std::make_unique<TestGenerator>("A1", -1), false);
   int A2 = graph.addNode(std::make_unique<TestGenerator>("A2", -1), false);
   int A00 = graph.addNode(std::make_unique<TestGenerator>("A00", -1), false);
@@ -52,7 +52,7 @@ TEST(GraphTaskflowGenerator, CreateAndRun)
   int A02 = graph.addNode(std::make_unique<TestGenerator>("A02", 1), true);
 
   ASSERT_NO_THROW(graph.addEdges(A, { A0, A1, A2 }));
-  ASSERT_NO_THROW(graph.addEdges(A0, { A00, A01, A02 }));
+  ASSERT_NO_THROW(graph.addEdges(A0, { GraphTaskflow::ERROR_NODE, A00, A01, A02, GraphTaskflow::DONE_NODE }));
 
   // Adding more than one edge to non-conditional nodes is not allowed
   ASSERT_THROW(graph.addEdges(A1, { A00, A01, A02 }), std::runtime_error);
