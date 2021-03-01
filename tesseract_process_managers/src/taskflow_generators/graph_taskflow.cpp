@@ -86,7 +86,7 @@ TaskflowContainer GraphTaskflow::generateTaskflow(TaskInput input, TaskflowVoidF
       else if (idx == ERROR_NODE)
         tasks.at(i).precede(error_task);
       else
-        CONSOLE_BRIDGE_logError("GraphTaskflow invalid edge: %d", idx);
+        throw std::runtime_error("Invalid GraphTaskflow: Node specified with invalid edge");
     }
 
     // If no edges exist for the current node, make sure it precedes the done task (and error task if conditional)
@@ -117,6 +117,8 @@ void GraphTaskflow::addEdges(int source, std::vector<int> destinations)
   Node& node = nodes_.at(static_cast<std::size_t>(source));
   if (destinations.size() > 1 && node.is_conditional)
     node.edges.insert(node.edges.end(), destinations.begin(), destinations.end());
+  else if (destinations.size() == 1)
+    node.edges.push_back(destinations.front());
   else
     throw std::runtime_error("Multiple edges can only be added to conditional nodes");
 }
