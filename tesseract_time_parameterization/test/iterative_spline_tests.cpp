@@ -42,6 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_time_parameterization/iterative_spline_parameterization.h>
+#include <tesseract_time_parameterization/instructions_trajectory.h>
 
 using namespace tesseract_planning;
 
@@ -103,8 +104,9 @@ TEST(TestTimeParameterization, TestIterativeSpline)
   CompositeInstruction program = createStraightTrajectory();
   std::vector<double> max_velocity = { 2.088, 2.082, 3.27, 3.6, 3.3, 3.078 };
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
-  EXPECT_TRUE(time_parameterization.compute(program, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
+  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
+  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
+  ASSERT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 5.0);
 }
 
 TEST(TestTimeParameterization, TestIterativeSplineAddPoints)
@@ -113,8 +115,9 @@ TEST(TestTimeParameterization, TestIterativeSplineAddPoints)
   CompositeInstruction program = createStraightTrajectory();
   std::vector<double> max_velocity = { 2.088, 2.082, 3.27, 3.6, 3.3, 3.078 };
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
-  EXPECT_TRUE(time_parameterization.compute(program, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
+  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
+  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
+  ASSERT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 5.0);
 }
 
 TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)
@@ -126,18 +129,22 @@ TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)
   Eigen::VectorXd max_acceleration(6);
   max_acceleration << 1, 1, 1, 1, 1, 1;
   Eigen::VectorXd max_velocity_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size() + 1));
-  Eigen::VectorXd max_acceleration_scaling_factors =
-      Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size() + 1));  // +1 for start instruction
 
+  // +1 for start instruction
+  Eigen::VectorXd max_acceleration_scaling_factors =
+      Eigen::VectorXd::Ones(static_cast<Eigen::Index>(program.size() + 1));
+
+  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(
-      program, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
-  EXPECT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
+      *trajectory, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
+  EXPECT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 5.0);
 
   program = createStraightTrajectory();
   max_velocity_scaling_factors[0] = 0.5;
   max_acceleration_scaling_factors[0] = 0.5;
+  trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(
-      program, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
+      *trajectory, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
 }
 
 TEST(TestTimeParameterization, TestRepeatedPoint)
@@ -146,8 +153,9 @@ TEST(TestTimeParameterization, TestRepeatedPoint)
   CompositeInstruction program = createRepeatedPointTrajectory();
   std::vector<double> max_velocity = { 2.088, 2.082, 3.27, 3.6, 3.3, 3.078 };
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
-  EXPECT_TRUE(time_parameterization.compute(program, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 0.001);
+  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
+  EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
+  ASSERT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 0.001);
 }
 
 int main(int argc, char** argv)

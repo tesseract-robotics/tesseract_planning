@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/unique_ptr.hpp>
+#include <boost/serialization/export.hpp>
 #include <boost/type_traits/is_virtual_base_of.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

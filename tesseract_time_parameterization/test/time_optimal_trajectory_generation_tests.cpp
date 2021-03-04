@@ -39,7 +39,15 @@
 #include <gtest/gtest.h>
 #include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
 #include <tesseract_command_language/command_language.h>
+#include <tesseract_time_parameterization/instructions_trajectory.h>
 
+using tesseract_planning::CompositeInstruction;
+using tesseract_planning::InstructionsTrajectory;
+using tesseract_planning::MoveInstruction;
+using tesseract_planning::MoveInstructionType;
+using tesseract_planning::StateWaypoint;
+using tesseract_planning::TimeOptimalTrajectoryGeneration;
+using tesseract_planning::TrajectoryContainer;
 using tesseract_planning::totg::Path;
 using tesseract_planning::totg::Trajectory;
 
@@ -296,9 +304,56 @@ TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)
   Eigen::VectorXd max_accelerations(6);
   max_accelerations.setOnes();
 
-  tesseract_planning::TimeOptimalTrajectoryGeneration solver(0.001, 0.1, 1e-3);
+  TimeOptimalTrajectoryGeneration solver(0.001, 0.1, 1e-3);
 
   EXPECT_TRUE(solver.computeTimeStamps(program, max_velocities, max_accelerations, 1.0, 1.0));
+}
+
+// Initialize one-joint, straight-line trajectory
+CompositeInstruction createStraightTrajectory()
+{
+  const int num = 10;
+  const double max = 2.0;
+
+  std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
+
+  CompositeInstruction program;
+  for (int i = 0; i < num; i++)
+  {
+    StateWaypoint swp(joint_names, Eigen::VectorXd::Zero(6));
+    swp.position[0] = i * max / num;
+    if (i == 0)
+      program.setStartInstruction(MoveInstruction(swp, MoveInstructionType::START));
+    else
+      program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+  }
+
+  // leave final velocity/acceleration unset
+  StateWaypoint swp(joint_names, Eigen::VectorXd::Zero(6));
+  swp.position[0] = max;
+  program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+
+  return program;
+}
+
+void runTrajectoryContainerInterfaceTest(double path_tolerance)
+{
+  TimeOptimalTrajectoryGeneration solver(path_tolerance, 0.1, 1e-3);
+  CompositeInstruction program = createStraightTrajectory();
+  Eigen::VectorXd max_velocity(6);
+  max_velocity << 2.088, 2.082, 3.27, 3.6, 3.3, 3.078;
+  Eigen::VectorXd max_acceleration(6);
+  max_acceleration << 1, 1, 1, 1, 1, 1;
+  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
+  EXPECT_TRUE(solver.computeTimeStamps(*trajectory, max_velocity, max_acceleration));
+  ASSERT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 5.0);
+}
+
+TEST(time_optimal_trajectory_generation, testTrajectoryContainerInterface)
+{
+  runTrajectoryContainerInterfaceTest(0.001);
+  runTrajectoryContainerInterfaceTest(0.01);
+  runTrajectoryContainerInterfaceTest(0.0001);
 }
 
 int main(int argc, char** argv)

@@ -46,6 +46,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/command_language.h>
+#include <tesseract_time_parameterization/trajectory_container.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::TimeOptimalTrajectoryGeneration)
@@ -61,6 +62,12 @@ public:
                                   double min_angle_change = 0.001);
 
   bool computeTimeStamps(CompositeInstruction& program,
+                         const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
+                         const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
+                         double max_velocity_scaling_factor = 1.0,
+                         double max_acceleration_scaling_factor = 1.0) const;
+
+  bool computeTimeStamps(TrajectoryContainer& trajectory,
                          const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                          const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
                          double max_velocity_scaling_factor = 1.0,
@@ -156,6 +163,18 @@ public:
   Eigen::VectorXd getVelocity(double time) const;
   /** @brief Return the acceleration vector for a given point in time */
   Eigen::VectorXd getAcceleration(double time) const;
+
+  /**
+   * @brief Assign trajectory velocity acceleration and time
+   * @details This search linear in time for the next waypoint within the provided tolerance
+   */
+  bool assignData(TrajectoryContainer& trajectory, double path_tolerance) const;
+
+  /**
+   * @brief Assign trajectory velocity acceleration and time
+   * @details This is brute force approach and should always return true
+   */
+  bool assignData(TrajectoryContainer& trajectory) const;
 
 private:
   struct TrajectoryStep

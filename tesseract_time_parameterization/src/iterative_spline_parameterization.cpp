@@ -43,37 +43,20 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_time_parameterization/iterative_spline_parameterization.h>
-#include <tesseract_command_language/utils/utils.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
-static flattenFilterFn programFlattenMoveInstructionFilter =
-    [](const Instruction& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
-      if (isMoveInstruction(i))
-      {
-        if (i.as<MoveInstruction>().isStart())
-          return (parent_is_first_composite);
 
-        return true;
-      }
-
-      return false;
-    };
-
-static void fit_cubic_spline(const int n, const double dt[], const double x[], double x1[], double x2[]);
-static void adjust_two_positions(const int n,
+static void fit_cubic_spline(const long n, const double dt[], const double x[], double x1[], double x2[]);
+static void adjust_two_positions(const long n,
                                  const double dt[],
                                  double x[],
                                  double x1[],
                                  double x2[],
                                  const double x2_i,
                                  const double x2_f);
-static void init_times(int n,
-                       double dt[],
-                       const double x[],
-                       const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                       const Eigen::Ref<const Eigen::VectorXd>& min_velocity);
+static void init_times(long n, double dt[], const double x[], const double max_velocity[], const double min_velocity[]);
 // static int fit_spline_and_adjust_times(const int n,
 //                                       double dt[],
 //                                       const double x[],
@@ -84,15 +67,15 @@ static void init_times(int n,
 //                                       const double max_acceleration,
 //                                       const double min_acceleration,
 //                                       const double tfactor);
-static double global_adjustment_factor(int n,
+static double global_adjustment_factor(long n,
                                        double dt[],
                                        const double x[],
                                        double x1[],
                                        double x2[],
-                                       const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                                       const Eigen::Ref<const Eigen::VectorXd>& min_velocity,
-                                       const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                       const Eigen::Ref<const Eigen::VectorXd>& min_acceleration);
+                                       const double max_velocity[],
+                                       const double min_velocity[],
+                                       const double max_acceleration[],
+                                       const double min_acceleration[]);
 
 // The path of a single joint: positions, velocities, and accelerations
 struct SingleJointTrajectory
@@ -100,105 +83,37 @@ struct SingleJointTrajectory
   std::vector<double> positions_;  // joint's position at time[x]
   std::vector<double> velocities_;
   std::vector<double> accelerations_;
-  double initial_acceleration_;
-  double final_acceleration_;
-  Eigen::VectorXd min_velocity_;
-  Eigen::VectorXd max_velocity_;
-  Eigen::VectorXd min_acceleration_;
-  Eigen::VectorXd max_acceleration_;
+  double initial_acceleration_{ 0 };
+  double final_acceleration_{ 0 };
+  std::vector<double> min_velocity_;
+  std::vector<double> max_velocity_;
+  std::vector<double> min_acceleration_;
+  std::vector<double> max_acceleration_;
 };
 
 void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
-                      int num_joints,
-                      const int num_points,
+                      long num_joints,
+                      long num_points,
                       std::vector<double>& time_diff);
 
 IterativeSplineParameterization::IterativeSplineParameterization(bool add_points) : add_points_(add_points) {}
 
 IterativeSplineParameterization::~IterativeSplineParameterization() = default;
 
-bool IterativeSplineParameterization::compute(CompositeInstruction& program,
+bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
                                               const double& max_velocity,
                                               const double& max_acceleration,
                                               double max_velocity_scaling_factor,
                                               double max_acceleration_scaling_factor) const
 {
-  std::vector<std::reference_wrapper<Instruction>> trajectory = flatten(program, programFlattenMoveInstructionFilter);
-
-  assert(isMoveInstruction(trajectory[0].get()));
-  auto& mi = trajectory[0].get().as<MoveInstruction>();
-
-  assert(isStateWaypoint(mi.getWaypoint()));
-  auto& swp = mi.getWaypoint().as<StateWaypoint>();
-
-  auto num_joints = static_cast<unsigned int>(swp.position.size());
-
   return compute(trajectory,
-                 std::vector<double>(num_joints, max_velocity),
-                 std::vector<double>(num_joints, max_acceleration),
+                 std::vector<double>(static_cast<std::size_t>(trajectory.dof()), max_velocity),
+                 std::vector<double>(static_cast<std::size_t>(trajectory.dof()), max_acceleration),
                  max_velocity_scaling_factor,
                  max_acceleration_scaling_factor);
 }
 
-bool IterativeSplineParameterization::compute(CompositeInstruction& program,
-                                              const std::vector<double>& max_velocity,
-                                              const std::vector<double>& max_acceleration,
-                                              double max_velocity_scaling_factor,
-                                              double max_acceleration_scaling_factor) const
-{
-  std::vector<std::reference_wrapper<Instruction>> trajectory = flatten(program, programFlattenMoveInstructionFilter);
-
-  return compute(
-      trajectory, max_velocity, max_acceleration, max_velocity_scaling_factor, max_acceleration_scaling_factor);
-}
-
-bool IterativeSplineParameterization::compute(CompositeInstruction& program,
-                                              const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                                              const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                              double max_velocity_scaling_factor,
-                                              double max_acceleration_scaling_factor) const
-{
-  std::vector<std::reference_wrapper<Instruction>> trajectory = flatten(program, programFlattenMoveInstructionFilter);
-
-  return compute(
-      trajectory, max_velocity, max_acceleration, max_velocity_scaling_factor, max_acceleration_scaling_factor);
-}
-
-bool IterativeSplineParameterization::compute(
-    CompositeInstruction& program,
-    const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-    const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-    const Eigen::Ref<const Eigen::VectorXd>& max_velocity_scaling_factor,
-    const Eigen::Ref<const Eigen::VectorXd>& max_acceleration_scaling_factor) const
-{
-  std::vector<std::reference_wrapper<Instruction>> trajectory = flatten(program, programFlattenMoveInstructionFilter);
-
-  return compute(
-      trajectory, max_velocity, max_acceleration, max_velocity_scaling_factor, max_acceleration_scaling_factor);
-}
-
-bool IterativeSplineParameterization::compute(std::vector<std::reference_wrapper<Instruction>>& trajectory,
-                                              const double& max_velocity,
-                                              const double& max_acceleration,
-                                              double max_velocity_scaling_factor,
-                                              double max_acceleration_scaling_factor) const
-{
-  assert(isMoveInstruction(trajectory[0].get()));
-  auto& mi = trajectory[0].get().as<MoveInstruction>();
-
-  assert(isStateWaypoint(mi.getWaypoint()));
-  auto& swp = mi.getWaypoint().as<StateWaypoint>();
-
-  auto num_joints = static_cast<unsigned int>(swp.position.size());
-
-  return compute(trajectory,
-                 std::vector<double>(num_joints, max_velocity),
-                 std::vector<double>(num_joints, max_acceleration),
-                 max_velocity_scaling_factor,
-                 max_acceleration_scaling_factor);
-}
-
-bool IterativeSplineParameterization::compute(std::vector<std::reference_wrapper<Instruction>>& trajectory,
+bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
                                               const std::vector<double>& max_velocity,
                                               const std::vector<double>& max_acceleration,
                                               double max_velocity_scaling_factor,
@@ -211,7 +126,7 @@ bool IterativeSplineParameterization::compute(std::vector<std::reference_wrapper
                  max_acceleration_scaling_factor);
 }
 
-bool IterativeSplineParameterization::compute(std::vector<std::reference_wrapper<Instruction>>& trajectory,
+bool IterativeSplineParameterization::compute(TrajectoryContainer& trajectory,
                                               const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                                               const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
                                               double max_velocity_scaling_factor,
@@ -226,38 +141,21 @@ bool IterativeSplineParameterization::compute(std::vector<std::reference_wrapper
 }
 
 bool IterativeSplineParameterization::compute(
-    std::vector<std::reference_wrapper<Instruction>>& trajectory,
+    TrajectoryContainer& trajectory,
     const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
     const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
     const Eigen::Ref<const Eigen::VectorXd>& max_velocity_scaling_factors,
     const Eigen::Ref<const Eigen::VectorXd>& max_acceleration_scaling_factors) const
 {
-  // Make a copy of the vector in case it introduces point we do not want it to modify the original trajectory size
-  // just the data.
-  std::vector<std::reference_wrapper<Instruction>> local_trajectory = trajectory;
-  Instruction point_to_insert_front{ NullInstruction() };
-  Instruction point_to_insert_back{ NullInstruction() };
-
-  if (local_trajectory.empty())
+  if (trajectory.empty())
     return true;
 
-  Eigen::VectorXd velocity_scaling_factor = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(trajectory.size()));
-  Eigen::VectorXd acceleration_scaling_factor = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(trajectory.size()));
-  std::size_t num_points = local_trajectory.size();
+  Eigen::VectorXd velocity_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
+  Eigen::VectorXd acceleration_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
+  std::size_t num_points = static_cast<std::size_t>(trajectory.size());
 
-  assert(isMoveInstruction(local_trajectory[0].get()));
-  auto& mi = local_trajectory[0].get().as<MoveInstruction>();
-
-  assert(isStateWaypoint(mi.getWaypoint()));
-  auto& swp = mi.getWaypoint().as<StateWaypoint>();
-
-  auto num_joints = static_cast<std::size_t>(swp.position.size());
-
-  if (static_cast<std::size_t>(max_velocity.size()) != num_joints ||
-      static_cast<std::size_t>(max_acceleration.size()) != num_joints)
-  {
+  if (max_velocity.size() != trajectory.dof() || max_acceleration.size() != trajectory.dof())
     return false;
-  }
 
   // Set scaling factors
   if ((max_velocity_scaling_factors.array() > 0.0).all() && (max_velocity_scaling_factors.array() <= 1.0).all())
@@ -303,108 +201,74 @@ bool IterativeSplineParameterization::compute(
     }
   }
 
-  if (add_points_)
-  {
-    // Insert 2nd and 2nd-last points
-    // (required to force acceleration to specified values at endpoints)
-    if (local_trajectory.size() >= 2)
-    {
-      point_to_insert_front = local_trajectory[1].get();
-      auto& point_to_insert_front_swp = point_to_insert_front.as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-
-      // 2nd point is 90% of p0, and 10% of p1
-      const auto& point_first = local_trajectory[0].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-      const auto& point_second = local_trajectory[1].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-      for (unsigned int j = 0; j < num_joints; j++)
-      {
-        point_to_insert_front_swp.position[j] = 0.9 * point_first.position[j] + 0.1 * point_second.position[j];
-      }
-      local_trajectory.insert(local_trajectory.begin() + 1, point_to_insert_front);
-      num_points++;
-
-      point_to_insert_back = local_trajectory[num_points - 2].get();
-      auto& point_to_insert_back_swp = point_to_insert_back.as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-
-      // 2nd-last point is 10% of p0, and 90% of p1
-      const auto& point_second_to_last =
-          local_trajectory[num_points - 2].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-      const auto& point_last =
-          local_trajectory[num_points - 1].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-      for (unsigned int j = 0; j < num_joints; j++)
-      {
-        point_to_insert_back_swp.position[j] = 0.1 * point_second_to_last.position[j] + 0.9 * point_last.position[j];
-      }
-      local_trajectory.insert(local_trajectory.end() - 1, point_to_insert_back);
-      num_points++;
-
-      // Add points to scaling factors
-      auto velocity_scaling_factor_tmp = velocity_scaling_factor;
-      auto acceleration_scaling_factor_tmp = acceleration_scaling_factor;
-      velocity_scaling_factor.resize(velocity_scaling_factor.size() + 2);
-      acceleration_scaling_factor.resize(acceleration_scaling_factor.size() + 2);
-
-      velocity_scaling_factor[0] = velocity_scaling_factor_tmp[0];
-      acceleration_scaling_factor[0] = acceleration_scaling_factor_tmp[0];
-      velocity_scaling_factor.block(1, 0, velocity_scaling_factor_tmp.size(), 1) = velocity_scaling_factor_tmp;
-      acceleration_scaling_factor.block(1, 0, acceleration_scaling_factor_tmp.size(), 1) =
-          acceleration_scaling_factor_tmp;
-      velocity_scaling_factor.bottomRows(1) = velocity_scaling_factor_tmp.bottomRows(1);
-      acceleration_scaling_factor.bottomRows(1) = acceleration_scaling_factor_tmp.bottomRows(1);
-    }
-  }
-
   // JointTrajectory indexes in [point][joint] order.
   // We need [joint][point] order to solve efficiently,
   // so convert form here.
 
-  std::vector<SingleJointTrajectory> t2(num_joints);
+  std::vector<SingleJointTrajectory> t2(static_cast<std::size_t>(trajectory.dof()));
 
-  for (unsigned int j = 0; j < num_joints; j++)
+  const Eigen::VectorXd& start_vel = trajectory.getVelocity(0);
+  const Eigen::VectorXd& last_vel = trajectory.getVelocity(static_cast<Eigen::Index>(num_points - 1));
+  const Eigen::VectorXd& start_acc = trajectory.getAcceleration(0);
+  const Eigen::VectorXd& last_acc = trajectory.getAcceleration(static_cast<Eigen::Index>(num_points - 1));
+
+  for (std::size_t j = 0; j < static_cast<std::size_t>(trajectory.dof()); j++)
   {
     // Copy positions
     t2[j].positions_.resize(num_points, 0.0);
-    for (unsigned int i = 0; i < num_points; i++)
-    {
-      const auto& swp = local_trajectory[i].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-      t2[j].positions_[i] = swp.position[j];
-    }
+    for (std::size_t i = 0; i < num_points; i++)
+      t2[j].positions_[i] = trajectory.getPosition(static_cast<Eigen::Index>(i))[static_cast<Eigen::Index>(j)];
 
     // Initialize velocities
-    const auto& start_swp = local_trajectory[0].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-    const auto& last_swp =
-        local_trajectory[num_points - 1].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
     t2[j].velocities_.resize(num_points, 0.0);
+
     // Copy initial/final velocities if specified
-    if (start_swp.velocity.size() > 0)
-      t2[j].velocities_[0] = start_swp.velocity[j];
-    if (last_swp.velocity.size() > 0)
-      t2[j].velocities_[num_points - 1] = last_swp.velocity[j];
+    if (start_vel.size() > 0)
+      t2[j].velocities_[0] = start_vel[static_cast<Eigen::Index>(j)];
+    if (last_vel.size() > 0)
+      t2[j].velocities_[num_points - 1] = last_vel[static_cast<Eigen::Index>(j)];
 
     // Initialize accelerations
     t2[j].accelerations_.resize(num_points, 0.0);
     t2[j].initial_acceleration_ = 0.0;
     t2[j].final_acceleration_ = 0.0;
+
     // Copy initial/final accelerations if specified
-    if (start_swp.acceleration.size() > 0)
-      t2[j].initial_acceleration_ = start_swp.acceleration[j];
+    if (start_acc.size() > 0)
+      t2[j].initial_acceleration_ = start_acc[static_cast<Eigen::Index>(j)];
     t2[j].accelerations_[0] = t2[j].initial_acceleration_;
-    if (last_swp.acceleration.size() > 0)
-      t2[j].final_acceleration_ = last_swp.acceleration[j];
+    if (last_acc.size() > 0)
+      t2[j].final_acceleration_ = last_acc[static_cast<Eigen::Index>(j)];
     t2[j].accelerations_[num_points - 1] = t2[j].final_acceleration_;
 
     // Set bounds based on inputs
-    t2[j].max_velocity_ = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * max_velocity[j];
-    t2[j].min_velocity_ = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * -max_velocity[j];
-    t2[j].max_velocity_.array() *= velocity_scaling_factor.array();
-    t2[j].min_velocity_.array() *= velocity_scaling_factor.array();
+    t2[j].max_velocity_.resize(num_points);
+    t2[j].min_velocity_.resize(num_points);
+    t2[j].max_acceleration_.resize(num_points);
+    t2[j].min_acceleration_.resize(num_points);
+    Eigen::Map<Eigen::VectorXd> max_velocity_eigen(t2[j].max_velocity_.data(), static_cast<Eigen::Index>(num_points));
+    Eigen::Map<Eigen::VectorXd> min_velocity_eigen(t2[j].min_velocity_.data(), static_cast<Eigen::Index>(num_points));
+    Eigen::Map<Eigen::VectorXd> max_acceleration_eigen(t2[j].max_acceleration_.data(),
+                                                       static_cast<Eigen::Index>(num_points));
+    Eigen::Map<Eigen::VectorXd> min_acceleration_eigen(t2[j].min_acceleration_.data(),
+                                                       static_cast<Eigen::Index>(num_points));
 
-    t2[j].max_acceleration_ = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * max_acceleration[j];
-    t2[j].min_acceleration_ = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * -max_acceleration[j];
-    t2[j].max_acceleration_.array() *= acceleration_scaling_factor.array();
-    t2[j].min_acceleration_.array() *= acceleration_scaling_factor.array();
+    max_velocity_eigen =
+        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * max_velocity[static_cast<Eigen::Index>(j)];
+    min_velocity_eigen =
+        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * -max_velocity[static_cast<Eigen::Index>(j)];
+    max_velocity_eigen.array() *= velocity_scaling_factor.array();
+    min_velocity_eigen.array() *= velocity_scaling_factor.array();
+
+    max_acceleration_eigen =
+        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * max_acceleration[static_cast<Eigen::Index>(j)];
+    min_acceleration_eigen =
+        Eigen::VectorXd::Ones(static_cast<Eigen::Index>(num_points)) * -max_acceleration[static_cast<Eigen::Index>(j)];
+    max_acceleration_eigen.array() *= acceleration_scaling_factor.array();
+    min_acceleration_eigen.array() *= acceleration_scaling_factor.array();
 
     // Error out if bounds don't make sense
-    if ((t2[j].max_velocity_.array() <= 0.0).any() || (t2[j].max_acceleration_.array() <= 0.0).any())
+    if ((max_velocity_eigen.array() <= 0.0).any() || (max_acceleration_eigen.array() <= 0.0).any())
     {
       CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Joint %d max velocity %f and max acceleration %f "
                               "must be greater than zero or a solution won't be found.",
@@ -413,7 +277,7 @@ bool IterativeSplineParameterization::compute(
                               t2[j].max_acceleration_[0]);
       return false;
     }
-    if ((t2[j].min_velocity_.array() >= 0.0).any() || (t2[j].min_acceleration_.array() >= 0.0).any())
+    if ((min_velocity_eigen.array() >= 0.0).any() || (min_acceleration_eigen.array() >= 0.0).any())
     {
       CONSOLE_BRIDGE_logError("trajectory_processing.iterative_spline_parameterization: Joint %d min velocity %f and "
                               "min acceleration %f must be less than zero or a solution won't be found.",
@@ -424,6 +288,65 @@ bool IterativeSplineParameterization::compute(
     }
   }
 
+  bool add_points = add_points_;
+  if (num_points < 2)
+    add_points = false;
+
+  if (add_points)
+  {
+    // Insert 2nd and 2nd-last points
+    // (required to force acceleration to specified values at endpoints)
+    for (unsigned int j = 0; j < trajectory.dof(); j++)
+    {
+      double value = 0.9 * t2[j].positions_[0] + 0.1 * t2[j].positions_[1];
+      t2[j].positions_.insert(t2[j].positions_.begin() + 1, value);
+
+      value = t2[j].velocities_.front();
+      t2[j].velocities_.insert(t2[j].velocities_.begin() + 1, value);
+
+      value = t2[j].accelerations_.front();
+      t2[j].accelerations_.insert(t2[j].accelerations_.begin() + 1, value);
+
+      value = t2[j].max_velocity_.front();
+      t2[j].max_velocity_.insert(t2[j].max_velocity_.begin() + 1, value);
+
+      value = t2[j].min_velocity_.front();
+      t2[j].min_velocity_.insert(t2[j].min_velocity_.begin() + 1, value);
+
+      value = t2[j].max_acceleration_.front();
+      t2[j].max_acceleration_.insert(t2[j].max_acceleration_.begin() + 1, value);
+
+      value = t2[j].min_acceleration_.front();
+      t2[j].min_acceleration_.insert(t2[j].min_acceleration_.begin() + 1, value);
+    }
+    num_points++;
+
+    for (unsigned int j = 0; j < trajectory.dof(); j++)
+    {
+      double value = 0.1 * t2[j].positions_[num_points - 2] + 0.9 * t2[j].positions_[num_points - 1];
+      t2[j].positions_.insert(t2[j].positions_.end() - 1, value);
+
+      value = t2[j].velocities_.back();
+      t2[j].velocities_.insert(t2[j].velocities_.end() - 1, value);
+
+      value = t2[j].accelerations_.back();
+      t2[j].accelerations_.insert(t2[j].accelerations_.end() - 1, value);
+
+      value = t2[j].max_velocity_.back();
+      t2[j].max_velocity_.insert(t2[j].max_velocity_.end() - 1, value);
+
+      value = t2[j].min_velocity_.back();
+      t2[j].min_velocity_.insert(t2[j].min_velocity_.end() - 1, value);
+
+      value = t2[j].max_acceleration_.back();
+      t2[j].max_acceleration_.insert(t2[j].max_acceleration_.end() - 1, value);
+
+      value = t2[j].min_acceleration_.back();
+      t2[j].min_acceleration_.insert(t2[j].min_acceleration_.end() - 1, value);
+    }
+    num_points++;
+  }
+
   // Error check
   if (num_points < 4)
   {
@@ -431,7 +354,7 @@ bool IterativeSplineParameterization::compute(
                             num_points);
     return false;
   }
-  for (unsigned int j = 0; j < num_joints; j++)
+  for (std::size_t j = 0; j < static_cast<std::size_t>(trajectory.dof()); j++)
   {
     if (t2[j].velocities_[0] > t2[j].max_velocity_[0] || t2[j].velocities_[0] < t2[j].min_velocity_[0])
     {
@@ -439,8 +362,8 @@ bool IterativeSplineParameterization::compute(
                               t2[j].velocities_[0]);
       return false;
     }
-    else if (t2[j].velocities_[num_points - 1] > t2[j].max_velocity_[static_cast<Eigen::Index>(num_points) - 1] ||
-             t2[j].velocities_[num_points - 1] < t2[j].min_velocity_[static_cast<Eigen::Index>(num_points) - 1])
+    else if (t2[j].velocities_[num_points - 1] > t2[j].max_velocity_[num_points - 1] ||
+             t2[j].velocities_[num_points - 1] < t2[j].min_velocity_[num_points - 1])
     {
       CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Final velocity %f out of bounds.",
                               t2[j].velocities_[num_points - 1]);
@@ -453,9 +376,8 @@ bool IterativeSplineParameterization::compute(
                               t2[j].accelerations_[0]);
       return false;
     }
-    else if (t2[j].accelerations_[num_points - 1] >
-                 t2[j].max_acceleration_[static_cast<Eigen::Index>(num_points) - 1] ||
-             t2[j].accelerations_[num_points - 1] < t2[j].min_acceleration_[static_cast<Eigen::Index>(num_points) - 1])
+    else if (t2[j].accelerations_[num_points - 1] > t2[j].max_acceleration_[num_points - 1] ||
+             t2[j].accelerations_[num_points - 1] < t2[j].min_acceleration_[num_points - 1])
     {
       CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Final acceleration %f out of bounds\n",
                               t2[j].accelerations_[num_points - 1]);
@@ -466,10 +388,13 @@ bool IterativeSplineParameterization::compute(
   // Initialize times
   // start with valid velocities, then expand intervals
   // epsilon to prevent divide-by-zero
-  std::vector<double> time_diff(local_trajectory.size() - 1, std::numeric_limits<double>::epsilon());
-  for (unsigned int j = 0; j < num_joints; j++)
-    init_times(
-        static_cast<int>(num_points), &time_diff[0], &t2[j].positions_[0], t2[j].max_velocity_, t2[j].min_velocity_);
+  std::vector<double> time_diff(static_cast<std::size_t>(num_points - 1), std::numeric_limits<double>::epsilon());
+  for (unsigned int j = 0; j < trajectory.dof(); j++)
+    init_times(static_cast<long>(num_points),
+               &time_diff[0],
+               &t2[j].positions_[0],
+               &t2[j].max_velocity_[0],
+               &t2[j].min_velocity_[0]);
 
   // Stretch intervals until close to the bounds
   while (1)
@@ -477,11 +402,11 @@ bool IterativeSplineParameterization::compute(
     int loop = 0;
 
     // Calculate the interval stretches due to acceleration
-    std::vector<double> time_factor(num_points - 1, 1.00);
-    for (unsigned j = 0; j < num_joints; j++)
+    std::vector<double> time_factor(static_cast<std::size_t>(num_points - 1), 1.00);
+    for (unsigned int j = 0; j < trajectory.dof(); j++)
     {
       // Move points to satisfy initial/final acceleration
-      if (add_points_)
+      if (add_points)
       {
         adjust_two_positions(static_cast<int>(num_points),
                              &time_diff[0],
@@ -524,33 +449,33 @@ bool IterativeSplineParameterization::compute(
   }
 
   // Final adjustment forces the trajectory within bounds
-  globalAdjustment(t2, static_cast<int>(num_joints), static_cast<int>(num_points), time_diff);
+  globalAdjustment(t2, trajectory.dof(), static_cast<long>(num_points), time_diff);
 
   // Convert back to JointTrajectory form
-  for (unsigned int i = 1; i < num_points; i++)
-  {
-    auto& swp = local_trajectory[i].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-    const auto& pre_swp = local_trajectory[i - 1].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-    swp.time = pre_swp.time + time_diff[i - 1];
-  }
-
+  double time = 0;
+  Eigen::Index idx = 0;
   for (unsigned int i = 0; i < num_points; i++)
   {
-    auto& swp = local_trajectory[i].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-    swp.velocity.resize(static_cast<long>(num_joints));
-    swp.acceleration.resize(static_cast<long>(num_joints));
-    for (unsigned int j = 0; j < num_joints; j++)
+    Eigen::VectorXd uv(trajectory.dof());
+    Eigen::VectorXd ua(trajectory.dof());
+    for (unsigned int j = 0; j < trajectory.dof(); j++)
     {
-      swp.velocity[j] = t2[j].velocities_[i];
-      swp.acceleration[j] = t2[j].accelerations_[i];
+      uv[j] = t2[j].velocities_[i];
+      ua[j] = t2[j].accelerations_[i];
     }
 
-    // Only update position of additionally inserted points (at second and next-to-last position)
-    if (add_points_ && (i == 1 || i == num_points - 2))
+    // Calculate time from start
+    if (i > 0)
+      time = time + time_diff[i - 1];
+
+    // Do not process added points
+    if (add_points && (i == 1 || i == num_points - 2))
     {
-      for (unsigned int j = 0; j < num_joints; j++)
-        swp.velocity[j] = t2[j].velocities_[i];
+      time = time + time_diff[i - 1];
+      continue;
     }
+
+    trajectory.setData(idx++, uv, ua, time);
   }
 
   return true;
@@ -590,9 +515,9 @@ bool IterativeSplineParameterization::compute(
   x1 and x2 are filled in by the algorithm.
 */
 
-static void fit_cubic_spline(const int n, const double dt[], const double x[], double x1[], double x2[])
+static void fit_cubic_spline(const long n, const double dt[], const double x[], double x1[], double x2[])
 {
-  int i;
+  long i;
   const double x1_i = x1[0], x1_f = x1[n - 1];
 
   // Tridiagonal alg - forward sweep
@@ -636,7 +561,7 @@ static void fit_cubic_spline(const int n, const double dt[], const double x[], d
   x2_i and x2_f are the (initial and final) 2nd derivative at 0 and N-1
 */
 
-static void adjust_two_positions(const int n,
+static void adjust_two_positions(const long n,
                                  const double dt[],
                                  double x[],
                                  double x1[],
@@ -671,14 +596,9 @@ static void adjust_two_positions(const int n,
   Increase a segment's time interval if the current time isn't long enough.
 */
 
-static void init_times(int n,
-                       double dt[],
-                       const double x[],
-                       const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                       const Eigen::Ref<const Eigen::VectorXd>& min_velocity)
+static void init_times(long n, double dt[], const double x[], const double max_velocity[], const double min_velocity[])
 {
-  int i;
-  for (i = 0; i < n - 1; i++)
+  for (long i = 0; i < n - 1; i++)
   {
     double time;
     double dx = x[i + 1] - x[i];
@@ -761,22 +681,21 @@ static void init_times(int n,
 // to force within bounds.
 // Assumes that the spline is already fit
 // (fit_cubic_spline must have been called before this).
-static double global_adjustment_factor(int n,
+static double global_adjustment_factor(long n,
                                        double /*dt*/[],
                                        const double /*x*/[],
                                        double x1[],
                                        double x2[],
-                                       const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-                                       const Eigen::Ref<const Eigen::VectorXd>& min_velocity,
-                                       const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                       const Eigen::Ref<const Eigen::VectorXd>& min_acceleration)
+                                       const double max_velocity[],
+                                       const double min_velocity[],
+                                       const double max_acceleration[],
+                                       const double min_acceleration[])
 {
-  int i;
   double tfactor2 = 1.00;
 
   // fit_cubic_spline(n, dt, x, x1, x2);
 
-  for (i = 0; i < n; i++)
+  for (long i = 0; i < n; i++)
   {
     double tfactor;
     tfactor = x1[i] / max_velocity[i];
@@ -805,8 +724,8 @@ static double global_adjustment_factor(int n,
 
 // Expands the entire trajectory to fit exactly within bounds
 void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
-                      int num_joints,
-                      const int num_points,
+                      long num_joints,
+                      long num_points,
                       std::vector<double>& time_diff)
 {
   double gtfactor = 1.0;
@@ -818,10 +737,10 @@ void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
                                        &t2[j].positions_[0],
                                        &t2[j].velocities_[0],
                                        &t2[j].accelerations_[0],
-                                       t2[j].max_velocity_,
-                                       t2[j].min_velocity_,
-                                       t2[j].max_acceleration_,
-                                       t2[j].min_acceleration_);
+                                       &t2[j].max_velocity_[0],
+                                       &t2[j].min_velocity_[0],
+                                       &t2[j].max_acceleration_[0],
+                                       &t2[j].min_acceleration_[0]);
     if (tfactor > gtfactor)
       gtfactor = tfactor;
   }
