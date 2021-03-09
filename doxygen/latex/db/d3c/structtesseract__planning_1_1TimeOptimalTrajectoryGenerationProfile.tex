@@ -28,7 +28,11 @@ double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenera
 double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_a6334bd7d997c5e26c884865a515736dc}{resample\+\_\+dt}}
 \begin{DoxyCompactList}\small\item\em Timestep used to resample trajectory. Default\+: 0.\+1. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_aaba51a0f6595d46ddf32a580a14ee265}{min\+\_\+angle\+\_\+change}}
-\begin{DoxyCompactList}\small\item\em At least one joint must change by greater than this amount for the point to be added. Default\+: 0.\+001. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em At least one joint must change by greater than this amount for the point to be added. Default\+: 0.\+001. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_afb5b0d6e86c5e54977a53c9e04ece454}{unflatten}} \{ true \}
+\begin{DoxyCompactList}\small\item\em TOTG flattens the Composite structure. If this is true, the task will attempt to restructure the resulting composite back into the format of the seed. This is required if Move\+Profiles are specified. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_a364856c9234f93d3569c4951b1bd1040}{unflatten\+\_\+tolerance}} \{ 0.\+3 \}
+\begin{DoxyCompactList}\small\item\em Tolerance used to unflatten results. When resample\+\_\+dt is small, this can be close to path\+\_\+tolerance. When resample\+\_\+dt is large, this may have to be significanly larger. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -105,6 +109,26 @@ path\+\_\+tolerance. Default\+: 0.\+1
 
 
 Timestep used to resample trajectory. Default\+: 0.\+1. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_afb5b0d6e86c5e54977a53c9e04ece454}\label{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_afb5b0d6e86c5e54977a53c9e04ece454}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGenerationProfile@{tesseract\_planning::TimeOptimalTrajectoryGenerationProfile}!unflatten@{unflatten}}
+\index{unflatten@{unflatten}!tesseract\_planning::TimeOptimalTrajectoryGenerationProfile@{tesseract\_planning::TimeOptimalTrajectoryGenerationProfile}}
+\doxysubsubsection{\texorpdfstring{unflatten}{unflatten}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Profile\+::unflatten \{ true \}}
+
+
+
+TOTG flattens the Composite structure. If this is true, the task will attempt to restructure the resulting composite back into the format of the seed. This is required if Move\+Profiles are specified. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_a364856c9234f93d3569c4951b1bd1040}\label{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_a364856c9234f93d3569c4951b1bd1040}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGenerationProfile@{tesseract\_planning::TimeOptimalTrajectoryGenerationProfile}!unflatten\_tolerance@{unflatten\_tolerance}}
+\index{unflatten\_tolerance@{unflatten\_tolerance}!tesseract\_planning::TimeOptimalTrajectoryGenerationProfile@{tesseract\_planning::TimeOptimalTrajectoryGenerationProfile}}
+\doxysubsubsection{\texorpdfstring{unflatten\_tolerance}{unflatten\_tolerance}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Profile\+::unflatten\+\_\+tolerance \{ 0.\+3 \}}
+
+
+
+Tolerance used to unflatten results. When resample\+\_\+dt is small, this can be close to path\+\_\+tolerance. When resample\+\_\+dt is large, this may have to be significanly larger. 
 
 
 

@@ -110,6 +110,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aaba51a0f6595d46ddf32a580a14ee265"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d3c/structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile.html#aaba51a0f6595d46ddf32a580a14ee265">min_angle_change</a></td></tr>
 <tr class="memdesc:aaba51a0f6595d46ddf32a580a14ee265"><td class="mdescLeft">&#160;</td><td class="mdescRight">At least one joint must change by greater than this amount for the point to be added. Default: 0.001.  <a href="../../db/d3c/structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile.html#aaba51a0f6595d46ddf32a580a14ee265">More...</a><br /></td></tr>
 <tr class="separator:aaba51a0f6595d46ddf32a580a14ee265"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb5b0d6e86c5e54977a53c9e04ece454"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d3c/structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile.html#afb5b0d6e86c5e54977a53c9e04ece454">unflatten</a> { true }</td></tr>
+<tr class="memdesc:afb5b0d6e86c5e54977a53c9e04ece454"><td class="mdescLeft">&#160;</td><td class="mdescRight">TOTG flattens the Composite structure. If this is true, the task will attempt to restructure the resulting composite back into the format of the seed. This is required if MoveProfiles are specified.  <a href="../../db/d3c/structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile.html#afb5b0d6e86c5e54977a53c9e04ece454">More...</a><br /></td></tr>
+<tr class="separator:afb5b0d6e86c5e54977a53c9e04ece454"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a364856c9234f93d3569c4951b1bd1040"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d3c/structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile.html#a364856c9234f93d3569c4951b1bd1040">unflatten_tolerance</a> { 0.3 }</td></tr>
+<tr class="memdesc:a364856c9234f93d3569c4951b1bd1040"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolerance used to unflatten results. When resample_dt is small, this can be close to path_tolerance. When resample_dt is large, this may have to be significanly larger.  <a href="../../db/d3c/structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile.html#a364856c9234f93d3569c4951b1bd1040">More...</a><br /></td></tr>
+<tr class="separator:a364856c9234f93d3569c4951b1bd1040"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="af5d1e750ed57cdb38bdccb563074a3ed"></a>
@@ -268,6 +274,38 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="afb5b0d6e86c5e54977a53c9e04ece454"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb5b0d6e86c5e54977a53c9e04ece454">&#9670;&nbsp;</a></span>unflatten</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::TimeOptimalTrajectoryGenerationProfile::unflatten { true }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TOTG flattens the Composite structure. If this is true, the task will attempt to restructure the resulting composite back into the format of the seed. This is required if MoveProfiles are specified. </p>
+
+</div>
+</div>
+<a id="a364856c9234f93d3569c4951b1bd1040"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a364856c9234f93d3569c4951b1bd1040">&#9670;&nbsp;</a></span>unflatten_tolerance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tesseract_planning::TimeOptimalTrajectoryGenerationProfile::unflatten_tolerance { 0.3 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tolerance used to unflatten results. When resample_dt is small, this can be close to path_tolerance. When resample_dt is large, this may have to be significanly larger. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract_process_managers/include/tesseract_process_managers/task_generators/<a class="el" href="../../d4/de8/time__optimal__trajectory__generation__task__generator_8h_source.html">time_optimal_trajectory_generation_task_generator.h</a></li>
 <li>tesseract_process_managers/src/task_generators/<a class="el" href="../../d4/d25/time__optimal__trajectory__generation__task__generator_8cpp.html">time_optimal_trajectory_generation_task_generator.cpp</a></li>
@@ -275,7 +313,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 2 2021 23:56:29 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Mar 9 2021 23:41:11 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

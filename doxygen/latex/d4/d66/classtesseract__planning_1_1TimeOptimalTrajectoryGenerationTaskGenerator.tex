@@ -47,7 +47,9 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerati
 int \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator_a64938ccb201a60d0bdffb1515f1216dc}{conditional\+Process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
 \begin{DoxyCompactList}\small\item\em Generate Conditional Task. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator_ab4eab1da2d1ac7b2cd6875345ce4aa53}{process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
-\begin{DoxyCompactList}\small\item\em Generated a Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Generated a Task. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator_acaa4a95a82559748f95f9cb14567008e}{unflatten}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&flattened\+\_\+input, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&pattern, double tolerance) const
+\begin{DoxyCompactList}\small\item\em Unflattens a composite from TOTG back into the format of the input pattern. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -113,8 +115,6 @@ Generate Conditional Task.
 \begin{DoxyReturn}{Returns}
 Conditional Task 
 \end{DoxyReturn}
-\begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000034}{Todo}}]This algorithm does not currently support different scalings for different parts of the trajectory \end{DoxyRefDesc}
 
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e60805cfe9276ace7be827f2e}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
@@ -153,6 +153,28 @@ Task
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c150554739834a1d467fc726baba8}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
 
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator_acaa4a95a82559748f95f9cb14567008e}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator_acaa4a95a82559748f95f9cb14567008e}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskGenerator@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskGenerator}!unflatten@{unflatten}}
+\index{unflatten@{unflatten}!tesseract\_planning::TimeOptimalTrajectoryGenerationTaskGenerator@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{unflatten()}{unflatten()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Generator\+::unflatten (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{flattened\+\_\+input,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{pattern,  }\item[{double}]{tolerance }\end{DoxyParamCaption}) const}
+
+
+
+Unflattens a composite from TOTG back into the format of the input pattern. 
+
+Note that this algorithm will tend to shift points slightly forward because of the tolerance. e.\+g., if the curve that represents a waypoint is actually at index 40 but index 38 is where the tolerance is first satisfied, index 39 and 40 will be placed in the next subcomposite 
+\begin{DoxyParams}{Parameters}
+{\em flattened\+\_\+input} & Composite from TOTG that is completely flat \\
+\hline
+{\em pattern} & Composite that was the input to TOTG. flattened\+\_\+input is compared to this to find the corresponding resampled points \\
+\hline
+{\em tolerance} & Tolerance passed to TOTG. Thi is used to determine which points correspond \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The unflattened Composite. It should have the same subcomposite structure as pattern. 
+\end{DoxyReturn}
 
 
 \doxysubsection{Member Data Documentation}

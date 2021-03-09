@@ -132,6 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab4eab1da2d1ac7b2cd6875345ce4aa53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d66/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator.html#ab4eab1da2d1ac7b2cd6875345ce4aa53">process</a> (<a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> input, std::size_t unique_id) const override</td></tr>
 <tr class="memdesc:ab4eab1da2d1ac7b2cd6875345ce4aa53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generated a Task.  <a href="../../d4/d66/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator.html#ab4eab1da2d1ac7b2cd6875345ce4aa53">More...</a><br /></td></tr>
 <tr class="separator:ab4eab1da2d1ac7b2cd6875345ce4aa53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaa4a95a82559748f95f9cb14567008e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d66/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator.html#acaa4a95a82559748f95f9cb14567008e">unflatten</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;flattened_input, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, double tolerance) const</td></tr>
+<tr class="memdesc:acaa4a95a82559748f95f9cb14567008e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unflattens a composite from TOTG back into the format of the input pattern.  <a href="../../d4/d66/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator.html#acaa4a95a82559748f95f9cb14567008e">More...</a><br /></td></tr>
+<tr class="separator:acaa4a95a82559748f95f9cb14567008e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classtesseract__planning_1_1TaskGenerator"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classtesseract__planning_1_1TaskGenerator')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d3/dd8/classtesseract__planning_1_1TaskGenerator.html">tesseract_planning::TaskGenerator</a></td></tr>
 <tr class="memitem:a9100e6a6a8cda2505796778f09b4f194 inherit pub_methods_classtesseract__planning_1_1TaskGenerator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd8/classtesseract__planning_1_1TaskGenerator.html#a9100e6a6a8cda2505796778f09b4f194">TaskGenerator</a> (std::string name=&quot;&quot;)</td></tr>
 <tr class="separator:a9100e6a6a8cda2505796778f09b4f194 inherit pub_methods_classtesseract__planning_1_1TaskGenerator"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -329,7 +332,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Conditional Task </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000034">Todo:</a></b></dt><dd>This algorithm does not currently support different scalings for different parts of the trajectory </dd></dl>
 
 <p>Implements <a class="el" href="../../d3/dd8/classtesseract__planning_1_1TaskGenerator.html#abaa5b91e60805cfe9276ace7be827f2e">tesseract_planning::TaskGenerator</a>.</p>
 
@@ -434,6 +436,51 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="acaa4a95a82559748f95f9cb14567008e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaa4a95a82559748f95f9cb14567008e">&#9670;&nbsp;</a></span>unflatten()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> tesseract_planning::TimeOptimalTrajectoryGenerationTaskGenerator::unflatten </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>flattened_input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
+          <td class="paramname"><em>pattern</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tolerance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unflattens a composite from TOTG back into the format of the input pattern. </p>
+<p>Note that this algorithm will tend to shift points slightly forward because of the tolerance. e.g., if the curve that represents a waypoint is actually at index 40 but index 38 is where the tolerance is first satisfied, index 39 and 40 will be placed in the next subcomposite </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flattened_input</td><td>Composite from TOTG that is completely flat </td></tr>
+    <tr><td class="paramname">pattern</td><td>Composite that was the input to TOTG. flattened_input is compared to this to find the corresponding resampled points </td></tr>
+    <tr><td class="paramname">tolerance</td><td>Tolerance passed to TOTG. Thi is used to determine which points correspond </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The unflattened Composite. It should have the same subcomposite structure as pattern. </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="aff2d07fbf9d0cbd53f9ed19bc19de04b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff2d07fbf9d0cbd53f9ed19bc19de04b">&#9670;&nbsp;</a></span>composite_profiles</h2>
@@ -470,7 +517,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 2 2021 23:56:29 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Mar 9 2021 23:41:11 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -7,6 +7,7 @@
 {\ttfamily \#include $<$tesseract\+\_\+kinematics/core/forward\+\_\+kinematics.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/robot\+\_\+config.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/profile\+\_\+dictionary.\+h$>$}\newline
 Include dependency graph for planner\+\_\+utils.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -40,7 +41,9 @@ This graph shows which files directly or indirectly include this file\+:
 std\+::string \mbox{\hyperlink{namespacetesseract__planning_a2c3697d8b33f7e6ffa453a80d765c2dd}{tesseract\+\_\+planning\+::get\+Profile\+String}} (const std\+::string \&profile, const std\+::string \&planner\+\_\+name, const Planner\+Profile\+Remapping \&profile\+\_\+remapping, std\+::string default\+\_\+profile=DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY)
 \begin{DoxyCompactList}\small\item\em Get the profile string taking into account defaults and profile remapping. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_aeb2bd5dfb8af67f79b50c373ad0a2656}{tesseract\+\_\+planning\+::get\+Profile}} (const std\+::string \&profile, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$$>$ \&profile\+\_\+map, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ default\+\_\+profile=nullptr)
-\begin{DoxyCompactList}\small\item\em Gets the profile specified from the profile map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets the profile specified from the profile map. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a3a4842f5288c1b198e848bae9d1e2ce6}{tesseract\+\_\+planning\+::apply\+Profile\+Overrides}} (const std\+::string task\+\_\+name, const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&nominal\+\_\+profile, const Profile\+Dictionary\+::\+Const\+Ptr \&overrides=nullptr)
+\begin{DoxyCompactList}\small\item\em Returns either nominal\+\_\+profile or override based on task name passed in. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

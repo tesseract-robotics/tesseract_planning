@@ -1,5 +1,5 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/core/profile_dictionary.h" name="tesseract_motion_planners/include/tesseract_motion_planners/core/profile_dictionary.h">
-<area shape="rect" id="node1" title="This is a profile dictionary for storing all profiles." alt="" coords="313,5,531,61"/>
+<map id="tesseract_command_language/include/tesseract_command_language/profile_dictionary.h" name="tesseract_command_language/include/tesseract_command_language/profile_dictionary.h">
+<area shape="rect" id="node1" title="This is a profile dictionary for storing all profiles." alt="" coords="323,5,521,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,109,196,136"/>
 <area shape="rect" id="node3" title=" " alt="" coords="221,109,263,136"/>
 <area shape="rect" id="node4" title=" " alt="" coords="287,109,359,136"/>

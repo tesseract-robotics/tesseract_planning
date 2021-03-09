@@ -1,8 +1,9 @@
 <map id="tesseract_planning::InstructionInfo" name="tesseract_planning::InstructionInfo">
-<area shape="rect" id="node1" title="The Instruction Information struct." alt="" coords="781,44,912,85"/>
-<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title=" " alt="" coords="539,44,669,85"/>
-<area shape="rect" id="node3" title=" " alt="" coords="313,15,391,42"/>
-<area shape="rect" id="node4" title=" " alt="" coords="29,5,153,47"/>
-<area shape="rect" id="node5" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="287,73,417,115"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,70,177,126"/>
+<area shape="rect" id="node1" title="The Instruction Information struct." alt="" coords="829,65,960,107"/>
+<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title=" " alt="" coords="587,65,717,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="287,5,441,47"/>
+<area shape="rect" id="node4" title=" " alt="" coords="325,71,403,98"/>
+<area shape="rect" id="node5" title=" " alt="" coords="29,61,153,103"/>
+<area shape="rect" id="node6" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="299,129,429,171"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,126,177,182"/>
 </map>
