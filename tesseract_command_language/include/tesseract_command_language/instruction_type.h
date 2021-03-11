@@ -62,6 +62,9 @@ enum class InstructionType : int
   // Everything before must be a timer Instruction
   TIMER_INSTRUCTION = 90,
 
+  // Everything before must be a set tool Instruction
+  SET_TOOL_INSTRUCTION = 100,
+
   // User defined types must be larger than this
   USER_DEFINED = 1000
 };

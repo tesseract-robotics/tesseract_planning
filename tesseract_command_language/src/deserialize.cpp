@@ -253,6 +253,33 @@ Instruction getTimerInstruction(const tinyxml2::XMLElement& instruction_element)
   return timer_instruction;
 }
 
+Instruction getSetToolInstruction(const tinyxml2::XMLElement& instruction_element)
+{
+  const tinyxml2::XMLElement* timer_element = instruction_element.FirstChildElement("SetToolInstruction");
+  if (!timer_element)
+    throw std::runtime_error("Missing Child Element SetToolInstruction.");
+
+  const tinyxml2::XMLElement* description_element = timer_element->FirstChildElement("Description");
+
+  std::string description;
+  if (description_element)
+  {
+    tinyxml2::XMLError status = tesseract_common::QueryStringText(description_element, description);
+    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+      throw std::runtime_error("fromXML: Error parsing Description string");
+  }
+
+  int tool_id{ -1 };
+  tinyxml2::XMLError status = timer_element->QueryIntAttribute("tool_id", &tool_id);
+  if (status != tinyxml2::XML_SUCCESS)
+    throw std::runtime_error("fromXML: Failed to parse set tool instruction tool_id attribute.");
+
+  SetToolInstruction set_tool_instruction(tool_id);
+  set_tool_instruction.setDescription(description);
+
+  return set_tool_instruction;
+}
+
 Instruction getCompositeInstruction(const tinyxml2::XMLElement& instruction_element,
                                     InstructionParserFn instruction_parser,
                                     WaypointParserFn waypoint_parser)
@@ -337,6 +364,10 @@ Instruction InstructionParser(const tinyxml2::XMLElement& xml_element, int type,
     case static_cast<int>(InstructionType::TIMER_INSTRUCTION):
     {
       return getTimerInstruction(xml_element);
+    }
+    case static_cast<int>(InstructionType::SET_TOOL_INSTRUCTION):
+    {
+      return getSetToolInstruction(xml_element);
     }
     case static_cast<int>(InstructionType::COMPOSITE_INSTRUCTION):
     {
