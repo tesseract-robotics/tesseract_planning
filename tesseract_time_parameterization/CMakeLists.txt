@@ -36,7 +36,7 @@ add_library(${PROJECT_NAME}
     src/iterative_spline_parameterization
     src/time_optimal_trajectory_generation
     )
-target_link_libraries(${PROJECT_NAME} PUBLIC console_bridge::console_bridge tesseract::tesseract_common tesseract::tesseract_command_language)
+target_link_libraries(${PROJECT_NAME} PUBLIC console_bridge::console_bridge Eigen3::Eigen tesseract::tesseract_common tesseract::tesseract_command_language)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -46,8 +46,6 @@ target_code_coverage(${PROJECT_NAME} ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TE
 target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
- 	${EIGEN3_INCLUDE_DIRS})
    
 configure_package(NAMESPACE tesseract TARGETS ${PROJECT_NAME})
 

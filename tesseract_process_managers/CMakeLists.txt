@@ -77,6 +77,7 @@ add_library(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PUBLIC
     console_bridge::console_bridge
     Taskflow::Taskflow
+    Eigen3::Eigen
     tesseract::tesseract_common
     tesseract::tesseract_command_language
     tesseract::tesseract_motion_planners_simple
@@ -94,8 +95,6 @@ target_code_coverage(${PROJECT_NAME} ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TE
 target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
-    ${EIGEN3_INCLUDE_DIRS})
 
 add_subdirectory(examples)
 
