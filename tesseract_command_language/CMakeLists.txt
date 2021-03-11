@@ -47,7 +47,7 @@ add_library(${PROJECT_NAME}
   src/utils/filter_functions.cpp
   src/utils/get_instruction_utils.cpp
   src/utils/utils.cpp)
-target_link_libraries(${PROJECT_NAME} PUBLIC console_bridge::console_bridge tesseract::tesseract_common ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC Eigen3::Eigen console_bridge::console_bridge tesseract::tesseract_common ${Boost_LIBRARIES})
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -58,8 +58,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
 target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
-    ${Boost_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIRS})
+    ${Boost_INCLUDE_DIRS})
    
 configure_package(NAMESPACE tesseract TARGETS ${PROJECT_NAME})
 

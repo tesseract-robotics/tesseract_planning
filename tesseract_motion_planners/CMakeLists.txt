@@ -47,7 +47,7 @@ tesseract_variables()
 
 # Create interface for core
 add_library(${PROJECT_NAME}_core src/core/utils.cpp)
-target_link_libraries(${PROJECT_NAME}_core PUBLIC tesseract::tesseract_environment_core tesseract::tesseract_common tesseract::tesseract_command_language trajopt::trajopt console_bridge::console_bridge)
+target_link_libraries(${PROJECT_NAME}_core PUBLIC tesseract::tesseract_environment_core tesseract::tesseract_common tesseract::tesseract_command_language trajopt::trajopt console_bridge::console_bridge Eigen3::Eigen)
 target_compile_options(${PROJECT_NAME}_core PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_core PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_core PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -57,8 +57,6 @@ target_code_coverage(${PROJECT_NAME}_core ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE
 target_include_directories(${PROJECT_NAME}_core PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME}_core SYSTEM PUBLIC
-    ${EIGEN3_INCLUDE_DIRS})
 
 # Descartes Planner
 add_library(${PROJECT_NAME}_descartes
@@ -130,7 +128,7 @@ add_library(${PROJECT_NAME}_simple
   src/simple/profile/simple_planner_fixed_size_assign_plan_profile.cpp
   src/simple/profile/simple_planner_fixed_size_plan_profile.cpp
   src/simple/profile/simple_planner_utils.cpp)
-target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${Boost_LIBRARIES} ${PROJECT_NAME}_core)
+target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${Boost_LIBRARIES} Eigen3::Eigen ${PROJECT_NAME}_core)
 target_compile_options(${PROJECT_NAME}_simple PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -141,7 +139,6 @@ target_include_directories(${PROJECT_NAME}_simple PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
 target_include_directories(${PROJECT_NAME}_simple SYSTEM PUBLIC
-        ${EIGEN3_INCLUDE_DIRS}
         ${Boost_INCLUDE_DIRS})
 
 # Trajopt Planner
@@ -155,7 +152,7 @@ add_library(${PROJECT_NAME}_trajopt
   src/trajopt/problem_generators/default_problem_generator.cpp
   src/trajopt/serialize.cpp
   src/trajopt/deserialize.cpp)
-target_link_libraries(${PROJECT_NAME}_trajopt PUBLIC ${Boost_LIBRARIES} ${PROJECT_NAME}_core trajopt::trajopt trajopt::trajopt_utils trajopt::trajopt_sco)
+target_link_libraries(${PROJECT_NAME}_trajopt PUBLIC ${Boost_LIBRARIES} Eigen3::Eigen ${PROJECT_NAME}_core trajopt::trajopt trajopt::trajopt_utils trajopt::trajopt_sco)
 target_compile_options(${PROJECT_NAME}_trajopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_trajopt PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -166,7 +163,6 @@ target_include_directories(${PROJECT_NAME}_trajopt PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
 target_include_directories(${PROJECT_NAME}_trajopt SYSTEM PUBLIC
-    ${EIGEN3_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS})
 
 # Trajopt_ifopt Planner
@@ -176,7 +172,7 @@ add_library(${PROJECT_NAME}_trajopt_ifopt SHARED
   src/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.cpp
   src/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.cpp
   src/trajopt_ifopt/problem_generators/default_problem_generator.cpp)
-target_link_libraries(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${Boost_LIBRARIES} ${PROJECT_NAME}_core trajopt::trajopt_ifopt trajopt::trajopt_sqp)
+target_link_libraries(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${Boost_LIBRARIES} Eigen3::Eigen ${PROJECT_NAME}_core trajopt::trajopt_ifopt trajopt::trajopt_sqp)
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -187,7 +183,6 @@ target_include_directories(${PROJECT_NAME}_trajopt_ifopt PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
 target_include_directories(${PROJECT_NAME}_trajopt_ifopt SYSTEM PUBLIC
-    ${EIGEN3_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS})
 
 configure_package(NAMESPACE tesseract
