@@ -38,7 +38,7 @@ ContinuousMotionValidator::ContinuousMotionValidator(
     ompl::base::StateValidityCheckerPtr state_validator,
     const tesseract_environment::Environment::ConstPtr& env,
     tesseract_kinematics::ForwardKinematics::ConstPtr kin,
-    const tesseract_collision::CollisionMarginData& collision_margin_data,
+    const tesseract_collision::CollisionCheckConfig& collision_check_config,
     OMPLStateExtractor extractor)
   : MotionValidator(space_info)
   , state_validator_(std::move(state_validator))
@@ -56,7 +56,8 @@ ContinuousMotionValidator::ContinuousMotionValidator(
   links_ = adj_map.getActiveLinkNames();
 
   continuous_contact_manager_->setActiveCollisionObjects(links_);
-  continuous_contact_manager_->setCollisionMarginData(collision_margin_data);
+  continuous_contact_manager_->setCollisionMarginData(collision_check_config.collision_margin_data,
+                                                      collision_check_config.collision_margin_override_type);
 }
 
 bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1, const ompl::base::State* s2) const

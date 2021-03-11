@@ -89,6 +89,17 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
   state_space_ptr->setLongestValidSegmentFraction(longest_valid_segment_fraction);
 }
 
+void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr,
+                                const tesseract_collision::CollisionCheckConfig& collision_check_config)
+{
+  double longest_valid_segment_fraction = 0.01;
+  if (collision_check_config.longest_valid_segment_length > 0)
+    longest_valid_segment_fraction =
+        collision_check_config.longest_valid_segment_length / state_space_ptr->getMaximumExtent();
+
+  state_space_ptr->setLongestValidSegmentFraction(longest_valid_segment_fraction);
+}
+
 bool checkStateInCollision(OMPLProblem& prob,
                            const Eigen::VectorXd& state,
                            tesseract_collision::ContactResultMap& contact_map)

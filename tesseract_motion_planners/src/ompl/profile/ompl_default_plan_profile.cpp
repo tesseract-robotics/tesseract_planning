@@ -55,14 +55,16 @@ OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_e
   const tinyxml2::XMLElement* simplify_element = xml_element.FirstChildElement("Simplify");
   const tinyxml2::XMLElement* optimize_element = xml_element.FirstChildElement("Optimize");
   const tinyxml2::XMLElement* planners_element = xml_element.FirstChildElement("Planners");
-  const tinyxml2::XMLElement* collision_check_element = xml_element.FirstChildElement("CollisionCheck");
-  const tinyxml2::XMLElement* collision_continuous_element = xml_element.FirstChildElement("CollisionContinuous");
+  //  const tinyxml2::XMLElement* collision_check_element = xml_element.FirstChildElement("CollisionCheck");
+  //  const tinyxml2::XMLElement* collision_continuous_element = xml_element.FirstChildElement("CollisionContinuous");
   //  const tinyxml2::XMLElement* collision_safety_margin_element =
   //  xml_element.FirstChildElement("CollisionSafetyMargin");
-  const tinyxml2::XMLElement* longest_valid_segment_fraction_element = xml_element.FirstChildElement("LongestValidSegme"
-                                                                                                     "ntFraction");
-  const tinyxml2::XMLElement* longest_valid_segment_length_element = xml_element.FirstChildElement("LongestValidSegment"
-                                                                                                   "Length");
+  //  const tinyxml2::XMLElement* longest_valid_segment_fraction_element =
+  //  xml_element.FirstChildElement("LongestValidSegme"
+  //                                                                                                     "ntFraction");
+  //  const tinyxml2::XMLElement* longest_valid_segment_length_element =
+  //  xml_element.FirstChildElement("LongestValidSegment"
+  //                                                                                                   "Length");
 
   tinyxml2::XMLError status;
 
@@ -221,19 +223,20 @@ OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_e
     }
   }
 
-  if (collision_check_element)
-  {
-    status = collision_check_element->QueryBoolText(&collision_check);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing CollisionCheck string");
-  }
+  /// @todo Update XML
+  //  if (collision_check_element)
+  //  {
+  //    status = collision_check_element->QueryBoolText(&collision_check);
+  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+  //      throw std::runtime_error("OMPLPlanProfile: Error parsing CollisionCheck string");
+  //  }
 
-  if (collision_continuous_element)
-  {
-    status = collision_continuous_element->QueryBoolText(&collision_continuous);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing CollisionContinuous string");
-  }
+  //  if (collision_continuous_element)
+  //  {
+  //    status = collision_continuous_element->QueryBoolText(&collision_continuous);
+  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+  //      throw std::runtime_error("OMPLPlanProfile: Error parsing CollisionContinuous string");
+  //  }
 
   /// @todo Update XML
   //  if (collision_safety_margin_element)
@@ -249,33 +252,34 @@ OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_e
   //    tesseract_common::toNumeric<double>(collision_safety_margin_string, collision_safety_margin);
   //  }
 
-  if (longest_valid_segment_fraction_element)
-  {
-    std::string longest_valid_segment_fraction_string;
-    status = tesseract_common::QueryStringText(longest_valid_segment_fraction_element,
-                                               longest_valid_segment_fraction_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing LongestValidSegmentFraction string");
+  //  if (longest_valid_segment_fraction_element)
+  //  {
+  //    std::string longest_valid_segment_fraction_string;
+  //    status = tesseract_common::QueryStringText(longest_valid_segment_fraction_element,
+  //                                               longest_valid_segment_fraction_string);
+  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+  //      throw std::runtime_error("OMPLPlanProfile: Error parsing LongestValidSegmentFraction string");
 
-    if (!tesseract_common::isNumeric(longest_valid_segment_fraction_string))
-      throw std::runtime_error("OMPLPlanProfile: LongestValidSegmentFraction is not a numeric values.");
+  //    if (!tesseract_common::isNumeric(longest_valid_segment_fraction_string))
+  //      throw std::runtime_error("OMPLPlanProfile: LongestValidSegmentFraction is not a numeric values.");
 
-    tesseract_common::toNumeric<double>(longest_valid_segment_fraction_string, longest_valid_segment_fraction);
-  }
+  //    tesseract_common::toNumeric<double>(longest_valid_segment_fraction_string, longest_valid_segment_fraction);
+  //  }
 
-  if (longest_valid_segment_length_element)
-  {
-    std::string longest_valid_segment_length_string;
-    status =
-        tesseract_common::QueryStringText(longest_valid_segment_length_element, longest_valid_segment_length_string);
-    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("OMPLPlanProfile: Error parsing LongestValidSegmentLength string");
+  //  if (longest_valid_segment_length_element)
+  //  {
+  //    std::string longest_valid_segment_length_string;
+  //    status =
+  //        tesseract_common::QueryStringText(longest_valid_segment_length_element,
+  //        longest_valid_segment_length_string);
+  //    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+  //      throw std::runtime_error("OMPLPlanProfile: Error parsing LongestValidSegmentLength string");
 
-    if (!tesseract_common::isNumeric(longest_valid_segment_length_string))
-      throw std::runtime_error("OMPLPlanProfile: LongestValidSegmentLength is not a numeric values.");
+  //    if (!tesseract_common::isNumeric(longest_valid_segment_length_string))
+  //      throw std::runtime_error("OMPLPlanProfile: LongestValidSegmentLength is not a numeric values.");
 
-    tesseract_common::toNumeric<double>(longest_valid_segment_length_string, longest_valid_segment_length);
-  }
+  //    tesseract_common::toNumeric<double>(longest_valid_segment_length_string, longest_valid_segment_length);
+  //  }
 }
 
 void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
@@ -285,7 +289,8 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
   prob.max_solutions = max_solutions;
   prob.simplify = simplify;
   prob.optimize = optimize;
-  prob.contact_checker->setCollisionMarginData(collision_margin_data);
+  prob.contact_checker->setCollisionMarginData(collision_check_config.collision_margin_data,
+                                               collision_check_config.collision_margin_override_type);
 
   const std::vector<std::string>& joint_names = prob.manip_fwd_kin->getJointNames();
   const auto dof = prob.manip_fwd_kin->numJoints();
@@ -325,7 +330,7 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
     state_space_ptr = rss;
 
     // Setup Longest Valid Segment
-    processLongestValidSegment(state_space_ptr, longest_valid_segment_fraction, longest_valid_segment_length);
+    processLongestValidSegment(state_space_ptr, collision_check_config);
 
     // Create Simple Setup from state space
     prob.simple_setup = std::make_shared<ompl::geometric::SimpleSetup>(state_space_ptr);
@@ -571,26 +576,26 @@ tinyxml2::XMLElement* OMPLDefaultPlanProfile::toXML(tinyxml2::XMLDocument& doc) 
   xml_optimize->SetText(optimize);
   xml_ompl->InsertEndChild(xml_optimize);
 
-  tinyxml2::XMLElement* xml_collision_check = doc.NewElement("CollisionCheck");
-  xml_collision_check->SetText(collision_check);
-  xml_ompl->InsertEndChild(xml_collision_check);
-
-  tinyxml2::XMLElement* xml_collision_continuous = doc.NewElement("CollisionContinuous");
-  xml_collision_continuous->SetText(collision_continuous);
-  xml_ompl->InsertEndChild(xml_collision_continuous);
-
   /// @todo Update XML
+  //  tinyxml2::XMLElement* xml_collision_check = doc.NewElement("CollisionCheck");
+  //  xml_collision_check->SetText(collision_check);
+  //  xml_ompl->InsertEndChild(xml_collision_check);
+
+  //  tinyxml2::XMLElement* xml_collision_continuous = doc.NewElement("CollisionContinuous");
+  //  xml_collision_continuous->SetText(collision_continuous);
+  //  xml_ompl->InsertEndChild(xml_collision_continuous);
+
   //  tinyxml2::XMLElement* xml_collision_safety_margin = doc.NewElement("CollisionSafetyMargin");
   //  xml_collision_safety_margin->SetText(collision_safety_margin);
   //  xml_ompl->InsertEndChild(xml_collision_safety_margin);
 
-  tinyxml2::XMLElement* xml_long_valid_seg_frac = doc.NewElement("LongestValidSegmentFraction");
-  xml_long_valid_seg_frac->SetText(longest_valid_segment_fraction);
-  xml_ompl->InsertEndChild(xml_long_valid_seg_frac);
+  //  tinyxml2::XMLElement* xml_long_valid_seg_frac = doc.NewElement("LongestValidSegmentFraction");
+  //  xml_long_valid_seg_frac->SetText(longest_valid_segment_fraction);
+  //  xml_ompl->InsertEndChild(xml_long_valid_seg_frac);
 
-  tinyxml2::XMLElement* xml_long_valid_seg_len = doc.NewElement("LongestValidSegmentLength");
-  xml_long_valid_seg_len->SetText(longest_valid_segment_length);
-  xml_ompl->InsertEndChild(xml_long_valid_seg_len);
+  //  tinyxml2::XMLElement* xml_long_valid_seg_len = doc.NewElement("LongestValidSegmentLength");
+  //  xml_long_valid_seg_len->SetText(longest_valid_segment_length);
+  //  xml_ompl->InsertEndChild(xml_long_valid_seg_len);
 
   // TODO: Add plugins for state_sampler_allocator, optimization_objective_allocator, svc_allocator,
   // mv_allocator
@@ -613,10 +618,11 @@ OMPLDefaultPlanProfile::processStateValidator(OMPLProblem& prob,
     csvc->addStateValidator(svc_without_collision);
   }
 
-  if (collision_check && !collision_continuous)
+  if (collision_check_config.type == tesseract_collision::CollisionEvaluatorType::DISCRETE ||
+      collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     auto svc = std::make_shared<StateCollisionValidator>(
-        prob.simple_setup->getSpaceInformation(), env, kin, collision_margin_data, prob.extractor);
+        prob.simple_setup->getSpaceInformation(), env, kin, collision_check_config, prob.extractor);
     csvc->addStateValidator(svc);
   }
   prob.simple_setup->setStateValidityChecker(csvc);
@@ -636,16 +642,17 @@ void OMPLDefaultPlanProfile::processMotionValidator(ompl::base::StateValidityChe
   }
   else
   {
-    if (collision_check)
+    if (collision_check_config.type != tesseract_collision::CollisionEvaluatorType::NONE)
     {
       ompl::base::MotionValidatorPtr mv;
-      if (collision_continuous)
+      if (collision_check_config.type == tesseract_collision::CollisionEvaluatorType::CONTINUOUS ||
+          collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
       {
         mv = std::make_shared<ContinuousMotionValidator>(prob.simple_setup->getSpaceInformation(),
                                                          svc_without_collision,
                                                          env,
                                                          kin,
-                                                         collision_margin_data,
+                                                         collision_check_config,
                                                          prob.extractor);
       }
       else
