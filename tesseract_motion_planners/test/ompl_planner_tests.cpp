@@ -204,7 +204,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
   plan_profile->collision_check_config.collision_margin_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
   plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMarginData(0.025);
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.01;
+  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
   plan_profile->optimize = false;
@@ -356,7 +356,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   plan_profile->collision_check_config.collision_margin_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
   plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMarginData(0.02);
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.01;
+  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
   plan_profile->optimize = false;
@@ -447,7 +447,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
   plan_profile->collision_check_config.collision_margin_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
   plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMarginData(0.02);
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.01;
+  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
   plan_profile->optimize = false;

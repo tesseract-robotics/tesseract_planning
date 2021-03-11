@@ -171,6 +171,10 @@ CompositeInstruction getProgram()
   TimerInstruction timer_instruction(TimerInstructionType::DIGITAL_OUTPUT_LOW, 3.1, 5);
   program.push_back(timer_instruction);
 
+  // Add a set tool instruction
+  SetToolInstruction set_tool_instruction(5);
+  program.push_back(set_tool_instruction);
+
   return program;
 }
 
