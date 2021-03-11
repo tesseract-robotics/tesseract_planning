@@ -47,7 +47,7 @@ public:
                             ompl::base::StateValidityCheckerPtr state_validator,
                             const tesseract_environment::Environment::ConstPtr& env,
                             tesseract_kinematics::ForwardKinematics::ConstPtr kin,
-                            const tesseract_collision::CollisionMarginData& collision_margin_data,
+                            const tesseract_collision::CollisionCheckConfig& collision_check_config,
                             OMPLStateExtractor extractor);
 
   bool checkMotion(const ompl::base::State* s1, const ompl::base::State* s2) const override;

@@ -201,12 +201,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_margin_data.setDefaultCollisionMarginData(0.025);
+  plan_profile->collision_check_config.collision_margin_override_type =
+      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
+  plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMarginData(0.025);
+  plan_profile->collision_check_config.longest_valid_segment_length = 0.01;
+  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
   plan_profile->optimize = false;
   plan_profile->max_solutions = 2;
-  plan_profile->longest_valid_segment_fraction = 0.01;
-  plan_profile->collision_continuous = true;
   plan_profile->simplify = false;
   plan_profile->planners = { this->configurator, this->configurator };
 
@@ -351,12 +353,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_margin_data.setDefaultCollisionMarginData(0.02);
+  plan_profile->collision_check_config.collision_margin_override_type =
+      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
+  plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMarginData(0.02);
+  plan_profile->collision_check_config.longest_valid_segment_length = 0.01;
+  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
   plan_profile->optimize = false;
   plan_profile->max_solutions = 2;
-  plan_profile->longest_valid_segment_fraction = 0.01;
-  plan_profile->collision_continuous = true;
   plan_profile->simplify = false;
   plan_profile->planners = { this->configurator, this->configurator };
 
@@ -440,12 +444,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_margin_data.setDefaultCollisionMarginData(0.02);
+  plan_profile->collision_check_config.collision_margin_override_type =
+      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
+  plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMarginData(0.02);
+  plan_profile->collision_check_config.longest_valid_segment_length = 0.01;
+  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
   plan_profile->optimize = false;
   plan_profile->max_solutions = 2;
-  plan_profile->longest_valid_segment_fraction = 0.01;
-  plan_profile->collision_continuous = true;
   plan_profile->simplify = false;
   plan_profile->planners = { this->configurator, this->configurator };
 

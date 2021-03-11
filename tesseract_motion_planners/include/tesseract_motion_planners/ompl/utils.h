@@ -64,6 +64,14 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
                                 double longest_valid_segment_length);
 
 /**
+ * @brief Given collision check config set ompl longest_valid_segment_fraction
+ * @param state_space_ptr OMPL State Space
+ * @param collision_check_config
+ */
+void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr,
+                                const tesseract_collision::CollisionCheckConfig& collision_check_config);
+
+/**
  * @brief For the provided problem check if the state is in collision
  * @param prob The OMPL Problem
  * @param state The joint state
