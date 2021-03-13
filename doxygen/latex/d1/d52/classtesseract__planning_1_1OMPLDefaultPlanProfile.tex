@@ -80,16 +80,8 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a19c00d
 \begin{DoxyCompactList}\small\item\em This uses all available planning time to create the most optimized trajectory given the objective function. \end{DoxyCompactList}\item 
 std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aecd7bfc8d1a2b291435ed3a4bc8a65be}{OMPLPlanner\+Configurator\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ab6e85fae7f88345ed6bdf4768c3f616c}{planners}}
 \begin{DoxyCompactList}\small\item\em The planner configurators. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_aeda482ff03b91c4f5f598ec741ecfe3e}{collision\+\_\+check}} = true
-\begin{DoxyCompactList}\small\item\em If true, collision checking will be enabled. Default\+: true. \end{DoxyCompactList}\item 
-tesseract\+\_\+collision\+::\+Collision\+Margin\+Data \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a4dc63bb41f22752525f8a762b59d7e31}{collision\+\_\+margin\+\_\+data}}
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a91efc62229ff213aa39c83ffeebed52b}{collision\+\_\+continuous}} = false
-\begin{DoxyCompactList}\small\item\em If true, use continuous collision checking. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a451603d5b1dceb1fbc9a2df65aae1226}{longest\+\_\+valid\+\_\+segment\+\_\+fraction}} = 0.\+01
-\begin{DoxyCompactList}\small\item\em Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid in post checking of trajectory returned by trajopt. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a5682dc1d33159e0e80953ec5c1411d12}{longest\+\_\+valid\+\_\+segment\+\_\+length}} = 0.\+1
-\begin{DoxyCompactList}\small\item\em Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 -\/ state0) $>$ longest\+\_\+valid\+\_\+segment\+\_\+length. \end{DoxyCompactList}\item 
+tesseract\+\_\+collision\+::\+Collision\+Check\+Config \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_acac226d60cfa11c4fc480e41f182ad20}{collision\+\_\+check\+\_\+config}}
+\begin{DoxyCompactList}\small\item\em The collision check configuration. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}{State\+Sampler\+Allocator}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_a9734d05f7edd9ead62877cb7f42b1765}{state\+\_\+sampler\+\_\+allocator}}
 \begin{DoxyCompactList}\small\item\em The state sampler allocator. This can be null and it will use Tesseract default state sampler allocator. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_a7bd709d31d5445aafb082d85b1dced53}{Optimization\+Objective\+Allocator}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile_ac712f2a02f03fffa63def84aa458eb6b}{optimization\+\_\+objective\+\_\+allocator}}
@@ -164,6 +156,10 @@ OMPL does not support the concept of multi waypoint planning like descartes and 
 \item[\mbox{\hyperlink{todo__todo000015}{Todo}}]Update XML \end{DoxyRefDesc}
 
 
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000016}{Todo}}]Update XML \end{DoxyRefDesc}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac9464c4e33be2c8d30e1e4bcefeabab}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aac9464c4e33be2c8d30e1e4bcefeabab}} 
 \index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!applyGoalStates@{applyGoalStates}}
@@ -172,7 +168,7 @@ OMPL does not support the concept of multi waypoint planning like descartes and 
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::apply\+Goal\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Isometry3d \&}]{cartesian\+\_\+waypoint,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{parent\+\_\+instruction,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000016}{Todo}}]Need to add descartes pose sample to ompl profile \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000017}{Todo}}]Need to add descartes pose sample to ompl profile \end{DoxyRefDesc}
 
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a743dccd6c17bbbad02d30cceb9ffd9a7}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
@@ -194,11 +190,11 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_aad8fff6
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::apply\+Start\+States (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&}]{prob,  }\item[{const Eigen\+::\+Isometry3d \&}]{cartesian\+\_\+waypoint,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{parent\+\_\+instruction,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{active\+\_\+links,  }\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000017}{Todo}}]Need to add descartes pose sampler to ompl profile \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000018}{Todo}}]Need to add descartes pose sampler to ompl profile \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000018}{Todo}}]Need to also provide the seed instruction to use here \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000019}{Todo}}]Need to also provide the seed instruction to use here \end{DoxyRefDesc}
 
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_ab92f4ff018fcb73f432eeb718ddbabbe}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
@@ -266,7 +262,7 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a62808c3
 {\footnotesize\ttfamily tinyxml2\+::\+XMLElement $\ast$ tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000019}{Todo}}]Update XML \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000020}{Todo}}]Update XML \end{DoxyRefDesc}
 
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a147f1d18bcd0c85e5ccc6193a805f5f8}{tesseract\+\_\+planning\+::\+OMPLPlan\+Profile}}.
@@ -274,55 +270,17 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a147f1d1
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aeda482ff03b91c4f5f598ec741ecfe3e}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aeda482ff03b91c4f5f598ec741ecfe3e}} 
-\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!collision\_check@{collision\_check}}
-\index{collision\_check@{collision\_check}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
-\doxysubsubsection{\texorpdfstring{collision\_check}{collision\_check}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::collision\+\_\+check = true}
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_acac226d60cfa11c4fc480e41f182ad20}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_acac226d60cfa11c4fc480e41f182ad20}} 
+\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!collision\_check\_config@{collision\_check\_config}}
+\index{collision\_check\_config@{collision\_check\_config}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
+\doxysubsubsection{\texorpdfstring{collision\_check\_config}{collision\_check\_config}}
+{\footnotesize\ttfamily tesseract\+\_\+collision\+::\+Collision\+Check\+Config tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::collision\+\_\+check\+\_\+config}
 
 
 
-If true, collision checking will be enabled. Default\+: true. 
+The collision check configuration. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a91efc62229ff213aa39c83ffeebed52b}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a91efc62229ff213aa39c83ffeebed52b}} 
-\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!collision\_continuous@{collision\_continuous}}
-\index{collision\_continuous@{collision\_continuous}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
-\doxysubsubsection{\texorpdfstring{collision\_continuous}{collision\_continuous}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::collision\+\_\+continuous = false}
-
-
-
-If true, use continuous collision checking. 
-
-\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a4dc63bb41f22752525f8a762b59d7e31}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a4dc63bb41f22752525f8a762b59d7e31}} 
-\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!collision\_margin\_data@{collision\_margin\_data}}
-\index{collision\_margin\_data@{collision\_margin\_data}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
-\doxysubsubsection{\texorpdfstring{collision\_margin\_data}{collision\_margin\_data}}
-{\footnotesize\ttfamily tesseract\+\_\+collision\+::\+Collision\+Margin\+Data tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::collision\+\_\+margin\+\_\+data}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a451603d5b1dceb1fbc9a2df65aae1226}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a451603d5b1dceb1fbc9a2df65aae1226}} 
-\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!longest\_valid\_segment\_fraction@{longest\_valid\_segment\_fraction}}
-\index{longest\_valid\_segment\_fraction@{longest\_valid\_segment\_fraction}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
-\doxysubsubsection{\texorpdfstring{longest\_valid\_segment\_fraction}{longest\_valid\_segment\_fraction}}
-{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::longest\+\_\+valid\+\_\+segment\+\_\+fraction = 0.\+01}
-
-
-
-Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid in post checking of trajectory returned by trajopt. 
-
-The resolution is equal to longest\+\_\+valid\+\_\+segment\+\_\+fraction $\ast$ state\+\_\+space.\+get\+Maximum\+Extent()
-
-Note\+: The planner takes the conservative of either longest\+\_\+valid\+\_\+segment\+\_\+fraction or longest\+\_\+valid\+\_\+segment\+\_\+length. \mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_a5682dc1d33159e0e80953ec5c1411d12}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_a5682dc1d33159e0e80953ec5c1411d12}} 
-\index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!longest\_valid\_segment\_length@{longest\_valid\_segment\_length}}
-\index{longest\_valid\_segment\_length@{longest\_valid\_segment\_length}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
-\doxysubsubsection{\texorpdfstring{longest\_valid\_segment\_length}{longest\_valid\_segment\_length}}
-{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+OMPLDefault\+Plan\+Profile\+::longest\+\_\+valid\+\_\+segment\+\_\+length = 0.\+1}
-
-
-
-Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 -\/ state0) $>$ longest\+\_\+valid\+\_\+segment\+\_\+length. 
-
-Note\+: This gets converted to longest\+\_\+valid\+\_\+segment\+\_\+fraction. longest\+\_\+valid\+\_\+segment\+\_\+fraction = longest\+\_\+valid\+\_\+segment\+\_\+length / state\+\_\+space.\+get\+Maximum\+Extent() \mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aada5f680b3b34da25c4076e01d140a88}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aada5f680b3b34da25c4076e01d140a88}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLDefaultPlanProfile_aada5f680b3b34da25c4076e01d140a88}\label{classtesseract__planning_1_1OMPLDefaultPlanProfile_aada5f680b3b34da25c4076e01d140a88}} 
 \index{tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}!max\_solutions@{max\_solutions}}
 \index{max\_solutions@{max\_solutions}!tesseract\_planning::OMPLDefaultPlanProfile@{tesseract\_planning::OMPLDefaultPlanProfile}}
 \doxysubsubsection{\texorpdfstring{max\_solutions}{max\_solutions}}

@@ -114,6 +114,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html">ProfileDictionary</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class is used to store profiles for motion planning and process planning.  <a href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d65/classtesseract__planning_1_1SetToolInstruction.html">SetToolInstruction</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">StateWaypoint</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html">TimerInstruction</a></td></tr>
@@ -530,6 +532,7 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043">WAIT_INSTRUCTION</a> = 80
 , <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743">TIMER_INSTRUCTION</a> = 90
+, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715">SET_TOOL_INSTRUCTION</a> = 100
 , <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00">USER_DEFINED</a> = 1000
 <br />
  }</td></tr>
@@ -817,6 +820,8 @@ Functions</h2></td></tr>
 <tr class="separator:a7838fefc8e24bcb22abb67d56b867b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44bf9c62ba66308dc54abaf1d721b8f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a44bf9c62ba66308dc54abaf1d721b8f8">getTimerInstruction</a> (const tinyxml2::XMLElement &amp;instruction_element)</td></tr>
 <tr class="separator:a44bf9c62ba66308dc54abaf1d721b8f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19f6701fe9d70c54e612e59fbafdd5c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a19f6701fe9d70c54e612e59fbafdd5c9">getSetToolInstruction</a> (const tinyxml2::XMLElement &amp;instruction_element)</td></tr>
+<tr class="separator:a19f6701fe9d70c54e612e59fbafdd5c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1eee4dce180780748b0b11a7df79ee02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1eee4dce180780748b0b11a7df79ee02">getCompositeInstruction</a> (const tinyxml2::XMLElement &amp;instruction_element, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeb01b648b5a7d2601dd775da87593271">InstructionParserFn</a> instruction_parser, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57">WaypointParserFn</a> waypoint_parser)</td></tr>
 <tr class="separator:a1eee4dce180780748b0b11a7df79ee02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac93e7adac649ccc7d1c6882816839fb3"><td class="memItemLeft" align="right" valign="top">template <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac93e7adac649ccc7d1c6882816839fb3">fromXMLDocument&lt; Instruction &gt;</a> (const tinyxml2::XMLDocument &amp;xml_doc, std::function&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>(const tinyxml2::XMLElement &amp;, int)&gt;)</td></tr>
@@ -971,6 +976,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af00891d3040fb15e60da8736a67661f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af00891d3040fb15e60da8736a67661f2">processLongestValidSegment</a> (const ompl::base::StateSpacePtr &amp;state_space_ptr, double longest_valid_segment_fraction, double longest_valid_segment_length)</td></tr>
 <tr class="memdesc:af00891d3040fb15e60da8736a67661f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given longest valid fraction and length it will set the correct information of the state space.  <a href="../../d9/dcd/namespacetesseract__planning.html#af00891d3040fb15e60da8736a67661f2">More...</a><br /></td></tr>
 <tr class="separator:af00891d3040fb15e60da8736a67661f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab87b927153d35d69651a019533cbe07a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab87b927153d35d69651a019533cbe07a">processLongestValidSegment</a> (const ompl::base::StateSpacePtr &amp;state_space_ptr, const tesseract_collision::CollisionCheckConfig &amp;collision_check_config)</td></tr>
+<tr class="memdesc:ab87b927153d35d69651a019533cbe07a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given collision check config set ompl longest_valid_segment_fraction.  <a href="../../d9/dcd/namespacetesseract__planning.html#ab87b927153d35d69651a019533cbe07a">More...</a><br /></td></tr>
+<tr class="separator:ab87b927153d35d69651a019533cbe07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad05612a4ac2863203f851daaff778fd7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad05612a4ac2863203f851daaff778fd7">checkStateInCollision</a> (<a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob, const Eigen::VectorXd &amp;state, tesseract_collision::ContactResultMap &amp;contact_map)</td></tr>
 <tr class="memdesc:ad05612a4ac2863203f851daaff778fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">For the provided problem check if the state is in collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#ad05612a4ac2863203f851daaff778fd7">More...</a><br /></td></tr>
 <tr class="separator:ad05612a4ac2863203f851daaff778fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2053,6 +2061,7 @@ template&lt;typename FloatType &gt; </div>
 <tr><td class="fieldname"><a id="a1490313530edbc7faa29ca1c97253100a545586ebf636939449526edcb71386b9"></a>COMMENT_INSTRUCTION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043"></a>WAIT_INSTRUCTION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743"></a>TIMER_INSTRUCTION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715"></a>SET_TOOL_INSTRUCTION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00"></a>USER_DEFINED&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -4741,11 +4750,11 @@ template&lt;typename FloatType &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000028">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000029">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
 
 </div>
 </div>
@@ -4792,8 +4801,8 @@ template&lt;typename FloatType &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
 
 </div>
 </div>
@@ -6302,8 +6311,8 @@ template&lt;typename SerializableType &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The closest solution to the seed. This will be empty if a solution was not found during inverse kinematics </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000020">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000020">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed </dd></dl>
 
 </div>
 </div>
@@ -6363,8 +6372,8 @@ template&lt;typename SerializableType &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The closest joint solution for the provided cartesian positions. If either are empty then it failed to solve inverse kinematics. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
 
 </div>
 </div>
@@ -7663,6 +7672,24 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="a19f6701fe9d70c54e612e59fbafdd5c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19f6701fe9d70c54e612e59fbafdd5c9">&#9670;&nbsp;</a></span>getSetToolInstruction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> tesseract_planning::getSetToolInstruction </td>
+          <td>(</td>
+          <td class="paramtype">const tinyxml2::XMLElement &amp;&#160;</td>
+          <td class="paramname"><em>instruction_element</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6118b6243267b448ebf2546f57b0d910"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6118b6243267b448ebf2546f57b0d910">&#9670;&nbsp;</a></span>getStateWaypoint()</h2>
 
@@ -8900,8 +8927,45 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="ab87b927153d35d69651a019533cbe07a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab87b927153d35d69651a019533cbe07a">&#9670;&nbsp;</a></span>processLongestValidSegment() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::processLongestValidSegment </td>
+          <td>(</td>
+          <td class="paramtype">const ompl::base::StateSpacePtr &amp;&#160;</td>
+          <td class="paramname"><em>state_space_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const tesseract_collision::CollisionCheckConfig &amp;&#160;</td>
+          <td class="paramname"><em>collision_check_config</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Given collision check config set ompl longest_valid_segment_fraction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state_space_ptr</td><td>OMPL State Space </td></tr>
+    <tr><td class="paramname">collision_check_config</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="af00891d3040fb15e60da8736a67661f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af00891d3040fb15e60da8736a67661f2">&#9670;&nbsp;</a></span>processLongestValidSegment()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af00891d3040fb15e60da8736a67661f2">&#9670;&nbsp;</a></span>processLongestValidSegment() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10815,7 +10879,7 @@ template&lt;typename SerializableType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 9 2021 23:41:10 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Mar 13 2021 01:07:21 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

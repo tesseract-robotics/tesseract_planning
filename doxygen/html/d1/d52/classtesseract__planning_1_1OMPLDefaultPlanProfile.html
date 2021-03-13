@@ -182,20 +182,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab6e85fae7f88345ed6bdf4768c3f616c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../dd/ddf/structtesseract__planning_1_1OMPLPlannerConfigurator.html#aecd7bfc8d1a2b291435ed3a4bc8a65be">OMPLPlannerConfigurator::ConstPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#ab6e85fae7f88345ed6bdf4768c3f616c">planners</a></td></tr>
 <tr class="memdesc:ab6e85fae7f88345ed6bdf4768c3f616c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planner configurators.  <a href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#ab6e85fae7f88345ed6bdf4768c3f616c">More...</a><br /></td></tr>
 <tr class="separator:ab6e85fae7f88345ed6bdf4768c3f616c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeda482ff03b91c4f5f598ec741ecfe3e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#aeda482ff03b91c4f5f598ec741ecfe3e">collision_check</a> = true</td></tr>
-<tr class="memdesc:aeda482ff03b91c4f5f598ec741ecfe3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, collision checking will be enabled. Default: true.  <a href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#aeda482ff03b91c4f5f598ec741ecfe3e">More...</a><br /></td></tr>
-<tr class="separator:aeda482ff03b91c4f5f598ec741ecfe3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4dc63bb41f22752525f8a762b59d7e31"><td class="memItemLeft" align="right" valign="top">tesseract_collision::CollisionMarginData&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a4dc63bb41f22752525f8a762b59d7e31">collision_margin_data</a></td></tr>
-<tr class="separator:a4dc63bb41f22752525f8a762b59d7e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91efc62229ff213aa39c83ffeebed52b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a91efc62229ff213aa39c83ffeebed52b">collision_continuous</a> = false</td></tr>
-<tr class="memdesc:a91efc62229ff213aa39c83ffeebed52b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, use continuous collision checking.  <a href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a91efc62229ff213aa39c83ffeebed52b">More...</a><br /></td></tr>
-<tr class="separator:a91efc62229ff213aa39c83ffeebed52b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a451603d5b1dceb1fbc9a2df65aae1226"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a451603d5b1dceb1fbc9a2df65aae1226">longest_valid_segment_fraction</a> = 0.01</td></tr>
-<tr class="memdesc:a451603d5b1dceb1fbc9a2df65aae1226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid in post checking of trajectory returned by trajopt.  <a href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a451603d5b1dceb1fbc9a2df65aae1226">More...</a><br /></td></tr>
-<tr class="separator:a451603d5b1dceb1fbc9a2df65aae1226"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5682dc1d33159e0e80953ec5c1411d12"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a5682dc1d33159e0e80953ec5c1411d12">longest_valid_segment_length</a> = 0.1</td></tr>
-<tr class="memdesc:a5682dc1d33159e0e80953ec5c1411d12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 - state0) &gt; longest_valid_segment_length.  <a href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a5682dc1d33159e0e80953ec5c1411d12">More...</a><br /></td></tr>
-<tr class="separator:a5682dc1d33159e0e80953ec5c1411d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac226d60cfa11c4fc480e41f182ad20"><td class="memItemLeft" align="right" valign="top">tesseract_collision::CollisionCheckConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#acac226d60cfa11c4fc480e41f182ad20">collision_check_config</a></td></tr>
+<tr class="memdesc:acac226d60cfa11c4fc480e41f182ad20"><td class="mdescLeft">&#160;</td><td class="mdescRight">The collision check configuration.  <a href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#acac226d60cfa11c4fc480e41f182ad20">More...</a><br /></td></tr>
+<tr class="separator:acac226d60cfa11c4fc480e41f182ad20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9734d05f7edd9ead62877cb7f42b1765"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a907f97222f0b1a6e7b79f05b9e7d450c">StateSamplerAllocator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a9734d05f7edd9ead62877cb7f42b1765">state_sampler_allocator</a></td></tr>
 <tr class="memdesc:a9734d05f7edd9ead62877cb7f42b1765"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state sampler allocator. This can be null and it will use Tesseract default state sampler allocator.  <a href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a9734d05f7edd9ead62877cb7f42b1765">More...</a><br /></td></tr>
 <tr class="separator:a9734d05f7edd9ead62877cb7f42b1765"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -370,6 +359,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000015">Todo:</a></b></dt><dd>Update XML </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000016">Todo:</a></b></dt><dd>Update XML </dd></dl>
 
 </div>
 </div>
@@ -431,7 +421,7 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000016">Todo:</a></b></dt><dd>Need to add descartes pose sample to ompl profile </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000017">Todo:</a></b></dt><dd>Need to add descartes pose sample to ompl profile </dd></dl>
 
 <p>Implements <a class="el" href="../../dc/d55/classtesseract__planning_1_1OMPLPlanProfile.html#a743dccd6c17bbbad02d30cceb9ffd9a7">tesseract_planning::OMPLPlanProfile</a>.</p>
 
@@ -556,8 +546,8 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000017">Todo:</a></b></dt><dd>Need to add descartes pose sampler to ompl profile </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000018">Todo:</a></b></dt><dd>Need to also provide the seed instruction to use here </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000018">Todo:</a></b></dt><dd>Need to add descartes pose sampler to ompl profile </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000019">Todo:</a></b></dt><dd>Need to also provide the seed instruction to use here </dd></dl>
 
 <p>Implements <a class="el" href="../../dc/d55/classtesseract__planning_1_1OMPLPlanProfile.html#ab92f4ff018fcb73f432eeb718ddbabbe">tesseract_planning::OMPLPlanProfile</a>.</p>
 
@@ -886,91 +876,26 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000019">Todo:</a></b></dt><dd>Update XML </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000020">Todo:</a></b></dt><dd>Update XML </dd></dl>
 
 <p>Implements <a class="el" href="../../dc/d55/classtesseract__planning_1_1OMPLPlanProfile.html#a147f1d18bcd0c85e5ccc6193a805f5f8">tesseract_planning::OMPLPlanProfile</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aeda482ff03b91c4f5f598ec741ecfe3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeda482ff03b91c4f5f598ec741ecfe3e">&#9670;&nbsp;</a></span>collision_check</h2>
+<a id="acac226d60cfa11c4fc480e41f182ad20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acac226d60cfa11c4fc480e41f182ad20">&#9670;&nbsp;</a></span>collision_check_config</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::OMPLDefaultPlanProfile::collision_check = true</td>
+          <td class="memname">tesseract_collision::CollisionCheckConfig tesseract_planning::OMPLDefaultPlanProfile::collision_check_config</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>If true, collision checking will be enabled. Default: true. </p>
-
-</div>
-</div>
-<a id="a91efc62229ff213aa39c83ffeebed52b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91efc62229ff213aa39c83ffeebed52b">&#9670;&nbsp;</a></span>collision_continuous</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::OMPLDefaultPlanProfile::collision_continuous = false</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>If true, use continuous collision checking. </p>
-
-</div>
-</div>
-<a id="a4dc63bb41f22752525f8a762b59d7e31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dc63bb41f22752525f8a762b59d7e31">&#9670;&nbsp;</a></span>collision_margin_data</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_collision::CollisionMarginData tesseract_planning::OMPLDefaultPlanProfile::collision_margin_data</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a451603d5b1dceb1fbc9a2df65aae1226"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a451603d5b1dceb1fbc9a2df65aae1226">&#9670;&nbsp;</a></span>longest_valid_segment_fraction</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tesseract_planning::OMPLDefaultPlanProfile::longest_valid_segment_fraction = 0.01</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid in post checking of trajectory returned by trajopt. </p>
-<p>The resolution is equal to longest_valid_segment_fraction * state_space.getMaximumExtent()</p>
-<p>Note: The planner takes the conservative of either longest_valid_segment_fraction or longest_valid_segment_length. </p>
-
-</div>
-</div>
-<a id="a5682dc1d33159e0e80953ec5c1411d12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5682dc1d33159e0e80953ec5c1411d12">&#9670;&nbsp;</a></span>longest_valid_segment_length</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tesseract_planning::OMPLDefaultPlanProfile::longest_valid_segment_length = 0.1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 - state0) &gt; longest_valid_segment_length. </p>
-<p>Note: This gets converted to longest_valid_segment_fraction. longest_valid_segment_fraction = longest_valid_segment_length / state_space.getMaximumExtent() </p>
+<p>The collision check configuration. </p>
 
 </div>
 </div>
@@ -1147,7 +1072,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 9 2021 23:41:10 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Mar 13 2021 01:07:21 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

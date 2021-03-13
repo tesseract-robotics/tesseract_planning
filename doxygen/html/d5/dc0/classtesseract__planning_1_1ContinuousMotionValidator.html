@@ -110,8 +110,8 @@ Collaboration diagram for tesseract_planning::ContinuousMotionValidator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a67c543b83439d78f503381cedb509d41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dc0/classtesseract__planning_1_1ContinuousMotionValidator.html#a67c543b83439d78f503381cedb509d41">ContinuousMotionValidator</a> (const ompl::base::SpaceInformationPtr &amp;space_info, ompl::base::StateValidityCheckerPtr state_validator, const tesseract_environment::Environment::ConstPtr &amp;env, tesseract_kinematics::ForwardKinematics::ConstPtr kin, const tesseract_collision::CollisionMarginData &amp;collision_margin_data, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> extractor)</td></tr>
-<tr class="separator:a67c543b83439d78f503381cedb509d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9b5b86b5660de4a3ae77467ff3406b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dc0/classtesseract__planning_1_1ContinuousMotionValidator.html#ac9b5b86b5660de4a3ae77467ff3406b5">ContinuousMotionValidator</a> (const ompl::base::SpaceInformationPtr &amp;space_info, ompl::base::StateValidityCheckerPtr state_validator, const tesseract_environment::Environment::ConstPtr &amp;env, tesseract_kinematics::ForwardKinematics::ConstPtr kin, const tesseract_collision::CollisionCheckConfig &amp;collision_check_config, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> extractor)</td></tr>
+<tr class="separator:ac9b5b86b5660de4a3ae77467ff3406b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c728750df6189593a164ca4ffd0a318"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dc0/classtesseract__planning_1_1ContinuousMotionValidator.html#a8c728750df6189593a164ca4ffd0a318">checkMotion</a> (const ompl::base::State *s1, const ompl::base::State *s2) const override</td></tr>
 <tr class="separator:a8c728750df6189593a164ca4ffd0a318"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc5654a4906f4e12da19869d1ef0f40a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dc0/classtesseract__planning_1_1ContinuousMotionValidator.html#afc5654a4906f4e12da19869d1ef0f40a">checkMotion</a> (const ompl::base::State *s1, const ompl::base::State *s2, std::pair&lt; ompl::base::State *, double &gt; &amp;lastValid) const override</td></tr>
@@ -157,8 +157,8 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Continuous collision check between two states. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a67c543b83439d78f503381cedb509d41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67c543b83439d78f503381cedb509d41">&#9670;&nbsp;</a></span>ContinuousMotionValidator()</h2>
+<a id="ac9b5b86b5660de4a3ae77467ff3406b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9b5b86b5660de4a3ae77467ff3406b5">&#9670;&nbsp;</a></span>ContinuousMotionValidator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,8 +190,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_collision::CollisionMarginData &amp;&#160;</td>
-          <td class="paramname"><em>collision_margin_data</em>, </td>
+          <td class="paramtype">const tesseract_collision::CollisionCheckConfig &amp;&#160;</td>
+          <td class="paramname"><em>collision_check_config</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -581,7 +581,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 9 2021 23:41:10 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Mar 13 2021 01:07:21 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

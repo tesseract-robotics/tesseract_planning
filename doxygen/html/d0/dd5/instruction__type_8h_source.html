@@ -113,29 +113,32 @@ $(function() {
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="comment">// Everything before must be a timer Instruction</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743">TIMER_INSTRUCTION</a> = 90,</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">// User defined types must be larger than this</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00">USER_DEFINED</a> = 1000</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a3f42a719816e6dea334fe383044b600e">isCommentInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a71a4541552162b88b58aaad64cdcbc3c">isVariableInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#ad3eae42cabf7ba6008e38e831e757efa">isAnalogInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a36cbf35ae9d24574a6d2cfe0bacd35a9">isIOInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#af48bb1d750c019e34337ed0a0f88ef76">isCompositeInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a2a1d26a1924d6b53c23630143a579436">isMoveInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a7c15fced3d0a2819bef3c874d85b1f8f">isPlanInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a113ddfa3992fee8b8bdb1adcc6ee297e">isNullInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_TYPE_H</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">// Everything before must be a set tool Instruction</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715">SET_TOOL_INSTRUCTION</a> = 100,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">// User defined types must be larger than this</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00">USER_DEFINED</a> = 1000</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a3f42a719816e6dea334fe383044b600e">isCommentInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a71a4541552162b88b58aaad64cdcbc3c">isVariableInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#ad3eae42cabf7ba6008e38e831e757efa">isAnalogInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a36cbf35ae9d24574a6d2cfe0bacd35a9">isIOInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#af48bb1d750c019e34337ed0a0f88ef76">isCompositeInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a2a1d26a1924d6b53c23630143a579436">isMoveInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a7c15fced3d0a2819bef3c874d85b1f8f">isPlanInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a113ddfa3992fee8b8bdb1adcc6ee297e">isNullInstruction</a>(<span class="keyword">const</span> Instruction&amp; instruction);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_TYPE_H</span></div>
 <div class="ttc" id="anamespacetesseract__planning_html"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div><div class="ttdef"><b>Definition:</b> cartesian_waypoint.h:43</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a113ddfa3992fee8b8bdb1adcc6ee297e"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a113ddfa3992fee8b8bdb1adcc6ee297e">tesseract_planning::isNullInstruction</a></div><div class="ttdeci">bool isNullInstruction(const Instruction &amp;instruction)</div><div class="ttdef"><b>Definition:</b> instruction_type.cpp:74</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a1490313530edbc7faa29ca1c97253100"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100">tesseract_planning::InstructionType</a></div><div class="ttdeci">InstructionType</div><div class="ttdef"><b>Definition:</b> instruction_type.h:34</div></div>
@@ -146,6 +149,7 @@ $(function() {
 <div class="ttc" id="anamespacetesseract__planning_html_a1490313530edbc7faa29ca1c97253100a553244d0c0e7e590ea64f985a5e24be3"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100a553244d0c0e7e590ea64f985a5e24be3">tesseract_planning::InstructionType::NULL_INSTRUCTION</a></div><div class="ttdeci">@ NULL_INSTRUCTION</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a1490313530edbc7faa29ca1c97253100a5e68a3cc5bf2f445f94fe6eb3541af3c"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100a5e68a3cc5bf2f445f94fe6eb3541af3c">tesseract_planning::InstructionType::IO_INSTRUCTION</a></div><div class="ttdeci">@ IO_INSTRUCTION</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a1490313530edbc7faa29ca1c97253100a92e352111401692609a4fd7d883cc353"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100a92e352111401692609a4fd7d883cc353">tesseract_planning::InstructionType::MOVE_INSTRUCTION</a></div><div class="ttdeci">@ MOVE_INSTRUCTION</div></div>
+<div class="ttc" id="anamespacetesseract__planning_html_a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715">tesseract_planning::InstructionType::SET_TOOL_INSTRUCTION</a></div><div class="ttdeci">@ SET_TOOL_INSTRUCTION</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a1490313530edbc7faa29ca1c97253100ab752f56a05163a8d96e9c8229ac44120"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100ab752f56a05163a8d96e9c8229ac44120">tesseract_planning::InstructionType::VARIABLE_INSTRUCTION</a></div><div class="ttdeci">@ VARIABLE_INSTRUCTION</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043">tesseract_planning::InstructionType::WAIT_INSTRUCTION</a></div><div class="ttdeci">@ WAIT_INSTRUCTION</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a1490313530edbc7faa29ca1c97253100ae5e6a0ef2425f873fc112cb5470785a2"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a1490313530edbc7faa29ca1c97253100ae5e6a0ef2425f873fc112cb5470785a2">tesseract_planning::InstructionType::PLAN_INSTRUCTION</a></div><div class="ttdeci">@ PLAN_INSTRUCTION</div></div>
@@ -160,7 +164,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 9 2021 23:41:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Mar 13 2021 01:07:19 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

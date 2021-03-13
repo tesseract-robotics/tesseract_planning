@@ -1,0 +1,193 @@
+\hypertarget{classtesseract__planning_1_1SetToolInstruction}{}\doxysection{tesseract\+\_\+planning\+::Set\+Tool\+Instruction Class Reference}
+\label{classtesseract__planning_1_1SetToolInstruction}\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+
+
+{\ttfamily \#include $<$set\+\_\+tool\+\_\+instruction.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Set\+Tool\+Instruction\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{d1/d4e/classtesseract__planning_1_1SetToolInstruction__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a9b971e5e88c28ba9c3f8b2fbe3a34cab}{Set\+Tool\+Instruction}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_ae9c29fc7412f2b51b6a64afaa0f48a60}{Set\+Tool\+Instruction}} (int tool\+\_\+id)
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a222367cbbf427e235cc0156f1164a5b6}{get\+Type}} () const
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_ab3570aadb06a0c4c6c1ebf8ceac5bfd0}{get\+Description}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a22d025368a1e1e4e7def4cc15d87e0f7}{set\+Description}} (const std\+::string \&description)
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_aefca1563b51198de4b1e687a6c7a2302}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a9dfb57e0ae21b0b6f9990c1004ea3674}{get\+Tool}} () const
+\begin{DoxyCompactList}\small\item\em Get the tool ID. \end{DoxyCompactList}\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a6538fae7aa2c7021029ee4970eb27d60}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_ab5a43827c99452eaf38bdaed0042dc81}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{Set\+Tool\+Instruction}} \&rhs) const
+\begin{DoxyCompactList}\small\item\em Equal operator. Does not compare descriptions. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a2a7fcaf172e11fcf8b4995a811da04ca}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{Set\+Tool\+Instruction}} \&rhs) const
+\begin{DoxyCompactList}\small\item\em Not equal operator. Does not compare descriptions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_addf8f889f13399193c89d9751987535d}{serialize}} (Archive \&ar, const unsigned int)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_aa011b3c57bc81ade816336f8067c8dac}{description\+\_\+}} \{ \char`\"{}Tesseract Set Tool \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\char`\"{} \}
+\begin{DoxyCompactList}\small\item\em The description of the instruction. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_a1f42c3772fc1e91e8916bf4fd93df53a}{tool\+\_\+id\+\_\+}} \{ -\/1 \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a9b971e5e88c28ba9c3f8b2fbe3a34cab}\label{classtesseract__planning_1_1SetToolInstruction_a9b971e5e88c28ba9c3f8b2fbe3a34cab}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!SetToolInstruction@{SetToolInstruction}}
+\index{SetToolInstruction@{SetToolInstruction}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{SetToolInstruction()}{SetToolInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::\+Set\+Tool\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_ae9c29fc7412f2b51b6a64afaa0f48a60}\label{classtesseract__planning_1_1SetToolInstruction_ae9c29fc7412f2b51b6a64afaa0f48a60}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!SetToolInstruction@{SetToolInstruction}}
+\index{SetToolInstruction@{SetToolInstruction}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{SetToolInstruction()}{SetToolInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::\+Set\+Tool\+Instruction (\begin{DoxyParamCaption}\item[{int}]{tool\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_ab3570aadb06a0c4c6c1ebf8ceac5bfd0}\label{classtesseract__planning_1_1SetToolInstruction_ab3570aadb06a0c4c6c1ebf8ceac5bfd0}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily const std\+::string\& tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a9dfb57e0ae21b0b6f9990c1004ea3674}\label{classtesseract__planning_1_1SetToolInstruction_a9dfb57e0ae21b0b6f9990c1004ea3674}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!getTool@{getTool}}
+\index{getTool@{getTool}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{getTool()}{getTool()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::get\+Tool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the tool ID. 
+
+\begin{DoxyReturn}{Returns}
+The tool ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a222367cbbf427e235cc0156f1164a5b6}\label{classtesseract__planning_1_1SetToolInstruction_a222367cbbf427e235cc0156f1164a5b6}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!getType@{getType}}
+\index{getType@{getType}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a2a7fcaf172e11fcf8b4995a811da04ca}\label{classtesseract__planning_1_1SetToolInstruction_a2a7fcaf172e11fcf8b4995a811da04ca}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{Set\+Tool\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Not equal operator. Does not compare descriptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{Set\+Tool\+Instruction}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if not equal, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_ab5a43827c99452eaf38bdaed0042dc81}\label{classtesseract__planning_1_1SetToolInstruction_ab5a43827c99452eaf38bdaed0042dc81}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{Set\+Tool\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equal operator. Does not compare descriptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{Set\+Tool\+Instruction}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if equal, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_aefca1563b51198de4b1e687a6c7a2302}\label{classtesseract__planning_1_1SetToolInstruction_aefca1563b51198de4b1e687a6c7a2302}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!print@{print}}
+\index{print@{print}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_addf8f889f13399193c89d9751987535d}\label{classtesseract__planning_1_1SetToolInstruction_addf8f889f13399193c89d9751987535d}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a22d025368a1e1e4e7def4cc15d87e0f7}\label{classtesseract__planning_1_1SetToolInstruction_a22d025368a1e1e4e7def4cc15d87e0f7}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!setDescription@{setDescription}}
+\index{setDescription@{setDescription}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a6538fae7aa2c7021029ee4970eb27d60}\label{classtesseract__planning_1_1SetToolInstruction_a6538fae7aa2c7021029ee4970eb27d60}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1SetToolInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_aa011b3c57bc81ade816336f8067c8dac}\label{classtesseract__planning_1_1SetToolInstruction_aa011b3c57bc81ade816336f8067c8dac}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!description\_@{description\_}}
+\index{description\_@{description\_}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{description\_}{description\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::description\+\_\+ \{ \char`\"{}Tesseract Set Tool \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\char`\"{} \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The description of the instruction. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetToolInstruction_a1f42c3772fc1e91e8916bf4fd93df53a}\label{classtesseract__planning_1_1SetToolInstruction_a1f42c3772fc1e91e8916bf4fd93df53a}} 
+\index{tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}!tool\_id\_@{tool\_id\_}}
+\index{tool\_id\_@{tool\_id\_}!tesseract\_planning::SetToolInstruction@{tesseract\_planning::SetToolInstruction}}
+\doxysubsubsection{\texorpdfstring{tool\_id\_}{tool\_id\_}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction\+::tool\+\_\+id\+\_\+ \{ -\/1 \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/\mbox{\hyperlink{set__tool__instruction_8h}{set\+\_\+tool\+\_\+instruction.\+h}}\end{DoxyCompactItemize}
