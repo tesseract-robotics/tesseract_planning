@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_sco/optimizers.hpp>
 #include <trajopt_sco/sco_common.hpp>
 #include <tesseract_environment/core/utils.h>
-#include <boost/date_time/posix_time/posix_time.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
@@ -154,10 +153,7 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   }
 
   // Optimize
-  auto tStart = boost::posix_time::second_clock::local_time();
   opt.optimize();
-  CONSOLE_BRIDGE_logInform("trajopt planning time: %.3f",
-                           (boost::posix_time::second_clock::local_time() - tStart).seconds());
   if (opt.results().status != sco::OptStatus::OPT_CONVERGED)
   {
     response.status =

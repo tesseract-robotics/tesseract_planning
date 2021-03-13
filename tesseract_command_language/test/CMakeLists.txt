@@ -43,13 +43,11 @@ add_dependencies(${PROJECT_NAME}_cartesian_waypoint_unit ${PROJECT_NAME})
 
 # JointWaypoint Tests
 add_executable(${PROJECT_NAME}_joint_waypoint_unit joint_waypoint_unit.cpp)
-target_link_libraries(${PROJECT_NAME}_joint_waypoint_unit PRIVATE GTest::GTest GTest::Main Eigen3::Eigen ${PROJECT_NAME} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_joint_waypoint_unit PRIVATE GTest::GTest GTest::Main Eigen3::Eigen ${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME}_joint_waypoint_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_clang_tidy(${PROJECT_NAME}_joint_waypoint_unit ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(${PROJECT_NAME}_joint_waypoint_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(${PROJECT_NAME}_joint_waypoint_unit ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
-target_include_directories(${PROJECT_NAME}_joint_waypoint_unit SYSTEM PUBLIC
-    ${Boost_INCLUDE_DIRS})
 add_gtest_discover_tests(${PROJECT_NAME}_joint_waypoint_unit)
 add_dependencies(run_tests ${PROJECT_NAME}_joint_waypoint_unit)
 add_dependencies(${PROJECT_NAME}_joint_waypoint_unit ${PROJECT_NAME})

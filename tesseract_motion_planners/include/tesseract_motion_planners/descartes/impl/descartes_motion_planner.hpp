@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/interface/waypoint_sampler.h>
 #include <descartes_samplers/samplers/fixed_joint_waypoint_sampler.h>
 #include <descartes_samplers/evaluators/timing_edge_evaluator.h>
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
