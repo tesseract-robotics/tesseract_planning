@@ -22,8 +22,7 @@ find_package(trajopt_ifopt REQUIRED)
 find_package(trajopt_sco REQUIRED)
 find_package(trajopt_sqp REQUIRED)
 find_package(ros_industrial_cmake_boilerplate REQUIRED)
-# serialization was required because ompl does not include find_dependency for its required dependencies
-find_package(Boost REQUIRED COMPONENTS serialization system filesystem program_options)
+find_package(Boost REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -69,7 +68,7 @@ add_library(${PROJECT_NAME}_descartes
   src/descartes/deserialize.cpp
   src/descartes/descartes_utils.cpp
   src/descartes/profile/descartes_default_plan_profile.cpp)
-target_link_libraries(${PROJECT_NAME}_descartes PUBLIC ${PROJECT_NAME}_core descartes::descartes_light descartes::descartes_samplers ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_descartes PUBLIC ${PROJECT_NAME}_core descartes::descartes_light descartes::descartes_samplers Boost::boost)
 target_compile_options(${PROJECT_NAME}_descartes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -79,8 +78,6 @@ target_code_coverage(${PROJECT_NAME}_descartes ALL EXCLUDE ${COVERAGE_EXCLUDE} E
 target_include_directories(${PROJECT_NAME}_descartes PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME}_descartes SYSTEM PUBLIC
-    ${Boost_INCLUDE_DIRS})
 
 # OMPL Freespace Planning Interface
 set(OMPL_SRC src/ompl/ompl_motion_planner.cpp
@@ -104,7 +101,7 @@ set(OMPL_SRC src/ompl/ompl_motion_planner.cpp
 
 message(AUTHOR_WARNING "OMPL INCLUDE DIRS: ${OMPL_INCLUDE_DIRS}")
 add_library(${PROJECT_NAME}_ompl ${OMPL_SRC})
-target_link_libraries(${PROJECT_NAME}_ompl PUBLIC ${PROJECT_NAME}_core ${OMPL_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_ompl PUBLIC ${PROJECT_NAME}_core ${OMPL_LIBRARIES} Boost::boost)
 target_compile_options(${PROJECT_NAME}_ompl PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_ompl PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_ompl PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -115,8 +112,7 @@ target_include_directories(${PROJECT_NAME}_ompl PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
 target_include_directories(${PROJECT_NAME}_ompl SYSTEM PUBLIC
-    ${OMPL_INCLUDE_DIRS}
-    ${Boost_INCLUDE_DIRS})
+    ${OMPL_INCLUDE_DIRS})
 if(OMPL_VERSION VERSION_LESS "1.4.0")
     target_compile_definitions(${PROJECT_NAME}_ompl PUBLIC OMPL_LESS_1_4_0=ON)
 endif()
@@ -128,7 +124,7 @@ add_library(${PROJECT_NAME}_simple
   src/simple/profile/simple_planner_fixed_size_assign_plan_profile.cpp
   src/simple/profile/simple_planner_fixed_size_plan_profile.cpp
   src/simple/profile/simple_planner_utils.cpp)
-target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${Boost_LIBRARIES} Eigen3::Eigen ${PROJECT_NAME}_core)
+target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${PROJECT_NAME}_core Boost::boost)
 target_compile_options(${PROJECT_NAME}_simple PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -138,8 +134,6 @@ target_code_coverage(${PROJECT_NAME}_simple ALL EXCLUDE ${COVERAGE_EXCLUDE} ENAB
 target_include_directories(${PROJECT_NAME}_simple PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME}_simple SYSTEM PUBLIC
-        ${Boost_INCLUDE_DIRS})
 
 # Trajopt Planner
 add_library(${PROJECT_NAME}_trajopt
@@ -152,7 +146,7 @@ add_library(${PROJECT_NAME}_trajopt
   src/trajopt/problem_generators/default_problem_generator.cpp
   src/trajopt/serialize.cpp
   src/trajopt/deserialize.cpp)
-target_link_libraries(${PROJECT_NAME}_trajopt PUBLIC ${Boost_LIBRARIES} Eigen3::Eigen ${PROJECT_NAME}_core trajopt::trajopt trajopt::trajopt_utils trajopt::trajopt_sco)
+target_link_libraries(${PROJECT_NAME}_trajopt PUBLIC Boost::boost Eigen3::Eigen ${PROJECT_NAME}_core trajopt::trajopt trajopt::trajopt_utils trajopt::trajopt_sco)
 target_compile_options(${PROJECT_NAME}_trajopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_trajopt PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -162,8 +156,6 @@ target_code_coverage(${PROJECT_NAME}_trajopt ALL EXCLUDE ${COVERAGE_EXCLUDE} ENA
 target_include_directories(${PROJECT_NAME}_trajopt PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME}_trajopt SYSTEM PUBLIC
-    ${Boost_INCLUDE_DIRS})
 
 # Trajopt_ifopt Planner
 add_library(${PROJECT_NAME}_trajopt_ifopt SHARED
@@ -172,7 +164,7 @@ add_library(${PROJECT_NAME}_trajopt_ifopt SHARED
   src/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.cpp
   src/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.cpp
   src/trajopt_ifopt/problem_generators/default_problem_generator.cpp)
-target_link_libraries(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${Boost_LIBRARIES} Eigen3::Eigen ${PROJECT_NAME}_core trajopt::trajopt_ifopt trajopt::trajopt_sqp)
+target_link_libraries(${PROJECT_NAME}_trajopt_ifopt PUBLIC Boost::boost Eigen3::Eigen ${PROJECT_NAME}_core trajopt::trajopt_ifopt trajopt::trajopt_sqp)
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -182,8 +174,6 @@ target_code_coverage(${PROJECT_NAME}_trajopt_ifopt ALL EXCLUDE ${COVERAGE_EXCLUD
 target_include_directories(${PROJECT_NAME}_trajopt_ifopt PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
-target_include_directories(${PROJECT_NAME}_trajopt_ifopt SYSTEM PUBLIC
-    ${Boost_INCLUDE_DIRS})
 
 configure_package(NAMESPACE tesseract
                   TARGETS ${PROJECT_NAME}_core

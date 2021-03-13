@@ -27,7 +27,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <tesseract_environment/core/utils.h>
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/osqp_eigen_solver.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -140,10 +139,7 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
 
   // solve
   solver.verbose = verbose;
-
-  auto tStart = boost::posix_time::second_clock::local_time();
   solver.Solve(*(problem->nlp));
-  CONSOLE_BRIDGE_logInform("planning time: %.3f", (boost::posix_time::second_clock::local_time() - tStart).seconds());
 
   // Check success
   if (solver.getStatus() != trajopt_sqp::SQPStatus::NLP_CONVERGED)
