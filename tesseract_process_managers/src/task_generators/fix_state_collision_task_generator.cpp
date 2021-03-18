@@ -218,8 +218,6 @@ bool MoveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
   const auto kin = input.env->getManipulatorManager()->getFwdKinematicSolver(input.manip_info.manipulator);
   Eigen::MatrixXd limits = kin->getLimits().joint_limits;
   Eigen::VectorXd range = limits.col(1).array() - limits.col(0).array();
-  Eigen::VectorXd pos_sampling_limits = range * profile.jiggle_factor;
-  Eigen::VectorXd neg_sampline_limits = range * -profile.jiggle_factor;
 
   assert(start_pos.size() == range.size());
   for (int i = 0; i < profile.sampling_attempts; i++)
@@ -364,12 +362,14 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       }
 
       bool in_collision = false;
+      std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 0; i < flattened.size(); i++)
       {
-        in_collision |= WaypointInCollision(flattened[i].get().cast_const<PlanInstruction>()->getWaypoint(),
-                                            input,
-                                            *cur_composite_profile,
-                                            info->contact_results[i]);
+        in_collision_vec[i] = WaypointInCollision(flattened[i].get().cast_const<PlanInstruction>()->getWaypoint(),
+                                                  input,
+                                                  *cur_composite_profile,
+                                                  info->contact_results[i]);
+        in_collision |= in_collision_vec[i];
       }
       if (!in_collision)
         break;
@@ -377,14 +377,17 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       CONSOLE_BRIDGE_logInform("FixStateCollisionTaskGenerator is modifying the const input instructions");
       for (std::size_t i = 0; i < flattened.size(); i++)
       {
-        const Instruction* instr_const_ptr = &flattened[i].get();
-        Instruction* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);
-        PlanInstruction* plan = mutable_instruction->cast<PlanInstruction>();
-
-        if (!ApplyCorrectionWorkflow(plan->getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
+        if (in_collision_vec[i])
         {
-          saveOutputs(info, input);
-          return 0;
+          const Instruction* instr_const_ptr = &flattened[i].get();
+          Instruction* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);
+          PlanInstruction* plan = mutable_instruction->cast<PlanInstruction>();
+
+          if (!ApplyCorrectionWorkflow(plan->getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
+          {
+            saveOutputs(info, input);
+            return 0;
+          }
         }
       }
     }
