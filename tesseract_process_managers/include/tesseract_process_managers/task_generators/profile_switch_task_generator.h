@@ -78,4 +78,9 @@ public:
   ProfileSwitchTaskInfo(std::size_t unique_id, std::string name = "Profile Switch");
 };
 }  // namespace tesseract_planning
+
+#ifdef SWIG
+%tesseract_command_language_add_profile_type(ProfileSwitchProfile);
+#endif
+
 #endif  // TESSERACT_PROCESS_MANAGERS_PROFILE_SWITCH_TASK_GENERATOR_H

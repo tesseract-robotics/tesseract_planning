@@ -90,6 +90,7 @@ using DescartesPlanProfileMapD = std::unordered_map<std::string, std::shared_ptr
 #ifdef SWIG
 %template(DescartesPlanProfileD) std::shared_ptr<tesseract_planning::DescartesPlanProfile<double> >;
 %template(DescartesPlanProfileMapD) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::DescartesPlanProfile<double>>>;
+%tesseract_command_language_add_profile_type2(DescartesPlanProfileD,DescartesPlanProfile<double>);
 #endif  // SWIG
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_DESCARTES_PROFILE_H

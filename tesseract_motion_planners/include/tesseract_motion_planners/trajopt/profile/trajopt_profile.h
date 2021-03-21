@@ -126,6 +126,9 @@ using TrajOptPlanProfileMap = std::unordered_map<std::string, TrajOptPlanProfile
 %template(TrajOptSolverProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::TrajOptSolverProfile>>;
 %template(TrajOptCompositeProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::TrajOptCompositeProfile>>;
 %template(TrajOptPlanProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::TrajOptPlanProfile>>;
+%tesseract_command_language_add_profile_type(TrajOptSolverProfile);
+%tesseract_command_language_add_profile_type(TrajOptPlanProfile);
+%tesseract_command_language_add_profile_type(TrajOptCompositeProfile);
 #endif  // SWIG
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_PROFILE_H

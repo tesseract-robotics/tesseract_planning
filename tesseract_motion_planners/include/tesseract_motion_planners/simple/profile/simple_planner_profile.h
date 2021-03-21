@@ -96,6 +96,8 @@ using SimplePlannerCompositeProfileMap = std::unordered_map<std::string, SimpleP
 #ifdef SWIG
 %template(SimplePlannerPlanProfileMap) std::unordered_map<std::string, tesseract_planning::SimplePlannerPlanProfile::ConstPtr>;
 %template(SimplePlannerCompositeProfileMap) std::unordered_map<std::string, tesseract_planning::SimplePlannerCompositeProfile::ConstPtr>;
+%tesseract_command_language_add_profile_type(SimplePlannerPlanProfile);
+%tesseract_command_language_add_profile_type(SimplePlannerCompositeProfile);
 #endif  // SWIG
 
 #endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_PROFILE_H
