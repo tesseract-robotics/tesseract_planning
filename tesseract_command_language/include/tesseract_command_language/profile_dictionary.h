@@ -179,15 +179,4 @@ protected:
 };
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%tesseract_process_managers_add_profile_type(SimplePlannerPlanProfile);
-%tesseract_process_managers_add_profile_type(TrajOptSolverProfile);
-%tesseract_process_managers_add_profile_type(TrajOptPlanProfile);
-%tesseract_process_managers_add_profile_type(TrajOptCompositeProfile);
-%tesseract_process_managers_add_profile_type2(DescartesPlanProfileD,DescartesPlanProfile<double>);
-%tesseract_process_managers_add_profile_type(OMPLPlanProfile);
-%tesseract_process_managers_add_profile_type(IterativeSplineParameterizationProfile);
-%tesseract_process_managers_add_profile_type(ProfileSwitchProfile);
-#endif  // SWIG
-
 #endif  // TESSERACT_MOTION_PLANNERS_PROFILE_DICTIONARY_H

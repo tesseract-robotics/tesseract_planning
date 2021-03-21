@@ -47,6 +47,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/command_language.h>
 
+#ifdef SWIG
+%shared_ptr(tesseract_planning::TimeOptimalTrajectoryGeneration)
+#endif
+
 namespace tesseract_planning
 {
 class TimeOptimalTrajectoryGeneration
@@ -68,6 +72,7 @@ private:
   const double min_angle_change_;
 };
 
+#ifndef SWIG
 namespace totg
 {
 class PathSegment
@@ -204,6 +209,7 @@ private:
   mutable std::list<TrajectoryStep>::const_iterator cached_trajectory_segment_;
 };
 }  // namespace totg
+#endif
 }  // namespace tesseract_planning
 
 #endif

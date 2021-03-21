@@ -98,6 +98,7 @@ using OMPLPlanProfileMap = std::unordered_map<std::string, OMPLPlanProfile::Cons
 
 #ifdef SWIG
 %template(OMPLPlanProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::OMPLPlanProfile>>;
+%tesseract_command_language_add_profile_type(OMPLPlanProfile);
 #endif  // SWIG
 
 #endif  // TESSERACT_MOTION_PLANNERS_OMPL_OMPL_PROFILE_H
