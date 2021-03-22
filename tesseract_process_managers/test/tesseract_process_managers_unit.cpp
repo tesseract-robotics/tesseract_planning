@@ -255,8 +255,8 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanPr
   auto mcnt = getMoveInstructionCount(response.results);
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
-  // ten move instruction.
-  EXPECT_EQ(19, mcnt);
+  // 32 move instruction.
+  EXPECT_EQ(65, mcnt);
   EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
