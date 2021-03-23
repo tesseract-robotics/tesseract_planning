@@ -165,6 +165,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
       RescaleTimings(unflattened, scaling_factors);
     }
 
+    ci->setStartInstruction(unflattened.getStartInstruction());
     for (std::size_t idx = 0; idx < ci->size(); idx++)
       (*ci)[idx] = unflattened[idx];
   }
@@ -174,6 +175,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
       CONSOLE_BRIDGE_logWarn("TOTG Move Profile specified but unflatten is not set in the composite profile. Move "
                              "Profile will be ignored");
 
+    ci->setStartInstruction(resampled.getStartInstruction());
     for (std::size_t idx = 0; idx < ci->size(); idx++)
       (*ci)[idx] = resampled[idx];
   }
@@ -195,6 +197,7 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
                                                         double tolerance) const
 {
   CompositeInstruction unflattened(pattern);
+  unflattened.setStartInstruction(flattened_input.getStartInstruction());
   for (auto& instr : unflattened)
     instr.cast<CompositeInstruction>()->clear();
 

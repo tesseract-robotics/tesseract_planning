@@ -194,6 +194,17 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   CompositeInstruction new_program(program);
   new_program.clear();
 
+  if (new_program.hasStartInstruction())
+  {
+    if (isStateWaypoint(new_program.getStartInstruction().cast<MoveInstruction>()->getWaypoint()))
+    {
+      StateWaypoint* waypoint =
+          new_program.getStartInstruction().cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>();
+      waypoint->velocity = Eigen::VectorXd::Zero(num_joints);
+      waypoint->acceleration = Eigen::VectorXd::Zero(num_joints);
+    }
+  }
+
   /// @todo Figure out how to maintain the original seed structure of subcomposites
   for (size_t sample = 0; sample <= sample_count; ++sample)
   {
