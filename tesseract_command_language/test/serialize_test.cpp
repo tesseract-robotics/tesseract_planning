@@ -175,6 +175,10 @@ CompositeInstruction getProgram()
   SetToolInstruction set_tool_instruction(5);
   program.push_back(set_tool_instruction);
 
+  // Add a set tool instruction
+  SetAnalogInstruction set_analog_instruction("R", 0, 1.5);
+  program.push_back(set_analog_instruction);
+
   return program;
 }
 

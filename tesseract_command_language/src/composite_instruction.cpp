@@ -135,7 +135,12 @@ bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
   if (equal)
   {
     for (std::size_t i = 0; i < container_.size(); ++i)
+    {
       equal &= (container_[i] == rhs.container_[i]);
+
+      if (!equal)
+        break;
+    }
   }
   return equal;
 }

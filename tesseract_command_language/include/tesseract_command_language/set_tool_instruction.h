@@ -74,7 +74,6 @@ public:
 
     tinyxml2::XMLElement* xml_description = doc.NewElement("Description");
     xml_description->SetText(getDescription().c_str());
-    xml_tool_instruction->InsertEndChild(xml_description);
 
     xml_tool_instruction->InsertEndChild(xml_description);
     xml_instruction->InsertEndChild(xml_tool_instruction);

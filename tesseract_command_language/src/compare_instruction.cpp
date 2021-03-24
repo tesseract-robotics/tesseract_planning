@@ -30,6 +30,7 @@
 #include <tesseract_command_language/wait_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
+#include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/instruction_type.h>
 
@@ -66,6 +67,10 @@ bool operator==(const Instruction& lhs, const Instruction& rhs)
       case static_cast<int>(InstructionType::SET_TOOL_INSTRUCTION):
       {
         return ((*lhs.cast_const<SetToolInstruction>()) == (*rhs.cast_const<SetToolInstruction>()));
+      }
+      case static_cast<int>(InstructionType::SET_ANALOG_INSTRUCTION):
+      {
+        return ((*lhs.cast_const<SetAnalogInstruction>()) == (*rhs.cast_const<SetAnalogInstruction>()));
       }
       case static_cast<int>(InstructionType::COMPOSITE_INSTRUCTION):
       {
