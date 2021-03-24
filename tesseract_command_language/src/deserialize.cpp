@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/impl/deserialize.hpp>
+#include <tesseract_common/utils.h>
 
 namespace tesseract_planning
 {
@@ -280,6 +281,44 @@ Instruction getSetToolInstruction(const tinyxml2::XMLElement& instruction_elemen
   return set_tool_instruction;
 }
 
+Instruction getSetAnalogInstruction(const tinyxml2::XMLElement& instruction_element)
+{
+  const tinyxml2::XMLElement* set_analog_element = instruction_element.FirstChildElement("SetAnalogInstruction");
+  if (!set_analog_element)
+    throw std::runtime_error("Missing Child Element SetAnalogInstruction.");
+
+  const tinyxml2::XMLElement* description_element = set_analog_element->FirstChildElement("Description");
+
+  std::string description;
+  if (description_element)
+  {
+    tinyxml2::XMLError status = tesseract_common::QueryStringText(description_element, description);
+    if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
+      throw std::runtime_error("fromXML: Error parsing Description string");
+  }
+
+  std::string key;
+  int index{ 0 };
+  double value{ 0 };
+
+  tinyxml2::XMLError status = tesseract_common::QueryStringAttributeRequired(set_analog_element, "key", key);
+  if (status != tinyxml2::XML_SUCCESS)
+    throw std::runtime_error("fromXML: Failed to parse set analog instruction key attribute.");
+
+  status = tesseract_common::QueryIntAttributeRequired(set_analog_element, "index", index);
+  if (status != tinyxml2::XML_SUCCESS)
+    throw std::runtime_error("fromXML: Failed to parse analog tool instruction index attribute.");
+
+  status = tesseract_common::QueryDoubleAttributeRequired(set_analog_element, "value", value);
+  if (status != tinyxml2::XML_SUCCESS)
+    throw std::runtime_error("fromXML: Failed to parse set analog instruction value attribute.");
+
+  SetAnalogInstruction set_analog_instruction(key, index, value);
+  set_analog_instruction.setDescription(description);
+
+  return set_analog_instruction;
+}
+
 Instruction getCompositeInstruction(const tinyxml2::XMLElement& instruction_element,
                                     InstructionParserFn instruction_parser,
                                     WaypointParserFn waypoint_parser)
@@ -368,6 +407,10 @@ Instruction InstructionParser(const tinyxml2::XMLElement& xml_element, int type,
     case static_cast<int>(InstructionType::SET_TOOL_INSTRUCTION):
     {
       return getSetToolInstruction(xml_element);
+    }
+    case static_cast<int>(InstructionType::SET_ANALOG_INSTRUCTION):
+    {
+      return getSetAnalogInstruction(xml_element);
     }
     case static_cast<int>(InstructionType::COMPOSITE_INSTRUCTION):
     {

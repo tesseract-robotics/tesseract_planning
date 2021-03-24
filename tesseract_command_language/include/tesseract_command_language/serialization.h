@@ -53,6 +53,7 @@ TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::PlanInstruction);       // NOLI
 TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::WaitInstruction);       // NOLINT
 TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::TimerInstruction);      // NOLINT
 TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::SetToolInstruction);    // NOLINT
+TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::SetAnalogInstruction);  // NOLINT
 TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::CompositeInstruction);  // NOLINT
 
 namespace tesseract_planning

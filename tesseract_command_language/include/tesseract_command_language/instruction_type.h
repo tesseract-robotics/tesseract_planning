@@ -32,40 +32,52 @@ class Instruction;
 
 enum class InstructionType : int
 {
-  // Everything before must be a Null Instruction
+  /** @brief A null instruction */
   NULL_INSTRUCTION = 0,
 
-  // Everything before must be a motion plan Instruction
+  /**
+   * @brief A plan instruction
+   * @details Everything before must also be a motion plan instruction
+   */
   PLAN_INSTRUCTION = 10,
 
-  // Everything before must be a motion Instruction
+  /**
+   * @brief A move instruction
+   * @details Everything before must also be a motion instruction
+   */
   MOVE_INSTRUCTION = 20,
 
-  // Everything before must be a composite Instruction
+  /**
+   * @brief A composite instruction
+   * @details Everything before must also be a composite instruction
+   */
   COMPOSITE_INSTRUCTION = 30,
 
-  // Everything before must be a I/O Instruction
+  /** @brief Everything before must be a I/O instruction */
   IO_INSTRUCTION = 40,
 
-  // Everything before must be a Analog Instruction
+  /** @brief Set Analog Instruction */
+  SET_ANALOG_INSTRUCTION = 49,
+
+  /** @brief Everything before must be a analog instruction */
   ANALOG_INSTRUCTION = 50,
 
-  // Everything before must be a variable Instruction
+  /** @brief Everything before must be a variable instruction */
   VARIABLE_INSTRUCTION = 60,
 
-  // Everything before must be a comment Instruction
+  /** @brief Everything before must be a comment instruction */
   COMMENT_INSTRUCTION = 70,
 
-  // Everything before must be a wait Instruction
+  /** @brief A wait instruction */
   WAIT_INSTRUCTION = 80,
 
-  // Everything before must be a timer Instruction
+  /** @brief A timer instruction */
   TIMER_INSTRUCTION = 90,
 
-  // Everything before must be a set tool Instruction
+  /** @brief A set tool Instruction */
   SET_TOOL_INSTRUCTION = 100,
 
-  // User defined types must be larger than this
+  /** @brief User defined types must be larger than this */
   USER_DEFINED = 1000
 };
 
