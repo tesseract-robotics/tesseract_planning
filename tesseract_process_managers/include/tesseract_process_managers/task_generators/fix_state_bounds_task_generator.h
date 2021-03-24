@@ -51,6 +51,12 @@ struct FixStateBoundsProfile
 
   /** @brief Maximum amount the process is allowed to correct. If deviation is further than this, it will fail */
   double max_deviation_global = std::numeric_limits<double>::max();
+
+  /** @brief Amount to reduce the upper bounds before clamping limits. Should be > 1 */
+  double upper_bounds_reduction{ std::numeric_limits<float>::epsilon() };
+
+  /** @brief Amount to increase the lower bounds before clamping limits. Should be > 1 */
+  double lower_bounds_reduction{ std::numeric_limits<float>::epsilon() };
 };
 using FixStateBoundsProfileMap = std::unordered_map<std::string, FixStateBoundsProfile::ConstPtr>;
 
