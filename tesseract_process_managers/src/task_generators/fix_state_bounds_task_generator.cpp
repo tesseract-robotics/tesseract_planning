@@ -85,6 +85,8 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   }
 
   auto limits = fwd_kin->getLimits().joint_limits;
+  limits.col(0) = limits.col(0).array() + cur_composite_profile->lower_bounds_reduction;
+  limits.col(1) = limits.col(1).array() - cur_composite_profile->upper_bounds_reduction;
   switch (cur_composite_profile->mode)
   {
     case FixStateBoundsProfile::Settings::START_ONLY:
