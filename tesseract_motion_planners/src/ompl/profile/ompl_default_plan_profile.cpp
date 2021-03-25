@@ -390,7 +390,18 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
         for (unsigned j = 0; j < dof; ++j)
           goal_state[j] = solution[static_cast<Eigen::Index>(j)];
 
-        goal_states->addState(goal_state);
+        goal_state.enforceBounds(); // @todo figure out what is going on
+        if (goal_state.satisfiesBounds())
+        {
+          goal_states->addState(goal_state);
+        }
+        else
+        {
+          CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Goal state has invalid bounds");
+          goal_state.print();
+          goal_state.enforceBounds();
+          goal_state.print();
+        }
       }
     }
 
@@ -402,7 +413,7 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
             CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_names[0] + ", " +
                                      contact.link_names[1] + "  Distance: " + std::to_string(contact.distance))
                                         .c_str());
-      throw std::runtime_error("In OMPLPlannerFreespaceConfig: All goal states are in collision");
+      throw std::runtime_error("In OMPLDefaultPlanProfile: All goal states are in collision");
     }
     prob.simple_setup->setGoal(goal_states);
   }
@@ -424,7 +435,7 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
     tesseract_collision::ContactResultMap contact_map;
     if (checkStateInCollision(prob, joint_waypoint, contact_map))
     {
-      CONSOLE_BRIDGE_logError("In OMPLPlannerFreespaceConfig: Goal state is in collision");
+      CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Goal state is in collision");
       for (const auto& contact_vec : contact_map)
         for (const auto& contact : contact_vec.second)
           CONSOLE_BRIDGE_logError(("Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
@@ -436,7 +447,18 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
     for (unsigned i = 0; i < dof; ++i)
       goal_state[i] = joint_waypoint[i];
 
-    prob.simple_setup->setGoalState(goal_state);
+    goal_state.enforceBounds(); // @todo figure out what is going on
+    if (goal_state.satisfiesBounds())
+    {
+      prob.simple_setup->setGoalState(goal_state);
+    }
+    else
+    {
+      CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Goal state has invalid bounds");
+      goal_state.print();
+      goal_state.enforceBounds();
+      goal_state.print();
+    }
   }
 }
 
@@ -479,12 +501,23 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
       // instead of the isValid function to avoid unnecessary collision checks.
       if (!checkStateInCollision(prob, solution, contact_map_vec[i]))
       {
-        found_start_state = true;
         ompl::base::ScopedState<> start_state(prob.simple_setup->getStateSpace());
         for (unsigned j = 0; j < dof; ++j)
           start_state[j] = solution[static_cast<Eigen::Index>(j)];
 
-        prob.simple_setup->addStartState(start_state);
+        start_state.enforceBounds(); // @todo figure out what is going on
+        if (start_state.satisfiesBounds())
+        {
+          found_start_state = true;
+          prob.simple_setup->addStartState(start_state);
+        }
+        else
+        {
+          CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Start state has invalid bounds");
+          start_state.print();
+          start_state.enforceBounds();
+          start_state.print();
+        }
       }
     }
 
@@ -530,7 +563,18 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
     for (unsigned i = 0; i < dof; ++i)
       start_state[i] = joint_waypoint[i];
 
-    prob.simple_setup->addStartState(start_state);
+    start_state.enforceBounds(); // @todo figure out what is going on
+    if (start_state.satisfiesBounds())
+    {
+      prob.simple_setup->addStartState(start_state);
+    }
+    else
+    {
+      CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Start state has invalid bounds");
+      start_state.print();
+      start_state.enforceBounds();
+      start_state.print();
+    }
   }
 }
 
