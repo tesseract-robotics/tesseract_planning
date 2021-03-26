@@ -142,6 +142,17 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   // Fill out the response
   response.results = seed;
 
+  // Enforce limits
+  auto results_flattened = flatten(response.results, &moveFilter);
+  for (auto& inst : results_flattened)
+  {
+    auto* mi = inst.get().cast<MoveInstruction>();
+    Eigen::VectorXd jp = getJointPosition(mi->getWaypoint());
+    assert(tesseract_common::satisfiesPositionLimits(jp, fwd_kin->getLimits().joint_limits));
+    tesseract_common::enforcePositionLimits(jp, fwd_kin->getLimits().joint_limits);
+    setJointPosition(mi->getWaypoint(), jp);
+  }
+
   // Return success
   response.status = tesseract_common::StatusCode(SimpleMotionPlannerStatusCategory::SolutionFound, status_category_);
   return response.status;

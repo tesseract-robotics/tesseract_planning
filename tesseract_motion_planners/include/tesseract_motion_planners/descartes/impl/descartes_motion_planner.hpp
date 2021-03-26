@@ -26,10 +26,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_IMPL_DESCARTES_DECARTES_MOTION_PLANNER_HPP
 #define TESSERACT_MOTION_PLANNERS_IMPL_DESCARTES_DECARTES_MOTION_PLANNER_HPP
 
-#include <tesseract_collision/core/discrete_contact_manager.h>
-#include <tesseract_collision/core/continuous_contact_manager.h>
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/descartes_light.h>
 #include <descartes_light/interface/waypoint_sampler.h>
@@ -37,6 +34,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_samplers/evaluators/timing_edge_evaluator.h>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract_collision/core/discrete_contact_manager.h>
+#include <tesseract_collision/core/continuous_contact_manager.h>
+
+#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/core/utils.h>
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
@@ -125,13 +128,24 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   //  response.failed_waypoints.clear();
 
   // Search for edges
-  std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> solution = graph_builder.search();
-  if (solution.empty())
+  std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> solution_float_type = graph_builder.search();
+  if (solution_float_type.empty())
   {
     CONSOLE_BRIDGE_logError("Search for graph completion failed");
     response.status = tesseract_common::StatusCode(DescartesMotionPlannerStatusCategory::ErrorFailedToFindValidSolution,
                                                    status_category_);
     return response.status;
+  }
+
+  // Enforce limits
+  std::vector<Eigen::VectorXd> solution;
+  solution.reserve(solution_float_type.size());
+  for (const auto& js : solution_float_type)
+  {
+    solution.push_back(js.template cast<double>());
+    assert(
+        tesseract_common::satisfiesPositionLimits(solution.back(), problem->manip_fwd_kin->getLimits().joint_limits));
+    tesseract_common::enforcePositionLimits(solution.back(), problem->manip_fwd_kin->getLimits().joint_limits);
   }
 
   // Flatten the results to make them easier to process
@@ -160,7 +174,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         auto* move_instruction = results_flattened[idx].get().cast<MoveInstruction>();
 
         auto* swp = move_instruction->getWaypoint().cast<StateWaypoint>();
-        swp->position = solution[result_index++].template cast<double>();
+        swp->position = solution[result_index++];
         assert(swp->joint_names == problem->manip_fwd_kin->getJointNames());
       }
       else if (plan_instruction->isLinear())
@@ -171,7 +185,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         for (auto& instruction : *move_instructions)
         {
           auto* swp = instruction.cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>();
-          swp->position = solution[result_index++].template cast<double>();
+          swp->position = solution[result_index++];
           assert(swp->joint_names == problem->manip_fwd_kin->getJointNames());
         }
       }
@@ -180,15 +194,14 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         assert(result_index > 0);
         // Because descartes does not support freespace it just includes the plan instruction waypoint so we will
         // fill out the results with a joint interpolated trajectory.
-        Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& start = solution[result_index - 1];
-        Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& stop = solution[result_index++];
+        Eigen::VectorXd& start = solution[result_index - 1];
+        Eigen::VectorXd& stop = solution[result_index++];
 
         // This instruction corresponds to a composite. Set all results in that composite to the results
         assert(isCompositeInstruction(results_flattened[idx].get()));
         auto* move_instructions = results_flattened[idx].get().cast<CompositeInstruction>();
 
-        Eigen::MatrixXd temp = interpolate(
-            start.template cast<double>(), stop.template cast<double>(), static_cast<int>(move_instructions->size()));
+        Eigen::MatrixXd temp = interpolate(start, stop, static_cast<int>(move_instructions->size()));
 
         assert(temp.cols() == static_cast<long>(move_instructions->size()) + 1);
         for (std::size_t i = 0; i < move_instructions->size(); ++i)

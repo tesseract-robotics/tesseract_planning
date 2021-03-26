@@ -237,6 +237,10 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     // Get the results
     tesseract_common::TrajArray trajectory = p->getTrajectory();
 
+    // Enforce limits
+    for (Eigen::Index i = 0; i < trajectory.rows(); i++)
+      tesseract_common::enforcePositionLimits(trajectory.row(i), p->manip_fwd_kin->getLimits().joint_limits);
+
     assert(checkStartState(p->simple_setup->getProblemDefinition(), trajectory.row(0), p->extractor));
     assert(checkGoalState(p->simple_setup->getProblemDefinition(), trajectory.bottomRows(1).transpose(), p->extractor));
 

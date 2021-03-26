@@ -164,6 +164,13 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   // Get the results
   tesseract_common::TrajArray trajectory = getTraj(opt.x(), problem->GetVars());
 
+  // Enforce limits
+  for (Eigen::Index i = 0; i < trajectory.rows(); i++)
+  {
+    assert(tesseract_common::satisfiesPositionLimits(trajectory.row(i), problem->GetKin()->getLimits().joint_limits));
+    tesseract_common::enforcePositionLimits(trajectory.row(i), problem->GetKin()->getLimits().joint_limits);
+  }
+
   // Flatten the results to make them easier to process
   response.results = request.seed;
   auto results_flattened = flattenProgramToPattern(response.results, request.instructions);
