@@ -193,7 +193,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSPlanProfi
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
-  EXPECT_EQ(98, mcnt);
+  EXPECT_EQ(161, mcnt);
   EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
@@ -256,7 +256,7 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanPr
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
-  EXPECT_EQ(33, mcnt);
+  EXPECT_EQ(19, mcnt);
   EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }

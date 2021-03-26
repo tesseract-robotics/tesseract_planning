@@ -135,16 +135,24 @@ Eigen::VectorXd getClosestJointSolution(const Eigen::Isometry3d& p,
   {
     // Find closest solution to the start state
     double dist = std::numeric_limits<double>::max();
-    jp_final = jp[0];
     for (const auto& solution : jp)
     {
-      /// @todo: May be nice to add contact checking to find best solution, but may not be neccessary because this is
-      /// used to generate the seed
-      double d = (solution - seed).norm();
-      if (d < dist)
+      if (tesseract_common::satisfiesPositionLimits(solution, inv_kin->getLimits().joint_limits))
       {
-        jp_final = solution;
-        dist = d;
+        if (jp_final.rows() == 0)
+        {
+          jp_final = solution;
+          continue;
+        }
+
+        /// @todo: May be nice to add contact checking to find best solution, but may not be neccessary because this is
+        /// used to generate the seed
+        double d = (solution - seed).norm();
+        if (d < dist)
+        {
+          jp_final = solution;
+          dist = d;
+        }
       }
     }
   }
@@ -162,9 +170,23 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const Eigen::Isometry3d& 
   // Calculate IK for start and end
   Eigen::VectorXd j1_final;
   tesseract_kinematics::IKSolutions j1 = inv_kin1->calcInvKin(p1, seed);
+  j1.erase(std::remove_if(j1.begin(),
+                          j1.end(),
+                          [inv_kin1](const Eigen::VectorXd& solution) {
+                            return !tesseract_common::satisfiesPositionLimits(solution,
+                                                                              inv_kin1->getLimits().joint_limits);
+                          }),
+           j1.end());
 
   Eigen::VectorXd j2_final;
   tesseract_kinematics::IKSolutions j2 = inv_kin2->calcInvKin(p2, seed);
+  j2.erase(std::remove_if(j2.begin(),
+                          j2.end(),
+                          [inv_kin2](const Eigen::VectorXd& solution) {
+                            return !tesseract_common::satisfiesPositionLimits(solution,
+                                                                              inv_kin2->getLimits().joint_limits);
+                          }),
+           j2.end());
 
   if (!j1.empty() && !j2.empty())
   {

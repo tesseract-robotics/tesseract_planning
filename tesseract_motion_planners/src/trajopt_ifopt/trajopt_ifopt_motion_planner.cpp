@@ -155,6 +155,14 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
                                             static_cast<Eigen::Index>(problem->vars.size()),
                                             static_cast<Eigen::Index>(problem->vars[0]->GetValues().size()));
 
+  // Enforce limits
+  for (Eigen::Index i = 0; i < trajectory.rows(); i++)
+  {
+    assert(
+        tesseract_common::satisfiesPositionLimits(trajectory.row(i), problem->manip_fwd_kin->getLimits().joint_limits));
+    tesseract_common::enforcePositionLimits(trajectory.row(i), problem->manip_fwd_kin->getLimits().joint_limits);
+  }
+
   // Flatten the results to make them easier to process
   response.results = request.seed;
   auto results_flattened = flattenProgramToPattern(response.results, request.instructions);

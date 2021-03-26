@@ -378,9 +378,21 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
     auto goal_states = std::make_shared<ompl::base::GoalStates>(prob.simple_setup->getSpaceInformation());
     std::vector<tesseract_collision::ContactResultMap> contact_map_vec(
         static_cast<std::size_t>(joint_solutions.size()));
+    const tesseract_common::KinematicLimits& limits = prob.manip_fwd_kin->getLimits();
     for (std::size_t i = 0; i < joint_solutions.size(); ++i)
     {
       Eigen::VectorXd& solution = joint_solutions[i];
+
+      // Check limits
+      if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+      {
+        tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
+      }
+      else
+      {
+        CONSOLE_BRIDGE_logDebug("In OMPLDefaultPlanProfile: Goal state has invalid bounds");
+      }
+
       // Get discrete contact manager for testing provided start and end position
       // This is required because collision checking happens in motion validators now
       // instead of the isValid function to avoid unnecessary collision checks.
@@ -390,18 +402,7 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
         for (unsigned j = 0; j < dof; ++j)
           goal_state[j] = solution[static_cast<Eigen::Index>(j)];
 
-        goal_state.enforceBounds(); // @todo figure out what is going on
-        if (goal_state.satisfiesBounds())
-        {
-          goal_states->addState(goal_state);
-        }
-        else
-        {
-          CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Goal state has invalid bounds");
-          goal_state.print();
-          goal_state.enforceBounds();
-          goal_state.print();
-        }
+        goal_states->addState(goal_state);
       }
     }
 
@@ -413,7 +414,7 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
             CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_names[0] + ", " +
                                      contact.link_names[1] + "  Distance: " + std::to_string(contact.distance))
                                         .c_str());
-      throw std::runtime_error("In OMPLDefaultPlanProfile: All goal states are in collision");
+      throw std::runtime_error("In OMPLDefaultPlanProfile: All goal states are either in collision or outside limits");
     }
     prob.simple_setup->setGoal(goal_states);
   }
@@ -429,11 +430,23 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
   const auto dof = prob.manip_fwd_kin->numJoints();
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
+    // Check limits
+    Eigen::VectorXd solution = joint_waypoint;
+    const tesseract_common::KinematicLimits& limits = prob.manip_fwd_kin->getLimits();
+    if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+    {
+      tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
+    }
+    else
+    {
+      CONSOLE_BRIDGE_logDebug("In OMPLDefaultPlanProfile: Goal state has invalid bounds");
+    }
+
     // Get discrete contact manager for testing provided start and end position
     // This is required because collision checking happens in motion validators now
     // instead of the isValid function to avoid unnecessary collision checks.
     tesseract_collision::ContactResultMap contact_map;
-    if (checkStateInCollision(prob, joint_waypoint, contact_map))
+    if (checkStateInCollision(prob, solution, contact_map))
     {
       CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Goal state is in collision");
       for (const auto& contact_vec : contact_map)
@@ -447,18 +460,7 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
     for (unsigned i = 0; i < dof; ++i)
       goal_state[i] = joint_waypoint[i];
 
-    goal_state.enforceBounds(); // @todo figure out what is going on
-    if (goal_state.satisfiesBounds())
-    {
-      prob.simple_setup->setGoalState(goal_state);
-    }
-    else
-    {
-      CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Goal state has invalid bounds");
-      goal_state.print();
-      goal_state.enforceBounds();
-      goal_state.print();
-    }
+    prob.simple_setup->setGoalState(goal_state);
   }
 }
 
@@ -493,9 +495,21 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
         prob.manip_inv_kin->calcInvKin(manip_baselink_to_tool0, Eigen::VectorXd::Zero(dof));
     bool found_start_state = false;
     std::vector<tesseract_collision::ContactResultMap> contact_map_vec(joint_solutions.size());
+    const tesseract_common::KinematicLimits& limits = prob.manip_fwd_kin->getLimits();
     for (std::size_t i = 0; i < joint_solutions.size(); ++i)
     {
       Eigen::VectorXd& solution = joint_solutions[i];
+
+      // Check limits
+      if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+      {
+        tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
+      }
+      else
+      {
+        CONSOLE_BRIDGE_logDebug("In OMPLDefaultPlanProfile: Start state has invalid bounds");
+      }
+
       // Get discrete contact manager for testing provided start and end position
       // This is required because collision checking happens in motion validators now
       // instead of the isValid function to avoid unnecessary collision checks.
@@ -505,19 +519,8 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
         for (unsigned j = 0; j < dof; ++j)
           start_state[j] = solution[static_cast<Eigen::Index>(j)];
 
-        start_state.enforceBounds(); // @todo figure out what is going on
-        if (start_state.satisfiesBounds())
-        {
-          found_start_state = true;
-          prob.simple_setup->addStartState(start_state);
-        }
-        else
-        {
-          CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Start state has invalid bounds");
-          start_state.print();
-          start_state.enforceBounds();
-          start_state.print();
-        }
+        found_start_state = true;
+        prob.simple_setup->addStartState(start_state);
       }
     }
 
@@ -529,7 +532,8 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
             CONSOLE_BRIDGE_logError(("Solution: " + std::to_string(i) + "  Links: " + contact.link_names[0] + ", " +
                                      contact.link_names[1] + "  Distance: " + std::to_string(contact.distance))
                                         .c_str());
-      throw std::runtime_error("In OMPLPlannerFreespaceConfig: All start states are in collision");
+      throw std::runtime_error("In OMPLPlannerFreespaceConfig: All start states are either in collision or outside "
+                               "limits");
     }
   }
 }
@@ -545,6 +549,17 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
 
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
+    Eigen::VectorXd solution = joint_waypoint;
+    const tesseract_common::KinematicLimits& limits = prob.manip_fwd_kin->getLimits();
+    if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+    {
+      tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
+    }
+    else
+    {
+      CONSOLE_BRIDGE_logDebug("In OMPLDefaultPlanProfile: Start state is outside limits");
+    }
+
     // Get discrete contact manager for testing provided start and end position
     // This is required because collision checking happens in motion validators now
     // instead of the isValid function to avoid unnecessary collision checks.
@@ -563,18 +578,7 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
     for (unsigned i = 0; i < dof; ++i)
       start_state[i] = joint_waypoint[i];
 
-    start_state.enforceBounds(); // @todo figure out what is going on
-    if (start_state.satisfiesBounds())
-    {
-      prob.simple_setup->addStartState(start_state);
-    }
-    else
-    {
-      CONSOLE_BRIDGE_logError("In OMPLDefaultPlanProfile: Start state has invalid bounds");
-      start_state.print();
-      start_state.enforceBounds();
-      start_state.print();
-    }
+    prob.simple_setup->addStartState(start_state);
   }
 }
 
