@@ -150,7 +150,12 @@ $(function() {
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <a class="code" href="../../de/df8/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo.html#afb25d0cca053f808e8f906a20e98790e">TimeOptimalTrajectoryGenerationTaskInfo</a>(std::size_t <a class="code" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a251f4620809e8e67bd97a182527892d7">unique_id</a>, std::string name = <span class="stringliteral">&quot;TOTG&quot;</span>);</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_PROCESS_MANAGERS_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_GENERATOR_H</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#ifdef SWIG</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;%tesseract_command_language_add_profile_type(TimeOptimalTrajectoryGenerationProfile);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_PROCESS_MANAGERS_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_GENERATOR_H</span></div>
 <div class="ttc" id="aclasstesseract__planning_1_1CompositeInstruction_html"><div class="ttname"><a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a></div><div class="ttdef"><b>Definition:</b> composite_instruction.h:55</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1TaskGenerator_html"><div class="ttname"><a href="../../d3/dd8/classtesseract__planning_1_1TaskGenerator.html">tesseract_planning::TaskGenerator</a></div><div class="ttdoc">This is a base class for generating instances of processes as tasks such that they may be executed in...</div><div class="ttdef"><b>Definition:</b> task_generator.h:48</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1TaskGenerator_html_a297d5a46275006503427ab1782f52a9a"><div class="ttname"><a href="../../d3/dd8/classtesseract__planning_1_1TaskGenerator.html#a297d5a46275006503427ab1782f52a9a">tesseract_planning::TaskGenerator::UPtr</a></div><div class="ttdeci">std::unique_ptr&lt; TaskGenerator &gt; UPtr</div><div class="ttdef"><b>Definition:</b> task_generator.h:50</div></div>
@@ -191,7 +196,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 19 2021 21:50:28 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Mar 26 2021 02:13:18 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

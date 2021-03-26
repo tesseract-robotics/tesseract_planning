@@ -138,7 +138,12 @@ $(function() {
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                          std::string name = <span class="stringliteral">&quot;Iterative Spline Parameterization&quot;</span>);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_PROCESS_MANAGERS_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_GENERATOR_H</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#ifdef SWIG</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;%tesseract_command_language_add_profile_type(IterativeSplineParameterizationProfile);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_PROCESS_MANAGERS_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_GENERATOR_H</span></div>
 <div class="ttc" id="aclasstesseract__planning_1_1IterativeSplineParameterizationTaskGenerator_html"><div class="ttname"><a href="../../d0/d8f/classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator.html">tesseract_planning::IterativeSplineParameterizationTaskGenerator</a></div><div class="ttdef"><b>Definition:</b> iterative_spline_parameterization_task_generator.h:58</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1IterativeSplineParameterizationTaskGenerator_html_a03a000fff880428395892a9700281805"><div class="ttname"><a href="../../d0/d8f/classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator.html#a03a000fff880428395892a9700281805">tesseract_planning::IterativeSplineParameterizationTaskGenerator::composite_profiles</a></div><div class="ttdeci">IterativeSplineParameterizationProfileMap composite_profiles</div><div class="ttdef"><b>Definition:</b> iterative_spline_parameterization_task_generator.h:71</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1IterativeSplineParameterizationTaskGenerator_html_a1d0dcd986a115c107631cce193a83875"><div class="ttname"><a href="../../d0/d8f/classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator.html#a1d0dcd986a115c107631cce193a83875">tesseract_planning::IterativeSplineParameterizationTaskGenerator::move_profiles</a></div><div class="ttdeci">IterativeSplineParameterizationProfileMap move_profiles</div><div class="ttdef"><b>Definition:</b> iterative_spline_parameterization_task_generator.h:72</div></div>
@@ -174,7 +179,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 19 2021 21:50:28 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Mar 26 2021 02:13:18 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -191,18 +191,7 @@ $(function() {
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;};</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="preprocessor">#ifdef SWIG</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;%tesseract_process_managers_add_profile_type(SimplePlannerPlanProfile);</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;%tesseract_process_managers_add_profile_type(TrajOptSolverProfile);</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;%tesseract_process_managers_add_profile_type(TrajOptPlanProfile);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;%tesseract_process_managers_add_profile_type(TrajOptCompositeProfile);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;%tesseract_process_managers_add_profile_type2(DescartesPlanProfileD,DescartesPlanProfile&lt;double&gt;);</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;%tesseract_process_managers_add_profile_type(OMPLPlanProfile);</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;%tesseract_process_managers_add_profile_type(IterativeSplineParameterizationProfile);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;%tesseract_process_managers_add_profile_type(ProfileSwitchProfile);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SWIG</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_MOTION_PLANNERS_PROFILE_DICTIONARY_H</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_MOTION_PLANNERS_PROFILE_DICTIONARY_H</span></div>
 <div class="ttc" id="aclasstesseract__planning_1_1ProfileDictionary_html"><div class="ttname"><a href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html">tesseract_planning::ProfileDictionary</a></div><div class="ttdoc">This class is used to store profiles for motion planning and process planning.</div><div class="ttdef"><b>Definition:</b> profile_dictionary.h:55</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1ProfileDictionary_html_a1d9833abaf1cad797a287e98d67615a9"><div class="ttname"><a href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#a1d9833abaf1cad797a287e98d67615a9">tesseract_planning::ProfileDictionary::addProfile</a></div><div class="ttdeci">void addProfile(const std::string &amp;profile_name, std::shared_ptr&lt; const ProfileType &gt; profile)</div><div class="ttdoc">Add a profile.</div><div class="ttdef"><b>Definition:</b> profile_dictionary.h:102</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1ProfileDictionary_html_a26ab6bd9d2512f89212cd620375db5a0"><div class="ttname"><a href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#a26ab6bd9d2512f89212cd620375db5a0">tesseract_planning::ProfileDictionary::profiles_</a></div><div class="ttdeci">std::unordered_map&lt; std::type_index, std::any &gt; profiles_</div><div class="ttdef"><b>Definition:</b> profile_dictionary.h:177</div></div>
@@ -220,7 +209,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 19 2021 21:50:27 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Mar 26 2021 02:13:18 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
