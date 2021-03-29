@@ -12,6 +12,7 @@ Provide methods for deserialize instructions to xml and deserialization.
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/waypoint.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/impl/deserialize.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
 Include dependency graph for deserialize.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -57,6 +58,8 @@ Instruction \mbox{\hyperlink{namespacetesseract__planning_a44bf9c62ba66308dc54ab
 \item 
 Instruction \mbox{\hyperlink{namespacetesseract__planning_a19f6701fe9d70c54e612e59fbafdd5c9}{tesseract\+\_\+planning\+::get\+Set\+Tool\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
 \item 
+Instruction \mbox{\hyperlink{namespacetesseract__planning_abc8e32ee9b2a319d1f663e453bd95ac6}{tesseract\+\_\+planning\+::get\+Set\+Analog\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
+\item 
 Instruction \mbox{\hyperlink{namespacetesseract__planning_a1eee4dce180780748b0b11a7df79ee02}{tesseract\+\_\+planning\+::get\+Composite\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element, Instruction\+Parser\+Fn instruction\+\_\+parser, Waypoint\+Parser\+Fn waypoint\+\_\+parser)
 \item 
 Instruction \mbox{\hyperlink{namespacetesseract__planning_afb3a9307557ffa1b00786dcea738c2b2}{tesseract\+\_\+planning\+::\+Instruction\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element, int type, Waypoint\+Parser\+Fn waypoint\+\_\+parser)
@@ -92,7 +95,7 @@ August 17, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000033}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000034}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

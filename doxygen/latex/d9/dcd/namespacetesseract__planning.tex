@@ -36,6 +36,8 @@ class \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instru
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}
 \begin{DoxyCompactList}\small\item\em This class is used to store profiles for motion planning and process planning. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+Analog\+Instruction}}
+\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{Set\+Tool\+Instruction}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}}
@@ -404,14 +406,16 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca
 , \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a520a4617ef4c13c6b4fcf5f7c3d180fa}{COMPOSITE\+\_\+\+INSTRUCTION}} = 30
 , \newline
 \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5e68a3cc5bf2f445f94fe6eb3541af3c}{IO\+\_\+\+INSTRUCTION}} = 40
+, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ac318cb2037ede12c3af6527223ecd46d}{SET\+\_\+\+ANALOG\+\_\+\+INSTRUCTION}} = 49
 , \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a4cab48758630f5ac6e4f27918239811e}{ANALOG\+\_\+\+INSTRUCTION}} = 50
 , \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ab752f56a05163a8d96e9c8229ac44120}{VARIABLE\+\_\+\+INSTRUCTION}} = 60
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a545586ebf636939449526edcb71386b9}{COMMENT\+\_\+\+INSTRUCTION}} = 70
 , \newline
-\mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043}{WAIT\+\_\+\+INSTRUCTION}} = 80
+\mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a545586ebf636939449526edcb71386b9}{COMMENT\+\_\+\+INSTRUCTION}} = 70
+, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043}{WAIT\+\_\+\+INSTRUCTION}} = 80
 , \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743}{TIMER\+\_\+\+INSTRUCTION}} = 90
 , \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715}{SET\+\_\+\+TOOL\+\_\+\+INSTRUCTION}} = 100
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00}{USER\+\_\+\+DEFINED}} = 1000
+, \newline
+\mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00}{USER\+\_\+\+DEFINED}} = 1000
  \}
 \item 
 enum class \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \+: int \{ \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{LINEAR}} = 0
@@ -645,6 +649,8 @@ bool \mbox{\hyperlink{namespacetesseract__planning_a42f159d4e511a6c951f100ff0a05
 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a44bf9c62ba66308dc54abaf1d721b8f8}{get\+Timer\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a19f6701fe9d70c54e612e59fbafdd5c9}{get\+Set\+Tool\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_abc8e32ee9b2a319d1f663e453bd95ac6}{get\+Set\+Analog\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a1eee4dce180780748b0b11a7df79ee02}{get\+Composite\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element, \mbox{\hyperlink{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}{Instruction\+Parser\+Fn}} instruction\+\_\+parser, \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}} waypoint\+\_\+parser)
 \item 
@@ -1373,51 +1379,55 @@ TRAJOPT\+\_\+\+FIRST&This will run trajopt first then if it fails it will run om
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NULL\_INSTRUCTION@{NULL\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!NULL\_INSTRUCTION@{NULL\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a553244d0c0e7e590ea64f985a5e24be3}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a553244d0c0e7e590ea64f985a5e24be3}} 
-NULL\+\_\+\+INSTRUCTION&\\
+NULL\+\_\+\+INSTRUCTION&A null instruction. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{PLAN\_INSTRUCTION@{PLAN\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!PLAN\_INSTRUCTION@{PLAN\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae5e6a0ef2425f873fc112cb5470785a2}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae5e6a0ef2425f873fc112cb5470785a2}} 
-PLAN\+\_\+\+INSTRUCTION&\\
+PLAN\+\_\+\+INSTRUCTION&A plan instruction. Everything before must also be a motion plan instruction \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MOVE\_INSTRUCTION@{MOVE\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!MOVE\_INSTRUCTION@{MOVE\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a92e352111401692609a4fd7d883cc353}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a92e352111401692609a4fd7d883cc353}} 
-MOVE\+\_\+\+INSTRUCTION&\\
+MOVE\+\_\+\+INSTRUCTION&A move instruction. Everything before must also be a motion instruction \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{COMPOSITE\_INSTRUCTION@{COMPOSITE\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!COMPOSITE\_INSTRUCTION@{COMPOSITE\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a520a4617ef4c13c6b4fcf5f7c3d180fa}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a520a4617ef4c13c6b4fcf5f7c3d180fa}} 
-COMPOSITE\+\_\+\+INSTRUCTION&\\
+COMPOSITE\+\_\+\+INSTRUCTION&A composite instruction. Everything before must also be a composite instruction \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{IO\_INSTRUCTION@{IO\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!IO\_INSTRUCTION@{IO\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5e68a3cc5bf2f445f94fe6eb3541af3c}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5e68a3cc5bf2f445f94fe6eb3541af3c}} 
-IO\+\_\+\+INSTRUCTION&\\
+IO\+\_\+\+INSTRUCTION&Everything before must be a I/O instruction. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SET\_ANALOG\_INSTRUCTION@{SET\_ANALOG\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!SET\_ANALOG\_INSTRUCTION@{SET\_ANALOG\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ac318cb2037ede12c3af6527223ecd46d}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ac318cb2037ede12c3af6527223ecd46d}} 
+SET\+\_\+\+ANALOG\+\_\+\+INSTRUCTION&Set Analog \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ANALOG\_INSTRUCTION@{ANALOG\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!ANALOG\_INSTRUCTION@{ANALOG\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a4cab48758630f5ac6e4f27918239811e}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a4cab48758630f5ac6e4f27918239811e}} 
-ANALOG\+\_\+\+INSTRUCTION&\\
+ANALOG\+\_\+\+INSTRUCTION&Everything before must be a analog instruction. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{VARIABLE\_INSTRUCTION@{VARIABLE\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!VARIABLE\_INSTRUCTION@{VARIABLE\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ab752f56a05163a8d96e9c8229ac44120}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ab752f56a05163a8d96e9c8229ac44120}} 
-VARIABLE\+\_\+\+INSTRUCTION&\\
+VARIABLE\+\_\+\+INSTRUCTION&Everything before must be a variable instruction. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{COMMENT\_INSTRUCTION@{COMMENT\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!COMMENT\_INSTRUCTION@{COMMENT\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a545586ebf636939449526edcb71386b9}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a545586ebf636939449526edcb71386b9}} 
-COMMENT\+\_\+\+INSTRUCTION&\\
+COMMENT\+\_\+\+INSTRUCTION&Everything before must be a comment instruction. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{WAIT\_INSTRUCTION@{WAIT\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!WAIT\_INSTRUCTION@{WAIT\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043}} 
-WAIT\+\_\+\+INSTRUCTION&\\
+WAIT\+\_\+\+INSTRUCTION&A wait instruction. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TIMER\_INSTRUCTION@{TIMER\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!TIMER\_INSTRUCTION@{TIMER\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743}} 
-TIMER\+\_\+\+INSTRUCTION&\\
+TIMER\+\_\+\+INSTRUCTION&A timer instruction. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SET\_TOOL\_INSTRUCTION@{SET\_TOOL\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!SET\_TOOL\_INSTRUCTION@{SET\_TOOL\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715}} 
-SET\+\_\+\+TOOL\+\_\+\+INSTRUCTION&\\
+SET\+\_\+\+TOOL\+\_\+\+INSTRUCTION&A set tool \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USER\_DEFINED@{USER\_DEFINED}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!USER\_DEFINED@{USER\_DEFINED}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00}} 
-USER\+\_\+\+DEFINED&\\
+USER\+\_\+\+DEFINED&User defined types must be larger than this. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -3501,6 +3511,12 @@ Finds redundancy of joints that allow rotation beyond +-\/ 180 degrees.
 \begin{DoxyReturn}{Returns}
 Redundant rotations (as intergers), in a vector 
 \end{DoxyReturn}
+\mbox{\Hypertarget{namespacetesseract__planning_abc8e32ee9b2a319d1f663e453bd95ac6}\label{namespacetesseract__planning_abc8e32ee9b2a319d1f663e453bd95ac6}} 
+\index{tesseract\_planning@{tesseract\_planning}!getSetAnalogInstruction@{getSetAnalogInstruction}}
+\index{getSetAnalogInstruction@{getSetAnalogInstruction}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{getSetAnalogInstruction()}{getSetAnalogInstruction()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Set\+Analog\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{instruction\+\_\+element }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespacetesseract__planning_a19f6701fe9d70c54e612e59fbafdd5c9}\label{namespacetesseract__planning_a19f6701fe9d70c54e612e59fbafdd5c9}} 
 \index{tesseract\_planning@{tesseract\_planning}!getSetToolInstruction@{getSetToolInstruction}}
 \index{getSetToolInstruction@{getSetToolInstruction}!tesseract\_planning@{tesseract\_planning}}

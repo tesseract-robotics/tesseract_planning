@@ -1,0 +1,242 @@
+\hypertarget{classtesseract__planning_1_1SetAnalogInstruction}{}\doxysection{tesseract\+\_\+planning\+::Set\+Analog\+Instruction Class Reference}
+\label{classtesseract__planning_1_1SetAnalogInstruction}\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+
+
+{\ttfamily \#include $<$set\+\_\+analog\+\_\+instruction.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Set\+Analog\+Instruction\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{d8/da9/classtesseract__planning_1_1SetAnalogInstruction__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a7ab3ca81b831491d8f02526de75f7994}{Set\+Analog\+Instruction}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a4917df8bf776d13eae6a3f58bfdd6613}{Set\+Analog\+Instruction}} (std\+::string key, int index, double value)
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a57d4f65316aedcf47279fdbb28ea67a6}{get\+Type}} () const
+\item 
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a23db41fb71c0d51fac4b386c49852dd5}{get\+Description}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_aa30920215d15ce574e1b30eddf985d3d}{set\+Description}} (const std\+::string \&description)
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a3ed5464d9d3806b355fc7ea5e4e9e8e9}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a008a6a94907ee3d9669f1792ca95486a}{get\+Key}} () const
+\begin{DoxyCompactList}\small\item\em Get the analog key. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a35150e1b139f4293445ab396dbe8838e}{get\+Index}} () const
+\begin{DoxyCompactList}\small\item\em Get the analog index. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae500d4b1cc3879fb60cd7dedcdc1ae14}{get\+Value}} () const
+\begin{DoxyCompactList}\small\item\em Get the analgo value. \end{DoxyCompactList}\item 
+tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a49316bfffddd68576805e5f9dc71e555}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a1821fb8895994b29fde39e2481fd2c6a}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+Analog\+Instruction}} \&rhs) const
+\begin{DoxyCompactList}\small\item\em Equal operator. Does not compare descriptions. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ad2dd0ac2c69a2862c6eba876149d9da3}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+Analog\+Instruction}} \&rhs) const
+\begin{DoxyCompactList}\small\item\em Not equal operator. Does not compare descriptions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a0f4bd117afd5aa12d94485f08d85d301}{serialize}} (Archive \&ar, const unsigned int)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_af87174ccbc617ae6752d8a9bd6f23a0c}{description\+\_\+}} \{ \char`\"{}Tesseract Set Analog \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\char`\"{} \}
+\begin{DoxyCompactList}\small\item\em The description of the instruction. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ae111c0e743b30e762b91a35c725dfadb}{key\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The key is used to identify which type of analog to set. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a56d6b146914744227764e8bcba44d872}{index\+\_\+}} \{ 0 \}
+\begin{DoxyCompactList}\small\item\em The analog index to set. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_a49635964ef7b0a55e9ac42ef9c1776f3}{value\+\_\+}} \{ 0 \}
+\begin{DoxyCompactList}\small\item\em The analog value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a7ab3ca81b831491d8f02526de75f7994}\label{classtesseract__planning_1_1SetAnalogInstruction_a7ab3ca81b831491d8f02526de75f7994}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!SetAnalogInstruction@{SetAnalogInstruction}}
+\index{SetAnalogInstruction@{SetAnalogInstruction}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{SetAnalogInstruction()}{SetAnalogInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::\+Set\+Analog\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a4917df8bf776d13eae6a3f58bfdd6613}\label{classtesseract__planning_1_1SetAnalogInstruction_a4917df8bf776d13eae6a3f58bfdd6613}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!SetAnalogInstruction@{SetAnalogInstruction}}
+\index{SetAnalogInstruction@{SetAnalogInstruction}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{SetAnalogInstruction()}{SetAnalogInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::\+Set\+Analog\+Instruction (\begin{DoxyParamCaption}\item[{std\+::string}]{key,  }\item[{int}]{index,  }\item[{double}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a23db41fb71c0d51fac4b386c49852dd5}\label{classtesseract__planning_1_1SetAnalogInstruction_a23db41fb71c0d51fac4b386c49852dd5}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily const std\+::string\& tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a35150e1b139f4293445ab396dbe8838e}\label{classtesseract__planning_1_1SetAnalogInstruction_a35150e1b139f4293445ab396dbe8838e}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!getIndex@{getIndex}}
+\index{getIndex@{getIndex}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{getIndex()}{getIndex()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::get\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the analog index. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a008a6a94907ee3d9669f1792ca95486a}\label{classtesseract__planning_1_1SetAnalogInstruction_a008a6a94907ee3d9669f1792ca95486a}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!getKey@{getKey}}
+\index{getKey@{getKey}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{getKey()}{getKey()}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::get\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the analog key. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a57d4f65316aedcf47279fdbb28ea67a6}\label{classtesseract__planning_1_1SetAnalogInstruction_a57d4f65316aedcf47279fdbb28ea67a6}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!getType@{getType}}
+\index{getType@{getType}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_ae500d4b1cc3879fb60cd7dedcdc1ae14}\label{classtesseract__planning_1_1SetAnalogInstruction_ae500d4b1cc3879fb60cd7dedcdc1ae14}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!getValue@{getValue}}
+\index{getValue@{getValue}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{getValue()}{getValue()}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::get\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the analgo value. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_ad2dd0ac2c69a2862c6eba876149d9da3}\label{classtesseract__planning_1_1SetAnalogInstruction_ad2dd0ac2c69a2862c6eba876149d9da3}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+Analog\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Not equal operator. Does not compare descriptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+Analog\+Instruction}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if not equal, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a1821fb8895994b29fde39e2481fd2c6a}\label{classtesseract__planning_1_1SetAnalogInstruction_a1821fb8895994b29fde39e2481fd2c6a}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+Analog\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equal operator. Does not compare descriptions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+Analog\+Instruction}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if equal, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a3ed5464d9d3806b355fc7ea5e4e9e8e9}\label{classtesseract__planning_1_1SetAnalogInstruction_a3ed5464d9d3806b355fc7ea5e4e9e8e9}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!print@{print}}
+\index{print@{print}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a0f4bd117afd5aa12d94485f08d85d301}\label{classtesseract__planning_1_1SetAnalogInstruction_a0f4bd117afd5aa12d94485f08d85d301}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_aa30920215d15ce574e1b30eddf985d3d}\label{classtesseract__planning_1_1SetAnalogInstruction_aa30920215d15ce574e1b30eddf985d3d}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!setDescription@{setDescription}}
+\index{setDescription@{setDescription}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a49316bfffddd68576805e5f9dc71e555}\label{classtesseract__planning_1_1SetAnalogInstruction_a49316bfffddd68576805e5f9dc71e555}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!toXML@{toXML}}
+\index{toXML@{toXML}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
+{\footnotesize\ttfamily tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1SetAnalogInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_af87174ccbc617ae6752d8a9bd6f23a0c}\label{classtesseract__planning_1_1SetAnalogInstruction_af87174ccbc617ae6752d8a9bd6f23a0c}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!description\_@{description\_}}
+\index{description\_@{description\_}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{description\_}{description\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::description\+\_\+ \{ \char`\"{}Tesseract Set Analog \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\char`\"{} \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The description of the instruction. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a56d6b146914744227764e8bcba44d872}\label{classtesseract__planning_1_1SetAnalogInstruction_a56d6b146914744227764e8bcba44d872}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!index\_@{index\_}}
+\index{index\_@{index\_}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{index\_}{index\_}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::index\+\_\+ \{ 0 \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The analog index to set. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_ae111c0e743b30e762b91a35c725dfadb}\label{classtesseract__planning_1_1SetAnalogInstruction_ae111c0e743b30e762b91a35c725dfadb}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!key\_@{key\_}}
+\index{key\_@{key\_}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{key\_}{key\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::key\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The key is used to identify which type of analog to set. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SetAnalogInstruction_a49635964ef7b0a55e9ac42ef9c1776f3}\label{classtesseract__planning_1_1SetAnalogInstruction_a49635964ef7b0a55e9ac42ef9c1776f3}} 
+\index{tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}!value\_@{value\_}}
+\index{value\_@{value\_}!tesseract\_planning::SetAnalogInstruction@{tesseract\_planning::SetAnalogInstruction}}
+\doxysubsubsection{\texorpdfstring{value\_}{value\_}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction\+::value\+\_\+ \{ 0 \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The analog value. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/\mbox{\hyperlink{set__analog__instruction_8h}{set\+\_\+analog\+\_\+instruction.\+h}}\end{DoxyCompactItemize}

@@ -102,6 +102,7 @@ $(function() {
 , <a class="el" href="d0/dfd/classtesseract__planning_1_1NullInstruction.html#ada426b6bcda999f74a86be57fea0accf">tesseract_planning::NullInstruction</a>
 , <a class="el" href="dc/d18/classtesseract__planning_1_1NullWaypoint.html#ab515bf91df623d38c6d3845e6d046d1d">tesseract_planning::NullWaypoint</a>
 , <a class="el" href="d4/dd6/classtesseract__planning_1_1PlanInstruction.html#a2db812dcab13f8e51bf11b45a642b3ef">tesseract_planning::PlanInstruction</a>
+, <a class="el" href="d4/df4/classtesseract__planning_1_1SetAnalogInstruction.html#a0f4bd117afd5aa12d94485f08d85d301">tesseract_planning::SetAnalogInstruction</a>
 , <a class="el" href="d3/d65/classtesseract__planning_1_1SetToolInstruction.html#addf8f889f13399193c89d9751987535d">tesseract_planning::SetToolInstruction</a>
 , <a class="el" href="db/d84/classtesseract__planning_1_1TimerInstruction.html#aee81d68a236e6c522a3cf4a6d958364b">tesseract_planning::TimerInstruction</a>
 , <a class="el" href="d9/d2c/classtesseract__planning_1_1WaitInstruction.html#ae40b10011723bd6869ba30eaa3465141">tesseract_planning::WaitInstruction</a>
@@ -110,6 +111,9 @@ $(function() {
 <li>set_up()
 : <a class="el" href="da/d4f/classtesseract__planning_1_1DebugObserver.html#a826b9b4dc74f31bfd9f315433538ffc4">tesseract_planning::DebugObserver</a>
 , <a class="el" href="dc/db7/classTestObserver.html#a723b634f432d4b72891c92bbe833635d">TestObserver</a>
+</li>
+<li>SetAnalogInstruction()
+: <a class="el" href="d4/df4/classtesseract__planning_1_1SetAnalogInstruction.html#a7ab3ca81b831491d8f02526de75f7994">tesseract_planning::SetAnalogInstruction</a>
 </li>
 <li>setCacheSize()
 : <a class="el" href="dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#a969f8fdd4c30030846446fb0a389be58">tesseract_planning::EnvironmentCache</a>
@@ -123,12 +127,13 @@ $(function() {
 , <a class="el" href="da/db5/classtesseract__planning_1_1MoveInstruction.html#ae9470b98e70d1e5a9f3d291c96cdd915">tesseract_planning::MoveInstruction</a>
 , <a class="el" href="d0/dfd/classtesseract__planning_1_1NullInstruction.html#a32cd4b6131081d6511edc592eccc8885">tesseract_planning::NullInstruction</a>
 , <a class="el" href="d4/dd6/classtesseract__planning_1_1PlanInstruction.html#ad6b17f6dee3ed8cb4ca1757aec4b13b2">tesseract_planning::PlanInstruction</a>
+, <a class="el" href="d4/df4/classtesseract__planning_1_1SetAnalogInstruction.html#aa30920215d15ce574e1b30eddf985d3d">tesseract_planning::SetAnalogInstruction</a>
 , <a class="el" href="d3/d65/classtesseract__planning_1_1SetToolInstruction.html#a22d025368a1e1e4e7def4cc15d87e0f7">tesseract_planning::SetToolInstruction</a>
 , <a class="el" href="db/d84/classtesseract__planning_1_1TimerInstruction.html#aa455b335032848e22c714adff13de4e8">tesseract_planning::TimerInstruction</a>
 , <a class="el" href="d9/d2c/classtesseract__planning_1_1WaitInstruction.html#a9a421b6f1c4242f178055c37489ac2cc">tesseract_planning::WaitInstruction</a>
 </li>
 <li>setEndInstruction()
-: <a class="el" href="db/da2/structtesseract__planning_1_1TaskInput.html#ada56c385ece8b3af9f82e8d44c3e76fd">tesseract_planning::TaskInput</a>
+: <a class="el" href="db/da2/structtesseract__planning_1_1TaskInput.html#a386baa6447e670fb2918a31a08697e30">tesseract_planning::TaskInput</a>
 </li>
 <li>setInstructions()
 : <a class="el" href="d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a0c249972eb2c977ba2277e00b7757fde">tesseract_planning::CompositeInstruction</a>
@@ -216,7 +221,7 @@ $(function() {
 : <a class="el" href="d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a2a4477d13e4d7fbcf265671b38a94bea">tesseract_planning::SimplePlannerLVSPlanProfile</a>
 </li>
 <li>SimplePlannerPlanProfile()
-: <a class="el" href="d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a14f46167a0c8c86658a2ee52971ecbfd">tesseract_planning::SimplePlannerPlanProfile</a>
+: <a class="el" href="d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html#a863695ea69b2de668f3a7d46ed6a3046">tesseract_planning::SimplePlannerPlanProfile</a>
 </li>
 <li>size()
 : <a class="el" href="d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a152d0e323ef91226498dc982c8af3724">tesseract_planning::CompositeInstruction</a>
@@ -269,7 +274,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 26 2021 02:24:25 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Mar 29 2021 02:26:06 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
