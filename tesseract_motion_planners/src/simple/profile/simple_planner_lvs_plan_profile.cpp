@@ -175,6 +175,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
 {
   // Get IK seed
   Eigen::VectorXd seed = request.env_state->getJointValues(base.inv_kin->getJointNames());
+  tesseract_common::enforcePositionLimits(seed, base.fwd_kin->getLimits().joint_limits);
 
   // Calculate IK for start and end
   Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
