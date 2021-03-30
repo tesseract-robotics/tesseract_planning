@@ -143,8 +143,9 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   for (const auto& js : solution_float_type)
   {
     solution.push_back(js.template cast<double>());
-    assert(
-        tesseract_common::satisfiesPositionLimits(solution.back(), problem->manip_fwd_kin->getLimits().joint_limits));
+    // Using 1e-6 because when using floats with descartes epsilon does not seem to be enough
+    assert(tesseract_common::satisfiesPositionLimits(
+        solution.back(), problem->manip_fwd_kin->getLimits().joint_limits, 1e-6));
     tesseract_common::enforcePositionLimits(solution.back(), problem->manip_fwd_kin->getLimits().joint_limits);
   }
 
