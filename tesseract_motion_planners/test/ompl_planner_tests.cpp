@@ -187,12 +187,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
 
   // Define Plan Instructions
   PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  PlanInstruction plan_f2(wp1, PlanInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a program
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
   program.push_back(plan_f1);
+  program.push_back(plan_f2);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
@@ -232,9 +234,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
 
   EXPECT_TRUE(&status);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_EQ(getMoveInstructionCount(planner_response.results), 11);
+  EXPECT_EQ(getMoveInstructionCount(planner_response.results), 21);  // 10 per segment + start a instruction
+  EXPECT_EQ(planner_response.results.size(), 2);
   EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
-  EXPECT_TRUE(wp2.isApprox(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
+  EXPECT_TRUE(wp2.isApprox(
+      getJointPosition(
+          getLastMoveInstruction(*(planner_response.results.front().cast<CompositeInstruction>()))->getWaypoint()),
+      1e-5));
+  EXPECT_TRUE(wp1.isApprox(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
 
   // Check for start state in collision error
   std::vector<double> swp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };

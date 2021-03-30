@@ -27,6 +27,10 @@ inline CompositeInstruction freespaceExampleProgramIIWA(const std::string& compo
   plan_f0.setDescription("freespace_motion");
   program.push_back(plan_f0);
 
+  Waypoint wp3 = JointWaypoint(joint_names, Eigen::VectorXd::Zero(7));
+  PlanInstruction plan_f1(wp3, PlanInstructionType::FREESPACE);
+  program.push_back(plan_f1);
+
   return program;
 }
 
@@ -46,6 +50,10 @@ inline CompositeInstruction freespaceExampleProgramABB(const std::string& compos
   PlanInstruction plan_f0(wp2, PlanInstructionType::FREESPACE, freespace_profile);
   plan_f0.setDescription("freespace_motion");
   program.push_back(plan_f0);
+
+  Waypoint wp3 = JointWaypoint(joint_names, Eigen::VectorXd::Zero(6));
+  PlanInstruction plan_f1(wp3, PlanInstructionType::FREESPACE);
+  program.push_back(plan_f1);
 
   return program;
 }

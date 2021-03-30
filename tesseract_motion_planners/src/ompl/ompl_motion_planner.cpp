@@ -146,7 +146,6 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
 
   /// @todo: Need to expand this to support multiple motion plans leveraging taskflow
-  assert(problem.size() == 1);
   for (auto& p : problem)
   {
     auto parallel_plan = std::make_shared<ompl::tools::ParallelPlan>(p->simple_setup->getProblemDefinition());
@@ -233,6 +232,21 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
           p->simple_setup->getSolutionPath().interpolate(num_output_states);
       }
     }
+  }
+
+  // Flatten the results to make them easier to process
+  response.results = request.seed;
+  std::vector<std::reference_wrapper<Instruction>> results_flattened =
+      flattenProgramToPattern(response.results, request.instructions);
+  std::vector<std::reference_wrapper<const Instruction>> instructions_flattened = flattenProgram(request.instructions);
+
+  std::size_t instructions_idx = 0;  // Index for each input instruction
+
+  // Handle the start instruction
+  const auto* plan_instruction = instructions_flattened.at(0).get().cast_const<PlanInstruction>();
+  if (plan_instruction->isStart())
+  {
+    const auto& p = problem[0];
 
     // Get the results
     tesseract_common::TrajArray trajectory = p->getTrajectory();
@@ -244,45 +258,43 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     assert(checkStartState(p->simple_setup->getProblemDefinition(), trajectory.row(0), p->extractor));
     assert(checkGoalState(p->simple_setup->getProblemDefinition(), trajectory.bottomRows(1).transpose(), p->extractor));
 
-    // Flatten the results to make them easier to process
-    response.results = request.seed;
-    std::vector<std::reference_wrapper<Instruction>> results_flattened =
-        flattenProgramToPattern(response.results, request.instructions);
-    std::vector<std::reference_wrapper<const Instruction>> instructions_flattened =
-        flattenProgram(request.instructions);
-
-    // Loop over the flattened results and add them to response if the input was a plan instruction
-    Eigen::Index result_index = 0;
-    for (std::size_t idx = 0; idx < instructions_flattened.size(); idx++)
-    {
-      // If plan_index is zero then this should be the start instruction
-      assert((idx == 0) ? isPlanInstruction(instructions_flattened.at(idx).get()) : true);
-      assert((idx == 0) ? isMoveInstruction(results_flattened[idx].get()) : true);
-      if (isPlanInstruction(instructions_flattened.at(idx).get()))
-      {
-        // This instruction corresponds to a composite. Set all results in that composite to the results
-        const auto* plan_instruction = instructions_flattened.at(idx).get().cast_const<PlanInstruction>();
-        if (plan_instruction->isStart())
-        {
-          assert(idx == 0);
-          assert(isMoveInstruction(results_flattened[idx].get()));
-          auto* move_instruction = results_flattened[idx].get().cast<MoveInstruction>();
-          move_instruction->getWaypoint().cast<StateWaypoint>()->position = trajectory.row(result_index++);
-        }
-        else
-        {
-          auto* move_instructions = results_flattened[idx].get().cast<CompositeInstruction>();
-          for (auto& instruction : *move_instructions)
-            instruction.cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>()->position =
-                trajectory.row(result_index++);
-        }
-      }
-    }
-
-    response.status = tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::SolutionFound, status_category_);
-    return response.status;
+    // Copy the start instruction
+    assert(instructions_idx == 0);
+    assert(isMoveInstruction(results_flattened[0].get()));
+    auto* move_instruction = results_flattened[0].get().cast<MoveInstruction>();
+    move_instruction->getWaypoint().cast<StateWaypoint>()->position = trajectory.row(0);
+    instructions_idx++;
   }
 
+  // Loop over remaining instructions
+  std::size_t prob_idx = 0;
+  for (; instructions_idx < instructions_flattened.size(); instructions_idx++)
+  {
+    if (isPlanInstruction(instructions_flattened.at(instructions_idx).get()))
+    {
+      const auto& p = problem[prob_idx];
+
+      // Get the results
+      tesseract_common::TrajArray trajectory = p->getTrajectory();
+
+      assert(checkStartState(p->simple_setup->getProblemDefinition(), trajectory.row(0), p->extractor));
+      assert(
+          checkGoalState(p->simple_setup->getProblemDefinition(), trajectory.bottomRows(1).transpose(), p->extractor));
+
+      // Loop over the flattened results and add them to response if the input was a plan instruction
+      auto* move_instructions = results_flattened[instructions_idx].get().cast<CompositeInstruction>();
+      // Adjust result index to align final point since start instruction is already handled
+      Eigen::Index result_index = trajectory.rows() - static_cast<Eigen::Index>(move_instructions->size());
+      for (auto& instruction : *move_instructions)
+        instruction.cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>()->position =
+            trajectory.row(result_index++);
+
+      // Increment the problem
+      prob_idx++;
+    }
+  }
+
+  response.status = tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::SolutionFound, status_category_);
   return response.status;
 }
 
