@@ -29,7 +29,11 @@ using \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a826df
 \begin{DoxyCompactList}\small\item\em Sets which terms will be corrected ~\newline
  \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a2a2e620e40a97fee76c63cae02662d92}{max\+\_\+deviation\+\_\+global}} = std\+::numeric\+\_\+limits$<$double$>$\+::max()
-\begin{DoxyCompactList}\small\item\em Maximum amount the process is allowed to correct. If deviation is further than this, it will fail. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Maximum amount the process is allowed to correct. If deviation is further than this, it will fail. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_aaa208cc8731fa28da672532e9a2d39b7}{upper\+\_\+bounds\+\_\+reduction}} \{ std\+::numeric\+\_\+limits$<$float$>$\+::epsilon() \}
+\begin{DoxyCompactList}\small\item\em Amount to reduce the upper bounds before clamping limits. Should be $>$ 1. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a223b3a65c5df399f0adc3c28f60297c1}{lower\+\_\+bounds\+\_\+reduction}} \{ std\+::numeric\+\_\+limits$<$float$>$\+::epsilon() \}
+\begin{DoxyCompactList}\small\item\em Amount to increase the lower bounds before clamping limits. Should be $>$ 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -84,6 +88,16 @@ DISABLED&\\
 
 
 \doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1FixStateBoundsProfile_a223b3a65c5df399f0adc3c28f60297c1}\label{structtesseract__planning_1_1FixStateBoundsProfile_a223b3a65c5df399f0adc3c28f60297c1}} 
+\index{tesseract\_planning::FixStateBoundsProfile@{tesseract\_planning::FixStateBoundsProfile}!lower\_bounds\_reduction@{lower\_bounds\_reduction}}
+\index{lower\_bounds\_reduction@{lower\_bounds\_reduction}!tesseract\_planning::FixStateBoundsProfile@{tesseract\_planning::FixStateBoundsProfile}}
+\doxysubsubsection{\texorpdfstring{lower\_bounds\_reduction}{lower\_bounds\_reduction}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Profile\+::lower\+\_\+bounds\+\_\+reduction \{ std\+::numeric\+\_\+limits$<$float$>$\+::epsilon() \}}
+
+
+
+Amount to increase the lower bounds before clamping limits. Should be $>$ 1. 
+
 \mbox{\Hypertarget{structtesseract__planning_1_1FixStateBoundsProfile_a2a2e620e40a97fee76c63cae02662d92}\label{structtesseract__planning_1_1FixStateBoundsProfile_a2a2e620e40a97fee76c63cae02662d92}} 
 \index{tesseract\_planning::FixStateBoundsProfile@{tesseract\_planning::FixStateBoundsProfile}!max\_deviation\_global@{max\_deviation\_global}}
 \index{max\_deviation\_global@{max\_deviation\_global}!tesseract\_planning::FixStateBoundsProfile@{tesseract\_planning::FixStateBoundsProfile}}
@@ -104,6 +118,16 @@ Maximum amount the process is allowed to correct. If deviation is further than t
 
 Sets which terms will be corrected ~\newline
  
+
+\mbox{\Hypertarget{structtesseract__planning_1_1FixStateBoundsProfile_aaa208cc8731fa28da672532e9a2d39b7}\label{structtesseract__planning_1_1FixStateBoundsProfile_aaa208cc8731fa28da672532e9a2d39b7}} 
+\index{tesseract\_planning::FixStateBoundsProfile@{tesseract\_planning::FixStateBoundsProfile}!upper\_bounds\_reduction@{upper\_bounds\_reduction}}
+\index{upper\_bounds\_reduction@{upper\_bounds\_reduction}!tesseract\_planning::FixStateBoundsProfile@{tesseract\_planning::FixStateBoundsProfile}}
+\doxysubsubsection{\texorpdfstring{upper\_bounds\_reduction}{upper\_bounds\_reduction}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Profile\+::upper\+\_\+bounds\+\_\+reduction \{ std\+::numeric\+\_\+limits$<$float$>$\+::epsilon() \}}
+
+
+
+Amount to reduce the upper bounds before clamping limits. Should be $>$ 1. 
 
 
 

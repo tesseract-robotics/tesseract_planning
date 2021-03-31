@@ -108,6 +108,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a2a2e620e40a97fee76c63cae02662d92"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df1/structtesseract__planning_1_1FixStateBoundsProfile.html#a2a2e620e40a97fee76c63cae02662d92">max_deviation_global</a> = std::numeric_limits&lt;double&gt;::max()</td></tr>
 <tr class="memdesc:a2a2e620e40a97fee76c63cae02662d92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum amount the process is allowed to correct. If deviation is further than this, it will fail.  <a href="../../d3/df1/structtesseract__planning_1_1FixStateBoundsProfile.html#a2a2e620e40a97fee76c63cae02662d92">More...</a><br /></td></tr>
 <tr class="separator:a2a2e620e40a97fee76c63cae02662d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa208cc8731fa28da672532e9a2d39b7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df1/structtesseract__planning_1_1FixStateBoundsProfile.html#aaa208cc8731fa28da672532e9a2d39b7">upper_bounds_reduction</a> { std::numeric_limits&lt;float&gt;::epsilon() }</td></tr>
+<tr class="memdesc:aaa208cc8731fa28da672532e9a2d39b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amount to reduce the upper bounds before clamping limits. Should be &gt; 1.  <a href="../../d3/df1/structtesseract__planning_1_1FixStateBoundsProfile.html#aaa208cc8731fa28da672532e9a2d39b7">More...</a><br /></td></tr>
+<tr class="separator:aaa208cc8731fa28da672532e9a2d39b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223b3a65c5df399f0adc3c28f60297c1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df1/structtesseract__planning_1_1FixStateBoundsProfile.html#a223b3a65c5df399f0adc3c28f60297c1">lower_bounds_reduction</a> { std::numeric_limits&lt;float&gt;::epsilon() }</td></tr>
+<tr class="memdesc:a223b3a65c5df399f0adc3c28f60297c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amount to increase the lower bounds before clamping limits. Should be &gt; 1.  <a href="../../d3/df1/structtesseract__planning_1_1FixStateBoundsProfile.html#a223b3a65c5df399f0adc3c28f60297c1">More...</a><br /></td></tr>
+<tr class="separator:a223b3a65c5df399f0adc3c28f60297c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a826df42c20a84024f0b1ca5ef395de35"></a>
@@ -195,6 +201,22 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a223b3a65c5df399f0adc3c28f60297c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223b3a65c5df399f0adc3c28f60297c1">&#9670;&nbsp;</a></span>lower_bounds_reduction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tesseract_planning::FixStateBoundsProfile::lower_bounds_reduction { std::numeric_limits&lt;float&gt;::epsilon() }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Amount to increase the lower bounds before clamping limits. Should be &gt; 1. </p>
+
+</div>
+</div>
 <a id="a2a2e620e40a97fee76c63cae02662d92"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a2e620e40a97fee76c63cae02662d92">&#9670;&nbsp;</a></span>max_deviation_global</h2>
 
@@ -228,13 +250,29 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aaa208cc8731fa28da672532e9a2d39b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa208cc8731fa28da672532e9a2d39b7">&#9670;&nbsp;</a></span>upper_bounds_reduction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double tesseract_planning::FixStateBoundsProfile::upper_bounds_reduction { std::numeric_limits&lt;float&gt;::epsilon() }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Amount to reduce the upper bounds before clamping limits. Should be &gt; 1. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>tesseract_process_managers/include/tesseract_process_managers/task_generators/<a class="el" href="../../da/dc5/fix__state__bounds__task__generator_8h_source.html">fix_state_bounds_task_generator.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 30 2021 15:26:20 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Mar 31 2021 02:54:52 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
