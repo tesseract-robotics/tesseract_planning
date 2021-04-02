@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <string>
 #include <typeindex>
-#include <tinyxml2.h>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/unique_ptr.hpp>
@@ -39,15 +38,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/sfinae_utils.h>
-#include <tesseract_command_language/core/null_waypoint.h>
 
 #ifdef SWIG
 //%template(Waypoints) std::vector<tesseract_planning::Waypoint>;
 #endif  // SWIG
 
-#define TESSERACT_WAYPOINT_EXPORT(wp)                                                                                  \
-  BOOST_CLASS_EXPORT_GUID(tesseract_planning::detail_waypoint::WaypointInner<wp>, #wp)                                 \
+#define TESSERACT_WAYPOINT_EXPORT_KEY(wp)                                                                              \
+  BOOST_CLASS_EXPORT_KEY2(tesseract_planning::detail_waypoint::WaypointInner<wp>, #wp)                                 \
   BOOST_CLASS_TRACKING(tesseract_planning::detail_waypoint::WaypointInner<wp>, boost::serialization::track_never)
+
+#define TESSERACT_WAYPOINT_IMPLEMENT(wp)                                                                               \
+  BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_waypoint::WaypointInner<wp>)
+
+#define TESSERACT_WAYPOINT_EXPORT(wp)                                                                                  \
+  TESSERACT_WAYPOINT_EXPORT_KEY(wp)                                                                                    \
+  TESSERACT_WAYPOINT_IMPLEMENT(wp)
 
 namespace tesseract_planning
 {
@@ -197,7 +202,7 @@ public:
   }
 
   Waypoint()  // NOLINT
-    : waypoint_(std::make_unique<detail_waypoint::WaypointInner<uncvref_t<NullWaypoint>>>())
+    : waypoint_(nullptr)
   {
   }
 
@@ -205,7 +210,13 @@ public:
   ~Waypoint() = default;
 
   // Copy constructor
-  Waypoint(const Waypoint& other) : waypoint_(other.waypoint_->clone()) {}
+  Waypoint(const Waypoint& other)
+  {
+    if (other.waypoint_ != nullptr)
+      waypoint_ = other.waypoint_->clone();
+    else
+      waypoint_ = nullptr;
+  }
 
   // Move ctor.
   Waypoint(Waypoint&& other) noexcept { waypoint_.swap(other.waypoint_); }
@@ -240,7 +251,19 @@ public:
 
   void print(const std::string& prefix = "") const { waypoint_->print(prefix); }
 
-  bool operator==(const Waypoint& rhs) const { return waypoint_->operator==(*rhs.waypoint_); }
+  bool operator==(const Waypoint& rhs) const
+  {
+    if (waypoint_ == nullptr && rhs.waypoint_ == nullptr)
+      return true;
+
+    if (waypoint_ == nullptr)
+      return false;
+
+    if (rhs.waypoint_ == nullptr)
+      return false;
+
+    return waypoint_->operator==(*rhs.waypoint_);
+  }
 
   bool operator!=(const Waypoint& rhs) const { return !operator==(rhs); }
 

@@ -31,15 +31,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <memory>
 #include <vector>
-#include <tinyxml2.h>
 #include <boost/algorithm/string.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/array.hpp>
-#include <boost/serialization/vector.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/waypoint_type.h>
-#include <tesseract_common/serialization.h>
+#include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -246,15 +242,11 @@ public:
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
-  {
-    ar& BOOST_SERIALIZATION_NVP(joint_names);
-    ar& BOOST_SERIALIZATION_NVP(waypoint);
-    ar& BOOST_SERIALIZATION_NVP(upper_tolerance);
-    ar& BOOST_SERIALIZATION_NVP(lower_tolerance);
-  }
+  void serialize(Archive& ar, const unsigned int version);
 };
 }  // namespace tesseract_planning
+
+TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::JointWaypoint);
 
 #ifdef SWIG
 %extend tesseract_planning::JointWaypoint {

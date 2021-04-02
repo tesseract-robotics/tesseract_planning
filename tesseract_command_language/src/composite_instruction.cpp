@@ -28,6 +28,8 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <stdexcept>
 #include <iostream>
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/vector.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/composite_instruction.h>
@@ -59,7 +61,7 @@ ManipulatorInfo& CompositeInstruction::getManipulatorInfo() { return manipulator
 
 void CompositeInstruction::setStartInstruction(Instruction instruction) { start_instruction_ = instruction; }
 
-void CompositeInstruction::resetStartInstruction() { start_instruction_ = NullInstruction(); }
+void CompositeInstruction::resetStartInstruction() { start_instruction_ = Instruction(); }
 
 const Instruction& CompositeInstruction::getStartInstruction() const { return start_instruction_; }
 
@@ -195,4 +197,24 @@ void CompositeInstruction::emplace_back(Args&&... args)
 void CompositeInstruction::pop_back() { container_.pop_back(); }
 void CompositeInstruction::swap(std::vector<value_type>& other) { container_.swap(other); }
 
+template <class Archive>
+void CompositeInstruction::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& boost::serialization::make_nvp("description", description_);
+  ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
+  ar& boost::serialization::make_nvp("profile", profile_);
+  ar& boost::serialization::make_nvp("order", order_);
+  ar& boost::serialization::make_nvp("start_instruction", start_instruction_);
+  ar& boost::serialization::make_nvp("container", container_);
+}
+
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::CompositeInstruction);
+
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+template void tesseract_planning::CompositeInstruction::serialize(boost::archive::xml_oarchive& ar,
+                                                                  const unsigned int version);
+template void tesseract_planning::CompositeInstruction::serialize(boost::archive::xml_iarchive& ar,
+                                                                  const unsigned int version);

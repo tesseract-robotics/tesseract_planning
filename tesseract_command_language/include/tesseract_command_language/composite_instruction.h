@@ -30,10 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <string>
-#include <tinyxml2.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
-#include <boost/serialization/vector.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/instruction.h>
@@ -277,22 +274,16 @@ private:
    *
    * If not provided, the planner should use the current state of the robot is used and defined as fixed.
    */
-  value_type start_instruction_{ NullInstruction() };
+  value_type start_instruction_;
 
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
-  {
-    ar& boost::serialization::make_nvp("description", description_);
-    ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
-    ar& boost::serialization::make_nvp("profile", profile_);
-    ar& boost::serialization::make_nvp("order", order_);
-    ar& boost::serialization::make_nvp("start_instruction", start_instruction_);
-    ar& boost::serialization::make_nvp("container", container_);
-  }
+  void serialize(Archive& ar, const unsigned int version);
 };
 
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::CompositeInstruction);
 
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(CompositeInstruction)

@@ -89,8 +89,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
 
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
-  Waypoint start_waypoint = NullWaypoint();
-  Instruction placeholder_instruction = NullInstruction();
+  Waypoint start_waypoint;
+  Instruction placeholder_instruction;
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
@@ -138,8 +138,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   // Add start waypoint
   if (isCartesianWaypoint(start_waypoint))
   {
-    const auto* cwp = start_waypoint.cast_const<Eigen::Isometry3d>();
-    start_plan_profile->apply(*pci, *cwp, *start_instruction, composite_mi, active_links, index);
+    const auto* cwp = start_waypoint.cast_const<CartesianWaypoint>();
+    start_plan_profile->apply(*pci, cwp->waypoint, *start_instruction, composite_mi, active_links, index);
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
@@ -209,7 +209,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = *(start_waypoint.cast_const<Eigen::Isometry3d>());
+            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -272,7 +272,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = *(start_waypoint.cast_const<Eigen::Isometry3d>());
+            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {

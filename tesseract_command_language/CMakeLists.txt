@@ -35,11 +35,16 @@ tesseract_variables()
 add_library(${PROJECT_NAME}
   src/plan_instruction.cpp
   src/move_instruction.cpp
+  src/set_analog_instruction.cpp
+  src/set_tool_instruction.cpp
+  src/timer_instruction.cpp
+  src/wait_instruction.cpp
   src/composite_instruction.cpp
   src/instruction_type.cpp
   src/waypoint_type.cpp
   src/state_waypoint.cpp
-  src/serialization.cpp
+  src/cartesian_waypoint.cpp
+  src/joint_waypoint.cpp
   src/utils/flatten_utils.cpp
   src/utils/filter_functions.cpp
   src/utils/get_instruction_utils.cpp

@@ -31,12 +31,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/archive/xml_iarchive.hpp>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_command_language/core/null_waypoint.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/serialization.h>
 
 using namespace tesseract_planning;
+
+// Do not know why this is required here
+TESSERACT_WAYPOINT_IMPLEMENT(tesseract_planning::CartesianWaypoint);
 
 TEST(TesseractCommandLanguageCartesianWaypointUnit, isToleranced)
 {
@@ -68,23 +70,13 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)
 
   CartesianWaypoint cw(pose);
 
-  Waypoint wp = cw;
+  Waypoint wp;
+  EXPECT_TRUE(isNullWaypoint(wp));
+  wp = Waypoint();
+  wp = cw;
+  toArchiveFileXML<Waypoint>(wp, "/tmp/cartesian_waypoint_boost.xml");
 
-  {
-    std::ofstream os("/tmp/cartesian_waypoint_boost.xml");
-    boost::archive::xml_oarchive oa(os);
-    oa << BOOST_SERIALIZATION_NVP(wp);
-  }
-
-  Waypoint nwp{ NullWaypoint() };
-  {
-    std::ifstream ifs("/tmp/cartesian_waypoint_boost.xml");
-    assert(ifs.good());
-    boost::archive::xml_iarchive ia(ifs);
-
-    // restore the schedule from the archive
-    ia >> BOOST_SERIALIZATION_NVP(nwp);
-  }
+  Waypoint nwp = fromArchiveFileXML<Waypoint>("/tmp/cartesian_waypoint_boost.xml");
 
   EXPECT_TRUE(cw == (*nwp.cast<CartesianWaypoint>()));
 }

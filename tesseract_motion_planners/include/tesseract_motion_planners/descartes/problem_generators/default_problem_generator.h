@@ -90,8 +90,8 @@ DefaultDescartesProblemGenerator(const std::string& name,
   int index = 0;
   std::string profile;
   ProfileDictionary::ConstPtr profile_overrides;
-  Waypoint start_waypoint = NullWaypoint();
-  Instruction placeholder_instruction = NullInstruction();
+  Waypoint start_waypoint;
+  Instruction placeholder_instruction;
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
@@ -132,8 +132,8 @@ DefaultDescartesProblemGenerator(const std::string& name,
   // Add start waypoint
   if (isCartesianWaypoint(start_waypoint))
   {
-    const auto* cwp = start_waypoint.cast_const<Eigen::Isometry3d>();
-    cur_plan_profile->apply(*prob, *cwp, *start_instruction, composite_mi, active_links, index);
+    const auto* cwp = start_waypoint.cast_const<CartesianWaypoint>();
+    cur_plan_profile->apply(*prob, cwp->waypoint, *start_instruction, composite_mi, active_links, index);
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
@@ -188,7 +188,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = *(start_waypoint.cast_const<Eigen::Isometry3d>());
+            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -226,7 +226,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = *(start_waypoint.cast_const<Eigen::Isometry3d>());
+            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {

@@ -28,14 +28,11 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <iostream>
 #include <string>
-#include <tinyxml2.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/utils.h>
+#include <tesseract_command_language/core/instruction.h>
 
 namespace tesseract_planning
 {
@@ -56,79 +53,62 @@ class TimerInstruction
 {
 public:
   TimerInstruction() = default;  // Required for boost serialization do not use
-  TimerInstruction(TimerInstructionType type, double time, int io) : timer_type_(type), timer_time_(time), timer_io_(io)
-  {
-  }
+  TimerInstruction(TimerInstructionType type, double time, int io);
 
-  const std::string& getDescription() const { return description_; }
+  const std::string& getDescription() const;
 
-  void setDescription(const std::string& description) { description_ = description; }
+  void setDescription(const std::string& description);
 
-  void print(const std::string& prefix = "") const  // NOLINT
-  {
-    std::cout << prefix + "Timer Instruction, Timer Type: " << static_cast<int>(timer_type_)
-              << ", Time: " << timer_time_ << ", IO: " << timer_io_;
-    std::cout << ", Description: " << getDescription() << std::endl;
-  }
+  void print(const std::string& prefix = "") const;  // NOLINT
 
   /**
    * @brief Get the timer type
    * @return The timer type
    */
-  TimerInstructionType getTimerType() const { return timer_type_; }
+  TimerInstructionType getTimerType() const;
 
   /**
    * @brief Set the timer type
    * @param type The timer type
    */
-  void setTimerType(TimerInstructionType type) { timer_type_ = type; }
+  void setTimerType(TimerInstructionType type);
 
   /**
    * @brief Get timer time in second
    * @return The timer time in second
    */
-  double getTimerTime() const { return timer_time_; }
+  double getTimerTime() const;
   /**
    * @brief Set timer time in second
    * @param time The timer time in second
    */
-  void setTimerTime(double time) { timer_time_ = time; }
+  void setTimerTime(double time);
 
   /**
    * @brief Get the timer IO
    * @return The timer IO
    */
-  int getTimerIO() const { return timer_io_; }
+  int getTimerIO() const;
 
   /**
    * @brief Set the timer IO
    * @param io The timer IO
    */
-  void setTimerIO(int io) { timer_io_ = io; }
+  void setTimerIO(int io);
 
   /**
    * @brief Equal operator. Does not compare descriptions
    * @param rhs TimerInstruction
    * @return True if equal, otherwise false
    */
-  bool operator==(const TimerInstruction& rhs) const
-  {
-    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
-
-    bool equal = true;
-    equal &= tesseract_common::almostEqualRelativeAndAbs(timer_time_, rhs.timer_time_, max_diff);
-    equal &= (timer_type_ == rhs.timer_type_);
-    equal &= (timer_io_ == rhs.timer_io_);
-
-    return equal;
-  }
+  bool operator==(const TimerInstruction& rhs) const;
 
   /**
    * @brief Not equal operator. Does not compare descriptions
    * @param rhs TimerInstruction
    * @return True if not equal, otherwise false
    */
-  bool operator!=(const TimerInstruction& rhs) const { return !operator==(rhs); }
+  bool operator!=(const TimerInstruction& rhs) const;
 
 private:
   /** @brief The description of the instruction */
@@ -139,15 +119,11 @@ private:
 
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
-  {
-    ar& boost::serialization::make_nvp("description", description_);
-    ar& boost::serialization::make_nvp("timer_type", timer_type_);
-    ar& boost::serialization::make_nvp("timer_time", timer_time_);
-    ar& boost::serialization::make_nvp("timer_io", timer_io_);
-  }
+  void serialize(Archive& ar, const unsigned int version);
 };
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::TimerInstruction);
 
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(TimerInstruction)

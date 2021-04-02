@@ -194,7 +194,7 @@ void TaskInput::setStartInstruction(Instruction start)
 void TaskInput::setStartInstruction(std::vector<std::size_t> start)
 {
   start_instruction_indice_ = start;
-  start_instruction_ = NullInstruction();
+  start_instruction_ = Instruction();
 }
 
 Instruction TaskInput::getStartInstruction() const
@@ -203,7 +203,7 @@ Instruction TaskInput::getStartInstruction() const
     return start_instruction_;
 
   if (start_instruction_indice_.empty())
-    return NullInstruction();
+    return Instruction();
 
   Instruction* ci = results_;
   for (const auto& i : start_instruction_indice_)
@@ -215,7 +215,7 @@ Instruction TaskInput::getStartInstruction() const
     }
     else
     {
-      return NullInstruction();
+      return Instruction();
     }
   }
 
@@ -234,7 +234,7 @@ void TaskInput::setEndInstruction(Instruction end)
 void TaskInput::setEndInstruction(std::vector<std::size_t> end)
 {
   end_instruction_indice_ = end;
-  end_instruction_ = NullInstruction();
+  end_instruction_ = Instruction();
 }
 
 Instruction TaskInput::getEndInstruction() const
@@ -243,7 +243,7 @@ Instruction TaskInput::getEndInstruction() const
     return end_instruction_;
 
   if (end_instruction_indice_.empty())
-    return NullInstruction();
+    return Instruction();
 
   Instruction* ci = results_;
   for (const auto& i : end_instruction_indice_)
@@ -255,7 +255,7 @@ Instruction TaskInput::getEndInstruction() const
     }
     else
     {
-      return NullInstruction();
+      return Instruction();
     }
   }
 

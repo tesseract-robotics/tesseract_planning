@@ -112,7 +112,7 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
       ManipulatorInfo manip_info;
 
       // Check for updated manipulator information and get waypoint
-      Waypoint wp = NullWaypoint();
+      Waypoint wp;
       if (isPlanInstruction(i.get()))
       {
         const auto* pi = i.get().cast_const<PlanInstruction>();
@@ -217,9 +217,9 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
 {
   if (isCartesianWaypoint(start))
   {
-    const auto* w1 = start.cast_const<Eigen::Isometry3d>();
-    const auto* w2 = stop.cast_const<Eigen::Isometry3d>();
-    tesseract_common::VectorIsometry3d eigen_poses = interpolate(*w1, *w2, steps);
+    const Eigen::Isometry3d& w1 = start.cast_const<CartesianWaypoint>()->waypoint;
+    const Eigen::Isometry3d& w2 = stop.cast_const<CartesianWaypoint>()->waypoint;
+    tesseract_common::VectorIsometry3d eigen_poses = interpolate(w1, w2, steps);
 
     std::vector<Waypoint> result;
     result.reserve(eigen_poses.size());
@@ -236,9 +236,9 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
 
     // TODO: Should check joint names are in the same order
 
-    const auto* w1 = start.cast_const<Eigen::VectorXd>();
-    const auto* w2 = stop.cast_const<Eigen::VectorXd>();
-    Eigen::MatrixXd joint_poses = interpolate(*w1, *w2, steps);
+    const Eigen::VectorXd& w1 = start.cast_const<JointWaypoint>()->waypoint;
+    const Eigen::VectorXd& w2 = stop.cast_const<JointWaypoint>()->waypoint;
+    Eigen::MatrixXd joint_poses = interpolate(w1, w2, steps);
 
     std::vector<Waypoint> result;
     result.reserve(static_cast<std::size_t>(joint_poses.cols()));
@@ -677,7 +677,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   CompositeInstruction seed = composite_instructions;
   ManipulatorInfo mi = composite_instructions.getManipulatorInfo();
 
-  Waypoint wp = NullWaypoint();
+  Waypoint wp;
   ManipulatorInfo base_mi;
   std::string description;
   std::string profile;

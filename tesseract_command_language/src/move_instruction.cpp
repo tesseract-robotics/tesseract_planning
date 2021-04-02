@@ -100,4 +100,23 @@ bool MoveInstruction::operator==(const MoveInstruction& rhs) const
 
 bool MoveInstruction::operator!=(const MoveInstruction& rhs) const { return !operator==(rhs); }
 
+template <class Archive>
+void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& boost::serialization::make_nvp("move_type", move_type_);
+  ar& boost::serialization::make_nvp("description", description_);
+  ar& boost::serialization::make_nvp("profile", profile_);
+  ar& boost::serialization::make_nvp("waypoint", waypoint_);
+  ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
+}
+
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::MoveInstruction);
+
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+template void tesseract_planning::MoveInstruction::serialize(boost::archive::xml_oarchive& ar,
+                                                             const unsigned int version);
+template void tesseract_planning::MoveInstruction::serialize(boost::archive::xml_iarchive& ar,
+                                                             const unsigned int version);

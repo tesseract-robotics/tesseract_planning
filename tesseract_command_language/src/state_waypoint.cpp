@@ -59,3 +59,5 @@ bool StateWaypoint::operator==(const StateWaypoint& rhs) const
 bool StateWaypoint::operator!=(const StateWaypoint& rhs) const { return !operator==(rhs); }
 
 }  // namespace tesseract_planning
+
+TESSERACT_WAYPOINT_IMPLEMENT(tesseract_planning::StateWaypoint);

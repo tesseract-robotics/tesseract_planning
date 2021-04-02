@@ -29,7 +29,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
-#include <tinyxml2.h>
 #include <typeindex>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
@@ -38,7 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/waypoint.h>
-#include <tesseract_command_language/core/null_instruction.h>
 #include <tesseract_common/sfinae_utils.h>
 
 #ifdef SWIG
@@ -48,10 +46,17 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 %template(Instructions) std::vector<tesseract_planning::Instruction>;
 #endif  // SWIG
 
-#define TESSERACT_INSTRUCTION_EXPORT(inst)                                                                             \
-  BOOST_CLASS_EXPORT_GUID(tesseract_planning::detail_instruction::InstructionInner<inst>, #inst)                       \
+#define TESSERACT_INSTRUCTION_EXPORT_KEY(inst)                                                                         \
+  BOOST_CLASS_EXPORT_KEY2(tesseract_planning::detail_instruction::InstructionInner<inst>, #inst)                       \
   BOOST_CLASS_TRACKING(tesseract_planning::detail_instruction::InstructionInner<inst>,                                 \
                        boost::serialization::track_never)
+
+#define TESSERACT_INSTRUCTION_IMPLEMENT(inst)                                                                          \
+  BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_instruction::InstructionInner<inst>)
+
+#define TESSERACT_INSTRUCTION_EXPORT(inst)                                                                             \
+  TESSERACT_INSTRUCTION_EXPORT_KEY(inst)                                                                               \
+  TESSERACT_INSTRUCTION_IMPLEMENT(inst)
 
 namespace tesseract_planning
 {
@@ -232,7 +237,7 @@ public:
   }
 
   Instruction()  // NOLINT
-    : instruction_(std::make_unique<detail_instruction::InstructionInner<uncvref_t<NullInstruction>>>())
+    : instruction_(nullptr)
   {
   }
 
@@ -240,7 +245,13 @@ public:
   ~Instruction() = default;
 
   // Copy constructor
-  Instruction(const Instruction& other) : instruction_(other.instruction_->clone()) {}
+  Instruction(const Instruction& other)
+  {
+    if (other.instruction_ != nullptr)
+      instruction_ = other.instruction_->clone();
+    else
+      instruction_ = nullptr;
+  }
 
   // Move ctor.
   Instruction(Instruction&& other) noexcept { instruction_.swap(other.instruction_); }
@@ -279,7 +290,19 @@ public:
 
   void print(const std::string& prefix = "") const { instruction_->print(prefix); }
 
-  bool operator==(const Instruction& rhs) const { return instruction_->operator==(*rhs.instruction_); }
+  bool operator==(const Instruction& rhs) const
+  {
+    if (instruction_ == nullptr && rhs.instruction_ == nullptr)
+      return true;
+
+    if (instruction_ == nullptr)
+      return false;
+
+    if (rhs.instruction_ == nullptr)
+      return false;
+
+    return instruction_->operator==(*rhs.instruction_);
+  }
 
   bool operator!=(const Instruction& rhs) const { return !operator==(rhs); }
 
