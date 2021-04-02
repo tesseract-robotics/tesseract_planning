@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -46,16 +45,13 @@ public:
   SetAnalogInstruction() = default;  // Required for boost serialization do not use
   SetAnalogInstruction(std::string key, int index, double value) : key_(std::move(key)), index_(index), value_(value) {}
 
-  int getType() const { return static_cast<int>(InstructionType::SET_ANALOG_INSTRUCTION); }
-
   const std::string& getDescription() const { return description_; }
 
   void setDescription(const std::string& description) { description_ = description; }
 
   void print(const std::string& prefix = "") const  // NOLINT
   {
-    std::cout << prefix + "Set Analog Instruction, Type: " << getType() << ", Key: " << key_ << ", Index: " << index_
-              << ", Value: " << value_;
+    std::cout << prefix + "Set Analog Instruction, Key: " << key_ << ", Index: " << index_ << ", Value: " << value_;
     std::cout << ", Description: " << getDescription() << std::endl;
   }
 
@@ -67,25 +63,6 @@ public:
 
   /** @brief Get the analgo value */
   double getValue() const { return value_; }
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
-  {
-    tinyxml2::XMLElement* xml_instruction = doc.NewElement("Instruction");
-    xml_instruction->SetAttribute("type", std::to_string(getType()).c_str());
-
-    tinyxml2::XMLElement* xml_analog_instruction = doc.NewElement("SetAnalogInstruction");
-    xml_analog_instruction->SetAttribute("key", key_.c_str());
-    xml_analog_instruction->SetAttribute("index", std::to_string(index_).c_str());
-    xml_analog_instruction->SetAttribute("value", std::to_string(value_).c_str());
-
-    tinyxml2::XMLElement* xml_description = doc.NewElement("Description");
-    xml_description->SetText(getDescription().c_str());
-
-    xml_analog_instruction->InsertEndChild(xml_description);
-    xml_instruction->InsertEndChild(xml_analog_instruction);
-
-    return xml_instruction;
-  }
 
   /**
    * @brief Equal operator. Does not compare descriptions

@@ -70,8 +70,6 @@ public:
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
   ProfileDictionary::Ptr profile_overrides;
 
-  int getType() const;
-
   const std::string& getDescription() const;
 
   void setDescription(const std::string& description);
@@ -89,8 +87,6 @@ public:
   bool isCircular() const;
 
   bool isStart() const;
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
 
   bool operator==(const MoveInstruction& rhs) const;
   bool operator!=(const MoveInstruction& rhs) const;

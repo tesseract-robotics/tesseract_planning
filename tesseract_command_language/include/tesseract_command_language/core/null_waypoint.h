@@ -42,20 +42,9 @@ public:
   NullWaypoint() = default;
   NullWaypoint(const tinyxml2::XMLElement& /*xml_element*/) {}
 
-  int getType() const { return 0; }
+  void print(const std::string& prefix = "") const { std::cout << prefix + "Null Waypoint" << std::endl; }
 
-  void print(const std::string& prefix = "") const { std::cout << prefix << "Null WP"; }
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
-  {
-    tinyxml2::XMLElement* xml_waypoint = doc.NewElement("Waypoint");
-    xml_waypoint->SetAttribute("type", std::to_string(getType()).c_str());
-
-    tinyxml2::XMLElement* xml_null_waypoint = doc.NewElement("NullWaypoint");
-    xml_waypoint->InsertEndChild(xml_null_waypoint);
-
-    return xml_waypoint;
-  }
+  bool operator==(const NullWaypoint& /*rhs*/) const { return true; }
 
 private:
   friend class boost::serialization::access;

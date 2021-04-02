@@ -30,57 +30,6 @@ namespace tesseract_planning
 {
 class Instruction;
 
-enum class InstructionType : int
-{
-  /** @brief A null instruction */
-  NULL_INSTRUCTION = 0,
-
-  /**
-   * @brief A plan instruction
-   * @details Everything before must also be a motion plan instruction
-   */
-  PLAN_INSTRUCTION = 10,
-
-  /**
-   * @brief A move instruction
-   * @details Everything before must also be a motion instruction
-   */
-  MOVE_INSTRUCTION = 20,
-
-  /**
-   * @brief A composite instruction
-   * @details Everything before must also be a composite instruction
-   */
-  COMPOSITE_INSTRUCTION = 30,
-
-  /** @brief Everything before must be a I/O instruction */
-  IO_INSTRUCTION = 40,
-
-  /** @brief Set Analog Instruction */
-  SET_ANALOG_INSTRUCTION = 49,
-
-  /** @brief Everything before must be a analog instruction */
-  ANALOG_INSTRUCTION = 50,
-
-  /** @brief Everything before must be a variable instruction */
-  VARIABLE_INSTRUCTION = 60,
-
-  /** @brief Everything before must be a comment instruction */
-  COMMENT_INSTRUCTION = 70,
-
-  /** @brief A wait instruction */
-  WAIT_INSTRUCTION = 80,
-
-  /** @brief A timer instruction */
-  TIMER_INSTRUCTION = 90,
-
-  /** @brief A set tool Instruction */
-  SET_TOOL_INSTRUCTION = 100,
-
-  /** @brief User defined types must be larger than this */
-  USER_DEFINED = 1000
-};
-
 bool isCommentInstruction(const Instruction& instruction);
 
 bool isVariableInstruction(const Instruction& instruction);

@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -46,15 +45,13 @@ public:
   SetToolInstruction() = default;  // Required for boost serialization do not use
   SetToolInstruction(int tool_id) : tool_id_(tool_id) {}
 
-  int getType() const { return static_cast<int>(InstructionType::SET_TOOL_INSTRUCTION); }
-
   const std::string& getDescription() const { return description_; }
 
   void setDescription(const std::string& description) { description_ = description; }
 
   void print(const std::string& prefix = "") const  // NOLINT
   {
-    std::cout << prefix + "Set Tool Instruction, Type: " << getType() << ", Tool ID: " << tool_id_;
+    std::cout << prefix + "Set Tool Instruction, Tool ID: " << tool_id_;
     std::cout << ", Description: " << getDescription() << std::endl;
   }
 
@@ -63,23 +60,6 @@ public:
    * @return The tool ID
    */
   int getTool() const { return tool_id_; }
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
-  {
-    tinyxml2::XMLElement* xml_instruction = doc.NewElement("Instruction");
-    xml_instruction->SetAttribute("type", std::to_string(getType()).c_str());
-
-    tinyxml2::XMLElement* xml_tool_instruction = doc.NewElement("SetToolInstruction");
-    xml_tool_instruction->SetAttribute("tool_id", std::to_string(tool_id_).c_str());
-
-    tinyxml2::XMLElement* xml_description = doc.NewElement("Description");
-    xml_description->SetText(getDescription().c_str());
-
-    xml_tool_instruction->InsertEndChild(xml_description);
-    xml_instruction->InsertEndChild(xml_tool_instruction);
-
-    return xml_instruction;
-  }
 
   /**
    * @brief Equal operator. Does not compare descriptions

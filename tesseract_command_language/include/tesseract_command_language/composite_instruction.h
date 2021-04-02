@@ -60,8 +60,6 @@ public:
 
   CompositeInstructionOrder getOrder() const;
 
-  int getType() const;
-
   void setDescription(const std::string& description);
   const std::string& getDescription() const;
 
@@ -87,8 +85,6 @@ public:
   const std::vector<tesseract_planning::Instruction>& getInstructions() const;
 
   void print(const std::string& prefix = "") const;
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
 
   bool operator==(const CompositeInstruction& rhs) const;
 
@@ -258,8 +254,6 @@ public:
 
 private:
   std::vector<value_type> container_;
-
-  int type_{ static_cast<int>(InstructionType::COMPOSITE_INSTRUCTION) };
 
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Composite Instruction" };

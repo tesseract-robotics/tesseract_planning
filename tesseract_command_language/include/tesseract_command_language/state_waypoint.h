@@ -50,13 +50,11 @@ class StateWaypoint : public tesseract_common::JointState
 public:
   StateWaypoint() = default;
   StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position);
-  StateWaypoint(const tinyxml2::XMLElement& xml_element);
-
-  int getType() const;
 
   void print(const std::string& prefix = "") const;
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const;
+  bool operator==(const StateWaypoint& rhs) const;
+  bool operator!=(const StateWaypoint& rhs) const;
 };
 }  // namespace tesseract_planning
 

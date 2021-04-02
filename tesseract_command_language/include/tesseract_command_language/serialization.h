@@ -33,33 +33,17 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <fstream>
+#include <sstream>
 #include <boost/serialization/export.hpp>
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint.h>
-#include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/command_language.h>
-
-TESSERACT_WAYPOINT_EXPORT(tesseract_planning::NullWaypoint);       // NOLINT
-TESSERACT_WAYPOINT_EXPORT(tesseract_planning::JointWaypoint);      // NOLINT
-TESSERACT_WAYPOINT_EXPORT(tesseract_planning::CartesianWaypoint);  // NOLINT
-TESSERACT_WAYPOINT_EXPORT(tesseract_planning::StateWaypoint);      // NOLINT
-
-TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::NullInstruction);       // NOLINT
-TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::MoveInstruction);       // NOLINT
-TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::PlanInstruction);       // NOLINT
-TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::WaitInstruction);       // NOLINT
-TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::TimerInstruction);      // NOLINT
-TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::SetToolInstruction);    // NOLINT
-TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::SetAnalogInstruction);  // NOLINT
-TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::CompositeInstruction);  // NOLINT
-
 namespace tesseract_planning
 {
 template <typename SerializableType>
-std::string toArchiveStringXML(SerializableType& archive_type, const std::string& name = "")
+inline std::string toArchiveStringXML(const SerializableType& archive_type, const std::string& name = "")
 {
   std::stringstream ss;
   {  // Must be scoped because all data is not written until the oost::archive::xml_oarchive goes out of scope
@@ -67,16 +51,19 @@ std::string toArchiveStringXML(SerializableType& archive_type, const std::string
     // Boost uses the same function for serialization and deserialization so it requires a non-const reference
     // Because we are only serializing here it is safe to cast away const
     if (name.empty())
-      oa << boost::serialization::make_nvp<SerializableType>("archive_type", archive_type);
+      oa << boost::serialization::make_nvp<SerializableType>("archive_type",
+                                                             const_cast<SerializableType&>(archive_type));
     else
-      oa << boost::serialization::make_nvp<SerializableType>(name.c_str(), archive_type);
+      oa << boost::serialization::make_nvp<SerializableType>(name.c_str(), const_cast<SerializableType&>(archive_type));
   }
 
   return ss.str();
 }
 
 template <typename SerializableType>
-bool toArchiveFileXML(SerializableType& archive_type, const std::string& file_path, const std::string& name = "")
+inline bool toArchiveFileXML(const SerializableType& archive_type,
+                             const std::string& file_path,
+                             const std::string& name = "")
 {
   std::ofstream os(file_path);
   {  // Must be scoped because all data is not written until the oost::archive::xml_oarchive goes out of scope
@@ -84,16 +71,17 @@ bool toArchiveFileXML(SerializableType& archive_type, const std::string& file_pa
     // Boost uses the same function for serialization and deserialization so it requires a non-const reference
     // Because we are only serializing here it is safe to cast away const
     if (name.empty())
-      oa << boost::serialization::make_nvp<SerializableType>("archive_type", archive_type);
+      oa << boost::serialization::make_nvp<SerializableType>("archive_type",
+                                                             const_cast<SerializableType&>(archive_type));
     else
-      oa << boost::serialization::make_nvp<SerializableType>(name.c_str(), archive_type);
+      oa << boost::serialization::make_nvp<SerializableType>(name.c_str(), const_cast<SerializableType&>(archive_type));
   }
 
   return true;
 }
 
 template <typename SerializableType>
-SerializableType fromArchiveStringXML(const std::string& archive_xml)
+inline SerializableType fromArchiveStringXML(const std::string& archive_xml)
 {
   SerializableType archive_type;
 
@@ -107,7 +95,7 @@ SerializableType fromArchiveStringXML(const std::string& archive_xml)
 }
 
 template <typename SerializableType>
-SerializableType fromArchiveFileXML(const std::string& file_path)
+inline SerializableType fromArchiveFileXML(const std::string& file_path)
 {
   SerializableType archive_type;
 
