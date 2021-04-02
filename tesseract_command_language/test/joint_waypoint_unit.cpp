@@ -36,6 +36,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
+// Do not know why this is required here
+TESSERACT_WAYPOINT_IMPLEMENT(tesseract_planning::JointWaypoint);
+
 TEST(TesseractCommandLanguageJointWaypointUnit, isToleranced)
 {
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3" };
@@ -69,22 +72,9 @@ TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)
   JointWaypoint jw(joint_names, joint_values);
 
   Waypoint wp = jw;
+  toArchiveFileXML<Waypoint>(wp, "/tmp/joint_waypoint_boost.xml");
 
-  {
-    std::ofstream os("/tmp/joint_waypoint_boost.xml");
-    boost::archive::xml_oarchive oa(os);
-    oa << BOOST_SERIALIZATION_NVP(wp);
-  }
-
-  Waypoint nwp{ NullWaypoint() };
-  {
-    std::ifstream ifs("/tmp/joint_waypoint_boost.xml");
-    assert(ifs.good());
-    boost::archive::xml_iarchive ia(ifs);
-
-    // restore the schedule from the archive
-    ia >> BOOST_SERIALIZATION_NVP(nwp);
-  }
+  Waypoint nwp = fromArchiveFileXML<Waypoint>("/tmp/joint_waypoint_boost.xml");
 
   EXPECT_TRUE(jw == (*nwp.cast<JointWaypoint>()));
 }

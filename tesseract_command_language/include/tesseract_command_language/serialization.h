@@ -40,6 +40,26 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/archive/xml_iarchive.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/command_language.h>
+
+//#include <tesseract_command_language/core/waypoint.h>
+//#include <tesseract_command_language/core/instruction.h>
+//#include <tesseract_command_language/command_language.h>
+
+// TESSERACT_WAYPOINT_EXPORT(tesseract_planning::JointWaypoint);      // NOLINT
+// TESSERACT_WAYPOINT_EXPORT(tesseract_planning::CartesianWaypoint);  // NOLINT
+// TESSERACT_WAYPOINT_EXPORT(tesseract_planning::StateWaypoint);      // NOLINT
+
+// TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::MoveInstruction);       // NOLINT
+// TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::PlanInstruction);       // NOLINT
+// TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::WaitInstruction);       // NOLINT
+// TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::TimerInstruction);      // NOLINT
+// TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::SetToolInstruction);    // NOLINT
+// TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::SetAnalogInstruction);  // NOLINT
+// TESSERACT_INSTRUCTION_EXPORT(tesseract_planning::CompositeInstruction);  // NOLINT
+
 namespace tesseract_planning
 {
 template <typename SerializableType>

@@ -98,8 +98,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   int start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
   std::string profile;
-  Waypoint start_waypoint = NullWaypoint();
-  Instruction placeholder_instruction = NullInstruction();
+  Waypoint start_waypoint;
+  Instruction placeholder_instruction;
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
@@ -167,7 +167,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = *(start_waypoint.cast_const<Eigen::Isometry3d>());
+            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -216,7 +216,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = *(start_waypoint.cast_const<Eigen::Isometry3d>());
+            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {

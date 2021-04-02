@@ -30,9 +30,10 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <Eigen/Geometry>
-#include <tinyxml2.h>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/profile_dictionary.h>
@@ -96,7 +97,7 @@ private:
   PlanInstructionType plan_type_;
 
   /** @brief The assigned waypoint (Cartesian or Joint) */
-  Waypoint waypoint_{ NullWaypoint() };
+  Waypoint waypoint_;
 
   /** @brief The profile used for this plan instruction */
   std::string profile_{ DEFAULT_PROFILE_KEY };
@@ -109,17 +110,12 @@ private:
 
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
-  {
-    ar& boost::serialization::make_nvp("plan_type", plan_type_);
-    ar& boost::serialization::make_nvp("description", description_);
-    ar& boost::serialization::make_nvp("profile", profile_);
-    ar& boost::serialization::make_nvp("waypoint", waypoint_);
-    ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
-  }
+  void serialize(Archive& ar, const unsigned int version);
 };
 
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::PlanInstruction);
 
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(PlanInstruction)

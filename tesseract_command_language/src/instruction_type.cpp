@@ -49,7 +49,7 @@ bool isPlanInstruction(const Instruction& instruction)
 
 bool isNullInstruction(const Instruction& instruction)
 {
-  return (instruction.getType() == std::type_index(typeid(NullInstruction)));
+  return (instruction.getType() == std::type_index(typeid(nullptr)));
 }
 
 }  // namespace tesseract_planning

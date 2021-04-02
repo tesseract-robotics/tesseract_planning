@@ -28,14 +28,11 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <iostream>
 #include <string>
-#include <tinyxml2.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/utils.h>
+#include <tesseract_command_language/core/instruction.h>
 
 namespace tesseract_planning
 {
@@ -43,43 +40,33 @@ class SetToolInstruction
 {
 public:
   SetToolInstruction() = default;  // Required for boost serialization do not use
-  SetToolInstruction(int tool_id) : tool_id_(tool_id) {}
+  SetToolInstruction(int tool_id);
 
-  const std::string& getDescription() const { return description_; }
+  const std::string& getDescription() const;
 
-  void setDescription(const std::string& description) { description_ = description; }
+  void setDescription(const std::string& description);
 
-  void print(const std::string& prefix = "") const  // NOLINT
-  {
-    std::cout << prefix + "Set Tool Instruction, Tool ID: " << tool_id_;
-    std::cout << ", Description: " << getDescription() << std::endl;
-  }
+  void print(const std::string& prefix = "") const;  // NOLINT
 
   /**
    * @brief Get the tool ID
    * @return The tool ID
    */
-  int getTool() const { return tool_id_; }
+  int getTool() const;
 
   /**
    * @brief Equal operator. Does not compare descriptions
    * @param rhs SetToolInstruction
    * @return True if equal, otherwise false
    */
-  bool operator==(const SetToolInstruction& rhs) const
-  {
-    bool equal = true;
-    equal &= (tool_id_ == rhs.tool_id_);
-
-    return equal;
-  }
+  bool operator==(const SetToolInstruction& rhs) const;
 
   /**
    * @brief Not equal operator. Does not compare descriptions
    * @param rhs SetToolInstruction
    * @return True if not equal, otherwise false
    */
-  bool operator!=(const SetToolInstruction& rhs) const { return !operator==(rhs); }
+  bool operator!=(const SetToolInstruction& rhs) const;
 
 private:
   /** @brief The description of the instruction */
@@ -88,13 +75,11 @@ private:
 
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
-  {
-    ar& boost::serialization::make_nvp("description", description_);
-    ar& boost::serialization::make_nvp("tool_id", tool_id_);
-  }
+  void serialize(Archive& ar, const unsigned int version);
 };
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::SetToolInstruction);
 
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(SetToolInstruction)

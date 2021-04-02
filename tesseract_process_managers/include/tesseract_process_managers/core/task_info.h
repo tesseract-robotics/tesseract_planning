@@ -69,13 +69,13 @@ public:
   std::string message;
 
   /** @brief Instructions passed to task (optionally set) */
-  Instruction instructions_input{ NullInstruction() };
+  Instruction instructions_input;
   /** @brief Instructions after running the task (optionally set)*/
-  Instruction instructions_output{ NullInstruction() };
+  Instruction instructions_output;
   /** @brief Seed/Results passed into the task (optionally set) */
-  Instruction results_input{ NullInstruction() };
+  Instruction results_input;
   /** @brief Seed/Results after running the task (optionally set)*/
-  Instruction results_output{ NullInstruction() };
+  Instruction results_output;
   /** @brief This is a clone of the environment at the beginning of the task (optionally set)*/
   tesseract_environment::Environment::ConstPtr environment{ nullptr };
 };

@@ -91,4 +91,23 @@ bool PlanInstruction::operator==(const PlanInstruction& rhs) const
 
 bool PlanInstruction::operator!=(const PlanInstruction& rhs) const { return !operator==(rhs); }
 
+template <class Archive>
+void PlanInstruction::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& boost::serialization::make_nvp("plan_type", plan_type_);
+  ar& boost::serialization::make_nvp("description", description_);
+  ar& boost::serialization::make_nvp("profile", profile_);
+  ar& boost::serialization::make_nvp("waypoint", waypoint_);
+  ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
+}
+
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::PlanInstruction);
+
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+template void tesseract_planning::PlanInstruction::serialize(boost::archive::xml_oarchive& ar,
+                                                             const unsigned int version);
+template void tesseract_planning::PlanInstruction::serialize(boost::archive::xml_iarchive& ar,
+                                                             const unsigned int version);

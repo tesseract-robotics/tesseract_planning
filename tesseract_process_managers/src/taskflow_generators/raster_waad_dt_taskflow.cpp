@@ -105,7 +105,7 @@ TaskflowContainer RasterWAADDTTaskflow::generateTaskflow(TaskInput input,
     container.containers.push_back(std::move(sub_container2));
 
     // Get Start Plan Instruction for approach
-    Instruction start_instruction = NullInstruction();
+    Instruction start_instruction;
     if (idx == 1)
     {
       assert(isCompositeInstruction(*(input[0].getInstruction())));

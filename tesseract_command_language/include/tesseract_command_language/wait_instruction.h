@@ -28,15 +28,11 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <iostream>
 #include <string>
-#include <tinyxml2.h>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/instruction_type.h>
-#include <tesseract_common/utils.h>
+#include <tesseract_command_language/core/instruction.h>
 
 namespace tesseract_planning
 {
@@ -63,81 +59,63 @@ class WaitInstruction
 {
 public:
   WaitInstruction() = default;  // Required for boost serialization do not use
-  WaitInstruction(double time) : wait_type_(WaitInstructionType::TIME), wait_time_(time) {}
-  WaitInstruction(WaitInstructionType type, int io) : wait_type_(type), wait_io_(io)
-  {
-    if (wait_type_ == WaitInstructionType::TIME)
-      throw std::runtime_error("WaitInstruction: Invalid type 'WaitInstructionType::TIME' for constructor");
-  }
+  WaitInstruction(double time);
+  WaitInstruction(WaitInstructionType type, int io);
 
-  const std::string& getDescription() const { return description_; }
+  const std::string& getDescription() const;
 
-  void setDescription(const std::string& description) { description_ = description; }
+  void setDescription(const std::string& description);
 
-  void print(const std::string& prefix = "") const  // NOLINT
-  {
-    std::cout << prefix + "Wait Instruction, Wait Type: " << static_cast<int>(wait_type_);
-    std::cout << ", Description: " << getDescription() << std::endl;
-  }
+  void print(const std::string& prefix = "") const;  // NOLINT
 
   /**
    * @brief Get the wait type
    * @return The wait type
    */
-  WaitInstructionType getWaitType() const { return wait_type_; }
+  WaitInstructionType getWaitType() const;
 
   /**
    * @brief Set the wait type
    * @param type The wait type
    */
-  void setWaitType(WaitInstructionType type) { wait_type_ = type; }
+  void setWaitType(WaitInstructionType type);
 
   /**
    * @brief Get wait time in second
    * @return The wait time in second
    */
-  double getWaitTime() const { return wait_time_; }
+  double getWaitTime() const;
   /**
    * @brief Set wait time in second
    * @param time The wait time in second
    */
-  void setWaitTime(double time) { wait_time_ = time; }
+  void setWaitTime(double time);
 
   /**
    * @brief Get the wait IO
    * @return The wait IO
    */
-  int getWaitIO() const { return wait_io_; }
+  int getWaitIO() const;
 
   /**
    * @brief Set the wait IO
    * @param io The wait IO
    */
-  void setWaitIO(int io) { wait_io_ = io; }
+  void setWaitIO(int io);
 
   /**
    * @brief Equal operator. Does not compare descriptions
    * @param rhs TimerInstruction
    * @return True if equal, otherwise false
    */
-  bool operator==(const WaitInstruction& rhs) const
-  {
-    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
-
-    bool equal = true;
-    equal &= tesseract_common::almostEqualRelativeAndAbs(wait_time_, rhs.wait_time_, max_diff);
-    equal &= (wait_type_ == rhs.wait_type_);
-    equal &= (wait_io_ == rhs.wait_io_);
-
-    return equal;
-  }
+  bool operator==(const WaitInstruction& rhs) const;
 
   /**
    * @brief Not equal operator. Does not compare descriptions
    * @param rhs TimerInstruction
    * @return True if not equal, otherwise false
    */
-  bool operator!=(const WaitInstruction& rhs) const { return !operator==(rhs); }
+  bool operator!=(const WaitInstruction& rhs) const;
 
 private:
   /** @brief The description of the instruction */
@@ -148,15 +126,11 @@ private:
 
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
-  {
-    ar& boost::serialization::make_nvp("description", description_);
-    ar& boost::serialization::make_nvp("wait_type", wait_type_);
-    ar& boost::serialization::make_nvp("wait_time", wait_time_);
-    ar& boost::serialization::make_nvp("wait_io", wait_io_);
-  }
+  void serialize(Archive& ar, const unsigned int version);
 };
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::WaitInstruction);
 
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(WaitInstruction)

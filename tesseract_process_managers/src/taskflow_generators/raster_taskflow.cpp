@@ -74,7 +74,7 @@ TaskflowContainer RasterTaskflow::generateTaskflow(TaskInput input, TaskflowVoid
   for (std::size_t idx = 1; idx < input.size() - 1; idx += 2)
   {
     // Get Start Plan Instruction
-    Instruction start_instruction = NullInstruction();
+    Instruction start_instruction;
     if (idx == 1)
     {
       TaskInput from_start_input = input[0];
