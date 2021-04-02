@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/waypoint_type.h>
-#include <tesseract_command_language/compare_waypoint.h>
 
 namespace tesseract_planning
 {
@@ -66,16 +65,13 @@ void MoveInstruction::setProfile(const std::string& profile)
 }
 const std::string& MoveInstruction::getProfile() const { return profile_; }
 
-int MoveInstruction::getType() const { return static_cast<int>(InstructionType::MOVE_INSTRUCTION); }
-
 const std::string& MoveInstruction::getDescription() const { return description_; }
 
 void MoveInstruction::setDescription(const std::string& description) { description_ = description; }
 
 void MoveInstruction::print(const std::string& prefix) const
 {
-  std::cout << prefix + "Move Instruction, Type: " << getType() << ", Move Type: " << static_cast<int>(move_type_)
-            << ", ";
+  std::cout << prefix + "Move Instruction, Move Type: " << static_cast<int>(move_type_) << ", ";
   getWaypoint().print();
   std::cout << ", Description: " << getDescription() << std::endl;
 }
@@ -91,36 +87,6 @@ bool MoveInstruction::isFreespace() const { return (move_type_ == MoveInstructio
 bool MoveInstruction::isCircular() const { return (move_type_ == MoveInstructionType::CIRCULAR); }
 
 bool MoveInstruction::isStart() const { return (move_type_ == MoveInstructionType::START); }
-
-tinyxml2::XMLElement* MoveInstruction::toXML(tinyxml2::XMLDocument& doc) const
-{
-  tinyxml2::XMLElement* xml_instruction = doc.NewElement("Instruction");
-  xml_instruction->SetAttribute("type", std::to_string(getType()).c_str());
-
-  tinyxml2::XMLElement* xml_move_instruction = doc.NewElement("MoveInstruction");
-  xml_move_instruction->SetAttribute("type", std::to_string(static_cast<int>(getMoveType())).c_str());
-
-  tinyxml2::XMLElement* xml_description = doc.NewElement("Description");
-  xml_description->SetText(getDescription().c_str());
-  xml_move_instruction->InsertEndChild(xml_description);
-
-  tinyxml2::XMLElement* xml_profile = doc.NewElement("Profile");
-  xml_profile->SetText(getProfile().c_str());
-  xml_move_instruction->InsertEndChild(xml_profile);
-
-  if (!getManipulatorInfo().empty())
-  {
-    tinyxml2::XMLElement* xml_manip_info = getManipulatorInfo().toXML(doc);
-    xml_move_instruction->InsertEndChild(xml_manip_info);
-  }
-
-  tinyxml2::XMLElement* xml_waypoint = getWaypoint().toXML(doc);
-  xml_move_instruction->InsertEndChild(xml_waypoint);
-
-  xml_instruction->InsertEndChild(xml_move_instruction);
-
-  return xml_instruction;
-}
 
 bool MoveInstruction::operator==(const MoveInstruction& rhs) const
 {

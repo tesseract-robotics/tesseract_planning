@@ -30,9 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/archive/xml_iarchive.hpp>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
-#include <tesseract_command_language/serialize.h>
-#include <tesseract_command_language/deserialize.h>
 #include <tesseract_command_language/serialization.h>
 
 using namespace tesseract_planning;
@@ -90,86 +89,86 @@ TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)
   EXPECT_TRUE(jw == (*nwp.cast<JointWaypoint>()));
 }
 
-inline void SerializeDeserializeTest(const JointWaypoint& wp)
-{
-  toXMLFile<Waypoint>(wp, tesseract_common::getTempPath() + "joint_waypoint_unit.xml");
-  Waypoint deserialized =
-      fromXMLFile<Waypoint>(tesseract_common::getTempPath() + "joint_waypoint_unit.xml", defaultWaypointParser);
-  EXPECT_TRUE(wp == *(deserialized.cast<JointWaypoint>()));
-}
+// inline void SerializeDeserializeTest(const JointWaypoint& wp)
+//{
+//  toXMLFile<Waypoint>(wp, tesseract_common::getTempPath() + "joint_waypoint_unit.xml");
+//  Waypoint deserialized =
+//      fromXMLFile<Waypoint>(tesseract_common::getTempPath() + "joint_waypoint_unit.xml", defaultWaypointParser);
+//  EXPECT_TRUE(wp == *(deserialized.cast<JointWaypoint>()));
+//}
 
-TEST(TesseractCommandLanguageJointWaypointUnit, equalityOperatorAndSerialization)
-{
-  // Equal
-  {
-    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
-    JointWaypoint wp2(wp1);
-    EXPECT_TRUE(wp1 == wp2);
-    EXPECT_TRUE(wp2 == wp1);
-    EXPECT_FALSE(wp2 != wp1);
-    SerializeDeserializeTest(wp1);
-  }
-  {
-    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 });
-    JointWaypoint wp2(wp1);
-    EXPECT_TRUE(wp1 == wp2);
-    EXPECT_TRUE(wp2 == wp1);
-    EXPECT_FALSE(wp2 != wp1);
-    SerializeDeserializeTest(wp1);
-  }
-  {
-    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 });
-    wp1.upper_tolerance.resize(3);
-    wp1.upper_tolerance << 1, 2, 3;
-    wp1.lower_tolerance.resize(3);
-    wp1.lower_tolerance << -4, -5, -6;
-    JointWaypoint wp2(wp1);
-    EXPECT_TRUE(wp1 == wp2);
-    EXPECT_TRUE(wp2 == wp1);
-    EXPECT_FALSE(wp2 != wp1);
-    SerializeDeserializeTest(wp1);
-  }
-  // Not equal
-  {
-    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
-    JointWaypoint wp2({ "j1" }, { 0 });
-    EXPECT_FALSE(wp1 == wp2);
-    EXPECT_FALSE(wp2 == wp1);
-    EXPECT_TRUE(wp2 != wp1);
-    SerializeDeserializeTest(wp1);
-    SerializeDeserializeTest(wp2);
-  }
-  {
-    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
-    JointWaypoint wp2({ "j1", "j2", "j4" }, { 0, 0, 0 });
-    EXPECT_FALSE(wp1 == wp2);
-    EXPECT_FALSE(wp2 == wp1);
-    EXPECT_TRUE(wp2 != wp1);
-    SerializeDeserializeTest(wp1);
-    SerializeDeserializeTest(wp2);
-  }
-  {
-    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
-    JointWaypoint wp2({ "j1", "j2", "j3" }, { 0.001, 0, 0 });
-    EXPECT_FALSE(wp1 == wp2);
-    EXPECT_FALSE(wp2 == wp1);
-    EXPECT_TRUE(wp2 != wp1);
-    SerializeDeserializeTest(wp1);
-    SerializeDeserializeTest(wp2);
-  }
-  {
-    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
-    JointWaypoint wp2(wp1);
-    wp2.upper_tolerance.resize(3);
-    wp2.upper_tolerance << 1, 2, 3;
-    wp2.lower_tolerance.resize(3);
-    wp2.lower_tolerance << -4, -5, -6;
-    EXPECT_FALSE(wp1 == wp2);
-    EXPECT_FALSE(wp2 == wp1);
-    EXPECT_TRUE(wp2 != wp1);
-    SerializeDeserializeTest(wp2);
-  }
-}
+// TEST(TesseractCommandLanguageJointWaypointUnit, equalityOperatorAndSerialization)
+//{
+//  // Equal
+//  {
+//    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+//    JointWaypoint wp2(wp1);
+//    EXPECT_TRUE(wp1 == wp2);
+//    EXPECT_TRUE(wp2 == wp1);
+//    EXPECT_FALSE(wp2 != wp1);
+//    SerializeDeserializeTest(wp1);
+//  }
+//  {
+//    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 });
+//    JointWaypoint wp2(wp1);
+//    EXPECT_TRUE(wp1 == wp2);
+//    EXPECT_TRUE(wp2 == wp1);
+//    EXPECT_FALSE(wp2 != wp1);
+//    SerializeDeserializeTest(wp1);
+//  }
+//  {
+//    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 });
+//    wp1.upper_tolerance.resize(3);
+//    wp1.upper_tolerance << 1, 2, 3;
+//    wp1.lower_tolerance.resize(3);
+//    wp1.lower_tolerance << -4, -5, -6;
+//    JointWaypoint wp2(wp1);
+//    EXPECT_TRUE(wp1 == wp2);
+//    EXPECT_TRUE(wp2 == wp1);
+//    EXPECT_FALSE(wp2 != wp1);
+//    SerializeDeserializeTest(wp1);
+//  }
+//  // Not equal
+//  {
+//    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+//    JointWaypoint wp2({ "j1" }, { 0 });
+//    EXPECT_FALSE(wp1 == wp2);
+//    EXPECT_FALSE(wp2 == wp1);
+//    EXPECT_TRUE(wp2 != wp1);
+//    SerializeDeserializeTest(wp1);
+//    SerializeDeserializeTest(wp2);
+//  }
+//  {
+//    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+//    JointWaypoint wp2({ "j1", "j2", "j4" }, { 0, 0, 0 });
+//    EXPECT_FALSE(wp1 == wp2);
+//    EXPECT_FALSE(wp2 == wp1);
+//    EXPECT_TRUE(wp2 != wp1);
+//    SerializeDeserializeTest(wp1);
+//    SerializeDeserializeTest(wp2);
+//  }
+//  {
+//    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+//    JointWaypoint wp2({ "j1", "j2", "j3" }, { 0.001, 0, 0 });
+//    EXPECT_FALSE(wp1 == wp2);
+//    EXPECT_FALSE(wp2 == wp1);
+//    EXPECT_TRUE(wp2 != wp1);
+//    SerializeDeserializeTest(wp1);
+//    SerializeDeserializeTest(wp2);
+//  }
+//  {
+//    JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
+//    JointWaypoint wp2(wp1);
+//    wp2.upper_tolerance.resize(3);
+//    wp2.upper_tolerance << 1, 2, 3;
+//    wp2.lower_tolerance.resize(3);
+//    wp2.lower_tolerance << -4, -5, -6;
+//    EXPECT_FALSE(wp1 == wp2);
+//    EXPECT_FALSE(wp2 == wp1);
+//    EXPECT_TRUE(wp2 != wp1);
+//    SerializeDeserializeTest(wp2);
+//  }
+//}
 
 int main(int argc, char** argv)
 {

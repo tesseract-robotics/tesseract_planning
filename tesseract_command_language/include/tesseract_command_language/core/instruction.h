@@ -30,6 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <tinyxml2.h>
+#include <typeindex>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/unique_ptr.hpp>
@@ -57,16 +58,12 @@ namespace tesseract_planning
 #ifndef SWIG
 namespace detail_instruction
 {
-CREATE_MEMBER_CHECK(getType);
 CREATE_MEMBER_CHECK(getDescription);
 CREATE_MEMBER_CHECK(setDescription);
 CREATE_MEMBER_CHECK(print);
-CREATE_MEMBER_CHECK(toXML);
-CREATE_MEMBER_FUNC_SIGNATURE_NOARGS_CHECK(getType, int);
 CREATE_MEMBER_FUNC_SIGNATURE_NOARGS_CHECK(getDescription, const std::string&);
 CREATE_MEMBER_FUNC_SIGNATURE_CHECK(setDescription, void, const std::string&);
 CREATE_MEMBER_FUNC_SIGNATURE_CHECK(print, void, std::string);
-CREATE_MEMBER_FUNC_SIGNATURE_CHECK(toXML, tinyxml2::XMLElement*, tinyxml2::XMLDocument&);
 
 struct InstructionInnerBase
 {
@@ -77,18 +74,26 @@ struct InstructionInnerBase
   InstructionInnerBase(InstructionInnerBase&&) = delete;
   InstructionInnerBase& operator=(InstructionInnerBase&&) = delete;
 
-  virtual int getType() const = 0;
-
+  // User-defined methods
   virtual const std::string& getDescription() const = 0;
 
   virtual void setDescription(const std::string& description) = 0;
 
   virtual void print(const std::string& prefix) const = 0;
 
-  virtual tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const = 0;
+  virtual bool operator==(const InstructionInnerBase& rhs) const = 0;
+
+  // This is not required for user defined implementation
+  virtual bool operator!=(const InstructionInnerBase& rhs) const = 0;
+
+  // This is not required for user defined implementation
+  virtual std::type_index getType() const = 0;
 
   // This is not required for user defined implementation
   virtual void* recover() = 0;
+
+  // This is not required for user defined implementation
+  virtual const void* recover() const = 0;
 
   // This is not required for user defined implementation
   virtual std::unique_ptr<InstructionInnerBase> clone() const = 0;
@@ -106,18 +111,14 @@ struct InstructionInner final : InstructionInnerBase
 {
   InstructionInner()
   {
-    static_assert(has_member_getType<T>::value, "Class does not have member function 'getType'");
     static_assert(has_member_getDescription<T>::value, "Class does not have member function 'getDescription'");
     static_assert(has_member_setDescription<T>::value, "Class does not have member function 'setDescription'");
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
-    static_assert(has_member_toXML<T>::value, "Class does not have member function 'toXML'");
-    static_assert(has_member_func_signature_getType<T>::value, "Class 'getType' function has incorrect signature");
     static_assert(has_member_func_signature_getDescription<T>::value,
                   "Class 'getDescription' function has incorrect signature");
     static_assert(has_member_func_signature_setDescription<T>::value,
                   "Class 'setDescription' function has incorrect signature");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
-    static_assert(has_member_func_signature_toXML<T>::value, "Class 'toXML' function has incorrect signature");
   }
   ~InstructionInner() override = default;
   InstructionInner(const InstructionInner&) = delete;
@@ -128,41 +129,35 @@ struct InstructionInner final : InstructionInnerBase
   // Constructors from T (copy and move variants).
   explicit InstructionInner(T instruction) : instruction_(std::move(instruction))
   {
-    static_assert(has_member_getType<T>::value, "Class does not have member function 'getType'");
     static_assert(has_member_getDescription<T>::value, "Class does not have member function 'getDescription'");
     static_assert(has_member_setDescription<T>::value, "Class does not have member function 'setDescription'");
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
-    static_assert(has_member_toXML<T>::value, "Class does not have member function 'toXML'");
-    static_assert(has_member_func_signature_getType<T>::value, "Class 'getType' function has incorrect signature");
     static_assert(has_member_func_signature_getDescription<T>::value,
                   "Class 'getDescription' function has incorrect signature");
     static_assert(has_member_func_signature_setDescription<T>::value,
                   "Class 'setDescription' function has incorrect signature");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
-    static_assert(has_member_func_signature_toXML<T>::value, "Class 'toXML' function has incorrect signature");
   }
 
   explicit InstructionInner(T&& instruction) : instruction_(std::move(instruction))
   {
-    static_assert(has_member_getType<T>::value, "Class does not have member function 'getType'");
     static_assert(has_member_getDescription<T>::value, "Class does not have member function 'getDescription'");
     static_assert(has_member_setDescription<T>::value, "Class does not have member function 'setDescription'");
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
-    static_assert(has_member_toXML<T>::value, "Class does not have member function 'toXML'");
-    static_assert(has_member_func_signature_getType<T>::value, "Class 'getType' function has incorrect signature");
     static_assert(has_member_func_signature_getDescription<T>::value,
                   "Class 'getDescription' function has incorrect signature");
     static_assert(has_member_func_signature_setDescription<T>::value,
                   "Class 'setDescription' function has incorrect signature");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
-    static_assert(has_member_func_signature_toXML<T>::value, "Class 'toXML' function has incorrect signature");
   }
 
   std::unique_ptr<InstructionInnerBase> clone() const final { return std::make_unique<InstructionInner>(instruction_); }
 
   void* recover() final { return &instruction_; }
 
-  int getType() const final { return instruction_.getType(); }
+  const void* recover() const final { return &instruction_; }
+
+  std::type_index getType() const final { return std::type_index(typeid(T)); }
 
   const std::string& getDescription() const final { return instruction_.getDescription(); }
 
@@ -170,7 +165,18 @@ struct InstructionInner final : InstructionInnerBase
 
   void print(const std::string& prefix) const final { instruction_.print(prefix); }
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const final { return instruction_.toXML(doc); }
+  bool operator==(const InstructionInnerBase& rhs) const final
+  {
+    // Compare class types before casting the incoming object to the T type
+    if (rhs.getType() == getType())
+    {
+      auto instruction = static_cast<const T*>(rhs.recover());
+      return instruction_ == *instruction;
+    }
+    return false;
+  }
+
+  bool operator!=(const InstructionInnerBase& rhs) const final { return !operator==(rhs); }
 
 private:
   friend class boost::serialization::access;
@@ -259,7 +265,13 @@ public:
     return (*this);
   }
 
-  int getType() const { return instruction_->getType(); }
+  std::type_index getType() const
+  {
+    if (instruction_ == nullptr)
+      return std::type_index(typeid(nullptr));
+
+    return instruction_->getType();
+  }
 
   const std::string& getDescription() const { return instruction_->getDescription(); }
 
@@ -267,17 +279,25 @@ public:
 
   void print(const std::string& prefix = "") const { instruction_->print(prefix); }
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const { return instruction_->toXML(doc); }
+  bool operator==(const Instruction& rhs) const { return instruction_->operator==(*rhs.instruction_); }
+
+  bool operator!=(const Instruction& rhs) const { return !operator==(rhs); }
 
   template <typename T>
   T* cast()
   {
+    if (getType() != typeid(T))
+      throw std::bad_cast();
+
     return static_cast<T*>(instruction_->recover());
   }
 
   template <typename T>
   const T* cast_const() const
   {
+    if (getType() != typeid(T))
+      throw std::bad_cast();
+
     return static_cast<const T*>(instruction_->recover());
   }
 

@@ -30,8 +30,10 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <string>
+#include <typeindex>
 #include <tinyxml2.h>
 #include <boost/serialization/base_object.hpp>
+#include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
@@ -39,31 +41,16 @@ namespace tesseract_planning
 class NullInstruction
 {
 public:
-  int getType() const { return 0; }
-
   const std::string& getDescription() const { return description_; }
 
   void setDescription(const std::string& description) { description_ = description; }
 
   void print(const std::string& prefix = "") const  // NOLINT
   {
-    std::cout << prefix + "Null Instruction, Type: " << getType() << "  Description: " << getDescription() << std::endl;
+    std::cout << prefix + "Null Instruction,  Description: " << getDescription() << std::endl;
   }
 
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
-  {
-    tinyxml2::XMLElement* xml_instruction = doc.NewElement("Instruction");
-    xml_instruction->SetAttribute("type", std::to_string(getType()).c_str());
-
-    tinyxml2::XMLElement* xml_null_instruction = doc.NewElement("NullInstruction");
-    tinyxml2::XMLElement* xml_description = doc.NewElement("Description");
-    xml_description->SetText(getDescription().c_str());
-
-    xml_null_instruction->InsertEndChild(xml_description);
-    xml_instruction->InsertEndChild(xml_null_instruction);
-
-    return xml_instruction;
-  }
+  bool operator==(const NullInstruction& /*rhs*/) const { return true; }
 
 private:
   /** @brief The description of the instruction */
@@ -71,8 +58,9 @@ private:
 
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/)
+  void serialize(Archive& ar, const unsigned int /*version*/)
   {
+    ar& boost::serialization::make_nvp("description", description_);
   }
 };
 }  // namespace tesseract_planning

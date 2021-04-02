@@ -30,24 +30,6 @@ namespace tesseract_planning
 {
 class Waypoint;
 
-enum class WaypointType : int
-{
-  // NULL Waypoint
-  NULL_WAYPOINT = 0,
-
-  // Cartesian Waypoint
-  CARTESIAN_WAYPOINT = 1,
-
-  // Joint Waypoint
-  JOINT_WAYPOINT = 2,
-
-  // State Waypoint
-  STATE_WAYPOINT = 3,
-
-  // User defined types must be larger than this
-  USER_DEFINED = 1000
-};
-
 bool isCartesianWaypoint(const Waypoint& waypoint);
 
 bool isJointWaypoint(const Waypoint& waypoint);

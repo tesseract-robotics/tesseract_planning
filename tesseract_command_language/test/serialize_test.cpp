@@ -34,9 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_command_language/serialization.h>
-#include <tesseract_command_language/serialize.h>
-#include <tesseract_command_language/deserialize.h>
-#include <tesseract_command_language/compare_instruction.h>
 #include <tesseract_common/utils.h>
 
 using namespace tesseract_planning;
@@ -180,20 +177,6 @@ CompositeInstruction getProgram()
   program.push_back(set_analog_instruction);
 
   return program;
-}
-
-TEST(TesseractCommandLanguageSerializeUnit, SerializeToXml)  // NOLINT
-{
-  // Write program to file
-  Instruction program = getProgram();
-  toXMLFile<Instruction>(program, tesseract_common::getTempPath() + "raster_example_input.xml");
-
-  Instruction imported_program =
-      fromXMLFile<Instruction>(tesseract_common::getTempPath() + "raster_example_input.xml", defaultInstructionParser);
-
-  bool test = (program == imported_program);
-  UNUSED(test);
-  //  EXPECT_TRUE(program == imported_program);
 }
 
 TEST(TesseractCommandLanguageSerializeUnit, serializationCompositeInstruction)  // NOLINT

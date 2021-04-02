@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -61,15 +60,13 @@ public:
   {
   }
 
-  int getType() const { return static_cast<int>(InstructionType::TIMER_INSTRUCTION); }
-
   const std::string& getDescription() const { return description_; }
 
   void setDescription(const std::string& description) { description_ = description; }
 
   void print(const std::string& prefix = "") const  // NOLINT
   {
-    std::cout << prefix + "Timer Instruction, Type: " << getType() << ", Timer Type: " << static_cast<int>(timer_type_)
+    std::cout << prefix + "Timer Instruction, Timer Type: " << static_cast<int>(timer_type_)
               << ", Time: " << timer_time_ << ", IO: " << timer_io_;
     std::cout << ", Description: " << getDescription() << std::endl;
   }
@@ -108,26 +105,6 @@ public:
    * @param io The timer IO
    */
   void setTimerIO(int io) { timer_io_ = io; }
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
-  {
-    tinyxml2::XMLElement* xml_instruction = doc.NewElement("Instruction");
-    xml_instruction->SetAttribute("type", std::to_string(getType()).c_str());
-
-    tinyxml2::XMLElement* xml_timer_instruction = doc.NewElement("TimerInstruction");
-    xml_timer_instruction->SetAttribute("type", std::to_string(static_cast<int>(getTimerType())).c_str());
-    xml_timer_instruction->SetAttribute("time", std::to_string(timer_time_).c_str());
-    xml_timer_instruction->SetAttribute("io", std::to_string(timer_io_).c_str());
-
-    tinyxml2::XMLElement* xml_description = doc.NewElement("Description");
-    xml_description->SetText(getDescription().c_str());
-    xml_timer_instruction->InsertEndChild(xml_description);
-
-    xml_timer_instruction->InsertEndChild(xml_description);
-    xml_instruction->InsertEndChild(xml_timer_instruction);
-
-    return xml_instruction;
-  }
 
   /**
    * @brief Equal operator. Does not compare descriptions

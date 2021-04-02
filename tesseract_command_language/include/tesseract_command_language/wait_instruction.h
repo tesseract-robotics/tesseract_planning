@@ -70,16 +70,13 @@ public:
       throw std::runtime_error("WaitInstruction: Invalid type 'WaitInstructionType::TIME' for constructor");
   }
 
-  int getType() const { return static_cast<int>(InstructionType::WAIT_INSTRUCTION); }
-
   const std::string& getDescription() const { return description_; }
 
   void setDescription(const std::string& description) { description_ = description; }
 
   void print(const std::string& prefix = "") const  // NOLINT
   {
-    std::cout << prefix + "Wait Instruction, Type: " << getType() << ", Wait Type: " << static_cast<int>(wait_type_)
-              << ", ";
+    std::cout << prefix + "Wait Instruction, Wait Type: " << static_cast<int>(wait_type_);
     std::cout << ", Description: " << getDescription() << std::endl;
   }
 
@@ -117,29 +114,6 @@ public:
    * @param io The wait IO
    */
   void setWaitIO(int io) { wait_io_ = io; }
-
-  tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const
-  {
-    tinyxml2::XMLElement* xml_instruction = doc.NewElement("Instruction");
-    xml_instruction->SetAttribute("type", std::to_string(getType()).c_str());
-
-    tinyxml2::XMLElement* xml_wait_instruction = doc.NewElement("WaitInstruction");
-    xml_wait_instruction->SetAttribute("type", std::to_string(static_cast<int>(getWaitType())).c_str());
-
-    if (wait_type_ == WaitInstructionType::TIME)
-      xml_wait_instruction->SetAttribute("time", std::to_string(wait_time_).c_str());
-    else
-      xml_wait_instruction->SetAttribute("io", std::to_string(wait_io_).c_str());
-
-    tinyxml2::XMLElement* xml_description = doc.NewElement("Description");
-    xml_description->SetText(getDescription().c_str());
-    xml_wait_instruction->InsertEndChild(xml_description);
-
-    xml_wait_instruction->InsertEndChild(xml_description);
-    xml_instruction->InsertEndChild(xml_wait_instruction);
-
-    return xml_instruction;
-  }
 
   /**
    * @brief Equal operator. Does not compare descriptions

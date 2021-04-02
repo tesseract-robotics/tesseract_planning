@@ -38,11 +38,8 @@ add_library(${PROJECT_NAME}
   src/composite_instruction.cpp
   src/instruction_type.cpp
   src/waypoint_type.cpp
-  src/serialize.cpp
-  src/deserialize.cpp
   src/state_waypoint.cpp
-  src/compare_waypoint.cpp
-  src/compare_instruction.cpp
+  src/serialization.cpp
   src/utils/flatten_utils.cpp
   src/utils/filter_functions.cpp
   src/utils/get_instruction_utils.cpp

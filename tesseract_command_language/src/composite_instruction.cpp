@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/compare_instruction.h>
 
 namespace tesseract_planning
 {
@@ -43,8 +42,6 @@ CompositeInstruction::CompositeInstruction(std::string profile,
 }
 
 CompositeInstructionOrder CompositeInstruction::getOrder() const { return order_; }
-
-int CompositeInstruction::getType() const { return type_; }
 
 const std::string& CompositeInstruction::getDescription() const { return description_; }
 
@@ -85,43 +82,6 @@ void CompositeInstruction::print(const std::string& prefix) const
   for (const auto& i : *this)
     i.print(prefix + "  ");
   std::cout << prefix + "}" << std::endl;
-}
-
-tinyxml2::XMLElement* CompositeInstruction::toXML(tinyxml2::XMLDocument& doc) const
-{
-  tinyxml2::XMLElement* xml_instruction = doc.NewElement("Instruction");
-  xml_instruction->SetAttribute("type", std::to_string(getType()).c_str());
-
-  tinyxml2::XMLElement* xml_composite_instruction = doc.NewElement("CompositeInstruction");
-  xml_composite_instruction->SetAttribute("order", std::to_string(static_cast<int>(getOrder())).c_str());
-
-  tinyxml2::XMLElement* xml_description = doc.NewElement("Description");
-  xml_description->SetText(getDescription().c_str());
-  xml_composite_instruction->InsertEndChild(xml_description);
-
-  tinyxml2::XMLElement* xml_profile = doc.NewElement("Profile");
-  xml_profile->SetText(getProfile().c_str());
-  xml_composite_instruction->InsertEndChild(xml_profile);
-
-  if (!getManipulatorInfo().empty())
-  {
-    tinyxml2::XMLElement* xml_manip_info = getManipulatorInfo().toXML(doc);
-    xml_composite_instruction->InsertEndChild(xml_manip_info);
-  }
-
-  if (!isNullInstruction(getStartInstruction()))
-  {
-    tinyxml2::XMLElement* xml_start_instruction = doc.NewElement("StartInstruction");
-    xml_start_instruction->InsertEndChild(getStartInstruction().toXML(doc));
-    xml_composite_instruction->InsertEndChild(xml_start_instruction);
-  }
-
-  for (const auto& i : *this)
-    xml_composite_instruction->InsertEndChild(i.toXML(doc));
-
-  xml_instruction->InsertEndChild(xml_composite_instruction);
-
-  return xml_instruction;
 }
 
 bool CompositeInstruction::operator==(const CompositeInstruction& rhs) const
