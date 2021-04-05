@@ -103,11 +103,11 @@ void PlanInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::PlanInstruction);
-
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 template void tesseract_planning::PlanInstruction::serialize(boost::archive::xml_oarchive& ar,
                                                              const unsigned int version);
 template void tesseract_planning::PlanInstruction::serialize(boost::archive::xml_iarchive& ar,
                                                              const unsigned int version);
+
+TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::PlanInstruction);

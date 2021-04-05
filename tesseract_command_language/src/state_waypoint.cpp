@@ -58,6 +58,19 @@ bool StateWaypoint::operator==(const StateWaypoint& rhs) const
 }
 bool StateWaypoint::operator!=(const StateWaypoint& rhs) const { return !operator==(rhs); }
 
+template <class Archive>
+void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& boost::serialization::make_nvp("base", boost::serialization::base_object<tesseract_common::JointState>(*this));
+}
+
 }  // namespace tesseract_planning
 
-TESSERACT_WAYPOINT_IMPLEMENT(tesseract_planning::StateWaypoint);
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+template void tesseract_planning::StateWaypoint::serialize(boost::archive::xml_oarchive& ar,
+                                                           const unsigned int version);
+template void tesseract_planning::StateWaypoint::serialize(boost::archive::xml_iarchive& ar,
+                                                           const unsigned int version);
+
+TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint);

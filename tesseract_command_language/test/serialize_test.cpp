@@ -38,19 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-// Do not know why these is required here
-TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::CompositeInstruction);
-TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::MoveInstruction);
-TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::PlanInstruction);
-TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::SetAnalogInstruction);
-TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::SetToolInstruction);
-TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::TimerInstruction);
-TESSERACT_INSTRUCTION_IMPLEMENT(tesseract_planning::WaitInstruction);
-
-TESSERACT_WAYPOINT_IMPLEMENT(tesseract_planning::CartesianWaypoint);
-TESSERACT_WAYPOINT_IMPLEMENT(tesseract_planning::JointWaypoint);
-TESSERACT_WAYPOINT_IMPLEMENT(tesseract_planning::StateWaypoint);
-
 bool DEBUG = false;
 
 CompositeInstruction getProgram()

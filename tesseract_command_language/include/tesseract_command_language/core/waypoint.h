@@ -43,16 +43,22 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 //%template(Waypoints) std::vector<tesseract_planning::Waypoint>;
 #endif  // SWIG
 
+/** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_WAYPOINT_EXPORT_KEY(wp)                                                                              \
   BOOST_CLASS_EXPORT_KEY2(tesseract_planning::detail_waypoint::WaypointInner<wp>, #wp)                                 \
   BOOST_CLASS_TRACKING(tesseract_planning::detail_waypoint::WaypointInner<wp>, boost::serialization::track_never)
 
-#define TESSERACT_WAYPOINT_IMPLEMENT(wp)                                                                               \
+/** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
+#define TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(wp)                                                                        \
   BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_waypoint::WaypointInner<wp>)
 
+/**
+ * @brief This should not be used within shared libraries use the two above.
+ * If not in a shared library it can go in header or cpp
+ */
 #define TESSERACT_WAYPOINT_EXPORT(wp)                                                                                  \
   TESSERACT_WAYPOINT_EXPORT_KEY(wp)                                                                                    \
-  TESSERACT_WAYPOINT_IMPLEMENT(wp)
+  TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(wp)
 
 namespace tesseract_planning
 {
