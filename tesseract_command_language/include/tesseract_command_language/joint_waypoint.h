@@ -47,10 +47,7 @@ public:
 
   JointWaypoint() = default;
 
-  void print(const std::string& prefix = "") const
-  {
-    std::cout << prefix << "Joint WP: " << this->transpose() << std::endl;
-  }
+  void print(const std::string& prefix = "") const;
 
 #ifndef SWIG
 
@@ -209,40 +206,15 @@ public:
    * @brief Returns true if waypoint is toleranced
    * @return True if waypoint is toleranced
    */
-  bool isToleranced() const
-  {
-    // Check if they are empty
-    if (lower_tolerance.size() == 0 || upper_tolerance.size() == 0)
-      return false;
+  bool isToleranced() const;
 
-    // Check if they are the same
-    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
-
-    if ((lower_tolerance.array() > max_diff).any())
-      throw std::runtime_error("JointWaypoint: lower tolerance was provided but must be <= 0,");
-
-    if ((upper_tolerance.array() < -max_diff).any())
-      throw std::runtime_error("JointWaypoint: upper tolerance was provided but must be >= 0,");
-
-    return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
-  }
-  bool operator==(const JointWaypoint& rhs) const
-  {
-    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
-
-    bool equal = true;
-    equal &= tesseract_common::almostEqualRelativeAndAbs(waypoint, rhs.waypoint, max_diff);
-    equal &= tesseract_common::isIdentical(joint_names, rhs.joint_names);
-    equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
-    equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
-    return equal;
-  }
-  bool operator!=(const JointWaypoint& rhs) const { return !operator==(rhs); }
+  bool operator==(const JointWaypoint& rhs) const;
+  bool operator!=(const JointWaypoint& rhs) const;
 
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 

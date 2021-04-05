@@ -15,11 +15,11 @@ void tesseract_planning::CartesianWaypoint::serialize(Archive& ar, const unsigne
   ar& BOOST_SERIALIZATION_NVP(lower_tolerance);
 }
 
-TESSERACT_WAYPOINT_IMPLEMENT(tesseract_planning::CartesianWaypoint);
-
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 template void tesseract_planning::CartesianWaypoint::serialize(boost::archive::xml_oarchive& ar,
                                                                const unsigned int version);
 template void tesseract_planning::CartesianWaypoint::serialize(boost::archive::xml_iarchive& ar,
                                                                const unsigned int version);
+
+TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypoint);

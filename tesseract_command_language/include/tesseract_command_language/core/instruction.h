@@ -46,17 +46,23 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 %template(Instructions) std::vector<tesseract_planning::Instruction>;
 #endif  // SWIG
 
+/** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_INSTRUCTION_EXPORT_KEY(inst)                                                                         \
   BOOST_CLASS_EXPORT_KEY2(tesseract_planning::detail_instruction::InstructionInner<inst>, #inst)                       \
   BOOST_CLASS_TRACKING(tesseract_planning::detail_instruction::InstructionInner<inst>,                                 \
                        boost::serialization::track_never)
 
-#define TESSERACT_INSTRUCTION_IMPLEMENT(inst)                                                                          \
+/** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
+#define TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(inst)                                                                   \
   BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_instruction::InstructionInner<inst>)
 
+/**
+ * @brief This should not be used within shared libraries use the two above.
+ * If not in a shared library it can go in header or cpp
+ */
 #define TESSERACT_INSTRUCTION_EXPORT(inst)                                                                             \
   TESSERACT_INSTRUCTION_EXPORT_KEY(inst)                                                                               \
-  TESSERACT_INSTRUCTION_IMPLEMENT(inst)
+  TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(inst)
 
 namespace tesseract_planning
 {

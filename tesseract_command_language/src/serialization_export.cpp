@@ -34,12 +34,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/command_language.h>
 
-template struct tesseract_planning::detail_waypoint::WaypointInner<tesseract_planning::CartesianWaypoint>;
+// template struct tesseract_planning::detail_waypoint::WaypointInner<tesseract_planning::CartesianWaypoint>;
 
 // BOOST_EXPORT_CLASS_IMPLEMENT(tesseract_planning::detail_waypoint::WaypointInner<tesseract_planning::CartesianWaypoint>);
 
-template tesseract_planning::CartesianWaypoint::serialize(boost::archive::xml_oarchive& ar, const unsigned int version);
-template tesseract_planning::CartesianWaypoint::serialize(boost::archive::xml_iarchive& ar, const unsigned int version);
+// template tesseract_planning::CartesianWaypoint::serialize(boost::archive::xml_oarchive& ar, const unsigned int
+// version); template tesseract_planning::CartesianWaypoint::serialize(boost::archive::xml_iarchive& ar, const unsigned
+// int version);
 
 // TESSERACT_WAYPOINT_EXPORT(tesseract_planning::JointWaypoint);      // NOLINT
 // TESSERACT_WAYPOINT_EXPORT(tesseract_planning::CartesianWaypoint);  // NOLINT
