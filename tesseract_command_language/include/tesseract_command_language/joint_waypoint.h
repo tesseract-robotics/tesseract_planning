@@ -31,8 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Core>
 #include <memory>
 #include <vector>
-#include <boost/algorithm/string.hpp>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/waypoint.h>

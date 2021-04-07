@@ -24,11 +24,6 @@
  * limitations under the License.
  */
 
-#include <tesseract_common/macros.h>
-TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <boost/algorithm/string.hpp>
-TESSERACT_COMMON_IGNORE_WARNINGS_POP
-
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_common/utils.h>
