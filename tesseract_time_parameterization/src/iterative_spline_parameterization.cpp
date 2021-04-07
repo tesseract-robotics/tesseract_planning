@@ -235,8 +235,8 @@ bool IterativeSplineParameterization::compute(
   // Make a copy of the vector in case it introduces point we do not want it to modify the original trajectory size
   // just the data.
   std::vector<std::reference_wrapper<Instruction>> local_trajectory = trajectory;
-  Instruction point_to_insert_front;
-  Instruction point_to_insert_back;
+  Instruction point_to_insert_front{ NullInstruction() };
+  Instruction point_to_insert_back{ NullInstruction() };
 
   if (local_trajectory.empty())
     return true;

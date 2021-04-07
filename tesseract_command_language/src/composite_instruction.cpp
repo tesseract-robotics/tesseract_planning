@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/vector.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning

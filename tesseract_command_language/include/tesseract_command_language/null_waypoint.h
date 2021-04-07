@@ -1,5 +1,5 @@
 /**
- * @file waypoint_type.cpp
+ * @file null_waypoint.h
  * @brief
  *
  * @author Levi Armstrong
@@ -23,35 +23,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#ifndef TESSERACT_COMMAND_LANGUAGE_NULL_WAYPOINT_H
+#define TESSERACT_COMMAND_LANGUAGE_NULL_WAYPOINT_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <typeindex>
+#include <string>
+#include <boost/serialization/base_object.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/waypoint_type.h>
-#include <tesseract_command_language/null_waypoint.h>
-#include <tesseract_command_language/cartesian_waypoint.h>
-#include <tesseract_command_language/joint_waypoint.h>
-#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/core/waypoint.h>
 
 namespace tesseract_planning
 {
-bool isCartesianWaypoint(const Waypoint& waypoint)
+class NullWaypoint
 {
-  return (waypoint.getType() == std::type_index(typeid(CartesianWaypoint)));
-}
+public:
+  void print(const std::string& prefix = "") const;
 
-bool isJointWaypoint(const Waypoint& waypoint)
-{
-  return (waypoint.getType() == std::type_index(typeid(JointWaypoint)));
-}
+  bool operator==(const NullWaypoint& rhs) const;
+  bool operator!=(const NullWaypoint& rhs) const;
 
-bool isStateWaypoint(const Waypoint& waypoint)
-{
-  return (waypoint.getType() == std::type_index(typeid(StateWaypoint)));
-}
-
-bool isNullWaypoint(const Waypoint& waypoint) { return (waypoint.getType() == std::type_index(typeid(NullWaypoint))); }
-
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
+};
 }  // namespace tesseract_planning
+
+TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::NullWaypoint);
+
+#endif  // TESSERACT_COMMAND_LANGUAGE_NULL_WAYPOINT_H

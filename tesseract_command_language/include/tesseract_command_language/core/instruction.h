@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/serialization.h>
 #include <tesseract_common/sfinae_utils.h>
 
 #ifdef SWIG
@@ -226,27 +227,6 @@ struct is_virtual_base_of<tesseract_planning::detail_instruction::InstructionInn
 
 namespace tesseract_planning
 {
-class NullInstruction
-{
-public:
-  const std::string& getDescription() const;
-
-  void setDescription(const std::string& description);
-
-  void print(const std::string& prefix = "") const;
-
-  bool operator==(const NullInstruction& rhs) const;
-  bool operator!=(const NullInstruction& rhs) const;
-
-private:
-  /** @brief The description of the instruction */
-  std::string description_{ "Tesseract Null Instruction" };
-
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
-};
-
 class Instruction
 {
   template <typename T>
@@ -261,11 +241,6 @@ public:
   template <typename T, generic_ctor_enabler<T> = 0>
   Instruction(T&& instruction)  // NOLINT
     : instruction_(std::make_unique<detail_instruction::InstructionInner<uncvref_t<T>>>(instruction))
-  {
-  }
-
-  Instruction()  // NOLINT
-    : instruction_(std::make_unique<detail_instruction::InstructionInner<uncvref_t<NullInstruction>>>())
   {
   }
 
@@ -332,6 +307,12 @@ public:
 
 private:
   friend class boost::serialization::access;
+  friend struct tesseract_planning::Serialization;
+
+  Instruction()  // NOLINT
+    : instruction_(nullptr)
+  {
+  }
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
@@ -343,8 +324,6 @@ private:
 };
 
 }  // namespace tesseract_planning
-
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::NullInstruction);
 
 BOOST_CLASS_TRACKING(tesseract_planning::Instruction, boost::serialization::track_never);
 

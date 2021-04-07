@@ -112,7 +112,7 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
       ManipulatorInfo manip_info;
 
       // Check for updated manipulator information and get waypoint
-      Waypoint wp;
+      Waypoint wp{ NullWaypoint() };
       if (isPlanInstruction(i.get()))
       {
         const auto& pi = i.get().as<PlanInstruction>();
@@ -673,7 +673,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   CompositeInstruction seed = composite_instructions;
   ManipulatorInfo mi = composite_instructions.getManipulatorInfo();
 
-  Waypoint wp;
+  Waypoint wp{ NullWaypoint() };
   ManipulatorInfo base_mi;
   std::string description;
   std::string profile;

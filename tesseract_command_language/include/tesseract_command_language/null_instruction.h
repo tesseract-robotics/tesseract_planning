@@ -1,5 +1,5 @@
 /**
- * @file waypoint.cpp
+ * @file null_instruction.h
  * @brief
  *
  * @author Levi Armstrong
@@ -24,29 +24,41 @@
  * limitations under the License.
  */
 
+#ifndef TESSERACT_COMMAND_LANGUAGE_NULL_INSTRUCTION_H
+#define TESSERACT_COMMAND_LANGUAGE_NULL_INSTRUCTION_H
+
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <iostream>
+#include <string>
+#include <boost/serialization/base_object.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/instruction.h>
 
 namespace tesseract_planning
 {
-void NullWaypoint::print(const std::string& prefix) const { std::cout << prefix << "Null WP"; }
-
-bool NullWaypoint::operator==(const NullWaypoint& /*rhs*/) const { return true; }
-bool NullWaypoint::operator!=(const NullWaypoint& /*rhs*/) const { return false; }
-
-template <class Archive>
-void NullWaypoint::serialize(Archive& /*ar*/, const unsigned int /*version*/)
+class NullInstruction
 {
-}
+public:
+  const std::string& getDescription() const;
+
+  void setDescription(const std::string& description);
+
+  void print(const std::string& prefix = "") const;
+
+  bool operator==(const NullInstruction& rhs) const;
+  bool operator!=(const NullInstruction& rhs) const;
+
+private:
+  /** @brief The description of the instruction */
+  std::string description_{ "Tesseract Null Instruction" };
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
+};
 }  // namespace tesseract_planning
 
-#include <boost/archive/xml_oarchive.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-template void tesseract_planning::NullWaypoint::serialize(boost::archive::xml_oarchive& ar, const unsigned int version);
-template void tesseract_planning::NullWaypoint::serialize(boost::archive::xml_iarchive& ar, const unsigned int version);
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::NullInstruction);
 
-TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::NullWaypoint);
+#endif  // TESSERACT_COMMAND_LANGUAGE_NULL_INSTRUCTION_H

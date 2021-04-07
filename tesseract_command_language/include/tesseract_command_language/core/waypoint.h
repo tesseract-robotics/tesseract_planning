@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/type_traits/is_virtual_base_of.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/core/serialization.h>
 #include <tesseract_common/sfinae_utils.h>
 
 #ifdef SWIG
@@ -191,20 +192,6 @@ struct is_virtual_base_of<tesseract_planning::detail_waypoint::WaypointInnerBase
 
 namespace tesseract_planning
 {
-class NullWaypoint
-{
-public:
-  void print(const std::string& prefix = "") const;
-
-  bool operator==(const NullWaypoint& rhs) const;
-  bool operator!=(const NullWaypoint& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
-};
-
 class Waypoint
 {
   template <typename T>
@@ -219,11 +206,6 @@ public:
   template <typename T, generic_ctor_enabler<T> = 0>
   Waypoint(T&& waypoint)  // NOLINT
     : waypoint_(std::make_unique<detail_waypoint::WaypointInner<uncvref_t<T>>>(waypoint))
-  {
-  }
-
-  Waypoint()  // NOLINT
-    : waypoint_(std::make_unique<detail_waypoint::WaypointInner<uncvref_t<NullWaypoint>>>())
   {
   }
 
@@ -286,6 +268,12 @@ public:
 
 private:
   friend class boost::serialization::access;
+  friend struct tesseract_planning::Serialization;
+
+  Waypoint()  // NOLINT
+    : waypoint_(nullptr)
+  {
+  }
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
@@ -297,8 +285,6 @@ private:
 };
 
 }  // namespace tesseract_planning
-
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::NullWaypoint);
 
 BOOST_CLASS_TRACKING(tesseract_planning::Waypoint, boost::serialization::track_never);
 

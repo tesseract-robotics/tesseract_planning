@@ -98,8 +98,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   int start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
   std::string profile;
-  Waypoint start_waypoint;
-  Instruction placeholder_instruction;
+  Waypoint start_waypoint{ NullWaypoint() };
+  Instruction placeholder_instruction{ NullInstruction() };
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
