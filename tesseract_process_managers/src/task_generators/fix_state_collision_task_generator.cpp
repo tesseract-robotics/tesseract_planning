@@ -297,7 +297,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     return 0;
   }
 
-  const auto* ci = input_intruction->cast_const<CompositeInstruction>();
+  const auto* ci = input_intruction->as<CompositeInstruction>();
 
   // Get Composite Profile
   std::string profile = ci->getProfile();
@@ -365,7 +365,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 0; i < flattened.size(); i++)
       {
-        in_collision_vec[i] = WaypointInCollision(flattened[i].get().cast_const<PlanInstruction>()->getWaypoint(),
+        in_collision_vec[i] = WaypointInCollision(flattened[i].get().as<PlanInstruction>()->getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -381,7 +381,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
         {
           const Instruction* instr_const_ptr = &flattened[i].get();
           Instruction* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);
-          PlanInstruction* plan = mutable_instruction->cast<PlanInstruction>();
+          PlanInstruction* plan = mutable_instruction->as<PlanInstruction>();
 
           if (!ApplyCorrectionWorkflow(plan->getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {

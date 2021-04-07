@@ -243,7 +243,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   std::size_t instructions_idx = 0;  // Index for each input instruction
 
   // Handle the start instruction
-  const auto* plan_instruction = instructions_flattened.at(0).get().cast_const<PlanInstruction>();
+  const auto* plan_instruction = instructions_flattened.at(0).get().as<PlanInstruction>();
   if (plan_instruction->isStart())
   {
     const auto& p = problem[0];
@@ -261,8 +261,8 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     // Copy the start instruction
     assert(instructions_idx == 0);
     assert(isMoveInstruction(results_flattened[0].get()));
-    auto* move_instruction = results_flattened[0].get().cast<MoveInstruction>();
-    move_instruction->getWaypoint().cast<StateWaypoint>()->position = trajectory.row(0);
+    auto* move_instruction = results_flattened[0].get().as<MoveInstruction>();
+    move_instruction->getWaypoint().as<StateWaypoint>()->position = trajectory.row(0);
     instructions_idx++;
   }
 
@@ -282,12 +282,11 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
           checkGoalState(p->simple_setup->getProblemDefinition(), trajectory.bottomRows(1).transpose(), p->extractor));
 
       // Loop over the flattened results and add them to response if the input was a plan instruction
-      auto* move_instructions = results_flattened[instructions_idx].get().cast<CompositeInstruction>();
+      auto* move_instructions = results_flattened[instructions_idx].get().as<CompositeInstruction>();
       // Adjust result index to align final point since start instruction is already handled
       Eigen::Index result_index = trajectory.rows() - static_cast<Eigen::Index>(move_instructions->size());
       for (auto& instruction : *move_instructions)
-        instruction.cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>()->position =
-            trajectory.row(result_index++);
+        instruction.as<MoveInstruction>()->getWaypoint().as<StateWaypoint>()->position = trajectory.row(result_index++);
 
       // Increment the problem
       prob_idx++;

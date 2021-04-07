@@ -76,20 +76,20 @@ TaskflowContainer RasterOnlyTaskflow::generateTaskflow(TaskInput input, Taskflow
     if (idx == 0)
     {
       assert(isCompositeInstruction(*input_instruction));
-      start_instruction = input_instruction->cast_const<CompositeInstruction>()->getStartInstruction();
+      start_instruction = input_instruction->as<CompositeInstruction>()->getStartInstruction();
     }
     else
     {
       TaskInput pre_input = input[idx - 1];
       const Instruction* pre_input_instruction = pre_input.getInstruction();
       assert(isCompositeInstruction(*pre_input_instruction));
-      const auto* tci = pre_input_instruction->cast_const<CompositeInstruction>();
+      const auto* tci = pre_input_instruction->as<CompositeInstruction>();
       auto* li = getLastPlanInstruction(*tci);
       assert(li != nullptr);
       start_instruction = *li;
     }
 
-    start_instruction.cast<PlanInstruction>()->setPlanType(PlanInstructionType::START);
+    start_instruction.as<PlanInstruction>()->setPlanType(PlanInstructionType::START);
     TaskInput raster_input = input[idx];
     raster_input.setStartInstruction(start_instruction);
     TaskflowContainer sub_container = raster_taskflow_generator_->generateTaskflow(
@@ -156,7 +156,7 @@ bool RasterOnlyTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
   }
-  const auto* composite = input_instruction->cast_const<CompositeInstruction>();
+  const auto* composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
   if (!composite->hasStartInstruction() && isNullInstruction(input.getStartInstruction()))

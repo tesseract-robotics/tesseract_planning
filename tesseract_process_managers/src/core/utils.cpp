@@ -62,7 +62,7 @@ bool isCompositeEmpty(const CompositeInstruction& composite)
   {
     if (isCompositeInstruction(i))
     {
-      const auto* sub_composite = i.cast_const<CompositeInstruction>();
+      const auto* sub_composite = i.as<CompositeInstruction>();
       if (isCompositeEmpty(*sub_composite))
         return true;
     }
@@ -79,7 +79,7 @@ int hasSeedTask(TaskInput input)
   assert(isCompositeInstruction(*(input.getResults())));
   if (isCompositeInstruction(*(input.getResults())))
   {
-    const auto* composite = input.getResults()->cast_const<CompositeInstruction>();
+    const auto* composite = input.getResults()->as<CompositeInstruction>();
     if (isCompositeEmpty(*composite))
     {
       CONSOLE_BRIDGE_logDebug("Seed is empty!");

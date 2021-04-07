@@ -81,7 +81,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   {
     assert(isMoveInstruction(seed_flat[i]));
     auto var = std::make_shared<trajopt::JointPosition>(
-        getJointPosition(seed_flat[i].get().cast_const<MoveInstruction>()->getWaypoint()),
+        getJointPosition(seed_flat[i].get().as<MoveInstruction>()->getWaypoint()),
         kin->getJointNames(),
         "Joint_Position_" + std::to_string(i));
     var->SetBounds(joint_limits_eigen);
@@ -107,7 +107,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
     start_instruction = &(request.instructions.getStartInstruction());
     if (isPlanInstruction(*start_instruction))
     {
-      const auto* temp = start_instruction->cast_const<PlanInstruction>();
+      const auto* temp = start_instruction->as<PlanInstruction>();
       assert(temp->isStart());
       start_waypoint = temp->getWaypoint();
       profile = temp->getProfile();
@@ -140,7 +140,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
     if (isPlanInstruction(instruction))
     {
       assert(isPlanInstruction(instruction));
-      const auto* plan_instruction = instruction.cast_const<PlanInstruction>();
+      const auto* plan_instruction = instruction.as<PlanInstruction>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
       ManipulatorInfo manip_info = composite_mi.getCombined(plan_instruction->getManipulatorInfo());
@@ -148,7 +148,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
 
       assert(isCompositeInstruction(seed_flat_pattern[static_cast<std::size_t>(i)].get()));
       const auto* seed_composite =
-          seed_flat_pattern[static_cast<std::size_t>(i)].get().cast_const<tesseract_planning::CompositeInstruction>();
+          seed_flat_pattern[static_cast<std::size_t>(i)].get().as<tesseract_planning::CompositeInstruction>();
       auto interpolate_cnt = static_cast<int>(seed_composite->size());
 
       std::string profile = getProfileString(plan_instruction->getProfile(), name, request.plan_profile_remapping);
@@ -162,12 +162,12 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
       {
         if (isCartesianWaypoint(plan_instruction->getWaypoint()))
         {
-          const auto* cur_wp = plan_instruction->getWaypoint().cast_const<tesseract_planning::CartesianWaypoint>();
+          const auto* cur_wp = plan_instruction->getWaypoint().as<tesseract_planning::CartesianWaypoint>();
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
+            prev_pose = start_waypoint.as<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -201,11 +201,11 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           std::shared_ptr<const JointWaypoint> temp;
           if (isJointWaypoint(plan_instruction->getWaypoint()))
           {
-            cur_position = plan_instruction->getWaypoint().cast_const<JointWaypoint>();
+            cur_position = plan_instruction->getWaypoint().as<JointWaypoint>();
           }
           else
           {
-            const StateWaypoint* state_waypoint = plan_instruction->getWaypoint().cast_const<StateWaypoint>();
+            const StateWaypoint* state_waypoint = plan_instruction->getWaypoint().as<StateWaypoint>();
             temp = std::make_shared<JointWaypoint>(state_waypoint->joint_names, state_waypoint->position);
             cur_position = temp.get();
           }
@@ -216,7 +216,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
+            prev_pose = start_waypoint.as<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -257,11 +257,11 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           std::shared_ptr<const JointWaypoint> temp;
           if (isJointWaypoint(plan_instruction->getWaypoint()))
           {
-            cur_position = plan_instruction->getWaypoint().cast_const<JointWaypoint>();
+            cur_position = plan_instruction->getWaypoint().as<JointWaypoint>();
           }
           else
           {
-            const StateWaypoint* state_waypoint = plan_instruction->getWaypoint().cast_const<StateWaypoint>();
+            const StateWaypoint* state_waypoint = plan_instruction->getWaypoint().as<StateWaypoint>();
             temp = std::make_shared<JointWaypoint>(state_waypoint->joint_names, state_waypoint->position);
             cur_position = temp.get();
           }
@@ -280,7 +280,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
         }
         else if (isCartesianWaypoint(plan_instruction->getWaypoint()))
         {
-          const auto* cur_wp = plan_instruction->getWaypoint().cast_const<CartesianWaypoint>();
+          const auto* cur_wp = plan_instruction->getWaypoint().as<CartesianWaypoint>();
 
           // Increment index to account for intermediate points in seed
           for (std::size_t s = 0; s < seed_composite->size() - 1; ++s)

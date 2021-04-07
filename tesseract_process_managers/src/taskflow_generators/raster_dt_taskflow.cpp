@@ -77,7 +77,7 @@ TaskflowContainer RasterDTTaskflow::generateTaskflow(TaskInput input, TaskflowVo
     if (idx == 1)
     {
       assert(isCompositeInstruction(*(input[0].getInstruction())));
-      const auto* ci = input[0].getInstruction()->cast_const<CompositeInstruction>();
+      const auto* ci = input[0].getInstruction()->as<CompositeInstruction>();
       const auto* li = getLastPlanInstruction(*ci);
       assert(li != nullptr);
       start_instruction = *li;
@@ -85,15 +85,15 @@ TaskflowContainer RasterDTTaskflow::generateTaskflow(TaskInput input, TaskflowVo
     else
     {
       assert(isCompositeInstruction(*(input[idx - 1].getInstruction())));
-      const auto* tci = input[idx - 1].getInstruction()->cast_const<CompositeInstruction>();
+      const auto* tci = input[idx - 1].getInstruction()->as<CompositeInstruction>();
       assert(isCompositeInstruction((*tci)[0]));
-      const auto* ci = (*tci)[0].cast_const<CompositeInstruction>();
+      const auto* ci = (*tci)[0].as<CompositeInstruction>();
       auto* li = getLastPlanInstruction(*ci);
       assert(li != nullptr);
       start_instruction = *li;
     }
 
-    start_instruction.cast<PlanInstruction>()->setPlanType(PlanInstructionType::START);
+    start_instruction.as<PlanInstruction>()->setPlanType(PlanInstructionType::START);
     TaskInput raster_input = input[idx];
     raster_input.setStartInstruction(start_instruction);
     TaskflowContainer sub_container = raster_taskflow_generator_->generateTaskflow(
@@ -155,8 +155,7 @@ TaskflowContainer RasterDTTaskflow::generateTaskflow(TaskInput input, TaskflowVo
 
   // Plan from_start - preceded by the first raster
   TaskInput from_start_input = input[0];
-  from_start_input.setStartInstruction(
-      input.getInstruction()->cast_const<CompositeInstruction>()->getStartInstruction());
+  from_start_input.setStartInstruction(input.getInstruction()->as<CompositeInstruction>()->getStartInstruction());
   from_start_input.setEndInstruction(std::vector<std::size_t>({ 1 }));
   TaskflowContainer sub_container1 = freespace_taskflow_generator_->generateTaskflow(
       from_start_input,
@@ -200,7 +199,7 @@ bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
   }
-  const auto* composite = input_instruction->cast_const<CompositeInstruction>();
+  const auto* composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
   if (!composite->hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
@@ -227,7 +226,7 @@ bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input
     }
 
     // Convert to composite
-    const auto* step = composite->at(index).cast_const<CompositeInstruction>();
+    const auto* step = composite->at(index).as<CompositeInstruction>();
 
     // Odd numbers are raster segments
     if (index % 2 != 1)

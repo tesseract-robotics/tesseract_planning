@@ -99,7 +99,7 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
   }
   manager->setActiveCollisionObjects(active_links_manip);
 
-  const auto* ci = input_results->cast_const<CompositeInstruction>();
+  const auto* ci = input_results->as<CompositeInstruction>();
   std::vector<tesseract_collision::ContactResultMap> contacts;
   if (contactCheckProgram(contacts, *manager, *state_solver, *ci, config))
   {

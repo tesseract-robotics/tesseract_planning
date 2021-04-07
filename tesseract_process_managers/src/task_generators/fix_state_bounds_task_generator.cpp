@@ -66,7 +66,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     return 0;
   }
 
-  const auto* ci = input_instruction->cast_const<CompositeInstruction>();
+  const auto* ci = input_instruction->as<CompositeInstruction>();
   const ManipulatorInfo& manip_info = input.manip_info;
   const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
 
@@ -141,7 +141,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       bool outside_limits = false;
       for (const auto& instruction : flattened)
       {
-        outside_limits |= isWithinJointLimits(instruction.get().cast_const<PlanInstruction>()->getWaypoint(), limits);
+        outside_limits |= isWithinJointLimits(instruction.get().as<PlanInstruction>()->getWaypoint(), limits);
       }
       if (!outside_limits)
         break;
@@ -151,7 +151,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       {
         const Instruction* instr_const_ptr = &instruction.get();
         Instruction* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);
-        PlanInstruction* plan = mutable_instruction->cast<PlanInstruction>();
+        PlanInstruction* plan = mutable_instruction->as<PlanInstruction>();
         if (!clampToJointLimits(plan->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
         {
           saveOutputs(info, input);

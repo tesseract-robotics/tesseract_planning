@@ -146,7 +146,7 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   auto results_flattened = flatten(response.results, &moveFilter);
   for (auto& inst : results_flattened)
   {
-    auto* mi = inst.get().cast<MoveInstruction>();
+    auto* mi = inst.get().as<MoveInstruction>();
     Eigen::VectorXd jp = getJointPosition(mi->getWaypoint());
     assert(tesseract_common::satisfiesPositionLimits(jp, fwd_kin->getLimits().joint_limits));
     tesseract_common::enforcePositionLimits(jp, fwd_kin->getLimits().joint_limits);
@@ -170,14 +170,14 @@ SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
   if (request.instructions.hasStartInstruction())
   {
     assert(isPlanInstruction(request.instructions.getStartInstruction()));
-    const auto* start_instruction = request.instructions.getStartInstruction().cast_const<PlanInstruction>();
+    const auto* start_instruction = request.instructions.getStartInstruction().as<PlanInstruction>();
     assert(start_instruction->isStart());
     start_waypoint = start_instruction->getWaypoint();
 
     if (isJointWaypoint(start_waypoint))
     {
       assert(checkJointPositionFormat(fwd_kin->getJointNames(), start_waypoint));
-      const auto* jwp = start_waypoint.cast_const<JointWaypoint>();
+      const auto* jwp = start_waypoint.as<JointWaypoint>();
       start_instruction_seed.setWaypoint(StateWaypoint(jwp->joint_names, *jwp));
     }
     else if (isCartesianWaypoint(start_waypoint))
@@ -222,12 +222,11 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
   {
     if (isCompositeInstruction(instruction))
     {
-      seed.push_back(
-          processCompositeInstruction(*instruction.cast_const<CompositeInstruction>(), prev_instruction, request));
+      seed.push_back(processCompositeInstruction(*instruction.as<CompositeInstruction>(), prev_instruction, request));
     }
     else if (isPlanInstruction(instruction))
     {
-      const auto* base_instruction = instruction.cast_const<PlanInstruction>();
+      const auto* base_instruction = instruction.as<PlanInstruction>();
 
       std::string profile = getProfileString(base_instruction->getProfile(), name_, request.plan_profile_remapping);
       SimplePlannerPlanProfile::ConstPtr start_plan_profile =

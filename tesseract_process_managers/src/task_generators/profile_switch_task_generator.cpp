@@ -64,7 +64,7 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 0;
   }
 
-  const auto* ci = input_instruction->cast_const<CompositeInstruction>();
+  const auto* ci = input_instruction->as<CompositeInstruction>();
 
   // Get Composite Profile
   std::string profile = ci->getProfile();

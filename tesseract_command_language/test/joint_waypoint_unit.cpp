@@ -73,14 +73,14 @@ TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)
 
   Waypoint nwp = fromArchiveFileXML<Waypoint>("/tmp/joint_waypoint_boost.xml");
 
-  EXPECT_TRUE(jw == (*nwp.cast<JointWaypoint>()));
+  EXPECT_TRUE(jw == (*nwp.as<JointWaypoint>()));
 }
 
 inline void SerializeDeserializeTest(const JointWaypoint& wp)
 {
   toArchiveFileXML<Waypoint>(wp, tesseract_common::getTempPath() + "joint_waypoint_unit.xml");
   Waypoint deserialized = fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "joint_waypoint_unit.xml");
-  EXPECT_TRUE(wp == *(deserialized.cast<JointWaypoint>()));
+  EXPECT_TRUE(wp == *(deserialized.as<JointWaypoint>()));
 }
 
 TEST(TesseractCommandLanguageJointWaypointUnit, equalityOperatorAndSerialization)

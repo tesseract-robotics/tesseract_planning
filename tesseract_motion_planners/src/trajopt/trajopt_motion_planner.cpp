@@ -186,19 +186,19 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
     if (isPlanInstruction(instructions_flattened.at(idx).get()))
     {
       // This instruction corresponds to a composite. Set all results in that composite to the results
-      const auto* plan_instruction = instructions_flattened.at(idx).get().cast_const<PlanInstruction>();
+      const auto* plan_instruction = instructions_flattened.at(idx).get().as<PlanInstruction>();
       if (plan_instruction->isStart())
       {
         assert(idx == 0);
         assert(isMoveInstruction(results_flattened[idx].get()));
-        auto* move_instruction = results_flattened[idx].get().cast<MoveInstruction>();
-        move_instruction->getWaypoint().cast<StateWaypoint>()->position = trajectory.row(result_index++);
+        auto* move_instruction = results_flattened[idx].get().as<MoveInstruction>();
+        move_instruction->getWaypoint().as<StateWaypoint>()->position = trajectory.row(result_index++);
       }
       else
       {
-        auto* move_instructions = results_flattened[idx].get().cast<CompositeInstruction>();
+        auto* move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
         for (auto& instruction : *move_instructions)
-          instruction.cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>()->position =
+          instruction.as<MoveInstruction>()->getWaypoint().as<StateWaypoint>()->position =
               trajectory.row(result_index++);
       }
     }

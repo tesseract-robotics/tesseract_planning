@@ -57,7 +57,7 @@ const Instruction* getFirstInstructionHelper(const CompositeInstruction& composi
       if (isCompositeInstruction(instruction))
       {
         const Instruction* result = getFirstInstructionHelper(
-            *(instruction.cast_const<CompositeInstruction>()), locate_filter, process_child_composites, false);
+            *(instruction.as<CompositeInstruction>()), locate_filter, process_child_composites, false);
         if (result)
           return result;
       }
@@ -93,7 +93,7 @@ Instruction* getFirstInstructionHelper(CompositeInstruction& composite_instructi
       if (isCompositeInstruction(instruction))
       {
         Instruction* result = getFirstInstructionHelper(
-            *(instruction.cast<CompositeInstruction>()), locate_filter, process_child_composites, false);
+            *(instruction.as<CompositeInstruction>()), locate_filter, process_child_composites, false);
         if (result)
           return result;
       }
@@ -123,8 +123,8 @@ const Instruction* getLastInstructionHelper(const CompositeInstruction& composit
 
       if (isCompositeInstruction(*it))
       {
-        const Instruction* result = getLastInstructionHelper(
-            *(it->cast_const<CompositeInstruction>()), locate_filter, process_child_composites, false);
+        const Instruction* result =
+            getLastInstructionHelper(*(it->as<CompositeInstruction>()), locate_filter, process_child_composites, false);
         if (result)
           return result;
       }
@@ -164,8 +164,8 @@ Instruction* getLastInstructionHelper(CompositeInstruction& composite_instructio
 
       if (isCompositeInstruction(*it))
       {
-        Instruction* result = getLastInstructionHelper(
-            *(it->cast<CompositeInstruction>()), locate_filter, process_child_composites, false);
+        Instruction* result =
+            getLastInstructionHelper(*(it->as<CompositeInstruction>()), locate_filter, process_child_composites, false);
         if (result)
           return result;
       }
@@ -211,7 +211,7 @@ long getInstructionCountHelper(const CompositeInstruction& composite_instruction
 
       if (isCompositeInstruction(instruction))
         cnt += getInstructionCountHelper(
-            *(instruction.cast_const<CompositeInstruction>()), locate_filter, process_child_composites, false);
+            *(instruction.as<CompositeInstruction>()), locate_filter, process_child_composites, false);
     }
     return cnt;
   }

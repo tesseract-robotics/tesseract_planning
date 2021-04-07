@@ -265,7 +265,7 @@ public:
   bool operator!=(const Waypoint& rhs) const { return !operator==(rhs); }
 
   template <typename T>
-  T* cast()
+  T* as()
   {
     if (getType() != typeid(T))
       throw std::bad_cast();
@@ -274,7 +274,7 @@ public:
   }
 
   template <typename T>
-  const T* cast_const() const
+  const T* as() const
   {
     if (getType() != typeid(T))
       throw std::bad_cast();

@@ -104,11 +104,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.cast_const<MoveInstruction>()->getWaypoint()));
-    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr2.getProfile());
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>()->getWaypoint()));
+    EXPECT_EQ(c.as<MoveInstruction>()->getProfile(), instr2.getProfile());
   }
-  const auto* mi = composite.back().cast_const<MoveInstruction>();
-  EXPECT_TRUE(wp2.isApprox(mi->getWaypoint().cast_const<StateWaypoint>()->position, 1e-5));
+  const auto* mi = composite.back().as<MoveInstruction>();
+  EXPECT_TRUE(wp2.isApprox(mi->getWaypoint().as<StateWaypoint>()->position, 1e-5));
 }
 
 TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_JointInterpolation)  // NOLINT
@@ -128,11 +128,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.cast_const<MoveInstruction>()->getWaypoint()));
-    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr2.getProfile());
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>()->getWaypoint()));
+    EXPECT_EQ(c.as<MoveInstruction>()->getProfile(), instr2.getProfile());
   }
-  const auto* mi = composite.back().cast_const<MoveInstruction>();
-  const Eigen::VectorXd& last_position = mi->getWaypoint().cast_const<StateWaypoint>()->position;
+  const auto* mi = composite.back().as<MoveInstruction>();
+  const Eigen::VectorXd& last_position = mi->getWaypoint().as<StateWaypoint>()->position;
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
   Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
@@ -155,11 +155,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.cast_const<MoveInstruction>()->getWaypoint()));
-    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr2.getProfile());
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>()->getWaypoint()));
+    EXPECT_EQ(c.as<MoveInstruction>()->getProfile(), instr2.getProfile());
   }
-  const auto* mi = composite.back().cast_const<MoveInstruction>();
-  EXPECT_TRUE(wp2.isApprox(mi->getWaypoint().cast_const<StateWaypoint>()->position, 1e-5));
+  const auto* mi = composite.back().as<MoveInstruction>();
+  EXPECT_TRUE(wp2.isApprox(mi->getWaypoint().as<StateWaypoint>()->position, 1e-5));
 }
 
 TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointInterpolation)  // NOLINT
@@ -180,11 +180,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointI
   for (const auto& c : composite)
   {
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.cast_const<MoveInstruction>()->getWaypoint()));
-    EXPECT_EQ(c.cast_const<MoveInstruction>()->getProfile(), instr2.getProfile());
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>()->getWaypoint()));
+    EXPECT_EQ(c.as<MoveInstruction>()->getProfile(), instr2.getProfile());
   }
-  const auto* mi = composite.back().cast_const<MoveInstruction>();
-  const Eigen::VectorXd& last_position = mi->getWaypoint().cast_const<StateWaypoint>()->position;
+  const auto* mi = composite.back().as<MoveInstruction>();
+  const Eigen::VectorXd& last_position = mi->getWaypoint().as<StateWaypoint>()->position;
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
   Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));

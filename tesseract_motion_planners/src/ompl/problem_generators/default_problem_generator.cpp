@@ -111,7 +111,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
     start_instruction = &(request.instructions.getStartInstruction());
     if (isPlanInstruction(*start_instruction))
     {
-      const auto* temp = start_instruction->cast_const<PlanInstruction>();
+      const auto* temp = start_instruction->as<PlanInstruction>();
       assert(temp->isStart());
       start_waypoint = temp->getWaypoint();
     }
@@ -138,10 +138,10 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
     if (isPlanInstruction(instruction))
     {
       assert(isPlanInstruction(instruction));
-      const auto* plan_instruction = instruction.cast_const<PlanInstruction>();
+      const auto* plan_instruction = instruction.as<PlanInstruction>();
 
       assert(isCompositeInstruction(request.seed[i]));
-      const auto* seed_composite = request.seed[i].cast_const<tesseract_planning::CompositeInstruction>();
+      const auto* seed_composite = request.seed[i].as<tesseract_planning::CompositeInstruction>();
 
       // Get Plan Profile
       std::string profile = plan_instruction->getProfile();
@@ -197,7 +197,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
           }
           else if (isCartesianWaypoint(start_waypoint))
           {
-            const auto* prev_wp = start_waypoint.cast_const<tesseract_planning::CartesianWaypoint>();
+            const auto* prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
             cur_plan_profile->applyStartStates(
                 *sub_prob, *prev_wp, *start_instruction, composite_mi, active_link_names_, index);
           }
@@ -211,7 +211,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
         }
         else if (isCartesianWaypoint(plan_instruction->getWaypoint()))
         {
-          const auto* cur_wp = plan_instruction->getWaypoint().cast_const<tesseract_planning::CartesianWaypoint>();
+          const auto* cur_wp = plan_instruction->getWaypoint().as<tesseract_planning::CartesianWaypoint>();
           cur_plan_profile->applyGoalStates(
               *sub_prob, *cur_wp, *plan_instruction, composite_mi, active_link_names_, index);
 
@@ -227,7 +227,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
             }
             else if (isCartesianWaypoint(start_waypoint))
             {
-              const auto* prev_wp = start_waypoint.cast_const<tesseract_planning::CartesianWaypoint>();
+              const auto* prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
               cur_plan_profile->applyStartStates(
                   *sub_prob, *prev_wp, *start_instruction, composite_mi, active_link_names_, index);
             }

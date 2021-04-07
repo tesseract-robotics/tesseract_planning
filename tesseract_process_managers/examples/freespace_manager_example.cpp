@@ -90,8 +90,7 @@ int main()
   if (plotter != nullptr && plotter->isConnected())
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(toJointTrajectory(*(response.results->cast_const<CompositeInstruction>())),
-                            env->getStateSolver());
+    plotter->plotTrajectory(toJointTrajectory(*(response.results->as<CompositeInstruction>())), env->getStateSolver());
   }
 
   std::cout << "Execution Complete" << std::endl;

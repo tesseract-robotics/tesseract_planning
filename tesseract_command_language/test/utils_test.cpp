@@ -95,9 +95,8 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       {
         for (std::size_t k = 0; k < k_max; k++)
         {
-          EXPECT_EQ(
-              "test_" + std::to_string(cumulative),
-              composite[i].cast<CompositeInstruction>()->at(j).cast<CompositeInstruction>()->at(k).getDescription());
+          EXPECT_EQ("test_" + std::to_string(cumulative),
+                    composite[i].as<CompositeInstruction>()->at(j).as<CompositeInstruction>()->at(k).getDescription());
           cumulative++;
         }
       }
@@ -137,18 +136,17 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
     std::size_t cumulative = 0;
     for (std::size_t i = 0; i < i_max; i++)
     {
-      EXPECT_EQ("test_" + std::to_string(cumulative), composite[i].cast<CompositeInstruction>()->getDescription());
+      EXPECT_EQ("test_" + std::to_string(cumulative), composite[i].as<CompositeInstruction>()->getDescription());
       cumulative++;
       for (std::size_t j = 0; j < j_max; j++)
       {
         EXPECT_EQ("test_" + std::to_string(cumulative),
-                  composite[i].cast<CompositeInstruction>()->at(j).cast<CompositeInstruction>()->getDescription());
+                  composite[i].as<CompositeInstruction>()->at(j).as<CompositeInstruction>()->getDescription());
         cumulative++;
         for (std::size_t k = 0; k < k_max; k++)
         {
-          EXPECT_EQ(
-              "test_" + std::to_string(cumulative),
-              composite[i].cast<CompositeInstruction>()->at(j).cast<CompositeInstruction>()->at(k).getDescription());
+          EXPECT_EQ("test_" + std::to_string(cumulative),
+                    composite[i].as<CompositeInstruction>()->at(j).as<CompositeInstruction>()->at(k).getDescription());
           cumulative++;
         }
       }
@@ -234,7 +232,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
       for (std::size_t j = 0; j < j_max; j++)
       {
         EXPECT_EQ("test_" + std::to_string(cumulative),
-                  composite[i].cast<CompositeInstruction>()->at(j).getDescription());
+                  composite[i].as<CompositeInstruction>()->at(j).getDescription());
         cumulative++;
       }
     }
@@ -282,12 +280,12 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
     std::size_t cumulative = 0;
     for (std::size_t i = 0; i < i_max; i++)
     {
-      EXPECT_EQ("test_" + std::to_string(cumulative), composite[i].cast<CompositeInstruction>()->getDescription());
+      EXPECT_EQ("test_" + std::to_string(cumulative), composite[i].as<CompositeInstruction>()->getDescription());
       cumulative++;
       for (std::size_t j = 0; j < j_max; j++)
       {
         EXPECT_EQ("test_" + std::to_string(cumulative),
-                  composite[i].cast<CompositeInstruction>()->at(j).getDescription());
+                  composite[i].as<CompositeInstruction>()->at(j).getDescription());
         cumulative++;
       }
     }
@@ -375,7 +373,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)
     JointWaypoint jp(joint_names, values);
     Waypoint tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_TRUE(tmp.cast<JointWaypoint>()->isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypoint>()->isApprox(values, 1e-5));
   }
   // Above limits
   {
@@ -383,8 +381,8 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)
     JointWaypoint jp(joint_names, values);
     Waypoint tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_FALSE(tmp.cast<JointWaypoint>()->isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(2, (*tmp.cast<JointWaypoint>())[2]);
+    EXPECT_FALSE(tmp.as<JointWaypoint>()->isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(2, (*tmp.as<JointWaypoint>())[2]);
   }
   // Below limits
   {
@@ -392,8 +390,8 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)
     JointWaypoint jp(joint_names, values);
     Waypoint tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_FALSE(tmp.cast<JointWaypoint>()->isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(0, (*tmp.cast<JointWaypoint>())[1]);
+    EXPECT_FALSE(tmp.as<JointWaypoint>()->isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(0, (*tmp.as<JointWaypoint>())[1]);
   }
   // Above limits with max deviation
   {
@@ -402,11 +400,11 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)
     Waypoint tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
-    EXPECT_TRUE(tmp.cast<JointWaypoint>()->isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypoint>()->isApprox(values, 1e-5));
     // Inside max deviation
     EXPECT_TRUE(clampToJointLimits(tmp, limits, 0.1));
-    EXPECT_FALSE(tmp.cast<JointWaypoint>()->isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(2, (*tmp.cast<JointWaypoint>())[2]);
+    EXPECT_FALSE(tmp.as<JointWaypoint>()->isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(2, (*tmp.as<JointWaypoint>())[2]);
   }
   // Below limits with max deviation
   {
@@ -415,11 +413,11 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)
     Waypoint tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
-    EXPECT_TRUE(tmp.cast<JointWaypoint>()->isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypoint>()->isApprox(values, 1e-5));
     // Inside max deviation
     EXPECT_TRUE(clampToJointLimits(tmp, limits, 0.1));
-    EXPECT_FALSE(tmp.cast<JointWaypoint>()->isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(0, (*tmp.cast<JointWaypoint>())[1]);
+    EXPECT_FALSE(tmp.as<JointWaypoint>()->isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(0, (*tmp.as<JointWaypoint>())[1]);
   }
   // Type with no joint values
   {
@@ -467,12 +465,12 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)
     if (isPlanInstruction(composite_i))
     {
       ASSERT_TRUE(isCompositeInstruction(skeleton_i));
-      const auto cast = skeleton_i.cast_const<CompositeInstruction>();
+      const auto cast = skeleton_i.as<CompositeInstruction>();
 
-      EXPECT_EQ(cast->getProfile(), composite_i.cast_const<PlanInstruction>()->getProfile());
+      EXPECT_EQ(cast->getProfile(), composite_i.as<PlanInstruction>()->getProfile());
       EXPECT_EQ(cast->getOrder(), CompositeInstructionOrder::ORDERED);
       EXPECT_EQ(cast->getDescription(), "PlanInstruction");
-      EXPECT_EQ(cast->getManipulatorInfo(), composite_i.cast_const<PlanInstruction>()->getManipulatorInfo());
+      EXPECT_EQ(cast->getManipulatorInfo(), composite_i.as<PlanInstruction>()->getManipulatorInfo());
     }
     else
     {

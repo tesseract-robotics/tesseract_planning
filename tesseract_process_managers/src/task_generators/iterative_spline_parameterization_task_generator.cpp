@@ -76,7 +76,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
     return 0;
   }
 
-  auto* ci = input_results->cast<CompositeInstruction>();
+  auto* ci = input_results->as<CompositeInstruction>();
   const ManipulatorInfo& manip_info = ci->getManipulatorInfo();
   const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
 
@@ -105,7 +105,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   // Loop over all PlanInstructions
   for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
   {
-    const auto mi = flattened[static_cast<std::size_t>(idx)].get().cast_const<MoveInstruction>();
+    const auto mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstruction>();
     std::string plan_profile = mi->getProfile();
 
     // Check for remapping of the plan profile
