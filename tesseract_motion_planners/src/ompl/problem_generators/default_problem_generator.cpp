@@ -111,9 +111,9 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
     start_instruction = &(request.instructions.getStartInstruction());
     if (isPlanInstruction(*start_instruction))
     {
-      const auto* temp = start_instruction->as<PlanInstruction>();
-      assert(temp->isStart());
-      start_waypoint = temp->getWaypoint();
+      const auto& temp = start_instruction->as<PlanInstruction>();
+      assert(temp.isStart());
+      start_waypoint = temp.getWaypoint();
     }
     else
     {
@@ -138,35 +138,35 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
     if (isPlanInstruction(instruction))
     {
       assert(isPlanInstruction(instruction));
-      const auto* plan_instruction = instruction.as<PlanInstruction>();
+      const auto& plan_instruction = instruction.as<PlanInstruction>();
 
       assert(isCompositeInstruction(request.seed[i]));
-      const auto* seed_composite = request.seed[i].as<tesseract_planning::CompositeInstruction>();
+      const auto& seed_composite = request.seed[i].as<tesseract_planning::CompositeInstruction>();
 
       // Get Plan Profile
-      std::string profile = plan_instruction->getProfile();
+      std::string profile = plan_instruction.getProfile();
       profile = getProfileString(profile, name, request.plan_profile_remapping);
       auto cur_plan_profile =
           getProfile<OMPLPlanProfile>(profile, plan_profiles, std::make_shared<OMPLDefaultPlanProfile>());
-      cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, plan_instruction->profile_overrides);
+      cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, plan_instruction.profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("OMPLMotionPlannerDefaultConfig: Invalid profile");
 
       /** @todo Should check that the joint names match the order of the manipulator */
       OMPLProblem::Ptr sub_prob = CreateOMPLSubProblem(request, manip_fwd_kin_, manip_inv_kin_, active_link_names_);
       cur_plan_profile->setup(*sub_prob);
-      sub_prob->n_output_states = static_cast<int>(seed_composite->size()) + 1;
+      sub_prob->n_output_states = static_cast<int>(seed_composite.size()) + 1;
 
-      if (plan_instruction->isLinear())
+      if (plan_instruction.isLinear())
       {
         /** @todo Add support for linear motion to ompl planner */
-        if (isCartesianWaypoint(plan_instruction->getWaypoint()))
+        if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
           // TODO Currently skipping linear moves until SE3 motion planning is implemented.
           problem.push_back(nullptr);
           ++index;
         }
-        else if (isJointWaypoint(plan_instruction->getWaypoint()) || isStateWaypoint(start_waypoint))
+        else if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(start_waypoint))
         {
           // TODO Currently skipping linear moves until SE3 motion planning is implemented.
           // const Eigen::VectorXd& position = getJointPosition(start_waypoint);
@@ -178,14 +178,14 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
           throw std::runtime_error("OMPLMotionPlannerDefaultConfig: unknown waypoint type");
         }
       }
-      else if (plan_instruction->isFreespace())
+      else if (plan_instruction.isFreespace())
       {
-        if (isJointWaypoint(plan_instruction->getWaypoint()) || isStateWaypoint(plan_instruction->getWaypoint()))
+        if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(manip_fwd_kin_->getJointNames(), plan_instruction->getWaypoint()));
-          const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction->getWaypoint());
+          assert(checkJointPositionFormat(manip_fwd_kin_->getJointNames(), plan_instruction.getWaypoint()));
+          const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
           cur_plan_profile->applyGoalStates(
-              *sub_prob, cur_position, *plan_instruction, composite_mi, active_link_names_, index);
+              *sub_prob, cur_position, plan_instruction, composite_mi, active_link_names_, index);
 
           ompl::base::ScopedState<> start_state(sub_prob->simple_setup->getStateSpace());
           if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
@@ -197,9 +197,9 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
           }
           else if (isCartesianWaypoint(start_waypoint))
           {
-            const auto* prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
+            const auto& prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
             cur_plan_profile->applyStartStates(
-                *sub_prob, *prev_wp, *start_instruction, composite_mi, active_link_names_, index);
+                *sub_prob, prev_wp, *start_instruction, composite_mi, active_link_names_, index);
           }
           else
           {
@@ -209,11 +209,11 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
           problem.push_back(std::move(sub_prob));
           ++index;
         }
-        else if (isCartesianWaypoint(plan_instruction->getWaypoint()))
+        else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
-          const auto* cur_wp = plan_instruction->getWaypoint().as<tesseract_planning::CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
           cur_plan_profile->applyGoalStates(
-              *sub_prob, *cur_wp, *plan_instruction, composite_mi, active_link_names_, index);
+              *sub_prob, cur_wp, plan_instruction, composite_mi, active_link_names_, index);
 
           if (index == 0)
           {
@@ -227,9 +227,9 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
             }
             else if (isCartesianWaypoint(start_waypoint))
             {
-              const auto* prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
+              const auto& prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
               cur_plan_profile->applyStartStates(
-                  *sub_prob, *prev_wp, *start_instruction, composite_mi, active_link_names_, index);
+                  *sub_prob, prev_wp, *start_instruction, composite_mi, active_link_names_, index);
             }
             else
             {
@@ -251,7 +251,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
         throw std::runtime_error("OMPLMotionPlannerDefaultConfig: Unsupported!");
       }
 
-      start_waypoint = plan_instruction->getWaypoint(); /** @todo need to extract the solution for Cartesian waypoints
+      start_waypoint = plan_instruction.getWaypoint(); /** @todo need to extract the solution for Cartesian waypoints
                                                            to work correctly*/
       start_instruction = &instruction;
     }

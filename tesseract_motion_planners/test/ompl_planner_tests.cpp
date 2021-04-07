@@ -239,7 +239,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
   EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
   EXPECT_TRUE(wp2.isApprox(
       getJointPosition(
-          getLastMoveInstruction(*(planner_response.results.front().as<CompositeInstruction>()))->getWaypoint()),
+          getLastMoveInstruction(planner_response.results.front().as<CompositeInstruction>())->getWaypoint()),
       1e-5));
   EXPECT_TRUE(wp1.isApprox(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
 

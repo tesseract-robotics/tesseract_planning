@@ -66,16 +66,16 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     return 0;
   }
 
-  const auto* ci = input_instruction->as<CompositeInstruction>();
+  const auto& ci = input_instruction->as<CompositeInstruction>();
   const ManipulatorInfo& manip_info = input.manip_info;
   const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
 
   // Get Composite Profile
-  std::string profile = ci->getProfile();
+  std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<FixStateBoundsProfile>(profile, composite_profiles, std::make_shared<FixStateBoundsProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci->profile_overrides);
+  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
   {
@@ -91,7 +91,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   {
     case FixStateBoundsProfile::Settings::START_ONLY:
     {
-      const PlanInstruction* instr_const_ptr = getFirstPlanInstruction(*ci);
+      const PlanInstruction* instr_const_ptr = getFirstPlanInstruction(ci);
       if (instr_const_ptr)
       {
         PlanInstruction* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);
@@ -110,7 +110,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     break;
     case FixStateBoundsProfile::Settings::END_ONLY:
     {
-      const PlanInstruction* instr_const_ptr = getLastPlanInstruction(*ci);
+      const PlanInstruction* instr_const_ptr = getLastPlanInstruction(ci);
       if (instr_const_ptr)
       {
         PlanInstruction* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);
@@ -129,7 +129,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     break;
     case FixStateBoundsProfile::Settings::ALL:
     {
-      auto flattened = flatten(*ci, planFilter);
+      auto flattened = flatten(ci, planFilter);
       if (flattened.empty())
       {
         CONSOLE_BRIDGE_logWarn("FixStateBoundsTaskGenerator found no PlanInstructions to process");
@@ -141,7 +141,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       bool outside_limits = false;
       for (const auto& instruction : flattened)
       {
-        outside_limits |= isWithinJointLimits(instruction.get().as<PlanInstruction>()->getWaypoint(), limits);
+        outside_limits |= isWithinJointLimits(instruction.get().as<PlanInstruction>().getWaypoint(), limits);
       }
       if (!outside_limits)
         break;
@@ -151,8 +151,8 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       {
         const Instruction* instr_const_ptr = &instruction.get();
         Instruction* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);
-        PlanInstruction* plan = mutable_instruction->as<PlanInstruction>();
-        if (!clampToJointLimits(plan->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
+        auto& plan = mutable_instruction->as<PlanInstruction>();
+        if (!clampToJointLimits(plan.getWaypoint(), limits, cur_composite_profile->max_deviation_global))
         {
           saveOutputs(info, input);
           return 0;

@@ -106,9 +106,9 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
                                       int index) const
 {
   assert(isPlanInstruction(parent_instruction));
-  const auto* base_instruction = parent_instruction.as<PlanInstruction>();
-  assert(!(manip_info.empty() && base_instruction->getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction->getManipulatorInfo());
+  const auto& base_instruction = parent_instruction.as<PlanInstruction>();
+  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
+  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
   Eigen::Isometry3d tcp = pci.env->findTCP(mi);
 
   trajopt::TermInfo::Ptr ti{ nullptr };

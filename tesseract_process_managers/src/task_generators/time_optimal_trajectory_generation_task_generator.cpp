@@ -84,19 +84,19 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
     return 0;
   }
 
-  auto* ci = input_results->as<CompositeInstruction>();
-  const ManipulatorInfo& manip_info = ci->getManipulatorInfo();
+  auto& ci = input_results->as<CompositeInstruction>();
+  const ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
 
   // Get Composite Profile
-  std::string profile = ci->getProfile();
+  std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(
       profile, composite_profiles, std::make_shared<TimeOptimalTrajectoryGenerationProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci->profile_overrides);
+  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   // Create data structures for checking for plan profile overrides
-  auto flattened = flatten(*ci, moveFilter);
+  auto flattened = flatten(ci, moveFilter);
   if (flattened.empty())
   {
     CONSOLE_BRIDGE_logWarn("TOTG found no MoveInstructions to process");
@@ -110,16 +110,16 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
 
   // Loop over all sub-composites
   bool use_move_profile = false;
-  std::vector<double> scaling_factors(ci->size(), velocity_scaling_factor);
-  for (std::size_t idx = 0; idx < ci->size(); idx++)
+  std::vector<double> scaling_factors(ci.size(), velocity_scaling_factor);
+  for (std::size_t idx = 0; idx < ci.size(); idx++)
   {
-    const auto mi = ci->at(idx).as<CompositeInstruction>();
-    profile = mi->getProfile();
+    const auto& mi = ci.at(idx).as<CompositeInstruction>();
+    profile = mi.getProfile();
 
     // Check for remapping of the plan profile
     std::string remap = getProfileString(profile, name_, input.plan_profile_remapping);
     auto cur_move_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(remap, composite_profiles, nullptr);
-    cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi->profile_overrides);
+    cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)
@@ -142,7 +142,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
                                          cur_composite_profile->min_angle_change);
 
   // Copy the Composite before passing in because it will get flattened and resampled
-  CompositeInstruction resampled(*ci);
+  CompositeInstruction resampled(ci);
   if (!solver.computeTimeStamps(resampled,
                                 fwd_kin->getLimits().velocity_limits,
                                 fwd_kin->getLimits().acceleration_limits,
@@ -157,7 +157,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   // Unflatten
   if (cur_composite_profile->unflatten)
   {
-    CompositeInstruction unflattened = unflatten(resampled, *ci, cur_composite_profile->unflatten_tolerance);
+    CompositeInstruction unflattened = unflatten(resampled, ci, cur_composite_profile->unflatten_tolerance);
 
     // Rescale
     if (use_move_profile)
@@ -165,9 +165,9 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
       RescaleTimings(unflattened, scaling_factors);
     }
 
-    ci->setStartInstruction(unflattened.getStartInstruction());
-    for (std::size_t idx = 0; idx < ci->size(); idx++)
-      (*ci)[idx] = unflattened[idx];
+    ci.setStartInstruction(unflattened.getStartInstruction());
+    for (std::size_t idx = 0; idx < ci.size(); idx++)
+      ci[idx] = unflattened[idx];
   }
   else
   {
@@ -175,9 +175,9 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
       CONSOLE_BRIDGE_logWarn("TOTG Move Profile specified but unflatten is not set in the composite profile. Move "
                              "Profile will be ignored");
 
-    ci->setStartInstruction(resampled.getStartInstruction());
-    for (std::size_t idx = 0; idx < ci->size(); idx++)
-      (*ci)[idx] = resampled[idx];
+    ci.setStartInstruction(resampled.getStartInstruction());
+    for (std::size_t idx = 0; idx < ci.size(); idx++)
+      ci[idx] = resampled[idx];
   }
 
   CONSOLE_BRIDGE_logDebug("TOTG succeeded");
@@ -199,10 +199,10 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
   CompositeInstruction unflattened(pattern);
   unflattened.setStartInstruction(flattened_input.getStartInstruction());
   for (auto& instr : unflattened)
-    instr.as<CompositeInstruction>()->clear();
+    instr.as<CompositeInstruction>().clear();
 
   Eigen::VectorXd last_pt_in_input =
-      getJointPosition(pattern.at(0).as<CompositeInstruction>()->back().as<MoveInstruction>()->getWaypoint());
+      getJointPosition(pattern.at(0).as<CompositeInstruction>().back().as<MoveInstruction>().getWaypoint());
 
   double error = 0;
   double prev_error = 1;
@@ -217,7 +217,7 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
     {
       // Get the current position to see if we should increment original_idx
       Eigen::VectorXd current_pt =
-          getJointPosition(flattened_input.at(resample_idx).as<MoveInstruction>()->getWaypoint());
+          getJointPosition(flattened_input.at(resample_idx).as<MoveInstruction>().getWaypoint());
       error = (last_pt_in_input - current_pt).cwiseAbs().maxCoeff();
 
       // Check if we've hit the tolerance and if the error is still decreasing
@@ -237,7 +237,7 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
         if (original_idx < pattern.size() - 1)  // Keep from incrementing too far at the end of the last composite
           original_idx++;
         last_pt_in_input = getJointPosition(
-            pattern.at(original_idx).as<CompositeInstruction>()->back().as<MoveInstruction>()->getWaypoint());
+            pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstruction>().getWaypoint());
 
         hit_tolerance = false;
         error_increasing = false;
@@ -245,16 +245,16 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
     }
 
     // Add flattened point to the subcomposite
-    unflattened[original_idx].as<CompositeInstruction>()->push_back(flattened_input.at(resample_idx));
+    unflattened[original_idx].as<CompositeInstruction>().push_back(flattened_input.at(resample_idx));
 
     // Correct the meta information, taking information from the last element of each composite in the original
-    if (isMoveInstruction(unflattened[original_idx].as<CompositeInstruction>()->back()))
+    if (isMoveInstruction(unflattened[original_idx].as<CompositeInstruction>().back()))
     {
-      const auto pattern_instr = pattern.at(original_idx).as<CompositeInstruction>()->back().as<MoveInstruction>();
-      unflattened[original_idx].as<CompositeInstruction>()->back().as<MoveInstruction>()->setMoveType(
-          static_cast<MoveInstructionType>(pattern_instr->getMoveType()));
-      unflattened[original_idx].as<CompositeInstruction>()->back().as<MoveInstruction>()->setProfile(
-          pattern_instr->getProfile());
+      const auto& pattern_instr = pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstruction>();
+      unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstruction>().setMoveType(
+          static_cast<MoveInstructionType>(pattern_instr.getMoveType()));
+      unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstruction>().setProfile(
+          pattern_instr.getProfile());
     }
   }
   return unflattened;

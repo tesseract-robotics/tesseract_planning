@@ -356,9 +356,9 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
 {
   const auto dof = prob.manip_fwd_kin->numJoints();
   assert(isPlanInstruction(parent_instruction));
-  const auto* base_instruction = parent_instruction.as<PlanInstruction>();
-  assert(!(manip_info.empty() && base_instruction->getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction->getManipulatorInfo());
+  const auto& base_instruction = parent_instruction.as<PlanInstruction>();
+  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
+  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
   Eigen::Isometry3d tcp = prob.env->findTCP(mi);
 
   // Check if the waypoint is not relative to the manipulator base coordinate system and at tool0
@@ -473,9 +473,9 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
 {
   const auto dof = prob.manip_fwd_kin->numJoints();
   assert(isPlanInstruction(parent_instruction));
-  const auto* base_instruction = parent_instruction.as<PlanInstruction>();
-  assert(!(manip_info.empty() && base_instruction->getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction->getManipulatorInfo());
+  const auto& base_instruction = parent_instruction.as<PlanInstruction>();
+  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
+  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
   Eigen::Isometry3d tcp = prob.env->findTCP(mi);
 
   // Check if the waypoint is not relative to the manipulator base coordinate system and at tool0

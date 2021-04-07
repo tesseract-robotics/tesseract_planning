@@ -76,19 +76,19 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
     return 0;
   }
 
-  auto* ci = input_results->as<CompositeInstruction>();
-  const ManipulatorInfo& manip_info = ci->getManipulatorInfo();
+  auto& ci = input_results->as<CompositeInstruction>();
+  const ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
 
   // Get Composite Profile
-  std::string profile = ci->getProfile();
+  std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
       profile, composite_profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci->profile_overrides);
+  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   // Create data structures for checking for plan profile overrides
-  auto flattened = flatten(*ci, moveFilter);
+  auto flattened = flatten(ci, moveFilter);
   if (flattened.empty())
   {
     CONSOLE_BRIDGE_logWarn("Iterative spline time parameterization found no MoveInstructions to process");
@@ -105,14 +105,14 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   // Loop over all PlanInstructions
   for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
   {
-    const auto mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstruction>();
-    std::string plan_profile = mi->getProfile();
+    const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstruction>();
+    std::string plan_profile = mi.getProfile();
 
     // Check for remapping of the plan profile
     plan_profile = getProfileString(profile, name_, input.plan_profile_remapping);
     auto cur_move_profile =
         getProfile<IterativeSplineParameterizationProfile>(plan_profile, composite_profiles, nullptr);
-    cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi->profile_overrides);
+    cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)
@@ -123,7 +123,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   }
 
   // Solve using parameters
-  if (!solver_.compute(*ci,
+  if (!solver_.compute(ci,
                        fwd_kin->getLimits().velocity_limits,
                        fwd_kin->getLimits().acceleration_limits,
                        velocity_scaling_factors,

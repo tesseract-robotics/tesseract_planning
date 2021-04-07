@@ -57,7 +57,7 @@ static flattenFilterFn programFlattenMoveInstructionFilter =
     [](const Instruction& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
       if (isMoveInstruction(i))
       {
-        if (i.as<MoveInstruction>()->isStart())
+        if (i.as<MoveInstruction>().isStart())
           return (parent_is_first_composite);
 
         return true;
@@ -137,17 +137,17 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   std::list<Eigen::VectorXd> points;
   for (size_t p = 0; p < num_points; ++p)
   {
-    auto waypoint = trajectory[p].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+    auto& waypoint = trajectory[p].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
     bool diverse_point = (p == 0);
 
     for (Eigen::Index j = 0; j < num_joints; j++)
     {
-      if (p > 0 && std::abs(waypoint->position[j] - points.back()[j]) > min_angle_change_)
+      if (p > 0 && std::abs(waypoint.position[j] - points.back()[j]) > min_angle_change_)
         diverse_point = true;
     }
 
     if (diverse_point)
-      points.push_back(waypoint->position);
+      points.push_back(waypoint.position);
   }
 
   // Return trajectory with only the first waypoint if there are not multiple diverse points
@@ -155,9 +155,9 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   {
     CONSOLE_BRIDGE_logDebug("Trajectory is parameterized with 0.0 dynamics since it only contains a single distinct "
                             "waypoint.");
-    auto waypoint = trajectory[0].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-    waypoint->velocity = Eigen::VectorXd::Zero(num_joints);
-    waypoint->acceleration = Eigen::VectorXd::Zero(num_joints);
+    auto waypoint = trajectory[0].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+    waypoint.velocity = Eigen::VectorXd::Zero(num_joints);
+    waypoint.acceleration = Eigen::VectorXd::Zero(num_joints);
     return true;
   }
 
@@ -196,12 +196,11 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
 
   if (new_program.hasStartInstruction())
   {
-    if (isStateWaypoint(new_program.getStartInstruction().as<MoveInstruction>()->getWaypoint()))
+    if (isStateWaypoint(new_program.getStartInstruction().as<MoveInstruction>().getWaypoint()))
     {
-      StateWaypoint* waypoint =
-          new_program.getStartInstruction().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-      waypoint->velocity = Eigen::VectorXd::Zero(num_joints);
-      waypoint->acceleration = Eigen::VectorXd::Zero(num_joints);
+      auto& waypoint = new_program.getStartInstruction().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+      waypoint.velocity = Eigen::VectorXd::Zero(num_joints);
+      waypoint.acceleration = Eigen::VectorXd::Zero(num_joints);
     }
   }
 
@@ -210,7 +209,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   {
     // always sample the end of the trajectory as well
     double t = std::min(parameterized.getDuration(), static_cast<double>(sample) * resample_dt_);
-    StateWaypoint wp(*input_instruction->getWaypoint().as<StateWaypoint>());
+    StateWaypoint wp(input_instruction.getWaypoint().as<StateWaypoint>());
     wp.position = parameterized.getPosition(t).topRows(num_joints);
     wp.velocity = parameterized.getVelocity(t).topRows(num_joints);
     wp.acceleration = parameterized.getAcceleration(t).topRows(num_joints);
@@ -218,7 +217,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
 
     // Note that meta information like MoveInstructionType, profile, and ManipulatorInfo will be set to that of the last
     // instruction (last used since first will usually be MoveInstructionType::START)
-    MoveInstruction output_instruction(*input_instruction);
+    MoveInstruction output_instruction(input_instruction);
     output_instruction.setWaypoint(wp);
 
     new_program.push_back(output_instruction);

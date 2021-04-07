@@ -125,8 +125,8 @@ std::size_t TaskInput::size()
   {
     if (isCompositeInstruction(*ci))
     {
-      const auto* composite = ci->as<CompositeInstruction>();
-      ci = &(composite->at(i));
+      const auto& composite = ci->as<CompositeInstruction>();
+      ci = &(composite.at(i));
     }
     else
     {
@@ -136,8 +136,8 @@ std::size_t TaskInput::size()
 
   if (isCompositeInstruction(*ci))
   {
-    const auto* composite = ci->as<CompositeInstruction>();
-    return composite->size();
+    const auto& composite = ci->as<CompositeInstruction>();
+    return composite.size();
   }
 
   return 0;
@@ -150,8 +150,8 @@ const Instruction* TaskInput::getInstruction() const
   {
     if (isCompositeInstruction(*ci))
     {
-      const auto* composite = ci->as<CompositeInstruction>();
-      ci = &(composite->at(i));
+      const auto& composite = ci->as<CompositeInstruction>();
+      ci = &(composite.at(i));
     }
     else
     {
@@ -168,8 +168,8 @@ Instruction* TaskInput::getResults()
   {
     if (isCompositeInstruction(*ci))
     {
-      auto* composite = ci->as<CompositeInstruction>();
-      ci = &(composite->at(i));
+      auto& composite = ci->as<CompositeInstruction>();
+      ci = &(composite.at(i));
     }
     else
     {
@@ -210,8 +210,8 @@ Instruction TaskInput::getStartInstruction() const
   {
     if (isCompositeInstruction(*ci))
     {
-      auto* composite = ci->as<CompositeInstruction>();
-      ci = &(composite->at(i));
+      auto& composite = ci->as<CompositeInstruction>();
+      ci = &(composite.at(i));
     }
     else
     {
@@ -220,7 +220,7 @@ Instruction TaskInput::getStartInstruction() const
   }
 
   if (isCompositeInstruction(*ci))
-    return *getLastMoveInstruction(*(ci->as<CompositeInstruction>()));
+    return *getLastMoveInstruction(ci->as<CompositeInstruction>());
 
   return *ci;
 }
@@ -250,8 +250,8 @@ Instruction TaskInput::getEndInstruction() const
   {
     if (isCompositeInstruction(*ci))
     {
-      auto* composite = ci->as<CompositeInstruction>();
-      ci = &(composite->at(i));
+      auto& composite = ci->as<CompositeInstruction>();
+      ci = &(composite.at(i));
     }
     else
     {
@@ -261,8 +261,8 @@ Instruction TaskInput::getEndInstruction() const
 
   if (isCompositeInstruction(*ci))
   {
-    auto* composite = ci->as<CompositeInstruction>();
-    return composite->getStartInstruction();
+    auto& composite = ci->as<CompositeInstruction>();
+    return composite.getStartInstruction();
   }
 
   return *ci;

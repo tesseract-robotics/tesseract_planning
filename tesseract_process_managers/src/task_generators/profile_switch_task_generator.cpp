@@ -64,14 +64,14 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 0;
   }
 
-  const auto* ci = input_instruction->as<CompositeInstruction>();
+  const auto& ci = input_instruction->as<CompositeInstruction>();
 
   // Get Composite Profile
-  std::string profile = ci->getProfile();
+  std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<ProfileSwitchProfile>(profile, composite_profiles, std::make_shared<ProfileSwitchProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci->profile_overrides);
+  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);

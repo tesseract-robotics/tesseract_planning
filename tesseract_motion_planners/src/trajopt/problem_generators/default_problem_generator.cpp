@@ -98,11 +98,11 @@ DefaultTrajoptProblemGenerator(const std::string& name,
     start_instruction = &(request.instructions.getStartInstruction());
     if (isPlanInstruction(*start_instruction))
     {
-      const auto* temp = start_instruction->as<PlanInstruction>();
-      assert(temp->isStart());
-      start_waypoint = temp->getWaypoint();
-      profile = temp->getProfile();
-      profile_overrides = temp->profile_overrides;
+      const auto& temp = start_instruction->as<PlanInstruction>();
+      assert(temp.isStart());
+      start_waypoint = temp.getWaypoint();
+      profile = temp.getProfile();
+      profile_overrides = temp.profile_overrides;
     }
     else
     {
@@ -131,15 +131,15 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   // Add start seed state
   assert(request.seed.hasStartInstruction());
   assert(isMoveInstruction(request.seed.getStartInstruction()));
-  const auto* seed_instruction = request.seed.getStartInstruction().as<MoveInstruction>();
-  assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-  seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+  const auto& seed_instruction = request.seed.getStartInstruction().as<MoveInstruction>();
+  assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+  seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
 
   // Add start waypoint
   if (isCartesianWaypoint(start_waypoint))
   {
-    const auto* cwp = start_waypoint.as<CartesianWaypoint>();
-    start_plan_profile->apply(*pci, cwp->waypoint, *start_instruction, composite_mi, active_links, index);
+    const auto& cwp = start_waypoint.as<CartesianWaypoint>();
+    start_plan_profile->apply(*pci, cwp.waypoint, *start_instruction, composite_mi, active_links, index);
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
@@ -148,13 +148,13 @@ DefaultTrajoptProblemGenerator(const std::string& name,
 
     if (isJointWaypoint(start_waypoint))
     {
-      toleranced = start_waypoint.as<JointWaypoint>()->isToleranced();
+      toleranced = start_waypoint.as<JointWaypoint>().isToleranced();
       start_plan_profile->apply(
-          *pci, *start_waypoint.as<JointWaypoint>(), *start_instruction, composite_mi, active_links, index);
+          *pci, start_waypoint.as<JointWaypoint>(), *start_instruction, composite_mi, active_links, index);
     }
     else if (isStateWaypoint(start_waypoint))
     {
-      JointWaypoint jwp(start_waypoint.as<StateWaypoint>()->joint_names, start_waypoint.as<StateWaypoint>()->position);
+      JointWaypoint jwp(start_waypoint.as<StateWaypoint>().joint_names, start_waypoint.as<StateWaypoint>().position);
       start_plan_profile->apply(*pci, jwp, *start_instruction, composite_mi, active_links, index);
     }
     else
@@ -182,33 +182,33 @@ DefaultTrajoptProblemGenerator(const std::string& name,
     if (isPlanInstruction(instruction))
     {
       assert(isPlanInstruction(instruction));
-      const auto* plan_instruction = instruction.as<PlanInstruction>();
+      const auto& plan_instruction = instruction.as<PlanInstruction>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
-      ManipulatorInfo manip_info = composite_mi.getCombined(plan_instruction->getManipulatorInfo());
+      ManipulatorInfo manip_info = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
       Eigen::Isometry3d tcp = request.env->findTCP(manip_info);
 
       assert(isCompositeInstruction(seed_flat[i].get()));
-      const auto* seed_composite = seed_flat[i].get().as<tesseract_planning::CompositeInstruction>();
-      auto interpolate_cnt = static_cast<int>(seed_composite->size());
+      const auto& seed_composite = seed_flat[i].get().as<tesseract_planning::CompositeInstruction>();
+      auto interpolate_cnt = static_cast<int>(seed_composite.size());
 
-      std::string profile = getProfileString(plan_instruction->getProfile(), name, request.plan_profile_remapping);
+      std::string profile = getProfileString(plan_instruction.getProfile(), name, request.plan_profile_remapping);
       TrajOptPlanProfile::ConstPtr cur_plan_profile =
           getProfile<TrajOptPlanProfile>(profile, plan_profiles, std::make_shared<TrajOptDefaultPlanProfile>());
-      cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, plan_instruction->profile_overrides);
+      cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, plan_instruction.profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("TrajOptPlannerUniversalConfig: Invalid profile");
 
-      if (plan_instruction->isLinear())
+      if (plan_instruction.isLinear())
       {
-        if (isCartesianWaypoint(plan_instruction->getWaypoint()))
+        if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
-          const auto* cur_wp = plan_instruction->getWaypoint().as<tesseract_planning::CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>()->waypoint;
+            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -222,46 +222,46 @@ DefaultTrajoptProblemGenerator(const std::string& name,
             throw std::runtime_error("TrajOptPlannerUniversalConfig: uknown waypoint type.");
           }
 
-          tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, *cur_wp, interpolate_cnt);
+          tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_wp, interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*pci, poses[p], *plan_instruction, composite_mi, active_links, index);
+            cur_plan_profile->apply(*pci, poses[p], plan_instruction, composite_mi, active_links, index);
 
             // Add seed state
-            assert(isMoveInstruction(seed_composite->at(p)));
-            const auto* seed_instruction = seed_composite->at(p).as<MoveInstruction>();
-            assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-            seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+            assert(isMoveInstruction(seed_composite.at(p)));
+            const auto& seed_instruction = seed_composite.at(p).as<MoveInstruction>();
+            assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+            seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
 
             ++index;
           }
 
           // Add final point with waypoint
-          cur_plan_profile->apply(*pci, *cur_wp, *plan_instruction, composite_mi, active_links, index);
+          cur_plan_profile->apply(*pci, cur_wp, plan_instruction, composite_mi, active_links, index);
 
           // Add seed state
-          assert(isMoveInstruction(seed_composite->back()));
-          const auto* seed_instruction = seed_composite->back().as<tesseract_planning::MoveInstruction>();
-          assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-          seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+          assert(isMoveInstruction(seed_composite.back()));
+          const auto& seed_instruction = seed_composite.back().as<tesseract_planning::MoveInstruction>();
+          assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+          seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
 
           ++index;
         }
-        else if (isJointWaypoint(plan_instruction->getWaypoint()) || isStateWaypoint(plan_instruction->getWaypoint()))
+        else if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(pci->kin->getJointNames(), plan_instruction->getWaypoint()));
+          assert(checkJointPositionFormat(pci->kin->getJointNames(), plan_instruction.getWaypoint()));
           bool toleranced = false;
 
           JointWaypoint cur_position;
-          if (isJointWaypoint(plan_instruction->getWaypoint()))
+          if (isJointWaypoint(plan_instruction.getWaypoint()))
           {
-            toleranced = plan_instruction->getWaypoint().as<JointWaypoint>()->isToleranced();
-            cur_position = *plan_instruction->getWaypoint().as<JointWaypoint>();
+            toleranced = plan_instruction.getWaypoint().as<JointWaypoint>().isToleranced();
+            cur_position = plan_instruction.getWaypoint().as<JointWaypoint>();
           }
-          else if (isStateWaypoint(plan_instruction->getWaypoint()))
-            cur_position = JointWaypoint(plan_instruction->getWaypoint().as<StateWaypoint>()->joint_names,
-                                         plan_instruction->getWaypoint().as<StateWaypoint>()->position);
+          else if (isStateWaypoint(plan_instruction.getWaypoint()))
+            cur_position = JointWaypoint(plan_instruction.getWaypoint().as<StateWaypoint>().joint_names,
+                                         plan_instruction.getWaypoint().as<StateWaypoint>().position);
           else
             throw std::runtime_error("Unsupported waypoint type.");
 
@@ -271,7 +271,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>()->waypoint;
+            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -289,29 +289,29 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*pci, poses[p], *plan_instruction, composite_mi, active_links, index);
+            cur_plan_profile->apply(*pci, poses[p], plan_instruction, composite_mi, active_links, index);
 
             // Add seed state
-            assert(isMoveInstruction(seed_composite->at(p)));
-            const auto* seed_instruction = seed_composite->at(p).as<MoveInstruction>();
-            assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-            seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+            assert(isMoveInstruction(seed_composite.at(p)));
+            const auto& seed_instruction = seed_composite.at(p).as<MoveInstruction>();
+            assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+            seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
 
             ++index;
           }
 
           // Add final point with waypoint
-          cur_plan_profile->apply(*pci, cur_position, *plan_instruction, composite_mi, active_links, index);
+          cur_plan_profile->apply(*pci, cur_position, plan_instruction, composite_mi, active_links, index);
 
           // Add to fixed indices
           if (!toleranced)
             fixed_steps.push_back(index);
 
           // Add seed state
-          assert(isMoveInstruction(seed_composite->back()));
-          const auto* seed_instruction = seed_composite->back().as<MoveInstruction>();
-          assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-          seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+          assert(isMoveInstruction(seed_composite.back()));
+          const auto& seed_instruction = seed_composite.back().as<MoveInstruction>();
+          assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+          seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
 
           ++index;
         }
@@ -320,20 +320,20 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           throw std::runtime_error("TrajOptPlannerUniversalConfig: unknown waypoint type");
         }
       }
-      else if (plan_instruction->isFreespace())
+      else if (plan_instruction.isFreespace())
       {
-        if (isJointWaypoint(plan_instruction->getWaypoint()) || isStateWaypoint(plan_instruction->getWaypoint()))
+        if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(pci->kin->getJointNames(), plan_instruction->getWaypoint()));
+          assert(checkJointPositionFormat(pci->kin->getJointNames(), plan_instruction.getWaypoint()));
 
           // Add intermediate points with path costs and constraints
-          for (std::size_t s = 0; s < seed_composite->size() - 1; ++s)
+          for (std::size_t s = 0; s < seed_composite.size() - 1; ++s)
           {
             // Add seed state
-            assert(isMoveInstruction(seed_composite->at(s)));
-            const auto* seed_instruction = seed_composite->at(s).as<MoveInstruction>();
-            assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-            seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+            assert(isMoveInstruction(seed_composite.at(s)));
+            const auto& seed_instruction = seed_composite.at(s).as<MoveInstruction>();
+            assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+            seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
 
             ++index;
           }
@@ -341,21 +341,21 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           bool toleranced = false;
 
           // Add final point with waypoint costs and contraints
-          if (isJointWaypoint(plan_instruction->getWaypoint()))
+          if (isJointWaypoint(plan_instruction.getWaypoint()))
           {
-            toleranced = plan_instruction->getWaypoint().as<JointWaypoint>()->isToleranced();
+            toleranced = plan_instruction.getWaypoint().as<JointWaypoint>().isToleranced();
             cur_plan_profile->apply(*pci,
-                                    *plan_instruction->getWaypoint().as<JointWaypoint>(),
+                                    plan_instruction.getWaypoint().as<JointWaypoint>(),
                                     *start_instruction,
                                     composite_mi,
                                     active_links,
                                     index);
           }
-          else if (isStateWaypoint(plan_instruction->getWaypoint()))
+          else if (isStateWaypoint(plan_instruction.getWaypoint()))
           {
-            JointWaypoint jwp(plan_instruction->getWaypoint().as<StateWaypoint>()->joint_names,
-                              plan_instruction->getWaypoint().as<StateWaypoint>()->position);
-            cur_plan_profile->apply(*pci, jwp, *plan_instruction, composite_mi, active_links, index);
+            JointWaypoint jwp(plan_instruction.getWaypoint().as<StateWaypoint>().joint_names,
+                              plan_instruction.getWaypoint().as<StateWaypoint>().position);
+            cur_plan_profile->apply(*pci, jwp, plan_instruction, composite_mi, active_links, index);
           }
           else
             throw std::runtime_error("Unsupported start_waypoint type.");
@@ -365,36 +365,36 @@ DefaultTrajoptProblemGenerator(const std::string& name,
             fixed_steps.push_back(index);
 
           // Add seed state
-          assert(isMoveInstruction(seed_composite->back()));
-          const auto* seed_instruction = seed_composite->back().as<MoveInstruction>();
-          assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-          seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+          assert(isMoveInstruction(seed_composite.back()));
+          const auto& seed_instruction = seed_composite.back().as<MoveInstruction>();
+          assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+          seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
         }
-        else if (isCartesianWaypoint(plan_instruction->getWaypoint()))
+        else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
-          const auto* cur_wp = plan_instruction->getWaypoint().as<CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().as<CartesianWaypoint>();
 
           // Add intermediate points with path costs and constraints
-          for (std::size_t s = 0; s < seed_composite->size() - 1; ++s)
+          for (std::size_t s = 0; s < seed_composite.size() - 1; ++s)
           {
             // Add seed state
-            assert(isMoveInstruction(seed_composite->at(s)));
-            const auto* seed_instruction = seed_composite->at(s).as<MoveInstruction>();
-            assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-            seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+            assert(isMoveInstruction(seed_composite.at(s)));
+            const auto& seed_instruction = seed_composite.at(s).as<MoveInstruction>();
+            assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+            seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
 
             ++index;
           }
 
           // Add final point with waypoint costs and contraints
           /** @todo Should check that the joint names match the order of the manipulator */
-          cur_plan_profile->apply(*pci, *cur_wp, *plan_instruction, composite_mi, active_links, index);
+          cur_plan_profile->apply(*pci, cur_wp, plan_instruction, composite_mi, active_links, index);
 
           // Add seed state
-          assert(isMoveInstruction(seed_composite->back()));
-          const auto* seed_instruction = seed_composite->back().as<MoveInstruction>();
-          assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction->getWaypoint()));
-          seed_states.push_back(getJointPosition(seed_instruction->getWaypoint()));
+          assert(isMoveInstruction(seed_composite.back()));
+          const auto& seed_instruction = seed_composite.back().as<MoveInstruction>();
+          assert(checkJointPositionFormat(pci->kin->getJointNames(), seed_instruction.getWaypoint()));
+          seed_states.push_back(getJointPosition(seed_instruction.getWaypoint()));
         }
         else
         {
@@ -408,7 +408,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
         throw std::runtime_error("Unsupported!");
       }
 
-      start_waypoint = plan_instruction->getWaypoint();
+      start_waypoint = plan_instruction.getWaypoint();
     }
   }
 

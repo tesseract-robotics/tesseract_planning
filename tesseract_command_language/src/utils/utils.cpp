@@ -43,7 +43,7 @@ static tesseract_planning::locateFilterFn toJointTrajectoryMoveFilter =
        bool parent_is_first_composite) {
       if (tesseract_planning::isMoveInstruction(i))
       {
-        if (i.as<tesseract_planning::MoveInstruction>()->isStart())
+        if (i.as<tesseract_planning::MoveInstruction>().isStart())
           return (parent_is_first_composite);
 
         return true;
@@ -63,9 +63,9 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
   double total_time = 0;
   for (auto& i : flattened_program)
   {
-    const auto* mi = i.get().as<tesseract_planning::MoveInstruction>();
-    const auto* swp = mi->getWaypoint().as<tesseract_planning::StateWaypoint>();
-    tesseract_common::JointState joint_state(*swp);
+    const auto& mi = i.get().as<tesseract_planning::MoveInstruction>();
+    const auto& swp = mi.getWaypoint().as<tesseract_planning::StateWaypoint>();
+    tesseract_common::JointState joint_state(swp);
     current_time = joint_state.time;
 
     // It is possible for sub composites to start back from zero, this accounts for it
@@ -84,10 +84,10 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
 const Eigen::VectorXd& getJointPosition(const Waypoint& waypoint)
 {
   if (isJointWaypoint(waypoint))
-    return *(waypoint.as<JointWaypoint>());
+    return waypoint.as<JointWaypoint>().waypoint;
 
   if (isStateWaypoint(waypoint))
-    return waypoint.as<StateWaypoint>()->position;
+    return waypoint.as<StateWaypoint>().position;
 
   throw std::runtime_error("Unsupported waypoint type.");
 }
@@ -95,10 +95,10 @@ const Eigen::VectorXd& getJointPosition(const Waypoint& waypoint)
 const std::vector<std::string>& getJointNames(const Waypoint& waypoint)
 {
   if (isJointWaypoint(waypoint))
-    return waypoint.as<JointWaypoint>()->joint_names;
+    return waypoint.as<JointWaypoint>().joint_names;
 
   if (isStateWaypoint(waypoint))
-    return waypoint.as<StateWaypoint>()->joint_names;
+    return waypoint.as<StateWaypoint>().joint_names;
 
   throw std::runtime_error("Unsupported waypoint type.");
 }
@@ -109,15 +109,15 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
   std::vector<std::string> jn;
   if (isJointWaypoint(waypoint))
   {
-    const auto* jwp = waypoint.as<JointWaypoint>();
-    jv = jwp->waypoint;
-    jn = jwp->joint_names;
+    const auto& jwp = waypoint.as<JointWaypoint>();
+    jv = jwp.waypoint;
+    jn = jwp.joint_names;
   }
   else if (isStateWaypoint(waypoint))
   {
-    const auto* swp = waypoint.as<StateWaypoint>();
-    jv = swp->position;
-    jn = swp->joint_names;
+    const auto& swp = waypoint.as<StateWaypoint>();
+    jv = swp.position;
+    jn = swp.joint_names;
   }
   else
   {
@@ -153,15 +153,15 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, Waypoint& 
   std::vector<std::string>* jn;
   if (isJointWaypoint(waypoint))
   {
-    auto* jwp = waypoint.as<JointWaypoint>();
-    jv = &(jwp->waypoint);
-    jn = &(jwp->joint_names);
+    auto& jwp = waypoint.as<JointWaypoint>();
+    jv = &(jwp.waypoint);
+    jn = &(jwp.joint_names);
   }
   else if (isStateWaypoint(waypoint))
   {
-    auto* swp = waypoint.as<StateWaypoint>();
-    jv = &(swp->position);
-    jn = &(swp->joint_names);
+    auto& swp = waypoint.as<StateWaypoint>();
+    jv = &(swp.position);
+    jn = &(swp.joint_names);
   }
   else
   {
@@ -197,10 +197,10 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, Waypoint& 
 bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const Waypoint& waypoint)
 {
   if (isJointWaypoint(waypoint))
-    return (joint_names == waypoint.as<JointWaypoint>()->joint_names);
+    return (joint_names == waypoint.as<JointWaypoint>().joint_names);
 
   if (isStateWaypoint(waypoint))
-    return (joint_names == waypoint.as<StateWaypoint>()->joint_names);
+    return (joint_names == waypoint.as<StateWaypoint>().joint_names);
 
   throw std::runtime_error("Unsupported waypoint type.");
 }
@@ -208,9 +208,9 @@ bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const
 bool setJointPosition(Waypoint& waypoint, const Eigen::Ref<const Eigen::VectorXd>& position)
 {
   if (isJointWaypoint(waypoint))
-    *waypoint.as<JointWaypoint>() = position;
+    waypoint.as<JointWaypoint>().waypoint = position;
   else if (isStateWaypoint(waypoint))
-    waypoint.as<StateWaypoint>()->position = position;
+    waypoint.as<StateWaypoint>().position = position;
   else
     return false;
 
@@ -310,16 +310,16 @@ void generateSkeletonSeedHelper(CompositeInstruction& composite_instructions)
   {
     if (isCompositeInstruction(i))
     {
-      generateSkeletonSeedHelper(*(i.as<CompositeInstruction>()));
+      generateSkeletonSeedHelper(i.as<CompositeInstruction>());
     }
     else if (isPlanInstruction(i))
     {
       CompositeInstruction ci;
-      const auto* pi = i.as<PlanInstruction>();
-      ci.setProfile(pi->getProfile());
-      ci.setDescription(pi->getDescription());
-      ci.setManipulatorInfo(pi->getManipulatorInfo());
-      ci.profile_overrides = pi->profile_overrides;
+      const auto& pi = i.as<PlanInstruction>();
+      ci.setProfile(pi.getProfile());
+      ci.setDescription(pi.getDescription());
+      ci.setManipulatorInfo(pi.getManipulatorInfo());
+      ci.profile_overrides = pi.profile_overrides;
 
       i = ci;
     }
@@ -336,7 +336,7 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   std::vector<std::reference_wrapper<const Instruction>> mi = flatten(composite_instructions, &moveFilter);
 
   // Write Joint names as header
-  std::vector<std::string> joint_names = getJointNames(mi.front().get().as<MoveInstruction>()->getWaypoint());
+  std::vector<std::string> joint_names = getJointNames(mi.front().get().as<MoveInstruction>().getWaypoint());
 
   for (std::size_t i = 0; i < joint_names.size() - 1; ++i)
     myfile << joint_names[i] << separator;
@@ -346,7 +346,7 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   // Write Positions
   for (const auto& i : mi)
   {
-    Eigen::VectorXd p = getJointPosition(i.get().as<MoveInstruction>()->getWaypoint());
+    Eigen::VectorXd p = getJointPosition(i.get().as<MoveInstruction>().getWaypoint());
     myfile << p.format(eigen_format) << std::endl;
   }
 

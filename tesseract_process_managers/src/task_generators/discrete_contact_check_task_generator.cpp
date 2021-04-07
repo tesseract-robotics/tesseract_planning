@@ -98,9 +98,9 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   }
   manager->setActiveCollisionObjects(active_links_manip);
 
-  const auto* ci = input_result->as<CompositeInstruction>();
+  const auto& ci = input_result->as<CompositeInstruction>();
   std::vector<tesseract_collision::ContactResultMap> contacts;
-  if (contactCheckProgram(contacts, *manager, *state_solver, *ci, config))
+  if (contactCheckProgram(contacts, *manager, *state_solver, ci, config))
   {
     CONSOLE_BRIDGE_logInform("Results are not contact free for process input: %s !",
                              input_result->getDescription().c_str());
