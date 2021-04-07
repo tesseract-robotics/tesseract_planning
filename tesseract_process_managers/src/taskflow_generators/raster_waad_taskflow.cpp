@@ -74,7 +74,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
   {
     // Get the last plan instruction of the approach
     assert(isCompositeInstruction(*(input[idx][0].getInstruction())));
-    const auto* aci = input[idx][0].getInstruction()->cast_const<CompositeInstruction>();
+    const auto* aci = input[idx][0].getInstruction()->as<CompositeInstruction>();
     auto* ali = getLastPlanInstruction(*aci);
     assert(ali != nullptr);
 
@@ -107,7 +107,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
     if (idx == 1)
     {
       assert(isCompositeInstruction(*(input[0].getInstruction())));
-      const auto* ci = input[0].getInstruction()->cast_const<CompositeInstruction>();
+      const auto* ci = input[0].getInstruction()->as<CompositeInstruction>();
       const auto* li = getLastPlanInstruction(*ci);
       assert(li != nullptr);
       start_instruction = *li;
@@ -115,14 +115,14 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
     else
     {
       assert(isCompositeInstruction(*(input[idx - 1].getInstruction())));
-      const auto* tci = input[idx - 1].getInstruction()->cast_const<CompositeInstruction>();
+      const auto* tci = input[idx - 1].getInstruction()->as<CompositeInstruction>();
       auto* li = getLastPlanInstruction(*tci);
       assert(li != nullptr);
       start_instruction = *li;
     }
 
     // Create the departure taskflow
-    start_instruction.cast<PlanInstruction>()->setPlanType(PlanInstructionType::START);
+    start_instruction.as<PlanInstruction>()->setPlanType(PlanInstructionType::START);
     TaskInput approach_input = input[idx][0];
     approach_input.setStartInstruction(start_instruction);
     approach_input.setEndInstruction(std::vector<std::size_t>({ idx, 1 }));
@@ -173,8 +173,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
 
   // Plan from_start - preceded by the first raster
   TaskInput from_start_input = input[0];
-  from_start_input.setStartInstruction(
-      input.getInstruction()->cast_const<CompositeInstruction>()->getStartInstruction());
+  from_start_input.setStartInstruction(input.getInstruction()->as<CompositeInstruction>()->getStartInstruction());
   from_start_input.setEndInstruction(std::vector<std::size_t>({ 1, 0 }));
   TaskflowContainer sub_container1 = freespace_taskflow_generator_->generateTaskflow(
       from_start_input,
@@ -218,7 +217,7 @@ bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
   }
-  const auto* composite = input_instruction->cast_const<CompositeInstruction>();
+  const auto* composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
   if (!composite->hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
@@ -245,7 +244,7 @@ bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
     }
 
     // Convert to composite
-    const auto* step = composite->at(index).cast_const<CompositeInstruction>();
+    const auto* step = composite->at(index).as<CompositeInstruction>();
 
     // Odd numbers are raster segments
     if (index % 2 == 1)

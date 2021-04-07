@@ -63,7 +63,7 @@ void flattenHelper(std::vector<std::reference_wrapper<Instruction>>& flattened,
         if (filter(i, composite, first_composite))
           flattened.emplace_back(i);
 
-      flattenHelper(flattened, *(i.cast<CompositeInstruction>()), filter, false);
+      flattenHelper(flattened, *(i.as<CompositeInstruction>()), filter, false);
     }
     else if (!filter || (filter && filter(i, composite, first_composite)))
     {
@@ -106,7 +106,7 @@ void flattenHelper(std::vector<std::reference_wrapper<const Instruction>>& flatt
         if (filter(i, composite, first_composite))
           flattened.emplace_back(i);
 
-      flattenHelper(flattened, *(i.cast_const<CompositeInstruction>()), filter, false);
+      flattenHelper(flattened, *(i.as<CompositeInstruction>()), filter, false);
     }
     else if (!filter || filter(i, composite, first_composite))
     {
@@ -158,8 +158,8 @@ void flattenToPatternHelper(std::vector<std::reference_wrapper<Instruction>>& fl
           flattened.emplace_back(composite[i]);
 
       flattenToPatternHelper(flattened,
-                             *(composite[i].cast<CompositeInstruction>()),
-                             *pattern.at(i).cast_const<CompositeInstruction>(),
+                             *(composite[i].as<CompositeInstruction>()),
+                             *pattern.at(i).as<CompositeInstruction>(),
                              filter,
                              false);
     }
@@ -214,8 +214,8 @@ void flattenToPatternHelper(std::vector<std::reference_wrapper<const Instruction
           flattened.emplace_back(composite[i]);
 
       flattenToPatternHelper(flattened,
-                             *(composite[i].cast_const<CompositeInstruction>()),
-                             *pattern.at(i).cast_const<CompositeInstruction>(),
+                             *(composite[i].as<CompositeInstruction>()),
+                             *pattern.at(i).as<CompositeInstruction>(),
                              filter,
                              false);
     }

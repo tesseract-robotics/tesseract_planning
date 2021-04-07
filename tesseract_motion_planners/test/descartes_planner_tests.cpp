@@ -196,8 +196,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
     {
       if (isCompositeInstruction(official_results[j]))
       {
-        const auto* sub_official = official_results[j].cast_const<CompositeInstruction>();
-        const auto* sub = planner_response.results[j].cast_const<CompositeInstruction>();
+        const auto* sub_official = official_results[j].as<CompositeInstruction>();
+        const auto* sub = planner_response.results[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub->size(); ++k)
         {
           if (isCompositeInstruction((*sub_official)[k]))
@@ -206,8 +206,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
           }
           else if (isMoveInstruction((*sub_official)[k]))
           {
-            const auto* mv_official = (*sub_official)[k].cast_const<MoveInstruction>();
-            const auto* mv = (*sub)[k].cast_const<MoveInstruction>();
+            const auto* mv_official = (*sub_official)[k].as<MoveInstruction>();
+            const auto* mv = (*sub)[k].as<MoveInstruction>();
             EXPECT_TRUE(
                 getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
           }
@@ -215,8 +215,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto* mv_official = official_results[j].cast_const<MoveInstruction>();
-        const auto* mv = request.seed[j].cast_const<MoveInstruction>();
+        const auto* mv_official = official_results[j].as<MoveInstruction>();
+        const auto* mv = request.seed[j].as<MoveInstruction>();
         EXPECT_TRUE(getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
       }
     }
@@ -303,8 +303,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
     {
       if (isCompositeInstruction(official_results[j]))
       {
-        const auto* sub_official = official_results[j].cast_const<CompositeInstruction>();
-        const auto* sub = request.seed[j].cast_const<CompositeInstruction>();
+        const auto* sub_official = official_results[j].as<CompositeInstruction>();
+        const auto* sub = request.seed[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub->size(); ++k)
         {
           if (isCompositeInstruction((*sub_official)[k]))
@@ -313,8 +313,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
           }
           else if (isMoveInstruction((*sub_official)[k]))
           {
-            const auto* mv_official = (*sub_official)[k].cast_const<MoveInstruction>();
-            const auto* mv = (*sub)[k].cast_const<MoveInstruction>();
+            const auto* mv_official = (*sub_official)[k].as<MoveInstruction>();
+            const auto* mv = (*sub)[k].as<MoveInstruction>();
             EXPECT_TRUE(
                 getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
           }
@@ -322,8 +322,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto* mv_official = official_results[j].cast_const<MoveInstruction>();
-        const auto* mv = request.seed[j].cast_const<MoveInstruction>();
+        const auto* mv_official = official_results[j].as<MoveInstruction>();
+        const auto* mv = request.seed[j].as<MoveInstruction>();
         EXPECT_TRUE(getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
       }
     }
@@ -411,8 +411,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
     {
       if (isCompositeInstruction(official_results[j]))
       {
-        const auto* sub_official = official_results[j].cast_const<CompositeInstruction>();
-        const auto* sub = request.seed[j].cast_const<CompositeInstruction>();
+        const auto* sub_official = official_results[j].as<CompositeInstruction>();
+        const auto* sub = request.seed[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub->size(); ++k)
         {
           if (isCompositeInstruction((*sub_official)[k]))
@@ -421,8 +421,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
           }
           else if (isMoveInstruction((*sub_official)[k]))
           {
-            const auto* mv_official = (*sub_official)[k].cast_const<MoveInstruction>();
-            const auto* mv = (*sub)[k].cast_const<MoveInstruction>();
+            const auto* mv_official = (*sub_official)[k].as<MoveInstruction>();
+            const auto* mv = (*sub)[k].as<MoveInstruction>();
             EXPECT_TRUE(
                 getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
           }
@@ -430,8 +430,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto* mv_official = official_results[j].cast_const<MoveInstruction>();
-        const auto* mv = request.seed[j].cast_const<MoveInstruction>();
+        const auto* mv_official = official_results[j].as<MoveInstruction>();
+        const auto* mv = request.seed[j].as<MoveInstruction>();
         EXPECT_TRUE(getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
       }
     }

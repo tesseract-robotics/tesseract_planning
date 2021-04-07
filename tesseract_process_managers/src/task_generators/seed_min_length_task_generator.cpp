@@ -68,7 +68,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 0;
   }
 
-  CompositeInstruction& results = *(input_results->cast<CompositeInstruction>());
+  CompositeInstruction& results = *(input_results->as<CompositeInstruction>());
   long cnt = getMoveInstructionCount(results);
   if (cnt >= min_length_)
   {
@@ -108,7 +108,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     assert(!isPlanInstruction(i));
     if (isCompositeInstruction(i))
     {
-      const CompositeInstruction* cc = i.cast_const<CompositeInstruction>();
+      const CompositeInstruction* cc = i.as<CompositeInstruction>();
       CompositeInstruction new_cc(cc->getProfile(), cc->getOrder(), cc->getManipulatorInfo());
       new_cc.setDescription(cc->getDescription());
       new_cc.setStartInstruction(cc->getStartInstruction());
@@ -119,13 +119,13 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     else if (isMoveInstruction(i))
     {
       assert(isMoveInstruction(start_instruction));
-      const MoveInstruction* mi0 = start_instruction.cast_const<MoveInstruction>();
-      const MoveInstruction* mi1 = i.cast_const<MoveInstruction>();
+      const MoveInstruction* mi0 = start_instruction.as<MoveInstruction>();
+      const MoveInstruction* mi1 = i.as<MoveInstruction>();
 
       assert(isStateWaypoint(mi0->getWaypoint()));
       assert(isStateWaypoint(mi1->getWaypoint()));
-      const StateWaypoint* swp0 = mi0->getWaypoint().cast_const<StateWaypoint>();
-      const StateWaypoint* swp1 = mi1->getWaypoint().cast_const<StateWaypoint>();
+      const StateWaypoint* swp0 = mi0->getWaypoint().as<StateWaypoint>();
+      const StateWaypoint* swp1 = mi1->getWaypoint().as<StateWaypoint>();
 
       // Linearly interpolate in joint space
       Eigen::MatrixXd states = interpolate(swp0->position, swp1->position, subdivisions);

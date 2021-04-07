@@ -50,7 +50,7 @@ Eigen::Isometry3d calcPose(const Waypoint& wp,
 {
   if (isStateWaypoint(wp))
   {
-    const auto* swp = wp.cast_const<StateWaypoint>();
+    const auto* swp = wp.as<StateWaypoint>();
     assert(static_cast<long>(swp->joint_names.size()) == swp->position.size());
     tesseract_environment::EnvState::Ptr state = state_solver.getState(swp->joint_names, swp->position);
     return (state->link_transforms[tip_link] * tcp);
@@ -58,7 +58,7 @@ Eigen::Isometry3d calcPose(const Waypoint& wp,
 
   if (isJointWaypoint(wp))
   {
-    const auto* jwp = wp.cast_const<JointWaypoint>();
+    const auto* jwp = wp.as<JointWaypoint>();
     assert(static_cast<long>(jwp->joint_names.size()) == jwp->size());
     tesseract_environment::EnvState::Ptr state = state_solver.getState(jwp->joint_names, *jwp);
     return (state->link_transforms[tip_link] * tcp);
@@ -66,7 +66,7 @@ Eigen::Isometry3d calcPose(const Waypoint& wp,
 
   if (isCartesianWaypoint(wp))
   {
-    const auto* cwp = wp.cast_const<CartesianWaypoint>();
+    const auto* cwp = wp.as<CartesianWaypoint>();
     if (working_frame.empty())
       return (*cwp);
 
@@ -91,7 +91,7 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
   tesseract_environment::EnvState::ConstPtr state = env->getCurrentState();
   if (isCompositeInstruction(instruction))
   {
-    const auto* ci = instruction.cast_const<CompositeInstruction>();
+    const auto* ci = instruction.as<CompositeInstruction>();
 
     // Assume all the plan instructions have the same manipulator as the composite
     assert(!ci->getManipulatorInfo().empty());
@@ -115,13 +115,13 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
       Waypoint wp;
       if (isPlanInstruction(i.get()))
       {
-        const auto* pi = i.get().cast_const<PlanInstruction>();
+        const auto* pi = i.get().as<PlanInstruction>();
         manip_info = composite_mi.getCombined(pi->getManipulatorInfo());
         wp = pi->getWaypoint();
       }
       else if (isMoveInstruction(i.get()))
       {
-        const auto* mi = i.get().cast_const<MoveInstruction>();
+        const auto* mi = i.get().as<MoveInstruction>();
         manip_info = composite_mi.getCombined(mi->getManipulatorInfo());
         wp = mi->getWaypoint();
       }
@@ -140,7 +140,7 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
   else if (isPlanInstruction(instruction))
   {
     assert(isPlanInstruction(instruction));
-    const auto* pi = instruction.cast_const<PlanInstruction>();
+    const auto* pi = instruction.as<PlanInstruction>();
 
     // Assume all the plan instructions have the same manipulator as the composite
     assert(!pi->getManipulatorInfo().empty());
@@ -217,8 +217,8 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
 {
   if (isCartesianWaypoint(start))
   {
-    const Eigen::Isometry3d& w1 = start.cast_const<CartesianWaypoint>()->waypoint;
-    const Eigen::Isometry3d& w2 = stop.cast_const<CartesianWaypoint>()->waypoint;
+    const Eigen::Isometry3d& w1 = start.as<CartesianWaypoint>()->waypoint;
+    const Eigen::Isometry3d& w2 = stop.as<CartesianWaypoint>()->waypoint;
     tesseract_common::VectorIsometry3d eigen_poses = interpolate(w1, w2, steps);
 
     std::vector<Waypoint> result;
@@ -231,13 +231,13 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
 
   if (isJointWaypoint(start))
   {
-    const auto* jwp1 = start.cast_const<JointWaypoint>();
+    const auto* jwp1 = start.as<JointWaypoint>();
     //      const auto* jwp2 = stop.cast_const<JointWaypoint>();
 
     // TODO: Should check joint names are in the same order
 
-    const Eigen::VectorXd& w1 = start.cast_const<JointWaypoint>()->waypoint;
-    const Eigen::VectorXd& w2 = stop.cast_const<JointWaypoint>()->waypoint;
+    const Eigen::VectorXd& w1 = start.as<JointWaypoint>()->waypoint;
+    const Eigen::VectorXd& w2 = stop.as<JointWaypoint>()->waypoint;
     Eigen::MatrixXd joint_poses = interpolate(w1, w2, steps);
 
     std::vector<Waypoint> result;
@@ -258,12 +258,12 @@ bool programFlattenFilter(const Instruction& instruction,
 {
   if (isMoveInstruction(instruction))
   {
-    if (instruction.cast_const<MoveInstruction>()->isStart())
+    if (instruction.as<MoveInstruction>()->isStart())
       return (parent_is_first_composite);
   }
   else if (isPlanInstruction(instruction))
   {
-    if (instruction.cast_const<PlanInstruction>()->isStart())
+    if (instruction.as<PlanInstruction>()->isStart())
       return (parent_is_first_composite);
   }
   else if (isCompositeInstruction(instruction))
@@ -318,9 +318,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     contacts.reserve(mi.size() - 1);
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
     {
-      const auto* swp0 = mi.at(iStep).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
-      const auto* swp1 =
-          mi.at(iStep + 1).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
+      const auto* swp0 = mi.at(iStep).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+      const auto* swp1 = mi.at(iStep + 1).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
 
       // TODO: Should check joint names and make sure they are in the same order
       double dist = (swp1->position - swp0->position).norm();
@@ -372,10 +371,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         contacts.reserve(mi.size() - 1);
         for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
         {
-          const auto* swp0 =
-              mi.at(iStep).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
-          const auto* swp1 =
-              mi.at(iStep + 1).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
+          const auto* swp0 = mi.at(iStep).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+          const auto* swp1 = mi.at(iStep + 1).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
 
           // TODO: Should check joint names and make sure they are in the same order
           double dist = (swp1->position - swp0->position).norm();
@@ -434,9 +431,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     contacts.reserve(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
     {
-      const auto* swp0 = mi.at(iStep).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
-      const auto* swp1 =
-          mi.at(iStep + 1).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
+      const auto* swp0 = mi.at(iStep).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+      const auto* swp1 = mi.at(iStep + 1).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
       tesseract_environment::EnvState::Ptr state0 = state_solver.getState(swp0->joint_names, swp0->position);
       tesseract_environment::EnvState::Ptr state1 = state_solver.getState(swp1->joint_names, swp1->position);
 
@@ -489,13 +485,13 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     contacts.reserve(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size(); ++iStep)
     {
-      const auto* swp0 = mi.at(iStep).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
+      const auto* swp0 = mi.at(iStep).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
       const StateWaypoint* swp1 = nullptr;
 
       double dist = -1;
       if (iStep < mi.size() - 1)
       {
-        swp1 = mi.at(iStep + 1).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
+        swp1 = mi.at(iStep + 1).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
         dist = (swp1->position - swp0->position).norm();
       }
 
@@ -569,7 +565,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     contacts.reserve(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
     {
-      const auto* swp0 = mi.at(iStep).get().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>();
+      const auto* swp0 = mi.at(iStep).get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
 
       tesseract_environment::EnvState::Ptr state = state_solver.getState(swp0->joint_names, swp0->position);
       if (checkTrajectoryState(contacts, manager, state, config))
@@ -606,11 +602,11 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
   {
     if (isCompositeInstruction(i))
     {
-      generateNaiveSeedHelper(*(i.cast<CompositeInstruction>()), env, env_state, manip_info);
+      generateNaiveSeedHelper(*(i.as<CompositeInstruction>()), env, env_state, manip_info);
     }
     else if (isPlanInstruction(i))
     {
-      PlanInstruction* base_instruction = i.cast<PlanInstruction>();
+      PlanInstruction* base_instruction = i.as<PlanInstruction>();
       ManipulatorInfo mi = manip_info.getCombined(base_instruction->getManipulatorInfo());
 
       CompositeInstruction ci;
@@ -644,7 +640,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       else if (isJointWaypoint(base_instruction->getWaypoint()))
       {
         assert(checkJointPositionFormat(fwd_kin->getJointNames(), base_instruction->getWaypoint()));
-        const auto* jwp = base_instruction->getWaypoint().cast<JointWaypoint>();
+        const auto* jwp = base_instruction->getWaypoint().as<JointWaypoint>();
         MoveInstruction move_instruction(StateWaypoint(jwp->joint_names, jwp->waypoint), move_type);
         move_instruction.setManipulatorInfo(base_instruction->getManipulatorInfo());
         move_instruction.setDescription(base_instruction->getDescription());
@@ -684,7 +680,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   ProfileDictionary::Ptr profile_overrides;
   if (isPlanInstruction(seed.getStartInstruction()))
   {
-    const auto* pi = seed.getStartInstruction().cast_const<PlanInstruction>();
+    const auto* pi = seed.getStartInstruction().as<PlanInstruction>();
     wp = pi->getWaypoint();
     base_mi = pi->getManipulatorInfo();
     description = pi->getDescription();
@@ -693,7 +689,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   }
   else if (isMoveInstruction(seed.getStartInstruction()))
   {
-    const auto* pi = seed.getStartInstruction().cast_const<MoveInstruction>();
+    const auto* pi = seed.getStartInstruction().as<MoveInstruction>();
     wp = pi->getWaypoint();
     base_mi = pi->getManipulatorInfo();
     description = pi->getDescription();
@@ -720,7 +716,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   else if (isJointWaypoint(wp))
   {
     assert(checkJointPositionFormat(fwd_kin->getJointNames(), wp));
-    const auto* jwp = wp.cast<JointWaypoint>();
+    const auto* jwp = wp.as<JointWaypoint>();
     MoveInstruction move_instruction(StateWaypoint(jwp->joint_names, jwp->waypoint), MoveInstructionType::START);
     move_instruction.setManipulatorInfo(base_mi);
     move_instruction.setDescription(description);
@@ -751,12 +747,12 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
   {
     if (isCompositeInstruction(i))
     {
-      if (formatProgramHelper(*(i.cast<CompositeInstruction>()), env, manip_info))
+      if (formatProgramHelper(*(i.as<CompositeInstruction>()), env, manip_info))
         format_required = true;
     }
     else if (isPlanInstruction(i))
     {
-      PlanInstruction* base_instruction = i.cast<PlanInstruction>();
+      PlanInstruction* base_instruction = i.as<PlanInstruction>();
       ManipulatorInfo mi = manip_info.getCombined(base_instruction->getManipulatorInfo());
 
       ManipulatorInfo combined_mi = mi.getCombined(base_instruction->getManipulatorInfo());
@@ -770,7 +766,7 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
     }
     else if (isMoveInstruction(i))
     {
-      MoveInstruction* base_instruction = i.cast<MoveInstruction>();
+      MoveInstruction* base_instruction = i.as<MoveInstruction>();
       ManipulatorInfo mi = manip_info.getCombined(base_instruction->getManipulatorInfo());
 
       ManipulatorInfo combined_mi = mi.getCombined(base_instruction->getManipulatorInfo());
@@ -796,7 +792,7 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
 
   if (isPlanInstruction(composite_instructions.getStartInstruction()))
   {
-    auto* pi = composite_instructions.getStartInstruction().cast<PlanInstruction>();
+    auto* pi = composite_instructions.getStartInstruction().as<PlanInstruction>();
 
     ManipulatorInfo start_mi = mi.getCombined(pi->getManipulatorInfo());
     auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(start_mi.manipulator);
@@ -809,7 +805,7 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
   }
   else if (isMoveInstruction(composite_instructions.getStartInstruction()))
   {
-    auto* pi = composite_instructions.getStartInstruction().cast<MoveInstruction>();
+    auto* pi = composite_instructions.getStartInstruction().as<MoveInstruction>();
 
     ManipulatorInfo start_mi = mi.getCombined(pi->getManipulatorInfo());
     auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(start_mi.manipulator);

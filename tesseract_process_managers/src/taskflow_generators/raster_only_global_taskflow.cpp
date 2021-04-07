@@ -88,7 +88,7 @@ TaskflowContainer RasterOnlyGlobalTaskflow::generateTaskflow(TaskInput input,
   {
     TaskInput raster_input = input[idx];
     if (idx == 0)
-      raster_input.setStartInstruction(input_instruction->cast_const<CompositeInstruction>()->getStartInstruction());
+      raster_input.setStartInstruction(input_instruction->as<CompositeInstruction>()->getStartInstruction());
     else
       raster_input.setStartInstruction(std::vector<std::size_t>({ idx - 1 }));
 
@@ -146,17 +146,17 @@ void RasterOnlyGlobalTaskflow::globalPostProcess(TaskInput input)
   if (input.isAborted())
     return;
 
-  CompositeInstruction* results = input.getResults()->cast<CompositeInstruction>();
-  CompositeInstruction* composite = results->at(0).cast<CompositeInstruction>();
+  CompositeInstruction* results = input.getResults()->as<CompositeInstruction>();
+  CompositeInstruction* composite = results->at(0).as<CompositeInstruction>();
   composite->setStartInstruction(results->getStartInstruction());
   composite->setManipulatorInfo(results->getManipulatorInfo());
   for (std::size_t i = 1; i < results->size(); ++i)
   {
-    CompositeInstruction* composite0 = results->at(i - 1).cast<CompositeInstruction>();
+    CompositeInstruction* composite0 = results->at(i - 1).as<CompositeInstruction>();
     MoveInstruction lmi = *getLastMoveInstruction(*composite0);
     lmi.setMoveType(MoveInstructionType::START);
 
-    CompositeInstruction* composite1 = results->at(i).cast<CompositeInstruction>();
+    CompositeInstruction* composite1 = results->at(i).as<CompositeInstruction>();
     composite1->setStartInstruction(lmi);
     composite1->setManipulatorInfo(results->getManipulatorInfo());
   }
@@ -180,7 +180,7 @@ bool RasterOnlyGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInpu
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
   }
-  const auto* composite = input_instruction->cast_const<CompositeInstruction>();
+  const auto* composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
   if (!composite->hasStartInstruction() && isNullInstruction(input.getStartInstruction()))

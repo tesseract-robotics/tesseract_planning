@@ -99,7 +99,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
     start_instruction = &(request.instructions.getStartInstruction());
     if (isPlanInstruction(*start_instruction))
     {
-      const auto* temp = start_instruction->cast_const<PlanInstruction>();
+      const auto* temp = start_instruction->as<PlanInstruction>();
       assert(temp->isStart());
       start_waypoint = temp->getWaypoint();
       profile = temp->getProfile();
@@ -132,7 +132,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
   // Add start waypoint
   if (isCartesianWaypoint(start_waypoint))
   {
-    const auto* cwp = start_waypoint.cast_const<CartesianWaypoint>();
+    const auto* cwp = start_waypoint.as<CartesianWaypoint>();
     cur_plan_profile->apply(*prob, cwp->waypoint, *start_instruction, composite_mi, active_links, index);
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
@@ -155,7 +155,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
     if (isPlanInstruction(instruction))
     {
       assert(isPlanInstruction(instruction));
-      const auto* plan_instruction = instruction.template cast_const<PlanInstruction>();
+      const auto* plan_instruction = instruction.template as<PlanInstruction>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
       ManipulatorInfo mi = composite_mi.getCombined(plan_instruction->getManipulatorInfo());
@@ -165,8 +165,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
       assert(request.seed.hasStartInstruction());
       std::size_t seed_idx = (start_index == 0) ? i + 1 : i;
       assert(isCompositeInstruction(seed_flat[seed_idx].get()));
-      const auto* seed_composite =
-          seed_flat[seed_idx].get().template cast_const<tesseract_planning::CompositeInstruction>();
+      const auto* seed_composite = seed_flat[seed_idx].get().template as<tesseract_planning::CompositeInstruction>();
       auto interpolate_cnt = static_cast<int>(seed_composite->size());
 
       // Get Plan Profile
@@ -182,13 +181,12 @@ DefaultDescartesProblemGenerator(const std::string& name,
       {
         if (isCartesianWaypoint(plan_instruction->getWaypoint()))
         {
-          const auto* cur_wp =
-              plan_instruction->getWaypoint().template cast_const<tesseract_planning::CartesianWaypoint>();
+          const auto* cur_wp = plan_instruction->getWaypoint().template as<tesseract_planning::CartesianWaypoint>();
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
+            prev_pose = start_waypoint.as<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -226,7 +224,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.cast_const<CartesianWaypoint>()->waypoint;
+            prev_pose = start_waypoint.as<CartesianWaypoint>()->waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -278,8 +276,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
         }
         else if (isCartesianWaypoint(plan_instruction->getWaypoint()))
         {
-          const auto* cur_wp =
-              plan_instruction->getWaypoint().template cast_const<tesseract_planning::CartesianWaypoint>();
+          const auto* cur_wp = plan_instruction->getWaypoint().template as<tesseract_planning::CartesianWaypoint>();
 
           // Descartes does not support freespace so it will only include the plan instruction state, then in
           // post processing function will perform interpolation to fill out the seed, but may be in collision.

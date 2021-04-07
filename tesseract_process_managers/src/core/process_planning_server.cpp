@@ -117,7 +117,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
       std::make_unique<const PlannerProfileRemapping>(request.composite_profile_remapping);
 
   response.input = std::make_unique<Instruction>(request.instructions);
-  auto* composite_program = response.input->cast<CompositeInstruction>();
+  auto* composite_program = response.input->as<CompositeInstruction>();
   ManipulatorInfo mi = composite_program->getManipulatorInfo();
   response.global_manip_info = std::make_unique<const ManipulatorInfo>(mi);
 

@@ -84,7 +84,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
     return 0;
   }
 
-  auto* ci = input_results->cast<CompositeInstruction>();
+  auto* ci = input_results->as<CompositeInstruction>();
   const ManipulatorInfo& manip_info = ci->getManipulatorInfo();
   const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
 
@@ -113,7 +113,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   std::vector<double> scaling_factors(ci->size(), velocity_scaling_factor);
   for (std::size_t idx = 0; idx < ci->size(); idx++)
   {
-    const auto mi = ci->at(idx).cast_const<CompositeInstruction>();
+    const auto mi = ci->at(idx).as<CompositeInstruction>();
     profile = mi->getProfile();
 
     // Check for remapping of the plan profile
@@ -199,10 +199,10 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
   CompositeInstruction unflattened(pattern);
   unflattened.setStartInstruction(flattened_input.getStartInstruction());
   for (auto& instr : unflattened)
-    instr.cast<CompositeInstruction>()->clear();
+    instr.as<CompositeInstruction>()->clear();
 
-  Eigen::VectorXd last_pt_in_input = getJointPosition(
-      pattern.at(0).cast_const<CompositeInstruction>()->back().cast_const<MoveInstruction>()->getWaypoint());
+  Eigen::VectorXd last_pt_in_input =
+      getJointPosition(pattern.at(0).as<CompositeInstruction>()->back().as<MoveInstruction>()->getWaypoint());
 
   double error = 0;
   double prev_error = 1;
@@ -217,7 +217,7 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
     {
       // Get the current position to see if we should increment original_idx
       Eigen::VectorXd current_pt =
-          getJointPosition(flattened_input.at(resample_idx).cast_const<MoveInstruction>()->getWaypoint());
+          getJointPosition(flattened_input.at(resample_idx).as<MoveInstruction>()->getWaypoint());
       error = (last_pt_in_input - current_pt).cwiseAbs().maxCoeff();
 
       // Check if we've hit the tolerance and if the error is still decreasing
@@ -236,11 +236,8 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
       {
         if (original_idx < pattern.size() - 1)  // Keep from incrementing too far at the end of the last composite
           original_idx++;
-        last_pt_in_input = getJointPosition(pattern.at(original_idx)
-                                                .cast_const<CompositeInstruction>()
-                                                ->back()
-                                                .cast_const<MoveInstruction>()
-                                                ->getWaypoint());
+        last_pt_in_input = getJointPosition(
+            pattern.at(original_idx).as<CompositeInstruction>()->back().as<MoveInstruction>()->getWaypoint());
 
         hit_tolerance = false;
         error_increasing = false;
@@ -248,16 +245,15 @@ TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstructi
     }
 
     // Add flattened point to the subcomposite
-    unflattened[original_idx].cast<CompositeInstruction>()->push_back(flattened_input.at(resample_idx));
+    unflattened[original_idx].as<CompositeInstruction>()->push_back(flattened_input.at(resample_idx));
 
     // Correct the meta information, taking information from the last element of each composite in the original
-    if (isMoveInstruction(unflattened[original_idx].cast_const<CompositeInstruction>()->back()))
+    if (isMoveInstruction(unflattened[original_idx].as<CompositeInstruction>()->back()))
     {
-      const auto pattern_instr =
-          pattern.at(original_idx).cast_const<CompositeInstruction>()->back().cast_const<MoveInstruction>();
-      unflattened[original_idx].cast<CompositeInstruction>()->back().cast<MoveInstruction>()->setMoveType(
+      const auto pattern_instr = pattern.at(original_idx).as<CompositeInstruction>()->back().as<MoveInstruction>();
+      unflattened[original_idx].as<CompositeInstruction>()->back().as<MoveInstruction>()->setMoveType(
           static_cast<MoveInstructionType>(pattern_instr->getMoveType()));
-      unflattened[original_idx].cast<CompositeInstruction>()->back().cast<MoveInstruction>()->setProfile(
+      unflattened[original_idx].as<CompositeInstruction>()->back().as<MoveInstruction>()->setProfile(
           pattern_instr->getProfile());
     }
   }

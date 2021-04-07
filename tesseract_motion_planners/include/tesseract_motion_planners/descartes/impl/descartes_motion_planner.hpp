@@ -167,14 +167,14 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
     assert((idx == 0) ? isMoveInstruction(results_flattened[idx].get()) : true);
     if (isPlanInstruction(instructions_flattened.at(idx).get()))
     {
-      const auto* plan_instruction = instructions_flattened.at(idx).get().cast_const<PlanInstruction>();
+      const auto* plan_instruction = instructions_flattened.at(idx).get().as<PlanInstruction>();
       if (plan_instruction->isStart())
       {
         assert(idx == 0);
         assert(isMoveInstruction(results_flattened[idx].get()));
-        auto* move_instruction = results_flattened[idx].get().cast<MoveInstruction>();
+        auto* move_instruction = results_flattened[idx].get().as<MoveInstruction>();
 
-        auto* swp = move_instruction->getWaypoint().cast<StateWaypoint>();
+        auto* swp = move_instruction->getWaypoint().as<StateWaypoint>();
         swp->position = solution[result_index++];
         assert(swp->joint_names == problem->manip_fwd_kin->getJointNames());
       }
@@ -182,10 +182,10 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
       {
         // This instruction corresponds to a composite. Set all results in that composite to the results
         assert(isCompositeInstruction(results_flattened[idx].get()));
-        auto* move_instructions = results_flattened[idx].get().cast<CompositeInstruction>();
+        auto* move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
         for (auto& instruction : *move_instructions)
         {
-          auto* swp = instruction.cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>();
+          auto* swp = instruction.as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
           swp->position = solution[result_index++];
           assert(swp->joint_names == problem->manip_fwd_kin->getJointNames());
         }
@@ -200,14 +200,14 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
 
         // This instruction corresponds to a composite. Set all results in that composite to the results
         assert(isCompositeInstruction(results_flattened[idx].get()));
-        auto* move_instructions = results_flattened[idx].get().cast<CompositeInstruction>();
+        auto* move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
 
         Eigen::MatrixXd temp = interpolate(start, stop, static_cast<int>(move_instructions->size()));
 
         assert(temp.cols() == static_cast<long>(move_instructions->size()) + 1);
         for (std::size_t i = 0; i < move_instructions->size(); ++i)
         {
-          auto* swp = (*move_instructions)[i].cast<MoveInstruction>()->getWaypoint().cast<StateWaypoint>();
+          auto* swp = (*move_instructions)[i].as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
           swp->position = temp.col(static_cast<long>(i) + 1);
           assert(swp->joint_names == problem->manip_fwd_kin->getJointNames());
         }

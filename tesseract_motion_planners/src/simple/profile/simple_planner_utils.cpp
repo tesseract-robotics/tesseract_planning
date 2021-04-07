@@ -76,7 +76,7 @@ Eigen::Isometry3d InstructionInfo::extractCartesianWorldPose() const
   if (!isCartesianWaypoint(instruction.getWaypoint()))
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
 
-  return working_frame * (*instruction.getWaypoint().cast_const<CartesianWaypoint>());
+  return working_frame * (*instruction.getWaypoint().as<CartesianWaypoint>());
 }
 
 const Eigen::VectorXd& InstructionInfo::extractJointPosition() const
