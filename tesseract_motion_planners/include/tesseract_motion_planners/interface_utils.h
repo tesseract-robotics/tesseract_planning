@@ -66,7 +66,7 @@ static CompositeInstruction generateSeed(const CompositeInstruction& instruction
   auto flat = flattenProgram(instructions);
   for (const auto& i : flat)
     if (isPlanInstruction(i.get()))
-      planner.plan_profiles[i.get().as<PlanInstruction>()->getProfile()] = profile;
+      planner.plan_profiles[i.get().as<PlanInstruction>().getProfile()] = profile;
 
   // Solve
   planner.solve(request, response);

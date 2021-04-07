@@ -68,7 +68,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 0;
   }
 
-  CompositeInstruction& results = *(input_results->as<CompositeInstruction>());
+  CompositeInstruction& results = input_results->as<CompositeInstruction>();
   long cnt = getMoveInstructionCount(results);
   if (cnt >= min_length_)
   {
@@ -108,35 +108,35 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     assert(!isPlanInstruction(i));
     if (isCompositeInstruction(i))
     {
-      const CompositeInstruction* cc = i.as<CompositeInstruction>();
-      CompositeInstruction new_cc(cc->getProfile(), cc->getOrder(), cc->getManipulatorInfo());
-      new_cc.setDescription(cc->getDescription());
-      new_cc.setStartInstruction(cc->getStartInstruction());
+      const CompositeInstruction& cc = i.as<CompositeInstruction>();
+      CompositeInstruction new_cc(cc.getProfile(), cc.getOrder(), cc.getManipulatorInfo());
+      new_cc.setDescription(cc.getDescription());
+      new_cc.setStartInstruction(cc.getStartInstruction());
 
-      subdivide(new_cc, *cc, start_instruction, subdivisions);
+      subdivide(new_cc, cc, start_instruction, subdivisions);
       composite.push_back(new_cc);
     }
     else if (isMoveInstruction(i))
     {
       assert(isMoveInstruction(start_instruction));
-      const MoveInstruction* mi0 = start_instruction.as<MoveInstruction>();
-      const MoveInstruction* mi1 = i.as<MoveInstruction>();
+      const MoveInstruction& mi0 = start_instruction.as<MoveInstruction>();
+      const MoveInstruction& mi1 = i.as<MoveInstruction>();
 
-      assert(isStateWaypoint(mi0->getWaypoint()));
-      assert(isStateWaypoint(mi1->getWaypoint()));
-      const StateWaypoint* swp0 = mi0->getWaypoint().as<StateWaypoint>();
-      const StateWaypoint* swp1 = mi1->getWaypoint().as<StateWaypoint>();
+      assert(isStateWaypoint(mi0.getWaypoint()));
+      assert(isStateWaypoint(mi1.getWaypoint()));
+      const StateWaypoint& swp0 = mi0.getWaypoint().as<StateWaypoint>();
+      const StateWaypoint& swp1 = mi1.getWaypoint().as<StateWaypoint>();
 
       // Linearly interpolate in joint space
-      Eigen::MatrixXd states = interpolate(swp0->position, swp1->position, subdivisions);
+      Eigen::MatrixXd states = interpolate(swp0.position, swp1.position, subdivisions);
 
       // Convert to MoveInstructions
       for (long i = 1; i < states.cols(); ++i)
       {
-        MoveInstruction move_instruction(StateWaypoint(swp1->joint_names, states.col(i)), mi1->getMoveType());
-        move_instruction.setManipulatorInfo(mi1->getManipulatorInfo());
-        move_instruction.setDescription(mi1->getDescription());
-        move_instruction.setProfile(mi1->getProfile());
+        MoveInstruction move_instruction(StateWaypoint(swp1.joint_names, states.col(i)), mi1.getMoveType());
+        move_instruction.setManipulatorInfo(mi1.getManipulatorInfo());
+        move_instruction.setDescription(mi1.getDescription());
+        move_instruction.setProfile(mi1.getProfile());
         composite.push_back(move_instruction);
       }
 

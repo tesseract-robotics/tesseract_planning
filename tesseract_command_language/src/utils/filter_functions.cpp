@@ -36,7 +36,7 @@ bool moveFilter(const Instruction& instruction,
 {
   if (isMoveInstruction(instruction))
   {
-    if (instruction.as<MoveInstruction>()->isStart())
+    if (instruction.as<MoveInstruction>().isStart())
       return (parent_is_first_composite);
 
     return true;
@@ -50,7 +50,7 @@ bool planFilter(const Instruction& instruction,
 {
   if (isPlanInstruction(instruction))
   {
-    if (instruction.as<PlanInstruction>()->isStart())
+    if (instruction.as<PlanInstruction>().isStart())
       return (parent_is_first_composite);
 
     return true;

@@ -52,7 +52,7 @@ static flattenFilterFn programFlattenMoveInstructionFilter =
     [](const Instruction& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
       if (isMoveInstruction(i))
       {
-        if (i.as<MoveInstruction>()->isStart())
+        if (i.as<MoveInstruction>().isStart())
           return (parent_is_first_composite);
 
         return true;
@@ -126,12 +126,12 @@ bool IterativeSplineParameterization::compute(CompositeInstruction& program,
   std::vector<std::reference_wrapper<Instruction>> trajectory = flatten(program, programFlattenMoveInstructionFilter);
 
   assert(isMoveInstruction(trajectory[0].get()));
-  auto* mi = trajectory[0].get().as<MoveInstruction>();
+  auto& mi = trajectory[0].get().as<MoveInstruction>();
 
-  assert(isStateWaypoint(mi->getWaypoint()));
-  auto* swp = mi->getWaypoint().as<StateWaypoint>();
+  assert(isStateWaypoint(mi.getWaypoint()));
+  auto& swp = mi.getWaypoint().as<StateWaypoint>();
 
-  auto num_joints = static_cast<unsigned int>(swp->position.size());
+  auto num_joints = static_cast<unsigned int>(swp.position.size());
 
   return compute(trajectory,
                  std::vector<double>(num_joints, max_velocity),
@@ -184,12 +184,12 @@ bool IterativeSplineParameterization::compute(std::vector<std::reference_wrapper
                                               double max_acceleration_scaling_factor) const
 {
   assert(isMoveInstruction(trajectory[0].get()));
-  auto* mi = trajectory[0].get().as<MoveInstruction>();
+  auto& mi = trajectory[0].get().as<MoveInstruction>();
 
-  assert(isStateWaypoint(mi->getWaypoint()));
-  auto* swp = mi->getWaypoint().as<StateWaypoint>();
+  assert(isStateWaypoint(mi.getWaypoint()));
+  auto& swp = mi.getWaypoint().as<StateWaypoint>();
 
-  auto num_joints = static_cast<unsigned int>(swp->position.size());
+  auto num_joints = static_cast<unsigned int>(swp.position.size());
 
   return compute(trajectory,
                  std::vector<double>(num_joints, max_velocity),
@@ -246,12 +246,12 @@ bool IterativeSplineParameterization::compute(
   std::size_t num_points = local_trajectory.size();
 
   assert(isMoveInstruction(local_trajectory[0].get()));
-  auto* mi = local_trajectory[0].get().as<MoveInstruction>();
+  auto& mi = local_trajectory[0].get().as<MoveInstruction>();
 
-  assert(isStateWaypoint(mi->getWaypoint()));
-  auto* swp = mi->getWaypoint().as<StateWaypoint>();
+  assert(isStateWaypoint(mi.getWaypoint()));
+  auto& swp = mi.getWaypoint().as<StateWaypoint>();
 
-  auto num_joints = static_cast<std::size_t>(swp->position.size());
+  auto num_joints = static_cast<std::size_t>(swp.position.size());
 
   if (static_cast<std::size_t>(max_velocity.size()) != num_joints ||
       static_cast<std::size_t>(max_acceleration.size()) != num_joints)
@@ -310,29 +310,29 @@ bool IterativeSplineParameterization::compute(
     if (local_trajectory.size() >= 2)
     {
       point_to_insert_front = local_trajectory[1].get();
-      auto* point_to_insert_front_swp = point_to_insert_front.as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+      auto& point_to_insert_front_swp = point_to_insert_front.as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
 
       // 2nd point is 90% of p0, and 10% of p1
-      const auto* point_first = local_trajectory[0].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-      const auto* point_second = local_trajectory[1].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+      const auto& point_first = local_trajectory[0].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+      const auto& point_second = local_trajectory[1].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
       for (unsigned int j = 0; j < num_joints; j++)
       {
-        point_to_insert_front_swp->position[j] = 0.9 * point_first->position[j] + 0.1 * point_second->position[j];
+        point_to_insert_front_swp.position[j] = 0.9 * point_first.position[j] + 0.1 * point_second.position[j];
       }
       local_trajectory.insert(local_trajectory.begin() + 1, point_to_insert_front);
       num_points++;
 
       point_to_insert_back = local_trajectory[num_points - 2].get();
-      auto* point_to_insert_back_swp = point_to_insert_back.as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+      auto& point_to_insert_back_swp = point_to_insert_back.as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
 
       // 2nd-last point is 10% of p0, and 90% of p1
-      const auto* point_second_to_last =
-          local_trajectory[num_points - 2].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-      const auto* point_last =
-          local_trajectory[num_points - 1].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+      const auto& point_second_to_last =
+          local_trajectory[num_points - 2].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+      const auto& point_last =
+          local_trajectory[num_points - 1].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
       for (unsigned int j = 0; j < num_joints; j++)
       {
-        point_to_insert_back_swp->position[j] = 0.1 * point_second_to_last->position[j] + 0.9 * point_last->position[j];
+        point_to_insert_back_swp.position[j] = 0.1 * point_second_to_last.position[j] + 0.9 * point_last.position[j];
       }
       local_trajectory.insert(local_trajectory.end() - 1, point_to_insert_back);
       num_points++;
@@ -365,31 +365,31 @@ bool IterativeSplineParameterization::compute(
     t2[j].positions_.resize(num_points, 0.0);
     for (unsigned int i = 0; i < num_points; i++)
     {
-      const auto* swp = local_trajectory[i].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-      t2[j].positions_[i] = swp->position[j];
+      const auto& swp = local_trajectory[i].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+      t2[j].positions_[i] = swp.position[j];
     }
 
     // Initialize velocities
-    const auto* start_swp = local_trajectory[0].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-    const auto* last_swp =
-        local_trajectory[num_points - 1].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
+    const auto& start_swp = local_trajectory[0].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+    const auto& last_swp =
+        local_trajectory[num_points - 1].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
     t2[j].velocities_.resize(num_points, 0.0);
     // Copy initial/final velocities if specified
-    if (start_swp->velocity.size() > 0)
-      t2[j].velocities_[0] = start_swp->velocity[j];
-    if (last_swp->velocity.size() > 0)
-      t2[j].velocities_[num_points - 1] = last_swp->velocity[j];
+    if (start_swp.velocity.size() > 0)
+      t2[j].velocities_[0] = start_swp.velocity[j];
+    if (last_swp.velocity.size() > 0)
+      t2[j].velocities_[num_points - 1] = last_swp.velocity[j];
 
     // Initialize accelerations
     t2[j].accelerations_.resize(num_points, 0.0);
     t2[j].initial_acceleration_ = 0.0;
     t2[j].final_acceleration_ = 0.0;
     // Copy initial/final accelerations if specified
-    if (start_swp->acceleration.size() > 0)
-      t2[j].initial_acceleration_ = start_swp->acceleration[j];
+    if (start_swp.acceleration.size() > 0)
+      t2[j].initial_acceleration_ = start_swp.acceleration[j];
     t2[j].accelerations_[0] = t2[j].initial_acceleration_;
-    if (last_swp->acceleration.size() > 0)
-      t2[j].final_acceleration_ = last_swp->acceleration[j];
+    if (last_swp.acceleration.size() > 0)
+      t2[j].final_acceleration_ = last_swp.acceleration[j];
     t2[j].accelerations_[num_points - 1] = t2[j].final_acceleration_;
 
     // Set bounds based on inputs
@@ -529,27 +529,27 @@ bool IterativeSplineParameterization::compute(
   // Convert back to JointTrajectory form
   for (unsigned int i = 1; i < num_points; i++)
   {
-    auto* swp = local_trajectory[i].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-    const auto* pre_swp = local_trajectory[i - 1].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-    swp->time = pre_swp->time + time_diff[i - 1];
+    auto& swp = local_trajectory[i].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+    const auto& pre_swp = local_trajectory[i - 1].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+    swp.time = pre_swp.time + time_diff[i - 1];
   }
 
   for (unsigned int i = 0; i < num_points; i++)
   {
-    auto* swp = local_trajectory[i].get().as<MoveInstruction>()->getWaypoint().as<StateWaypoint>();
-    swp->velocity.resize(static_cast<long>(num_joints));
-    swp->acceleration.resize(static_cast<long>(num_joints));
+    auto& swp = local_trajectory[i].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+    swp.velocity.resize(static_cast<long>(num_joints));
+    swp.acceleration.resize(static_cast<long>(num_joints));
     for (unsigned int j = 0; j < num_joints; j++)
     {
-      swp->velocity[j] = t2[j].velocities_[i];
-      swp->acceleration[j] = t2[j].accelerations_[i];
+      swp.velocity[j] = t2[j].velocities_[i];
+      swp.acceleration[j] = t2[j].accelerations_[i];
     }
 
     // Only update position of additionally inserted points (at second and next-to-last position)
     if (add_points_ && (i == 1 || i == num_points - 2))
     {
       for (unsigned int j = 0; j < num_joints; j++)
-        swp->velocity[j] = t2[j].velocities_[i];
+        swp.velocity[j] = t2[j].velocities_[i];
     }
   }
 

@@ -63,7 +63,7 @@ void flattenHelper(std::vector<std::reference_wrapper<Instruction>>& flattened,
         if (filter(i, composite, first_composite))
           flattened.emplace_back(i);
 
-      flattenHelper(flattened, *(i.as<CompositeInstruction>()), filter, false);
+      flattenHelper(flattened, i.as<CompositeInstruction>(), filter, false);
     }
     else if (!filter || (filter && filter(i, composite, first_composite)))
     {
@@ -106,7 +106,7 @@ void flattenHelper(std::vector<std::reference_wrapper<const Instruction>>& flatt
         if (filter(i, composite, first_composite))
           flattened.emplace_back(i);
 
-      flattenHelper(flattened, *(i.as<CompositeInstruction>()), filter, false);
+      flattenHelper(flattened, i.as<CompositeInstruction>(), filter, false);
     }
     else if (!filter || filter(i, composite, first_composite))
     {
@@ -157,11 +157,8 @@ void flattenToPatternHelper(std::vector<std::reference_wrapper<Instruction>>& fl
         if (filter(composite[i], composite, first_composite))
           flattened.emplace_back(composite[i]);
 
-      flattenToPatternHelper(flattened,
-                             *(composite[i].as<CompositeInstruction>()),
-                             *pattern.at(i).as<CompositeInstruction>(),
-                             filter,
-                             false);
+      flattenToPatternHelper(
+          flattened, composite[i].as<CompositeInstruction>(), pattern.at(i).as<CompositeInstruction>(), filter, false);
     }
     else
     {
@@ -213,11 +210,8 @@ void flattenToPatternHelper(std::vector<std::reference_wrapper<const Instruction
         if (filter(composite[i], composite, first_composite))
           flattened.emplace_back(composite[i]);
 
-      flattenToPatternHelper(flattened,
-                             *(composite[i].as<CompositeInstruction>()),
-                             *pattern.at(i).as<CompositeInstruction>(),
-                             filter,
-                             false);
+      flattenToPatternHelper(
+          flattened, composite[i].as<CompositeInstruction>(), pattern.at(i).as<CompositeInstruction>(), filter, false);
     }
     else
     {

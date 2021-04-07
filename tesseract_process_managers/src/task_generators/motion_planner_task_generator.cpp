@@ -74,7 +74,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   }
 
   // Make a non-const copy of the input instructions to update the start/end
-  CompositeInstruction instructions = *input_instruction->as<CompositeInstruction>();
+  CompositeInstruction instructions = input_instruction->as<CompositeInstruction>();
   assert(!(input.manip_info.empty() && input.manip_info.empty()));
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
 
@@ -88,8 +88,8 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     if (isCompositeInstruction(start_instruction))
     {
       // if provided a composite instruction as the start instruction it will extract the last move instruction
-      const auto* ci = start_instruction.as<CompositeInstruction>();
-      auto* lmi = getLastMoveInstruction(*ci);
+      const auto& ci = start_instruction.as<CompositeInstruction>();
+      auto* lmi = getLastMoveInstruction(ci);
       assert(lmi != nullptr);
       assert(isMoveInstruction(*lmi));
       PlanInstruction si(lmi->getWaypoint(), PlanInstructionType::START, lmi->getProfile(), lmi->getManipulatorInfo());
@@ -101,13 +101,12 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
       if (isPlanInstruction(start_instruction))
       {
         instructions.setStartInstruction(start_instruction);
-        instructions.getStartInstruction().as<PlanInstruction>()->setPlanType(PlanInstructionType::START);
+        instructions.getStartInstruction().as<PlanInstruction>().setPlanType(PlanInstructionType::START);
       }
       else if (isMoveInstruction(start_instruction))
       {
-        auto* lmi = start_instruction.as<MoveInstruction>();
-        PlanInstruction si(
-            lmi->getWaypoint(), PlanInstructionType::START, lmi->getProfile(), lmi->getManipulatorInfo());
+        auto& lmi = start_instruction.as<MoveInstruction>();
+        PlanInstruction si(lmi.getWaypoint(), PlanInstructionType::START, lmi.getProfile(), lmi.getManipulatorInfo());
         instructions.setStartInstruction(si);
       }
     }
@@ -118,8 +117,8 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     if (isCompositeInstruction(end_instruction))
     {
       // if provided a composite instruction as the end instruction it will extract the first move instruction
-      const auto* ci = end_instruction.as<CompositeInstruction>();
-      auto* fmi = getFirstMoveInstruction(*ci);
+      const auto& ci = end_instruction.as<CompositeInstruction>();
+      auto* fmi = getFirstMoveInstruction(ci);
       assert(fmi != nullptr);
       assert(isMoveInstruction(*fmi));
       getLastPlanInstruction(instructions)->setWaypoint(fmi->getWaypoint());
@@ -130,11 +129,11 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
       auto* lpi = getLastPlanInstruction(instructions);
       if (isMoveInstruction(end_instruction))
       {
-        lpi->setWaypoint(end_instruction.as<MoveInstruction>()->getWaypoint());
+        lpi->setWaypoint(end_instruction.as<MoveInstruction>().getWaypoint());
       }
       else if (isPlanInstruction(end_instruction))
       {
-        lpi->setWaypoint(end_instruction.as<PlanInstruction>()->getWaypoint());
+        lpi->setWaypoint(end_instruction.as<PlanInstruction>().getWaypoint());
       }
     }
   }
@@ -146,7 +145,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   // Fill out request
   // --------------------
   PlannerRequest request;
-  request.seed = *input_results->as<CompositeInstruction>();
+  request.seed = input_results->as<CompositeInstruction>();
   request.env_state = input.env->getCurrentState();
   request.env = input.env;
   request.instructions = instructions;

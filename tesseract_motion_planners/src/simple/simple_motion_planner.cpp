@@ -146,11 +146,11 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   auto results_flattened = flatten(response.results, &moveFilter);
   for (auto& inst : results_flattened)
   {
-    auto* mi = inst.get().as<MoveInstruction>();
-    Eigen::VectorXd jp = getJointPosition(mi->getWaypoint());
+    auto& mi = inst.get().as<MoveInstruction>();
+    Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
     assert(tesseract_common::satisfiesPositionLimits(jp, fwd_kin->getLimits().joint_limits));
     tesseract_common::enforcePositionLimits(jp, fwd_kin->getLimits().joint_limits);
-    setJointPosition(mi->getWaypoint(), jp);
+    setJointPosition(mi.getWaypoint(), jp);
   }
 
   // Return success
@@ -170,15 +170,15 @@ SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
   if (request.instructions.hasStartInstruction())
   {
     assert(isPlanInstruction(request.instructions.getStartInstruction()));
-    const auto* start_instruction = request.instructions.getStartInstruction().as<PlanInstruction>();
-    assert(start_instruction->isStart());
-    start_waypoint = start_instruction->getWaypoint();
+    const auto& start_instruction = request.instructions.getStartInstruction().as<PlanInstruction>();
+    assert(start_instruction.isStart());
+    start_waypoint = start_instruction.getWaypoint();
 
     if (isJointWaypoint(start_waypoint))
     {
       assert(checkJointPositionFormat(fwd_kin->getJointNames(), start_waypoint));
-      const auto* jwp = start_waypoint.as<JointWaypoint>();
-      start_instruction_seed.setWaypoint(StateWaypoint(jwp->joint_names, *jwp));
+      const auto& jwp = start_waypoint.as<JointWaypoint>();
+      start_instruction_seed.setWaypoint(StateWaypoint(jwp.joint_names, jwp.waypoint));
     }
     else if (isCartesianWaypoint(start_waypoint))
     {
@@ -196,10 +196,10 @@ SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
     {
       throw std::runtime_error("Unsupported waypoint type!");
     }
-    start_instruction_seed.setDescription(start_instruction->getDescription());
-    start_instruction_seed.setProfile(start_instruction->getProfile());
-    start_instruction_seed.profile_overrides = start_instruction->profile_overrides;
-    start_instruction_seed.setManipulatorInfo(start_instruction->getManipulatorInfo());
+    start_instruction_seed.setDescription(start_instruction.getDescription());
+    start_instruction_seed.setProfile(start_instruction.getProfile());
+    start_instruction_seed.profile_overrides = start_instruction.profile_overrides;
+    start_instruction_seed.setManipulatorInfo(start_instruction.getManipulatorInfo());
   }
   else
   {
@@ -222,23 +222,23 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
   {
     if (isCompositeInstruction(instruction))
     {
-      seed.push_back(processCompositeInstruction(*instruction.as<CompositeInstruction>(), prev_instruction, request));
+      seed.push_back(processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, request));
     }
     else if (isPlanInstruction(instruction))
     {
-      const auto* base_instruction = instruction.as<PlanInstruction>();
+      const auto& base_instruction = instruction.as<PlanInstruction>();
 
-      std::string profile = getProfileString(base_instruction->getProfile(), name_, request.plan_profile_remapping);
+      std::string profile = getProfileString(base_instruction.getProfile(), name_, request.plan_profile_remapping);
       SimplePlannerPlanProfile::ConstPtr start_plan_profile =
           getProfile<SimplePlannerPlanProfile>(profile, plan_profiles, std::make_shared<SimplePlannerLVSPlanProfile>());
-      start_plan_profile = applyProfileOverrides(name_, start_plan_profile, base_instruction->profile_overrides);
+      start_plan_profile = applyProfileOverrides(name_, start_plan_profile, base_instruction.profile_overrides);
       if (!start_plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid start profile");
 
       seed.push_back(start_plan_profile->generate(
-          prev_instruction, *base_instruction, request, request.instructions.getManipulatorInfo()));
+          prev_instruction, base_instruction, request, request.instructions.getManipulatorInfo()));
 
-      prev_instruction = *base_instruction;
+      prev_instruction = base_instruction;
     }
     else if (isMoveInstruction(instruction))
     {

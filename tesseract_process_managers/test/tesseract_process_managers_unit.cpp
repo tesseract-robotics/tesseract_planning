@@ -109,12 +109,12 @@ TEST_F(TesseractProcessManagerUnit, SeedMinLengthTaskGeneratorTest)
 
   SeedMinLengthTaskGenerator smlpg(current_length);
   EXPECT_TRUE(smlpg.conditionalProcess(input, 1) == 1);
-  long final_length = getMoveInstructionCount(*(input.getResults()->as<CompositeInstruction>()));
+  long final_length = getMoveInstructionCount(input.getResults()->as<CompositeInstruction>());
   EXPECT_TRUE(final_length == current_length);
 
   SeedMinLengthTaskGenerator smlpg2(2 * current_length);
   EXPECT_TRUE(smlpg2.conditionalProcess(input, 2) == 1);
-  long final_length2 = getMoveInstructionCount(*(input.getResults()->as<CompositeInstruction>()));
+  long final_length2 = getMoveInstructionCount(input.getResults()->as<CompositeInstruction>());
   EXPECT_TRUE(final_length2 >= (2 * current_length));
 
   seed_instruction = seed;
@@ -122,7 +122,7 @@ TEST_F(TesseractProcessManagerUnit, SeedMinLengthTaskGeneratorTest)
 
   SeedMinLengthTaskGenerator smlpg3(3 * current_length);
   EXPECT_TRUE(smlpg3.conditionalProcess(input, 3) == 1);
-  long final_length3 = getMoveInstructionCount(*(input2.getResults()->as<CompositeInstruction>()));
+  long final_length3 = getMoveInstructionCount(input2.getResults()->as<CompositeInstruction>());
   EXPECT_TRUE(final_length3 >= (3 * current_length));
 }
 

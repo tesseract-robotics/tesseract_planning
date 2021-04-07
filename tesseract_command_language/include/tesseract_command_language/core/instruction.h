@@ -113,7 +113,7 @@ struct InstructionInnerBase
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/)
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
   {
   }
 };
@@ -193,7 +193,7 @@ struct InstructionInner final : InstructionInnerBase
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
+  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
   {
     // If this line is removed a exception is thrown for unregistered cast need to too look into this.
     ar& boost::serialization::make_nvp("base", boost::serialization::base_object<InstructionInnerBase>(*this));
@@ -244,7 +244,7 @@ private:
 
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/);
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
 };
 
 class Instruction
@@ -311,28 +311,30 @@ public:
   bool operator!=(const Instruction& rhs) const { return !operator==(rhs); }
 
   template <typename T>
-  T* as()
+  T& as()
   {
     if (getType() != typeid(T))
       throw std::bad_cast();
 
-    return static_cast<T*>(instruction_->recover());
+    auto p = static_cast<uncvref_t<T>*>(instruction_->recover());
+    return *p;
   }
 
   template <typename T>
-  const T* as() const
+  const T& as() const
   {
     if (getType() != typeid(T))
       throw std::bad_cast();
 
-    return static_cast<const T*>(instruction_->recover());
+    auto p = static_cast<const uncvref_t<T>*>(instruction_->recover());
+    return *p;
   }
 
 private:
   friend class boost::serialization::access;
 
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
+  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
   {
     ar& boost::serialization::make_nvp("instruction", instruction_);
   }

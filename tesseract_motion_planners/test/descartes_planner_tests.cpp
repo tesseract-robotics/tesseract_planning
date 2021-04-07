@@ -196,28 +196,27 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
     {
       if (isCompositeInstruction(official_results[j]))
       {
-        const auto* sub_official = official_results[j].as<CompositeInstruction>();
-        const auto* sub = planner_response.results[j].as<CompositeInstruction>();
-        for (std::size_t k = 0; k < sub->size(); ++k)
+        const auto& sub_official = official_results[j].as<CompositeInstruction>();
+        const auto& sub = planner_response.results[j].as<CompositeInstruction>();
+        for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction((*sub_official)[k]))
+          if (isCompositeInstruction(sub_official[k]))
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction((*sub_official)[k]))
+          else if (isMoveInstruction(sub_official[k]))
           {
-            const auto* mv_official = (*sub_official)[k].as<MoveInstruction>();
-            const auto* mv = (*sub)[k].as<MoveInstruction>();
-            EXPECT_TRUE(
-                getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
+            const auto& mv_official = sub_official[k].as<MoveInstruction>();
+            const auto& mv = sub[k].as<MoveInstruction>();
+            EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto* mv_official = official_results[j].as<MoveInstruction>();
-        const auto* mv = request.seed[j].as<MoveInstruction>();
-        EXPECT_TRUE(getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
+        const auto& mv_official = official_results[j].as<MoveInstruction>();
+        const auto& mv = request.seed[j].as<MoveInstruction>();
+        EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }
   }
@@ -303,28 +302,27 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
     {
       if (isCompositeInstruction(official_results[j]))
       {
-        const auto* sub_official = official_results[j].as<CompositeInstruction>();
-        const auto* sub = request.seed[j].as<CompositeInstruction>();
-        for (std::size_t k = 0; k < sub->size(); ++k)
+        const auto& sub_official = official_results[j].as<CompositeInstruction>();
+        const auto& sub = request.seed[j].as<CompositeInstruction>();
+        for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction((*sub_official)[k]))
+          if (isCompositeInstruction(sub_official[k]))
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction((*sub_official)[k]))
+          else if (isMoveInstruction(sub_official[k]))
           {
-            const auto* mv_official = (*sub_official)[k].as<MoveInstruction>();
-            const auto* mv = (*sub)[k].as<MoveInstruction>();
-            EXPECT_TRUE(
-                getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
+            const auto& mv_official = sub_official[k].as<MoveInstruction>();
+            const auto& mv = sub[k].as<MoveInstruction>();
+            EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto* mv_official = official_results[j].as<MoveInstruction>();
-        const auto* mv = request.seed[j].as<MoveInstruction>();
-        EXPECT_TRUE(getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
+        const auto& mv_official = official_results[j].as<MoveInstruction>();
+        const auto& mv = request.seed[j].as<MoveInstruction>();
+        EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }
   }
@@ -411,28 +409,27 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
     {
       if (isCompositeInstruction(official_results[j]))
       {
-        const auto* sub_official = official_results[j].as<CompositeInstruction>();
-        const auto* sub = request.seed[j].as<CompositeInstruction>();
-        for (std::size_t k = 0; k < sub->size(); ++k)
+        const auto& sub_official = official_results[j].as<CompositeInstruction>();
+        const auto& sub = request.seed[j].as<CompositeInstruction>();
+        for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction((*sub_official)[k]))
+          if (isCompositeInstruction(sub_official[k]))
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction((*sub_official)[k]))
+          else if (isMoveInstruction(sub_official[k]))
           {
-            const auto* mv_official = (*sub_official)[k].as<MoveInstruction>();
-            const auto* mv = (*sub)[k].as<MoveInstruction>();
-            EXPECT_TRUE(
-                getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
+            const auto& mv_official = sub_official[k].as<MoveInstruction>();
+            const auto& mv = sub[k].as<MoveInstruction>();
+            EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto* mv_official = official_results[j].as<MoveInstruction>();
-        const auto* mv = request.seed[j].as<MoveInstruction>();
-        EXPECT_TRUE(getJointPosition(mv_official->getWaypoint()).isApprox(getJointPosition(mv->getWaypoint()), 1e-5));
+        const auto& mv_official = official_results[j].as<MoveInstruction>();
+        const auto& mv = request.seed[j].as<MoveInstruction>();
+        EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }
   }

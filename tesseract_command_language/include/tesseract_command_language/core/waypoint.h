@@ -102,7 +102,7 @@ struct WaypointInnerBase
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/)
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
   {
   }
 };
@@ -159,7 +159,7 @@ struct WaypointInner final : WaypointInnerBase
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
+  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
   {
     // If this line is removed a exception is thrown for unregistered cast need to too look into this.
     ar& boost::serialization::make_nvp("base", boost::serialization::base_object<WaypointInnerBase>(*this));
@@ -202,7 +202,7 @@ public:
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/);
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
 };
 
 class Waypoint
@@ -265,28 +265,30 @@ public:
   bool operator!=(const Waypoint& rhs) const { return !operator==(rhs); }
 
   template <typename T>
-  T* as()
+  T& as()
   {
     if (getType() != typeid(T))
       throw std::bad_cast();
 
-    return static_cast<T*>(waypoint_->recover());
+    auto p = static_cast<uncvref_t<T>*>(waypoint_->recover());
+    return *p;
   }
 
   template <typename T>
-  const T* as() const
+  const T& as() const
   {
     if (getType() != typeid(T))
       throw std::bad_cast();
 
-    return static_cast<const T*>(waypoint_->recover());
+    auto p = static_cast<const uncvref_t<T>*>(waypoint_->recover());
+    return *p;
   }
 
 private:
   friend class boost::serialization::access;
 
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)
+  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
   {
     ar& boost::serialization::make_nvp("waypoint", waypoint_);
   }

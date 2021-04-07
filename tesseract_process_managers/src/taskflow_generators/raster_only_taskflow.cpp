@@ -76,20 +76,20 @@ TaskflowContainer RasterOnlyTaskflow::generateTaskflow(TaskInput input, Taskflow
     if (idx == 0)
     {
       assert(isCompositeInstruction(*input_instruction));
-      start_instruction = input_instruction->as<CompositeInstruction>()->getStartInstruction();
+      start_instruction = input_instruction->as<CompositeInstruction>().getStartInstruction();
     }
     else
     {
       TaskInput pre_input = input[idx - 1];
       const Instruction* pre_input_instruction = pre_input.getInstruction();
       assert(isCompositeInstruction(*pre_input_instruction));
-      const auto* tci = pre_input_instruction->as<CompositeInstruction>();
-      auto* li = getLastPlanInstruction(*tci);
+      const auto& tci = pre_input_instruction->as<CompositeInstruction>();
+      auto* li = getLastPlanInstruction(tci);
       assert(li != nullptr);
       start_instruction = *li;
     }
 
-    start_instruction.as<PlanInstruction>()->setPlanType(PlanInstructionType::START);
+    start_instruction.as<PlanInstruction>().setPlanType(PlanInstructionType::START);
     TaskInput raster_input = input[idx];
     raster_input.setStartInstruction(start_instruction);
     TaskflowContainer sub_container = raster_taskflow_generator_->generateTaskflow(
@@ -156,20 +156,20 @@ bool RasterOnlyTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
   }
-  const auto* composite = input_instruction->as<CompositeInstruction>();
+  const auto& composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
-  if (!composite->hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
+  if (!composite.hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should have a start instruction");
     return false;
   }
 
   // Check rasters and transitions
-  for (std::size_t index = 0; index < composite->size(); index++)
+  for (std::size_t index = 0; index < composite.size(); index++)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(composite->at(index)))
+    if (!isCompositeInstruction(composite.at(index)))
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;

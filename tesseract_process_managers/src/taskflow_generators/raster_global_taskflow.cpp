@@ -136,7 +136,7 @@ TaskflowContainer RasterGlobalTaskflow::generateTaskflow(TaskInput input,
 
   // Plan from_start - preceded by the first raster
   TaskInput from_start_input = input[0];
-  from_start_input.setStartInstruction(input_instruction->as<CompositeInstruction>()->getStartInstruction());
+  from_start_input.setStartInstruction(input_instruction->as<CompositeInstruction>().getStartInstruction());
   from_start_input.setEndInstruction(std::vector<std::size_t>({ 1 }));
 
   TaskflowContainer sub_container1 = freespace_taskflow_generator_->generateTaskflow(
@@ -170,19 +170,19 @@ void RasterGlobalTaskflow::globalPostProcess(TaskInput input)
   if (input.isAborted())
     return;
 
-  CompositeInstruction* results = input.getResults()->as<CompositeInstruction>();
-  CompositeInstruction* composite = results->at(0).as<CompositeInstruction>();
-  composite->setStartInstruction(results->getStartInstruction());
-  composite->setManipulatorInfo(results->getManipulatorInfo());
-  for (std::size_t i = 1; i < results->size(); ++i)
+  CompositeInstruction& results = input.getResults()->as<CompositeInstruction>();
+  CompositeInstruction& composite = results.at(0).as<CompositeInstruction>();
+  composite.setStartInstruction(results.getStartInstruction());
+  composite.setManipulatorInfo(results.getManipulatorInfo());
+  for (std::size_t i = 1; i < results.size(); ++i)
   {
-    CompositeInstruction* composite0 = results->at(i - 1).as<CompositeInstruction>();
-    MoveInstruction lmi = *getLastMoveInstruction(*composite0);
+    CompositeInstruction& composite0 = results.at(i - 1).as<CompositeInstruction>();
+    MoveInstruction lmi = *getLastMoveInstruction(composite0);
     lmi.setMoveType(MoveInstructionType::START);
 
-    CompositeInstruction* composite1 = results->at(i).as<CompositeInstruction>();
-    composite1->setStartInstruction(lmi);
-    composite1->setManipulatorInfo(results->getManipulatorInfo());
+    CompositeInstruction& composite1 = results.at(i).as<CompositeInstruction>();
+    composite1.setStartInstruction(lmi);
+    composite1.setManipulatorInfo(results.getManipulatorInfo());
   }
 }
 
@@ -204,27 +204,27 @@ bool RasterGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInput& i
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
   }
-  const auto* composite = input_instruction->as<CompositeInstruction>();
+  const auto& composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
-  if (!composite->hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
+  if (!composite.hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should have a start instruction");
     return false;
   }
 
   // Check from_start
-  if (!isCompositeInstruction(composite->at(0)))
+  if (!isCompositeInstruction(composite.at(0)))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: from_start should be a composite");
     return false;
   }
 
   // Check rasters and transitions
-  for (std::size_t index = 1; index < composite->size() - 1; index++)
+  for (std::size_t index = 1; index < composite.size() - 1; index++)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(composite->at(index)))
+    if (!isCompositeInstruction(composite.at(index)))
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;
@@ -232,7 +232,7 @@ bool RasterGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInput& i
   }
 
   // Check to_end
-  if (!isCompositeInstruction(composite->back()))
+  if (!isCompositeInstruction(composite.back()))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: to_end should be a composite");
     return false;

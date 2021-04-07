@@ -117,8 +117,8 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
       std::make_unique<const PlannerProfileRemapping>(request.composite_profile_remapping);
 
   response.input = std::make_unique<Instruction>(request.instructions);
-  auto* composite_program = response.input->as<CompositeInstruction>();
-  ManipulatorInfo mi = composite_program->getManipulatorInfo();
+  auto& composite_program = response.input->as<CompositeInstruction>();
+  ManipulatorInfo mi = composite_program.getManipulatorInfo();
   response.global_manip_info = std::make_unique<const ManipulatorInfo>(mi);
 
   bool has_seed{ false };
@@ -129,7 +129,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   }
   else
   {
-    response.results = std::make_unique<Instruction>(generateSkeletonSeed(*composite_program));
+    response.results = std::make_unique<Instruction>(generateSkeletonSeed(composite_program));
   }
 
   auto it = process_planners_.find(request.name);
@@ -146,7 +146,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
     tc->setState(request.env_state->joints);
 
   // This makes sure the Joint and State Waypoints match the same order as the kinematics
-  if (formatProgram(*composite_program, *tc))
+  if (formatProgram(composite_program, *tc))
   {
     CONSOLE_BRIDGE_logInform("Tesseract Planning Server: Input program required formatting!");
   }

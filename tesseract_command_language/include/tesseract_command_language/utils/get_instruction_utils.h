@@ -87,7 +87,7 @@ inline MoveInstruction* getFirstMoveInstruction(CompositeInstruction& composite_
 {
   Instruction* mi = getFirstInstruction(composite_instruction, moveFilter);
   if (mi)
-    return mi->as<MoveInstruction>();
+    return &mi->as<MoveInstruction>();
 
   return nullptr;
 }
@@ -102,7 +102,7 @@ inline const MoveInstruction* getFirstMoveInstruction(const CompositeInstruction
 {
   const Instruction* mi = getFirstInstruction(composite_instruction, moveFilter);
   if (mi)
-    return mi->as<MoveInstruction>();
+    return &mi->as<MoveInstruction>();
 
   return nullptr;
 }
@@ -117,7 +117,7 @@ inline PlanInstruction* getFirstPlanInstruction(CompositeInstruction& composite_
 {
   Instruction* mi = getFirstInstruction(composite_instruction, planFilter);
   if (mi)
-    return mi->as<PlanInstruction>();
+    return &mi->as<PlanInstruction>();
 
   return nullptr;
 }
@@ -132,7 +132,7 @@ inline const PlanInstruction* getFirstPlanInstruction(const CompositeInstruction
 {
   const Instruction* mi = getFirstInstruction(composite_instruction, planFilter);
   if (mi)
-    return mi->as<PlanInstruction>();
+    return &mi->as<PlanInstruction>();
 
   return nullptr;
 }
@@ -147,7 +147,7 @@ inline MoveInstruction* getLastMoveInstruction(CompositeInstruction& composite_i
 {
   Instruction* mi = getLastInstruction(composite_instruction, moveFilter);
   if (mi)
-    return mi->as<MoveInstruction>();
+    return &mi->as<MoveInstruction>();
 
   return nullptr;
 }
@@ -162,7 +162,7 @@ inline const MoveInstruction* getLastMoveInstruction(const CompositeInstruction&
 {
   const Instruction* mi = getLastInstruction(composite_instruction, moveFilter);
   if (mi)
-    return mi->as<MoveInstruction>();
+    return &mi->as<MoveInstruction>();
 
   return nullptr;
 }
@@ -177,7 +177,7 @@ inline PlanInstruction* getLastPlanInstruction(CompositeInstruction& composite_i
 {
   Instruction* mi = getLastInstruction(composite_instruction, planFilter);
   if (mi)
-    return mi->as<PlanInstruction>();
+    return &mi->as<PlanInstruction>();
 
   return nullptr;
 }
@@ -192,7 +192,7 @@ inline const PlanInstruction* getLastPlanInstruction(const CompositeInstruction&
 {
   const Instruction* mi = getLastInstruction(composite_instruction, planFilter);
   if (mi)
-    return mi->as<PlanInstruction>();
+    return &mi->as<PlanInstruction>();
 
   return nullptr;
 }

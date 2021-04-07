@@ -80,8 +80,8 @@ TaskflowContainer RasterTaskflow::generateTaskflow(TaskInput input, TaskflowVoid
       TaskInput from_start_input = input[0];
       const Instruction* from_start_input_instruction = from_start_input.getInstruction();
       assert(isCompositeInstruction(*from_start_input_instruction));
-      const auto* ci = from_start_input_instruction->as<CompositeInstruction>();
-      const auto* li = getLastPlanInstruction(*ci);
+      const auto& ci = from_start_input_instruction->as<CompositeInstruction>();
+      const auto* li = getLastPlanInstruction(ci);
       assert(li != nullptr);
       start_instruction = *li;
     }
@@ -90,13 +90,13 @@ TaskflowContainer RasterTaskflow::generateTaskflow(TaskInput input, TaskflowVoid
       TaskInput pre_input = input[idx - 1];
       const Instruction* pre_input_instruction = pre_input.getInstruction();
       assert(isCompositeInstruction(*pre_input_instruction));
-      const auto* tci = pre_input_instruction->as<CompositeInstruction>();
-      auto* li = getLastPlanInstruction(*tci);
+      const auto& tci = pre_input_instruction->as<CompositeInstruction>();
+      auto* li = getLastPlanInstruction(tci);
       assert(li != nullptr);
       start_instruction = *li;
     }
 
-    start_instruction.as<PlanInstruction>()->setPlanType(PlanInstructionType::START);
+    start_instruction.as<PlanInstruction>().setPlanType(PlanInstructionType::START);
     TaskInput raster_input = input[idx];
     raster_input.setStartInstruction(start_instruction);
     TaskflowContainer sub_container = raster_taskflow_generator_->generateTaskflow(
@@ -144,7 +144,7 @@ TaskflowContainer RasterTaskflow::generateTaskflow(TaskInput input, TaskflowVoid
 
   // Plan from_start - preceded by the first raster
   TaskInput from_start_input = input[0];
-  from_start_input.setStartInstruction(input_instruction->as<CompositeInstruction>()->getStartInstruction());
+  from_start_input.setStartInstruction(input_instruction->as<CompositeInstruction>().getStartInstruction());
   from_start_input.setEndInstruction(std::vector<std::size_t>({ 1 }));
   TaskflowContainer sub_container1 = freespace_taskflow_generator_->generateTaskflow(
       from_start_input,
@@ -190,27 +190,27 @@ bool RasterTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) 
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
   }
-  const auto* composite = input_instruction->as<CompositeInstruction>();
+  const auto& composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
-  if (!composite->hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
+  if (!composite.hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should have a start instruction");
     return false;
   }
 
   // Check from_start
-  if (!isCompositeInstruction(composite->at(0)))
+  if (!isCompositeInstruction(composite.at(0)))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: from_start should be a composite");
     return false;
   }
 
   // Check rasters and transitions
-  for (std::size_t index = 1; index < composite->size() - 1; index++)
+  for (std::size_t index = 1; index < composite.size() - 1; index++)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(composite->at(index)))
+    if (!isCompositeInstruction(composite.at(index)))
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;
@@ -218,7 +218,7 @@ bool RasterTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) 
   }
 
   // Check to_end
-  if (!isCompositeInstruction(composite->back()))
+  if (!isCompositeInstruction(composite.back()))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: to_end should be a composite");
     return false;

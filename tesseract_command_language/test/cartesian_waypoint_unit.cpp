@@ -75,14 +75,14 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)
 
   Waypoint nwp = fromArchiveFileXML<Waypoint>("/tmp/cartesian_waypoint_boost.xml");
 
-  EXPECT_TRUE(cw == (*nwp.as<CartesianWaypoint>()));
+  EXPECT_TRUE(cw == nwp.as<CartesianWaypoint>());
 }
 
 inline void SerializeDeserializeTest(const CartesianWaypoint& wp)
 {
   toArchiveFileXML<Waypoint>(wp, tesseract_common::getTempPath() + "cartesian_waypoint_unit.xml");
   Waypoint deserialized = fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "cartesian_waypoint_unit.xml");
-  EXPECT_TRUE(wp == *(deserialized.as<CartesianWaypoint>()));
+  EXPECT_TRUE(wp == deserialized.as<CartesianWaypoint>());
 }
 
 TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperatorAndSerialization)

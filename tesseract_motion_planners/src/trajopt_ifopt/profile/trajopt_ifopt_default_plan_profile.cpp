@@ -43,10 +43,10 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                            int index) const
 {
   assert(isPlanInstruction(parent_instruction));
-  const auto* base_instruction = parent_instruction.as<PlanInstruction>();
-  assert(!(manip_info.empty() && base_instruction->getManipulatorInfo().empty()));
+  const auto& base_instruction = parent_instruction.as<PlanInstruction>();
+  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   const ManipulatorInfo& mi =
-      (base_instruction->getManipulatorInfo().empty()) ? manip_info : base_instruction->getManipulatorInfo();
+      (base_instruction.getManipulatorInfo().empty()) ? manip_info : base_instruction.getManipulatorInfo();
 
   const auto& env = problem.environment;
   auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
