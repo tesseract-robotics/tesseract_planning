@@ -30,7 +30,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <string>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/instruction.h>
@@ -274,7 +273,7 @@ private:
    *
    * If not provided, the planner should use the current state of the robot is used and defined as fixed.
    */
-  value_type start_instruction_;
+  value_type start_instruction_{ NullInstruction() };
 
   friend class boost::serialization::access;
   template <class Archive>

@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <typeindex>
 #include <boost/serialization/base_object.hpp>
+#include <boost/serialization/export.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/unique_ptr.hpp>
 #include <boost/type_traits/is_virtual_base_of.hpp>
@@ -225,6 +226,27 @@ struct is_virtual_base_of<tesseract_planning::detail_instruction::InstructionInn
 
 namespace tesseract_planning
 {
+class NullInstruction
+{
+public:
+  const std::string& getDescription() const;
+
+  void setDescription(const std::string& description);
+
+  void print(const std::string& prefix = "") const;
+
+  bool operator==(const NullInstruction& rhs) const;
+  bool operator!=(const NullInstruction& rhs) const;
+
+private:
+  /** @brief The description of the instruction */
+  std::string description_{ "Tesseract Null Instruction" };
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/);
+};
+
 class Instruction
 {
   template <typename T>
@@ -243,7 +265,7 @@ public:
   }
 
   Instruction()  // NOLINT
-    : instruction_(nullptr)
+    : instruction_(std::make_unique<detail_instruction::InstructionInner<uncvref_t<NullInstruction>>>())
   {
   }
 
@@ -251,13 +273,7 @@ public:
   ~Instruction() = default;
 
   // Copy constructor
-  Instruction(const Instruction& other)
-  {
-    if (other.instruction_ != nullptr)
-      instruction_ = other.instruction_->clone();
-    else
-      instruction_ = nullptr;
-  }
+  Instruction(const Instruction& other) { instruction_ = other.instruction_->clone(); }
 
   // Move ctor.
   Instruction(Instruction&& other) noexcept { instruction_.swap(other.instruction_); }
@@ -282,13 +298,7 @@ public:
     return (*this);
   }
 
-  std::type_index getType() const
-  {
-    if (instruction_ == nullptr)
-      return std::type_index(typeid(nullptr));
-
-    return instruction_->getType();
-  }
+  std::type_index getType() const { return instruction_->getType(); }
 
   const std::string& getDescription() const { return instruction_->getDescription(); }
 
@@ -296,19 +306,7 @@ public:
 
   void print(const std::string& prefix = "") const { instruction_->print(prefix); }
 
-  bool operator==(const Instruction& rhs) const
-  {
-    if (instruction_ == nullptr && rhs.instruction_ == nullptr)
-      return true;
-
-    if (instruction_ == nullptr)
-      return false;
-
-    if (rhs.instruction_ == nullptr)
-      return false;
-
-    return instruction_->operator==(*rhs.instruction_);
-  }
+  bool operator==(const Instruction& rhs) const { return instruction_->operator==(*rhs.instruction_); }
 
   bool operator!=(const Instruction& rhs) const { return !operator==(rhs); }
 
@@ -332,6 +330,7 @@ public:
 
 private:
   friend class boost::serialization::access;
+
   template <class Archive>
   void serialize(Archive& ar, const unsigned int /*version*/)
   {
@@ -342,6 +341,8 @@ private:
 };
 
 }  // namespace tesseract_planning
+
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::NullInstruction);
 
 BOOST_CLASS_TRACKING(tesseract_planning::Instruction, boost::serialization::track_never);
 

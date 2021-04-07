@@ -61,7 +61,7 @@ ManipulatorInfo& CompositeInstruction::getManipulatorInfo() { return manipulator
 
 void CompositeInstruction::setStartInstruction(Instruction instruction) { start_instruction_ = instruction; }
 
-void CompositeInstruction::resetStartInstruction() { start_instruction_ = Instruction(); }
+void CompositeInstruction::resetStartInstruction() { start_instruction_ = NullInstruction(); }
 
 const Instruction& CompositeInstruction::getStartInstruction() const { return start_instruction_; }
 

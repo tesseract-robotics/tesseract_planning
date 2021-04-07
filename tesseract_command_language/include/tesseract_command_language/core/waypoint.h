@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 #include <typeindex>
 #include <boost/serialization/base_object.hpp>
+#include <boost/serialization/export.hpp>
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/unique_ptr.hpp>
 #include <boost/type_traits/is_virtual_base_of.hpp>
@@ -190,6 +191,20 @@ struct is_virtual_base_of<tesseract_planning::detail_waypoint::WaypointInnerBase
 
 namespace tesseract_planning
 {
+class NullWaypoint
+{
+public:
+  void print(const std::string& prefix = "") const;
+
+  bool operator==(const NullWaypoint& rhs) const;
+  bool operator!=(const NullWaypoint& rhs) const;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/);
+};
+
 class Waypoint
 {
   template <typename T>
@@ -208,7 +223,7 @@ public:
   }
 
   Waypoint()  // NOLINT
-    : waypoint_(nullptr)
+    : waypoint_(std::make_unique<detail_waypoint::WaypointInner<uncvref_t<NullWaypoint>>>())
   {
   }
 
@@ -216,13 +231,7 @@ public:
   ~Waypoint() = default;
 
   // Copy constructor
-  Waypoint(const Waypoint& other)
-  {
-    if (other.waypoint_ != nullptr)
-      waypoint_ = other.waypoint_->clone();
-    else
-      waypoint_ = nullptr;
-  }
+  Waypoint(const Waypoint& other) { waypoint_ = other.waypoint_->clone(); }
 
   // Move ctor.
   Waypoint(Waypoint&& other) noexcept { waypoint_.swap(other.waypoint_); }
@@ -247,29 +256,11 @@ public:
     return (*this);
   }
 
-  std::type_index getType() const
-  {
-    if (waypoint_ == nullptr)
-      return std::type_index(typeid(nullptr));
-
-    return waypoint_->getType();
-  }
+  std::type_index getType() const { return waypoint_->getType(); }
 
   void print(const std::string& prefix = "") const { waypoint_->print(prefix); }
 
-  bool operator==(const Waypoint& rhs) const
-  {
-    if (waypoint_ == nullptr && rhs.waypoint_ == nullptr)
-      return true;
-
-    if (waypoint_ == nullptr)
-      return false;
-
-    if (rhs.waypoint_ == nullptr)
-      return false;
-
-    return waypoint_->operator==(*rhs.waypoint_);
-  }
+  bool operator==(const Waypoint& rhs) const { return waypoint_->operator==(*rhs.waypoint_); }
 
   bool operator!=(const Waypoint& rhs) const { return !operator==(rhs); }
 
@@ -293,6 +284,7 @@ public:
 
 private:
   friend class boost::serialization::access;
+
   template <class Archive>
   void serialize(Archive& ar, const unsigned int /*version*/)
   {
@@ -303,6 +295,8 @@ private:
 };
 
 }  // namespace tesseract_planning
+
+TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::NullWaypoint);
 
 BOOST_CLASS_TRACKING(tesseract_planning::Waypoint, boost::serialization::track_never);
 

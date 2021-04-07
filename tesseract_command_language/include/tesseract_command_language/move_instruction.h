@@ -30,7 +30,6 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <Eigen/Geometry>
-#include <boost/serialization/export.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/instruction.h>
@@ -101,7 +100,7 @@ private:
   std::string profile_{ DEFAULT_PROFILE_KEY };
 
   /** @brief The assigned waypoint (Cartesian or Joint) */
-  Waypoint waypoint_;
+  Waypoint waypoint_{ NullWaypoint() };
 
   /** @brief Contains information about the manipulator associated with this instruction*/
   ManipulatorInfo manipulator_info_;

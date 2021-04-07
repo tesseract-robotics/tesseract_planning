@@ -33,6 +33,8 @@ add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 tesseract_variables()
 
 add_library(${PROJECT_NAME}
+  src/core/instruction.cpp
+  src/core/waypoint.cpp
   src/plan_instruction.cpp
   src/move_instruction.cpp
   src/set_analog_instruction.cpp
