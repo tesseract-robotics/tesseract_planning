@@ -25,7 +25,7 @@
  */
 
 #include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/composite_instruction.h>

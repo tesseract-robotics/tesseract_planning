@@ -102,8 +102,8 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
       throw std::runtime_error("OMPL planner does not support child composite instructions.");
 
   int index = 0;
-  Waypoint start_waypoint;
-  Instruction placeholder_instruction;
+  Waypoint start_waypoint{ NullWaypoint() };
+  Instruction placeholder_instruction{ NullInstruction() };
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {

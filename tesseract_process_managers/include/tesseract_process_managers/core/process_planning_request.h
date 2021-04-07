@@ -48,10 +48,10 @@ struct ProcessPlanningRequest
   std::string name;
 
   /** @brief  This should an xml string of the command language instructions */
-  Instruction instructions;
+  Instruction instructions{ NullInstruction() };
 
   /** @brief This should an xml string of the command language instructions (Optional) */
-  Instruction seed;
+  Instruction seed{ NullInstruction() };
 
   /** @brief Environment state to start planning with (Optional)  */
   tesseract_environment::EnvState::ConstPtr env_state;

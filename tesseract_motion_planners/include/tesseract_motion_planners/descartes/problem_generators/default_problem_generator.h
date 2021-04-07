@@ -90,8 +90,8 @@ DefaultDescartesProblemGenerator(const std::string& name,
   int index = 0;
   std::string profile;
   ProfileDictionary::ConstPtr profile_overrides;
-  Waypoint start_waypoint;
-  Instruction placeholder_instruction;
+  Waypoint start_waypoint{ NullWaypoint() };
+  Instruction placeholder_instruction{ NullInstruction() };
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {

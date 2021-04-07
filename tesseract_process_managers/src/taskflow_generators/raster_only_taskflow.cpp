@@ -72,7 +72,7 @@ TaskflowContainer RasterOnlyTaskflow::generateTaskflow(TaskInput input, Taskflow
   for (std::size_t idx = 0; idx < input.size(); idx += 2)
   {
     // Get Start Plan Instruction
-    Instruction start_instruction;
+    Instruction start_instruction{ NullInstruction() };
     if (idx == 0)
     {
       assert(isCompositeInstruction(*input_instruction));

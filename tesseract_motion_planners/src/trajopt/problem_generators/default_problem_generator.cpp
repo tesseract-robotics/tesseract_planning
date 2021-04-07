@@ -89,8 +89,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
 
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
-  Waypoint start_waypoint;
-  Instruction placeholder_instruction;
+  Waypoint start_waypoint{ NullWaypoint() };
+  Instruction placeholder_instruction{ NullInstruction() };
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
