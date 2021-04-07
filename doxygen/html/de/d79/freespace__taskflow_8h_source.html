@@ -83,7 +83,7 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;taskflow/taskflow.hpp&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<a class="code" href="../../df/d21/namespaceTESSERACT__COMMON__IGNORE__WARNINGS__POP.html">TESSERACT_COMMON_IGNORE_WARNINGS_POP</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;TESSERACT_COMMON_IGNORE_WARNINGS_POP</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../db/d75/taskflow__generator_8h.html">tesseract_process_managers/core/taskflow_generator.h</a>&gt;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../dd/dd6/profile__dictionary_8h.html">tesseract_command_language/profile_dictionary.h</a>&gt;</span></div>
@@ -142,8 +142,7 @@ $(function() {
 <div class="ttc" id="aclasstesseract__planning_1_1FreespaceTaskflow_html_aefeb5312e7197cc25c12a83c6daaec06"><div class="ttname"><a href="../../d8/d57/classtesseract__planning_1_1FreespaceTaskflow.html#aefeb5312e7197cc25c12a83c6daaec06">tesseract_planning::FreespaceTaskflow::getName</a></div><div class="ttdeci">const std::string &amp; getName() const override</div><div class="ttdoc">Get the name of the task flow.</div><div class="ttdef"><b>Definition:</b> freespace_taskflow.cpp:54</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1TaskflowGenerator_html"><div class="ttname"><a href="../../d1/d32/classtesseract__planning_1_1TaskflowGenerator.html">tesseract_planning::TaskflowGenerator</a></div><div class="ttdoc">Base class for generating a taskflow.</div><div class="ttdef"><b>Definition:</b> taskflow_generator.h:38</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1TaskflowGenerator_html_a12a647db36094c3b2084e60bec0ad268"><div class="ttname"><a href="../../d1/d32/classtesseract__planning_1_1TaskflowGenerator.html#a12a647db36094c3b2084e60bec0ad268">tesseract_planning::TaskflowGenerator::UPtr</a></div><div class="ttdeci">std::unique_ptr&lt; TaskflowGenerator &gt; UPtr</div><div class="ttdef"><b>Definition:</b> taskflow_generator.h:40</div></div>
-<div class="ttc" id="anamespaceTESSERACT__COMMON__IGNORE__WARNINGS__POP_html"><div class="ttname"><a href="../../df/d21/namespaceTESSERACT__COMMON__IGNORE__WARNINGS__POP.html">TESSERACT_COMMON_IGNORE_WARNINGS_POP</a></div><div class="ttdef"><b>Definition:</b> serialize.hpp:45</div></div>
-<div class="ttc" id="anamespacetesseract__planning_html"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div><div class="ttdef"><b>Definition:</b> cartesian_waypoint.h:43</div></div>
+<div class="ttc" id="anamespacetesseract__planning_html"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div><div class="ttdef"><b>Definition:</b> cartesian_waypoint.h:40</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a5f5cbd9566c5836197671580b353ce1e"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a5f5cbd9566c5836197671580b353ce1e">tesseract_planning::FreespaceTaskflowType</a></div><div class="ttdeci">FreespaceTaskflowType</div><div class="ttdef"><b>Definition:</b> freespace_taskflow.h:43</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a5f5cbd9566c5836197671580b353ce1ea5b39c8b553c821e7cddc6da64b5bd2ee"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a5f5cbd9566c5836197671580b353ce1ea5b39c8b553c821e7cddc6da64b5bd2ee">tesseract_planning::FreespaceTaskflowType::DEFAULT</a></div><div class="ttdeci">@ DEFAULT</div><div class="ttdoc">This will run omp followed by trajopt.</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a5f5cbd9566c5836197671580b353ce1ea8e0dc83f462fdf5e476597e740bca66f"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a5f5cbd9566c5836197671580b353ce1ea8e0dc83f462fdf5e476597e740bca66f">tesseract_planning::FreespaceTaskflowType::TRAJOPT_FIRST</a></div><div class="ttdeci">@ TRAJOPT_FIRST</div><div class="ttdoc">This will run trajopt first then if it fails it will run ompl followed by trajopt.</div></div>
@@ -160,7 +159,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 2 2021 04:15:31 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Apr 7 2021 23:14:59 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

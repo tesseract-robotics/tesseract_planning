@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Tesseract Planning: tesseract_command_language/include/tesseract_command_language/serialization.h File Reference</title>
+<title>Tesseract Planning: tesseract_command_language/include/tesseract_command_language/core/serialization.h File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -65,13 +65,13 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="../../dir_fa47c2fa9b13a12fc195f1b83854b816.html">tesseract_command_language</a></li><li class="navelem"><a class="el" href="../../dir_2b031ec1caa2ca366acbfc90a3bdbe33.html">include</a></li><li class="navelem"><a class="el" href="../../dir_01b616d47187535601161b70f3827efe.html">tesseract_command_language</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../dir_fa47c2fa9b13a12fc195f1b83854b816.html">tesseract_command_language</a></li><li class="navelem"><a class="el" href="../../dir_2b031ec1caa2ca366acbfc90a3bdbe33.html">include</a></li><li class="navelem"><a class="el" href="../../dir_01b616d47187535601161b70f3827efe.html">tesseract_command_language</a></li><li class="navelem"><a class="el" href="../../dir_86c83ea9f80f3849d5dfcb159b7797d9.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">serialization.h File Reference</div>  </div>
 </div><!--header-->
@@ -80,125 +80,92 @@ $(function() {
 <p>Provides boost exports for waypoint and instruction implementation for serialization Also includes utility function.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;tesseract_common/macros.h&gt;</code><br />
-<code>#include &lt;boost/serialization/export.hpp&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;boost/archive/xml_oarchive.hpp&gt;</code><br />
 <code>#include &lt;boost/archive/xml_iarchive.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d4/d08/waypoint_8h_source.html">tesseract_command_language/core/waypoint.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d8/df4/instruction_8h_source.html">tesseract_command_language/core/instruction.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d5/d59/command__language_8h_source.html">tesseract_command_language/command_language.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for serialization.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d91/serialization_8h__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2serialization_8h" alt=""/></div>
-<map name="atesseract__command__language_2include_2tesseract__command__language_2serialization_8h" id="atesseract__command__language_2include_2tesseract__command__language_2serialization_8h">
-<area shape="rect" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="810,5,1009,61"/>
-<area shape="rect" title=" " alt="" coords="2565,563,2755,590"/>
-<area shape="rect" title=" " alt="" coords="430,109,557,151"/>
-<area shape="rect" title=" " alt="" coords="581,117,785,143"/>
-<area shape="rect" title=" " alt="" coords="809,117,1009,143"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="1815,377,2014,419"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="1185,288,1383,329"/>
-<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="2510,109,2709,151"/>
-<area shape="rect" title=" " alt="" coords="3205,474,3273,501"/>
-<area shape="rect" title=" " alt="" coords="846,563,901,590"/>
-<area shape="rect" title=" " alt="" coords="2231,563,2310,590"/>
-<area shape="rect" title=" " alt="" coords="2003,556,2130,597"/>
-<area shape="rect" title=" " alt="" coords="554,556,681,597"/>
-<area shape="rect" title=" " alt="" coords="1287,467,1414,508"/>
-<area shape="rect" title=" " alt="" coords="1633,467,1775,508"/>
-<area shape="rect" title=" " alt="" coords="1439,467,1609,508"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="2171,467,2370,508"/>
-<area shape="rect" title=" " alt="" coords="960,563,1032,590"/>
-<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1899,467,2098,508"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="5798,377,5997,419"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="4546,377,4745,419"/>
-<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="4433,467,4631,508"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2510,199,2709,240"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="4769,377,4967,419"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="313,556,511,597"/>
-<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="3067,377,3266,419"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="5171,288,5370,329"/>
-<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="4899,288,5098,329"/>
-<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="3846,377,4045,419"/>
-<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="963,467,1162,508"/>
-<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="741,467,939,508"/>
-<area shape="rect" href="../../d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="295,467,494,508"/>
-<area shape="rect" href="../../d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="518,467,717,508"/>
-<area shape="rect" title=" " alt="" coords="5863,467,6067,508"/>
-<area shape="rect" title=" " alt="" coords="4324,474,4409,501"/>
-<area shape="rect" title=" " alt="" coords="5673,474,5788,501"/>
-<area shape="rect" title=" " alt="" coords="3297,474,3468,501"/>
-<area shape="rect" title=" " alt="" coords="4085,474,4299,501"/>
-<area shape="rect" title=" " alt="" coords="1056,563,1227,590"/>
-<area shape="rect" title=" " alt="" coords="4655,474,4713,501"/>
-<area shape="rect" title=" " alt="" coords="2698,467,2825,508"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="5171,377,5370,419"/>
-<area shape="rect" title=" " alt="" coords="5244,474,5287,501"/>
-<area shape="rect" title=" " alt="" coords="5311,474,5387,501"/>
-<area shape="rect" title=" " alt="" coords="5411,474,5522,501"/>
-<area shape="rect" title=" " alt="" coords="5546,474,5649,501"/>
-<area shape="rect" title=" " alt="" coords="2901,467,3027,508"/>
-<area shape="rect" title=" " alt="" coords="3746,467,3907,508"/>
-<area shape="rect" title=" " alt="" coords="3543,474,3721,501"/>
+<div class="center"><img src="../../dd/d91/serialization_8h__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2core_2serialization_8h" alt=""/></div>
+<map name="atesseract__command__language_2include_2tesseract__command__language_2core_2serialization_8h" id="atesseract__command__language_2include_2tesseract__command__language_2core_2serialization_8h">
+<area shape="rect" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="247,5,445,61"/>
+<area shape="rect" title=" " alt="" coords="5,109,196,136"/>
+<area shape="rect" title=" " alt="" coords="221,109,287,136"/>
+<area shape="rect" title=" " alt="" coords="311,109,381,136"/>
+<area shape="rect" title=" " alt="" coords="405,109,609,136"/>
+<area shape="rect" title=" " alt="" coords="634,109,834,136"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d2/dd0/serialization_8h__dep__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2serialization_8hdep" alt=""/></div>
-<map name="atesseract__command__language_2include_2tesseract__command__language_2serialization_8hdep" id="atesseract__command__language_2include_2tesseract__command__language_2serialization_8hdep">
-<area shape="rect" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="228,5,427,61"/>
-<area shape="rect" href="../../d5/d4d/cartesian__waypoint__unit_8cpp.html" title="Contains unit tests for CartesianWaypoint." alt="" coords="5,109,204,165"/>
-<area shape="rect" href="../../dc/d43/joint__waypoint__unit_8cpp.html" title="Contains unit tests for JointWaypoint." alt="" coords="228,117,427,158"/>
-<area shape="rect" href="../../de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="451,117,649,158"/>
+<div class="center"><img src="../../d2/dd0/serialization_8h__dep__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2core_2serialization_8hdep" alt=""/></div>
+<map name="atesseract__command__language_2include_2tesseract__command__language_2core_2serialization_8hdep" id="atesseract__command__language_2include_2tesseract__command__language_2core_2serialization_8hdep">
+<area shape="rect" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="4157,5,4356,61"/>
+<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="2697,213,2896,269"/>
+<area shape="rect" href="../../de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="3481,911,3680,952"/>
+<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="3979,109,4177,165"/>
+<area shape="rect" href="../../d5/d4d/cartesian__waypoint__unit_8cpp.html" title="Contains unit tests for CartesianWaypoint." alt="" coords="3780,443,3979,499"/>
+<area shape="rect" href="../../dc/d43/joint__waypoint__unit_8cpp.html" title="Contains unit tests for JointWaypoint." alt="" coords="4671,451,4869,492"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1387,443,1609,499"/>
+<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="2673,443,2872,499"/>
+<area shape="rect" href="../../d7/dc1/trajopt__default__composite__profile_8cpp.html" title=" " alt="" coords="3710,562,3910,618"/>
+<area shape="rect" href="../../d9/d01/trajopt__ifopt__default__composite__profile_8cpp.html" title=" " alt="" coords="3244,555,3451,625"/>
+<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1791,325,1989,381"/>
+<area shape="rect" href="../../dd/d0f/task__info_8h.html" title="Process Info." alt="" coords="1169,443,1363,499"/>
+<area shape="rect" href="../../d5/d35/task__input_8h.html" title="Process input." alt="" coords="5,562,199,618"/>
+<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2201,443,2400,499"/>
+<area shape="rect" href="../../d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="3380,443,3605,499"/>
+<area shape="rect" href="../../d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="2997,443,3205,499"/>
+<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="3143,325,3341,381"/>
+<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="3365,325,3564,381"/>
+<area shape="rect" href="../../dd/db6/descartes__profile_8h.html" title=" " alt="" coords="2439,317,2618,388"/>
+<area shape="rect" href="../../d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="2643,317,2823,388"/>
+<area shape="rect" href="../../d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="4215,436,4394,507"/>
+<area shape="rect" href="../../d3/da7/trajopt__ifopt__profile_8h.html" title=" " alt="" coords="4003,436,4191,507"/>
+<area shape="rect" href="../../d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="2899,317,3119,388"/>
+<area shape="rect" href="../../dd/ddd/process__planning__request_8h.html" title="A process planning request and default planner names." alt="" coords="873,317,1093,388"/>
+<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="3475,562,3686,618"/>
+<area shape="rect" href="../../de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="2487,562,2693,618"/>
+<area shape="rect" href="../../d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="2779,673,2977,729"/>
+<area shape="rect" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="2916,785,3115,841"/>
+<area shape="rect" href="../../d9/d98/task__input_8cpp.html" title="Process input." alt="" coords="140,911,333,952"/>
+<area shape="rect" href="../../d4/d25/time__optimal__trajectory__generation__task__generator_8cpp.html" title=" " alt="" coords="2848,896,3047,967"/>
+<area shape="rect" href="../../df/d01/iterative__spline__parameterization__task__generator_8cpp.html" title="Perform iterative spline time parameterization." alt="" coords="2645,777,2842,848"/>
+<area shape="rect" href="../../d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="1961,673,2200,729"/>
+<area shape="rect" href="../../db/d7a/motion__planner__task__generator_8cpp.html" title="Perform motion planning." alt="" coords="1104,785,1297,841"/>
+<area shape="rect" href="../../d5/d75/raster__dt__taskflow_8cpp.html" title="Plans raster paths with dual transitions." alt="" coords="1321,785,1515,841"/>
+<area shape="rect" href="../../d1/d31/raster__global__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="1539,785,1732,841"/>
+<area shape="rect" href="../../d3/dd0/raster__only__global__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="1976,785,2185,841"/>
+<area shape="rect" href="../../d9/d66/raster__only__taskflow_8cpp.html" title=" " alt="" coords="2209,785,2403,841"/>
+<area shape="rect" href="../../dc/d52/raster__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="2427,785,2620,841"/>
+<area shape="rect" href="../../df/d0a/raster__waad__dt__taskflow_8cpp.html" title="Plans raster paths with approach, departure and dual transitions." alt="" coords="1757,785,1951,841"/>
+<area shape="rect" href="../../d4/d65/raster__waad__taskflow_8cpp.html" title="Plans raster paths with approach and departure." alt="" coords="835,785,1028,841"/>
+<area shape="rect" href="../../db/d22/composite__instruction_8cpp.html" title=" " alt="" coords="1636,569,1835,611"/>
+<area shape="rect" href="../../d8/d79/instruction__type_8cpp.html" title=" " alt="" coords="1859,569,2057,611"/>
+<area shape="rect" href="../../db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="2870,569,3067,611"/>
+<area shape="rect" href="../../dc/ddd/tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h.html" title="Tesseract process managers utility functions." alt="" coords="1152,673,1345,729"/>
+<area shape="rect" href="../../d9/d33/continuous__contact__check__task__generator_8cpp.html" title="Continuous collision check trajectory." alt="" coords="580,785,811,841"/>
+<area shape="rect" href="../../dc/d21/discrete__contact__check__task__generator_8cpp.html" title="Discrete collision check trajectory." alt="" coords="325,785,556,841"/>
+<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="3860,325,4067,381"/>
+<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="4312,325,4511,381"/>
+<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="3637,325,3836,381"/>
+<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="4364,213,4563,269"/>
 </map>
 </div>
 </div>
 <p><a href="../../dd/d50/serialization_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/ded/structtesseract__planning_1_1Serialization.html">tesseract_planning::Serialization</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:d9/dcd/namespacetesseract__planning"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a1dfb55d490d326e4698553140484195d"><td class="memItemLeft" align="right" valign="top">TESSERACT_COMMON_IGNORE_WARNINGS_PUSH TESSERACT_COMMON_IGNORE_WARNINGS_POP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#a1dfb55d490d326e4698553140484195d">TESSERACT_WAYPOINT_EXPORT</a> (<a class="el" href="../../dc/d18/classtesseract__planning_1_1NullWaypoint.html">tesseract_planning::NullWaypoint</a>)</td></tr>
-<tr class="separator:a1dfb55d490d326e4698553140484195d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa06e68ba6465f5af6450c5699ab8e04e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#aa06e68ba6465f5af6450c5699ab8e04e">TESSERACT_WAYPOINT_EXPORT</a> (<a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">tesseract_planning::JointWaypoint</a>)</td></tr>
-<tr class="separator:aa06e68ba6465f5af6450c5699ab8e04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95f7f1658e4dfbdf688c41c0849e8a1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#a95f7f1658e4dfbdf688c41c0849e8a1d">TESSERACT_WAYPOINT_EXPORT</a> (<a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">tesseract_planning::CartesianWaypoint</a>)</td></tr>
-<tr class="separator:a95f7f1658e4dfbdf688c41c0849e8a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dacd6555fa64f043cb61210dc045044"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#a6dacd6555fa64f043cb61210dc045044">TESSERACT_WAYPOINT_EXPORT</a> (<a class="el" href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">tesseract_planning::StateWaypoint</a>)</td></tr>
-<tr class="separator:a6dacd6555fa64f043cb61210dc045044"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2819c6d3c41dbc6bb6417dd62bb0536"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#ae2819c6d3c41dbc6bb6417dd62bb0536">TESSERACT_INSTRUCTION_EXPORT</a> (<a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html">tesseract_planning::NullInstruction</a>)</td></tr>
-<tr class="separator:ae2819c6d3c41dbc6bb6417dd62bb0536"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a324a7148a79285c5581326f6d2eb349b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#a324a7148a79285c5581326f6d2eb349b">TESSERACT_INSTRUCTION_EXPORT</a> (<a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a>)</td></tr>
-<tr class="separator:a324a7148a79285c5581326f6d2eb349b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f823d49c283e124a70afd6b2c7fcae8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#a8f823d49c283e124a70afd6b2c7fcae8">TESSERACT_INSTRUCTION_EXPORT</a> (<a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">tesseract_planning::PlanInstruction</a>)</td></tr>
-<tr class="separator:a8f823d49c283e124a70afd6b2c7fcae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac294a5cfacb5c220cb3c235415be4642"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#ac294a5cfacb5c220cb3c235415be4642">TESSERACT_INSTRUCTION_EXPORT</a> (<a class="el" href="../../d9/d2c/classtesseract__planning_1_1WaitInstruction.html">tesseract_planning::WaitInstruction</a>)</td></tr>
-<tr class="separator:ac294a5cfacb5c220cb3c235415be4642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38ab8f3c6618b5de5ecd276220376a7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#a38ab8f3c6618b5de5ecd276220376a7d">TESSERACT_INSTRUCTION_EXPORT</a> (<a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html">tesseract_planning::TimerInstruction</a>)</td></tr>
-<tr class="separator:a38ab8f3c6618b5de5ecd276220376a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6b55c5755468d47e21f41c24d574b58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#ad6b55c5755468d47e21f41c24d574b58">TESSERACT_INSTRUCTION_EXPORT</a> (<a class="el" href="../../d3/d65/classtesseract__planning_1_1SetToolInstruction.html">tesseract_planning::SetToolInstruction</a>)</td></tr>
-<tr class="separator:ad6b55c5755468d47e21f41c24d574b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75cbdce74aff96439ebfd12dac47909d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#a75cbdce74aff96439ebfd12dac47909d">TESSERACT_INSTRUCTION_EXPORT</a> (<a class="el" href="../../d4/df4/classtesseract__planning_1_1SetAnalogInstruction.html">tesseract_planning::SetAnalogInstruction</a>)</td></tr>
-<tr class="separator:a75cbdce74aff96439ebfd12dac47909d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61b124fe007abadf54a4d14e2b1770f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d50/serialization_8h.html#a61b124fe007abadf54a4d14e2b1770f7">TESSERACT_INSTRUCTION_EXPORT</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a>)</td></tr>
-<tr class="separator:a61b124fe007abadf54a4d14e2b1770f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae83d8360bbc2d9d905b1ccc87586b77c"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
-<tr class="memitem:ae83d8360bbc2d9d905b1ccc87586b77c"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae83d8360bbc2d9d905b1ccc87586b77c">tesseract_planning::toArchiveStringXML</a> (SerializableType &amp;archive_type, const std::string &amp;name=&quot;&quot;)</td></tr>
-<tr class="separator:ae83d8360bbc2d9d905b1ccc87586b77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc42a5d8b564e04c1906d5fb99c638f4"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
-<tr class="memitem:acc42a5d8b564e04c1906d5fb99c638f4"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acc42a5d8b564e04c1906d5fb99c638f4">tesseract_planning::toArchiveFileXML</a> (SerializableType &amp;archive_type, const std::string &amp;file_path, const std::string &amp;name=&quot;&quot;)</td></tr>
-<tr class="separator:acc42a5d8b564e04c1906d5fb99c638f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b6c1a3acbb2a92ddc106627151d7f46"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
-<tr class="memitem:a8b6c1a3acbb2a92ddc106627151d7f46"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8b6c1a3acbb2a92ddc106627151d7f46">tesseract_planning::fromArchiveStringXML</a> (const std::string &amp;archive_xml)</td></tr>
-<tr class="separator:a8b6c1a3acbb2a92ddc106627151d7f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6628f45902a3b73afaea1c30091bf87a"><td class="memTemplParams" colspan="2">template&lt;typename SerializableType &gt; </td></tr>
-<tr class="memitem:a6628f45902a3b73afaea1c30091bf87a"><td class="memTemplItemLeft" align="right" valign="top">SerializableType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6628f45902a3b73afaea1c30091bf87a">tesseract_planning::fromArchiveFileXML</a> (const std::string &amp;file_path)</td></tr>
-<tr class="separator:a6628f45902a3b73afaea1c30091bf87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides boost exports for waypoint and instruction implementation for serialization Also includes utility function. </p>
@@ -211,232 +178,15 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>February 24, 2021 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000018">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000005">Bug:</a></b></dt><dd>No known bugs</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2021, Southwest Research Institute</dd></dl>
 <dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
 <dl class="section user"><dt></dt><dd>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="a61b124fe007abadf54a4d14e2b1770f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61b124fe007abadf54a4d14e2b1770f7">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT() <span class="overload">[1/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_INSTRUCTION_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a324a7148a79285c5581326f6d2eb349b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a324a7148a79285c5581326f6d2eb349b">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT() <span class="overload">[2/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_INSTRUCTION_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae2819c6d3c41dbc6bb6417dd62bb0536"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2819c6d3c41dbc6bb6417dd62bb0536">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT() <span class="overload">[3/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_INSTRUCTION_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html">tesseract_planning::NullInstruction</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8f823d49c283e124a70afd6b2c7fcae8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f823d49c283e124a70afd6b2c7fcae8">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT() <span class="overload">[4/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_INSTRUCTION_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">tesseract_planning::PlanInstruction</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a75cbdce74aff96439ebfd12dac47909d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75cbdce74aff96439ebfd12dac47909d">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT() <span class="overload">[5/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_INSTRUCTION_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d4/df4/classtesseract__planning_1_1SetAnalogInstruction.html">tesseract_planning::SetAnalogInstruction</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad6b55c5755468d47e21f41c24d574b58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6b55c5755468d47e21f41c24d574b58">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT() <span class="overload">[6/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_INSTRUCTION_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d65/classtesseract__planning_1_1SetToolInstruction.html">tesseract_planning::SetToolInstruction</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a38ab8f3c6618b5de5ecd276220376a7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38ab8f3c6618b5de5ecd276220376a7d">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT() <span class="overload">[7/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_INSTRUCTION_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../db/d84/classtesseract__planning_1_1TimerInstruction.html">tesseract_planning::TimerInstruction</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac294a5cfacb5c220cb3c235415be4642"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac294a5cfacb5c220cb3c235415be4642">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT() <span class="overload">[8/8]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_INSTRUCTION_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d9/d2c/classtesseract__planning_1_1WaitInstruction.html">tesseract_planning::WaitInstruction</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a95f7f1658e4dfbdf688c41c0849e8a1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95f7f1658e4dfbdf688c41c0849e8a1d">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_WAYPOINT_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">tesseract_planning::CartesianWaypoint</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa06e68ba6465f5af6450c5699ab8e04e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa06e68ba6465f5af6450c5699ab8e04e">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_WAYPOINT_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">tesseract_planning::JointWaypoint</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1dfb55d490d326e4698553140484195d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dfb55d490d326e4698553140484195d">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_COMMON_IGNORE_WARNINGS_PUSH TESSERACT_COMMON_IGNORE_WARNINGS_POP TESSERACT_WAYPOINT_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/d18/classtesseract__planning_1_1NullWaypoint.html">tesseract_planning::NullWaypoint</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6dacd6555fa64f043cb61210dc045044"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dacd6555fa64f043cb61210dc045044">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TESSERACT_WAYPOINT_EXPORT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">tesseract_planning::StateWaypoint</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 2 2021 04:15:31 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Apr 7 2021 23:15:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

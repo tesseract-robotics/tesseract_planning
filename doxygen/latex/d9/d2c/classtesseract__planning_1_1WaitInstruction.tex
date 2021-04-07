@@ -28,9 +28,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Wait\+Instruction\+:
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a80966abd3d33793952962709ac18eabc}{Wait\+Instruction}} (\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} type, int io)
 \item 
-int \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a8257dac1b33ba6331b9c0b44d5d7eccf}{get\+Type}} () const
-\item 
-const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_aa681867b3a2b82d9c414e0d7c826838c}{get\+Description}} () const
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_ad59033b490ff18ab0f4289e1bd4eeb49}{get\+Description}} () const
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a9a421b6f1c4242f178055c37489ac2cc}{set\+Description}} (const std\+::string \&description)
 \item 
@@ -48,8 +46,6 @@ int \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_ab094872c5d2ed0
 \begin{DoxyCompactList}\small\item\em Get the wait IO. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a848e03066886574ee8f8fb6347343240}{set\+Wait\+IO}} (int io)
 \begin{DoxyCompactList}\small\item\em Set the wait IO. \end{DoxyCompactList}\item 
-tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a3d4c1a1de09c9649c54420a8d8e81694}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
-\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a649c5148e2f4910b79ebc17364220325}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{Wait\+Instruction}} \&rhs) const
 \begin{DoxyCompactList}\small\item\em Equal operator. Does not compare descriptions. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a331eca2bea44d80b7db91852f7626944}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{Wait\+Instruction}} \&rhs) const
@@ -57,7 +53,7 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_a331eca2bea44d
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_ae40b10011723bd6869ba30eaa3465141}{serialize}} (Archive \&ar, const unsigned int)
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction_aa0c66787402611ccaa095c4400953ee4}{serialize}} (Archive \&ar, const unsigned int version)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -102,34 +98,28 @@ The instruction has several modes of operation.
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!WaitInstruction@{WaitInstruction}}
 \index{WaitInstruction@{WaitInstruction}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{WaitInstruction()}{WaitInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Wait\+Instruction\+::\+Wait\+Instruction (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Wait\+Instruction\+::\+Wait\+Instruction (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a80966abd3d33793952962709ac18eabc}\label{classtesseract__planning_1_1WaitInstruction_a80966abd3d33793952962709ac18eabc}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!WaitInstruction@{WaitInstruction}}
 \index{WaitInstruction@{WaitInstruction}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{WaitInstruction()}{WaitInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Wait\+Instruction\+::\+Wait\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}}}]{type,  }\item[{int}]{io }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Wait\+Instruction\+::\+Wait\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}}}]{type,  }\item[{int}]{io }\end{DoxyParamCaption})}
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_aa681867b3a2b82d9c414e0d7c826838c}\label{classtesseract__planning_1_1WaitInstruction_aa681867b3a2b82d9c414e0d7c826838c}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_ad59033b490ff18ab0f4289e1bd4eeb49}\label{classtesseract__planning_1_1WaitInstruction_ad59033b490ff18ab0f4289e1bd4eeb49}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!getDescription@{getDescription}}
 \index{getDescription@{getDescription}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily const std\+::string\& tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a8257dac1b33ba6331b9c0b44d5d7eccf}\label{classtesseract__planning_1_1WaitInstruction_a8257dac1b33ba6331b9c0b44d5d7eccf}} 
-\index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!getType@{getType}}
-\index{getType@{getType}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
-\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
-{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_ab094872c5d2ed0dc013ed3ca631cb4d2}\label{classtesseract__planning_1_1WaitInstruction_ab094872c5d2ed0dc013ed3ca631cb4d2}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!getWaitIO@{getWaitIO}}
 \index{getWaitIO@{getWaitIO}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{getWaitIO()}{getWaitIO()}}
-{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Wait\+IO (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Wait\+IO (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -142,7 +132,7 @@ The wait IO
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!getWaitTime@{getWaitTime}}
 \index{getWaitTime@{getWaitTime}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{getWaitTime()}{getWaitTime()}}
-{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Wait\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Wait\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -155,7 +145,7 @@ The wait time in second
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!getWaitType@{getWaitType}}
 \index{getWaitType@{getWaitType}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{getWaitType()}{getWaitType()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Wait\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}} tesseract\+\_\+planning\+::\+Wait\+Instruction\+::get\+Wait\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -168,7 +158,7 @@ The wait type
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Wait\+Instruction\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{Wait\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Wait\+Instruction\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{Wait\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const}
 
 
 
@@ -186,7 +176,7 @@ True if not equal, otherwise false
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!operator==@{operator==}}
 \index{operator==@{operator==}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Wait\+Instruction\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{Wait\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Wait\+Instruction\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{Wait\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const}
 
 
 
@@ -204,26 +194,26 @@ True if equal, otherwise false
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!print@{print}}
 \index{print@{print}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_ae40b10011723bd6869ba30eaa3465141}\label{classtesseract__planning_1_1WaitInstruction_ae40b10011723bd6869ba30eaa3465141}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_aa0c66787402611ccaa095c4400953ee4}\label{classtesseract__planning_1_1WaitInstruction_aa0c66787402611ccaa095c4400953ee4}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
-void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+template void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a9a421b6f1c4242f178055c37489ac2cc}\label{classtesseract__planning_1_1WaitInstruction_a9a421b6f1c4242f178055c37489ac2cc}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!setDescription@{setDescription}}
 \index{setDescription@{setDescription}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a848e03066886574ee8f8fb6347343240}\label{classtesseract__planning_1_1WaitInstruction_a848e03066886574ee8f8fb6347343240}} 
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!setWaitIO@{setWaitIO}}
 \index{setWaitIO@{setWaitIO}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{setWaitIO()}{setWaitIO()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Wait\+IO (\begin{DoxyParamCaption}\item[{int}]{io }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Wait\+IO (\begin{DoxyParamCaption}\item[{int}]{io }\end{DoxyParamCaption})}
 
 
 
@@ -238,7 +228,7 @@ Set the wait IO.
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!setWaitTime@{setWaitTime}}
 \index{setWaitTime@{setWaitTime}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{setWaitTime()}{setWaitTime()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Wait\+Time (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Wait\+Time (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})}
 
 
 
@@ -253,7 +243,7 @@ Set wait time in second.
 \index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!setWaitType@{setWaitType}}
 \index{setWaitType@{setWaitType}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
 \doxysubsubsection{\texorpdfstring{setWaitType()}{setWaitType()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Wait\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}}}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Wait\+Instruction\+::set\+Wait\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66e}{Wait\+Instruction\+Type}}}]{type }\end{DoxyParamCaption})}
 
 
 
@@ -264,12 +254,6 @@ Set the wait type.
 {\em type} & The wait type \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classtesseract__planning_1_1WaitInstruction_a3d4c1a1de09c9649c54420a8d8e81694}\label{classtesseract__planning_1_1WaitInstruction_a3d4c1a1de09c9649c54420a8d8e81694}} 
-\index{tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}!toXML@{toXML}}
-\index{toXML@{toXML}!tesseract\_planning::WaitInstruction@{tesseract\_planning::WaitInstruction}}
-\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
-{\footnotesize\ttfamily tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::\+Wait\+Instruction\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -312,6 +296,7 @@ The description of the instruction.
 
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/\mbox{\hyperlink{wait__instruction_8h}{wait\+\_\+instruction.\+h}}\end{DoxyCompactItemize}
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/\mbox{\hyperlink{wait__instruction_8h}{wait\+\_\+instruction.\+h}}\item 
+tesseract\+\_\+command\+\_\+language/src/\mbox{\hyperlink{wait__instruction_8cpp}{wait\+\_\+instruction.\+cpp}}\end{DoxyCompactItemize}

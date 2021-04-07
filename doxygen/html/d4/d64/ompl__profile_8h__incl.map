@@ -1,31 +1,35 @@
 <map id="tesseract_motion_planners/include/tesseract_motion_planners/ompl/profile/ompl_profile.h" name="tesseract_motion_planners/include/tesseract_motion_planners/ompl/profile/ompl_profile.h">
-<area shape="rect" id="node1" title="Tesseract OMPL profile." alt="" coords="1539,5,1719,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1221,399,1412,426"/>
-<area shape="rect" id="node3" title=" " alt="" coords="2153,131,2211,158"/>
-<area shape="rect" id="node4" title=" " alt="" coords="1420,310,1488,337"/>
-<area shape="rect" id="node5" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="1931,124,2129,165"/>
-<area shape="rect" id="node17" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="2656,124,2855,165"/>
-<area shape="rect" id="node19" href="$dd/d3c/ompl__problem_8h.html" title="Tesseract OMPL problem definition." alt="" coords="611,213,790,255"/>
-<area shape="rect" id="node6" title=" " alt="" coords="2240,399,2295,426"/>
-<area shape="rect" id="node7" title=" " alt="" coords="1701,399,1780,426"/>
-<area shape="rect" id="node8" title=" " alt="" coords="2053,392,2180,433"/>
-<area shape="rect" id="node9" title=" " alt="" coords="2519,303,2645,344"/>
-<area shape="rect" id="node10" title=" " alt="" coords="2669,303,2796,344"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1511,303,1653,344"/>
-<area shape="rect" id="node12" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="2000,213,2199,255"/>
-<area shape="rect" id="node13" title=" " alt="" coords="2323,303,2494,344"/>
-<area shape="rect" id="node16" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1777,303,1976,344"/>
-<area shape="rect" id="node14" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="2000,303,2199,344"/>
-<area shape="rect" id="node15" title=" " alt="" coords="1898,399,1970,426"/>
-<area shape="rect" id="node18" title=" " alt="" coords="2923,213,3127,255"/>
-<area shape="rect" id="node20" title=" " alt="" coords="701,310,900,337"/>
-<area shape="rect" id="node21" title=" " alt="" coords="493,399,716,426"/>
-<area shape="rect" id="node22" title=" " alt="" coords="361,303,499,344"/>
-<area shape="rect" id="node23" title=" " alt="" coords="5,392,236,433"/>
-<area shape="rect" id="node24" href="$d7/dbb/tesseract__motion__planners_2include_2tesseract__motion__planners_2ompl_2types_8h.html" title="Tesseract OMPL types." alt="" coords="158,303,337,344"/>
-<area shape="rect" id="node26" href="$de/d1e/ompl__planner__configurator_8h.html" title="Tesseract OMPL planner configurator." alt="" coords="974,303,1193,344"/>
-<area shape="rect" id="node29" title=" " alt="" coords="523,303,678,344"/>
-<area shape="rect" id="node25" title=" " alt="" coords="261,399,375,426"/>
-<area shape="rect" id="node27" title=" " alt="" coords="991,399,1189,426"/>
-<area shape="rect" id="node28" title=" " alt="" coords="827,399,967,426"/>
+<area shape="rect" id="node1" title="Tesseract OMPL profile." alt="" coords="1192,5,1372,76"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1483,399,1673,426"/>
+<area shape="rect" id="node3" title=" " alt="" coords="805,131,863,158"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,310,73,337"/>
+<area shape="rect" id="node5" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="887,124,1085,165"/>
+<area shape="rect" id="node20" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1616,124,1815,165"/>
+<area shape="rect" id="node22" href="$dd/d3c/ompl__problem_8h.html" title="Tesseract OMPL problem definition." alt="" coords="2189,213,2367,255"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1435,310,1489,337"/>
+<area shape="rect" id="node7" title=" " alt="" coords="97,310,173,337"/>
+<area shape="rect" id="node8" title=" " alt="" coords="197,303,324,344"/>
+<area shape="rect" id="node9" title=" " alt="" coords="348,303,475,344"/>
+<area shape="rect" id="node10" title=" " alt="" coords="772,303,899,344"/>
+<area shape="rect" id="node11" title=" " alt="" coords="923,303,1049,344"/>
+<area shape="rect" id="node12" title=" " alt="" coords="1074,303,1215,344"/>
+<area shape="rect" id="node13" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="691,213,889,255"/>
+<area shape="rect" id="node14" href="$dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="499,303,697,344"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1239,303,1410,344"/>
+<area shape="rect" id="node15" title=" " alt="" coords="391,399,458,426"/>
+<area shape="rect" id="node16" title=" " alt="" coords="482,399,551,426"/>
+<area shape="rect" id="node17" title=" " alt="" coords="576,399,780,426"/>
+<area shape="rect" id="node18" title=" " alt="" coords="805,399,1005,426"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1616,213,1820,255"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1844,310,2043,337"/>
+<area shape="rect" id="node24" title=" " alt="" coords="2481,399,2704,426"/>
+<area shape="rect" id="node25" title=" " alt="" coords="2310,303,2449,344"/>
+<area shape="rect" id="node26" title=" " alt="" coords="2728,392,2959,433"/>
+<area shape="rect" id="node27" href="$d7/dbb/tesseract__motion__planners_2include_2tesseract__motion__planners_2ompl_2types_8h.html" title="Tesseract OMPL types." alt="" coords="2473,303,2651,344"/>
+<area shape="rect" id="node29" href="$de/d1e/ompl__planner__configurator_8h.html" title="Tesseract OMPL planner configurator." alt="" coords="2067,303,2286,344"/>
+<area shape="rect" id="node33" title=" " alt="" coords="1615,303,1770,344"/>
+<area shape="rect" id="node28" title=" " alt="" coords="2342,399,2457,426"/>
+<area shape="rect" id="node30" title=" " alt="" coords="1852,399,2051,426"/>
+<area shape="rect" id="node31" title=" " alt="" coords="2075,399,2215,426"/>
+<area shape="rect" id="node32" title=" " alt="" coords="2239,399,2317,426"/>
 </map>

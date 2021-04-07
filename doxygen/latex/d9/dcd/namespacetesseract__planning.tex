@@ -20,17 +20,17 @@ class \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composi
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{Null\+Waypoint}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1Serialization}{Serialization}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1XMLElementName}{XMLElement\+Name}}
-\begin{DoxyCompactList}\small\item\em Used to lookup the XML element name for a type. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{Null\+Waypoint}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}}
 \item 
@@ -46,10 +46,6 @@ class \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{Timer\+Inst
 \begin{DoxyCompactList}\small\item\em This instruction indicates that a timer should be started and when the time expires it either sets a digital output high(1) or low(0). \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{Wait\+Instruction}}
 \begin{DoxyCompactList}\small\item\em This is a wait instruction similar to wait instruction on industrial controllers. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1XMLElementName_3_01Instruction_01_4}{XMLElement\+Name$<$ Instruction $>$}}
-\item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1XMLElementName_3_01Waypoint_01_4}{XMLElement\+Name$<$ Waypoint $>$}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{Motion\+Planner}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}}
@@ -293,10 +289,6 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{Sing
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}} = std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}(const tinyxml2\+::\+XMLElement \&, int)$>$
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}{Instruction\+Parser\+Fn}} = std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}(const tinyxml2\+::\+XMLElement \&, int, \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}})$>$
-\item 
 using \mbox{\hyperlink{namespacetesseract__planning_aee75294c532e61c8a920439a38497490}{Tool\+Center\+Point}} = tesseract\+\_\+common\+::\+Tool\+Center\+Point
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} = tesseract\+\_\+common\+::\+Manipulator\+Info
@@ -399,25 +391,6 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23
 , \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98da2aa1bd8a5f345edb7d934e2925962f43}{ORDERED\+\_\+\+AND\+\_\+\+REVERABLE}}
  \}
 \item 
-enum class \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100}{Instruction\+Type}} \+: int \{ \newline
-\mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a553244d0c0e7e590ea64f985a5e24be3}{NULL\+\_\+\+INSTRUCTION}} = 0
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae5e6a0ef2425f873fc112cb5470785a2}{PLAN\+\_\+\+INSTRUCTION}} = 10
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a92e352111401692609a4fd7d883cc353}{MOVE\+\_\+\+INSTRUCTION}} = 20
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a520a4617ef4c13c6b4fcf5f7c3d180fa}{COMPOSITE\+\_\+\+INSTRUCTION}} = 30
-, \newline
-\mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5e68a3cc5bf2f445f94fe6eb3541af3c}{IO\+\_\+\+INSTRUCTION}} = 40
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ac318cb2037ede12c3af6527223ecd46d}{SET\+\_\+\+ANALOG\+\_\+\+INSTRUCTION}} = 49
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a4cab48758630f5ac6e4f27918239811e}{ANALOG\+\_\+\+INSTRUCTION}} = 50
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ab752f56a05163a8d96e9c8229ac44120}{VARIABLE\+\_\+\+INSTRUCTION}} = 60
-, \newline
-\mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a545586ebf636939449526edcb71386b9}{COMMENT\+\_\+\+INSTRUCTION}} = 70
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043}{WAIT\+\_\+\+INSTRUCTION}} = 80
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743}{TIMER\+\_\+\+INSTRUCTION}} = 90
-, \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715}{SET\+\_\+\+TOOL\+\_\+\+INSTRUCTION}} = 100
-, \newline
-\mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00}{USER\+\_\+\+DEFINED}} = 1000
- \}
-\item 
 enum class \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \+: int \{ \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{LINEAR}} = 0
 , \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{FREESPACE}} = 1
 , \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68}{CIRCULAR}} = 2
@@ -441,15 +414,6 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd
 , \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66eafd7449f3c0dae783bd8960c264eff1af}{DIGITAL\+\_\+\+OUTPUT\+\_\+\+HIGH}} = 3
 , \newline
 \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66eadc44bfe9b2ce1975d7312158278ac8df}{DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW}} = 4
- \}
-\item 
-enum class \mbox{\hyperlink{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30b}{Waypoint\+Type}} \+: int \{ \newline
-\mbox{\hyperlink{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30baa64950e4860c8d58d03478f8d9d04ae9}{NULL\+\_\+\+WAYPOINT}} = 0
-, \mbox{\hyperlink{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30baf5be5aaa51c6045e474deaaa2456e227}{CARTESIAN\+\_\+\+WAYPOINT}} = 1
-, \mbox{\hyperlink{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30babbff404565b92c7fb482703b27957bcb}{JOINT\+\_\+\+WAYPOINT}} = 2
-, \mbox{\hyperlink{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30ba4c324f83850a3a9a33a060ed1c9327ab}{STATE\+\_\+\+WAYPOINT}} = 3
-, \newline
-\mbox{\hyperlink{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30ba5123cb514ff95a726922950380866e00}{USER\+\_\+\+DEFINED}} = 1000
  \}
 \item 
 enum class \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} \{ \newline
@@ -500,34 +464,6 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a5f5cbd9566c58361976715
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a9bad29b6718ab9b65075a5e1f39dd550}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&lhs, const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&rhs)
-\begin{DoxyCompactList}\small\item\em Equal operator for \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Types. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_acea865c9d11bb066e96553bc349c815b}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&lhs, const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&rhs)
-\begin{DoxyCompactList}\small\item\em Not equal operator for \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Types. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a73a8e9a69400ccd16c907a4229081079}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&lhs, const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&rhs)
-\begin{DoxyCompactList}\small\item\em Equal operator for \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} Types. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a5e1bd88fcc4ee16122786cb94651482d}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&lhs, const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&rhs)
-\begin{DoxyCompactList}\small\item\em Not equal operator for \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} Types. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_ad0b121cfd471a9070cbe722019151e80}{default\+Waypoint\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element, int type)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_afb3a9307557ffa1b00786dcea738c2b2}{Instruction\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element, int type, \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}} waypoint\+\_\+parser)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a8b1cbe67eb82a2b4a9f55461b099888d}{default\+Instruction\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element, int type)
-\begin{DoxyCompactList}\small\item\em Default instruction parser. Uses the default\+Waypoint\+Parser as the Waypoint\+Parser\+Fn. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a0462ba8288eead9b2e23488ff3a005f5}{from\+XMLDocument}} (const tinyxml2\+::\+XMLDocument \&xml\+\_\+doc, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a60bedaa7f5bd32de181837caa35dbd92}{from\+XMLFile}} (const std\+::string \&file\+\_\+path, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a825e196d4527829691b91355c24eb23d}{from\+XMLString}} (const std\+::string \&xml\+\_\+string, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a3cc3069fa5dc6e192f3826c096c66295}{from\+XMLElement}} (const tinyxml2\+::\+XMLElement $\ast$cl\+\_\+xml, std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ \mbox{\hyperlink{namespacetesseract__planning_a9b8cd019191e90ec9539744ba382b86b}{to\+XMLDocument}} (const Serializable\+Type \&input)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_a6a9770828d4f01c5fbfc8696f66fc29c}{to\+XMLFile}} (const Serializable\+Type \&input, const std\+::string \&file\+\_\+path)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\std\+::string \mbox{\hyperlink{namespacetesseract__planning_a3fb58e408a6a525d074b72b2ef15d8f2}{to\+XMLString}} (const Serializable\+Type \&input)
-\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a3f42a719816e6dea334fe383044b600e}{is\+Comment\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a71a4541552162b88b58aaad64cdcbc3c}{is\+Variable\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
@@ -543,14 +479,6 @@ bool \mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a57
 bool \mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{is\+Plan\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a113ddfa3992fee8b8bdb1adcc6ee297e}{is\+Null\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\std\+::string \mbox{\hyperlink{namespacetesseract__planning_ae83d8360bbc2d9d905b1ccc87586b77c}{to\+Archive\+String\+XML}} (Serializable\+Type \&archive\+\_\+type, const std\+::string \&name=\char`\"{}\char`\"{})
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_acc42a5d8b564e04c1906d5fb99c638f4}{to\+Archive\+File\+XML}} (Serializable\+Type \&archive\+\_\+type, const std\+::string \&file\+\_\+path, const std\+::string \&name=\char`\"{}\char`\"{})
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a8b6c1a3acbb2a92ddc106627151d7f46}{from\+Archive\+String\+XML}} (const std\+::string \&archive\+\_\+xml)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a6628f45902a3b73afaea1c30091bf87a}{from\+Archive\+File\+XML}} (const std\+::string \&file\+\_\+path)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a156eaa9e3dde1379bf9200c43c351d3f}{move\+Filter}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite, bool parent\+\_\+is\+\_\+first\+\_\+composite)
 \item 
@@ -627,56 +555,6 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ac2bb55bed2473cb51b560386fdc2
 bool \mbox{\hyperlink{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}{is\+State\+Waypoint}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a42f159d4e511a6c951f100ff0a05e4f4}{is\+Null\+Waypoint}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_ab9dd7e6f2e7f28402e91aa242e2af197}{get\+Null\+Waypoint}} (const tinyxml2\+::\+XMLElement \&)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_ae048b2f9274d26b48d7c1a2ad7561fa5}{get\+Cartesian\+Waypoint}} (const tinyxml2\+::\+XMLElement \&waypoint\+\_\+element)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_a526674a35622c8be2d1db9a518f8aebe}{get\+Joint\+Waypoint}} (const tinyxml2\+::\+XMLElement \&waypoint\+\_\+element)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_a6118b6243267b448ebf2546f57b0d910}{get\+State\+Waypoint}} (const tinyxml2\+::\+XMLElement \&waypoint\+\_\+element)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_afefc888261f0531327e79a9a6b7481d1}{get\+Null\+Instruction}} (const tinyxml2\+::\+XMLElement \&)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_adee5825cef374e4b2db8ab1184f44c02}{get\+Plan\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element, \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}} waypoint\+\_\+parser)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a40f0b4a43e26d66f265830fd932480d8}{get\+Move\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element, \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}} waypoint\+\_\+parser)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a10e4d3523a58f0754931a5d726632895}{start\+Instructionfrom\+XML}} (const tinyxml2\+::\+XMLElement \&start\+\_\+instruction\+\_\+xml, \mbox{\hyperlink{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}{Instruction\+Parser\+Fn}} instruction\+\_\+parser, \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}} waypoint\+\_\+parser)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a7838fefc8e24bcb22abb67d56b867b10}{get\+Wait\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a44bf9c62ba66308dc54abaf1d721b8f8}{get\+Timer\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a19f6701fe9d70c54e612e59fbafdd5c9}{get\+Set\+Tool\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_abc8e32ee9b2a319d1f663e453bd95ac6}{get\+Set\+Analog\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a1eee4dce180780748b0b11a7df79ee02}{get\+Composite\+Instruction}} (const tinyxml2\+::\+XMLElement \&instruction\+\_\+element, \mbox{\hyperlink{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}{Instruction\+Parser\+Fn}} instruction\+\_\+parser, \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}} waypoint\+\_\+parser)
-\item 
-template \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_ac93e7adac649ccc7d1c6882816839fb3}{from\+XMLDocument$<$ Instruction $>$}} (const tinyxml2\+::\+XMLDocument \&xml\+\_\+doc, std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}(const tinyxml2\+::\+XMLElement \&, int)$>$)
-\item 
-template \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a634b1bb6cd0f252256dd5a7503d62f39}{from\+XMLFile$<$ Instruction $>$}} (const std\+::string \&file\+\_\+path, std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-template \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a349c1010eb970016e7e53639b3e73d01}{from\+XMLString$<$ Instruction $>$}} (const std\+::string \&xml\+\_\+string, std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-template \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_aacb2e3d821e1aa9ba7bde41638f13a1a}{from\+XMLDocument$<$ Waypoint $>$}} (const tinyxml2\+::\+XMLDocument \&xml\+\_\+doc, std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-template \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_a610366200cd973367e0482c67fd50c3b}{from\+XMLFile$<$ Waypoint $>$}} (const std\+::string \&file\+\_\+path, std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-template \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_adcaf2c588933d589766d923a87a1c388}{from\+XMLString$<$ Waypoint $>$}} (const std\+::string \&xml\+\_\+string, std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}(const tinyxml2\+::\+XMLElement \&, int)$>$ parser)
-\item 
-template std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ \mbox{\hyperlink{namespacetesseract__planning_abbac051c41607966d0c70d9b6086794a}{to\+XMLDocument$<$ Instruction $>$}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&input)
-\item 
-template bool \mbox{\hyperlink{namespacetesseract__planning_aea41b830f9f7b783c57a01edaa1426f7}{to\+XMLFile$<$ Instruction $>$}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction, const std\+::string \&file\+\_\+path)
-\item 
-template std\+::string \mbox{\hyperlink{namespacetesseract__planning_a7b81bf0afca4195bdbea8610f67d8989}{to\+XMLString$<$ Instruction $>$}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
-\item 
-template std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ \mbox{\hyperlink{namespacetesseract__planning_a0272509aa07e8c16a69323cc1892eae4}{to\+XMLDocument$<$ Waypoint $>$}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&input)
-\item 
-template bool \mbox{\hyperlink{namespacetesseract__planning_af1152a54988d0bb45c1e25172969f529}{to\+XMLFile$<$ Waypoint $>$}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&input, const std\+::string \&file\+\_\+path)
-\item 
-template std\+::string \mbox{\hyperlink{namespacetesseract__planning_a540cd1e15edc446896a85e40fb7307c2}{to\+XMLString$<$ Waypoint $>$}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&input)
 \item 
 void \mbox{\hyperlink{namespacetesseract__planning_af18d888a01fceb5a2290afb0d791d174}{flatten\+Helper}} (std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$$>$ \&flattened, \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite, \mbox{\hyperlink{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}{flatten\+Filter\+Fn}} filter, bool first\+\_\+composite)
 \begin{DoxyCompactList}\small\item\em Helper function used by Flatten. Not intended for direct use. \end{DoxyCompactList}\item 
@@ -1162,13 +1040,7 @@ This is used for filtering only what you want in the vector.
 
 The first parameter is the instruction consider, the second is it\textquotesingle{}s parent composite instruction, and the third indicates if the parent composite is the top most composite
 
-The filter should return true when the instruction passed should be included not throw. \mbox{\Hypertarget{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}\label{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}} 
-\index{tesseract\_planning@{tesseract\_planning}!InstructionParserFn@{InstructionParserFn}}
-\index{InstructionParserFn@{InstructionParserFn}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{InstructionParserFn}{InstructionParserFn}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}{tesseract\+\_\+planning\+::\+Instruction\+Parser\+Fn}} = typedef std\+::function$<$\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}(const tinyxml2\+::\+XMLElement\&, int, \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}})$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}\label{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}} 
+The filter should return true when the instruction passed should be included not throw. \mbox{\Hypertarget{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}\label{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}} 
 \index{tesseract\_planning@{tesseract\_planning}!IterativeSplineParameterizationProfileMap@{IterativeSplineParameterizationProfileMap}}
 \index{IterativeSplineParameterizationProfileMap@{IterativeSplineParameterizationProfileMap}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{IterativeSplineParameterizationProfileMap}{IterativeSplineParameterizationProfileMap}}
@@ -1326,12 +1198,6 @@ For example say you have a profile named Raster in your command language. Say yo
 \doxysubsubsection{\texorpdfstring{TrajOptSolverProfileMap}{TrajOptSolverProfileMap}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ab990993d1a2002f7e044ba3693f8b2d7}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Solver\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1TrajOptSolverProfile_abc630e4bb744e18e3db4d72601cf20a3}{Traj\+Opt\+Solver\+Profile\+::\+Const\+Ptr}}$>$}
 
-\mbox{\Hypertarget{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}\label{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}} 
-\index{tesseract\_planning@{tesseract\_planning}!WaypointParserFn@{WaypointParserFn}}
-\index{WaypointParserFn@{WaypointParserFn}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{WaypointParserFn}{WaypointParserFn}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{tesseract\+\_\+planning\+::\+Waypoint\+Parser\+Fn}} = typedef std\+::function$<$\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}(const tinyxml2\+::\+XMLElement\&, int)$>$}
-
 
 
 \doxysubsection{Enumeration Type Documentation}
@@ -1368,66 +1234,6 @@ DEFAULT&This will run omp followed by trajopt. \\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TRAJOPT\_FIRST@{TRAJOPT\_FIRST}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!TRAJOPT\_FIRST@{TRAJOPT\_FIRST}}}\mbox{\Hypertarget{namespacetesseract__planning_a5f5cbd9566c5836197671580b353ce1ea8e0dc83f462fdf5e476597e740bca66f}\label{namespacetesseract__planning_a5f5cbd9566c5836197671580b353ce1ea8e0dc83f462fdf5e476597e740bca66f}} 
 TRAJOPT\+\_\+\+FIRST&This will run trajopt first then if it fails it will run ompl followed by trajopt. \\
-\hline
-
-\end{DoxyEnumFields}
-\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100}} 
-\index{tesseract\_planning@{tesseract\_planning}!InstructionType@{InstructionType}}
-\index{InstructionType@{InstructionType}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{InstructionType}{InstructionType}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100}{tesseract\+\_\+planning\+::\+Instruction\+Type}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
-
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{NULL\_INSTRUCTION@{NULL\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!NULL\_INSTRUCTION@{NULL\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a553244d0c0e7e590ea64f985a5e24be3}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a553244d0c0e7e590ea64f985a5e24be3}} 
-NULL\+\_\+\+INSTRUCTION&A null instruction. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{PLAN\_INSTRUCTION@{PLAN\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!PLAN\_INSTRUCTION@{PLAN\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae5e6a0ef2425f873fc112cb5470785a2}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae5e6a0ef2425f873fc112cb5470785a2}} 
-PLAN\+\_\+\+INSTRUCTION&A plan instruction. Everything before must also be a motion plan instruction \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MOVE\_INSTRUCTION@{MOVE\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!MOVE\_INSTRUCTION@{MOVE\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a92e352111401692609a4fd7d883cc353}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a92e352111401692609a4fd7d883cc353}} 
-MOVE\+\_\+\+INSTRUCTION&A move instruction. Everything before must also be a motion instruction \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{COMPOSITE\_INSTRUCTION@{COMPOSITE\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!COMPOSITE\_INSTRUCTION@{COMPOSITE\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a520a4617ef4c13c6b4fcf5f7c3d180fa}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a520a4617ef4c13c6b4fcf5f7c3d180fa}} 
-COMPOSITE\+\_\+\+INSTRUCTION&A composite instruction. Everything before must also be a composite instruction \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{IO\_INSTRUCTION@{IO\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!IO\_INSTRUCTION@{IO\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5e68a3cc5bf2f445f94fe6eb3541af3c}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5e68a3cc5bf2f445f94fe6eb3541af3c}} 
-IO\+\_\+\+INSTRUCTION&Everything before must be a I/O instruction. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{SET\_ANALOG\_INSTRUCTION@{SET\_ANALOG\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!SET\_ANALOG\_INSTRUCTION@{SET\_ANALOG\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ac318cb2037ede12c3af6527223ecd46d}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ac318cb2037ede12c3af6527223ecd46d}} 
-SET\+\_\+\+ANALOG\+\_\+\+INSTRUCTION&Set Analog \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ANALOG\_INSTRUCTION@{ANALOG\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!ANALOG\_INSTRUCTION@{ANALOG\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a4cab48758630f5ac6e4f27918239811e}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a4cab48758630f5ac6e4f27918239811e}} 
-ANALOG\+\_\+\+INSTRUCTION&Everything before must be a analog instruction. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{VARIABLE\_INSTRUCTION@{VARIABLE\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!VARIABLE\_INSTRUCTION@{VARIABLE\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ab752f56a05163a8d96e9c8229ac44120}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ab752f56a05163a8d96e9c8229ac44120}} 
-VARIABLE\+\_\+\+INSTRUCTION&Everything before must be a variable instruction. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{COMMENT\_INSTRUCTION@{COMMENT\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!COMMENT\_INSTRUCTION@{COMMENT\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a545586ebf636939449526edcb71386b9}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a545586ebf636939449526edcb71386b9}} 
-COMMENT\+\_\+\+INSTRUCTION&Everything before must be a comment instruction. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{WAIT\_INSTRUCTION@{WAIT\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!WAIT\_INSTRUCTION@{WAIT\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100ae2ef7efed3cf667823b50b2e97081043}} 
-WAIT\+\_\+\+INSTRUCTION&A wait instruction. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TIMER\_INSTRUCTION@{TIMER\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!TIMER\_INSTRUCTION@{TIMER\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100af9bac1218b9c7e119c8c730c75b3f743}} 
-TIMER\+\_\+\+INSTRUCTION&A timer instruction. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{SET\_TOOL\_INSTRUCTION@{SET\_TOOL\_INSTRUCTION}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!SET\_TOOL\_INSTRUCTION@{SET\_TOOL\_INSTRUCTION}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100aa250f21c696d20c344e36c6b50e52715}} 
-SET\+\_\+\+TOOL\+\_\+\+INSTRUCTION&A set tool \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}. \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USER\_DEFINED@{USER\_DEFINED}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!USER\_DEFINED@{USER\_DEFINED}}}\mbox{\Hypertarget{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00}\label{namespacetesseract__planning_a1490313530edbc7faa29ca1c97253100a5123cb514ff95a726922950380866e00}} 
-USER\+\_\+\+DEFINED&User defined types must be larger than this. \\
 \hline
 
 \end{DoxyEnumFields}
@@ -1668,34 +1474,6 @@ DIGITAL\+\_\+\+OUTPUT\+\_\+\+HIGH&\\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{DIGITAL\_OUTPUT\_LOW@{DIGITAL\_OUTPUT\_LOW}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!DIGITAL\_OUTPUT\_LOW@{DIGITAL\_OUTPUT\_LOW}}}\mbox{\Hypertarget{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66eadc44bfe9b2ce1975d7312158278ac8df}\label{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66eadc44bfe9b2ce1975d7312158278ac8df}} 
 DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW&\\
-\hline
-
-\end{DoxyEnumFields}
-\mbox{\Hypertarget{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30b}\label{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30b}} 
-\index{tesseract\_planning@{tesseract\_planning}!WaypointType@{WaypointType}}
-\index{WaypointType@{WaypointType}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{WaypointType}{WaypointType}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30b}{tesseract\+\_\+planning\+::\+Waypoint\+Type}} \+: int\hspace{0.3cm}{\ttfamily [strong]}}
-
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{NULL\_WAYPOINT@{NULL\_WAYPOINT}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!NULL\_WAYPOINT@{NULL\_WAYPOINT}}}\mbox{\Hypertarget{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30baa64950e4860c8d58d03478f8d9d04ae9}\label{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30baa64950e4860c8d58d03478f8d9d04ae9}} 
-NULL\+\_\+\+WAYPOINT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{CARTESIAN\_WAYPOINT@{CARTESIAN\_WAYPOINT}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!CARTESIAN\_WAYPOINT@{CARTESIAN\_WAYPOINT}}}\mbox{\Hypertarget{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30baf5be5aaa51c6045e474deaaa2456e227}\label{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30baf5be5aaa51c6045e474deaaa2456e227}} 
-CARTESIAN\+\_\+\+WAYPOINT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{JOINT\_WAYPOINT@{JOINT\_WAYPOINT}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!JOINT\_WAYPOINT@{JOINT\_WAYPOINT}}}\mbox{\Hypertarget{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30babbff404565b92c7fb482703b27957bcb}\label{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30babbff404565b92c7fb482703b27957bcb}} 
-JOINT\+\_\+\+WAYPOINT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_WAYPOINT@{STATE\_WAYPOINT}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!STATE\_WAYPOINT@{STATE\_WAYPOINT}}}\mbox{\Hypertarget{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30ba4c324f83850a3a9a33a060ed1c9327ab}\label{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30ba4c324f83850a3a9a33a060ed1c9327ab}} 
-STATE\+\_\+\+WAYPOINT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USER\_DEFINED@{USER\_DEFINED}!tesseract\_planning@{tesseract\_planning}}\index{tesseract\_planning@{tesseract\_planning}!USER\_DEFINED@{USER\_DEFINED}}}\mbox{\Hypertarget{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30ba5123cb514ff95a726922950380866e00}\label{namespacetesseract__planning_a4dc98c0138d35a000f6d6c275192b30ba5123cb514ff95a726922950380866e00}} 
-USER\+\_\+\+DEFINED&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -2312,16 +2090,6 @@ std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1Descartes
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000006}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
-\mbox{\Hypertarget{namespacetesseract__planning_a8b1cbe67eb82a2b4a9f55461b099888d}\label{namespacetesseract__planning_a8b1cbe67eb82a2b4a9f55461b099888d}} 
-\index{tesseract\_planning@{tesseract\_planning}!defaultInstructionParser@{defaultInstructionParser}}
-\index{defaultInstructionParser@{defaultInstructionParser}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{defaultInstructionParser()}{defaultInstructionParser()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::default\+Instruction\+Parser (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element,  }\item[{int}]{type }\end{DoxyParamCaption})}
-
-
-
-Default instruction parser. Uses the default\+Waypoint\+Parser as the Waypoint\+Parser\+Fn. 
-
 \mbox{\Hypertarget{namespacetesseract__planning_aadef67757919c4ab46f55bc4395eb372}\label{namespacetesseract__planning_aadef67757919c4ab46f55bc4395eb372}} 
 \index{tesseract\_planning@{tesseract\_planning}!DefaultOMPLProblemGenerator@{DefaultOMPLProblemGenerator}}
 \index{DefaultOMPLProblemGenerator@{DefaultOMPLProblemGenerator}!tesseract\_planning@{tesseract\_planning}}
@@ -2374,12 +2142,6 @@ Default instruction parser. Uses the default\+Waypoint\+Parser as the Waypoint\+
 \item[\mbox{\hyperlink{todo__todo000022}{Todo}}]\+: Restructure this into several smaller functions that are testable and easier to understand \end{DoxyRefDesc}
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000023}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
-\mbox{\Hypertarget{namespacetesseract__planning_ad0b121cfd471a9070cbe722019151e80}\label{namespacetesseract__planning_ad0b121cfd471a9070cbe722019151e80}} 
-\index{tesseract\_planning@{tesseract\_planning}!defaultWaypointParser@{defaultWaypointParser}}
-\index{defaultWaypointParser@{defaultWaypointParser}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{defaultWaypointParser()}{defaultWaypointParser()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} tesseract\+\_\+planning\+::default\+Waypoint\+Parser (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element,  }\item[{int}]{type }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_ab6c029e5547e27960c05a22d6d18e8e1}\label{namespacetesseract__planning_ab6c029e5547e27960c05a22d6d18e8e1}} 
 \index{tesseract\_planning@{tesseract\_planning}!descartesPlanFromXMLDocument@{descartesPlanFromXMLDocument}}
 \index{descartesPlanFromXMLDocument@{descartesPlanFromXMLDocument}!tesseract\_planning@{tesseract\_planning}}
@@ -2757,84 +2519,6 @@ True if the program required formating.
 \doxysubsubsection{\texorpdfstring{freespaceExampleProgramIIWA()}{freespaceExampleProgramIIWA()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::freespace\+Example\+Program\+IIWA (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{composite\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a6628f45902a3b73afaea1c30091bf87a}\label{namespacetesseract__planning_a6628f45902a3b73afaea1c30091bf87a}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromArchiveFileXML@{fromArchiveFileXML}}
-\index{fromArchiveFileXML@{fromArchiveFileXML}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromArchiveFileXML()}{fromArchiveFileXML()}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-Serializable\+Type tesseract\+\_\+planning\+::from\+Archive\+File\+XML (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a8b6c1a3acbb2a92ddc106627151d7f46}\label{namespacetesseract__planning_a8b6c1a3acbb2a92ddc106627151d7f46}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromArchiveStringXML@{fromArchiveStringXML}}
-\index{fromArchiveStringXML@{fromArchiveStringXML}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromArchiveStringXML()}{fromArchiveStringXML()}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-Serializable\+Type tesseract\+\_\+planning\+::from\+Archive\+String\+XML (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{archive\+\_\+xml }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a0462ba8288eead9b2e23488ff3a005f5}\label{namespacetesseract__planning_a0462ba8288eead9b2e23488ff3a005f5}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLDocument@{fromXMLDocument}}
-\index{fromXMLDocument@{fromXMLDocument}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLDocument()}{fromXMLDocument()}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-Serializable\+Type tesseract\+\_\+planning\+::from\+XMLDocument (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLDocument \&}]{xml\+\_\+doc,  }\item[{std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_ac93e7adac649ccc7d1c6882816839fb3}\label{namespacetesseract__planning_ac93e7adac649ccc7d1c6882816839fb3}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLDocument$<$ Instruction $>$@{fromXMLDocument$<$ Instruction $>$}}
-\index{fromXMLDocument$<$ Instruction $>$@{fromXMLDocument$<$ Instruction $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLDocument$<$ Instruction $>$()}{fromXMLDocument< Instruction >()}}
-{\footnotesize\ttfamily template \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a0462ba8288eead9b2e23488ff3a005f5}{tesseract\+\_\+planning\+::from\+XMLDocument}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$ (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLDocument \&}]{xml\+\_\+doc,  }\item[{std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}(const tinyxml2\+::\+XMLElement \&, int)$>$}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_aacb2e3d821e1aa9ba7bde41638f13a1a}\label{namespacetesseract__planning_aacb2e3d821e1aa9ba7bde41638f13a1a}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLDocument$<$ Waypoint $>$@{fromXMLDocument$<$ Waypoint $>$}}
-\index{fromXMLDocument$<$ Waypoint $>$@{fromXMLDocument$<$ Waypoint $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLDocument$<$ Waypoint $>$()}{fromXMLDocument< Waypoint >()}}
-{\footnotesize\ttfamily template \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_a0462ba8288eead9b2e23488ff3a005f5}{tesseract\+\_\+planning\+::from\+XMLDocument}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLDocument \&}]{xml\+\_\+doc,  }\item[{std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a3cc3069fa5dc6e192f3826c096c66295}\label{namespacetesseract__planning_a3cc3069fa5dc6e192f3826c096c66295}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLElement@{fromXMLElement}}
-\index{fromXMLElement@{fromXMLElement}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLElement()}{fromXMLElement()}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-Serializable\+Type tesseract\+\_\+planning\+::from\+XMLElement (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement $\ast$}]{cl\+\_\+xml,  }\item[{std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a60bedaa7f5bd32de181837caa35dbd92}\label{namespacetesseract__planning_a60bedaa7f5bd32de181837caa35dbd92}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLFile@{fromXMLFile}}
-\index{fromXMLFile@{fromXMLFile}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLFile()}{fromXMLFile()}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-Serializable\+Type tesseract\+\_\+planning\+::from\+XMLFile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+path,  }\item[{std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a634b1bb6cd0f252256dd5a7503d62f39}\label{namespacetesseract__planning_a634b1bb6cd0f252256dd5a7503d62f39}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLFile$<$ Instruction $>$@{fromXMLFile$<$ Instruction $>$}}
-\index{fromXMLFile$<$ Instruction $>$@{fromXMLFile$<$ Instruction $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLFile$<$ Instruction $>$()}{fromXMLFile< Instruction >()}}
-{\footnotesize\ttfamily template \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a60bedaa7f5bd32de181837caa35dbd92}{tesseract\+\_\+planning\+::from\+XMLFile}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$ (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+path,  }\item[{std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a610366200cd973367e0482c67fd50c3b}\label{namespacetesseract__planning_a610366200cd973367e0482c67fd50c3b}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLFile$<$ Waypoint $>$@{fromXMLFile$<$ Waypoint $>$}}
-\index{fromXMLFile$<$ Waypoint $>$@{fromXMLFile$<$ Waypoint $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLFile$<$ Waypoint $>$()}{fromXMLFile< Waypoint >()}}
-{\footnotesize\ttfamily template \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_a60bedaa7f5bd32de181837caa35dbd92}{tesseract\+\_\+planning\+::from\+XMLFile}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+path,  }\item[{std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a825e196d4527829691b91355c24eb23d}\label{namespacetesseract__planning_a825e196d4527829691b91355c24eb23d}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLString@{fromXMLString}}
-\index{fromXMLString@{fromXMLString}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLString()}{fromXMLString()}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-Serializable\+Type tesseract\+\_\+planning\+::from\+XMLString (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{xml\+\_\+string,  }\item[{std\+::function$<$ Serializable\+Type(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a349c1010eb970016e7e53639b3e73d01}\label{namespacetesseract__planning_a349c1010eb970016e7e53639b3e73d01}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLString$<$ Instruction $>$@{fromXMLString$<$ Instruction $>$}}
-\index{fromXMLString$<$ Instruction $>$@{fromXMLString$<$ Instruction $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLString$<$ Instruction $>$()}{fromXMLString< Instruction >()}}
-{\footnotesize\ttfamily template \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a825e196d4527829691b91355c24eb23d}{tesseract\+\_\+planning\+::from\+XMLString}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$ (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{xml\+\_\+string,  }\item[{std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_adcaf2c588933d589766d923a87a1c388}\label{namespacetesseract__planning_adcaf2c588933d589766d923a87a1c388}} 
-\index{tesseract\_planning@{tesseract\_planning}!fromXMLString$<$ Waypoint $>$@{fromXMLString$<$ Waypoint $>$}}
-\index{fromXMLString$<$ Waypoint $>$@{fromXMLString$<$ Waypoint $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{fromXMLString$<$ Waypoint $>$()}{fromXMLString< Waypoint >()}}
-{\footnotesize\ttfamily template \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{namespacetesseract__planning_a825e196d4527829691b91355c24eb23d}{tesseract\+\_\+planning\+::from\+XMLString}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{xml\+\_\+string,  }\item[{std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}(const tinyxml2\+::\+XMLElement \&, int)$>$}]{parser }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_a32251039111617f975deb5c3078bcdba}\label{namespacetesseract__planning_a32251039111617f975deb5c3078bcdba}} 
 \index{tesseract\_planning@{tesseract\_planning}!generateNaiveSeed@{generateNaiveSeed}}
 \index{generateNaiveSeed@{generateNaiveSeed}!tesseract\_planning@{tesseract\_planning}}
@@ -2894,12 +2578,6 @@ This creates a seed by looping over and replacing every plan instruction with a 
 \index{generateSkeletonSeedHelper@{generateSkeletonSeedHelper}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{generateSkeletonSeedHelper()}{generateSkeletonSeedHelper()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::generate\+Skeleton\+Seed\+Helper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite\+\_\+instructions }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_ae048b2f9274d26b48d7c1a2ad7561fa5}\label{namespacetesseract__planning_ae048b2f9274d26b48d7c1a2ad7561fa5}} 
-\index{tesseract\_planning@{tesseract\_planning}!getCartesianWaypoint@{getCartesianWaypoint}}
-\index{getCartesianWaypoint@{getCartesianWaypoint}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getCartesianWaypoint()}{getCartesianWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} tesseract\+\_\+planning\+::get\+Cartesian\+Waypoint (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{waypoint\+\_\+element }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ae29bc88fbc476c1b22d8e5ce0fdfb8d1}\label{namespacetesseract__planning_ae29bc88fbc476c1b22d8e5ce0fdfb8d1}} 
 \index{tesseract\_planning@{tesseract\_planning}!getClosestJointSolution@{getClosestJointSolution}}
@@ -2961,12 +2639,6 @@ The closest joint solution for the provided cartesian positions. If either are e
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000021}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. \end{DoxyRefDesc}
-\mbox{\Hypertarget{namespacetesseract__planning_a1eee4dce180780748b0b11a7df79ee02}\label{namespacetesseract__planning_a1eee4dce180780748b0b11a7df79ee02}} 
-\index{tesseract\_planning@{tesseract\_planning}!getCompositeInstruction@{getCompositeInstruction}}
-\index{getCompositeInstruction@{getCompositeInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getCompositeInstruction()}{getCompositeInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Composite\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{instruction\+\_\+element,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}{Instruction\+Parser\+Fn}}}]{instruction\+\_\+parser,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}}}]{waypoint\+\_\+parser }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_a6de789f62c5f509d40240cd8a50436a2}\label{namespacetesseract__planning_a6de789f62c5f509d40240cd8a50436a2}} 
 \index{tesseract\_planning@{tesseract\_planning}!getFirstInstruction@{getFirstInstruction}}
 \index{getFirstInstruction@{getFirstInstruction}!tesseract\_planning@{tesseract\_planning}}
@@ -3207,12 +2879,6 @@ Throws if waypoint does not directly contain that information
 \begin{DoxyReturn}{Returns}
 The joint values 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a526674a35622c8be2d1db9a518f8aebe}\label{namespacetesseract__planning_a526674a35622c8be2d1db9a518f8aebe}} 
-\index{tesseract\_planning@{tesseract\_planning}!getJointWaypoint@{getJointWaypoint}}
-\index{getJointWaypoint@{getJointWaypoint}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getJointWaypoint()}{getJointWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} tesseract\+\_\+planning\+::get\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{waypoint\+\_\+element }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_aa7417258de60ffad7407d37c9c68a8bd}\label{namespacetesseract__planning_aa7417258de60ffad7407d37c9c68a8bd}} 
 \index{tesseract\_planning@{tesseract\_planning}!getLastInstruction@{getLastInstruction}}
 \index{getLastInstruction@{getLastInstruction}!tesseract\_planning@{tesseract\_planning}}
@@ -3341,12 +3007,6 @@ Get the last Plan \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Inst
 \begin{DoxyReturn}{Returns}
 The last Plan \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} (Const) 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a40f0b4a43e26d66f265830fd932480d8}\label{namespacetesseract__planning_a40f0b4a43e26d66f265830fd932480d8}} 
-\index{tesseract\_planning@{tesseract\_planning}!getMoveInstruction@{getMoveInstruction}}
-\index{getMoveInstruction@{getMoveInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getMoveInstruction()}{getMoveInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Move\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{instruction\+\_\+element,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}}}]{waypoint\+\_\+parser }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_adfe8f834e3ef52d7a83e4d39d4d584d4}\label{namespacetesseract__planning_adfe8f834e3ef52d7a83e4d39d4d584d4}} 
 \index{tesseract\_planning@{tesseract\_planning}!getMoveInstructionCount@{getMoveInstructionCount}}
 \index{getMoveInstructionCount@{getMoveInstructionCount}!tesseract\_planning@{tesseract\_planning}}
@@ -3380,24 +3040,6 @@ Get the associated move instruction type for the give plan instruction type.
 {\em base\+\_\+instruction} & The plan instruction @return\+The associated move instruction type for the give plan instruction type \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{namespacetesseract__planning_afefc888261f0531327e79a9a6b7481d1}\label{namespacetesseract__planning_afefc888261f0531327e79a9a6b7481d1}} 
-\index{tesseract\_planning@{tesseract\_planning}!getNullInstruction@{getNullInstruction}}
-\index{getNullInstruction@{getNullInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getNullInstruction()}{getNullInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Null\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_ab9dd7e6f2e7f28402e91aa242e2af197}\label{namespacetesseract__planning_ab9dd7e6f2e7f28402e91aa242e2af197}} 
-\index{tesseract\_planning@{tesseract\_planning}!getNullWaypoint@{getNullWaypoint}}
-\index{getNullWaypoint@{getNullWaypoint}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getNullWaypoint()}{getNullWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} tesseract\+\_\+planning\+::get\+Null\+Waypoint (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_adee5825cef374e4b2db8ab1184f44c02}\label{namespacetesseract__planning_adee5825cef374e4b2db8ab1184f44c02}} 
-\index{tesseract\_planning@{tesseract\_planning}!getPlanInstruction@{getPlanInstruction}}
-\index{getPlanInstruction@{getPlanInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getPlanInstruction()}{getPlanInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Plan\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{instruction\+\_\+element,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}}}]{waypoint\+\_\+parser }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_ad2314582d78deda35f1533d63c9bd732}\label{namespacetesseract__planning_ad2314582d78deda35f1533d63c9bd732}} 
 \index{tesseract\_planning@{tesseract\_planning}!getPlanInstructionCount@{getPlanInstructionCount}}
 \index{getPlanInstructionCount@{getPlanInstructionCount}!tesseract\_planning@{tesseract\_planning}}
@@ -3507,36 +3149,6 @@ Finds redundancy of joints that allow rotation beyond +-\/ 180 degrees.
 \begin{DoxyReturn}{Returns}
 Redundant rotations (as intergers), in a vector 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_abc8e32ee9b2a319d1f663e453bd95ac6}\label{namespacetesseract__planning_abc8e32ee9b2a319d1f663e453bd95ac6}} 
-\index{tesseract\_planning@{tesseract\_planning}!getSetAnalogInstruction@{getSetAnalogInstruction}}
-\index{getSetAnalogInstruction@{getSetAnalogInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getSetAnalogInstruction()}{getSetAnalogInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Set\+Analog\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{instruction\+\_\+element }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a19f6701fe9d70c54e612e59fbafdd5c9}\label{namespacetesseract__planning_a19f6701fe9d70c54e612e59fbafdd5c9}} 
-\index{tesseract\_planning@{tesseract\_planning}!getSetToolInstruction@{getSetToolInstruction}}
-\index{getSetToolInstruction@{getSetToolInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getSetToolInstruction()}{getSetToolInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Set\+Tool\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{instruction\+\_\+element }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a6118b6243267b448ebf2546f57b0d910}\label{namespacetesseract__planning_a6118b6243267b448ebf2546f57b0d910}} 
-\index{tesseract\_planning@{tesseract\_planning}!getStateWaypoint@{getStateWaypoint}}
-\index{getStateWaypoint@{getStateWaypoint}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getStateWaypoint()}{getStateWaypoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} tesseract\+\_\+planning\+::get\+State\+Waypoint (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{waypoint\+\_\+element }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a44bf9c62ba66308dc54abaf1d721b8f8}\label{namespacetesseract__planning_a44bf9c62ba66308dc54abaf1d721b8f8}} 
-\index{tesseract\_planning@{tesseract\_planning}!getTimerInstruction@{getTimerInstruction}}
-\index{getTimerInstruction@{getTimerInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getTimerInstruction()}{getTimerInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Timer\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{instruction\+\_\+element }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a7838fefc8e24bcb22abb67d56b867b10}\label{namespacetesseract__planning_a7838fefc8e24bcb22abb67d56b867b10}} 
-\index{tesseract\_planning@{tesseract\_planning}!getWaitInstruction@{getWaitInstruction}}
-\index{getWaitInstruction@{getWaitInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getWaitInstruction()}{getWaitInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::get\+Wait\+Instruction (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{instruction\+\_\+element }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_adcac602c6a5d31583876cc69dfc52ba5}\label{namespacetesseract__planning_adcac602c6a5d31583876cc69dfc52ba5}} 
 \index{tesseract\_planning@{tesseract\_planning}!global\_adjustment\_factor@{global\_adjustment\_factor}}
 \index{global\_adjustment\_factor@{global\_adjustment\_factor}!tesseract\_planning@{tesseract\_planning}}
@@ -3572,12 +3184,6 @@ One if seed exists, otherwise zero
 \index{init\_times@{init\_times}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{init\_times()}{init\_times()}}
 {\footnotesize\ttfamily static void tesseract\+\_\+planning\+::init\+\_\+times (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{min\+\_\+velocity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-\mbox{\Hypertarget{namespacetesseract__planning_afb3a9307557ffa1b00786dcea738c2b2}\label{namespacetesseract__planning_afb3a9307557ffa1b00786dcea738c2b2}} 
-\index{tesseract\_planning@{tesseract\_planning}!InstructionParser@{InstructionParser}}
-\index{InstructionParser@{InstructionParser}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{InstructionParser()}{InstructionParser()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::\+Instruction\+Parser (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element,  }\item[{int}]{type,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}}}]{waypoint\+\_\+parser }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}\label{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}} 
 \index{tesseract\_planning@{tesseract\_planning}!interpolate@{interpolate}}
@@ -3902,86 +3508,6 @@ True if successful
 \doxysubsubsection{\texorpdfstring{omplPlanParser()}{omplPlanParser()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} tesseract\+\_\+planning\+::ompl\+Plan\+Parser (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{xml\+\_\+element }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_acea865c9d11bb066e96553bc349c815b}\label{namespacetesseract__planning_acea865c9d11bb066e96553bc349c815b}} 
-\index{tesseract\_planning@{tesseract\_planning}!operator"!=@{operator"!=}}
-\index{operator"!=@{operator"!=}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{lhs,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{rhs }\end{DoxyParamCaption})}
-
-
-
-Not equal operator for \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Types. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em lhs} & \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \\
-\hline
-{\em rhs} & \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-True if not equal, otherwise false 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a5e1bd88fcc4ee16122786cb94651482d}\label{namespacetesseract__planning_a5e1bd88fcc4ee16122786cb94651482d}} 
-\index{tesseract\_planning@{tesseract\_planning}!operator"!=@{operator"!=}}
-\index{operator"!=@{operator"!=}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{lhs,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{rhs }\end{DoxyParamCaption})}
-
-
-
-Not equal operator for \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} Types. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em lhs} & \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \\
-\hline
-{\em rhs} & \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-True if not equal, otherwise false 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a9bad29b6718ab9b65075a5e1f39dd550}\label{namespacetesseract__planning_a9bad29b6718ab9b65075a5e1f39dd550}} 
-\index{tesseract\_planning@{tesseract\_planning}!operator==@{operator==}}
-\index{operator==@{operator==}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{lhs,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{rhs }\end{DoxyParamCaption})}
-
-
-
-Equal operator for \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Types. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em lhs} & \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \\
-\hline
-{\em rhs} & \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-True if equal, otherwise false 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a73a8e9a69400ccd16c907a4229081079}\label{namespacetesseract__planning_a73a8e9a69400ccd16c907a4229081079}} 
-\index{tesseract\_planning@{tesseract\_planning}!operator==@{operator==}}
-\index{operator==@{operator==}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{lhs,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{rhs }\end{DoxyParamCaption})}
-
-
-
-Equal operator for \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} Types. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em lhs} & \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \\
-\hline
-{\em rhs} & \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-True if equal, otherwise false 
-\end{DoxyReturn}
 \mbox{\Hypertarget{namespacetesseract__planning_adeeccffb6d57f3e11925e31af40b13a4}\label{namespacetesseract__planning_adeeccffb6d57f3e11925e31af40b13a4}} 
 \index{tesseract\_planning@{tesseract\_planning}!planFilter@{planFilter}}
 \index{planFilter@{planFilter}!tesseract\_planning@{tesseract\_planning}}
@@ -4268,12 +3794,6 @@ Set the joint position for waypoints that contain that information.
 \begin{DoxyReturn}{Returns}
 true if successful (if the waypoint is a supported type) 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a10e4d3523a58f0754931a5d726632895}\label{namespacetesseract__planning_a10e4d3523a58f0754931a5d726632895}} 
-\index{tesseract\_planning@{tesseract\_planning}!startInstructionfromXML@{startInstructionfromXML}}
-\index{startInstructionfromXML@{startInstructionfromXML}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{startInstructionfromXML()}{startInstructionfromXML()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} tesseract\+\_\+planning\+::start\+Instructionfrom\+XML (\begin{DoxyParamCaption}\item[{const tinyxml2\+::\+XMLElement \&}]{start\+\_\+instruction\+\_\+xml,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aeb01b648b5a7d2601dd775da87593271}{Instruction\+Parser\+Fn}}}]{instruction\+\_\+parser,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aac97aebdcb472da440b49833ec857d57}{Waypoint\+Parser\+Fn}}}]{waypoint\+\_\+parser }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_a627d417f4d206352657ce7f78bc79287}\label{namespacetesseract__planning_a627d417f4d206352657ce7f78bc79287}} 
 \index{tesseract\_planning@{tesseract\_planning}!StateInCollision@{StateInCollision}}
 \index{StateInCollision@{StateInCollision}!tesseract\_planning@{tesseract\_planning}}
@@ -4313,20 +3833,6 @@ The default success task to be used.
 {\em user\+\_\+callback} & A user callback function \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{namespacetesseract__planning_acc42a5d8b564e04c1906d5fb99c638f4}\label{namespacetesseract__planning_acc42a5d8b564e04c1906d5fb99c638f4}} 
-\index{tesseract\_planning@{tesseract\_planning}!toArchiveFileXML@{toArchiveFileXML}}
-\index{toArchiveFileXML@{toArchiveFileXML}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toArchiveFileXML()}{toArchiveFileXML()}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-bool tesseract\+\_\+planning\+::to\+Archive\+File\+XML (\begin{DoxyParamCaption}\item[{Serializable\+Type \&}]{archive\+\_\+type,  }\item[{const std\+::string \&}]{file\+\_\+path,  }\item[{const std\+::string \&}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_ae83d8360bbc2d9d905b1ccc87586b77c}\label{namespacetesseract__planning_ae83d8360bbc2d9d905b1ccc87586b77c}} 
-\index{tesseract\_planning@{tesseract\_planning}!toArchiveStringXML@{toArchiveStringXML}}
-\index{toArchiveStringXML@{toArchiveStringXML}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toArchiveStringXML()}{toArchiveStringXML()}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-std\+::string tesseract\+\_\+planning\+::to\+Archive\+String\+XML (\begin{DoxyParamCaption}\item[{Serializable\+Type \&}]{archive\+\_\+type,  }\item[{const std\+::string \&}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_a2b65f19a72bd238c13d1cf24ffaec7c1}\label{namespacetesseract__planning_a2b65f19a72bd238c13d1cf24ffaec7c1}} 
 \index{tesseract\_planning@{tesseract\_planning}!toDelimitedFile@{toDelimitedFile}}
 \index{toDelimitedFile@{toDelimitedFile}!tesseract\_planning@{tesseract\_planning}}
@@ -4410,131 +3916,74 @@ Tesseract Traj\+Array
 \mbox{\Hypertarget{namespacetesseract__planning_a9c57998c284f6a812ace92cedca6112e}\label{namespacetesseract__planning_a9c57998c284f6a812ace92cedca6112e}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLDocument@{toXMLDocument}}
 \index{toXMLDocument@{toXMLDocument}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ tesseract\+\_\+planning\+::to\+XMLDocument (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ double $>$ \&}]{plan\+\_\+profile }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_aadfc7ff8daa8b78ace7986d660a0864c}\label{namespacetesseract__planning_aadfc7ff8daa8b78ace7986d660a0864c}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLDocument@{toXMLDocument}}
 \index{toXMLDocument@{toXMLDocument}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ tesseract\+\_\+planning\+::to\+XMLDocument (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&}]{plan\+\_\+profile }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a9b8cd019191e90ec9539744ba382b86b}\label{namespacetesseract__planning_a9b8cd019191e90ec9539744ba382b86b}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLDocument@{toXMLDocument}}
-\index{toXMLDocument@{toXMLDocument}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ tesseract\+\_\+planning\+::to\+XMLDocument (\begin{DoxyParamCaption}\item[{const Serializable\+Type \&}]{input }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a4c1c616f544b12feac84de63721e9314}\label{namespacetesseract__planning_a4c1c616f544b12feac84de63721e9314}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLDocument@{toXMLDocument}}
 \index{toXMLDocument@{toXMLDocument}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ tesseract\+\_\+planning\+::to\+XMLDocument (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptCompositeProfile}{Traj\+Opt\+Composite\+Profile}} \&}]{composite\+\_\+profile }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a167e626cf757025c0d7c4e16a46905fe}\label{namespacetesseract__planning_a167e626cf757025c0d7c4e16a46905fe}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLDocument@{toXMLDocument}}
 \index{toXMLDocument@{toXMLDocument}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLDocument()}{toXMLDocument()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ tesseract\+\_\+planning\+::to\+XMLDocument (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile}{Traj\+Opt\+Plan\+Profile}} \&}]{plan\+\_\+profile }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_abbac051c41607966d0c70d9b6086794a}\label{namespacetesseract__planning_abbac051c41607966d0c70d9b6086794a}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLDocument$<$ Instruction $>$@{toXMLDocument$<$ Instruction $>$}}
-\index{toXMLDocument$<$ Instruction $>$@{toXMLDocument$<$ Instruction $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLDocument$<$ Instruction $>$()}{toXMLDocument< Instruction >()}}
-{\footnotesize\ttfamily template std\+::shared\+\_\+ptr$<$tinyxml2\+::\+XMLDocument$>$ \mbox{\hyperlink{namespacetesseract__planning_a9b8cd019191e90ec9539744ba382b86b}{tesseract\+\_\+planning\+::to\+XMLDocument}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{input }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a0272509aa07e8c16a69323cc1892eae4}\label{namespacetesseract__planning_a0272509aa07e8c16a69323cc1892eae4}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLDocument$<$ Waypoint $>$@{toXMLDocument$<$ Waypoint $>$}}
-\index{toXMLDocument$<$ Waypoint $>$@{toXMLDocument$<$ Waypoint $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLDocument$<$ Waypoint $>$()}{toXMLDocument< Waypoint >()}}
-{\footnotesize\ttfamily template std\+::shared\+\_\+ptr$<$tinyxml2\+::\+XMLDocument$>$ \mbox{\hyperlink{namespacetesseract__planning_a9b8cd019191e90ec9539744ba382b86b}{tesseract\+\_\+planning\+::to\+XMLDocument}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{input }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ac6a12208aece9acb089b28c8bb08fc14}\label{namespacetesseract__planning_ac6a12208aece9acb089b28c8bb08fc14}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLFile@{toXMLFile}}
 \index{toXMLFile@{toXMLFile}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::to\+XMLFile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ double $>$ \&}]{plan\+\_\+profile,  }\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ae03fa26df427b9f7475d90becdab140e}\label{namespacetesseract__planning_ae03fa26df427b9f7475d90becdab140e}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLFile@{toXMLFile}}
 \index{toXMLFile@{toXMLFile}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::to\+XMLFile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&}]{plan\+\_\+profile,  }\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a6a9770828d4f01c5fbfc8696f66fc29c}\label{namespacetesseract__planning_a6a9770828d4f01c5fbfc8696f66fc29c}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLFile@{toXMLFile}}
-\index{toXMLFile@{toXMLFile}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-bool tesseract\+\_\+planning\+::to\+XMLFile (\begin{DoxyParamCaption}\item[{const Serializable\+Type \&}]{input,  }\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a4a0d1ec51cba719360ce38442adf2a4a}\label{namespacetesseract__planning_a4a0d1ec51cba719360ce38442adf2a4a}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLFile@{toXMLFile}}
 \index{toXMLFile@{toXMLFile}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::to\+XMLFile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptCompositeProfile}{Traj\+Opt\+Composite\+Profile}} \&}]{composite\+\_\+profile,  }\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a4c8dfa4d963c896ed1abbcc1effdb616}\label{namespacetesseract__planning_a4c8dfa4d963c896ed1abbcc1effdb616}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLFile@{toXMLFile}}
 \index{toXMLFile@{toXMLFile}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLFile()}{toXMLFile()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::to\+XMLFile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile}{Traj\+Opt\+Plan\+Profile}} \&}]{plan\+\_\+profile,  }\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_aea41b830f9f7b783c57a01edaa1426f7}\label{namespacetesseract__planning_aea41b830f9f7b783c57a01edaa1426f7}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLFile$<$ Instruction $>$@{toXMLFile$<$ Instruction $>$}}
-\index{toXMLFile$<$ Instruction $>$@{toXMLFile$<$ Instruction $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLFile$<$ Instruction $>$()}{toXMLFile< Instruction >()}}
-{\footnotesize\ttfamily template bool \mbox{\hyperlink{namespacetesseract__planning_a6a9770828d4f01c5fbfc8696f66fc29c}{tesseract\+\_\+planning\+::to\+XMLFile}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction,  }\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_af1152a54988d0bb45c1e25172969f529}\label{namespacetesseract__planning_af1152a54988d0bb45c1e25172969f529}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLFile$<$ Waypoint $>$@{toXMLFile$<$ Waypoint $>$}}
-\index{toXMLFile$<$ Waypoint $>$@{toXMLFile$<$ Waypoint $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLFile$<$ Waypoint $>$()}{toXMLFile< Waypoint >()}}
-{\footnotesize\ttfamily template bool \mbox{\hyperlink{namespacetesseract__planning_a6a9770828d4f01c5fbfc8696f66fc29c}{tesseract\+\_\+planning\+::to\+XMLFile}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{input,  }\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a40727d3173b509d3f3e102d96a358586}\label{namespacetesseract__planning_a40727d3173b509d3f3e102d96a358586}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLString@{toXMLString}}
 \index{toXMLString@{toXMLString}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::to\+XMLString (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ double $>$ \&}]{plan\+\_\+profile }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a2656f659bc8c4466ef56d9cf6ea17f9d}\label{namespacetesseract__planning_a2656f659bc8c4466ef56d9cf6ea17f9d}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLString@{toXMLString}}
 \index{toXMLString@{toXMLString}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
 {\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::to\+XMLString (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlan\+Profile}} \&}]{plan\+\_\+profile }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a3fb58e408a6a525d074b72b2ef15d8f2}\label{namespacetesseract__planning_a3fb58e408a6a525d074b72b2ef15d8f2}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLString@{toXMLString}}
-\index{toXMLString@{toXMLString}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
-{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
-std\+::string tesseract\+\_\+planning\+::to\+XMLString (\begin{DoxyParamCaption}\item[{const Serializable\+Type \&}]{input }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a779fd51d39c63e67cd08d5bacaef0843}\label{namespacetesseract__planning_a779fd51d39c63e67cd08d5bacaef0843}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLString@{toXMLString}}
 \index{toXMLString@{toXMLString}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::to\+XMLString (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptCompositeProfile}{Traj\+Opt\+Composite\+Profile}} \&}]{composite\+\_\+profile }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_af1b2f4fe6868c199a81fdacb4f82dd02}\label{namespacetesseract__planning_af1b2f4fe6868c199a81fdacb4f82dd02}} 
 \index{tesseract\_planning@{tesseract\_planning}!toXMLString@{toXMLString}}
 \index{toXMLString@{toXMLString}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+\doxysubsubsection{\texorpdfstring{toXMLString()}{toXMLString()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::to\+XMLString (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajOptPlanProfile}{Traj\+Opt\+Plan\+Profile}} \&}]{plan\+\_\+profile }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a7b81bf0afca4195bdbea8610f67d8989}\label{namespacetesseract__planning_a7b81bf0afca4195bdbea8610f67d8989}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLString$<$ Instruction $>$@{toXMLString$<$ Instruction $>$}}
-\index{toXMLString$<$ Instruction $>$@{toXMLString$<$ Instruction $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLString$<$ Instruction $>$()}{toXMLString< Instruction >()}}
-{\footnotesize\ttfamily template std\+::string \mbox{\hyperlink{namespacetesseract__planning_a3fb58e408a6a525d074b72b2ef15d8f2}{tesseract\+\_\+planning\+::to\+XMLString}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a540cd1e15edc446896a85e40fb7307c2}\label{namespacetesseract__planning_a540cd1e15edc446896a85e40fb7307c2}} 
-\index{tesseract\_planning@{tesseract\_planning}!toXMLString$<$ Waypoint $>$@{toXMLString$<$ Waypoint $>$}}
-\index{toXMLString$<$ Waypoint $>$@{toXMLString$<$ Waypoint $>$}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{toXMLString$<$ Waypoint $>$()}{toXMLString< Waypoint >()}}
-{\footnotesize\ttfamily template std\+::string \mbox{\hyperlink{namespacetesseract__planning_a3fb58e408a6a525d074b72b2ef15d8f2}{tesseract\+\_\+planning\+::to\+XMLString}}$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{input }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a08e177e831209e1fdc0d859823302198}\label{namespacetesseract__planning_a08e177e831209e1fdc0d859823302198}} 
 \index{tesseract\_planning@{tesseract\_planning}!trajOptCompositeFromXMLDocument@{trajOptCompositeFromXMLDocument}}
@@ -4675,7 +4124,7 @@ Set to DEFAULT. Default profiles are given this name.
 \DoxyCodeLine{    [](\textcolor{keyword}{const} Instruction\& i, \textcolor{keyword}{const} CompositeInstruction\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
 \DoxyCodeLine{      \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(i))}
 \DoxyCodeLine{      \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.cast\_const<MoveInstruction>()-\/>isStart())}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<MoveInstruction>().isStart())}
 \DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
 \DoxyCodeLine{}
 \DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
@@ -4697,7 +4146,7 @@ Set to DEFAULT. Default profiles are given this name.
 \DoxyCodeLine{    [](\textcolor{keyword}{const} Instruction\& i, \textcolor{keyword}{const} CompositeInstruction\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
 \DoxyCodeLine{      \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(i))}
 \DoxyCodeLine{      \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.cast\_const<MoveInstruction>()-\/>isStart())}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<MoveInstruction>().isStart())}
 \DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
 \DoxyCodeLine{}
 \DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
@@ -4721,7 +4170,7 @@ Set to DEFAULT. Default profiles are given this name.
 \DoxyCodeLine{       \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
 \DoxyCodeLine{      \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{tesseract\_planning::isMoveInstruction}}(i))}
 \DoxyCodeLine{      \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.\mbox{\hyperlink{classtesseract__planning_1_1Instruction_a9ceeabb2bd557d47cdf8f5ca96e848f2}{cast\_const}}<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{tesseract\_planning::MoveInstruction}}>()-\/>\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ad7ea2fb0fcfc4259ace79dafc6ac8179}{isStart}}())}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.\mbox{\hyperlink{classtesseract__planning_1_1Instruction_aeab521a6324ea11932be55f13ce197f9}{as}}<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{tesseract\_planning::MoveInstruction}}>().\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ad7ea2fb0fcfc4259ace79dafc6ac8179}{isStart}}())}
 \DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
 \DoxyCodeLine{}
 \DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}

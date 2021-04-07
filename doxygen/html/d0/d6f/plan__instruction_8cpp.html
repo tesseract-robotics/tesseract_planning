@@ -70,7 +70,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">plan_instruction.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -79,38 +80,44 @@ $(function() {
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d0/d65/plan__instruction_8h_source.html">tesseract_command_language/plan_instruction.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d0/dd5/instruction__type_8h_source.html">tesseract_command_language/instruction_type.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../dc/da1/compare__waypoint_8h_source.html">tesseract_command_language/compare_waypoint.h</a>&gt;</code><br />
+<code>#include &lt;boost/archive/xml_oarchive.hpp&gt;</code><br />
+<code>#include &lt;boost/archive/xml_iarchive.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for plan_instruction.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/dbc/plan__instruction_8cpp__incl.png" border="0" usemap="#atesseract__command__language_2src_2plan__instruction_8cpp" alt=""/></div>
 <map name="atesseract__command__language_2src_2plan__instruction_8cpp" id="atesseract__command__language_2src_2plan__instruction_8cpp">
-<area shape="rect" title=" " alt="" coords="1135,5,1334,47"/>
-<area shape="rect" title=" " alt="" coords="395,370,586,397"/>
-<area shape="rect" title=" " alt="" coords="1199,370,1271,397"/>
-<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="594,95,793,136"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="1271,95,1470,136"/>
-<area shape="rect" href="../../dc/da1/compare__waypoint_8h.html" title="This contains the comparison operators for Waypoint by recovering the type and comparing." alt="" coords="1531,95,1730,136"/>
-<area shape="rect" title=" " alt="" coords="459,191,517,218"/>
-<area shape="rect" title=" " alt="" coords="541,191,656,218"/>
-<area shape="rect" title=" " alt="" coords="1929,370,2007,397"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="1606,184,1805,225"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="323,273,522,315"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="730,184,929,225"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="50,184,249,225"/>
-<area shape="rect" title=" " alt="" coords="1078,281,1146,307"/>
-<area shape="rect" title=" " alt="" coords="1343,370,1398,397"/>
-<area shape="rect" title=" " alt="" coords="1601,363,1727,404"/>
-<area shape="rect" title=" " alt="" coords="2006,273,2133,315"/>
-<area shape="rect" title=" " alt="" coords="2157,273,2283,315"/>
-<area shape="rect" title=" " alt="" coords="1493,273,1635,315"/>
-<area shape="rect" title=" " alt="" coords="1659,273,1829,315"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1271,273,1470,315"/>
-<area shape="rect" title=" " alt="" coords="724,281,767,307"/>
-<area shape="rect" title=" " alt="" coords="791,281,867,307"/>
-<area shape="rect" title=" " alt="" coords="891,281,1002,307"/>
-<area shape="rect" title=" " alt="" coords="597,281,699,307"/>
-<area shape="rect" title=" " alt="" coords="45,273,249,315"/>
+<area shape="rect" title=" " alt="" coords="1570,5,1769,47"/>
+<area shape="rect" title=" " alt="" coords="395,452,586,479"/>
+<area shape="rect" title=" " alt="" coords="191,370,263,397"/>
+<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="881,95,1079,136"/>
+<area shape="rect" title=" " alt="" coords="2122,452,2326,479"/>
+<area shape="rect" title=" " alt="" coords="2351,452,2551,479"/>
+<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="2379,95,2578,136"/>
+<area shape="rect" title=" " alt="" coords="1085,191,1144,218"/>
+<area shape="rect" title=" " alt="" coords="1168,191,1283,218"/>
+<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="1307,184,1506,225"/>
+<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="1121,273,1319,315"/>
+<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="813,184,1011,225"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="143,273,342,315"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="366,273,565,315"/>
+<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="590,184,789,225"/>
+<area shape="rect" title=" " alt="" coords="719,370,774,397"/>
+<area shape="rect" title=" " alt="" coords="890,370,966,397"/>
+<area shape="rect" title=" " alt="" coords="990,363,1117,404"/>
+<area shape="rect" title=" " alt="" coords="1855,363,1982,404"/>
+<area shape="rect" title=" " alt="" coords="1193,363,1319,404"/>
+<area shape="rect" title=" " alt="" coords="1343,363,1470,404"/>
+<area shape="rect" title=" " alt="" coords="1495,363,1636,404"/>
+<area shape="rect" href="../../dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="2057,363,2255,404"/>
+<area shape="rect" title=" " alt="" coords="1660,363,1831,404"/>
+<area shape="rect" title=" " alt="" coords="798,370,866,397"/>
+<area shape="rect" title=" " alt="" coords="2031,452,2097,479"/>
+<area shape="rect" title=" " alt="" coords="1937,452,2007,479"/>
+<area shape="rect" title=" " alt="" coords="465,370,508,397"/>
+<area shape="rect" title=" " alt="" coords="533,370,643,397"/>
+<area shape="rect" title=" " alt="" coords="338,370,441,397"/>
+<area shape="rect" title=" " alt="" coords="589,273,793,315"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -118,20 +125,44 @@ Include dependency graph for plan_instruction.cpp:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:d9/dcd/namespacetesseract__planning"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7adf802b46fdb2a0db36be2f8975c393"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d6f/plan__instruction_8cpp.html#a7adf802b46fdb2a0db36be2f8975c393">TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT</a> (<a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">tesseract_planning::PlanInstruction</a>)</td></tr>
+<tr class="separator:a7adf802b46fdb2a0db36be2f8975c393"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>June 15, 2020 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000037">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000030">Bug:</a></b></dt><dd>No known bugs</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020, Southwest Research Institute</dd></dl>
 <dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
 <dl class="section user"><dt></dt><dd>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a7adf802b46fdb2a0db36be2f8975c393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7adf802b46fdb2a0db36be2f8975c393">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">tesseract_planning::PlanInstruction</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 2 2021 04:15:31 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Apr 7 2021 23:15:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

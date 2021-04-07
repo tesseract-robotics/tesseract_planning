@@ -1,0 +1,53 @@
+\hypertarget{structtesseract__planning_1_1Serialization}{}\doxysection{tesseract\+\_\+planning\+::Serialization Struct Reference}
+\label{structtesseract__planning_1_1Serialization}\index{tesseract\_planning::Serialization@{tesseract\_planning::Serialization}}
+
+
+{\ttfamily \#include $<$serialization.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\static std\+::string \mbox{\hyperlink{structtesseract__planning_1_1Serialization_a623c906918b62e20ef7296f65f644ff3}{to\+Archive\+String\+XML}} (const Serializable\+Type \&archive\+\_\+type, const std\+::string \&name=\char`\"{}\char`\"{})
+\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\static bool \mbox{\hyperlink{structtesseract__planning_1_1Serialization_a2c5281ef529513453e5329f2ee26dbd7}{to\+Archive\+File\+XML}} (const Serializable\+Type \&archive\+\_\+type, const std\+::string \&file\+\_\+path, const std\+::string \&name=\char`\"{}\char`\"{})
+\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\static Serializable\+Type \mbox{\hyperlink{structtesseract__planning_1_1Serialization_a8f217446452517455eedc41f241b4f79}{from\+Archive\+String\+XML}} (const std\+::string \&archive\+\_\+xml)
+\item 
+{\footnotesize template$<$typename Serializable\+Type $>$ }\\static Serializable\+Type \mbox{\hyperlink{structtesseract__planning_1_1Serialization_ade5600494b1b1e51caada41c5448e35a}{from\+Archive\+File\+XML}} (const std\+::string \&file\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1Serialization_ade5600494b1b1e51caada41c5448e35a}\label{structtesseract__planning_1_1Serialization_ade5600494b1b1e51caada41c5448e35a}} 
+\index{tesseract\_planning::Serialization@{tesseract\_planning::Serialization}!fromArchiveFileXML@{fromArchiveFileXML}}
+\index{fromArchiveFileXML@{fromArchiveFileXML}!tesseract\_planning::Serialization@{tesseract\_planning::Serialization}}
+\doxysubsubsection{\texorpdfstring{fromArchiveFileXML()}{fromArchiveFileXML()}}
+{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
+static Serializable\+Type tesseract\+\_\+planning\+::\+Serialization\+::from\+Archive\+File\+XML (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1Serialization_a8f217446452517455eedc41f241b4f79}\label{structtesseract__planning_1_1Serialization_a8f217446452517455eedc41f241b4f79}} 
+\index{tesseract\_planning::Serialization@{tesseract\_planning::Serialization}!fromArchiveStringXML@{fromArchiveStringXML}}
+\index{fromArchiveStringXML@{fromArchiveStringXML}!tesseract\_planning::Serialization@{tesseract\_planning::Serialization}}
+\doxysubsubsection{\texorpdfstring{fromArchiveStringXML()}{fromArchiveStringXML()}}
+{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
+static Serializable\+Type tesseract\+\_\+planning\+::\+Serialization\+::from\+Archive\+String\+XML (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{archive\+\_\+xml }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1Serialization_a2c5281ef529513453e5329f2ee26dbd7}\label{structtesseract__planning_1_1Serialization_a2c5281ef529513453e5329f2ee26dbd7}} 
+\index{tesseract\_planning::Serialization@{tesseract\_planning::Serialization}!toArchiveFileXML@{toArchiveFileXML}}
+\index{toArchiveFileXML@{toArchiveFileXML}!tesseract\_planning::Serialization@{tesseract\_planning::Serialization}}
+\doxysubsubsection{\texorpdfstring{toArchiveFileXML()}{toArchiveFileXML()}}
+{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
+static bool tesseract\+\_\+planning\+::\+Serialization\+::to\+Archive\+File\+XML (\begin{DoxyParamCaption}\item[{const Serializable\+Type \&}]{archive\+\_\+type,  }\item[{const std\+::string \&}]{file\+\_\+path,  }\item[{const std\+::string \&}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1Serialization_a623c906918b62e20ef7296f65f644ff3}\label{structtesseract__planning_1_1Serialization_a623c906918b62e20ef7296f65f644ff3}} 
+\index{tesseract\_planning::Serialization@{tesseract\_planning::Serialization}!toArchiveStringXML@{toArchiveStringXML}}
+\index{toArchiveStringXML@{toArchiveStringXML}!tesseract\_planning::Serialization@{tesseract\_planning::Serialization}}
+\doxysubsubsection{\texorpdfstring{toArchiveStringXML()}{toArchiveStringXML()}}
+{\footnotesize\ttfamily template$<$typename Serializable\+Type $>$ \\
+static std\+::string tesseract\+\_\+planning\+::\+Serialization\+::to\+Archive\+String\+XML (\begin{DoxyParamCaption}\item[{const Serializable\+Type \&}]{archive\+\_\+type,  }\item[{const std\+::string \&}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/core/\mbox{\hyperlink{serialization_8h}{serialization.\+h}}\end{DoxyCompactItemize}

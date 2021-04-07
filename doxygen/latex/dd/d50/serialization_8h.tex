@@ -1,17 +1,15 @@
-\hypertarget{serialization_8h}{}\doxysection{tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/serialization.h File Reference}
-\label{serialization_8h}\index{tesseract\_command\_language/include/tesseract\_command\_language/serialization.h@{tesseract\_command\_language/include/tesseract\_command\_language/serialization.h}}
+\hypertarget{serialization_8h}{}\doxysection{tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/core/serialization.h File Reference}
+\label{serialization_8h}\index{tesseract\_command\_language/include/tesseract\_command\_language/core/serialization.h@{tesseract\_command\_language/include/tesseract\_command\_language/core/serialization.h}}
 
 
 Provides boost exports for waypoint and instruction implementation for serialization Also includes utility function.  
 
 
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
-{\ttfamily \#include $<$boost/serialization/export.\+hpp$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
 {\ttfamily \#include $<$boost/archive/xml\+\_\+oarchive.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/waypoint.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
 Include dependency graph for serialization.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -28,45 +26,15 @@ This graph shows which files directly or indirectly include this file\+:
 \includegraphics[width=350pt]{d2/dd0/serialization_8h__dep__incl}
 \end{center}
 \end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1Serialization}{tesseract\+\_\+planning\+::\+Serialization}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Functions}
-\begin{DoxyCompactItemize}
-\item 
-TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP \mbox{\hyperlink{serialization_8h_a1dfb55d490d326e4698553140484195d}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{tesseract\+\_\+planning\+::\+Null\+Waypoint}})
-\item 
-\mbox{\hyperlink{serialization_8h_aa06e68ba6465f5af6450c5699ab8e04e}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{tesseract\+\_\+planning\+::\+Joint\+Waypoint}})
-\item 
-\mbox{\hyperlink{serialization_8h_a95f7f1658e4dfbdf688c41c0849e8a1d}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{tesseract\+\_\+planning\+::\+Cartesian\+Waypoint}})
-\item 
-\mbox{\hyperlink{serialization_8h_a6dacd6555fa64f043cb61210dc045044}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{tesseract\+\_\+planning\+::\+State\+Waypoint}})
-\item 
-\mbox{\hyperlink{serialization_8h_ae2819c6d3c41dbc6bb6417dd62bb0536}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{tesseract\+\_\+planning\+::\+Null\+Instruction}})
-\item 
-\mbox{\hyperlink{serialization_8h_a324a7148a79285c5581326f6d2eb349b}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{tesseract\+\_\+planning\+::\+Move\+Instruction}})
-\item 
-\mbox{\hyperlink{serialization_8h_a8f823d49c283e124a70afd6b2c7fcae8}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{tesseract\+\_\+planning\+::\+Plan\+Instruction}})
-\item 
-\mbox{\hyperlink{serialization_8h_ac294a5cfacb5c220cb3c235415be4642}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{tesseract\+\_\+planning\+::\+Wait\+Instruction}})
-\item 
-\mbox{\hyperlink{serialization_8h_a38ab8f3c6618b5de5ecd276220376a7d}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{tesseract\+\_\+planning\+::\+Timer\+Instruction}})
-\item 
-\mbox{\hyperlink{serialization_8h_ad6b55c5755468d47e21f41c24d574b58}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction}})
-\item 
-\mbox{\hyperlink{serialization_8h_a75cbdce74aff96439ebfd12dac47909d}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction}})
-\item 
-\mbox{\hyperlink{serialization_8h_a61b124fe007abadf54a4d14e2b1770f7}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tesseract\+\_\+planning\+::\+Composite\+Instruction}})
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\std\+::string \mbox{\hyperlink{namespacetesseract__planning_ae83d8360bbc2d9d905b1ccc87586b77c}{tesseract\+\_\+planning\+::to\+Archive\+String\+XML}} (Serializable\+Type \&archive\+\_\+type, const std\+::string \&name=\char`\"{}\char`\"{})
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_acc42a5d8b564e04c1906d5fb99c638f4}{tesseract\+\_\+planning\+::to\+Archive\+File\+XML}} (Serializable\+Type \&archive\+\_\+type, const std\+::string \&file\+\_\+path, const std\+::string \&name=\char`\"{}\char`\"{})
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a8b6c1a3acbb2a92ddc106627151d7f46}{tesseract\+\_\+planning\+::from\+Archive\+String\+XML}} (const std\+::string \&archive\+\_\+xml)
-\item 
-{\footnotesize template$<$typename Serializable\+Type $>$ }\\Serializable\+Type \mbox{\hyperlink{namespacetesseract__planning_a6628f45902a3b73afaea1c30091bf87a}{tesseract\+\_\+planning\+::from\+Archive\+File\+XML}} (const std\+::string \&file\+\_\+path)
 \end{DoxyCompactItemize}
 
 
@@ -91,7 +59,7 @@ February 24, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000018}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000005}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -106,78 +74,3 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
 \end{DoxyParagraph}
-
-
-\doxysubsection{Function Documentation}
-\mbox{\Hypertarget{serialization_8h_a61b124fe007abadf54a4d14e2b1770f7}\label{serialization_8h_a61b124fe007abadf54a4d14e2b1770f7}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT()}{TESSERACT\_INSTRUCTION\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tesseract\+\_\+planning\+::\+Composite\+Instruction}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_a324a7148a79285c5581326f6d2eb349b}\label{serialization_8h_a324a7148a79285c5581326f6d2eb349b}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT()}{TESSERACT\_INSTRUCTION\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{tesseract\+\_\+planning\+::\+Move\+Instruction}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_ae2819c6d3c41dbc6bb6417dd62bb0536}\label{serialization_8h_ae2819c6d3c41dbc6bb6417dd62bb0536}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT()}{TESSERACT\_INSTRUCTION\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{tesseract\+\_\+planning\+::\+Null\+Instruction}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_a8f823d49c283e124a70afd6b2c7fcae8}\label{serialization_8h_a8f823d49c283e124a70afd6b2c7fcae8}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT()}{TESSERACT\_INSTRUCTION\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{tesseract\+\_\+planning\+::\+Plan\+Instruction}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_a75cbdce74aff96439ebfd12dac47909d}\label{serialization_8h_a75cbdce74aff96439ebfd12dac47909d}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT()}{TESSERACT\_INSTRUCTION\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{tesseract\+\_\+planning\+::\+Set\+Analog\+Instruction}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_ad6b55c5755468d47e21f41c24d574b58}\label{serialization_8h_ad6b55c5755468d47e21f41c24d574b58}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT()}{TESSERACT\_INSTRUCTION\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1SetToolInstruction}{tesseract\+\_\+planning\+::\+Set\+Tool\+Instruction}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_a38ab8f3c6618b5de5ecd276220376a7d}\label{serialization_8h_a38ab8f3c6618b5de5ecd276220376a7d}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT()}{TESSERACT\_INSTRUCTION\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{tesseract\+\_\+planning\+::\+Timer\+Instruction}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_ac294a5cfacb5c220cb3c235415be4642}\label{serialization_8h_ac294a5cfacb5c220cb3c235415be4642}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT()}{TESSERACT\_INSTRUCTION\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{tesseract\+\_\+planning\+::\+Wait\+Instruction}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_a95f7f1658e4dfbdf688c41c0849e8a1d}\label{serialization_8h_a95f7f1658e4dfbdf688c41c0849e8a1d}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}}
-\index{TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT()}{TESSERACT\_WAYPOINT\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{tesseract\+\_\+planning\+::\+Cartesian\+Waypoint}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_aa06e68ba6465f5af6450c5699ab8e04e}\label{serialization_8h_aa06e68ba6465f5af6450c5699ab8e04e}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}}
-\index{TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT()}{TESSERACT\_WAYPOINT\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{tesseract\+\_\+planning\+::\+Joint\+Waypoint}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_a1dfb55d490d326e4698553140484195d}\label{serialization_8h_a1dfb55d490d326e4698553140484195d}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}}
-\index{TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT()}{TESSERACT\_WAYPOINT\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{tesseract\+\_\+planning\+::\+Null\+Waypoint}}}]{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{serialization_8h_a6dacd6555fa64f043cb61210dc045044}\label{serialization_8h_a6dacd6555fa64f043cb61210dc045044}} 
-\index{serialization.h@{serialization.h}!TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}}
-\index{TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}!serialization.h@{serialization.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT()}{TESSERACT\_WAYPOINT\_EXPORT()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{tesseract\+\_\+planning\+::\+State\+Waypoint}}}]{ }\end{DoxyParamCaption})}
-

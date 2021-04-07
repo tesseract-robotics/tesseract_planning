@@ -17,20 +17,20 @@ Collaboration diagram for tesseract\+\_\+planning\+::Null\+Instruction\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_a4ed8d0a927dbfccb21daf4ba97335b06}{get\+Type}} () const
-\item 
-const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_a630e3531d906846ec934eda750ae8332}{get\+Description}} () const
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_adea93f59efbfb7faf835be72e5d8a43d}{get\+Description}} () const
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_a32cd4b6131081d6511edc592eccc8885}{set\+Description}} (const std\+::string \&description)
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_aea240a54272b303cac66ca2b6b8588c4}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
 \item 
-tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_a5b17688ce05da44798cfe6f883d2bba7}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
+bool \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_a99ba19cd0e6b9241343e5876b7df2818}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_ac39de0532213a702857866e7a37414b1}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}} \&rhs) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_ada426b6bcda999f74a86be57fea0accf}{serialize}} (Archive \&, const unsigned int)
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_a3c5f2ae358e45468f53554a801647b38}{serialize}} (Archive \&, const unsigned int)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -45,42 +45,42 @@ class \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction_ac98d07dd8f7b
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_a630e3531d906846ec934eda750ae8332}\label{classtesseract__planning_1_1NullInstruction_a630e3531d906846ec934eda750ae8332}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_adea93f59efbfb7faf835be72e5d8a43d}\label{classtesseract__planning_1_1NullInstruction_adea93f59efbfb7faf835be72e5d8a43d}} 
 \index{tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}!getDescription@{getDescription}}
 \index{getDescription@{getDescription}!tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily const std\+::string\& tesseract\+\_\+planning\+::\+Null\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Null\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_a4ed8d0a927dbfccb21daf4ba97335b06}\label{classtesseract__planning_1_1NullInstruction_a4ed8d0a927dbfccb21daf4ba97335b06}} 
-\index{tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}!getType@{getType}}
-\index{getType@{getType}!tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}}
-\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
-{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Null\+Instruction\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_ac39de0532213a702857866e7a37414b1}\label{classtesseract__planning_1_1NullInstruction_ac39de0532213a702857866e7a37414b1}} 
+\index{tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Null\+Instruction\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_a99ba19cd0e6b9241343e5876b7df2818}\label{classtesseract__planning_1_1NullInstruction_a99ba19cd0e6b9241343e5876b7df2818}} 
+\index{tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Null\+Instruction\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_aea240a54272b303cac66ca2b6b8588c4}\label{classtesseract__planning_1_1NullInstruction_aea240a54272b303cac66ca2b6b8588c4}} 
 \index{tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}!print@{print}}
 \index{print@{print}!tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}}
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Null\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Null\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_ada426b6bcda999f74a86be57fea0accf}\label{classtesseract__planning_1_1NullInstruction_ada426b6bcda999f74a86be57fea0accf}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_a3c5f2ae358e45468f53554a801647b38}\label{classtesseract__planning_1_1NullInstruction_a3c5f2ae358e45468f53554a801647b38}} 
 \index{tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
-void tesseract\+\_\+planning\+::\+Null\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+template void tesseract\+\_\+planning\+::\+Null\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_a32cd4b6131081d6511edc592eccc8885}\label{classtesseract__planning_1_1NullInstruction_a32cd4b6131081d6511edc592eccc8885}} 
 \index{tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}!setDescription@{setDescription}}
 \index{setDescription@{setDescription}!tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}}
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Null\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1NullInstruction_a5b17688ce05da44798cfe6f883d2bba7}\label{classtesseract__planning_1_1NullInstruction_a5b17688ce05da44798cfe6f883d2bba7}} 
-\index{tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}!toXML@{toXML}}
-\index{toXML@{toXML}!tesseract\_planning::NullInstruction@{tesseract\_planning::NullInstruction}}
-\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
-{\footnotesize\ttfamily tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::\+Null\+Instruction\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Null\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})}
 
 
 
@@ -106,6 +106,7 @@ The description of the instruction.
 
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/core/\mbox{\hyperlink{null__instruction_8h}{null\+\_\+instruction.\+h}}\end{DoxyCompactItemize}
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/\mbox{\hyperlink{null__instruction_8h}{null\+\_\+instruction.\+h}}\item 
+tesseract\+\_\+command\+\_\+language/src/\mbox{\hyperlink{null__instruction_8cpp}{null\+\_\+instruction.\+cpp}}\end{DoxyCompactItemize}

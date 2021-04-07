@@ -1,13 +1,8 @@
 \hypertarget{timer__instruction_8h}{}\doxysection{tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/timer\+\_\+instruction.h File Reference}
 \label{timer__instruction_8h}\index{tesseract\_command\_language/include/tesseract\_command\_language/timer\_instruction.h@{tesseract\_command\_language/include/tesseract\_command\_language/timer\_instruction.h}}
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
-{\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
-{\ttfamily \#include $<$tinyxml2.\+h$>$}\newline
-{\ttfamily \#include $<$boost/serialization/base\+\_\+object.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/serialization/nvp.\+hpp$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/instruction\+\_\+type.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
 Include dependency graph for timer\+\_\+instruction.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -41,6 +36,11 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca
 , \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2adc44bfe9b2ce1975d7312158278ac8df}{tesseract\+\_\+planning\+::\+DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW}} = 1
  \}
 \end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{timer__instruction_8h_aebbdd3251fc51b2914af4e328cf1e45b}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}} (\mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{tesseract\+\_\+planning\+::\+Timer\+Instruction}})
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -54,7 +54,7 @@ November 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000023}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000017}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -69,3 +69,12 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
 \end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{timer__instruction_8h_aebbdd3251fc51b2914af4e328cf1e45b}\label{timer__instruction_8h_aebbdd3251fc51b2914af4e328cf1e45b}} 
+\index{timer\_instruction.h@{timer\_instruction.h}!TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}
+\index{TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}!timer\_instruction.h@{timer\_instruction.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT\_KEY()}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY()}}
+{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{tesseract\+\_\+planning\+::\+Timer\+Instruction}}}]{ }\end{DoxyParamCaption})}
+

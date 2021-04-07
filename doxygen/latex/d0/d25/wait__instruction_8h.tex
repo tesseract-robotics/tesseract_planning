@@ -1,13 +1,8 @@
 \hypertarget{wait__instruction_8h}{}\doxysection{tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/wait\+\_\+instruction.h File Reference}
 \label{wait__instruction_8h}\index{tesseract\_command\_language/include/tesseract\_command\_language/wait\_instruction.h@{tesseract\_command\_language/include/tesseract\_command\_language/wait\_instruction.h}}
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
-{\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
-{\ttfamily \#include $<$tinyxml2.\+h$>$}\newline
-{\ttfamily \#include $<$boost/serialization/base\+\_\+object.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/serialization/nvp.\+hpp$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/instruction\+\_\+type.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
 Include dependency graph for wait\+\_\+instruction.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -46,6 +41,11 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd
 \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66eadc44bfe9b2ce1975d7312158278ac8df}{tesseract\+\_\+planning\+::\+DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW}} = 4
  \}
 \end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{wait__instruction_8h_a3e83e3f97dc4d6f3371f87a9549c4e4e}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}} (\mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{tesseract\+\_\+planning\+::\+Wait\+Instruction}})
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -59,7 +59,7 @@ November 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000029}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000023}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -74,3 +74,12 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
 \end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{wait__instruction_8h_a3e83e3f97dc4d6f3371f87a9549c4e4e}\label{wait__instruction_8h_a3e83e3f97dc4d6f3371f87a9549c4e4e}} 
+\index{wait\_instruction.h@{wait\_instruction.h}!TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}
+\index{TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}!wait\_instruction.h@{wait\_instruction.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT\_KEY()}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY()}}
+{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1WaitInstruction}{tesseract\+\_\+planning\+::\+Wait\+Instruction}}}]{ }\end{DoxyParamCaption})}
+

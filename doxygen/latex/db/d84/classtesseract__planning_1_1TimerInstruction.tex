@@ -26,9 +26,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Timer\+Instruction\+:
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ad3d2c2c49c4f46240541184bfdd22c58}{Timer\+Instruction}} (\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} type, double time, int io)
 \item 
-int \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a56c3b174acfe6a669b2540ec226946f3}{get\+Type}} () const
-\item 
-const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a1d5007110b09f26384d63ae2648b3f33}{get\+Description}} () const
+const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_ae1fa87c46f652c26b4fbd57ee1c22ee0}{get\+Description}} () const
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_aa455b335032848e22c714adff13de4e8}{set\+Description}} (const std\+::string \&description)
 \item 
@@ -46,8 +44,6 @@ int \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a9681082716b5e
 \begin{DoxyCompactList}\small\item\em Get the timer IO. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a762405f2f3c9f9a4cbefaebdec13bb0b}{set\+Timer\+IO}} (int io)
 \begin{DoxyCompactList}\small\item\em Set the timer IO. \end{DoxyCompactList}\item 
-tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a524b8b93af0f6001f98930bf75170de9}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
-\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_acf83026ab15866b7d1ae5ed390b7870e}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{Timer\+Instruction}} \&rhs) const
 \begin{DoxyCompactList}\small\item\em Equal operator. Does not compare descriptions. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb07c30e0532bc7d4c6e0a}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{Timer\+Instruction}} \&rhs) const
@@ -55,7 +51,7 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_aee81d68a236e6c522a3cf4a6d958364b}{serialize}} (Archive \&ar, const unsigned int)
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction_aee056b7393f3a37e7fc030d54bf78de5}{serialize}} (Archive \&ar, const unsigned int version)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -95,22 +91,22 @@ This instruction indicates that a timer should be started and when the time expi
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!TimerInstruction@{TimerInstruction}}
 \index{TimerInstruction@{TimerInstruction}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{TimerInstruction()}{TimerInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Timer\+Instruction\+::\+Timer\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}}}]{type,  }\item[{double}]{time,  }\item[{int}]{io }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Timer\+Instruction\+::\+Timer\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}}}]{type,  }\item[{double}]{time,  }\item[{int}]{io }\end{DoxyParamCaption})}
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a1d5007110b09f26384d63ae2648b3f33}\label{classtesseract__planning_1_1TimerInstruction_a1d5007110b09f26384d63ae2648b3f33}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_ae1fa87c46f652c26b4fbd57ee1c22ee0}\label{classtesseract__planning_1_1TimerInstruction_ae1fa87c46f652c26b4fbd57ee1c22ee0}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!getDescription@{getDescription}}
 \index{getDescription@{getDescription}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily const std\+::string\& tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a9681082716b5e56fb080abd1a6561dd8}\label{classtesseract__planning_1_1TimerInstruction_a9681082716b5e56fb080abd1a6561dd8}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!getTimerIO@{getTimerIO}}
 \index{getTimerIO@{getTimerIO}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{getTimerIO()}{getTimerIO()}}
-{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Timer\+IO (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Timer\+IO (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -123,7 +119,7 @@ The timer IO
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!getTimerTime@{getTimerTime}}
 \index{getTimerTime@{getTimerTime}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{getTimerTime()}{getTimerTime()}}
-{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Timer\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Timer\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -136,7 +132,7 @@ The timer time in second
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!getTimerType@{getTimerType}}
 \index{getTimerType@{getTimerType}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{getTimerType()}{getTimerType()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Timer\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}} tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Timer\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -145,17 +141,11 @@ Get the timer type.
 \begin{DoxyReturn}{Returns}
 The timer type 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a56c3b174acfe6a669b2540ec226946f3}\label{classtesseract__planning_1_1TimerInstruction_a56c3b174acfe6a669b2540ec226946f3}} 
-\index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!getType@{getType}}
-\index{getType@{getType}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
-\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
-{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Timer\+Instruction\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb07c30e0532bc7d4c6e0a}\label{classtesseract__planning_1_1TimerInstruction_a286fa3e47fbb07c30e0532bc7d4c6e0a}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Timer\+Instruction\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{Timer\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Timer\+Instruction\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{Timer\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const}
 
 
 
@@ -173,7 +163,7 @@ True if not equal, otherwise false
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!operator==@{operator==}}
 \index{operator==@{operator==}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Timer\+Instruction\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{Timer\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Timer\+Instruction\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TimerInstruction}{Timer\+Instruction}} \&}]{rhs }\end{DoxyParamCaption}) const}
 
 
 
@@ -191,26 +181,26 @@ True if equal, otherwise false
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!print@{print}}
 \index{print@{print}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_aee81d68a236e6c522a3cf4a6d958364b}\label{classtesseract__planning_1_1TimerInstruction_aee81d68a236e6c522a3cf4a6d958364b}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_aee056b7393f3a37e7fc030d54bf78de5}\label{classtesseract__planning_1_1TimerInstruction_aee056b7393f3a37e7fc030d54bf78de5}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
-void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+template void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_aa455b335032848e22c714adff13de4e8}\label{classtesseract__planning_1_1TimerInstruction_aa455b335032848e22c714adff13de4e8}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!setDescription@{setDescription}}
 \index{setDescription@{setDescription}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a762405f2f3c9f9a4cbefaebdec13bb0b}\label{classtesseract__planning_1_1TimerInstruction_a762405f2f3c9f9a4cbefaebdec13bb0b}} 
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!setTimerIO@{setTimerIO}}
 \index{setTimerIO@{setTimerIO}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{setTimerIO()}{setTimerIO()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Timer\+IO (\begin{DoxyParamCaption}\item[{int}]{io }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Timer\+IO (\begin{DoxyParamCaption}\item[{int}]{io }\end{DoxyParamCaption})}
 
 
 
@@ -225,7 +215,7 @@ Set the timer IO.
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!setTimerTime@{setTimerTime}}
 \index{setTimerTime@{setTimerTime}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{setTimerTime()}{setTimerTime()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Timer\+Time (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Timer\+Time (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})}
 
 
 
@@ -240,7 +230,7 @@ Set timer time in second.
 \index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!setTimerType@{setTimerType}}
 \index{setTimerType@{setTimerType}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
 \doxysubsubsection{\texorpdfstring{setTimerType()}{setTimerType()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Timer\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}}}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Timer\+Instruction\+::set\+Timer\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2}{Timer\+Instruction\+Type}}}]{type }\end{DoxyParamCaption})}
 
 
 
@@ -251,12 +241,6 @@ Set the timer type.
 {\em type} & The timer type \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classtesseract__planning_1_1TimerInstruction_a524b8b93af0f6001f98930bf75170de9}\label{classtesseract__planning_1_1TimerInstruction_a524b8b93af0f6001f98930bf75170de9}} 
-\index{tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}!toXML@{toXML}}
-\index{toXML@{toXML}!tesseract\_planning::TimerInstruction@{tesseract\_planning::TimerInstruction}}
-\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
-{\footnotesize\ttfamily tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::\+Timer\+Instruction\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -299,6 +283,7 @@ The description of the instruction.
 
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/\mbox{\hyperlink{timer__instruction_8h}{timer\+\_\+instruction.\+h}}\end{DoxyCompactItemize}
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/\mbox{\hyperlink{timer__instruction_8h}{timer\+\_\+instruction.\+h}}\item 
+tesseract\+\_\+command\+\_\+language/src/\mbox{\hyperlink{timer__instruction_8cpp}{timer\+\_\+instruction.\+cpp}}\end{DoxyCompactItemize}

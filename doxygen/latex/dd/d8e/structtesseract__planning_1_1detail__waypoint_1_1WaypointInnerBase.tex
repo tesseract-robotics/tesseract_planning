@@ -29,13 +29,17 @@ virtual \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1Waypoi
 \item 
 \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} \& \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_add51205d8aa99af1ebb59bf0f4075def}{operator=}} (\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} \&\&)=delete
 \item 
-virtual int \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_aca7b6d195cd6cbeda69351778d72ca5b}{get\+Type}} () const =0
-\item 
 virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a76980f59f736344c8f37de32f5709c64}{print}} (const std\+::string \&prefix) const =0
 \item 
-virtual tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_ac60424ad2d0300c8a35451ff370f0a70}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const =0
+virtual bool \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a7a54cebda671d64d60b065e75ed82ee8}{operator==}} (const \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} \&rhs) const =0
+\item 
+virtual bool \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a4dd547b6f7c4a1bff0c1f51cc34a89e5}{operator!=}} (const \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} \&rhs) const =0
+\item 
+virtual std\+::type\+\_\+index \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a8be306b2a7d0390a2cefd81a0c15f0dd}{get\+Type}} () const =0
 \item 
 virtual void $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a7776ea3e160bcf4003b3e14a49d0487b}{recover}} ()=0
+\item 
+virtual const void $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a4e83093e9015c2577675cfac13259753}{recover}} () const =0
 \item 
 virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a9fb1410e7813000a546ec0929ae68cde}{clone}} () const =0
 \end{DoxyCompactItemize}
@@ -89,15 +93,25 @@ class \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1Waypoint
 
 Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_acd7c547a2d74c67c31fab91cece4dc05}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
 
-\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_aca7b6d195cd6cbeda69351778d72ca5b}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_aca7b6d195cd6cbeda69351778d72ca5b}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a8be306b2a7d0390a2cefd81a0c15f0dd}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a8be306b2a7d0390a2cefd81a0c15f0dd}} 
 \index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!getType@{getType}}
 \index{getType@{getType}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
 \doxysubsubsection{\texorpdfstring{getType()}{getType()}}
-{\footnotesize\ttfamily virtual int tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual std\+::type\+\_\+index tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
-Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a3dd94b6e128a0c29829327f42a991be3}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
+Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a5dfdcdb4574163c96b989dd7857c482f}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a4dd547b6f7c4a1bff0c1f51cc34a89e5}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a4dd547b6f7c4a1bff0c1f51cc34a89e5}} 
+\index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily virtual bool tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a1a1be495a279d22ea54eb88ba68d0933}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
 
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a1a779d5e49695bedcd9b6be25226e19a}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a1a779d5e49695bedcd9b6be25226e19a}} 
 \index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!operator=@{operator=}}
@@ -111,6 +125,16 @@ Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}}\& tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a7a54cebda671d64d60b065e75ed82ee8}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a7a54cebda671d64d60b065e75ed82ee8}} 
+\index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily virtual bool tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_adb642b31d3d6ad6b28d1b25710dc15f8}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
+
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a76980f59f736344c8f37de32f5709c64}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a76980f59f736344c8f37de32f5709c64}} 
 \index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!print@{print}}
 \index{print@{print}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
@@ -121,10 +145,20 @@ Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_
 
 Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a8a0a5dffbcf9e679afa43ea62629e0f1}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
 
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a4e83093e9015c2577675cfac13259753}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a4e83093e9015c2577675cfac13259753}} 
+\index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!recover@{recover}}
+\index{recover@{recover}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
+\doxysubsubsection{\texorpdfstring{recover()}{recover()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual const void$\ast$ tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::recover (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_af747d6e4c3eb1016800d1ffd17afcd4a}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
+
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a7776ea3e160bcf4003b3e14a49d0487b}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a7776ea3e160bcf4003b3e14a49d0487b}} 
 \index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!recover@{recover}}
 \index{recover@{recover}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
-\doxysubsubsection{\texorpdfstring{recover()}{recover()}}
+\doxysubsubsection{\texorpdfstring{recover()}{recover()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily virtual void$\ast$ tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::recover (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
@@ -137,16 +171,6 @@ Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
 void tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
-
-\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_ac60424ad2d0300c8a35451ff370f0a70}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_ac60424ad2d0300c8a35451ff370f0a70}} 
-\index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!toXML@{toXML}}
-\index{toXML@{toXML}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
-\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
-{\footnotesize\ttfamily virtual tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
-
-
-
-Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a0796162ce18cd071449c362e799a7fd6}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
 
 
 

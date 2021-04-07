@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['settings_2937',['Settings',['../d3/df1/structtesseract__planning_1_1FixStateBoundsProfile.html#a5ca76ba80aa9d3a8fe819937ee1a0560',1,'tesseract_planning::FixStateBoundsProfile::Settings()'],['../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9',1,'tesseract_planning::FixStateCollisionProfile::Settings()']]]
+  ['timerinstructiontype_2848',['TimerInstructionType',['../d9/dcd/namespacetesseract__planning.html#a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2',1,'tesseract_planning']]],
+  ['trajoptifopttermtype_2849',['TrajOptIfoptTermType',['../d9/dcd/namespacetesseract__planning.html#a4075aba51db3be039f29037d09d85a94',1,'tesseract_planning']]]
 ];

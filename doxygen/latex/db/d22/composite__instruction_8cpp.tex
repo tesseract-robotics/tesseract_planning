@@ -3,8 +3,12 @@
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$stdexcept$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$boost/serialization/nvp.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/serialization/vector.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/composite\+\_\+instruction.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/compare\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+oarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
 Include dependency graph for composite\+\_\+instruction.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -17,6 +21,11 @@ Include dependency graph for composite\+\_\+instruction.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{composite__instruction_8cpp_a8fa07566b6c65b7384b953d55b7d3840}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tesseract\+\_\+planning\+::\+Composite\+Instruction}})
 \end{DoxyCompactItemize}
 
 
@@ -31,7 +40,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000033}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000025}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -46,3 +55,12 @@ Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\
 \begin{DoxyParagraph}{}
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
 \end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{composite__instruction_8cpp_a8fa07566b6c65b7384b953d55b7d3840}\label{composite__instruction_8cpp_a8fa07566b6c65b7384b953d55b7d3840}} 
+\index{composite\_instruction.cpp@{composite\_instruction.cpp}!TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT@{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT}}
+\index{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT@{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT}!composite\_instruction.cpp@{composite\_instruction.cpp}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT()}{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT()}}
+{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tesseract\+\_\+planning\+::\+Composite\+Instruction}}}]{ }\end{DoxyParamCaption})}
+

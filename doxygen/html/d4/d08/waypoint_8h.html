@@ -81,30 +81,35 @@ $(function() {
 <div class="textblock"><code>#include &lt;tesseract_common/macros.h&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
-<code>#include &lt;tinyxml2.h&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
 <code>#include &lt;boost/serialization/base_object.hpp&gt;</code><br />
+<code>#include &lt;boost/serialization/export.hpp&gt;</code><br />
 <code>#include &lt;boost/serialization/nvp.hpp&gt;</code><br />
 <code>#include &lt;boost/serialization/unique_ptr.hpp&gt;</code><br />
 <code>#include &lt;boost/type_traits/is_virtual_base_of.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../dd/d50/serialization_8h_source.html">tesseract_command_language/core/serialization.h</a>&gt;</code><br />
 <code>#include &lt;tesseract_common/sfinae_utils.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d5/dc2/null__waypoint_8h_source.html">tesseract_command_language/core/null_waypoint.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for waypoint.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d0f/waypoint_8h__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8h" alt=""/></div>
 <map name="atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8h" id="atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8h">
-<area shape="rect" title=" " alt="" coords="459,5,657,61"/>
-<area shape="rect" title=" " alt="" coords="5,206,196,233"/>
-<area shape="rect" title=" " alt="" coords="560,117,628,143"/>
-<area shape="rect" title=" " alt="" coords="220,206,275,233"/>
-<area shape="rect" title=" " alt="" coords="396,206,475,233"/>
-<area shape="rect" title=" " alt="" coords="499,199,625,240"/>
-<area shape="rect" title=" " alt="" coords="652,109,779,151"/>
-<area shape="rect" title=" " alt="" coords="803,109,929,151"/>
-<area shape="rect" title=" " alt="" coords="954,109,1095,151"/>
-<area shape="rect" title=" " alt="" coords="1119,109,1290,151"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="236,109,435,151"/>
-<area shape="rect" title=" " alt="" coords="299,206,371,233"/>
+<area shape="rect" title=" " alt="" coords="412,5,611,61"/>
+<area shape="rect" title=" " alt="" coords="359,199,550,225"/>
+<area shape="rect" title=" " alt="" coords="27,117,95,143"/>
+<area shape="rect" title=" " alt="" coords="119,117,174,143"/>
+<area shape="rect" title=" " alt="" coords="198,117,274,143"/>
+<area shape="rect" title=" " alt="" coords="298,109,424,151"/>
+<area shape="rect" title=" " alt="" coords="448,109,575,151"/>
+<area shape="rect" title=" " alt="" coords="599,109,726,151"/>
+<area shape="rect" title=" " alt="" coords="750,109,876,151"/>
+<area shape="rect" title=" " alt="" coords="901,109,1042,151"/>
+<area shape="rect" href="../../dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="1066,109,1264,151"/>
+<area shape="rect" title=" " alt="" coords="1289,109,1460,151"/>
+<area shape="rect" title=" " alt="" coords="958,199,1025,225"/>
+<area shape="rect" title=" " alt="" coords="1049,199,1118,225"/>
+<area shape="rect" title=" " alt="" coords="1143,199,1347,225"/>
+<area shape="rect" title=" " alt="" coords="1372,199,1572,225"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -112,56 +117,56 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/dca/waypoint_8h__dep__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8hdep" alt=""/></div>
 <map name="atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8hdep" id="atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8hdep">
-<area shape="rect" title=" " alt="" coords="4177,5,4376,61"/>
-<area shape="rect" href="../../dc/da1/compare__waypoint_8h.html" title="This contains the comparison operators for Waypoint by recovering the type and comparing." alt="" coords="338,221,541,277"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="4177,109,4376,165"/>
-<area shape="rect" href="../../dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="5236,473,5435,529"/>
-<area shape="rect" href="../../d1/d31/serialize_8hpp.html" title=" " alt="" coords="5425,221,5624,277"/>
-<area shape="rect" href="../../dd/d38/tesseract__command__language_2src_2serialize_8cpp.html" title=" " alt="" coords="5425,354,5624,395"/>
-<area shape="rect" href="../../d9/df9/tesseract__command__language_2src_2deserialize_8cpp.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="2355,228,2553,269"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="1596,221,1795,277"/>
-<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2677,221,2876,277"/>
-<area shape="rect" href="../../d5/d17/waypoint__type_8cpp.html" title=" " alt="" coords="5748,117,5947,158"/>
-<area shape="rect" href="../../dc/ded/compare__waypoint_8cpp.html" title="This contains the comparison operators for Waypoint by recovering the type and comparing." alt="" coords="5,354,204,395"/>
-<area shape="rect" href="../../d8/d1d/move__instruction_8cpp.html" title=" " alt="" coords="228,354,427,395"/>
-<area shape="rect" href="../../d0/d6f/plan__instruction_8cpp.html" title=" " alt="" coords="451,354,649,395"/>
-<area shape="rect" href="../../d4/d1c/compare__instruction_8h.html" title="This contains the comparison operators for Instruction by recovering the type and comparing." alt="" coords="4769,221,4981,277"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2988,221,3211,277"/>
-<area shape="rect" href="../../dd/dc7/tesseract__command__language_2include_2tesseract__command__language_2deserialize_8h.html" title="Provide methods for deserialize instructions to xml and deserialization." alt="" coords="5013,473,5212,529"/>
-<area shape="rect" href="../../d8/d79/instruction__type_8cpp.html" title=" " alt="" coords="3235,228,3433,269"/>
-<area shape="rect" href="../../dd/db6/descartes__profile_8h.html" title=" " alt="" coords="3458,213,3637,284"/>
-<area shape="rect" href="../../d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="3661,213,3841,284"/>
-<area shape="rect" href="../../d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="3866,213,4045,284"/>
-<area shape="rect" href="../../d3/da7/trajopt__ifopt__profile_8h.html" title=" " alt="" coords="4069,213,4257,284"/>
-<area shape="rect" href="../../d7/dc1/trajopt__default__composite__profile_8cpp.html" title=" " alt="" coords="774,347,974,403"/>
-<area shape="rect" href="../../d9/d01/trajopt__ifopt__default__composite__profile_8cpp.html" title=" " alt="" coords="2032,339,2239,410"/>
-<area shape="rect" href="../../d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="4281,213,4501,284"/>
-<area shape="rect" href="../../dd/ddd/process__planning__request_8h.html" title="A process planning request and default planner names." alt="" coords="4525,213,4745,284"/>
-<area shape="rect" href="../../dd/d0f/task__info_8h.html" title="Process Info." alt="" coords="5056,221,5249,277"/>
-<area shape="rect" href="../../d5/d35/task__input_8h.html" title="Process input." alt="" coords="4989,347,5183,403"/>
-<area shape="rect" href="../../d1/d1a/compare__instruction_8cpp.html" title="This contains the comparison operators for Instruction by recovering the type and comparing." alt="" coords="3112,354,3311,395"/>
-<area shape="rect" href="../../de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="4787,591,4985,633"/>
-<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="4206,347,4417,403"/>
-<area shape="rect" href="../../d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="2263,347,2461,403"/>
-<area shape="rect" href="../../df/d01/iterative__spline__parameterization__task__generator_8cpp.html" title="Perform iterative spline time parameterization." alt="" coords="2375,465,2573,536"/>
-<area shape="rect" href="../../d4/d25/time__optimal__trajectory__generation__task__generator_8cpp.html" title=" " alt="" coords="2152,465,2351,536"/>
-<area shape="rect" href="../../d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="3588,347,3827,403"/>
-<area shape="rect" href="../../d5/d75/raster__dt__taskflow_8cpp.html" title="Plans raster paths with dual transitions." alt="" coords="3085,473,3279,529"/>
-<area shape="rect" href="../../d1/d31/raster__global__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="3753,473,3947,529"/>
-<area shape="rect" href="../../d3/dd0/raster__only__global__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="3303,473,3512,529"/>
-<area shape="rect" href="../../d9/d66/raster__only__taskflow_8cpp.html" title=" " alt="" coords="3536,473,3729,529"/>
-<area shape="rect" href="../../dc/d52/raster__taskflow_8cpp.html" title="Plans raster paths." alt="" coords="3971,473,4164,529"/>
-<area shape="rect" href="../../df/d0a/raster__waad__dt__taskflow_8cpp.html" title="Plans raster paths with approach, departure and dual transitions." alt="" coords="2866,473,3061,529"/>
-<area shape="rect" href="../../d4/d65/raster__waad__taskflow_8cpp.html" title="Plans raster paths with approach and departure." alt="" coords="4188,473,4381,529"/>
-<area shape="rect" href="../../db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="2890,354,3087,395"/>
-<area shape="rect" href="../../d5/d4d/cartesian__waypoint__unit_8cpp.html" title="Contains unit tests for CartesianWaypoint." alt="" coords="5013,584,5212,640"/>
-<area shape="rect" href="../../dc/d43/joint__waypoint__unit_8cpp.html" title="Contains unit tests for JointWaypoint." alt="" coords="5236,591,5435,633"/>
-<area shape="rect" href="../../d6/d51/filter__functions_8cpp.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="1809,354,2008,395"/>
-<area shape="rect" href="../../df/d3e/descartes__default__plan__profile_8hpp.html" title=" " alt="" coords="998,332,1177,417"/>
-<area shape="rect" href="../../d6/dc0/ompl__default__plan__profile_8cpp.html" title=" " alt="" coords="1201,347,1379,403"/>
-<area shape="rect" href="../../d2/d61/trajopt__default__plan__profile_8cpp.html" title=" " alt="" coords="1403,347,1582,403"/>
-<area shape="rect" href="../../d9/d01/trajopt__ifopt__default__plan__profile_8cpp.html" title=" " alt="" coords="1606,339,1785,410"/>
-<area shape="rect" href="../../d7/ddd/tesseract__motion__planners_2test_2utils__test_8cpp.html" title=" " alt="" coords="2535,354,2714,395"/>
+<area shape="rect" title=" " alt="" coords="2656,5,2855,61"/>
+<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="3452,221,3659,277"/>
+<area shape="rect" href="../../d5/d4d/cartesian__waypoint__unit_8cpp.html" title="Contains unit tests for CartesianWaypoint." alt="" coords="2469,339,2668,395"/>
+<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="1396,109,1595,165"/>
+<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="1489,339,1688,395"/>
+<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2096,339,2295,395"/>
+<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="4807,221,5005,277"/>
+<area shape="rect" href="../../dc/d43/joint__waypoint__unit_8cpp.html" title="Contains unit tests for JointWaypoint." alt="" coords="5664,347,5863,388"/>
+<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="2469,221,2668,277"/>
+<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="5639,221,5837,277"/>
+<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="2599,465,2810,521"/>
+<area shape="rect" href="../../dc/d46/cartesian__waypoint_8cpp.html" title=" " alt="" coords="3096,347,3295,388"/>
+<area shape="rect" href="../../de/d30/flatten__utils_8cpp.html" title=" " alt="" coords="4012,599,4211,640"/>
+<area shape="rect" href="../../d1/da3/get__instruction__utils_8cpp.html" title=" " alt="" coords="4900,591,5099,647"/>
+<area shape="rect" href="../../d7/d9c/tesseract__command__language_2src_2utils_2utils_8cpp.html" title=" " alt="" coords="4968,347,5167,388"/>
+<area shape="rect" href="../../d5/d17/waypoint__type_8cpp.html" title=" " alt="" coords="4381,347,4580,388"/>
+<area shape="rect" href="../../d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="3318,332,3518,403"/>
+<area shape="rect" href="../../d9/da2/trajopt__default__plan__profile_8h.html" title=" " alt="" coords="3493,458,3684,529"/>
+<area shape="rect" href="../../db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="3490,599,3687,640"/>
+<area shape="rect" href="../../d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="2843,332,3022,403"/>
+<area shape="rect" href="../../db/d61/trajopt__utils_8h.html" title=" " alt="" coords="3593,332,3771,403"/>
+<area shape="rect" href="../../d7/dc1/trajopt__default__composite__profile_8cpp.html" title=" " alt="" coords="3218,465,3418,521"/>
+<area shape="rect" href="../../dd/d35/trajopt__ifopt__default__plan__profile_8h.html" title=" " alt="" coords="4112,458,4335,529"/>
+<area shape="rect" href="../../d3/da7/trajopt__ifopt__profile_8h.html" title=" " alt="" coords="4604,332,4792,403"/>
+<area shape="rect" href="../../d8/d0f/trajopt__ifopt__utils_8h.html" title=" " alt="" coords="3796,332,3987,403"/>
+<area shape="rect" href="../../d9/d01/trajopt__ifopt__default__composite__profile_8cpp.html" title=" " alt="" coords="2987,458,3193,529"/>
+<area shape="rect" href="../../d0/de6/fix__state__collision__task__generator__unit_8cpp.html" title=" " alt="" coords="4164,339,4357,395"/>
+<area shape="rect" href="../../d2/d61/trajopt__default__plan__profile_8cpp.html" title=" " alt="" coords="2839,591,3018,647"/>
+<area shape="rect" href="../../d9/d01/trajopt__ifopt__default__plan__profile_8cpp.html" title=" " alt="" coords="3125,584,3303,655"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1177,339,1400,395"/>
+<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1119,221,1317,277"/>
+<area shape="rect" href="../../dd/d0f/task__info_8h.html" title="Process Info." alt="" coords="72,339,265,395"/>
+<area shape="rect" href="../../d5/d35/task__input_8h.html" title="Process input." alt="" coords="5,465,199,521"/>
+<area shape="rect" href="../../d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="1847,221,2072,277"/>
+<area shape="rect" href="../../d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="1391,221,1599,277"/>
+<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="1624,221,1823,277"/>
+<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="2096,221,2295,277"/>
+<area shape="rect" href="../../dd/db6/descartes__profile_8h.html" title=" " alt="" coords="223,213,402,284"/>
+<area shape="rect" href="../../d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="427,213,607,284"/>
+<area shape="rect" href="../../d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="631,213,851,284"/>
+<area shape="rect" href="../../dd/ddd/process__planning__request_8h.html" title="A process planning request and default planner names." alt="" coords="875,213,1095,284"/>
+<area shape="rect" href="../../d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="1485,465,1684,521"/>
+<area shape="rect" href="../../df/d01/iterative__spline__parameterization__task__generator_8cpp.html" title="Perform iterative spline time parameterization." alt="" coords="1249,584,1446,655"/>
+<area shape="rect" href="../../d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="1708,465,1947,521"/>
+<area shape="rect" href="../../d8/d79/instruction__type_8cpp.html" title=" " alt="" coords="889,473,1088,514"/>
+<area shape="rect" href="../../d8/d1d/move__instruction_8cpp.html" title=" " alt="" coords="1112,473,1311,514"/>
+<area shape="rect" href="../../d6/d51/filter__functions_8cpp.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="2377,473,2576,514"/>
+<area shape="rect" href="../../df/d3e/descartes__default__plan__profile_8hpp.html" title=" " alt="" coords="1971,451,2150,536"/>
+<area shape="rect" href="../../d6/dc0/ompl__default__plan__profile_8cpp.html" title=" " alt="" coords="2174,465,2353,521"/>
+<area shape="rect" href="../../db/dbe/joint__waypoint_8cpp.html" title=" " alt="" coords="5240,347,5439,388"/>
 </map>
 </div>
 </div>
@@ -189,23 +194,22 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:ae9e75f6be798136667d6c208b65d5070"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#ae9e75f6be798136667d6c208b65d5070">TESSERACT_WAYPOINT_EXPORT_KEY</a>(wp)</td></tr>
+<tr class="memdesc:ae9e75f6be798136667d6c208b65d5070"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the header after the class definition.  <a href="../../d4/d08/waypoint_8h.html#ae9e75f6be798136667d6c208b65d5070">More...</a><br /></td></tr>
+<tr class="separator:ae9e75f6be798136667d6c208b65d5070"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35a715af33168ad6f80dad1679d02c0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#a35a715af33168ad6f80dad1679d02c0f">TESSERACT_WAYPOINT_EXPORT_IMPLEMENT</a>(wp)&#160;&#160;&#160;  BOOST_CLASS_EXPORT_IMPLEMENT(<a class="el" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner</a>&lt;wp&gt;)</td></tr>
+<tr class="memdesc:a35a715af33168ad6f80dad1679d02c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the cpp after the implicit instantiation of the serialize function.  <a href="../../d4/d08/waypoint_8h.html#a35a715af33168ad6f80dad1679d02c0f">More...</a><br /></td></tr>
+<tr class="separator:a35a715af33168ad6f80dad1679d02c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a2c84f5a463366339aaab71d2e54d9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#a9a2c84f5a463366339aaab71d2e54d9b">TESSERACT_WAYPOINT_EXPORT</a>(wp)</td></tr>
+<tr class="memdesc:a9a2c84f5a463366339aaab71d2e54d9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp.  <a href="../../d4/d08/waypoint_8h.html#a9a2c84f5a463366339aaab71d2e54d9b">More...</a><br /></td></tr>
 <tr class="separator:a9a2c84f5a463366339aaab71d2e54d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abb0c28c1f3aed5ea52bd457f98632569"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html#abb0c28c1f3aed5ea52bd457f98632569">tesseract_planning::detail_waypoint::CREATE_MEMBER_CHECK</a> (getType)</td></tr>
-<tr class="separator:abb0c28c1f3aed5ea52bd457f98632569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb4b2095e38318bdeb0b7f6f1464f2a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html#aeb4b2095e38318bdeb0b7f6f1464f2a0">tesseract_planning::detail_waypoint::CREATE_MEMBER_CHECK</a> (print)</td></tr>
 <tr class="separator:aeb4b2095e38318bdeb0b7f6f1464f2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad09f6692c241c8171fe93d95fcafe8fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html#ad09f6692c241c8171fe93d95fcafe8fd">tesseract_planning::detail_waypoint::CREATE_MEMBER_CHECK</a> (toXML)</td></tr>
-<tr class="separator:ad09f6692c241c8171fe93d95fcafe8fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19228fb3aff7a7478c2e18531257a312"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html#a19228fb3aff7a7478c2e18531257a312">tesseract_planning::detail_waypoint::CREATE_MEMBER_FUNC_SIGNATURE_NOARGS_CHECK</a> (getType, int)</td></tr>
-<tr class="separator:a19228fb3aff7a7478c2e18531257a312"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee4cafa219303554570b0d3b13607d26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html#aee4cafa219303554570b0d3b13607d26">tesseract_planning::detail_waypoint::CREATE_MEMBER_FUNC_SIGNATURE_CHECK</a> (print, void, std::string)</td></tr>
 <tr class="separator:aee4cafa219303554570b0d3b13607d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aece11d15e63b3902d456f3379f7772c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html#aece11d15e63b3902d456f3379f7772c9">tesseract_planning::detail_waypoint::CREATE_MEMBER_FUNC_SIGNATURE_CHECK</a> (toXML, tinyxml2::XMLElement *, tinyxml2::XMLDocument &amp;)</td></tr>
-<tr class="separator:aece11d15e63b3902d456f3379f7772c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7c56dbaa4ac7d73153dd5bb77359646"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#af7c56dbaa4ac7d73153dd5bb77359646">BOOST_CLASS_TRACKING</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">tesseract_planning::Waypoint</a>, boost::serialization::track_never)</td></tr>
 <tr class="separator:af7c56dbaa4ac7d73153dd5bb77359646"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -213,7 +217,7 @@ Functions</h2></td></tr>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>June 15, 2020 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000009">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000006">Bug:</a></b></dt><dd>No known bugs</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020, Southwest Research Institute</dd></dl>
 <dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
@@ -234,10 +238,55 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  BOOST_CLASS_EXPORT_GUID(<a class="code" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner&lt;wp&gt;</a>, #wp)                                 \</div>
-<div class="line">  BOOST_CLASS_TRACKING(<a class="code" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner&lt;wp&gt;</a>, boost::serialization::track_never)</div>
-<div class="ttc" id="astructtesseract__planning_1_1detail__waypoint_1_1WaypointInner_html"><div class="ttname"><a href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner</a></div><div class="ttdef"><b>Definition:</b> waypoint.h:95</div></div>
+<b>Value:</b><div class="fragment"><div class="line">  <a class="code" href="../../d4/d08/waypoint_8h.html#ae9e75f6be798136667d6c208b65d5070">TESSERACT_WAYPOINT_EXPORT_KEY</a>(wp)                                                                                    \</div>
+<div class="line">  TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(wp)</div>
+<div class="ttc" id="awaypoint_8h_html_ae9e75f6be798136667d6c208b65d5070"><div class="ttname"><a href="../../d4/d08/waypoint_8h.html#ae9e75f6be798136667d6c208b65d5070">TESSERACT_WAYPOINT_EXPORT_KEY</a></div><div class="ttdeci">#define TESSERACT_WAYPOINT_EXPORT_KEY(wp)</div><div class="ttdoc">If shared library, this must go in the header after the class definition.</div><div class="ttdef"><b>Definition:</b> waypoint.h:49</div></div>
 </div><!-- fragment -->
+<p>This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. </p>
+
+</div>
+</div>
+<a id="a35a715af33168ad6f80dad1679d02c0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35a715af33168ad6f80dad1679d02c0f">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT_IMPLEMENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TESSERACT_WAYPOINT_EXPORT_IMPLEMENT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">wp</td><td>)</td>
+          <td>&#160;&#160;&#160;  BOOST_CLASS_EXPORT_IMPLEMENT(<a class="el" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner</a>&lt;wp&gt;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If shared library, this must go in the cpp after the implicit instantiation of the serialize function. </p>
+
+</div>
+</div>
+<a id="ae9e75f6be798136667d6c208b65d5070"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9e75f6be798136667d6c208b65d5070">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT_KEY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TESSERACT_WAYPOINT_EXPORT_KEY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">wp</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  BOOST_CLASS_EXPORT_KEY2(<a class="code" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner&lt;wp&gt;</a>, #wp)                                 \</div>
+<div class="line">  BOOST_CLASS_TRACKING(<a class="code" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner&lt;wp&gt;</a>, boost::serialization::track_never)</div>
+<div class="ttc" id="astructtesseract__planning_1_1detail__waypoint_1_1WaypointInner_html"><div class="ttname"><a href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner</a></div><div class="ttdef"><b>Definition:</b> waypoint.h:113</div></div>
+</div><!-- fragment -->
+<p>If shared library, this must go in the header after the class definition. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
@@ -272,7 +321,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 2 2021 04:15:31 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Apr 7 2021 23:15:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -19,8 +19,6 @@ Collaboration diagram for tesseract\+\_\+planning\+::Waypoint\+:
 \item 
 {\footnotesize template$<$typename T , generic\+\_\+ctor\+\_\+enabler$<$ T $>$  = 0$>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2aa99ae5d279e338b076a408c9c6b730}{Waypoint}} (T \&\&waypoint)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}{Waypoint}} ()
-\item 
 \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2c93120a35f4cbb827ae367cd2f35770}{$\sim$\+Waypoint}} ()=default
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_acd742df431ea144707d86509a279d30d}{Waypoint}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&other)
@@ -33,15 +31,17 @@ Collaboration diagram for tesseract\+\_\+planning\+::Waypoint\+:
 \item 
 {\footnotesize template$<$typename T , generic\+\_\+ctor\+\_\+enabler$<$ T $>$  = 0$>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ad7a79b60a7c508082f7299df1ae76c6a}{operator=}} (T \&\&other)
 \item 
-int \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_aba78de478dbc0bb4ef72293011bcb7cb}{get\+Type}} () const
+std\+::type\+\_\+index \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}{get\+Type}} () const
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_abde424e3ff48cd826a002cf287fb7f25}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
 \item 
-tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ae77f41de33b7c59cc5d4877a056866a8}{to\+XML}} (tinyxml2\+::\+XMLDocument \&doc) const
+bool \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ae823d78bd8d1166b466d0dde0fa15e66}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&rhs) const
 \item 
-{\footnotesize template$<$typename T $>$ }\\T $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ab87a54185a352c43b8cf1cef0f34cbb9}{cast}} ()
+bool \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a81c4b284806ab72c2d8ba5be190b59b6}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&rhs) const
 \item 
-{\footnotesize template$<$typename T $>$ }\\const T $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a82f17de0beb6e227f3b5a0eb415ed98a}{cast\+\_\+const}} () const
+{\footnotesize template$<$typename T $>$ }\\T \& \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a6a181415d731e5b3e40e11434ecc90a3}{as}} ()
+\item 
+{\footnotesize template$<$typename T $>$ }\\const T \& \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a9a1b4a10ee7e33a5c2c47e5305fb9282}{as}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Types}
 \begin{DoxyCompactItemize}
@@ -52,6 +52,8 @@ tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1Way
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}{Waypoint}} ()
 \item 
 {\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ace4d4b0b8283b85df9d40964491a945c}{serialize}} (Archive \&ar, const unsigned int)
 \end{DoxyCompactItemize}
@@ -64,6 +66,8 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1detail__
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\item 
+struct \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a74ff75e4db05138c6aae1621b77b8472}{tesseract\+\_\+planning\+::\+Serialization}}
 \end{DoxyCompactItemize}
 
 
@@ -92,12 +96,6 @@ using \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a04b88b47f1b1896d23d
 {\footnotesize\ttfamily template$<$typename T , generic\+\_\+ctor\+\_\+enabler$<$ T $>$  = 0$>$ \\
 tesseract\+\_\+planning\+::\+Waypoint\+::\+Waypoint (\begin{DoxyParamCaption}\item[{T \&\&}]{waypoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}\label{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}} 
-\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!Waypoint@{Waypoint}}
-\index{Waypoint@{Waypoint}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
-\doxysubsubsection{\texorpdfstring{Waypoint()}{Waypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Waypoint\+::\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
 \mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_a2c93120a35f4cbb827ae367cd2f35770}\label{classtesseract__planning_1_1Waypoint_a2c93120a35f4cbb827ae367cd2f35770}} 
 \index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!````~Waypoint@{$\sim$Waypoint}}
 \index{````~Waypoint@{$\sim$Waypoint}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
@@ -107,37 +105,49 @@ tesseract\+\_\+planning\+::\+Waypoint\+::\+Waypoint (\begin{DoxyParamCaption}\it
 \mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_acd742df431ea144707d86509a279d30d}\label{classtesseract__planning_1_1Waypoint_acd742df431ea144707d86509a279d30d}} 
 \index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!Waypoint@{Waypoint}}
 \index{Waypoint@{Waypoint}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
-\doxysubsubsection{\texorpdfstring{Waypoint()}{Waypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{Waypoint()}{Waypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Waypoint\+::\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_a6ea199544b994f96c105f9a91404ec7d}\label{classtesseract__planning_1_1Waypoint_a6ea199544b994f96c105f9a91404ec7d}} 
 \index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!Waypoint@{Waypoint}}
 \index{Waypoint@{Waypoint}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
-\doxysubsubsection{\texorpdfstring{Waypoint()}{Waypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{Waypoint()}{Waypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Waypoint\+::\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}\label{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}} 
+\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!Waypoint@{Waypoint}}
+\index{Waypoint@{Waypoint}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
+\doxysubsubsection{\texorpdfstring{Waypoint()}{Waypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Waypoint\+::\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_ab87a54185a352c43b8cf1cef0f34cbb9}\label{classtesseract__planning_1_1Waypoint_ab87a54185a352c43b8cf1cef0f34cbb9}} 
-\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!cast@{cast}}
-\index{cast@{cast}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
-\doxysubsubsection{\texorpdfstring{cast()}{cast()}}
+\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_a6a181415d731e5b3e40e11434ecc90a3}\label{classtesseract__planning_1_1Waypoint_a6a181415d731e5b3e40e11434ecc90a3}} 
+\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!as@{as}}
+\index{as@{as}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
+\doxysubsubsection{\texorpdfstring{as()}{as()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$typename T $>$ \\
-T$\ast$ tesseract\+\_\+planning\+::\+Waypoint\+::cast (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+T\& tesseract\+\_\+planning\+::\+Waypoint\+::as (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_a82f17de0beb6e227f3b5a0eb415ed98a}\label{classtesseract__planning_1_1Waypoint_a82f17de0beb6e227f3b5a0eb415ed98a}} 
-\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!cast\_const@{cast\_const}}
-\index{cast\_const@{cast\_const}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
-\doxysubsubsection{\texorpdfstring{cast\_const()}{cast\_const()}}
+\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_a9a1b4a10ee7e33a5c2c47e5305fb9282}\label{classtesseract__planning_1_1Waypoint_a9a1b4a10ee7e33a5c2c47e5305fb9282}} 
+\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!as@{as}}
+\index{as@{as}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
+\doxysubsubsection{\texorpdfstring{as()}{as()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$typename T $>$ \\
-const T$\ast$ tesseract\+\_\+planning\+::\+Waypoint\+::cast\+\_\+const (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+const T\& tesseract\+\_\+planning\+::\+Waypoint\+::as (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_aba78de478dbc0bb4ef72293011bcb7cb}\label{classtesseract__planning_1_1Waypoint_aba78de478dbc0bb4ef72293011bcb7cb}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}\label{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}} 
 \index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!getType@{getType}}
 \index{getType@{getType}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
 \doxysubsubsection{\texorpdfstring{getType()}{getType()}}
-{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Waypoint\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::type\+\_\+index tesseract\+\_\+planning\+::\+Waypoint\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_a81c4b284806ab72c2d8ba5be190b59b6}\label{classtesseract__planning_1_1Waypoint_a81c4b284806ab72c2d8ba5be190b59b6}} 
+\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Waypoint\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_aa54d0389a6eb7ee884daea58d75be466}\label{classtesseract__planning_1_1Waypoint_aa54d0389a6eb7ee884daea58d75be466}} 
 \index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!operator=@{operator=}}
@@ -158,6 +168,12 @@ const T$\ast$ tesseract\+\_\+planning\+::\+Waypoint\+::cast\+\_\+const (\begin{D
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& tesseract\+\_\+planning\+::\+Waypoint\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_ae823d78bd8d1166b466d0dde0fa15e66}\label{classtesseract__planning_1_1Waypoint_ae823d78bd8d1166b466d0dde0fa15e66}} 
+\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Waypoint\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_abde424e3ff48cd826a002cf287fb7f25}\label{classtesseract__planning_1_1Waypoint_abde424e3ff48cd826a002cf287fb7f25}} 
 \index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!print@{print}}
 \index{print@{print}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
@@ -171,12 +187,6 @@ const T$\ast$ tesseract\+\_\+planning\+::\+Waypoint\+::cast\+\_\+const (\begin{D
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
 void tesseract\+\_\+planning\+::\+Waypoint\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_ae77f41de33b7c59cc5d4877a056866a8}\label{classtesseract__planning_1_1Waypoint_ae77f41de33b7c59cc5d4877a056866a8}} 
-\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!toXML@{toXML}}
-\index{toXML@{toXML}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
-\doxysubsubsection{\texorpdfstring{toXML()}{toXML()}}
-{\footnotesize\ttfamily tinyxml2\+::\+XMLElement$\ast$ tesseract\+\_\+planning\+::\+Waypoint\+::to\+XML (\begin{DoxyParamCaption}\item[{tinyxml2\+::\+XMLDocument \&}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -185,6 +195,12 @@ void tesseract\+\_\+planning\+::\+Waypoint\+::serialize (\begin{DoxyParamCaption
 \index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
 \doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
 {\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1Waypoint_a74ff75e4db05138c6aae1621b77b8472}\label{classtesseract__planning_1_1Waypoint_a74ff75e4db05138c6aae1621b77b8472}} 
+\index{tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}!tesseract\_planning::Serialization@{tesseract\_planning::Serialization}}
+\index{tesseract\_planning::Serialization@{tesseract\_planning::Serialization}!tesseract\_planning::Waypoint@{tesseract\_planning::Waypoint}}
+\doxysubsubsection{\texorpdfstring{tesseract\_planning::Serialization}{tesseract\_planning::Serialization}}
+{\footnotesize\ttfamily friend struct \mbox{\hyperlink{structtesseract__planning_1_1Serialization}{tesseract\+\_\+planning\+::\+Serialization}}\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 
