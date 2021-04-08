@@ -41,13 +41,13 @@ void DebugObserver::set_up(size_t num_workers)
   CONSOLE_BRIDGE_logDebug("Setting up observer with %i workers", num_workers);
 }
 
-void DebugObserver::on_entry(size_t w, tf::TaskView tv)
+void DebugObserver::on_entry(tf::WorkerView w, tf::TaskView tv)
 {
-  CONSOLE_BRIDGE_logDebug("worker %i ready to run %s", w, tv.name().c_str());
+  CONSOLE_BRIDGE_logDebug("worker %i ready to run %s", w.id(), tv.name().c_str());
 }
 
-void DebugObserver::on_exit(size_t w, tf::TaskView tv)
+void DebugObserver::on_exit(tf::WorkerView w, tf::TaskView tv)
 {
-  CONSOLE_BRIDGE_logDebug("worker %i finished running %s", w, tv.name().c_str());
+  CONSOLE_BRIDGE_logDebug("worker %i finished running %s", w.id(), tv.name().c_str());
 }
 }  // namespace tesseract_planning
