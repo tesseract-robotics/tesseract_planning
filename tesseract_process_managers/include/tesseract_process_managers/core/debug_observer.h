@@ -51,9 +51,9 @@ public:
 
   void set_up(size_t num_workers) final;
 
-  void on_entry(size_t w, tf::TaskView tv) final;
+  void on_entry(tf::WorkerView w, tf::TaskView tv) final;
 
-  void on_exit(size_t w, tf::TaskView tv) final;
+  void on_exit(tf::WorkerView w, tf::TaskView tv) final;
 };
 
 }  // namespace tesseract_planning

@@ -33,9 +33,9 @@ class TestObserver : public tf::ObserverInterface
 public:
   virtual void set_up(size_t) {}
 
-  virtual void on_entry(size_t, tf::TaskView) {}
+  virtual void on_entry(tf::WorkerView, tf::TaskView) {}
 
-  virtual void on_exit(size_t, tf::TaskView task_view) { executed_tasks.push_back(task_view.name()); }
+  virtual void on_exit(tf::WorkerView, tf::TaskView task_view) { executed_tasks.push_back(task_view.name()); }
 
   std::vector<std::string> executed_tasks;
 };
