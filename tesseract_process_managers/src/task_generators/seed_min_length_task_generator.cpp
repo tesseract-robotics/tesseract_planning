@@ -80,9 +80,8 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   Instruction start_instruction = results.getStartInstruction();
   int subdivisions = static_cast<int>(std::ceil(static_cast<double>(min_length_) / static_cast<double>(cnt))) + 1;
 
-  CompositeInstruction new_results(results.getProfile(), results.getOrder(), results.getManipulatorInfo());
-  new_results.setDescription(results.getDescription());
-  new_results.setStartInstruction(results.getStartInstruction());
+  CompositeInstruction new_results(results);
+  new_results.clear();
 
   subdivide(new_results, results, start_instruction, subdivisions);
   results = new_results;
@@ -109,9 +108,8 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     if (isCompositeInstruction(i))
     {
       const CompositeInstruction& cc = i.as<CompositeInstruction>();
-      CompositeInstruction new_cc(cc.getProfile(), cc.getOrder(), cc.getManipulatorInfo());
-      new_cc.setDescription(cc.getDescription());
-      new_cc.setStartInstruction(cc.getStartInstruction());
+      CompositeInstruction new_cc(cc);
+      new_cc.clear();
 
       subdivide(new_cc, cc, start_instruction, subdivisions);
       composite.push_back(new_cc);
@@ -133,10 +131,8 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
       // Convert to MoveInstructions
       for (long i = 1; i < states.cols(); ++i)
       {
-        MoveInstruction move_instruction(StateWaypoint(swp1.joint_names, states.col(i)), mi1.getMoveType());
-        move_instruction.setManipulatorInfo(mi1.getManipulatorInfo());
-        move_instruction.setDescription(mi1.getDescription());
-        move_instruction.setProfile(mi1.getProfile());
+        MoveInstruction move_instruction(mi1);
+        move_instruction.getWaypoint().as<StateWaypoint>().position = states.col(i);
         composite.push_back(move_instruction);
       }
 
