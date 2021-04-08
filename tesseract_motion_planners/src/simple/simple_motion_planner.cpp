@@ -137,6 +137,7 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
                                               MoveInstructionType::START,
                                               start_instruction.getProfile(),
                                               start_instruction.getManipulatorInfo());
+  move_start_instruction_seed.profile_overrides = start_instruction.profile_overrides;
   seed.setStartInstruction(move_start_instruction_seed);
 
   // Fill out the response
@@ -216,7 +217,8 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
                                                                       PlanInstruction& prev_instruction,
                                                                       const PlannerRequest& request) const
 {
-  CompositeInstruction seed(instructions.getProfile(), instructions.getOrder(), instructions.getManipulatorInfo());
+  CompositeInstruction seed(instructions);
+  seed.clear();
 
   for (const auto& instruction : instructions)
   {
