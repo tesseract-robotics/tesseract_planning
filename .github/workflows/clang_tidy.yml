@@ -18,10 +18,11 @@ jobs:
       OS_CODE_NAME: bionic
       ROS_DISTRO: melodic
       ROS_REPO: main
-      UPSTREAM_WORKSPACE: 'dependencies_with_ext.rosinstall'
-      ROSDEP_SKIP_KEYS: "bullet ros_industrial_cmake_boilerplate iwyu fcl"
+      UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
+      ROSDEP_SKIP_KEYS: "bullet ros_industrial_cmake_boilerplate iwyu fcl taskflow"
       DOCKER_IMAGE: "rosindustrial/tesseract:melodic"
       CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Clang-Tidy/.ccache"
+      PARALLEL_BUILDS: 1
       NOT_TEST_BUILD: true
       UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
       TARGET_CMAKE_ARGS: "-DTESSERACT_ENABLE_CLANG_TIDY=ON -DTESSERACT_ENABLE_TESTING=ON"
