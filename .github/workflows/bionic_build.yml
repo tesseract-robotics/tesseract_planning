@@ -18,15 +18,16 @@ jobs:
       OS_CODE_NAME: bionic
       ROS_DISTRO: melodic
       ROS_REPO: main
-      UPSTREAM_WORKSPACE: 'dependencies_with_ext.rosinstall'
-      ROSDEP_SKIP_KEYS: "bullet ros_industrial_cmake_boilerplate iwyu fcl"
+      BUILDER: colcon
+      UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
+      ROSDEP_SKIP_KEYS: "bullet fcl ompl orocos_kdl python-numpy ifopt python descartes_opw descartes_samplers descartes_light opw_kinematics ros_industrial_cmake_boilerplate iwyu taskflow"
       DOCKER_IMAGE: "rosindustrial/tesseract:melodic"
       CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Bionic-Build/.ccache"
-      PARALLEL_BUILDS: 2
+      PARALLEL_BUILDS: 1
       PARALLEL_TESTS: false
+      BEFORE_RUN_TARGET_TEST_EMBED: "ici_with_unset_variables source /root/target_ws/install/setup.bash"
       UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
       TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_TESTING=ON"
-      AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_command_language tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args test'
     steps:
       - uses: actions/checkout@v1
 
