@@ -23,6 +23,7 @@ find_package(trajopt_sco REQUIRED)
 find_package(trajopt_sqp REQUIRED)
 find_package(ros_industrial_cmake_boilerplate REQUIRED)
 find_package(Boost REQUIRED)
+find_package(Threads REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -68,7 +69,7 @@ add_library(${PROJECT_NAME}_descartes
   src/descartes/deserialize.cpp
   src/descartes/descartes_utils.cpp
   src/descartes/profile/descartes_default_plan_profile.cpp)
-target_link_libraries(${PROJECT_NAME}_descartes PUBLIC ${PROJECT_NAME}_core descartes::descartes_light descartes::descartes_samplers Boost::boost)
+target_link_libraries(${PROJECT_NAME}_descartes PUBLIC ${PROJECT_NAME}_core descartes::descartes_light descartes::descartes_samplers Boost::boost ${CMAKE_THREAD_LIBS_INIT})
 target_compile_options(${PROJECT_NAME}_descartes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -101,7 +102,7 @@ set(OMPL_SRC src/ompl/ompl_motion_planner.cpp
 
 message(AUTHOR_WARNING "OMPL INCLUDE DIRS: ${OMPL_INCLUDE_DIRS}")
 add_library(${PROJECT_NAME}_ompl ${OMPL_SRC})
-target_link_libraries(${PROJECT_NAME}_ompl PUBLIC ${PROJECT_NAME}_core ${OMPL_LIBRARIES} Boost::boost)
+target_link_libraries(${PROJECT_NAME}_ompl PUBLIC ${PROJECT_NAME}_core ${OMPL_LIBRARIES} Boost::boost ${CMAKE_THREAD_LIBS_INIT})
 target_compile_options(${PROJECT_NAME}_ompl PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_ompl PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_ompl PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
