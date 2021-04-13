@@ -115,10 +115,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afe31c77d05554e493736d10a46d3e0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a826b9b4dc74f31bfd9f315433538ffc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d4f/classtesseract__planning_1_1DebugObserver.html#a826b9b4dc74f31bfd9f315433538ffc4">set_up</a> (size_t num_workers) final</td></tr>
 <tr class="separator:a826b9b4dc74f31bfd9f315433538ffc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a831da8aa40a6ad7fe3c89bfc677b35f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d4f/classtesseract__planning_1_1DebugObserver.html#a831da8aa40a6ad7fe3c89bfc677b35f1">on_entry</a> (size_t w, tf::TaskView tv) final</td></tr>
-<tr class="separator:a831da8aa40a6ad7fe3c89bfc677b35f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a986bfb9fb5f2d5698a538fcb0958a062"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d4f/classtesseract__planning_1_1DebugObserver.html#a986bfb9fb5f2d5698a538fcb0958a062">on_exit</a> (size_t w, tf::TaskView tv) final</td></tr>
-<tr class="separator:a986bfb9fb5f2d5698a538fcb0958a062"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa846f72acabb3d7f7b20ef5db57a4d1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d4f/classtesseract__planning_1_1DebugObserver.html#aa846f72acabb3d7f7b20ef5db57a4d1c">on_entry</a> (tf::WorkerView w, tf::TaskView tv) final</td></tr>
+<tr class="separator:aa846f72acabb3d7f7b20ef5db57a4d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62d04b5d83c8efd3636c0bdf9ad7c871"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d4f/classtesseract__planning_1_1DebugObserver.html#a62d04b5d83c8efd3636c0bdf9ad7c871">on_exit</a> (tf::WorkerView w, tf::TaskView tv) final</td></tr>
+<tr class="separator:a62d04b5d83c8efd3636c0bdf9ad7c871"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This is currently simple debug observer which prints a message when each of the functions below are called. </p>
@@ -179,8 +179,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a831da8aa40a6ad7fe3c89bfc677b35f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a831da8aa40a6ad7fe3c89bfc677b35f1">&#9670;&nbsp;</a></span>on_entry()</h2>
+<a id="aa846f72acabb3d7f7b20ef5db57a4d1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa846f72acabb3d7f7b20ef5db57a4d1c">&#9670;&nbsp;</a></span>on_entry()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,7 +191,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void tesseract_planning::DebugObserver::on_entry </td>
           <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
+          <td class="paramtype">tf::WorkerView&#160;</td>
           <td class="paramname"><em>w</em>, </td>
         </tr>
         <tr>
@@ -215,8 +215,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a986bfb9fb5f2d5698a538fcb0958a062"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a986bfb9fb5f2d5698a538fcb0958a062">&#9670;&nbsp;</a></span>on_exit()</h2>
+<a id="a62d04b5d83c8efd3636c0bdf9ad7c871"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d04b5d83c8efd3636c0bdf9ad7c871">&#9670;&nbsp;</a></span>on_exit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -227,7 +227,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void tesseract_planning::DebugObserver::on_exit </td>
           <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
+          <td class="paramtype">tf::WorkerView&#160;</td>
           <td class="paramname"><em>w</em>, </td>
         </tr>
         <tr>
@@ -284,7 +284,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 12 2021 20:39:14 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Apr 13 2021 23:40:16 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
