@@ -51,6 +51,10 @@ private:
 };
 }  // namespace tesseract_planning
 
+#ifdef SWIG
+%tesseract_command_language_add_waypoint_type(NullWaypoint)
+#else
 TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::NullWaypoint);
+#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_NULL_WAYPOINT_H
