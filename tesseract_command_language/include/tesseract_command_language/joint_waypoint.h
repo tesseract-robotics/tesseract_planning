@@ -216,8 +216,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::JointWaypoint);
-
 #ifdef SWIG
 %extend tesseract_planning::JointWaypoint {
   JointWaypoint(std::vector<std::string> joint_names, const Eigen::VectorXd& other)
@@ -227,6 +225,8 @@ TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::JointWaypoint);
 }
 
 %tesseract_command_language_add_waypoint_type(JointWaypoint)
+#else
+TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::JointWaypoint);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

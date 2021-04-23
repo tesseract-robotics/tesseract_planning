@@ -86,10 +86,10 @@ private:
 };
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::SetAnalogInstruction);
-
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(SetAnalogInstruction)
+#else
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::SetAnalogInstruction);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_SET_ANALOG_INSTRUCTION_H

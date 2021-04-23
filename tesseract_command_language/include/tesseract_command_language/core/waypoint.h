@@ -286,6 +286,8 @@ private:
 
 }  // namespace tesseract_planning
 
+#ifndef SWIG
 BOOST_CLASS_TRACKING(tesseract_planning::Waypoint, boost::serialization::track_never);
+#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAYPOINT_H

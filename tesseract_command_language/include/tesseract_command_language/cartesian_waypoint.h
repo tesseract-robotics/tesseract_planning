@@ -205,10 +205,10 @@ private:
 
 }  // namespace tesseract_planning
 
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::CartesianWaypoint);
-
 #ifdef SWIG
 %tesseract_command_language_add_waypoint_type(CartesianWaypoint)
+#else
+TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::CartesianWaypoint);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H
