@@ -26,6 +26,11 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_UTILS_UTILS_H
 #define TESSERACT_COMMAND_LANGUAGE_UTILS_UTILS_H
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <limits>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_command_language/composite_instruction.h>
 
 #include <tesseract_command_language/utils/filter_functions.h>
