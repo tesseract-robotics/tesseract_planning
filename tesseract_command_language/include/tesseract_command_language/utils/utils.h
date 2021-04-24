@@ -136,7 +136,7 @@ bool isWithinJointLimits(const Waypoint& wp, const Eigen::Ref<const Eigen::Matri
  */
 bool clampToJointLimits(Waypoint& wp,
                         const Eigen::Ref<const Eigen::MatrixX2d>& limits,
-                        double max_deviation = std::numeric_limits<double>::max());
+                        double max_deviation = (std::numeric_limits<double>::max)());
 
 /**
  * @brief Clamps a waypoint to be within joint limits
