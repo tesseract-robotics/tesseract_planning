@@ -690,9 +690,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a006d576ff51dbc06d744c7655d75b94b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a006d576ff51dbc06d744c7655d75b94b">isWithinJointLimits</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;wp, const Eigen::Ref&lt; const Eigen::MatrixX2d &gt; &amp;limits)</td></tr>
 <tr class="memdesc:a006d576ff51dbc06d744c7655d75b94b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a waypoint is.  <a href="../../d9/dcd/namespacetesseract__planning.html#a006d576ff51dbc06d744c7655d75b94b">More...</a><br /></td></tr>
 <tr class="separator:a006d576ff51dbc06d744c7655d75b94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e7075984c33bb8f40b4fbdfbb02033b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9e7075984c33bb8f40b4fbdfbb02033b">clampToJointLimits</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;wp, const Eigen::Ref&lt; const Eigen::MatrixX2d &gt; &amp;limits, double max_deviation=std::numeric_limits&lt; double &gt;::max())</td></tr>
-<tr class="memdesc:a9e7075984c33bb8f40b4fbdfbb02033b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a waypoint to be within joint limits.  <a href="../../d9/dcd/namespacetesseract__planning.html#a9e7075984c33bb8f40b4fbdfbb02033b">More...</a><br /></td></tr>
-<tr class="separator:a9e7075984c33bb8f40b4fbdfbb02033b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fae48d0a014480aeed75833d4b47463"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8fae48d0a014480aeed75833d4b47463">clampToJointLimits</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;wp, const Eigen::Ref&lt; const Eigen::MatrixX2d &gt; &amp;limits, double max_deviation=(std::numeric_limits&lt; double &gt;::max)())</td></tr>
+<tr class="memdesc:a8fae48d0a014480aeed75833d4b47463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a waypoint to be within joint limits.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8fae48d0a014480aeed75833d4b47463">More...</a><br /></td></tr>
+<tr class="separator:a8fae48d0a014480aeed75833d4b47463"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b3d1f786cca3489d07922700cf4fc73"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4b3d1f786cca3489d07922700cf4fc73">clampToJointLimits</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;wp, const Eigen::Ref&lt; const Eigen::MatrixX2d &gt; &amp;limits, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;max_deviation)</td></tr>
 <tr class="memdesc:a4b3d1f786cca3489d07922700cf4fc73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a waypoint to be within joint limits.  <a href="../../d9/dcd/namespacetesseract__planning.html#a4b3d1f786cca3489d07922700cf4fc73">More...</a><br /></td></tr>
 <tr class="separator:a4b3d1f786cca3489d07922700cf4fc73"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2960,8 +2960,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="a9e7075984c33bb8f40b4fbdfbb02033b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e7075984c33bb8f40b4fbdfbb02033b">&#9670;&nbsp;</a></span>clampToJointLimits() <span class="overload">[2/2]</span></h2>
+<a id="a8fae48d0a014480aeed75833d4b47463"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fae48d0a014480aeed75833d4b47463">&#9670;&nbsp;</a></span>clampToJointLimits() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2982,7 +2982,7 @@ template&lt;typename ProfileType &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>max_deviation</em> = <code>std::numeric_limits&lt;double&gt;::max()</code>&#160;</td>
+          <td class="paramname"><em>max_deviation</em> = <code>(std::numeric_limits&lt;double&gt;::max)()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -9546,7 +9546,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 20 2021 17:03:14 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Apr 24 2021 04:53:55 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

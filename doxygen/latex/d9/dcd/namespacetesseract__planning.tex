@@ -538,7 +538,7 @@ bool \mbox{\hyperlink{namespacetesseract__planning_afbee7a7e2aeca68854a8282030d2
 \begin{DoxyCompactList}\small\item\em Set the joint position for waypoints that contain that information. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a006d576ff51dbc06d744c7655d75b94b}{is\+Within\+Joint\+Limits}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&wp, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&limits)
 \begin{DoxyCompactList}\small\item\em Checks if a waypoint is. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a9e7075984c33bb8f40b4fbdfbb02033b}{clamp\+To\+Joint\+Limits}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&wp, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&limits, double max\+\_\+deviation=std\+::numeric\+\_\+limits$<$ double $>$\+::max())
+bool \mbox{\hyperlink{namespacetesseract__planning_a8fae48d0a014480aeed75833d4b47463}{clamp\+To\+Joint\+Limits}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&wp, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&limits, double max\+\_\+deviation=(std\+::numeric\+\_\+limits$<$ double $>$\+::max)())
 \begin{DoxyCompactList}\small\item\em Clamps a waypoint to be within joint limits. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a4b3d1f786cca3489d07922700cf4fc73}{clamp\+To\+Joint\+Limits}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&wp, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&limits, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+deviation)
 \begin{DoxyCompactList}\small\item\em Clamps a waypoint to be within joint limits. \end{DoxyCompactList}\item 
@@ -1693,11 +1693,11 @@ Clamps a waypoint to be within joint limits.
 \begin{DoxyReturn}{Returns}
 True if successful or if the waypoint doesn\textquotesingle{}t contain that information. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a9e7075984c33bb8f40b4fbdfbb02033b}\label{namespacetesseract__planning_a9e7075984c33bb8f40b4fbdfbb02033b}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a8fae48d0a014480aeed75833d4b47463}\label{namespacetesseract__planning_a8fae48d0a014480aeed75833d4b47463}} 
 \index{tesseract\_planning@{tesseract\_planning}!clampToJointLimits@{clampToJointLimits}}
 \index{clampToJointLimits@{clampToJointLimits}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{clampToJointLimits()}{clampToJointLimits()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::clamp\+To\+Joint\+Limits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{wp,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&}]{limits,  }\item[{double}]{max\+\_\+deviation = {\ttfamily std\+:\+:numeric\+\_\+limits$<$double$>$\+:\+:max()} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::clamp\+To\+Joint\+Limits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{wp,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&}]{limits,  }\item[{double}]{max\+\_\+deviation = {\ttfamily (std\+:\+:numeric\+\_\+limits$<$double$>$\+:\+:max)()} }\end{DoxyParamCaption})}
 
 
 
