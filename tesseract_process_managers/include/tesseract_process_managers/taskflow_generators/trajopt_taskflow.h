@@ -41,8 +41,8 @@ namespace tesseract_planning
 {
 struct TrajOptTaskflowParams
 {
-  bool enable_post_contact_discrete_check{ false };
-  bool enable_post_contact_continuous_check{ true };
+  bool enable_post_contact_discrete_check{ true };
+  bool enable_post_contact_continuous_check{ false };
   bool enable_time_parameterization{ true };
 };
 
