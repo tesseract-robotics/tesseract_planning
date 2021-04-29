@@ -880,10 +880,10 @@ Functions</h2></td></tr>
 <tr class="memitem:af607325ca089b6dafd5b521c4b16351a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579">RobotConfig</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">getRobotConfig</a> (const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;robot_kin, const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</td></tr>
 <tr class="memdesc:af607325ca089b6dafd5b521c4b16351a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configuration of a six axis industrial robot.  <a href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">More...</a><br /></td></tr>
 <tr class="separator:af607325ca089b6dafd5b521c4b16351a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee7d67141adc2f34a528d4ce1191e6ae"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
-<tr class="memitem:aee7d67141adc2f34a528d4ce1191e6ae"><td class="memTemplItemLeft" align="right" valign="top">Eigen::Vector3i&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">getRobotRedundancy</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</td></tr>
-<tr class="memdesc:aee7d67141adc2f34a528d4ce1191e6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds redundancy of joints that allow rotation beyond +- 180 degrees.  <a href="../../d9/dcd/namespacetesseract__planning.html#aee7d67141adc2f34a528d4ce1191e6ae">More...</a><br /></td></tr>
-<tr class="separator:aee7d67141adc2f34a528d4ce1191e6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adebdc685c90e8b2873f2e09adf04860b"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
+<tr class="memitem:adebdc685c90e8b2873f2e09adf04860b"><td class="memTemplItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adebdc685c90e8b2873f2e09adf04860b">getJointTurns</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values)</td></tr>
+<tr class="memdesc:adebdc685c90e8b2873f2e09adf04860b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of turns for joints that allow rotation beyond +- 180 degrees.  <a href="../../d9/dcd/namespacetesseract__planning.html#adebdc685c90e8b2873f2e09adf04860b">More...</a><br /></td></tr>
+<tr class="separator:adebdc685c90e8b2873f2e09adf04860b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aaec1f7a5aa934efc7e7771e5cdd158ff">getMoveInstructionType</a> (const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;base_instruction)</td></tr>
 <tr class="memdesc:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the associated move instruction type for the give plan instruction type.  <a href="../../d9/dcd/namespacetesseract__planning.html#aaec1f7a5aa934efc7e7771e5cdd158ff">More...</a><br /></td></tr>
 <tr class="separator:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1125,6 +1125,8 @@ Variables</h2></td></tr>
 <tr class="separator:a43d81c6e05a1a36d5a36bee6c034e88b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59c5dd86812c7f74ca63a41e2910f4fd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">tesseract_planning::locateFilterFn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a59c5dd86812c7f74ca63a41e2910f4fd">toJointTrajectoryMoveFilter</a></td></tr>
 <tr class="separator:a59c5dd86812c7f74ca63a41e2910f4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2c39c4d68bea0d0071b0ab44b6a0fad"><td class="memItemLeft" align="right" valign="top">static const std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad2c39c4d68bea0d0071b0ab44b6a0fad">RobotConfigString</a> = { &quot;NUT&quot;, &quot;FUT&quot;, &quot;NDT&quot;, &quot;FDT&quot;, &quot;NDB&quot;, &quot;FDB&quot;, &quot;NUB&quot;, &quot;FUB&quot; }</td></tr>
+<tr class="separator:ad2c39c4d68bea0d0071b0ab44b6a0fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4130c3582272c41c5f5fa47904d4e2b1"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4130c3582272c41c5f5fa47904d4e2b1">EMPTY_MANIPULATOR_INFO</a></td></tr>
 <tr class="separator:a4130c3582272c41c5f5fa47904d4e2b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ca21ea741039a14db5391083d9c2139"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a97a7a198edf46fea10c33898f4b1e2c5">PlannerProfileRemapping</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6ca21ea741039a14db5391083d9c2139">EMPTY_PROFILE_MAPPING</a></td></tr>
@@ -6279,6 +6281,43 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="adebdc685c90e8b2873f2e09adf04860b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adebdc685c90e8b2873f2e09adf04860b">&#9670;&nbsp;</a></span>getJointTurns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FloatType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXi tesseract_planning::getJointTurns </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>joint_values</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get number of turns for joints that allow rotation beyond +- 180 degrees. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">joint</td><td>values The joint values of the robot </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of turns (as intergers), in a vector </dd></dl>
+
+</div>
+</div>
 <a id="aa7417258de60ffad7407d37c9c68a8bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa7417258de60ffad7407d37c9c68a8bd">&#9670;&nbsp;</a></span>getLastInstruction() <span class="overload">[1/2]</span></h2>
 
@@ -6844,54 +6883,6 @@ template&lt;typename FloatType &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Robot Config </dd></dl>
-
-</div>
-</div>
-<a id="aee7d67141adc2f34a528d4ce1191e6ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee7d67141adc2f34a528d4ce1191e6ae">&#9670;&nbsp;</a></span>getRobotRedundancy()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FloatType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Vector3i tesseract_planning::getRobotRedundancy </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>joint_values</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;&#160;</td>
-          <td class="paramname"><em>sign_correction</em> = <code>Eigen::Vector2i::Ones()</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Finds redundancy of joints that allow rotation beyond +- 180 degrees. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">joint</td><td>values The joint values of the robot. </td></tr>
-    <tr><td class="paramname">sign_correction</td><td>Correct the sign for Joint 3 and Joint 5 based on the robot manufacturer. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Redundant rotations (as intergers), in a vector </dd></dl>
 
 </div>
 </div>
@@ -9503,6 +9494,28 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="ad2c39c4d68bea0d0071b0ab44b6a0fad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2c39c4d68bea0d0071b0ab44b6a0fad">&#9670;&nbsp;</a></span>RobotConfigString</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;std::string&gt; tesseract_planning::RobotConfigString = { &quot;NUT&quot;, &quot;FUT&quot;, &quot;NDT&quot;, &quot;FDT&quot;, &quot;NDB&quot;, &quot;FDB&quot;, &quot;NUB&quot;, &quot;FUB&quot; }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a59c5dd86812c7f74ca63a41e2910f4fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59c5dd86812c7f74ca63a41e2910f4fd">&#9670;&nbsp;</a></span>toJointTrajectoryMoveFilter</h2>
 
@@ -9546,7 +9559,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 28 2021 16:38:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Apr 29 2021 03:22:04 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

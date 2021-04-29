@@ -44,8 +44,13 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95
 \item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\Robot\+Config \mbox{\hyperlink{namespacetesseract__planning_af607325ca089b6dafd5b521c4b16351a}{tesseract\+\_\+planning\+::get\+Robot\+Config}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector2i $>$ \&sign\+\_\+correction=Eigen\+::\+Vector2i\+::\+Ones())
 \begin{DoxyCompactList}\small\item\em Get the configuration of a six axis industrial robot. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\Eigen\+::\+Vector3i \mbox{\hyperlink{namespacetesseract__planning_aee7d67141adc2f34a528d4ce1191e6ae}{tesseract\+\_\+planning\+::get\+Robot\+Redundancy}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector2i $>$ \&sign\+\_\+correction=Eigen\+::\+Vector2i\+::\+Ones())
-\begin{DoxyCompactList}\small\item\em Finds redundancy of joints that allow rotation beyond +-\/ 180 degrees. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename Float\+Type $>$ }\\Eigen\+::\+Vector\+Xi \mbox{\hyperlink{namespacetesseract__planning_adebdc685c90e8b2873f2e09adf04860b}{tesseract\+\_\+planning\+::get\+Joint\+Turns}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values)
+\begin{DoxyCompactList}\small\item\em Get number of turns for joints that allow rotation beyond +-\/ 180 degrees. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{namespacetesseract__planning_ad2c39c4d68bea0d0071b0ab44b6a0fad}{tesseract\+\_\+planning\+::\+Robot\+Config\+String}} = \{ \char`\"{}NUT\char`\"{}, \char`\"{}FUT\char`\"{}, \char`\"{}NDT\char`\"{}, \char`\"{}FDT\char`\"{}, \char`\"{}NDB\char`\"{}, \char`\"{}FDB\char`\"{}, \char`\"{}NUB\char`\"{}, \char`\"{}FUB\char`\"{} \}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
