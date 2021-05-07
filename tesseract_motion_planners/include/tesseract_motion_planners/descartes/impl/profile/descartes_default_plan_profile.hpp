@@ -202,11 +202,16 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
 
   // Add vertex evaluator
   std::shared_ptr<descartes_light::WaypointSampler<FloatType>> sampler;
+  std::vector<Eigen::Index> redundancy_capable_joints;
+  if (use_redundant_joint_solutions)
+    redundancy_capable_joints = tesseract_kinematics::getRedundancyCapableJointIndices(
+        prob.env->getSceneGraph(), prob.manip_inv_kin->getJointNames());
+
   if (vertex_evaluator == nullptr)
   {
     auto ve = std::make_shared<DescartesJointLimitsVertexEvaluator>(prob.manip_inv_kin->getLimits().joint_limits);
     sampler = std::make_shared<DescartesRobotSampler<FloatType>>(
-        manip_baselink_to_waypoint, target_pose_sampler, prob.manip_inv_kin, ci, tcp, allow_collision, ve);
+        manip_baselink_to_waypoint, target_pose_sampler, prob.manip_inv_kin, ci, tcp, allow_collision, ve, redundancy_capable_joints);
   }
   else
   {
@@ -216,7 +221,8 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
                                                                  ci,
                                                                  tcp,
                                                                  allow_collision,
-                                                                 vertex_evaluator(prob));
+                                                                 vertex_evaluator(prob),
+                                                                 redundancy_capable_joints);
   }
   prob.samplers.push_back(std::move(sampler));
 

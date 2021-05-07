@@ -27,7 +27,7 @@
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_ROBOT_SAMPLER_H
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <descartes_light/interface/waypoint_sampler.h>
+#include <descartes_light/core/waypoint_sampler.h>
 #include <descartes_light/utils.h>
 #include <Eigen/Dense>
 #include <vector>
@@ -58,13 +58,14 @@ public:
    */
   DescartesRobotSampler(const Eigen::Isometry3d& target_pose,
                         PoseSamplerFn target_pose_sampler,
-                        tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics,
+                        tesseract_kinematics::InverseKinematics::ConstPtr ik,
                         DescartesCollision::Ptr collision,
                         const Eigen::Isometry3d& tcp,
                         bool allow_collision,
-                        DescartesVertexEvaluator::Ptr is_valid);
+                        DescartesVertexEvaluator::Ptr is_valid,
+                        const std::vector<Eigen::Index>& redundancy_capable_joints);
 
-  std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>> sample() const override;
+  std::vector<descartes_light::StateSample<FloatType>> sample() const override;
 
 private:
   /** @brief The target pose to sample */
@@ -74,7 +75,7 @@ private:
   PoseSamplerFn target_pose_sampler_;
 
   /** @brief The robot inverse kinematics */
-  tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics_;
+  tesseract_kinematics::InverseKinematics::ConstPtr ik_;
 
   /** @brief The collision interface */
   DescartesCollision::Ptr collision_;
@@ -82,7 +83,7 @@ private:
   /** @brief The robot tool center point */
   Eigen::Isometry3d tcp_;
 
-  /** @brief If true and no valid solution was found it will return the best of the worst */
+  /** @brief Flag indicating whether states found to be in collision should be returned */
   bool allow_collision_;
 
   /** @brief The number of joints in the robot */
@@ -94,34 +95,9 @@ private:
   /** @brief This is the vertex evaluator to filter out solution */
   DescartesVertexEvaluator::Ptr is_valid_;
 
-  /**
-   * @brief Check if a solution is passes collision test
-   * @param vertex The joint solution to check
-   * @return True if collision test passed, otherwise false
-   */
-  bool isCollisionFree(const Eigen::VectorXd& vertex) const;
-
-  /**
-   * @brief This will return the best of the worst solution
-   * @param solution_set The solution to populate
-   * @param target_poses The target pose to sample
-   * @return True if a solution was found, otherwise false
-   */
-  bool getBestSolution(std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& solution_set,
-                       const tesseract_common::VectorIsometry3d& target_poses) const;
-
-  /**
-   * @brief Solve inverse kinematics for the target pose
-   * @param target_pose The target pose to solve inverse kinematics
-   * @param solution_set The soltuion to return
-   * @param get_best_solution Enable if best solution should be returned
-   * @param distance The current best distance
-   * @return True if a solution was found, otherwise false
-   */
-  bool ikAt(std::vector<Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& solution_set,
-            const Eigen::Isometry3d& target_pose,
-            bool get_best_solution,
-            double& distance) const;
+  /** @brief Vector of indices indicating which joints in the motion group are capable of producing redundant joint
+   * states */
+  std::vector<Eigen::Index> redundancy_capable_joints_;
 };
 
 using DescartesRobotSamplerF = DescartesRobotSampler<float>;
