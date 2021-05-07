@@ -36,9 +36,9 @@
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h>
 
-#include <descartes_samplers/evaluators/euclidean_distance_edge_evaluator.h>
-#include <descartes_samplers/evaluators/compound_edge_evaluator.h>
-#include <descartes_samplers/samplers/fixed_joint_waypoint_sampler.h>
+#include <descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h>
+#include <descartes_light/edge_evaluators/compound_edge_evaluator.h>
+#include <descartes_light/samplers/fixed_joint_waypoint_sampler.h>
 
 #include <tesseract_kinematics/core/utils.h>
 

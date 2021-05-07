@@ -30,7 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <functional>
-#include <descartes_light/interface/edge_evaluator.h>
+#include <descartes_light/core/edge_evaluator.h>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 

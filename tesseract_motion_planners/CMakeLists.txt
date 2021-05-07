@@ -12,7 +12,6 @@ endif()
 find_package(Eigen3 REQUIRED)
 find_package(console_bridge REQUIRED)
 find_package(descartes_light REQUIRED)
-find_package(descartes_samplers REQUIRED)
 find_package(ompl REQUIRED)
 find_package(tesseract_environment REQUIRED)
 find_package(tesseract_common REQUIRED)
@@ -69,7 +68,17 @@ add_library(${PROJECT_NAME}_descartes
   src/descartes/deserialize.cpp
   src/descartes/descartes_utils.cpp
   src/descartes/profile/descartes_default_plan_profile.cpp)
-target_link_libraries(${PROJECT_NAME}_descartes PUBLIC ${PROJECT_NAME}_core descartes::descartes_light descartes::descartes_samplers Boost::boost ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${PROJECT_NAME}_descartes
+  PUBLIC
+    ${PROJECT_NAME}_core
+    descartes::descartes_light_core
+    descartes::descartes_light_edge_evaluators
+    descartes::descartes_light_state_evaluators
+    descartes::descartes_light_samplers
+    descartes::descartes_light_solvers
+    Boost::boost
+    ${CMAKE_THREAD_LIBS_INIT}
+)
 target_compile_options(${PROJECT_NAME}_descartes PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_descartes PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})

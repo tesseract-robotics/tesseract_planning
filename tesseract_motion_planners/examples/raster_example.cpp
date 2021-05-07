@@ -26,7 +26,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <descartes_samplers/evaluators/euclidean_distance_edge_evaluator.h>
+#include <descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>

@@ -28,7 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
-#include <descartes_samplers/evaluators/euclidean_distance_edge_evaluator.h>
+#include <descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h>
 #include <tesseract_kinematics/core/utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -53,7 +53,6 @@ using namespace tesseract_collision;
 using namespace tesseract_planning;
 using namespace tesseract_kinematics;
 using namespace descartes_light;
-using namespace descartes_core;
 
 const bool DEBUG = false;
 
