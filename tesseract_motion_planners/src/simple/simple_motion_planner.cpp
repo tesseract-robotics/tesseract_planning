@@ -67,12 +67,6 @@ std::string SimpleMotionPlannerStatusCategory::message(int code) const
   }
 }
 
-SimpleMotionPlanner::SimpleMotionPlanner()
-  : status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
-{
-  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerLVSPlanProfile>();
-}
-
 SimpleMotionPlanner::SimpleMotionPlanner(const std::string& name)
   : name_(name), status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
 {
@@ -89,7 +83,7 @@ bool SimpleMotionPlanner::terminate()
 
 void SimpleMotionPlanner::clear() {}
 
-MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<SimpleMotionPlanner>(); }
+MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<SimpleMotionPlanner>(name_); }
 
 tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& request,
                                                         PlannerResponse& response,
