@@ -67,8 +67,8 @@ std::string SimpleMotionPlannerStatusCategory::message(int code) const
   }
 }
 
-SimpleMotionPlanner::SimpleMotionPlanner(const std::string& name)
-  : name_(name), status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
+SimpleMotionPlanner::SimpleMotionPlanner(std::string name)
+  : name_(std::move(name)), status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
 {
   plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerLVSPlanProfile>();
 }

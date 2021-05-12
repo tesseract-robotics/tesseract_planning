@@ -72,8 +72,8 @@ std::string TrajOptMotionPlannerStatusCategory::message(int code) const
   }
 }
 
-TrajOptMotionPlanner::TrajOptMotionPlanner(const std::string& name)
-  : name_(name), status_category_(std::make_shared<const TrajOptMotionPlannerStatusCategory>(name_))
+TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name)
+  : name_(std::move(name)), status_category_(std::make_shared<const TrajOptMotionPlannerStatusCategory>(name_))
 {
   plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<TrajOptDefaultPlanProfile>();
   composite_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<TrajOptDefaultCompositeProfile>();

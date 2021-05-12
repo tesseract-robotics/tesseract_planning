@@ -51,8 +51,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(const std::string& name)
-  : name_(name), status_category_(std::make_shared<const DescartesMotionPlannerStatusCategory>(name_))
+DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name)
+  : name_(std::move(name)), status_category_(std::make_shared<const DescartesMotionPlannerStatusCategory>(name_))
 {
   plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<DescartesDefaultPlanProfile<FloatType>>();
 }

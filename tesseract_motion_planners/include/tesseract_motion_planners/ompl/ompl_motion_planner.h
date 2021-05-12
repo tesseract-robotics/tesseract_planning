@@ -60,7 +60,7 @@ class OMPLMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a planner */
-  OMPLMotionPlanner(const std::string& = "OMPL");
+  OMPLMotionPlanner(std::string name = "OMPL");
 
   const std::string& getName() const override;
 
