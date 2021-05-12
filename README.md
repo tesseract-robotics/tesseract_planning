@@ -8,6 +8,7 @@ Platform             | CI Status
 ---------------------|:---------
 Linux (Focal)        | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Focal-Build/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
 Linux (Bionic)       | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Bionic-Build/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
+Linux (Unstable)     | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Unstable-Build/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
 Windows              | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Windows-Noetic-Build/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
 Lint  (Clang-Format) | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Clang-Format/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
 Lint  (Clang-Tidy)   | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Clang-Tidy/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
