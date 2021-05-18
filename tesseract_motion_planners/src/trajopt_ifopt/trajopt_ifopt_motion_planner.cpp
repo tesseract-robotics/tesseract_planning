@@ -69,8 +69,8 @@ std::string TrajOptIfoptMotionPlannerStatusCategory::message(int code) const
   }
 }
 
-TrajOptIfoptMotionPlanner::TrajOptIfoptMotionPlanner(const std::string& name)
-  : name_(name), status_category_(std::make_shared<const TrajOptIfoptMotionPlannerStatusCategory>(name_))
+TrajOptIfoptMotionPlanner::TrajOptIfoptMotionPlanner(std::string name)
+  : name_(std::move(name)), status_category_(std::make_shared<const TrajOptIfoptMotionPlannerStatusCategory>(name_))
 {
 }
 

@@ -57,7 +57,7 @@ public:
   using ConstPtr = std::shared_ptr<const SimpleMotionPlanner>;
 
   /** @brief Construct a basic planner */
-  SimpleMotionPlanner(const std::string& name = "SIMPLE_PLANNER");
+  SimpleMotionPlanner(std::string name = "SIMPLE_PLANNER");
   ~SimpleMotionPlanner() override = default;
   SimpleMotionPlanner(const SimpleMotionPlanner&) = delete;
   SimpleMotionPlanner& operator=(const SimpleMotionPlanner&) = delete;

@@ -87,8 +87,8 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 }
 
 /** @brief Construct a basic planner */
-OMPLMotionPlanner::OMPLMotionPlanner(const std::string& name)
-  : name_(name), status_category_(std::make_shared<const OMPLMotionPlannerStatusCategory>(name_))
+OMPLMotionPlanner::OMPLMotionPlanner(std::string name)
+  : name_(std::move(name)), status_category_(std::make_shared<const OMPLMotionPlannerStatusCategory>(name_))
 {
   plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<OMPLDefaultPlanProfile>();
 }
