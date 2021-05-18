@@ -56,4 +56,5 @@ jobs:
             ${{ env.CI_NAME }}-ccache-
 
       - uses: 'ros-industrial/industrial_ci@master'
+        continue-on-error: true
         env: ${{env}}
