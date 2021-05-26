@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/core/edge_evaluator.h>
+#include <descartes_light/core/state_evaluator.h>
 #include <descartes_light/core/waypoint_sampler.h>
 #include <thread>
 #include <vector>
@@ -57,6 +58,7 @@ struct DescartesProblem
   // These are required for descartes
   std::vector<typename descartes_light::EdgeEvaluator<FloatType>::ConstPtr> edge_evaluators;
   std::vector<typename descartes_light::WaypointSampler<FloatType>::ConstPtr> samplers;
+  std::vector<typename descartes_light::StateEvaluator<FloatType>::ConstPtr> state_evaluators;
   int num_threads = static_cast<int>(std::thread::hardware_concurrency());
 };
 using DescartesProblemF = DescartesProblem<float>;

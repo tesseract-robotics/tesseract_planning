@@ -56,5 +56,12 @@ template <typename FloatType>
 using DescartesEdgeEvaluatorAllocatorFn =
     std::function<typename descartes_light::EdgeEvaluator<FloatType>::Ptr(const DescartesProblem<FloatType>&)>;
 
+/**
+ * @brief Creates a state evaluator
+ */
+template <typename FloatType>
+using DescartesStateEvaluatorAllocatorFn =
+    std::function<typename descartes_light::StateEvaluator<FloatType>::Ptr(const DescartesProblem<FloatType>&)>;
+
 }  // namespace tesseract_planning
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_TYPES_H

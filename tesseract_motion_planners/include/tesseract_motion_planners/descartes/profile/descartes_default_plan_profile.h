@@ -63,6 +63,7 @@ public:
 
 #ifndef SWIG
   DescartesEdgeEvaluatorAllocatorFn<FloatType> edge_evaluator{ nullptr };
+  DescartesStateEvaluatorAllocatorFn<FloatType> state_evaluator{ nullptr };
 
   // If not provided it adds a joint limit is valid function
   DescartesVertexEvaluatorAllocatorFn<FloatType> vertex_evaluator{ nullptr };
@@ -78,7 +79,7 @@ public:
   bool enable_edge_collision{ false };
   tesseract_collision::CollisionCheckConfig edge_collision_check_config{ 0 };
 
-  bool use_redundant_joint_solutions{false};
+  bool use_redundant_joint_solutions{ false };
 
   int num_threads{ 1 };
   bool debug{ false };

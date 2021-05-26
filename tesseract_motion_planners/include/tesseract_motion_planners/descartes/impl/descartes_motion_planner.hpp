@@ -29,9 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <descartes_light/solvers/ladder_graph/ladder_graph_solver.h>
-#include <descartes_light/core/waypoint_sampler.h>
 #include <descartes_light/samplers/fixed_joint_waypoint_sampler.h>
-#include <descartes_light/edge_evaluators/timing_edge_evaluator.h>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -101,7 +99,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   descartes_light::LadderGraphSolver<FloatType> solver(problem->manip_inv_kin->numJoints(), problem->num_threads);
   try
   {
-    solver.build(problem->samplers, problem->edge_evaluators, {});
+    solver.build(problem->samplers, problem->edge_evaluators, problem->state_evaluators);
   }
   catch (...)
   {
