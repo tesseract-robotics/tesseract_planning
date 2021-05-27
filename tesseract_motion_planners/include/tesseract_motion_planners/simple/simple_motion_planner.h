@@ -57,8 +57,7 @@ public:
   using ConstPtr = std::shared_ptr<const SimpleMotionPlanner>;
 
   /** @brief Construct a basic planner */
-  SimpleMotionPlanner();
-  SimpleMotionPlanner(const std::string& name);
+  SimpleMotionPlanner(std::string name = "SIMPLE_PLANNER");
   ~SimpleMotionPlanner() override = default;
   SimpleMotionPlanner(const SimpleMotionPlanner&) = delete;
   SimpleMotionPlanner& operator=(const SimpleMotionPlanner&) = delete;
@@ -105,7 +104,7 @@ public:
   MotionPlanner::Ptr clone() const override;
 
 protected:
-  std::string name_{ "SIMPLE_PLANNER" };
+  std::string name_;
   std::shared_ptr<const SimpleMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
 
   PlanInstruction getStartInstruction(const PlannerRequest& request,

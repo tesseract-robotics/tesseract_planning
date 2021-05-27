@@ -68,8 +68,6 @@ public:
   DescartesVertexEvaluatorAllocatorFn<FloatType> vertex_evaluator{ nullptr };
 #endif
 
-  double timing_constraint = std::numeric_limits<FloatType>::max();
-
   // Applied to sampled states
   bool enable_collision{ true };
   tesseract_collision::CollisionCheckConfig vertex_collision_check_config{ 0 };

@@ -54,7 +54,7 @@ class TrajOptMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a basic planner */
-  TrajOptMotionPlanner();
+  TrajOptMotionPlanner(std::string name = "TRAJOPT");
 
   ~TrajOptMotionPlanner() override = default;
   TrajOptMotionPlanner(const TrajOptMotionPlanner&) = delete;
@@ -112,7 +112,7 @@ public:
 
 protected:
 #ifndef SWIG
-  std::string name_{ "TRAJOPT" };
+  std::string name_;
   std::shared_ptr<const TrajOptMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
 #endif
 };

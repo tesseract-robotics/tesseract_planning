@@ -59,6 +59,8 @@ enum class RobotConfig
   FUB = 7
 };
 
+static const std::vector<std::string> RobotConfigString = { "NUT", "FUT", "NDT", "FDT", "NDB", "FDB", "NUB", "FUB" };
+
 /**
  * @brief Get the configuration of a six axis industrial robot
  * @param robot_kin The kinematics object of the robot.
@@ -83,77 +85,71 @@ inline RobotConfig getRobotConfig(const tesseract_kinematics::ForwardKinematics:
   // If pose_prime.x is greater than and equal to zero then it is in the forward configuration, otherwise
   // in the backward configuration.
 
-  if ((sign_correction[1] * joint_values(4)) >= 0 && pose_prime.translation().x() >= 0 &&
-      (sign_correction[0] * joint_values(2)) < M_PI / 2)
-  {
+  std::array<std::string, 3> config;
+
+  // Wrist Flip or Not Flip
+  if ((sign_correction[1] * joint_values(4)) >= 0)
+    config[0] = "F";
+  else
+    config[0] = "N";
+
+  // Elbow Up or Down
+  if ((sign_correction[0] * joint_values(2)) < M_PI / 2)
+    config[1] = "U";
+  else
+    config[1] = "D";
+
+  // Robot Front or Back
+  if (pose_prime.translation().x() >= 0)
+    config[2] = "T";
+  else
+    config[2] = "B";
+
+  if (config == std::array<std::string, 3>({ "F", "U", "T" }))
     return RobotConfig::FUT;
-  }
 
-  if ((sign_correction[1] * joint_values(4)) < 0 && pose_prime.translation().x() >= 0 &&
-      (sign_correction[0] * joint_values(2)) < M_PI / 2)
-  {
+  if (config == std::array<std::string, 3>({ "N", "U", "T" }))
     return RobotConfig::NUT;
-  }
 
-  if ((sign_correction[1] * joint_values(4)) >= 0 && pose_prime.translation().x() >= 0 &&
-      (sign_correction[0] * joint_values(2)) >= M_PI / 2)
-  {
+  if (config == std::array<std::string, 3>({ "F", "D", "T" }))
     return RobotConfig::FDT;
-  }
 
-  if ((sign_correction[1] * joint_values(4)) < 0 && pose_prime.translation().x() >= 0 &&
-      (sign_correction[0] * joint_values(2)) >= M_PI / 2)
-  {
+  if (config == std::array<std::string, 3>({ "N", "D", "T" }))
     return RobotConfig::NDT;
-  }
 
-  if ((sign_correction[1] * joint_values(4)) >= 0 && pose_prime.translation().x() < 0 &&
-      (sign_correction[0] * joint_values(2)) < M_PI / 2)
-  {
+  if (config == std::array<std::string, 3>({ "F", "U", "B" }))
     return RobotConfig::FUB;
-  }
 
-  if ((sign_correction[1] * joint_values(4)) < 0 && pose_prime.translation().x() < 0 &&
-      (sign_correction[0] * joint_values(2)) < M_PI / 2)
-  {
+  if (config == std::array<std::string, 3>({ "N", "U", "B" }))
     return RobotConfig::NUB;
-  }
 
-  if ((sign_correction[1] * joint_values(4)) >= 0 && pose_prime.translation().x() < 0 &&
-      (sign_correction[0] * joint_values(2)) >= M_PI / 2)
-  {
+  if (config == std::array<std::string, 3>({ "F", "D", "B" }))
     return RobotConfig::FDB;
-  }
 
   return RobotConfig::NDB;
 }
 
 /**
- * @brief Finds redundancy of joints that allow rotation beyond +- 180 degrees
- * @param joint values The joint values of the robot.
- * @param sign_correction Correct the sign for Joint 3 and Joint 5 based on the robot manufacturer.
- * @return Redundant rotations (as intergers), in a vector
+ * @brief Get number of turns for joints that allow rotation beyond +- 180 degrees
+ * @param joint values The joint values of the robot
+ * @return The number of turns (as intergers), in a vector
  */
 template <typename FloatType>
-inline Eigen::Vector3i
-getRobotRedundancy(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
-                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
+inline Eigen::VectorXi getJointTurns(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values)
 {
-  Eigen::Vector3i redundancy;
+  Eigen::VectorXi joint_turns;
+  joint_turns.resize(joint_values.rows());
+  for (Eigen::Index i = 0; i < joint_values.rows(); ++i)
+    joint_turns(i) = int(joint_values(i) / M_PI);
 
-  // The joints on a 6 dof robot with redundancy capability are axis 1, 5, and 6.
-  int red_1 = int(joint_values(0) / M_PI);
-  int red_2 = int(sign_correction[1] * joint_values(4) / M_PI);
-  int red_3 = int(joint_values(5) / M_PI);
-
-  redundancy << red_1, red_2, red_3;
-  return redundancy;
+  return joint_turns;
 }
 
 }  // namespace tesseract_planning
 
 #ifdef SWIG
 %template(getRobotConfig) tesseract_planning::getRobotConfig<double>;
+%template(getJointTurns) tesseract_planning::getJointTurns<double>;
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_ROBOT_CONFIG_H

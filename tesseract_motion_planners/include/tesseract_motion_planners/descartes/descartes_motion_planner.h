@@ -40,7 +40,7 @@ class DescartesMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a basic planner */
-  DescartesMotionPlanner();
+  DescartesMotionPlanner(std::string name = "DESCARTES");
   ~DescartesMotionPlanner() override = default;
   DescartesMotionPlanner(const DescartesMotionPlanner&) = delete;
   DescartesMotionPlanner& operator=(const DescartesMotionPlanner&) = delete;
@@ -89,7 +89,7 @@ public:
 
 private:
   /** @brief The planners status codes */
-  std::string name_{ "DESCARTES" };
+  std::string name_;
   std::shared_ptr<const DescartesMotionPlannerStatusCategory> status_category_;
 };
 

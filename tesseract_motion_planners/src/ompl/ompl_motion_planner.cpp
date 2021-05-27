@@ -87,8 +87,8 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 }
 
 /** @brief Construct a basic planner */
-OMPLMotionPlanner::OMPLMotionPlanner()
-  : status_category_(std::make_shared<const OMPLMotionPlannerStatusCategory>(name_))
+OMPLMotionPlanner::OMPLMotionPlanner(std::string name)
+  : name_(std::move(name)), status_category_(std::make_shared<const OMPLMotionPlannerStatusCategory>(name_))
 {
   plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<OMPLDefaultPlanProfile>();
 }
@@ -299,7 +299,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
 void OMPLMotionPlanner::clear() { parallel_plan_ = nullptr; }
 
-MotionPlanner::Ptr OMPLMotionPlanner::clone() const { return std::make_shared<OMPLMotionPlanner>(); }
+MotionPlanner::Ptr OMPLMotionPlanner::clone() const { return std::make_shared<OMPLMotionPlanner>(name_); }
 
 bool OMPLMotionPlanner::checkUserInput(const PlannerRequest& request) const
 {
