@@ -44,8 +44,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #ifdef SWIG
 %ignore std::vector<tesseract_planning::Instruction>::vector(size_type);
 %ignore std::vector<tesseract_planning::Instruction>::resize(size_type);
+%ignore tesseract_planning::Instruction::getType;
 %pythondynamic tesseract_planning::Instruction;
-%template(Instructions) std::vector<tesseract_planning::Instruction>;
 #endif  // SWIG
 
 /** @brief If shared library, this must go in the header after the class definition */
@@ -325,7 +325,9 @@ private:
 
 }  // namespace tesseract_planning
 
-#ifndef SWIG
+#ifdef SWIG
+%template(Instructions) std::vector<tesseract_planning::Instruction>;
+#else
 BOOST_CLASS_TRACKING(tesseract_planning::Instruction, boost::serialization::track_never);
 #endif  // SWIG
 
