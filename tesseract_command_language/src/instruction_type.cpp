@@ -32,7 +32,6 @@
 
 namespace tesseract_planning
 {
-
 bool isCommentInstruction(const Instruction& instruction)
 {
   UNUSED(instruction);
@@ -60,7 +59,6 @@ bool isIOInstruction(const Instruction& instruction)
   // TODO: Implement IOInstruction
   return false;
 }
-
 
 bool isCompositeInstruction(const Instruction& instruction)
 {
