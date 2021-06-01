@@ -43,6 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #ifdef SWIG
 //%template(Waypoints) std::vector<tesseract_planning::Waypoint>;
+%ignore tesseract_planning::Waypoint::getType;
 #endif  // SWIG
 
 /** @brief If shared library, this must go in the header after the class definition */

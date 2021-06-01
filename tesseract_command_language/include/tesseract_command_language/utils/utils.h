@@ -134,9 +134,15 @@ bool isWithinJointLimits(const Waypoint& wp, const Eigen::Ref<const Eigen::Matri
  * @param max_deviation. Max deviation that will be clamped
  * @return True if successful or if the waypoint doesn't contain that information.
  */
+#ifndef SWIG
 bool clampToJointLimits(Waypoint& wp,
                         const Eigen::Ref<const Eigen::MatrixX2d>& limits,
                         double max_deviation = (std::numeric_limits<double>::max)());
+#else
+bool clampToJointLimits(Waypoint& wp,
+                        const Eigen::Ref<const Eigen::MatrixX2d>& limits,
+                        double max_deviation = (std::numeric_limits<double>::max()));
+#endif
 
 /**
  * @brief Clamps a waypoint to be within joint limits

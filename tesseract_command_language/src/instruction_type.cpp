@@ -32,6 +32,34 @@
 
 namespace tesseract_planning
 {
+bool isCommentInstruction(const Instruction& instruction)
+{
+  UNUSED(instruction);
+  // TODO: Implement CommentInstruction
+  return false;
+}
+
+bool isVariableInstruction(const Instruction& instruction)
+{
+  UNUSED(instruction);
+  // TODO: Implement VariableInstruction
+  return false;
+}
+
+bool isAnalogInstruction(const Instruction& instruction)
+{
+  UNUSED(instruction);
+  // TODO: Implement AnalogInstruction
+  return false;
+}
+
+bool isIOInstruction(const Instruction& instruction)
+{
+  UNUSED(instruction);
+  // TODO: Implement IOInstruction
+  return false;
+}
+
 bool isCompositeInstruction(const Instruction& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(CompositeInstruction)));
