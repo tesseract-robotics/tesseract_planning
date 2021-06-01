@@ -63,7 +63,7 @@ public:
                         const Eigen::Isometry3d& tcp,
                         bool allow_collision,
                         DescartesVertexEvaluator::Ptr is_valid,
-                        const std::vector<Eigen::Index>& redundancy_capable_joints);
+                        std::vector<Eigen::Index> redundancy_capable_joints);
 
   std::vector<descartes_light::StateSample<FloatType>> sample() const override;
 

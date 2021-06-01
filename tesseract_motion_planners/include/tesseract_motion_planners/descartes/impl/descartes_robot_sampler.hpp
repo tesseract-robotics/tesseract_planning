@@ -47,7 +47,7 @@ DescartesRobotSampler<FloatType>::DescartesRobotSampler(const Eigen::Isometry3d&
                                                         const Eigen::Isometry3d& tcp,
                                                         bool allow_collision,
                                                         DescartesVertexEvaluator::Ptr is_valid,
-                                                        const std::vector<Eigen::Index>& redundancy_capable_joints)
+                                                        std::vector<Eigen::Index> redundancy_capable_joints)
   : target_pose_(target_pose)
   , target_pose_sampler_(std::move(target_pose_sampler))
   , ik_(std::move(ik))
@@ -57,7 +57,7 @@ DescartesRobotSampler<FloatType>::DescartesRobotSampler(const Eigen::Isometry3d&
   , dof_(static_cast<int>(ik_->numJoints()))
   , ik_seed_(Eigen::VectorXd::Zero(dof_))
   , is_valid_(std::move(is_valid))
-  , redundancy_capable_joints_(redundancy_capable_joints)
+  , redundancy_capable_joints_(std::move(redundancy_capable_joints))
 {
   if (!allow_collision_ && !collision_)
     throw std::runtime_error("Collision checker must not be a nullptr if collisions are not allowed during planning");
