@@ -71,6 +71,7 @@ add_library(${PROJECT_NAME}
     src/taskflow_generators/raster_waad_dt_taskflow.cpp
     src/taskflow_generators/descartes_taskflow.cpp
     src/taskflow_generators/ompl_taskflow.cpp
+    src/taskflow_generators/trajopt_ifopt_taskflow.cpp
     src/taskflow_generators/trajopt_taskflow.cpp
     src/taskflow_generators/cartesian_taskflow.cpp
     src/taskflow_generators/freespace_taskflow.cpp)
@@ -81,6 +82,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     tesseract::tesseract_common
     tesseract::tesseract_command_language
     tesseract::tesseract_motion_planners_simple
+    tesseract::tesseract_motion_planners_trajopt_ifopt
     tesseract::tesseract_motion_planners_trajopt
     tesseract::tesseract_motion_planners_descartes
     tesseract::tesseract_motion_planners_ompl

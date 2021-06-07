@@ -30,6 +30,7 @@
 #include <tesseract_process_managers/taskflow_generators/freespace_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/ompl_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/trajopt_taskflow.h>
+#include <tesseract_process_managers/taskflow_generators/trajopt_ifopt_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/raster_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/raster_global_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/raster_only_taskflow.h>
@@ -44,6 +45,12 @@ TaskflowGenerator::UPtr createTrajOptGenerator()
 {
   TrajOptTaskflowParams params;
   return std::make_unique<TrajOptTaskflow>(params);
+}
+
+TaskflowGenerator::UPtr createTrajOptIfoptGenerator()
+{
+  TrajOptIfoptTaskflowParams params;
+  return std::make_unique<TrajOptIfoptTaskflow>(params);
 }
 
 TaskflowGenerator::UPtr createOMPLGenerator()

@@ -28,7 +28,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <ifopt/problem.h>
+#include <trajopt_sqp/qp_problem.h>
 #include <vector>
 #include <memory>
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
@@ -41,7 +41,8 @@ namespace tesseract_planning
 enum class TrajOptIfoptTermType
 {
   CONSTRAINT,
-  SQUARED_COST
+  SQUARED_COST,
+  ABSOLUTE_COST
 };
 
 struct TrajOptIfoptProblem
@@ -54,8 +55,8 @@ struct TrajOptIfoptProblem
   tesseract_kinematics::ForwardKinematics::ConstPtr manip_fwd_kin;
   tesseract_kinematics::InverseKinematics::ConstPtr manip_inv_kin;
 
-  std::shared_ptr<ifopt::Problem> nlp;
-  std::vector<trajopt::JointPosition::ConstPtr> vars;
+  trajopt_sqp::QPProblem::Ptr nlp;
+  std::vector<trajopt_ifopt::JointPosition::ConstPtr> vars;
 };
 
 }  // namespace tesseract_planning

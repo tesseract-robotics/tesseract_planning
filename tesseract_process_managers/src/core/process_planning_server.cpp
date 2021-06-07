@@ -73,6 +73,7 @@ void ProcessPlanningServer::registerProcessPlanner(const std::string& name, Task
 void ProcessPlanningServer::loadDefaultProcessPlanners()
 {
   registerProcessPlanner(process_planner_names::TRAJOPT_PLANNER_NAME, createTrajOptGenerator());
+  registerProcessPlanner(process_planner_names::TRAJOPT_IFOPT_PLANNER_NAME, createTrajOptIfoptGenerator());
   registerProcessPlanner(process_planner_names::OMPL_PLANNER_NAME, createOMPLGenerator());
   registerProcessPlanner(process_planner_names::DESCARTES_PLANNER_NAME, createDescartesGenerator());
   registerProcessPlanner(process_planner_names::CARTESIAN_PLANNER_NAME, createCartesianGenerator());

@@ -45,16 +45,23 @@ void TrajOptIfoptDefaultCompositeProfile::apply(TrajOptIfoptProblem& problem,
                                                 int end_index,
                                                 const ManipulatorInfo& manip_info,
                                                 const std::vector<std::string>& /*active_links*/,
-                                                const std::vector<int>& /*fixed_indices*/) const
+                                                const std::vector<int>& fixed_indices) const
 {
-  const std::vector<trajopt::JointPosition::ConstPtr> vars(&problem.vars[static_cast<std::size_t>(start_index)],
-                                                           &problem.vars[static_cast<std::size_t>(end_index)]);
+  if (start_index < 0 || start_index > static_cast<int>(problem.vars.size()) - 1)
+    throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile: Start index out of bounds.");
+
+  if (end_index < 0 || end_index > static_cast<int>(problem.vars.size()) - 1)
+    throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile: End index out of bounds.");
+
+  const std::vector<trajopt_ifopt::JointPosition::ConstPtr> vars(problem.vars.begin() + start_index,
+                                                                 problem.vars.begin() + end_index + 1);
 
   if (collision_constraint_config->type != tesseract_collision::CollisionEvaluatorType::NONE)
-    addCollisionConstraint(problem.nlp, vars, problem.environment, manip_info, collision_constraint_config);
+    addCollisionConstraint(
+        problem.nlp, vars, problem.environment, manip_info, collision_constraint_config, fixed_indices);
 
   if (collision_cost_config->type != tesseract_collision::CollisionEvaluatorType::NONE)
-    addCollisionSquaredCost(problem.nlp, vars, problem.environment, manip_info, collision_cost_config);
+    addCollisionCost(problem.nlp, vars, problem.environment, manip_info, collision_cost_config, fixed_indices);
 
   if (smooth_velocities)
     addJointVelocitySquaredCost(problem.nlp, vars, velocity_coeff);

@@ -27,16 +27,20 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 #include <tesseract_environment/core/utils.h>
+#include <trajopt_sqp/ifopt_qp_problem.h>
+#include <trajopt_sqp/trajopt_qp_problem.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
 #include <trajopt_sqp/osqp_eigen_solver.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_motion_planners/core/utils.h>
 
-using namespace trajopt;
+using namespace trajopt_ifopt;
 
 namespace tesseract_planning
 {
@@ -72,6 +76,8 @@ std::string TrajOptIfoptMotionPlannerStatusCategory::message(int code) const
 TrajOptIfoptMotionPlanner::TrajOptIfoptMotionPlanner(std::string name)
   : name_(std::move(name)), status_category_(std::make_shared<const TrajOptIfoptMotionPlannerStatusCategory>(name_))
 {
+  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<TrajOptIfoptDefaultPlanProfile>();
+  composite_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<TrajOptIfoptDefaultCompositeProfile>();
 }
 
 const std::string& TrajOptIfoptMotionPlanner::getName() const { return name_; }
@@ -82,11 +88,7 @@ bool TrajOptIfoptMotionPlanner::terminate()
   return false;
 }
 
-void TrajOptIfoptMotionPlanner::clear()
-{
-  //  params = sco::BasicTrustRegionSQPParameters();
-  callbacks.clear();
-}
+void TrajOptIfoptMotionPlanner::clear() { callbacks.clear(); }
 
 MotionPlanner::Ptr TrajOptIfoptMotionPlanner::clone() const
 {
@@ -103,6 +105,7 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
         tesseract_common::StatusCode(TrajOptIfoptMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
     return response.status;
   }
+
   std::shared_ptr<TrajOptIfoptProblem> problem;
   if (request.data)
   {
@@ -117,7 +120,19 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
           tesseract_common::StatusCode(TrajOptIfoptMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
       return response.status;
     }
-    problem = problem_generator(name_, request, plan_profiles, composite_profiles);
+
+    try
+    {
+      problem = problem_generator(name_, request, plan_profiles, composite_profiles);
+    }
+    catch (std::exception& e)
+    {
+      CONSOLE_BRIDGE_logError("TrajOptIfoptPlanner failed to generate problem: %s.", e.what());
+      response.status =
+          tesseract_common::StatusCode(TrajOptIfoptMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
+      return response.status;
+    }
+
     response.data = problem;
   }
 
@@ -130,7 +145,7 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
   qp_solver->solver_.settings()->setWarmStart(true);
   qp_solver->solver_.settings()->setPolish(true);
   qp_solver->solver_.settings()->setAdaptiveRho(false);
-  qp_solver->solver_.settings()->setMaxIteraction(8192);
+  qp_solver->solver_.settings()->setMaxIteration(8192);
   qp_solver->solver_.settings()->setAbsoluteTolerance(1e-4);
   qp_solver->solver_.settings()->setRelativeTolerance(1e-6);
 
@@ -142,7 +157,7 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
 
   // solve
   solver.verbose = verbose;
-  solver.Solve(*(problem->nlp));
+  solver.solve(problem->nlp);
 
   // Check success
   if (solver.getStatus() != trajopt_sqp::SQPStatus::NLP_CONVERGED)
@@ -153,7 +168,7 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
   }
 
   // Get the results - This can likely be simplified if we get rid of the traj array
-  Eigen::VectorXd x = problem->nlp->GetOptVariables()->GetValues();
+  Eigen::VectorXd x = problem->nlp->getVariableValues();
   Eigen::Map<trajopt::TrajArray> trajectory(x.data(),
                                             static_cast<Eigen::Index>(problem->vars.size()),
                                             static_cast<Eigen::Index>(problem->vars[0]->GetValues().size()));
