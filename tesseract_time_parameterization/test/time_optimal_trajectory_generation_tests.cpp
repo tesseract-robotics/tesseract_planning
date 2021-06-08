@@ -346,7 +346,7 @@ void runTrajectoryContainerInterfaceTest(double path_tolerance)
   max_acceleration << 1, 1, 1, 1, 1, 1;
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(solver.computeTimeStamps(*trajectory, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 5.0);
+  ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
 }
 
 TEST(time_optimal_trajectory_generation, testTrajectoryContainerInterface)

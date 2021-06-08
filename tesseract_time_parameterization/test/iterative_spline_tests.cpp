@@ -106,7 +106,7 @@ TEST(TestTimeParameterization, TestIterativeSpline)
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 5.0);
+  ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
 }
 
 TEST(TestTimeParameterization, TestIterativeSplineAddPoints)
@@ -117,7 +117,7 @@ TEST(TestTimeParameterization, TestIterativeSplineAddPoints)
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 5.0);
+  ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
 }
 
 TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)
@@ -137,7 +137,7 @@ TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(
       *trajectory, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
-  EXPECT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 5.0);
+  EXPECT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
 
   program = createStraightTrajectory();
   max_velocity_scaling_factors[0] = 0.5;
@@ -155,7 +155,7 @@ TEST(TestTimeParameterization, TestRepeatedPoint)
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().cast_const<MoveInstruction>()->getWaypoint().cast_const<StateWaypoint>()->time, 0.001);
+  ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 0.001);
 }
 
 int main(int argc, char** argv)

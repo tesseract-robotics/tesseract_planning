@@ -47,7 +47,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-
 static void fit_cubic_spline(const long n, const double dt[], const double x[], double x1[], double x2[]);
 static void adjust_two_positions(const long n,
                                  const double dt[],
