@@ -155,9 +155,12 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   {
     CONSOLE_BRIDGE_logDebug("Trajectory is parameterized with 0.0 dynamics since it only contains a single distinct "
                             "waypoint.");
-    auto waypoint = trajectory[0].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-    waypoint.velocity = Eigen::VectorXd::Zero(num_joints);
-    waypoint.acceleration = Eigen::VectorXd::Zero(num_joints);
+    for (auto& t : trajectory)
+    {
+      auto waypoint = t.get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+      waypoint.velocity = Eigen::VectorXd::Zero(num_joints);
+      waypoint.acceleration = Eigen::VectorXd::Zero(num_joints);
+    }
     return true;
   }
 
@@ -308,7 +311,11 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
   {
     CONSOLE_BRIDGE_logDebug("Trajectory is parameterized with 0.0 dynamics since it only contains a single distinct "
                             "waypoint.");
-    trajectory.setData(0, Eigen::VectorXd::Zero(num_joints), Eigen::VectorXd::Zero(num_joints), 0);
+
+    // Set velocity, acceleration and time to zero for all points in the trajectory.
+    for (long i = 0; i < trajectory.size(); ++i)
+      trajectory.setData(i, Eigen::VectorXd::Zero(num_joints), Eigen::VectorXd::Zero(num_joints), 0);
+
     return true;
   }
 
@@ -1089,22 +1096,67 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory, double path_toleran
 {
   std::list<Trajectory::TrajectoryStep>::const_iterator it = trajectory_.begin();
   long cnt = 0;
+  double error = 0;
+  double prev_error = 1;
+  bool hit_tolerance = false;
+  bool error_increasing = false;
   for (long i = 0; i < trajectory.size(); ++i)
   {
     const Eigen::VectorXd& p = trajectory.getPosition(i);
-    for (; it != trajectory_.end(); ++it)
+
+    if (i == 0)
     {
-      Eigen::VectorXd compare_p = getPosition(it->time_).head(trajectory.dof());
-      if (!((p - compare_p).norm() > path_tolerance))
+      // Set first point
+      Eigen::VectorXd uv = getVelocity(trajectory_.front().time_).head(trajectory.dof());
+      Eigen::VectorXd ua = getAcceleration(trajectory_.front().time_).head(trajectory.dof());
+      trajectory.setData(0, uv, ua, it->time_);
+      ++cnt;
+    }
+    else if (i == (trajectory.size() - 1))
+    {
+      // Set last point
+      Eigen::VectorXd uv = getVelocity(trajectory_.back().time_).head(trajectory.dof());
+      Eigen::VectorXd ua = getAcceleration(trajectory_.back().time_).head(trajectory.dof());
+      trajectory.setData(trajectory.size() - 1, uv, ua, it->time_);
+      ++cnt;
+    }
+    else
+    {
+      for (; it != trajectory_.end(); ++it)
       {
-        Eigen::VectorXd uv = getVelocity(it->time_).head(trajectory.dof());
-        Eigen::VectorXd ua = getAcceleration(it->time_).head(trajectory.dof());
-        trajectory.setData(i, uv, ua, it->time_);
-        ++cnt;
-        break;
+        Eigen::VectorXd compare_p = getPosition(it->time_).head(trajectory.dof());
+        error = (p - compare_p).norm();
+
+        // Check if we've hit the tolerance and if the error is still decreasing
+        if (error < path_tolerance)
+        {
+          hit_tolerance = true;
+        }
+        if (prev_error < error)
+        {
+          error_increasing = true;
+        }
+        prev_error = error;
+
+        if (hit_tolerance && error_increasing)
+        {
+          --it;
+          Eigen::VectorXd uv = getVelocity(it->time_).head(trajectory.dof());
+          Eigen::VectorXd ua = getAcceleration(it->time_).head(trajectory.dof());
+          trajectory.setData(i, uv, ua, it->time_);
+          ++cnt;
+
+          // Reset search data
+          error = 0;
+          prev_error = 1;
+          hit_tolerance = false;
+          error_increasing = false;
+          break;
+        }
       }
     }
   }
+
   return (cnt == trajectory.size());
 }
 

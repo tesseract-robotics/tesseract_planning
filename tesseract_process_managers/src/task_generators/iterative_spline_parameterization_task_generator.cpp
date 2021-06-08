@@ -129,7 +129,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   }
 
   // Solve using parameters
-  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(*ci);
+  TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(ci);
   if (!solver_.compute(*trajectory,
                        fwd_kin->getLimits().velocity_limits,
                        fwd_kin->getLimits().acceleration_limits,
