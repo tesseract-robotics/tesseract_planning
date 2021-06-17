@@ -28,7 +28,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <descartes_light/utils.h>
 #include <console_bridge/console.h>
 #include <Eigen/Geometry>
 #include <vector>
