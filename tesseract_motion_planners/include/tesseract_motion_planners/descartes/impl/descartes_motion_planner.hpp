@@ -96,10 +96,19 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
     response.data = problem;
   }
 
-  descartes_light::LadderGraphSolver<FloatType> solver(problem->manip_inv_kin->numJoints(), problem->num_threads);
+  descartes_light::SearchResult<FloatType> descartes_result;
   try
   {
+    descartes_light::LadderGraphSolver<FloatType> solver(problem->manip_inv_kin->numJoints(), problem->num_threads);
     solver.build(problem->samplers, problem->edge_evaluators, problem->state_evaluators);
+    descartes_result = solver.search();
+    if (descartes_result.trajectory.empty())
+    {
+      CONSOLE_BRIDGE_logError("Search for graph completion failed");
+      response.status = tesseract_common::StatusCode(
+          DescartesMotionPlannerStatusCategory::ErrorFailedToFindValidSolution, status_category_);
+      return response.status;
+    }
   }
   catch (...)
   {
@@ -118,20 +127,6 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
 
     response.status =
         tesseract_common::StatusCode(DescartesMotionPlannerStatusCategory::ErrorFailedToBuildGraph, status_category_);
-    return response.status;
-  }
-
-  //  // No failed waypoints
-  //  response.succeeded_waypoints = config_->waypoints;
-  //  response.failed_waypoints.clear();
-
-  // Search for edges
-  descartes_light::SearchResult<FloatType> descartes_result = solver.search();
-  if (descartes_result.trajectory.empty())
-  {
-    CONSOLE_BRIDGE_logError("Search for graph completion failed");
-    response.status = tesseract_common::StatusCode(DescartesMotionPlannerStatusCategory::ErrorFailedToFindValidSolution,
-                                                   status_category_);
     return response.status;
   }
 
