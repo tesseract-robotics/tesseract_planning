@@ -36,6 +36,7 @@ add_library(${PROJECT_NAME}
     src/instructions_trajectory.cpp
     src/iterative_spline_parameterization
     src/time_optimal_trajectory_generation
+    src/tesseract_common_trajectory.cpp
     )
 target_link_libraries(${PROJECT_NAME} PUBLIC console_bridge::console_bridge Eigen3::Eigen tesseract::tesseract_common tesseract::tesseract_command_language)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
