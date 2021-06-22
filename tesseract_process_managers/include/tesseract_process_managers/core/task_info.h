@@ -69,6 +69,9 @@ public:
 
   std::string message;
 
+  /** @brief elapsed_time Time spent in this task in seconds*/
+  double elapsed_time;
+
   /** @brief Instructions passed to task (optionally set) */
   Instruction instructions_input{ NullInstruction() };
   /** @brief Instructions after running the task (optionally set)*/

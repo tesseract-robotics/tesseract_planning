@@ -26,6 +26,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/timer.h>
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/profile_switch_task_generator.h>
@@ -51,6 +52,8 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   auto info = std::make_shared<ProfileSwitchTaskInfo>(unique_id, name_);
   info->return_value = 0;
   input.addTaskInfo(info);
+  tesseract_common::Timer timer;
+  timer.start();
   saveInputs(info, input);
 
   // --------------------
@@ -61,6 +64,7 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   {
     CONSOLE_BRIDGE_logError("Input instruction to ProfileSwitch must be a composite instruction. Returning 0");
     saveOutputs(info, input);
+    info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
 
