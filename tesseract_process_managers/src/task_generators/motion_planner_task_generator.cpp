@@ -28,6 +28,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/timer.h>
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/motion_planner_task_generator.h>
@@ -50,8 +51,9 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   auto info = std::make_shared<MotionPlannerTaskInfo>(unique_id, name_);
   info->return_value = 0;
   input.addTaskInfo(info);
+  tesseract_common::Timer timer;
+  timer.start();
   saveInputs(info, input);
-
   // --------------------
   // Check that inputs are valid
   // --------------------
@@ -61,6 +63,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     info->message = "Input instructions to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(info, input);
+    info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
 
@@ -70,6 +73,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     info->message = "Input seed to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(info, input);
+    info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
 
@@ -171,6 +175,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
     info->return_value = 1;
     saveOutputs(info, input);
+    info->elapsed_time = timer.elapsedSeconds();
     return 1;
   }
 
@@ -180,6 +185,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
                            input_instruction->getDescription().c_str());
   info->message = status.message();
   saveOutputs(info, input);
+  info->elapsed_time = timer.elapsedSeconds();
   return 0;
 }
 

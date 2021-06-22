@@ -29,6 +29,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/timer.h>
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/seed_min_length_task_generator.h>
@@ -57,6 +58,8 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   auto info = std::make_shared<SeedMinLengthTaskInfo>(unique_id, name_);
   info->return_value = 0;
   input.addTaskInfo(info);
+  tesseract_common::Timer timer;
+  timer.start();
   saveInputs(info, input);
 
   // Check that inputs are valid
@@ -65,6 +68,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   {
     CONSOLE_BRIDGE_logError("Input seed to SeedMinLengthTaskGenerator must be a composite instruction");
     saveOutputs(info, input);
+    info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
 
@@ -74,6 +78,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   {
     info->return_value = 1;
     saveOutputs(info, input);
+    info->elapsed_time = timer.elapsedSeconds();
     return 1;
   }
 
@@ -89,6 +94,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   CONSOLE_BRIDGE_logDebug("Seed Min Length Process Generator Succeeded!");
   info->return_value = 1;
   saveOutputs(info, input);
+  info->elapsed_time = timer.elapsedSeconds();
   return 1;
 }
 

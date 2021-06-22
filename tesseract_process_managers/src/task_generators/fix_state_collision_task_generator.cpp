@@ -30,6 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <trajopt/problem_description.hpp>
+#include <tesseract_common/timer.h>
 #include <tesseract_environment/core/utils.h>
 
 #include <tesseract_process_managers/core/utils.h>
@@ -283,6 +284,8 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   auto info = std::make_shared<FixStateCollisionTaskInfo>(unique_id, name_);
   info->return_value = 0;
   input.addTaskInfo(info);
+  tesseract_common::Timer timer;
+  timer.start();
   saveInputs(info, input);
 
   // --------------------
@@ -294,6 +297,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     info->message = "Input seed to FixStateCollision must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(info, input);
+    info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
 
@@ -323,6 +327,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
                   mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
           {
             saveOutputs(info, input);
+            info->elapsed_time = timer.elapsedSeconds();
             return 0;
           }
         }
@@ -344,6 +349,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
                   mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
           {
             saveOutputs(info, input);
+            info->elapsed_time = timer.elapsedSeconds();
             return 0;
           }
         }
@@ -386,6 +392,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           if (!ApplyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
             saveOutputs(info, input);
+            info->elapsed_time = timer.elapsedSeconds();
             return 0;
           }
         }
@@ -395,12 +402,14 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     case FixStateCollisionProfile::Settings::DISABLED:
       info->return_value = 1;
       saveOutputs(info, input);
+      info->elapsed_time = timer.elapsedSeconds();
       return 1;
   }
 
   CONSOLE_BRIDGE_logDebug("FixStateCollisionTaskGenerator succeeded");
   info->return_value = 1;
   saveOutputs(info, input);
+  info->elapsed_time = timer.elapsedSeconds();
   return 1;
 }
 
