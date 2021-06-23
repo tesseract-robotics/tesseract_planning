@@ -13,6 +13,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
+#include <tesseract_process_managers/utils/task_info_statistics.h>
 #include <tesseract_visualization/visualization_loader.h>
 
 using namespace tesseract_planning;
@@ -94,6 +95,12 @@ int main()
   }
 
   std::cout << "Execution Complete" << std::endl;
+
+  // Print summary statistics
+  std::map<std::size_t, TaskInfo::ConstPtr> info_map = response.interface->getTaskInfoMap();
+  TaskInfoProfiler profiler;
+  profiler.load(info_map);
+  profiler.print();
 
   return 0;
 }

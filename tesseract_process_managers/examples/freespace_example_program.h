@@ -9,7 +9,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-inline CompositeInstruction freespaceExampleProgramIIWA(const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+inline CompositeInstruction freespaceExampleProgramIIWA(const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() *
+                                                                                 Eigen::Translation3d(0.2, 0.2, 1.0),
+                                                        const std::string& composite_profile = DEFAULT_PROFILE_KEY,
                                                         const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
   CompositeInstruction program(composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
@@ -22,7 +24,7 @@ inline CompositeInstruction freespaceExampleProgramIIWA(const std::string& compo
   program.setStartInstruction(start_instruction);
 
   // Define target pose
-  Waypoint wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0));
+  Waypoint wp2 = CartesianWaypoint(goal);
   PlanInstruction plan_f0(wp2, PlanInstructionType::FREESPACE, freespace_profile);
   plan_f0.setDescription("freespace_motion");
   program.push_back(plan_f0);
@@ -34,7 +36,9 @@ inline CompositeInstruction freespaceExampleProgramIIWA(const std::string& compo
   return program;
 }
 
-inline CompositeInstruction freespaceExampleProgramABB(const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+inline CompositeInstruction freespaceExampleProgramABB(const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() *
+                                                                                Eigen::Translation3d(0.2, 0.2, 1.0),
+                                                       const std::string& composite_profile = DEFAULT_PROFILE_KEY,
                                                        const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
   CompositeInstruction program(composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
@@ -46,7 +50,7 @@ inline CompositeInstruction freespaceExampleProgramABB(const std::string& compos
   program.setStartInstruction(start_instruction);
 
   // Define target pose
-  Waypoint wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0));
+  Waypoint wp2 = CartesianWaypoint(goal);
   PlanInstruction plan_f0(wp2, PlanInstructionType::FREESPACE, freespace_profile);
   plan_f0.setDescription("freespace_motion");
   program.push_back(plan_f0);

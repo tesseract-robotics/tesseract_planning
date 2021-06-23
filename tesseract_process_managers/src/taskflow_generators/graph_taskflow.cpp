@@ -37,7 +37,7 @@ namespace tesseract_planning
 {
 GraphTaskflow::GraphTaskflow(std::string name) : name_(std::move(name)) {}
 
-GraphTaskflow::Node::Node(TaskGenerator::UPtr process_, bool is_conditional_)
+GraphTaskflowNode::GraphTaskflowNode(TaskGenerator::UPtr process_, bool is_conditional_)
   : process(std::move(process_)), is_conditional(is_conditional_)
 {
 }
@@ -65,7 +65,7 @@ TaskflowContainer GraphTaskflow::generateTaskflow(TaskInput input, TaskflowVoidF
   // Generate process tasks for each node using its process generator
   std::vector<tf::Task> tasks;
   tasks.reserve(nodes_.size());
-  for (Node& node : nodes_)
+  for (GraphTaskflowNode& node : nodes_)
   {
     if (node.is_conditional)
       tasks.push_back(node.process->generateConditionalTask(input, *(container.taskflow)));
@@ -76,7 +76,7 @@ TaskflowContainer GraphTaskflow::generateTaskflow(TaskInput input, TaskflowVoidF
   for (std::size_t i = 0; i < nodes_.size(); ++i)
   {
     // Ensure the current task precedes the tasks that it is connected to
-    const Node& node = nodes_[i];
+    const GraphTaskflowNode& node = nodes_[i];
     for (int idx : node.edges)
     {
       if (idx >= 0)
@@ -108,13 +108,13 @@ TaskflowContainer GraphTaskflow::generateTaskflow(TaskInput input, TaskflowVoidF
 
 int GraphTaskflow::addNode(TaskGenerator::UPtr process, bool is_conditional)
 {
-  nodes_.emplace_back(Node(std::move(process), is_conditional));
+  nodes_.emplace_back(GraphTaskflowNode(std::move(process), is_conditional));
   return static_cast<int>(nodes_.size() - 1);
 }
 
 void GraphTaskflow::addEdges(int source, std::vector<int> destinations)
 {
-  Node& node = nodes_.at(static_cast<std::size_t>(source));
+  GraphTaskflowNode& node = nodes_.at(static_cast<std::size_t>(source));
   if (destinations.size() > 1 && node.is_conditional)
     node.edges.insert(node.edges.end(), destinations.begin(), destinations.end());
   else if (destinations.size() == 1)
