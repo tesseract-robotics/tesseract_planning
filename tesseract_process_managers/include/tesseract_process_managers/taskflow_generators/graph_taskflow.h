@@ -39,6 +39,17 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+/** @brief Helper struct for holding relevant information about the nodes */
+struct GraphTaskflowNode
+{
+  GraphTaskflowNode(TaskGenerator::UPtr process_, bool is_conditional_);
+
+  TaskGenerator::UPtr process;
+  const bool is_conditional;
+  /** @brief IDs of nodes (i.e. tasks) that should run after this node */
+  std::vector<int> edges;
+};
+
 /**
  * @brief This class facilitates the composition of an arbitrary taskflow graph.
  * Tasks are nodes in the graph connected to each other in a configurable order by directed edges
@@ -85,19 +96,10 @@ public:
    */
   void addEdges(int source, std::vector<int> destinations);
 
+  const std::vector<GraphTaskflowNode>& getNodes() const { return nodes_; };
+
 private:
-  /** @brief Helper struct for holding relevant information about the nodes */
-  struct Node
-  {
-    Node(TaskGenerator::UPtr process_, bool is_conditional_);
-
-    TaskGenerator::UPtr process;
-    const bool is_conditional;
-    /** @brief IDs of nodes (i.e. tasks) that should run after this node */
-    std::vector<int> edges;
-  };
-
-  std::vector<Node> nodes_;
+  std::vector<GraphTaskflowNode> nodes_;
   std::string name_;
 };
 

@@ -95,10 +95,34 @@ target_code_coverage(${PROJECT_NAME} ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TE
 target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
     "$<INSTALL_INTERFACE:include>")
+list(APPEND Targets ${PROJECT_NAME})
+
+
+add_library(${PROJECT_NAME}_utils src/utils/task_info_statistics.cpp)
+target_link_libraries(${PROJECT_NAME}_utils PUBLIC
+    ${PROJECT_NAME}
+    console_bridge::console_bridge
+    Taskflow::Taskflow
+    Eigen3::Eigen
+    tesseract::tesseract_common
+    tesseract::tesseract_command_language
+    )
+
+target_compile_options(${PROJECT_NAME}_utils PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
+target_compile_options(${PROJECT_NAME}_utils PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_compile_definitions(${PROJECT_NAME}_utils PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_clang_tidy(${PROJECT_NAME}_utils ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_cxx_version(${PROJECT_NAME}_utils PUBLIC VERSION ${TESSERACT_CXX_VERSION})
+target_code_coverage(${PROJECT_NAME}_utils ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
+target_include_directories(${PROJECT_NAME}_utils PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+    "$<INSTALL_INTERFACE:include>")
+list(APPEND Targets ${PROJECT_NAME}_utils)
+
 
 add_subdirectory(examples)
 
-configure_package(NAMESPACE tesseract TARGETS ${PROJECT_NAME})
+configure_package(NAMESPACE tesseract TARGETS ${Targets})
 
 # Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}
