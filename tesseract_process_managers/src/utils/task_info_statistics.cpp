@@ -161,7 +161,7 @@ std::unordered_map<std::string, TaskDisplayInfo> TaskInfoProfiler::getTaskDispla
     // Edge info
     for (const std::pair<int, int>& ret_kv : kv.second.return_val_map)
     {
-      double percent = static_cast<double>(ret_kv.second) / static_cast<double>(kv.second.occurances);
+      double percent = static_cast<double>(ret_kv.second) / static_cast<double>(kv.second.occurances) * 100.;
       task_info_map[kv.first].edge_info[ret_kv.first] = std::to_string(percent).substr(0, 5) + "%";
     }
   }
