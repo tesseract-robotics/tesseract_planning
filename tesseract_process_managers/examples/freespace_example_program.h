@@ -9,10 +9,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-inline CompositeInstruction freespaceExampleProgramIIWA(const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() *
-                                                                                 Eigen::Translation3d(0.2, 0.2, 1.0),
-                                                        const std::string& composite_profile = DEFAULT_PROFILE_KEY,
-                                                        const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
+inline CompositeInstruction freespaceExampleProgramIIWA(
+    const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0),
+    const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+    const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
   CompositeInstruction program(composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
 
@@ -36,10 +36,10 @@ inline CompositeInstruction freespaceExampleProgramIIWA(const Eigen::Isometry3d&
   return program;
 }
 
-inline CompositeInstruction freespaceExampleProgramABB(const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() *
-                                                                                Eigen::Translation3d(0.2, 0.2, 1.0),
-                                                       const std::string& composite_profile = DEFAULT_PROFILE_KEY,
-                                                       const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
+inline CompositeInstruction freespaceExampleProgramABB(
+    const Eigen::Isometry3d& goal = Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.2, 0.2, 1.0),
+    const std::string& composite_profile = DEFAULT_PROFILE_KEY,
+    const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
   CompositeInstruction program(composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
 

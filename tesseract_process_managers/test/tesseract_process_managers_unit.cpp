@@ -200,7 +200,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSPlanProfi
 
 TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignPlanProfileTest)
 {
-  CompositeInstruction program = freespaceExampleProgramABB(DEFAULT_PROFILE_KEY, DEFAULT_PROFILE_KEY);
+  CompositeInstruction program = freespaceExampleProgramABB();
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
@@ -232,7 +232,7 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignP
 
 TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanProfileTest)
 {
-  CompositeInstruction program = freespaceExampleProgramABB(DEFAULT_PROFILE_KEY, DEFAULT_PROFILE_KEY);
+  CompositeInstruction program = freespaceExampleProgramABB();
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
