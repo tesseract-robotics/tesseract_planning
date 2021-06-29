@@ -8,7 +8,7 @@ Tesseract descartes types.
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$Eigen/\+Geometry$>$}\newline
 {\ttfamily \#include $<$functional$>$}\newline
-{\ttfamily \#include $<$descartes\+\_\+light/interface/edge\+\_\+evaluator.\+h$>$}\newline
+{\ttfamily \#include $<$descartes\+\_\+light/core/edge\+\_\+evaluator.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+vertex\+\_\+evaluator.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+problem.\+h$>$}\newline
 Include dependency graph for types.\+h\+:
@@ -38,7 +38,9 @@ This graph shows which files directly or indirectly include this file\+:
 {\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a7a8351e5785986a6e075296e3bfdb7fc}{tesseract\+\_\+planning\+::\+Descartes\+Vertex\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ Descartes\+Vertex\+Evaluator\+::\+Ptr(const Descartes\+Problem$<$ Float\+Type $>$ \&)$>$
 \begin{DoxyCompactList}\small\item\em This is used for tesseract descartes samplers that filters out invalid solutions. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}{tesseract\+\_\+planning\+::\+Descartes\+Edge\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$ Float\+Type $>$\+::Ptr(const Descartes\+Problem$<$ Float\+Type $>$ \&)$>$
-\begin{DoxyCompactList}\small\item\em This is used to create edge evaluator within tesseract, to allow thread safe creation of descartes edge evaluators. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em This is used to create edge evaluator within tesseract, to allow thread safe creation of descartes edge evaluators. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{tesseract\+\_\+planning\+::\+Descartes\+State\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ typename descartes\+\_\+light\+::\+State\+Evaluator$<$ Float\+Type $>$\+::Ptr(const Descartes\+Problem$<$ Float\+Type $>$ \&)$>$
+\begin{DoxyCompactList}\small\item\em Creates a state evaluator. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

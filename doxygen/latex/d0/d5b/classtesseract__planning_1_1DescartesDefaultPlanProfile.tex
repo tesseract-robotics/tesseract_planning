@@ -61,22 +61,26 @@ tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1Des
 \item 
 \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}{Descartes\+Edge\+Evaluator\+Allocator\+Fn}}$<$ Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_af5bf2b22235d43ad05a401d84b14e21e}{edge\+\_\+evaluator}} \{ nullptr \}
 \item 
+\mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{Descartes\+State\+Evaluator\+Allocator\+Fn}}$<$ Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ad2917641dbb7626552d9ee036d16e32e}{state\+\_\+evaluator}} \{ nullptr \}
+\item 
 \mbox{\hyperlink{namespacetesseract__planning_a7a8351e5785986a6e075296e3bfdb7fc}{Descartes\+Vertex\+Evaluator\+Allocator\+Fn}}$<$ Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a37a588460b152703c3f5c7525e1195e2}{vertex\+\_\+evaluator}} \{ nullptr \}
 \item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_af67c82bf2fb4f65e3abd77fd18dfefc4}{allow\+\_\+collision}} \{ false \}
+\begin{DoxyCompactList}\small\item\em Flag to indicate that collisions should not cause failures during state/edge evaluation. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a193eb484b8cb240a3d5a0db89af1a48c}{enable\+\_\+collision}} \{ true \}
-\item 
+\begin{DoxyCompactList}\small\item\em Flag to apply collision checking during state sampling. \end{DoxyCompactList}\item 
 tesseract\+\_\+collision\+::\+Collision\+Check\+Config \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a77b042d17105639cbb0139698b610859}{vertex\+\_\+collision\+\_\+check\+\_\+config}} \{ 0 \}
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a191c702daed4325d0875edc1c62f4e55}{enable\+\_\+edge\+\_\+collision}} \{ false \}
-\item 
+\begin{DoxyCompactList}\small\item\em Flag to apply collision checking during edge evaluation. \end{DoxyCompactList}\item 
 tesseract\+\_\+collision\+::\+Collision\+Check\+Config \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a3299ac38a240f4314d9a9333317a091f}{edge\+\_\+collision\+\_\+check\+\_\+config}} \{ 0 \}
 \item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a52889fc506299b82dae59ddc4d58f515}{use\+\_\+redundant\+\_\+joint\+\_\+solutions}} \{ false \}
+\begin{DoxyCompactList}\small\item\em Flag for generating redundant solutions as additional vertices for the planning graph search. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a16aa29252b2b83ba739f83bb1eaace34}{num\+\_\+threads}} \{ 1 \}
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_af67c82bf2fb4f65e3abd77fd18dfefc4}{allow\+\_\+collision}} \{ false \}
-\item 
+\begin{DoxyCompactList}\small\item\em Number of threads to use during planning. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a63d17ac4add48b76ba1a80c99564b793}{debug}} \{ false \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Flag to produce debug information during planning. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -204,12 +208,20 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_afa
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile}}$<$ Float\+Type $>$\+::allow\+\_\+collision \{ false \}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_a63d17ac4add48b76ba1a80c99564b793}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_a63d17ac4add48b76ba1a80c99564b793}} 
+
+
+Flag to indicate that collisions should not cause failures during state/edge evaluation. 
+
+Sometimes it is beneficial to evaluate states and edges based on the distance of states from collision without treating collisions as failures. In the case that the Descartes trajectory is used as a seed for a subsequent planner, such as Traj\+Opt, the subsequent planner can adjust/optimize individual joint poses such that they become collision-\/free. \mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_a63d17ac4add48b76ba1a80c99564b793}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_a63d17ac4add48b76ba1a80c99564b793}} 
 \index{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}!debug@{debug}}
 \index{debug@{debug}!tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{debug}{debug}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile}}$<$ Float\+Type $>$\+::debug \{ false \}}
+
+
+
+Flag to produce debug information during planning. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_a3299ac38a240f4314d9a9333317a091f}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_a3299ac38a240f4314d9a9333317a091f}} 
 \index{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}!edge\_collision\_check\_config@{edge\_collision\_check\_config}}
@@ -232,12 +244,20 @@ tesseract\+\_\+collision\+::\+Collision\+Check\+Config \mbox{\hyperlink{classtes
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile}}$<$ Float\+Type $>$\+::enable\+\_\+collision \{ true \}}
 
+
+
+Flag to apply collision checking during state sampling. 
+
 \mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_a191c702daed4325d0875edc1c62f4e55}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_a191c702daed4325d0875edc1c62f4e55}} 
 \index{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}!enable\_edge\_collision@{enable\_edge\_collision}}
 \index{enable\_edge\_collision@{enable\_edge\_collision}!tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{enable\_edge\_collision}{enable\_edge\_collision}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile}}$<$ Float\+Type $>$\+::enable\+\_\+edge\+\_\+collision \{ false \}}
+
+
+
+Flag to apply collision checking during edge evaluation. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_a16aa29252b2b83ba739f83bb1eaace34}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_a16aa29252b2b83ba739f83bb1eaace34}} 
 \index{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}!num\_threads@{num\_threads}}
@@ -246,12 +266,34 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{t
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 int \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile}}$<$ Float\+Type $>$\+::num\+\_\+threads \{ 1 \}}
 
+
+
+Number of threads to use during planning. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_ad2917641dbb7626552d9ee036d16e32e}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_ad2917641dbb7626552d9ee036d16e32e}} 
+\index{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}!state\_evaluator@{state\_evaluator}}
+\index{state\_evaluator@{state\_evaluator}!tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{state\_evaluator}{state\_evaluator}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+\mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{Descartes\+State\+Evaluator\+Allocator\+Fn}}$<$Float\+Type$>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile}}$<$ Float\+Type $>$\+::state\+\_\+evaluator \{ nullptr \}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_aef694f140132ba12493488aabe021dd6}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_aef694f140132ba12493488aabe021dd6}} 
 \index{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}!target\_pose\_sampler@{target\_pose\_sampler}}
 \index{target\_pose\_sampler@{target\_pose\_sampler}!tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{target\_pose\_sampler}{target\_pose\_sampler}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile}}$<$ Float\+Type $>$\+::target\+\_\+pose\+\_\+sampler = \mbox{\hyperlink{namespacetesseract__planning_a7783726ef3508bc3baf1bd8b96829e07}{sample\+Fixed}}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_a52889fc506299b82dae59ddc4d58f515}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_a52889fc506299b82dae59ddc4d58f515}} 
+\index{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}!use\_redundant\_joint\_solutions@{use\_redundant\_joint\_solutions}}
+\index{use\_redundant\_joint\_solutions@{use\_redundant\_joint\_solutions}!tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{use\_redundant\_joint\_solutions}{use\_redundant\_joint\_solutions}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{tesseract\+\_\+planning\+::\+Descartes\+Default\+Plan\+Profile}}$<$ Float\+Type $>$\+::use\+\_\+redundant\+\_\+joint\+\_\+solutions \{ false \}}
+
+
+
+Flag for generating redundant solutions as additional vertices for the planning graph search. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1DescartesDefaultPlanProfile_a77b042d17105639cbb0139698b610859}\label{classtesseract__planning_1_1DescartesDefaultPlanProfile_a77b042d17105639cbb0139698b610859}} 
 \index{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$@{tesseract\_planning::DescartesDefaultPlanProfile$<$ FloatType $>$}!vertex\_collision\_check\_config@{vertex\_collision\_check\_config}}

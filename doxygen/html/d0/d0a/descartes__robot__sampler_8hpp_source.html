@@ -79,124 +79,140 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;tesseract_common/macros.h&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;TESSERACT_COMMON_IGNORE_WARNINGS_PUSH</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;descartes_light/utils.h&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;console_bridge/console.h&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;Eigen/Geometry&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;TESSERACT_COMMON_IGNORE_WARNINGS_POP</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d1/dad/descartes__robot__sampler_8h.html">tesseract_motion_planners/descartes/descartes_robot_sampler.h</a>&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;console_bridge/console.h&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;Eigen/Geometry&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;TESSERACT_COMMON_IGNORE_WARNINGS_POP</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d1/dad/descartes__robot__sampler_8h.html">tesseract_motion_planners/descartes/descartes_robot_sampler.h</a>&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;tesseract_kinematics/core/utils.h&gt;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> FloatType&gt;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a8a28ea4e1e570b179e99e1c6bb077cbb">   42</a></span>&#160;<a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a8a28ea4e1e570b179e99e1c6bb077cbb">DescartesRobotSampler&lt;FloatType&gt;::DescartesRobotSampler</a>(</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> Eigen::Isometry3d&amp; target_pose,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#ae98ce6e841caa404388d1689b4ffe1db">PoseSamplerFn</a> target_pose_sampler,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#aaeaeca3bdae2070fe34bdbd64fa19eb9">DescartesCollision::Ptr</a> collision,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">const</span> Eigen::Isometry3d&amp; tcp,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> allow_collision,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="../../da/d8a/classtesseract__planning_1_1DescartesVertexEvaluator.html#af9323f7e0912986b89ba5a57ee6e3262">DescartesVertexEvaluator::Ptr</a> is_valid)</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a81f95907a8e7e3d4743a15dbfc883c01">   42</a></span>&#160;<a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a81f95907a8e7e3d4743a15dbfc883c01">DescartesRobotSampler&lt;FloatType&gt;::DescartesRobotSampler</a>(<span class="keyword">const</span> Eigen::Isometry3d&amp; target_pose,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                        <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#ae98ce6e841caa404388d1689b4ffe1db">PoseSamplerFn</a> target_pose_sampler,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                                        tesseract_kinematics::InverseKinematics::ConstPtr ik,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                                                        <a class="code" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#aaeaeca3bdae2070fe34bdbd64fa19eb9">DescartesCollision::Ptr</a> collision,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                                                        <span class="keyword">const</span> Eigen::Isometry3d&amp; tcp,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                                        <span class="keywordtype">bool</span> allow_collision,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                                        <a class="code" href="../../da/d8a/classtesseract__planning_1_1DescartesVertexEvaluator.html#af9323f7e0912986b89ba5a57ee6e3262">DescartesVertexEvaluator::Ptr</a> is_valid,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                                        std::vector&lt;Eigen::Index&gt; redundancy_capable_joints)</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  : target_pose_(target_pose)</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  , target_pose_sampler_(std::move(target_pose_sampler))</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  , robot_kinematics_(std::move(robot_kinematics))</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  , ik_(std::move(ik))</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  , collision_(std::move(collision))</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  , tcp_(tcp)</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  , allow_collision_(allow_collision)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  , dof_(static_cast&lt;int&gt;(robot_kinematics_-&gt;numJoints()))</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  , dof_(static_cast&lt;int&gt;(ik_-&gt;numJoints()))</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  , ik_seed_(Eigen::VectorXd::Zero(dof_))</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  , is_valid_(std::move(is_valid))</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;{</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> FloatType&gt;</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#abf4dfa0be9b61cf565dcd852b85940d4">   63</a></span>&#160;std::vector&lt;Eigen::Matrix&lt;FloatType, Eigen::Dynamic, 1&gt;&gt; <a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#abf4dfa0be9b61cf565dcd852b85940d4">DescartesRobotSampler&lt;FloatType&gt;::sample</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">double</span> distance = std::numeric_limits&lt;double&gt;::min();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  tesseract_common::VectorIsometry3d target_poses = target_pose_sampler_(target_pose_);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  std::vector&lt;Eigen::Matrix&lt;FloatType, Eigen::Dynamic, 1&gt;&gt; solution_set;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sp : target_poses)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// Tool pose in rail coordinate system</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    Eigen::Isometry3d target_pose = sp * tcp_.inverse();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    ikAt(solution_set, target_pose, <span class="keyword">false</span>, distance);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordflow">if</span> (solution_set.empty() &amp;&amp; allow_collision_)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    getBestSolution(solution_set, target_poses);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  , redundancy_capable_joints_(std::move(redundancy_capable_joints))</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a4937408ae7e14b11fdb9edde2f0638bf">allow_collision_</a> &amp;&amp; !<a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a5ed558bfff6ed31e2db223688c35995f">collision_</a>)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Collision checker must not be a nullptr if collisions are not allowed during planning&quot;</span>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> FloatType&gt;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a5a673c54b9cea8d02596d5972b184d8d">   66</a></span>&#160;std::vector&lt;descartes_light::StateSample&lt;FloatType&gt;&gt; <a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a5a673c54b9cea8d02596d5972b184d8d">DescartesRobotSampler&lt;FloatType&gt;::sample</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">// Generate all possible Cartesian poses</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  tesseract_common::VectorIsometry3d target_poses = target_pose_sampler_(target_pose_);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="comment">// Generate the IK solutions for those poses</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  std::vector&lt;descartes_light::StateSample&lt;FloatType&gt;&gt; samples;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; pose : target_poses)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// Get the transformation to the kinematic tip link</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    Eigen::Isometry3d target_pose = pose * tcp_.inverse();</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordflow">return</span> solution_set;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// Solve IK</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    tesseract_kinematics::IKSolutions ik_solutions = ik_-&gt;calcInvKin(target_pose, ik_seed_);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> FloatType&gt;</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a17e241729ad4b9e149c65c7a1cb639a6">   82</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a17e241729ad4b9e149c65c7a1cb639a6">DescartesRobotSampler&lt;FloatType&gt;::isCollisionFree</a>(<span class="keyword">const</span> Eigen::VectorXd&amp; vertex)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordflow">if</span> (collision_ == <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">return</span> collision_-&gt;validate(vertex);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">if</span> (ik_solutions.empty())</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="comment">// Check each individual joint solution</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sol : ik_solutions)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">if</span> ((is_valid_ != <span class="keyword">nullptr</span>) &amp;&amp; !(*is_valid_)(sol))</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">continue</span>;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> FloatType&gt;</div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a377f3953d67c6d8bfdeab2d649bb392a">   91</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a377f3953d67c6d8bfdeab2d649bb392a">DescartesRobotSampler&lt;FloatType&gt;::ikAt</a>(std::vector&lt;Eigen::Matrix&lt;FloatType, Eigen::Dynamic, 1&gt;&gt;&amp; solution_set,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                            <span class="keyword">const</span> Eigen::Isometry3d&amp; target_pose,</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                            <span class="keywordtype">bool</span> get_best_solution,</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                            <span class="keywordtype">double</span>&amp; distance)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  tesseract_kinematics::IKSolutions robot_solution_set = robot_kinematics_-&gt;calcInvKin(target_pose, ik_seed_);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keywordflow">if</span> (robot_solution_set.empty())</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sol : robot_solution_set)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span> ((is_valid_ != <span class="keyword">nullptr</span>) &amp;&amp; !(*is_valid_)(sol))</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> (!get_best_solution)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      <span class="keywordflow">if</span> (isCollisionFree(sol))</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        solution_set.push_back(sol.cast&lt;FloatType&gt;());</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      <span class="keywordtype">double</span> cur_distance = collision_-&gt;distance(sol);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">if</span> (cur_distance &gt; distance)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        distance = cur_distance;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        solution_set.push_back(sol.cast&lt;FloatType&gt;());</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="keywordflow">return</span> !solution_set.empty();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> FloatType&gt;</div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a2e895a542d1401e84b7a5a785e2c18fa">  125</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a2e895a542d1401e84b7a5a785e2c18fa">DescartesRobotSampler&lt;FloatType&gt;::getBestSolution</a>(</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    std::vector&lt;Eigen::Matrix&lt;FloatType, Eigen::Dynamic, 1&gt;&gt;&amp; solution_set,</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">const</span> tesseract_common::VectorIsometry3d&amp; target_poses)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keywordtype">double</span> distance = std::numeric_limits&lt;double&gt;::min();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sp : target_poses)</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="comment">// Tool pose in rail coordinate system</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    Eigen::Isometry3d target_pose = sp * tcp_.inverse();</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    ikAt(solution_set, target_pose, <span class="keyword">false</span>, distance);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  }</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keywordflow">return</span> !solution_set.empty();</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <span class="keywordflow">if</span> (allow_collision_ &amp;&amp; collision_ == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        samples.push_back(</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            descartes_light::StateSample&lt;FloatType&gt;{ sol.cast&lt;FloatType&gt;(), <span class="keyword">static_cast&lt;</span>FloatType<span class="keyword">&gt;</span>(0.0) });</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">const</span> FloatType cost = <span class="keyword">static_cast&lt;</span>FloatType<span class="keyword">&gt;</span>(collision_-&gt;distance(sol));</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        samples.push_back(descartes_light::StateSample&lt;FloatType&gt;{ sol.cast&lt;FloatType&gt;(), cost });</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordflow">if</span> (samples.empty())</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> samples;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="comment">// Sort state samples in descending order by distance from nearest collision (i.e. state cost)</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  std::sort(samples.begin(), samples.end(), [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; a, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b) { return a.cost &gt; b.cost; });</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="comment">// Prune collision solutions</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordflow">if</span> (!allow_collision_)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">auto</span> it = std::find_if(samples.begin(), samples.end(), [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sample) { return sample.cost &lt; 0.0; });</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    samples.erase(it, samples.end());</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="comment">// Convert the distance into a cost and normalize</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordflow">if</span> (samples.size() &gt; 1)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">const</span> FloatType max_dist = samples.front().cost;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">const</span> FloatType min_dist = samples.back().cost;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">const</span> FloatType range = max_dist - min_dist;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">if</span> (range &gt; std::numeric_limits&lt;FloatType&gt;::epsilon())</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      std::for_each(samples.begin(), samples.end(), [&amp;min_dist, &amp;range](<span class="keyword">auto</span>&amp; sample) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        sample.cost = static_cast&lt;FloatType&gt;(1.0) - (sample.cost - min_dist) / range;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      });</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      std::for_each(samples.begin(), samples.end(), [](<span class="keyword">auto</span>&amp; sample) { sample.cost = 0.0; });</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="comment">// Generate the redundant solutions</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="keyword">const</span> Eigen::MatrixX2d limits = ik_-&gt;getLimits().joint_limits;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  std::vector&lt;descartes_light::StateSample&lt;FloatType&gt;&gt; redundant_samples;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> descartes_light::StateSample&lt;FloatType&gt;&amp; sample : samples)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> redundant_solutions =</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        tesseract_kinematics::getRedundantSolutions&lt;FloatType&gt;(sample.state, limits, redundancy_capable_joints_);</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_MOTION_PLANNERS_DESCARTES_ROBOT_SAMPLER_HPP</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="comment">// Add the redundant samples with the same cost as the nominal sample</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    std::transform(redundant_solutions.begin(),</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                   redundant_solutions.end(),</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                   std::back_inserter(redundant_samples),</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                   [&amp;sample](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sol) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                     return descartes_light::StateSample&lt;FloatType&gt;{ sol.template cast&lt;FloatType&gt;(), sample.cost };</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                   });</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  }</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="comment">// Combine the nominal samples with the redundant samples</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  samples.insert(samples.end(), redundant_samples.begin(), redundant_samples.end());</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="keywordflow">return</span> samples;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_MOTION_PLANNERS_DESCARTES_ROBOT_SAMPLER_HPP</span></div>
 <div class="ttc" id="aclasstesseract__planning_1_1DescartesCollision_html_aaeaeca3bdae2070fe34bdbd64fa19eb9"><div class="ttname"><a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#aaeaeca3bdae2070fe34bdbd64fa19eb9">tesseract_planning::DescartesCollision::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; DescartesCollision &gt; Ptr</div><div class="ttdef"><b>Definition:</b> descartes_collision.h:42</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_a17e241729ad4b9e149c65c7a1cb639a6"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a17e241729ad4b9e149c65c7a1cb639a6">tesseract_planning::DescartesRobotSampler::isCollisionFree</a></div><div class="ttdeci">bool isCollisionFree(const Eigen::VectorXd &amp;vertex) const</div><div class="ttdoc">Check if a solution is passes collision test.</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.hpp:82</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_a2e895a542d1401e84b7a5a785e2c18fa"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a2e895a542d1401e84b7a5a785e2c18fa">tesseract_planning::DescartesRobotSampler::getBestSolution</a></div><div class="ttdeci">bool getBestSolution(std::vector&lt; Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;solution_set, const tesseract_common::VectorIsometry3d &amp;target_poses) const</div><div class="ttdoc">This will return the best of the worst solution.</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.hpp:125</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_a377f3953d67c6d8bfdeab2d649bb392a"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a377f3953d67c6d8bfdeab2d649bb392a">tesseract_planning::DescartesRobotSampler::ikAt</a></div><div class="ttdeci">bool ikAt(std::vector&lt; Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;solution_set, const Eigen::Isometry3d &amp;target_pose, bool get_best_solution, double &amp;distance) const</div><div class="ttdoc">Solve inverse kinematics for the target pose.</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.hpp:91</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_a8a28ea4e1e570b179e99e1c6bb077cbb"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a8a28ea4e1e570b179e99e1c6bb077cbb">tesseract_planning::DescartesRobotSampler::DescartesRobotSampler</a></div><div class="ttdeci">DescartesRobotSampler(const Eigen::Isometry3d &amp;target_pose, PoseSamplerFn target_pose_sampler, tesseract_kinematics::InverseKinematics::ConstPtr robot_kinematics, DescartesCollision::Ptr collision, const Eigen::Isometry3d &amp;tcp, bool allow_collision, DescartesVertexEvaluator::Ptr is_valid)</div><div class="ttdoc">This is a descartes sampler for a robot.</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.hpp:42</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_abf4dfa0be9b61cf565dcd852b85940d4"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#abf4dfa0be9b61cf565dcd852b85940d4">tesseract_planning::DescartesRobotSampler::sample</a></div><div class="ttdeci">std::vector&lt; Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &gt; sample() const override</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.hpp:63</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_a4937408ae7e14b11fdb9edde2f0638bf"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a4937408ae7e14b11fdb9edde2f0638bf">tesseract_planning::DescartesRobotSampler::allow_collision_</a></div><div class="ttdeci">bool allow_collision_</div><div class="ttdoc">Flag indicating whether states found to be in collision should be returned.</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.h:86</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_a5a673c54b9cea8d02596d5972b184d8d"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a5a673c54b9cea8d02596d5972b184d8d">tesseract_planning::DescartesRobotSampler::sample</a></div><div class="ttdeci">std::vector&lt; descartes_light::StateSample&lt; FloatType &gt; &gt; sample() const override</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.hpp:66</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_a5ed558bfff6ed31e2db223688c35995f"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a5ed558bfff6ed31e2db223688c35995f">tesseract_planning::DescartesRobotSampler::collision_</a></div><div class="ttdeci">DescartesCollision::Ptr collision_</div><div class="ttdoc">The collision interface.</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.h:80</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1DescartesRobotSampler_html_a81f95907a8e7e3d4743a15dbfc883c01"><div class="ttname"><a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a81f95907a8e7e3d4743a15dbfc883c01">tesseract_planning::DescartesRobotSampler::DescartesRobotSampler</a></div><div class="ttdeci">DescartesRobotSampler(const Eigen::Isometry3d &amp;target_pose, PoseSamplerFn target_pose_sampler, tesseract_kinematics::InverseKinematics::ConstPtr ik, DescartesCollision::Ptr collision, const Eigen::Isometry3d &amp;tcp, bool allow_collision, DescartesVertexEvaluator::Ptr is_valid, std::vector&lt; Eigen::Index &gt; redundancy_capable_joints)</div><div class="ttdoc">This is a descartes sampler for a robot.</div><div class="ttdef"><b>Definition:</b> descartes_robot_sampler.hpp:42</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1DescartesVertexEvaluator_html_af9323f7e0912986b89ba5a57ee6e3262"><div class="ttname"><a href="../../da/d8a/classtesseract__planning_1_1DescartesVertexEvaluator.html#af9323f7e0912986b89ba5a57ee6e3262">tesseract_planning::DescartesVertexEvaluator::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; DescartesVertexEvaluator &gt; Ptr</div><div class="ttdef"><b>Definition:</b> descartes_vertex_evaluator.h:40</div></div>
 <div class="ttc" id="adescartes__robot__sampler_8h_html"><div class="ttname"><a href="../../d1/dad/descartes__robot__sampler_8h.html">descartes_robot_sampler.h</a></div><div class="ttdoc">Tesseract Descartes Kinematics Sampler.</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div><div class="ttdef"><b>Definition:</b> cartesian_waypoint.h:40</div></div>
@@ -204,7 +220,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 1 2021 12:03:17 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Jun 29 2021 18:39:38 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

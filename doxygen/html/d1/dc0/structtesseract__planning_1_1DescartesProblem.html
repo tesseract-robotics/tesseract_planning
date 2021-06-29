@@ -83,9 +83,10 @@ Collaboration diagram for tesseract_planning::DescartesProblem&lt; FloatType &gt
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d49/structtesseract__planning_1_1DescartesProblem__coll__graph.png" border="0" usemap="#atesseract__planning_1_1DescartesProblem_3_01FloatType_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="atesseract__planning_1_1DescartesProblem_3_01FloatType_01_4_coll__map" id="atesseract__planning_1_1DescartesProblem_3_01FloatType_01_4_coll__map">
-<area shape="rect" title=" " alt="" coords="372,45,515,101"/>
-<area shape="rect" title=" " alt="" coords="14,5,217,61"/>
-<area shape="rect" title=" " alt="" coords="5,85,225,141"/>
+<area shape="rect" title=" " alt="" coords="373,85,516,141"/>
+<area shape="rect" title=" " alt="" coords="13,5,217,61"/>
+<area shape="rect" title=" " alt="" coords="14,85,217,141"/>
+<area shape="rect" title=" " alt="" coords="5,165,225,221"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -103,7 +104,9 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a1673dcc7cd035754b59794534c71eafa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abeb575d4b7d1c7a8901ef479d4737a1d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; typename descartes_light::WaypointSampler&lt; FloatType &gt;::ConstPtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#abeb575d4b7d1c7a8901ef479d4737a1d">samplers</a></td></tr>
 <tr class="separator:abeb575d4b7d1c7a8901ef479d4737a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af402017d6500a4bb68d357e141dd3668"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#af402017d6500a4bb68d357e141dd3668">num_threads</a> = descartes_light::Solver&lt;double&gt;::getMaxThreads()</td></tr>
+<tr class="memitem:ad3a33ab7c267a46a72baf5b5a274fba2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; typename descartes_light::StateEvaluator&lt; FloatType &gt;::ConstPtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#ad3a33ab7c267a46a72baf5b5a274fba2">state_evaluators</a></td></tr>
+<tr class="separator:ad3a33ab7c267a46a72baf5b5a274fba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af402017d6500a4bb68d357e141dd3668"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#af402017d6500a4bb68d357e141dd3668">num_threads</a> = static_cast&lt;int&gt;(std::thread::hardware_concurrency())</td></tr>
 <tr class="separator:af402017d6500a4bb68d357e141dd3668"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -196,7 +199,7 @@ template&lt;typename FloatType &gt; </div>
 template&lt;typename FloatType &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">tesseract_planning::DescartesProblem</a>&lt; FloatType &gt;::num_threads = descartes_light::Solver&lt;double&gt;::getMaxThreads()</td>
+          <td class="memname">int <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">tesseract_planning::DescartesProblem</a>&lt; FloatType &gt;::num_threads = static_cast&lt;int&gt;(std::thread::hardware_concurrency())</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -219,13 +222,29 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="ad3a33ab7c267a46a72baf5b5a274fba2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a33ab7c267a46a72baf5b5a274fba2">&#9670;&nbsp;</a></span>state_evaluators</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FloatType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;typename descartes_light::StateEvaluator&lt;FloatType&gt;::ConstPtr&gt; <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">tesseract_planning::DescartesProblem</a>&lt; FloatType &gt;::state_evaluators</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>tesseract_motion_planners/include/tesseract_motion_planners/descartes/<a class="el" href="../../d0/d7d/descartes__problem_8h_source.html">descartes_problem.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 1 2021 12:03:18 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Jun 29 2021 18:39:40 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

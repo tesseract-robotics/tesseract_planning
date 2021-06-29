@@ -458,6 +458,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a13fa370562d132fa22c6d8faf4392b97"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a13fa370562d132fa22c6d8faf4392b97">DescartesEdgeEvaluatorAllocatorFn</a> = std::function&lt; typename descartes_light::EdgeEvaluator&lt; FloatType &gt;::Ptr(const <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">DescartesProblem</a>&lt; FloatType &gt; &amp;)&gt;</td></tr>
 <tr class="memdesc:a13fa370562d132fa22c6d8faf4392b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is used to create edge evaluator within tesseract, to allow thread safe creation of descartes edge evaluators.  <a href="../../d9/dcd/namespacetesseract__planning.html#a13fa370562d132fa22c6d8faf4392b97">More...</a><br /></td></tr>
 <tr class="separator:a13fa370562d132fa22c6d8faf4392b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ad45c74384dd7deb9560676f29ef0f0"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
+<tr class="memitem:a0ad45c74384dd7deb9560676f29ef0f0"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0ad45c74384dd7deb9560676f29ef0f0">DescartesStateEvaluatorAllocatorFn</a> = std::function&lt; typename descartes_light::StateEvaluator&lt; FloatType &gt;::Ptr(const <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">DescartesProblem</a>&lt; FloatType &gt; &amp;)&gt;</td></tr>
+<tr class="memdesc:a0ad45c74384dd7deb9560676f29ef0f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a state evaluator.  <a href="../../d9/dcd/namespacetesseract__planning.html#a0ad45c74384dd7deb9560676f29ef0f0">More...</a><br /></td></tr>
+<tr class="separator:a0ad45c74384dd7deb9560676f29ef0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ea49a60531e5234e68f838ee8377ade"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9ea49a60531e5234e68f838ee8377ade">OMPLProblemGeneratorFn</a> = std::function&lt; std::vector&lt; <a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html#aea12893d0ff5db7190406bc2822d343c">OMPLProblem::Ptr</a> &gt;(const std::string &amp;, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0baf978812f03229209b3f8fe481788a">OMPLPlanProfileMap</a> &amp;)&gt;</td></tr>
 <tr class="separator:a9ea49a60531e5234e68f838ee8377ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a907f97222f0b1a6e7b79f05b9e7d450c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a907f97222f0b1a6e7b79f05b9e7d450c">StateSamplerAllocator</a> = std::function&lt; ompl::base::StateSamplerPtr(const ompl::base::StateSpace *, const <a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;)&gt;</td></tr>
@@ -1380,6 +1384,24 @@ template&lt;typename FloatType &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ad45c74384dd7deb9560676f29ef0f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ad45c74384dd7deb9560676f29ef0f0">&#9670;&nbsp;</a></span>DescartesStateEvaluatorAllocatorFn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FloatType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0ad45c74384dd7deb9560676f29ef0f0">tesseract_planning::DescartesStateEvaluatorAllocatorFn</a> = typedef std::function&lt;typename descartes_light::StateEvaluator&lt;FloatType&gt;::Ptr(const <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">DescartesProblem</a>&lt;FloatType&gt;&amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a state evaluator. </p>
 
 </div>
 </div>
@@ -9559,7 +9581,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 1 2021 12:03:18 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Jun 29 2021 18:39:40 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

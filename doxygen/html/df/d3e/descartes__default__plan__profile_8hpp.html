@@ -83,65 +83,66 @@ $(function() {
 <code>#include &lt;<a class="el" href="../../d1/dad/descartes__robot__sampler_8h_source.html">tesseract_motion_planners/descartes/descartes_robot_sampler.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../de/d2e/descartes__collision_8h_source.html">tesseract_motion_planners/descartes/descartes_collision.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d2/d61/descartes__collision__edge__evaluator_8h_source.html">tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h</a>&gt;</code><br />
-<code>#include &lt;descartes_samplers/evaluators/euclidean_distance_edge_evaluator.h&gt;</code><br />
-<code>#include &lt;descartes_samplers/evaluators/compound_edge_evaluator.h&gt;</code><br />
-<code>#include &lt;descartes_samplers/samplers/fixed_joint_waypoint_sampler.h&gt;</code><br />
+<code>#include &lt;descartes_light/edge_evaluators/euclidean_distance_edge_evaluator.h&gt;</code><br />
+<code>#include &lt;descartes_light/edge_evaluators/compound_edge_evaluator.h&gt;</code><br />
+<code>#include &lt;descartes_light/state_evaluators/euclidean_distance_state_evaluator.h&gt;</code><br />
+<code>#include &lt;descartes_light/samplers/fixed_joint_waypoint_sampler.h&gt;</code><br />
 <code>#include &lt;tesseract_kinematics/core/utils.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for descartes_default_plan_profile.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/de5/descartes__default__plan__profile_8hpp__incl.png" border="0" usemap="#atesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2impl_2profile_2descartes__default__plan__profile_8hpp" alt=""/></div>
 <map name="atesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2impl_2profile_2descartes__default__plan__profile_8hpp" id="atesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2impl_2profile_2descartes__default__plan__profile_8hpp">
-<area shape="rect" title=" " alt="" coords="2926,5,3104,91"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="1229,250,1428,291"/>
-<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="1458,250,1657,291"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="2984,146,3182,187"/>
-<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="3206,146,3405,187"/>
-<area shape="rect" href="../../d5/d91/descartes__default__plan__profile_8h.html" title=" " alt="" coords="1996,139,2178,195"/>
-<area shape="rect" href="../../d1/dad/descartes__robot__sampler_8h.html" title="Tesseract Descartes Kinematics Sampler." alt="" coords="2729,139,2909,195"/>
-<area shape="rect" href="../../de/d2e/descartes__collision_8h.html" title="Tesseract Descartes Collision Implementation." alt="" coords="3591,250,3799,291"/>
-<area shape="rect" href="../../d2/d61/descartes__collision__edge__evaluator_8h.html" title="Tesseract Descartes Collision Edge Evaluator Implementation." alt="" coords="2457,243,2656,299"/>
-<area shape="rect" title=" " alt="" coords="3429,139,3612,195"/>
-<area shape="rect" title=" " alt="" coords="3636,139,3786,195"/>
-<area shape="rect" title=" " alt="" coords="3810,139,3953,195"/>
-<area shape="rect" title=" " alt="" coords="3978,146,4124,187"/>
-<area shape="rect" title=" " alt="" coords="2000,629,2190,656"/>
-<area shape="rect" title=" " alt="" coords="1959,361,2018,388"/>
-<area shape="rect" title=" " alt="" coords="1820,361,1935,388"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="1325,354,1524,395"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="1138,451,1337,492"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="992,354,1190,395"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="565,451,764,492"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="342,451,541,492"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1548,354,1746,395"/>
-<area shape="rect" title=" " alt="" coords="738,547,793,574"/>
-<area shape="rect" title=" " alt="" coords="638,547,714,574"/>
-<area shape="rect" title=" " alt="" coords="817,540,944,581"/>
-<area shape="rect" title=" " alt="" coords="1905,540,2032,581"/>
-<area shape="rect" title=" " alt="" coords="1020,540,1146,581"/>
-<area shape="rect" title=" " alt="" coords="1393,540,1520,581"/>
-<area shape="rect" title=" " alt="" coords="1544,540,1686,581"/>
-<area shape="rect" href="../../dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="1170,540,1369,581"/>
-<area shape="rect" title=" " alt="" coords="1710,540,1880,581"/>
-<area shape="rect" title=" " alt="" coords="2158,547,2226,574"/>
-<area shape="rect" title=" " alt="" coords="419,547,462,574"/>
-<area shape="rect" title=" " alt="" coords="60,547,132,574"/>
-<area shape="rect" title=" " alt="" coords="157,547,268,574"/>
-<area shape="rect" title=" " alt="" coords="292,547,394,574"/>
-<area shape="rect" title=" " alt="" coords="1800,451,2004,492"/>
-<area shape="rect" title=" " alt="" coords="2764,354,2895,395"/>
-<area shape="rect" href="../../dd/db6/descartes__profile_8h.html" title=" " alt="" coords="1736,243,1918,299"/>
-<area shape="rect" href="../../d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="1994,250,2180,291"/>
-<area shape="rect" href="../../db/d7b/tesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="2204,250,2383,291"/>
-<area shape="rect" title=" " alt="" coords="2282,354,2446,395"/>
-<area shape="rect" title=" " alt="" coords="3112,250,3276,291"/>
-<area shape="rect" title=" " alt="" coords="3300,257,3448,284"/>
-<area shape="rect" title=" " alt="" coords="3472,257,3566,284"/>
-<area shape="rect" title=" " alt="" coords="2730,250,2908,291"/>
-<area shape="rect" title=" " alt="" coords="2932,250,3087,291"/>
-<area shape="rect" title=" " alt="" coords="2919,354,3074,395"/>
-<area shape="rect" title=" " alt="" coords="3098,347,3249,403"/>
-<area shape="rect" title=" " alt="" coords="2522,347,2690,403"/>
+<area shape="rect" title=" " alt="" coords="2946,5,3125,91"/>
+<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="1166,250,1364,291"/>
+<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="1432,250,1631,291"/>
+<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="2936,146,3135,187"/>
+<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="3159,146,3358,187"/>
+<area shape="rect" href="../../d5/d91/descartes__default__plan__profile_8h.html" title=" " alt="" coords="1982,139,2164,195"/>
+<area shape="rect" href="../../d1/dad/descartes__robot__sampler_8h.html" title="Tesseract Descartes Kinematics Sampler." alt="" coords="2682,139,2862,195"/>
+<area shape="rect" href="../../de/d2e/descartes__collision_8h.html" title="Tesseract Descartes Collision Implementation." alt="" coords="3382,250,3590,291"/>
+<area shape="rect" href="../../d2/d61/descartes__collision__edge__evaluator_8h.html" title="Tesseract Descartes Collision Edge Evaluator Implementation." alt="" coords="2444,243,2643,299"/>
+<area shape="rect" title=" " alt="" coords="3382,139,3564,195"/>
+<area shape="rect" title=" " alt="" coords="3588,139,3742,195"/>
+<area shape="rect" title=" " alt="" coords="3766,139,3950,195"/>
+<area shape="rect" title=" " alt="" coords="3975,146,4179,187"/>
+<area shape="rect" title=" " alt="" coords="4204,146,4350,187"/>
+<area shape="rect" title=" " alt="" coords="1992,629,2183,656"/>
+<area shape="rect" title=" " alt="" coords="1953,361,2012,388"/>
+<area shape="rect" title=" " alt="" coords="1814,361,1929,388"/>
+<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="1319,354,1518,395"/>
+<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="1132,451,1331,492"/>
+<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="888,354,1087,395"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="532,451,731,492"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="310,451,508,492"/>
+<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1591,354,1790,395"/>
+<area shape="rect" title=" " alt="" coords="732,547,787,574"/>
+<area shape="rect" title=" " alt="" coords="632,547,708,574"/>
+<area shape="rect" title=" " alt="" coords="811,540,938,581"/>
+<area shape="rect" title=" " alt="" coords="1526,540,1652,581"/>
+<area shape="rect" title=" " alt="" coords="1676,540,1803,581"/>
+<area shape="rect" title=" " alt="" coords="1014,540,1140,581"/>
+<area shape="rect" title=" " alt="" coords="1165,540,1306,581"/>
+<area shape="rect" href="../../dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="1827,540,2026,581"/>
+<area shape="rect" title=" " alt="" coords="1330,540,1501,581"/>
+<area shape="rect" title=" " alt="" coords="2151,547,2219,574"/>
+<area shape="rect" title=" " alt="" coords="54,547,97,574"/>
+<area shape="rect" title=" " alt="" coords="121,547,193,574"/>
+<area shape="rect" title=" " alt="" coords="218,547,328,574"/>
+<area shape="rect" title=" " alt="" coords="352,547,455,574"/>
+<area shape="rect" title=" " alt="" coords="1914,451,2118,492"/>
+<area shape="rect" title=" " alt="" coords="2801,354,2932,395"/>
+<area shape="rect" href="../../dd/db6/descartes__profile_8h.html" title=" " alt="" coords="1722,243,1904,299"/>
+<area shape="rect" href="../../d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="1980,250,2166,291"/>
+<area shape="rect" href="../../db/d7b/tesseract__motion__planners_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="2241,250,2420,291"/>
+<area shape="rect" title=" " alt="" coords="2345,354,2484,395"/>
+<area shape="rect" title=" " alt="" coords="3099,250,3239,291"/>
+<area shape="rect" title=" " alt="" coords="3263,257,3358,284"/>
+<area shape="rect" title=" " alt="" coords="2718,250,2895,291"/>
+<area shape="rect" title=" " alt="" coords="2920,250,3074,291"/>
+<area shape="rect" title=" " alt="" coords="2985,354,3140,395"/>
+<area shape="rect" title=" " alt="" coords="3208,347,3359,403"/>
+<area shape="rect" title=" " alt="" coords="2558,347,2726,403"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -173,7 +174,7 @@ Namespaces</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 1 2021 12:03:17 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Tue Jun 29 2021 18:39:39 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

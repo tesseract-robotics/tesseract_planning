@@ -337,6 +337,8 @@ using \mbox{\hyperlink{namespacetesseract__planning_ac277af397716f1c38a0435af91d
 \begin{DoxyCompactList}\small\item\em This is used for tesseract descartes samplers that filters out invalid solutions. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}{Descartes\+Edge\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$ Float\+Type $>$\+::Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&)$>$
 \begin{DoxyCompactList}\small\item\em This is used to create edge evaluator within tesseract, to allow thread safe creation of descartes edge evaluators. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{Descartes\+State\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ typename descartes\+\_\+light\+::\+State\+Evaluator$<$ Float\+Type $>$\+::Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&)$>$
+\begin{DoxyCompactList}\small\item\em Creates a state evaluator. \end{DoxyCompactList}\item 
 using \mbox{\hyperlink{namespacetesseract__planning_a9ea49a60531e5234e68f838ee8377ade}{OMPLProblem\+Generator\+Fn}} = std\+::function$<$ std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}} $>$(const std\+::string \&, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&, const \mbox{\hyperlink{namespacetesseract__planning_a0baf978812f03229209b3f8fe481788a}{OMPLPlan\+Profile\+Map}} \&)$>$
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}{State\+Sampler\+Allocator}} = std\+::function$<$ ompl\+::base\+::\+State\+Sampler\+Ptr(const ompl\+::base\+::\+State\+Space $\ast$, const \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&)$>$
@@ -1006,6 +1008,17 @@ using \mbox{\hyperlink{namespacetesseract__planning_a1f0a5a12f01cee2c4cddb464870
 \index{DescartesRobotSamplerF@{DescartesRobotSamplerF}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{DescartesRobotSamplerF}{DescartesRobotSamplerF}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a58188c9bc4483af734ecc1e9b81285b6}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+SamplerF}} = typedef \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{Descartes\+Robot\+Sampler}}$<$float$>$}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}\label{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}} 
+\index{tesseract\_planning@{tesseract\_planning}!DescartesStateEvaluatorAllocatorFn@{DescartesStateEvaluatorAllocatorFn}}
+\index{DescartesStateEvaluatorAllocatorFn@{DescartesStateEvaluatorAllocatorFn}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{DescartesStateEvaluatorAllocatorFn}{DescartesStateEvaluatorAllocatorFn}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+using \mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{tesseract\+\_\+planning\+::\+Descartes\+State\+Evaluator\+Allocator\+Fn}} = typedef std\+::function$<$typename descartes\+\_\+light\+::\+State\+Evaluator$<$Float\+Type$>$\+::Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$Float\+Type$>$\&)$>$}
+
+
+
+Creates a state evaluator. 
 
 \mbox{\Hypertarget{namespacetesseract__planning_a7a8351e5785986a6e075296e3bfdb7fc}\label{namespacetesseract__planning_a7a8351e5785986a6e075296e3bfdb7fc}} 
 \index{tesseract\_planning@{tesseract\_planning}!DescartesVertexEvaluatorAllocatorFn@{DescartesVertexEvaluatorAllocatorFn}}
