@@ -46,6 +46,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
   // Clear descartes data
   prob->edge_evaluators.clear();
   prob->samplers.clear();
+  prob->state_evaluators.clear();
 
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());

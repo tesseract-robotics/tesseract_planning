@@ -30,7 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 #include <functional>
-#include <descartes_light/interface/edge_evaluator.h>
+#include <descartes_light/core/edge_evaluator.h>
 #include <tesseract_motion_planners/descartes/descartes_vertex_evaluator.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -55,6 +55,13 @@ using DescartesVertexEvaluatorAllocatorFn =
 template <typename FloatType>
 using DescartesEdgeEvaluatorAllocatorFn =
     std::function<typename descartes_light::EdgeEvaluator<FloatType>::Ptr(const DescartesProblem<FloatType>&)>;
+
+/**
+ * @brief Creates a state evaluator
+ */
+template <typename FloatType>
+using DescartesStateEvaluatorAllocatorFn =
+    std::function<typename descartes_light::StateEvaluator<FloatType>::Ptr(const DescartesProblem<FloatType>&)>;
 
 }  // namespace tesseract_planning
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_TYPES_H

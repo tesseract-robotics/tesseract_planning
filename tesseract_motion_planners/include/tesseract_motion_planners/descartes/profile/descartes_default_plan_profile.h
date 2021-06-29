@@ -63,20 +63,38 @@ public:
 
 #ifndef SWIG
   DescartesEdgeEvaluatorAllocatorFn<FloatType> edge_evaluator{ nullptr };
+  DescartesStateEvaluatorAllocatorFn<FloatType> state_evaluator{ nullptr };
 
   // If not provided it adds a joint limit is valid function
   DescartesVertexEvaluatorAllocatorFn<FloatType> vertex_evaluator{ nullptr };
 #endif
 
-  // Applied to sampled states
+  /**
+   * @brief Flag to indicate that collisions should not cause failures during state/edge evaluation
+   * @details Sometimes it is beneficial to evaluate states and edges based on the distance of states from collision
+   * without treating collisions as failures. In the case that the Descartes trajectory is used as a seed for a
+   * subsequent planner, such as TrajOpt, the subsequent planner can adjust/optimize individual joint poses such that
+   * they become collision-free.
+   */
+  bool allow_collision{ false };
+
+  /** @brief Flag to apply collision checking during state sampling */
   bool enable_collision{ true };
   tesseract_collision::CollisionCheckConfig vertex_collision_check_config{ 0 };
 
-  // Applied during edge evaluation
+  /** @brief Flag to apply collision checking during edge evaluation */
   bool enable_edge_collision{ false };
   tesseract_collision::CollisionCheckConfig edge_collision_check_config{ 0 };
+
+  /**
+   * @brief Flag for generating redundant solutions as additional vertices for the planning graph search
+   */
+  bool use_redundant_joint_solutions{ false };
+
+  /** @brief Number of threads to use during planning */
   int num_threads{ 1 };
-  bool allow_collision{ false };
+
+  /** @brief Flag to produce debug information during planning */
   bool debug{ false };
 
   void apply(DescartesProblem<FloatType>& prob,

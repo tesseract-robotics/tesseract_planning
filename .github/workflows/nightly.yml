@@ -36,8 +36,8 @@ jobs:
              ROS_REPO: main,
              UPSTREAM_WORKSPACE: 'dependencies.rosinstall',
              DOWNSTREAM_WORKSPACE: 'github:ros-industrial-consortium/tesseract_ros#master github:ros-industrial-consortium/tesseract_python#master',
-             ROSDEP_SKIP_KEYS: "bullet ompl orocos_kdl python-numpy ifopt python descartes_opw descartes_samplers descartes_light opw_kinematics ros_industrial_cmake_boilerplate iwyu"
-             DOCKER_IMAGE: "rosindustrial/tesseract:noetic"
+             ROSDEP_SKIP_KEYS: "bullet ompl orocos_kdl python-numpy ifopt python descartes_light opw_kinematics ros_industrial_cmake_boilerplate iwyu",
+             DOCKER_IMAGE: "rosindustrial/tesseract:noetic",
              CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Focal-Build-Nightly/.ccache",
              UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
              TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",

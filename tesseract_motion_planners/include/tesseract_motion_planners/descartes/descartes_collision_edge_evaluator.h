@@ -30,7 +30,7 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <vector>
-#include <descartes_light/interface/edge_evaluator.h>
+#include <descartes_light/core/edge_evaluator.h>
 #include <tesseract_environment/core/environment.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/continuous_contact_manager.h>
