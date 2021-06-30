@@ -72,3 +72,16 @@ target_clang_tidy(${PROJECT_NAME}_graph_taskflow_unit ARGUMENTS ${TESSERACT_CLAN
 target_code_coverage(${PROJECT_NAME}_graph_taskflow_unit ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 add_gtest_discover_tests(${PROJECT_NAME}_graph_taskflow_unit)
 add_dependencies(run_tests ${PROJECT_NAME}_graph_taskflow_unit)
+
+# Serialize Tests
+add_executable(${PROJECT_NAME}_serialize_unit serialize_test.cpp)
+target_link_libraries(${PROJECT_NAME}_serialize_unit PRIVATE GTest::GTest GTest::Main ${PROJECT_NAME})
+target_include_directories(${PROJECT_NAME}_serialize_unit PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>")
+target_compile_options(${PROJECT_NAME}_serialize_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+target_clang_tidy(${PROJECT_NAME}_serialize_unit ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_cxx_version(${PROJECT_NAME}_serialize_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
+target_code_coverage(${PROJECT_NAME}_serialize_unit ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
+add_gtest_discover_tests(${PROJECT_NAME}_serialize_unit)
+add_dependencies(run_tests ${PROJECT_NAME}_serialize_unit)
+add_dependencies(${PROJECT_NAME}_serialize_unit ${PROJECT_NAME})
