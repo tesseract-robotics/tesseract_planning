@@ -70,8 +70,8 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
 
 template <typename FloatType>
 std::pair<bool, FloatType>
-DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& start,
-                                                     const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& end) const
+DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const Eigen::Ref<const descartes_light::State<FloatType>>& start,
+                                                     const Eigen::Ref<const descartes_light::State<FloatType>>& end) const
 {
   assert(start.rows() == end.rows());
 

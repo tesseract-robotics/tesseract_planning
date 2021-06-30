@@ -50,8 +50,8 @@ public:
                                   bool allow_collision = false,
                                   bool debug = false);
 
-  std::pair<bool, FloatType> evaluate(const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& start,
-                                      const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& end) const override;
+  std::pair<bool, FloatType> evaluate(const Eigen::Ref<const descartes_light::State<FloatType>>& start,
+                                      const Eigen::Ref<const descartes_light::State<FloatType>>& end) const override;
 
 protected:
   /** @brief The tesseract state solver */
