@@ -1,0 +1,149 @@
+\hypertarget{classtesseract__planning_1_1TaskInfoProfiler}{}\doxysection{tesseract\+\_\+planning\+::Task\+Info\+Profiler Class Reference}
+\label{classtesseract__planning_1_1TaskInfoProfiler}\index{tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}}
+
+
+Loads Task\+Infos from various sources and calculates some statistics.  
+
+
+
+
+{\ttfamily \#include $<$task\+\_\+info\+\_\+statistics.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Task\+Info\+Profiler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{d9/d70/classtesseract__planning_1_1TaskInfoProfiler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_af844220f52f5a96eeb05ec820c96a1a8}{load}} (const tesseract\+\_\+common\+::fs\+::path \&directory)
+\begin{DoxyCompactList}\small\item\em Load a directory of std\+::vector$<$\+Task\+Info$>$ serialized to XML. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_ae75d2a913512f5b4087e8e6fc1ef9bea}{load}} (const std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} $>$$>$ \&task\+\_\+info\+\_\+vecs)
+\begin{DoxyCompactList}\small\item\em Load task info vectors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_a2eaf609f8b43fc3e05e10c211ac74937}{load}} (const std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ \&task\+\_\+info\+\_\+map)
+\begin{DoxyCompactList}\small\item\em Load from format provided from \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}}. Probably used like load(response.\+interface-\/$>$get\+Task\+Info\+Map());. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_a7dda476d6cb0333c1fa7d0cd1e47c7e7}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Clears any loaded data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_ac41f1bd57d23cd760bb7419985d4a139}{print}} (std\+::ostream \&os=std\+::cout) const
+\begin{DoxyCompactList}\small\item\em Prints summary statistics to the stream. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo}{Task\+Display\+Info}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_a5b2a4c6aff6d368d03dbdfcd90c4e9e0}{get\+Task\+Display\+Info}} ()
+\begin{DoxyCompactList}\small\item\em Gets information about each task to be used in displays. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics}{Task\+Info\+Statistics}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_a327c088e3ac853db138d9ed81f058f4a}{stats\+\_\+map}}
+\begin{DoxyCompactList}\small\item\em Key\+: Task name, Value\+: Statistics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Loads Task\+Infos from various sources and calculates some statistics. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfoProfiler_a7dda476d6cb0333c1fa7d0cd1e47c7e7}\label{classtesseract__planning_1_1TaskInfoProfiler_a7dda476d6cb0333c1fa7d0cd1e47c7e7}} 
+\index{tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}!clear@{clear}}
+\index{clear@{clear}!tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void Task\+Info\+Profiler\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clears any loaded data. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfoProfiler_a5b2a4c6aff6d368d03dbdfcd90c4e9e0}\label{classtesseract__planning_1_1TaskInfoProfiler_a5b2a4c6aff6d368d03dbdfcd90c4e9e0}} 
+\index{tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}!getTaskDisplayInfo@{getTaskDisplayInfo}}
+\index{getTaskDisplayInfo@{getTaskDisplayInfo}!tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}}
+\doxysubsubsection{\texorpdfstring{getTaskDisplayInfo()}{getTaskDisplayInfo()}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo}{Task\+Display\+Info}} $>$ Task\+Info\+Profiler\+::get\+Task\+Display\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets information about each task to be used in displays. 
+
+Example\+: dump(os, graph, profiler.\+get\+Task\+Display\+Info()); \begin{DoxyReturn}{Returns}
+Information about each task to be used in displays 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfoProfiler_a2eaf609f8b43fc3e05e10c211ac74937}\label{classtesseract__planning_1_1TaskInfoProfiler_a2eaf609f8b43fc3e05e10c211ac74937}} 
+\index{tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}!load@{load}}
+\index{load@{load}!tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void Task\+Info\+Profiler\+::load (\begin{DoxyParamCaption}\item[{const std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ \&}]{task\+\_\+info\+\_\+map }\end{DoxyParamCaption})}
+
+
+
+Load from format provided from \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}}. Probably used like load(response.\+interface-\/$>$get\+Task\+Info\+Map());. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task\+\_\+info\+\_\+map} & Key\+: unique\+\_\+id (unused), Value\+: \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} to be inserted \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfoProfiler_ae75d2a913512f5b4087e8e6fc1ef9bea}\label{classtesseract__planning_1_1TaskInfoProfiler_ae75d2a913512f5b4087e8e6fc1ef9bea}} 
+\index{tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}!load@{load}}
+\index{load@{load}!tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void Task\+Info\+Profiler\+::load (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} $>$$>$ \&}]{task\+\_\+info\+\_\+vecs }\end{DoxyParamCaption})}
+
+
+
+Load task info vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task\+\_\+info\+\_\+vecs} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfoProfiler_af844220f52f5a96eeb05ec820c96a1a8}\label{classtesseract__planning_1_1TaskInfoProfiler_af844220f52f5a96eeb05ec820c96a1a8}} 
+\index{tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}!load@{load}}
+\index{load@{load}!tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void Task\+Info\+Profiler\+::load (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::fs\+::path \&}]{directory }\end{DoxyParamCaption})}
+
+
+
+Load a directory of std\+::vector$<$\+Task\+Info$>$ serialized to XML. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em directory} & Directory containing serialized Task\+Infos \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfoProfiler_ac41f1bd57d23cd760bb7419985d4a139}\label{classtesseract__planning_1_1TaskInfoProfiler_ac41f1bd57d23cd760bb7419985d4a139}} 
+\index{tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}!print@{print}}
+\index{print@{print}!tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Task\+Info\+Profiler\+::print (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os = {\ttfamily std\+:\+:cout} }\end{DoxyParamCaption}) const}
+
+
+
+Prints summary statistics to the stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & Stream to which the statistics will be printed \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskInfoProfiler_a327c088e3ac853db138d9ed81f058f4a}\label{classtesseract__planning_1_1TaskInfoProfiler_a327c088e3ac853db138d9ed81f058f4a}} 
+\index{tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}!stats\_map@{stats\_map}}
+\index{stats\_map@{stats\_map}!tesseract\_planning::TaskInfoProfiler@{tesseract\_planning::TaskInfoProfiler}}
+\doxysubsubsection{\texorpdfstring{stats\_map}{stats\_map}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics}{Task\+Info\+Statistics}}$>$ tesseract\+\_\+planning\+::\+Task\+Info\+Profiler\+::stats\+\_\+map\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Key\+: Task name, Value\+: Statistics. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/utils/\mbox{\hyperlink{task__info__statistics_8h}{task\+\_\+info\+\_\+statistics.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/utils/\mbox{\hyperlink{task__info__statistics_8cpp}{task\+\_\+info\+\_\+statistics.\+cpp}}\end{DoxyCompactItemize}

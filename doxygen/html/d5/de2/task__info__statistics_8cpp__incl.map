@@ -1,0 +1,52 @@
+<map id="tesseract_process_managers/src/utils/task_info_statistics.cpp" name="tesseract_process_managers/src/utils/task_info_statistics.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2104,5,2317,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="665,1375,855,1401"/>
+<area shape="rect" id="node3" title=" " alt="" coords="2783,95,2910,136"/>
+<area shape="rect" id="node4" href="$dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="2646,1285,2845,1327"/>
+<area shape="rect" id="node9" href="$d3/d68/task__info__statistics_8h.html" title=" " alt="" coords="1589,95,1782,136"/>
+<area shape="rect" id="node5" title=" " alt="" coords="2539,1375,2605,1401"/>
+<area shape="rect" id="node6" title=" " alt="" coords="2629,1375,2699,1401"/>
+<area shape="rect" id="node7" title=" " alt="" coords="2723,1375,2927,1401"/>
+<area shape="rect" id="node8" title=" " alt="" coords="2952,1375,3152,1401"/>
+<area shape="rect" id="node10" title=" " alt="" coords="2230,1293,2298,1319"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1483,935,1530,962"/>
+<area shape="rect" id="node12" href="$dd/d0f/task__info_8h.html" title="Process Info." alt="" coords="1631,839,1825,880"/>
+<area shape="rect" id="node26" href="$da/d33/taskflow__visualization__utils_8h.html" title="Utils for visualizing taskflows." alt="" coords="1589,184,1782,240"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1946,1114,2049,1141"/>
+<area shape="rect" id="node14" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="1135,1107,1334,1148"/>
+<area shape="rect" id="node24" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="797,1017,995,1059"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1279,928,1433,969"/>
+<area shape="rect" id="node15" title=" " alt="" coords="515,1293,570,1319"/>
+<area shape="rect" id="node16" title=" " alt="" coords="1765,1293,1841,1319"/>
+<area shape="rect" id="node17" title=" " alt="" coords="697,1285,823,1327"/>
+<area shape="rect" id="node18" title=" " alt="" coords="1094,1285,1221,1327"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1245,1285,1371,1327"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1447,1285,1574,1327"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1599,1285,1740,1327"/>
+<area shape="rect" id="node22" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="1274,1196,1473,1237"/>
+<area shape="rect" id="node23" title=" " alt="" coords="899,1285,1069,1327"/>
+<area shape="rect" id="node27" title=" " alt="" coords="950,1114,1061,1141"/>
+<area shape="rect" id="node28" href="$db/da3/graph__taskflow_8h.html" title="Creates a directed graph taskflow." alt="" coords="2241,288,2434,344"/>
+<area shape="rect" id="node29" title=" " alt="" coords="2428,1025,2487,1051"/>
+<area shape="rect" id="node30" title=" " alt="" coords="2156,667,2303,694"/>
+<area shape="rect" id="node31" href="$db/d75/taskflow__generator_8h.html" title="Taskflow generator." alt="" coords="1866,392,2059,433"/>
+<area shape="rect" id="node49" href="$d7/dfd/task__generator_8h.html" title="Process generator." alt="" coords="1971,571,2165,612"/>
+<area shape="rect" id="node32" href="$da/d13/tesseract__process__managers_2include_2tesseract__process__managers_2core_2types_8h.html" title="Tesseract process managers types." alt="" coords="1269,571,1462,612"/>
+<area shape="rect" id="node34" href="$d5/d35/task__input_8h.html" title="Process input." alt="" coords="1429,660,1622,701"/>
+<area shape="rect" id="node50" href="$dd/d9d/taskflow__container_8h.html" title="Taskflow container is used to contain everything that must stay around until it finishes." alt="" coords="2106,481,2299,523"/>
+<area shape="rect" id="node33" title=" " alt="" coords="1326,667,1405,694"/>
+<area shape="rect" id="node35" title=" " alt="" coords="1444,846,1505,873"/>
+<area shape="rect" id="node36" href="$d7/dc9/taskflow__interface_8h.html" title="Process Inteface." alt="" coords="1495,749,1689,791"/>
+<area shape="rect" id="node37" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="1654,1017,1853,1059"/>
+<area shape="rect" id="node40" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="889,749,1068,791"/>
+<area shape="rect" id="node44" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="522,1017,721,1059"/>
+<area shape="rect" id="node38" title=" " alt="" coords="1732,1114,1775,1141"/>
+<area shape="rect" id="node39" title=" " alt="" coords="1799,1114,1871,1141"/>
+<area shape="rect" id="node41" title=" " alt="" coords="892,839,1065,880"/>
+<area shape="rect" id="node42" title=" " alt="" coords="1089,846,1268,873"/>
+<area shape="rect" id="node43" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="569,839,767,880"/>
+<area shape="rect" id="node46" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="295,1107,494,1148"/>
+<area shape="rect" id="node47" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1358,1107,1557,1148"/>
+<area shape="rect" id="node48" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="933,928,1131,969"/>
+<area shape="rect" id="node45" title=" " alt="" coords="518,1107,722,1148"/>
+</map>

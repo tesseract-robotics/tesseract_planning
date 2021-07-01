@@ -361,6 +361,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d57/classtesseract__planning_1_1FreespaceTaskflow.html">FreespaceTaskflow</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/ddd/structtesseract__planning_1_1GraphTaskflowNode.html">GraphTaskflowNode</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for holding relevant information about the nodes.  <a href="../../dd/ddd/structtesseract__planning_1_1GraphTaskflowNode.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html">GraphTaskflow</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph connected to each other in a configurable order by directed edges.  <a href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -392,6 +395,15 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/structtesseract__planning_1_1TrajOptTaskflowParams.html">TrajOptTaskflowParams</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d16/classtesseract__planning_1_1TrajOptTaskflow.html">TrajOptTaskflow</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dcc/structtesseract__planning_1_1TaskInfoStatistics.html">TaskInfoStatistics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container for stats on one <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>.  <a href="../../d8/dcc/structtesseract__planning_1_1TaskInfoStatistics.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d62/classtesseract__planning_1_1TaskInfoProfiler.html">TaskInfoProfiler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads TaskInfos from various sources and calculates some statistics.  <a href="../../de/d62/classtesseract__planning_1_1TaskInfoProfiler.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html">TaskDisplayInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains additional information about a task to be displayed.  <a href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5b/classtesseract__planning_1_1IterativeSplineParameterization.html">IterativeSplineParameterization</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints. Initial/final velocities and accelerations may be specified in the trajectory. Velocity and acceleration limits are specified in the model.  <a href="../../d4/d5b/classtesseract__planning_1_1IterativeSplineParameterization.html#details">More...</a><br /></td></tr>
@@ -1000,10 +1012,10 @@ Functions</h2></td></tr>
 <tr class="separator:ab6a97e73f80873b61a00a24efb86eb86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab426fca18d5631d971d837bdf955a9b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html#aea12893d0ff5db7190406bc2822d343c">OMPLProblem::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab426fca18d5631d971d837bdf955a9b1">CreateOMPLSubProblem</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_kinematics::ForwardKinematics::Ptr &amp;manip_fwd_kin, const tesseract_kinematics::InverseKinematics::Ptr &amp;manip_inv_kin, const std::vector&lt; std::string &gt; &amp;active_link_names)</td></tr>
 <tr class="separator:ab426fca18d5631d971d837bdf955a9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa020807b618d06c3ce62557d79d47fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afa020807b618d06c3ce62557d79d47fb">freespaceExampleProgramIIWA</a> (const std::string &amp;composite_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>, const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>)</td></tr>
-<tr class="separator:afa020807b618d06c3ce62557d79d47fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a236b4cbeff0939c5cbfd2cc2581ef9f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a236b4cbeff0939c5cbfd2cc2581ef9f9">freespaceExampleProgramABB</a> (const std::string &amp;composite_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>, const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>)</td></tr>
-<tr class="separator:a236b4cbeff0939c5cbfd2cc2581ef9f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d0aafc81bd3d3129b23ec8e814f5ee4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4d0aafc81bd3d3129b23ec8e814f5ee4">freespaceExampleProgramIIWA</a> (const Eigen::Isometry3d &amp;goal=Eigen::Isometry3d::Identity() *Eigen::Translation3d(0.2, 0.2, 1.0), const std::string &amp;composite_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>, const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>)</td></tr>
+<tr class="separator:a4d0aafc81bd3d3129b23ec8e814f5ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a2039b9a45e29e30050777ff8b69bfa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7a2039b9a45e29e30050777ff8b69bfa">freespaceExampleProgramABB</a> (const Eigen::Isometry3d &amp;goal=Eigen::Isometry3d::Identity() *Eigen::Translation3d(0.2, 0.2, 1.0), const std::string &amp;composite_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>, const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>)</td></tr>
+<tr class="separator:a7a2039b9a45e29e30050777ff8b69bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f0b6fb9b078c946b090969aa5535c5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2f0b6fb9b078c946b090969aa5535c5e">rasterDTExampleProgram</a> (const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a>, const std::string &amp;process_profile=&quot;PROCESS&quot;)</td></tr>
 <tr class="memdesc:a2f0b6fb9b078c946b090969aa5535c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a example raster program with dual transitions.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2f0b6fb9b078c946b090969aa5535c5e">More...</a><br /></td></tr>
 <tr class="separator:a2f0b6fb9b078c946b090969aa5535c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1106,6 +1118,12 @@ Functions</h2></td></tr>
 <tr class="separator:a5c1bad9f7a45c68fc162ddd786b7f257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae71c4e857f363d16f291068a588bd5ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae71c4e857f363d16f291068a588bd5ef">ApplyCorrectionWorkflow</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile)</td></tr>
 <tr class="separator:ae71c4e857f363d16f291068a588bd5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae57bb0d41e17673d6eb453a74f1253c5"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::vector&lt; <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae57bb0d41e17673d6eb453a74f1253c5">sortTaskInfosByTaskName</a> (const std::vector&lt; std::vector&lt; <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &gt;&gt; &amp;task_infos)</td></tr>
+<tr class="memdesc:ae57bb0d41e17673d6eb453a74f1253c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes multiple vectors of task infos from repeated planning calls and sorts them into a map keyed by task name.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae57bb0d41e17673d6eb453a74f1253c5">More...</a><br /></td></tr>
+<tr class="separator:ae57bb0d41e17673d6eb453a74f1253c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abce3db3955c360919bf56294b7d2f1ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abce3db3955c360919bf56294b7d2f1ef">dump</a> (std::ostream &amp;os, const <a class="el" href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html#abb81a789c742a90df025d5d329cc639e">GraphTaskflow::UPtr</a> &amp;graph, const std::unordered_map&lt; std::string, <a class="el" href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html">TaskDisplayInfo</a> &gt; &amp;task_info_map=std::unordered_map&lt; std::string, <a class="el" href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html">TaskDisplayInfo</a> &gt;())</td></tr>
+<tr class="memdesc:abce3db3955c360919bf56294b7d2f1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility for a custom graphviz dump for graph taskflows that allows the addition of addition information.  <a href="../../d9/dcd/namespacetesseract__planning.html#abce3db3955c360919bf56294b7d2f1ef">More...</a><br /></td></tr>
+<tr class="separator:abce3db3955c360919bf56294b7d2f1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38a77d0f5635d9f28460c5f038e8f14c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a38a77d0f5635d9f28460c5f038e8f14c">ApplyCorrectionWorkflow</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
 <tr class="separator:a38a77d0f5635d9f28460c5f038e8f14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8c98bef4d1dd9386473cc9c4eebaacd7">RescaleTimings</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, std::vector&lt; double &gt; scalings)</td></tr>
@@ -4661,6 +4679,58 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="abce3db3955c360919bf56294b7d2f1ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abce3db3955c360919bf56294b7d2f1ef">&#9670;&nbsp;</a></span>dump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::dump </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html#abb81a789c742a90df025d5d329cc639e">GraphTaskflow::UPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, <a class="el" href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html">TaskDisplayInfo</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>task_info_map</em> = <code>std::unordered_map&lt;std::string,&#160;<a class="el" href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html">TaskDisplayInfo</a>&gt;()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Utility for a custom graphviz dump for graph taskflows that allows the addition of addition information. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Stream to which the dot file is dumped </td></tr>
+    <tr><td class="paramname">graph</td><td><a class="el" href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c...">GraphTaskflow</a> dumped to dot file </td></tr>
+    <tr><td class="paramname">task_info_map</td><td>Key: Task name, Value: Information about that task to add to the visualization </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a4a082cae593b327f12943022ad5cf5f7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a082cae593b327f12943022ad5cf5f7">&#9670;&nbsp;</a></span>failureTask()</h2>
 
@@ -5397,8 +5467,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a236b4cbeff0939c5cbfd2cc2581ef9f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a236b4cbeff0939c5cbfd2cc2581ef9f9">&#9670;&nbsp;</a></span>freespaceExampleProgramABB()</h2>
+<a id="a7a2039b9a45e29e30050777ff8b69bfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a2039b9a45e29e30050777ff8b69bfa">&#9670;&nbsp;</a></span>freespaceExampleProgramABB()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5409,6 +5479,12 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> tesseract_planning::freespaceExampleProgramABB </td>
           <td>(</td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>goal</em> = <code>Eigen::Isometry3d::Identity()&#160;*&#160;Eigen::Translation3d(0.2,&#160;0.2,&#160;1.0)</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>composite_profile</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a></code>, </td>
         </tr>
@@ -5433,8 +5509,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="afa020807b618d06c3ce62557d79d47fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa020807b618d06c3ce62557d79d47fb">&#9670;&nbsp;</a></span>freespaceExampleProgramIIWA()</h2>
+<a id="a4d0aafc81bd3d3129b23ec8e814f5ee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d0aafc81bd3d3129b23ec8e814f5ee4">&#9670;&nbsp;</a></span>freespaceExampleProgramIIWA()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5445,6 +5521,12 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> tesseract_planning::freespaceExampleProgramIIWA </td>
           <td>(</td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>goal</em> = <code>Eigen::Isometry3d::Identity()&#160;*&#160;Eigen::Translation3d(0.2,&#160;0.2,&#160;1.0)</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>composite_profile</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43d81c6e05a1a36d5a36bee6c034e88b">DEFAULT_PROFILE_KEY</a></code>, </td>
         </tr>
@@ -8605,6 +8687,41 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="ae57bb0d41e17673d6eb453a74f1253c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae57bb0d41e17673d6eb453a74f1253c5">&#9670;&nbsp;</a></span>sortTaskInfosByTaskName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, std::vector&lt;<a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>&gt; &gt; tesseract_planning::sortTaskInfosByTaskName </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::vector&lt; <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>task_infos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Takes multiple vectors of task infos from repeated planning calls and sorts them into a map keyed by task name. </p>
+<p>This is so that we can look up all task infos by the task name since they will have different unique ids for each planning run </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">task_infos</td><td>Each planning call produces a vector of TaskInfos. This is a vector of those vectors </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Task infos sorted into a map keyed by task name </dd></dl>
+
+</div>
+</div>
 <a id="a627d417f4d206352657ce7f78bc79287"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a627d417f4d206352657ce7f78bc79287">&#9670;&nbsp;</a></span>StateInCollision()</h2>
 
@@ -9581,7 +9698,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 29 2021 18:39:40 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Jul 1 2021 14:05:38 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

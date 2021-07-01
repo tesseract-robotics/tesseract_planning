@@ -1,10 +1,10 @@
 <map id="tesseract_planning::GraphTaskflow" name="tesseract_planning::GraphTaskflow">
-<area shape="rect" id="node1" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="839,64,969,105"/>
-<area shape="rect" id="node2" href="$d1/d32/classtesseract__planning_1_1TaskflowGenerator.html" title="Base class for generating a taskflow." alt="" coords="591,5,729,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="621,71,699,98"/>
-<area shape="rect" id="node4" title=" " alt="" coords="331,64,455,105"/>
-<area shape="rect" id="node5" title=" " alt="" coords="575,122,745,178"/>
-<area shape="rect" id="node6" href="$d1/d29/structtesseract__planning_1_1GraphTaskflow_1_1Node.html" title="Helper struct for holding relevant information about the nodes." alt="" coords="317,129,469,171"/>
-<area shape="rect" id="node7" title=" " alt="" coords="5,111,220,138"/>
-<area shape="rect" id="node8" title=" " alt="" coords="53,162,172,189"/>
+<area shape="rect" id="node1" title="This class facilitates the composition of an arbitrary taskflow graph. Tasks are nodes in the graph c..." alt="" coords="875,71,1005,112"/>
+<area shape="rect" id="node2" href="$d1/d32/classtesseract__planning_1_1TaskflowGenerator.html" title="Base class for generating a taskflow." alt="" coords="607,5,744,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="569,71,781,112"/>
+<area shape="rect" id="node4" href="$dd/ddd/structtesseract__planning_1_1GraphTaskflowNode.html" title="Helper struct for holding relevant information about the nodes." alt="" coords="317,68,464,109"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,50,220,77"/>
+<area shape="rect" id="node6" title=" " alt="" coords="53,101,172,127"/>
+<area shape="rect" id="node7" title=" " alt="" coords="636,138,715,165"/>
+<area shape="rect" id="node8" title=" " alt="" coords="329,133,453,175"/>
 </map>

@@ -1,0 +1,40 @@
+\hypertarget{task__info__statistics_8h}{}\doxysection{tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/utils/task\+\_\+info\+\_\+statistics.h File Reference}
+\label{task__info__statistics_8h}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/utils/task\_info\_statistics.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/utils/task\_info\_statistics.h}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/task\+\_\+info.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/utils/taskflow\+\_\+visualization\+\_\+utils.\+h$>$}\newline
+Include dependency graph for task\+\_\+info\+\_\+statistics.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/dcf/task__info__statistics_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d02/task__info__statistics_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics}{tesseract\+\_\+planning\+::\+Task\+Info\+Statistics}}
+\begin{DoxyCompactList}\small\item\em Container for stats on one \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler}{tesseract\+\_\+planning\+::\+Task\+Info\+Profiler}}
+\begin{DoxyCompactList}\small\item\em Loads Task\+Infos from various sources and calculates some statistics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ Task\+Info $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_ae57bb0d41e17673d6eb453a74f1253c5}{tesseract\+\_\+planning\+::sort\+Task\+Infos\+By\+Task\+Name}} (const std\+::vector$<$ std\+::vector$<$ Task\+Info $>$$>$ \&task\+\_\+infos)
+\begin{DoxyCompactList}\small\item\em Takes multiple vectors of task infos from repeated planning calls and sorts them into a map keyed by task name. \end{DoxyCompactList}\end{DoxyCompactItemize}

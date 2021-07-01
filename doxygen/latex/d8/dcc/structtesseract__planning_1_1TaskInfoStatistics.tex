@@ -1,0 +1,102 @@
+\hypertarget{structtesseract__planning_1_1TaskInfoStatistics}{}\doxysection{tesseract\+\_\+planning\+::Task\+Info\+Statistics Struct Reference}
+\label{structtesseract__planning_1_1TaskInfoStatistics}\index{tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}}
+
+
+Container for stats on one \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}.  
+
+
+
+
+{\ttfamily \#include $<$task\+\_\+info\+\_\+statistics.\+h$>$}
+
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Task\+Info\+Statistics\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{d5/db9/structtesseract__planning_1_1TaskInfoStatistics__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_aff7ab80cad5f97db0d50d8eabf011001}{insert}} (const std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} $>$ \&task\+\_\+info\+\_\+vec)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a56cbb2762da1577f277a32e83589803e}{task\+\_\+name}}
+\item 
+int \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a09cb765d764320662b17a7f914940ebd}{occurances}}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a4597f9e04a9d4eadbe186bef1ec315dd}{min\+\_\+time}} \{ std\+::numeric\+\_\+limits$<$double$>$\+::max() \}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a2e213bf5d76f2def58a8d979d0bcf4ad}{max\+\_\+time}} \{ 0 \}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a33c67492477a1bc434e94801e4d17a57}{avg\+\_\+time}} \{ 0 \}
+\item 
+std\+::map$<$ int, int $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_aac0145fa088682fe7c9c5f7cda36c1b8}{return\+\_\+val\+\_\+map}}
+\begin{DoxyCompactList}\small\item\em Key\+: return value, Value\+: occurances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Container for stats on one \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoStatistics_aff7ab80cad5f97db0d50d8eabf011001}\label{structtesseract__planning_1_1TaskInfoStatistics_aff7ab80cad5f97db0d50d8eabf011001}} 
+\index{tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}!insert@{insert}}
+\index{insert@{insert}!tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily void Task\+Info\+Statistics\+::insert (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} $>$ \&}]{task\+\_\+info\+\_\+vec }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoStatistics_a33c67492477a1bc434e94801e4d17a57}\label{structtesseract__planning_1_1TaskInfoStatistics_a33c67492477a1bc434e94801e4d17a57}} 
+\index{tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}!avg\_time@{avg\_time}}
+\index{avg\_time@{avg\_time}!tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}}
+\doxysubsubsection{\texorpdfstring{avg\_time}{avg\_time}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Task\+Info\+Statistics\+::avg\+\_\+time \{ 0 \}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoStatistics_a2e213bf5d76f2def58a8d979d0bcf4ad}\label{structtesseract__planning_1_1TaskInfoStatistics_a2e213bf5d76f2def58a8d979d0bcf4ad}} 
+\index{tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}!max\_time@{max\_time}}
+\index{max\_time@{max\_time}!tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}}
+\doxysubsubsection{\texorpdfstring{max\_time}{max\_time}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Task\+Info\+Statistics\+::max\+\_\+time \{ 0 \}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoStatistics_a4597f9e04a9d4eadbe186bef1ec315dd}\label{structtesseract__planning_1_1TaskInfoStatistics_a4597f9e04a9d4eadbe186bef1ec315dd}} 
+\index{tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}!min\_time@{min\_time}}
+\index{min\_time@{min\_time}!tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}}
+\doxysubsubsection{\texorpdfstring{min\_time}{min\_time}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Task\+Info\+Statistics\+::min\+\_\+time \{ std\+::numeric\+\_\+limits$<$double$>$\+::max() \}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoStatistics_a09cb765d764320662b17a7f914940ebd}\label{structtesseract__planning_1_1TaskInfoStatistics_a09cb765d764320662b17a7f914940ebd}} 
+\index{tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}!occurances@{occurances}}
+\index{occurances@{occurances}!tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}}
+\doxysubsubsection{\texorpdfstring{occurances}{occurances}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Task\+Info\+Statistics\+::occurances}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoStatistics_aac0145fa088682fe7c9c5f7cda36c1b8}\label{structtesseract__planning_1_1TaskInfoStatistics_aac0145fa088682fe7c9c5f7cda36c1b8}} 
+\index{tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}!return\_val\_map@{return\_val\_map}}
+\index{return\_val\_map@{return\_val\_map}!tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}}
+\doxysubsubsection{\texorpdfstring{return\_val\_map}{return\_val\_map}}
+{\footnotesize\ttfamily std\+::map$<$int, int$>$ tesseract\+\_\+planning\+::\+Task\+Info\+Statistics\+::return\+\_\+val\+\_\+map}
+
+
+
+Key\+: return value, Value\+: occurances. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoStatistics_a56cbb2762da1577f277a32e83589803e}\label{structtesseract__planning_1_1TaskInfoStatistics_a56cbb2762da1577f277a32e83589803e}} 
+\index{tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}!task\_name@{task\_name}}
+\index{task\_name@{task\_name}!tesseract\_planning::TaskInfoStatistics@{tesseract\_planning::TaskInfoStatistics}}
+\doxysubsubsection{\texorpdfstring{task\_name}{task\_name}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Task\+Info\+Statistics\+::task\+\_\+name}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/utils/\mbox{\hyperlink{task__info__statistics_8h}{task\+\_\+info\+\_\+statistics.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/utils/\mbox{\hyperlink{task__info__statistics_8cpp}{task\+\_\+info\+\_\+statistics.\+cpp}}\end{DoxyCompactItemize}

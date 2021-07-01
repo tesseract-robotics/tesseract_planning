@@ -1,5 +1,11 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/taskflow_generators/graph_taskflow.h" name="tesseract_process_managers/include/tesseract_process_managers/taskflow_generators/graph_taskflow.h">
-<area shape="rect" id="node1" title="Creates a directed graph taskflow." alt="" coords="107,5,313,76"/>
-<area shape="rect" id="node2" href="$da/d94/graph__taskflow_8cpp.html" title="Creates a directed graph taskflow." alt="" coords="5,124,199,180"/>
-<area shape="rect" id="node3" href="$d0/dfa/graph__taskflow__unit_8cpp.html" title=" " alt="" coords="223,131,416,173"/>
+<area shape="rect" id="node1" title="Creates a directed graph taskflow." alt="" coords="593,5,800,76"/>
+<area shape="rect" id="node2" href="$da/d33/taskflow__visualization__utils_8h.html" title="Utils for visualizing taskflows." alt="" coords="290,124,575,180"/>
+<area shape="rect" id="node8" href="$da/d94/graph__taskflow_8cpp.html" title="Creates a directed graph taskflow." alt="" coords="600,124,793,180"/>
+<area shape="rect" id="node9" href="$d0/dfa/graph__taskflow__unit_8cpp.html" title=" " alt="" coords="817,131,1011,173"/>
+<area shape="rect" id="node3" href="$d3/d68/task__info__statistics_8h.html" title=" " alt="" coords="336,228,529,299"/>
+<area shape="rect" id="node4" href="$de/d04/freespace__manager__example_8cpp.html" title=" " alt="" coords="5,347,204,403"/>
+<area shape="rect" id="node5" href="$dc/d81/raster__manager__example_8cpp.html" title=" " alt="" coords="228,347,421,403"/>
+<area shape="rect" id="node6" href="$df/de5/taskflow__profiling__example_8cpp.html" title="Demonstrates tools for profiling taskflows using the task infos." alt="" coords="445,347,639,403"/>
+<area shape="rect" id="node7" href="$db/dae/task__info__statistics_8cpp.html" title=" " alt="" coords="663,354,877,395"/>
 </map>
