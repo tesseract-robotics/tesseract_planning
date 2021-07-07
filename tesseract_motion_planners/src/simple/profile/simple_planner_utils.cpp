@@ -26,6 +26,7 @@
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
 #include <tesseract_command_language/utils/utils.h>
+#include <tesseract_kinematics/core/utils.h>
 
 namespace tesseract_planning
 {
@@ -130,7 +131,16 @@ Eigen::VectorXd getClosestJointSolution(const Eigen::Isometry3d& p,
                                         const Eigen::VectorXd& seed)
 {
   Eigen::VectorXd jp_final;
-  tesseract_kinematics::IKSolutions jp = inv_kin->calcInvKin(p, seed);
+  tesseract_kinematics::IKSolutions jp;
+  tesseract_kinematics::IKSolutions solutions = inv_kin->calcInvKin(p, seed);
+  for (const auto& sol : solutions)
+  {
+    jp.push_back(sol);
+    auto redundant_solutions = tesseract_kinematics::getRedundantSolutions<double>(
+        sol, inv_kin->getLimits().joint_limits, inv_kin->getRedundancyCapableJointIndices());
+    jp.insert(jp.end(), redundant_solutions.begin(), redundant_solutions.end());
+  }
+
   if (!jp.empty())
   {
     // Find closest solution to the start state
@@ -169,24 +179,44 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const Eigen::Isometry3d& 
 
   // Calculate IK for start and end
   Eigen::VectorXd j1_final;
-  tesseract_kinematics::IKSolutions j1 = inv_kin1->calcInvKin(p1, seed);
-  j1.erase(std::remove_if(j1.begin(),
-                          j1.end(),
-                          [inv_kin1](const Eigen::VectorXd& solution) {
-                            return !tesseract_common::satisfiesPositionLimits(solution,
-                                                                              inv_kin1->getLimits().joint_limits);
-                          }),
-           j1.end());
+  tesseract_kinematics::IKSolutions j1;
+  tesseract_kinematics::IKSolutions j1_solutions = inv_kin1->calcInvKin(p1, seed);
+  j1_solutions.erase(std::remove_if(j1_solutions.begin(),
+                                    j1_solutions.end(),
+                                    [inv_kin1](const Eigen::VectorXd& solution) {
+                                      return !tesseract_common::satisfiesPositionLimits(
+                                          solution, inv_kin1->getLimits().joint_limits);
+                                    }),
+                     j1_solutions.end());
+
+  // Get redundant solutions
+  for (const auto& sol : j1_solutions)
+  {
+    j1.push_back(sol);
+    auto redundant_solutions = tesseract_kinematics::getRedundantSolutions<double>(
+        sol, inv_kin1->getLimits().joint_limits, inv_kin1->getRedundancyCapableJointIndices());
+    j1.insert(j1.end(), redundant_solutions.begin(), redundant_solutions.end());
+  }
 
   Eigen::VectorXd j2_final;
-  tesseract_kinematics::IKSolutions j2 = inv_kin2->calcInvKin(p2, seed);
-  j2.erase(std::remove_if(j2.begin(),
-                          j2.end(),
-                          [inv_kin2](const Eigen::VectorXd& solution) {
-                            return !tesseract_common::satisfiesPositionLimits(solution,
-                                                                              inv_kin2->getLimits().joint_limits);
-                          }),
-           j2.end());
+  tesseract_kinematics::IKSolutions j2;
+  tesseract_kinematics::IKSolutions j2_solutions = inv_kin2->calcInvKin(p2, seed);
+  j2_solutions.erase(std::remove_if(j2_solutions.begin(),
+                                    j2_solutions.end(),
+                                    [inv_kin2](const Eigen::VectorXd& solution) {
+                                      return !tesseract_common::satisfiesPositionLimits(
+                                          solution, inv_kin2->getLimits().joint_limits);
+                                    }),
+                     j2_solutions.end());
+
+  // Get redundant solutions
+  for (const auto& sol : j2_solutions)
+  {
+    j2.push_back(sol);
+    auto redundant_solutions = tesseract_kinematics::getRedundantSolutions<double>(
+        sol, inv_kin2->getLimits().joint_limits, inv_kin2->getRedundancyCapableJointIndices());
+    j2.insert(j2.end(), redundant_solutions.begin(), redundant_solutions.end());
+  }
 
   if (!j1.empty() && !j2.empty())
   {

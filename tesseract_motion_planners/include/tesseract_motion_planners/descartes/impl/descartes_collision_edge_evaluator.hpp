@@ -70,15 +70,15 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
 
 template <typename FloatType>
 std::pair<bool, FloatType>
-DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& start,
-                                                     const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>& end) const
+DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const descartes_light::State<FloatType>& start,
+                                                     const descartes_light::State<FloatType>& end) const
 {
-  assert(start.rows() == end.rows());
+  assert(start.values.rows() == end.values.rows());
 
   // Happens in two phases:
   // 1. Compute the transform of all objects
-  tesseract_common::TrajArray segment(2, start.rows());
-  for (Eigen::Index i = 0; i < start.rows(); ++i)
+  tesseract_common::TrajArray segment(2, start.values.rows());
+  for (Eigen::Index i = 0; i < start.values.rows(); ++i)
   {
     segment(0, i) = start[i];
     segment(1, i) = end[i];
