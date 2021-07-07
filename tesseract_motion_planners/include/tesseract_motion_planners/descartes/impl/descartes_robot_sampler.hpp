@@ -135,7 +135,7 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
   if (use_redundant_joint_solutions_)
   {
     const Eigen::MatrixX2d& limits = ik_->getLimits().joint_limits;
-    const std::vector<Eigen::Index>& redundancy_capable_joints = ik_->getRedundancyCapableJointIndices();
+    std::vector<Eigen::Index> redundancy_capable_joints = ik_->getRedundancyCapableJointIndices();
     std::vector<descartes_light::StateSample<FloatType>> redundant_samples;
     for (const descartes_light::StateSample<FloatType>& sample : samples)
     {
