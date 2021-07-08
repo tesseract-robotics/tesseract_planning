@@ -46,7 +46,7 @@ DescartesRobotSampler<FloatType>::DescartesRobotSampler(const Eigen::Isometry3d&
                                                         const Eigen::Isometry3d& tcp,
                                                         bool allow_collision,
                                                         DescartesVertexEvaluator::Ptr is_valid,
-                                                        std::vector<Eigen::Index> redundancy_capable_joints)
+                                                        bool use_redundant_joint_solutions)
   : target_pose_(target_pose)
   , target_pose_sampler_(std::move(target_pose_sampler))
   , ik_(std::move(ik))
@@ -56,7 +56,7 @@ DescartesRobotSampler<FloatType>::DescartesRobotSampler(const Eigen::Isometry3d&
   , dof_(static_cast<int>(ik_->numJoints()))
   , ik_seed_(Eigen::VectorXd::Zero(dof_))
   , is_valid_(std::move(is_valid))
-  , redundancy_capable_joints_(std::move(redundancy_capable_joints))
+  , use_redundant_joint_solutions_(use_redundant_joint_solutions)
 {
   if (!allow_collision_ && !collision_)
     throw std::runtime_error("Collision checker must not be a nullptr if collisions are not allowed during planning");
@@ -87,15 +87,15 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
       if ((is_valid_ != nullptr) && !(*is_valid_)(sol))
         continue;
 
+      auto state = std::make_shared<descartes_light::State<FloatType>>(sol.cast<FloatType>());
       if (allow_collision_ && collision_ == nullptr)
       {
-        samples.push_back(
-            descartes_light::StateSample<FloatType>{ sol.cast<FloatType>(), static_cast<FloatType>(0.0) });
+        samples.push_back(descartes_light::StateSample<FloatType>{ state, static_cast<FloatType>(0.0) });
       }
       else
       {
         const FloatType cost = static_cast<FloatType>(collision_->distance(sol));
-        samples.push_back(descartes_light::StateSample<FloatType>{ sol.cast<FloatType>(), cost });
+        samples.push_back(descartes_light::StateSample<FloatType>{ state, cost });
       }
     }
   }
@@ -132,24 +132,29 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
   }
 
   // Generate the redundant solutions
-  const Eigen::MatrixX2d limits = ik_->getLimits().joint_limits;
-  std::vector<descartes_light::StateSample<FloatType>> redundant_samples;
-  for (const descartes_light::StateSample<FloatType>& sample : samples)
+  if (use_redundant_joint_solutions_)
   {
-    const auto redundant_solutions =
-        tesseract_kinematics::getRedundantSolutions<FloatType>(sample.state, limits, redundancy_capable_joints_);
+    const Eigen::MatrixX2d& limits = ik_->getLimits().joint_limits;
+    std::vector<Eigen::Index> redundancy_capable_joints = ik_->getRedundancyCapableJointIndices();
+    std::vector<descartes_light::StateSample<FloatType>> redundant_samples;
+    for (const descartes_light::StateSample<FloatType>& sample : samples)
+    {
+      const auto redundant_solutions =
+          tesseract_kinematics::getRedundantSolutions<FloatType>(*(sample.state), limits, redundancy_capable_joints);
 
-    // Add the redundant samples with the same cost as the nominal sample
-    std::transform(redundant_solutions.begin(),
-                   redundant_solutions.end(),
-                   std::back_inserter(redundant_samples),
-                   [&sample](const auto& sol) {
-                     return descartes_light::StateSample<FloatType>{ sol.template cast<FloatType>(), sample.cost };
-                   });
+      // Add the redundant samples with the same cost as the nominal sample
+      std::transform(redundant_solutions.begin(),
+                     redundant_solutions.end(),
+                     std::back_inserter(redundant_samples),
+                     [&sample](const auto& sol) {
+                       auto state = std::make_shared<descartes_light::State<FloatType>>(sol.template cast<FloatType>());
+                       return descartes_light::StateSample<FloatType>{ state, sample.cost };
+                     });
+    }
+
+    // Combine the nominal samples with the redundant samples
+    samples.insert(samples.end(), redundant_samples.begin(), redundant_samples.end());
   }
-
-  // Combine the nominal samples with the redundant samples
-  samples.insert(samples.end(), redundant_samples.begin(), redundant_samples.end());
 
   return samples;
 }

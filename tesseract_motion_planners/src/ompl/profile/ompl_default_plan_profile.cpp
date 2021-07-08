@@ -45,6 +45,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/state_collision_validator.h>
 #include <tesseract_motion_planners/ompl/compound_state_validator.h>
 
+#include <tesseract_kinematics/core/utils.h>
+
 namespace tesseract_planning
 {
 OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_element)
@@ -398,11 +400,26 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
       // instead of the isValid function to avoid unnecessary collision checks.
       if (!checkStateInCollision(prob, solution, contact_map_vec[i]))
       {
-        ompl::base::ScopedState<> goal_state(prob.simple_setup->getStateSpace());
-        for (unsigned j = 0; j < dof; ++j)
-          goal_state[j] = solution[static_cast<Eigen::Index>(j)];
+        {
+          ompl::base::ScopedState<> goal_state(prob.simple_setup->getStateSpace());
+          for (unsigned j = 0; j < dof; ++j)
+            goal_state[j] = solution[static_cast<Eigen::Index>(j)];
 
-        goal_states->addState(goal_state);
+          goal_states->addState(goal_state);
+        }
+
+        auto redundant_solutions =
+            tesseract_kinematics::getRedundantSolutions<double>(solution,
+                                                                prob.manip_inv_kin->getLimits().joint_limits,
+                                                                prob.manip_inv_kin->getRedundancyCapableJointIndices());
+        for (const auto& rs : redundant_solutions)
+        {
+          ompl::base::ScopedState<> goal_state(prob.simple_setup->getStateSpace());
+          for (unsigned j = 0; j < dof; ++j)
+            goal_state[j] = rs[static_cast<Eigen::Index>(j)];
+
+          goal_states->addState(goal_state);
+        }
       }
     }
 
@@ -515,12 +532,27 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
       // instead of the isValid function to avoid unnecessary collision checks.
       if (!checkStateInCollision(prob, solution, contact_map_vec[i]))
       {
-        ompl::base::ScopedState<> start_state(prob.simple_setup->getStateSpace());
-        for (unsigned j = 0; j < dof; ++j)
-          start_state[j] = solution[static_cast<Eigen::Index>(j)];
-
         found_start_state = true;
-        prob.simple_setup->addStartState(start_state);
+        {
+          ompl::base::ScopedState<> start_state(prob.simple_setup->getStateSpace());
+          for (unsigned j = 0; j < dof; ++j)
+            start_state[j] = solution[static_cast<Eigen::Index>(j)];
+
+          prob.simple_setup->addStartState(start_state);
+        }
+
+        auto redundant_solutions =
+            tesseract_kinematics::getRedundantSolutions<double>(solution,
+                                                                prob.manip_inv_kin->getLimits().joint_limits,
+                                                                prob.manip_inv_kin->getRedundancyCapableJointIndices());
+        for (const auto& rs : redundant_solutions)
+        {
+          ompl::base::ScopedState<> start_state(prob.simple_setup->getStateSpace());
+          for (unsigned j = 0; j < dof; ++j)
+            start_state[j] = rs[static_cast<Eigen::Index>(j)];
+
+          prob.simple_setup->addStartState(start_state);
+        }
       }
     }
 

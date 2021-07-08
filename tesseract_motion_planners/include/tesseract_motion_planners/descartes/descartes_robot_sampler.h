@@ -62,7 +62,7 @@ public:
                         const Eigen::Isometry3d& tcp,
                         bool allow_collision,
                         DescartesVertexEvaluator::Ptr is_valid,
-                        std::vector<Eigen::Index> redundancy_capable_joints);
+                        bool use_redundant_joint_solutions);
 
   std::vector<descartes_light::StateSample<FloatType>> sample() const override;
 
@@ -94,9 +94,8 @@ private:
   /** @brief This is the vertex evaluator to filter out solution */
   DescartesVertexEvaluator::Ptr is_valid_;
 
-  /** @brief Vector of indices indicating which joints in the motion group are capable of producing redundant joint
-   * states */
-  std::vector<Eigen::Index> redundancy_capable_joints_;
+  /** @brief Should redundant solutions be used */
+  bool use_redundant_joint_solutions_{ false };
 };
 
 using DescartesRobotSamplerF = DescartesRobotSampler<float>;
