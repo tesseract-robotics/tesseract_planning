@@ -405,10 +405,15 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html">TaskDisplayInfo</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains additional information about a task to be displayed.  <a href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dc6/classtesseract__planning_1_1InstructionsTrajectory.html">InstructionsTrajectory</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5b/classtesseract__planning_1_1IterativeSplineParameterization.html">IterativeSplineParameterization</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints. Initial/final velocities and accelerations may be specified in the trajectory. Velocity and acceleration limits are specified in the model.  <a href="../../d4/d5b/classtesseract__planning_1_1IterativeSplineParameterization.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df1/classtesseract__planning_1_1TimeOptimalTrajectoryGeneration.html">TimeOptimalTrajectoryGeneration</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic container that the time parameterization classes use.  <a href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d62/structtesseract__planning_1_1SingleJointTrajectory.html">SingleJointTrajectory</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1129,16 +1134,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8c98bef4d1dd9386473cc9c4eebaacd7">RescaleTimings</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, std::vector&lt; double &gt; scalings)</td></tr>
 <tr class="memdesc:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rescale the sub-composites of a program linearly.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8c98bef4d1dd9386473cc9c4eebaacd7">More...</a><br /></td></tr>
 <tr class="separator:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1430f1d1119b09b6c6b46624435e69e9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1430f1d1119b09b6c6b46624435e69e9">fit_cubic_spline</a> (const int n, const double dt[], const double x[], double x1[], double x2[])</td></tr>
-<tr class="separator:a1430f1d1119b09b6c6b46624435e69e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdb9cb7ac7909cfcf06827a19b67771a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afdb9cb7ac7909cfcf06827a19b67771a">adjust_two_positions</a> (const int n, const double dt[], double x[], double x1[], double x2[], const double x2_i, const double x2_f)</td></tr>
-<tr class="separator:afdb9cb7ac7909cfcf06827a19b67771a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafaaff65bdb8c59e6c2cbaedf3934f0c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aafaaff65bdb8c59e6c2cbaedf3934f0c">init_times</a> (int n, double dt[], const double x[], const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;max_velocity, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;min_velocity)</td></tr>
-<tr class="separator:aafaaff65bdb8c59e6c2cbaedf3934f0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcac602c6a5d31583876cc69dfc52ba5"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adcac602c6a5d31583876cc69dfc52ba5">global_adjustment_factor</a> (int n, double dt[], const double x[], double x1[], double x2[], const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;max_velocity, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;min_velocity, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;max_acceleration, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;min_acceleration)</td></tr>
-<tr class="separator:adcac602c6a5d31583876cc69dfc52ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa839d132d8adcf4f0fbc0483d23c81c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa839d132d8adcf4f0fbc0483d23c81c5">globalAdjustment</a> (std::vector&lt; <a class="el" href="../../de/d62/structtesseract__planning_1_1SingleJointTrajectory.html">SingleJointTrajectory</a> &gt; &amp;t2, int num_joints, const int num_points, std::vector&lt; double &gt; &amp;time_diff)</td></tr>
-<tr class="separator:aa839d132d8adcf4f0fbc0483d23c81c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1a605c1704dc7213e1870f0f3d01ce8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab1a605c1704dc7213e1870f0f3d01ce8">fit_cubic_spline</a> (const long n, const double dt[], const double x[], double x1[], double x2[])</td></tr>
+<tr class="separator:ab1a605c1704dc7213e1870f0f3d01ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92e58df0764ade5f80a18909a085adbd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a92e58df0764ade5f80a18909a085adbd">adjust_two_positions</a> (const long n, const double dt[], double x[], double x1[], double x2[], const double x2_i, const double x2_f)</td></tr>
+<tr class="separator:a92e58df0764ade5f80a18909a085adbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f556710cc50c0e26ef0947b48fa2cdb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5f556710cc50c0e26ef0947b48fa2cdb">init_times</a> (long n, double dt[], const double x[], const double max_velocity[], const double min_velocity[])</td></tr>
+<tr class="separator:a5f556710cc50c0e26ef0947b48fa2cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a055e94fcc3bfae45e8d095dd850cbd2a"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a055e94fcc3bfae45e8d095dd850cbd2a">global_adjustment_factor</a> (long n, double dt[], const double x[], double x1[], double x2[], const double max_velocity[], const double min_velocity[], const double max_acceleration[], const double min_acceleration[])</td></tr>
+<tr class="separator:a055e94fcc3bfae45e8d095dd850cbd2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c8c37247f78cf422a0065e7f1b0efba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1c8c37247f78cf422a0065e7f1b0efba">globalAdjustment</a> (std::vector&lt; <a class="el" href="../../de/d62/structtesseract__planning_1_1SingleJointTrajectory.html">SingleJointTrajectory</a> &gt; &amp;t2, long num_joints, long num_points, std::vector&lt; double &gt; &amp;time_diff)</td></tr>
+<tr class="separator:a1c8c37247f78cf422a0065e7f1b0efba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -2484,8 +2489,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="afdb9cb7ac7909cfcf06827a19b67771a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdb9cb7ac7909cfcf06827a19b67771a">&#9670;&nbsp;</a></span>adjust_two_positions()</h2>
+<a id="a92e58df0764ade5f80a18909a085adbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92e58df0764ade5f80a18909a085adbd">&#9670;&nbsp;</a></span>adjust_two_positions()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2496,7 +2501,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">static void tesseract_planning::adjust_two_positions </td>
           <td>(</td>
-          <td class="paramtype">const int&#160;</td>
+          <td class="paramtype">const long&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -4781,8 +4786,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a1430f1d1119b09b6c6b46624435e69e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1430f1d1119b09b6c6b46624435e69e9">&#9670;&nbsp;</a></span>fit_cubic_spline()</h2>
+<a id="ab1a605c1704dc7213e1870f0f3d01ce8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1a605c1704dc7213e1870f0f3d01ce8">&#9670;&nbsp;</a></span>fit_cubic_spline()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4793,7 +4798,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">static void tesseract_planning::fit_cubic_spline </td>
           <td>(</td>
-          <td class="paramtype">const int&#160;</td>
+          <td class="paramtype">const long&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -6990,8 +6995,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="adcac602c6a5d31583876cc69dfc52ba5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcac602c6a5d31583876cc69dfc52ba5">&#9670;&nbsp;</a></span>global_adjustment_factor()</h2>
+<a id="a055e94fcc3bfae45e8d095dd850cbd2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a055e94fcc3bfae45e8d095dd850cbd2a">&#9670;&nbsp;</a></span>global_adjustment_factor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7002,7 +7007,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">static double tesseract_planning::global_adjustment_factor </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -7032,26 +7037,26 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>max_velocity</em>, </td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>max_velocity</em>[], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>min_velocity</em>, </td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>min_velocity</em>[], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>max_acceleration</em>, </td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>max_acceleration</em>[], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>min_acceleration</em>&#160;</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>min_acceleration</em>[]&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -7068,8 +7073,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="aa839d132d8adcf4f0fbc0483d23c81c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa839d132d8adcf4f0fbc0483d23c81c5">&#9670;&nbsp;</a></span>globalAdjustment()</h2>
+<a id="a1c8c37247f78cf422a0065e7f1b0efba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c8c37247f78cf422a0065e7f1b0efba">&#9670;&nbsp;</a></span>globalAdjustment()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7083,13 +7088,13 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>num_joints</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const int&#160;</td>
+          <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>num_points</em>, </td>
         </tr>
         <tr>
@@ -7135,8 +7140,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="aafaaff65bdb8c59e6c2cbaedf3934f0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafaaff65bdb8c59e6c2cbaedf3934f0c">&#9670;&nbsp;</a></span>init_times()</h2>
+<a id="a5f556710cc50c0e26ef0947b48fa2cdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f556710cc50c0e26ef0947b48fa2cdb">&#9670;&nbsp;</a></span>init_times()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7147,7 +7152,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">static void tesseract_planning::init_times </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -7165,14 +7170,14 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>max_velocity</em>, </td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>max_velocity</em>[], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>min_velocity</em>&#160;</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>min_velocity</em>[]&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -9688,8 +9693,8 @@ template&lt;typename FloatType &gt; </div>
 <div class="line">      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line">    }</div>
 <div class="ttc" id="aclasstesseract__planning_1_1CompositeInstruction_html"><div class="ttname"><a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a></div><div class="ttdef"><b>Definition:</b> composite_instruction.h:52</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1Instruction_html"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.h:231</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1Instruction_html_aeab521a6324ea11932be55f13ce197f9"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html#aeab521a6324ea11932be55f13ce197f9">tesseract_planning::Instruction::as</a></div><div class="ttdeci">T &amp; as()</div><div class="ttdef"><b>Definition:</b> instruction.h:289</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1Instruction_html"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.h:232</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1Instruction_html_aeab521a6324ea11932be55f13ce197f9"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html#aeab521a6324ea11932be55f13ce197f9">tesseract_planning::Instruction::as</a></div><div class="ttdeci">T &amp; as()</div><div class="ttdef"><b>Definition:</b> instruction.h:290</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a></div><div class="ttdef"><b>Definition:</b> move_instruction.h:53</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html_ad7ea2fb0fcfc4259ace79dafc6ac8179"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad7ea2fb0fcfc4259ace79dafc6ac8179">tesseract_planning::MoveInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> move_instruction.cpp:89</div></div>
 </div><!-- fragment -->
@@ -9698,7 +9703,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 8 2021 00:47:22 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Jul 8 2021 16:31:18 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

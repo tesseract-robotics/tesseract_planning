@@ -33,7 +33,11 @@ Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Traje
 Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_af771b4b9b78767499fdea297b9fbab1c}{get\+Velocity}} (double time) const
 \begin{DoxyCompactList}\small\item\em Return the velocity vector for a given point in time. \end{DoxyCompactList}\item 
 Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}{get\+Acceleration}} (double time) const
-\begin{DoxyCompactList}\small\item\em Return the acceleration vector for a given point in time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Return the acceleration vector for a given point in time. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a63285b9b28e5ee6d02bc06b2549f40a9}{assign\+Data}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&trajectory, double path\+\_\+tolerance) const
+\begin{DoxyCompactList}\small\item\em Assign trajectory velocity acceleration and time. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}{assign\+Data}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&trajectory) const
+\begin{DoxyCompactList}\small\item\em Assign trajectory velocity acceleration and time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -109,11 +113,31 @@ Generates a time-\/optimal trajectory.
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000239}{Bug}}]A negative path velocity error will occur if the path contains points that are close to but not equal to the start or end point. A workaround (implemented in Time\+Optimal\+Trajectory\+Generation\+::compute\+Timesteps) is to append an extra joint that increments such that no point is ever repeated. See \href{https://github.com/ros-industrial-consortium/tesseract_planning/issues/27}{\texttt{ https\+://github.\+com/ros-\/industrial-\/consortium/tesseract\+\_\+planning/issues/27}} \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000240}{Bug}}]A negative path velocity error will occur if the path contains points that are close to but not equal to the start or end point. A workaround (implemented in Time\+Optimal\+Trajectory\+Generation\+::compute\+Timesteps) is to append an extra joint that increments such that no point is ever repeated. See \href{https://github.com/ros-industrial-consortium/tesseract_planning/issues/27}{\texttt{ https\+://github.\+com/ros-\/industrial-\/consortium/tesseract\+\_\+planning/issues/27}} \end{DoxyRefDesc}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}\label{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}\label{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}} 
+\index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!assignData@{assignData}}
+\index{assignData@{assignData}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
+\doxysubsubsection{\texorpdfstring{assignData()}{assignData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::assign\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{trajectory }\end{DoxyParamCaption}) const}
+
+
+
+Assign trajectory velocity acceleration and time. 
+
+This is brute force approach and should always return true \mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a63285b9b28e5ee6d02bc06b2549f40a9}\label{classtesseract__planning_1_1totg_1_1Trajectory_a63285b9b28e5ee6d02bc06b2549f40a9}} 
+\index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!assignData@{assignData}}
+\index{assignData@{assignData}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
+\doxysubsubsection{\texorpdfstring{assignData()}{assignData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::totg\+::\+Trajectory\+::assign\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{trajectory,  }\item[{double}]{path\+\_\+tolerance }\end{DoxyParamCaption}) const}
+
+
+
+Assign trajectory velocity acceleration and time. 
+
+This search linear in time for the next waypoint within the provided tolerance \mbox{\Hypertarget{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}\label{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}} 
 \index{tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}!getAcceleration@{getAcceleration}}
 \index{getAcceleration@{getAcceleration}!tesseract\_planning::totg::Trajectory@{tesseract\_planning::totg::Trajectory}}
 \doxysubsubsection{\texorpdfstring{getAcceleration()}{getAcceleration()}}

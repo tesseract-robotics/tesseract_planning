@@ -10,6 +10,8 @@
 \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a98a79af492ed73331f8071f589d0c9a7}{Time\+Optimal\+Trajectory\+Generation}} (double path\+\_\+tolerance=0.\+1, double resample\+\_\+dt=0.\+1, double min\+\_\+angle\+\_\+change=0.\+001)
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a808c675ec842305c839339e77f1103cf}{compute\+Time\+Stamps}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&program, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a13e1d3725dbf8f3ff7d4bf2253e4ab8e}{compute\+Time\+Stamps}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&trajectory, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, double max\+\_\+velocity\+\_\+scaling\+\_\+factor=1.\+0, double max\+\_\+acceleration\+\_\+scaling\+\_\+factor=1.\+0) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -35,11 +37,17 @@ const double \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryG
 \mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a808c675ec842305c839339e77f1103cf}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a808c675ec842305c839339e77f1103cf}} 
 \index{tesseract\_planning::TimeOptimalTrajectoryGeneration@{tesseract\_planning::TimeOptimalTrajectoryGeneration}!computeTimeStamps@{computeTimeStamps}}
 \index{computeTimeStamps@{computeTimeStamps}!tesseract\_planning::TimeOptimalTrajectoryGeneration@{tesseract\_planning::TimeOptimalTrajectoryGeneration}}
-\doxysubsubsection{\texorpdfstring{computeTimeStamps()}{computeTimeStamps()}}
+\doxysubsubsection{\texorpdfstring{computeTimeStamps()}{computeTimeStamps()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+::compute\+Time\+Stamps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{program,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration,  }\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor = {\ttfamily 1.0},  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor = {\ttfamily 1.0} }\end{DoxyParamCaption}) const}
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000035}{Todo}}]Figure out how to maintain the original seed structure of subcomposites \end{DoxyRefDesc}
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a13e1d3725dbf8f3ff7d4bf2253e4ab8e}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a13e1d3725dbf8f3ff7d4bf2253e4ab8e}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGeneration@{tesseract\_planning::TimeOptimalTrajectoryGeneration}!computeTimeStamps@{computeTimeStamps}}
+\index{computeTimeStamps@{computeTimeStamps}!tesseract\_planning::TimeOptimalTrajectoryGeneration@{tesseract\_planning::TimeOptimalTrajectoryGeneration}}
+\doxysubsubsection{\texorpdfstring{computeTimeStamps()}{computeTimeStamps()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+::compute\+Time\+Stamps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{trajectory,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration,  }\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor = {\ttfamily 1.0},  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor = {\ttfamily 1.0} }\end{DoxyParamCaption}) const}
+
 
 
 \doxysubsection{Member Data Documentation}

@@ -121,6 +121,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1acebaa67669a12fa69dbf1d768ccea1"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a1acebaa67669a12fa69dbf1d768ccea1">getAcceleration</a> (double time) const</td></tr>
 <tr class="memdesc:a1acebaa67669a12fa69dbf1d768ccea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the acceleration vector for a given point in time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a1acebaa67669a12fa69dbf1d768ccea1">More...</a><br /></td></tr>
 <tr class="separator:a1acebaa67669a12fa69dbf1d768ccea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63285b9b28e5ee6d02bc06b2549f40a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a63285b9b28e5ee6d02bc06b2549f40a9">assignData</a> (<a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a> &amp;trajectory, double path_tolerance) const</td></tr>
+<tr class="memdesc:a63285b9b28e5ee6d02bc06b2549f40a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign trajectory velocity acceleration and time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#a63285b9b28e5ee6d02bc06b2549f40a9">More...</a><br /></td></tr>
+<tr class="separator:a63285b9b28e5ee6d02bc06b2549f40a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f3648c196728cd55bd0397032eb312"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#ab4f3648c196728cd55bd0397032eb312">assignData</a> (<a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a> &amp;trajectory) const</td></tr>
+<tr class="memdesc:ab4f3648c196728cd55bd0397032eb312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign trajectory velocity acceleration and time.  <a href="../../d6/d0c/classtesseract__planning_1_1totg_1_1Trajectory.html#ab4f3648c196728cd55bd0397032eb312">More...</a><br /></td></tr>
+<tr class="separator:ab4f3648c196728cd55bd0397032eb312"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -221,11 +227,63 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000239">Bug:</a></b></dt><dd>A negative path velocity error will occur if the path contains points that are close to but not equal to the start or end point. A workaround (implemented in TimeOptimalTrajectoryGeneration::computeTimesteps) is to append an extra joint that increments such that no point is ever repeated. See <a href="https://github.com/ros-industrial-consortium/tesseract_planning/issues/27">https://github.com/ros-industrial-consortium/tesseract_planning/issues/27</a> </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000240">Bug:</a></b></dt><dd>A negative path velocity error will occur if the path contains points that are close to but not equal to the start or end point. A workaround (implemented in TimeOptimalTrajectoryGeneration::computeTimesteps) is to append an extra joint that increments such that no point is ever repeated. See <a href="https://github.com/ros-industrial-consortium/tesseract_planning/issues/27">https://github.com/ros-industrial-consortium/tesseract_planning/issues/27</a> </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab4f3648c196728cd55bd0397032eb312"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4f3648c196728cd55bd0397032eb312">&#9670;&nbsp;</a></span>assignData() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::totg::Trajectory::assignData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a> &amp;&#160;</td>
+          <td class="paramname"><em>trajectory</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assign trajectory velocity acceleration and time. </p>
+<p>This is brute force approach and should always return true </p>
+
+</div>
+</div>
+<a id="a63285b9b28e5ee6d02bc06b2549f40a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63285b9b28e5ee6d02bc06b2549f40a9">&#9670;&nbsp;</a></span>assignData() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::totg::Trajectory::assignData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d5/d52/classtesseract__planning_1_1TrajectoryContainer.html">TrajectoryContainer</a> &amp;&#160;</td>
+          <td class="paramname"><em>trajectory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>path_tolerance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assign trajectory velocity acceleration and time. </p>
+<p>This search linear in time for the next waypoint within the provided tolerance </p>
+
+</div>
+</div>
 <a id="a1acebaa67669a12fa69dbf1d768ccea1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1acebaa67669a12fa69dbf1d768ccea1">&#9670;&nbsp;</a></span>getAcceleration()</h2>
 
@@ -994,7 +1052,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 8 2021 00:47:23 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Jul 8 2021 16:31:19 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -288,10 +288,14 @@ class \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler}{Task\+Info\
 \begin{DoxyCompactList}\small\item\em Loads Task\+Infos from various sources and calculates some statistics. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo}{Task\+Display\+Info}}
 \begin{DoxyCompactList}\small\item\em Contains additional information about a task to be displayed. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory}{Instructions\+Trajectory}}
+\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterization}{Iterative\+Spline\+Parameterization}}
 \begin{DoxyCompactList}\small\item\em This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints. Initial/final velocities and accelerations may be specified in the trajectory. Velocity and acceleration limits are specified in the model. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration}{Time\+Optimal\+Trajectory\+Generation}}
 \item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}}
+\begin{DoxyCompactList}\small\item\em A generic container that the time parameterization classes use. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{Single\+Joint\+Trajectory}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
@@ -882,15 +886,15 @@ bool \mbox{\hyperlink{namespacetesseract__planning_a38a77d0f5635d9f28460c5f038e8
 \item 
 void \mbox{\hyperlink{namespacetesseract__planning_a8c98bef4d1dd9386473cc9c4eebaacd7}{Rescale\+Timings}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&program, std\+::vector$<$ double $>$ scalings)
 \begin{DoxyCompactList}\small\item\em Rescale the sub-\/composites of a program linearly. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{namespacetesseract__planning_a1430f1d1119b09b6c6b46624435e69e9}{fit\+\_\+cubic\+\_\+spline}} (const int n, const double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]})
+static void \mbox{\hyperlink{namespacetesseract__planning_ab1a605c1704dc7213e1870f0f3d01ce8}{fit\+\_\+cubic\+\_\+spline}} (const long n, const double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]})
 \item 
-static void \mbox{\hyperlink{namespacetesseract__planning_afdb9cb7ac7909cfcf06827a19b67771a}{adjust\+\_\+two\+\_\+positions}} (const int n, const double dt\mbox{[}$\,$\mbox{]}, double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]}, const double x2\+\_\+i, const double x2\+\_\+f)
+static void \mbox{\hyperlink{namespacetesseract__planning_a92e58df0764ade5f80a18909a085adbd}{adjust\+\_\+two\+\_\+positions}} (const long n, const double dt\mbox{[}$\,$\mbox{]}, double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]}, const double x2\+\_\+i, const double x2\+\_\+f)
 \item 
-static void \mbox{\hyperlink{namespacetesseract__planning_aafaaff65bdb8c59e6c2cbaedf3934f0c}{init\+\_\+times}} (int n, double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&min\+\_\+velocity)
+static void \mbox{\hyperlink{namespacetesseract__planning_a5f556710cc50c0e26ef0947b48fa2cdb}{init\+\_\+times}} (long n, double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, const double max\+\_\+velocity\mbox{[}$\,$\mbox{]}, const double min\+\_\+velocity\mbox{[}$\,$\mbox{]})
 \item 
-static double \mbox{\hyperlink{namespacetesseract__planning_adcac602c6a5d31583876cc69dfc52ba5}{global\+\_\+adjustment\+\_\+factor}} (int n, double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]}, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&min\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&min\+\_\+acceleration)
+static double \mbox{\hyperlink{namespacetesseract__planning_a055e94fcc3bfae45e8d095dd850cbd2a}{global\+\_\+adjustment\+\_\+factor}} (long n, double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]}, const double max\+\_\+velocity\mbox{[}$\,$\mbox{]}, const double min\+\_\+velocity\mbox{[}$\,$\mbox{]}, const double max\+\_\+acceleration\mbox{[}$\,$\mbox{]}, const double min\+\_\+acceleration\mbox{[}$\,$\mbox{]})
 \item 
-void \mbox{\hyperlink{namespacetesseract__planning_aa839d132d8adcf4f0fbc0483d23c81c5}{global\+Adjustment}} (std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{Single\+Joint\+Trajectory}} $>$ \&t2, int num\+\_\+joints, const int num\+\_\+points, std\+::vector$<$ double $>$ \&time\+\_\+diff)
+void \mbox{\hyperlink{namespacetesseract__planning_a1c8c37247f78cf422a0065e7f1b0efba}{global\+Adjustment}} (std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{Single\+Joint\+Trajectory}} $>$ \&t2, long num\+\_\+joints, long num\+\_\+points, std\+::vector$<$ double $>$ \&time\+\_\+diff)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -1555,11 +1559,11 @@ DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW&\\
 \doxysubsubsection{\texorpdfstring{addJointVelocitySquaredCost()}{addJointVelocitySquaredCost()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::add\+Joint\+Velocity\+Squared\+Cost (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$}]{nlp,  }\item[{std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$}]{vars,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{coeff }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_afdb9cb7ac7909cfcf06827a19b67771a}\label{namespacetesseract__planning_afdb9cb7ac7909cfcf06827a19b67771a}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a92e58df0764ade5f80a18909a085adbd}\label{namespacetesseract__planning_a92e58df0764ade5f80a18909a085adbd}} 
 \index{tesseract\_planning@{tesseract\_planning}!adjust\_two\_positions@{adjust\_two\_positions}}
 \index{adjust\_two\_positions@{adjust\_two\_positions}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{adjust\_two\_positions()}{adjust\_two\_positions()}}
-{\footnotesize\ttfamily static void tesseract\+\_\+planning\+::adjust\+\_\+two\+\_\+positions (\begin{DoxyParamCaption}\item[{const int}]{n,  }\item[{const double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{double}]{x\mbox{[}$\,$\mbox{]},  }\item[{double}]{x1\mbox{[}$\,$\mbox{]},  }\item[{double}]{x2\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x2\+\_\+i,  }\item[{const double}]{x2\+\_\+f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void tesseract\+\_\+planning\+::adjust\+\_\+two\+\_\+positions (\begin{DoxyParamCaption}\item[{const long}]{n,  }\item[{const double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{double}]{x\mbox{[}$\,$\mbox{]},  }\item[{double}]{x1\mbox{[}$\,$\mbox{]},  }\item[{double}]{x2\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x2\+\_\+i,  }\item[{const double}]{x2\+\_\+f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 \mbox{\Hypertarget{namespacetesseract__planning_aea8479d65e3b592b7a1b51d154c76ee5}\label{namespacetesseract__planning_aea8479d65e3b592b7a1b51d154c76ee5}} 
 \index{tesseract\_planning@{tesseract\_planning}!allocWeightedRealVectorStateSampler@{allocWeightedRealVectorStateSampler}}
@@ -2237,11 +2241,11 @@ This will call the abort function of the \mbox{\hyperlink{structtesseract__plann
 {\em user\+\_\+callback} & A user callback function \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{namespacetesseract__planning_a1430f1d1119b09b6c6b46624435e69e9}\label{namespacetesseract__planning_a1430f1d1119b09b6c6b46624435e69e9}} 
+\mbox{\Hypertarget{namespacetesseract__planning_ab1a605c1704dc7213e1870f0f3d01ce8}\label{namespacetesseract__planning_ab1a605c1704dc7213e1870f0f3d01ce8}} 
 \index{tesseract\_planning@{tesseract\_planning}!fit\_cubic\_spline@{fit\_cubic\_spline}}
 \index{fit\_cubic\_spline@{fit\_cubic\_spline}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{fit\_cubic\_spline()}{fit\_cubic\_spline()}}
-{\footnotesize\ttfamily static void tesseract\+\_\+planning\+::fit\+\_\+cubic\+\_\+spline (\begin{DoxyParamCaption}\item[{const int}]{n,  }\item[{const double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{double}]{x1\mbox{[}$\,$\mbox{]},  }\item[{double}]{x2\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void tesseract\+\_\+planning\+::fit\+\_\+cubic\+\_\+spline (\begin{DoxyParamCaption}\item[{const long}]{n,  }\item[{const double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{double}]{x1\mbox{[}$\,$\mbox{]},  }\item[{double}]{x2\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ac0bda18baed62560eb55f6babe637f4e}\label{namespacetesseract__planning_ac0bda18baed62560eb55f6babe637f4e}} 
 \index{tesseract\_planning@{tesseract\_planning}!flatten@{flatten}}
@@ -3193,17 +3197,17 @@ Get the configuration of a six axis industrial robot.
 \begin{DoxyReturn}{Returns}
 Robot Config 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_adcac602c6a5d31583876cc69dfc52ba5}\label{namespacetesseract__planning_adcac602c6a5d31583876cc69dfc52ba5}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a055e94fcc3bfae45e8d095dd850cbd2a}\label{namespacetesseract__planning_a055e94fcc3bfae45e8d095dd850cbd2a}} 
 \index{tesseract\_planning@{tesseract\_planning}!global\_adjustment\_factor@{global\_adjustment\_factor}}
 \index{global\_adjustment\_factor@{global\_adjustment\_factor}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{global\_adjustment\_factor()}{global\_adjustment\_factor()}}
-{\footnotesize\ttfamily static double tesseract\+\_\+planning\+::global\+\_\+adjustment\+\_\+factor (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{double}]{x1\mbox{[}$\,$\mbox{]},  }\item[{double}]{x2\mbox{[}$\,$\mbox{]},  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{min\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{min\+\_\+acceleration }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static double tesseract\+\_\+planning\+::global\+\_\+adjustment\+\_\+factor (\begin{DoxyParamCaption}\item[{long}]{n,  }\item[{double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{double}]{x1\mbox{[}$\,$\mbox{]},  }\item[{double}]{x2\mbox{[}$\,$\mbox{]},  }\item[{const double}]{max\+\_\+velocity\mbox{[}$\,$\mbox{]},  }\item[{const double}]{min\+\_\+velocity\mbox{[}$\,$\mbox{]},  }\item[{const double}]{max\+\_\+acceleration\mbox{[}$\,$\mbox{]},  }\item[{const double}]{min\+\_\+acceleration\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-\mbox{\Hypertarget{namespacetesseract__planning_aa839d132d8adcf4f0fbc0483d23c81c5}\label{namespacetesseract__planning_aa839d132d8adcf4f0fbc0483d23c81c5}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a1c8c37247f78cf422a0065e7f1b0efba}\label{namespacetesseract__planning_a1c8c37247f78cf422a0065e7f1b0efba}} 
 \index{tesseract\_planning@{tesseract\_planning}!globalAdjustment@{globalAdjustment}}
 \index{globalAdjustment@{globalAdjustment}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{globalAdjustment()}{globalAdjustment()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::global\+Adjustment (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{Single\+Joint\+Trajectory}} $>$ \&}]{t2,  }\item[{int}]{num\+\_\+joints,  }\item[{const int}]{num\+\_\+points,  }\item[{std\+::vector$<$ double $>$ \&}]{time\+\_\+diff }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::global\+Adjustment (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{Single\+Joint\+Trajectory}} $>$ \&}]{t2,  }\item[{long}]{num\+\_\+joints,  }\item[{long}]{num\+\_\+points,  }\item[{std\+::vector$<$ double $>$ \&}]{time\+\_\+diff }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a6e3bc51fc2552d2913c17d1f020c23b4}\label{namespacetesseract__planning_a6e3bc51fc2552d2913c17d1f020c23b4}} 
 \index{tesseract\_planning@{tesseract\_planning}!hasSeedTask@{hasSeedTask}}
@@ -3223,11 +3227,11 @@ It checks if a any composite instruction is empty in the results data structure
 \begin{DoxyReturn}{Returns}
 One if seed exists, otherwise zero 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_aafaaff65bdb8c59e6c2cbaedf3934f0c}\label{namespacetesseract__planning_aafaaff65bdb8c59e6c2cbaedf3934f0c}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a5f556710cc50c0e26ef0947b48fa2cdb}\label{namespacetesseract__planning_a5f556710cc50c0e26ef0947b48fa2cdb}} 
 \index{tesseract\_planning@{tesseract\_planning}!init\_times@{init\_times}}
 \index{init\_times@{init\_times}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{init\_times()}{init\_times()}}
-{\footnotesize\ttfamily static void tesseract\+\_\+planning\+::init\+\_\+times (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{min\+\_\+velocity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void tesseract\+\_\+planning\+::init\+\_\+times (\begin{DoxyParamCaption}\item[{long}]{n,  }\item[{double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{const double}]{max\+\_\+velocity\mbox{[}$\,$\mbox{]},  }\item[{const double}]{min\+\_\+velocity\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}\label{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}} 
 \index{tesseract\_planning@{tesseract\_planning}!interpolate@{interpolate}}

@@ -1,0 +1,255 @@
+\hypertarget{classtesseract__planning_1_1TrajectoryContainer}{}\doxysection{tesseract\+\_\+planning\+::Trajectory\+Container Class Reference}
+\label{classtesseract__planning_1_1TrajectoryContainer}\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+
+
+A generic container that the time parameterization classes use.  
+
+
+
+
+{\ttfamily \#include $<$trajectory\+\_\+container.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Trajectory\+Container\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{de/d64/classtesseract__planning_1_1TrajectoryContainer__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_addac5779485104d03ae174b032df5e6a}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aef4f822d0f58ab914260062c2c64d717}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a36eb6404ae051b898c119d4cd4abb3f1}{Trajectory\+Container}} ()=default
+\item 
+virtual \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a36fd05bb637cb567d77ab2ec0ecf127b}{$\sim$\+Trajectory\+Container}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a61900d172d1f15c5077313a898976e80}{Trajectory\+Container}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aaf1659e5bc214bb76725b528b43e36c5}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a30a6a01f5b081e6cca816c220eab13c6}{Trajectory\+Container}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aa1bd83ef83ab0452b215ea2a753c4b61}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&) noexcept=default
+\item 
+virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a83dcd133c1987ea474ce372cfd6c1ffb}{get\+Position}} (Eigen\+::\+Index i) const =0
+\begin{DoxyCompactList}\small\item\em Get the position data at a given index. \end{DoxyCompactList}\item 
+virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a9234b7c4def3902d4c9e146895400f95}{get\+Velocity}} (Eigen\+::\+Index i) const =0
+\begin{DoxyCompactList}\small\item\em Get the velocity data at a given index. \end{DoxyCompactList}\item 
+virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aa8adcaf372e945d085c588d4c5ff2171}{get\+Acceleration}} (Eigen\+::\+Index i) const =0
+\begin{DoxyCompactList}\small\item\em Get the acceleration data at a given index. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a8c1ce5305755a8bc39f78d58865f7b06}{set\+Data}} (Eigen\+::\+Index i, const Eigen\+::\+Vector\+Xd \&velocity, const Eigen\+::\+Vector\+Xd \&acceleration, double time)=0
+\begin{DoxyCompactList}\small\item\em Set data for a given index. \end{DoxyCompactList}\item 
+virtual Eigen\+::\+Index \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}{size}} () const =0
+\begin{DoxyCompactList}\small\item\em The size of the path. \end{DoxyCompactList}\item 
+virtual Eigen\+::\+Index \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a4ee218a55ff4c8d8f01737627076378f}{dof}} () const =0
+\begin{DoxyCompactList}\small\item\em The degree of freedom for the path. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ada5c7d8dc47cbd55fe4628aed62ec01f}{empty}} () const =0
+\begin{DoxyCompactList}\small\item\em Check if the path is empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A generic container that the time parameterization classes use. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_aef4f822d0f58ab914260062c2c64d717}\label{classtesseract__planning_1_1TrajectoryContainer_aef4f822d0f58ab914260062c2c64d717}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aef4f822d0f58ab914260062c2c64d717}{tesseract\+\_\+planning\+::\+Trajectory\+Container\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_addac5779485104d03ae174b032df5e6a}\label{classtesseract__planning_1_1TrajectoryContainer_addac5779485104d03ae174b032df5e6a}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_addac5779485104d03ae174b032df5e6a}{tesseract\+\_\+planning\+::\+Trajectory\+Container\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a36eb6404ae051b898c119d4cd4abb3f1}\label{classtesseract__planning_1_1TrajectoryContainer_a36eb6404ae051b898c119d4cd4abb3f1}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!TrajectoryContainer@{TrajectoryContainer}}
+\index{TrajectoryContainer@{TrajectoryContainer}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{TrajectoryContainer()}{TrajectoryContainer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Trajectory\+Container\+::\+Trajectory\+Container (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a36fd05bb637cb567d77ab2ec0ecf127b}\label{classtesseract__planning_1_1TrajectoryContainer_a36fd05bb637cb567d77ab2ec0ecf127b}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!````~TrajectoryContainer@{$\sim$TrajectoryContainer}}
+\index{````~TrajectoryContainer@{$\sim$TrajectoryContainer}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{$\sim$TrajectoryContainer()}{~TrajectoryContainer()}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+planning\+::\+Trajectory\+Container\+::$\sim$\+Trajectory\+Container (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a61900d172d1f15c5077313a898976e80}\label{classtesseract__planning_1_1TrajectoryContainer_a61900d172d1f15c5077313a898976e80}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!TrajectoryContainer@{TrajectoryContainer}}
+\index{TrajectoryContainer@{TrajectoryContainer}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{TrajectoryContainer()}{TrajectoryContainer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Trajectory\+Container\+::\+Trajectory\+Container (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a30a6a01f5b081e6cca816c220eab13c6}\label{classtesseract__planning_1_1TrajectoryContainer_a30a6a01f5b081e6cca816c220eab13c6}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!TrajectoryContainer@{TrajectoryContainer}}
+\index{TrajectoryContainer@{TrajectoryContainer}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{TrajectoryContainer()}{TrajectoryContainer()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Trajectory\+Container\+::\+Trajectory\+Container (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a4ee218a55ff4c8d8f01737627076378f}\label{classtesseract__planning_1_1TrajectoryContainer_a4ee218a55ff4c8d8f01737627076378f}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!dof@{dof}}
+\index{dof@{dof}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{dof()}{dof()}}
+{\footnotesize\ttfamily virtual Eigen\+::\+Index tesseract\+\_\+planning\+::\+Trajectory\+Container\+::dof (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+The degree of freedom for the path. 
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a114374b50070c7ebbf88c494771d856d}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_ada5c7d8dc47cbd55fe4628aed62ec01f}\label{classtesseract__planning_1_1TrajectoryContainer_ada5c7d8dc47cbd55fe4628aed62ec01f}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!empty@{empty}}
+\index{empty@{empty}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily virtual bool tesseract\+\_\+planning\+::\+Trajectory\+Container\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Check if the path is empty. 
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_adf9404685a6a3b7e6f886b502ab366e6}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_aa8adcaf372e945d085c588d4c5ff2171}\label{classtesseract__planning_1_1TrajectoryContainer_aa8adcaf372e945d085c588d4c5ff2171}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!getAcceleration@{getAcceleration}}
+\index{getAcceleration@{getAcceleration}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{getAcceleration()}{getAcceleration()}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Acceleration (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the acceleration data at a given index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index to extract acceleration data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The acceleration data 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a58ccefc219b724dbb3817a62a3086c85}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a83dcd133c1987ea474ce372cfd6c1ffb}\label{classtesseract__planning_1_1TrajectoryContainer_a83dcd133c1987ea474ce372cfd6c1ffb}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Position (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the position data at a given index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index to extract position data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The position data 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a6c638153b5418117bd0760039031510a}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a9234b7c4def3902d4c9e146895400f95}\label{classtesseract__planning_1_1TrajectoryContainer_a9234b7c4def3902d4c9e146895400f95}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!getVelocity@{getVelocity}}
+\index{getVelocity@{getVelocity}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{getVelocity()}{getVelocity()}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Velocity (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the velocity data at a given index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index to extract velocity data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The velocity data 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_af6dbbeb6519ca8a436fe5250d6d14ad4}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_aaf1659e5bc214bb76725b528b43e36c5}\label{classtesseract__planning_1_1TrajectoryContainer_aaf1659e5bc214bb76725b528b43e36c5}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}}\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_aa1bd83ef83ab0452b215ea2a753c4b61}\label{classtesseract__planning_1_1TrajectoryContainer_aa1bd83ef83ab0452b215ea2a753c4b61}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}}\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a8c1ce5305755a8bc39f78d58865f7b06}\label{classtesseract__planning_1_1TrajectoryContainer_a8c1ce5305755a8bc39f78d58865f7b06}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!setData@{setData}}
+\index{setData@{setData}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+Trajectory\+Container\+::set\+Data (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{velocity,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{acceleration,  }\item[{double}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Set data for a given index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index to set data \\
+\hline
+{\em velocity} & The velocity data to assign to index \\
+\hline
+{\em acceleration} & The acceleration data to assign to index \\
+\hline
+{\em time} & The time from start to assign to index \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a55ec99a13d28298b2e70cb00ab8b2567}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}\label{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!size@{size}}
+\index{size@{size}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily virtual Eigen\+::\+Index tesseract\+\_\+planning\+::\+Trajectory\+Container\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+The size of the path. 
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_ac2aec373653272c376c0a59a9b7b33fa}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+time\+\_\+parameterization/include/tesseract\+\_\+time\+\_\+parameterization/\mbox{\hyperlink{trajectory__container_8h}{trajectory\+\_\+container.\+h}}\end{DoxyCompactItemize}
