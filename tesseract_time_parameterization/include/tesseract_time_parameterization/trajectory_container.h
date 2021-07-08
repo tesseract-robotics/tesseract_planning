@@ -41,7 +41,12 @@ public:
   using Ptr = std::shared_ptr<TrajectoryContainer>;
   using ConstPtr = std::shared_ptr<const TrajectoryContainer>;
 
+  TrajectoryContainer() = default;
   virtual ~TrajectoryContainer() = default;
+  TrajectoryContainer(const TrajectoryContainer&) = default;
+  TrajectoryContainer& operator=(const TrajectoryContainer&) = default;
+  TrajectoryContainer(TrajectoryContainer&&) noexcept = default;
+  TrajectoryContainer& operator=(TrajectoryContainer&&) noexcept = default;
 
   /**
    * @brief Get the position data at a given index

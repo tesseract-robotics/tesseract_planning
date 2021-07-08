@@ -43,15 +43,15 @@ public:
   InstructionsTrajectory(std::vector<std::reference_wrapper<Instruction>> trajectory);
   InstructionsTrajectory(CompositeInstruction& program);
 
-  const Eigen::VectorXd& getPosition(Eigen::Index i) const;
-  const Eigen::VectorXd& getVelocity(Eigen::Index i) const;
-  const Eigen::VectorXd& getAcceleration(Eigen::Index i) const;
+  const Eigen::VectorXd& getPosition(Eigen::Index i) const final;
+  const Eigen::VectorXd& getVelocity(Eigen::Index i) const final;
+  const Eigen::VectorXd& getAcceleration(Eigen::Index i) const final;
 
-  void setData(Eigen::Index i, const Eigen::VectorXd& velocity, const Eigen::VectorXd& acceleration, double time);
+  void setData(Eigen::Index i, const Eigen::VectorXd& velocity, const Eigen::VectorXd& acceleration, double time) final;
 
-  Eigen::Index size() const;
-  Eigen::Index dof() const;
-  bool empty() const;
+  Eigen::Index size() const final;
+  Eigen::Index dof() const final;
+  bool empty() const final;
 
 private:
   std::vector<std::reference_wrapper<Instruction>> trajectory_;
