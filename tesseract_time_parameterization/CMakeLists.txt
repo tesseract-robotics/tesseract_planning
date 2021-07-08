@@ -33,6 +33,7 @@ add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 tesseract_variables()
 
 add_library(${PROJECT_NAME}
+    src/instructions_trajectory.cpp
     src/iterative_spline_parameterization
     src/time_optimal_trajectory_generation
     )

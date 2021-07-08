@@ -43,7 +43,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Eigen>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_time_parameterization/trajectory_container.h>
 
 namespace tesseract_planning
 {
@@ -85,78 +85,6 @@ public:
   IterativeSplineParameterization& operator=(IterativeSplineParameterization&&) = default;
 
   /**
-   * @brief Compute the time stamps for a provided program.
-   *
-   * This will flatten the program to a vector of move instructions
-   *
-   * @param program The program to compute time stamps
-   * @param max_velocities The max velocities for each joint
-   * @param max_accelerations The max acceleration for each joint
-   * @param max_velocity_scaling_factor The max velocity scaling factor
-   * @param max_acceleration_scaling_factor The max acceleration scaling factor
-   * @return True if successful, otherwise false
-   */
-  bool compute(CompositeInstruction& program,
-               const double& max_velocity,
-               const double& max_acceleration,
-               double max_velocity_scaling_factor = 1.0,
-               double max_acceleration_scaling_factor = 1.0) const;
-
-  /**
-   * @brief Compute the time stamps for a provided program.
-   *
-   * This will flatten the program to a vector of move instructions
-   *
-   * @param program The program to compute time stamps
-   * @param max_velocities The max velocities for each joint
-   * @param max_accelerations The max acceleration for each joint
-   * @param max_velocity_scaling_factor The max velocity scaling factor
-   * @param max_acceleration_scaling_factor The max acceleration scaling factor
-   * @return True if successful, otherwise false
-   */
-  bool compute(CompositeInstruction& program,
-               const std::vector<double>& max_velocity,
-               const std::vector<double>& max_acceleration,
-               double max_velocity_scaling_factor = 1.0,
-               double max_acceleration_scaling_factor = 1.0) const;
-
-  /**
-   * @brief Compute the time stamps for a provided program.
-   *
-   * This will flatten the program to a vector of move instructions
-   *
-   * @param program The program to compute time stamps
-   * @param max_velocities The max velocities for each joint
-   * @param max_accelerations The max acceleration for each joint
-   * @param max_velocity_scaling_factor The max velocity scaling factor
-   * @param max_acceleration_scaling_factor The max acceleration scaling factor
-   * @return True if successful, otherwise false
-   */
-  bool compute(CompositeInstruction& program,
-               const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-               const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-               double max_velocity_scaling_factor = 1.0,
-               double max_acceleration_scaling_factor = 1.0) const;
-
-  /**
-   * @brief Compute the time stamps for a provided program.
-   *
-   * This will flatten the program to a vector of move instructions
-   *
-   * @param program The program to compute time stamps
-   * @param max_velocities The max velocities for each joint
-   * @param max_accelerations The max acceleration for each joint
-   * @param max_velocity_scaling_factor The max velocity scaling factor. Size should be program.size()
-   * @param max_acceleration_scaling_factor The max acceleration scaling factor. Size should be program.size()
-   * @return True if successful, otherwise false
-   */
-  bool compute(CompositeInstruction& program,
-               const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
-               const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-               const Eigen::Ref<const Eigen::VectorXd>& max_velocity_scaling_factor,
-               const Eigen::Ref<const Eigen::VectorXd>& max_acceleration_scaling_factor) const;
-
-  /**
    * @brief Compute the time stamps for a flattened vector of move instruction
    * @param trajectory Flattended vector of move instruction
    * @param max_velocities The max velocities for each joint
@@ -165,7 +93,7 @@ public:
    * @param max_acceleration_scaling_factor The max acceleration scaling factor
    * @return True if successful, otherwise false
    */
-  bool compute(std::vector<std::reference_wrapper<Instruction>>& trajectory,
+  bool compute(TrajectoryContainer& trajectory,
                const double& max_velocity,
                const double& max_acceleration,
                double max_velocity_scaling_factor = 1.0,
@@ -180,7 +108,7 @@ public:
    * @param max_acceleration_scaling_factor The max acceleration scaling factor
    * @return True if successful, otherwise false
    */
-  bool compute(std::vector<std::reference_wrapper<Instruction>>& trajectory,
+  bool compute(TrajectoryContainer& trajectory,
                const std::vector<double>& max_velocity,
                const std::vector<double>& max_acceleration,
                double max_velocity_scaling_factor = 1.0,
@@ -195,7 +123,7 @@ public:
    * @param max_acceleration_scaling_factor The max acceleration scaling factor
    * @return True if successful, otherwise false
    */
-  bool compute(std::vector<std::reference_wrapper<Instruction>>& trajectory,
+  bool compute(TrajectoryContainer& trajectory,
                const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
                double max_velocity_scaling_factor = 1.0,
@@ -210,7 +138,7 @@ public:
    * @param max_acceleration_scaling_factor The max acceleration scaling factor. Size should be trajectory.size()
    * @return True if successful, otherwise false
    */
-  bool compute(std::vector<std::reference_wrapper<Instruction>>& trajectory,
+  bool compute(TrajectoryContainer& trajectory,
                const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
                const Eigen::Ref<const Eigen::VectorXd>& max_velocity_scaling_factors,
