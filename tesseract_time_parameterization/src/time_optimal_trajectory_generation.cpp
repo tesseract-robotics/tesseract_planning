@@ -291,7 +291,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
   // Have to convert into Eigen data structs and remove repeated points
   //  (https://github.com/tobiaskunz/trajectories/issues/3)
   std::list<Eigen::VectorXd> points;
-  for (Eigen::Index p = 0; p < num_points; ++p)
+  for (Eigen::Index p = 0; p < static_cast<Eigen::Index>(num_points); ++p)
   {
     const Eigen::VectorXd& position = trajectory.getPosition(p);
     bool diverse_point = (p == 0);
