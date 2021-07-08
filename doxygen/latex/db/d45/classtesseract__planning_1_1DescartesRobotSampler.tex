@@ -27,7 +27,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Robot\+Sampler$<
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a81f95907a8e7e3d4743a15dbfc883c01}{Descartes\+Robot\+Sampler}} (const Eigen\+::\+Isometry3d \&target\+\_\+pose, \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}} target\+\_\+pose\+\_\+sampler, tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr ik, \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{Descartes\+Collision\+::\+Ptr}} collision, const Eigen\+::\+Isometry3d \&tcp, bool allow\+\_\+collision, \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{Descartes\+Vertex\+Evaluator\+::\+Ptr}} is\+\_\+valid, std\+::vector$<$ Eigen\+::\+Index $>$ redundancy\+\_\+capable\+\_\+joints)
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a1aa53e4e2514a7e1e715c4ece0c7330e}{Descartes\+Robot\+Sampler}} (const Eigen\+::\+Isometry3d \&target\+\_\+pose, \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}} target\+\_\+pose\+\_\+sampler, tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr ik, \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{Descartes\+Collision\+::\+Ptr}} collision, const Eigen\+::\+Isometry3d \&tcp, bool allow\+\_\+collision, \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{Descartes\+Vertex\+Evaluator\+::\+Ptr}} is\+\_\+valid, bool use\+\_\+redundant\+\_\+joint\+\_\+solutions)
 \begin{DoxyCompactList}\small\item\em This is a descartes sampler for a robot. \end{DoxyCompactList}\item 
 std\+::vector$<$ descartes\+\_\+light\+::\+State\+Sample$<$ Float\+Type $>$ $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a5a673c54b9cea8d02596d5972b184d8d}{sample}} () const override
 \end{DoxyCompactItemize}
@@ -52,17 +52,17 @@ Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobo
 \begin{DoxyCompactList}\small\item\em The seed for inverse kinematics which is zeros. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{Descartes\+Vertex\+Evaluator\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a449c5ea39c79a35a1765c63061bafc5d}{is\+\_\+valid\+\_\+}}
 \begin{DoxyCompactList}\small\item\em This is the vertex evaluator to filter out solution. \end{DoxyCompactList}\item 
-std\+::vector$<$ Eigen\+::\+Index $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a8185c18e193c0de11a8e4e5b09991dcb}{redundancy\+\_\+capable\+\_\+joints\+\_\+}}
-\begin{DoxyCompactList}\small\item\em Vector of indices indicating which joints in the motion group are capable of producing redundant joint states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a93a5a6940926da71c95477c5769b626a}{use\+\_\+redundant\+\_\+joint\+\_\+solutions\+\_\+}} \{ false \}
+\begin{DoxyCompactList}\small\item\em Should redundant solutions be used. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_a81f95907a8e7e3d4743a15dbfc883c01}\label{classtesseract__planning_1_1DescartesRobotSampler_a81f95907a8e7e3d4743a15dbfc883c01}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_a1aa53e4e2514a7e1e715c4ece0c7330e}\label{classtesseract__planning_1_1DescartesRobotSampler_a1aa53e4e2514a7e1e715c4ece0c7330e}} 
 \index{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}!DescartesRobotSampler@{DescartesRobotSampler}}
 \index{DescartesRobotSampler@{DescartesRobotSampler}!tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{DescartesRobotSampler()}{DescartesRobotSampler()}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+Sampler}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{Descartes\+Robot\+Sampler}} (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{target\+\_\+pose,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}}}]{target\+\_\+pose\+\_\+sampler,  }\item[{tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr}]{ik,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{Descartes\+Collision\+::\+Ptr}}}]{collision,  }\item[{const Eigen\+::\+Isometry3d \&}]{tcp,  }\item[{bool}]{allow\+\_\+collision,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{Descartes\+Vertex\+Evaluator\+::\+Ptr}}}]{is\+\_\+valid,  }\item[{std\+::vector$<$ Eigen\+::\+Index $>$}]{redundancy\+\_\+capable\+\_\+joints }\end{DoxyParamCaption})}
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+Sampler}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{Descartes\+Robot\+Sampler}} (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{target\+\_\+pose,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{Pose\+Sampler\+Fn}}}]{target\+\_\+pose\+\_\+sampler,  }\item[{tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr}]{ik,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{Descartes\+Collision\+::\+Ptr}}}]{collision,  }\item[{const Eigen\+::\+Isometry3d \&}]{tcp,  }\item[{bool}]{allow\+\_\+collision,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{Descartes\+Vertex\+Evaluator\+::\+Ptr}}}]{is\+\_\+valid,  }\item[{bool}]{use\+\_\+redundant\+\_\+joint\+\_\+solutions }\end{DoxyParamCaption})}
 
 
 
@@ -166,17 +166,6 @@ The seed for inverse kinematics which is zeros.
 
 This is the vertex evaluator to filter out solution. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_a8185c18e193c0de11a8e4e5b09991dcb}\label{classtesseract__planning_1_1DescartesRobotSampler_a8185c18e193c0de11a8e4e5b09991dcb}} 
-\index{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}!redundancy\_capable\_joints\_@{redundancy\_capable\_joints\_}}
-\index{redundancy\_capable\_joints\_@{redundancy\_capable\_joints\_}!tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}}
-\doxysubsubsection{\texorpdfstring{redundancy\_capable\_joints\_}{redundancy\_capable\_joints\_}}
-{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-std\+::vector$<$Eigen\+::\+Index$>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+Sampler}}$<$ Float\+Type $>$\+::redundancy\+\_\+capable\+\_\+joints\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Vector of indices indicating which joints in the motion group are capable of producing redundant joint states. 
-
 \mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_ad7a80abb190cdfc51112cd3916c281fc}\label{classtesseract__planning_1_1DescartesRobotSampler_ad7a80abb190cdfc51112cd3916c281fc}} 
 \index{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}!target\_pose\_@{target\_pose\_}}
 \index{target\_pose\_@{target\_pose\_}!tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}}
@@ -209,6 +198,17 @@ Eigen\+::\+Isometry3d \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobo
 
 
 The robot tool center point. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesRobotSampler_a93a5a6940926da71c95477c5769b626a}\label{classtesseract__planning_1_1DescartesRobotSampler_a93a5a6940926da71c95477c5769b626a}} 
+\index{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}!use\_redundant\_joint\_solutions\_@{use\_redundant\_joint\_solutions\_}}
+\index{use\_redundant\_joint\_solutions\_@{use\_redundant\_joint\_solutions\_}!tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$@{tesseract\_planning::DescartesRobotSampler$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{use\_redundant\_joint\_solutions\_}{use\_redundant\_joint\_solutions\_}}
+{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
+bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{tesseract\+\_\+planning\+::\+Descartes\+Robot\+Sampler}}$<$ Float\+Type $>$\+::use\+\_\+redundant\+\_\+joint\+\_\+solutions\+\_\+ \{ false \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Should redundant solutions be used. 
 
 
 

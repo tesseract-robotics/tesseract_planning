@@ -29,7 +29,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Collision\+Edge\
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a2e2eb14e8a44e27729f432f558c5b4fd}{Descartes\+Collision\+Edge\+Evaluator}} (const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&collision\+\_\+env, std\+::vector$<$ std\+::string $>$ active\+\_\+links, std\+::vector$<$ std\+::string $>$ joint\+\_\+names, tesseract\+\_\+collision\+::\+Collision\+Check\+Config config, bool allow\+\_\+collision=false, bool debug=false)
 \item 
-std\+::pair$<$ bool, Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aef858d5ebf051630826be2859db62d52}{evaluate}} (const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ \&start, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ \&end) const override
+std\+::pair$<$ bool, Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}{evaluate}} (const descartes\+\_\+light\+::\+State$<$ Float\+Type $>$ \&start, const descartes\+\_\+light\+::\+State$<$ Float\+Type $>$ \&end) const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -124,12 +124,12 @@ Perform a continuous discrete check between two states.
 \begin{DoxyReturn}{Returns}
 True if in collision otherwise false 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aef858d5ebf051630826be2859db62d52}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aef858d5ebf051630826be2859db62d52}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}} 
 \index{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}!evaluate@{evaluate}}
 \index{evaluate@{evaluate}!tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-std\+::pair$<$ bool, Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Collision\+Edge\+Evaluator}}$<$ Float\+Type $>$\+::evaluate (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ \&}]{start,  }\item[{const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ \&}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+std\+::pair$<$ bool, Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Collision\+Edge\+Evaluator}}$<$ Float\+Type $>$\+::evaluate (\begin{DoxyParamCaption}\item[{const descartes\+\_\+light\+::\+State$<$ Float\+Type $>$ \&}]{start,  }\item[{const descartes\+\_\+light\+::\+State$<$ Float\+Type $>$ \&}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_ab9b447b72f9166878c002af1d63b7486}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_ab9b447b72f9166878c002af1d63b7486}} 
 \index{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}!isContactAllowed@{isContactAllowed}}

@@ -110,8 +110,8 @@ Collaboration diagram for tesseract_planning::DescartesCollisionEdgeEvaluator&lt
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2e2eb14e8a44e27729f432f558c5b4fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a2e2eb14e8a44e27729f432f558c5b4fd">DescartesCollisionEdgeEvaluator</a> (const tesseract_environment::Environment::ConstPtr &amp;collision_env, std::vector&lt; std::string &gt; active_links, std::vector&lt; std::string &gt; joint_names, tesseract_collision::CollisionCheckConfig config, bool allow_collision=false, bool debug=false)</td></tr>
 <tr class="separator:a2e2eb14e8a44e27729f432f558c5b4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef858d5ebf051630826be2859db62d52"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, FloatType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#aef858d5ebf051630826be2859db62d52">evaluate</a> (const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &amp;start, const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &amp;end) const override</td></tr>
-<tr class="separator:aef858d5ebf051630826be2859db62d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30427575131a80dda8ef9b9160194149"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, FloatType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a30427575131a80dda8ef9b9160194149">evaluate</a> (const descartes_light::State&lt; FloatType &gt; &amp;start, const descartes_light::State&lt; FloatType &gt; &amp;end) const override</td></tr>
+<tr class="separator:a30427575131a80dda8ef9b9160194149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -331,8 +331,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="aef858d5ebf051630826be2859db62d52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef858d5ebf051630826be2859db62d52">&#9670;&nbsp;</a></span>evaluate()</h2>
+<a id="a30427575131a80dda8ef9b9160194149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30427575131a80dda8ef9b9160194149">&#9670;&nbsp;</a></span>evaluate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -345,13 +345,13 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">std::pair&lt; bool, FloatType &gt; <a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html">tesseract_planning::DescartesCollisionEdgeEvaluator</a>&lt; FloatType &gt;::evaluate </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &amp;&#160;</td>
+          <td class="paramtype">const descartes_light::State&lt; FloatType &gt; &amp;&#160;</td>
           <td class="paramname"><em>start</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &amp;&#160;</td>
+          <td class="paramtype">const descartes_light::State&lt; FloatType &gt; &amp;&#160;</td>
           <td class="paramname"><em>end</em>&#160;</td>
         </tr>
         <tr>
@@ -763,7 +763,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 1 2021 14:05:39 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Jul 8 2021 00:47:22 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
