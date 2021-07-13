@@ -71,6 +71,9 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
     manip_inv_kin_ = request.env->getManipulatorManager()->getInvKinematicSolver(composite_mi.manipulator,
                                                                                  composite_mi.manipulator_ik_solver);
 
+  // Synchronize the inverse kinematics with the forward kinematics
+  manip_inv_kin_.sychronize(manip_fwd_kin_);
+
   if (!manip_fwd_kin_)
   {
     CONSOLE_BRIDGE_logError("No Forward Kinematics solver found");

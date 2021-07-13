@@ -55,6 +55,10 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   const std::string& manipulator = composite_mi.manipulator;
   auto kin = request.env->getManipulatorManager()->getFwdKinematicSolver(manipulator);
   auto inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(manipulator);
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   assert(kin);
   problem->manip_fwd_kin = kin;
   problem->manip_inv_kin = inv_kin;

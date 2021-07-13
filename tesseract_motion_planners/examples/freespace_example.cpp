@@ -107,6 +107,10 @@ int main(int /*argc*/, char** /*argv*/)
 
   auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
   auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   auto cur_state = env->getCurrentState();
 
   // Specify start location

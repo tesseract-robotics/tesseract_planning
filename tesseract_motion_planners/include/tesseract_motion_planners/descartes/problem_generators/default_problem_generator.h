@@ -70,6 +70,10 @@ DefaultDescartesProblemGenerator(const std::string& name,
     CONSOLE_BRIDGE_logError("No Inverse Kinematics solver found");
     return prob;
   }
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  prob->manip_inv_kin.sychronize(prob->manip_fwd_kin);
+
   prob->env_state = request.env_state;
   prob->env = request.env;
 

@@ -44,6 +44,10 @@ InstructionInfo::InstructionInfo(const PlanInstruction& plan_instruction,
   // Get Previous Instruction Kinematics
   fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(mi.manipulator);
   inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(mi.manipulator);
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   if (inv_kin->getJointNames() != fwd_kin->getJointNames())
     throw std::runtime_error("Forward and Inverse Kinematic objects joints are not ordered the same!");
 

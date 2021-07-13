@@ -112,6 +112,10 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver("manipulator");
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver("manipulator");
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   auto cur_state = env_->getCurrentState();
 
   // Specify a start waypoint
@@ -228,6 +232,10 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   auto cur_state = env_->getCurrentState();
 
   // Specify a start waypoint
@@ -334,6 +342,10 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
 
   auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   auto cur_state = env_->getCurrentState();
 
   // Specify a start waypoint

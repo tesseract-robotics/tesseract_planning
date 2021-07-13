@@ -172,6 +172,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
   // Step 3: Create ompl planner config and populate it
   auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
   auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   auto cur_state = env->getCurrentState();
 
   // Specify a start waypoint
@@ -330,6 +334,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   // Step 3: Create ompl planner config and populate it
   auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
   auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   auto cur_state = env->getCurrentState();
 
   // Specify a start waypoint
@@ -421,6 +429,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
   // Step 3: Create ompl planner config and populate it
   auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
   auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
+
+  // Synchronize the inverse kinematics with the forward kinematics
+  inv_kin.sychronize(fwd_kin);
+
   auto cur_state = env->getCurrentState();
 
   // Specify a start waypoint
