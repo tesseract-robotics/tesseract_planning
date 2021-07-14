@@ -57,7 +57,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   auto inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   assert(kin);
   problem->manip_fwd_kin = kin;

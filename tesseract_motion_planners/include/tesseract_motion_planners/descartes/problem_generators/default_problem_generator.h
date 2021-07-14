@@ -75,7 +75,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
   }
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   prob->manip_fwd_kin = fwd_kin;
   prob->manip_inv_kin = inv_kin;

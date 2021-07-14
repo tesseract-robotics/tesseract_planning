@@ -134,7 +134,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   const std::vector<std::string>& joint_names = fwd_kin->getJointNames();
   auto cur_state = env_->getCurrentState();
@@ -216,7 +216,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   const std::vector<std::string>& joint_names = fwd_kin->getJointNames();
   auto cur_state = env_->getCurrentState();
@@ -307,7 +307,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   const std::vector<std::string>& joint_names = fwd_kin->getJointNames();
   auto cur_state = env_->getCurrentState();
@@ -402,7 +402,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   const std::vector<std::string>& joint_names = fwd_kin->getJointNames();
   auto cur_state = env_->getCurrentState();
@@ -496,7 +496,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   auto cur_state = env_->getCurrentState();
 
@@ -590,7 +590,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   auto cur_state = env_->getCurrentState();
 
@@ -684,7 +684,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   const std::vector<std::string>& joint_names = fwd_kin->getJointNames();
   auto cur_state = env_->getCurrentState();
@@ -760,7 +760,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin->sychronize(fwd_kin);
+  inv_kin->synchronize(fwd_kin);
 
   const std::vector<std::string>& joint_names = fwd_kin->getJointNames();
   auto cur_state = env_->getCurrentState();
