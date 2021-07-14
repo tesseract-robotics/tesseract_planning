@@ -53,27 +53,32 @@ DefaultDescartesProblemGenerator(const std::string& name,
   const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
   // Get Manipulator Information
-  prob->manip_fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(composite_mi.manipulator);
-  if (composite_mi.manipulator_ik_solver.empty())
-    prob->manip_inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(composite_mi.manipulator);
-  else
-    prob->manip_inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(
-        composite_mi.manipulator, composite_mi.manipulator_ik_solver);
+  tesseract_kinematics::ForwardKinematics::Ptr fwd_kin;
+  tesseract_kinematics::InverseKinematics::Ptr inv_kin;
 
-  if (!prob->manip_fwd_kin)
+  fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(composite_mi.manipulator);
+  if (composite_mi.manipulator_ik_solver.empty())
+    inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(composite_mi.manipulator);
+  else
+    inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(composite_mi.manipulator,
+                                                                          composite_mi.manipulator_ik_solver);
+
+  if (!fwd_kin)
   {
     CONSOLE_BRIDGE_logError("No Forward Kinematics solver found");
     return prob;
   }
-  if (!prob->manip_inv_kin)
+  if (!inv_kin)
   {
     CONSOLE_BRIDGE_logError("No Inverse Kinematics solver found");
     return prob;
   }
 
   // Synchronize the inverse kinematics with the forward kinematics
-  prob->manip_inv_kin.sychronize(prob->manip_fwd_kin);
+  inv_kin->sychronize(fwd_kin);
 
+  prob->manip_fwd_kin = fwd_kin;
+  prob->manip_inv_kin = inv_kin;
   prob->env_state = request.env_state;
   prob->env = request.env;
 
