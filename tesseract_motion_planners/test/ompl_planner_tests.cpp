@@ -174,7 +174,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
   auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin.sychronize(fwd_kin);
+  inv_kin->sychronize(fwd_kin);
 
   auto cur_state = env->getCurrentState();
 
@@ -336,7 +336,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin.sychronize(fwd_kin);
+  inv_kin->sychronize(fwd_kin);
 
   auto cur_state = env->getCurrentState();
 
@@ -431,7 +431,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
   auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  inv_kin.sychronize(fwd_kin);
+  inv_kin->sychronize(fwd_kin);
 
   auto cur_state = env->getCurrentState();
 
