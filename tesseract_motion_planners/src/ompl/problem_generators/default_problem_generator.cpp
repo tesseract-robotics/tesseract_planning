@@ -72,7 +72,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
                                                                                  composite_mi.manipulator_ik_solver);
 
   // Synchronize the inverse kinematics with the forward kinematics
-  manip_inv_kin_.sychronize(manip_fwd_kin_);
+  manip_inv_kin_->sychronize(manip_fwd_kin_);
 
   if (!manip_fwd_kin_)
   {
