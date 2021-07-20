@@ -35,6 +35,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/composite_instruction.h>
 
+#ifdef SWIG
+%shared_ptr(tesseract_planning::InstructionsTrajectory)
+#endif
+
 namespace tesseract_planning
 {
 class InstructionsTrajectory : public TrajectoryContainer
