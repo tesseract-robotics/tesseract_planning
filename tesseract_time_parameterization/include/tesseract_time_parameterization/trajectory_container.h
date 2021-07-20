@@ -32,6 +32,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#ifdef SWIG
+%shared_ptr(tesseract_planning::TrajectoryContainer)
+#endif
 namespace tesseract_planning
 {
 /** @brief A generic container that the time parameterization classes use */
