@@ -79,8 +79,11 @@ DefaultTrajoptProblemGenerator(const std::string& name,
 
   // Get kinematics information
   tesseract_environment::Environment::ConstPtr env = request.env;
+  tesseract_environment::EnvState::ConstPtr env_state = request.env_state;
+  if (env_state == nullptr)
+    env_state = request.env->getCurrentState();
   tesseract_environment::AdjacencyMap map(
-      env->getSceneGraph(), pci->kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
+      env->getSceneGraph(), pci->kin->getActiveLinkNames(), env_state->link_transforms);
   const std::vector<std::string>& active_links = map.getActiveLinkNames();
 
   // Create a temp seed storage.

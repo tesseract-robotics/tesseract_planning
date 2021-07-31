@@ -79,17 +79,20 @@ DefaultDescartesProblemGenerator(const std::string& name,
 
   prob->manip_fwd_kin = fwd_kin;
   prob->manip_inv_kin = inv_kin;
-  prob->env_state = request.env_state;
   prob->env = request.env;
+  prob->env_state = request.env_state;
+  if (prob->env_state == nullptr)
+    prob->env_state = request.env->getCurrentState();
 
   // Process instructions
-  if (!tesseract_kinematics::checkKinematics(prob->manip_fwd_kin, prob->manip_inv_kin))
+  if (!tesseract_kinematics::checkKinematics(
+          prob->manip_fwd_kin, prob->manip_inv_kin, prob->env_state->link_transforms))
     CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with KDL "
                             "(TrajOpt). Did you change the URDF recently?");
 
   std::vector<std::string> active_link_names = prob->manip_inv_kin->getActiveLinkNames();
   auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-      request.env->getSceneGraph(), active_link_names, request.env_state->link_transforms);
+      request.env->getSceneGraph(), active_link_names, prob->env_state->link_transforms);
   const std::vector<std::string>& active_links = adjacency_map->getActiveLinkNames();
 
   // Flatten the input for planning
@@ -123,7 +126,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
   }
   else
   {
-    Eigen::VectorXd current_jv = request.env_state->getJointValues(prob->manip_inv_kin->getJointNames());
+    Eigen::VectorXd current_jv = prob->env_state->getJointValues(prob->manip_inv_kin->getJointNames());
     StateWaypoint swp(prob->manip_inv_kin->getJointNames(), current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);

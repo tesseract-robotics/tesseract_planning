@@ -40,6 +40,8 @@ OMPLProblem::Ptr CreateOMPLSubProblem(const PlannerRequest& request,
   auto sub_prob = std::make_unique<OMPLProblem>();
   sub_prob->env = request.env;
   sub_prob->env_state = request.env_state;
+  if (sub_prob->env_state == nullptr)
+    sub_prob->env_state = request.env->getCurrentState();
   sub_prob->state_solver = request.env->getStateSolver();
   sub_prob->state_solver->setState(request.env_state->joints);
   sub_prob->manip_fwd_kin = manip_fwd_kin;
@@ -58,6 +60,10 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
   std::vector<std::string> active_link_names_;
   tesseract_kinematics::ForwardKinematics::Ptr manip_fwd_kin_;
   tesseract_kinematics::InverseKinematics::Ptr manip_inv_kin_;
+  tesseract_environment::EnvState::ConstPtr env_state = request.env_state;
+
+  if (env_state == nullptr)
+    env_state = request.env->getCurrentState();
 
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
@@ -85,7 +91,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
     return problem;
   }
   // Process instructions
-  if (!tesseract_kinematics::checkKinematics(manip_fwd_kin_, manip_inv_kin_))
+  if (!tesseract_kinematics::checkKinematics(manip_fwd_kin_, manip_inv_kin_, env_state->link_transforms))
   {
     CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with KDL "
                             "(TrajOpt). Did you change the URDF recently?");
@@ -95,7 +101,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
   {
     std::vector<std::string> active_link_names = manip_inv_kin_->getActiveLinkNames();
     auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-        request.env->getSceneGraph(), active_link_names, request.env_state->link_transforms);
+        request.env->getSceneGraph(), active_link_names, env_state->link_transforms);
     active_link_names_ = adjacency_map->getActiveLinkNames();
   }
 
@@ -125,7 +131,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
   }
   else
   {
-    Eigen::VectorXd current_jv = request.env_state->getJointValues(manip_fwd_kin_->getJointNames());
+    Eigen::VectorXd current_jv = env_state->getJointValues(manip_fwd_kin_->getJointNames());
     StateWaypoint swp(manip_fwd_kin_->getJointNames(), current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);

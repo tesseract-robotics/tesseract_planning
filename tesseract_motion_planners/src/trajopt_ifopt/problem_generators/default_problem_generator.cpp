@@ -53,20 +53,21 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   assert(!request.instructions.getManipulatorInfo().empty());
   const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
   const std::string& manipulator = composite_mi.manipulator;
-  auto kin = request.env->getManipulatorManager()->getFwdKinematicSolver(manipulator);
+  auto fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(manipulator);
   auto inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(manipulator);
 
   // Synchronize the inverse kinematics with the forward kinematics
   inv_kin->synchronize(fwd_kin);
 
-  assert(kin);
-  problem->manip_fwd_kin = kin;
+  assert(fwd_kin);
+  assert(inv_kin);
+  problem->manip_fwd_kin = fwd_kin;
   problem->manip_inv_kin = inv_kin;
 
   // Get kinematics information
   tesseract_environment::Environment::ConstPtr env = request.env;
   tesseract_environment::AdjacencyMap map(
-      env->getSceneGraph(), kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
+      env->getSceneGraph(), fwd_kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
   const std::vector<std::string>& active_links = map.getActiveLinkNames();
 
   // Flatten input instructions
@@ -78,7 +79,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   // Setup variables
   // ----------------
   // Create the vector of variables to be optimized
-  Eigen::MatrixX2d joint_limits_eigen = kin->getLimits().joint_limits;
+  Eigen::MatrixX2d joint_limits_eigen = fwd_kin->getLimits().joint_limits;
 
   // Create a variable for each instruction in the seed, setting to correct initial state
   for (std::size_t i = 0; i < seed_flat.size(); i++)
@@ -86,7 +87,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
     assert(isMoveInstruction(seed_flat[i]));
     auto var = std::make_shared<trajopt::JointPosition>(
         getJointPosition(seed_flat[i].get().as<MoveInstruction>().getWaypoint()),
-        kin->getJointNames(),
+        fwd_kin->getJointNames(),
         "Joint_Position_" + std::to_string(i));
     var->SetBounds(joint_limits_eigen);
     problem->vars.push_back(var);
@@ -125,8 +126,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   // If not start instruction is given, take the current state
   else
   {
-    Eigen::VectorXd current_jv = request.env_state->getJointValues(kin->getJointNames());
-    StateWaypoint swp(kin->getJointNames(), current_jv);
+    Eigen::VectorXd current_jv = request.env_state->getJointValues(fwd_kin->getJointNames());
+    StateWaypoint swp(fwd_kin->getJointNames(), current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);
     placeholder_instruction = temp_move;
@@ -176,8 +177,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = kin->calcFwdKin(position);
-            prev_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * prev_pose * tcp;
+            prev_pose = fwd_kin->calcFwdKin(position);
+            prev_pose = env->getCurrentState()->link_transforms.at(fwd_kin->getBaseLinkName()) * prev_pose * tcp;
           }
           else
           {
@@ -214,8 +215,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
             cur_position = temp.get();
           }
 
-          Eigen::Isometry3d cur_pose = kin->calcFwdKin(*cur_position);
-          cur_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * cur_pose * tcp;
+          Eigen::Isometry3d cur_pose = fwd_kin->calcFwdKin(*cur_position);
+          cur_pose = env->getCurrentState()->link_transforms.at(fwd_kin->getBaseLinkName()) * cur_pose * tcp;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
@@ -225,8 +226,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = kin->calcFwdKin(position);
-            prev_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * prev_pose * tcp;
+            prev_pose = fwd_kin->calcFwdKin(position);
+            prev_pose = env->getCurrentState()->link_transforms.at(fwd_kin->getBaseLinkName()) * prev_pose * tcp;
           }
           else
           {
