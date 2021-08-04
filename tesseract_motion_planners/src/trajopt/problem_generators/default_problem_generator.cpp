@@ -93,6 +93,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
   Waypoint start_waypoint{ NullWaypoint() };
+  Eigen::Isometry3d start_working_frame{ Eigen::Isometry3d::Identity() };
   Instruction placeholder_instruction{ NullInstruction() };
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
@@ -104,6 +105,9 @@ DefaultTrajoptProblemGenerator(const std::string& name,
       const auto& temp = start_instruction->as<PlanInstruction>();
       assert(temp.isStart());
       start_waypoint = temp.getWaypoint();
+      auto start_mi = composite_mi.getCombined(temp.getManipulatorInfo());
+      if (!start_mi.working_frame.empty())
+        start_working_frame = env_state->link_transforms.at(start_mi.working_frame);
       profile = temp.getProfile();
       profile_overrides = temp.profile_overrides;
     }
@@ -115,7 +119,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   }
   else
   {
-    Eigen::VectorXd current_jv = request.env_state->getJointValues(pci->kin->getJointNames());
+    Eigen::VectorXd current_jv = env_state->getJointValues(pci->kin->getJointNames());
     StateWaypoint swp(pci->kin->getJointNames(), current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);
@@ -190,6 +194,9 @@ DefaultTrajoptProblemGenerator(const std::string& name,
       // If plan instruction has manipulator information then use it over the one provided by the composite.
       ManipulatorInfo manip_info = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
       Eigen::Isometry3d tcp = request.env->findTCP(manip_info);
+      Eigen::Isometry3d working_frame = Eigen::Isometry3d::Identity();
+      if (!manip_info.working_frame.empty())
+        working_frame = env_state->link_transforms.at(manip_info.working_frame);
 
       assert(isCompositeInstruction(seed_flat[i].get()));
       const auto& seed_composite = seed_flat[i].get().as<tesseract_planning::CompositeInstruction>();
@@ -206,12 +213,13 @@ DefaultTrajoptProblemGenerator(const std::string& name,
       {
         if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
-          const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
+          Eigen::Isometry3d cur_wp =
+              working_frame * plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
+            prev_pose = start_working_frame * start_waypoint.as<CartesianWaypoint>().waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -229,7 +237,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*pci, poses[p], plan_instruction, composite_mi, active_links, index);
+            cur_plan_profile->apply(
+                *pci, working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
 
             // Add seed state
             assert(isMoveInstruction(seed_composite.at(p)));
@@ -241,7 +250,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           }
 
           // Add final point with waypoint
-          cur_plan_profile->apply(*pci, cur_wp, plan_instruction, composite_mi, active_links, index);
+          cur_plan_profile->apply(
+              *pci, working_frame.inverse() * cur_wp, plan_instruction, composite_mi, active_links, index);
 
           // Add seed state
           assert(isMoveInstruction(seed_composite.back()));
@@ -274,7 +284,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
+            prev_pose = start_working_frame * start_waypoint.as<CartesianWaypoint>().waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -292,7 +302,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*pci, poses[p], plan_instruction, composite_mi, active_links, index);
+            cur_plan_profile->apply(
+                *pci, working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
 
             // Add seed state
             assert(isMoveInstruction(seed_composite.at(p)));
@@ -349,7 +360,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
             toleranced = plan_instruction.getWaypoint().as<JointWaypoint>().isToleranced();
             cur_plan_profile->apply(*pci,
                                     plan_instruction.getWaypoint().as<JointWaypoint>(),
-                                    *start_instruction,
+                                    plan_instruction,
                                     composite_mi,
                                     active_links,
                                     index);
@@ -412,6 +423,10 @@ DefaultTrajoptProblemGenerator(const std::string& name,
       }
 
       start_waypoint = plan_instruction.getWaypoint();
+      if (manip_info.working_frame.empty())
+        start_working_frame = Eigen::Isometry3d::Identity();
+      else
+        start_working_frame = env_state->link_transforms.at(manip_info.working_frame);
     }
   }
 
