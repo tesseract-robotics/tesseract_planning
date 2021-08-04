@@ -101,7 +101,10 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   const std::string manipulator_ik_solver = request.instructions.getManipulatorInfo().manipulator_ik_solver;
 
   // Initialize
-  tesseract_environment::EnvState::ConstPtr current_state = request.env_state;
+  tesseract_environment::EnvState::ConstPtr env_state = request.env_state;
+  if (env_state == nullptr)
+    env_state = request.env->getCurrentState();
+
   tesseract_kinematics::ForwardKinematics::Ptr fwd_kin =
       request.env->getManipulatorManager()->getFwdKinematicSolver(manipulator);
   Waypoint start_waypoint{ NullWaypoint() };
@@ -110,7 +113,7 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   CompositeInstruction seed;
 
   // Get the start waypoint/instruction
-  PlanInstruction start_instruction = getStartInstruction(request, current_state, fwd_kin);
+  PlanInstruction start_instruction = getStartInstruction(request, env_state, fwd_kin);
 
   // Process the instructions into the seed
   try

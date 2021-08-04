@@ -90,7 +90,7 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(c
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
 
   Eigen::Isometry3d p2_world = base.extractCartesianWorldPose();
-  Eigen::Isometry3d p2 = base.calcCartesianLocalPose(p2_world);
+  Eigen::Isometry3d p2 = base.calcCartesianLocalPoseInvKin(p2_world);
 
   Eigen::VectorXd j2 = getClosestJointSolution(p2, base.inv_kin, j1);
 
@@ -135,7 +135,7 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(c
   const Eigen::VectorXd& j2 = base.extractJointPosition();
 
   Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
-  Eigen::Isometry3d p1 = prev.calcCartesianLocalPose(p1_world);
+  Eigen::Isometry3d p1 = prev.calcCartesianLocalPoseInvKin(p1_world);
   Eigen::VectorXd j1 = getClosestJointSolution(p1, prev.inv_kin, j2);
 
   Eigen::MatrixXd states;
@@ -183,10 +183,10 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(co
 
   // Calculate IK for start and end
   Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
-  Eigen::Isometry3d p1 = prev.calcCartesianLocalPose(p1_world);
+  Eigen::Isometry3d p1 = prev.calcCartesianLocalPoseInvKin(p1_world);
 
   Eigen::Isometry3d p2_world = base.extractCartesianWorldPose();
-  Eigen::Isometry3d p2 = base.calcCartesianLocalPose(p2_world);
+  Eigen::Isometry3d p2 = base.calcCartesianLocalPoseInvKin(p2_world);
 
   std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(p1, p2, prev.inv_kin, base.inv_kin, seed);
 

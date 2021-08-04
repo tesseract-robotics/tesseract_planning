@@ -48,7 +48,8 @@ struct InstructionInfo
   const PlanInstruction& instruction;
   tesseract_kinematics::ForwardKinematics::Ptr fwd_kin;
   tesseract_kinematics::InverseKinematics::Ptr inv_kin;
-  Eigen::Isometry3d world_to_base;
+  Eigen::Isometry3d world_to_fwd_base;
+  Eigen::Isometry3d world_to_inv_base;
   Eigen::Isometry3d working_frame;
   Eigen::Isometry3d tcp;
   bool has_cartesian_waypoint{ false };
@@ -61,10 +62,16 @@ struct InstructionInfo
   Eigen::Isometry3d calcCartesianWorldPose(const Eigen::VectorXd& jp) const;
 
   /**
-   * @brief Covert cartesian pose in world to the local robot base frame
-   * @return Cartesian pose in the local robot base frame
+   * @brief Covert cartesian pose in world to the local robot fwd kin base frame
+   * @return Cartesian pose in the local robot fwd kin base frame
    */
-  Eigen::Isometry3d calcCartesianLocalPose(const Eigen::Isometry3d& world) const;
+  Eigen::Isometry3d calcCartesianLocalPoseFwdKin(const Eigen::Isometry3d& world) const;
+
+  /**
+   * @brief Covert cartesian pose in world to the local robot inv kin base frame
+   * @return Cartesian pose in the local robot inv kin base frame
+   */
+  Eigen::Isometry3d calcCartesianLocalPoseInvKin(const Eigen::Isometry3d& world) const;
 
   /**
    * @brief Extract the cartesian pose in the world

@@ -53,7 +53,8 @@ InstructionInfo::InstructionInfo(const PlanInstruction& plan_instruction,
 
   // Get Previous Instruction TCP and Working Frame
   working_frame = (mi.working_frame.empty()) ? Eigen::Isometry3d::Identity() : tf.at(mi.working_frame);
-  world_to_base = tf.at(fwd_kin->getBaseLinkName());
+  world_to_fwd_base = tf.at(fwd_kin->getBaseLinkName());
+  world_to_inv_base = tf.at(inv_kin->getBaseLinkName());
   tcp = request.env->findTCP(mi);
 
   // Get Previous Instruction Waypoint Info
@@ -68,12 +69,17 @@ InstructionInfo::InstructionInfo(const PlanInstruction& plan_instruction,
 Eigen::Isometry3d InstructionInfo::calcCartesianWorldPose(const Eigen::VectorXd& jp) const
 {
   Eigen::Isometry3d p1 = fwd_kin->calcFwdKin(jp);
-  return world_to_base * p1 * tcp;
+  return world_to_fwd_base * p1 * tcp;
 }
 
-Eigen::Isometry3d InstructionInfo::calcCartesianLocalPose(const Eigen::Isometry3d& world) const
+Eigen::Isometry3d InstructionInfo::calcCartesianLocalPoseFwdKin(const Eigen::Isometry3d& world) const
 {
-  return world_to_base.inverse() * world * tcp.inverse();
+  return world_to_fwd_base.inverse() * world * tcp.inverse();
+}
+
+Eigen::Isometry3d InstructionInfo::calcCartesianLocalPoseInvKin(const Eigen::Isometry3d& world) const
+{
+  return world_to_inv_base.inverse() * world * tcp.inverse();
 }
 
 Eigen::Isometry3d InstructionInfo::extractCartesianWorldPose() const

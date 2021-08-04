@@ -96,7 +96,6 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const I
 
   // Calculate p2 in kinematics base frame without tcp for accurate comparison with p1
   Eigen::Isometry3d p2_world = base.extractCartesianWorldPose();
-  Eigen::Isometry3d p2 = base.calcCartesianLocalPose(p2_world);
 
   // Calculate steps based on cartesian information
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
@@ -105,6 +104,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const I
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
+  Eigen::Isometry3d p2 = base.calcCartesianLocalPoseInvKin(p2_world);
   Eigen::VectorXd j2_final = getClosestJointSolution(p2, base.inv_kin, j1);
   if (j2_final.size() != 0)
   {
@@ -137,7 +137,6 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const I
 
   // Calculate p1 in kinematics base frame without tcp for accurate comparison with p1
   Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
-  Eigen::Isometry3d p1 = prev.calcCartesianLocalPose(p1_world);
 
   // Calculate steps based on cartesian information
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
@@ -146,6 +145,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const I
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
+  Eigen::Isometry3d p1 = prev.calcCartesianLocalPoseInvKin(p1_world);
   Eigen::VectorXd j1_final = getClosestJointSolution(p1, prev.inv_kin, j2);
   if (j1_final.size() != 0)
   {
@@ -179,10 +179,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
 
   // Calculate IK for start and end
   Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
-  Eigen::Isometry3d p1 = prev.calcCartesianLocalPose(p1_world);
-
   Eigen::Isometry3d p2_world = base.extractCartesianWorldPose();
-  Eigen::Isometry3d p2 = base.calcCartesianLocalPose(p2_world);
 
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
   double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
@@ -190,6 +187,8 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
+  Eigen::Isometry3d p1 = prev.calcCartesianLocalPoseInvKin(p1_world);
+  Eigen::Isometry3d p2 = base.calcCartesianLocalPoseInvKin(p2_world);
   std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(p1, p2, prev.inv_kin, base.inv_kin, seed);
 
   Eigen::MatrixXd states;
