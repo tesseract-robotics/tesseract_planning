@@ -1,12 +1,12 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/simple/simple_motion_planner.h" name="tesseract_motion_planners/include/tesseract_motion_planners/simple/simple_motion_planner.h">
-<area shape="rect" id="node1" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="16,5,224,76"/>
+<map id="tesseract_motion_planners/core/include/tesseract_motion_planners/simple/simple_motion_planner.h" name="tesseract_motion_planners/core/include/tesseract_motion_planners/simple/simple_motion_planner.h">
+<area shape="rect" id="node1" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="31,5,209,76"/>
 <area shape="rect" id="node2" title=" " alt="" coords="1997,853,2187,880"/>
 <area shape="rect" id="node3" title=" " alt="" coords="689,771,757,798"/>
 <area shape="rect" id="node4" href="$d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="95,131,273,173"/>
 <area shape="rect" id="node50" href="$df/df0/simple__planner__profile_8h.html" title=" " alt="" coords="421,124,600,180"/>
 <area shape="rect" id="node5" title=" " alt="" coords="993,682,1103,709"/>
 <area shape="rect" id="node6" title=" " alt="" coords="272,317,445,359"/>
-<area shape="rect" id="node7" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="520,228,699,269"/>
+<area shape="rect" id="node7" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="520,228,699,269"/>
 <area shape="rect" id="node8" title=" " alt="" coords="520,317,675,359"/>
 <area shape="rect" id="node9" title=" " alt="" coords="348,593,527,619"/>
 <area shape="rect" id="node10" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="2590,317,2789,359"/>

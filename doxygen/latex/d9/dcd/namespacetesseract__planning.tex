@@ -52,6 +52,22 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Re
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}}
 \item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile}{Simple\+Planner\+Fixed\+Size\+Plan\+Profile}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}}
+\begin{DoxyCompactList}\small\item\em Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The planner then simply loops over all of the plan instructions and calls the correct function. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{Simple\+Planner\+Composite\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}}
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}
+\begin{DoxyCompactList}\small\item\em The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the Plan\+Instructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.\+g. linear interpolation. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerStatusCategory}{Simple\+Motion\+Planner\+Status\+Category}}
+\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision}{Descartes\+Collision}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{Descartes\+Collision\+Edge\+Evaluator}}
@@ -122,22 +138,6 @@ class \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator}{Stat
 \begin{DoxyCompactList}\small\item\em Continuous collision check between two states. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler}{Weighted\+Real\+Vector\+State\+Sampler}}
 \begin{DoxyCompactList}\small\item\em Tesseract OMPL Weighted State Sampler. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{Simple\+Planner\+Fixed\+Size\+Assign\+Plan\+Profile}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile}{Simple\+Planner\+Fixed\+Size\+Plan\+Profile}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}}
-\begin{DoxyCompactList}\small\item\em Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The planner then simply loops over all of the plan instructions and calls the correct function. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{Simple\+Planner\+Composite\+Profile}}
-\item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}}
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}
-\begin{DoxyCompactList}\small\item\em The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the Plan\+Instructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.\+g. linear interpolation. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerStatusCategory}{Simple\+Motion\+Planner\+Status\+Category}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultCompositeProfile}{Traj\+Opt\+Default\+Composite\+Profile}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultPlanProfile}{Traj\+Opt\+Default\+Plan\+Profile}}
@@ -311,6 +311,10 @@ using \mbox{\hyperlink{namespacetesseract__planning_ac008e09ddce5c25c00e2c77ff18
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} = std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ $>$
 \item 
+using \mbox{\hyperlink{namespacetesseract__planning_a44a3bd50194e415e51a5f2e2e5e1c5ec}{Simple\+Planner\+Plan\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{Simple\+Planner\+Plan\+Profile\+::\+Const\+Ptr}} $>$
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}{Simple\+Planner\+Composite\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a8b136def5dd54719765810af6136d4c7}{Simple\+Planner\+Composite\+Profile\+::\+Const\+Ptr}} $>$
+\item 
 using \mbox{\hyperlink{namespacetesseract__planning_a514198b526404a6a64dcd558c9074763}{Descartes\+Collision\+Edge\+EvaluatorF}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{Descartes\+Collision\+Edge\+Evaluator}}$<$ float $>$
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_ac129477d19fe3cf9eedfea77042a1633}{Descartes\+Collision\+Edge\+EvaluatorD}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{Descartes\+Collision\+Edge\+Evaluator}}$<$ double $>$
@@ -364,10 +368,6 @@ using \mbox{\hyperlink{namespacetesseract__planning_a49e2e11b198d0aa7480130b9f18
 using \mbox{\hyperlink{namespacetesseract__planning_a0baf978812f03229209b3f8fe481788a}{OMPLPlan\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_aa66df30df5a8bf9c2ea1eb69e78b6517}{OMPLPlan\+Profile\+::\+Const\+Ptr}} $>$
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLState\+Extractor}} = std\+::function$<$ Eigen\+::\+Map$<$ Eigen\+::\+Vector\+Xd $>$(const ompl\+::base\+::\+State $\ast$)$>$
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a44a3bd50194e415e51a5f2e2e5e1c5ec}{Simple\+Planner\+Plan\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{Simple\+Planner\+Plan\+Profile\+::\+Const\+Ptr}} $>$
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}{Simple\+Planner\+Composite\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a8b136def5dd54719765810af6136d4c7}{Simple\+Planner\+Composite\+Profile\+::\+Const\+Ptr}} $>$
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_ab990993d1a2002f7e044ba3693f8b2d7}{Traj\+Opt\+Solver\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classtesseract__planning_1_1TrajOptSolverProfile_abc630e4bb744e18e3db4d72601cf20a3}{Traj\+Opt\+Solver\+Profile\+::\+Const\+Ptr}} $>$
 \item 
@@ -430,6 +430,18 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd
 \mbox{\hyperlink{namespacetesseract__planning_a7edb075f70b3779a23e8cd950368c66eadc44bfe9b2ce1975d7312158278ac8df}{DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW}} = 4
  \}
 \item 
+enum class \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{Robot\+Config}} \{ \newline
+\mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0}{NUT}} = 0
+, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf}{FUT}} = 1
+, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42}{NDT}} = 2
+, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a97d38c259b5e41097c285878bdc750ba}{FDT}} = 3
+, \newline
+\mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a57eaecb0d3cb5d6855b841b911f6778c}{NDB}} = 4
+, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa26eb45c36831fefc4e66aabddd7b450}{FDB}} = 5
+, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020}{NUB}} = 6
+, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a5def066398a04b9d615c6a9d4cf63d3b}{FUB}} = 7
+ \}
+\begin{DoxyCompactList}\small\item\em The Robot\+Config enum. \end{DoxyCompactList}\item 
 enum class \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlanner\+Type}} \{ \newline
 \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a4fb76af6644df80663ac679b7fa308cd}{SBL}} = 0
 , \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a33a61062aa4da2b795b7f9616c138b89}{EST}} = 1
@@ -455,18 +467,6 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd
 , \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62a660ce4b7bd4b4a899f9a46c870ac4d2b}{SE3\+\_\+\+STATE\+\_\+\+SPACE}}
  \}
 \item 
-enum class \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{Robot\+Config}} \{ \newline
-\mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0}{NUT}} = 0
-, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf}{FUT}} = 1
-, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42}{NDT}} = 2
-, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a97d38c259b5e41097c285878bdc750ba}{FDT}} = 3
-, \newline
-\mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a57eaecb0d3cb5d6855b841b911f6778c}{NDB}} = 4
-, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa26eb45c36831fefc4e66aabddd7b450}{FDB}} = 5
-, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020}{NUB}} = 6
-, \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a5def066398a04b9d615c6a9d4cf63d3b}{FUB}} = 7
- \}
-\begin{DoxyCompactList}\small\item\em The Robot\+Config enum. \end{DoxyCompactList}\item 
 enum class \mbox{\hyperlink{namespacetesseract__planning_a4075aba51db3be039f29037d09d85a94}{Traj\+Opt\+Ifopt\+Term\+Type}} \{ \mbox{\hyperlink{namespacetesseract__planning_a4075aba51db3be039f29037d09d85a94ae0f588affe0abe2e0565de8a962c4502}{CONSTRAINT}}
 , \mbox{\hyperlink{namespacetesseract__planning_a4075aba51db3be039f29037d09d85a94abe2b638ec952eec71f8a27b8b0be5b06}{SQUARED\+\_\+\+COST}}
  \}
@@ -616,6 +616,38 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ad504005f1ff526e360ee792e88b5
 \begin{DoxyCompactList}\small\item\em This generates a naive seed for the provided program. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422dcb91}{format\+Program}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
 \begin{DoxyCompactList}\small\item\em This formats the joint and state waypoints to align with the kinematics object. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a10b5d093cd19df32120b7498f1ccbd1c}{generate\+Seed}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&instructions, const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&current\+\_\+state, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=5 $\ast$M\+\_\+\+PI/180, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=0.\+15, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=5 $\ast$M\+\_\+\+PI/180, int min\+\_\+steps=1)
+\begin{DoxyCompactList}\small\item\em Provided for backwards compatibility. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_ad74607eb14b341a905fb924913075660}{is\+Within\+Joint\+Limits}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
+\begin{DoxyCompactList}\small\item\em Check if a joint is within limits. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_ac8497c1f3bc2883e9661eae0dd7955a7}{is\+Within\+Joint\+Limits}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits, const Eigen\+::\+Vector2d \&coupling\+\_\+limits)
+\begin{DoxyCompactList}\small\item\em Check if a joint is within limits This will allows you to provide joint 4 and joint 6 coupling limits. This will still work if the robot is on a position. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_af7579ecfe9720ccc20d9ee43cd47a589}{is\+Valid\+State}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
+\begin{DoxyCompactList}\small\item\em Check if the robot is in a valid state. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{namespacetesseract__planning_a2c3697d8b33f7e6ffa453a80d765c2dd}{get\+Profile\+String}} (const std\+::string \&profile, const std\+::string \&planner\+\_\+name, const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&profile\+\_\+remapping, std\+::string default\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
+\begin{DoxyCompactList}\small\item\em Get the profile string taking into account defaults and profile remapping. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_aeb2bd5dfb8af67f79b50c373ad0a2656}{get\+Profile}} (const std\+::string \&profile, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$$>$ \&profile\+\_\+map, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ default\+\_\+profile=nullptr)
+\begin{DoxyCompactList}\small\item\em Gets the profile specified from the profile map. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a3a4842f5288c1b198e848bae9d1e2ce6}{apply\+Profile\+Overrides}} (const std\+::string task\+\_\+name, const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&nominal\+\_\+profile, const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \&overrides=nullptr)
+\begin{DoxyCompactList}\small\item\em Returns either nominal\+\_\+profile or override based on task name passed in. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\\mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{Robot\+Config}} \mbox{\hyperlink{namespacetesseract__planning_af607325ca089b6dafd5b521c4b16351a}{get\+Robot\+Config}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector2i $>$ \&sign\+\_\+correction=Eigen\+::\+Vector2i\+::\+Ones())
+\begin{DoxyCompactList}\small\item\em Get the configuration of a six axis industrial robot. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Float\+Type $>$ }\\Eigen\+::\+Vector\+Xi \mbox{\hyperlink{namespacetesseract__planning_adebdc685c90e8b2873f2e09adf04860b}{get\+Joint\+Turns}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values)
+\begin{DoxyCompactList}\small\item\em Get number of turns for joints that allow rotation beyond +-\/ 180 degrees. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{namespacetesseract__planning_aaec1f7a5aa934efc7e7771e5cdd158ff}{get\+Move\+Instruction\+Type}} (const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Get the associated move instruction type for the give plan instruction type. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a279ab58cb9c7b07e9e678f077bb4d932}{get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae29bc88fbc476c1b22d8e5ce0fdfb8d1}{get\+Closest\+Joint\+Solution}} (const Eigen\+::\+Isometry3d \&p, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin, const Eigen\+::\+Vector\+Xd \&seed)
+\begin{DoxyCompactList}\small\item\em Find the closest joint solution for p to the provided seed. \end{DoxyCompactList}\item 
+std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_aed53b814bf5812f2272a14264314d601}{get\+Closest\+Joint\+Solution}} (const Eigen\+::\+Isometry3d \&p1, const Eigen\+::\+Isometry3d \&p2, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin1, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin2, const Eigen\+::\+Vector\+Xd \&seed)
+\begin{DoxyCompactList}\small\item\em Find the closest joint solution for the two provided cartesian poses. \end{DoxyCompactList}\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ad8eb3f36ec354c71fac2d04e3a6c166a}{calc\+Pose}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&wp, const std\+::string \&working\+\_\+frame, const std\+::string \&tip\+\_\+link, const Eigen\+::\+Isometry3d \&tcp, const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&current\+\_\+state, tesseract\+\_\+environment\+::\+State\+Solver \&state\+\_\+solver)
+\item 
+void \mbox{\hyperlink{namespacetesseract__planning_a9fdd1c21a9abe55ec08548f16761ddf5}{generate\+Naive\+Seed\+Helper}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const tesseract\+\_\+environment\+::\+Env\+State \&env\+\_\+state, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a4669e4b5e4220ed6637a771a14f088af}{format\+Program\+Helper}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info)
+\item 
 tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_adf2bb32372d00e42763932cdde163c01}{sample\+Tool\+Axis}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose, double resolution, const Eigen\+::\+Vector3d \&axis)
 \begin{DoxyCompactList}\small\item\em Given a tool pose create samples from \mbox{[}-\/PI, PI) around the provided axis. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a2e764ea5552076ce638ecc666d19f193}{sample\+Tool\+XAxis}} (const Eigen\+::\+Isometry3d \&tool\+\_\+pose, double resolution)
@@ -644,8 +676,6 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ac6a12208aece9acb089b28c8bb08
 \item 
 std\+::string \mbox{\hyperlink{namespacetesseract__planning_a40727d3173b509d3f3e102d96a358586}{to\+XMLString}} (const \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ double $>$ \&plan\+\_\+profile)
 \item 
-static \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a10b5d093cd19df32120b7498f1ccbd1c}{generate\+Seed}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&instructions, const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&current\+\_\+state, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=5 $\ast$M\+\_\+\+PI/180, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=0.\+15, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=5 $\ast$M\+\_\+\+PI/180, int min\+\_\+steps=1)
-\begin{DoxyCompactList}\small\item\em Provided for backwards compatibility. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \mbox{\hyperlink{namespacetesseract__planning_a58fd234ec5395a5b2f755541ee1e80d7}{ompl\+Plan\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1OMPLDefaultPlanProfile}{OMPLDefault\+Plan\+Profile}} \mbox{\hyperlink{namespacetesseract__planning_ae52ae9c1cd203d6796eb594361a1ab61}{ompl\+Plan\+From\+XMLElement}} (const tinyxml2\+::\+XMLElement $\ast$profile\+\_\+xml)
@@ -680,30 +710,12 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ac195afb8f9e20650ae13e1cbf73e
 \begin{DoxyCompactList}\small\item\em For the provided problem check if the state is in collision. \end{DoxyCompactList}\item 
 ompl\+::base\+::\+State\+Sampler\+Ptr \mbox{\hyperlink{namespacetesseract__planning_aea8479d65e3b592b7a1b51d154c76ee5}{alloc\+Weighted\+Real\+Vector\+State\+Sampler}} (const ompl\+::base\+::\+State\+Space $\ast$space, const Eigen\+::\+Vector\+Xd \&weights, const Eigen\+::\+Matrix\+X2d \&limits)
 \begin{DoxyCompactList}\small\item\em Default State sampler which uses the weights information to scale the sampled state. This is use full when you state space has mixed units like meters and radian. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_ad74607eb14b341a905fb924913075660}{is\+Within\+Joint\+Limits}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
-\begin{DoxyCompactList}\small\item\em Check if a joint is within limits. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_ac8497c1f3bc2883e9661eae0dd7955a7}{is\+Within\+Joint\+Limits}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits, const Eigen\+::\+Vector2d \&coupling\+\_\+limits)
-\begin{DoxyCompactList}\small\item\em Check if a joint is within limits This will allows you to provide joint 4 and joint 6 coupling limits. This will still work if the robot is on a position. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_af7579ecfe9720ccc20d9ee43cd47a589}{is\+Valid\+State}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
-\begin{DoxyCompactList}\small\item\em Check if the robot is in a valid state. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{namespacetesseract__planning_a2c3697d8b33f7e6ffa453a80d765c2dd}{get\+Profile\+String}} (const std\+::string \&profile, const std\+::string \&planner\+\_\+name, const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&profile\+\_\+remapping, std\+::string default\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
-\begin{DoxyCompactList}\small\item\em Get the profile string taking into account defaults and profile remapping. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_aeb2bd5dfb8af67f79b50c373ad0a2656}{get\+Profile}} (const std\+::string \&profile, const std\+::unordered\+\_\+map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$$>$ \&profile\+\_\+map, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ default\+\_\+profile=nullptr)
-\begin{DoxyCompactList}\small\item\em Gets the profile specified from the profile map. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a3a4842f5288c1b198e848bae9d1e2ce6}{apply\+Profile\+Overrides}} (const std\+::string task\+\_\+name, const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&nominal\+\_\+profile, const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \&overrides=nullptr)
-\begin{DoxyCompactList}\small\item\em Returns either nominal\+\_\+profile or override based on task name passed in. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\\mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{Robot\+Config}} \mbox{\hyperlink{namespacetesseract__planning_af607325ca089b6dafd5b521c4b16351a}{get\+Robot\+Config}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector2i $>$ \&sign\+\_\+correction=Eigen\+::\+Vector2i\+::\+Ones())
-\begin{DoxyCompactList}\small\item\em Get the configuration of a six axis industrial robot. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\Eigen\+::\+Vector\+Xi \mbox{\hyperlink{namespacetesseract__planning_adebdc685c90e8b2873f2e09adf04860b}{get\+Joint\+Turns}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values)
-\begin{DoxyCompactList}\small\item\em Get number of turns for joints that allow rotation beyond +-\/ 180 degrees. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{namespacetesseract__planning_aaec1f7a5aa934efc7e7771e5cdd158ff}{get\+Move\+Instruction\+Type}} (const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Get the associated move instruction type for the give plan instruction type. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a279ab58cb9c7b07e9e678f077bb4d932}{get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae29bc88fbc476c1b22d8e5ce0fdfb8d1}{get\+Closest\+Joint\+Solution}} (const Eigen\+::\+Isometry3d \&p, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin, const Eigen\+::\+Vector\+Xd \&seed)
-\begin{DoxyCompactList}\small\item\em Find the closest joint solution for p to the provided seed. \end{DoxyCompactList}\item 
-std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_aed53b814bf5812f2272a14264314d601}{get\+Closest\+Joint\+Solution}} (const Eigen\+::\+Isometry3d \&p1, const Eigen\+::\+Isometry3d \&p2, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin1, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin2, const Eigen\+::\+Vector\+Xd \&seed)
-\begin{DoxyCompactList}\small\item\em Find the closest joint solution for the two provided cartesian poses. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ab874903f32419c2a3c858027027ee9b2}{check\+Start\+State}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLState\+Extractor}} \&extractor)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ab6a97e73f80873b61a00a24efb86eb86}{check\+Goal\+State}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLState\+Extractor}} \&extractor)
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}} \mbox{\hyperlink{namespacetesseract__planning_ab426fca18d5631d971d837bdf955a9b1}{Create\+OMPLSub\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr \&manip\+\_\+fwd\+\_\+kin, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&manip\+\_\+inv\+\_\+kin, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+link\+\_\+names)
+\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultPlanProfile}{Traj\+Opt\+Default\+Plan\+Profile}} \mbox{\hyperlink{namespacetesseract__planning_a71b8091da4834d0db8a14fc29bad929b}{traj\+Opt\+Plan\+Parser}} (const tinyxml2\+::\+XMLElement \&xml\+\_\+element)
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultPlanProfile}{Traj\+Opt\+Default\+Plan\+Profile}} \mbox{\hyperlink{namespacetesseract__planning_a196abf916e5fa3062ff116cbb731367b}{traj\+Opt\+Plan\+From\+XMLElement}} (const tinyxml2\+::\+XMLElement $\ast$profile\+\_\+xml)
@@ -792,31 +804,19 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ad1bb7b2c051670161546ddd6d9f2
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a204d4baf6c7f28609ac19b52f3cf3873}{add\+Joint\+Velocity\+Squared\+Cost}} (std\+::shared\+\_\+ptr$<$ ifopt\+::\+Problem $>$ nlp, std\+::vector$<$ trajopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
 \item 
-Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ad8eb3f36ec354c71fac2d04e3a6c166a}{calc\+Pose}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&wp, const std\+::string \&working\+\_\+frame, const std\+::string \&tip\+\_\+link, const Eigen\+::\+Isometry3d \&tcp, const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&current\+\_\+state, tesseract\+\_\+environment\+::\+State\+Solver \&state\+\_\+solver)
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a4d0aafc81bd3d3129b23ec8e814f5ee4}{freespace\+Example\+Program\+IIWA}} (const Eigen\+::\+Isometry3d \&goal=Eigen\+::\+Isometry3d\+::\+Identity() $\ast$Eigen\+::\+Translation3d(0.\+2, 0.\+2, 1.\+0), const std\+::string \&composite\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
 \item 
-void \mbox{\hyperlink{namespacetesseract__planning_a9fdd1c21a9abe55ec08548f16761ddf5}{generate\+Naive\+Seed\+Helper}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const tesseract\+\_\+environment\+::\+Env\+State \&env\+\_\+state, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info)
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a7a2039b9a45e29e30050777ff8b69bfa}{freespace\+Example\+Program\+ABB}} (const Eigen\+::\+Isometry3d \&goal=Eigen\+::\+Isometry3d\+::\+Identity() $\ast$Eigen\+::\+Translation3d(0.\+2, 0.\+2, 1.\+0), const std\+::string \&composite\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a4669e4b5e4220ed6637a771a14f088af}{format\+Program\+Helper}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info)
-\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ab874903f32419c2a3c858027027ee9b2}{check\+Start\+State}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLState\+Extractor}} \&extractor)
-\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ab6a97e73f80873b61a00a24efb86eb86}{check\+Goal\+State}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLState\+Extractor}} \&extractor)
-\item 
-\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}} \mbox{\hyperlink{namespacetesseract__planning_ab426fca18d5631d971d837bdf955a9b1}{Create\+OMPLSub\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr \&manip\+\_\+fwd\+\_\+kin, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&manip\+\_\+inv\+\_\+kin, const std\+::vector$<$ std\+::string $>$ \&active\+\_\+link\+\_\+names)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a4d0aafc81bd3d3129b23ec8e814f5ee4}{freespace\+Example\+Program\+IIWA}} (const Eigen\+::\+Isometry3d \&goal=Eigen\+::\+Isometry3d\+::\+Identity() $\ast$Eigen\+::\+Translation3d(0.\+2, 0.\+2, 1.\+0), const std\+::string \&composite\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a7a2039b9a45e29e30050777ff8b69bfa}{freespace\+Example\+Program\+ABB}} (const Eigen\+::\+Isometry3d \&goal=Eigen\+::\+Isometry3d\+::\+Identity() $\ast$Eigen\+::\+Translation3d(0.\+2, 0.\+2, 1.\+0), const std\+::string \&composite\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a2f0b6fb9b078c946b090969aa5535c5e}{raster\+DTExample\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a2f0b6fb9b078c946b090969aa5535c5e}{raster\+DTExample\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{})
 \begin{DoxyCompactList}\small\item\em Create a example raster program with dual transitions. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a5b3204e476e1f1245ea6be76c94e7003}{raster\+Example\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a5b3204e476e1f1245ea6be76c94e7003}{raster\+Example\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{})
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a855838c66468aa17b481ecddac791e5f}{raster\+Only\+Example\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a855838c66468aa17b481ecddac791e5f}{raster\+Only\+Example\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{})
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_ae1bbc264d3d89fde6b7fdadf77416662}{raster\+WAADDTExample\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&approach\+\_\+profile=\char`\"{}APPROACH\char`\"{}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{}, const std\+::string \&departure\+\_\+profile=\char`\"{}DEPARTURE\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_ae1bbc264d3d89fde6b7fdadf77416662}{raster\+WAADDTExample\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&approach\+\_\+profile=\char`\"{}APPROACH\char`\"{}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{}, const std\+::string \&departure\+\_\+profile=\char`\"{}DEPARTURE\char`\"{})
 \begin{DoxyCompactList}\small\item\em Create an example raster program with approach and departure along with dual transitions. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_abe65b6b7bdb9fd9cf5a28c4e44936c95}{raster\+WAADExample\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&approach\+\_\+profile=\char`\"{}APPROACH\char`\"{}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{}, const std\+::string \&departure\+\_\+profile=\char`\"{}DEPARTURE\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_abe65b6b7bdb9fd9cf5a28c4e44936c95}{raster\+WAADExample\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&approach\+\_\+profile=\char`\"{}APPROACH\char`\"{}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{}, const std\+::string \&departure\+\_\+profile=\char`\"{}DEPARTURE\char`\"{})
 \begin{DoxyCompactList}\small\item\em Create an example raster program with approach and departure. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a3004cc847e018d695e85486ea5f3b8c7}{create\+Traj\+Opt\+Generator}} ()
 \begin{DoxyCompactList}\small\item\em Create Traj\+Opt Process Pipeline. \end{DoxyCompactList}\item 
@@ -899,7 +899,7 @@ void \mbox{\hyperlink{namespacetesseract__planning_a1c8c37247f78cf422a0065e7f1b0
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}} = \char`\"{}DEFAULT\char`\"{}
+static const std\+::string \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}} = \char`\"{}DEFAULT\char`\"{}
 \begin{DoxyCompactList}\small\item\em Set to DEFAULT. Default profiles are given this name. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{namespacetesseract__planning_ac008e09ddce5c25c00e2c77ff18929e8}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_a59c5dd86812c7f74ca63a41e2910f4fd}{to\+Joint\+Trajectory\+Move\+Filter}}
 \item 
@@ -2116,11 +2116,11 @@ Create Traj\+Opt Process Pipeline.
 std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$Float\+Type$>$ $>$ tesseract\+\_\+planning\+::\+Default\+Descartes\+Problem\+Generator (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{Descartes\+Plan\+Profile\+Map}}$<$ Float\+Type $>$ \&}]{plan\+\_\+profiles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000007}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000006}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000008}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
 \mbox{\Hypertarget{namespacetesseract__planning_aadef67757919c4ab46f55bc4395eb372}\label{namespacetesseract__planning_aadef67757919c4ab46f55bc4395eb372}} 
 \index{tesseract\_planning@{tesseract\_planning}!DefaultOMPLProblemGenerator@{DefaultOMPLProblemGenerator}}
 \index{DefaultOMPLProblemGenerator@{DefaultOMPLProblemGenerator}!tesseract\_planning@{tesseract\_planning}}
@@ -2128,19 +2128,19 @@ std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1Descartes
 {\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}}$>$ tesseract\+\_\+planning\+::\+Default\+OMPLProblem\+Generator (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a0baf978812f03229209b3f8fe481788a}{OMPLPlan\+Profile\+Map}} \&}]{plan\+\_\+profiles }\end{DoxyParamCaption})}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000010}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000012}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000011}{Todo}}]Add support for linear motion to ompl planner \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000013}{Todo}}]Add support for linear motion to ompl planner \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000012}{Todo}}]Update. Extract the solution for the previous plan and set as the start \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000014}{Todo}}]Update. Extract the solution for the previous plan and set as the start \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000013}{Todo}}]need to extract the solution for Cartesian waypoints to work correctly \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000015}{Todo}}]need to extract the solution for Cartesian waypoints to work correctly \end{DoxyRefDesc}
 \mbox{\Hypertarget{namespacetesseract__planning_a8bf73d52cb7fd8a5f5998ae62847957d}\label{namespacetesseract__planning_a8bf73d52cb7fd8a5f5998ae62847957d}} 
 \index{tesseract\_planning@{tesseract\_planning}!DefaultTrajOptIfoptProblemGenerator@{DefaultTrajOptIfoptProblemGenerator}}
 \index{DefaultTrajOptIfoptProblemGenerator@{DefaultTrajOptIfoptProblemGenerator}!tesseract\_planning@{tesseract\_planning}}
@@ -2561,13 +2561,13 @@ True if the program required formating.
 \index{tesseract\_planning@{tesseract\_planning}!freespaceExampleProgramABB@{freespaceExampleProgramABB}}
 \index{freespaceExampleProgramABB@{freespaceExampleProgramABB}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{freespaceExampleProgramABB()}{freespaceExampleProgramABB()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::freespace\+Example\+Program\+ABB (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{goal = {\ttfamily Eigen\+:\+:Isometry3d\+:\+:Identity()~$\ast$~Eigen\+:\+:Translation3d(0.2,~0.2,~1.0)},  }\item[{const std\+::string \&}]{composite\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::freespace\+Example\+Program\+ABB (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{goal = {\ttfamily Eigen\+:\+:Isometry3d\+:\+:Identity()~$\ast$~Eigen\+:\+:Translation3d(0.2,~0.2,~1.0)},  }\item[{const std\+::string \&}]{composite\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a4d0aafc81bd3d3129b23ec8e814f5ee4}\label{namespacetesseract__planning_a4d0aafc81bd3d3129b23ec8e814f5ee4}} 
 \index{tesseract\_planning@{tesseract\_planning}!freespaceExampleProgramIIWA@{freespaceExampleProgramIIWA}}
 \index{freespaceExampleProgramIIWA@{freespaceExampleProgramIIWA}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{freespaceExampleProgramIIWA()}{freespaceExampleProgramIIWA()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::freespace\+Example\+Program\+IIWA (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{goal = {\ttfamily Eigen\+:\+:Isometry3d\+:\+:Identity()~$\ast$~Eigen\+:\+:Translation3d(0.2,~0.2,~1.0)},  }\item[{const std\+::string \&}]{composite\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::freespace\+Example\+Program\+IIWA (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{goal = {\ttfamily Eigen\+:\+:Isometry3d\+:\+:Identity()~$\ast$~Eigen\+:\+:Translation3d(0.2,~0.2,~1.0)},  }\item[{const std\+::string \&}]{composite\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a32251039111617f975deb5c3078bcdba}\label{namespacetesseract__planning_a32251039111617f975deb5c3078bcdba}} 
 \index{tesseract\_planning@{tesseract\_planning}!generateNaiveSeed@{generateNaiveSeed}}
@@ -2652,11 +2652,11 @@ Find the closest joint solution for p to the provided seed.
 The closest solution to the seed. This will be empty if a solution was not found during inverse kinematics 
 \end{DoxyReturn}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000020}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000020}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed \end{DoxyRefDesc}
 \mbox{\Hypertarget{namespacetesseract__planning_aed53b814bf5812f2272a14264314d601}\label{namespacetesseract__planning_aed53b814bf5812f2272a14264314d601}} 
 \index{tesseract\_planning@{tesseract\_planning}!getClosestJointSolution@{getClosestJointSolution}}
 \index{getClosestJointSolution@{getClosestJointSolution}!tesseract\_planning@{tesseract\_planning}}
@@ -2684,11 +2684,11 @@ Find the closest joint solution for the two provided cartesian poses.
 The closest joint solution for the provided cartesian positions. If either are empty then it failed to solve inverse kinematics. 
 \end{DoxyReturn}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000021}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. \end{DoxyRefDesc}
 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000021}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. \end{DoxyRefDesc}
 \mbox{\Hypertarget{namespacetesseract__planning_a6de789f62c5f509d40240cd8a50436a2}\label{namespacetesseract__planning_a6de789f62c5f509d40240cd8a50436a2}} 
 \index{tesseract\_planning@{tesseract\_planning}!getFirstInstruction@{getFirstInstruction}}
 \index{getFirstInstruction@{getFirstInstruction}!tesseract\_planning@{tesseract\_planning}}
@@ -3154,7 +3154,7 @@ The profile requested if found. Otherwise the default\+\_\+profile
 \index{tesseract\_planning@{tesseract\_planning}!getProfileString@{getProfileString}}
 \index{getProfileString@{getProfileString}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{getProfileString()}{getProfileString()}}
-{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::get\+Profile\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile,  }\item[{const std\+::string \&}]{planner\+\_\+name,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&}]{profile\+\_\+remapping,  }\item[{std\+::string}]{default\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::get\+Profile\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile,  }\item[{const std\+::string \&}]{planner\+\_\+name,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&}]{profile\+\_\+remapping,  }\item[{std\+::string}]{default\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -3624,7 +3624,7 @@ True if successful, otherwise false
 \index{tesseract\_planning@{tesseract\_planning}!rasterDTExampleProgram@{rasterDTExampleProgram}}
 \index{rasterDTExampleProgram@{rasterDTExampleProgram}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{rasterDTExampleProgram()}{rasterDTExampleProgram()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+DTExample\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+DTExample\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -3634,19 +3634,19 @@ Create a example raster program with dual transitions.
 \index{tesseract\_planning@{tesseract\_planning}!rasterExampleProgram@{rasterExampleProgram}}
 \index{rasterExampleProgram@{rasterExampleProgram}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{rasterExampleProgram()}{rasterExampleProgram()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+Example\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+Example\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a855838c66468aa17b481ecddac791e5f}\label{namespacetesseract__planning_a855838c66468aa17b481ecddac791e5f}} 
 \index{tesseract\_planning@{tesseract\_planning}!rasterOnlyExampleProgram@{rasterOnlyExampleProgram}}
 \index{rasterOnlyExampleProgram@{rasterOnlyExampleProgram}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{rasterOnlyExampleProgram()}{rasterOnlyExampleProgram()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+Only\+Example\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+Only\+Example\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ae1bbc264d3d89fde6b7fdadf77416662}\label{namespacetesseract__planning_ae1bbc264d3d89fde6b7fdadf77416662}} 
 \index{tesseract\_planning@{tesseract\_planning}!rasterWAADDTExampleProgram@{rasterWAADDTExampleProgram}}
 \index{rasterWAADDTExampleProgram@{rasterWAADDTExampleProgram}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{rasterWAADDTExampleProgram()}{rasterWAADDTExampleProgram()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+WAADDTExample\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{approach\+\_\+profile = {\ttfamily \char`\"{}APPROACH\char`\"{}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}},  }\item[{const std\+::string \&}]{departure\+\_\+profile = {\ttfamily \char`\"{}DEPARTURE\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+WAADDTExample\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{approach\+\_\+profile = {\ttfamily \char`\"{}APPROACH\char`\"{}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}},  }\item[{const std\+::string \&}]{departure\+\_\+profile = {\ttfamily \char`\"{}DEPARTURE\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -3656,7 +3656,7 @@ Create an example raster program with approach and departure along with dual tra
 \index{tesseract\_planning@{tesseract\_planning}!rasterWAADExampleProgram@{rasterWAADExampleProgram}}
 \index{rasterWAADExampleProgram@{rasterWAADExampleProgram}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{rasterWAADExampleProgram()}{rasterWAADExampleProgram()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+WAADExample\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{approach\+\_\+profile = {\ttfamily \char`\"{}APPROACH\char`\"{}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}},  }\item[{const std\+::string \&}]{departure\+\_\+profile = {\ttfamily \char`\"{}DEPARTURE\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::raster\+WAADExample\+Program (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{freespace\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{const std\+::string \&}]{approach\+\_\+profile = {\ttfamily \char`\"{}APPROACH\char`\"{}},  }\item[{const std\+::string \&}]{process\+\_\+profile = {\ttfamily \char`\"{}PROCESS\char`\"{}},  }\item[{const std\+::string \&}]{departure\+\_\+profile = {\ttfamily \char`\"{}DEPARTURE\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -4156,11 +4156,11 @@ True if in collision
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}\label{namespacetesseract__planning_a43d81c6e05a1a36d5a36bee6c034e88b}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}\label{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}} 
 \index{tesseract\_planning@{tesseract\_planning}!DEFAULT\_PROFILE\_KEY@{DEFAULT\_PROFILE\_KEY}}
 \index{DEFAULT\_PROFILE\_KEY@{DEFAULT\_PROFILE\_KEY}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{DEFAULT\_PROFILE\_KEY}{DEFAULT\_PROFILE\_KEY}}
-{\footnotesize\ttfamily const std\+::string tesseract\+\_\+planning\+::\+Motion\+Planner\+::\+DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY = \char`\"{}DEFAULT\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const std\+::string tesseract\+\_\+planning\+::\+DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY = \char`\"{}DEFAULT\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
 
 
 

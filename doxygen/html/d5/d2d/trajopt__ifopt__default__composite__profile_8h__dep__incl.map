@@ -1,5 +1,5 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h" name="tesseract_motion_planners/include/tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h">
-<area shape="rect" id="node1" title=" " alt="" coords="106,5,313,91"/>
-<area shape="rect" id="node2" href="$d5/d04/trajopt__ifopt_2problem__generators_2default__problem__generator_8cpp.html" title="Generates a trajopt problem from a planner request." alt="" coords="5,139,192,209"/>
+<map id="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h" name="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h">
+<area shape="rect" id="node1" title=" " alt="" coords="100,5,319,91"/>
+<area shape="rect" id="node2" href="$d4/d64/trajopt__ifopt_2src_2problem__generators_2default__problem__generator_8cpp.html" title="Generates a trajopt problem from a planner request." alt="" coords="5,139,192,209"/>
 <area shape="rect" id="node3" href="$d9/d01/trajopt__ifopt__default__composite__profile_8cpp.html" title=" " alt="" coords="217,139,423,209"/>
 </map>

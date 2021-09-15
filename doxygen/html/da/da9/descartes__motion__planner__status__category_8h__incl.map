@@ -1,6 +1,6 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/descartes/descartes_motion_planner_status_category.h" name="tesseract_motion_planners/include/tesseract_motion_planners/descartes/descartes_motion_planner_status_category.h">
-<area shape="rect" id="node1" title="Tesseract ROS Descartes planner status category." alt="" coords="134,5,361,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,131,196,158"/>
-<area shape="rect" id="node3" title=" " alt="" coords="220,131,275,158"/>
-<area shape="rect" id="node4" title=" " alt="" coords="299,124,473,165"/>
+<map id="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_motion_planner_status_category.h" name="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_motion_planner_status_category.h">
+<area shape="rect" id="node1" title="Tesseract ROS Descartes planner status category." alt="" coords="137,5,358,91"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,146,196,173"/>
+<area shape="rect" id="node3" title=" " alt="" coords="220,146,275,173"/>
+<area shape="rect" id="node4" title=" " alt="" coords="299,139,473,180"/>
 </map>

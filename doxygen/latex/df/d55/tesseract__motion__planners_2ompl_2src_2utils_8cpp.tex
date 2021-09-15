@@ -1,0 +1,75 @@
+\hypertarget{tesseract__motion__planners_2ompl_2src_2utils_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/ompl/src/utils.cpp File Reference}
+\label{tesseract__motion__planners_2ompl_2src_2utils_8cpp}\index{tesseract\_motion\_planners/ompl/src/utils.cpp@{tesseract\_motion\_planners/ompl/src/utils.cpp}}
+
+
+Tesseract OMPL planner utility functions.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$ompl/base/spaces/\+Real\+Vector\+State\+Space.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$ompl/base/spaces/constraint/\+Projected\+State\+Space.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/weighted\+\_\+real\+\_\+vector\+\_\+state\+\_\+sampler.\+h$>$}\newline
+Include dependency graph for utils.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d97/tesseract__motion__planners_2ompl_2src_2utils_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Map$<$ Eigen\+::\+Vector\+Xd $>$ \mbox{\hyperlink{namespacetesseract__planning_ab924ceb36c87880546df75899cebcd36}{tesseract\+\_\+planning\+::\+Real\+Vector\+State\+Space\+Extractor}} (const ompl\+::base\+::\+State $\ast$s1, unsigned dimension)
+\item 
+Eigen\+::\+Map$<$ Eigen\+::\+Vector\+Xd $>$ \mbox{\hyperlink{namespacetesseract__planning_ad893d4e885b56bb92cf8c7b0a435e54b}{tesseract\+\_\+planning\+::\+Constrained\+State\+Space\+Extractor}} (const ompl\+::base\+::\+State $\ast$s1)
+\item 
+tesseract\+\_\+common\+::\+Traj\+Array \mbox{\hyperlink{namespacetesseract__planning_a87e1a794cf84e24e7a9816580e617355}{tesseract\+\_\+planning\+::to\+Traj\+Array}} (const ompl\+::geometric\+::\+Path\+Geometric \&path, OMPLState\+Extractor extractor)
+\begin{DoxyCompactList}\small\item\em Convert an ompl path to tesseract Traj\+Array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacetesseract__planning_af00891d3040fb15e60da8736a67661f2}{tesseract\+\_\+planning\+::process\+Longest\+Valid\+Segment}} (const ompl\+::base\+::\+State\+Space\+Ptr \&state\+\_\+space\+\_\+ptr, double longest\+\_\+valid\+\_\+segment\+\_\+fraction, double longest\+\_\+valid\+\_\+segment\+\_\+length)
+\begin{DoxyCompactList}\small\item\em Given longest valid fraction and length it will set the correct information of the state space. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacetesseract__planning_ab87b927153d35d69651a019533cbe07a}{tesseract\+\_\+planning\+::process\+Longest\+Valid\+Segment}} (const ompl\+::base\+::\+State\+Space\+Ptr \&state\+\_\+space\+\_\+ptr, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&collision\+\_\+check\+\_\+config)
+\begin{DoxyCompactList}\small\item\em Given collision check config set ompl longest\+\_\+valid\+\_\+segment\+\_\+fraction. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ad05612a4ac2863203f851daaff778fd7}{tesseract\+\_\+planning\+::check\+State\+In\+Collision}} (OMPLProblem \&prob, const Eigen\+::\+Vector\+Xd \&state, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contact\+\_\+map)
+\begin{DoxyCompactList}\small\item\em For the provided problem check if the state is in collision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ac195afb8f9e20650ae13e1cbf73ed163}{tesseract\+\_\+planning\+::check\+State\+In\+Collision}} (OMPLProblem \&prob, const Eigen\+::\+Vector\+Xd \&state)
+\begin{DoxyCompactList}\small\item\em For the provided problem check if the state is in collision. \end{DoxyCompactList}\item 
+ompl\+::base\+::\+State\+Sampler\+Ptr \mbox{\hyperlink{namespacetesseract__planning_aea8479d65e3b592b7a1b51d154c76ee5}{tesseract\+\_\+planning\+::alloc\+Weighted\+Real\+Vector\+State\+Sampler}} (const ompl\+::base\+::\+State\+Space $\ast$space, const Eigen\+::\+Vector\+Xd \&weights, const Eigen\+::\+Matrix\+X2d \&limits)
+\begin{DoxyCompactList}\small\item\em Default State sampler which uses the weights information to scale the sampled state. This is use full when you state space has mixed units like meters and radian. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tesseract OMPL planner utility functions. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 17, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000119}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

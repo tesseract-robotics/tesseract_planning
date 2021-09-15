@@ -1,5 +1,5 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/ompl/compound_state_validator.h" name="tesseract_motion_planners/include/tesseract_motion_planners/ompl/compound_state_validator.h">
-<area shape="rect" id="node1" title="Tesseract OMPL planner OMPL compund state validator." alt="" coords="339,5,550,76"/>
+<map id="tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/compound_state_validator.h" name="tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/compound_state_validator.h">
+<area shape="rect" id="node1" title="Tesseract OMPL planner OMPL compund state validator." alt="" coords="335,5,555,76"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,124,196,151"/>
 <area shape="rect" id="node3" title=" " alt="" coords="220,124,437,151"/>
 <area shape="rect" id="node4" title=" " alt="" coords="461,124,660,151"/>

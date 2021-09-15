@@ -1,4 +1,4 @@
-<map id="tesseract_motion_planners/src/ompl/weighted_real_vector_state_sampler.cpp" name="tesseract_motion_planners/src/ompl/weighted_real_vector_state_sampler.cpp">
+<map id="tesseract_motion_planners/ompl/src/weighted_real_vector_state_sampler.cpp" name="tesseract_motion_planners/ompl/src/weighted_real_vector_state_sampler.cpp">
 <area shape="rect" id="node1" title="Tesseract OMPL Weighted State Sampler." alt="" coords="226,5,405,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="159,213,349,240"/>
 <area shape="rect" id="node3" title=" " alt="" coords="29,124,193,151"/>

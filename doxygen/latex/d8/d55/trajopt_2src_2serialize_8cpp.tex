@@ -1,0 +1,91 @@
+\hypertarget{trajopt_2src_2serialize_8cpp}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/trajopt/src/serialize.cpp File Reference}
+\label{trajopt_2src_2serialize_8cpp}\index{tesseract\_motion\_planners/trajopt/src/serialize.cpp@{tesseract\_motion\_planners/trajopt/src/serialize.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$boost/algorithm/string/classification.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/algorithm/string/split.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt/serialize.\+h$>$}\newline
+Include dependency graph for serialize.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d6d/trajopt_2src_2serialize_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static const Eigen\+::\+IOFormat \mbox{\hyperlink{trajopt_2src_2serialize_8cpp_afa65c4cb2053e7f1184e483ef552151c}{eigen\+\_\+format}} (Eigen\+::\+Stream\+Precision, Eigen\+::\+Dont\+Align\+Cols, \char`\"{} \char`\"{}, \char`\"{} \char`\"{})
+\item 
+std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ \mbox{\hyperlink{namespacetesseract__planning_a167e626cf757025c0d7c4e16a46905fe}{tesseract\+\_\+planning\+::to\+XMLDocument}} (const Traj\+Opt\+Plan\+Profile \&plan\+\_\+profile)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a4c8dfa4d963c896ed1abbcc1effdb616}{tesseract\+\_\+planning\+::to\+XMLFile}} (const Traj\+Opt\+Plan\+Profile \&plan\+\_\+profile, const std\+::string \&file\+\_\+path)
+\item 
+std\+::string \mbox{\hyperlink{namespacetesseract__planning_af1b2f4fe6868c199a81fdacb4f82dd02}{tesseract\+\_\+planning\+::to\+XMLString}} (const Traj\+Opt\+Plan\+Profile \&plan\+\_\+profile)
+\item 
+std\+::shared\+\_\+ptr$<$ tinyxml2\+::\+XMLDocument $>$ \mbox{\hyperlink{namespacetesseract__planning_a4c1c616f544b12feac84de63721e9314}{tesseract\+\_\+planning\+::to\+XMLDocument}} (const Traj\+Opt\+Composite\+Profile \&composite\+\_\+profile)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a4a0d1ec51cba719360ce38442adf2a4a}{tesseract\+\_\+planning\+::to\+XMLFile}} (const Traj\+Opt\+Composite\+Profile \&composite\+\_\+profile, const std\+::string \&file\+\_\+path)
+\item 
+std\+::string \mbox{\hyperlink{namespacetesseract__planning_a779fd51d39c63e67cd08d5bacaef0843}{tesseract\+\_\+planning\+::to\+XMLString}} (const Traj\+Opt\+Composite\+Profile \&composite\+\_\+profile)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH static TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP const std\+::array$<$ int, 3 $>$ \mbox{\hyperlink{trajopt_2src_2serialize_8cpp_a0345dd28679689098473f7e364186e7f}{VERSION}} \{ \{ 1, 0, 0 \} \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tyler Marr 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 20, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000144}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{trajopt_2src_2serialize_8cpp_afa65c4cb2053e7f1184e483ef552151c}\label{trajopt_2src_2serialize_8cpp_afa65c4cb2053e7f1184e483ef552151c}} 
+\index{serialize.cpp@{serialize.cpp}!eigen\_format@{eigen\_format}}
+\index{eigen\_format@{eigen\_format}!serialize.cpp@{serialize.cpp}}
+\doxysubsubsection{\texorpdfstring{eigen\_format()}{eigen\_format()}}
+{\footnotesize\ttfamily static const Eigen\+::\+IOFormat eigen\+\_\+format (\begin{DoxyParamCaption}\item[{Eigen\+::\+Stream\+Precision}]{,  }\item[{Eigen\+::\+Dont\+Align\+Cols}]{,  }\item[{\char`\"{} \char`\"{}}]{,  }\item[{\char`\"{} \char`\"{}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{trajopt_2src_2serialize_8cpp_a0345dd28679689098473f7e364186e7f}\label{trajopt_2src_2serialize_8cpp_a0345dd28679689098473f7e364186e7f}} 
+\index{serialize.cpp@{serialize.cpp}!VERSION@{VERSION}}
+\index{VERSION@{VERSION}!serialize.cpp@{serialize.cpp}}
+\doxysubsubsection{\texorpdfstring{VERSION}{VERSION}}
+{\footnotesize\ttfamily TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH static TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP const std\+::array$<$int, 3$>$ VERSION \{ \{ 1, 0, 0 \} \}\hspace{0.3cm}{\ttfamily [static]}}
+

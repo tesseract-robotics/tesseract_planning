@@ -1,4 +1,4 @@
-<map id="tesseract_motion_planners/src/ompl/discrete_motion_validator.cpp" name="tesseract_motion_planners/src/ompl/discrete_motion_validator.cpp">
+<map id="tesseract_motion_planners/ompl/src/discrete_motion_validator.cpp" name="tesseract_motion_planners/ompl/src/discrete_motion_validator.cpp">
 <area shape="rect" id="node1" title="Tesseract OMPL planner discrete collision check between two states." alt="" coords="70,5,249,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,199,196,225"/>
 <area shape="rect" id="node3" title=" " alt="" coords="60,117,259,143"/>

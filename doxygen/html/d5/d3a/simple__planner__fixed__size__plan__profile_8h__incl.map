@@ -1,12 +1,12 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h" name="tesseract_motion_planners/include/tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h">
-<area shape="rect" id="node1" title=" " alt="" coords="1597,5,1776,91"/>
+<map id="tesseract_motion_planners/core/include/tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h" name="tesseract_motion_planners/core/include/tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h">
+<area shape="rect" id="node1" title=" " alt="" coords="1594,5,1778,91"/>
 <area shape="rect" id="node2" title=" " alt="" coords="2232,868,2423,895"/>
 <area shape="rect" id="node3" title=" " alt="" coords="655,786,723,813"/>
 <area shape="rect" id="node4" href="$df/df0/simple__planner__profile_8h.html" title=" " alt="" coords="1736,139,1914,195"/>
 <area shape="rect" id="node49" href="$d9/d2e/simple__planner__utils_8h.html" title="Provides interpolation utils for simple planner profiles." alt="" coords="1496,139,1674,195"/>
 <area shape="rect" id="node5" title=" " alt="" coords="1608,607,1666,634"/>
 <area shape="rect" id="node6" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="2282,332,2480,373"/>
-<area shape="rect" id="node46" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="1774,243,1953,284"/>
+<area shape="rect" id="node46" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="1774,243,1953,284"/>
 <area shape="rect" id="node7" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="2850,600,3048,641"/>
 <area shape="rect" id="node9" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="2807,511,3006,552"/>
 <area shape="rect" id="node21" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1930,600,2128,641"/>

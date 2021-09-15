@@ -1,4 +1,4 @@
-<map id="tesseract_motion_planners/src/simple/profile/simple_planner_utils.cpp" name="tesseract_motion_planners/src/simple/profile/simple_planner_utils.cpp">
+<map id="tesseract_motion_planners/core/src/simple/profile/simple_planner_utils.cpp" name="tesseract_motion_planners/core/src/simple/profile/simple_planner_utils.cpp">
 <area shape="rect" id="node1" title="Provides interpolation utils structs." alt="" coords="3391,5,3569,61"/>
 <area shape="rect" id="node2" href="$d9/d2e/simple__planner__utils_8h.html" title="Provides interpolation utils for simple planner profiles." alt="" coords="927,109,1105,165"/>
 <area shape="rect" id="node45" href="$da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="3381,117,3579,158"/>
@@ -8,7 +8,7 @@
 <area shape="rect" id="node5" title=" " alt="" coords="174,757,242,783"/>
 <area shape="rect" id="node6" title=" " alt="" coords="991,221,1041,247"/>
 <area shape="rect" id="node7" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="2071,303,2270,344"/>
-<area shape="rect" id="node42" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="788,213,967,255"/>
+<area shape="rect" id="node42" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="788,213,967,255"/>
 <area shape="rect" id="node8" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="3773,571,3971,612"/>
 <area shape="rect" id="node10" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="2751,481,2950,523"/>
 <area shape="rect" id="node21" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="3127,571,3326,612"/>

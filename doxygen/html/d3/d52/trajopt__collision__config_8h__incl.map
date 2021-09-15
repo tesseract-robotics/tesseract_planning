@@ -1,5 +1,5 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/trajopt_collision_config.h" name="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/trajopt_collision_config.h">
-<area shape="rect" id="node1" title="TrajOpt collision configuration settings." alt="" coords="398,5,577,76"/>
+<map id="tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/trajopt_collision_config.h" name="tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/trajopt_collision_config.h">
+<area shape="rect" id="node1" title="TrajOpt collision configuration settings." alt="" coords="385,5,589,76"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,124,196,151"/>
 <area shape="rect" id="node3" title=" " alt="" coords="221,124,423,151"/>
 <area shape="rect" id="node4" title=" " alt="" coords="448,124,527,151"/>

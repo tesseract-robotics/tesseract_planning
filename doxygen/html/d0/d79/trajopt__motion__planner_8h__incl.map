@@ -1,12 +1,12 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/trajopt_motion_planner.h" name="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/trajopt_motion_planner.h">
-<area shape="rect" id="node1" title=" " alt="" coords="3569,5,3747,76"/>
+<map id="tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/trajopt_motion_planner.h" name="tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/trajopt_motion_planner.h">
+<area shape="rect" id="node1" title=" " alt="" coords="3556,5,3760,76"/>
 <area shape="rect" id="node2" title=" " alt="" coords="2413,853,2604,880"/>
 <area shape="rect" id="node3" title=" " alt="" coords="4193,503,4395,530"/>
 <area shape="rect" id="node4" href="$d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="3633,124,3811,165"/>
 <area shape="rect" id="node50" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="3506,392,3685,448"/>
 <area shape="rect" id="node5" title=" " alt="" coords="3505,682,3616,709"/>
 <area shape="rect" id="node6" title=" " alt="" coords="3230,303,3403,344"/>
-<area shape="rect" id="node7" href="$d3/d9f/tesseract__motion__planners_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2730,213,2909,255"/>
+<area shape="rect" id="node7" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2730,213,2909,255"/>
 <area shape="rect" id="node8" title=" " alt="" coords="2742,303,2897,344"/>
 <area shape="rect" id="node9" title=" " alt="" coords="1634,593,1813,619"/>
 <area shape="rect" id="node10" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="2212,303,2411,344"/>

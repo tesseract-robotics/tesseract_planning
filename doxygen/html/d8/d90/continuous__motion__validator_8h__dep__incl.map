@@ -1,5 +1,5 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/ompl/continuous_motion_validator.h" name="tesseract_motion_planners/include/tesseract_motion_planners/ompl/continuous_motion_validator.h">
-<area shape="rect" id="node1" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="243,5,421,76"/>
+<map id="tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/continuous_motion_validator.h" name="tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/continuous_motion_validator.h">
+<area shape="rect" id="node1" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="221,5,443,76"/>
 <area shape="rect" id="node2" href="$dd/d98/continuous__motion__validator_8cpp.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="5,124,195,180"/>
 <area shape="rect" id="node3" href="$d8/d63/ompl__motion__planner_8cpp.html" title="Tesseract OMPL motion planner." alt="" coords="219,131,445,173"/>
 <area shape="rect" id="node4" href="$d6/dc0/ompl__default__plan__profile_8cpp.html" title=" " alt="" coords="469,124,648,180"/>

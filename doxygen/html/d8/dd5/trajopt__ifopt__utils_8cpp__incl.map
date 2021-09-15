@@ -1,4 +1,4 @@
-<map id="tesseract_motion_planners/src/trajopt_ifopt/trajopt_ifopt_utils.cpp" name="tesseract_motion_planners/src/trajopt_ifopt/trajopt_ifopt_utils.cpp">
+<map id="tesseract_motion_planners/trajopt_ifopt/src/trajopt_ifopt_utils.cpp" name="tesseract_motion_planners/trajopt_ifopt/src/trajopt_ifopt_utils.cpp">
 <area shape="rect" id="node1" title=" " alt="" coords="1843,5,2022,61"/>
 <area shape="rect" id="node2" href="$d8/d0f/trajopt__ifopt__utils_8h.html" title=" " alt="" coords="1781,109,1959,165"/>
 <area shape="rect" id="node5" title=" " alt="" coords="1109,221,1215,247"/>

@@ -1,10 +1,10 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/trajopt_motion_planner.h" name="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/trajopt_motion_planner.h">
-<area shape="rect" id="node1" title=" " alt="" coords="796,5,975,76"/>
+<map id="tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/trajopt_motion_planner.h" name="tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/trajopt_motion_planner.h">
+<area shape="rect" id="node1" title=" " alt="" coords="793,5,997,76"/>
 <area shape="rect" id="node2" href="$d2/de8/chain__example_8cpp.html" title="Chained motion planning example." alt="" coords="5,131,200,173"/>
 <area shape="rect" id="node3" href="$d4/d82/freespace__example_8cpp.html" title="Freespace motion planning example." alt="" coords="224,131,445,173"/>
 <area shape="rect" id="node4" href="$d4/dfe/raster__example_8cpp.html" title="Raster motion planning example." alt="" coords="469,131,667,173"/>
-<area shape="rect" id="node5" href="$dc/df5/trajopt__motion__planner_8cpp.html" title=" " alt="" coords="691,124,869,180"/>
-<area shape="rect" id="node6" href="$db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="893,131,1091,173"/>
+<area shape="rect" id="node5" href="$db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="691,131,888,173"/>
+<area shape="rect" id="node6" href="$dc/df5/trajopt__motion__planner_8cpp.html" title=" " alt="" coords="912,124,1091,180"/>
 <area shape="rect" id="node7" href="$d5/de3/cartesian__taskflow_8cpp.html" title="Cartesian Graph Taskflow." alt="" coords="1115,124,1309,180"/>
 <area shape="rect" id="node8" href="$d4/d9a/freespace__taskflow_8cpp.html" title="Freespace Graph Taskflow." alt="" coords="1333,124,1526,180"/>
 <area shape="rect" id="node9" href="$d9/d27/trajopt__taskflow_8cpp.html" title="TrajOpt Graph Taskflow." alt="" coords="1550,124,1743,180"/>

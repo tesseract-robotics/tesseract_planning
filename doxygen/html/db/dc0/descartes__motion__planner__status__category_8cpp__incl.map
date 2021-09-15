@@ -1,4 +1,4 @@
-<map id="tesseract_motion_planners/src/descartes/descartes_motion_planner_status_category.cpp" name="tesseract_motion_planners/src/descartes/descartes_motion_planner_status_category.cpp">
+<map id="tesseract_motion_planners/descartes/src/descartes_motion_planner_status_category.cpp" name="tesseract_motion_planners/descartes/src/descartes_motion_planner_status_category.cpp">
 <area shape="rect" id="node1" title="Tesseract ROS Descartes planner status category." alt="" coords="14,5,254,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,221,196,247"/>
 <area shape="rect" id="node3" title=" " alt="" coords="101,124,167,151"/>

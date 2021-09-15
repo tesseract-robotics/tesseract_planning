@@ -1,5 +1,5 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h" name="tesseract_motion_planners/include/tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h">
-<area shape="rect" id="node1" title=" " alt="" coords="231,5,421,76"/>
+<map id="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h" name="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h">
+<area shape="rect" id="node1" title=" " alt="" coords="223,5,429,76"/>
 <area shape="rect" id="node2" href="$d9/d01/trajopt__ifopt__default__composite__profile_8cpp.html" title=" " alt="" coords="5,124,212,195"/>
 <area shape="rect" id="node3" href="$d9/d01/trajopt__ifopt__default__plan__profile_8cpp.html" title=" " alt="" coords="237,124,415,195"/>
 <area shape="rect" id="node4" href="$da/dfd/trajopt__ifopt__utils_8cpp.html" title=" " alt="" coords="439,131,618,187"/>

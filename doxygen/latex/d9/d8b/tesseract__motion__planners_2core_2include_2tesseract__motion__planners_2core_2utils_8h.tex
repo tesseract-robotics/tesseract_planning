@@ -1,0 +1,99 @@
+\hypertarget{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h}{}\doxysection{tesseract\+\_\+motion\+\_\+planners/core/include/tesseract\+\_\+motion\+\_\+planners/core/utils.h File Reference}
+\label{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h}\index{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/core/utils.h@{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/core/utils.h}}
+
+
+Planner utility functions.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Geometry$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/environment.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/core/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+kinematics/core/forward\+\_\+kinematics.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+kinematics/core/inverse\+\_\+kinematics.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/types.\+h$>$}\newline
+Include dependency graph for utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/de1/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d68/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_aad3c64a902f813fd357ae4b9f17631fc}{tesseract\+\_\+planning\+::to\+Toolpath}} (const Instruction \&instruction, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env)
+\begin{DoxyCompactList}\small\item\em Extract toolpath from a composite instruction. \end{DoxyCompactList}\item 
+tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}{tesseract\+\_\+planning\+::interpolate}} (const Eigen\+::\+Isometry3d \&start, const Eigen\+::\+Isometry3d \&stop, int steps)
+\begin{DoxyCompactList}\small\item\em Inerpolate between two transforms return a vector of Eigen\+::\+Isometry transforms. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae5d6d72fa7462d658a7a9e04c0d35d72}{tesseract\+\_\+planning\+::interpolate}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&stop, int steps)
+\begin{DoxyCompactList}\small\item\em Inerpolate between two Eigen\+::\+Vector\+Xd and return a Matrix. \end{DoxyCompactList}\item 
+std\+::vector$<$ Waypoint $>$ \mbox{\hyperlink{namespacetesseract__planning_a09d4b16a56667b1ae6ceec21ecb73348}{tesseract\+\_\+planning\+::interpolate\+\_\+waypoint}} (const Waypoint \&start, const Waypoint \&stop, int steps)
+\begin{DoxyCompactList}\small\item\em Inerpolate between two waypoints return a vector of waypoints. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_afbc53b114f2f31699dd120ac52866a04}{tesseract\+\_\+planning\+::program\+Flatten\+Filter}} (const Instruction \&instruction, const Composite\+Instruction \&composite, bool parent\+\_\+is\+\_\+first\+\_\+composite)
+\begin{DoxyCompactList}\small\item\em A program flatten filter. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_a1172c93ff97196d2037dc67a853c0625}{tesseract\+\_\+planning\+::flatten\+Program}} (Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Flattens a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} into a vector of \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\&. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const Instruction $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_a2a1839f20041c926b5a327fae3fc6b44}{tesseract\+\_\+planning\+::flatten\+Program}} (const Composite\+Instruction \&composite\+\_\+instruction)
+\begin{DoxyCompactList}\small\item\em Flattens a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} into a vector of \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\&. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ Instruction $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_a376b0dd548ca385a3128afc20bdc1dca}{tesseract\+\_\+planning\+::flatten\+Program\+To\+Pattern}} (Composite\+Instruction \&composite\+\_\+instruction, const Composite\+Instruction \&pattern)
+\begin{DoxyCompactList}\small\item\em Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ const Instruction $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_a0b0907a5ac19772e3987ff0b20deb33e}{tesseract\+\_\+planning\+::flatten\+Program\+To\+Pattern}} (const Composite\+Instruction \&composite\+\_\+instruction, const Composite\+Instruction \&pattern)
+\begin{DoxyCompactList}\small\item\em Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ae05068079159e86735a2cb60b6e59c1e}{tesseract\+\_\+planning\+::contact\+Check\+Program}} (std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \&contacts, tesseract\+\_\+collision\+::\+Continuous\+Contact\+Manager \&manager, const tesseract\+\_\+environment\+::\+State\+Solver \&state\+\_\+solver, const Composite\+Instruction \&program, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&config)
+\begin{DoxyCompactList}\small\item\em Should perform a continuous collision check over the trajectory. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ad504005f1ff526e360ee792e88b59248}{tesseract\+\_\+planning\+::contact\+Check\+Program}} (std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \&contacts, tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager \&manager, const tesseract\+\_\+environment\+::\+State\+Solver \&state\+\_\+solver, const Composite\+Instruction \&program, const tesseract\+\_\+collision\+::\+Collision\+Check\+Config \&config)
+\begin{DoxyCompactList}\small\item\em Should perform a discrete collision check over the trajectory. \end{DoxyCompactList}\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a32251039111617f975deb5c3078bcdba}{tesseract\+\_\+planning\+::generate\+Naive\+Seed}} (const Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
+\begin{DoxyCompactList}\small\item\em This generates a naive seed for the provided program. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422dcb91}{tesseract\+\_\+planning\+::format\+Program}} (Composite\+Instruction \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env)
+\begin{DoxyCompactList}\small\item\em This formats the joint and state waypoints to align with the kinematics object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Planner utility functions. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+April 18, 2018 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000047}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2017, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

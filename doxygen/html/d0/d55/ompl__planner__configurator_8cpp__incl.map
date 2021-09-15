@@ -1,4 +1,4 @@
-<map id="tesseract_motion_planners/src/ompl/ompl_planner_configurator.cpp" name="tesseract_motion_planners/src/ompl/ompl_planner_configurator.cpp">
+<map id="tesseract_motion_planners/ompl/src/ompl_planner_configurator.cpp" name="tesseract_motion_planners/ompl/src/ompl_planner_configurator.cpp">
 <area shape="rect" id="node1" title="Tesseract OMPL planner configurators." alt="" coords="1336,5,1515,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="1078,199,1269,225"/>
 <area shape="rect" id="node3" title=" " alt="" coords="27,109,191,151"/>

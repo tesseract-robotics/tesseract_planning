@@ -1,5 +1,5 @@
-<map id="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h" name="tesseract_motion_planners/include/tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h">
-<area shape="rect" id="node1" title=" " alt="" coords="435,5,636,76"/>
+<map id="tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h" name="tesseract_motion_planners/trajopt/include/tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h">
+<area shape="rect" id="node1" title=" " alt="" coords="434,5,637,76"/>
 <area shape="rect" id="node2" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="358,124,537,180"/>
 <area shape="rect" id="node30" title=" " alt="" coords="561,131,686,173"/>
 <area shape="rect" id="node3" title=" " alt="" coords="725,496,916,523"/>

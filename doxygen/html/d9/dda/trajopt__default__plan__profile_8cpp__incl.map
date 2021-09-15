@@ -1,4 +1,4 @@
-<map id="tesseract_motion_planners/src/trajopt/profile/trajopt_default_plan_profile.cpp" name="tesseract_motion_planners/src/trajopt/profile/trajopt_default_plan_profile.cpp">
+<map id="tesseract_motion_planners/trajopt/src/profile/trajopt_default_plan_profile.cpp" name="tesseract_motion_planners/trajopt/src/profile/trajopt_default_plan_profile.cpp">
 <area shape="rect" id="node1" title=" " alt="" coords="1033,5,1212,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="1090,585,1281,612"/>
 <area shape="rect" id="node3" title=" " alt="" coords="1211,124,1381,151"/>
