@@ -13,7 +13,7 @@
 - git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
-    version: 6b28e2d5c6a10fb4e2fd6f50ff83f0f07cb01146
+    version: 0eeeaf216677112c24d8ec51b984044e7f62c209
 - git:
     local-name: opw_kinematics
     uri: https://github.com/Jmeyer1292/opw_kinematics.git

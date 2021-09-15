@@ -99,7 +99,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   descartes_light::SearchResult<FloatType> descartes_result;
   try
   {
-    descartes_light::LadderGraphSolver<FloatType> solver(problem->manip_inv_kin->numJoints(), problem->num_threads);
+    descartes_light::LadderGraphSolver<FloatType> solver(problem->num_threads);
     solver.build(problem->samplers, problem->edge_evaluators, problem->state_evaluators);
     descartes_result = solver.search();
     if (descartes_result.trajectory.empty())
