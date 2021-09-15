@@ -1,4 +1,5 @@
 find_package(descartes_light REQUIRED)
+find_package(tesseract_collision REQUIRED)
 
 # Descartes Planner
 add_library(${PROJECT_NAME}_descartes
@@ -14,6 +15,7 @@ add_library(${PROJECT_NAME}_descartes
 target_link_libraries(${PROJECT_NAME}_descartes
   PUBLIC
     ${PROJECT_NAME}_core
+    tesseract::tesseract_collision_core
     descartes::descartes_light
     Boost::boost
     ${CMAKE_THREAD_LIBS_INIT}
