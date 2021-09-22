@@ -147,7 +147,7 @@ bool addCartesianPositionAbsoluteCost(trajopt_sqp::QPProblem::Ptr nlp,
 
 ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypoint& joint_waypoint,
                                                         trajopt_ifopt::JointPosition::ConstPtr var,
-                                                        const Eigen::VectorXd& /*coeffs*/)
+                                                        const Eigen::VectorXd& coeffs)
 {
   assert(var);
   std::vector<trajopt_ifopt::JointPosition::ConstPtr> vars(1, var);
@@ -156,14 +156,15 @@ ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypoint& joi
   if (!joint_waypoint.isToleranced())
   {
     constraint = std::make_shared<trajopt_ifopt::JointPosConstraint>(
-        joint_waypoint.waypoint, vars, "JointPos_" + var->GetName());
+        joint_waypoint.waypoint, vars, coeffs, "JointPos_" + var->GetName());
   }
   else
   {
     Eigen::VectorXd lower_limit = joint_waypoint.waypoint + joint_waypoint.lower_tolerance;
     Eigen::VectorXd upper_limit = joint_waypoint.waypoint + joint_waypoint.upper_tolerance;
     auto bounds = trajopt_ifopt::toBounds(lower_limit, upper_limit);
-    constraint = std::make_shared<trajopt_ifopt::JointPosConstraint>(bounds, vars, "JointPos_" + var->GetName());
+    constraint =
+        std::make_shared<trajopt_ifopt::JointPosConstraint>(bounds, vars, coeffs, "JointPos_" + var->GetName());
   }
 
   return constraint;
