@@ -37,32 +37,35 @@ TesseractCommonTrajectory::TesseractCommonTrajectory(tesseract_common::JointTraj
   if (trajectory_.empty())
     throw std::runtime_error("Tried to construct TesseractCommonTrajectory with empty trajectory!");
 
-  dof_ = trajectory_.front().joint_names.size();
+  dof_ = static_cast<Eigen::Index>(trajectory_.front().joint_names.size());
 }
 
 const Eigen::VectorXd& TesseractCommonTrajectory::getPosition(Eigen::Index i) const
 {
   // TODO add assert that i<dof_
-  return trajectory_.at(i).position;
+  return trajectory_.at(static_cast<std::size_t>(i)).position;
 }
 const Eigen::VectorXd& TesseractCommonTrajectory::getVelocity(Eigen::Index i) const
 {
-  return trajectory_.at(i).velocity;
+  return trajectory_.at(static_cast<std::size_t>(i)).velocity;
 }
 
 const Eigen::VectorXd& TesseractCommonTrajectory::getAcceleration(Eigen::Index i) const
 {
-  return trajectory_.at(i).acceleration;
+  return trajectory_.at(static_cast<std::size_t>(i)).acceleration;
 }
 
-const double& TesseractCommonTrajectory::getTime(Eigen::Index i) const { return trajectory_.at(i).time; }
+const double& TesseractCommonTrajectory::getTime(Eigen::Index i) const
+{
+  return trajectory_.at(static_cast<std::size_t>(i)).time;
+}
 
 void TesseractCommonTrajectory::setData(Eigen::Index i,
                                         const Eigen::VectorXd& velocity,
                                         const Eigen::VectorXd& acceleration,
                                         double time)
 {
-  tesseract_common::JointState& swp = trajectory_.at(i);
+  tesseract_common::JointState& swp = trajectory_.at(static_cast<std::size_t>(i));
   swp.velocity = velocity;
   swp.acceleration = acceleration;
   swp.time = time;
