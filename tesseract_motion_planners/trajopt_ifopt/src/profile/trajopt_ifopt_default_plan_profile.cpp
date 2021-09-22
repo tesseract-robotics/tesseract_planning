@@ -56,7 +56,6 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
   Eigen::Isometry3d tcp = env->findTCP(mi);
   auto kin_info = std::make_shared<trajopt_ifopt::KinematicsInfo>(problem.manip_fwd_kin, adjacency_map, world_to_base);
 
-  bool is_dyanmic{ false };
   std::string source_link;
   std::string target_link;  // Only Dynamic cartesian cartesian will have target_link
   Eigen::Isometry3d source_tcp{ Eigen::Isometry3d::Identity() };
@@ -65,8 +64,8 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
   /* Check if this cartesian waypoint is dynamic
    * (i.e. defined relative to a frame that will move with the kinematic chain)
    */
-  auto it = std::find(active_links.begin(), active_links.end(), mi.working_frame);
-  if (it != active_links.end())
+  bool is_dyanmic = (std::find(active_links.begin(), active_links.end(), mi.working_frame) != active_links.end());
+  if (is_dyanmic)
   {
     if (cartesian_waypoint.isToleranced())
       CONSOLE_BRIDGE_logWarn("Toleranced cartesian waypoints are not supported in this version of TrajOpt.");
@@ -82,6 +81,8 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
         target_link = "";
         source_tcp = Eigen::Isometry3d::Identity();
         target_tcp = Eigen::Isometry3d::Identity();
+        throw std::runtime_error("TrajOpt IFOPT currently does not support dynamic cartesian waypoints!");
+
         // target_tcp, index, target, tcp relative to robot tip link, coeffs, robot tip link, term_type
         //        ti = createDynamicCartesianWaypointTermInfo(Eigen::Isometry3d::Identity(),
         //                                                    index,
@@ -117,6 +118,7 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
       source_link = problem.manip_fwd_kin->getTipLinkName();
       source_tcp = tcp;
       target_tcp = cartesian_waypoint.waypoint;
+
       // target_tcp, index, target, tcp relative to robot tip link, coeffs, robot tip link, term_type
       //      ti = createDynamicCartesianWaypointTermInfo(
       //          cartesian_waypoint, index, mi.working_frame, tcp, cartesian_coeff, pci.kin->getTipLinkName(),
@@ -139,6 +141,7 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
   trajopt_ifopt::JointPosition::ConstPtr var = problem.vars[static_cast<std::size_t>(index)];
   if (is_dyanmic)
   {
+    throw std::runtime_error("TrajOpt IFOPT currently does not support dynamic cartesian waypoints!");
   }
   else
   {
@@ -158,30 +161,6 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
         break;
     }
   }
-
-  //  /* Check if this cartesian waypoint is dynamic
-  //   * (i.e. defined relative to a frame that will move with the kinematic chain)
-  //   */
-  //  auto it = std::find(active_links.begin(), active_links.end(), mi.working_frame);
-  //  if (it != active_links.end())
-  //  {
-  //    CONSOLE_BRIDGE_logWarn("Dynamic cartesian terms are not supported by trajopt_ifopt. PRs welcome");
-  //  }
-  //  else
-  //  {
-  //    auto idx = static_cast<std::size_t>(index);
-  //    switch (term_type)
-  //    {
-  //      case TrajOptIfoptTermType::CONSTRAINT:
-  //        addCartesianPositionConstraint(problem.nlp, cartesian_waypoint, problem.vars[idx], kin_info,
-  //        cartesian_coeff);
-
-  //        break;
-  //      case TrajOptIfoptTermType::SQUARED_COST:
-  //        addCartesianPositionConstraint(problem.nlp, cartesian_waypoint, problem.vars[idx], kin_info,
-  //        cartesian_coeff); break;
-  //    }
-  //  }
 }
 
 void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
