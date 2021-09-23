@@ -325,7 +325,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       double dist = (swp1.position - swp0.position).norm();
       if (dist > config.longest_valid_segment_length)
       {
-        long cnt = static_cast<long>(std::ceil(dist / config.longest_valid_segment_length)) + 1;
+        auto cnt = static_cast<long>(std::ceil(dist / config.longest_valid_segment_length)) + 1;
         tesseract_common::TrajArray subtraj(cnt, swp0.position.size());
         for (long iVar = 0; iVar < swp0.position.size(); ++iVar)
           subtraj.col(iVar) = Eigen::VectorXd::LinSpaced(cnt, swp0.position(iVar), swp1.position(iVar));
@@ -378,7 +378,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           double dist = (swp1.position - swp0.position).norm();
           if (dist > config.longest_valid_segment_length)
           {
-            long cnt = static_cast<long>(std::ceil(dist / config.longest_valid_segment_length)) + 1;
+            auto cnt = static_cast<long>(std::ceil(dist / config.longest_valid_segment_length)) + 1;
             tesseract_common::TrajArray subtraj(cnt, swp0.position.size());
             for (long iVar = 0; iVar < swp0.position.size(); ++iVar)
               subtraj.col(iVar) = Eigen::VectorXd::LinSpaced(cnt, swp0.position(iVar), swp1.position(iVar));
@@ -497,7 +497,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
       if (dist > 0 && dist > config.longest_valid_segment_length)
       {
-        int cnt = static_cast<int>(std::ceil(dist / config.longest_valid_segment_length)) + 1;
+        auto cnt = static_cast<int>(std::ceil(dist / config.longest_valid_segment_length)) + 1;
         tesseract_common::TrajArray subtraj(cnt, swp0.position.size());
         for (long iVar = 0; iVar < swp0.position.size(); ++iVar)
           subtraj.col(iVar) = Eigen::VectorXd::LinSpaced(cnt, swp0.position(iVar), swp1->position(iVar));

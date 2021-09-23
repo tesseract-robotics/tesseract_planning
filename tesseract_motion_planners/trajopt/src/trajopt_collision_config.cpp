@@ -60,7 +60,7 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
 
   if (type_element != nullptr)
   {
-    int coll_type = static_cast<int>(trajopt::CollisionEvaluatorType::CAST_CONTINUOUS);
+    auto coll_type = static_cast<int>(trajopt::CollisionEvaluatorType::CAST_CONTINUOUS);
     status = type_element->QueryIntAttribute("type", &coll_type);
     if (status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("CollisionCostConfig: Error parsing CollisionEvaluator type attribute.");
@@ -164,7 +164,7 @@ CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement&
 
   if (type_element != nullptr)
   {
-    int coll_type = static_cast<int>(trajopt::CollisionEvaluatorType::CAST_CONTINUOUS);
+    auto coll_type = static_cast<int>(trajopt::CollisionEvaluatorType::CAST_CONTINUOUS);
     status = type_element->QueryIntAttribute("type", &coll_type);
     if (status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("CollisionConstraintConfig: Error parsing CollisionEvaluator type attribute.");

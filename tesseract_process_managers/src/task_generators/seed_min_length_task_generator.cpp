@@ -83,7 +83,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   }
 
   Instruction start_instruction = results.getStartInstruction();
-  int subdivisions = static_cast<int>(std::ceil(static_cast<double>(min_length_) / static_cast<double>(cnt))) + 1;
+  auto subdivisions = static_cast<int>(std::ceil(static_cast<double>(min_length_) / static_cast<double>(cnt))) + 1;
 
   CompositeInstruction new_results(results);
   new_results.clear();
