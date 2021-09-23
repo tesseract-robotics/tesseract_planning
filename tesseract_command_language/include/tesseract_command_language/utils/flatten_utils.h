@@ -40,7 +40,7 @@ namespace tesseract_planning
  * @return A new flattened vector referencing the original instruction elements
  */
 std::vector<std::reference_wrapper<Instruction>> flatten(CompositeInstruction& composite_instruction,
-                                                         flattenFilterFn filter = nullptr);
+                                                         const flattenFilterFn& filter = nullptr);
 
 /**
  * @brief Flattens a CompositeInstruction into a vector of Instruction&
@@ -49,7 +49,7 @@ std::vector<std::reference_wrapper<Instruction>> flatten(CompositeInstruction& c
  * @return A new flattened vector referencing the original instruction elements
  */
 std::vector<std::reference_wrapper<const Instruction>> flatten(const CompositeInstruction& composite_instruction,
-                                                               flattenFilterFn filter = nullptr);
+                                                               const flattenFilterFn& filter = nullptr);
 
 /**
  * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
@@ -63,7 +63,7 @@ std::vector<std::reference_wrapper<const Instruction>> flatten(const CompositeIn
  */
 std::vector<std::reference_wrapper<Instruction>> flattenToPattern(CompositeInstruction& composite_instruction,
                                                                   const CompositeInstruction& pattern,
-                                                                  flattenFilterFn filter = nullptr);
+                                                                  const flattenFilterFn& filter = nullptr);
 
 /**
  * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
@@ -76,7 +76,7 @@ std::vector<std::reference_wrapper<Instruction>> flattenToPattern(CompositeInstr
 std::vector<std::reference_wrapper<const Instruction>>
 flattenToPattern(const CompositeInstruction& composite_instruction,
                  const CompositeInstruction& pattern,
-                 flattenFilterFn filter = nullptr);
+                 const flattenFilterFn& filter = nullptr);
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_UTILS_H

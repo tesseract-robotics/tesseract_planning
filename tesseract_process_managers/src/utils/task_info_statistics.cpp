@@ -64,7 +64,7 @@ void TaskInfoProfiler::load(const tesseract_common::fs::path& directory)
     const std::string filepath = entry.path().string();
     try
     {
-      std::vector<TaskInfo> task_info = Serialization::fromArchiveFileXML<std::vector<TaskInfo>>(filepath);
+      auto task_info = Serialization::fromArchiveFileXML<std::vector<TaskInfo>>(filepath);
       task_info_vecs.push_back(task_info);
     }
     catch (const std::exception& e)

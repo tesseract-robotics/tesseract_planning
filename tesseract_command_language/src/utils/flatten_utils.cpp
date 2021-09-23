@@ -46,7 +46,7 @@ namespace tesseract_planning
  */
 void flattenHelper(std::vector<std::reference_wrapper<Instruction>>& flattened,
                    CompositeInstruction& composite,
-                   flattenFilterFn filter,
+                   const flattenFilterFn& filter,
                    bool first_composite)
 {
   if (composite.hasStartInstruction())
@@ -73,7 +73,7 @@ void flattenHelper(std::vector<std::reference_wrapper<Instruction>>& flattened,
 }
 
 std::vector<std::reference_wrapper<Instruction>> flatten(CompositeInstruction& composite_instruction,
-                                                         flattenFilterFn filter)
+                                                         const flattenFilterFn& filter)
 {
   std::vector<std::reference_wrapper<Instruction>> flattened;
   flattenHelper(flattened, composite_instruction, filter, true);
@@ -89,7 +89,7 @@ std::vector<std::reference_wrapper<Instruction>> flatten(CompositeInstruction& c
  */
 void flattenHelper(std::vector<std::reference_wrapper<const Instruction>>& flattened,
                    const CompositeInstruction& composite,
-                   flattenFilterFn filter,
+                   const flattenFilterFn& filter,
                    bool first_composite)
 {
   if (composite.hasStartInstruction())
@@ -116,7 +116,7 @@ void flattenHelper(std::vector<std::reference_wrapper<const Instruction>>& flatt
 }
 
 std::vector<std::reference_wrapper<const Instruction>> flatten(const CompositeInstruction& composite_instruction,
-                                                               flattenFilterFn filter)
+                                                               const flattenFilterFn& filter)
 {
   std::vector<std::reference_wrapper<const Instruction>> flattened;
   flattenHelper(flattened, composite_instruction, filter, true);
@@ -134,7 +134,7 @@ std::vector<std::reference_wrapper<const Instruction>> flatten(const CompositeIn
 void flattenToPatternHelper(std::vector<std::reference_wrapper<Instruction>>& flattened,
                             CompositeInstruction& composite,
                             const CompositeInstruction& pattern,
-                            flattenFilterFn filter,
+                            const flattenFilterFn& filter,
                             bool first_composite)
 {
   if (composite.size() != pattern.size() || composite.hasStartInstruction() != pattern.hasStartInstruction())
@@ -169,7 +169,7 @@ void flattenToPatternHelper(std::vector<std::reference_wrapper<Instruction>>& fl
 
 std::vector<std::reference_wrapper<Instruction>> flattenToPattern(CompositeInstruction& composite_instruction,
                                                                   const CompositeInstruction& pattern,
-                                                                  flattenFilterFn filter)
+                                                                  const flattenFilterFn& filter)
 {
   std::vector<std::reference_wrapper<Instruction>> flattened;
   flattenToPatternHelper(flattened, composite_instruction, pattern, filter, true);
@@ -187,7 +187,7 @@ std::vector<std::reference_wrapper<Instruction>> flattenToPattern(CompositeInstr
 void flattenToPatternHelper(std::vector<std::reference_wrapper<const Instruction>>& flattened,
                             const CompositeInstruction& composite,
                             const CompositeInstruction& pattern,
-                            flattenFilterFn filter,
+                            const flattenFilterFn& filter,
                             bool first_composite)
 {
   if (composite.size() != pattern.size() || composite.hasStartInstruction() != pattern.hasStartInstruction())
@@ -223,7 +223,7 @@ void flattenToPatternHelper(std::vector<std::reference_wrapper<const Instruction
 std::vector<std::reference_wrapper<const Instruction>>
 flattenToPattern(const CompositeInstruction& composite_instruction,
                  const CompositeInstruction& pattern,
-                 flattenFilterFn filter)
+                 const flattenFilterFn& filter)
 {
   std::vector<std::reference_wrapper<const Instruction>> flattened;
   flattenToPatternHelper(flattened, composite_instruction, pattern, filter, true);

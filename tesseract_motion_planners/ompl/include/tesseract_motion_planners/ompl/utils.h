@@ -51,7 +51,8 @@ Eigen::Map<Eigen::VectorXd> ConstrainedStateSpaceExtractor(const ompl::base::Sta
  * @param extractor This function understands the type of state space and converts it to an eigen vector.
  * @return Tesseract TrajArray
  */
-tesseract_common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path, OMPLStateExtractor extractor);
+tesseract_common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path,
+                                        const OMPLStateExtractor& extractor);
 
 /**
  * @brief Given longest valid fraction and length it will set the correct information of the state space

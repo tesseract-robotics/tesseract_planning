@@ -50,7 +50,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-CartesianTaskflow::CartesianTaskflow(CartesianTaskflowParams params, std::string name) : name_(name), params_(params) {}
+CartesianTaskflow::CartesianTaskflow(CartesianTaskflowParams params, std::string name)
+  : name_(std::move(name)), params_(params)
+{
+}
 
 const std::string& CartesianTaskflow::getName() const { return name_; }
 
@@ -194,7 +197,7 @@ TaskflowContainer CartesianTaskflow::generateTaskflow(TaskInput input, TaskflowV
   return container;
 }
 
-bool CartesianTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool CartesianTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // Check Input
   if (!input.env)

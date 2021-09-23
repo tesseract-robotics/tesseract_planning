@@ -91,9 +91,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   // Create a temp seed storage.
   std::vector<Eigen::VectorXd> seed_states;
   seed_states.reserve(seed_flat.size());
-  for (std::size_t i = 0; i < seed_flat.size(); i++)
-    seed_states.push_back(
-        getJointPosition(pci->kin->getJointNames(), seed_flat[i].get().as<MoveInstruction>().getWaypoint()));
+  for (auto& i : seed_flat)
+    seed_states.push_back(getJointPosition(pci->kin->getJointNames(), i.get().as<MoveInstruction>().getWaypoint()));
 
   // Setup start waypoint
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
@@ -249,7 +248,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           }
           else if (isStateWaypoint(plan_instruction.getWaypoint()))
           {
-            const StateWaypoint& state_waypoint = plan_instruction.getWaypoint().as<StateWaypoint>();
+            const auto& state_waypoint = plan_instruction.getWaypoint().as<StateWaypoint>();
             cur_position = JointWaypoint(state_waypoint.joint_names, state_waypoint.position);
           }
           else

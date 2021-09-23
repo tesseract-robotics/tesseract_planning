@@ -95,7 +95,7 @@ public:
                                      PlannerResponse& response,
                                      bool verbose = false) const override;
 
-  bool checkUserInput(const PlannerRequest& request) const;
+  static bool checkUserInput(const PlannerRequest& request);
 
   bool terminate() override;
 
@@ -107,9 +107,9 @@ protected:
   std::string name_;
   std::shared_ptr<const SimpleMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
 
-  PlanInstruction getStartInstruction(const PlannerRequest& request,
-                                      const tesseract_environment::EnvState::ConstPtr& current_state,
-                                      const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin) const;
+  static PlanInstruction getStartInstruction(const PlannerRequest& request,
+                                             const tesseract_environment::EnvState::ConstPtr& current_state,
+                                             const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin);
 
   CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,
                                                    PlanInstruction& prev_instruction,

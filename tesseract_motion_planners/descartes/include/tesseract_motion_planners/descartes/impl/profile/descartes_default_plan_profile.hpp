@@ -54,16 +54,16 @@ DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxm
   const tinyxml2::XMLElement* allow_collisions_element = xml_element.FirstChildElement("AllowCollisions");
   const tinyxml2::XMLElement* debug_element = xml_element.FirstChildElement("Debug");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (vertex_collisions_element)
+  if (vertex_collisions_element != nullptr)
   {
     const tinyxml2::XMLElement* enabled_element = vertex_collisions_element->FirstChildElement("Enabled");
     //    const tinyxml2::XMLElement* coll_safety_margin_element =
     //    vertex_collisions_element->FirstChildElement("CollisionSaf"
     //                                                                                                          "etyMargin");
 
-    if (enabled_element)
+    if (enabled_element != nullptr)
     {
       status = enabled_element->QueryBoolText(&enable_collision);
       if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
@@ -88,7 +88,7 @@ DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxm
     //    }
   }
 
-  if (edge_collisions_element)
+  if (edge_collisions_element != nullptr)
   {
     const tinyxml2::XMLElement* enabled_element = edge_collisions_element->FirstChildElement("Enabled");
     const tinyxml2::XMLElement* coll_safety_margin_element = edge_collisions_element->FirstChildElement("CollisionSafet"
@@ -96,14 +96,14 @@ DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxm
     const tinyxml2::XMLElement* long_valid_seg_len_element = edge_collisions_element->FirstChildElement("LongestValidSe"
                                                                                                         "gmentLength");
 
-    if (enabled_element)
+    if (enabled_element != nullptr)
     {
       status = enabled_element->QueryBoolText(&enable_edge_collision);
       if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
         throw std::runtime_error("DescartesPlanProfile: EdgeCollisions: Error parsing Enabled string");
     }
 
-    if (coll_safety_margin_element)
+    if (coll_safety_margin_element != nullptr)
     {
       std::string coll_safety_margin_string;
       status = tesseract_common::QueryStringText(coll_safety_margin_element, coll_safety_margin_string);
@@ -118,7 +118,7 @@ DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxm
       //      tesseract_common::toNumeric<double>(coll_safety_margin_string, edge_collision_saftey_margin);
     }
 
-    if (long_valid_seg_len_element)
+    if (long_valid_seg_len_element != nullptr)
     {
       std::string long_valid_seg_len_string;
       status = tesseract_common::QueryStringText(long_valid_seg_len_element, long_valid_seg_len_string);
@@ -135,7 +135,7 @@ DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxm
     }
   }
 
-  if (num_threads_element)
+  if (num_threads_element != nullptr)
   {
     std::string num_threads_string;
     status = tesseract_common::QueryStringText(num_threads_element, num_threads_string);
@@ -148,14 +148,14 @@ DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxm
     tesseract_common::toNumeric<int>(num_threads_string, num_threads);
   }
 
-  if (allow_collisions_element)
+  if (allow_collisions_element != nullptr)
   {
     status = allow_collisions_element->QueryBoolText(&allow_collision);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("DescartesPlanProfile: Error parsing AllowCollisions string");
   }
 
-  if (debug_element)
+  if (debug_element != nullptr)
   {
     status = debug_element->QueryBoolText(&debug);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)

@@ -85,7 +85,8 @@ namespace totg
 class PathSegment
 {
 public:
-  PathSegment(double length = 0.0) : length_(length) {}
+  PathSegment() = default;
+  PathSegment(double length) : length_(length) {}
 
   virtual ~PathSegment() = default;
   PathSegment(const PathSegment&) = default;
@@ -98,12 +99,12 @@ public:
   virtual Eigen::VectorXd getTangent(double s) const = 0;
   virtual Eigen::VectorXd getCurvature(double s) const = 0;
   virtual std::list<double> getSwitchingPoints() const = 0;
-  virtual PathSegment* clone() const = 0;
+  virtual std::unique_ptr<PathSegment> clone() const = 0;
 
-  double position_;
+  double position_{ 0 };
 
 protected:
-  double length_;
+  double length_{ 0 };
 };
 
 class Path

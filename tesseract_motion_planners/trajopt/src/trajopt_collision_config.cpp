@@ -44,21 +44,21 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
   const tinyxml2::XMLElement* safety_margin_buffer_element = xml_element.FirstChildElement("SafetyMarginBuffer");
   const tinyxml2::XMLElement* coeff_element = xml_element.FirstChildElement("Coefficient");
 
-  if (!enabled_element)
+  if (enabled_element == nullptr)
     throw std::runtime_error("CollisionCostConfig: Must have Enabled element.");
 
   tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("CollisionCostConfig: Error parsing Enabled string");
 
-  if (use_weighted_sum_element)
+  if (use_weighted_sum_element != nullptr)
   {
     status = use_weighted_sum_element->QueryBoolText(&use_weighted_sum);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("CollisionCostConfig: Error parsing UseWeightedSum string");
   }
 
-  if (type_element)
+  if (type_element != nullptr)
   {
     int coll_type = static_cast<int>(trajopt::CollisionEvaluatorType::CAST_CONTINUOUS);
     status = type_element->QueryIntAttribute("type", &coll_type);
@@ -68,7 +68,7 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
     type = static_cast<trajopt::CollisionEvaluatorType>(coll_type);
   }
 
-  if (buffer_margin_element)
+  if (buffer_margin_element != nullptr)
   {
     std::string buffer_margin_string;
     status = tesseract_common::QueryStringText(buffer_margin_element, buffer_margin_string);
@@ -81,7 +81,7 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
     tesseract_common::toNumeric<double>(buffer_margin_string, safety_margin);
   }
 
-  if (safety_margin_buffer_element)
+  if (safety_margin_buffer_element != nullptr)
   {
     std::string safety_margin_buffer_string;
     status = tesseract_common::QueryStringText(safety_margin_buffer_element, safety_margin_buffer_string);
@@ -94,7 +94,7 @@ CollisionCostConfig::CollisionCostConfig(const tinyxml2::XMLElement& xml_element
     tesseract_common::toNumeric<double>(safety_margin_buffer_string, safety_margin_buffer);
   }
 
-  if (coeff_element)
+  if (coeff_element != nullptr)
   {
     std::string coeff_string;
     status = tesseract_common::QueryStringText(coeff_element, coeff_string);
@@ -148,21 +148,21 @@ CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement&
   const tinyxml2::XMLElement* safety_margin_buffer_element = xml_element.FirstChildElement("SafetyMarginBuffer");
   const tinyxml2::XMLElement* coeff_element = xml_element.FirstChildElement("Coefficient");
 
-  if (!enabled_element)
+  if (enabled_element == nullptr)
     throw std::runtime_error("CollisionConstraintConfig: Must have Enabled element.");
 
   tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("CollisionConstraintConfig: Error parsing Enabled string");
 
-  if (use_weighted_sum_element)
+  if (use_weighted_sum_element != nullptr)
   {
     status = use_weighted_sum_element->QueryBoolText(&use_weighted_sum);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("CollisionConstraintConfig: Error parsing UseWeightedSum string");
   }
 
-  if (type_element)
+  if (type_element != nullptr)
   {
     int coll_type = static_cast<int>(trajopt::CollisionEvaluatorType::CAST_CONTINUOUS);
     status = type_element->QueryIntAttribute("type", &coll_type);
@@ -172,7 +172,7 @@ CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement&
     type = static_cast<trajopt::CollisionEvaluatorType>(coll_type);
   }
 
-  if (safety_margin_element)
+  if (safety_margin_element != nullptr)
   {
     std::string safety_margin_string;
     status = tesseract_common::QueryStringText(safety_margin_element, safety_margin_string);
@@ -185,7 +185,7 @@ CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement&
     tesseract_common::toNumeric<double>(safety_margin_string, safety_margin);
   }
 
-  if (safety_margin_buffer_element)
+  if (safety_margin_buffer_element != nullptr)
   {
     std::string safety_margin_buffer_string;
     status = tesseract_common::QueryStringText(safety_margin_buffer_element, safety_margin_buffer_string);
@@ -198,7 +198,7 @@ CollisionConstraintConfig::CollisionConstraintConfig(const tinyxml2::XMLElement&
     tesseract_common::toNumeric<double>(safety_margin_buffer_string, safety_margin_buffer);
   }
 
-  if (coeff_element)
+  if (coeff_element != nullptr)
   {
     std::string coeff_string;
     status = tesseract_common::QueryStringText(coeff_element, coeff_string);

@@ -62,16 +62,16 @@ public:
 
   TaskflowContainer generateTaskflow(TaskInput input, TaskflowVoidFn done_cb, TaskflowVoidFn error_cb) override;
 
-private:
-  std::string name_;
-  TrajOptTaskflowParams params_;
-
   /**
    * @brief Checks that the TaskInput is in the correct format.
    * @param input TaskInput to be checked
    * @return True if in the correct format
    */
-  bool checkTaskInput(const TaskInput& input) const;
+  static bool checkTaskInput(const TaskInput& input);
+
+private:
+  std::string name_;
+  TrajOptTaskflowParams params_;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_PROCESS_MANAGERS_TRAJOPT_TASKFLOW_H

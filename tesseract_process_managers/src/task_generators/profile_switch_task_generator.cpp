@@ -54,7 +54,7 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
-  saveInputs(info, input);
+  saveInputs(*info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -63,7 +63,7 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   if (!isCompositeInstruction(*input_instruction))
   {
     CONSOLE_BRIDGE_logError("Input instruction to ProfileSwitch must be a composite instruction. Returning 0");
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }

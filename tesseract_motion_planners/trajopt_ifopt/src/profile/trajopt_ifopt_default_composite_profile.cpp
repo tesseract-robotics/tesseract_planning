@@ -58,13 +58,13 @@ void TrajOptIfoptDefaultCompositeProfile::apply(TrajOptIfoptProblem& problem,
 
   if (collision_constraint_config->type != tesseract_collision::CollisionEvaluatorType::NONE)
     addCollisionConstraint(
-        problem.nlp, vars, problem.environment, manip_info, collision_constraint_config, fixed_indices);
+        *problem.nlp, vars, problem.environment, manip_info, collision_constraint_config, fixed_indices);
 
   if (collision_cost_config->type != tesseract_collision::CollisionEvaluatorType::NONE)
-    addCollisionCost(problem.nlp, vars, problem.environment, manip_info, collision_cost_config, fixed_indices);
+    addCollisionCost(*problem.nlp, vars, problem.environment, manip_info, collision_cost_config, fixed_indices);
 
   if (smooth_velocities)
-    addJointVelocitySquaredCost(problem.nlp, vars, velocity_coeff);
+    addJointVelocitySquaredCost(*problem.nlp, vars, velocity_coeff);
 
   if (smooth_accelerations)
     CONSOLE_BRIDGE_logWarn("Acceleration smoothing not yet supported by trajopt_ifopt. PRs welcome");

@@ -54,7 +54,7 @@ struct ProfileTest2 : public ProfileBase2
 
 using namespace tesseract_planning;
 
-TEST(TesseractPlanningProfileDictionaryUnit, ProfileDictionaryTest)
+TEST(TesseractPlanningProfileDictionaryUnit, ProfileDictionaryTest)  // NOLINT
 {
   ProfileDictionary profiles;
 
@@ -95,16 +95,16 @@ TEST(TesseractPlanningProfileDictionaryUnit, ProfileDictionaryTest)
   EXPECT_EQ(profile_check2->a, 20);
 
   // Request a profile entry that does not exist
-  EXPECT_ANY_THROW(profiles.getProfileEntry<int>());
+  EXPECT_ANY_THROW(profiles.getProfileEntry<int>());  // NOLINT
 
   // Request a profile that does not exist
-  EXPECT_ANY_THROW(profiles.getProfile<ProfileBase>("DoesNotExist"));
+  EXPECT_ANY_THROW(profiles.getProfile<ProfileBase>("DoesNotExist"));  // NOLINT
 
   // Check adding a empty key
-  EXPECT_ANY_THROW(profiles.addProfile<ProfileBase>("", std::make_shared<ProfileTest>(20)));
+  EXPECT_ANY_THROW(profiles.addProfile<ProfileBase>("", std::make_shared<ProfileTest>(20)));  // NOLINT
 
   // Check adding a nullptr profile
-  EXPECT_ANY_THROW(profiles.addProfile<ProfileBase>("key", nullptr));
+  EXPECT_ANY_THROW(profiles.addProfile<ProfileBase>("key", nullptr));  // NOLINT
 
   // Add different profile entry
   profiles.addProfile<ProfileBase2>("key", std::make_shared<ProfileTest2>(5));

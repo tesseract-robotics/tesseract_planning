@@ -55,7 +55,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
-  saveInputs(info, input);
+  saveInputs(*info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -65,7 +65,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   {
     info->message = "Input instruction to FixStateBounds must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
@@ -84,7 +84,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
   {
     info->return_value = 1;
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 1;
   }
@@ -97,16 +97,16 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     case FixStateBoundsProfile::Settings::START_ONLY:
     {
       const PlanInstruction* instr_const_ptr = getFirstPlanInstruction(ci);
-      if (instr_const_ptr)
+      if (instr_const_ptr != nullptr)
       {
-        PlanInstruction* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);
+        auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
         if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits))
         {
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
           if (!clampToJointLimits(
                   mutable_instruction->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
           {
-            saveOutputs(info, input);
+            saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
             return 0;
           }
@@ -117,16 +117,16 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     case FixStateBoundsProfile::Settings::END_ONLY:
     {
       const PlanInstruction* instr_const_ptr = getLastPlanInstruction(ci);
-      if (instr_const_ptr)
+      if (instr_const_ptr != nullptr)
       {
-        PlanInstruction* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);
+        auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
         if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits))
         {
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
           if (!clampToJointLimits(
                   mutable_instruction->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
           {
-            saveOutputs(info, input);
+            saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
             return 0;
           }
@@ -141,7 +141,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       {
         CONSOLE_BRIDGE_logWarn("FixStateBoundsTaskGenerator found no PlanInstructions to process");
         info->return_value = 1;
-        saveOutputs(info, input);
+        saveOutputs(*info, input);
         info->elapsed_time = timer.elapsedSeconds();
         return 1;
       }
@@ -158,11 +158,11 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       for (const auto& instruction : flattened)
       {
         const Instruction* instr_const_ptr = &instruction.get();
-        Instruction* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);
+        auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
         auto& plan = mutable_instruction->as<PlanInstruction>();
         if (!clampToJointLimits(plan.getWaypoint(), limits, cur_composite_profile->max_deviation_global))
         {
-          saveOutputs(info, input);
+          saveOutputs(*info, input);
           info->elapsed_time = timer.elapsedSeconds();
           return 0;
         }
@@ -171,14 +171,14 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     break;
     case FixStateBoundsProfile::Settings::DISABLED:
       info->return_value = 1;
-      saveOutputs(info, input);
+      saveOutputs(*info, input);
       info->elapsed_time = timer.elapsedSeconds();
       return 1;
   }
 
   CONSOLE_BRIDGE_logDebug("FixStateBoundsTaskGenerator succeeded");
   info->return_value = 1;
-  saveOutputs(info, input);
+  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
   return 1;
 }

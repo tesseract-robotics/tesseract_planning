@@ -69,7 +69,7 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
-  saveInputs(info, input);
+  saveInputs(*info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -79,7 +79,7 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   {
     info->message = "Input seed to DiscreteContactCheckTaskGenerator must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
@@ -115,14 +115,14 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
                                    contact.link_names[1] + " Dist: " + std::to_string(contact.distance))
                                       .c_str());
     info->contact_results = contacts;
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
 
   CONSOLE_BRIDGE_logDebug("Discrete contact check succeeded");
   info->return_value = 1;
-  saveOutputs(info, input);
+  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
   return 1;
 }

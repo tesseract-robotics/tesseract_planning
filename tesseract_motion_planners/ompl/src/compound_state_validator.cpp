@@ -38,13 +38,13 @@ CompoundStateValidator::CompoundStateValidator() : StateValidityChecker(nullptr)
 CompoundStateValidator::CompoundStateValidator(ompl::base::StateValidityCheckerPtr validator)
   : StateValidityChecker(nullptr)
 {
-  addStateValidator(validator);
+  addStateValidator(std::move(validator));
 }
 
 CompoundStateValidator::CompoundStateValidator(ompl::base::StateValidityCheckerFn validator)
   : StateValidityChecker(nullptr)
 {
-  addStateValidator(validator);
+  addStateValidator(std::move(validator));
 }
 
 bool CompoundStateValidator::isValid(const ompl::base::State* state) const
@@ -61,7 +61,7 @@ void CompoundStateValidator::addStateValidator(ompl::base::StateValidityCheckerP
   auto fn = [validator](const ompl::base::State* state) { return validator->isValid(state); };
 
   cache_.push_back(std::move(validator));
-  validators_.push_back(fn);
+  validators_.emplace_back(fn);
 }
 
 void CompoundStateValidator::addStateValidator(ompl::base::StateValidityCheckerFn validator)

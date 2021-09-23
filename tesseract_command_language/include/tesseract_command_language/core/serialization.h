@@ -54,10 +54,10 @@ struct Serialization
       // Because we are only serializing here it is safe to cast away const
       if (name.empty())
         oa << boost::serialization::make_nvp<SerializableType>("archive_type",
-                                                               const_cast<SerializableType&>(archive_type));
+                                                               const_cast<SerializableType&>(archive_type));  // NOLINT
       else
         oa << boost::serialization::make_nvp<SerializableType>(name.c_str(),
-                                                               const_cast<SerializableType&>(archive_type));
+                                                               const_cast<SerializableType&>(archive_type));  // NOLINT
     }
 
     return ss.str();
@@ -75,10 +75,10 @@ struct Serialization
       // Because we are only serializing here it is safe to cast away const
       if (name.empty())
         oa << boost::serialization::make_nvp<SerializableType>("archive_type",
-                                                               const_cast<SerializableType&>(archive_type));
+                                                               const_cast<SerializableType&>(archive_type));  // NOLINT
       else
         oa << boost::serialization::make_nvp<SerializableType>(name.c_str(),
-                                                               const_cast<SerializableType&>(archive_type));
+                                                               const_cast<SerializableType&>(archive_type));  // NOLINT
     }
 
     return true;

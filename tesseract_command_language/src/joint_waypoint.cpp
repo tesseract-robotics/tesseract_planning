@@ -13,7 +13,7 @@ namespace tesseract_planning
 {
 void JointWaypoint::print(const std::string& prefix) const
 {
-  std::cout << prefix << "Joint WP: " << this->transpose() << std::endl;
+  std::cout << prefix << "Joint WP: " << this->transpose() << std::endl;  // NOLINT
 }
 
 bool JointWaypoint::isToleranced() const

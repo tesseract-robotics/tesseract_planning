@@ -296,7 +296,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
   }
 }
 
-TEST(TesseractCommandLanguageUtilsUnit, isWithinJointLimits)
+TEST(TesseractCommandLanguageUtilsUnit, isWithinJointLimits)  // NOLINT
 {
   Eigen::MatrixX2d limits(3, 2);
   limits << 0, 2, 0, 2, 0, 2;
@@ -342,7 +342,7 @@ TEST(TesseractCommandLanguageUtilsUnit, isWithinJointLimits)
   }
 }
 
-TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)
+TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
 {
   Eigen::MatrixX2d limits(3, 2);
   limits << 0, 2, 0, 2, 0, 2;
@@ -425,7 +425,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)
   }
 }
 
-TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)
+TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
 {
   // Create a composite
   CompositeInstruction composite;
@@ -463,7 +463,7 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)
     if (isPlanInstruction(composite_i))
     {
       ASSERT_TRUE(isCompositeInstruction(skeleton_i));
-      const auto cast = skeleton_i.as<CompositeInstruction>();
+      const auto& cast = skeleton_i.as<CompositeInstruction>();
 
       EXPECT_EQ(cast.getProfile(), composite_i.as<PlanInstruction>().getProfile());
       EXPECT_EQ(cast.getOrder(), CompositeInstructionOrder::ORDERED);
@@ -477,7 +477,7 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)
   }
 }
 
-TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)
+TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
 {
   CompositeInstruction composite;
   composite.setDescription("To Delimited File: Composite");

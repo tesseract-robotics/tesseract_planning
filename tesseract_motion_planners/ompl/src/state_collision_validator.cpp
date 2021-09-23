@@ -45,7 +45,7 @@ StateCollisionValidator::StateCollisionValidator(
   , state_solver_(env_->getStateSolver())
   , kin_(std::move(kin))
   , contact_manager_(env_->getDiscreteContactManager())
-  , extractor_(extractor)
+  , extractor_(std::move(extractor))
 {
   joints_ = kin_->getJointNames();
 

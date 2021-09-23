@@ -105,8 +105,7 @@ void InstructionsTrajectory::setData(Eigen::Index i,
 {
   assert(isMoveInstruction(trajectory_[static_cast<std::size_t>(i)].get()));
   assert(isStateWaypoint(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstruction>().getWaypoint()));
-  StateWaypoint& swp =
-      trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+  auto& swp = trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
   swp.velocity = velocity;
   swp.acceleration = acceleration;
   swp.time = time;

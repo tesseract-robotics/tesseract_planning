@@ -55,7 +55,7 @@ public:
   MoveInstruction() = default;  // Required for boost serialization do not use
   MoveInstruction(Waypoint waypoint,
                   MoveInstructionType type,
-                  const std::string& profile = DEFAULT_PROFILE_KEY,
+                  std::string profile = DEFAULT_PROFILE_KEY,
                   ManipulatorInfo manipulator_info = ManipulatorInfo());
 
   void setWaypoint(Waypoint waypoint);
@@ -94,7 +94,7 @@ public:
   bool operator!=(const MoveInstruction& rhs) const;
 
 private:
-  MoveInstructionType move_type_;
+  MoveInstructionType move_type_{ MoveInstructionType::START };
   std::string description_;
 
   /** @brief The profile used for this move instruction */

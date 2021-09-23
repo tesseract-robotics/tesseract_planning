@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-TEST(TesseractCommandLanguageCartesianWaypointUnit, isToleranced)
+TEST(TesseractCommandLanguageCartesianWaypointUnit, isToleranced)  // NOLINT
 {
   Eigen::Isometry3d pose = Eigen::Isometry3d::Identity();
 
@@ -51,18 +51,18 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, isToleranced)
 
   cw.upper_tolerance = Eigen::VectorXd::Constant(3, -5);
   cw.lower_tolerance = Eigen::VectorXd::Constant(3, -5);
-  EXPECT_ANY_THROW(cw.isToleranced());
+  EXPECT_ANY_THROW(cw.isToleranced());  // NOLINT
 
   cw.upper_tolerance = Eigen::VectorXd::Constant(3, 5);
   cw.lower_tolerance = Eigen::VectorXd::Constant(3, 5);
-  EXPECT_ANY_THROW(cw.isToleranced());
+  EXPECT_ANY_THROW(cw.isToleranced());  // NOLINT
 
   cw.upper_tolerance = Eigen::VectorXd::Constant(3, 0);
   cw.lower_tolerance = Eigen::VectorXd::Constant(3, 0);
   EXPECT_FALSE(cw.isToleranced());
 }
 
-TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)
+TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)  // NOLINT
 {
   Eigen::Isometry3d pose = Eigen::Isometry3d::Identity();
 
@@ -72,7 +72,7 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)
   wp = cw;
   Serialization::toArchiveFileXML<Waypoint>(wp, "/tmp/cartesian_waypoint_boost.xml");
 
-  Waypoint nwp = Serialization::fromArchiveFileXML<Waypoint>("/tmp/cartesian_waypoint_boost.xml");
+  auto nwp = Serialization::fromArchiveFileXML<Waypoint>("/tmp/cartesian_waypoint_boost.xml");
 
   EXPECT_TRUE(cw == nwp.as<CartesianWaypoint>());
 }
@@ -80,18 +80,18 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)
 inline void SerializeDeserializeTest(const CartesianWaypoint& wp)
 {
   Serialization::toArchiveFileXML<Waypoint>(wp, tesseract_common::getTempPath() + "cartesian_waypoint_unit.xml");
-  Waypoint deserialized = Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "cartesian_"
-                                                                                                        "waypoint_unit."
-                                                                                                        "xml");
+  auto deserialized = Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "cartesian_"
+                                                                                                    "waypoint_unit."
+                                                                                                    "xml");
   EXPECT_TRUE(wp == deserialized.as<CartesianWaypoint>());
 }
 
-TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperatorAndSerialization)
+TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperatorAndSerialization)  // NOLINT
 {
   // Equal
   {
     CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
-    CartesianWaypoint wp2(wp1);
+    CartesianWaypoint wp2(wp1);  // NOLINT
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);

@@ -45,7 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-OMPLTaskflow::OMPLTaskflow(OMPLTaskflowParams params, std::string name) : name_(name), params_(params) {}
+OMPLTaskflow::OMPLTaskflow(OMPLTaskflowParams params, std::string name) : name_(std::move(name)), params_(params) {}
 
 const std::string& OMPLTaskflow::getName() const { return name_; }
 
@@ -160,7 +160,7 @@ TaskflowContainer OMPLTaskflow::generateTaskflow(TaskInput input, TaskflowVoidFn
   return container;
 }
 
-bool OMPLTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool OMPLTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // Check Input
   if (!input.env)

@@ -283,7 +283,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           }
           else if (isStateWaypoint(plan_instruction.getWaypoint()))
           {
-            const StateWaypoint& state_waypoint = plan_instruction.getWaypoint().as<StateWaypoint>();
+            const auto& state_waypoint = plan_instruction.getWaypoint().as<StateWaypoint>();
             cur_position = JointWaypoint(state_waypoint.joint_names, state_waypoint.position);
           }
           else

@@ -142,17 +142,15 @@ public:
   /** @brief returns a reverse iterator to the end */
   reverse_iterator rend();
   /** @brief returns a reverse iterator to the end */
-  const_reverse_iterator crend() const;
-  /** @brief returns a reverse iterator to the end */
   const_reverse_iterator rend() const;
   /** @brief returns an iterator to the beginning */
   const_iterator cbegin() const;
   /** @brief returns an iterator to the end */
   const_iterator cend() const;
   /** @brief returns a reverse iterator to the beginning */
-  const_reverse_iterator const crbegin();
+  const_reverse_iterator crbegin() const;
   /** @brief returns a reverse iterator to the end */
-  const_reverse_iterator const crend();
+  const_reverse_iterator crend() const;
 
   //////////////
   // Capacity //

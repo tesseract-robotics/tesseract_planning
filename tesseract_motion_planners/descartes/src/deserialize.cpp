@@ -47,7 +47,7 @@ DescartesDefaultPlanProfile<double> descartesPlanParser(const tinyxml2::XMLEleme
 
 DescartesDefaultPlanProfile<double> descartesPlanFromXMLElement(const tinyxml2::XMLElement* profile_xml)
 {
-  std::array<int, 3> version;
+  std::array<int, 3> version{ 0, 0, 0 };
   std::string version_string;
   tinyxml2::XMLError status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
@@ -73,10 +73,10 @@ DescartesDefaultPlanProfile<double> descartesPlanFromXMLElement(const tinyxml2::
   }
 
   const tinyxml2::XMLElement* planner_xml = profile_xml->FirstChildElement("Planner");
-  if (!planner_xml)
+  if (planner_xml == nullptr)
     throw std::runtime_error("fromXML: Could not find the 'Planner' element in the xml file.");
 
-  int type;
+  int type{ 0 };
   status = planner_xml->QueryIntAttribute("type", &type);
   if (status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("fromXML: Failed to parse instruction type attribute.");
@@ -87,7 +87,7 @@ DescartesDefaultPlanProfile<double> descartesPlanFromXMLElement(const tinyxml2::
 DescartesDefaultPlanProfile<double> descartesPlanFromXMLDocument(const tinyxml2::XMLDocument& xml_doc)
 {
   const tinyxml2::XMLElement* planner_xml = xml_doc.FirstChildElement("Profile");
-  if (!planner_xml)
+  if (planner_xml == nullptr)
     throw std::runtime_error("Could not find the 'Profile' element in the xml file");
 
   return descartesPlanFromXMLElement(planner_xml);

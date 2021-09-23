@@ -103,6 +103,8 @@ public:
 
   MotionPlanner::Ptr clone() const override;
 
+  static bool checkUserInput(const PlannerRequest& request);
+
 protected:
   /** @brief Name of planner */
   std::string name_;
@@ -112,8 +114,6 @@ protected:
 
   /** @brief OMPL Parallel planner */
   std::shared_ptr<ompl::tools::ParallelPlan> parallel_plan_;
-
-  bool checkUserInput(const PlannerRequest& request) const;
 };
 
 }  // namespace tesseract_planning

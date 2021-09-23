@@ -148,9 +148,9 @@ using Implementations = ::testing::Types<tesseract_planning::SBLConfigurator,
                                          // tesseract_planning::TRRTConfigurator,
                                          tesseract_planning::RRTConnectConfigurator>;
 
-TYPED_TEST_CASE(OMPLTestFixture, Implementations);
+TYPED_TEST_CASE(OMPLTestFixture, Implementations);  // NOLINT
 
-TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)
+TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 {
   EXPECT_EQ(ompl::RNG::getSeed(), SEED) << "Randomization seed does not match expected: " << ompl::RNG::getSeed()
                                         << " vs. " << SEED;

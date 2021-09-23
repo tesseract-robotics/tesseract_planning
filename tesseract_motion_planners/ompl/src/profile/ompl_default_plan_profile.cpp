@@ -68,11 +68,11 @@ OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_e
   //  xml_element.FirstChildElement("LongestValidSegment"
   //                                                                                                   "Length");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (state_space_element)
+  if (state_space_element != nullptr)
   {
-    int type = static_cast<int>(OMPLProblemStateSpace::REAL_STATE_SPACE);
+    auto type = static_cast<int>(OMPLProblemStateSpace::REAL_STATE_SPACE);
     status = state_space_element->QueryIntAttribute("type", &type);
     if (status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("OMPLPlanProfile: Error parsing StateSpace type attribute.");
@@ -80,7 +80,7 @@ OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_e
     state_space = static_cast<OMPLProblemStateSpace>(type);
   }
 
-  if (planning_time_element)
+  if (planning_time_element != nullptr)
   {
     std::string planning_time_string;
     status = tesseract_common::QueryStringText(planning_time_element, planning_time_string);
@@ -93,7 +93,7 @@ OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_e
     tesseract_common::toNumeric<double>(planning_time_string, planning_time);
   }
 
-  if (max_solutions_element)
+  if (max_solutions_element != nullptr)
   {
     std::string max_solutions_string;
     status = tesseract_common::QueryStringText(max_solutions_element, max_solutions_string);
@@ -106,27 +106,27 @@ OMPLDefaultPlanProfile::OMPLDefaultPlanProfile(const tinyxml2::XMLElement& xml_e
     tesseract_common::toNumeric<int>(max_solutions_string, max_solutions);
   }
 
-  if (simplify_element)
+  if (simplify_element != nullptr)
   {
     status = simplify_element->QueryBoolText(&simplify);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("OMPLPlanProfile: Error parsing Simplify string");
   }
 
-  if (optimize_element)
+  if (optimize_element != nullptr)
   {
     status = optimize_element->QueryBoolText(&optimize);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("OMPLPlanProfile: Error parsing Optimize string");
   }
 
-  if (planners_element)
+  if (planners_element != nullptr)
   {
     planners.clear();
-    for (const tinyxml2::XMLElement* e = planners_element->FirstChildElement("Planner"); e;
+    for (const tinyxml2::XMLElement* e = planners_element->FirstChildElement("Planner"); e != nullptr;
          e = e->NextSiblingElement("Planner"))
     {
-      int type;
+      int type{ 0 };
       status = e->QueryIntAttribute("type", &type);
       if (status != tinyxml2::XML_SUCCESS)
         throw std::runtime_error("OMPLPlanProfile: Error parsing Planner type attribute.");
@@ -299,8 +299,10 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
   const auto& limits = prob.manip_fwd_kin->getLimits().joint_limits;
 
   if (state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
-    prob.extractor = std::bind(
-        &tesseract_planning::RealVectorStateSpaceExtractor, std::placeholders::_1, prob.manip_inv_kin->numJoints());
+    prob.extractor = [dof](const ompl::base::State* state) -> Eigen::Map<Eigen::VectorXd> {
+      return tesseract_planning::RealVectorStateSpaceExtractor(state, dof);
+    };
+
 #ifndef OMPL_LESS_1_4_0
   else if (state_space == OMPLProblemStateSpace::REAL_CONSTRAINTED_STATE_SPACE)
     prob.extractor = tesseract_planning::ConstrainedStateSpaceExtractor;
@@ -326,7 +328,9 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
     {
       Eigen::VectorXd weights = Eigen::VectorXd::Ones(dof);
       rss->setStateSamplerAllocator(
-          std::bind(&allocWeightedRealVectorStateSampler, std::placeholders::_1, weights, limits));
+          [weights, limits](const ompl::base::StateSpace* state_space) -> ompl::base::StateSamplerPtr {
+            return allocWeightedRealVectorStateSampler(state_space, weights, limits);
+          });
     }
 
     state_space_ptr = rss;
@@ -342,7 +346,7 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
         processStateValidator(prob, prob.env, prob.manip_fwd_kin);
 
     // Setup motion validation (i.e. collision checking)
-    processMotionValidator(svc_without_collision, prob, prob.env, prob.manip_fwd_kin);
+    processMotionValidator(prob, svc_without_collision, prob.env, prob.manip_fwd_kin);
 
     // make sure the planners run until the time limit, and get the best possible solution
     processOptimizationObjective(prob);
@@ -625,7 +629,7 @@ tinyxml2::XMLElement* OMPLDefaultPlanProfile::toXML(tinyxml2::XMLDocument& doc) 
 
   tinyxml2::XMLElement* xml_ompl_planners = doc.NewElement("Planners");
 
-  for (auto planner : planners)
+  for (const auto& planner : planners)
   {
     tinyxml2::XMLElement* xml_ompl_planner = doc.NewElement("Planner");
     xml_ompl_planner->SetAttribute("type", std::to_string(static_cast<int>(planner->getType())).c_str());
@@ -710,8 +714,8 @@ OMPLDefaultPlanProfile::processStateValidator(OMPLProblem& prob,
   return svc_without_collision;
 }
 
-void OMPLDefaultPlanProfile::processMotionValidator(ompl::base::StateValidityCheckerPtr svc_without_collision,
-                                                    OMPLProblem& prob,
+void OMPLDefaultPlanProfile::processMotionValidator(OMPLProblem& prob,
+                                                    const ompl::base::StateValidityCheckerPtr& svc_without_collision,
                                                     const tesseract_environment::Environment::ConstPtr& env,
                                                     const tesseract_kinematics::ForwardKinematics::ConstPtr& kin) const
 {

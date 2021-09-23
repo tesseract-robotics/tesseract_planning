@@ -45,9 +45,9 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
   const tinyxml2::XMLElement* term_type_element = xml_element.FirstChildElement("Term");
   const tinyxml2::XMLElement* cnt_error_fn_element = xml_element.FirstChildElement("ConstraintErrorFunctions");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (cartesian_coeff_element)
+  if (cartesian_coeff_element != nullptr)
   {
     std::vector<std::string> cart_coeff_tokens;
     std::string cart_coeff_string;
@@ -65,7 +65,7 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
       tesseract_common::toNumeric<double>(cart_coeff_tokens[i], cartesian_coeff[static_cast<long>(i)]);
   }
 
-  if (joint_coeff_element)
+  if (joint_coeff_element != nullptr)
   {
     std::vector<std::string> joint_coeff_tokens;
     std::string joint_coeff_string;
@@ -83,7 +83,7 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
       tesseract_common::toNumeric<double>(joint_coeff_tokens[i], joint_coeff[static_cast<long>(i)]);
   }
 
-  if (term_type_element)
+  if (term_type_element != nullptr)
   {
     int type = static_cast<int>(trajopt::TermType::TT_CNT);
     status = term_type_element->QueryIntAttribute("type", &type);
@@ -93,7 +93,7 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
     term_type = static_cast<trajopt::TermType>(type);
   }
 
-  if (cnt_error_fn_element)
+  if (cnt_error_fn_element != nullptr)
   {
     std::string error_fn_name;
     status = tesseract_common::QueryStringAttribute(cnt_error_fn_element, "type", error_fn_name);
@@ -199,9 +199,8 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
 
 void TrajOptDefaultPlanProfile::addConstraintErrorFunctions(trajopt::ProblemConstructionInfo& pci, int index) const
 {
-  for (std::size_t i = 0; i < constraint_error_functions.size(); ++i)
+  for (const auto& c : constraint_error_functions)
   {
-    auto& c = constraint_error_functions[i];
     trajopt::TermInfo::Ptr ti =
         createUserDefinedTermInfo(index, index, std::get<0>(c), std::get<1>(c), trajopt::TT_CNT);
 

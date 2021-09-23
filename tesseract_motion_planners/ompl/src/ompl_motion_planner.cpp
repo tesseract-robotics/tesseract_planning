@@ -68,12 +68,11 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 {
   ompl::base::GoalPtr goal = prob_def->getGoal();
   if (goal->getType() == ompl::base::GoalType::GOAL_STATE)
-  {
     return extractor(prob_def->getGoal()->as<ompl::base::GoalState>()->getState()).isApprox(state, 1e-5);
-  }
-  else if (goal->getType() == ompl::base::GoalType::GOAL_STATES)
+
+  if (goal->getType() == ompl::base::GoalType::GOAL_STATES)
   {
-    auto goal_states = prob_def->getGoal()->as<ompl::base::GoalStates>();
+    auto* goal_states = prob_def->getGoal()->as<ompl::base::GoalStates>();
     for (unsigned i = 0; i < goal_states->getStateCount(); ++i)
       if (extractor(goal_states->getState(i)).isApprox(state, 1e-5))
         return true;
@@ -301,7 +300,7 @@ void OMPLMotionPlanner::clear() { parallel_plan_ = nullptr; }
 
 MotionPlanner::Ptr OMPLMotionPlanner::clone() const { return std::make_shared<OMPLMotionPlanner>(name_); }
 
-bool OMPLMotionPlanner::checkUserInput(const PlannerRequest& request) const
+bool OMPLMotionPlanner::checkUserInput(const PlannerRequest& request)
 {
   // Check that parameters are valid
   if (request.env == nullptr)

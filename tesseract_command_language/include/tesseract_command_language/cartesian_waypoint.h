@@ -47,8 +47,9 @@ public:
 
   void print(const std::string& prefix = "") const
   {
-    std::cout << prefix << "Cart WP: xyz=" << this->translation().x() << ", " << this->translation().y() << ", "
-              << this->translation().z() << std::endl;
+    std::cout << prefix << "Cart WP: xyz=" << this->translation().x() << ", " << this->translation().y()
+              << ", "                                   // NOLINT
+              << this->translation().z() << std::endl;  // NOLINT
     // TODO: Add rotation
   }
 
@@ -79,13 +80,13 @@ public:
 
 #ifndef SWIG
   /** @returns a read-only expression of the linear part of the transformation */
-  inline ConstLinearPart linear() const { return waypoint.linear(); }
+  inline ConstLinearPart linear() const { return waypoint.linear(); }  // NOLINT
 
   /** @returns a writable expression of the linear part of the transformation */
   inline LinearPart linear() { return waypoint.linear(); }
 
   /** @returns a read-only expression of the translation vector of the transformation */
-  inline ConstTranslationPart translation() const { return waypoint.translation(); }
+  inline ConstTranslationPart translation() const { return waypoint.translation(); }  // NOLINT
 
   /** @returns a writable expression of the translation vector of the transformation */
   inline TranslationPart translation() { return waypoint.translation(); }
@@ -97,7 +98,10 @@ public:
 #endif  // SWIG
 
   /** @returns true if two are approximate */
-  inline bool isApprox(const Eigen::Isometry3d& other, double prec = 1e-12) { return waypoint.isApprox(other, prec); }
+  inline bool isApprox(const Eigen::Isometry3d& other, double prec = 1e-12) const
+  {
+    return waypoint.isApprox(other, prec);
+  }  // NOLINT
 
   /////////////////////
   // Eigen Operators //

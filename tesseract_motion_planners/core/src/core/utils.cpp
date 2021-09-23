@@ -671,7 +671,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
 
   tesseract_environment::EnvState::ConstPtr env_state = env.getCurrentState();
   CompositeInstruction seed = composite_instructions;
-  ManipulatorInfo mi = composite_instructions.getManipulatorInfo();
+  const ManipulatorInfo& mi = composite_instructions.getManipulatorInfo();
 
   Waypoint wp{ NullWaypoint() };
   ManipulatorInfo base_mi;

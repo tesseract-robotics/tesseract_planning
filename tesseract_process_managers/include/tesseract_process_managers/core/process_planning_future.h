@@ -57,7 +57,7 @@ struct ProcessPlanningFuture
   %ignore process_future;
 #endif  // SWIG
   /** @brief This is the future return from taskflow executor.run, used to check if process has finished */
-  std::future<void> process_future;
+  tf::Future<void> process_future;
 
   /** @brief This is used to abort the associated process and check if the process was successful */
   TaskflowInterface::Ptr interface;

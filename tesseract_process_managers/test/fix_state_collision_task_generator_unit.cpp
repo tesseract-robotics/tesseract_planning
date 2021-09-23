@@ -67,7 +67,7 @@ protected:
   }
 };
 
-TEST_F(FixStateCollisionTaskGeneratorUnit, StateInCollisionTest)
+TEST_F(FixStateCollisionTaskGeneratorUnit, StateInCollisionTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
   const Instruction program_instruction{ program };
@@ -106,7 +106,7 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, StateInCollisionTest)
   EXPECT_TRUE(contacts.empty());
 }
 
-TEST_F(FixStateCollisionTaskGeneratorUnit, WaypointInCollisionTest)
+TEST_F(FixStateCollisionTaskGeneratorUnit, WaypointInCollisionTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
   const Instruction program_instruction{ program };
@@ -153,7 +153,7 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, WaypointInCollisionTest)
   EXPECT_TRUE(contacts.empty());
 }
 
-TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionRandomSamplerTest)
+TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionRandomSamplerTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
   const Instruction program_instruction{ program };
@@ -185,7 +185,7 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionRandomSample
   EXPECT_FALSE(WaypointInCollision(wp, input, profile, contacts));
 }
 
-TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionTrajoptTest)
+TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
   const Instruction program_instruction{ program };

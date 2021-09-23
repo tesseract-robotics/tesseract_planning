@@ -39,7 +39,7 @@ StateWaypoint::StateWaypoint(std::vector<std::string> joint_names, const Eigen::
 
 void StateWaypoint::print(const std::string& prefix) const
 {
-  std::cout << prefix << "State WP: Pos=" << position.transpose() << std::endl;
+  std::cout << prefix << "State WP: Pos=" << position.transpose() << std::endl;  // NOLINT
 }
 
 bool StateWaypoint::operator==(const StateWaypoint& rhs) const

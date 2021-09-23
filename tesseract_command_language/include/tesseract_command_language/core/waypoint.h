@@ -151,7 +151,7 @@ struct WaypointInner final : WaypointInnerBase
     // Compare class types before casting the incoming object to the T type
     if (rhs.getType() == getType())
     {
-      auto waypoint = static_cast<const T*>(rhs.recover());
+      const auto* waypoint = static_cast<const T*>(rhs.recover());
       return waypoint_ == *waypoint;
     }
     return false;
@@ -254,7 +254,7 @@ public:
     if (getType() != typeid(T))
       throw std::bad_cast();
 
-    auto p = static_cast<uncvref_t<T>*>(waypoint_->recover());
+    auto* p = static_cast<uncvref_t<T>*>(waypoint_->recover());
     return *p;
   }
 
@@ -264,7 +264,7 @@ public:
     if (getType() != typeid(T))
       throw std::bad_cast();
 
-    auto p = static_cast<const uncvref_t<T>*>(waypoint_->recover());
+    const auto* p = static_cast<const uncvref_t<T>*>(waypoint_->recover());
     return *p;
   }
 

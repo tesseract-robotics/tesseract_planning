@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 MotionPlannerTaskGenerator::MotionPlannerTaskGenerator(std::shared_ptr<MotionPlanner> planner)
-  : TaskGenerator(planner->getName()), planner_(planner)
+  : TaskGenerator(planner->getName()), planner_(std::move(planner))
 {
 }
 
@@ -53,7 +53,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
-  saveInputs(info, input);
+  saveInputs(*info, input);
   // --------------------
   // Check that inputs are valid
   // --------------------
@@ -62,7 +62,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   {
     info->message = "Input instructions to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
@@ -72,7 +72,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   {
     info->message = "Input seed to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
@@ -93,7 +93,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     {
       // if provided a composite instruction as the start instruction it will extract the last move instruction
       const auto& ci = start_instruction.as<CompositeInstruction>();
-      auto* lmi = getLastMoveInstruction(ci);
+      const auto* lmi = getLastMoveInstruction(ci);
       assert(lmi != nullptr);
       assert(isMoveInstruction(*lmi));
       PlanInstruction si(lmi->getWaypoint(), PlanInstructionType::START, lmi->getProfile(), lmi->getManipulatorInfo());
@@ -122,7 +122,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     {
       // if provided a composite instruction as the end instruction it will extract the first move instruction
       const auto& ci = end_instruction.as<CompositeInstruction>();
-      auto* fmi = getFirstMoveInstruction(ci);
+      const auto* fmi = getFirstMoveInstruction(ci);
       assert(fmi != nullptr);
       assert(isMoveInstruction(*fmi));
       getLastPlanInstruction(instructions)->setWaypoint(fmi->getWaypoint());
@@ -174,7 +174,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     *input_results = response.results;
     CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
     info->return_value = 1;
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 1;
   }
@@ -184,7 +184,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
                            status.message().c_str(),
                            input_instruction->getDescription().c_str());
   info->message = status.message();
-  saveOutputs(info, input);
+  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
   return 0;
 }

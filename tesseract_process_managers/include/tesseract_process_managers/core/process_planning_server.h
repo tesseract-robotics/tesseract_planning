@@ -127,7 +127,7 @@ public:
    * @param taskflow the taskflow to execute
    * @return A future to monitor progress
    */
-  std::future<void> run(tf::Taskflow& taskflow);
+  tf::Future<void> run(tf::Taskflow& taskflow);
 #endif  // SWIG
 
 #ifdef SWIG

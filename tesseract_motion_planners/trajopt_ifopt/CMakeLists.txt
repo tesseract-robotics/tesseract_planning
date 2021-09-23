@@ -12,7 +12,7 @@ target_link_libraries(${PROJECT_NAME}_trajopt_ifopt PUBLIC Boost::boost Eigen3::
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
-target_clang_tidy(${PROJECT_NAME}_trajopt_ifopt ARGUMENTS ${TESSERACT_CLANG_TIDY_ARGS} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
+target_clang_tidy(${PROJECT_NAME}_trajopt_ifopt ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(${PROJECT_NAME}_trajopt_ifopt PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(${PROJECT_NAME}_trajopt_ifopt ALL EXCLUDE ${COVERAGE_EXCLUDE} ENABLE ${TESSERACT_ENABLE_TESTING})
 target_include_directories(${PROJECT_NAME}_trajopt_ifopt PUBLIC

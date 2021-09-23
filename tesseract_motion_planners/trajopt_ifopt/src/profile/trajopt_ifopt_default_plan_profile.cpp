@@ -81,7 +81,6 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
         target_link = "";
         source_tcp = Eigen::Isometry3d::Identity();
         target_tcp = Eigen::Isometry3d::Identity();
-        throw std::runtime_error("TrajOpt IFOPT currently does not support dynamic cartesian waypoints!");
 
         // target_tcp, index, target, tcp relative to robot tip link, coeffs, robot tip link, term_type
         //        ti = createDynamicCartesianWaypointTermInfo(Eigen::Isometry3d::Identity(),
@@ -140,26 +139,21 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
 
   trajopt_ifopt::JointPosition::ConstPtr var = problem.vars[static_cast<std::size_t>(index)];
   if (is_dyanmic)
-  {
     throw std::runtime_error("TrajOpt IFOPT currently does not support dynamic cartesian waypoints!");
-  }
-  else
+
+  switch (term_type)
   {
-    switch (term_type)
-    {
-      case TrajOptIfoptTermType::CONSTRAINT:
-        addCartesianPositionConstraint(
-            problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
-        break;
-      case TrajOptIfoptTermType::SQUARED_COST:
-        addCartesianPositionSquaredCost(
-            problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
-        break;
-      case TrajOptIfoptTermType::ABSOLUTE_COST:
-        addCartesianPositionAbsoluteCost(
-            problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
-        break;
-    }
+    case TrajOptIfoptTermType::CONSTRAINT:
+      addCartesianPositionConstraint(*problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
+      break;
+    case TrajOptIfoptTermType::SQUARED_COST:
+      addCartesianPositionSquaredCost(
+          *problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
+      break;
+    case TrajOptIfoptTermType::ABSOLUTE_COST:
+      addCartesianPositionAbsoluteCost(
+          *problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
+      break;
   }
 }
 

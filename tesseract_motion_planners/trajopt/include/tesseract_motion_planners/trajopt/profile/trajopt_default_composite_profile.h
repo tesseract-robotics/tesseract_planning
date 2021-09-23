@@ -148,10 +148,10 @@ protected:
                            const std::string& link,
                            const std::vector<int>& fixed_indices) const;
 
-  void smoothMotionTerms(const tinyxml2::XMLElement& xml_element,
-                         bool& enabled,
-                         Eigen::VectorXd& coeff,
-                         std::size_t& length);
+  static void smoothMotionTerms(const tinyxml2::XMLElement& xml_element,
+                                bool& enabled,
+                                Eigen::VectorXd& coeff,
+                                std::size_t& length);
 };
 }  // namespace tesseract_planning
 

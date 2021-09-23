@@ -41,16 +41,19 @@ class TesseractCommonTrajectory : public TrajectoryContainer
 public:
   TesseractCommonTrajectory(tesseract_common::JointTrajectory& trajectory);
 
-  const Eigen::VectorXd& getPosition(Eigen::Index i) const;
-  const Eigen::VectorXd& getVelocity(Eigen::Index i) const;
-  const Eigen::VectorXd& getAcceleration(Eigen::Index i) const;
+  const Eigen::VectorXd& getPosition(Eigen::Index i) const override final;
+  const Eigen::VectorXd& getVelocity(Eigen::Index i) const override final;
+  const Eigen::VectorXd& getAcceleration(Eigen::Index i) const override final;
   const double& getTime(Eigen::Index i) const;
 
-  void setData(Eigen::Index i, const Eigen::VectorXd& velocity, const Eigen::VectorXd& acceleration, double time);
+  void setData(Eigen::Index i,
+               const Eigen::VectorXd& velocity,
+               const Eigen::VectorXd& acceleration,
+               double time) override final;
 
-  Eigen::Index size() const;
-  Eigen::Index dof() const;
-  bool empty() const;
+  Eigen::Index size() const override final;
+  Eigen::Index dof() const override final;
+  bool empty() const override final;
 
 private:
   tesseract_common::JointTrajectory& trajectory_;

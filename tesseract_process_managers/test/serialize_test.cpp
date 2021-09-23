@@ -52,7 +52,7 @@ TEST(TesseractProcessManagersSerializeUnit, serializationCompositeInstruction)  
     std::string file_path = tesseract_common::getTempPath() + "task_info_unit.xml";
     EXPECT_TRUE(Serialization::toArchiveFileXML<TaskInfo>(task_info, file_path));
 
-    TaskInfo ntask_info = Serialization::fromArchiveFileXML<TaskInfo>(file_path);
+    auto ntask_info = Serialization::fromArchiveFileXML<TaskInfo>(file_path);
     EXPECT_TRUE(task_info == ntask_info);
   }
 
@@ -60,7 +60,7 @@ TEST(TesseractProcessManagersSerializeUnit, serializationCompositeInstruction)  
     std::string task_info_string = Serialization::toArchiveStringXML<TaskInfo>(task_info, "task_info");
     EXPECT_FALSE(task_info_string.empty());
 
-    TaskInfo ntask_info = Serialization::fromArchiveStringXML<TaskInfo>(task_info_string);
+    auto ntask_info = Serialization::fromArchiveStringXML<TaskInfo>(task_info_string);
     EXPECT_TRUE(task_info == ntask_info);
   }
 }
