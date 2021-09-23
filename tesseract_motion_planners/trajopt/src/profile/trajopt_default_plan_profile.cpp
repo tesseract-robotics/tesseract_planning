@@ -85,7 +85,7 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
 
   if (term_type_element != nullptr)
   {
-    int type = static_cast<int>(trajopt::TermType::TT_CNT);
+    auto type = static_cast<int>(trajopt::TermType::TT_CNT);
     status = term_type_element->QueryIntAttribute("type", &type);
     if (status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("TrajoptPlanProfile: Error parsing Term type attribute.");
