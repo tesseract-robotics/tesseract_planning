@@ -1,9 +1,10 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/task_generators/continuous_contact_check_task_generator.h" name="tesseract_process_managers/include/tesseract_process_managers/task_generators/continuous_contact_check_task_generator.h">
-<area shape="rect" id="node1" title="Continuous Collision check trajectory." alt="" coords="575,5,789,91"/>
+<area shape="rect" id="node1" title="Continuous Collision check trajectory." alt="" coords="685,5,898,91"/>
 <area shape="rect" id="node2" href="$d9/d33/continuous__contact__check__task__generator_8cpp.html" title="Continuous collision check trajectory." alt="" coords="5,139,236,195"/>
 <area shape="rect" id="node3" href="$d5/de3/cartesian__taskflow_8cpp.html" title="Cartesian Graph Taskflow." alt="" coords="260,139,453,195"/>
 <area shape="rect" id="node4" href="$dd/d54/descartes__taskflow_8cpp.html" title="Descartes Taskflow." alt="" coords="477,139,671,195"/>
 <area shape="rect" id="node5" href="$d4/d9a/freespace__taskflow_8cpp.html" title="Freespace Graph Taskflow." alt="" coords="695,139,888,195"/>
 <area shape="rect" id="node6" href="$df/d97/ompl__taskflow_8cpp.html" title="OMPL Graph Taskflow." alt="" coords="912,139,1105,195"/>
-<area shape="rect" id="node7" href="$d9/d27/trajopt__taskflow_8cpp.html" title="TrajOpt Graph Taskflow." alt="" coords="1129,139,1323,195"/>
+<area shape="rect" id="node7" href="$d9/d21/trajopt__ifopt__taskflow_8cpp.html" title="TrajOpt IFOPT Graph Taskflow." alt="" coords="1129,139,1323,195"/>
+<area shape="rect" id="node8" href="$d9/d27/trajopt__taskflow_8cpp.html" title="TrajOpt Graph Taskflow." alt="" coords="1347,139,1540,195"/>
 </map>

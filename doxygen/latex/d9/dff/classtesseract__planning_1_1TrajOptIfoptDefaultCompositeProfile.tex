@@ -38,9 +38,9 @@ tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1Tra
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-trajopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a253064e0ee7379e31c0f9fa4c350ad27}{collision\+\_\+cost\+\_\+config}} \{ std\+::make\+\_\+shared$<$trajopt\+::\+Traj\+Opt\+Collision\+Config$>$() \}
+trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a5938f6bca8b2df9959b2b6f99648d13d}{collision\+\_\+cost\+\_\+config}}
 \begin{DoxyCompactList}\small\item\em Configuration info for collisions that are modeled as costs. \end{DoxyCompactList}\item 
-trajopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a698cf0ba0e2712e9741f3dddcf24c43e}{collision\+\_\+constraint\+\_\+config}}
+trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_acf341d4718aa0538ff12ee2fcbd80a92}{collision\+\_\+constraint\+\_\+config}}
 \begin{DoxyCompactList}\small\item\em Configuration info for collisions that are modeled as constraints. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a66f1a7fc0db8ecd226d7c59543aa7052}{smooth\+\_\+velocities}} = true
 \begin{DoxyCompactList}\small\item\em If true, a joint velocity cost with a target of 0 will be applied for all timesteps Default\+: true. \end{DoxyCompactList}\item 
@@ -114,16 +114,16 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptCompositePro
 
 This default to all ones, but allows you to weight different joints. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a698cf0ba0e2712e9741f3dddcf24c43e}\label{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a698cf0ba0e2712e9741f3dddcf24c43e}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_acf341d4718aa0538ff12ee2fcbd80a92}\label{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_acf341d4718aa0538ff12ee2fcbd80a92}} 
 \index{tesseract\_planning::TrajOptIfoptDefaultCompositeProfile@{tesseract\_planning::TrajOptIfoptDefaultCompositeProfile}!collision\_constraint\_config@{collision\_constraint\_config}}
 \index{collision\_constraint\_config@{collision\_constraint\_config}!tesseract\_planning::TrajOptIfoptDefaultCompositeProfile@{tesseract\_planning::TrajOptIfoptDefaultCompositeProfile}}
 \doxysubsubsection{\texorpdfstring{collision\_constraint\_config}{collision\_constraint\_config}}
-{\footnotesize\ttfamily trajopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Default\+Composite\+Profile\+::collision\+\_\+constraint\+\_\+config}
+{\footnotesize\ttfamily trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Default\+Composite\+Profile\+::collision\+\_\+constraint\+\_\+config}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{    std::make\_shared<trajopt::TrajOptCollisionConfig>()}
+\DoxyCodeLine{    std::make\_shared<trajopt\_ifopt::TrajOptCollisionConfig>()}
 \DoxyCodeLine{  \}}
 
 \end{DoxyCode}
@@ -131,12 +131,19 @@ This default to all ones, but allows you to weight different joints.
 
 Configuration info for collisions that are modeled as constraints. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a253064e0ee7379e31c0f9fa4c350ad27}\label{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a253064e0ee7379e31c0f9fa4c350ad27}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a5938f6bca8b2df9959b2b6f99648d13d}\label{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a5938f6bca8b2df9959b2b6f99648d13d}} 
 \index{tesseract\_planning::TrajOptIfoptDefaultCompositeProfile@{tesseract\_planning::TrajOptIfoptDefaultCompositeProfile}!collision\_cost\_config@{collision\_cost\_config}}
 \index{collision\_cost\_config@{collision\_cost\_config}!tesseract\_planning::TrajOptIfoptDefaultCompositeProfile@{tesseract\_planning::TrajOptIfoptDefaultCompositeProfile}}
 \doxysubsubsection{\texorpdfstring{collision\_cost\_config}{collision\_cost\_config}}
-{\footnotesize\ttfamily trajopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Default\+Composite\+Profile\+::collision\+\_\+cost\+\_\+config \{ std\+::make\+\_\+shared$<$trajopt\+::\+Traj\+Opt\+Collision\+Config$>$() \}}
+{\footnotesize\ttfamily trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Default\+Composite\+Profile\+::collision\+\_\+cost\+\_\+config}
 
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    std::make\_shared<trajopt\_ifopt::TrajOptCollisionConfig>()}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
 
 
 Configuration info for collisions that are modeled as costs. 

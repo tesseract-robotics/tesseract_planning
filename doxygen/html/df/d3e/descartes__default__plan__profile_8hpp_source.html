@@ -105,16 +105,16 @@ $(function() {
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">const</span> tinyxml2::XMLElement* allow_collisions_element = xml_element.FirstChildElement(<span class="stringliteral">&quot;AllowCollisions&quot;</span>);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">const</span> tinyxml2::XMLElement* debug_element = xml_element.FirstChildElement(<span class="stringliteral">&quot;Debug&quot;</span>);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  tinyxml2::XMLError status;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (vertex_collisions_element)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (vertex_collisions_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  {</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">const</span> tinyxml2::XMLElement* enabled_element = vertex_collisions_element-&gt;FirstChildElement(<span class="stringliteral">&quot;Enabled&quot;</span>);</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">//    const tinyxml2::XMLElement* coll_safety_margin_element =</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">//    vertex_collisions_element-&gt;FirstChildElement(&quot;CollisionSaf&quot;</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">//                                                                                                          &quot;etyMargin&quot;);</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (enabled_element)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (enabled_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      status = enabled_element-&gt;QueryBoolText(&amp;enable_collision);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">if</span> (status != tinyxml2::XML_NO_ATTRIBUTE &amp;&amp; status != tinyxml2::XML_SUCCESS)</div>
@@ -138,7 +138,7 @@ $(function() {
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment">//    }</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  }</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordflow">if</span> (edge_collisions_element)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordflow">if</span> (edge_collisions_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  {</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">const</span> tinyxml2::XMLElement* enabled_element = edge_collisions_element-&gt;FirstChildElement(<span class="stringliteral">&quot;Enabled&quot;</span>);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">const</span> tinyxml2::XMLElement* coll_safety_margin_element = edge_collisions_element-&gt;FirstChildElement(<span class="stringliteral">&quot;CollisionSafet&quot;</span></div>
@@ -146,14 +146,14 @@ $(function() {
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">const</span> tinyxml2::XMLElement* long_valid_seg_len_element = edge_collisions_element-&gt;FirstChildElement(<span class="stringliteral">&quot;LongestValidSe&quot;</span></div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                                                                                        <span class="stringliteral">&quot;gmentLength&quot;</span>);</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">if</span> (enabled_element)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">if</span> (enabled_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    {</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      status = enabled_element-&gt;QueryBoolText(&amp;enable_edge_collision);</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <span class="keywordflow">if</span> (status != tinyxml2::XML_NO_ATTRIBUTE &amp;&amp; status != tinyxml2::XML_SUCCESS)</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;DescartesPlanProfile: EdgeCollisions: Error parsing Enabled string&quot;</span>);</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">if</span> (coll_safety_margin_element)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">if</span> (coll_safety_margin_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    {</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      std::string coll_safety_margin_string;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      status = tesseract_common::QueryStringText(coll_safety_margin_element, coll_safety_margin_string);</div>
@@ -167,7 +167,7 @@ $(function() {
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="comment">//      tesseract_common::toNumeric&lt;double&gt;(coll_safety_margin_string, edge_collision_saftey_margin);</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (long_valid_seg_len_element)</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (long_valid_seg_len_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    {</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      std::string long_valid_seg_len_string;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      status = tesseract_common::QueryStringText(long_valid_seg_len_element, long_valid_seg_len_string);</div>
@@ -183,7 +183,7 @@ $(function() {
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    }</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  }</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keywordflow">if</span> (num_threads_element)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keywordflow">if</span> (num_threads_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  {</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    std::string num_threads_string;</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    status = tesseract_common::QueryStringText(num_threads_element, num_threads_string);</div>
@@ -196,14 +196,14 @@ $(function() {
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    tesseract_common::toNumeric&lt;int&gt;(num_threads_string, num_threads);</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  }</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="keywordflow">if</span> (allow_collisions_element)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="keywordflow">if</span> (allow_collisions_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  {</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    status = allow_collisions_element-&gt;QueryBoolText(&amp;allow_collision);</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">if</span> (status != tinyxml2::XML_NO_ATTRIBUTE &amp;&amp; status != tinyxml2::XML_SUCCESS)</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;DescartesPlanProfile: Error parsing AllowCollisions string&quot;</span>);</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  }</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="keywordflow">if</span> (debug_element)</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="keywordflow">if</span> (debug_element != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  {</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    status = debug_element-&gt;QueryBoolText(&amp;debug);</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">if</span> (status != tinyxml2::XML_NO_ATTRIBUTE &amp;&amp; status != tinyxml2::XML_SUCCESS)</div>
@@ -461,7 +461,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 15 2021 21:14:49 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Sep 24 2021 01:39:12 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

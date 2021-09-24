@@ -1,4 +1,5 @@
 <map id="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/problem_generators/default_problem_generator.h" name="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/problem_generators/default_problem_generator.h">
-<area shape="rect" id="node1" title="Generates a trajopt problem from a planner request." alt="" coords="5,5,217,91"/>
-<area shape="rect" id="node2" href="$d4/d64/trajopt__ifopt_2src_2problem__generators_2default__problem__generator_8cpp.html" title="Generates a trajopt problem from a planner request." alt="" coords="18,139,205,209"/>
+<area shape="rect" id="node1" title="Generates a trajopt problem from a planner request." alt="" coords="99,5,311,91"/>
+<area shape="rect" id="node2" href="$d4/d64/trajopt__ifopt_2src_2problem__generators_2default__problem__generator_8cpp.html" title="Generates a trajopt problem from a planner request." alt="" coords="5,139,192,209"/>
+<area shape="rect" id="node3" href="$d9/d21/trajopt__ifopt__taskflow_8cpp.html" title="TrajOpt IFOPT Graph Taskflow." alt="" coords="217,146,410,202"/>
 </map>

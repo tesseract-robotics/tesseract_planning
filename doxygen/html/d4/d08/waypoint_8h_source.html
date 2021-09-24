@@ -196,7 +196,7 @@ $(function() {
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="comment">// Compare class types before casting the incoming object to the T type</span></div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">if</span> (rhs.getType() == <a class="code" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html#a5dfdcdb4574163c96b989dd7857c482f">getType</a>())</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    {</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      <span class="keyword">auto</span> waypoint = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>T*<span class="keyword">&gt;</span>(rhs.recover());</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span>* waypoint = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>T*<span class="keyword">&gt;</span>(rhs.recover());</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html#aa471b48f53c127ad98b0488bb2b502a0">waypoint_</a> == *waypoint;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    }</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -299,7 +299,7 @@ $(function() {
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a2a58faa0c305f681e250118310cd7943">getType</a>() != <span class="keyword">typeid</span>(T))</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      <span class="keywordflow">throw</span> std::bad_cast();</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">auto</span> p = <span class="keyword">static_cast&lt;</span><a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a04b88b47f1b1896d23dff70d8789cf38">uncvref_t&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a7d6f714c5b6ab4cef8b4c7965304d25d">waypoint_</a>-&gt;recover());</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">auto</span>* p = <span class="keyword">static_cast&lt;</span><a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a04b88b47f1b1896d23dff70d8789cf38">uncvref_t&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a7d6f714c5b6ab4cef8b4c7965304d25d">waypoint_</a>-&gt;recover());</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">return</span> *p;</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  }</div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
@@ -309,7 +309,7 @@ $(function() {
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a2a58faa0c305f681e250118310cd7943">getType</a>() != <span class="keyword">typeid</span>(T))</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;      <span class="keywordflow">throw</span> std::bad_cast();</div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keyword">auto</span> p = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a04b88b47f1b1896d23dff70d8789cf38">uncvref_t&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a7d6f714c5b6ab4cef8b4c7965304d25d">waypoint_</a>-&gt;recover());</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>* p = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a04b88b47f1b1896d23dff70d8789cf38">uncvref_t&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a7d6f714c5b6ab4cef8b4c7965304d25d">waypoint_</a>-&gt;recover());</div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keywordflow">return</span> *p;</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;  }</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
@@ -403,7 +403,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 15 2021 21:14:49 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Sep 24 2021 01:39:12 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -43,14 +43,17 @@ const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotio
 \begin{DoxyCompactList}\small\item\em Get the name of this planner. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Status\+Code \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a2df6e0ba2bc3553d51a2344c9ada783e}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \&response, bool verbose=false) const override
 \begin{DoxyCompactList}\small\item\em Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a9406dd86ba3bbb367b432b5393798530}{check\+User\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
-\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_afa51678f7a588545207400a39ceab3f8}{terminate}} () override
 \begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a2df6e0ba2bc3553d51a2344c9ada783e}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a2df6e0ba2bc3553d51a2344c9ada783e}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_ab1d0ea8c9505aa9ad3d2fcf017da9e84}{clear}} () override
 \begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a8eb60c2a9f65e4af4eb5ce8386a368ab}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a835014192639a4bd82bbd3c8202d0917}{check\+User\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request)
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -106,11 +109,11 @@ Construct a basic planner.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a9406dd86ba3bbb367b432b5393798530}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a9406dd86ba3bbb367b432b5393798530}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a835014192639a4bd82bbd3c8202d0917}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a835014192639a4bd82bbd3c8202d0917}} 
 \index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!checkUserInput@{checkUserInput}}
 \index{checkUserInput@{checkUserInput}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{checkUserInput()}{checkUserInput()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+::check\+User\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+::check\+User\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_ab1d0ea8c9505aa9ad3d2fcf017da9e84}\label{classtesseract__planning_1_1TrajOptMotionPlanner_ab1d0ea8c9505aa9ad3d2fcf017da9e84}} 
 \index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!clear@{clear}}

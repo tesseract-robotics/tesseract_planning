@@ -55,15 +55,15 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a570e486bd3838d1001b6
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ace8c85481552083472c05e92a9f395fd}{return\+\_\+value}}
+int \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ace8c85481552083472c05e92a9f395fd}{return\+\_\+value}} \{ std\+::numeric\+\_\+limits$<$int$>$\+::lowest() \}
 \begin{DoxyCompactList}\small\item\em Value returned from the Task on completion. \end{DoxyCompactList}\item 
-std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}}
+std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}} \{ 0 \}
 \begin{DoxyCompactList}\small\item\em Unique ID generated for the Task by Taskflow. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a9b96aab3e6bcf8593fdafda89476a999}{task\+\_\+name}}
 \item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_aa9931c1dcc3e4f5ee9331067e1088915}{message}}
 \item 
-double \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a1d45557cd69a1d78308fd4c551b4b9d1}{elapsed\+\_\+time}}
+double \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a1d45557cd69a1d78308fd4c551b4b9d1}{elapsed\+\_\+time}} \{ 0 \}
 \begin{DoxyCompactList}\small\item\em elapsed\+\_\+time Time spent in this task in seconds \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a06d4291049c2db3f355c70ac9b0c1a85}{instructions\+\_\+input}} \{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}}() \}
 \begin{DoxyCompactList}\small\item\em Instructions passed to task (optionally set) \end{DoxyCompactList}\item 
@@ -186,7 +186,7 @@ template void tesseract\+\_\+planning\+::\+Task\+Info\+::serialize (\begin{DoxyP
 \index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!elapsed\_time@{elapsed\_time}}
 \index{elapsed\_time@{elapsed\_time}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
 \doxysubsubsection{\texorpdfstring{elapsed\_time}{elapsed\_time}}
-{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Task\+Info\+::elapsed\+\_\+time}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Task\+Info\+::elapsed\+\_\+time \{ 0 \}}
 
 
 
@@ -252,7 +252,7 @@ Seed/\+Results after running the task (optionally set)
 \index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!return\_value@{return\_value}}
 \index{return\_value@{return\_value}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
 \doxysubsubsection{\texorpdfstring{return\_value}{return\_value}}
-{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Task\+Info\+::return\+\_\+value}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Task\+Info\+::return\+\_\+value \{ std\+::numeric\+\_\+limits$<$int$>$\+::lowest() \}}
 
 
 
@@ -268,7 +268,7 @@ Value returned from the Task on completion.
 \index{tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}!unique\_id@{unique\_id}}
 \index{unique\_id@{unique\_id}!tesseract\_planning::TaskInfo@{tesseract\_planning::TaskInfo}}
 \doxysubsubsection{\texorpdfstring{unique\_id}{unique\_id}}
-{\footnotesize\ttfamily std\+::size\+\_\+t tesseract\+\_\+planning\+::\+Task\+Info\+::unique\+\_\+id}
+{\footnotesize\ttfamily std\+::size\+\_\+t tesseract\+\_\+planning\+::\+Task\+Info\+::unique\+\_\+id \{ 0 \}}
 
 
 

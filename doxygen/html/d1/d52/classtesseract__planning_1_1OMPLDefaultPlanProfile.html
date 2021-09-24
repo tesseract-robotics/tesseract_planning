@@ -204,8 +204,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a6fe4bc322be56609822da67b84081ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab64f3077838fd56177e6d3ae672f1fbc"><td class="memItemLeft" align="right" valign="top">ompl::base::StateValidityCheckerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#ab64f3077838fd56177e6d3ae672f1fbc">processStateValidator</a> (<a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob, const tesseract_environment::Environment::ConstPtr &amp;env, const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;kin) const</td></tr>
 <tr class="separator:ab64f3077838fd56177e6d3ae672f1fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80a00ba348af0086bd8eba3ac4e449e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a80a00ba348af0086bd8eba3ac4e449e4">processMotionValidator</a> (ompl::base::StateValidityCheckerPtr svc_without_collision, <a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob, const tesseract_environment::Environment::ConstPtr &amp;env, const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;kin) const</td></tr>
-<tr class="separator:a80a00ba348af0086bd8eba3ac4e449e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ab5b05a93d83fe7705eafb58aea6e93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a1ab5b05a93d83fe7705eafb58aea6e93">processMotionValidator</a> (<a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob, const ompl::base::StateValidityCheckerPtr &amp;svc_without_collision, const tesseract_environment::Environment::ConstPtr &amp;env, const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;kin) const</td></tr>
+<tr class="separator:a1ab5b05a93d83fe7705eafb58aea6e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74ece06a7fbee5cf6bd861f88f581d2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d52/classtesseract__planning_1_1OMPLDefaultPlanProfile.html#a74ece06a7fbee5cf6bd861f88f581d2f">processOptimizationObjective</a> (<a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;prob) const</td></tr>
 <tr class="separator:a74ece06a7fbee5cf6bd861f88f581d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -667,8 +667,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a80a00ba348af0086bd8eba3ac4e449e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80a00ba348af0086bd8eba3ac4e449e4">&#9670;&nbsp;</a></span>processMotionValidator()</h2>
+<a id="a1ab5b05a93d83fe7705eafb58aea6e93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ab5b05a93d83fe7705eafb58aea6e93">&#9670;&nbsp;</a></span>processMotionValidator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -679,14 +679,14 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void tesseract_planning::OMPLDefaultPlanProfile::processMotionValidator </td>
           <td>(</td>
-          <td class="paramtype">ompl::base::StateValidityCheckerPtr&#160;</td>
-          <td class="paramname"><em>svc_without_collision</em>, </td>
+          <td class="paramtype"><a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;&#160;</td>
+          <td class="paramname"><em>prob</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a> &amp;&#160;</td>
-          <td class="paramname"><em>prob</em>, </td>
+          <td class="paramtype">const ompl::base::StateValidityCheckerPtr &amp;&#160;</td>
+          <td class="paramname"><em>svc_without_collision</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1072,7 +1072,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 15 2021 21:14:51 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Sep 24 2021 01:39:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

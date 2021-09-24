@@ -1,4 +1,5 @@
 <map id="tesseract_planning::TrajectoryContainer" name="tesseract_planning::TrajectoryContainer">
-<area shape="rect" id="node1" title="A generic container that the time parameterization classes use." alt="" coords="12,5,152,47"/>
-<area shape="rect" id="node2" href="$d5/dc6/classtesseract__planning_1_1InstructionsTrajectory.html" title=" " alt="" coords="5,95,159,136"/>
+<area shape="rect" id="node1" title="A generic container that the time parameterization classes use." alt="" coords="5,39,145,80"/>
+<area shape="rect" id="node2" href="$d5/dc6/classtesseract__planning_1_1InstructionsTrajectory.html" title=" " alt="" coords="214,5,367,47"/>
+<area shape="rect" id="node3" href="$d3/dd9/classtesseract__planning_1_1TesseractCommonTrajectory.html" title=" " alt="" coords="193,71,388,112"/>
 </map>

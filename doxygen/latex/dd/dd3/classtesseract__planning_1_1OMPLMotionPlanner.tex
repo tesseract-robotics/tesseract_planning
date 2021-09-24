@@ -44,6 +44,11 @@ void \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a7852b146c5b
 \begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a468109943a10b09807c769bdb9f39d86}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a03e40933df939429395d023c0707f206}{check\+User\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request)
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -51,11 +56,6 @@ void \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a7852b146c5b
 \item 
 \mbox{\hyperlink{namespacetesseract__planning_a0baf978812f03229209b3f8fe481788a}{OMPLPlan\+Profile\+Map}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_ab6193c445505afca1208a7b4904529d1}{plan\+\_\+profiles}}
 \begin{DoxyCompactList}\small\item\em The available plan profiles. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_ad90fa780dd242c292cee8d56241430cf}{check\+User\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
-\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -85,11 +85,11 @@ Construct a planner.
 Construct a basic planner. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1OMPLMotionPlanner_ad90fa780dd242c292cee8d56241430cf}\label{classtesseract__planning_1_1OMPLMotionPlanner_ad90fa780dd242c292cee8d56241430cf}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLMotionPlanner_a03e40933df939429395d023c0707f206}\label{classtesseract__planning_1_1OMPLMotionPlanner_a03e40933df939429395d023c0707f206}} 
 \index{tesseract\_planning::OMPLMotionPlanner@{tesseract\_planning::OMPLMotionPlanner}!checkUserInput@{checkUserInput}}
 \index{checkUserInput@{checkUserInput}!tesseract\_planning::OMPLMotionPlanner@{tesseract\_planning::OMPLMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{checkUserInput()}{checkUserInput()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+::check\+User\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+::check\+User\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1OMPLMotionPlanner_a7852b146c5b737568fb2c3b1b0ee6292}\label{classtesseract__planning_1_1OMPLMotionPlanner_a7852b146c5b737568fb2c3b1b0ee6292}} 
 \index{tesseract\_planning::OMPLMotionPlanner@{tesseract\_planning::OMPLMotionPlanner}!clear@{clear}}

@@ -72,8 +72,10 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../d6/d1c/classtesseract__planning_1_1SimpleMotionPlanner-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -144,8 +146,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad11f91679e5a495d0b37c460f52ef5b4"><td class="memItemLeft" align="right" valign="top">tesseract_common::StatusCode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4">solve</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, <a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html">PlannerResponse</a> &amp;response, bool verbose=false) const override</td></tr>
 <tr class="memdesc:ad11f91679e5a495d0b37c460f52ef5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4">More...</a><br /></td></tr>
 <tr class="separator:ad11f91679e5a495d0b37c460f52ef5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a068d301a747b8e9f3a0786d4a8ee1c48"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a068d301a747b8e9f3a0786d4a8ee1c48">checkUserInput</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</td></tr>
-<tr class="separator:a068d301a747b8e9f3a0786d4a8ee1c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13a6df1d08a2fa9507cf4b9983e55d17"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a13a6df1d08a2fa9507cf4b9983e55d17">terminate</a> () override</td></tr>
 <tr class="memdesc:a13a6df1d08a2fa9507cf4b9983e55d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">If <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameters...">solve()</a> is running, terminate the computation. Return false if termination not possible. No-op if <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameters...">solve()</a> is not running (returns true).  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a13a6df1d08a2fa9507cf4b9983e55d17">More...</a><br /></td></tr>
 <tr class="separator:a13a6df1d08a2fa9507cf4b9983e55d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,6 +170,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af9815478d53b6cf9b69b1d375bf50013 inherit pub_methods_classtesseract__planning_1_1MotionPlanner"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html">MotionPlanner</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html#af9815478d53b6cf9b69b1d375bf50013">operator=</a> (<a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html">MotionPlanner</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:af9815478d53b6cf9b69b1d375bf50013 inherit pub_methods_classtesseract__planning_1_1MotionPlanner"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ab9ef7a2e76610c76ad1044090c8a12f0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ab9ef7a2e76610c76ad1044090c8a12f0">checkUserInput</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request)</td></tr>
+<tr class="separator:ab9ef7a2e76610c76ad1044090c8a12f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8e5b9c6481f152505af68bba92488ba8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae2b7d23fdf0bef79f8646e6ae8bf2acf">SimplePlannerCompositeProfileMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a8e5b9c6481f152505af68bba92488ba8">composite_profiles</a></td></tr>
@@ -181,11 +186,14 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a5a0f3da0327a61f421c34502078a31fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a5a0f3da0327a61f421c34502078a31fb">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_environment::EnvState::ConstPtr &amp;current_state, const tesseract_kinematics::ForwardKinematics::Ptr &amp;fwd_kin) const</td></tr>
-<tr class="memdesc:a5a0f3da0327a61f421c34502078a31fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planners status codes.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a5a0f3da0327a61f421c34502078a31fb">More...</a><br /></td></tr>
-<tr class="separator:a5a0f3da0327a61f421c34502078a31fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2820c0d406b29dd303b2dd2320d081e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a2820c0d406b29dd303b2dd2320d081e1">processCompositeInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;instructions, <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;prev_instruction, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</td></tr>
 <tr class="separator:a2820c0d406b29dd303b2dd2320d081e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:a217cd7005be20ca0303647c7f76a752d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a217cd7005be20ca0303647c7f76a752d">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_environment::EnvState::ConstPtr &amp;current_state, const tesseract_kinematics::ForwardKinematics::Ptr &amp;fwd_kin)</td></tr>
+<tr class="memdesc:a217cd7005be20ca0303647c7f76a752d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planners status codes.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a217cd7005be20ca0303647c7f76a752d">More...</a><br /></td></tr>
+<tr class="separator:a217cd7005be20ca0303647c7f76a752d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -324,20 +332,28 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a068d301a747b8e9f3a0786d4a8ee1c48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a068d301a747b8e9f3a0786d4a8ee1c48">&#9670;&nbsp;</a></span>checkUserInput()</h2>
+<a id="ab9ef7a2e76610c76ad1044090c8a12f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9ef7a2e76610c76ad1044090c8a12f0">&#9670;&nbsp;</a></span>checkUserInput()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool tesseract_planning::SimpleMotionPlanner::checkUserInput </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
           <td class="paramname"><em>request</em></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -429,8 +445,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5a0f3da0327a61f421c34502078a31fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a0f3da0327a61f421c34502078a31fb">&#9670;&nbsp;</a></span>getStartInstruction()</h2>
+<a id="a217cd7005be20ca0303647c7f76a752d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a217cd7005be20ca0303647c7f76a752d">&#9670;&nbsp;</a></span>getStartInstruction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -459,12 +475,12 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -737,7 +753,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 15 2021 21:14:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Sep 24 2021 01:39:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

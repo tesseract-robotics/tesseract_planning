@@ -229,7 +229,7 @@ $(function() {
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="comment">// Compare class types before casting the incoming object to the T type</span></div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">if</span> (rhs.getType() == <a class="code" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html#aad7f0302fc41e780ac106f9973866436">getType</a>())</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    {</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      <span class="keyword">auto</span> instruction = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>T*<span class="keyword">&gt;</span>(rhs.recover());</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span>* instruction = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>T*<span class="keyword">&gt;</span>(rhs.recover());</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html#a827818996d4b9439daed4926ed93aca5">instruction_</a> == *instruction;</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    }</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -337,7 +337,7 @@ $(function() {
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a11864c347841f43f99e1688efd91f11d">getType</a>() != <span class="keyword">typeid</span>(T))</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;      <span class="keywordflow">throw</span> std::bad_cast();</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">auto</span> p = <span class="keyword">static_cast&lt;</span><a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a342ce7e68d6ed1aa496eef389aeb39fc">uncvref_t&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a6900302fd1be0e286d8a26967df84411">instruction_</a>-&gt;recover());</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">auto</span>* p = <span class="keyword">static_cast&lt;</span><a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a342ce7e68d6ed1aa496eef389aeb39fc">uncvref_t&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a6900302fd1be0e286d8a26967df84411">instruction_</a>-&gt;recover());</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">return</span> *p;</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  }</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
@@ -347,7 +347,7 @@ $(function() {
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a11864c347841f43f99e1688efd91f11d">getType</a>() != <span class="keyword">typeid</span>(T))</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;      <span class="keywordflow">throw</span> std::bad_cast();</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">auto</span> p = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a342ce7e68d6ed1aa496eef389aeb39fc">uncvref_t&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a6900302fd1be0e286d8a26967df84411">instruction_</a>-&gt;recover());</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>* p = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a342ce7e68d6ed1aa496eef389aeb39fc">uncvref_t&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html#a6900302fd1be0e286d8a26967df84411">instruction_</a>-&gt;recover());</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordflow">return</span> *p;</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  }</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
@@ -451,7 +451,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 15 2021 21:14:49 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Sep 24 2021 01:39:12 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

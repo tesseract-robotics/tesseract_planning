@@ -1,5 +1,5 @@
 <map id="tesseract_command_language/include/tesseract_command_language/utils/utils.h" name="tesseract_command_language/include/tesseract_command_language/utils/utils.h">
-<area shape="rect" id="node1" title="General utilities and all inclusive utility header." alt="" coords="4331,5,4529,61"/>
+<area shape="rect" id="node1" title="General utilities and all inclusive utility header." alt="" coords="4356,5,4555,61"/>
 <area shape="rect" id="node2" href="$d7/d9c/tesseract__command__language_2src_2utils_2utils_8cpp.html" title=" " alt="" coords="5,124,204,165"/>
 <area shape="rect" id="node3" href="$de/df3/tesseract__command__language_2test_2serialize__test_8cpp.html" title=" " alt="" coords="228,124,427,165"/>
 <area shape="rect" id="node4" href="$d8/df6/tesseract__command__language_2test_2utils__test_8cpp.html" title=" " alt="" coords="451,124,649,165"/>
@@ -29,7 +29,8 @@
 <area shape="rect" id="node45" href="$d4/d25/time__optimal__trajectory__generation__task__generator_8cpp.html" title=" " alt="" coords="6793,109,6992,180"/>
 <area shape="rect" id="node46" href="$d0/de6/fix__state__collision__task__generator__unit_8cpp.html" title=" " alt="" coords="7016,117,7209,173"/>
 <area shape="rect" id="node47" href="$d7/da7/instructions__trajectory_8cpp.html" title="Trajectory Container implementation for command language instructions." alt="" coords="7234,124,7445,165"/>
-<area shape="rect" id="node48" href="$d0/d26/time__optimal__trajectory__generation_8cpp.html" title=" " alt="" coords="7469,117,7679,173"/>
+<area shape="rect" id="node48" href="$df/d65/tesseract__common__trajectory_8cpp.html" title="Trajectory Container implementation for tesseract_common::JointState trajectories." alt="" coords="7469,124,7711,165"/>
+<area shape="rect" id="node49" href="$d0/d26/time__optimal__trajectory__generation_8cpp.html" title=" " alt="" coords="7735,117,7946,173"/>
 <area shape="rect" id="node6" href="$d8/df9/interface__utils_8h.html" title=" " alt="" coords="3099,235,3278,306"/>
 <area shape="rect" id="node12" href="$db/d0c/trajopt__planner__tests_8cpp.html" title=" " alt="" coords="3069,369,3266,410"/>
 <area shape="rect" id="node13" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="3291,361,3484,417"/>

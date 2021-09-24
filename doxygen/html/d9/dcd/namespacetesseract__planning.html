@@ -392,6 +392,10 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d95/classtesseract__planning_1_1RasterWAADTaskflow.html">RasterWAADTaskflow</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class provides a process manager for a raster process.  <a href="../../d4/d95/classtesseract__planning_1_1RasterWAADTaskflow.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d18/structtesseract__planning_1_1TrajOptIfoptTaskflowParams.html">TrajOptIfoptTaskflowParams</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7d/classtesseract__planning_1_1TrajOptIfoptTaskflow.html">TrajOptIfoptTaskflow</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da5/structtesseract__planning_1_1TrajOptTaskflowParams.html">TrajOptTaskflowParams</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d16/classtesseract__planning_1_1TrajOptTaskflow.html">TrajOptTaskflow</a></td></tr>
@@ -409,6 +413,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5b/classtesseract__planning_1_1IterativeSplineParameterization.html">IterativeSplineParameterization</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints. Initial/final velocities and accelerations may be specified in the trajectory. Velocity and acceleration limits are specified in the model.  <a href="../../d4/d5b/classtesseract__planning_1_1IterativeSplineParameterization.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd9/classtesseract__planning_1_1TesseractCommonTrajectory.html">TesseractCommonTrajectory</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df1/classtesseract__planning_1_1TimeOptimalTrajectoryGeneration.html">TimeOptimalTrajectoryGeneration</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -601,6 +607,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:ac337c63f13aba30328a8cd25f863be62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4075aba51db3be039f29037d09d85a94"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4075aba51db3be039f29037d09d85a94">TrajOptIfoptTermType</a> { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4075aba51db3be039f29037d09d85a94ae0f588affe0abe2e0565de8a962c4502">CONSTRAINT</a>
 , <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4075aba51db3be039f29037d09d85a94abe2b638ec952eec71f8a27b8b0be5b06">SQUARED_COST</a>
+, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4075aba51db3be039f29037d09d85a94aad2514bbf670f76fbd63cad25a4afc0c">ABSOLUTE_COST</a>
  }</td></tr>
 <tr class="separator:a4075aba51db3be039f29037d09d85a94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f5cbd9566c5836197671580b353ce1e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5f5cbd9566c5836197671580b353ce1e">FreespaceTaskflowType</a> : int { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5f5cbd9566c5836197671580b353ce1ea5b39c8b553c821e7cddc6da64b5bd2ee">DEFAULT</a> = 0
@@ -630,30 +637,30 @@ Functions</h2></td></tr>
 <tr class="separator:a156eaa9e3dde1379bf9200c43c351d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adeeccffb6d57f3e11925e31af40b13a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adeeccffb6d57f3e11925e31af40b13a4">planFilter</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, bool parent_is_first_composite)</td></tr>
 <tr class="separator:adeeccffb6d57f3e11925e31af40b13a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0bda18baed62560eb55f6babe637f4e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac0bda18baed62560eb55f6babe637f4e">flatten</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter=nullptr)</td></tr>
-<tr class="memdesc:ac0bda18baed62560eb55f6babe637f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#ac0bda18baed62560eb55f6babe637f4e">More...</a><br /></td></tr>
-<tr class="separator:ac0bda18baed62560eb55f6babe637f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd403a608228627aef4abfbb601e4641"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abd403a608228627aef4abfbb601e4641">flatten</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter=nullptr)</td></tr>
-<tr class="memdesc:abd403a608228627aef4abfbb601e4641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&amp;.  <a href="../../d9/dcd/namespacetesseract__planning.html#abd403a608228627aef4abfbb601e4641">More...</a><br /></td></tr>
-<tr class="separator:abd403a608228627aef4abfbb601e4641"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f036a20023afc403f4bbba94832f86"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a54f036a20023afc403f4bbba94832f86">flattenToPattern</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter=nullptr)</td></tr>
-<tr class="memdesc:a54f036a20023afc403f4bbba94832f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. The motivation for this utility is a case where you flatten only the elements in a seed that correspond to composites in the parent instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a54f036a20023afc403f4bbba94832f86">More...</a><br /></td></tr>
-<tr class="separator:a54f036a20023afc403f4bbba94832f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a219e131eefcf6caf738893cfaea2a313"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a219e131eefcf6caf738893cfaea2a313">flattenToPattern</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter=nullptr)</td></tr>
-<tr class="memdesc:a219e131eefcf6caf738893cfaea2a313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable.  <a href="../../d9/dcd/namespacetesseract__planning.html#a219e131eefcf6caf738893cfaea2a313">More...</a><br /></td></tr>
-<tr class="separator:a219e131eefcf6caf738893cfaea2a313"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a402118e80eb25983310d748c5b4c94a6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a402118e80eb25983310d748c5b4c94a6">getFirstInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter=nullptr, bool process_child_composites=true)</td></tr>
-<tr class="memdesc:a402118e80eb25983310d748c5b4c94a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> that is identified by the filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#a402118e80eb25983310d748c5b4c94a6">More...</a><br /></td></tr>
-<tr class="separator:a402118e80eb25983310d748c5b4c94a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6de789f62c5f509d40240cd8a50436a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6de789f62c5f509d40240cd8a50436a2">getFirstInstruction</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter=nullptr, bool process_child_composites=true)</td></tr>
-<tr class="memdesc:a6de789f62c5f509d40240cd8a50436a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> that is identified by the filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#a6de789f62c5f509d40240cd8a50436a2">More...</a><br /></td></tr>
-<tr class="separator:a6de789f62c5f509d40240cd8a50436a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2d031670612ef72c14523b0d42c3098"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa2d031670612ef72c14523b0d42c3098">getLastInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter=nullptr, bool process_child_composites=true)</td></tr>
-<tr class="memdesc:aa2d031670612ef72c14523b0d42c3098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> that is identified by the filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#aa2d031670612ef72c14523b0d42c3098">More...</a><br /></td></tr>
-<tr class="separator:aa2d031670612ef72c14523b0d42c3098"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7417258de60ffad7407d37c9c68a8bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa7417258de60ffad7407d37c9c68a8bd">getLastInstruction</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter=nullptr, bool process_child_composites=true)</td></tr>
-<tr class="memdesc:aa7417258de60ffad7407d37c9c68a8bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> that is identified by the filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#aa7417258de60ffad7407d37c9c68a8bd">More...</a><br /></td></tr>
-<tr class="separator:aa7417258de60ffad7407d37c9c68a8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d5bdd11ad23e6f48bfa70264769706a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5d5bdd11ad23e6f48bfa70264769706a">flatten</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter=nullptr)</td></tr>
+<tr class="memdesc:a5d5bdd11ad23e6f48bfa70264769706a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#a5d5bdd11ad23e6f48bfa70264769706a">More...</a><br /></td></tr>
+<tr class="separator:a5d5bdd11ad23e6f48bfa70264769706a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94186e3d300a9a74121c08ec235b551c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a94186e3d300a9a74121c08ec235b551c">flatten</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter=nullptr)</td></tr>
+<tr class="memdesc:a94186e3d300a9a74121c08ec235b551c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&amp;.  <a href="../../d9/dcd/namespacetesseract__planning.html#a94186e3d300a9a74121c08ec235b551c">More...</a><br /></td></tr>
+<tr class="separator:a94186e3d300a9a74121c08ec235b551c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3491366954a613a707dc3a8570ffaa49"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3491366954a613a707dc3a8570ffaa49">flattenToPattern</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter=nullptr)</td></tr>
+<tr class="memdesc:a3491366954a613a707dc3a8570ffaa49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. The motivation for this utility is a case where you flatten only the elements in a seed that correspond to composites in the parent instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a3491366954a613a707dc3a8570ffaa49">More...</a><br /></td></tr>
+<tr class="separator:a3491366954a613a707dc3a8570ffaa49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f477266dbd5b02cb4ae61fe68fb472"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad4f477266dbd5b02cb4ae61fe68fb472">flattenToPattern</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter=nullptr)</td></tr>
+<tr class="memdesc:ad4f477266dbd5b02cb4ae61fe68fb472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable.  <a href="../../d9/dcd/namespacetesseract__planning.html#ad4f477266dbd5b02cb4ae61fe68fb472">More...</a><br /></td></tr>
+<tr class="separator:ad4f477266dbd5b02cb4ae61fe68fb472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaedb8c2876c6078ded6f02f1a93f3de5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aaedb8c2876c6078ded6f02f1a93f3de5">getFirstInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter=nullptr, bool process_child_composites=true)</td></tr>
+<tr class="memdesc:aaedb8c2876c6078ded6f02f1a93f3de5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> that is identified by the filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#aaedb8c2876c6078ded6f02f1a93f3de5">More...</a><br /></td></tr>
+<tr class="separator:aaedb8c2876c6078ded6f02f1a93f3de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ee85cb3f29b84658844aafd2032863f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1ee85cb3f29b84658844aafd2032863f">getFirstInstruction</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter=nullptr, bool process_child_composites=true)</td></tr>
+<tr class="memdesc:a1ee85cb3f29b84658844aafd2032863f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> that is identified by the filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#a1ee85cb3f29b84658844aafd2032863f">More...</a><br /></td></tr>
+<tr class="separator:a1ee85cb3f29b84658844aafd2032863f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1aec7fc5929ebe6887dd8a731c50ea6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac1aec7fc5929ebe6887dd8a731c50ea6">getLastInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter=nullptr, bool process_child_composites=true)</td></tr>
+<tr class="memdesc:ac1aec7fc5929ebe6887dd8a731c50ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> that is identified by the filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#ac1aec7fc5929ebe6887dd8a731c50ea6">More...</a><br /></td></tr>
+<tr class="separator:ac1aec7fc5929ebe6887dd8a731c50ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2faada53a0a17f86fc99287ee25a3632"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2faada53a0a17f86fc99287ee25a3632">getLastInstruction</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter=nullptr, bool process_child_composites=true)</td></tr>
+<tr class="memdesc:a2faada53a0a17f86fc99287ee25a3632"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> that is identified by the filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2faada53a0a17f86fc99287ee25a3632">More...</a><br /></td></tr>
+<tr class="separator:a2faada53a0a17f86fc99287ee25a3632"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac29067009356ea19800024324f9a565d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac29067009356ea19800024324f9a565d">getFirstMoveInstruction</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
 <tr class="memdesc:ac29067009356ea19800024324f9a565d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first Move <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#ac29067009356ea19800024324f9a565d">More...</a><br /></td></tr>
 <tr class="separator:ac29067009356ea19800024324f9a565d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -678,9 +685,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aeaebee951a86927d8d1e841bb19e6f84"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aeaebee951a86927d8d1e841bb19e6f84">getLastPlanInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
 <tr class="memdesc:aeaebee951a86927d8d1e841bb19e6f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last Plan <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#aeaebee951a86927d8d1e841bb19e6f84">More...</a><br /></td></tr>
 <tr class="separator:aeaebee951a86927d8d1e841bb19e6f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a220ca8b7769080e8eacb9a5e7f1dd75d"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a220ca8b7769080e8eacb9a5e7f1dd75d">getInstructionCount</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter=nullptr, bool process_child_composites=true)</td></tr>
-<tr class="memdesc:a220ca8b7769080e8eacb9a5e7f1dd75d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#a220ca8b7769080e8eacb9a5e7f1dd75d">More...</a><br /></td></tr>
-<tr class="separator:a220ca8b7769080e8eacb9a5e7f1dd75d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01458ec9671936e46c24e8346003cf4b"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a01458ec9671936e46c24e8346003cf4b">getInstructionCount</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter=nullptr, bool process_child_composites=true)</td></tr>
+<tr class="memdesc:a01458ec9671936e46c24e8346003cf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#a01458ec9671936e46c24e8346003cf4b">More...</a><br /></td></tr>
+<tr class="separator:a01458ec9671936e46c24e8346003cf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfe8f834e3ef52d7a83e4d39d4d584d4"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adfe8f834e3ef52d7a83e4d39d4d584d4">getMoveInstructionCount</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
 <tr class="memdesc:adfe8f834e3ef52d7a83e4d39d4d584d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of Move <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in the child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#adfe8f834e3ef52d7a83e4d39d4d584d4">More...</a><br /></td></tr>
 <tr class="separator:adfe8f834e3ef52d7a83e4d39d4d584d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -734,28 +741,28 @@ Functions</h2></td></tr>
 <tr class="separator:aa10501c754ee26532985c02677b4d12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42f159d4e511a6c951f100ff0a05e4f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a42f159d4e511a6c951f100ff0a05e4f4">isNullWaypoint</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint)</td></tr>
 <tr class="separator:a42f159d4e511a6c951f100ff0a05e4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af18d888a01fceb5a2290afb0d791d174"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af18d888a01fceb5a2290afb0d791d174">flattenHelper</a> (std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter, bool first_composite)</td></tr>
-<tr class="memdesc:af18d888a01fceb5a2290afb0d791d174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by Flatten. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#af18d888a01fceb5a2290afb0d791d174">More...</a><br /></td></tr>
-<tr class="separator:af18d888a01fceb5a2290afb0d791d174"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6015e7043e07ebe2ceb6d361f20218a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6015e7043e07ebe2ceb6d361f20218a9">flattenHelper</a> (std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter, bool first_composite)</td></tr>
-<tr class="memdesc:a6015e7043e07ebe2ceb6d361f20218a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by Flatten. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#a6015e7043e07ebe2ceb6d361f20218a9">More...</a><br /></td></tr>
-<tr class="separator:a6015e7043e07ebe2ceb6d361f20218a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a423f1ffc90190194a42108cb7f82a00a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a423f1ffc90190194a42108cb7f82a00a">flattenToPatternHelper</a> (std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter, bool first_composite)</td></tr>
-<tr class="memdesc:a423f1ffc90190194a42108cb7f82a00a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by FlattenToPattern. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#a423f1ffc90190194a42108cb7f82a00a">More...</a><br /></td></tr>
-<tr class="separator:a423f1ffc90190194a42108cb7f82a00a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6d6823494042f7c265ec52a8d724826"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad6d6823494042f7c265ec52a8d724826">flattenToPatternHelper</a> (std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> filter, bool first_composite)</td></tr>
-<tr class="memdesc:ad6d6823494042f7c265ec52a8d724826"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by FlattenToPattern. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#ad6d6823494042f7c265ec52a8d724826">More...</a><br /></td></tr>
-<tr class="separator:ad6d6823494042f7c265ec52a8d724826"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a7e5dfab0d315dc26580772b2aee4cd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1a7e5dfab0d315dc26580772b2aee4cd">getFirstInstructionHelper</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter, bool process_child_composites, bool first_composite)</td></tr>
-<tr class="separator:a1a7e5dfab0d315dc26580772b2aee4cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51fc62f2b1aff86df9e07c87fc9f0c99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a51fc62f2b1aff86df9e07c87fc9f0c99">getFirstInstructionHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter, bool process_child_composites, bool first_composite)</td></tr>
-<tr class="separator:a51fc62f2b1aff86df9e07c87fc9f0c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63fe8423d9625539221e2627b7f15ed4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a63fe8423d9625539221e2627b7f15ed4">getLastInstructionHelper</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter, bool process_child_composites, bool first_composite)</td></tr>
-<tr class="separator:a63fe8423d9625539221e2627b7f15ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ed5e29f0d45d9ed88de7793bfa43348"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7ed5e29f0d45d9ed88de7793bfa43348">getLastInstructionHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter, bool process_child_composites, bool first_composite)</td></tr>
-<tr class="separator:a7ed5e29f0d45d9ed88de7793bfa43348"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02bde5fd94ae833a6f44bad5f1fbf463"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a02bde5fd94ae833a6f44bad5f1fbf463">getInstructionCountHelper</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> locate_filter, bool process_child_composites, bool first_composite)</td></tr>
-<tr class="separator:a02bde5fd94ae833a6f44bad5f1fbf463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add6244ab4ba45a96d8ec0d6a57ee6bb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#add6244ab4ba45a96d8ec0d6a57ee6bb6">flattenHelper</a> (std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter, bool first_composite)</td></tr>
+<tr class="memdesc:add6244ab4ba45a96d8ec0d6a57ee6bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by Flatten. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#add6244ab4ba45a96d8ec0d6a57ee6bb6">More...</a><br /></td></tr>
+<tr class="separator:add6244ab4ba45a96d8ec0d6a57ee6bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab92dc05a65eb22223a76637d0ff839e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aab92dc05a65eb22223a76637d0ff839e">flattenHelper</a> (std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter, bool first_composite)</td></tr>
+<tr class="memdesc:aab92dc05a65eb22223a76637d0ff839e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by Flatten. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#aab92dc05a65eb22223a76637d0ff839e">More...</a><br /></td></tr>
+<tr class="separator:aab92dc05a65eb22223a76637d0ff839e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51548cf23aa5572fce4c95ab1aab5d18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a51548cf23aa5572fce4c95ab1aab5d18">flattenToPatternHelper</a> (std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter, bool first_composite)</td></tr>
+<tr class="memdesc:a51548cf23aa5572fce4c95ab1aab5d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by FlattenToPattern. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#a51548cf23aa5572fce4c95ab1aab5d18">More...</a><br /></td></tr>
+<tr class="separator:a51548cf23aa5572fce4c95ab1aab5d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa6729e9b5ee7a87c3e504caaf2c35ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afa6729e9b5ee7a87c3e504caaf2c35ad">flattenToPatternHelper</a> (std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt;&gt; &amp;flattened, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter, bool first_composite)</td></tr>
+<tr class="memdesc:afa6729e9b5ee7a87c3e504caaf2c35ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function used by FlattenToPattern. Not intended for direct use.  <a href="../../d9/dcd/namespacetesseract__planning.html#afa6729e9b5ee7a87c3e504caaf2c35ad">More...</a><br /></td></tr>
+<tr class="separator:afa6729e9b5ee7a87c3e504caaf2c35ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66311ef7adc06e27dc7875c0c950e77f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a66311ef7adc06e27dc7875c0c950e77f">getFirstInstructionHelper</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter, bool process_child_composites, bool first_composite)</td></tr>
+<tr class="separator:a66311ef7adc06e27dc7875c0c950e77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053fa286d61d09c07a9569cd0fea27bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a053fa286d61d09c07a9569cd0fea27bc">getFirstInstructionHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter, bool process_child_composites, bool first_composite)</td></tr>
+<tr class="separator:a053fa286d61d09c07a9569cd0fea27bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88d77b80f75399b67d44cf58edcd10f0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a88d77b80f75399b67d44cf58edcd10f0">getLastInstructionHelper</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter, bool process_child_composites, bool first_composite)</td></tr>
+<tr class="separator:a88d77b80f75399b67d44cf58edcd10f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8ee44b5dd6f1d46cc0521c3ebb69ed4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad8ee44b5dd6f1d46cc0521c3ebb69ed4">getLastInstructionHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter, bool process_child_composites, bool first_composite)</td></tr>
+<tr class="separator:ad8ee44b5dd6f1d46cc0521c3ebb69ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51b9cedeb860025ec6725544f01d1816"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a51b9cedeb860025ec6725544f01d1816">getInstructionCountHelper</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter, bool process_child_composites, bool first_composite)</td></tr>
+<tr class="separator:a51b9cedeb860025ec6725544f01d1816"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63dfee6d2a2b430c8fb8d17ee2c1db4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a63dfee6d2a2b430c8fb8d17ee2c1db4e">generateSkeletonSeedHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions)</td></tr>
 <tr class="separator:a63dfee6d2a2b430c8fb8d17ee2c1db4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad3c64a902f813fd357ae4b9f17631fc"><td class="memItemLeft" align="right" valign="top">tesseract_common::Toolpath&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aad3c64a902f813fd357ae4b9f17631fc">toToolpath</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const tesseract_environment::Environment::ConstPtr &amp;env)</td></tr>
@@ -905,9 +912,9 @@ Functions</h2></td></tr>
 <tr class="separator:ab924ceb36c87880546df75899cebcd36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad893d4e885b56bb92cf8c7b0a435e54b"><td class="memItemLeft" align="right" valign="top">Eigen::Map&lt; Eigen::VectorXd &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad893d4e885b56bb92cf8c7b0a435e54b">ConstrainedStateSpaceExtractor</a> (const ompl::base::State *s1)</td></tr>
 <tr class="separator:ad893d4e885b56bb92cf8c7b0a435e54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87e1a794cf84e24e7a9816580e617355"><td class="memItemLeft" align="right" valign="top">tesseract_common::TrajArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a87e1a794cf84e24e7a9816580e617355">toTrajArray</a> (const ompl::geometric::PathGeometric &amp;path, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> extractor)</td></tr>
-<tr class="memdesc:a87e1a794cf84e24e7a9816580e617355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an ompl path to tesseract TrajArray.  <a href="../../d9/dcd/namespacetesseract__planning.html#a87e1a794cf84e24e7a9816580e617355">More...</a><br /></td></tr>
-<tr class="separator:a87e1a794cf84e24e7a9816580e617355"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f6835aa6ca4417eaf83e7bf01710635"><td class="memItemLeft" align="right" valign="top">tesseract_common::TrajArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4f6835aa6ca4417eaf83e7bf01710635">toTrajArray</a> (const ompl::geometric::PathGeometric &amp;path, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> &amp;extractor)</td></tr>
+<tr class="memdesc:a4f6835aa6ca4417eaf83e7bf01710635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an ompl path to tesseract TrajArray.  <a href="../../d9/dcd/namespacetesseract__planning.html#a4f6835aa6ca4417eaf83e7bf01710635">More...</a><br /></td></tr>
+<tr class="separator:a4f6835aa6ca4417eaf83e7bf01710635"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af00891d3040fb15e60da8736a67661f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af00891d3040fb15e60da8736a67661f2">processLongestValidSegment</a> (const ompl::base::StateSpacePtr &amp;state_space_ptr, double longest_valid_segment_fraction, double longest_valid_segment_length)</td></tr>
 <tr class="memdesc:af00891d3040fb15e60da8736a67661f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given longest valid fraction and length it will set the correct information of the state space.  <a href="../../d9/dcd/namespacetesseract__planning.html#af00891d3040fb15e60da8736a67661f2">More...</a><br /></td></tr>
 <tr class="separator:af00891d3040fb15e60da8736a67661f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -963,10 +970,10 @@ Functions</h2></td></tr>
 <tr class="separator:a4a0d1ec51cba719360ce38442adf2a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a779fd51d39c63e67cd08d5bacaef0843"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a779fd51d39c63e67cd08d5bacaef0843">toXMLString</a> (const <a class="el" href="../../da/df1/classtesseract__planning_1_1TrajOptCompositeProfile.html">TrajOptCompositeProfile</a> &amp;composite_profile)</td></tr>
 <tr class="separator:a779fd51d39c63e67cd08d5bacaef0843"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaf96ab8d7cc657c3302477ce1d4e166"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aaaf96ab8d7cc657c3302477ce1d4e166">createCartesianWaypointTermInfo</a> (const Eigen::Isometry3d &amp;c_wp, int index, std::string working_frame, Eigen::Isometry3d tcp, const Eigen::VectorXd &amp;coeffs, std::string link, trajopt::TermType type)</td></tr>
-<tr class="separator:aaaf96ab8d7cc657c3302477ce1d4e166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a095e0b0a5e5b23e615647705ac63f3b2"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a095e0b0a5e5b23e615647705ac63f3b2">createDynamicCartesianWaypointTermInfo</a> (const Eigen::Isometry3d &amp;c_wp, int index, std::string working_frame, const Eigen::Isometry3d &amp;tcp, const Eigen::VectorXd &amp;coeffs, const std::string &amp;link, trajopt::TermType type)</td></tr>
-<tr class="separator:a095e0b0a5e5b23e615647705ac63f3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad17260a4b9946d2c22fc3e2afa82bf26"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad17260a4b9946d2c22fc3e2afa82bf26">createCartesianWaypointTermInfo</a> (const Eigen::Isometry3d &amp;c_wp, int index, const std::string &amp;working_frame, const Eigen::Isometry3d &amp;tcp, const Eigen::VectorXd &amp;coeffs, const std::string &amp;link, trajopt::TermType type)</td></tr>
+<tr class="separator:ad17260a4b9946d2c22fc3e2afa82bf26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63259e82d26ef04e79e7355ae66bded3"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a63259e82d26ef04e79e7355ae66bded3">createDynamicCartesianWaypointTermInfo</a> (const Eigen::Isometry3d &amp;c_wp, int index, const std::string &amp;working_frame, const Eigen::Isometry3d &amp;tcp, const Eigen::VectorXd &amp;coeffs, const std::string &amp;link, trajopt::TermType type)</td></tr>
+<tr class="separator:a63259e82d26ef04e79e7355ae66bded3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d674bb8a647b4c66cfd60fcd2b9d449"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9d674bb8a647b4c66cfd60fcd2b9d449">createNearJointStateTermInfo</a> (const Eigen::VectorXd &amp;target, const std::vector&lt; std::string &gt; &amp;joint_names, int index, const Eigen::VectorXd &amp;coeffs, trajopt::TermType type)</td></tr>
 <tr class="separator:a9d674bb8a647b4c66cfd60fcd2b9d449"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad93bb03fdbd2da70052e05a160252fea"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad93bb03fdbd2da70052e05a160252fea">createJointWaypointTermInfo</a> (const Eigen::VectorXd &amp;j_wp, int index, const Eigen::VectorXd &amp;coeffs, trajopt::TermType type)</td></tr>
@@ -993,30 +1000,28 @@ Functions</h2></td></tr>
 <tr class="separator:a089f108f9cc718b567607006aefc506e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bf73d52cb7fd8a5f5998ae62847957d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html">TrajOptIfoptProblem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8bf73d52cb7fd8a5f5998ae62847957d">DefaultTrajOptIfoptProblemGenerator</a> (const std::string &amp;name, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1e9bf5e3f3e5c2fc319a1c0c5718313b">TrajOptIfoptPlanProfileMap</a> &amp;plan_profiles, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abede68600c57fb593dc36ee9efbd1b0b">TrajOptIfoptCompositeProfileMap</a> &amp;composite_profiles)</td></tr>
 <tr class="separator:a8bf73d52cb7fd8a5f5998ae62847957d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1268a3f64c14f4780b26e5e46a73b96"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac1268a3f64c14f4780b26e5e46a73b96">createCartesianPositionConstraint</a> (const <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;cart_waypoint, trajopt::JointPosition::ConstPtr var, const trajopt::CartPosKinematicInfo::ConstPtr &amp;kin_info, const Eigen::VectorXd &amp;coeffs)</td></tr>
-<tr class="separator:ac1268a3f64c14f4780b26e5e46a73b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae72dc09cf96ec6e201be8109963ee371"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae72dc09cf96ec6e201be8109963ee371">addCartesianPositionConstraint</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, const <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;cart_waypoint, trajopt::JointPosition::ConstPtr var, const trajopt::CartPosKinematicInfo::ConstPtr &amp;kin_info, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
-<tr class="separator:ae72dc09cf96ec6e201be8109963ee371"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a912bb7921310f143d78675c14cc28b9d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a912bb7921310f143d78675c14cc28b9d">addCartesianPositionSquaredCost</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, const <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;cart_waypoint, trajopt::JointPosition::ConstPtr var, const trajopt::CartPosKinematicInfo::ConstPtr &amp;kin_info, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
-<tr class="separator:a912bb7921310f143d78675c14cc28b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ad2e2ffd0e0945d9581b5db300de9d9"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5ad2e2ffd0e0945d9581b5db300de9d9">createJointPositionConstraint</a> (const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;joint_waypoint, trajopt::JointPosition::ConstPtr var, const Eigen::VectorXd &amp;)</td></tr>
-<tr class="separator:a5ad2e2ffd0e0945d9581b5db300de9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3209caec6a89b9c18984276b28a2f513"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3209caec6a89b9c18984276b28a2f513">addJointPositionConstraint</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;joint_waypoint, trajopt::JointPosition::ConstPtr var, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
-<tr class="separator:a3209caec6a89b9c18984276b28a2f513"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2dd0325d6640759e255d7a8795a1716"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac2dd0325d6640759e255d7a8795a1716">addJointPositionSquaredCost</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;joint_waypoint, trajopt::JointPosition::ConstPtr var, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
-<tr class="separator:ac2dd0325d6640759e255d7a8795a1716"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9194fb89fb889c29681553b1d60e4500"><td class="memItemLeft" align="right" valign="top">std::vector&lt; ifopt::ConstraintSet::Ptr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9194fb89fb889c29681553b1d60e4500">createCollisionConstraints</a> (std::vector&lt; trajopt::JointPosition::ConstPtr &gt; vars, const tesseract_environment::Environment::ConstPtr &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const trajopt::TrajOptCollisionConfig::ConstPtr &amp;config)</td></tr>
-<tr class="separator:a9194fb89fb889c29681553b1d60e4500"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a712638c571bba84deb90f107197dd5fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a712638c571bba84deb90f107197dd5fc">addCollisionConstraint</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, std::vector&lt; trajopt::JointPosition::ConstPtr &gt; vars, const tesseract_environment::Environment::ConstPtr &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const trajopt::TrajOptCollisionConfig::ConstPtr &amp;config)</td></tr>
-<tr class="separator:a712638c571bba84deb90f107197dd5fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcddce3e4bdee753832b6fe0f1e6ed0a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afcddce3e4bdee753832b6fe0f1e6ed0a">addCollisionSquaredCost</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, std::vector&lt; trajopt::JointPosition::ConstPtr &gt; vars, const tesseract_environment::Environment::ConstPtr &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const trajopt::TrajOptCollisionConfig::ConstPtr &amp;config)</td></tr>
-<tr class="separator:afcddce3e4bdee753832b6fe0f1e6ed0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8628a4d480ac144195f323a246d490e"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac8628a4d480ac144195f323a246d490e">createJointVelocityConstraint</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;target, const std::vector&lt; trajopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::VectorXd &amp;coeffs)</td></tr>
-<tr class="separator:ac8628a4d480ac144195f323a246d490e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1bb7b2c051670161546ddd6d9f20927"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad1bb7b2c051670161546ddd6d9f20927">addJointVelocityConstraint</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, std::vector&lt; trajopt::JointPosition::ConstPtr &gt; vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
-<tr class="separator:ad1bb7b2c051670161546ddd6d9f20927"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a204d4baf6c7f28609ac19b52f3cf3873"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a204d4baf6c7f28609ac19b52f3cf3873">addJointVelocitySquaredCost</a> (std::shared_ptr&lt; ifopt::Problem &gt; nlp, std::vector&lt; trajopt::JointPosition::ConstPtr &gt; vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
-<tr class="separator:a204d4baf6c7f28609ac19b52f3cf3873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac079dc90ef095ed3463689f683358a24"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac079dc90ef095ed3463689f683358a24">createCartesianPositionConstraint</a> (const Eigen::Isometry3d &amp;target, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;kin_info, const std::string &amp;source_link, const Eigen::Isometry3d &amp;source_tcp=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
+<tr class="separator:ac079dc90ef095ed3463689f683358a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ecca4ea7137a7265eaa723a31332d31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1ecca4ea7137a7265eaa723a31332d31">addCartesianPositionConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const Eigen::Isometry3d &amp;target, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;kin_info, const std::string &amp;source_link, const Eigen::Isometry3d &amp;source_tcp=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
+<tr class="separator:a1ecca4ea7137a7265eaa723a31332d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e95e6f40e683fd7ef5582d28f3e7beb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8e95e6f40e683fd7ef5582d28f3e7beb">addCartesianPositionSquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const Eigen::Isometry3d &amp;target, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;kin_info, const std::string &amp;source_link, const Eigen::Isometry3d &amp;source_tcp=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
+<tr class="separator:a8e95e6f40e683fd7ef5582d28f3e7beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7115225ce6646db2a24066bf789f9e78"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7115225ce6646db2a24066bf789f9e78">addCartesianPositionAbsoluteCost</a> (trajopt_sqp::QPProblem &amp;nlp, const Eigen::Isometry3d &amp;target, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;kin_info, const std::string &amp;source_link, const Eigen::Isometry3d &amp;source_tcp=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
+<tr class="separator:a7115225ce6646db2a24066bf789f9e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ffaf9223773224cc11dfdb59285feed"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0ffaf9223773224cc11dfdb59285feed">createJointPositionConstraint</a> (const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;joint_waypoint, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const Eigen::VectorXd &amp;)</td></tr>
+<tr class="separator:a0ffaf9223773224cc11dfdb59285feed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aa911592142af3f76da18b590c5e689"><td class="memItemLeft" align="right" valign="top">std::vector&lt; ifopt::ConstraintSet::Ptr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2aa911592142af3f76da18b590c5e689">createCollisionConstraints</a> (const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const tesseract_environment::Environment::ConstPtr &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr &amp;config, const std::vector&lt; int &gt; &amp;fixed_indices)</td></tr>
+<tr class="separator:a2aa911592142af3f76da18b590c5e689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea0acfda2d541adc2eea63cca9f65b64"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aea0acfda2d541adc2eea63cca9f65b64">addCollisionConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const tesseract_environment::Environment::ConstPtr &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr &amp;config, const std::vector&lt; int &gt; &amp;fixed_indices)</td></tr>
+<tr class="separator:aea0acfda2d541adc2eea63cca9f65b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5583cb5d78e1752c81bd14ad5869393e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5583cb5d78e1752c81bd14ad5869393e">addCollisionCost</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const tesseract_environment::Environment::ConstPtr &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr &amp;config, const std::vector&lt; int &gt; &amp;fixed_indices)</td></tr>
+<tr class="separator:a5583cb5d78e1752c81bd14ad5869393e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80b38fe22cbfcec32fa79f689abf5fec"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a80b38fe22cbfcec32fa79f689abf5fec">createJointVelocityConstraint</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;target, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::VectorXd &amp;coeffs)</td></tr>
+<tr class="separator:a80b38fe22cbfcec32fa79f689abf5fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a216be24b4b331e388446241f3200758b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a216be24b4b331e388446241f3200758b">addJointVelocityConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:a216be24b4b331e388446241f3200758b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaefbdf02206df96ab97a09cf1610105"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acaefbdf02206df96ab97a09cf1610105">addJointVelocitySquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:acaefbdf02206df96ab97a09cf1610105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d0aafc81bd3d3129b23ec8e814f5ee4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4d0aafc81bd3d3129b23ec8e814f5ee4">freespaceExampleProgramIIWA</a> (const Eigen::Isometry3d &amp;goal=Eigen::Isometry3d::Identity() *Eigen::Translation3d(0.2, 0.2, 1.0), const std::string &amp;composite_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>, const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>)</td></tr>
 <tr class="separator:a4d0aafc81bd3d3129b23ec8e814f5ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a2039b9a45e29e30050777ff8b69bfa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7a2039b9a45e29e30050777ff8b69bfa">freespaceExampleProgramABB</a> (const Eigen::Isometry3d &amp;goal=Eigen::Isometry3d::Identity() *Eigen::Translation3d(0.2, 0.2, 1.0), const std::string &amp;composite_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>, const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>)</td></tr>
@@ -1037,6 +1042,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a3004cc847e018d695e85486ea5f3b8c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d32/classtesseract__planning_1_1TaskflowGenerator.html#a12a647db36094c3b2084e60bec0ad268">TaskflowGenerator::UPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3004cc847e018d695e85486ea5f3b8c7">createTrajOptGenerator</a> ()</td></tr>
 <tr class="memdesc:a3004cc847e018d695e85486ea5f3b8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create TrajOpt Process Pipeline.  <a href="../../d9/dcd/namespacetesseract__planning.html#a3004cc847e018d695e85486ea5f3b8c7">More...</a><br /></td></tr>
 <tr class="separator:a3004cc847e018d695e85486ea5f3b8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4277009933adfc13b317c6936f2d5eeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d32/classtesseract__planning_1_1TaskflowGenerator.html#a12a647db36094c3b2084e60bec0ad268">TaskflowGenerator::UPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4277009933adfc13b317c6936f2d5eeb">createTrajOptIfoptGenerator</a> ()</td></tr>
+<tr class="memdesc:a4277009933adfc13b317c6936f2d5eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create TrajOpt IFOPT Process Pipeline.  <a href="../../d9/dcd/namespacetesseract__planning.html#a4277009933adfc13b317c6936f2d5eeb">More...</a><br /></td></tr>
+<tr class="separator:a4277009933adfc13b317c6936f2d5eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4226c63556ced9af20ca0b9d504bf5da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d32/classtesseract__planning_1_1TaskflowGenerator.html#a12a647db36094c3b2084e60bec0ad268">TaskflowGenerator::UPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4226c63556ced9af20ca0b9d504bf5da">createOMPLGenerator</a> ()</td></tr>
 <tr class="memdesc:a4226c63556ced9af20ca0b9d504bf5da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create OMPL Process Pipeline.  <a href="../../d9/dcd/namespacetesseract__planning.html#a4226c63556ced9af20ca0b9d504bf5da">More...</a><br /></td></tr>
 <tr class="separator:a4226c63556ced9af20ca0b9d504bf5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1103,12 +1111,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a6e3bc51fc2552d2913c17d1f020c23b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6e3bc51fc2552d2913c17d1f020c23b4">hasSeedTask</a> (<a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> input)</td></tr>
 <tr class="memdesc:a6e3bc51fc2552d2913c17d1f020c23b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the input has a seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a6e3bc51fc2552d2913c17d1f020c23b4">More...</a><br /></td></tr>
 <tr class="separator:a6e3bc51fc2552d2913c17d1f020c23b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a021e462b7a4a10652f49589d709bf6c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a021e462b7a4a10652f49589d709bf6c4">saveInputs</a> (<a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2ddc8ab5484c9af3ff7167200467bd3e">TaskInfo::Ptr</a> info, <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input)</td></tr>
-<tr class="memdesc:a021e462b7a4a10652f49589d709bf6c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the appropriate inputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#a021e462b7a4a10652f49589d709bf6c4">More...</a><br /></td></tr>
-<tr class="separator:a021e462b7a4a10652f49589d709bf6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae74ef8c59952e273152e1e81679f6c63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae74ef8c59952e273152e1e81679f6c63">saveOutputs</a> (<a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2ddc8ab5484c9af3ff7167200467bd3e">TaskInfo::Ptr</a> info, <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input)</td></tr>
-<tr class="memdesc:ae74ef8c59952e273152e1e81679f6c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the appropriate outputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae74ef8c59952e273152e1e81679f6c63">More...</a><br /></td></tr>
-<tr class="separator:ae74ef8c59952e273152e1e81679f6c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a902cd4c3fb783d8f4fcabda2f054490c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a902cd4c3fb783d8f4fcabda2f054490c">saveInputs</a> (<a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &amp;info, <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input)</td></tr>
+<tr class="memdesc:a902cd4c3fb783d8f4fcabda2f054490c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the appropriate inputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#a902cd4c3fb783d8f4fcabda2f054490c">More...</a><br /></td></tr>
+<tr class="separator:a902cd4c3fb783d8f4fcabda2f054490c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae75e0f05d9f60801aef29c9341c914d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae75e0f05d9f60801aef29c9341c914d0">saveOutputs</a> (<a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &amp;info, <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input)</td></tr>
+<tr class="memdesc:ae75e0f05d9f60801aef29c9341c914d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the appropriate outputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae75e0f05d9f60801aef29c9341c914d0">More...</a><br /></td></tr>
+<tr class="separator:ae75e0f05d9f60801aef29c9341c914d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a627d417f4d206352657ce7f78bc79287"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a627d417f4d206352657ce7f78bc79287">StateInCollision</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;start_pos, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
 <tr class="memdesc:a627d417f4d206352657ce7f78bc79287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a joint state is in collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#a627d417f4d206352657ce7f78bc79287">More...</a><br /></td></tr>
 <tr class="separator:a627d417f4d206352657ce7f78bc79287"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1134,12 +1142,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8c98bef4d1dd9386473cc9c4eebaacd7">RescaleTimings</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, std::vector&lt; double &gt; scalings)</td></tr>
 <tr class="memdesc:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rescale the sub-composites of a program linearly.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8c98bef4d1dd9386473cc9c4eebaacd7">More...</a><br /></td></tr>
 <tr class="separator:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1a605c1704dc7213e1870f0f3d01ce8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab1a605c1704dc7213e1870f0f3d01ce8">fit_cubic_spline</a> (const long n, const double dt[], const double x[], double x1[], double x2[])</td></tr>
-<tr class="separator:ab1a605c1704dc7213e1870f0f3d01ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92e58df0764ade5f80a18909a085adbd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a92e58df0764ade5f80a18909a085adbd">adjust_two_positions</a> (const long n, const double dt[], double x[], double x1[], double x2[], const double x2_i, const double x2_f)</td></tr>
-<tr class="separator:a92e58df0764ade5f80a18909a085adbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f556710cc50c0e26ef0947b48fa2cdb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5f556710cc50c0e26ef0947b48fa2cdb">init_times</a> (long n, double dt[], const double x[], const double max_velocity[], const double min_velocity[])</td></tr>
-<tr class="separator:a5f556710cc50c0e26ef0947b48fa2cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a386f7e69c4bea776fda04a6fa11d50be"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a386f7e69c4bea776fda04a6fa11d50be">fit_cubic_spline</a> (long n, const double dt[], const double x[], double x1[], double x2[])</td></tr>
+<tr class="separator:a386f7e69c4bea776fda04a6fa11d50be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed0faf4e94c864b37433d63537481c0c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aed0faf4e94c864b37433d63537481c0c">adjust_two_positions</a> (long n, const double dt[], double x[], double x1[], double x2[], double x2_i, double x2_f)</td></tr>
+<tr class="separator:aed0faf4e94c864b37433d63537481c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc14f693683e3fa96949f7273f42e49d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acc14f693683e3fa96949f7273f42e49d">init_times</a> (long n, double dt[], const double x[], const double max_velocity[], double min_velocity[])</td></tr>
+<tr class="separator:acc14f693683e3fa96949f7273f42e49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a055e94fcc3bfae45e8d095dd850cbd2a"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a055e94fcc3bfae45e8d095dd850cbd2a">global_adjustment_factor</a> (long n, double dt[], const double x[], double x1[], double x2[], const double max_velocity[], const double min_velocity[], const double max_acceleration[], const double min_acceleration[])</td></tr>
 <tr class="separator:a055e94fcc3bfae45e8d095dd850cbd2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c8c37247f78cf422a0065e7f1b0efba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1c8c37247f78cf422a0065e7f1b0efba">globalAdjustment</a> (std::vector&lt; <a class="el" href="../../de/d62/structtesseract__planning_1_1SingleJointTrajectory.html">SingleJointTrajectory</a> &gt; &amp;t2, long num_joints, long num_points, std::vector&lt; double &gt; &amp;time_diff)</td></tr>
@@ -2123,6 +2131,7 @@ template&lt;typename FloatType &gt; </div>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4075aba51db3be039f29037d09d85a94ae0f588affe0abe2e0565de8a962c4502"></a>CONSTRAINT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4075aba51db3be039f29037d09d85a94abe2b638ec952eec71f8a27b8b0be5b06"></a>SQUARED_COST&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4075aba51db3be039f29037d09d85a94aad2514bbf670f76fbd63cad25a4afc0c"></a>ABSOLUTE_COST&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -2157,8 +2166,66 @@ template&lt;typename FloatType &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ae72dc09cf96ec6e201be8109963ee371"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae72dc09cf96ec6e201be8109963ee371">&#9670;&nbsp;</a></span>addCartesianPositionConstraint()</h2>
+<a id="a7115225ce6646db2a24066bf789f9e78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7115225ce6646db2a24066bf789f9e78">&#9670;&nbsp;</a></span>addCartesianPositionAbsoluteCost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::addCartesianPositionAbsoluteCost </td>
+          <td>(</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
+          <td class="paramname"><em>nlp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>var</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>kin_info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>source_link</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>source_tcp</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>coeffs</em> = <code>Eigen::VectorXd::Ones(6)</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ecca4ea7137a7265eaa723a31332d31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ecca4ea7137a7265eaa723a31332d31">&#9670;&nbsp;</a></span>addCartesianPositionConstraint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2166,32 +2233,44 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">bool tesseract_planning::addCartesianPositionConstraint </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; ifopt::Problem &gt;&#160;</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
           <td class="paramname"><em>nlp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;&#160;</td>
-          <td class="paramname"><em>cart_waypoint</em>, </td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">trajopt::JointPosition::ConstPtr&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>var</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt::CartPosKinematicInfo::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>kin_info</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>source_link</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>source_tcp</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>coeff</em>&#160;</td>
+          <td class="paramname"><em>coeffs</em> = <code>Eigen::VectorXd::Ones(6)</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2203,8 +2282,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a912bb7921310f143d78675c14cc28b9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a912bb7921310f143d78675c14cc28b9d">&#9670;&nbsp;</a></span>addCartesianPositionSquaredCost()</h2>
+<a id="a8e95e6f40e683fd7ef5582d28f3e7beb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e95e6f40e683fd7ef5582d28f3e7beb">&#9670;&nbsp;</a></span>addCartesianPositionSquaredCost()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2212,32 +2291,44 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">bool tesseract_planning::addCartesianPositionSquaredCost </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; ifopt::Problem &gt;&#160;</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
           <td class="paramname"><em>nlp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;&#160;</td>
-          <td class="paramname"><em>cart_waypoint</em>, </td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">trajopt::JointPosition::ConstPtr&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>var</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt::CartPosKinematicInfo::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>kin_info</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>source_link</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>source_tcp</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>coeff</em>&#160;</td>
+          <td class="paramname"><em>coeffs</em> = <code>Eigen::VectorXd::Ones(6)</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2249,8 +2340,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a712638c571bba84deb90f107197dd5fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a712638c571bba84deb90f107197dd5fc">&#9670;&nbsp;</a></span>addCollisionConstraint()</h2>
+<a id="aea0acfda2d541adc2eea63cca9f65b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea0acfda2d541adc2eea63cca9f65b64">&#9670;&nbsp;</a></span>addCollisionConstraint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2258,13 +2349,13 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">bool tesseract_planning::addCollisionConstraint </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; ifopt::Problem &gt;&#160;</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
           <td class="paramname"><em>nlp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; trajopt::JointPosition::ConstPtr &gt;&#160;</td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -2282,8 +2373,14 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt::TrajOptCollisionConfig::ConstPtr &amp;&#160;</td>
-          <td class="paramname"><em>config</em>&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fixed_indices</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2295,22 +2392,22 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="afcddce3e4bdee753832b6fe0f1e6ed0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcddce3e4bdee753832b6fe0f1e6ed0a">&#9670;&nbsp;</a></span>addCollisionSquaredCost()</h2>
+<a id="a5583cb5d78e1752c81bd14ad5869393e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5583cb5d78e1752c81bd14ad5869393e">&#9670;&nbsp;</a></span>addCollisionCost()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::addCollisionSquaredCost </td>
+          <td class="memname">bool tesseract_planning::addCollisionCost </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; ifopt::Problem &gt;&#160;</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
           <td class="paramname"><em>nlp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; trajopt::JointPosition::ConstPtr &gt;&#160;</td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -2328,8 +2425,14 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt::TrajOptCollisionConfig::ConstPtr &amp;&#160;</td>
-          <td class="paramname"><em>config</em>&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fixed_indices</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2341,88 +2444,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a3209caec6a89b9c18984276b28a2f513"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3209caec6a89b9c18984276b28a2f513">&#9670;&nbsp;</a></span>addJointPositionConstraint()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::addJointPositionConstraint </td>
-          <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; ifopt::Problem &gt;&#160;</td>
-          <td class="paramname"><em>nlp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;&#160;</td>
-          <td class="paramname"><em>joint_waypoint</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">trajopt::JointPosition::ConstPtr&#160;</td>
-          <td class="paramname"><em>var</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>coeff</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac2dd0325d6640759e255d7a8795a1716"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2dd0325d6640759e255d7a8795a1716">&#9670;&nbsp;</a></span>addJointPositionSquaredCost()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::addJointPositionSquaredCost </td>
-          <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; ifopt::Problem &gt;&#160;</td>
-          <td class="paramname"><em>nlp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;&#160;</td>
-          <td class="paramname"><em>joint_waypoint</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">trajopt::JointPosition::ConstPtr&#160;</td>
-          <td class="paramname"><em>var</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
-          <td class="paramname"><em>coeff</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad1bb7b2c051670161546ddd6d9f20927"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1bb7b2c051670161546ddd6d9f20927">&#9670;&nbsp;</a></span>addJointVelocityConstraint()</h2>
+<a id="a216be24b4b331e388446241f3200758b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a216be24b4b331e388446241f3200758b">&#9670;&nbsp;</a></span>addJointVelocityConstraint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2430,13 +2453,13 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">bool tesseract_planning::addJointVelocityConstraint </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; ifopt::Problem &gt;&#160;</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
           <td class="paramname"><em>nlp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; trajopt::JointPosition::ConstPtr &gt;&#160;</td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -2455,8 +2478,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a204d4baf6c7f28609ac19b52f3cf3873"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a204d4baf6c7f28609ac19b52f3cf3873">&#9670;&nbsp;</a></span>addJointVelocitySquaredCost()</h2>
+<a id="acaefbdf02206df96ab97a09cf1610105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaefbdf02206df96ab97a09cf1610105">&#9670;&nbsp;</a></span>addJointVelocitySquaredCost()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2464,13 +2487,13 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">bool tesseract_planning::addJointVelocitySquaredCost </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; ifopt::Problem &gt;&#160;</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
           <td class="paramname"><em>nlp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; trajopt::JointPosition::ConstPtr &gt;&#160;</td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -2489,8 +2512,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a92e58df0764ade5f80a18909a085adbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92e58df0764ade5f80a18909a085adbd">&#9670;&nbsp;</a></span>adjust_two_positions()</h2>
+<a id="aed0faf4e94c864b37433d63537481c0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed0faf4e94c864b37433d63537481c0c">&#9670;&nbsp;</a></span>adjust_two_positions()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2501,7 +2524,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">static void tesseract_planning::adjust_two_positions </td>
           <td>(</td>
-          <td class="paramtype">const long&#160;</td>
+          <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -2531,13 +2554,13 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>x2_i</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>x2_f</em>&#160;</td>
         </tr>
         <tr>
@@ -3253,8 +3276,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ac1268a3f64c14f4780b26e5e46a73b96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1268a3f64c14f4780b26e5e46a73b96">&#9670;&nbsp;</a></span>createCartesianPositionConstraint()</h2>
+<a id="ac079dc90ef095ed3463689f683358a24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac079dc90ef095ed3463689f683358a24">&#9670;&nbsp;</a></span>createCartesianPositionConstraint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3262,26 +3285,38 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="memname">ifopt::ConstraintSet::Ptr tesseract_planning::createCartesianPositionConstraint </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;&#160;</td>
-          <td class="paramname"><em>cart_waypoint</em>, </td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">trajopt::JointPosition::ConstPtr&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>var</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt::CartPosKinematicInfo::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>kin_info</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>coeffs</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>source_link</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>source_tcp</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>coeffs</em> = <code>Eigen::VectorXd::Ones(6)</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -3293,8 +3328,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="aaaf96ab8d7cc657c3302477ce1d4e166"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaf96ab8d7cc657c3302477ce1d4e166">&#9670;&nbsp;</a></span>createCartesianWaypointTermInfo()</h2>
+<a id="ad17260a4b9946d2c22fc3e2afa82bf26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad17260a4b9946d2c22fc3e2afa82bf26">&#9670;&nbsp;</a></span>createCartesianWaypointTermInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3314,13 +3349,13 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>working_frame</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Eigen::Isometry3d&#160;</td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
           <td class="paramname"><em>tcp</em>, </td>
         </tr>
         <tr>
@@ -3332,7 +3367,7 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>link</em>, </td>
         </tr>
         <tr>
@@ -3351,8 +3386,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="a9194fb89fb889c29681553b1d60e4500"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9194fb89fb889c29681553b1d60e4500">&#9670;&nbsp;</a></span>createCollisionConstraints()</h2>
+<a id="a2aa911592142af3f76da18b590c5e689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aa911592142af3f76da18b590c5e689">&#9670;&nbsp;</a></span>createCollisionConstraints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3360,7 +3395,7 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="memname">std::vector&lt; ifopt::ConstraintSet::Ptr &gt; tesseract_planning::createCollisionConstraints </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; trajopt::JointPosition::ConstPtr &gt;&#160;</td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -3378,8 +3413,14 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt::TrajOptCollisionConfig::ConstPtr &amp;&#160;</td>
-          <td class="paramname"><em>config</em>&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>fixed_indices</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -3486,8 +3527,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="a095e0b0a5e5b23e615647705ac63f3b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a095e0b0a5e5b23e615647705ac63f3b2">&#9670;&nbsp;</a></span>createDynamicCartesianWaypointTermInfo()</h2>
+<a id="a63259e82d26ef04e79e7355ae66bded3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63259e82d26ef04e79e7355ae66bded3">&#9670;&nbsp;</a></span>createDynamicCartesianWaypointTermInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3507,7 +3548,7 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>working_frame</em>, </td>
         </tr>
         <tr>
@@ -3563,8 +3604,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="a5ad2e2ffd0e0945d9581b5db300de9d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ad2e2ffd0e0945d9581b5db300de9d9">&#9670;&nbsp;</a></span>createJointPositionConstraint()</h2>
+<a id="a0ffaf9223773224cc11dfdb59285feed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ffaf9223773224cc11dfdb59285feed">&#9670;&nbsp;</a></span>createJointPositionConstraint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3578,14 +3619,14 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">trajopt::JointPosition::ConstPtr&#160;</td>
+          <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>var</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>coeffs</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -3597,8 +3638,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ac8628a4d480ac144195f323a246d490e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8628a4d480ac144195f323a246d490e">&#9670;&nbsp;</a></span>createJointVelocityConstraint()</h2>
+<a id="a80b38fe22cbfcec32fa79f689abf5fec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80b38fe22cbfcec32fa79f689abf5fec">&#9670;&nbsp;</a></span>createJointVelocityConstraint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3612,7 +3653,7 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; trajopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
           <td class="paramname"><em>vars</em>, </td>
         </tr>
         <tr>
@@ -4371,6 +4412,25 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
+<a id="a4277009933adfc13b317c6936f2d5eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4277009933adfc13b317c6936f2d5eeb">&#9670;&nbsp;</a></span>createTrajOptIfoptGenerator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d1/d32/classtesseract__planning_1_1TaskflowGenerator.html#a12a647db36094c3b2084e60bec0ad268">TaskflowGenerator::UPtr</a> tesseract_planning::createTrajOptIfoptGenerator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create TrajOpt IFOPT Process Pipeline. </p>
+
+</div>
+</div>
 <a id="acb79748a9c7c851b1b53a74aadba0b56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb79748a9c7c851b1b53a74aadba0b56">&#9670;&nbsp;</a></span>createUserDefinedTermInfo()</h2>
 
@@ -4538,11 +4598,11 @@ template&lt;typename FloatType &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000028">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000028">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000029">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000030">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000031">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
 
 </div>
 </div>
@@ -4590,7 +4650,10 @@ template&lt;typename FloatType &gt; </div>
       </table>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>: Restructure this into several smaller functions that are testable and easier to understand </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>Write a path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000024">Todo:</a></b></dt><dd>Add path constraint for this </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000025">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000026">Todo:</a></b></dt><dd>Should check that the joint names match the order of the manipulator </dd></dl>
 
 </div>
 </div>
@@ -4786,8 +4849,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ab1a605c1704dc7213e1870f0f3d01ce8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1a605c1704dc7213e1870f0f3d01ce8">&#9670;&nbsp;</a></span>fit_cubic_spline()</h2>
+<a id="a386f7e69c4bea776fda04a6fa11d50be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a386f7e69c4bea776fda04a6fa11d50be">&#9670;&nbsp;</a></span>fit_cubic_spline()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4798,7 +4861,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">static void tesseract_planning::fit_cubic_spline </td>
           <td>(</td>
-          <td class="paramtype">const long&#160;</td>
+          <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -4840,8 +4903,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ac0bda18baed62560eb55f6babe637f4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0bda18baed62560eb55f6babe637f4e">&#9670;&nbsp;</a></span>flatten() <span class="overload">[1/2]</span></h2>
+<a id="a5d5bdd11ad23e6f48bfa70264769706a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d5bdd11ad23e6f48bfa70264769706a">&#9670;&nbsp;</a></span>flatten() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4855,7 +4918,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>filter</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -4878,8 +4941,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="abd403a608228627aef4abfbb601e4641"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd403a608228627aef4abfbb601e4641">&#9670;&nbsp;</a></span>flatten() <span class="overload">[2/2]</span></h2>
+<a id="a94186e3d300a9a74121c08ec235b551c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94186e3d300a9a74121c08ec235b551c">&#9670;&nbsp;</a></span>flatten() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4893,7 +4956,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>filter</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -4916,8 +4979,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a6015e7043e07ebe2ceb6d361f20218a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6015e7043e07ebe2ceb6d361f20218a9">&#9670;&nbsp;</a></span>flattenHelper() <span class="overload">[1/2]</span></h2>
+<a id="aab92dc05a65eb22223a76637d0ff839e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab92dc05a65eb22223a76637d0ff839e">&#9670;&nbsp;</a></span>flattenHelper() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4937,7 +5000,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>filter</em>, </td>
         </tr>
         <tr>
@@ -4967,8 +5030,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="af18d888a01fceb5a2290afb0d791d174"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af18d888a01fceb5a2290afb0d791d174">&#9670;&nbsp;</a></span>flattenHelper() <span class="overload">[2/2]</span></h2>
+<a id="add6244ab4ba45a96d8ec0d6a57ee6bb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add6244ab4ba45a96d8ec0d6a57ee6bb6">&#9670;&nbsp;</a></span>flattenHelper() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4988,7 +5051,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>filter</em>, </td>
         </tr>
         <tr>
@@ -5154,8 +5217,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a54f036a20023afc403f4bbba94832f86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54f036a20023afc403f4bbba94832f86">&#9670;&nbsp;</a></span>flattenToPattern() <span class="overload">[1/2]</span></h2>
+<a id="a3491366954a613a707dc3a8570ffaa49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3491366954a613a707dc3a8570ffaa49">&#9670;&nbsp;</a></span>flattenToPattern() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5175,7 +5238,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>filter</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -5199,8 +5262,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a219e131eefcf6caf738893cfaea2a313"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a219e131eefcf6caf738893cfaea2a313">&#9670;&nbsp;</a></span>flattenToPattern() <span class="overload">[2/2]</span></h2>
+<a id="ad4f477266dbd5b02cb4ae61fe68fb472"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4f477266dbd5b02cb4ae61fe68fb472">&#9670;&nbsp;</a></span>flattenToPattern() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5220,7 +5283,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>filter</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -5244,8 +5307,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ad6d6823494042f7c265ec52a8d724826"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6d6823494042f7c265ec52a8d724826">&#9670;&nbsp;</a></span>flattenToPatternHelper() <span class="overload">[1/2]</span></h2>
+<a id="afa6729e9b5ee7a87c3e504caaf2c35ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa6729e9b5ee7a87c3e504caaf2c35ad">&#9670;&nbsp;</a></span>flattenToPatternHelper() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5271,7 +5334,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>filter</em>, </td>
         </tr>
         <tr>
@@ -5302,8 +5365,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a423f1ffc90190194a42108cb7f82a00a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a423f1ffc90190194a42108cb7f82a00a">&#9670;&nbsp;</a></span>flattenToPatternHelper() <span class="overload">[2/2]</span></h2>
+<a id="a51548cf23aa5572fce4c95ab1aab5d18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51548cf23aa5572fce4c95ab1aab5d18">&#9670;&nbsp;</a></span>flattenToPatternHelper() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5329,7 +5392,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>filter</em>, </td>
         </tr>
         <tr>
@@ -5855,8 +5918,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a6de789f62c5f509d40240cd8a50436a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6de789f62c5f509d40240cd8a50436a2">&#9670;&nbsp;</a></span>getFirstInstruction() <span class="overload">[1/2]</span></h2>
+<a id="a1ee85cb3f29b84658844aafd2032863f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ee85cb3f29b84658844aafd2032863f">&#9670;&nbsp;</a></span>getFirstInstruction() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5870,7 +5933,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em> = <code>nullptr</code>, </td>
         </tr>
         <tr>
@@ -5900,8 +5963,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a402118e80eb25983310d748c5b4c94a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a402118e80eb25983310d748c5b4c94a6">&#9670;&nbsp;</a></span>getFirstInstruction() <span class="overload">[2/2]</span></h2>
+<a id="aaedb8c2876c6078ded6f02f1a93f3de5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaedb8c2876c6078ded6f02f1a93f3de5">&#9670;&nbsp;</a></span>getFirstInstruction() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5915,7 +5978,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em> = <code>nullptr</code>, </td>
         </tr>
         <tr>
@@ -5945,8 +6008,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a51fc62f2b1aff86df9e07c87fc9f0c99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51fc62f2b1aff86df9e07c87fc9f0c99">&#9670;&nbsp;</a></span>getFirstInstructionHelper() <span class="overload">[1/2]</span></h2>
+<a id="a053fa286d61d09c07a9569cd0fea27bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053fa286d61d09c07a9569cd0fea27bc">&#9670;&nbsp;</a></span>getFirstInstructionHelper() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5960,7 +6023,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em>, </td>
         </tr>
         <tr>
@@ -5985,8 +6048,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a1a7e5dfab0d315dc26580772b2aee4cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a7e5dfab0d315dc26580772b2aee4cd">&#9670;&nbsp;</a></span>getFirstInstructionHelper() <span class="overload">[2/2]</span></h2>
+<a id="a66311ef7adc06e27dc7875c0c950e77f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66311ef7adc06e27dc7875c0c950e77f">&#9670;&nbsp;</a></span>getFirstInstructionHelper() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6000,7 +6063,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em>, </td>
         </tr>
         <tr>
@@ -6165,8 +6228,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a220ca8b7769080e8eacb9a5e7f1dd75d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a220ca8b7769080e8eacb9a5e7f1dd75d">&#9670;&nbsp;</a></span>getInstructionCount()</h2>
+<a id="a01458ec9671936e46c24e8346003cf4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01458ec9671936e46c24e8346003cf4b">&#9670;&nbsp;</a></span>getInstructionCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6180,7 +6243,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em> = <code>nullptr</code>, </td>
         </tr>
         <tr>
@@ -6210,8 +6273,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a02bde5fd94ae833a6f44bad5f1fbf463"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02bde5fd94ae833a6f44bad5f1fbf463">&#9670;&nbsp;</a></span>getInstructionCountHelper()</h2>
+<a id="a51b9cedeb860025ec6725544f01d1816"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51b9cedeb860025ec6725544f01d1816">&#9670;&nbsp;</a></span>getInstructionCountHelper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6225,7 +6288,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em>, </td>
         </tr>
         <tr>
@@ -6427,8 +6490,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="aa7417258de60ffad7407d37c9c68a8bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7417258de60ffad7407d37c9c68a8bd">&#9670;&nbsp;</a></span>getLastInstruction() <span class="overload">[1/2]</span></h2>
+<a id="a2faada53a0a17f86fc99287ee25a3632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2faada53a0a17f86fc99287ee25a3632">&#9670;&nbsp;</a></span>getLastInstruction() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6442,7 +6505,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em> = <code>nullptr</code>, </td>
         </tr>
         <tr>
@@ -6472,8 +6535,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="aa2d031670612ef72c14523b0d42c3098"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2d031670612ef72c14523b0d42c3098">&#9670;&nbsp;</a></span>getLastInstruction() <span class="overload">[2/2]</span></h2>
+<a id="ac1aec7fc5929ebe6887dd8a731c50ea6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1aec7fc5929ebe6887dd8a731c50ea6">&#9670;&nbsp;</a></span>getLastInstruction() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6487,7 +6550,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em> = <code>nullptr</code>, </td>
         </tr>
         <tr>
@@ -6517,8 +6580,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a7ed5e29f0d45d9ed88de7793bfa43348"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ed5e29f0d45d9ed88de7793bfa43348">&#9670;&nbsp;</a></span>getLastInstructionHelper() <span class="overload">[1/2]</span></h2>
+<a id="ad8ee44b5dd6f1d46cc0521c3ebb69ed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8ee44b5dd6f1d46cc0521c3ebb69ed4">&#9670;&nbsp;</a></span>getLastInstructionHelper() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6532,7 +6595,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em>, </td>
         </tr>
         <tr>
@@ -6557,8 +6620,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a63fe8423d9625539221e2627b7f15ed4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63fe8423d9625539221e2627b7f15ed4">&#9670;&nbsp;</a></span>getLastInstructionHelper() <span class="overload">[2/2]</span></h2>
+<a id="a88d77b80f75399b67d44cf58edcd10f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88d77b80f75399b67d44cf58edcd10f0">&#9670;&nbsp;</a></span>getLastInstructionHelper() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6572,7 +6635,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;&#160;</td>
           <td class="paramname"><em>locate_filter</em>, </td>
         </tr>
         <tr>
@@ -7140,8 +7203,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a5f556710cc50c0e26ef0947b48fa2cdb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f556710cc50c0e26ef0947b48fa2cdb">&#9670;&nbsp;</a></span>init_times()</h2>
+<a id="acc14f693683e3fa96949f7273f42e49d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc14f693683e3fa96949f7273f42e49d">&#9670;&nbsp;</a></span>init_times()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7176,7 +7239,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>min_velocity</em>[]&#160;</td>
         </tr>
         <tr>
@@ -8580,8 +8643,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a021e462b7a4a10652f49589d709bf6c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a021e462b7a4a10652f49589d709bf6c4">&#9670;&nbsp;</a></span>saveInputs()</h2>
+<a id="a902cd4c3fb783d8f4fcabda2f054490c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a902cd4c3fb783d8f4fcabda2f054490c">&#9670;&nbsp;</a></span>saveInputs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8589,7 +8652,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">void tesseract_planning::saveInputs </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2ddc8ab5484c9af3ff7167200467bd3e">TaskInfo::Ptr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &amp;&#160;</td>
           <td class="paramname"><em>info</em>, </td>
         </tr>
         <tr>
@@ -8617,8 +8680,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ae74ef8c59952e273152e1e81679f6c63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae74ef8c59952e273152e1e81679f6c63">&#9670;&nbsp;</a></span>saveOutputs()</h2>
+<a id="ae75e0f05d9f60801aef29c9341c914d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae75e0f05d9f60801aef29c9341c914d0">&#9670;&nbsp;</a></span>saveOutputs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8626,7 +8689,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">void tesseract_planning::saveOutputs </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2ddc8ab5484c9af3ff7167200467bd3e">TaskInfo::Ptr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &amp;&#160;</td>
           <td class="paramname"><em>info</em>, </td>
         </tr>
         <tr>
@@ -8937,8 +9000,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a87e1a794cf84e24e7a9816580e617355"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87e1a794cf84e24e7a9816580e617355">&#9670;&nbsp;</a></span>toTrajArray()</h2>
+<a id="a4f6835aa6ca4417eaf83e7bf01710635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f6835aa6ca4417eaf83e7bf01710635">&#9670;&nbsp;</a></span>toTrajArray()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8952,7 +9015,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> &amp;&#160;</td>
           <td class="paramname"><em>extractor</em>&#160;</td>
         </tr>
         <tr>
@@ -9696,14 +9759,14 @@ template&lt;typename FloatType &gt; </div>
 <div class="ttc" id="aclasstesseract__planning_1_1Instruction_html"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.h:232</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1Instruction_html_aeab521a6324ea11932be55f13ce197f9"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html#aeab521a6324ea11932be55f13ce197f9">tesseract_planning::Instruction::as</a></div><div class="ttdeci">T &amp; as()</div><div class="ttdef"><b>Definition:</b> instruction.h:290</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a></div><div class="ttdef"><b>Definition:</b> move_instruction.h:53</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html_ad7ea2fb0fcfc4259ace79dafc6ac8179"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad7ea2fb0fcfc4259ace79dafc6ac8179">tesseract_planning::MoveInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> move_instruction.cpp:89</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html_ad7ea2fb0fcfc4259ace79dafc6ac8179"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad7ea2fb0fcfc4259ace79dafc6ac8179">tesseract_planning::MoveInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> move_instruction.cpp:92</div></div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 15 2021 21:14:50 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Sep 24 2021 01:39:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

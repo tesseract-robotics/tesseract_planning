@@ -142,17 +142,17 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ace8c85481552083472c05e92a9f395fd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#ace8c85481552083472c05e92a9f395fd">return_value</a></td></tr>
+<tr class="memitem:ace8c85481552083472c05e92a9f395fd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#ace8c85481552083472c05e92a9f395fd">return_value</a> { std::numeric_limits&lt;int&gt;::lowest() }</td></tr>
 <tr class="memdesc:ace8c85481552083472c05e92a9f395fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value returned from the Task on completion.  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#ace8c85481552083472c05e92a9f395fd">More...</a><br /></td></tr>
 <tr class="separator:ace8c85481552083472c05e92a9f395fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a251f4620809e8e67bd97a182527892d7"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a251f4620809e8e67bd97a182527892d7">unique_id</a></td></tr>
+<tr class="memitem:a251f4620809e8e67bd97a182527892d7"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a251f4620809e8e67bd97a182527892d7">unique_id</a> { 0 }</td></tr>
 <tr class="memdesc:a251f4620809e8e67bd97a182527892d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique ID generated for the Task by Taskflow.  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a251f4620809e8e67bd97a182527892d7">More...</a><br /></td></tr>
 <tr class="separator:a251f4620809e8e67bd97a182527892d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b96aab3e6bcf8593fdafda89476a999"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a9b96aab3e6bcf8593fdafda89476a999">task_name</a></td></tr>
 <tr class="separator:a9b96aab3e6bcf8593fdafda89476a999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9931c1dcc3e4f5ee9331067e1088915"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#aa9931c1dcc3e4f5ee9331067e1088915">message</a></td></tr>
 <tr class="separator:aa9931c1dcc3e4f5ee9331067e1088915"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d45557cd69a1d78308fd4c551b4b9d1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a1d45557cd69a1d78308fd4c551b4b9d1">elapsed_time</a></td></tr>
+<tr class="memitem:a1d45557cd69a1d78308fd4c551b4b9d1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a1d45557cd69a1d78308fd4c551b4b9d1">elapsed_time</a> { 0 }</td></tr>
 <tr class="memdesc:a1d45557cd69a1d78308fd4c551b4b9d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">elapsed_time Time spent in this task in seconds  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a1d45557cd69a1d78308fd4c551b4b9d1">More...</a><br /></td></tr>
 <tr class="separator:a1d45557cd69a1d78308fd4c551b4b9d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06d4291049c2db3f355c70ac9b0c1a85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a06d4291049c2db3f355c70ac9b0c1a85">instructions_input</a> { <a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html">NullInstruction</a>() }</td></tr>
@@ -502,7 +502,7 @@ template&lt;class Archive &gt; </div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double tesseract_planning::TaskInfo::elapsed_time</td>
+          <td class="memname">double tesseract_planning::TaskInfo::elapsed_time { 0 }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -612,7 +612,7 @@ template&lt;class Archive &gt; </div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int tesseract_planning::TaskInfo::return_value</td>
+          <td class="memname">int tesseract_planning::TaskInfo::return_value { std::numeric_limits&lt;int&gt;::lowest() }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -642,7 +642,7 @@ template&lt;class Archive &gt; </div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t tesseract_planning::TaskInfo::unique_id</td>
+          <td class="memname">std::size_t tesseract_planning::TaskInfo::unique_id { 0 }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -658,7 +658,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 15 2021 21:14:51 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Sep 24 2021 01:39:14 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
