@@ -9,7 +9,7 @@
 - git:
     local-name: trajopt
     uri: https://github.com/ros-industrial-consortium/trajopt_ros.git
-    version: 781cfbe7bad154c0c3e3207b9d0d7c712dd2e883
+    version: 83d18f8f3e0941abb83620cba93d0c67042d7cdd
 - git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
