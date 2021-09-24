@@ -169,9 +169,9 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
 
   // Get the results - This can likely be simplified if we get rid of the traj array
   Eigen::VectorXd x = problem->nlp->getVariableValues();
-  Eigen::Map<trajopt::TrajArray> trajectory(x.data(),
-                                            static_cast<Eigen::Index>(problem->vars.size()),
-                                            static_cast<Eigen::Index>(problem->vars[0]->GetValues().size()));
+  Eigen::Map<tesseract_common::TrajArray> trajectory(x.data(),
+                                                     static_cast<Eigen::Index>(problem->vars.size()),
+                                                     static_cast<Eigen::Index>(problem->vars[0]->GetValues().size()));
 
   // Enforce limits
   for (Eigen::Index i = 0; i < trajectory.rows(); i++)
