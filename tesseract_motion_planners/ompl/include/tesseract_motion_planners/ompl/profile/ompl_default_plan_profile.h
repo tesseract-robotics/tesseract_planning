@@ -159,8 +159,8 @@ protected:
   processStateValidator(OMPLProblem& prob,
                         const tesseract_environment::Environment::ConstPtr& env,
                         const tesseract_kinematics::ForwardKinematics::ConstPtr& kin) const;
-  void processMotionValidator(ompl::base::StateValidityCheckerPtr svc_without_collision,
-                              OMPLProblem& prob,
+  void processMotionValidator(OMPLProblem& prob,
+                              const ompl::base::StateValidityCheckerPtr& svc_without_collision,
                               const tesseract_environment::Environment::ConstPtr& env,
                               const tesseract_kinematics::ForwardKinematics::ConstPtr& kin) const;
   void processOptimizationObjective(OMPLProblem& prob) const;

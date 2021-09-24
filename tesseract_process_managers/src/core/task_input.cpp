@@ -187,13 +187,13 @@ void TaskInput::abort() { interface_->abort(); }
 
 void TaskInput::setStartInstruction(Instruction start)
 {
-  start_instruction_ = start;
+  start_instruction_ = std::move(start);
   start_instruction_indice_.clear();
 }
 
 void TaskInput::setStartInstruction(std::vector<std::size_t> start)
 {
-  start_instruction_indice_ = start;
+  start_instruction_indice_ = std::move(start);
   start_instruction_ = NullInstruction();
 }
 
@@ -227,13 +227,13 @@ Instruction TaskInput::getStartInstruction() const
 
 void TaskInput::setEndInstruction(Instruction end)
 {
-  end_instruction_ = end;
+  end_instruction_ = std::move(end);
   end_instruction_indice_.clear();
 }
 
 void TaskInput::setEndInstruction(std::vector<std::size_t> end)
 {
-  end_instruction_indice_ = end;
+  end_instruction_indice_ = std::move(end);
   end_instruction_ = NullInstruction();
 }
 

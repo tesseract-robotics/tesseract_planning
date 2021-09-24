@@ -94,7 +94,7 @@ public:
   bool operator!=(const PlanInstruction& rhs) const;
 
 private:
-  PlanInstructionType plan_type_;
+  PlanInstructionType plan_type_{ PlanInstructionType::START };
 
   /** @brief The assigned waypoint (Cartesian or Joint) */
   Waypoint waypoint_{ NullWaypoint() };

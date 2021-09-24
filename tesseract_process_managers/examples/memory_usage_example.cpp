@@ -111,8 +111,8 @@ void process_mem_usage(double& vm_usage, double& resident_set)
 
   // the two fields we want
   //
-  unsigned long vsize;
-  long rss;
+  unsigned long vsize{ 0 };
+  long rss{ 0 };
 
   stat_stream >> pid >> comm >> state >> ppid >> pgrp >> session >> tty_nr >> tpgid >> flags >> minflt >> cminflt >>
       majflt >> cmajflt >> utime >> stime >> cutime >> cstime >> priority >> nice >> O >> itrealvalue >> starttime >>
@@ -158,7 +158,7 @@ int main()
   using Clock = std::chrono::high_resolution_clock;
   auto t1 = Clock::now();
   auto t2 = Clock::now();
-  double vm, rss;
+  double vm{ NAN }, rss{ NAN };
   while (std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count() < 3600)
   {
     ProcessPlanningRequest request1 = getPlanningRequest();

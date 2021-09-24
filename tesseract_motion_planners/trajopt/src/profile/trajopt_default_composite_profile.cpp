@@ -57,11 +57,11 @@ TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const tinyxml2::X
   const tinyxml2::XMLElement* longest_valid_seg_length_element = xml_element.FirstChildElement("LongestValidSegmentLeng"
                                                                                                "th");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (contact_test_type_element)
+  if (contact_test_type_element != nullptr)
   {
-    int type = static_cast<int>(tesseract_collision::ContactTestType::ALL);
+    auto type = static_cast<int>(tesseract_collision::ContactTestType::ALL);
     status = contact_test_type_element->QueryIntAttribute("type", &type);
     if (status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("TrajoptCompositeProfile: Error parsing ContactTest type attribute.");
@@ -69,47 +69,47 @@ TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const tinyxml2::X
     contact_test_type = static_cast<tesseract_collision::ContactTestType>(type);
   }
 
-  if (collision_cost_config_element)
+  if (collision_cost_config_element != nullptr)
   {
     collision_cost_config = CollisionCostConfig(*collision_cost_config_element);
   }
 
-  if (collision_cnt_config_element)
+  if (collision_cnt_config_element != nullptr)
   {
     collision_constraint_config = CollisionConstraintConfig(*collision_cnt_config_element);
   }
 
   std::size_t coeff_length = 0;
-  if (smooth_velocities_element)
+  if (smooth_velocities_element != nullptr)
   {
     TrajOptDefaultCompositeProfile::smoothMotionTerms(
         *smooth_velocities_element, smooth_velocities, velocity_coeff, coeff_length);
   }
 
-  if (smooth_accelerations_element)
+  if (smooth_accelerations_element != nullptr)
   {
     TrajOptDefaultCompositeProfile::smoothMotionTerms(
         *smooth_accelerations_element, smooth_accelerations, acceleration_coeff, coeff_length);
   }
 
-  if (smooth_jerks_element)
+  if (smooth_jerks_element != nullptr)
   {
     TrajOptDefaultCompositeProfile::smoothMotionTerms(*smooth_jerks_element, smooth_jerks, jerk_coeff, coeff_length);
   }
 
-  if (avoid_singularities_element)
+  if (avoid_singularities_element != nullptr)
   {
     const tinyxml2::XMLElement* enabled_element = avoid_singularities_element->FirstChildElement("Enabled");
     const tinyxml2::XMLElement* coeff_element = avoid_singularities_element->FirstChildElement("Coefficient");
 
-    if (!enabled_element)
+    if (enabled_element == nullptr)
       throw std::runtime_error("TrajoptCompositeProfile: Avoid singularity element must have Enabled element.");
 
     status = enabled_element->QueryBoolText(&avoid_singularity);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("TrajoptCompositeProfile: Error parsing Enabled string");
 
-    if (coeff_element)
+    if (coeff_element != nullptr)
     {
       std::string coeff_string;
       status = tesseract_common::QueryStringText(coeff_element, coeff_string);
@@ -123,7 +123,7 @@ TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const tinyxml2::X
     }
   }
 
-  if (longest_valid_seg_fraction_element)
+  if (longest_valid_seg_fraction_element != nullptr)
   {
     std::string long_valid_seg_frac_string;
     status = tesseract_common::QueryStringText(longest_valid_seg_fraction_element, long_valid_seg_frac_string);
@@ -136,7 +136,7 @@ TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const tinyxml2::X
     tesseract_common::toNumeric<double>(long_valid_seg_frac_string, longest_valid_segment_fraction);
   }
 
-  if (longest_valid_seg_length_element)
+  if (longest_valid_seg_length_element != nullptr)
   {
     std::string long_valid_seg_len_string;
     status = tesseract_common::QueryStringText(longest_valid_seg_length_element, long_valid_seg_len_string);
@@ -158,14 +158,14 @@ void TrajOptDefaultCompositeProfile::smoothMotionTerms(const tinyxml2::XMLElemen
   const tinyxml2::XMLElement* enabled_element = xml_element.FirstChildElement("Enabled");
   const tinyxml2::XMLElement* coeff_element = xml_element.FirstChildElement("Coefficients");
 
-  if (!enabled_element)
+  if (enabled_element == nullptr)
     throw std::runtime_error("TrajoptCompositeProfile: All motion smoothing types must have Enabled element.");
 
   tinyxml2::XMLError status = enabled_element->QueryBoolText(&enabled);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("TrajoptCompositeProfile: Error parsing Enabled string");
 
-  if (coeff_element)
+  if (coeff_element != nullptr)
   {
     std::vector<std::string> coeff_tokens;
     std::string coeff_string;

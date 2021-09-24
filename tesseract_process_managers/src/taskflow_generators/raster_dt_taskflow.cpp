@@ -48,7 +48,7 @@ RasterDTTaskflow::RasterDTTaskflow(TaskflowGenerator::UPtr freespace_taskflow_ge
   : freespace_taskflow_generator_(std::move(freespace_taskflow_generator))
   , transition_taskflow_generator_(std::move(transition_taskflow_generator))
   , raster_taskflow_generator_(std::move(raster_taskflow_generator))
-  , name_(name)
+  , name_(std::move(name))
 {
 }
 
@@ -181,7 +181,7 @@ TaskflowContainer RasterDTTaskflow::generateTaskflow(TaskInput input, TaskflowVo
   return container;
 }
 
-bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // -------------
   // Check Input

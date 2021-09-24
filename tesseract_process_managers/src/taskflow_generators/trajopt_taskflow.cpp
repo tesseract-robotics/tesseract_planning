@@ -46,7 +46,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-TrajOptTaskflow::TrajOptTaskflow(TrajOptTaskflowParams params, std::string name) : name_(name), params_(params) {}
+TrajOptTaskflow::TrajOptTaskflow(TrajOptTaskflowParams params, std::string name)
+  : name_(std::move(name)), params_(params)
+{
+}
 
 const std::string& TrajOptTaskflow::getName() const { return name_; }
 
@@ -176,7 +179,7 @@ TaskflowContainer TrajOptTaskflow::generateTaskflow(TaskInput input, TaskflowVoi
   return container;
 }
 
-bool TrajOptTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool TrajOptTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // Check Input
   if (!input.env)

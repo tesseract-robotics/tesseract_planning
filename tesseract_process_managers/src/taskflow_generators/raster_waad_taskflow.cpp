@@ -48,7 +48,7 @@ RasterWAADTaskflow::RasterWAADTaskflow(TaskflowGenerator::UPtr freespace_taskflo
   : freespace_taskflow_generator_(std::move(freespace_taskflow_generator))
   , transition_taskflow_generator_(std::move(transition_taskflow_generator))
   , raster_taskflow_generator_(std::move(raster_taskflow_generator))
-  , name_(name)
+  , name_(std::move(name))
 {
 }
 
@@ -75,7 +75,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
     // Get the last plan instruction of the approach
     assert(isCompositeInstruction(*(input[idx][0].getInstruction())));
     const auto& aci = input[idx][0].getInstruction()->as<CompositeInstruction>();
-    auto* ali = getLastPlanInstruction(aci);
+    const auto* ali = getLastPlanInstruction(aci);
     assert(ali != nullptr);
 
     // Create the process taskflow
@@ -116,7 +116,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
     {
       assert(isCompositeInstruction(*(input[idx - 1].getInstruction())));
       const auto& tci = input[idx - 1].getInstruction()->as<CompositeInstruction>();
-      auto* li = getLastPlanInstruction(tci);
+      const auto* li = getLastPlanInstruction(tci);
       assert(li != nullptr);
       start_instruction = *li;
     }
@@ -199,7 +199,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
   return container;
 }
 
-bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // -------------
   // Check Input

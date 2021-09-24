@@ -47,7 +47,7 @@ TrajOptDefaultPlanProfile trajOptPlanParser(const tinyxml2::XMLElement& xml_elem
 
 TrajOptDefaultPlanProfile trajOptPlanFromXMLElement(const tinyxml2::XMLElement* profile_xml)
 {
-  std::array<int, 3> version;
+  std::array<int, 3> version{ 0, 0, 0 };
   std::string version_string;
   tinyxml2::XMLError status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
@@ -73,10 +73,10 @@ TrajOptDefaultPlanProfile trajOptPlanFromXMLElement(const tinyxml2::XMLElement* 
   }
 
   const tinyxml2::XMLElement* planner_xml = profile_xml->FirstChildElement("Planner");
-  if (!planner_xml)
+  if (planner_xml == nullptr)
     throw std::runtime_error("fromXML: Could not find the 'Planner' element in the xml file.");
 
-  int type;
+  int type{ 0 };
   status = planner_xml->QueryIntAttribute("type", &type);
   if (status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("fromXML: Failed to parse instruction type attribute.");
@@ -87,7 +87,7 @@ TrajOptDefaultPlanProfile trajOptPlanFromXMLElement(const tinyxml2::XMLElement* 
 TrajOptDefaultPlanProfile trajOptPlanFromXMLDocument(const tinyxml2::XMLDocument& xml_doc)
 {
   const tinyxml2::XMLElement* planner_xml = xml_doc.FirstChildElement("Profile");
-  if (!planner_xml)
+  if (planner_xml == nullptr)
     throw std::runtime_error("Could not find the 'Profile' element in the xml file");
 
   return trajOptPlanFromXMLElement(planner_xml);
@@ -131,7 +131,7 @@ TrajOptDefaultCompositeProfile trajOptCompositeParser(const tinyxml2::XMLElement
 
 TrajOptDefaultCompositeProfile trajOptCompositeFromXMLElement(const tinyxml2::XMLElement* profile_xml)
 {
-  std::array<int, 3> version;
+  std::array<int, 3> version{ 0, 0, 0 };
   std::string version_string;
   tinyxml2::XMLError status = tesseract_common::QueryStringAttribute(profile_xml, "version", version_string);
   if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
@@ -157,10 +157,10 @@ TrajOptDefaultCompositeProfile trajOptCompositeFromXMLElement(const tinyxml2::XM
   }
 
   const tinyxml2::XMLElement* planner_xml = profile_xml->FirstChildElement("Planner");
-  if (!planner_xml)
+  if (planner_xml == nullptr)
     throw std::runtime_error("fromXML: Could not find the 'Planner' element in the xml file.");
 
-  int type;
+  int type{ 0 };
   status = planner_xml->QueryIntAttribute("type", &type);
   if (status != tinyxml2::XML_SUCCESS)
     throw std::runtime_error("fromXML: Failed to parse instruction type attribute.");
@@ -171,7 +171,7 @@ TrajOptDefaultCompositeProfile trajOptCompositeFromXMLElement(const tinyxml2::XM
 TrajOptDefaultCompositeProfile trajOptCompositeFromXMLDocument(const tinyxml2::XMLDocument& xml_doc)
 {
   const tinyxml2::XMLElement* planner_xml = xml_doc.FirstChildElement("Profile");
-  if (!planner_xml)
+  if (planner_xml == nullptr)
     throw std::runtime_error("Could not find the 'Profile' element in the xml file");
 
   return trajOptCompositeFromXMLElement(planner_xml);

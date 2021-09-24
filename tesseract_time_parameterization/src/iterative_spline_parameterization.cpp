@@ -47,15 +47,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-static void fit_cubic_spline(const long n, const double dt[], const double x[], double x1[], double x2[]);
-static void adjust_two_positions(const long n,
-                                 const double dt[],
-                                 double x[],
-                                 double x1[],
-                                 double x2[],
-                                 const double x2_i,
-                                 const double x2_f);
-static void init_times(long n, double dt[], const double x[], const double max_velocity[], const double min_velocity[]);
+static void fit_cubic_spline(long n, const double dt[], const double x[], double x1[], double x2[]);  // NOLINT
+static void adjust_two_positions(long n,
+                                 const double dt[],  // NOLINT
+                                 double x[],         // NOLINT
+                                 double x1[],        // NOLINT
+                                 double x2[],        // NOLINT
+                                 double x2_i,        // NOLINT
+                                 double x2_f);       // NOLINT
+static void
+init_times(long n, double dt[], const double x[], const double max_velocity[], double min_velocity[]);  // NOLINT
 // static int fit_spline_and_adjust_times(const int n,
 //                                       double dt[],
 //                                       const double x[],
@@ -67,14 +68,14 @@ static void init_times(long n, double dt[], const double x[], const double max_v
 //                                       const double min_acceleration,
 //                                       const double tfactor);
 static double global_adjustment_factor(long n,
-                                       double dt[],
-                                       const double x[],
-                                       double x1[],
-                                       double x2[],
-                                       const double max_velocity[],
-                                       const double min_velocity[],
-                                       const double max_acceleration[],
-                                       const double min_acceleration[]);
+                                       double dt[],                       // NOLINT
+                                       const double x[],                  // NOLINT
+                                       double x1[],                       // NOLINT
+                                       double x2[],                       // NOLINT
+                                       const double max_velocity[],       // NOLINT
+                                       const double min_velocity[],       // NOLINT
+                                       const double max_acceleration[],   // NOLINT
+                                       const double min_acceleration[]);  // NOLINT
 
 // The path of a single joint: positions, velocities, and accelerations
 struct SingleJointTrajectory
@@ -151,7 +152,7 @@ bool IterativeSplineParameterization::compute(
 
   Eigen::VectorXd velocity_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
   Eigen::VectorXd acceleration_scaling_factor = Eigen::VectorXd::Ones(trajectory.size());
-  std::size_t num_points = static_cast<std::size_t>(trajectory.size());
+  auto num_points = static_cast<std::size_t>(trajectory.size());
 
   if (max_velocity.size() != trajectory.dof() || max_acceleration.size() != trajectory.dof())
     return false;
@@ -361,22 +362,24 @@ bool IterativeSplineParameterization::compute(
                               t2[j].velocities_[0]);
       return false;
     }
-    else if (t2[j].velocities_[num_points - 1] > t2[j].max_velocity_[num_points - 1] ||
-             t2[j].velocities_[num_points - 1] < t2[j].min_velocity_[num_points - 1])
+
+    if (t2[j].velocities_[num_points - 1] > t2[j].max_velocity_[num_points - 1] ||
+        t2[j].velocities_[num_points - 1] < t2[j].min_velocity_[num_points - 1])
     {
       CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Final velocity %f out of bounds.",
                               t2[j].velocities_[num_points - 1]);
       return false;
     }
-    else if (t2[j].accelerations_[0] > t2[j].max_acceleration_[0] ||
-             t2[j].accelerations_[0] < t2[j].min_acceleration_[0])
+
+    if (t2[j].accelerations_[0] > t2[j].max_acceleration_[0] || t2[j].accelerations_[0] < t2[j].min_acceleration_[0])
     {
       CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Initial acceleration %f out of bounds\n",
                               t2[j].accelerations_[0]);
       return false;
     }
-    else if (t2[j].accelerations_[num_points - 1] > t2[j].max_acceleration_[num_points - 1] ||
-             t2[j].accelerations_[num_points - 1] < t2[j].min_acceleration_[num_points - 1])
+
+    if (t2[j].accelerations_[num_points - 1] > t2[j].max_acceleration_[num_points - 1] ||
+        t2[j].accelerations_[num_points - 1] < t2[j].min_acceleration_[num_points - 1])
     {
       CONSOLE_BRIDGE_logError("iterative_spline_parameterization: Final acceleration %f out of bounds\n",
                               t2[j].accelerations_[num_points - 1]);
@@ -396,7 +399,7 @@ bool IterativeSplineParameterization::compute(
                &t2[j].min_velocity_[0]);
 
   // Stretch intervals until close to the bounds
-  while (1)
+  while (true)
   {
     int loop = 0;
 
@@ -513,10 +516,10 @@ bool IterativeSplineParameterization::compute(
   x2 contains the 2nd derivative (accelerations)     (size=n)
   x1 and x2 are filled in by the algorithm.
 */
-
+// NOLINTNEXTLINE
 static void fit_cubic_spline(const long n, const double dt[], const double x[], double x1[], double x2[])
 {
-  long i;
+  long i{ 0 };
   const double x1_i = x1[0], x1_f = x1[n - 1];
 
   // Tridiagonal alg - forward sweep
@@ -561,10 +564,10 @@ static void fit_cubic_spline(const long n, const double dt[], const double x[], 
 */
 
 static void adjust_two_positions(const long n,
-                                 const double dt[],
-                                 double x[],
-                                 double x1[],
-                                 double x2[],
+                                 const double dt[],  // NOLINT
+                                 double x[],         // NOLINT
+                                 double x1[],        // NOLINT
+                                 double x2[],        // NOLINT
                                  const double x2_i,
                                  const double x2_f)
 {
@@ -594,12 +597,12 @@ static void adjust_two_positions(const long n,
   Find time required to go max velocity on each segment.
   Increase a segment's time interval if the current time isn't long enough.
 */
-
-static void init_times(long n, double dt[], const double x[], const double max_velocity[], const double min_velocity[])
+// NOLINTNEXTLINE
+static void init_times(long n, double dt[], const double x[], const double max_velocity[], double min_velocity[])
 {
   for (long i = 0; i < n - 1; i++)
   {
-    double time;
+    double time{ NAN };
     double dx = x[i + 1] - x[i];
     if (dx >= 0.0)
       time = (dx / max_velocity[i]);
@@ -681,14 +684,14 @@ static void init_times(long n, double dt[], const double x[], const double max_v
 // Assumes that the spline is already fit
 // (fit_cubic_spline must have been called before this).
 static double global_adjustment_factor(long n,
-                                       double /*dt*/[],
-                                       const double /*x*/[],
-                                       double x1[],
-                                       double x2[],
-                                       const double max_velocity[],
-                                       const double min_velocity[],
-                                       const double max_acceleration[],
-                                       const double min_acceleration[])
+                                       double /*dt*/[],                  // NOLINT
+                                       const double /*x*/[],             // NOLINT
+                                       double x1[],                      // NOLINT
+                                       double x2[],                      // NOLINT
+                                       const double max_velocity[],      // NOLINT
+                                       const double min_velocity[],      // NOLINT
+                                       const double max_acceleration[],  // NOLINT
+                                       const double min_acceleration[])  // NOLINT
 {
   double tfactor2 = 1.00;
 
@@ -696,7 +699,7 @@ static double global_adjustment_factor(long n,
 
   for (long i = 0; i < n; i++)
   {
-    double tfactor;
+    double tfactor{ NAN };
     tfactor = x1[i] / max_velocity[i];
     if (tfactor2 < tfactor)
       tfactor2 = tfactor;
@@ -730,16 +733,15 @@ void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
   double gtfactor = 1.0;
   for (std::size_t j = 0; j < static_cast<std::size_t>(num_joints); j++)
   {
-    double tfactor;
-    tfactor = global_adjustment_factor(num_points,
-                                       &time_diff[0],
-                                       &t2[j].positions_[0],
-                                       &t2[j].velocities_[0],
-                                       &t2[j].accelerations_[0],
-                                       &t2[j].max_velocity_[0],
-                                       &t2[j].min_velocity_[0],
-                                       &t2[j].max_acceleration_[0],
-                                       &t2[j].min_acceleration_[0]);
+    double tfactor = global_adjustment_factor(num_points,
+                                              &time_diff[0],
+                                              &t2[j].positions_[0],
+                                              &t2[j].velocities_[0],
+                                              &t2[j].accelerations_[0],
+                                              &t2[j].max_velocity_[0],
+                                              &t2[j].min_velocity_[0],
+                                              &t2[j].max_acceleration_[0],
+                                              &t2[j].min_acceleration_[0]);
     if (tfactor > gtfactor)
       gtfactor = tfactor;
   }

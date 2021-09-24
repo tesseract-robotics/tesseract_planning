@@ -55,7 +55,7 @@ ProcessPlanningServer::ProcessPlanningServer(EnvironmentCache::Ptr cache, size_t
 ProcessPlanningServer::ProcessPlanningServer(tesseract_environment::Environment::ConstPtr environment,
                                              int cache_size,
                                              size_t n)
-  : cache_(std::make_shared<ProcessEnvironmentCache>(environment, cache_size))
+  : cache_(std::make_shared<ProcessEnvironmentCache>(std::move(environment), cache_size))
   , executor_(std::make_shared<tf::Executor>(n))
 {
   /** @todo Need to figure out if these can associated with an individual run versus global */
@@ -73,6 +73,7 @@ void ProcessPlanningServer::registerProcessPlanner(const std::string& name, Task
 void ProcessPlanningServer::loadDefaultProcessPlanners()
 {
   registerProcessPlanner(process_planner_names::TRAJOPT_PLANNER_NAME, createTrajOptGenerator());
+  registerProcessPlanner(process_planner_names::TRAJOPT_IFOPT_PLANNER_NAME, createTrajOptIfoptGenerator());
   registerProcessPlanner(process_planner_names::OMPL_PLANNER_NAME, createOMPLGenerator());
   registerProcessPlanner(process_planner_names::DESCARTES_PLANNER_NAME, createDescartesGenerator());
   registerProcessPlanner(process_planner_names::CARTESIAN_PLANNER_NAME, createCartesianGenerator());
@@ -182,7 +183,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   return response;
 }
 
-std::future<void> ProcessPlanningServer::run(tf::Taskflow& taskflow) { return executor_->run(taskflow); }
+tf::Future<void> ProcessPlanningServer::run(tf::Taskflow& taskflow) { return executor_->run(taskflow); }
 
 void ProcessPlanningServer::waitForAll() { executor_->wait_for_all(); }
 

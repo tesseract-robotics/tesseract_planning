@@ -33,9 +33,9 @@ tesseract_common::VectorIsometry3d sampleToolAxis(const Eigen::Isometry3d& tool_
                                                   const Eigen::Vector3d& axis)
 {
   tesseract_common::VectorIsometry3d samples;
-  int cnt = static_cast<int>(std::ceil(2.0 * M_PI / resolution)) + 1;
+  auto cnt = static_cast<int>(std::ceil(2.0 * M_PI / resolution)) + 1;
   Eigen::VectorXd angles = Eigen::VectorXd::LinSpaced(cnt, -M_PI, M_PI);
-  samples.reserve(static_cast<size_t>(angles.size()) - 1ul);
+  samples.reserve(static_cast<size_t>(angles.size()) - 1UL);
   for (long i = 0; i < static_cast<long>(angles.size() - 1); ++i)
   {
     Eigen::Isometry3d p = tool_pose * Eigen::AngleAxisd(angles(i), axis);

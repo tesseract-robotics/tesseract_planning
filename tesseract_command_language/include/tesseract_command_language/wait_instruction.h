@@ -119,7 +119,7 @@ public:
 private:
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Wait Instruction" };
-  WaitInstructionType wait_type_;
+  WaitInstructionType wait_type_{ WaitInstructionType::TIME };
   double wait_time_{ 0 };
   int wait_io_{ -1 };
 

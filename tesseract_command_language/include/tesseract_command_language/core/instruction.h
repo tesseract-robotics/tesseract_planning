@@ -184,7 +184,7 @@ struct InstructionInner final : InstructionInnerBase
     // Compare class types before casting the incoming object to the T type
     if (rhs.getType() == getType())
     {
-      auto instruction = static_cast<const T*>(rhs.recover());
+      const auto* instruction = static_cast<const T*>(rhs.recover());
       return instruction_ == *instruction;
     }
     return false;
@@ -292,7 +292,7 @@ public:
     if (getType() != typeid(T))
       throw std::bad_cast();
 
-    auto p = static_cast<uncvref_t<T>*>(instruction_->recover());
+    auto* p = static_cast<uncvref_t<T>*>(instruction_->recover());
     return *p;
   }
 
@@ -302,7 +302,7 @@ public:
     if (getType() != typeid(T))
       throw std::bad_cast();
 
-    auto p = static_cast<const uncvref_t<T>*>(instruction_->recover());
+    const auto* p = static_cast<const uncvref_t<T>*>(instruction_->recover());
     return *p;
   }
 

@@ -47,7 +47,7 @@ public:
   TrajOptIfoptDefaultPlanProfile() = default;
   TrajOptIfoptDefaultPlanProfile(const tinyxml2::XMLElement& xml_element);
 
-  Eigen::VectorXd cartesian_coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
+  Eigen::VectorXd cartesian_coeff{ Eigen::VectorXd::Constant(6, 1, 5) };
   Eigen::VectorXd joint_coeff{ Eigen::VectorXd::Constant(1, 1, 5) };
   TrajOptIfoptTermType term_type{ TrajOptIfoptTermType::CONSTRAINT };
 

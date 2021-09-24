@@ -96,7 +96,7 @@ public:
                                      PlannerResponse& response,
                                      bool verbose = false) const override;
 
-  bool checkUserInput(const PlannerRequest& request) const;
+  static bool checkUserInput(const PlannerRequest& request);
 
   bool terminate() override;
 

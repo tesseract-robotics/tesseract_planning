@@ -38,15 +38,18 @@ PlanInstruction::PlanInstruction(Waypoint waypoint,
                                  PlanInstructionType type,
                                  std::string profile,
                                  ManipulatorInfo manipulator_info)
-  : plan_type_(type), waypoint_(std::move(waypoint)), profile_(std::move(profile)), manipulator_info_(manipulator_info)
+  : plan_type_(type)
+  , waypoint_(std::move(waypoint))
+  , profile_(std::move(profile))
+  , manipulator_info_(std::move(manipulator_info))
 {
 }
 
-void PlanInstruction::setWaypoint(Waypoint waypoint) { waypoint_ = waypoint; }
+void PlanInstruction::setWaypoint(Waypoint waypoint) { waypoint_ = std::move(waypoint); }
 Waypoint& PlanInstruction::getWaypoint() { return waypoint_; }
 const Waypoint& PlanInstruction::getWaypoint() const { return waypoint_; }
 
-void PlanInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_info_ = info; }
+void PlanInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_info_ = std::move(info); }
 const ManipulatorInfo& PlanInstruction::getManipulatorInfo() const { return manipulator_info_; }
 ManipulatorInfo& PlanInstruction::getManipulatorInfo() { return manipulator_info_; }
 

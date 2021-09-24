@@ -17,17 +17,27 @@ find_package(Threads REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
-  set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${console_bridge_INCLUDE_DIRS})
+  set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
+                                                                  ${console_bridge_INCLUDE_DIRS})
   set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_LINK_LIBRARIES ${console_bridge_LIBRARIES})
 else()
   get_target_property(CHECK_INCLUDE_DIRECTORIES console_bridge::console_bridge INTERFACE_INCLUDE_DIRECTORIES)
-  if (NOT ${CHECK_INCLUDE_DIRECTORIES})
-    set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${console_bridge_INCLUDE_DIRS})
+  if(NOT ${CHECK_INCLUDE_DIRECTORIES})
+    set_target_properties(console_bridge::console_bridge PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
+                                                                    ${console_bridge_INCLUDE_DIRS})
   endif()
 endif()
 
 initialize_code_coverage()
-set(COVERAGE_EXCLUDE /usr/* /opt/* ${CMAKE_CURRENT_LIST_DIR}/test/* /*/gtest/* /*/include/descartes_light/* /*/include/opw_kinematics/* /*/include/trajopt/* /*/include/trajopt_sco/*)
+set(COVERAGE_EXCLUDE
+    /usr/*
+    /opt/*
+    ${CMAKE_CURRENT_LIST_DIR}/test/*
+    /*/gtest/*
+    /*/include/descartes_light/*
+    /*/include/opw_kinematics/*
+    /*/include/trajopt/*
+    /*/include/trajopt_sco/*)
 add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 
 # Load variable for clang tidy args, compiler options and cxx version
@@ -67,7 +77,7 @@ endif()
 add_subdirectory(examples)
 
 # Tests
-if (TESSERACT_ENABLE_TESTING)
+if(TESSERACT_ENABLE_TESTING)
   enable_testing()
   add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
   add_subdirectory(test)

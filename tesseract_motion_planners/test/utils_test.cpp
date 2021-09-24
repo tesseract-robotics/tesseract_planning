@@ -89,9 +89,9 @@ TEST_F(TesseractPlanningUtilsUnit, GenerateSeed)  // NOLINT
   EXPECT_TRUE(true);
 }
 
-TEST_F(TesseractPlanningUtilsUnit, GetProfileStringTest)
+TEST_F(TesseractPlanningUtilsUnit, GetProfileStringTest)  // NOLINT
 {
-  std::string input_profile = "";
+  std::string input_profile;
   std::string planner_name = "Planner_1";
   std::string default_planner = "TEST_DEFAULT";
 

@@ -153,10 +153,9 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   return response.status;
 }
 
-PlanInstruction
-SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
-                                         const tesseract_environment::EnvState::ConstPtr& current_state,
-                                         const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin) const
+PlanInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
+                                                         const tesseract_environment::EnvState::ConstPtr& current_state,
+                                                         const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin)
 {
   // Create start instruction
   Waypoint start_waypoint{ NullWaypoint() };
@@ -248,7 +247,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
   return seed;
 }
 
-bool SimpleMotionPlanner::checkUserInput(const PlannerRequest& request) const
+bool SimpleMotionPlanner::checkUserInput(const PlannerRequest& request)
 {
   // Check that parameters are valid
   if (request.env == nullptr)

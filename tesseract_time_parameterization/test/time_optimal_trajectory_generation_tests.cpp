@@ -51,7 +51,7 @@ using tesseract_planning::TrajectoryContainer;
 using tesseract_planning::totg::Path;
 using tesseract_planning::totg::Trajectory;
 
-TEST(time_optimal_trajectory_generation, test1)
+TEST(time_optimal_trajectory_generation, test1)  // NOLINT
 {
   Eigen::VectorXd waypoint(4);
   std::list<Eigen::VectorXd> waypoints;
@@ -83,7 +83,7 @@ TEST(time_optimal_trajectory_generation, test1)
   EXPECT_DOUBLE_EQ(0.0, trajectory.getPosition(trajectory.getDuration())[3]);
 }
 
-TEST(time_optimal_trajectory_generation, test2)
+TEST(time_optimal_trajectory_generation, test2)  // NOLINT
 {
   Eigen::VectorXd waypoint(4);
   std::list<Eigen::VectorXd> waypoints;
@@ -121,7 +121,7 @@ TEST(time_optimal_trajectory_generation, test2)
   EXPECT_DOUBLE_EQ(90.0, trajectory.getPosition(trajectory.getDuration())[3]);
 }
 
-TEST(time_optimal_trajectory_generation, test3)
+TEST(time_optimal_trajectory_generation, test3)  // NOLINT
 {
   Eigen::VectorXd waypoint(4);
   std::list<Eigen::VectorXd> waypoints;
@@ -160,7 +160,7 @@ TEST(time_optimal_trajectory_generation, test3)
 }
 
 // Test that totg algorithm doesn't give large acceleration
-TEST(time_optimal_trajectory_generation, testLargeAccel)
+TEST(time_optimal_trajectory_generation, testLargeAccel)  // NOLINT
 {
   double path_tolerance = 0.1;
   double resample_dt = 0.1;
@@ -223,7 +223,7 @@ TEST(time_optimal_trajectory_generation, testLargeAccel)
 
   ASSERT_TRUE(parameterized.isValid());
 
-  size_t sample_count = static_cast<size_t>(std::ceil(parameterized.getDuration() / resample_dt));
+  auto sample_count = static_cast<size_t>(std::ceil(parameterized.getDuration() / resample_dt));
   for (size_t sample = 0; sample <= sample_count; ++sample)
   {
     // always sample the end of the trajectory as well
@@ -262,7 +262,7 @@ TEST(time_optimal_trajectory_generation, testLargeAccel)
 //  EXPECT_TRUE(trajectory.isValid());
 //}
 
-TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)
+TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLINT
 {
   tesseract_planning::CompositeInstruction program;
   Eigen::VectorXd waypoint(6);
@@ -349,7 +349,7 @@ void runTrajectoryContainerInterfaceTest(double path_tolerance)
   ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
 }
 
-TEST(time_optimal_trajectory_generation, testTrajectoryContainerInterface)
+TEST(time_optimal_trajectory_generation, testTrajectoryContainerInterface)  // NOLINT
 {
   runTrajectoryContainerInterfaceTest(0.001);
   runTrajectoryContainerInterfaceTest(0.01);

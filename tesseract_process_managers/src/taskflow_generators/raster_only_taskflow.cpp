@@ -46,7 +46,7 @@ RasterOnlyTaskflow::RasterOnlyTaskflow(TaskflowGenerator::UPtr transition_taskfl
                                        std::string name)
   : transition_taskflow_generator_(std::move(transition_taskflow_generator))
   , raster_taskflow_generator_(std::move(raster_taskflow_generator))
-  , name_(name)
+  , name_(std::move(name))
 {
 }
 
@@ -84,7 +84,7 @@ TaskflowContainer RasterOnlyTaskflow::generateTaskflow(TaskInput input, Taskflow
       const Instruction* pre_input_instruction = pre_input.getInstruction();
       assert(isCompositeInstruction(*pre_input_instruction));
       const auto& tci = pre_input_instruction->as<CompositeInstruction>();
-      auto* li = getLastPlanInstruction(tci);
+      const auto* li = getLastPlanInstruction(tci);
       assert(li != nullptr);
       start_instruction = *li;
     }
@@ -138,7 +138,7 @@ TaskflowContainer RasterOnlyTaskflow::generateTaskflow(TaskInput input, Taskflow
   return container;
 }
 
-bool RasterOnlyTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool RasterOnlyTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // -------------
   // Check Input
@@ -166,10 +166,10 @@ bool RasterOnlyTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
   }
 
   // Check rasters and transitions
-  for (std::size_t index = 0; index < composite.size(); index++)
+  for (const auto& c : composite)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(composite.at(index)))
+    if (!isCompositeInstruction(c))
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;

@@ -43,7 +43,7 @@ struct TaskInfoStatistics
   std::string task_name;
   void insert(const std::vector<TaskInfo>& task_info_vec);
 
-  int occurances;
+  int occurances{ 0 };
   double min_time{ std::numeric_limits<double>::max() };
   double max_time{ 0 };
   double avg_time{ 0 };

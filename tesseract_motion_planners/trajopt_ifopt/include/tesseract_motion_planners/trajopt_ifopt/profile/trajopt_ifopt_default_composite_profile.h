@@ -32,7 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 #include <Eigen/Geometry>
 #include <Eigen/Core>
-#include <trajopt_ifopt/constraints/collision_evaluators.h>
+#include <trajopt_ifopt/constraints/collision/discrete_collision_evaluators.h>
+#include <trajopt_ifopt/constraints/collision/continuous_collision_evaluators.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
@@ -46,10 +47,12 @@ public:
   TrajOptIfoptDefaultCompositeProfile(const tinyxml2::XMLElement& xml_element);
 
   /** @brief Configuration info for collisions that are modeled as costs */
-  trajopt::TrajOptCollisionConfig::Ptr collision_cost_config{ std::make_shared<trajopt::TrajOptCollisionConfig>() };
+  trajopt_ifopt::TrajOptCollisionConfig::Ptr collision_cost_config{
+    std::make_shared<trajopt_ifopt::TrajOptCollisionConfig>()
+  };
   /** @brief Configuration info for collisions that are modeled as constraints */
-  trajopt::TrajOptCollisionConfig::Ptr collision_constraint_config{
-    std::make_shared<trajopt::TrajOptCollisionConfig>()
+  trajopt_ifopt::TrajOptCollisionConfig::Ptr collision_constraint_config{
+    std::make_shared<trajopt_ifopt::TrajOptCollisionConfig>()
   };
   /** @brief If true, a joint velocity cost with a target of 0 will be applied for all timesteps Default: true*/
   bool smooth_velocities = true;

@@ -12,13 +12,13 @@ class TestGenerator : public TaskGenerator
 {
 public:
   TestGenerator(std::string name, int conditional_ret_val)
-    : TaskGenerator(name), conditional_ret_val_(conditional_ret_val)
+    : TaskGenerator(std::move(name)), conditional_ret_val_(conditional_ret_val)
   {
   }
 
-  virtual void process(TaskInput, std::size_t) const override { std::cout << "Task " << name_ << std::endl; }
+  void process(TaskInput, std::size_t) const override { std::cout << "Task " << name_ << std::endl; }
 
-  virtual int conditionalProcess(TaskInput, std::size_t) const override
+  int conditionalProcess(TaskInput, std::size_t) const override
   {
     std::cout << "Task " << name_ << std::endl;
     return conditional_ret_val_;
@@ -31,16 +31,16 @@ private:
 class TestObserver : public tf::ObserverInterface
 {
 public:
-  virtual void set_up(size_t) {}
+  void set_up(size_t) final {}
 
-  virtual void on_entry(tf::WorkerView, tf::TaskView) {}
+  void on_entry(tf::WorkerView, tf::TaskView) final {}
 
-  virtual void on_exit(tf::WorkerView, tf::TaskView task_view) { executed_tasks.push_back(task_view.name()); }
+  void on_exit(tf::WorkerView, tf::TaskView task_view) final { executed_tasks.push_back(task_view.name()); }
 
   std::vector<std::string> executed_tasks;
 };
 
-TEST(GraphTaskflowGenerator, CreateAndRun)
+TEST(GraphTaskflowGenerator, CreateAndRun)  // NOLINT
 {
   GraphTaskflow graph;
   int A = graph.addNode(std::make_unique<TestGenerator>("A", 0), true);
@@ -51,19 +51,20 @@ TEST(GraphTaskflowGenerator, CreateAndRun)
   int A01 = graph.addNode(std::make_unique<TestGenerator>("A01", -1), false);
   int A02 = graph.addNode(std::make_unique<TestGenerator>("A02", 1), true);
 
-  ASSERT_NO_THROW(graph.addEdges(A, { A0, A1, A2 }));
+  ASSERT_NO_THROW(graph.addEdges(A, { A0, A1, A2 }));  // NOLINT
+  // NOLINTNEXTLINE
   ASSERT_NO_THROW(graph.addEdges(A0, { GraphTaskflow::ERROR_NODE, A00, A01, A02, GraphTaskflow::DONE_NODE }));
 
   // Adding more than one edge to non-conditional nodes is not allowed
-  ASSERT_THROW(graph.addEdges(A1, { A00, A01, A02 }), std::runtime_error);
-  ASSERT_THROW(graph.addEdges(A2, { A00, A01, A02 }), std::runtime_error);
+  ASSERT_THROW(graph.addEdges(A1, { A00, A01, A02 }), std::runtime_error);  // NOLINT
+  ASSERT_THROW(graph.addEdges(A2, { A00, A01, A02 }), std::runtime_error);  // NOLINT
 
   TaskInput input(nullptr, nullptr, {}, nullptr, false, {});
 
   TaskflowVoidFn done_fn = []() { std::cout << "Done" << std::endl; };
   TaskflowVoidFn error_fn = []() { std::cout << "Error" << std::endl; };
   TaskflowContainer container;
-  ASSERT_NO_THROW(container = graph.generateTaskflow(input, done_fn, error_fn));
+  ASSERT_NO_THROW(container = graph.generateTaskflow(input, done_fn, error_fn));  // NOLINT
 
   // Save the graph visualization
   std::ofstream out_data;

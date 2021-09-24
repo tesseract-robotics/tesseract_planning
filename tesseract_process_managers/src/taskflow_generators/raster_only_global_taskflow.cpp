@@ -48,7 +48,7 @@ RasterOnlyGlobalTaskflow::RasterOnlyGlobalTaskflow(TaskflowGenerator::UPtr globa
   : global_taskflow_generator_(std::move(global_taskflow_generator))
   , transition_taskflow_generator_(std::move(transition_taskflow_generator))
   , raster_taskflow_generator_(std::move(raster_taskflow_generator))
-  , name_(name)
+  , name_(std::move(name))
 {
 }
 
@@ -146,23 +146,23 @@ void RasterOnlyGlobalTaskflow::globalPostProcess(TaskInput input)
   if (input.isAborted())
     return;
 
-  CompositeInstruction& results = input.getResults()->as<CompositeInstruction>();
-  CompositeInstruction& composite = results.at(0).as<CompositeInstruction>();
+  auto& results = input.getResults()->as<CompositeInstruction>();
+  auto& composite = results.at(0).as<CompositeInstruction>();
   composite.setStartInstruction(results.getStartInstruction());
   composite.setManipulatorInfo(results.getManipulatorInfo());
   for (std::size_t i = 1; i < results.size(); ++i)
   {
-    CompositeInstruction& composite0 = results.at(i - 1).as<CompositeInstruction>();
+    auto& composite0 = results.at(i - 1).as<CompositeInstruction>();
     MoveInstruction lmi = *getLastMoveInstruction(composite0);
     lmi.setMoveType(MoveInstructionType::START);
 
-    CompositeInstruction& composite1 = results.at(i).as<CompositeInstruction>();
+    auto& composite1 = results.at(i).as<CompositeInstruction>();
     composite1.setStartInstruction(lmi);
     composite1.setManipulatorInfo(results.getManipulatorInfo());
   }
 }
 
-bool RasterOnlyGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool RasterOnlyGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // -------------
   // Check Input
@@ -190,10 +190,10 @@ bool RasterOnlyGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInpu
   }
 
   // Check rasters and transitions
-  for (std::size_t index = 0; index < composite.size(); index++)
+  for (const auto& c : composite)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(composite.at(index)))
+    if (!isCompositeInstruction(c))
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;

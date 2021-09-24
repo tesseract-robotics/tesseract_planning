@@ -38,15 +38,15 @@ namespace tesseract_planning
 {
 trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(const Eigen::Isometry3d& c_wp,
                                                        int index,
-                                                       std::string working_frame,
-                                                       Eigen::Isometry3d tcp,
+                                                       const std::string& working_frame,
+                                                       const Eigen::Isometry3d& tcp,
                                                        const Eigen::VectorXd& coeffs,
-                                                       std::string link,
+                                                       const std::string& link,
                                                        trajopt::TermType type);
 
 trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(const Eigen::Isometry3d& c_wp,
                                                               int index,
-                                                              std::string working_frame,
+                                                              const std::string& working_frame,
                                                               const Eigen::Isometry3d& tcp,
                                                               const Eigen::VectorXd& coeffs,
                                                               const std::string& link,

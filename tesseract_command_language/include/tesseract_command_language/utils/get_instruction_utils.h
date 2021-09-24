@@ -41,7 +41,7 @@ namespace tesseract_planning
  * @return The first Instruction (Const)
  */
 const Instruction* getFirstInstruction(const CompositeInstruction& composite_instruction,
-                                       locateFilterFn locate_filter = nullptr,
+                                       const locateFilterFn& locate_filter = nullptr,
                                        bool process_child_composites = true);
 
 /**
@@ -52,7 +52,7 @@ const Instruction* getFirstInstruction(const CompositeInstruction& composite_ins
  * @return The first Instruction (Non-Const)
  */
 Instruction* getFirstInstruction(CompositeInstruction& composite_instruction,
-                                 locateFilterFn locate_filter = nullptr,
+                                 const locateFilterFn& locate_filter = nullptr,
                                  bool process_child_composites = true);
 
 /**
@@ -63,7 +63,7 @@ Instruction* getFirstInstruction(CompositeInstruction& composite_instruction,
  * @return The Last Instruction (Const)
  */
 const Instruction* getLastInstruction(const CompositeInstruction& composite_instruction,
-                                      locateFilterFn locate_filter = nullptr,
+                                      const locateFilterFn& locate_filter = nullptr,
                                       bool process_child_composites = true);
 
 /**
@@ -74,7 +74,7 @@ const Instruction* getLastInstruction(const CompositeInstruction& composite_inst
  * @return The Last Instruction (Non-Const)
  */
 Instruction* getLastInstruction(CompositeInstruction& composite_instruction,
-                                locateFilterFn locate_filter = nullptr,
+                                const locateFilterFn& locate_filter = nullptr,
                                 bool process_child_composites = true);
 
 /**
@@ -86,7 +86,7 @@ Instruction* getLastInstruction(CompositeInstruction& composite_instruction,
 inline MoveInstruction* getFirstMoveInstruction(CompositeInstruction& composite_instruction)
 {
   Instruction* mi = getFirstInstruction(composite_instruction, moveFilter);
-  if (mi)
+  if (mi != nullptr)
     return &mi->as<MoveInstruction>();
 
   return nullptr;
@@ -101,7 +101,7 @@ inline MoveInstruction* getFirstMoveInstruction(CompositeInstruction& composite_
 inline const MoveInstruction* getFirstMoveInstruction(const CompositeInstruction& composite_instruction)
 {
   const Instruction* mi = getFirstInstruction(composite_instruction, moveFilter);
-  if (mi)
+  if (mi != nullptr)
     return &mi->as<MoveInstruction>();
 
   return nullptr;
@@ -116,7 +116,7 @@ inline const MoveInstruction* getFirstMoveInstruction(const CompositeInstruction
 inline PlanInstruction* getFirstPlanInstruction(CompositeInstruction& composite_instruction)
 {
   Instruction* mi = getFirstInstruction(composite_instruction, planFilter);
-  if (mi)
+  if (mi != nullptr)
     return &mi->as<PlanInstruction>();
 
   return nullptr;
@@ -131,7 +131,7 @@ inline PlanInstruction* getFirstPlanInstruction(CompositeInstruction& composite_
 inline const PlanInstruction* getFirstPlanInstruction(const CompositeInstruction& composite_instruction)
 {
   const Instruction* mi = getFirstInstruction(composite_instruction, planFilter);
-  if (mi)
+  if (mi != nullptr)
     return &mi->as<PlanInstruction>();
 
   return nullptr;
@@ -146,7 +146,7 @@ inline const PlanInstruction* getFirstPlanInstruction(const CompositeInstruction
 inline MoveInstruction* getLastMoveInstruction(CompositeInstruction& composite_instruction)
 {
   Instruction* mi = getLastInstruction(composite_instruction, moveFilter);
-  if (mi)
+  if (mi != nullptr)
     return &mi->as<MoveInstruction>();
 
   return nullptr;
@@ -161,7 +161,7 @@ inline MoveInstruction* getLastMoveInstruction(CompositeInstruction& composite_i
 inline const MoveInstruction* getLastMoveInstruction(const CompositeInstruction& composite_instruction)
 {
   const Instruction* mi = getLastInstruction(composite_instruction, moveFilter);
-  if (mi)
+  if (mi != nullptr)
     return &mi->as<MoveInstruction>();
 
   return nullptr;
@@ -176,7 +176,7 @@ inline const MoveInstruction* getLastMoveInstruction(const CompositeInstruction&
 inline PlanInstruction* getLastPlanInstruction(CompositeInstruction& composite_instruction)
 {
   Instruction* mi = getLastInstruction(composite_instruction, planFilter);
-  if (mi)
+  if (mi != nullptr)
     return &mi->as<PlanInstruction>();
 
   return nullptr;
@@ -191,7 +191,7 @@ inline PlanInstruction* getLastPlanInstruction(CompositeInstruction& composite_i
 inline const PlanInstruction* getLastPlanInstruction(const CompositeInstruction& composite_instruction)
 {
   const Instruction* mi = getLastInstruction(composite_instruction, planFilter);
-  if (mi)
+  if (mi != nullptr)
     return &mi->as<PlanInstruction>();
 
   return nullptr;
@@ -205,7 +205,7 @@ inline const PlanInstruction* getLastPlanInstruction(const CompositeInstruction&
  * @return The number of Instructions
  */
 long getInstructionCount(const CompositeInstruction& composite_instruction,
-                         locateFilterFn locate_filter = nullptr,
+                         const locateFilterFn& locate_filter = nullptr,
                          bool process_child_composites = true);
 
 /**

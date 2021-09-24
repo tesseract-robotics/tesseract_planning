@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 const Instruction* getFirstInstructionHelper(const CompositeInstruction& composite_instruction,
-                                             locateFilterFn locate_filter,
+                                             const locateFilterFn& locate_filter,
                                              bool process_child_composites,
                                              bool first_composite)
 {
@@ -58,7 +58,7 @@ const Instruction* getFirstInstructionHelper(const CompositeInstruction& composi
       {
         const Instruction* result = getFirstInstructionHelper(
             instruction.as<CompositeInstruction>(), locate_filter, process_child_composites, false);
-        if (result)
+        if (result != nullptr)
           return result;
       }
     }
@@ -74,7 +74,7 @@ const Instruction* getFirstInstructionHelper(const CompositeInstruction& composi
 }
 
 Instruction* getFirstInstructionHelper(CompositeInstruction& composite_instruction,
-                                       locateFilterFn locate_filter,
+                                       const locateFilterFn& locate_filter,
                                        bool process_child_composites,
                                        bool first_composite)
 {
@@ -94,7 +94,7 @@ Instruction* getFirstInstructionHelper(CompositeInstruction& composite_instructi
       {
         Instruction* result = getFirstInstructionHelper(
             instruction.as<CompositeInstruction>(), locate_filter, process_child_composites, false);
-        if (result)
+        if (result != nullptr)
           return result;
       }
     }
@@ -110,7 +110,7 @@ Instruction* getFirstInstructionHelper(CompositeInstruction& composite_instructi
 }
 
 const Instruction* getLastInstructionHelper(const CompositeInstruction& composite_instruction,
-                                            locateFilterFn locate_filter,
+                                            const locateFilterFn& locate_filter,
                                             bool process_child_composites,
                                             bool first_composite)
 {
@@ -125,7 +125,7 @@ const Instruction* getLastInstructionHelper(const CompositeInstruction& composit
       {
         const Instruction* result =
             getLastInstructionHelper(it->as<CompositeInstruction>(), locate_filter, process_child_composites, false);
-        if (result)
+        if (result != nullptr)
           return result;
       }
     }
@@ -151,7 +151,7 @@ const Instruction* getLastInstructionHelper(const CompositeInstruction& composit
 }
 
 Instruction* getLastInstructionHelper(CompositeInstruction& composite_instruction,
-                                      locateFilterFn locate_filter,
+                                      const locateFilterFn& locate_filter,
                                       bool process_child_composites,
                                       bool first_composite)
 {
@@ -166,7 +166,7 @@ Instruction* getLastInstructionHelper(CompositeInstruction& composite_instructio
       {
         Instruction* result =
             getLastInstructionHelper(it->as<CompositeInstruction>(), locate_filter, process_child_composites, false);
-        if (result)
+        if (result != nullptr)
           return result;
       }
     }
@@ -192,7 +192,7 @@ Instruction* getLastInstructionHelper(CompositeInstruction& composite_instructio
 }
 
 long getInstructionCountHelper(const CompositeInstruction& composite_instruction,
-                               locateFilterFn locate_filter,
+                               const locateFilterFn& locate_filter,
                                bool process_child_composites,
                                bool first_composite)
 {
@@ -224,35 +224,35 @@ long getInstructionCountHelper(const CompositeInstruction& composite_instruction
 }
 
 const Instruction* getFirstInstruction(const CompositeInstruction& composite_instruction,
-                                       locateFilterFn locate_filter,
+                                       const locateFilterFn& locate_filter,
                                        bool process_child_composites)
 {
   return getFirstInstructionHelper(composite_instruction, locate_filter, process_child_composites, true);
 }
 
 Instruction* getFirstInstruction(CompositeInstruction& composite_instruction,
-                                 locateFilterFn locate_filter,
+                                 const locateFilterFn& locate_filter,
                                  bool process_child_composites)
 {
   return getFirstInstructionHelper(composite_instruction, locate_filter, process_child_composites, true);
 }
 
 const Instruction* getLastInstruction(const CompositeInstruction& composite_instruction,
-                                      locateFilterFn locate_filter,
+                                      const locateFilterFn& locate_filter,
                                       bool process_child_composites)
 {
   return getLastInstructionHelper(composite_instruction, locate_filter, process_child_composites, true);
 }
 
 Instruction* getLastInstruction(CompositeInstruction& composite_instruction,
-                                locateFilterFn locate_filter,
+                                const locateFilterFn& locate_filter,
                                 bool process_child_composites)
 {
   return getLastInstructionHelper(composite_instruction, locate_filter, process_child_composites, true);
 }
 
 long getInstructionCount(const CompositeInstruction& composite_instruction,
-                         locateFilterFn locate_filter,
+                         const locateFilterFn& locate_filter,
                          bool process_child_composites)
 {
   return getInstructionCountHelper(composite_instruction, locate_filter, process_child_composites, true);

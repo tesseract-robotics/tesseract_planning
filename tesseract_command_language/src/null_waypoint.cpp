@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-void NullWaypoint::print(const std::string& prefix) const { std::cout << prefix << "Null WP"; }
+void NullWaypoint::print(const std::string& prefix) const { std::cout << prefix << "Null WP"; }  // NOLINT
 
 bool NullWaypoint::operator==(const NullWaypoint& /*rhs*/) const { return true; }
 bool NullWaypoint::operator!=(const NullWaypoint& /*rhs*/) const { return false; }

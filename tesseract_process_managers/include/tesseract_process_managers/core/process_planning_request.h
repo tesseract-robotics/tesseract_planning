@@ -80,6 +80,9 @@ namespace process_planner_names
 /** @brief TrajOpt Planner */
 static const std::string TRAJOPT_PLANNER_NAME = "TrajOptPlanner";
 
+/** @brief TrajOpt IFOPT Planner */
+static const std::string TRAJOPT_IFOPT_PLANNER_NAME = "TrajOptIfoptPlanner";
+
 /** @brief OMPL Planner */
 static const std::string OMPL_PLANNER_NAME = "OMPLPlanner";
 

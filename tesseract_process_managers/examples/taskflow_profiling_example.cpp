@@ -126,6 +126,7 @@ int main()
     // Convert to an easily loggable vector
     auto info_map = response.interface->getTaskInfoMap();
     std::vector<TaskInfo> task_info_vec;
+    task_info_vec.reserve(info_map.size());
     for (const auto& info : info_map)
       task_info_vec.push_back(*info.second);
 

@@ -40,7 +40,7 @@ namespace tesseract_planning
 CompositeInstruction::CompositeInstruction(std::string profile,
                                            CompositeInstructionOrder order,
                                            ManipulatorInfo manipulator_info)
-  : manipulator_info_(manipulator_info), profile_(std::move(profile)), order_(order)
+  : manipulator_info_(std::move(manipulator_info)), profile_(std::move(profile)), order_(order)
 {
 }
 
@@ -56,11 +56,11 @@ void CompositeInstruction::setProfile(const std::string& profile)
 }
 const std::string& CompositeInstruction::getProfile() const { return profile_; }
 
-void CompositeInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_info_ = info; }
+void CompositeInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_info_ = std::move(info); }
 const ManipulatorInfo& CompositeInstruction::getManipulatorInfo() const { return manipulator_info_; }
 ManipulatorInfo& CompositeInstruction::getManipulatorInfo() { return manipulator_info_; }
 
-void CompositeInstruction::setStartInstruction(Instruction instruction) { start_instruction_ = instruction; }
+void CompositeInstruction::setStartInstruction(Instruction instruction) { start_instruction_ = std::move(instruction); }
 
 void CompositeInstruction::resetStartInstruction() { start_instruction_ = NullInstruction(); }
 
@@ -120,12 +120,11 @@ CompositeInstruction::const_iterator CompositeInstruction::end() const { return 
 CompositeInstruction::reverse_iterator CompositeInstruction::rbegin() { return container_.rbegin(); }
 CompositeInstruction::const_reverse_iterator CompositeInstruction::rbegin() const { return container_.rbegin(); }
 CompositeInstruction::reverse_iterator CompositeInstruction::rend() { return container_.rend(); }
-CompositeInstruction::const_reverse_iterator CompositeInstruction::crend() const { return container_.crend(); }
 CompositeInstruction::const_reverse_iterator CompositeInstruction::rend() const { return container_.rend(); }
 CompositeInstruction::const_iterator CompositeInstruction::cbegin() const { return container_.cbegin(); }
 CompositeInstruction::const_iterator CompositeInstruction::cend() const { return container_.cend(); }
-CompositeInstruction::const_reverse_iterator const CompositeInstruction::crbegin() { return container_.crbegin(); }
-CompositeInstruction::const_reverse_iterator const CompositeInstruction::crend() { return container_.crend(); }
+CompositeInstruction::const_reverse_iterator CompositeInstruction::crbegin() const { return container_.crbegin(); }
+CompositeInstruction::const_reverse_iterator CompositeInstruction::crend() const { return container_.crend(); }
 
 //////////////
 // Capacity //

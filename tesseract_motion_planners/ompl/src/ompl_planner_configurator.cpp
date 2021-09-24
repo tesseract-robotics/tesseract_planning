@@ -52,12 +52,10 @@ SBLConfigurator::SBLConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* sbl_element = xml_element.FirstChildElement("SBL");
   const tinyxml2::XMLElement* range_element = sbl_element->FirstChildElement("Range");
 
-  tinyxml2::XMLError status;
-
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
-    status = tesseract_common::QueryStringText(range_element, range_string);
+    tinyxml2::XMLError status = tesseract_common::QueryStringText(range_element, range_string);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
       throw std::runtime_error("OMPLConfigurator: SBL: Error parsing Range string");
 
@@ -94,9 +92,9 @@ ESTConfigurator::ESTConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* range_element = est_element->FirstChildElement("Range");
   const tinyxml2::XMLElement* goal_bias_element = est_element->FirstChildElement("GoalBias");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -109,7 +107,7 @@ ESTConfigurator::ESTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(range_string, range);
   }
 
-  if (goal_bias_element)
+  if (goal_bias_element != nullptr)
   {
     std::string goal_bias_string;
     status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
@@ -156,9 +154,9 @@ LBKPIECE1Configurator::LBKPIECE1Configurator(const tinyxml2::XMLElement& xml_ele
   const tinyxml2::XMLElement* min_valid_path_fraction_element = lbkpiece1_element->FirstChildElement("MinValidPathFract"
                                                                                                      "ion");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -171,7 +169,7 @@ LBKPIECE1Configurator::LBKPIECE1Configurator(const tinyxml2::XMLElement& xml_ele
     tesseract_common::toNumeric<double>(range_string, range);
   }
 
-  if (border_fraction_element)
+  if (border_fraction_element != nullptr)
   {
     std::string border_fraction_string;
     status = tesseract_common::QueryStringText(border_fraction_element, border_fraction_string);
@@ -184,7 +182,7 @@ LBKPIECE1Configurator::LBKPIECE1Configurator(const tinyxml2::XMLElement& xml_ele
     tesseract_common::toNumeric<double>(border_fraction_string, border_fraction);
   }
 
-  if (min_valid_path_fraction_element)
+  if (min_valid_path_fraction_element != nullptr)
   {
     std::string min_valid_path_fraction_string;
     status = tesseract_common::QueryStringText(min_valid_path_fraction_element, min_valid_path_fraction_string);
@@ -239,9 +237,9 @@ BKPIECE1Configurator::BKPIECE1Configurator(const tinyxml2::XMLElement& xml_eleme
   const tinyxml2::XMLElement* min_valid_path_fraction_element = bkpiece1_element->FirstChildElement("MinValidPathFracti"
                                                                                                     "on");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -254,7 +252,7 @@ BKPIECE1Configurator::BKPIECE1Configurator(const tinyxml2::XMLElement& xml_eleme
     tesseract_common::toNumeric<double>(range_string, range);
   }
 
-  if (border_fraction_element)
+  if (border_fraction_element != nullptr)
   {
     std::string border_fraction_string;
     status = tesseract_common::QueryStringText(border_fraction_element, border_fraction_string);
@@ -267,7 +265,7 @@ BKPIECE1Configurator::BKPIECE1Configurator(const tinyxml2::XMLElement& xml_eleme
     tesseract_common::toNumeric<double>(border_fraction_string, border_fraction);
   }
 
-  if (failed_expansion_score_factor_element)
+  if (failed_expansion_score_factor_element != nullptr)
   {
     std::string failed_expansion_score_factor_string;
     status =
@@ -281,7 +279,7 @@ BKPIECE1Configurator::BKPIECE1Configurator(const tinyxml2::XMLElement& xml_eleme
     tesseract_common::toNumeric<double>(failed_expansion_score_factor_string, failed_expansion_score_factor);
   }
 
-  if (min_valid_path_fraction_element)
+  if (min_valid_path_fraction_element != nullptr)
   {
     std::string min_valid_path_fraction_string;
     status = tesseract_common::QueryStringText(min_valid_path_fraction_element, min_valid_path_fraction_string);
@@ -342,9 +340,9 @@ KPIECE1Configurator::KPIECE1Configurator(const tinyxml2::XMLElement& xml_element
   const tinyxml2::XMLElement* min_valid_path_fraction_element = kpiece1_element->FirstChildElement("MinValidPathFractio"
                                                                                                    "n");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -357,7 +355,7 @@ KPIECE1Configurator::KPIECE1Configurator(const tinyxml2::XMLElement& xml_element
     tesseract_common::toNumeric<double>(range_string, range);
   }
 
-  if (goal_bias_element)
+  if (goal_bias_element != nullptr)
   {
     std::string goal_bias_string;
     status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
@@ -370,7 +368,7 @@ KPIECE1Configurator::KPIECE1Configurator(const tinyxml2::XMLElement& xml_element
     tesseract_common::toNumeric<double>(goal_bias_string, goal_bias);
   }
 
-  if (border_fraction_element)
+  if (border_fraction_element != nullptr)
   {
     std::string border_fraction_string;
     status = tesseract_common::QueryStringText(border_fraction_element, border_fraction_string);
@@ -383,7 +381,7 @@ KPIECE1Configurator::KPIECE1Configurator(const tinyxml2::XMLElement& xml_element
     tesseract_common::toNumeric<double>(border_fraction_string, border_fraction);
   }
 
-  if (failed_expansion_score_factor_element)
+  if (failed_expansion_score_factor_element != nullptr)
   {
     std::string failed_expansion_score_factor_string;
     status =
@@ -397,7 +395,7 @@ KPIECE1Configurator::KPIECE1Configurator(const tinyxml2::XMLElement& xml_element
     tesseract_common::toNumeric<double>(failed_expansion_score_factor_string, failed_expansion_score_factor);
   }
 
-  if (min_valid_path_fraction_element)
+  if (min_valid_path_fraction_element != nullptr)
   {
     std::string min_valid_path_fraction_string;
     status = tesseract_common::QueryStringText(min_valid_path_fraction_element, min_valid_path_fraction_string);
@@ -461,9 +459,9 @@ BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* frontier_threshold_element = bitrrt_element->FirstChildElement("FrontierThreshold");
   const tinyxml2::XMLElement* frontier_node_ratio_element = bitrrt_element->FirstChildElement("FrontierNodeRatio");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -476,7 +474,7 @@ BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(range_string, range);
   }
 
-  if (temp_change_factor_element)
+  if (temp_change_factor_element != nullptr)
   {
     std::string temp_change_factor_string;
     status = tesseract_common::QueryStringText(temp_change_factor_element, temp_change_factor_string);
@@ -489,7 +487,7 @@ BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(temp_change_factor_string, temp_change_factor);
   }
 
-  if (cost_threshold_element)
+  if (cost_threshold_element != nullptr)
   {
     std::string cost_threshold_string;
     status = tesseract_common::QueryStringText(cost_threshold_element, cost_threshold_string);
@@ -505,7 +503,7 @@ BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
       tesseract_common::toNumeric<double>(cost_threshold_string, cost_threshold);
   }
 
-  if (init_temperature_element)
+  if (init_temperature_element != nullptr)
   {
     std::string init_temperature_string;
     status = tesseract_common::QueryStringText(init_temperature_element, init_temperature_string);
@@ -518,7 +516,7 @@ BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(init_temperature_string, init_temperature);
   }
 
-  if (frontier_threshold_element)
+  if (frontier_threshold_element != nullptr)
   {
     std::string frontier_threshold_string;
     status = tesseract_common::QueryStringText(frontier_threshold_element, frontier_threshold_string);
@@ -531,7 +529,7 @@ BiTRRTConfigurator::BiTRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(frontier_threshold_string, frontier_threshold);
   }
 
-  if (frontier_node_ratio_element)
+  if (frontier_node_ratio_element != nullptr)
   {
     std::string frontier_node_ratio_string;
     status = tesseract_common::QueryStringText(frontier_node_ratio_element, frontier_node_ratio_string);
@@ -596,9 +594,9 @@ RRTConfigurator::RRTConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* range_element = rrt_element->FirstChildElement("Range");
   const tinyxml2::XMLElement* goal_bias_element = rrt_element->FirstChildElement("GoalBias");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -611,7 +609,7 @@ RRTConfigurator::RRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(range_string, range);
   }
 
-  if (goal_bias_element)
+  if (goal_bias_element != nullptr)
   {
     std::string goal_bias_string;
     status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
@@ -655,9 +653,9 @@ RRTConnectConfigurator::RRTConnectConfigurator(const tinyxml2::XMLElement& xml_e
   const tinyxml2::XMLElement* rrt_connect_element = xml_element.FirstChildElement("RRTConnect");
   const tinyxml2::XMLElement* range_element = rrt_connect_element->FirstChildElement("Range");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -699,9 +697,9 @@ RRTstarConfigurator::RRTstarConfigurator(const tinyxml2::XMLElement& xml_element
   const tinyxml2::XMLElement* delay_collision_checking_element = rrt_star_element->FirstChildElement("DelayCollisionChe"
                                                                                                      "cking");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -714,7 +712,7 @@ RRTstarConfigurator::RRTstarConfigurator(const tinyxml2::XMLElement& xml_element
     tesseract_common::toNumeric<double>(range_string, range);
   }
 
-  if (goal_bias_element)
+  if (goal_bias_element != nullptr)
   {
     std::string goal_bias_string;
     status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
@@ -727,7 +725,7 @@ RRTstarConfigurator::RRTstarConfigurator(const tinyxml2::XMLElement& xml_element
     tesseract_common::toNumeric<double>(goal_bias_string, goal_bias);
   }
 
-  if (delay_collision_checking_element)
+  if (delay_collision_checking_element != nullptr)
   {
     std::string delay_collision_checking_string;
     status = delay_collision_checking_element->QueryBoolText(&delay_collision_checking);
@@ -776,9 +774,9 @@ TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* frontier_threshold_element = trrt_element->FirstChildElement("FrontierThreshold");
   const tinyxml2::XMLElement* frontier_node_ratio_element = trrt_element->FirstChildElement("FrontierNodeRatio");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (range_element)
+  if (range_element != nullptr)
   {
     std::string range_string;
     status = tesseract_common::QueryStringText(range_element, range_string);
@@ -791,7 +789,7 @@ TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(range_string, range);
   }
 
-  if (goal_bias_element)
+  if (goal_bias_element != nullptr)
   {
     std::string goal_bias_string;
     status = tesseract_common::QueryStringText(goal_bias_element, goal_bias_string);
@@ -804,7 +802,7 @@ TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(goal_bias_string, goal_bias);
   }
 
-  if (temp_change_factor_element)
+  if (temp_change_factor_element != nullptr)
   {
     std::string temp_change_factor_string;
     status = tesseract_common::QueryStringText(temp_change_factor_element, temp_change_factor_string);
@@ -817,7 +815,7 @@ TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(temp_change_factor_string, temp_change_factor);
   }
 
-  if (init_temperature_element)
+  if (init_temperature_element != nullptr)
   {
     std::string init_temperature_string;
     status = tesseract_common::QueryStringText(init_temperature_element, init_temperature_string);
@@ -830,7 +828,7 @@ TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(init_temperature_string, init_temperature);
   }
 
-  if (frontier_threshold_element)
+  if (frontier_threshold_element != nullptr)
   {
     std::string frontier_threshold_string;
     status = tesseract_common::QueryStringText(frontier_threshold_element, frontier_threshold_string);
@@ -843,7 +841,7 @@ TRRTConfigurator::TRRTConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(frontier_threshold_string, frontier_threshold);
   }
 
-  if (frontier_node_ratio_element)
+  if (frontier_node_ratio_element != nullptr)
   {
     std::string frontier_node_ratio_string;
     status = tesseract_common::QueryStringText(frontier_node_ratio_element, frontier_node_ratio_string);
@@ -907,9 +905,9 @@ PRMConfigurator::PRMConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* prm_element = xml_element.FirstChildElement("PRM");
   const tinyxml2::XMLElement* max_nearest_neighbors_element = prm_element->FirstChildElement("MaxNearestNeighbors");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (max_nearest_neighbors_element)
+  if (max_nearest_neighbors_element != nullptr)
   {
     std::string max_nearest_neighbors_string;
     status = tesseract_common::QueryStringText(max_nearest_neighbors_element, max_nearest_neighbors_string);
@@ -983,9 +981,9 @@ SPARSConfigurator::SPARSConfigurator(const tinyxml2::XMLElement& xml_element)
   const tinyxml2::XMLElement* sparse_delta_fraction_element = spars_element->FirstChildElement("SparseDeltaFraction");
   const tinyxml2::XMLElement* stretch_factor_element = spars_element->FirstChildElement("StretchFactor");
 
-  tinyxml2::XMLError status;
+  tinyxml2::XMLError status{ tinyxml2::XMLError::XML_SUCCESS };
 
-  if (max_failures_element)
+  if (max_failures_element != nullptr)
   {
     std::string max_failures_string;
     status = tesseract_common::QueryStringText(max_failures_element, max_failures_string);
@@ -998,7 +996,7 @@ SPARSConfigurator::SPARSConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<int>(max_failures_string, max_failures);
   }
 
-  if (dense_delta_fraction_element)
+  if (dense_delta_fraction_element != nullptr)
   {
     std::string dense_delta_fraction_string;
     status = tesseract_common::QueryStringText(dense_delta_fraction_element, dense_delta_fraction_string);
@@ -1011,7 +1009,7 @@ SPARSConfigurator::SPARSConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(dense_delta_fraction_string, dense_delta_fraction);
   }
 
-  if (sparse_delta_fraction_element)
+  if (sparse_delta_fraction_element != nullptr)
   {
     std::string sparse_delta_fraction_string;
     status = tesseract_common::QueryStringText(sparse_delta_fraction_element, sparse_delta_fraction_string);
@@ -1024,7 +1022,7 @@ SPARSConfigurator::SPARSConfigurator(const tinyxml2::XMLElement& xml_element)
     tesseract_common::toNumeric<double>(sparse_delta_fraction_string, sparse_delta_fraction);
   }
 
-  if (stretch_factor_element)
+  if (stretch_factor_element != nullptr)
   {
     std::string stretch_factor_string;
     status = tesseract_common::QueryStringText(stretch_factor_element, stretch_factor_string);

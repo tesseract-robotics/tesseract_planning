@@ -160,16 +160,10 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
       if (plan_instruction.isLinear())
       {
         /** @todo Add support for linear motion to ompl planner */
-        if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+        if (isCartesianWaypoint(plan_instruction.getWaypoint()) || isJointWaypoint(plan_instruction.getWaypoint()) ||
+            isStateWaypoint(start_waypoint))
         {
           // TODO Currently skipping linear moves until SE3 motion planning is implemented.
-          problem.push_back(nullptr);
-          ++index;
-        }
-        else if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(start_waypoint))
-        {
-          // TODO Currently skipping linear moves until SE3 motion planning is implemented.
-          // const Eigen::VectorXd& position = getJointPosition(start_waypoint);
           problem.push_back(nullptr);
           ++index;
         }

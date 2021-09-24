@@ -76,47 +76,47 @@ TimeOptimalTrajectoryGeneration::TimeOptimalTrajectoryGeneration(double path_tol
 bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& program,
                                                         const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                                                         const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                                        double max_velocity_scaling_factor,
-                                                        double max_acceleration_scaling_factor) const
+                                                        double /*max_velocity_scaling_factor*/,
+                                                        double /*max_acceleration_scaling_factor*/) const
 {
   if (program.empty())
     return true;
 
-  // Validate velocity scaling
-  double velocity_scaling_factor = 1.0;
-  if (max_velocity_scaling_factor > 0.0 && max_velocity_scaling_factor <= 1.0)
-  {
-    velocity_scaling_factor = max_velocity_scaling_factor;
-  }
-  else if (max_velocity_scaling_factor == 0.0)
-  {
-    CONSOLE_BRIDGE_logDebug("A max_velocity_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-                            velocity_scaling_factor);
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("Invalid max_velocity_scaling_factor %f specified, defaulting to %f instead.",
-                           max_velocity_scaling_factor,
-                           velocity_scaling_factor);
-  }
+  //  // Validate velocity scaling
+  //  double velocity_scaling_factor = 1.0;
+  //  if (max_velocity_scaling_factor > 0.0 && max_velocity_scaling_factor <= 1.0)
+  //  {
+  //    velocity_scaling_factor = max_velocity_scaling_factor;
+  //  }
+  //  else if (max_velocity_scaling_factor == 0.0)
+  //  {
+  //    CONSOLE_BRIDGE_logDebug("A max_velocity_scaling_factor of 0.0 was specified, defaulting to %f instead.",
+  //                            velocity_scaling_factor);
+  //  }
+  //  else
+  //  {
+  //    CONSOLE_BRIDGE_logWarn("Invalid max_velocity_scaling_factor %f specified, defaulting to %f instead.",
+  //                           max_velocity_scaling_factor,
+  //                           velocity_scaling_factor);
+  //  }
 
-  // Validate acceleration scaling
-  double acceleration_scaling_factor = 1.0;
-  if (max_acceleration_scaling_factor > 0.0 && max_acceleration_scaling_factor <= 1.0)
-  {
-    acceleration_scaling_factor = max_acceleration_scaling_factor;
-  }
-  else if (max_acceleration_scaling_factor == 0.0)
-  {
-    CONSOLE_BRIDGE_logDebug("A max_acceleration_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-                            acceleration_scaling_factor);
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("Invalid max_acceleration_scaling_factor %f specified, defaulting to %f instead.",
-                           max_acceleration_scaling_factor,
-                           acceleration_scaling_factor);
-  }
+  //  // Validate acceleration scaling
+  //  double acceleration_scaling_factor = 1.0;
+  //  if (max_acceleration_scaling_factor > 0.0 && max_acceleration_scaling_factor <= 1.0)
+  //  {
+  //    acceleration_scaling_factor = max_acceleration_scaling_factor;
+  //  }
+  //  else if (max_acceleration_scaling_factor == 0.0)
+  //  {
+  //    CONSOLE_BRIDGE_logDebug("A max_acceleration_scaling_factor of 0.0 was specified, defaulting to %f instead.",
+  //                            acceleration_scaling_factor);
+  //  }
+  //  else
+  //  {
+  //    CONSOLE_BRIDGE_logWarn("Invalid max_acceleration_scaling_factor %f specified, defaulting to %f instead.",
+  //                           max_acceleration_scaling_factor,
+  //                           acceleration_scaling_factor);
+  //  }
 
   // Validate limits
   if (max_velocity.rows() != max_acceleration.rows())
@@ -190,7 +190,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   }
 
   // Compute sample count
-  size_t sample_count = static_cast<std::size_t>(std::ceil(parameterized.getDuration() / resample_dt_));
+  auto sample_count = static_cast<std::size_t>(std::ceil(parameterized.getDuration() / resample_dt_));
 
   // Resample and fill in trajectory
   auto input_instruction = trajectory.back().get().as<MoveInstruction>();
@@ -233,47 +233,47 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
 bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& trajectory,
                                                         const Eigen::Ref<const Eigen::VectorXd>& max_velocity,
                                                         const Eigen::Ref<const Eigen::VectorXd>& max_acceleration,
-                                                        double max_velocity_scaling_factor,
-                                                        double max_acceleration_scaling_factor) const
+                                                        double /*max_velocity_scaling_factor*/,
+                                                        double /*max_acceleration_scaling_factor*/) const
 {
   if (trajectory.empty())
     return true;
 
-  // Validate velocity scaling
-  double velocity_scaling_factor = 1.0;
-  if (max_velocity_scaling_factor > 0.0 && max_velocity_scaling_factor <= 1.0)
-  {
-    velocity_scaling_factor = max_velocity_scaling_factor;
-  }
-  else if (max_velocity_scaling_factor == 0.0)
-  {
-    CONSOLE_BRIDGE_logDebug("A max_velocity_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-                            velocity_scaling_factor);
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("Invalid max_velocity_scaling_factor %f specified, defaulting to %f instead.",
-                           max_velocity_scaling_factor,
-                           velocity_scaling_factor);
-  }
+  //  // Validate velocity scaling
+  //  double velocity_scaling_factor = 1.0;
+  //  if (max_velocity_scaling_factor > 0.0 && max_velocity_scaling_factor <= 1.0)
+  //  {
+  //    velocity_scaling_factor = max_velocity_scaling_factor;
+  //  }
+  //  else if (max_velocity_scaling_factor == 0.0)
+  //  {
+  //    CONSOLE_BRIDGE_logDebug("A max_velocity_scaling_factor of 0.0 was specified, defaulting to %f instead.",
+  //                            velocity_scaling_factor);
+  //  }
+  //  else
+  //  {
+  //    CONSOLE_BRIDGE_logWarn("Invalid max_velocity_scaling_factor %f specified, defaulting to %f instead.",
+  //                           max_velocity_scaling_factor,
+  //                           velocity_scaling_factor);
+  //  }
 
-  // Validate acceleration scaling
-  double acceleration_scaling_factor = 1.0;
-  if (max_acceleration_scaling_factor > 0.0 && max_acceleration_scaling_factor <= 1.0)
-  {
-    acceleration_scaling_factor = max_acceleration_scaling_factor;
-  }
-  else if (max_acceleration_scaling_factor == 0.0)
-  {
-    CONSOLE_BRIDGE_logDebug("A max_acceleration_scaling_factor of 0.0 was specified, defaulting to %f instead.",
-                            acceleration_scaling_factor);
-  }
-  else
-  {
-    CONSOLE_BRIDGE_logWarn("Invalid max_acceleration_scaling_factor %f specified, defaulting to %f instead.",
-                           max_acceleration_scaling_factor,
-                           acceleration_scaling_factor);
-  }
+  //  // Validate acceleration scaling
+  //  double acceleration_scaling_factor = 1.0;
+  //  if (max_acceleration_scaling_factor > 0.0 && max_acceleration_scaling_factor <= 1.0)
+  //  {
+  //    acceleration_scaling_factor = max_acceleration_scaling_factor;
+  //  }
+  //  else if (max_acceleration_scaling_factor == 0.0)
+  //  {
+  //    CONSOLE_BRIDGE_logDebug("A max_acceleration_scaling_factor of 0.0 was specified, defaulting to %f instead.",
+  //                            acceleration_scaling_factor);
+  //  }
+  //  else
+  //  {
+  //    CONSOLE_BRIDGE_logWarn("Invalid max_acceleration_scaling_factor %f specified, defaulting to %f instead.",
+  //                           max_acceleration_scaling_factor,
+  //                           acceleration_scaling_factor);
+  //  }
 
   // Validate limits
   if (max_velocity.rows() != max_acceleration.rows())
@@ -283,7 +283,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
 
   // Flatten program
   const Eigen::Index num_joints = trajectory.dof();
-  const std::size_t num_points = static_cast<std::size_t>(trajectory.size());
+  auto num_points = static_cast<std::size_t>(trajectory.size());
 
   // This lib does not actually work properly when angles wrap around, so we need to unwind the path first
   //  trajectory.unwind(); /// @todo
@@ -373,7 +373,7 @@ public:
 
   std::list<double> getSwitchingPoints() const override { return std::list<double>(); }
 
-  LinearPathSegment* clone() const override { return new LinearPathSegment(*this); }
+  std::unique_ptr<PathSegment> clone() const override { return std::make_unique<LinearPathSegment>(*this); }
 
 private:
   Eigen::VectorXd end_;
@@ -477,7 +477,7 @@ public:
     return switching_points;
   }
 
-  CircularPathSegment* clone() const override { return new CircularPathSegment(*this); }
+  std::unique_ptr<PathSegment> clone() const override { return std::make_unique<CircularPathSegment>(*this); }
 
 private:
   double radius;
@@ -490,8 +490,8 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation) : lengt
 {
   if (path.size() < 2)
     return;
-  std::list<Eigen::VectorXd>::const_iterator path_iterator1 = path.begin();
-  std::list<Eigen::VectorXd>::const_iterator path_iterator2 = path_iterator1;
+  auto path_iterator1 = path.begin();
+  auto path_iterator2 = path_iterator1;
   ++path_iterator2;
   std::list<Eigen::VectorXd>::const_iterator path_iterator3;
   Eigen::VectorXd start_config = *path_iterator1;
@@ -501,18 +501,18 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation) : lengt
     ++path_iterator3;
     if (max_deviation > 0.0 && path_iterator3 != path.end())
     {
-      CircularPathSegment* blend_segment = new CircularPathSegment(0.5 * (*path_iterator1 + *path_iterator2),
-                                                                   *path_iterator2,
-                                                                   0.5 * (*path_iterator2 + *path_iterator3),
-                                                                   max_deviation);
+      auto blend_segment = std::make_unique<CircularPathSegment>(0.5 * (*path_iterator1 + *path_iterator2),
+                                                                 *path_iterator2,
+                                                                 0.5 * (*path_iterator2 + *path_iterator3),
+                                                                 max_deviation);
       Eigen::VectorXd end_config = blend_segment->getConfig(0.0);
       if ((end_config - start_config).norm() > 0.000001)
       {
         path_segments_.push_back(std::make_unique<LinearPathSegment>(start_config, end_config));
       }
-      path_segments_.emplace_back(blend_segment);
-
       start_config = blend_segment->getConfig(blend_segment->getLength());
+
+      path_segments_.push_back(std::move(blend_segment));
     }
     else
     {
@@ -529,16 +529,14 @@ Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation) : lengt
   {
     path_segment->position_ = length_;
     std::list<double> local_switching_points = path_segment->getSwitchingPoints();
-    for (std::list<double>::const_iterator point = local_switching_points.begin();
-         point != local_switching_points.end();
-         ++point)
+    for (const auto& local_switching_point : local_switching_points)
     {
-      switching_points_.push_back(std::make_pair(length_ + *point, false));
+      switching_points_.emplace_back(length_ + local_switching_point, false);
     }
     length_ += path_segment->getLength();
     while (!switching_points_.empty() && switching_points_.back().first >= length_)
       switching_points_.pop_back();
-    switching_points_.push_back(std::make_pair(length_, true));
+    switching_points_.emplace_back(length_, true);
   }
   switching_points_.pop_back();
 }
@@ -555,8 +553,8 @@ double Path::getLength() const { return length_; }
 
 PathSegment* Path::getPathSegment(double& s) const
 {
-  std::list<std::unique_ptr<PathSegment>>::const_iterator it = path_segments_.begin();
-  std::list<std::unique_ptr<PathSegment>>::const_iterator next = it;
+  auto it = path_segments_.begin();
+  auto next = it;
   ++next;
   while (next != path_segments_.end() && s >= (*next)->position_)
   {
@@ -587,7 +585,7 @@ Eigen::VectorXd Path::getCurvature(double s) const
 
 double Path::getNextSwitchingPoint(double s, bool& discontinuity) const
 {
-  std::list<std::pair<double, bool>>::const_iterator it = switching_points_.begin();
+  auto it = switching_points_.begin();
   while (it != switching_points_.end() && it->first <= s)
   {
     ++it;
@@ -605,7 +603,7 @@ std::list<std::pair<double, bool>> Path::getSwitchingPoints() const { return swi
 
 Trajectory::Trajectory(const Path& path,
                        const Eigen::VectorXd& max_velocity,
-                       const Eigen::VectorXd& max_acceleration,
+                       const Eigen::VectorXd& max_acceleration,  // NOLINT
                        double time_step)
   : path_(path)
   , max_velocity_(max_velocity)
@@ -615,11 +613,11 @@ Trajectory::Trajectory(const Path& path,
   , time_step_(time_step)
   , cached_time_(std::numeric_limits<double>::max())
 {
-  trajectory_.push_back(TrajectoryStep(0.0, 0.0));
+  trajectory_.emplace_back(0.0, 0.0);
   double after_acceleration = getMinMaxPathAcceleration(0.0, 0.0, true);
   while (valid_ && !integrateForward(trajectory_, after_acceleration) && valid_)
   {
-    double before_acceleration;
+    double before_acceleration{ NAN };
     TrajectoryStep switching_point;
     if (getNextSwitchingPoint(trajectory_.back().path_pos_, switching_point, before_acceleration, after_acceleration))
     {
@@ -637,8 +635,8 @@ Trajectory::Trajectory(const Path& path,
   if (valid_)
   {
     // Calculate timing
-    std::list<TrajectoryStep>::iterator previous = trajectory_.begin();
-    std::list<TrajectoryStep>::iterator it = previous;
+    auto previous = trajectory_.begin();
+    auto it = previous;
     it->time_ = 0.0;
     ++it;
     while (it != trajectory_.end())
@@ -658,8 +656,9 @@ bool Trajectory::getNextSwitchingPoint(double path_pos,
                                        double& after_acceleration)
 {
   TrajectoryStep acceleration_switching_point(path_pos, 0.0);
-  double acceleration_before_acceleration, acceleration_after_acceleration;
-  bool acceleration_reached_end;
+  double acceleration_before_acceleration{ NAN };
+  double acceleration_after_acceleration{ NAN };
+  bool acceleration_reached_end{ false };
   do
   {
     acceleration_reached_end = getNextAccelerationSwitchingPoint(acceleration_switching_point.path_pos_,
@@ -670,8 +669,9 @@ bool Trajectory::getNextSwitchingPoint(double path_pos,
            acceleration_switching_point.path_vel_ > getVelocityMaxPathVelocity(acceleration_switching_point.path_pos_));
 
   TrajectoryStep velocity_switching_point(path_pos, 0.0);
-  double velocity_before_acceleration, velocity_after_acceleration;
-  bool velocity_reached_end;
+  double velocity_before_acceleration{ NAN };
+  double velocity_after_acceleration{ NAN };
+  bool velocity_reached_end{ false };
   do
   {
     velocity_reached_end = getNextVelocitySwitchingPoint(velocity_switching_point.path_pos_,
@@ -687,21 +687,20 @@ bool Trajectory::getNextSwitchingPoint(double path_pos,
   {
     return true;
   }
-  else if (!acceleration_reached_end &&
-           (velocity_reached_end || acceleration_switching_point.path_pos_ <= velocity_switching_point.path_pos_))
+
+  if (!acceleration_reached_end &&
+      (velocity_reached_end || acceleration_switching_point.path_pos_ <= velocity_switching_point.path_pos_))
   {
     next_switching_point = acceleration_switching_point;
     before_acceleration = acceleration_before_acceleration;
     after_acceleration = acceleration_after_acceleration;
     return false;
   }
-  else
-  {
-    next_switching_point = velocity_switching_point;
-    before_acceleration = velocity_before_acceleration;
-    after_acceleration = velocity_after_acceleration;
-    return false;
-  }
+
+  next_switching_point = velocity_switching_point;
+  before_acceleration = velocity_before_acceleration;
+  after_acceleration = velocity_after_acceleration;
+  return false;
 }
 
 bool Trajectory::getNextAccelerationSwitchingPoint(double path_pos,
@@ -710,10 +709,10 @@ bool Trajectory::getNextAccelerationSwitchingPoint(double path_pos,
                                                    double& after_acceleration)
 {
   double switching_path_pos = path_pos;
-  double switching_path_vel;
+  double switching_path_vel{ NAN };
   while (true)
   {
-    bool discontinuity;
+    bool discontinuity{ false };
     switching_path_pos = path_.getNextSwitchingPoint(switching_path_pos, discontinuity);
 
     if (switching_path_pos > path_.getLength() - EPS)
@@ -813,7 +812,7 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
   double path_vel = trajectory.back().path_vel_;
 
   std::list<std::pair<double, bool>> switching_points = path_.getSwitchingPoints();
-  std::list<std::pair<double, bool>>::iterator next_discontinuity = switching_points.begin();
+  auto next_discontinuity = switching_points.begin();
 
   while (true)
   {
@@ -844,10 +843,11 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
 
     if (path_pos > path_.getLength())
     {
-      trajectory.push_back(TrajectoryStep(path_pos, path_vel));
+      trajectory.emplace_back(path_pos, path_vel);
       return true;
     }
-    else if (path_vel < 0.0)
+
+    if (path_vel < 0.0)
     {
       valid_ = false;
       CONSOLE_BRIDGE_logError("Error while integrating forward: Negative path velocity");
@@ -861,7 +861,7 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
       path_vel = getVelocityMaxPathVelocity(path_pos);
     }
 
-    trajectory.push_back(TrajectoryStep(path_pos, path_vel));
+    trajectory.emplace_back(path_pos, path_vel);
     acceleration = getMinMaxPathAcceleration(path_pos, path_vel, true);
 
     if (path_vel > getAccelerationMaxPathVelocity(path_pos) || path_vel > getVelocityMaxPathVelocity(path_pos))
@@ -897,7 +897,7 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
           before_path_vel = midpoint_path_vel;
         }
       }
-      trajectory.push_back(TrajectoryStep(before, before_path_vel));
+      trajectory.emplace_back(before, before_path_vel);
 
       if (getAccelerationMaxPathVelocity(after) < getVelocityMaxPathVelocity(after))
       {
@@ -905,8 +905,9 @@ bool Trajectory::integrateForward(std::list<TrajectoryStep>& trajectory, double 
         {
           return false;
         }
-        else if (getMinMaxPhaseSlope(trajectory.back().path_pos_, trajectory.back().path_vel_, true) >
-                 getAccelerationMaxPathVelocityDeriv(trajectory.back().path_pos_))
+
+        if (getMinMaxPhaseSlope(trajectory.back().path_pos_, trajectory.back().path_vel_, true) >
+            getAccelerationMaxPathVelocityDeriv(trajectory.back().path_pos_))
         {
           return false;
         }
@@ -928,9 +929,9 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
                                    double path_vel,
                                    double acceleration)
 {
-  std::list<TrajectoryStep>::iterator start2 = start_trajectory.end();
+  auto start2 = start_trajectory.end();
   --start2;
-  std::list<TrajectoryStep>::iterator start1 = start2;
+  auto start1 = start2;
   --start1;
   std::list<TrajectoryStep> trajectory;
   double slope{ 0 };
@@ -987,7 +988,7 @@ void Trajectory::integrateBackward(std::list<TrajectoryStep>& start_trajectory,
       const double intersection_path_vel =
           start1->path_vel_ + start_slope * (intersection_path_pos - start1->path_pos_);
       start_trajectory.erase(start2, start_trajectory.end());
-      start_trajectory.push_back(TrajectoryStep(intersection_path_pos, intersection_path_vel));
+      start_trajectory.emplace_back(intersection_path_pos, intersection_path_vel);
       start_trajectory.splice(start_trajectory.end(), trajectory);
       return;
     }
@@ -1094,7 +1095,7 @@ double Trajectory::getDuration() const { return trajectory_.back().time_; }
 
 bool Trajectory::assignData(TrajectoryContainer& trajectory, double path_tolerance) const
 {
-  std::list<Trajectory::TrajectoryStep>::const_iterator it = trajectory_.begin();
+  auto it = trajectory_.begin();
   long cnt = 0;
   double error = 0;
   double prev_error = 1;
@@ -1147,7 +1148,7 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory, double path_toleran
           ++cnt;
 
           // Reset search data
-          error = 0;
+          error = 0;  // NOLINT
           prev_error = 1;
           hit_tolerance = false;
           error_increasing = false;
@@ -1171,6 +1172,9 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory) const
     path_length[i] = length;
   }
 
+  if (tesseract_common::almostEqualRelativeAndAbs(length, 0))
+    throw std::runtime_error("Tried to assing trajectory with length zero.");
+
   double scale = path_.getLength() / length;
   path_length = scale * path_length;
 
@@ -1179,7 +1183,7 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory) const
   {
     const Eigen::VectorXd& p = trajectory.getPosition(i);
 
-    double start_search = path_length[i] - 0.01;
+    double start_search = path_length[i] - 0.01;  // NOLINT TODO Not sure why this produces a clang-tidy error
     if (start_search < 0)
       start_search = 0;
 
@@ -1192,17 +1196,17 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory) const
     double time{ 0 };
     double dist = std::numeric_limits<double>::max();
     bool found = false;
-    for (auto it = trajectory_.begin(); it != trajectory_.end(); ++it)
+    for (const auto& it : trajectory_)
     {
-      if (it->path_pos_ > start_search && it->path_pos_ < end_search)
+      if (it.path_pos_ > start_search && it.path_pos_ < end_search)
       {
-        double check_dist = (p - getPosition(it->time_).head(trajectory.dof())).norm();
+        double check_dist = (p - getPosition(it.time_).head(trajectory.dof())).norm();
         if (check_dist < dist)
         {
           dist = check_dist;
-          uv = getVelocity(it->time_).head(trajectory.dof());
-          ua = getAcceleration(it->time_).head(trajectory.dof());
-          time = it->time_;
+          uv = getVelocity(it.time_).head(trajectory.dof());
+          ua = getAcceleration(it.time_).head(trajectory.dof());
+          time = it.time_;
           found = true;
         }
       }
@@ -1227,29 +1231,27 @@ std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectoryS
 {
   if (time >= trajectory_.back().time_)
   {
-    std::list<TrajectoryStep>::const_iterator last = trajectory_.end();
+    auto last = trajectory_.end();
     last--;
     return last;
   }
-  else
+
+  if (time < cached_time_)
   {
-    if (time < cached_time_)
-    {
-      cached_trajectory_segment_ = trajectory_.begin();
-    }
-    while (time >= cached_trajectory_segment_->time_)
-    {
-      ++cached_trajectory_segment_;
-    }
-    cached_time_ = time;
-    return cached_trajectory_segment_;
+    cached_trajectory_segment_ = trajectory_.begin();
   }
+  while (time >= cached_trajectory_segment_->time_)
+  {
+    ++cached_trajectory_segment_;
+  }
+  cached_time_ = time;
+  return cached_trajectory_segment_;
 }
 
 Eigen::VectorXd Trajectory::getPosition(double time) const
 {
-  std::list<TrajectoryStep>::const_iterator it = getTrajectorySegment(time);
-  std::list<TrajectoryStep>::const_iterator previous = it;
+  auto it = getTrajectorySegment(time);
+  auto previous = it;
   previous--;
 
   double time_step = it->time_ - previous->time_;
@@ -1265,8 +1267,8 @@ Eigen::VectorXd Trajectory::getPosition(double time) const
 
 Eigen::VectorXd Trajectory::getVelocity(double time) const
 {
-  std::list<TrajectoryStep>::const_iterator it = getTrajectorySegment(time);
-  std::list<TrajectoryStep>::const_iterator previous = it;
+  auto it = getTrajectorySegment(time);
+  auto previous = it;
   previous--;
 
   double time_step = it->time_ - previous->time_;
@@ -1283,8 +1285,8 @@ Eigen::VectorXd Trajectory::getVelocity(double time) const
 
 Eigen::VectorXd Trajectory::getAcceleration(double time) const
 {
-  std::list<TrajectoryStep>::const_iterator it = getTrajectorySegment(time);
-  std::list<TrajectoryStep>::const_iterator previous = it;
+  auto it = getTrajectorySegment(time);
+  auto previous = it;
   previous--;
 
   double time_step = it->time_ - previous->time_;

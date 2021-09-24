@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-TEST(TesseractCommandLanguageJointWaypointUnit, isToleranced)
+TEST(TesseractCommandLanguageJointWaypointUnit, isToleranced)  // NOLINT
 {
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3" };
   Eigen::VectorXd joint_values = Eigen::VectorXd::Constant(3, 1);
@@ -50,18 +50,18 @@ TEST(TesseractCommandLanguageJointWaypointUnit, isToleranced)
 
   jw.upper_tolerance = Eigen::VectorXd::Constant(3, -5);
   jw.lower_tolerance = Eigen::VectorXd::Constant(3, -5);
-  EXPECT_ANY_THROW(jw.isToleranced());
+  EXPECT_ANY_THROW(jw.isToleranced());  // NOLINT
 
   jw.upper_tolerance = Eigen::VectorXd::Constant(3, 5);
   jw.lower_tolerance = Eigen::VectorXd::Constant(3, 5);
-  EXPECT_ANY_THROW(jw.isToleranced());
+  EXPECT_ANY_THROW(jw.isToleranced());  // NOLINT
 
   jw.upper_tolerance = Eigen::VectorXd::Constant(3, 0);
   jw.lower_tolerance = Eigen::VectorXd::Constant(3, 0);
-  EXPECT_FALSE(jw.isToleranced());
+  EXPECT_FALSE(jw.isToleranced());  // NOLINT
 }
 
-TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)
+TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)  // NOLINT
 {
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3" };
   Eigen::VectorXd joint_values = Eigen::VectorXd::Constant(3, 1);
@@ -71,7 +71,7 @@ TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)
   Waypoint wp = jw;
   Serialization::toArchiveFileXML<Waypoint>(wp, "/tmp/joint_waypoint_boost.xml");
 
-  Waypoint nwp = Serialization::fromArchiveFileXML<Waypoint>("/tmp/joint_waypoint_boost.xml");
+  auto nwp = Serialization::fromArchiveFileXML<Waypoint>("/tmp/joint_waypoint_boost.xml");
 
   EXPECT_TRUE(jw == nwp.as<JointWaypoint>());
 }
@@ -79,18 +79,18 @@ TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)
 inline void SerializeDeserializeTest(const JointWaypoint& wp)
 {
   Serialization::toArchiveFileXML<Waypoint>(wp, tesseract_common::getTempPath() + "joint_waypoint_unit.xml");
-  Waypoint deserialized = Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "joint_"
-                                                                                                        "waypoint_unit."
-                                                                                                        "xml");
+  auto deserialized = Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "joint_"
+                                                                                                    "waypoint_unit."
+                                                                                                    "xml");
   EXPECT_TRUE(wp == deserialized.as<JointWaypoint>());
 }
 
-TEST(TesseractCommandLanguageJointWaypointUnit, equalityOperatorAndSerialization)
+TEST(TesseractCommandLanguageJointWaypointUnit, equalityOperatorAndSerialization)  // NOLINT
 {
   // Equal
   {
     JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, 0, 0 });
-    JointWaypoint wp2(wp1);
+    const JointWaypoint wp2(wp1);  // NOLINT
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
@@ -98,7 +98,7 @@ TEST(TesseractCommandLanguageJointWaypointUnit, equalityOperatorAndSerialization
   }
   {
     JointWaypoint wp1({ "j1", "j2", "j3" }, { 0, -1e6, 1e6 });
-    JointWaypoint wp2(wp1);
+    JointWaypoint wp2(wp1);  // NOLINT
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);

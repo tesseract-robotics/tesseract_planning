@@ -33,6 +33,9 @@ namespace tesseract_planning
 /** @brief Create TrajOpt Process Pipeline */
 TaskflowGenerator::UPtr createTrajOptGenerator();
 
+/** @brief Create TrajOpt IFOPT Process Pipeline */
+TaskflowGenerator::UPtr createTrajOptIfoptGenerator();
+
 /** @brief Create OMPL Process Pipeline */
 TaskflowGenerator::UPtr createOMPLGenerator();
 

@@ -98,7 +98,7 @@ TEST(IterativeSplineParameterizationUnit, Solve)  // NOLINT
   EXPECT_TRUE(true);
 }
 
-TEST(TestTimeParameterization, TestIterativeSpline)
+TEST(TestTimeParameterization, TestIterativeSpline)  // NOLINT
 {
   IterativeSplineParameterization time_parameterization(false);
   CompositeInstruction program = createStraightTrajectory();
@@ -109,7 +109,7 @@ TEST(TestTimeParameterization, TestIterativeSpline)
   ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
 }
 
-TEST(TestTimeParameterization, TestIterativeSplineAddPoints)
+TEST(TestTimeParameterization, TestIterativeSplineAddPoints)  // NOLINT
 {
   IterativeSplineParameterization time_parameterization(true);
   CompositeInstruction program = createStraightTrajectory();
@@ -120,7 +120,7 @@ TEST(TestTimeParameterization, TestIterativeSplineAddPoints)
   ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
 }
 
-TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)
+TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)  // NOLINT
 {
   IterativeSplineParameterization time_parameterization(false);
   CompositeInstruction program = createStraightTrajectory();
@@ -147,7 +147,7 @@ TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)
       *trajectory, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
 }
 
-TEST(TestTimeParameterization, TestRepeatedPoint)
+TEST(TestTimeParameterization, TestRepeatedPoint)  // NOLINT
 {
   IterativeSplineParameterization time_parameterization(true);
   CompositeInstruction program = createRepeatedPointTrajectory();

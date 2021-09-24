@@ -73,7 +73,7 @@ public:
   {
     waypoint.resize(static_cast<Eigen::Index>(l.size()));
     Eigen::Index i = 0;
-    for (auto& v : l)
+    for (const auto& v : l)
       waypoint(i++) = v;
 
     if (static_cast<Eigen::Index>(this->joint_names.size()) != this->waypoint.rows())
@@ -91,7 +91,7 @@ public:
   /** @returns true if two are approximate */
   inline bool isApprox(const Eigen::VectorXd& other, double prec = 1e-12) { return waypoint.isApprox(other, prec); }
   /** @returns the transpose of the joint positions */
-  inline ConstTransposeReturnType transpose() const { return waypoint.transpose(); }
+  inline ConstTransposeReturnType transpose() const { return waypoint.transpose(); }  // NOLINT
 
   /////////////////////
   // Eigen Operators //
@@ -116,7 +116,7 @@ public:
   {
     waypoint.resize(static_cast<Eigen::Index>(l.size()));
     Eigen::Index i = 0;
-    for (auto& v : l)
+    for (const auto& v : l)
       waypoint(i++) = v;
 
     return *this;

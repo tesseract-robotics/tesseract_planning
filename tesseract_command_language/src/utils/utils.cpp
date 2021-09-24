@@ -149,8 +149,8 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
 
 bool formatJointPosition(const std::vector<std::string>& joint_names, Waypoint& waypoint)
 {
-  Eigen::VectorXd* jv;
-  std::vector<std::string>* jn;
+  Eigen::VectorXd* jv{ nullptr };
+  std::vector<std::string>* jn{ nullptr };
   if (isJointWaypoint(waypoint))
   {
     auto& jwp = waypoint.as<JointWaypoint>();
@@ -346,7 +346,7 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   // Write Positions
   for (const auto& i : mi)
   {
-    Eigen::VectorXd p = getJointPosition(i.get().as<MoveInstruction>().getWaypoint());
+    const Eigen::VectorXd& p = getJointPosition(i.get().as<MoveInstruction>().getWaypoint());
     myfile << p.format(eigen_format) << std::endl;
   }
 

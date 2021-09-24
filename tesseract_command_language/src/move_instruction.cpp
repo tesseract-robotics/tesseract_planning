@@ -38,9 +38,12 @@ namespace tesseract_planning
 {
 MoveInstruction::MoveInstruction(Waypoint waypoint,
                                  MoveInstructionType type,
-                                 const std::string& profile,
+                                 std::string profile,
                                  ManipulatorInfo manipulator_info)
-  : move_type_(type), profile_(profile), waypoint_(std::move(waypoint)), manipulator_info_(manipulator_info)
+  : move_type_(type)
+  , profile_(std::move(profile))
+  , waypoint_(std::move(waypoint))
+  , manipulator_info_(std::move(manipulator_info))
 {
 }
 
@@ -49,13 +52,13 @@ void MoveInstruction::setWaypoint(Waypoint waypoint)
   if (!isStateWaypoint(waypoint))
     CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
 
-  waypoint_ = waypoint;
+  waypoint_ = std::move(waypoint);
 }
 
 Waypoint& MoveInstruction::getWaypoint() { return waypoint_; }
 const Waypoint& MoveInstruction::getWaypoint() const { return waypoint_; }
 
-void MoveInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_info_ = info; }
+void MoveInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_info_ = std::move(info); }
 const ManipulatorInfo& MoveInstruction::getManipulatorInfo() const { return manipulator_info_; }
 ManipulatorInfo& MoveInstruction::getManipulatorInfo() { return manipulator_info_; }
 

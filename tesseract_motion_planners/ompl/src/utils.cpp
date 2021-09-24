@@ -56,7 +56,7 @@ Eigen::Map<Eigen::VectorXd> ConstrainedStateSpaceExtractor(const ompl::base::Sta
 }
 #endif
 
-tesseract_common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path, OMPLStateExtractor extractor)
+tesseract_common::TrajArray toTrajArray(const ompl::geometric::PathGeometric& path, const OMPLStateExtractor& extractor)
 {
   const auto n_points = static_cast<long>(path.getStateCount());
   const auto dof = static_cast<long>(path.getSpaceInformation()->getStateDimension());

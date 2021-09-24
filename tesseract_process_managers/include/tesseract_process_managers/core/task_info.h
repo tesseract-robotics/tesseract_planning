@@ -61,17 +61,17 @@ public:
   TaskInfo& operator=(TaskInfo&&) = default;
 
   /** @brief Value returned from the Task on completion */
-  int return_value;
+  int return_value{ std::numeric_limits<int>::lowest() };
 
   /** @brief Unique ID generated for the Task by Taskflow */
-  std::size_t unique_id;
+  std::size_t unique_id{ 0 };
 
   std::string task_name;
 
   std::string message;
 
   /** @brief elapsed_time Time spent in this task in seconds*/
-  double elapsed_time;
+  double elapsed_time{ 0 };
 
   /** @brief Instructions passed to task (optionally set) */
   Instruction instructions_input{ NullInstruction() };

@@ -207,7 +207,7 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   return response.status;
 }
 
-bool TrajOptMotionPlanner::checkUserInput(const PlannerRequest& request) const
+bool TrajOptMotionPlanner::checkUserInput(const PlannerRequest& request)
 {
   // Check that parameters are valid
   if (request.env == nullptr)

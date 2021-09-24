@@ -45,7 +45,7 @@ ContinuousMotionValidator::ContinuousMotionValidator(
   , state_solver_(env->getStateSolver())
   , kin_(std::move(kin))
   , continuous_contact_manager_(env->getContinuousContactManager())
-  , extractor_(extractor)
+  , extractor_(std::move(extractor))
 {
   joints_ = kin_->getJointNames();
 
@@ -91,7 +91,6 @@ bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1,
           state_space.interpolate(s1, s2, lastValid.second, lastValid.first);
 
         is_valid = false;
-        break;
       }
       else if (!continuousCollisionCheck(start_interp, end_interp))
       {
@@ -100,7 +99,6 @@ bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1,
           state_space.interpolate(s1, s2, lastValid.second, lastValid.first);
 
         is_valid = false;
-        break;
       }
     }
 
@@ -110,15 +108,7 @@ bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1,
   if (is_valid)
   {
     state_space.interpolate(s1, s2, (n_steps - 1) / static_cast<double>(n_steps), start_interp);
-    if (state_validator_ && !state_validator_->isValid(s2))
-    {
-      lastValid.second = static_cast<double>(n_steps - 1) / static_cast<double>(n_steps);
-      if (lastValid.first != nullptr)
-        state_space.interpolate(s1, s2, lastValid.second, lastValid.first);
-
-      is_valid = false;
-    }
-    else if (!continuousCollisionCheck(start_interp, s2))
+    if ((state_validator_ != nullptr && !state_validator_->isValid(s2)) || !continuousCollisionCheck(start_interp, s2))
     {
       lastValid.second = static_cast<double>(n_steps - 1) / static_cast<double>(n_steps);
       if (lastValid.first != nullptr)

@@ -107,9 +107,9 @@ public:
    * @param tolerance Tolerance passed to TOTG. Thi is used to determine which points correspond
    * @return The unflattened Composite. It should have the same subcomposite structure as pattern.
    */
-  CompositeInstruction unflatten(const CompositeInstruction& flattened_input,
-                                 const CompositeInstruction& pattern,
-                                 double tolerance) const;
+  static CompositeInstruction unflatten(const CompositeInstruction& flattened_input,
+                                        const CompositeInstruction& pattern,
+                                        double tolerance);
 };
 
 class TimeOptimalTrajectoryGenerationTaskInfo : public TaskInfo

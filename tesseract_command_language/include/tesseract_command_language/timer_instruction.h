@@ -112,7 +112,7 @@ public:
 private:
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Timer Instruction" };
-  TimerInstructionType timer_type_;
+  TimerInstructionType timer_type_{ TimerInstructionType::DIGITAL_OUTPUT_LOW };
   double timer_time_{ 0 };
   int timer_io_{ -1 };
 

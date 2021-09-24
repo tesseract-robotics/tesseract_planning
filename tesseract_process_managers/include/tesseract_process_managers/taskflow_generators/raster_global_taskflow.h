@@ -79,6 +79,13 @@ public:
 
   TaskflowContainer generateTaskflow(TaskInput input, TaskflowVoidFn done_cb, TaskflowVoidFn error_cb) override;
 
+  /**
+   * @brief Checks that the TaskInput is in the correct format.
+   * @param input TaskInput to be checked
+   * @return True if in the correct format
+   */
+  static bool checkTaskInput(const TaskInput& input);
+
 private:
   TaskflowGenerator::UPtr global_taskflow_generator_;
   TaskflowGenerator::UPtr freespace_taskflow_generator_;
@@ -87,13 +94,6 @@ private:
   std::string name_;
 
   static void globalPostProcess(TaskInput input);
-
-  /**
-   * @brief Checks that the TaskInput is in the correct format.
-   * @param input TaskInput to be checked
-   * @return True if in the correct format
-   */
-  bool checkTaskInput(const TaskInput& input) const;
 };
 
 }  // namespace tesseract_planning

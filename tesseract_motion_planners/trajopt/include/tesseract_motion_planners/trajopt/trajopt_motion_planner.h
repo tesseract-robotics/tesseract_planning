@@ -102,13 +102,13 @@ public:
                                      PlannerResponse& response,
                                      bool verbose = false) const override;
 
-  bool checkUserInput(const PlannerRequest& request) const;
-
   bool terminate() override;
 
   void clear() override;
 
   MotionPlanner::Ptr clone() const override;
+
+  static bool checkUserInput(const PlannerRequest& request);
 
 protected:
 #ifndef SWIG

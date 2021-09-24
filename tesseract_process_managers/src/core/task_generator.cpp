@@ -32,7 +32,7 @@ TaskGenerator::TaskGenerator(std::string name) : name_(std::move(name)) {}
 
 const std::string& TaskGenerator::getName() const { return name_; }
 
-tf::Task TaskGenerator::generateTask(TaskInput input, tf::Taskflow& taskflow)
+tf::Task TaskGenerator::generateTask(TaskInput input, tf::Taskflow& taskflow)  // NOLINT
 {
   tf::Task task = taskflow.placeholder();
   std::size_t unique_id = task.hash_value();
@@ -41,14 +41,14 @@ tf::Task TaskGenerator::generateTask(TaskInput input, tf::Taskflow& taskflow)
   return task;
 }
 
-void TaskGenerator::assignTask(TaskInput input, tf::Task& task)
+void TaskGenerator::assignTask(TaskInput input, tf::Task& task)  // NOLINT
 {
   std::size_t unique_id = task.hash_value();
   task.work([=]() { process(input, unique_id); });
   task.name(getName());
 }
 
-tf::Task TaskGenerator::generateConditionalTask(TaskInput input, tf::Taskflow& taskflow)
+tf::Task TaskGenerator::generateConditionalTask(TaskInput input, tf::Taskflow& taskflow)  // NOLINT
 {
   tf::Task task = taskflow.placeholder();
   std::size_t unique_id = task.hash_value();
@@ -57,7 +57,7 @@ tf::Task TaskGenerator::generateConditionalTask(TaskInput input, tf::Taskflow& t
   return task;
 }
 
-void TaskGenerator::assignConditionalTask(TaskInput input, tf::Task& task)
+void TaskGenerator::assignConditionalTask(TaskInput input, tf::Task& task)  // NOLINT
 {
   std::size_t unique_id = task.hash_value();
   task.work([=]() { return conditionalProcess(input, unique_id); });

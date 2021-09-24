@@ -60,30 +60,30 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
-  saveInputs(info, input);
+  saveInputs(*info, input);
 
   // Check that inputs are valid
   Instruction* input_results = input.getResults();
   if (!isCompositeInstruction(*input_results))
   {
     CONSOLE_BRIDGE_logError("Input seed to SeedMinLengthTaskGenerator must be a composite instruction");
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 0;
   }
 
-  CompositeInstruction& results = input_results->as<CompositeInstruction>();
+  auto& results = input_results->as<CompositeInstruction>();
   long cnt = getMoveInstructionCount(results);
   if (cnt >= min_length_)
   {
     info->return_value = 1;
-    saveOutputs(info, input);
+    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     return 1;
   }
 
   Instruction start_instruction = results.getStartInstruction();
-  int subdivisions = static_cast<int>(std::ceil(static_cast<double>(min_length_) / static_cast<double>(cnt))) + 1;
+  auto subdivisions = static_cast<int>(std::ceil(static_cast<double>(min_length_) / static_cast<double>(cnt))) + 1;
 
   CompositeInstruction new_results(results);
   new_results.clear();
@@ -93,7 +93,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
 
   CONSOLE_BRIDGE_logDebug("Seed Min Length Process Generator Succeeded!");
   info->return_value = 1;
-  saveOutputs(info, input);
+  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
   return 1;
 }
@@ -113,7 +113,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     assert(!isPlanInstruction(i));
     if (isCompositeInstruction(i))
     {
-      const CompositeInstruction& cc = i.as<CompositeInstruction>();
+      const auto& cc = i.as<CompositeInstruction>();
       CompositeInstruction new_cc(cc);
       new_cc.clear();
 
@@ -123,13 +123,13 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     else if (isMoveInstruction(i))
     {
       assert(isMoveInstruction(start_instruction));
-      const MoveInstruction& mi0 = start_instruction.as<MoveInstruction>();
-      const MoveInstruction& mi1 = i.as<MoveInstruction>();
+      const auto& mi0 = start_instruction.as<MoveInstruction>();
+      const auto& mi1 = i.as<MoveInstruction>();
 
       assert(isStateWaypoint(mi0.getWaypoint()));
       assert(isStateWaypoint(mi1.getWaypoint()));
-      const StateWaypoint& swp0 = mi0.getWaypoint().as<StateWaypoint>();
-      const StateWaypoint& swp1 = mi1.getWaypoint().as<StateWaypoint>();
+      const auto& swp0 = mi0.getWaypoint().as<StateWaypoint>();
+      const auto& swp1 = mi1.getWaypoint().as<StateWaypoint>();
 
       // Linearly interpolate in joint space
       Eigen::MatrixXd states = interpolate(swp0.position, swp1.position, subdivisions);

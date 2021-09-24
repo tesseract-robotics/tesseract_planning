@@ -48,7 +48,7 @@ RasterTaskflow::RasterTaskflow(TaskflowGenerator::UPtr freespace_taskflow_genera
   : freespace_taskflow_generator_(std::move(freespace_taskflow_generator))
   , transition_taskflow_generator_(std::move(transition_taskflow_generator))
   , raster_taskflow_generator_(std::move(raster_taskflow_generator))
-  , name_(name)
+  , name_(std::move(name))
 {
 }
 
@@ -91,7 +91,7 @@ TaskflowContainer RasterTaskflow::generateTaskflow(TaskInput input, TaskflowVoid
       const Instruction* pre_input_instruction = pre_input.getInstruction();
       assert(isCompositeInstruction(*pre_input_instruction));
       const auto& tci = pre_input_instruction->as<CompositeInstruction>();
-      auto* li = getLastPlanInstruction(tci);
+      const auto* li = getLastPlanInstruction(tci);
       assert(li != nullptr);
       start_instruction = *li;
     }
@@ -172,7 +172,7 @@ TaskflowContainer RasterTaskflow::generateTaskflow(TaskInput input, TaskflowVoid
   return container;
 }
 
-bool RasterTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool RasterTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // -------------
   // Check Input

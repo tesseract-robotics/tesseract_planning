@@ -64,7 +64,7 @@ void TaskInfoProfiler::load(const tesseract_common::fs::path& directory)
     const std::string filepath = entry.path().string();
     try
     {
-      std::vector<TaskInfo> task_info = Serialization::fromArchiveFileXML<std::vector<TaskInfo>>(filepath);
+      auto task_info = Serialization::fromArchiveFileXML<std::vector<TaskInfo>>(filepath);
       task_info_vecs.push_back(task_info);
     }
     catch (const std::exception& e)
@@ -120,7 +120,7 @@ void TaskInfoProfiler::print(std::ostream& os) const
   os << "\n|" << std::string((column_names.size() + 1) * (column_width + 1) - 2, '-') << "| \n";
 
   // Print statistics
-  for (const std::pair<std::string, TaskInfoStatistics>& kv : stats_map)
+  for (const auto& kv : stats_map)
   {
     os << "|";
 
@@ -150,7 +150,7 @@ std::unordered_map<std::string, TaskDisplayInfo> TaskInfoProfiler::getTaskDispla
   std::unordered_map<std::string, TaskDisplayInfo> task_info_map;
 
   // Calculate and print statistics
-  for (const std::pair<std::string, TaskInfoStatistics>& kv : stats_map)
+  for (const auto& kv : stats_map)
   {
     if (kv.second.occurances == 0)
       continue;
@@ -159,7 +159,7 @@ std::unordered_map<std::string, TaskDisplayInfo> TaskInfoProfiler::getTaskDispla
     task_info_map[kv.first].task_info = "Avg time: " + std::to_string(kv.second.avg_time).substr(0, 5) + "s";
 
     // Edge info
-    for (const std::pair<int, int>& ret_kv : kv.second.return_val_map)
+    for (const auto& ret_kv : kv.second.return_val_map)
     {
       double percent = static_cast<double>(ret_kv.second) / static_cast<double>(kv.second.occurances) * 100.;
       task_info_map[kv.first].edge_info[ret_kv.first] = std::to_string(percent).substr(0, 5) + "%";

@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-WaitInstruction::WaitInstruction(double time) : wait_type_(WaitInstructionType::TIME), wait_time_(time) {}
+WaitInstruction::WaitInstruction(double time) : wait_time_(time) {}
 WaitInstruction::WaitInstruction(WaitInstructionType type, int io) : wait_type_(type), wait_io_(io)
 {
   if (wait_type_ == WaitInstructionType::TIME)

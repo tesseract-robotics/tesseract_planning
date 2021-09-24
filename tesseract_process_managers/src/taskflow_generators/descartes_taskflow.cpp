@@ -44,7 +44,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-DescartesTaskflow::DescartesTaskflow(DescartesTaskflowParams params, std::string name) : name_(name), params_(params) {}
+DescartesTaskflow::DescartesTaskflow(DescartesTaskflowParams params, std::string name)
+  : name_(std::move(name)), params_(params)
+{
+}
 
 const std::string& DescartesTaskflow::getName() const { return name_; }
 
@@ -159,7 +162,7 @@ TaskflowContainer DescartesTaskflow::generateTaskflow(TaskInput input, TaskflowV
   return container;
 }
 
-bool DescartesTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input) const
+bool DescartesTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
 {
   // Check Input
   if (!input.env)

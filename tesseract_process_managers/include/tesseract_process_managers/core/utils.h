@@ -83,14 +83,14 @@ int hasSeedTask(TaskInput input);
  * @param info TaskInfo to which the inputs are saved
  * @param input TaskInput from which the inputs are taken
  */
-void saveInputs(TaskInfo::Ptr info, TaskInput& input);
+void saveInputs(TaskInfo& info, TaskInput& input);
 
 /**
  * @brief Saves the appropriate outputs to the TaskInfo
  * @param info TaskInfo to which the outputs are saved
  * @param input TaskInput from which the outputs are taken
  */
-void saveOutputs(TaskInfo::Ptr info, TaskInput& input);
+void saveOutputs(TaskInfo& info, TaskInput& input);
 
 }  // namespace tesseract_planning
 
