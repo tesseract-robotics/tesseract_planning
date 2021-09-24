@@ -34,7 +34,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-DebugObserver::DebugObserver(const std::string& name) { std::cout << "Constructing observer " << name << '\n'; }
+DebugObserver::DebugObserver(const std::string& name)
+{
+  CONSOLE_BRIDGE_logDebug("Constructing observer %s", name.c_str());
+}
 
 void DebugObserver::set_up(size_t num_workers)
 {
