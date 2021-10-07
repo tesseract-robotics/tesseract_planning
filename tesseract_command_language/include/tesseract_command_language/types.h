@@ -30,7 +30,6 @@
 
 namespace tesseract_planning
 {
-using ToolCenterPoint = tesseract_common::ToolCenterPoint;
 using ManipulatorInfo = tesseract_common::ManipulatorInfo;
 }  // namespace tesseract_planning
 
