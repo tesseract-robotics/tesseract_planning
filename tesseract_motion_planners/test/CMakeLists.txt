@@ -42,7 +42,6 @@ if(TESSERACT_BUILD_OMPL)
             GTest::Main
             ${PROJECT_NAME}_ompl
             tesseract::tesseract_support
-            tesseract::tesseract_environment_ofkt
             ${PROJECT_NAME}_simple)
   target_compile_options(${PROJECT_NAME}_ompl_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                            ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -76,9 +75,8 @@ target_link_libraries(
   ${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit
   PRIVATE GTest::GTest
           GTest::Main
-          ${PROJECT_NAME}_simple
           tesseract::tesseract_support
-          tesseract::tesseract_environment_ofkt)
+          ${PROJECT_NAME}_simple)
 target_compile_options(${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit
                        PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit
@@ -102,8 +100,7 @@ target_link_libraries(
   PRIVATE GTest::GTest
           GTest::Main
           ${PROJECT_NAME}_simple
-          tesseract::tesseract_support
-          tesseract::tesseract_environment_ofkt)
+          tesseract::tesseract_support)
 target_compile_options(${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit
                        PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit
@@ -126,8 +123,7 @@ target_link_libraries(
   PRIVATE GTest::GTest
           GTest::Main
           ${PROJECT_NAME}_simple
-          tesseract::tesseract_support
-          tesseract::tesseract_environment_ofkt)
+          tesseract::tesseract_support)
 target_compile_options(${PROJECT_NAME}_simple_planner_lvs_interpolation_unit
                        PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE} ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_simple_planner_lvs_interpolation_unit
@@ -150,9 +146,8 @@ if(TESSERACT_BUILD_TRAJOPT)
     ${PROJECT_NAME}_trajopt_unit
     PRIVATE GTest::GTest
             GTest::Main
-            ${PROJECT_NAME}_trajopt
             tesseract::tesseract_support
-            tesseract::tesseract_environment_ofkt
+            ${PROJECT_NAME}_trajopt
             ${PROJECT_NAME}_simple)
   target_compile_options(${PROJECT_NAME}_trajopt_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                               ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -176,10 +171,9 @@ if(TESSERACT_BUILD_DESCARTES)
     ${PROJECT_NAME}_descartes_unit
     PRIVATE GTest::GTest
             GTest::Main
-            ${PROJECT_NAME}_descartes
             tesseract::tesseract_support
-            tesseract::tesseract_environment_ofkt
             tesseract::tesseract_kinematics_opw
+            ${PROJECT_NAME}_descartes
             ${PROJECT_NAME}_simple)
   target_compile_options(${PROJECT_NAME}_descartes_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                                 ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
@@ -202,10 +196,9 @@ target_link_libraries(
   ${PROJECT_NAME}_utils_unit
   PRIVATE GTest::GTest
           GTest::Main
-          ${PROJECT_NAME}_core
           tesseract::tesseract_support
-          tesseract::tesseract_environment_ofkt
           tesseract::tesseract_command_language
+          ${PROJECT_NAME}_core
           ${PROJECT_NAME}_simple)
 target_compile_options(${PROJECT_NAME}_utils_unit PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                           ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

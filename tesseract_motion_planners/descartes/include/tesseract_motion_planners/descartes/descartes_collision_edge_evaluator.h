@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <vector>
 #include <descartes_light/core/edge_evaluator.h>
-#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/continuous_contact_manager.h>
 #include <tesseract_collision/core/types.h>
@@ -43,9 +43,8 @@ template <typename FloatType>
 class DescartesCollisionEdgeEvaluator : public descartes_light::EdgeEvaluator<FloatType>
 {
 public:
-  DescartesCollisionEdgeEvaluator(const tesseract_environment::Environment::ConstPtr& collision_env,
-                                  std::vector<std::string> active_links,
-                                  std::vector<std::string> joint_names,
+  DescartesCollisionEdgeEvaluator(const tesseract_environment::Environment& collision_env,
+                                  tesseract_kinematics::JointGroup::ConstPtr manip,
                                   tesseract_collision::CollisionCheckConfig config,
                                   bool allow_collision = false,
                                   bool debug = false);
@@ -55,13 +54,11 @@ public:
 
 protected:
   /** @brief The tesseract state solver */
-  tesseract_environment::StateSolver::ConstPtr state_solver_;
+  tesseract_kinematics::JointGroup::ConstPtr manip_;
   /** @brief The allowed collision matrix */
   tesseract_scene_graph::AllowedCollisionMatrix acm_;
   /** @brief A vector of active link names */
   std::vector<std::string> active_link_names_;
-  /** @brief A vector of joint names */
-  std::vector<std::string> joint_names_;
   /** @brief The discrete contact manager */
   tesseract_collision::DiscreteContactManager::Ptr discrete_contact_manager_;
   /** @brief The discrete contact manager */
@@ -94,9 +91,6 @@ protected:
 
   /** @brief The discrete contact manager cache */
   mutable std::map<unsigned long int, tesseract_collision::DiscreteContactManager::Ptr> discrete_contact_managers_;
-
-  /** @brief The state solver manager cache */
-  mutable std::map<unsigned long int, tesseract_environment::StateSolver::Ptr> state_solver_managers_;
 
   /**
    * @brief Perform a continuous collision check between two states

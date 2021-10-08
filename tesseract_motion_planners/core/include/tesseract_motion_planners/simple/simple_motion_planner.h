@@ -70,7 +70,7 @@ public:
    * @brief The available composite profiles
    *
    * Composite instruction is a way to namespace or organize your planning problem. The composite instruction has a
-   * profile which is used for applying multy waypoint costs and constraints like joint smoothing, collision avoidance,
+   * profile which is used for applying multi waypoint costs and constraints like joint smoothing, collision avoidance,
    * and velocity smoothing.
    */
   SimplePlannerCompositeProfileMap composite_profiles;
@@ -78,13 +78,13 @@ public:
   /**
    * @brief The available plan profiles
    *
-   * Plan instruction profiles are used to control waypoint specific information like fixed waypoint, toleranced
+   * Plan instruction profiles are used to control waypoint specific information like fixed waypoint, tolerance
    * waypoint, corner distance waypoint, etc.
    */
   SimplePlannerPlanProfileMap plan_profiles;
 
   /**
-   * @brief Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss
+   * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
    * @param response The results of the optimization. Primary output is the optimized joint trajectory
    * @param check_type The type of collision check to perform on the planned trajectory
    * @param verbose Boolean indicating whether logging information about the motion planning solution should be printed
@@ -108,8 +108,8 @@ protected:
   std::shared_ptr<const SimpleMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
 
   static PlanInstruction getStartInstruction(const PlannerRequest& request,
-                                             const tesseract_environment::EnvState::ConstPtr& current_state,
-                                             const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin);
+                                             const tesseract_scene_graph::SceneState& current_state,
+                                             const tesseract_kinematics::JointGroup& manip);
 
   CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,
                                                    PlanInstruction& prev_instruction,

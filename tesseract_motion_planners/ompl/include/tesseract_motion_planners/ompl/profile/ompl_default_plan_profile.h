@@ -97,7 +97,7 @@ public:
    *
    * This defaults to two RRTConnectConfigurator
    *
-   * This will create a new thead for each planner configurator provided. T
+   * This will create a new thread for each planner configurator provided. T
    */
   std::vector<OMPLPlannerConfigurator::ConstPtr> planners = { std::make_shared<const RRTConnectConfigurator>(),
                                                               std::make_shared<const RRTConnectConfigurator>() };
@@ -152,17 +152,9 @@ public:
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
 
 protected:
-  bool processStartAndGoalState(OMPLProblem& prob,
-                                const tesseract_environment::Environment::ConstPtr& env,
-                                const tesseract_kinematics::ForwardKinematics::ConstPtr& kin) const;
-  ompl::base::StateValidityCheckerPtr
-  processStateValidator(OMPLProblem& prob,
-                        const tesseract_environment::Environment::ConstPtr& env,
-                        const tesseract_kinematics::ForwardKinematics::ConstPtr& kin) const;
+  ompl::base::StateValidityCheckerPtr processStateValidator(OMPLProblem& prob) const;
   void processMotionValidator(OMPLProblem& prob,
-                              const ompl::base::StateValidityCheckerPtr& svc_without_collision,
-                              const tesseract_environment::Environment::ConstPtr& env,
-                              const tesseract_kinematics::ForwardKinematics::ConstPtr& kin) const;
+                              const ompl::base::StateValidityCheckerPtr& svc_without_collision) const;
   void processOptimizationObjective(OMPLProblem& prob) const;
 };
 }  // namespace tesseract_planning

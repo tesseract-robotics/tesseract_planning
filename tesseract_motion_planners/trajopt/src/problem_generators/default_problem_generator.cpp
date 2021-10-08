@@ -30,6 +30,7 @@
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
+#include <tesseract_kinematics/core/validate.h>
 
 namespace tesseract_planning
 {
@@ -52,12 +53,44 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
   // Assign Kinematics object
-  pci->kin = pci->getManipulator(composite_mi.manipulator);
-  std::string link = pci->kin->getTipLinkName();
+  try
+  {
+    tesseract_kinematics::KinematicGroup::Ptr kin_group;
+    std::string error_msg;
+    if (composite_mi.manipulator_ik_solver.empty())
+    {
+      kin_group = request.env->getKinematicGroup(composite_mi.manipulator);
+      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "'";
+    }
+    else
+    {
+      kin_group = request.env->getKinematicGroup(composite_mi.manipulator, composite_mi.manipulator_ik_solver);
+      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "' with solver '" +
+                  composite_mi.manipulator_ik_solver + "'";
+    }
+
+    if (kin_group == nullptr)
+    {
+      CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
+      throw std::runtime_error(error_msg);
+    }
+
+    // Process instructions
+    if (!tesseract_kinematics::checkKinematics(*kin_group))
+    {
+      CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with Forward "
+                              "Kinematics. Did you change the URDF recently?");
+    }
+    pci->kin = kin_group;
+  }
+  catch (...)
+  {
+    pci->kin = request.env->getJointGroup(composite_mi.manipulator);
+  }
 
   if (pci->kin == nullptr)
   {
-    std::string error_msg = "In trajopt_array_planner: manipulator_ does not exist in kin_map_";
+    std::string error_msg = "In TrajOpt problem generator, manipulator does not exist!";
     CONSOLE_BRIDGE_logError(error_msg.c_str());
     throw std::runtime_error(error_msg);
   }
@@ -81,9 +114,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
 
   // Get kinematics information
   tesseract_environment::Environment::ConstPtr env = request.env;
-  tesseract_environment::AdjacencyMap map(
-      env->getSceneGraph(), pci->kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
-  const std::vector<std::string>& active_links = map.getActiveLinkNames();
+  std::vector<std::string> active_links = pci->kin->getActiveLinkNames();
+  std::vector<std::string> joint_names = pci->kin->getJointNames();
 
   // Check seed should have start instruction
   assert(request.seed.hasStartInstruction());
@@ -92,7 +124,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   std::vector<Eigen::VectorXd> seed_states;
   seed_states.reserve(seed_flat.size());
   for (auto& i : seed_flat)
-    seed_states.push_back(getJointPosition(pci->kin->getJointNames(), i.get().as<MoveInstruction>().getWaypoint()));
+    seed_states.push_back(getJointPosition(joint_names, i.get().as<MoveInstruction>().getWaypoint()));
 
   // Setup start waypoint
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
@@ -120,8 +152,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   }
   else  // If not start instruction is given, take the current state
   {
-    Eigen::VectorXd current_jv = request.env_state->getJointValues(pci->kin->getJointNames());
-    StateWaypoint swp(pci->kin->getJointNames(), current_jv);
+    Eigen::VectorXd current_jv = request.env_state.getJointValues(joint_names);
+    StateWaypoint swp(joint_names, current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);
     placeholder_instruction = temp_move;
@@ -144,7 +176,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
-    assert(checkJointPositionFormat(pci->kin->getJointNames(), start_waypoint));
+    assert(checkJointPositionFormat(joint_names, start_waypoint));
     bool toleranced = false;
 
     if (isJointWaypoint(start_waypoint))
@@ -185,8 +217,18 @@ DefaultTrajoptProblemGenerator(const std::string& name,
       const auto& plan_instruction = instruction.as<PlanInstruction>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
-      ManipulatorInfo manip_info = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
-      Eigen::Isometry3d tcp = request.env->findTCP(manip_info);
+      ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
+
+      if (mi.manipulator.empty())
+        throw std::runtime_error("TrajOpt, manipulator is empty!");
+
+      if (mi.tcp_frame.empty())
+        throw std::runtime_error("TrajOpt, tcp_frame is empty!");
+
+      if (mi.working_frame.empty())
+        throw std::runtime_error("TrajOpt, working_frame is empty!");
+
+      Eigen::Isometry3d tcp_offseet = request.env->findTCPOffset(mi);
 
       assert(isCompositeInstruction(seed_flat_pattern[i].get()));
       const auto& seed_composite = seed_flat_pattern[i].get().as<tesseract_planning::CompositeInstruction>();
@@ -212,14 +254,13 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
-            assert(checkJointPositionFormat(pci->kin->getJointNames(), start_waypoint));
+            assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = pci->kin->calcFwdKin(position);
-            prev_pose = pci->env->getCurrentState()->link_transforms.at(pci->kin->getBaseLinkName()) * prev_pose * tcp;
+            prev_pose = pci->kin->calcFwdKin(position)[mi.tcp_frame] * tcp_offseet;
           }
           else
           {
-            throw std::runtime_error("TrajOptPlannerUniversalConfig: uknown waypoint type.");
+            throw std::runtime_error("TrajOptPlannerUniversalConfig: known waypoint type.");
           }
 
           tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_wp, interpolate_cnt);
@@ -237,7 +278,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
         }
         else if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(pci->kin->getJointNames(), plan_instruction.getWaypoint()));
+          assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           bool toleranced = false;
 
           JointWaypoint cur_position;
@@ -254,8 +295,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           else
             throw std::runtime_error("Unsupported waypoint type.");
 
-          Eigen::Isometry3d cur_pose = pci->kin->calcFwdKin(cur_position);
-          cur_pose = pci->env->getCurrentState()->link_transforms.at(pci->kin->getBaseLinkName()) * cur_pose * tcp;
+          Eigen::Isometry3d cur_pose = pci->kin->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offseet;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
@@ -264,14 +304,13 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
-            assert(checkJointPositionFormat(pci->kin->getJointNames(), start_waypoint));
+            assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = pci->kin->calcFwdKin(position);
-            prev_pose = pci->env->getCurrentState()->link_transforms.at(pci->kin->getBaseLinkName()) * prev_pose * tcp;
+            prev_pose = pci->kin->calcFwdKin(position)[mi.tcp_frame] * tcp_offseet;
           }
           else
           {
-            throw std::runtime_error("TrajOptPlannerUniversalConfig: uknown waypoint type.");
+            throw std::runtime_error("TrajOptPlannerUniversalConfig: known waypoint type.");
           }
 
           tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_pose, interpolate_cnt);
@@ -309,7 +348,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
 
           bool toleranced = false;
 
-          // Add final point with waypoint costs and contraints
+          // Add final point with waypoint costs and constraints
           JointWaypoint cur_position;
           if (isJointWaypoint(plan_instruction.getWaypoint()))
           {
@@ -339,7 +378,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           for (std::size_t s = 0; s < seed_composite.size() - 1; ++s)
             ++index;
 
-          // Add final point with waypoint costs and contraints
+          // Add final point with waypoint costs and constraints
           /** @todo Should check that the joint names match the order of the manipulator */
           cur_plan_profile->apply(*pci, cur_wp, plan_instruction, composite_mi, active_links, index);
         }
@@ -372,7 +411,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   // will be ignored. Costs applied to variables at fixed timesteps generally causes solver failures
   pci->basic_info.fixed_timesteps = fixed_steps;
 
-  // Set trajopt seed
+  // Set TrajOpt seed
   assert(static_cast<long>(seed_states.size()) == pci->basic_info.n_steps);
   pci->init_info.type = trajopt::InitInfo::GIVEN_TRAJ;
   pci->init_info.data.resize(pci->basic_info.n_steps, pci->kin->numJoints());

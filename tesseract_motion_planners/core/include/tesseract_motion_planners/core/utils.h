@@ -33,9 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/core/types.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_environment/utils.h>
 #include <tesseract_kinematics/core/forward_kinematics.h>
 #include <tesseract_kinematics/core/inverse_kinematics.h>
 #include <tesseract_command_language/command_language.h>
@@ -54,7 +53,7 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
                                       const tesseract_environment::Environment::ConstPtr& env);
 
 /**
- * @brief Inerpolate between two transforms return a vector of Eigen::Isometry transforms.
+ * @brief Interpolate between two transforms return a vector of Eigen::Isometry transforms.
  * @param start The Start Transform
  * @param stop The Stop/End Transform
  * @param steps The number of step
@@ -65,7 +64,7 @@ tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
                                                int steps);
 
 /**
- * @brief Inerpolate between two Eigen::VectorXd and return a Matrix
+ * @brief Interpolate between two Eigen::VectorXd and return a Matrix
  * @param start The Start State
  * @param stop The Stop/End State
  * @param steps The number of step
@@ -76,7 +75,7 @@ Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
                             int steps);
 
 /**
- * @brief Inerpolate between two waypoints return a vector of waypoints.
+ * @brief Interpolate between two waypoints return a vector of waypoints.
  * @param start The Start Waypoint
  * @param stop The Stop/End Waypoint
  * @param steps The number of step
@@ -120,7 +119,7 @@ flattenProgram(const CompositeInstruction& composite_instruction);
 
 /**
  * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
- * instruction will only be flattened if the corresponding element in pattern is flattenable.
+ * instruction will only be flattened if the corresponding element in pattern is flatten-able.
  *
  * If /p composite_instruction parameter has a start instruction it is added but child composites are not check for
  * start instructions.
@@ -137,7 +136,7 @@ std::vector<std::reference_wrapper<Instruction>> flattenProgramToPattern(Composi
 
 /**
  * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
- * instruction will only be flattened if the corresponding element in pattern is flattenable.
+ * instruction will only be flattened if the corresponding element in pattern is flatten-able.
  *
  * If /p composite_instruction parameter has a start instruction it is added but child composites are not check for
  * start instructions.
@@ -163,7 +162,7 @@ flattenProgramToPattern(const CompositeInstruction& composite_instruction, const
  */
 bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
                          tesseract_collision::ContinuousContactManager& manager,
-                         const tesseract_environment::StateSolver& state_solver,
+                         const tesseract_scene_graph::StateSolver& state_solver,
                          const CompositeInstruction& program,
                          const tesseract_collision::CollisionCheckConfig& config);
 
@@ -178,7 +177,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
  */
 bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
                          tesseract_collision::DiscreteContactManager& manager,
-                         const tesseract_environment::StateSolver& state_solver,
+                         const tesseract_scene_graph::StateSolver& state_solver,
                          const CompositeInstruction& program,
                          const tesseract_collision::CollisionCheckConfig& config);
 
@@ -197,7 +196,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
  * @brief This formats the joint and state waypoints to align with the kinematics object
  * @param composite_instructions The input program to format
  * @param env The environment information
- * @return True if the program required formating.
+ * @return True if the program required formatting.
  */
 bool formatProgram(CompositeInstruction& composite_instructions, const tesseract_environment::Environment& env);
 

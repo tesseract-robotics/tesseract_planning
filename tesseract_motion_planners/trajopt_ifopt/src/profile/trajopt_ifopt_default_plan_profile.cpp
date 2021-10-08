@@ -30,6 +30,7 @@
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/instruction_type.h>
+
 #include <trajopt_ifopt/trajopt_ifopt.h>
 #include <trajopt_ifopt/utils/ifopt_utils.h>
 
@@ -47,113 +48,72 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
-  const auto& env = problem.environment;
-  auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-      env->getSceneGraph(), problem.manip_fwd_kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
+  if (manip_info.manipulator.empty())
+    throw std::runtime_error("TrajOptIfoptDefaultPlanProfile, manipulator is empty!");
 
-  Eigen::Isometry3d world_to_base =
-      env->getCurrentState()->link_transforms.at(problem.manip_fwd_kin->getBaseLinkName());
-  Eigen::Isometry3d tcp = env->findTCP(mi);
-  auto kin_info = std::make_shared<trajopt_ifopt::KinematicsInfo>(problem.manip_fwd_kin, adjacency_map, world_to_base);
+  if (manip_info.tcp_frame.empty())
+    throw std::runtime_error("TrajOptIfoptDefaultPlanProfile, tcp_frame is empty!");
 
-  std::string source_link;
-  std::string target_link;  // Only Dynamic cartesian cartesian will have target_link
-  Eigen::Isometry3d source_tcp{ Eigen::Isometry3d::Identity() };
-  Eigen::Isometry3d target_tcp{ Eigen::Isometry3d::Identity() };
+  if (manip_info.working_frame.empty())
+    throw std::runtime_error("TrajOptIfoptDefaultPlanProfile, working_frame is empty!");
 
-  /* Check if this cartesian waypoint is dynamic
-   * (i.e. defined relative to a frame that will move with the kinematic chain)
-   */
-  bool is_dyanmic = (std::find(active_links.begin(), active_links.end(), mi.working_frame) != active_links.end());
-  if (is_dyanmic)
-  {
-    if (cartesian_waypoint.isToleranced())
-      CONSOLE_BRIDGE_logWarn("Toleranced cartesian waypoints are not supported in this version of TrajOpt.");
-
-    if (mi.tcp.isExternal() && mi.tcp.isString())
-    {
-      // If external, the part is attached to the robot so working frame is passed as link instead of target frame
-      // Since it is a link name then it has the possibility to also be dynamic so need to check
-      auto tcp_it = std::find(active_links.begin(), active_links.end(), mi.tcp.getString());
-      if (tcp_it != active_links.end())
-      {
-        source_link = "";
-        target_link = "";
-        source_tcp = Eigen::Isometry3d::Identity();
-        target_tcp = Eigen::Isometry3d::Identity();
-
-        // target_tcp, index, target, tcp relative to robot tip link, coeffs, robot tip link, term_type
-        //        ti = createDynamicCartesianWaypointTermInfo(Eigen::Isometry3d::Identity(),
-        //                                                    index,
-        //                                                    mi.tcp.getString(),
-        //                                                    cartesian_waypoint,
-        //                                                    cartesian_coeff,
-        //                                                    mi.working_frame,
-        //                                                    term_type);
-      }
-      else
-      {
-        source_link = mi.working_frame;
-        source_tcp = cartesian_waypoint.waypoint;
-        target_tcp = tcp;
-      }
-    }
-    else if (mi.tcp.isExternal())
-    {
-      // If external, the part is attached to the robot so working frame is passed as link instead of target frame
-      Eigen::Isometry3d local_tcp = tcp;
-      if (!mi.tcp.getExternalFrame().empty())
-        local_tcp = env->getCurrentState()->link_transforms.at(mi.tcp.getExternalFrame()) * tcp;
-
-      source_link = mi.working_frame;
-      source_tcp = cartesian_waypoint.waypoint;
-      target_tcp = local_tcp;
-      //      ti = createCartesianWaypointTermInfo(
-      //          tcp, index, mi.tcp.getExternalFrame(), cartesian_waypoint, cartesian_coeff, mi.working_frame,
-      //          term_type);
-    }
-    else
-    {
-      source_link = problem.manip_fwd_kin->getTipLinkName();
-      source_tcp = tcp;
-      target_tcp = cartesian_waypoint.waypoint;
-
-      // target_tcp, index, target, tcp relative to robot tip link, coeffs, robot tip link, term_type
-      //      ti = createDynamicCartesianWaypointTermInfo(
-      //          cartesian_waypoint, index, mi.working_frame, tcp, cartesian_coeff, pci.kin->getTipLinkName(),
-      //          term_type);
-    }
-  }
-  else
-  {
-    source_link = problem.manip_fwd_kin->getTipLinkName();
-    source_tcp = tcp;
-    target_tcp = cartesian_waypoint.waypoint;
-
-    //    ti = createCartesianWaypointTermInfo(
-    //        cartesian_waypoint, index, mi.working_frame, tcp, cartesian_coeff, pci.kin->getTipLinkName(), term_type);
-  }
+  Eigen::Isometry3d tcp_offset = problem.environment->findTCPOffset(mi);
 
   if (cartesian_coeff.rows() != 6)
     throw std::runtime_error("TrajOptIfoptDefaultPlanProfile: cartesian_coeff size must be 6.");
 
   trajopt_ifopt::JointPosition::ConstPtr var = problem.vars[static_cast<std::size_t>(index)];
-  if (is_dyanmic)
-    throw std::runtime_error("TrajOpt IFOPT currently does not support dynamic cartesian waypoints!");
 
-  switch (term_type)
+  /* Check if this cartesian waypoint is dynamic
+   * (i.e. defined relative to a frame that will move with the kinematic chain)
+   */
+  bool is_active_tcp_frame = (std::find(active_links.begin(), active_links.end(), mi.tcp_frame) == active_links.end());
+  bool is_static_working_frame =
+      (std::find(active_links.begin(), active_links.end(), mi.working_frame) == active_links.end());
+
+  if ((is_static_working_frame && is_active_tcp_frame) || (!is_active_tcp_frame && !is_static_working_frame))
   {
-    case TrajOptIfoptTermType::CONSTRAINT:
-      addCartesianPositionConstraint(*problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
-      break;
-    case TrajOptIfoptTermType::SQUARED_COST:
-      addCartesianPositionSquaredCost(
-          *problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
-      break;
-    case TrajOptIfoptTermType::ABSOLUTE_COST:
-      addCartesianPositionAbsoluteCost(
-          *problem.nlp, target_tcp, var, kin_info, source_link, source_tcp, cartesian_coeff);
-      break;
+    switch (term_type)
+    {
+      case TrajOptIfoptTermType::CONSTRAINT:
+        addCartesianPositionConstraint(*problem.nlp,
+                                       var,
+                                       problem.manip,
+                                       mi.tcp_frame,
+                                       mi.working_frame,
+                                       tcp_offset,
+                                       cartesian_waypoint,
+                                       cartesian_coeff);
+        break;
+      case TrajOptIfoptTermType::SQUARED_COST:
+        addCartesianPositionSquaredCost(*problem.nlp,
+                                        var,
+                                        problem.manip,
+                                        mi.tcp_frame,
+                                        mi.working_frame,
+                                        tcp_offset,
+                                        cartesian_waypoint,
+                                        cartesian_coeff);
+        break;
+      case TrajOptIfoptTermType::ABSOLUTE_COST:
+        addCartesianPositionAbsoluteCost(*problem.nlp,
+                                         var,
+                                         problem.manip,
+                                         mi.tcp_frame,
+                                         mi.working_frame,
+                                         tcp_offset,
+                                         cartesian_waypoint,
+                                         cartesian_coeff);
+        break;
+    }
+  }
+  else if (!is_static_working_frame && is_active_tcp_frame)
+  {
+    throw std::runtime_error("TrajOpt IFOPT currently does not support dynamic cartesian waypoints!");
+  }
+  else
+  {
+    throw std::runtime_error("TrajOpt, both tcp_frame and working_frame are both static!");
   }
 }
 

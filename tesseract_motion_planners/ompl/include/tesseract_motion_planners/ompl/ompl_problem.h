@@ -36,7 +36,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/types.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::OMPLProblem)
@@ -77,8 +78,7 @@ struct OMPLProblem
 
   // These are required for Tesseract to configure ompl
   tesseract_environment::Environment::ConstPtr env;
-  tesseract_environment::EnvState::ConstPtr env_state;
-  tesseract_environment::StateSolver::Ptr state_solver;
+  tesseract_scene_graph::SceneState env_state;
 
   // This is used to verify that start and goal states are not in collision
   tesseract_collision::DiscreteContactManager::Ptr contact_checker;
@@ -87,8 +87,7 @@ struct OMPLProblem
   OMPLProblemStateSpace state_space{ OMPLProblemStateSpace::REAL_STATE_SPACE };
 
   // Kinematic Objects
-  tesseract_kinematics::ForwardKinematics::ConstPtr manip_fwd_kin;
-  tesseract_kinematics::InverseKinematics::ConstPtr manip_inv_kin;
+  tesseract_kinematics::JointGroup::ConstPtr manip;
 
   /** @brief Max planning time allowed in seconds */
   double planning_time = 5.0;
@@ -129,12 +128,12 @@ struct OMPLProblem
   /**
    * @brief The planner configurators ***REQUIRED***
    *
-   * This will create a new thead for each planner configurator provided. T
+   * This will create a new thread for each planner configurator provided. T
    */
   std::vector<OMPLPlannerConfigurator::ConstPtr> planners;
 
   /**
-   * @bried This will extract an Eigen::VectorXd from the OMPL State ***REQUIRED***
+   * @brief This will extract an Eigen::VectorXd from the OMPL State ***REQUIRED***
    */
   OMPLStateExtractor extractor;
 

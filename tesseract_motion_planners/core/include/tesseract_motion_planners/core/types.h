@@ -26,7 +26,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_PLANNER_TYPES_H
 #define TESSERACT_MOTION_PLANNERS_PLANNER_TYPES_H
 
-#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_common/status_code.h>
 #include <tesseract_common/types.h>
 #include <tesseract_command_language/command_language.h>
@@ -37,20 +37,25 @@ namespace tesseract_planning
  * This used to store planner specific profile mapping with the request
  *
  * For example say you have a profile named Raster in your command language. Say you have multiple Raster profiles
- * for descartes {Raster, Raster1, Rester2}. This allows you to remap the meaning of Raster in the command language to
+ * for descartes {Raster, Raster1, Raster2}. This allows you to remap the meaning of Raster in the command language to
  * say Raster2 for the specific planner Descartes by Map<Descartes, Map<Raster, Raster1>>.
  */
 using PlannerProfileRemapping = std::unordered_map<std::string, std::unordered_map<std::string, std::string>>;
 
 struct PlannerRequest
 {
-  std::string name;                                    /**< @brief The name of the process manager to use */
-  tesseract_environment::Environment::ConstPtr env;    /**< @brief The environment */
-  tesseract_environment::EnvState::ConstPtr env_state; /**< @brief The start state to use for planning */
+  /** @brief The name of the process manager to use */
+  std::string name;
+
+  /** @brief The environment */
+  tesseract_environment::Environment::ConstPtr env;
+
+  /** @brief The start state to use for planning */
+  tesseract_scene_graph::SceneState env_state;
 
   /**
    * @brief The program instruction
-   * This must containt a minimum of two move instruction the first move instruction is the start state
+   * This must contain a minimum of two move instruction the first move instruction is the start state
    */
   CompositeInstruction instructions;
   /**

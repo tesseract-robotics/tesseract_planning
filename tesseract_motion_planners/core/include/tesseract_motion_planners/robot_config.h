@@ -42,7 +42,7 @@ namespace tesseract_planning
  * or not flipped.
  *   - Which is indicated by flipping the sign of J5 requiring J4 and J6 to move by +/-180 degrees
  * The second letter refers to 'Up vs Down' think of the human arm as the robot this would relate to elbow up or down
- *   - Which is indicated, J3 is greater than or less than 90 degrees and tool0 positiion x is positive or negative
+ *   - Which is indicated, J3 is greater than or less than 90 degrees and tool0 position x is positive or negative
  * The third letter refers to 'Front vs Back' think of the human arm as the robot this would relate to arm in front or
  * back
  *
@@ -132,7 +132,7 @@ inline RobotConfig getRobotConfig(const tesseract_kinematics::ForwardKinematics:
 /**
  * @brief Get number of turns for joints that allow rotation beyond +- 180 degrees
  * @param joint values The joint values of the robot
- * @return The number of turns (as intergers), in a vector
+ * @return The number of turns (as integers), in a vector
  */
 template <typename FloatType>
 inline Eigen::VectorXi getJointTurns(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values)

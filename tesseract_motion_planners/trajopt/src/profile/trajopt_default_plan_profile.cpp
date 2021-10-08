@@ -40,8 +40,8 @@ namespace tesseract_planning
 {
 TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement& xml_element)
 {
-  const tinyxml2::XMLElement* cartesian_coeff_element = xml_element.FirstChildElement("CartesianCoeff");
-  const tinyxml2::XMLElement* joint_coeff_element = xml_element.FirstChildElement("JointCoeff");
+  const tinyxml2::XMLElement* cartesian_coeff_element = xml_element.FirstChildElement("CartesianCoefficients");
+  const tinyxml2::XMLElement* joint_coeff_element = xml_element.FirstChildElement("JointCoefficients");
   const tinyxml2::XMLElement* term_type_element = xml_element.FirstChildElement("Term");
   const tinyxml2::XMLElement* cnt_error_fn_element = xml_element.FirstChildElement("ConstraintErrorFunctions");
 
@@ -53,12 +53,12 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
     std::string cart_coeff_string;
     status = tesseract_common::QueryStringText(cartesian_coeff_element, cart_coeff_string);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("TrajoptPlanProfile: Error parsing CartesianCoeff string");
+      throw std::runtime_error("TrajOptPlanProfile: Error parsing CartesianCoeff string");
 
     boost::split(cart_coeff_tokens, cart_coeff_string, boost::is_any_of(" "), boost::token_compress_on);
 
     if (!tesseract_common::isNumeric(cart_coeff_tokens))
-      throw std::runtime_error("TrajoptPlanProfile: CartesianCoeff are not all numeric values.");
+      throw std::runtime_error("TrajOptPlanProfile: CartesianCoeff are not all numeric values.");
 
     cartesian_coeff.resize(static_cast<long>(cart_coeff_tokens.size()));
     for (std::size_t i = 0; i < cart_coeff_tokens.size(); ++i)
@@ -71,12 +71,12 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
     std::string joint_coeff_string;
     status = tesseract_common::QueryStringText(joint_coeff_element, joint_coeff_string);
     if (status != tinyxml2::XML_NO_ATTRIBUTE && status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("TrajoptPlanProfile: Error parsing JointCoeff string");
+      throw std::runtime_error("TrajOptPlanProfile: Error parsing JointCoeff string");
 
     boost::split(joint_coeff_tokens, joint_coeff_string, boost::is_any_of(" "), boost::token_compress_on);
 
     if (!tesseract_common::isNumeric(joint_coeff_tokens))
-      throw std::runtime_error("TrajoptPlanProfile: JointCoeff are not all numeric values.");
+      throw std::runtime_error("TrajOptPlanProfile: JointCoeff are not all numeric values.");
 
     joint_coeff.resize(static_cast<long>(joint_coeff_tokens.size()));
     for (std::size_t i = 0; i < joint_coeff_tokens.size(); ++i)
@@ -88,7 +88,7 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
     auto type = static_cast<int>(trajopt::TermType::TT_CNT);
     status = term_type_element->QueryIntAttribute("type", &type);
     if (status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("TrajoptPlanProfile: Error parsing Term type attribute.");
+      throw std::runtime_error("TrajOptPlanProfile: Error parsing Term type attribute.");
 
     term_type = static_cast<trajopt::TermType>(type);
   }
@@ -98,7 +98,7 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
     std::string error_fn_name;
     status = tesseract_common::QueryStringAttribute(cnt_error_fn_element, "type", error_fn_name);
     if (status != tinyxml2::XML_SUCCESS)
-      throw std::runtime_error("TrajoptPlanProfile: Error parsing ConstraintErrorFunctions plugin attribute.");
+      throw std::runtime_error("TrajOptPlanProfile: Error parsing ConstraintErrorFunctions plugin attribute.");
 
     // TODO: Implement plugin capabilities
   }
@@ -114,58 +114,43 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
   const auto& base_instruction = parent_instruction.as<PlanInstruction>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
-  Eigen::Isometry3d tcp = pci.env->findTCP(mi);
+
+  if (mi.manipulator.empty())
+    throw std::runtime_error("TrajOptPlanProfile, manipulator is empty!");
+
+  if (mi.tcp_frame.empty())
+    throw std::runtime_error("TrajOptPlanProfile, tcp_frame is empty!");
+
+  if (mi.working_frame.empty())
+    throw std::runtime_error("TrajOptPlanProfile, working_frame is empty!");
+
+  Eigen::Isometry3d tcp_offset = pci.env->findTCPOffset(mi);
 
   trajopt::TermInfo::Ptr ti{ nullptr };
 
   /* Check if this cartesian waypoint is dynamic
    * (i.e. defined relative to a frame that will move with the kinematic chain)
    */
-  auto it = std::find(active_links.begin(), active_links.end(), mi.working_frame);
-  if (it != active_links.end())
-  {
-    if (cartesian_waypoint.isToleranced())
-      CONSOLE_BRIDGE_logWarn("Toleranced cartesian waypoints are not supported in this version of TrajOpt.");
+  bool is_active_tcp_frame = (std::find(active_links.begin(), active_links.end(), mi.tcp_frame) != active_links.end());
+  bool is_static_working_frame =
+      (std::find(active_links.begin(), active_links.end(), mi.working_frame) == active_links.end());
 
-    if (mi.tcp.isExternal() && mi.tcp.isString())
-    {
-      // If external, the part is attached to the robot so working frame is passed as link instead of target frame
-      // Since it is a link name then it has the possibility to also be dynamic so need to check
-      auto tcp_it = std::find(active_links.begin(), active_links.end(), mi.tcp.getString());
-      if (tcp_it != active_links.end())
-      {
-        // target_tcp, index, target, tcp relative to robot tip link, coeffs, robot tip link, term_type
-        ti = createDynamicCartesianWaypointTermInfo(Eigen::Isometry3d::Identity(),
-                                                    index,
-                                                    mi.tcp.getString(),
-                                                    cartesian_waypoint,
-                                                    cartesian_coeff,
-                                                    mi.working_frame,
-                                                    term_type);
-      }
-      else
-      {
-        ti = createCartesianWaypointTermInfo(
-            tcp, index, "", cartesian_waypoint, cartesian_coeff, mi.working_frame, term_type);
-      }
-    }
-    else if (mi.tcp.isExternal())
-    {
-      // If external, the part is attached to the robot so working frame is passed as link instead of target frame
-      ti = createCartesianWaypointTermInfo(
-          tcp, index, mi.tcp.getExternalFrame(), cartesian_waypoint, cartesian_coeff, mi.working_frame, term_type);
-    }
-    else
-    {
-      // target_tcp, index, target, tcp relative to robot tip link, coeffs, robot tip link, term_type
-      ti = createDynamicCartesianWaypointTermInfo(
-          cartesian_waypoint, index, mi.working_frame, tcp, cartesian_coeff, pci.kin->getTipLinkName(), term_type);
-    }
+  if (cartesian_waypoint.isToleranced())
+    CONSOLE_BRIDGE_logWarn("Tolerance cartesian waypoints are not supported in this version of TrajOpt.");
+
+  if ((is_static_working_frame && is_active_tcp_frame) || (!is_active_tcp_frame && !is_static_working_frame))
+  {
+    ti = createCartesianWaypointTermInfo(
+        index, mi.working_frame, cartesian_waypoint, mi.tcp_frame, tcp_offset, cartesian_coeff, term_type);
+  }
+  else if (!is_static_working_frame && is_active_tcp_frame)
+  {
+    ti = createDynamicCartesianWaypointTermInfo(
+        index, mi.working_frame, cartesian_waypoint, mi.tcp_frame, tcp_offset, cartesian_coeff, term_type);
   }
   else
   {
-    ti = createCartesianWaypointTermInfo(
-        cartesian_waypoint, index, mi.working_frame, tcp, cartesian_coeff, pci.kin->getTipLinkName(), term_type);
+    throw std::runtime_error("TrajOpt, both tcp_frame and working_frame are both static!");
   }
 
   if (term_type == trajopt::TermType::TT_CNT)
@@ -220,7 +205,7 @@ tinyxml2::XMLElement* TrajOptDefaultPlanProfile::toXML(tinyxml2::XMLDocument& do
   tinyxml2::XMLElement* xml_planner = doc.NewElement("Planner");
   xml_planner->SetAttribute("type", std::to_string(1).c_str());
 
-  tinyxml2::XMLElement* xml_trajopt = doc.NewElement("TrajoptPlanProfile");
+  tinyxml2::XMLElement* xml_trajopt = doc.NewElement("TrajOptDefaultPlanProfile");
 
   tinyxml2::XMLElement* xml_cart_coeff = doc.NewElement("CartesianCoefficients");
   std::stringstream cart_coeff;

@@ -81,7 +81,7 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointJointWaypoint(
     throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
   }
 
-  return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(const InstructionInfo& prev,
@@ -89,10 +89,7 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(c
 {
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
 
-  Eigen::Isometry3d p2_world = base.extractCartesianWorldPose();
-  Eigen::Isometry3d p2 = base.calcCartesianLocalPose(p2_world);
-
-  Eigen::VectorXd j2 = getClosestJointSolution(p2, base.inv_kin, j1);
+  Eigen::VectorXd j2 = getClosestJointSolution(base, j1);
 
   Eigen::MatrixXd states;
   if (j2.size() == 0)
@@ -126,17 +123,14 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(c
     }
   }
 
-  return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(const InstructionInfo& prev,
                                                                                const InstructionInfo& base) const
 {
   const Eigen::VectorXd& j2 = base.extractJointPosition();
-
-  Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
-  Eigen::Isometry3d p1 = prev.calcCartesianLocalPose(p1_world);
-  Eigen::VectorXd j1 = getClosestJointSolution(p1, prev.inv_kin, j2);
+  Eigen::VectorXd j1 = getClosestJointSolution(prev, j2);
 
   Eigen::MatrixXd states;
   if (j1.size() == 0)
@@ -170,7 +164,7 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(c
     }
   }
 
-  return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(const InstructionInfo& prev,
@@ -178,17 +172,11 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(co
                                                                               const PlannerRequest& request) const
 {
   // Get IK seed
-  Eigen::VectorXd seed = request.env_state->getJointValues(base.inv_kin->getJointNames());
-  tesseract_common::enforcePositionLimits(seed, base.fwd_kin->getLimits().joint_limits);
+  Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
+  tesseract_common::enforcePositionLimits(seed, base.manip->getLimits().joint_limits);
 
   // Calculate IK for start and end
-  Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
-  Eigen::Isometry3d p1 = prev.calcCartesianLocalPose(p1_world);
-
-  Eigen::Isometry3d p2_world = base.extractCartesianWorldPose();
-  Eigen::Isometry3d p2 = base.calcCartesianLocalPose(p2_world);
-
-  std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(p1, p2, prev.inv_kin, base.inv_kin, seed);
+  std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(prev, base, seed);
 
   Eigen::MatrixXd states;
   if (sol[0].size() != 0 && sol[1].size() != 0)
@@ -241,7 +229,7 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(co
   }
 
   // Convert to MoveInstructions
-  return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
 }  // namespace tesseract_planning

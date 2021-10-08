@@ -33,24 +33,22 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/descartes/descartes_collision_edge_evaluator.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_environment/utils.h>
 
 namespace tesseract_planning
 {
 template <typename FloatType>
 DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
-    const tesseract_environment::Environment::ConstPtr& collision_env,
-    std::vector<std::string> active_links,
-    std::vector<std::string> joint_names,
+    const tesseract_environment::Environment& collision_env,
+    tesseract_kinematics::JointGroup::ConstPtr manip,
     tesseract_collision::CollisionCheckConfig config,
     bool allow_collision,
     bool debug)
-  : state_solver_(collision_env->getStateSolver())
-  , acm_(*(collision_env->getAllowedCollisionMatrix()))
-  , active_link_names_(std::move(active_links))
-  , joint_names_(std::move(joint_names))
-  , discrete_contact_manager_(collision_env->getDiscreteContactManager())
-  , continuous_contact_manager_(collision_env->getContinuousContactManager())
+  : manip_(std::move(manip))
+  , acm_(*(collision_env.getAllowedCollisionMatrix()))
+  , active_link_names_(manip_->getActiveLinkNames())
+  , discrete_contact_manager_(collision_env.getDiscreteContactManager())
+  , continuous_contact_manager_(collision_env.getContinuousContactManager())
   , collision_check_config_(std::move(config))
   , allow_collision_(allow_collision)
   , debug_(debug)
@@ -127,21 +125,17 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck(
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
   tesseract_collision::ContinuousContactManager::Ptr cm;
-  tesseract_environment::StateSolver::Ptr ss;
+  tesseract_scene_graph::StateSolver* ss;
   mutex_.lock();
   auto it = continuous_contact_managers_.find(hash);
   if (it == continuous_contact_managers_.end())
   {
     cm = continuous_contact_manager_->clone();
     continuous_contact_managers_[hash] = cm;
-
-    ss = state_solver_->clone();
-    state_solver_managers_[hash] = ss;
   }
   else
   {
     cm = it->second;
-    ss = state_solver_managers_[hash];
   }
   mutex_.unlock();
   tesseract_collision::CollisionCheckConfig config = collision_check_config_;
@@ -153,7 +147,7 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck(
   config.contact_request.type =
       (find_best) ? tesseract_collision::ContactTestType::CLOSEST : tesseract_collision::ContactTestType::FIRST;
 
-  return tesseract_environment::checkTrajectory(results, *cm, *ss, joint_names_, segment, config);
+  return tesseract_environment::checkTrajectory(results, *cm, *manip_, segment, config);
 }
 
 template <typename FloatType>
@@ -165,21 +159,17 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck(
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
   tesseract_collision::DiscreteContactManager::Ptr cm;
-  tesseract_environment::StateSolver::Ptr ss;
+  tesseract_scene_graph::StateSolver* ss;
   mutex_.lock();
   auto it = discrete_contact_managers_.find(hash);
   if (it == discrete_contact_managers_.end())
   {
     cm = discrete_contact_manager_->clone();
     discrete_contact_managers_[hash] = cm;
-
-    ss = state_solver_->clone();
-    state_solver_managers_[hash] = ss;
   }
   else
   {
     cm = it->second;
-    ss = state_solver_managers_[hash];
   }
   mutex_.unlock();
 
@@ -192,7 +182,7 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck(
   config.contact_request.type =
       (find_best) ? tesseract_collision::ContactTestType::CLOSEST : tesseract_collision::ContactTestType::FIRST;
 
-  return tesseract_environment::checkTrajectory(results, *cm, *ss, joint_names_, segment, config);
+  return tesseract_environment::checkTrajectory(results, *cm, *manip_, segment, config);
 }
 
 }  // namespace tesseract_planning

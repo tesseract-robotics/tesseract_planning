@@ -34,8 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/ofkt/ofkt_state_solver.h>
+#include <tesseract_environment/environment.h>
 
 #include <tesseract_command_language/utils/utils.h>
 
@@ -91,14 +90,14 @@ protected:
 
   void SetUp() override
   {
-    tesseract_scene_graph::ResourceLocator::Ptr locator =
-        std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+    auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
     Environment::Ptr env = std::make_shared<Environment>();
     tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
     tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
-    EXPECT_TRUE(env->init<OFKTStateSolver>(urdf_path, srdf_path, locator));
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
 
+    manip.tcp_frame = "tool0";
     manip.manipulator = "manipulator";
     manip.manipulator_ik_solver = "OPWInvKin";
     manip.working_frame = "base_link";
@@ -110,9 +109,9 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   // Create the planner and the responses that will store the results
   PlannerResponse planning_response;
 
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver("manipulator");
-  auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver("manipulator");
-  auto cur_state = env_->getCurrentState();
+  tesseract_kinematics::KinematicGroup::Ptr kin_group =
+      env_->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
+  auto cur_state = env_->getState();
 
   // Specify a start waypoint
   CartesianWaypoint wp1 =
@@ -151,7 +150,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   request.seed = seed;
   request.instructions = program;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = cur_state;
 
   PlannerResponse single_planner_response;
   auto single_status = single_descartes_planner.solve(request, single_planner_response);
@@ -226,9 +225,9 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   // Create the planner and the responses that will store the results
   PlannerResponse planning_response;
 
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
-  auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
-  auto cur_state = env_->getCurrentState();
+  tesseract_kinematics::KinematicGroup::Ptr kin_group =
+      env_->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
+  auto cur_state = env_->getState();
 
   // Specify a start waypoint
   CartesianWaypoint wp1 =
@@ -271,7 +270,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   request.seed = seed;
   request.instructions = program;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = cur_state;
 
   auto problem = DefaultDescartesProblemGenerator<double>(
       single_descartes_planner.getName(), request, single_descartes_planner.plan_profiles);
@@ -332,9 +331,9 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   // Create the planner and the responses that will store the results
   PlannerResponse planning_response;
 
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
-  auto inv_kin = env_->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
-  auto cur_state = env_->getCurrentState();
+  tesseract_kinematics::KinematicGroup::Ptr kin_group =
+      env_->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
+  auto cur_state = env_->getState();
 
   // Specify a start waypoint
   CartesianWaypoint wp1 =
@@ -372,7 +371,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   request.seed = seed;
   request.instructions = program;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = cur_state;
 
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner;

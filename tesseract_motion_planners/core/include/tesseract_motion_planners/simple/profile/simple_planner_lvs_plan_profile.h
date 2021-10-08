@@ -51,8 +51,8 @@ public:
    * @brief SimplePlannerLVSPlanProfile
    * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions)
    *between successive steps
-   * @param translation_longest_valid_segment_length The maximum translational distance between successive steps
-   * @param rotation_longest_valid_segment_length The maximaum rotational distance between successive steps
+   * @param translation_longest_valid_segment_length The maximum translation distance between successive steps
+   * @param rotation_longest_valid_segment_length The maximum rotational distance between successive steps
    * @param min_steps The minimum number of steps for the plan
    */
   SimplePlannerLVSPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
@@ -68,10 +68,10 @@ public:
   /** @brief The maximum joint distance, the norm of changes to all joint positions between successive steps. */
   double state_longest_valid_segment_length;
 
-  /** @brief The maximum translational distance between successive steps */
+  /** @brief The maximum translation distance between successive steps */
   double translation_longest_valid_segment_length;
 
-  /** @brief The maximaum rotational distance between successive steps */
+  /** @brief The maximum rotational distance between successive steps */
   double rotation_longest_valid_segment_length;
 
   /** @brief The minimum number of steps for the plan */
@@ -84,7 +84,7 @@ protected:
    * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
    *
    * - the number of steps for the plan will be calculated such that:
-   *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
+   *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
    *   - the rotational distance between successive steps is no longer than rotation_longest_valid_segment
    *   - the number of steps for the plan will be calculated such that the norm of all joint distances between
    *successive steps is no longer than state_longest_valid_segment_length
@@ -99,7 +99,7 @@ protected:
    * @brief JointWaypoint to CartesianWaypoint
    *
    * - the number of steps for the plan will be calculated such that:
-   *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
+   *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
    *   - the rotational distance between successive steps is no longer than rotation_longest_valid_segment
    *   - the number of steps for the plan will be calculated such that the norm of all joint distances between
    *successive steps is no longer than state_longest_valid_segment_length
@@ -120,7 +120,7 @@ protected:
    * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
    *
    * - the number of steps for the plan will be calculated such that:
-   *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
+   *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
    *   - the rotational distance between successive steps is no longer than rotation_longest_valid_segment
    *   - the number of steps for the plan will be calculated such that the norm of all joint distances between
    *successive steps is no longer than state_longest_valid_segment_length
@@ -141,7 +141,7 @@ protected:
    * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
    *
    * - the number of steps for the plan will be calculated such that:
-   *   - the translational distance between successive steps is no longer than translation_longest_valid_segment
+   *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
    *   - the rotational distance between successive steps is no longer than rotation_longest_valid_segment
    *   - the number of steps for the plan will be calculated such that the norm of all joint distances between
    *successive steps is no longer than state_longest_valid_segment_length

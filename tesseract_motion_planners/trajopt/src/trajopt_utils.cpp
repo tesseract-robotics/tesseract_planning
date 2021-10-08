@@ -27,26 +27,24 @@
 
 namespace tesseract_planning
 {
-trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(const Eigen::Isometry3d& c_wp,
-                                                       int index,
+trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(int index,
                                                        const std::string& working_frame,
-                                                       const Eigen::Isometry3d& tcp,
+                                                       const Eigen::Isometry3d& c_wp,
+                                                       const std::string& tcp_frame,
+                                                       const Eigen::Isometry3d& tcp_offset,
                                                        const Eigen::VectorXd& coeffs,
-                                                       const std::string& link,
                                                        trajopt::TermType type)
 {
   auto pose_info = std::make_shared<trajopt::CartPoseTermInfo>();
   pose_info->term_type = type;
   pose_info->name = "cartesian_waypoint_" + std::to_string(index);
-
-  pose_info->link = link;
-  pose_info->tcp = tcp;
-
   pose_info->timestep = index;
-  pose_info->xyz = c_wp.translation();
-  Eigen::Quaterniond q(c_wp.linear());
-  pose_info->wxyz = Eigen::Vector4d(q.w(), q.x(), q.y(), q.z());
-  pose_info->target = working_frame;
+
+  pose_info->source_frame = tcp_frame;
+  pose_info->source_frame_offset = tcp_offset;
+
+  pose_info->target_frame = working_frame;
+  pose_info->target_frame_offset = c_wp;
 
   if (coeffs.size() == 1)
   {
@@ -62,12 +60,12 @@ trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(const Eigen::Isometry3d& 
   return pose_info;
 }
 
-trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(const Eigen::Isometry3d& c_wp,
-                                                              int index,
+trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(int index,
                                                               const std::string& working_frame,
-                                                              const Eigen::Isometry3d& tcp,
+                                                              const Eigen::Isometry3d& c_wp,
+                                                              const std::string& tcp_frame,
+                                                              const Eigen::Isometry3d& tcp_offset,
                                                               const Eigen::VectorXd& coeffs,
-                                                              const std::string& link,
                                                               trajopt::TermType type)
 {
   std::shared_ptr<trajopt::DynamicCartPoseTermInfo> pose = std::make_shared<trajopt::DynamicCartPoseTermInfo>();
@@ -75,11 +73,11 @@ trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(const Eigen::Isome
   pose->name = "dyn_cartesian_waypoint_" + std::to_string(index);
   pose->timestep = index;
 
-  pose->link = link;
-  pose->tcp = tcp;
+  pose->source_frame = tcp_frame;
+  pose->source_frame_offset = tcp_offset;
 
-  pose->target = working_frame;
-  pose->target_tcp = c_wp;
+  pose->target_frame = working_frame;
+  pose->target_frame_offset = c_wp;
 
   if (coeffs.size() == 1)
   {

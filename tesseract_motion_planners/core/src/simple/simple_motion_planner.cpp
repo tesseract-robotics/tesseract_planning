@@ -28,7 +28,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_environment/utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
@@ -101,16 +101,14 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   const std::string manipulator_ik_solver = request.instructions.getManipulatorInfo().manipulator_ik_solver;
 
   // Initialize
-  tesseract_environment::EnvState::ConstPtr current_state = request.env_state;
-  tesseract_kinematics::ForwardKinematics::Ptr fwd_kin =
-      request.env->getManipulatorManager()->getFwdKinematicSolver(manipulator);
+  tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
   Waypoint start_waypoint{ NullWaypoint() };
 
   // Create seed
   CompositeInstruction seed;
 
   // Get the start waypoint/instruction
-  PlanInstruction start_instruction = getStartInstruction(request, current_state, fwd_kin);
+  PlanInstruction start_instruction = getStartInstruction(request, request.env_state, *manip);
 
   // Process the instructions into the seed
   try
@@ -143,8 +141,8 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   {
     auto& mi = inst.get().as<MoveInstruction>();
     Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
-    assert(tesseract_common::satisfiesPositionLimits(jp, fwd_kin->getLimits().joint_limits));
-    tesseract_common::enforcePositionLimits(jp, fwd_kin->getLimits().joint_limits);
+    assert(tesseract_common::satisfiesPositionLimits(jp, manip->getLimits().joint_limits));
+    tesseract_common::enforcePositionLimits(jp, manip->getLimits().joint_limits);
     setJointPosition(mi.getWaypoint(), jp);
   }
 
@@ -154,8 +152,8 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
 }
 
 PlanInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
-                                                         const tesseract_environment::EnvState::ConstPtr& current_state,
-                                                         const tesseract_kinematics::ForwardKinematics::Ptr& fwd_kin)
+                                                         const tesseract_scene_graph::SceneState& current_state,
+                                                         const tesseract_kinematics::JointGroup& manip)
 {
   // Create start instruction
   Waypoint start_waypoint{ NullWaypoint() };
@@ -170,20 +168,20 @@ PlanInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& r
 
     if (isJointWaypoint(start_waypoint))
     {
-      assert(checkJointPositionFormat(fwd_kin->getJointNames(), start_waypoint));
+      assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
       const auto& jwp = start_waypoint.as<JointWaypoint>();
       start_instruction_seed.setWaypoint(StateWaypoint(jwp.joint_names, jwp.waypoint));
     }
     else if (isCartesianWaypoint(start_waypoint))
     {
-      StateWaypoint temp(fwd_kin->getJointNames(), current_state->getJointValues(fwd_kin->getJointNames()));
+      StateWaypoint temp(manip.getJointNames(), current_state.getJointValues(manip.getJointNames()));
       start_waypoint = temp;
 
       start_instruction_seed.setWaypoint(start_waypoint);
     }
     else if (isStateWaypoint(start_waypoint))
     {
-      assert(checkJointPositionFormat(fwd_kin->getJointNames(), start_waypoint));
+      assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
       start_instruction_seed.setWaypoint(start_waypoint);
     }
     else
@@ -197,7 +195,7 @@ PlanInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& r
   }
   else
   {
-    StateWaypoint temp(fwd_kin->getJointNames(), current_state->getJointValues(fwd_kin->getJointNames()));
+    StateWaypoint temp(manip.getJointNames(), current_state.getJointValues(manip.getJointNames()));
     start_waypoint = temp;
 
     start_instruction_seed.setWaypoint(start_waypoint);

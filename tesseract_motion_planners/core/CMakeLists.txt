@@ -5,7 +5,7 @@ find_package(tesseract_command_language REQUIRED)
 add_library(${PROJECT_NAME}_core src/core/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_core
-  PUBLIC tesseract::tesseract_environment_core
+  PUBLIC tesseract::tesseract_environment
          tesseract::tesseract_common
          tesseract::tesseract_command_language
          console_bridge::console_bridge

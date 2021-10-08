@@ -29,8 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/ofkt/ofkt_state_solver.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
 
@@ -75,16 +74,17 @@ protected:
 
   void SetUp() override
   {
-    tesseract_scene_graph::ResourceLocator::Ptr locator =
-        std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+    auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
     Environment::Ptr env = std::make_shared<Environment>();
     tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
     tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-    EXPECT_TRUE(env->init<OFKTStateSolver>(urdf_path, srdf_path, locator));
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
 
     manip_info_.manipulator = "manipulator";
-    joint_names_ = env_->getManipulatorManager()->getFwdKinematicSolver("manipulator")->getJointNames();
+    manip_info_.tcp_frame = "tool0";
+    manip_info_.working_frame = "base_link";
+    joint_names_ = env_->getJointGroup("manipulator")->getJointNames();
   }
 };
 
@@ -92,7 +92,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
@@ -130,8 +130,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
+  request.env_state = env_->getState();
+  auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
@@ -159,8 +159,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
   auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
-  Eigen::Isometry3d p1 = fwd_kin->calcFwdKin(wp1);
-  Eigen::Isometry3d p2 = fwd_kin->calcFwdKin(wp2);
+  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1).at(manip_info_.tcp_frame);
+  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2).at(manip_info_.tcp_frame);
   double trans_dist = (p2.translation() - p1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
@@ -180,11 +180,11 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
+  request.env_state = env_->getState();
+  auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  CartesianWaypoint wp2 = fwd_kin->calcFwdKin(Eigen::VectorXd::Ones(7));
+  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
@@ -198,7 +198,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   }
   const auto& mi = composite.back().as<MoveInstruction>();
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
-  Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
+  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
 
   // Ensure equal to minimum number steps when all params set large
@@ -218,11 +218,11 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
-  auto fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
+  request.env_state = env_->getState();
+  auto joint_group = request.env->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  CartesianWaypoint wp2 = fwd_kin->calcFwdKin(Eigen::VectorXd::Ones(7));
+  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
 
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
@@ -237,7 +237,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   }
   const auto& mi = composite.back().as<MoveInstruction>();
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
-  Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
+  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
 
   // Ensure equal to minimum number steps when all params set large
@@ -250,7 +250,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
   auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
-  Eigen::Isometry3d p1 = fwd_kin->calcFwdKin(wp1);
+  Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1).at(manip_info_.tcp_frame);
   double trans_dist = (wp2.translation() - p1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
@@ -270,11 +270,11 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
 
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
+  auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1 = fwd_kin->calcFwdKin(Eigen::VectorXd::Zero(7));
+  CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
@@ -307,11 +307,11 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
 
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
+  auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1 = fwd_kin->calcFwdKin(Eigen::VectorXd::Zero(7));
+  CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
@@ -337,7 +337,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
   auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
-  Eigen::Isometry3d p2 = fwd_kin->calcFwdKin(wp2);
+  Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2).at(manip_info_.tcp_frame);
   double trans_dist = (p2.translation() - wp1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
@@ -357,12 +357,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
 
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
+  auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1 = fwd_kin->calcFwdKin(Eigen::VectorXd::Zero(7));
-  CartesianWaypoint wp2 = fwd_kin->calcFwdKin(Eigen::VectorXd::Ones(7));
+  CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
+  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
@@ -376,7 +376,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   }
   const auto& mi = composite.back().as<MoveInstruction>();
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
-  Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
+  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
 
   // Ensure equal to minimum number steps when all params set large
@@ -396,12 +396,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
 
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
+  auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
-  CartesianWaypoint wp1 = fwd_kin->calcFwdKin(Eigen::VectorXd::Zero(7));
-  CartesianWaypoint wp2 = fwd_kin->calcFwdKin(Eigen::VectorXd::Ones(7));
+  CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
+  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
@@ -415,7 +415,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   }
   const auto& mi = composite.back().as<MoveInstruction>();
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
-  Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
+  Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
 
   // Ensure equal to minimum number steps when all params set large

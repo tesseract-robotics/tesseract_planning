@@ -33,20 +33,15 @@
 namespace tesseract_planning
 {
 OMPLProblem::Ptr CreateOMPLSubProblem(const PlannerRequest& request,
-                                      const tesseract_kinematics::ForwardKinematics::Ptr& manip_fwd_kin,
-                                      const tesseract_kinematics::InverseKinematics::Ptr& manip_inv_kin,
-                                      const std::vector<std::string>& active_link_names)
+                                      const tesseract_kinematics::JointGroup::ConstPtr& manip)
 {
   auto sub_prob = std::make_unique<OMPLProblem>();
   sub_prob->env = request.env;
   sub_prob->env_state = request.env_state;
-  sub_prob->state_solver = request.env->getStateSolver();
-  sub_prob->state_solver->setState(request.env_state->joints);
-  sub_prob->manip_fwd_kin = manip_fwd_kin;
-  sub_prob->manip_inv_kin = manip_inv_kin;
+  sub_prob->manip = manip;
   sub_prob->contact_checker = request.env->getDiscreteContactManager();
-  sub_prob->contact_checker->setCollisionObjectsTransform(request.env_state->link_transforms);
-  sub_prob->contact_checker->setActiveCollisionObjects(active_link_names);
+  sub_prob->contact_checker->setCollisionObjectsTransform(request.env_state.link_transforms);
+  sub_prob->contact_checker->setActiveCollisionObjects(manip->getActiveLinkNames());
   return sub_prob;
 }
 
@@ -55,46 +50,56 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
                                                           const OMPLPlanProfileMap& plan_profiles)
 {
   std::vector<OMPLProblem::Ptr> problem;
-  std::vector<std::string> active_link_names_;
-  tesseract_kinematics::ForwardKinematics::Ptr manip_fwd_kin_;
-  tesseract_kinematics::InverseKinematics::Ptr manip_inv_kin_;
+  tesseract_kinematics::JointGroup::Ptr manip;
 
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
 
   const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
-  manip_fwd_kin_ = request.env->getManipulatorManager()->getFwdKinematicSolver(composite_mi.manipulator);
-  if (composite_mi.manipulator_ik_solver.empty())
-    manip_inv_kin_ = request.env->getManipulatorManager()->getInvKinematicSolver(composite_mi.manipulator);
-  else
-    manip_inv_kin_ = request.env->getManipulatorManager()->getInvKinematicSolver(composite_mi.manipulator,
-                                                                                 composite_mi.manipulator_ik_solver);
+  if (composite_mi.manipulator.empty())
+    throw std::runtime_error("OMPL, manipulator is empty!");
 
-  if (!manip_fwd_kin_)
+  try
   {
-    CONSOLE_BRIDGE_logError("No Forward Kinematics solver found");
-    return problem;
+    tesseract_kinematics::KinematicGroup::Ptr kin_group;
+    std::string error_msg;
+    if (composite_mi.manipulator_ik_solver.empty())
+    {
+      kin_group = request.env->getKinematicGroup(composite_mi.manipulator);
+      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "'";
+    }
+    else
+    {
+      kin_group = request.env->getKinematicGroup(composite_mi.manipulator, composite_mi.manipulator_ik_solver);
+      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "' with solver '" +
+                  composite_mi.manipulator_ik_solver + "'";
+    }
+
+    if (kin_group == nullptr)
+    {
+      CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
+      throw std::runtime_error(error_msg);
+    }
+
+    // Process instructions
+    if (!tesseract_kinematics::checkKinematics(*kin_group))
+    {
+      CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with Forward "
+                              "Kinematics. Did you change the URDF recently?");
+    }
+    manip = kin_group;
   }
-  if (!manip_inv_kin_)
+  catch (...)
   {
-    CONSOLE_BRIDGE_logError("No Inverse Kinematics solver found");
-    return problem;
-  }
-  // Process instructions
-  if (!tesseract_kinematics::checkKinematics(manip_fwd_kin_, manip_inv_kin_))
-  {
-    CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with KDL "
-                            "(TrajOpt). Did you change the URDF recently?");
+    manip = request.env->getJointGroup(composite_mi.manipulator);
   }
 
-  // Get Active Link Names
-  {
-    std::vector<std::string> active_link_names = manip_inv_kin_->getActiveLinkNames();
-    auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-        request.env->getSceneGraph(), active_link_names, request.env_state->link_transforms);
-    active_link_names_ = adjacency_map->getActiveLinkNames();
-  }
+  if (!manip)
+    throw std::runtime_error("Failed to get joint/kinematic group: " + composite_mi.manipulator);
+
+  std::vector<std::string> joint_names = manip->getJointNames();
+  std::vector<std::string> active_link_names = manip->getActiveLinkNames();
 
   // Check and make sure it does not contain any composite instruction
   for (const auto& instruction : request.instructions)
@@ -122,8 +127,8 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
   }
   else
   {
-    Eigen::VectorXd current_jv = request.env_state->getJointValues(manip_fwd_kin_->getJointNames());
-    StateWaypoint swp(manip_fwd_kin_->getJointNames(), current_jv);
+    Eigen::VectorXd current_jv = request.env_state.getJointValues(joint_names);
+    StateWaypoint swp(joint_names, current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);
     placeholder_instruction = temp_move;
@@ -153,7 +158,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
         throw std::runtime_error("OMPLMotionPlannerDefaultConfig: Invalid profile");
 
       /** @todo Should check that the joint names match the order of the manipulator */
-      OMPLProblem::Ptr sub_prob = CreateOMPLSubProblem(request, manip_fwd_kin_, manip_inv_kin_, active_link_names_);
+      OMPLProblem::Ptr sub_prob = CreateOMPLSubProblem(request, manip);
       cur_plan_profile->setup(*sub_prob);
       sub_prob->n_output_states = static_cast<int>(seed_composite.size()) + 1;
 
@@ -176,24 +181,24 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
       {
         if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(manip_fwd_kin_->getJointNames(), plan_instruction.getWaypoint()));
+          assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
           cur_plan_profile->applyGoalStates(
-              *sub_prob, cur_position, plan_instruction, composite_mi, active_link_names_, index);
+              *sub_prob, cur_position, plan_instruction, composite_mi, active_link_names, index);
 
           ompl::base::ScopedState<> start_state(sub_prob->simple_setup->getStateSpace());
           if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
-            assert(checkJointPositionFormat(manip_fwd_kin_->getJointNames(), start_waypoint));
+            assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& prev_position = getJointPosition(start_waypoint);
             cur_plan_profile->applyStartStates(
-                *sub_prob, prev_position, *start_instruction, composite_mi, active_link_names_, index);
+                *sub_prob, prev_position, *start_instruction, composite_mi, active_link_names, index);
           }
           else if (isCartesianWaypoint(start_waypoint))
           {
             const auto& prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
             cur_plan_profile->applyStartStates(
-                *sub_prob, prev_wp, *start_instruction, composite_mi, active_link_names_, index);
+                *sub_prob, prev_wp, *start_instruction, composite_mi, active_link_names, index);
           }
           else
           {
@@ -207,23 +212,23 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
         {
           const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
           cur_plan_profile->applyGoalStates(
-              *sub_prob, cur_wp, plan_instruction, composite_mi, active_link_names_, index);
+              *sub_prob, cur_wp, plan_instruction, composite_mi, active_link_names, index);
 
           if (index == 0)
           {
             ompl::base::ScopedState<> start_state(sub_prob->simple_setup->getStateSpace());
             if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
             {
-              assert(checkJointPositionFormat(manip_fwd_kin_->getJointNames(), start_waypoint));
+              assert(checkJointPositionFormat(joint_names, start_waypoint));
               const Eigen::VectorXd& prev_position = getJointPosition(start_waypoint);
               cur_plan_profile->applyStartStates(
-                  *sub_prob, prev_position, *start_instruction, composite_mi, active_link_names_, index);
+                  *sub_prob, prev_position, *start_instruction, composite_mi, active_link_names, index);
             }
             else if (isCartesianWaypoint(start_waypoint))
             {
               const auto& prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
               cur_plan_profile->applyStartStates(
-                  *sub_prob, prev_wp, *start_instruction, composite_mi, active_link_names_, index);
+                  *sub_prob, prev_wp, *start_instruction, composite_mi, active_link_names, index);
             }
             else
             {

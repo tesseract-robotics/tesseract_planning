@@ -49,9 +49,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/ofkt/ofkt_state_solver.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_environment/utils.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
@@ -121,7 +120,7 @@ static void addBox(tesseract_environment::Environment& env)
   joint_1.child_link_name = link_1.getName();
   joint_1.type = JointType::FIXED;
 
-  env.addLink(link_1, joint_1);
+  env.applyCommand(std::make_shared<AddLinkCommand>(link_1, joint_1));
 }
 
 template <typename Configurator>
@@ -156,30 +155,30 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
                                         << " vs. " << SEED;
 
   // Step 1: Load scene and srdf
-  tesseract_scene_graph::ResourceLocator::Ptr locator =
-      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
   Environment::Ptr env = std::make_shared<Environment>();
   tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
   tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-  EXPECT_TRUE(env->init<OFKTStateSolver>(urdf_path, srdf_path, locator));
+  EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
   ManipulatorInfo manip;
   manip.manipulator = "manipulator";
+  manip.working_frame = "base_link";
+  manip.tcp_frame = "tool0";
 
   // Step 2: Add box to environment
   addBox(*env);
 
   // Step 3: Create ompl planner config and populate it
-  auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
-  auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
-  auto cur_state = env->getCurrentState();
+  auto joint_group = env->getJointGroup(manip.manipulator);
+  auto cur_state = env->getState();
 
   // Specify a start waypoint
-  JointWaypoint wp1(fwd_kin->getJointNames(),
+  JointWaypoint wp1(joint_group->getJointNames(),
                     Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())));
 
   // Specify a end waypoint
-  JointWaypoint wp2(fwd_kin->getJointNames(),
+  JointWaypoint wp2(joint_group->getJointNames(),
                     Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())));
 
   // Define Start Instruction
@@ -222,7 +221,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   request.instructions = program;
   request.seed = seed;
   request.env = env;
-  request.env_state = env->getCurrentState();
+  request.env_state = cur_state;
 
   PlannerResponse planner_response;
   auto status = ompl_planner.solve(request, planner_response);
@@ -248,7 +247,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Define New Start Instruction
   wp1 = Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size()));
-  wp1.joint_names = fwd_kin->getJointNames();
+  wp1.joint_names = joint_group->getJointNames();
 
   start_instruction = PlanInstruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
 
@@ -276,10 +275,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   std::vector<double> ewp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
 
   wp1 = Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size()));
-  wp1.joint_names = fwd_kin->getJointNames();
+  wp1.joint_names = joint_group->getJointNames();
 
   wp2 = Eigen::Map<const Eigen::VectorXd>(ewp.data(), static_cast<long>(ewp.size()));
-  wp2.joint_names = fwd_kin->getJointNames();
+  wp2.joint_names = joint_group->getJointNames();
 
   // Define Start Instruction
   start_instruction = PlanInstruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
@@ -313,32 +312,32 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
                                         << " vs. " << SEED;
 
   // Step 1: Load scene and srdf
-  tesseract_scene_graph::ResourceLocator::Ptr locator =
-      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
   Environment::Ptr env = std::make_shared<Environment>();
   tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
   tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-  EXPECT_TRUE(env->init<OFKTStateSolver>(urdf_path, srdf_path, locator));
+  EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
   // Set manipulator
   ManipulatorInfo manip;
+  manip.tcp_frame = "tool0";
   manip.manipulator = "manipulator";
+  manip.working_frame = "base_link";
 
   // Step 2: Add box to environment
   addBox(*(env));
 
   // Step 3: Create ompl planner config and populate it
-  auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
-  auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
-  auto cur_state = env->getCurrentState();
+  auto kin_group = env->getKinematicGroup(manip.manipulator);
+  auto cur_state = env->getState();
 
   // Specify a start waypoint
-  JointWaypoint wp1(fwd_kin->getJointNames(),
+  JointWaypoint wp1(kin_group->getJointNames(),
                     Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())));
 
   // Specify a end waypoint
   auto goal_jv = Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size()));
-  Eigen::Isometry3d goal = fwd_kin->calcFwdKin(goal_jv);
+  Eigen::Isometry3d goal = kin_group->calcFwdKin(goal_jv).at(manip.tcp_frame);
   CartesianWaypoint wp2 = goal;
 
   // Define Start Instruction
@@ -379,7 +378,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   request.instructions = program;
   request.seed = seed;
   request.env = env;
-  request.env_state = env->getCurrentState();
+  request.env_state = cur_state;
 
   PlannerResponse planner_response;
   auto status = ompl_planner.solve(request, planner_response);
@@ -394,7 +393,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
 
   Eigen::Isometry3d check_goal =
-      fwd_kin->calcFwdKin(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()));
+      kin_group->calcFwdKin(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()))
+          .at(manip.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(check_goal, 1e-3));
 }
 
@@ -404,32 +404,32 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
                                         << " vs. " << SEED;
 
   // Step 1: Load scene and srdf
-  tesseract_scene_graph::ResourceLocator::Ptr locator =
-      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
   Environment::Ptr env = std::make_shared<Environment>();
   tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
   tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-  EXPECT_TRUE(env->init<OFKTStateSolver>(urdf_path, srdf_path, locator));
+  EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
   // Set manipulator
   ManipulatorInfo manip;
+  manip.tcp_frame = "tool0";
   manip.manipulator = "manipulator";
+  manip.working_frame = "base_link";
 
   // Step 2: Add box to environment
   addBox(*(env));
 
   // Step 3: Create ompl planner config and populate it
-  auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
-  auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
-  auto cur_state = env->getCurrentState();
+  auto kin_group = env->getKinematicGroup(manip.manipulator);
+  auto cur_state = env->getState();
 
   // Specify a start waypoint
   auto start_jv = Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size()));
-  Eigen::Isometry3d start = fwd_kin->calcFwdKin(start_jv);
+  Eigen::Isometry3d start = kin_group->calcFwdKin(start_jv).at(manip.tcp_frame);
   CartesianWaypoint wp1 = start;
 
   // Specify a end waypoint
-  JointWaypoint wp2(fwd_kin->getJointNames(),
+  JointWaypoint wp2(kin_group->getJointNames(),
                     Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())));
 
   // Define Start Instruction
@@ -470,7 +470,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
   request.instructions = program;
   request.seed = seed;
   request.env = env;
-  request.env_state = env->getCurrentState();
+  request.env_state = cur_state;
 
   PlannerResponse planner_response;
   auto status = ompl_planner.solve(request, planner_response);
@@ -486,7 +486,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
   EXPECT_TRUE(wp2.isApprox(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
 
   Eigen::Isometry3d check_start =
-      fwd_kin->calcFwdKin(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()));
+      kin_group->calcFwdKin(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()))
+          .at(manip.tcp_frame);
   EXPECT_TRUE(wp1.isApprox(check_start, 1e-3));
 }
 

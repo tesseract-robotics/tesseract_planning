@@ -42,35 +42,39 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 ifopt::ConstraintSet::Ptr
-createCartesianPositionConstraint(const Eigen::Isometry3d& target,
-                                  const trajopt_ifopt::JointPosition::ConstPtr& var,
-                                  const trajopt_ifopt::KinematicsInfo::ConstPtr& kin_info,
-                                  const std::string& source_link,
-                                  const Eigen::Isometry3d& source_tcp = Eigen::Isometry3d::Identity(),
+createCartesianPositionConstraint(const trajopt_ifopt::JointPosition::ConstPtr& var,
+                                  const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                  const std::string& source_frame,
+                                  const std::string& target_frame,
+                                  const Eigen::Isometry3d& source_frame_offset = Eigen::Isometry3d::Identity(),
+                                  const Eigen::Isometry3d& target_frame_offset = Eigen::Isometry3d::Identity(),
                                   const Eigen::Ref<const Eigen::VectorXd>& coeffs = Eigen::VectorXd::Ones(6));
 
 bool addCartesianPositionConstraint(trajopt_sqp::QPProblem& nlp,
-                                    const Eigen::Isometry3d& target,
                                     const trajopt_ifopt::JointPosition::ConstPtr& var,
-                                    const trajopt_ifopt::KinematicsInfo::ConstPtr& kin_info,
-                                    const std::string& source_link,
-                                    const Eigen::Isometry3d& source_tcp = Eigen::Isometry3d::Identity(),
+                                    const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                    const std::string& source_frame,
+                                    const std::string& target_frame,
+                                    const Eigen::Isometry3d& source_frame_offset = Eigen::Isometry3d::Identity(),
+                                    const Eigen::Isometry3d& target_frame_offset = Eigen::Isometry3d::Identity(),
                                     const Eigen::Ref<const Eigen::VectorXd>& coeffs = Eigen::VectorXd::Ones(6));
 
 bool addCartesianPositionSquaredCost(trajopt_sqp::QPProblem& nlp,
-                                     const Eigen::Isometry3d& target,
                                      const trajopt_ifopt::JointPosition::ConstPtr& var,
-                                     const trajopt_ifopt::KinematicsInfo::ConstPtr& kin_info,
-                                     const std::string& source_link,
-                                     const Eigen::Isometry3d& source_tcp = Eigen::Isometry3d::Identity(),
+                                     const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                     const std::string& source_frame,
+                                     const std::string& target_frame,
+                                     const Eigen::Isometry3d& source_frame_offset = Eigen::Isometry3d::Identity(),
+                                     const Eigen::Isometry3d& target_frame_offset = Eigen::Isometry3d::Identity(),
                                      const Eigen::Ref<const Eigen::VectorXd>& coeffs = Eigen::VectorXd::Ones(6));
 
 bool addCartesianPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
-                                      const Eigen::Isometry3d& target,
                                       const trajopt_ifopt::JointPosition::ConstPtr& var,
-                                      const trajopt_ifopt::KinematicsInfo::ConstPtr& kin_info,
-                                      const std::string& source_link,
-                                      const Eigen::Isometry3d& source_tcp = Eigen::Isometry3d::Identity(),
+                                      const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                      const std::string& source_frame,
+                                      const std::string& target_frame,
+                                      const Eigen::Isometry3d& source_frame_offset = Eigen::Isometry3d::Identity(),
+                                      const Eigen::Isometry3d& target_frame_offset = Eigen::Isometry3d::Identity(),
                                       const Eigen::Ref<const Eigen::VectorXd>& coeffs = Eigen::VectorXd::Ones(6));
 
 ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypoint& joint_waypoint,

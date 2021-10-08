@@ -175,53 +175,56 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
   const auto& base_instruction = parent_instruction.as<PlanInstruction>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
-  Eigen::Isometry3d tcp = prob.env->findTCP(mi);
+
+  if (mi.manipulator.empty())
+    throw std::runtime_error("Descartes, manipulator is empty!");
+
+  if (mi.tcp_frame.empty())
+    throw std::runtime_error("Descartes, tcp_frame is empty!");
+
+  if (mi.working_frame.empty())
+    throw std::runtime_error("Descartes, working_frame is empty!");
+
+  Eigen::Isometry3d tcp_offset = prob.env->findTCPOffset(mi);
+  std::vector<std::string> joint_names = prob.manip->getJointNames();
 
   /* Check if this cartesian waypoint is dynamic
    * (i.e. defined relative to a frame that will move with the kinematic chain) */
-  auto it = std::find(active_links.begin(), active_links.end(), prob.manip_inv_kin->getBaseLinkName());
-  if (it != active_links.end() && prob.manip_inv_kin->getBaseLinkName() != mi.working_frame)
-    throw std::runtime_error("DescartesDefaultPlanProfile: Assigned dynamic waypoint but parent instruction working is "
-                             "not set to the base link of manipulator!");
+  //  auto it = std::find(active_links.begin(), active_links.end(), prob.manip_inv_kin->getBaseLinkName());
+  //  if (it != active_links.end() && prob.manip_inv_kin->getBaseLinkName() != mi.working_frame)
+  //    throw std::runtime_error("DescartesDefaultPlanProfile: Assigned dynamic waypoint but parent instruction working
+  //    is "
+  //                             "not set to the base link of manipulator!");
 
   DescartesCollision::Ptr ci = nullptr;
   if (enable_collision)
-    ci = std::make_shared<DescartesCollision>(
-        prob.env, active_links, prob.manip_inv_kin->getJointNames(), vertex_collision_check_config, debug);
-
-  Eigen::Isometry3d manip_baselink_to_waypoint = Eigen::Isometry3d::Identity();
-  if (it == active_links.end())
-  {
-    // Check if the waypoint is not relative to the manipulator base coordinate system
-    Eigen::Isometry3d world_to_waypoint = cartesian_waypoint;
-    if (!mi.working_frame.empty())
-      world_to_waypoint = prob.env_state->link_transforms.at(mi.working_frame) * cartesian_waypoint;
-
-    Eigen::Isometry3d world_to_base_link = prob.env_state->link_transforms.at(prob.manip_inv_kin->getBaseLinkName());
-    manip_baselink_to_waypoint = world_to_base_link.inverse() * world_to_waypoint;
-  }
+    ci = std::make_shared<DescartesCollision>(*prob.env, prob.manip, vertex_collision_check_config, debug);
 
   // Add vertex evaluator
   std::shared_ptr<descartes_light::WaypointSampler<FloatType>> sampler;
   if (vertex_evaluator == nullptr)
   {
-    auto ve = std::make_shared<DescartesJointLimitsVertexEvaluator>(prob.manip_inv_kin->getLimits().joint_limits);
-    sampler = std::make_shared<DescartesRobotSampler<FloatType>>(manip_baselink_to_waypoint,
+    auto ve = std::make_shared<DescartesJointLimitsVertexEvaluator>(prob.manip->getLimits().joint_limits);
+    sampler = std::make_shared<DescartesRobotSampler<FloatType>>(mi.working_frame,
+                                                                 cartesian_waypoint,
                                                                  target_pose_sampler,
-                                                                 prob.manip_inv_kin,
+                                                                 prob.manip,
                                                                  ci,
-                                                                 tcp,
+                                                                 mi.tcp_frame,
+                                                                 tcp_offset,
                                                                  allow_collision,
                                                                  ve,
                                                                  use_redundant_joint_solutions);
   }
   else
   {
-    sampler = std::make_shared<DescartesRobotSampler<FloatType>>(manip_baselink_to_waypoint,
+    sampler = std::make_shared<DescartesRobotSampler<FloatType>>(mi.working_frame,
+                                                                 cartesian_waypoint,
                                                                  target_pose_sampler,
-                                                                 prob.manip_inv_kin,
+                                                                 prob.manip,
                                                                  ci,
-                                                                 tcp,
+                                                                 mi.tcp_frame,
+                                                                 tcp_offset,
                                                                  allow_collision,
                                                                  vertex_evaluator(prob),
                                                                  use_redundant_joint_solutions);
@@ -238,13 +241,8 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
         auto compound_evaluator = std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>();
         compound_evaluator->evaluators.push_back(
             std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
-        compound_evaluator->evaluators.push_back(
-            std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(prob.env,
-                                                                         active_links,
-                                                                         prob.manip_inv_kin->getJointNames(),
-                                                                         edge_collision_check_config,
-                                                                         allow_collision,
-                                                                         debug));
+        compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
+            *prob.env, prob.manip, edge_collision_check_config, allow_collision, debug));
         prob.edge_evaluators.push_back(compound_evaluator);
       }
       else
@@ -263,8 +261,8 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
     prob.state_evaluators.push_back(state_evaluator(prob));
   else
   {
-    auto ref = std::make_shared<descartes_light::State<FloatType>>(Eigen::Matrix<FloatType, Eigen::Dynamic, 1>::Zero(
-        static_cast<Eigen::Index>(prob.manip_inv_kin->getJointNames().size())));
+    auto ref = std::make_shared<descartes_light::State<FloatType>>(
+        Eigen::Matrix<FloatType, Eigen::Dynamic, 1>::Zero(static_cast<Eigen::Index>(joint_names.size())));
     prob.state_evaluators.push_back(
         std::make_shared<const descartes_light::EuclideanDistanceStateEvaluator<FloatType>>(ref));
   }
@@ -284,6 +282,8 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
   auto sampler = std::make_shared<descartes_light::FixedJointWaypointSampler<FloatType>>(state);
   prob.samplers.push_back(std::move(sampler));
 
+  std::vector<std::string> joint_names = prob.manip->getJointNames();
+
   if (index != 0)
   {
     // Add edge Evaluator
@@ -294,13 +294,8 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
         auto compound_evaluator = std::make_shared<descartes_light::CompoundEdgeEvaluator<FloatType>>();
         compound_evaluator->evaluators.push_back(
             std::make_shared<descartes_light::EuclideanDistanceEdgeEvaluator<FloatType>>());
-        compound_evaluator->evaluators.push_back(
-            std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(prob.env,
-                                                                         active_links,
-                                                                         prob.manip_inv_kin->getJointNames(),
-                                                                         edge_collision_check_config,
-                                                                         allow_collision,
-                                                                         debug));
+        compound_evaluator->evaluators.push_back(std::make_shared<DescartesCollisionEdgeEvaluator<FloatType>>(
+            *prob.env, prob.manip, edge_collision_check_config, allow_collision, debug));
         prob.edge_evaluators.push_back(compound_evaluator);
       }
       else
@@ -318,8 +313,8 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
     prob.state_evaluators.push_back(state_evaluator(prob));
   else
   {
-    auto ref = std::make_shared<descartes_light::State<FloatType>>(Eigen::Matrix<FloatType, Eigen::Dynamic, 1>::Zero(
-        static_cast<Eigen::Index>(prob.manip_inv_kin->getJointNames().size())));
+    auto ref = std::make_shared<descartes_light::State<FloatType>>(
+        Eigen::Matrix<FloatType, Eigen::Dynamic, 1>::Zero(static_cast<Eigen::Index>(joint_names.size())));
     prob.state_evaluators.push_back(
         std::make_shared<const descartes_light::EuclideanDistanceStateEvaluator<FloatType>>(ref));
   }

@@ -32,8 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_kinematics/core/inverse_kinematics.h>
-#include <tesseract_environment/core/types.h>
+#include <tesseract_kinematics/core/kinematic_group.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/types.h>
@@ -48,18 +47,19 @@ public:
    * @brief This is a descartes sampler for a robot.
    * @param target_pose The target pose in robot base link coordinates
    * @param target_pose_sampler The target pose sampler function to be used
-   * @param robot_kinematics The robot inverse kinematics object
+   * @param manip The manipulator kinematic group object
    * @param collision The collision interface
-   * @param curret_state The currect state of the system
    * @param robot_tcp The robot tcp to be used.
    * @param allow_collision If true and no valid solution was found it will return the best of the worst
    * @param is_valid This is a user defined function to filter out solution
    */
-  DescartesRobotSampler(const Eigen::Isometry3d& target_pose,
+  DescartesRobotSampler(const std::string& target_working_frame,
+                        const Eigen::Isometry3d& target_pose,
                         PoseSamplerFn target_pose_sampler,
-                        tesseract_kinematics::InverseKinematics::ConstPtr ik,
+                        tesseract_kinematics::KinematicGroup::ConstPtr manip,
                         DescartesCollision::Ptr collision,
-                        const Eigen::Isometry3d& tcp,
+                        const std::string& tcp_frame,
+                        const Eigen::Isometry3d& tcp_offset,
                         bool allow_collision,
                         DescartesVertexEvaluator::Ptr is_valid,
                         bool use_redundant_joint_solutions);
@@ -67,20 +67,26 @@ public:
   std::vector<descartes_light::StateSample<FloatType>> sample() const override;
 
 private:
+  /** @brief The target pose working frame */
+  std::string target_working_frame_;
+
   /** @brief The target pose to sample */
   Eigen::Isometry3d target_pose_;
 
   /** @brief The target pose to sample */
   PoseSamplerFn target_pose_sampler_;
 
-  /** @brief The robot inverse kinematics */
-  tesseract_kinematics::InverseKinematics::ConstPtr ik_;
+  /** @brief The manipulator kinematic group */
+  tesseract_kinematics::KinematicGroup::ConstPtr manip_;
 
   /** @brief The collision interface */
   DescartesCollision::Ptr collision_;
 
+  /** @brief The robot tool center point frame */
+  std::string tcp_frame_;
+
   /** @brief The robot tool center point */
-  Eigen::Isometry3d tcp_;
+  Eigen::Isometry3d tcp_offset_;
 
   /** @brief Flag indicating whether states found to be in collision should be returned */
   bool allow_collision_;

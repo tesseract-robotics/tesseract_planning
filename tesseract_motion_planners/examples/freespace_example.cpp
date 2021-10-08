@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_kinematics/opw/opw_inv_kin.h>
 #include <tesseract_kinematics/core/utils.h>
 
-#include <tesseract_environment/ofkt/ofkt_state_solver.h>
+#include <tesseract_environment/environment.h>
 
 #include <tesseract_motion_planners/ompl/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
@@ -84,12 +84,11 @@ std::string locateResource(const std::string& url)
 int main(int /*argc*/, char** /*argv*/)
 {
   // Setup
-  tesseract_scene_graph::ResourceLocator::Ptr locator =
-      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
   auto env = std::make_shared<tesseract_environment::Environment>();
   tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
   tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
-  env->init<tesseract_environment::OFKTStateSolver>(urdf_path, srdf_path, locator);
+  env->init(urdf_path, srdf_path, locator);
 
   // Dynamically load ignition visualizer if exist
   tesseract_visualization::VisualizationLoader loader;
@@ -98,19 +97,20 @@ int main(int /*argc*/, char** /*argv*/)
   if (plotter != nullptr)
   {
     plotter->waitForConnection();
-    plotter->plotEnvironment(env);
+    plotter->plotEnvironment(*env);
   }
 
   ManipulatorInfo manip;
+  manip.tcp_frame = "tool0";
   manip.manipulator = "manipulator";
   manip.manipulator_ik_solver = "OPWInvKin";
 
-  auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
-  auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
-  auto cur_state = env->getCurrentState();
+  auto state_solver = env->getStateSolver();
+  auto kin_group = env->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
+  auto cur_state = env->getState();
 
   // Specify start location
-  StateWaypoint wp0(fwd_kin->getJointNames(), Eigen::VectorXd::Zero(6));
+  StateWaypoint wp0(kin_group->getJointNames(), Eigen::VectorXd::Zero(6));
 
   // Specify freespace start waypoint
   CartesianWaypoint wp1 =
@@ -158,7 +158,7 @@ int main(int /*argc*/, char** /*argv*/)
   if (plotter)
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(toJointTrajectory(ompl_response.results), env->getStateSolver());
+    plotter->plotTrajectory(toJointTrajectory(ompl_response.results), *state_solver);
   }
 
   // Update Seed
@@ -176,6 +176,6 @@ int main(int /*argc*/, char** /*argv*/)
   if (plotter)
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(toJointTrajectory(trajopt_response.results), env->getStateSolver());
+    plotter->plotTrajectory(toJointTrajectory(trajopt_response.results), *state_solver);
   }
 }

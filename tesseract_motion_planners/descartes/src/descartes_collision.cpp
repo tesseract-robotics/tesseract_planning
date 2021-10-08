@@ -24,7 +24,7 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_environment/utils.h>
 
 namespace tesseract_planning
 {
@@ -33,16 +33,14 @@ bool DescartesCollision::isContactAllowed(const std::string& a, const std::strin
   return acm_.isCollisionAllowed(a, b);
 }
 
-DescartesCollision::DescartesCollision(const tesseract_environment::Environment::ConstPtr& collision_env,
-                                       std::vector<std::string> active_links,
-                                       std::vector<std::string> joint_names,
+DescartesCollision::DescartesCollision(const tesseract_environment::Environment& collision_env,
+                                       tesseract_kinematics::JointGroup::ConstPtr manip,
                                        tesseract_collision::CollisionCheckConfig collision_check_config,
                                        bool debug)
-  : state_solver_(collision_env->getStateSolver())
-  , acm_(*(collision_env->getAllowedCollisionMatrix()))
-  , active_link_names_(std::move(active_links))
-  , joint_names_(std::move(joint_names))
-  , contact_manager_(collision_env->getDiscreteContactManager())
+  : manip_(std::move(manip))
+  , acm_(*(collision_env.getAllowedCollisionMatrix()))
+  , active_link_names_(manip_->getActiveLinkNames())
+  , contact_manager_(collision_env.getDiscreteContactManager())
   , collision_check_config_(std::move(collision_check_config))
   , debug_(debug)
 {
@@ -54,10 +52,9 @@ DescartesCollision::DescartesCollision(const tesseract_environment::Environment:
 }
 
 DescartesCollision::DescartesCollision(const DescartesCollision& collision_interface)
-  : state_solver_(collision_interface.state_solver_->clone())
+  : manip_(collision_interface.manip_)
   , acm_(collision_interface.acm_)
   , active_link_names_(collision_interface.active_link_names_)
-  , joint_names_(collision_interface.joint_names_)
   , contact_manager_(collision_interface.contact_manager_->clone())
   , collision_check_config_(collision_interface.collision_check_config_)
   , debug_(collision_interface.debug_)
@@ -73,12 +70,12 @@ bool DescartesCollision::validate(const Eigen::Ref<const Eigen::VectorXd>& pos)
 {
   // Happens in two phases:
   // 1. Compute the transform of all objects
-  tesseract_environment::EnvState::Ptr env_state = state_solver_->getState(joint_names_, pos);
+  tesseract_common::TransformMap state = manip_->calcFwdKin(pos);
 
   std::vector<tesseract_collision::ContactResultMap> results;
   tesseract_collision::CollisionCheckConfig config(collision_check_config_);
   config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
-  bool in_contact = checkTrajectoryState(results, *contact_manager_, env_state, config);
+  bool in_contact = tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
   return (!in_contact);
 }
 
@@ -86,12 +83,12 @@ double DescartesCollision::distance(const Eigen::Ref<const Eigen::VectorXd>& pos
 {
   // Happens in two phases:
   // 1. Compute the transform of all objects
-  tesseract_environment::EnvState::Ptr env_state = state_solver_->getState(joint_names_, pos);
+  tesseract_common::TransformMap state = manip_->calcFwdKin(pos);
 
   std::vector<tesseract_collision::ContactResultMap> results;
   tesseract_collision::CollisionCheckConfig config(collision_check_config_);
   config.contact_request.type = tesseract_collision::ContactTestType::CLOSEST;
-  bool in_contact = checkTrajectoryState(results, *contact_manager_, env_state, config);
+  bool in_contact = tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
 
   if (!in_contact)
     return contact_manager_->getCollisionMarginData().getMaxCollisionMargin();

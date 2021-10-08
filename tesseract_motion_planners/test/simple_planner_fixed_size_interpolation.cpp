@@ -29,8 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/ofkt/ofkt_state_solver.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h>
 
@@ -75,16 +74,17 @@ protected:
 
   void SetUp() override
   {
-    tesseract_scene_graph::ResourceLocator::Ptr locator =
-        std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+    auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
     Environment::Ptr env = std::make_shared<Environment>();
     tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
     tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-    EXPECT_TRUE(env->init<OFKTStateSolver>(urdf_path, srdf_path, locator));
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
 
+    manip_info_.tcp_frame = "tool0";
     manip_info_.manipulator = "manipulator";
-    joint_names_ = env_->getManipulatorManager()->getFwdKinematicSolver("manipulator")->getJointNames();
+    manip_info_.working_frame = "base_link";
+    joint_names_ = env_->getJointGroup("manipulator")->getJointNames();
   }
 };
 
@@ -92,7 +92,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
@@ -115,7 +115,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
   CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
   wp2.waypoint.translation() = Eigen::Vector3d(0.25, 0, 1);
@@ -133,8 +133,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   }
   const auto& mi = composite.back().as<MoveInstruction>();
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
-  Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
+  auto manip = env_->getJointGroup(manip_info_.manipulator);
+  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
 }
 
@@ -142,7 +142,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
   CartesianWaypoint wp1 = Eigen::Isometry3d::Identity();
   wp1.waypoint.translation() = Eigen::Vector3d(0.25, 0, 1);
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Zero(7));
@@ -166,7 +166,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointI
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
   CartesianWaypoint wp1 = Eigen::Isometry3d::Identity();
   wp1.waypoint.translation() = Eigen::Vector3d(0.25, -0.1, 1);
   CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
@@ -185,8 +185,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointI
   }
   const auto& mi = composite.back().as<MoveInstruction>();
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
-  Eigen::Isometry3d final_pose = fwd_kin->calcFwdKin(last_position);
+  auto manip = env_->getJointGroup(manip_info_.manipulator);
+  Eigen::Isometry3d final_pose = manip->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
 }
 

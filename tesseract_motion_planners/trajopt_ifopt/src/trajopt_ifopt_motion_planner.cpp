@@ -26,7 +26,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_environment/utils.h>
 #include <trajopt_sqp/ifopt_qp_problem.h>
 #include <trajopt_sqp/trajopt_qp_problem.h>
 #include <trajopt_sqp/trust_region_sqp_solver.h>
@@ -176,9 +176,8 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
   // Enforce limits
   for (Eigen::Index i = 0; i < trajectory.rows(); i++)
   {
-    assert(
-        tesseract_common::satisfiesPositionLimits(trajectory.row(i), problem->manip_fwd_kin->getLimits().joint_limits));
-    tesseract_common::enforcePositionLimits(trajectory.row(i), problem->manip_fwd_kin->getLimits().joint_limits);
+    assert(tesseract_common::satisfiesPositionLimits(trajectory.row(i), problem->manip->getLimits().joint_limits));
+    tesseract_common::enforcePositionLimits(trajectory.row(i), problem->manip->getLimits().joint_limits);
   }
 
   // Flatten the results to make them easier to process
