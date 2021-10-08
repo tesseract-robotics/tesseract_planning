@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/environment.h>
 
 namespace tesseract_planning
 {
@@ -49,11 +49,10 @@ struct TrajOptIfoptProblem
 {
   // These are required for Tesseract to configure Descartes
   tesseract_environment::Environment::ConstPtr environment;
-  tesseract_environment::EnvState::ConstPtr env_state;
+  tesseract_scene_graph::SceneState env_state;
 
   // Kinematic Objects
-  tesseract_kinematics::ForwardKinematics::ConstPtr manip_fwd_kin;
-  tesseract_kinematics::InverseKinematics::ConstPtr manip_inv_kin;
+  tesseract_kinematics::JointGroup::ConstPtr manip;
 
   trajopt_sqp::QPProblem::Ptr nlp;
   std::vector<trajopt_ifopt::JointPosition::ConstPtr> vars;

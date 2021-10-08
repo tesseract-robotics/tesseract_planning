@@ -52,36 +52,38 @@ DefaultDescartesProblemGenerator(const std::string& name,
   assert(!request.instructions.getManipulatorInfo().empty());
   const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
-  // Get Manipulator Information
-  prob->manip_fwd_kin = request.env->getManipulatorManager()->getFwdKinematicSolver(composite_mi.manipulator);
-  if (composite_mi.manipulator_ik_solver.empty())
-    prob->manip_inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(composite_mi.manipulator);
-  else
-    prob->manip_inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(
-        composite_mi.manipulator, composite_mi.manipulator_ik_solver);
+  if (composite_mi.manipulator.empty())
+    throw std::runtime_error("Descartes, manipulator is empty!");
 
-  if (!prob->manip_fwd_kin)
+  // Get Manipulator Information
+  try
   {
-    CONSOLE_BRIDGE_logError("No Forward Kinematics solver found");
+    if (composite_mi.manipulator_ik_solver.empty())
+      prob->manip = request.env->getKinematicGroup(composite_mi.manipulator);
+    else
+      prob->manip = request.env->getKinematicGroup(composite_mi.manipulator, composite_mi.manipulator_ik_solver);
+  }
+  catch (...)
+  {
+    throw std::runtime_error("Descartes problem generator failed to create kinematic group!");
+  }
+
+  if (!prob->manip)
+  {
+    CONSOLE_BRIDGE_logError("No Kinematics Group found");
     return prob;
   }
-  if (!prob->manip_inv_kin)
-  {
-    CONSOLE_BRIDGE_logError("No Inverse Kinematics solver found");
-    return prob;
-  }
+
   prob->env_state = request.env_state;
   prob->env = request.env;
 
   // Process instructions
-  if (!tesseract_kinematics::checkKinematics(prob->manip_fwd_kin, prob->manip_inv_kin))
+  if (!tesseract_kinematics::checkKinematics(*(prob->manip)))
     CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with KDL "
                             "(TrajOpt). Did you change the URDF recently?");
 
-  std::vector<std::string> active_link_names = prob->manip_inv_kin->getActiveLinkNames();
-  auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-      request.env->getSceneGraph(), active_link_names, request.env_state->link_transforms);
-  const std::vector<std::string>& active_links = adjacency_map->getActiveLinkNames();
+  std::vector<std::string> active_link_names = prob->manip->getActiveLinkNames();
+  std::vector<std::string> joint_names = prob->manip->getJointNames();
 
   // Flatten the input for planning
   auto instructions_flat = flattenProgram(request.instructions);
@@ -114,8 +116,8 @@ DefaultDescartesProblemGenerator(const std::string& name,
   }
   else
   {
-    Eigen::VectorXd current_jv = request.env_state->getJointValues(prob->manip_inv_kin->getJointNames());
-    StateWaypoint swp(prob->manip_inv_kin->getJointNames(), current_jv);
+    Eigen::VectorXd current_jv = request.env_state.getJointValues(joint_names);
+    StateWaypoint swp(joint_names, current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);
     placeholder_instruction = temp_move;
@@ -134,17 +136,17 @@ DefaultDescartesProblemGenerator(const std::string& name,
   if (isCartesianWaypoint(start_waypoint))
   {
     const auto& cwp = start_waypoint.as<CartesianWaypoint>();
-    cur_plan_profile->apply(*prob, cwp.waypoint, *start_instruction, composite_mi, active_links, index);
+    cur_plan_profile->apply(*prob, cwp.waypoint, *start_instruction, composite_mi, active_link_names, index);
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
-    assert(checkJointPositionFormat(prob->manip_fwd_kin->getJointNames(), start_waypoint));
+    assert(checkJointPositionFormat(joint_names, start_waypoint));
     const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-    cur_plan_profile->apply(*prob, position, *start_instruction, composite_mi, active_links, index);
+    cur_plan_profile->apply(*prob, position, *start_instruction, composite_mi, active_link_names, index);
   }
   else
   {
-    throw std::runtime_error("DescartesMotionPlannerConfig: uknown waypoint type.");
+    throw std::runtime_error("DescartesMotionPlannerConfig: unknown waypoint type.");
   }
 
   ++index;
@@ -160,7 +162,17 @@ DefaultDescartesProblemGenerator(const std::string& name,
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
       ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
-      Eigen::Isometry3d tcp = request.env->findTCP(mi);
+
+      if (mi.manipulator.empty())
+        throw std::runtime_error("Descartes, manipulator is empty!");
+
+      if (mi.tcp_frame.empty())
+        throw std::runtime_error("Descartes, tcp_frame is empty!");
+
+      if (mi.working_frame.empty())
+        throw std::runtime_error("Descartes, working_frame is empty!");
+
+      Eigen::Isometry3d tcp_offset = request.env->findTCPOffset(mi);
 
       // The seed should always have a start instruction
       assert(request.seed.hasStartInstruction());
@@ -191,36 +203,34 @@ DefaultDescartesProblemGenerator(const std::string& name,
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
-            assert(checkJointPositionFormat(prob->manip_fwd_kin->getJointNames(), start_waypoint));
+            assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = prob->manip_fwd_kin->calcFwdKin(position);
-            prev_pose = prob->env_state->link_transforms.at(prob->manip_fwd_kin->getBaseLinkName()) * prev_pose * tcp;
+            prev_pose = prob->manip->calcFwdKin(position)[mi.tcp_frame] * tcp_offset;
           }
           else
           {
-            throw std::runtime_error("DescartesMotionPlannerConfig: uknown waypoint type.");
+            throw std::runtime_error("DescartesMotionPlannerConfig: unknown waypoint type.");
           }
 
           tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_wp, interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, active_links, index);
+            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, active_link_names, index);
 
             ++index;
           }
 
           // Add final point with waypoint
-          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, active_links, index);
+          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, active_link_names, index);
 
           ++index;
         }
         else if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(prob->manip_fwd_kin->getJointNames(), plan_instruction.getWaypoint()));
+          assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
-          Eigen::Isometry3d cur_pose = prob->manip_fwd_kin->calcFwdKin(cur_position);
-          cur_pose = prob->env_state->link_transforms.at(prob->manip_fwd_kin->getBaseLinkName()) * cur_pose * tcp;
+          Eigen::Isometry3d cur_pose = prob->manip->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offset;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
@@ -229,27 +239,26 @@ DefaultDescartesProblemGenerator(const std::string& name,
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
-            assert(checkJointPositionFormat(prob->manip_fwd_kin->getJointNames(), start_waypoint));
+            assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = prob->manip_fwd_kin->calcFwdKin(position);
-            prev_pose = prob->env_state->link_transforms.at(prob->manip_fwd_kin->getBaseLinkName()) * prev_pose * tcp;
+            prev_pose = prob->manip->calcFwdKin(position)[mi.tcp_frame] * tcp_offset;
           }
           else
           {
-            throw std::runtime_error("DescartesMotionPlannerConfig: uknown waypoint type.");
+            throw std::runtime_error("DescartesMotionPlannerConfig: unknown waypoint type.");
           }
 
           tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_pose, interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, active_links, index);
+            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, active_link_names, index);
 
             ++index;
           }
 
           // Add final point with waypoint
-          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, active_links, index);
+          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, active_link_names, index);
 
           ++index;
         }
@@ -262,7 +271,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
       {
         if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(prob->manip_fwd_kin->getJointNames(), plan_instruction.getWaypoint()));
+          assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
 
           // Descartes does not support freespace so it will only include the plan instruction state, then in
@@ -271,7 +280,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
 
           // Add final point with waypoint costs and contraints
           /** @todo Should check that the joint names match the order of the manipulator */
-          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, active_links, index);
+          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, active_link_names, index);
 
           ++index;
         }
@@ -285,7 +294,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
 
           // Add final point with waypoint costs and contraints
           /** @todo Should check that the joint names match the order of the manipulator */
-          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, active_links, index);
+          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, active_link_names, index);
 
           ++index;
         }

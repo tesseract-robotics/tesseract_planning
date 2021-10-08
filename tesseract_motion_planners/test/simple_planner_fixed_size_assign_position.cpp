@@ -29,8 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/ofkt/ofkt_state_solver.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
 
@@ -73,16 +72,17 @@ protected:
 
   void SetUp() override
   {
-    tesseract_scene_graph::ResourceLocator::Ptr locator =
-        std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+    auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
     Environment::Ptr env = std::make_shared<Environment>();
     tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
     tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-    EXPECT_TRUE(env->init<OFKTStateSolver>(urdf_path, srdf_path, locator));
+    EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
     env_ = env;
 
+    manip_info_.tcp_frame = "tool0";
+    manip_info_.working_frame = "base_link";
     manip_info_.manipulator = "manipulator";
-    joint_names_ = env_->getManipulatorManager()->getFwdKinematicSolver("manipulator")->getJointNames();
+    joint_names_ = env_->getJointGroup("manipulator")->getJointNames();
   }
 };
 
@@ -90,7 +90,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
   CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
@@ -113,7 +113,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
   CartesianWaypoint wp1 = Eigen::Isometry3d::Identity();
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Zero(7));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
@@ -136,7 +136,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
 {
   PlannerRequest request;
   request.env = env_;
-  request.env_state = env_->getCurrentState();
+  request.env_state = env_->getState();
   CartesianWaypoint wp1 = Eigen::Isometry3d::Identity();
   CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
@@ -144,8 +144,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
 
   SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
   auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  auto fwd_kin = env_->getManipulatorManager()->getFwdKinematicSolver(manip_info_.manipulator);
-  Eigen::VectorXd position = request.env_state->getJointValues(fwd_kin->getJointNames());
+  auto fwd_kin = env_->getJointGroup(manip_info_.manipulator);
+  Eigen::VectorXd position = request.env_state.getJointValues(fwd_kin->getJointNames());
   EXPECT_EQ(composite.size(), 10);
   for (const auto& c : composite)
   {

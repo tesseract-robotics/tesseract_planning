@@ -39,21 +39,25 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesRobotSampler<FloatType>::DescartesRobotSampler(const Eigen::Isometry3d& target_pose,
+DescartesRobotSampler<FloatType>::DescartesRobotSampler(const std::string& target_working_frame,
+                                                        const Eigen::Isometry3d& target_pose,
                                                         PoseSamplerFn target_pose_sampler,
-                                                        tesseract_kinematics::InverseKinematics::ConstPtr ik,
+                                                        tesseract_kinematics::KinematicGroup::ConstPtr manip,
                                                         DescartesCollision::Ptr collision,
-                                                        const Eigen::Isometry3d& tcp,
+                                                        const std::string& tcp_frame,
+                                                        const Eigen::Isometry3d& tcp_offset,
                                                         bool allow_collision,
                                                         DescartesVertexEvaluator::Ptr is_valid,
                                                         bool use_redundant_joint_solutions)
-  : target_pose_(target_pose)
+  : target_working_frame_(target_working_frame)
+  , target_pose_(target_pose)
   , target_pose_sampler_(std::move(target_pose_sampler))
-  , ik_(std::move(ik))
+  , manip_(std::move(manip))
   , collision_(std::move(collision))
-  , tcp_(tcp)
+  , tcp_frame_(tcp_frame)
+  , tcp_offset_(tcp_offset)
   , allow_collision_(allow_collision)
-  , dof_(static_cast<int>(ik_->numJoints()))
+  , dof_(static_cast<int>(manip_->numJoints()))
   , ik_seed_(Eigen::VectorXd::Zero(dof_))
   , is_valid_(std::move(is_valid))
   , use_redundant_joint_solutions_(use_redundant_joint_solutions)
@@ -73,10 +77,11 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
   for (const auto& pose : target_poses)
   {
     // Get the transformation to the kinematic tip link
-    Eigen::Isometry3d target_pose = pose * tcp_.inverse();
+    Eigen::Isometry3d target_pose = pose * tcp_offset_.inverse();
 
-    // Solve IK
-    tesseract_kinematics::IKSolutions ik_solutions = ik_->calcInvKin(target_pose, ik_seed_);
+    // Solve IK (TODO Should tcp_offset be stored in KinGroupIKInput?)
+    tesseract_kinematics::KinGroupIKInput ik_input(target_pose, target_working_frame_, tcp_frame_);
+    tesseract_kinematics::IKSolutions ik_solutions = manip_->calcInvKin({ ik_input }, ik_seed_);
 
     if (ik_solutions.empty())
       continue;
@@ -134,8 +139,8 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
   // Generate the redundant solutions
   if (use_redundant_joint_solutions_)
   {
-    const Eigen::MatrixX2d& limits = ik_->getLimits().joint_limits;
-    std::vector<Eigen::Index> redundancy_capable_joints = ik_->getRedundancyCapableJointIndices();
+    const Eigen::MatrixX2d& limits = manip_->getLimits().joint_limits;
+    std::vector<Eigen::Index> redundancy_capable_joints = manip_->getRedundancyCapableJointIndices();
     std::vector<descartes_light::StateSample<FloatType>> redundant_samples;
     for (const descartes_light::StateSample<FloatType>& sample : samples)
     {

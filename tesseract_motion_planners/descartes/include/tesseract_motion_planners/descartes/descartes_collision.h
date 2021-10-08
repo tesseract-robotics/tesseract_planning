@@ -29,7 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_collision/core/discrete_contact_manager.h>
 #include <tesseract_collision/core/types.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -45,16 +45,14 @@ public:
   /**
    * @brief TesseractCollision
    * @param collision_env The collision Environment
-   * @param active_links The list of active links
-   * @param joint_names The list of joint names in the order that the data will be provided to the validate function.
+   * @param manip The manipulator joint group
    * @param edge_collision_check_config Config used to set up collision checking
    * @param longest_valid_segment_length Used to check collisions between two state if norm(state0-state1) >
    * longest_valid_segment_length.
    * @param debug If true, this print debug information to the terminal
    */
-  DescartesCollision(const tesseract_environment::Environment::ConstPtr& collision_env,
-                     std::vector<std::string> active_links,
-                     std::vector<std::string> joint_names,
+  DescartesCollision(const tesseract_environment::Environment& collision_env,
+                     tesseract_kinematics::JointGroup::ConstPtr manip,
                      tesseract_collision::CollisionCheckConfig collision_check_config =
                          tesseract_collision::CollisionCheckConfig{ 0.025 },
                      bool debug = false);
@@ -98,10 +96,9 @@ private:
    */
   bool isContactAllowed(const std::string& a, const std::string& b) const;
 
-  tesseract_environment::StateSolver::Ptr state_solver_;             /**< @brief The tesseract state solver */
+  tesseract_kinematics::JointGroup::ConstPtr manip_;                 /**< @brief The tesseract state solver */
   tesseract_scene_graph::AllowedCollisionMatrix acm_;                /**< @brief The allowed collision matrix */
   std::vector<std::string> active_link_names_;                       /**< @brief A vector of active link names */
-  std::vector<std::string> joint_names_;                             /**< @brief A vector of joint names */
   tesseract_collision::DiscreteContactManager::Ptr contact_manager_; /**< @brief The discrete contact manager */
   tesseract_collision::CollisionCheckConfig collision_check_config_;
   bool debug_; /**< @brief Enable debug information to be printed to the terminal */

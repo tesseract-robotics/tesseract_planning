@@ -36,20 +36,20 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(const Eigen::Isometry3d& c_wp,
-                                                       int index,
+trajopt::TermInfo::Ptr createCartesianWaypointTermInfo(int index,
                                                        const std::string& working_frame,
-                                                       const Eigen::Isometry3d& tcp,
+                                                       const Eigen::Isometry3d& c_wp,
+                                                       const std::string& tcp_frame,
+                                                       const Eigen::Isometry3d& tcp_offset,
                                                        const Eigen::VectorXd& coeffs,
-                                                       const std::string& link,
                                                        trajopt::TermType type);
 
-trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(const Eigen::Isometry3d& c_wp,
-                                                              int index,
+trajopt::TermInfo::Ptr createDynamicCartesianWaypointTermInfo(int index,
                                                               const std::string& working_frame,
-                                                              const Eigen::Isometry3d& tcp,
+                                                              const Eigen::Isometry3d& c_wp,
+                                                              const std::string& tcp_frame,
+                                                              const Eigen::Isometry3d& tcp_offset,
                                                               const Eigen::VectorXd& coeffs,
-                                                              const std::string& link,
                                                               trajopt::TermType type);
 
 trajopt::TermInfo::Ptr createNearJointStateTermInfo(const Eigen::VectorXd& target,

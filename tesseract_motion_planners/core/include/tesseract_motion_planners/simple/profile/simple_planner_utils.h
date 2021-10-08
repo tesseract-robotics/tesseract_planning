@@ -46,35 +46,28 @@ struct InstructionInfo
                   const ManipulatorInfo& manip_info);
 
   const PlanInstruction& instruction;
-  tesseract_kinematics::ForwardKinematics::Ptr fwd_kin;
-  tesseract_kinematics::InverseKinematics::Ptr inv_kin;
-  Eigen::Isometry3d world_to_base;
-  Eigen::Isometry3d working_frame;
-  Eigen::Isometry3d tcp;
+  tesseract_kinematics::KinematicGroup::UPtr manip;
+  std::string working_frame;
+  std::string tcp_frame;
+  Eigen::Isometry3d tcp_offset{ Eigen::Isometry3d::Identity() };
   bool has_cartesian_waypoint{ false };
 
   /**
-   * @brief Calculate the cartesian pose in world coordinate given the joint solution
-   * @param jp The joint solution to calculate the world pose
-   * @return The world pose give the joint solution
+   * @brief Calculate the cartesian pose given the joint solution
+   * @param jp The joint solution to calculate the pose
+   * @return The pose give the joint solution
    */
-  Eigen::Isometry3d calcCartesianWorldPose(const Eigen::VectorXd& jp) const;
+  Eigen::Isometry3d calcCartesianPose(const Eigen::VectorXd& jp) const;
 
   /**
-   * @brief Covert cartesian pose in world to the local robot base frame
-   * @return Cartesian pose in the local robot base frame
-   */
-  Eigen::Isometry3d calcCartesianLocalPose(const Eigen::Isometry3d& world) const;
-
-  /**
-   * @brief Extract the cartesian pose in the world
+   * @brief Extract the cartesian pose from the instruction
    * @details If the instruction does not have a cartesian waypoint this throws an exception
-   * @return Cartesian pose in the world
+   * @return Cartesian pose
    */
-  Eigen::Isometry3d extractCartesianWorldPose() const;
+  Eigen::Isometry3d extractCartesianPose() const;
 
   /**
-   * @brief Extract the joint positiion from the instruction waypoint
+   * @brief Extract the joint position from the instruction waypoint
    * @details If the instruction does not have a joint/state waypoint this throws an exception
    * @return Joint Position
    */
@@ -101,29 +94,22 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
 
 /**
  * @brief Find the closest joint solution for p to the provided seed
- * @param p The cartesian position to solve inverse kinematics
- * @param inv_kin The inverse kinematics
+ * @param info The instruction info to find closest joint solution
  * @param seed The seed to find the closest solution
  * @return The closest solution to the seed. This will be empty if a solution was not found during inverse kinematics
  */
-Eigen::VectorXd getClosestJointSolution(const Eigen::Isometry3d& p,
-                                        const tesseract_kinematics::InverseKinematics::Ptr& inv_kin,
-                                        const Eigen::VectorXd& seed);
+Eigen::VectorXd getClosestJointSolution(const InstructionInfo& info, const Eigen::VectorXd& seed);
 
 /**
  * @brief Find the closest joint solution for the two provided cartesian poses.
- * @param p1 The first cartesian position to solve inverse kinematics
- * @param p2 The second cartesian position to solve inverse kinematics
- * @param inv_kin1 The inverse kinematics associated to the first cartesian position
- * @param inv_kin2 The inverse kinematics associated to the first cartesian position
+ * @param info1 The instruction info to find closest joint solution
+ * @param info2 The instruction info to find closest joint solution
  * @param seed The seed to use during inverse kinematics
  * @return The closest joint solution for the provided cartesian positions. If either are empty then it failed to solve
  * inverse kinematics.
  */
-std::array<Eigen::VectorXd, 2> getClosestJointSolution(const Eigen::Isometry3d& p1,
-                                                       const Eigen::Isometry3d& p2,
-                                                       const tesseract_kinematics::InverseKinematics::Ptr& inv_kin1,
-                                                       const tesseract_kinematics::InverseKinematics::Ptr& inv_kin2,
+std::array<Eigen::VectorXd, 2> getClosestJointSolution(const InstructionInfo& info1,
+                                                       const InstructionInfo& info2,
                                                        const Eigen::VectorXd& seed);
 
 }  // namespace tesseract_planning

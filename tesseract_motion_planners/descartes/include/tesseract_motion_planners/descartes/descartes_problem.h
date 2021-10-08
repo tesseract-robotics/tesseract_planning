@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/environment.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::DescartesProblem<double>)
@@ -49,11 +49,10 @@ struct DescartesProblem
 {
   // These are required for Tesseract to configure Descartes
   tesseract_environment::Environment::ConstPtr env;
-  tesseract_environment::EnvState::ConstPtr env_state;
+  tesseract_scene_graph::SceneState env_state;
 
   // Kinematic Objects
-  tesseract_kinematics::ForwardKinematics::ConstPtr manip_fwd_kin;
-  tesseract_kinematics::InverseKinematics::ConstPtr manip_inv_kin;
+  tesseract_kinematics::KinematicGroup::ConstPtr manip;
 
   // These are required for descartes
   std::vector<typename descartes_light::EdgeEvaluator<FloatType>::ConstPtr> edge_evaluators;

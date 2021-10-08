@@ -41,7 +41,7 @@ namespace tesseract_planning
 {
 /** @brief Provided for backwards compatibility */
 static CompositeInstruction generateSeed(const CompositeInstruction& instructions,
-                                         const tesseract_environment::EnvState::ConstPtr& current_state,
+                                         const tesseract_scene_graph::SceneState& current_state,
                                          const tesseract_environment::Environment::ConstPtr& env,
                                          double state_longest_valid_segment_length = 5 * M_PI / 180,
                                          double translation_longest_valid_segment_length = 0.15,

@@ -36,24 +36,17 @@ namespace tesseract_planning
 ContinuousMotionValidator::ContinuousMotionValidator(
     const ompl::base::SpaceInformationPtr& space_info,
     ompl::base::StateValidityCheckerPtr state_validator,
-    const tesseract_environment::Environment::ConstPtr& env,
-    tesseract_kinematics::ForwardKinematics::ConstPtr kin,
+    const tesseract_environment::Environment& env,
+    tesseract_kinematics::JointGroup::ConstPtr manip,
     const tesseract_collision::CollisionCheckConfig& collision_check_config,
     OMPLStateExtractor extractor)
   : MotionValidator(space_info)
   , state_validator_(std::move(state_validator))
-  , state_solver_(env->getStateSolver())
-  , kin_(std::move(kin))
-  , continuous_contact_manager_(env->getContinuousContactManager())
+  , manip_(std::move(manip))
+  , continuous_contact_manager_(env.getContinuousContactManager())
   , extractor_(std::move(extractor))
 {
-  joints_ = kin_->getJointNames();
-
-  // kinematics objects does not know of every link affected by its motion so must compute adjacency map
-  // to determine all active links.
-  tesseract_environment::AdjacencyMap adj_map(
-      env->getSceneGraph(), kin_->getActiveLinkNames(), env->getCurrentState()->link_transforms);
-  links_ = adj_map.getActiveLinkNames();
+  links_ = manip_->getActiveLinkNames();
 
   continuous_contact_manager_->setActiveCollisionObjects(links_);
   continuous_contact_manager_->setCollisionMarginData(collision_check_config.collision_margin_data,
@@ -128,32 +121,28 @@ bool ContinuousMotionValidator::continuousCollisionCheck(const ompl::base::State
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
   tesseract_collision::ContinuousContactManager::Ptr cm;
-  tesseract_environment::StateSolver::Ptr ss;
+  tesseract_scene_graph::StateSolver* ss;
   mutex_.lock();
   auto it = continuous_contact_managers_.find(hash);
   if (it == continuous_contact_managers_.end())
   {
     cm = continuous_contact_manager_->clone();
     continuous_contact_managers_[hash] = cm;
-
-    ss = state_solver_->clone();
-    state_solver_managers_[hash] = ss;
   }
   else
   {
     cm = it->second;
-    ss = state_solver_managers_[hash];
   }
   mutex_.unlock();
 
   Eigen::Map<Eigen::VectorXd> start_joints = extractor_(s1);
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(s2);
 
-  tesseract_environment::EnvState::Ptr state0 = ss->getState(joints_, start_joints);
-  tesseract_environment::EnvState::Ptr state1 = ss->getState(joints_, finish_joints);
+  tesseract_common::TransformMap state0 = manip_->calcFwdKin(start_joints);
+  tesseract_common::TransformMap state1 = manip_->calcFwdKin(finish_joints);
 
   for (const auto& link_name : links_)
-    cm->setCollisionObjectsTransform(link_name, state0->link_transforms[link_name], state1->link_transforms[link_name]);
+    cm->setCollisionObjectsTransform(link_name, state0[link_name], state1[link_name]);
 
   tesseract_collision::ContactResultMap contact_map;
   cm->contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);

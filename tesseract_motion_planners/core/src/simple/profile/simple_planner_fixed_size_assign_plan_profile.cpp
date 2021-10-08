@@ -75,8 +75,8 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
   }
   else
   {
-    Eigen::VectorXd seed = request.env_state->getJointValues(info2.inv_kin->getJointNames());
-    tesseract_common::enforcePositionLimits(seed, info2.fwd_kin->getLimits().joint_limits);
+    Eigen::VectorXd seed = request.env_state.getJointValues(info2.manip->getJointNames());
+    tesseract_common::enforcePositionLimits(seed, info2.manip->getLimits().joint_limits);
 
     if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
       states = seed.replicate(1, linear_steps + 1);
@@ -86,7 +86,7 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
   }
 
-  return getInterpolatedComposite(info2.fwd_kin->getJointNames(), states, info2.instruction);
+  return getInterpolatedComposite(info2.manip->getJointNames(), states, info2.instruction);
 }
 
 }  // namespace tesseract_planning

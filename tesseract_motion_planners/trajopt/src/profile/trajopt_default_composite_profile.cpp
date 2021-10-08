@@ -191,12 +191,22 @@ void TrajOptDefaultCompositeProfile::smoothMotionTerms(const tinyxml2::XMLElemen
 void TrajOptDefaultCompositeProfile::apply(trajopt::ProblemConstructionInfo& pci,
                                            int start_index,
                                            int end_index,
-                                           const ManipulatorInfo& /*manip_info*/,
+                                           const ManipulatorInfo& manip_info,
                                            const std::vector<std::string>& /*active_links*/,
                                            const std::vector<int>& fixed_indices) const
 {
   // -------- Construct the problem ------------
   // -------------------------------------------
+
+  if (manip_info.manipulator.empty())
+    throw std::runtime_error("TrajOpt, manipulator is empty!");
+
+  if (manip_info.tcp_frame.empty())
+    throw std::runtime_error("TrajOpt, tcp_frame is empty!");
+
+  if (manip_info.working_frame.empty())
+    throw std::runtime_error("TrajOpt, working_frame is empty!");
+
   if (collision_constraint_config.enabled)
     addCollisionConstraint(pci, start_index, end_index, fixed_indices);
 
@@ -216,7 +226,7 @@ void TrajOptDefaultCompositeProfile::apply(trajopt::ProblemConstructionInfo& pci
   //    addConstraintErrorFunctions(pci, start_index, end_index, fixed_indices);
 
   if (avoid_singularity)
-    addAvoidSingularity(pci, start_index, end_index, pci.kin->getTipLinkName(), fixed_indices);
+    addAvoidSingularity(pci, start_index, end_index, manip_info.tcp_frame, fixed_indices);
 }
 
 tinyxml2::XMLElement* TrajOptDefaultCompositeProfile::toXML(tinyxml2::XMLDocument& doc) const

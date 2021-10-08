@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/ompl/utils.h>
-#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/forward_kinematics.h>
 
 namespace tesseract_planning
@@ -43,22 +43,16 @@ class StateCollisionValidator : public ompl::base::StateValidityChecker
 {
 public:
   StateCollisionValidator(const ompl::base::SpaceInformationPtr& space_info,
-                          tesseract_environment::Environment::ConstPtr env,
-                          tesseract_kinematics::ForwardKinematics::ConstPtr kin,
+                          const tesseract_environment::Environment& env,
+                          tesseract_kinematics::JointGroup::ConstPtr manip,
                           const tesseract_collision::CollisionCheckConfig& collision_check_config,
                           OMPLStateExtractor extractor);
 
   bool isValid(const ompl::base::State* state) const override;
 
 private:
-  /** @brief The Tesseract Environment */
-  tesseract_environment::Environment::ConstPtr env_;
-
-  /**< @brief The tesseract state solver */
-  tesseract_environment::StateSolver::ConstPtr state_solver_;
-
-  /** @brief The Tesseract Forward Kinematics */
-  tesseract_kinematics::ForwardKinematics::ConstPtr kin_;
+  /** @brief The Tesseract Joint Group */
+  tesseract_kinematics::JointGroup::ConstPtr manip_;
 
   /** @brief The continuous contact manager used for creating cached continuous contact managers. */
   tesseract_collision::DiscreteContactManager::Ptr contact_manager_;
@@ -66,10 +60,7 @@ private:
   /** @brief A list of active links */
   std::vector<std::string> links_;
 
-  /** @brief A list of active joints */
-  std::vector<std::string> joints_;
-
-  /** @bried This will extract an Eigen::VectorXd from the OMPL State */
+  /** @brief This will extract an Eigen::VectorXd from the OMPL State */
   OMPLStateExtractor extractor_;
 
   // The items below are to cache the contact manager based on thread ID. Currently ompl is multi
@@ -82,9 +73,6 @@ private:
 
   /** @brief The continuous contact manager cache */
   mutable std::map<unsigned long int, tesseract_collision::DiscreteContactManager::Ptr> contact_managers_;
-
-  /** @brief The state solver manager cache */
-  mutable std::map<unsigned long int, tesseract_environment::StateSolver::Ptr> state_solver_managers_;
 };
 
 }  // namespace tesseract_planning

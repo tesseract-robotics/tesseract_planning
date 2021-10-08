@@ -34,11 +34,12 @@
 
 namespace tesseract_planning
 {
-ifopt::ConstraintSet::Ptr createCartesianPositionConstraint(const Eigen::Isometry3d& target,
-                                                            const trajopt_ifopt::JointPosition::ConstPtr& var,
-                                                            const trajopt_ifopt::KinematicsInfo::ConstPtr& kin_info,
-                                                            const std::string& source_link,
-                                                            const Eigen::Isometry3d& source_tcp,
+ifopt::ConstraintSet::Ptr createCartesianPositionConstraint(const trajopt_ifopt::JointPosition::ConstPtr& var,
+                                                            const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                                            const std::string& source_frame,
+                                                            const std::string& target_frame,
+                                                            const Eigen::Isometry3d& source_frame_offset,
+                                                            const Eigen::Isometry3d& target_frame_offset,
                                                             const Eigen::Ref<const Eigen::VectorXd>& coeffs)
 {
   std::vector<int> indices;
@@ -53,34 +54,38 @@ ifopt::ConstraintSet::Ptr createCartesianPositionConstraint(const Eigen::Isometr
   }
 
   trajopt_ifopt::CartPosInfo cart_info(
-      kin_info,
-      target,
-      source_link,
-      source_tcp,
+      manip,
+      source_frame,
+      target_frame,
+      source_frame_offset,
+      target_frame_offset,
       Eigen::Map<Eigen::VectorXi>(indices.data(), static_cast<Eigen::Index>(indices.size())));
   auto constraint = std::make_shared<trajopt_ifopt::CartPosConstraint>(cart_info, var, "CartPos_" + var->GetName());
   return constraint;
 }
 
 bool addCartesianPositionConstraint(trajopt_sqp::QPProblem& nlp,
-                                    const Eigen::Isometry3d& target,
                                     const trajopt_ifopt::JointPosition::ConstPtr& var,
-                                    const trajopt_ifopt::KinematicsInfo::ConstPtr& kin_info,
-                                    const std::string& source_link,
-                                    const Eigen::Isometry3d& source_tcp,
+                                    const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                    const std::string& source_frame,
+                                    const std::string& target_frame,
+                                    const Eigen::Isometry3d& source_frame_offset,
+                                    const Eigen::Isometry3d& target_frame_offset,
                                     const Eigen::Ref<const Eigen::VectorXd>& coeffs)
 {
-  auto constraint = createCartesianPositionConstraint(target, var, kin_info, source_link, source_tcp, coeffs);
+  auto constraint = createCartesianPositionConstraint(
+      var, manip, source_frame, target_frame, source_frame_offset, target_frame_offset, coeffs);
   nlp.addConstraintSet(constraint);
   return true;
 }
 
 bool addCartesianPositionSquaredCost(trajopt_sqp::QPProblem& nlp,
-                                     const Eigen::Isometry3d& target,
                                      const trajopt_ifopt::JointPosition::ConstPtr& var,
-                                     const trajopt_ifopt::KinematicsInfo::ConstPtr& kin_info,
-                                     const std::string& source_link,
-                                     const Eigen::Isometry3d& source_tcp,
+                                     const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                     const std::string& source_frame,
+                                     const std::string& target_frame,
+                                     const Eigen::Isometry3d& source_frame_offset,
+                                     const Eigen::Isometry3d& target_frame_offset,
                                      const Eigen::Ref<const Eigen::VectorXd>& coeffs)
 {
   std::vector<double> constraint_coeffs;
@@ -99,11 +104,12 @@ bool addCartesianPositionSquaredCost(trajopt_sqp::QPProblem& nlp,
   }
 
   auto constraint = createCartesianPositionConstraint(
-      target,
       var,
-      kin_info,
-      source_link,
-      source_tcp,
+      manip,
+      source_frame,
+      target_frame,
+      source_frame_offset,
+      target_frame_offset,
       Eigen::Map<Eigen::VectorXd>(constraint_coeffs.data(), static_cast<Eigen::Index>(constraint_coeffs.size())));
 
   nlp.addCostSet(constraint, trajopt_sqp::CostPenaltyType::SQUARED);
@@ -111,11 +117,12 @@ bool addCartesianPositionSquaredCost(trajopt_sqp::QPProblem& nlp,
 }
 
 bool addCartesianPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
-                                      const Eigen::Isometry3d& target,
                                       const trajopt_ifopt::JointPosition::ConstPtr& var,
-                                      const trajopt_ifopt::KinematicsInfo::ConstPtr& kin_info,
-                                      const std::string& source_link,
-                                      const Eigen::Isometry3d& source_tcp,
+                                      const tesseract_kinematics::JointGroup::ConstPtr& manip,
+                                      const std::string& source_frame,
+                                      const std::string& target_frame,
+                                      const Eigen::Isometry3d& source_frame_offset,
+                                      const Eigen::Isometry3d& target_frame_offset,
                                       const Eigen::Ref<const Eigen::VectorXd>& coeffs)
 {
   std::vector<double> constraint_coeffs;
@@ -134,11 +141,12 @@ bool addCartesianPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
   }
 
   auto constraint = createCartesianPositionConstraint(
-      target,
       var,
-      kin_info,
-      source_link,
-      source_tcp,
+      manip,
+      source_frame,
+      target_frame,
+      source_frame_offset,
+      target_frame_offset,
       Eigen::Map<Eigen::VectorXd>(constraint_coeffs.data(), static_cast<Eigen::Index>(constraint_coeffs.size())));
 
   nlp.addCostSet(constraint, trajopt_sqp::CostPenaltyType::ABSOLUTE);
@@ -183,6 +191,7 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
 
   // Add a collision cost for all steps
   auto collision_cache = std::make_shared<trajopt_ifopt::CollisionCache>(vars.size());
+  std::unordered_map<std::string, tesseract_kinematics::JointGroup::ConstPtr> manipulators;
   if (config->type == tesseract_collision::CollisionEvaluatorType::DISCRETE)
   {
     for (std::size_t i = 0; i < vars.size(); ++i)
@@ -190,15 +199,23 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
       if (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end())
         continue;
 
-      auto kin = env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
-      auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-          env->getSceneGraph(), kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
+      tesseract_kinematics::JointGroup::ConstPtr manip;
+      auto it = manipulators.find(manip_info.manipulator);
+      if (it != manipulators.end())
+      {
+        manip = it->second;
+      }
+      else
+      {
+        manip = env->getJointGroup(manip_info.manipulator);
+        manipulators[manip_info.manipulator] = manip;
+      }
 
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(
-          collision_cache, kin, env, adjacency_map, Eigen::Isometry3d::Identity(), config);
+      auto collision_evaluator =
+          std::make_shared<trajopt_ifopt::SingleTimestepCollisionEvaluator>(collision_cache, manip, env, config);
 
-      auto active_link_names = env->getActiveLinkNames(kin->getJointNames());
-      auto static_link_names = env->getStaticLinkNames(kin->getJointNames());
+      auto active_link_names = manip->getActiveLinkNames();
+      auto static_link_names = manip->getStaticLinkNames();
       auto cp = tesseract_collision::getCollisionObjectPairs(
           active_link_names, static_link_names, env->getDiscreteContactManager()->getIsContactAllowedFn());
 
@@ -216,15 +233,23 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
     {
       bool time1_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end());
 
-      auto kin = env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
-      auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-          env->getSceneGraph(), kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
+      tesseract_kinematics::JointGroup::ConstPtr manip;
+      auto it = manipulators.find(manip_info.manipulator);
+      if (it != manipulators.end())
+      {
+        manip = it->second;
+      }
+      else
+      {
+        manip = env->getJointGroup(manip_info.manipulator);
+        manipulators[manip_info.manipulator] = manip;
+      }
 
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(
-          collision_cache, kin, env, adjacency_map, Eigen::Isometry3d::Identity(), config);
+      auto collision_evaluator =
+          std::make_shared<trajopt_ifopt::LVSDiscreteCollisionEvaluator>(collision_cache, manip, env, config);
 
-      auto active_link_names = env->getActiveLinkNames(kin->getJointNames());
-      auto static_link_names = env->getStaticLinkNames(kin->getJointNames());
+      auto active_link_names = manip->getActiveLinkNames();
+      auto static_link_names = manip->getStaticLinkNames();
       auto cp = tesseract_collision::getCollisionObjectPairs(
           active_link_names, static_link_names, env->getDiscreteContactManager()->getIsContactAllowedFn());
 
@@ -247,15 +272,23 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
     {
       bool time1_fixed = (std::find(fixed_indices.begin(), fixed_indices.end(), i) != fixed_indices.end());
 
-      auto kin = env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
-      auto adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-          env->getSceneGraph(), kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
+      tesseract_kinematics::JointGroup::ConstPtr manip;
+      auto it = manipulators.find(manip_info.manipulator);
+      if (it != manipulators.end())
+      {
+        manip = it->second;
+      }
+      else
+      {
+        manip = env->getJointGroup(manip_info.manipulator);
+        manipulators[manip_info.manipulator] = manip;
+      }
 
-      auto collision_evaluator = std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(
-          collision_cache, kin, env, adjacency_map, Eigen::Isometry3d::Identity(), config);
+      auto collision_evaluator =
+          std::make_shared<trajopt_ifopt::LVSContinuousCollisionEvaluator>(collision_cache, manip, env, config);
 
-      auto active_link_names = env->getActiveLinkNames(kin->getJointNames());
-      auto static_link_names = env->getStaticLinkNames(kin->getJointNames());
+      auto active_link_names = manip->getActiveLinkNames();
+      auto static_link_names = manip->getStaticLinkNames();
       auto cp = tesseract_collision::getCollisionObjectPairs(
           active_link_names, static_link_names, env->getDiscreteContactManager()->getIsContactAllowedFn());
 

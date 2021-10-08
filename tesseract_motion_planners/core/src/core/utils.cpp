@@ -31,8 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/core/types.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_environment/utils.h>
 #include <tesseract_kinematics/core/forward_kinematics.h>
 #include <tesseract_kinematics/core/inverse_kinematics.h>
 #include <tesseract_command_language/command_language.h>
@@ -45,23 +45,23 @@ Eigen::Isometry3d calcPose(const Waypoint& wp,
                            const std::string& working_frame,
                            const std::string& tip_link,
                            const Eigen::Isometry3d& tcp,
-                           const tesseract_environment::EnvState::ConstPtr& current_state,
-                           tesseract_environment::StateSolver& state_solver)
+                           const tesseract_scene_graph::SceneState& current_state,
+                           tesseract_scene_graph::StateSolver& state_solver)
 {
   if (isStateWaypoint(wp))
   {
     const auto& swp = wp.as<StateWaypoint>();
     assert(static_cast<long>(swp.joint_names.size()) == swp.position.size());
-    tesseract_environment::EnvState::Ptr state = state_solver.getState(swp.joint_names, swp.position);
-    return (state->link_transforms[tip_link] * tcp);
+    tesseract_scene_graph::SceneState state = state_solver.getState(swp.joint_names, swp.position);
+    return (state.link_transforms[tip_link] * tcp);
   }
 
   if (isJointWaypoint(wp))
   {
     const auto& jwp = wp.as<JointWaypoint>();
     assert(static_cast<long>(jwp.joint_names.size()) == jwp.size());
-    tesseract_environment::EnvState::Ptr state = state_solver.getState(jwp.joint_names, jwp);
-    return (state->link_transforms[tip_link] * tcp);
+    tesseract_scene_graph::SceneState state = state_solver.getState(jwp.joint_names, jwp);
+    return (state.link_transforms[tip_link] * tcp);
   }
 
   if (isCartesianWaypoint(wp))
@@ -70,7 +70,7 @@ Eigen::Isometry3d calcPose(const Waypoint& wp,
     if (working_frame.empty())
       return cwp.waypoint;
 
-    return (current_state->link_transforms.at(working_frame) * cwp);
+    return (current_state.link_transforms.at(working_frame) * cwp);
   }
 
   throw std::runtime_error("toToolpath: Unsupported Waypoint Type!");
@@ -87,8 +87,8 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
   tesseract_common::Toolpath toolpath;
   tesseract_common::VectorIsometry3d poses;
 
-  tesseract_environment::StateSolver::Ptr state_solver = env->getStateSolver();
-  tesseract_environment::EnvState::ConstPtr state = env->getCurrentState();
+  tesseract_scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
+  tesseract_scene_graph::SceneState state = env->getState();
   if (isCompositeInstruction(instruction))
   {
     const auto& ci = instruction.as<CompositeInstruction>();
@@ -96,12 +96,6 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
     // Assume all the plan instructions have the same manipulator as the composite
     assert(!ci.getManipulatorInfo().empty());
     const ManipulatorInfo& composite_mi = ci.getManipulatorInfo();
-
-    auto composite_mi_fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(composite_mi.manipulator);
-    if (composite_mi_fwd_kin == nullptr)
-      throw std::runtime_error("toToolpath: Manipulator: " + composite_mi.manipulator + " does not exist!");
-
-    const std::string& tip_link = composite_mi_fwd_kin->getTipLinkName();
 
     std::vector<std::reference_wrapper<const Instruction>> fi = tesseract_planning::flatten(ci, planFilter);
     if (fi.empty())
@@ -131,10 +125,10 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
       }
 
       // Extract TCP
-      Eigen::Isometry3d tcp = env->findTCP(manip_info);
+      Eigen::Isometry3d tcp_offset = env->findTCPOffset(manip_info);
 
-      // Caculate pose
-      poses.push_back(calcPose(wp, manip_info.working_frame, tip_link, tcp, state, *state_solver));
+      // Calculate pose
+      poses.push_back(calcPose(wp, manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, *state_solver));
     }
   }
   else if (isPlanInstruction(instruction))
@@ -147,17 +141,12 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
     const ManipulatorInfo& composite_mi = pi.getManipulatorInfo();
     ManipulatorInfo manip_info = composite_mi.getCombined(pi.getManipulatorInfo());
 
-    auto composite_mi_fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
-    if (composite_mi_fwd_kin == nullptr)
-      throw std::runtime_error("toToolpath: Manipulator: " + composite_mi.manipulator + " does not exist!");
-
-    const std::string& tip_link = composite_mi_fwd_kin->getTipLinkName();
-
     // Extract TCP
-    Eigen::Isometry3d tcp = env->findTCP(manip_info);
+    Eigen::Isometry3d tcp_offset = env->findTCPOffset(manip_info);
 
     // Calculate pose
-    poses.push_back(calcPose(pi.getWaypoint(), manip_info.working_frame, tip_link, tcp, state, *state_solver));
+    poses.push_back(
+        calcPose(pi.getWaypoint(), manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, *state_solver));
   }
   else
   {
@@ -298,7 +287,7 @@ flattenProgramToPattern(const CompositeInstruction& composite_instruction, const
 
 bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
                          tesseract_collision::ContinuousContactManager& manager,
-                         const tesseract_environment::StateSolver& state_solver,
+                         const tesseract_scene_graph::StateSolver& state_solver,
                          const CompositeInstruction& program,
                          const tesseract_collision::CollisionCheckConfig& config)
 {
@@ -332,10 +321,10 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
         for (int iSubStep = 0; iSubStep < subtraj.rows() - 1; ++iSubStep)
         {
-          tesseract_environment::EnvState::Ptr state0 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
-          tesseract_environment::EnvState::Ptr state1 =
-              state_solver.getState(swp0.joint_names, subtraj.row(iSubStep + 1));
-          if (checkTrajectorySegment(contacts, manager, state0, state1, config))
+          tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
+          tesseract_scene_graph::SceneState state1 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep + 1));
+          if (tesseract_environment::checkTrajectorySegment(
+                  contacts, manager, state0.link_transforms, state1.link_transforms, config))
           {
             found = true;
             if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -385,11 +374,11 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
             for (int iSubStep = 0; iSubStep < subtraj.rows() - 1; ++iSubStep)
             {
-              tesseract_environment::EnvState::Ptr state0 =
-                  state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
-              tesseract_environment::EnvState::Ptr state1 =
+              tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
+              tesseract_scene_graph::SceneState state1 =
                   state_solver.getState(swp0.joint_names, subtraj.row(iSubStep + 1));
-              if (checkTrajectorySegment(contacts, manager, state0, state1, config))
+              if (tesseract_environment::checkTrajectorySegment(
+                      contacts, manager, state0.link_transforms, state1.link_transforms, config))
               {
                 found = true;
                 if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -433,10 +422,11 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     {
       const auto& swp0 = mi.at(iStep).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
       const auto& swp1 = mi.at(iStep + 1).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-      tesseract_environment::EnvState::Ptr state0 = state_solver.getState(swp0.joint_names, swp0.position);
-      tesseract_environment::EnvState::Ptr state1 = state_solver.getState(swp1.joint_names, swp1.position);
+      tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.joint_names, swp0.position);
+      tesseract_scene_graph::SceneState state1 = state_solver.getState(swp1.joint_names, swp1.position);
 
-      if (checkTrajectorySegment(contacts, manager, state0, state1, config))
+      if (tesseract_environment::checkTrajectorySegment(
+              contacts, manager, state0.link_transforms, state1.link_transforms, config))
       {
         found = true;
         if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -465,7 +455,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
 bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& contacts,
                          tesseract_collision::DiscreteContactManager& manager,
-                         const tesseract_environment::StateSolver& state_solver,
+                         const tesseract_scene_graph::StateSolver& state_solver,
                          const CompositeInstruction& program,
                          const tesseract_collision::CollisionCheckConfig& config)
 {
@@ -504,8 +494,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
         for (int iSubStep = 0; iSubStep < subtraj.rows() - 1; ++iSubStep)
         {
-          tesseract_environment::EnvState::Ptr state = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
-          if (checkTrajectoryState(contacts, manager, state, config))
+          tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
+          if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config))
           {
             found = true;
             if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -533,8 +523,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       }
       else
       {
-        tesseract_environment::EnvState::Ptr state = state_solver.getState(swp0.joint_names, swp0.position);
-        if (checkTrajectoryState(contacts, manager, state, config))
+        tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, swp0.position);
+        if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config))
         {
           found = true;
           if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -567,8 +557,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     {
       const auto& swp0 = mi.at(iStep).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
 
-      tesseract_environment::EnvState::Ptr state = state_solver.getState(swp0.joint_names, swp0.position);
-      if (checkTrajectoryState(contacts, manager, state, config))
+      tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, swp0.position);
+      if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config))
       {
         found = true;
         if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -595,14 +585,14 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 
 void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
                              const tesseract_environment::Environment& env,
-                             const tesseract_environment::EnvState& env_state,
+                             const tesseract_scene_graph::SceneState& state,
                              const ManipulatorInfo& manip_info)
 {
   for (auto& i : composite_instructions)
   {
     if (isCompositeInstruction(i))
     {
-      generateNaiveSeedHelper(i.as<CompositeInstruction>(), env, env_state, manip_info);
+      generateNaiveSeedHelper(i.as<CompositeInstruction>(), env, state, manip_info);
     }
     else if (isPlanInstruction(i))
     {
@@ -615,8 +605,8 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       ci.setManipulatorInfo(base_instruction.getManipulatorInfo());
       ci.profile_overrides = base_instruction.profile_overrides;
 
-      auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(mi.manipulator);
-      Eigen::VectorXd jv = env_state.getJointValues(fwd_kin->getJointNames());
+      auto fwd_kin = env.getJointGroup(mi.manipulator);
+      Eigen::VectorXd jv = state.getJointValues(fwd_kin->getJointNames());
 
       // Get move type base on base instruction type
       MoveInstructionType move_type;
@@ -669,7 +659,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   if (!composite_instructions.hasStartInstruction())
     throw std::runtime_error("Top most composite instruction is missing start instruction!");
 
-  tesseract_environment::EnvState::ConstPtr env_state = env.getCurrentState();
+  tesseract_scene_graph::SceneState state = env.getState();
   CompositeInstruction seed = composite_instructions;
   const ManipulatorInfo& mi = composite_instructions.getManipulatorInfo();
 
@@ -700,8 +690,8 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     throw std::runtime_error("Top most composite instruction start instruction has invalid waypoint type!");
 
   ManipulatorInfo start_mi = mi.getCombined(base_mi);
-  auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(start_mi.manipulator);
-  Eigen::VectorXd jv = env_state->getJointValues(fwd_kin->getJointNames());
+  auto fwd_kin = env.getJointGroup(start_mi.manipulator);
+  Eigen::VectorXd jv = state.getJointValues(fwd_kin->getJointNames());
 
   if (isStateWaypoint(wp))
   {
@@ -734,20 +724,21 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     seed.setStartInstruction(move_instruction);
   }
 
-  generateNaiveSeedHelper(seed, env, *env_state, mi);
+  generateNaiveSeedHelper(seed, env, state, mi);
   return seed;
 }
 
 bool formatProgramHelper(CompositeInstruction& composite_instructions,
                          const tesseract_environment::Environment& env,
-                         const ManipulatorInfo& manip_info)
+                         const ManipulatorInfo& manip_info,
+                         std::unordered_map<std::string, std::vector<std::string>>& manip_joint_names)
 {
   bool format_required = false;
   for (auto& i : composite_instructions)
   {
     if (isCompositeInstruction(i))
     {
-      if (formatProgramHelper(i.as<CompositeInstruction>(), env, manip_info))
+      if (formatProgramHelper(i.as<CompositeInstruction>(), env, manip_info, manip_joint_names))
         format_required = true;
     }
     else if (isPlanInstruction(i))
@@ -756,11 +747,23 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
       ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
       ManipulatorInfo combined_mi = mi.getCombined(base_instruction.getManipulatorInfo());
-      auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(combined_mi.manipulator);
+
+      std::vector<std::string> joint_names;
+      auto it = manip_joint_names.find(combined_mi.manipulator);
+      if (it == manip_joint_names.end())
+      {
+        auto fwd_kin = env.getJointGroup(combined_mi.manipulator);
+        joint_names = fwd_kin->getJointNames();
+        manip_joint_names[combined_mi.manipulator] = joint_names;
+      }
+      else
+      {
+        joint_names = it->second;
+      }
 
       if (isStateWaypoint(base_instruction.getWaypoint()) || isJointWaypoint(base_instruction.getWaypoint()))
       {
-        if (formatJointPosition(fwd_kin->getJointNames(), base_instruction.getWaypoint()))
+        if (formatJointPosition(joint_names, base_instruction.getWaypoint()))
           format_required = true;
       }
     }
@@ -770,11 +773,23 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
       ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
       ManipulatorInfo combined_mi = mi.getCombined(base_instruction.getManipulatorInfo());
-      auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(combined_mi.manipulator);
+
+      std::vector<std::string> joint_names;
+      auto it = manip_joint_names.find(combined_mi.manipulator);
+      if (it == manip_joint_names.end())
+      {
+        auto fwd_kin = env.getJointGroup(combined_mi.manipulator);
+        joint_names = fwd_kin->getJointNames();
+        manip_joint_names[combined_mi.manipulator] = joint_names;
+      }
+      else
+      {
+        joint_names = it->second;
+      }
 
       if (isStateWaypoint(base_instruction.getWaypoint()) || isJointWaypoint(base_instruction.getWaypoint()))
       {
-        if (formatJointPosition(fwd_kin->getJointNames(), base_instruction.getWaypoint()))
+        if (formatJointPosition(joint_names, base_instruction.getWaypoint()))
           format_required = true;
       }
     }
@@ -787,19 +802,34 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
   if (!composite_instructions.hasStartInstruction())
     throw std::runtime_error("Top most composite instruction is missing start instruction!");
 
+  std::unordered_map<std::string, std::vector<std::string>> manip_joint_names;
   bool format_required = false;
   ManipulatorInfo mi = composite_instructions.getManipulatorInfo();
+
+  std::unordered_map<std::string, tesseract_kinematics::JointGroup::UPtr> manipulators;
 
   if (isPlanInstruction(composite_instructions.getStartInstruction()))
   {
     auto& pi = composite_instructions.getStartInstruction().as<PlanInstruction>();
 
     ManipulatorInfo start_mi = mi.getCombined(pi.getManipulatorInfo());
-    auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(start_mi.manipulator);
+
+    std::vector<std::string> joint_names;
+    auto it = manip_joint_names.find(start_mi.manipulator);
+    if (it == manip_joint_names.end())
+    {
+      auto fwd_kin = env.getJointGroup(start_mi.manipulator);
+      joint_names = fwd_kin->getJointNames();
+      manip_joint_names[start_mi.manipulator] = joint_names;
+    }
+    else
+    {
+      joint_names = it->second;
+    }
 
     if (isStateWaypoint(pi.getWaypoint()) || isJointWaypoint(pi.getWaypoint()))
     {
-      if (formatJointPosition(fwd_kin->getJointNames(), pi.getWaypoint()))
+      if (formatJointPosition(joint_names, pi.getWaypoint()))
         format_required = true;
     }
   }
@@ -808,18 +838,30 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
     auto& pi = composite_instructions.getStartInstruction().as<MoveInstruction>();
 
     ManipulatorInfo start_mi = mi.getCombined(pi.getManipulatorInfo());
-    auto fwd_kin = env.getManipulatorManager()->getFwdKinematicSolver(start_mi.manipulator);
+
+    std::vector<std::string> joint_names;
+    auto it = manip_joint_names.find(start_mi.manipulator);
+    if (it == manip_joint_names.end())
+    {
+      auto fwd_kin = env.getJointGroup(start_mi.manipulator);
+      joint_names = fwd_kin->getJointNames();
+      manip_joint_names[start_mi.manipulator] = joint_names;
+    }
+    else
+    {
+      joint_names = it->second;
+    }
 
     if (isStateWaypoint(pi.getWaypoint()) || isJointWaypoint(pi.getWaypoint()))
     {
-      if (formatJointPosition(fwd_kin->getJointNames(), pi.getWaypoint()))
+      if (formatJointPosition(joint_names, pi.getWaypoint()))
         format_required = true;
     }
   }
   else
     throw std::runtime_error("Top most composite instruction start instruction has invalid waypoint type!");
 
-  if (formatProgramHelper(composite_instructions, env, mi))
+  if (formatProgramHelper(composite_instructions, env, mi, manip_joint_names))
     format_required = true;
 
   return format_required;

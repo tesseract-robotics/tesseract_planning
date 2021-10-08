@@ -41,6 +41,15 @@ void TrajOptIfoptDefaultCompositeProfile::apply(TrajOptIfoptProblem& problem,
                                                 const std::vector<std::string>& /*active_links*/,
                                                 const std::vector<int>& fixed_indices) const
 {
+  if (manip_info.manipulator.empty())
+    throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile, manipulator is empty!");
+
+  if (manip_info.tcp_frame.empty())
+    throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile, tcp_frame is empty!");
+
+  if (manip_info.working_frame.empty())
+    throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile, working_frame is empty!");
+
   if (start_index < 0 || start_index > static_cast<int>(problem.vars.size()) - 1)
     throw std::runtime_error("TrajOptIfoptDefaultCompositeProfile: Start index out of bounds.");
 

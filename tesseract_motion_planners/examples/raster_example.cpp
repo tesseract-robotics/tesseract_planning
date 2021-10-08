@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_kinematics/core/utils.h>
 
-#include <tesseract_environment/ofkt/ofkt_state_solver.h>
+#include <tesseract_environment/environment.h>
 
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
@@ -85,12 +85,11 @@ std::string locateResource(const std::string& url)
 int main(int /*argc*/, char** /*argv*/)
 {
   // Setup
-  tesseract_scene_graph::ResourceLocator::Ptr locator =
-      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
   auto env = std::make_shared<tesseract_environment::Environment>();
   tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
   tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
-  env->init<tesseract_environment::OFKTStateSolver>(urdf_path, srdf_path, locator);
+  env->init(urdf_path, srdf_path, locator);
 
   // Dynamically load ignition visualizer if exist
   tesseract_visualization::VisualizationLoader loader;
@@ -99,21 +98,21 @@ int main(int /*argc*/, char** /*argv*/)
   if (plotter != nullptr)
   {
     plotter->waitForConnection();
-    plotter->plotEnvironment(env);
+    plotter->plotEnvironment(*env);
   }
 
   ManipulatorInfo manip;
+  manip.tcp_frame = "tool0";
   manip.manipulator = "manipulator";
   manip.manipulator_ik_solver = "OPWInvKin";
 
-  auto fwd_kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
-  auto inv_kin = env->getManipulatorManager()->getInvKinematicSolver(manip.manipulator);
-  auto cur_state = env->getCurrentState();
+  auto kin_group = env->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
+  auto cur_state = env->getState();
 
-  CompositeInstruction program("raster_program", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
+  CompositeInstruction program("raster_program", CompositeInstructionOrder::ORDERED, manip);
 
   // Start Joint Position for the program
-  Waypoint wp0 = StateWaypoint(fwd_kin->getJointNames(), Eigen::VectorXd::Zero(6));
+  Waypoint wp0 = StateWaypoint(kin_group->getJointNames(), Eigen::VectorXd::Zero(6));
   PlanInstruction start_instruction(wp0, PlanInstructionType::START);
   program.setStartInstruction(start_instruction);
 
@@ -226,6 +225,7 @@ int main(int /*argc*/, char** /*argv*/)
   program.push_back(to_end);
 
   // Plot Program
+  auto state_solver = env->getStateSolver();
   if (plotter)
   {
   }
@@ -257,7 +257,7 @@ int main(int /*argc*/, char** /*argv*/)
   if (plotter)
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(toJointTrajectory(descartes_response.results), env->getStateSolver());
+    plotter->plotTrajectory(toJointTrajectory(descartes_response.results), *state_solver);
   }
 
   // Update Seed
@@ -275,7 +275,7 @@ int main(int /*argc*/, char** /*argv*/)
   if (plotter)
   {
     plotter->waitForInput();
-    plotter->plotTrajectory(toJointTrajectory(trajopt_response.results), env->getStateSolver());
+    plotter->plotTrajectory(toJointTrajectory(trajopt_response.results), *state_solver);
   }
 
   //  // *************************************

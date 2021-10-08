@@ -294,9 +294,9 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
   prob.contact_checker->setCollisionMarginData(collision_check_config.collision_margin_data,
                                                collision_check_config.collision_margin_override_type);
 
-  const std::vector<std::string>& joint_names = prob.manip_fwd_kin->getJointNames();
-  const auto dof = prob.manip_fwd_kin->numJoints();
-  const auto& limits = prob.manip_fwd_kin->getLimits().joint_limits;
+  std::vector<std::string> joint_names = prob.manip->getJointNames();
+  auto dof = static_cast<unsigned>(prob.manip->numJoints());
+  auto limits = prob.manip->getLimits().joint_limits;
 
   if (state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
     prob.extractor = [dof](const ompl::base::State* state) -> Eigen::Map<Eigen::VectorXd> {
@@ -342,11 +342,10 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
     prob.simple_setup = std::make_shared<ompl::geometric::SimpleSetup>(state_space_ptr);
 
     // Setup state checking functionality
-    ompl::base::StateValidityCheckerPtr svc_without_collision =
-        processStateValidator(prob, prob.env, prob.manip_fwd_kin);
+    ompl::base::StateValidityCheckerPtr svc_without_collision = processStateValidator(prob);
 
     // Setup motion validation (i.e. collision checking)
-    processMotionValidator(prob, svc_without_collision, prob.env, prob.manip_fwd_kin);
+    processMotionValidator(prob, svc_without_collision);
 
     // make sure the planners run until the time limit, and get the best possible solution
     processOptimizationObjective(prob);
@@ -360,31 +359,38 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
                                              const std::vector<std::string>& /*active_links*/,
                                              int /*index*/) const
 {
-  const auto dof = prob.manip_fwd_kin->numJoints();
+  const auto dof = prob.manip->numJoints();
+  tesseract_common::KinematicLimits limits = prob.manip->getLimits();
+
   assert(isPlanInstruction(parent_instruction));
   const auto& base_instruction = parent_instruction.as<PlanInstruction>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
-  Eigen::Isometry3d tcp = prob.env->findTCP(mi);
 
-  // Check if the waypoint is not relative to the manipulator base coordinate system and at tool0
-  Eigen::Isometry3d world_to_waypoint = cartesian_waypoint;
-  if (!mi.working_frame.empty())
-    world_to_waypoint = prob.env_state->link_transforms.at(mi.working_frame) * cartesian_waypoint;
+  if (mi.manipulator.empty())
+    throw std::runtime_error("OMPL, manipulator is empty!");
 
-  Eigen::Isometry3d world_to_base_link = prob.env_state->link_transforms.at(prob.manip_inv_kin->getBaseLinkName());
-  Eigen::Isometry3d manip_baselink_to_waypoint = world_to_base_link.inverse() * world_to_waypoint;
-  Eigen::Isometry3d manip_baselink_to_tool0 = manip_baselink_to_waypoint * tcp.inverse();
+  if (mi.tcp_frame.empty())
+    throw std::runtime_error("OMPL, tcp_frame is empty!");
+
+  if (mi.working_frame.empty())
+    throw std::runtime_error("OMPL, working_frame is empty!");
+
+  Eigen::Isometry3d tcp_offset = prob.env->findTCPOffset(mi);
+
+  Eigen::Isometry3d tcp_frame_cwp = cartesian_waypoint * tcp_offset.inverse();
 
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
-    /** @todo Need to add descartes pose sample to ompl profile */
+    /** @todo Need to add Descartes pose sample to ompl profile */
+    tesseract_kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, mi.working_frame, mi.tcp_frame);
     tesseract_kinematics::IKSolutions joint_solutions =
-        prob.manip_inv_kin->calcInvKin(manip_baselink_to_tool0, Eigen::VectorXd::Zero(dof));
+        std::dynamic_pointer_cast<const tesseract_kinematics::KinematicGroup>(prob.manip)
+            ->calcInvKin({ ik_input }, Eigen::VectorXd::Zero(dof));
     auto goal_states = std::make_shared<ompl::base::GoalStates>(prob.simple_setup->getSpaceInformation());
     std::vector<tesseract_collision::ContactResultMap> contact_map_vec(
         static_cast<std::size_t>(joint_solutions.size()));
-    const tesseract_common::KinematicLimits& limits = prob.manip_fwd_kin->getLimits();
+
     for (std::size_t i = 0; i < joint_solutions.size(); ++i)
     {
       Eigen::VectorXd& solution = joint_solutions[i];
@@ -412,10 +418,8 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
           goal_states->addState(goal_state);
         }
 
-        auto redundant_solutions =
-            tesseract_kinematics::getRedundantSolutions<double>(solution,
-                                                                prob.manip_inv_kin->getLimits().joint_limits,
-                                                                prob.manip_inv_kin->getRedundancyCapableJointIndices());
+        auto redundant_solutions = tesseract_kinematics::getRedundantSolutions<double>(
+            solution, limits.joint_limits, prob.manip->getRedundancyCapableJointIndices());
         for (const auto& rs : redundant_solutions)
         {
           ompl::base::ScopedState<> goal_state(prob.simple_setup->getStateSpace());
@@ -448,12 +452,12 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
                                              const std::vector<std::string>& /*active_links*/,
                                              int /*index*/) const
 {
-  const auto dof = prob.manip_fwd_kin->numJoints();
+  const auto dof = prob.manip->numJoints();
+  tesseract_common::KinematicLimits limits = prob.manip->getLimits();
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
     // Check limits
     Eigen::VectorXd solution = joint_waypoint;
-    const tesseract_common::KinematicLimits& limits = prob.manip_fwd_kin->getLimits();
     if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
     {
       tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
@@ -492,31 +496,38 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
                                               const std::vector<std::string>& /*active_links*/,
                                               int /*index*/) const
 {
-  const auto dof = prob.manip_fwd_kin->numJoints();
+  const auto dof = prob.manip->numJoints();
+  tesseract_common::KinematicLimits limits = prob.manip->getLimits();
+
   assert(isPlanInstruction(parent_instruction));
   const auto& base_instruction = parent_instruction.as<PlanInstruction>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
-  Eigen::Isometry3d tcp = prob.env->findTCP(mi);
 
-  // Check if the waypoint is not relative to the manipulator base coordinate system and at tool0
-  Eigen::Isometry3d world_to_waypoint = cartesian_waypoint;
-  if (!mi.working_frame.empty())
-    world_to_waypoint = prob.env_state->link_transforms.at(mi.working_frame) * cartesian_waypoint;
+  if (mi.manipulator.empty())
+    throw std::runtime_error("OMPL, manipulator is empty!");
 
-  Eigen::Isometry3d world_to_base_link = prob.env_state->link_transforms.at(prob.manip_inv_kin->getBaseLinkName());
-  Eigen::Isometry3d manip_baselink_to_waypoint = world_to_base_link.inverse() * world_to_waypoint;
-  Eigen::Isometry3d manip_baselink_to_tool0 = manip_baselink_to_waypoint * tcp.inverse();
+  if (mi.tcp_frame.empty())
+    throw std::runtime_error("OMPL, tcp_frame is empty!");
+
+  if (mi.working_frame.empty())
+    throw std::runtime_error("OMPL, working_frame is empty!");
+
+  Eigen::Isometry3d tcp = prob.env->findTCPOffset(mi);
+
+  Eigen::Isometry3d tcp_frame_cwp = cartesian_waypoint * tcp.inverse();
 
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
-    /** @todo Need to add descartes pose sampler to ompl profile */
+    /** @todo Need to add Descartes pose sampler to ompl profile */
     /** @todo Need to also provide the seed instruction to use here */
+    tesseract_kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, mi.working_frame, mi.tcp_frame);
     tesseract_kinematics::IKSolutions joint_solutions =
-        prob.manip_inv_kin->calcInvKin(manip_baselink_to_tool0, Eigen::VectorXd::Zero(dof));
+        std::dynamic_pointer_cast<const tesseract_kinematics::KinematicGroup>(prob.manip)
+            ->calcInvKin({ ik_input }, Eigen::VectorXd::Zero(dof));
     bool found_start_state = false;
     std::vector<tesseract_collision::ContactResultMap> contact_map_vec(joint_solutions.size());
-    const tesseract_common::KinematicLimits& limits = prob.manip_fwd_kin->getLimits();
+
     for (std::size_t i = 0; i < joint_solutions.size(); ++i)
     {
       Eigen::VectorXd& solution = joint_solutions[i];
@@ -545,10 +556,8 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
           prob.simple_setup->addStartState(start_state);
         }
 
-        auto redundant_solutions =
-            tesseract_kinematics::getRedundantSolutions<double>(solution,
-                                                                prob.manip_inv_kin->getLimits().joint_limits,
-                                                                prob.manip_inv_kin->getRedundancyCapableJointIndices());
+        auto redundant_solutions = tesseract_kinematics::getRedundantSolutions<double>(
+            solution, limits.joint_limits, prob.manip->getRedundancyCapableJointIndices());
         for (const auto& rs : redundant_solutions)
         {
           ompl::base::ScopedState<> start_state(prob.simple_setup->getStateSpace());
@@ -581,12 +590,13 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
                                               const std::vector<std::string>& /*active_links*/,
                                               int /*index*/) const
 {
-  const auto dof = prob.manip_fwd_kin->numJoints();
+  const auto dof = prob.manip->numJoints();
+  tesseract_common::KinematicLimits limits = prob.manip->getLimits();
 
   if (prob.state_space == OMPLProblemStateSpace::REAL_STATE_SPACE)
   {
     Eigen::VectorXd solution = joint_waypoint;
-    const tesseract_common::KinematicLimits& limits = prob.manip_fwd_kin->getLimits();
+
     if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
     {
       tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
@@ -689,10 +699,7 @@ tinyxml2::XMLElement* OMPLDefaultPlanProfile::toXML(tinyxml2::XMLDocument& doc) 
   return xml_planner;
 }
 
-ompl::base::StateValidityCheckerPtr
-OMPLDefaultPlanProfile::processStateValidator(OMPLProblem& prob,
-                                              const tesseract_environment::Environment::ConstPtr& env,
-                                              const tesseract_kinematics::ForwardKinematics::ConstPtr& kin) const
+ompl::base::StateValidityCheckerPtr OMPLDefaultPlanProfile::processStateValidator(OMPLProblem& prob) const
 {
   ompl::base::StateValidityCheckerPtr svc_without_collision;
   auto csvc = std::make_shared<CompoundStateValidator>();
@@ -706,7 +713,7 @@ OMPLDefaultPlanProfile::processStateValidator(OMPLProblem& prob,
       collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     auto svc = std::make_shared<StateCollisionValidator>(
-        prob.simple_setup->getSpaceInformation(), env, kin, collision_check_config, prob.extractor);
+        prob.simple_setup->getSpaceInformation(), *prob.env, prob.manip, collision_check_config, prob.extractor);
     csvc->addStateValidator(svc);
   }
   prob.simple_setup->setStateValidityChecker(csvc);
@@ -714,10 +721,9 @@ OMPLDefaultPlanProfile::processStateValidator(OMPLProblem& prob,
   return svc_without_collision;
 }
 
-void OMPLDefaultPlanProfile::processMotionValidator(OMPLProblem& prob,
-                                                    const ompl::base::StateValidityCheckerPtr& svc_without_collision,
-                                                    const tesseract_environment::Environment::ConstPtr& env,
-                                                    const tesseract_kinematics::ForwardKinematics::ConstPtr& kin) const
+void OMPLDefaultPlanProfile::processMotionValidator(
+    OMPLProblem& prob,
+    const ompl::base::StateValidityCheckerPtr& svc_without_collision) const
 {
   if (mv_allocator != nullptr)
   {
@@ -734,14 +740,14 @@ void OMPLDefaultPlanProfile::processMotionValidator(OMPLProblem& prob,
       {
         mv = std::make_shared<ContinuousMotionValidator>(prob.simple_setup->getSpaceInformation(),
                                                          svc_without_collision,
-                                                         env,
-                                                         kin,
+                                                         *prob.env,
+                                                         prob.manip,
                                                          collision_check_config,
                                                          prob.extractor);
       }
       else
       {
-        // Collision checking is preformed using the state validator which this calles.
+        // Collision checking is preformed using the state validator which this calls.
         mv = std::make_shared<DiscreteMotionValidator>(prob.simple_setup->getSpaceInformation());
       }
       prob.simple_setup->getSpaceInformation()->setMotionValidator(mv);

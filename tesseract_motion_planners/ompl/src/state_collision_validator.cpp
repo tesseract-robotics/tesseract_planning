@@ -36,24 +36,16 @@ namespace tesseract_planning
 {
 StateCollisionValidator::StateCollisionValidator(
     const ompl::base::SpaceInformationPtr& space_info,
-    tesseract_environment::Environment::ConstPtr env,
-    tesseract_kinematics::ForwardKinematics::ConstPtr kin,
+    const tesseract_environment::Environment& env,
+    tesseract_kinematics::JointGroup::ConstPtr manip,
     const tesseract_collision::CollisionCheckConfig& collision_check_config,
     OMPLStateExtractor extractor)
   : StateValidityChecker(space_info)
-  , env_(std::move(env))
-  , state_solver_(env_->getStateSolver())
-  , kin_(std::move(kin))
-  , contact_manager_(env_->getDiscreteContactManager())
+  , manip_(std::move(manip))
+  , contact_manager_(env.getDiscreteContactManager())
   , extractor_(std::move(extractor))
 {
-  joints_ = kin_->getJointNames();
-
-  // kinematics objects does not know of every link affected by its motion so must compute adjacency map
-  // to determine all active links.
-  tesseract_environment::AdjacencyMap adj_map(
-      env_->getSceneGraph(), kin_->getActiveLinkNames(), env_->getCurrentState()->link_transforms);
-  links_ = adj_map.getActiveLinkNames();
+  links_ = manip_->getActiveLinkNames();
 
   contact_manager_->setActiveCollisionObjects(links_);
   contact_manager_->setCollisionMarginData(collision_check_config.collision_margin_data,
@@ -79,10 +71,10 @@ bool StateCollisionValidator::isValid(const ompl::base::State* state) const
   mutex_.unlock();
 
   Eigen::Map<Eigen::VectorXd> finish_joints = extractor_(state);
-  tesseract_environment::EnvState::Ptr state1 = env_->getState(joints_, finish_joints);
+  tesseract_common::TransformMap state1 = manip_->calcFwdKin(finish_joints);
 
   for (const auto& link_name : links_)
-    cm->setCollisionObjectsTransform(link_name, state1->link_transforms[link_name]);
+    cm->setCollisionObjectsTransform(link_name, state1[link_name]);
 
   tesseract_collision::ContactResultMap contact_map;
   cm->contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);

@@ -65,10 +65,10 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointJointWaypoint(const 
 {
   // Calculate FK for start and end
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
-  Eigen::Isometry3d p1_world = prev.calcCartesianWorldPose(j1);
+  Eigen::Isometry3d p1_world = prev.calcCartesianPose(j1);
 
   const Eigen::VectorXd& j2 = base.extractJointPosition();
-  Eigen::Isometry3d p2_world = base.calcCartesianWorldPose(j2);
+  Eigen::Isometry3d p2_world = base.calcCartesianPose(j2);
 
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
   double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
@@ -84,7 +84,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointJointWaypoint(const 
 
   // Linearly interpolate in joint space
   Eigen::MatrixXd states = interpolate(j1, j2, steps);
-  return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const InstructionInfo& prev,
@@ -92,11 +92,10 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const I
 {
   // Calculate FK for start
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
-  Eigen::Isometry3d p1_world = prev.calcCartesianWorldPose(j1);
+  Eigen::Isometry3d p1_world = prev.calcCartesianPose(j1);
 
   // Calculate p2 in kinematics base frame without tcp for accurate comparison with p1
-  Eigen::Isometry3d p2_world = base.extractCartesianWorldPose();
-  Eigen::Isometry3d p2 = base.calcCartesianLocalPose(p2_world);
+  Eigen::Isometry3d p2_world = base.extractCartesianPose();
 
   // Calculate steps based on cartesian information
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
@@ -105,7 +104,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const I
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
-  Eigen::VectorXd j2_final = getClosestJointSolution(p2, base.inv_kin, j1);
+  Eigen::VectorXd j2_final = getClosestJointSolution(base, j1);
   if (j2_final.size() != 0)
   {
     double joint_dist = (j2_final - j1).norm();
@@ -117,7 +116,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const I
 
     // Linearly interpolate in joint space
     Eigen::MatrixXd states = interpolate(j1, j2_final, steps);
-    return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+    return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
   }
 
   // Check min steps requirement
@@ -125,7 +124,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const I
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = j1.replicate(1, steps + 1);
-  return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const InstructionInfo& prev,
@@ -133,11 +132,10 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const I
 {
   // Calculate FK for end
   const Eigen::VectorXd& j2 = base.extractJointPosition();
-  Eigen::Isometry3d p2_world = base.calcCartesianWorldPose(j2);
+  Eigen::Isometry3d p2_world = base.calcCartesianPose(j2);
 
   // Calculate p1 in kinematics base frame without tcp for accurate comparison with p1
-  Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
-  Eigen::Isometry3d p1 = prev.calcCartesianLocalPose(p1_world);
+  Eigen::Isometry3d p1_world = prev.extractCartesianPose();
 
   // Calculate steps based on cartesian information
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
@@ -146,7 +144,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const I
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
-  Eigen::VectorXd j1_final = getClosestJointSolution(p1, prev.inv_kin, j2);
+  Eigen::VectorXd j1_final = getClosestJointSolution(prev, j2);
   if (j1_final.size() != 0)
   {
     double joint_dist = (j2 - j1_final).norm();
@@ -158,7 +156,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const I
 
     // Linearly interpolate in joint space
     Eigen::MatrixXd states = interpolate(j1_final, j2, steps);
-    return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+    return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
   }
 
   // Check min steps requirement
@@ -166,7 +164,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const I
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = j2.replicate(1, steps + 1);
-  return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const InstructionInfo& prev,
@@ -174,15 +172,12 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
                                                                         const PlannerRequest& request) const
 {
   // Get IK seed
-  Eigen::VectorXd seed = request.env_state->getJointValues(base.inv_kin->getJointNames());
-  tesseract_common::enforcePositionLimits(seed, base.fwd_kin->getLimits().joint_limits);
+  Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
+  tesseract_common::enforcePositionLimits(seed, base.manip->getLimits().joint_limits);
 
   // Calculate IK for start and end
-  Eigen::Isometry3d p1_world = prev.extractCartesianWorldPose();
-  Eigen::Isometry3d p1 = prev.calcCartesianLocalPose(p1_world);
-
-  Eigen::Isometry3d p2_world = base.extractCartesianWorldPose();
-  Eigen::Isometry3d p2 = base.calcCartesianLocalPose(p2_world);
+  Eigen::Isometry3d p1_world = prev.extractCartesianPose();
+  Eigen::Isometry3d p2_world = base.extractCartesianPose();
 
   double trans_dist = (p2_world.translation() - p1_world.translation()).norm();
   double rot_dist = Eigen::Quaterniond(p1_world.linear()).angularDistance(Eigen::Quaterniond(p2_world.linear()));
@@ -190,7 +185,7 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
-  std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(p1, p2, prev.inv_kin, base.inv_kin, seed);
+  std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(prev, base, seed);
 
   Eigen::MatrixXd states;
   if (sol[0].size() != 0 && sol[1].size() != 0)
@@ -230,6 +225,6 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const In
   }
 
   // Convert to MoveInstructions
-  return getInterpolatedComposite(base.fwd_kin->getJointNames(), states, base.instruction);
+  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 }  // namespace tesseract_planning

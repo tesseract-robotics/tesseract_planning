@@ -27,13 +27,16 @@
 #include <tesseract_motion_planners/trajopt_ifopt/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+#include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_motion_planners/core/utils.h>
+
+#include <tesseract_command_language/command_language.h>
+
+#include <tesseract_kinematics/core/validate.h>
 
 #include <trajopt_ifopt/variable_sets/joint_position_variable.h>
 #include <trajopt_ifopt/trajopt_ifopt.h>
 #include <trajopt_sqp/trajopt_qp_problem.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
 {
@@ -56,12 +59,52 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
   const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
-  const std::string& manipulator = composite_mi.manipulator;
-  auto kin = request.env->getManipulatorManager()->getFwdKinematicSolver(manipulator);
-  auto inv_kin = request.env->getManipulatorManager()->getInvKinematicSolver(manipulator);
-  assert(kin);
-  problem->manip_fwd_kin = kin;
-  problem->manip_inv_kin = inv_kin;
+
+  if (composite_mi.manipulator.empty())
+    throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator, manipulator is empty!");
+
+  // Assign Kinematics object
+  try
+  {
+    tesseract_kinematics::KinematicGroup::Ptr kin_group;
+    std::string error_msg;
+    if (composite_mi.manipulator_ik_solver.empty())
+    {
+      kin_group = request.env->getKinematicGroup(composite_mi.manipulator);
+      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "'";
+    }
+    else
+    {
+      kin_group = request.env->getKinematicGroup(composite_mi.manipulator, composite_mi.manipulator_ik_solver);
+      error_msg = "Failed to find kinematic group for manipulator '" + composite_mi.manipulator + "' with solver '" +
+                  composite_mi.manipulator_ik_solver + "'";
+    }
+
+    if (kin_group == nullptr)
+    {
+      CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
+      throw std::runtime_error(error_msg);
+    }
+
+    // Process instructions
+    if (!tesseract_kinematics::checkKinematics(*kin_group))
+    {
+      CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with Forward "
+                              "Kinematics. Did you change the URDF recently?");
+    }
+    problem->manip = kin_group;
+  }
+  catch (...)
+  {
+    problem->manip = request.env->getJointGroup(composite_mi.manipulator);
+  }
+
+  if (problem->manip == nullptr)
+  {
+    std::string error_msg = "In TrajOpt IFOPT problem generator, manipulator does not exist!";
+    CONSOLE_BRIDGE_logError(error_msg.c_str());
+    throw std::runtime_error(error_msg);
+  }
 
   // Apply Solver parameters
   std::string profile = request.instructions.getProfile();
@@ -82,9 +125,9 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
 
   // Get kinematics information
   tesseract_environment::Environment::ConstPtr env = request.env;
-  tesseract_environment::AdjacencyMap map(
-      env->getSceneGraph(), kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
-  const std::vector<std::string>& active_links = map.getActiveLinkNames();
+  std::vector<std::string> active_links = problem->manip->getActiveLinkNames();
+  std::vector<std::string> joint_names = problem->manip->getJointNames();
+  Eigen::MatrixX2d joint_limits_eigen = problem->manip->getLimits().joint_limits;
 
   // Check seed should have start instruction
   assert(request.seed.hasStartInstruction());
@@ -92,8 +135,6 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   // ----------------
   // Setup variables
   // ----------------
-  // Create the vector of variables to be optimized
-  Eigen::MatrixX2d joint_limits_eigen = kin->getLimits().joint_limits;
 
   // Setup start waypoint
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
@@ -123,8 +164,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
     {
       assert(isMoveInstruction(seed_flat[i]));
       auto var = std::make_shared<trajopt_ifopt::JointPosition>(
-          getJointPosition(kin->getJointNames(), seed_flat[i].get().as<MoveInstruction>().getWaypoint()),
-          kin->getJointNames(),
+          getJointPosition(joint_names, seed_flat[i].get().as<MoveInstruction>().getWaypoint()),
+          joint_names,
           "Joint_Position_" + std::to_string(i));
       var->SetBounds(joint_limits_eigen);
       problem->vars.push_back(var);
@@ -135,8 +176,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   }
   else  // If not start instruction is given, take the current state
   {
-    Eigen::VectorXd current_jv = request.env_state->getJointValues(kin->getJointNames());
-    StateWaypoint swp(kin->getJointNames(), current_jv);
+    Eigen::VectorXd current_jv = request.env_state.getJointValues(joint_names);
+    StateWaypoint swp(joint_names, current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);
     placeholder_instruction = temp_move;
@@ -144,9 +185,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
     start_waypoint = swp;
 
     // Create a variable for each instruction in the seed, setting to correct initial state
-    auto var = std::make_shared<trajopt_ifopt::JointPosition>(getJointPosition(kin->getJointNames(), start_waypoint),
-                                                              kin->getJointNames(),
-                                                              "Joint_Position_" + std::to_string(0));
+    auto var = std::make_shared<trajopt_ifopt::JointPosition>(
+        getJointPosition(joint_names, start_waypoint), joint_names, "Joint_Position_" + std::to_string(0));
     var->SetBounds(joint_limits_eigen);
     problem->vars.push_back(var);
     problem->nlp->addVariableSet(var);
@@ -155,8 +195,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
     {
       assert(isMoveInstruction(seed_flat[i]));
       auto var = std::make_shared<trajopt_ifopt::JointPosition>(
-          getJointPosition(kin->getJointNames(), seed_flat[i].get().as<MoveInstruction>().getWaypoint()),
-          kin->getJointNames(),
+          getJointPosition(joint_names, seed_flat[i].get().as<MoveInstruction>().getWaypoint()),
+          joint_names,
           "Joint_Position_" + std::to_string(i + 1));
       var->SetBounds(joint_limits_eigen);
       problem->vars.push_back(var);
@@ -179,7 +219,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
-    assert(checkJointPositionFormat(problem->manip_fwd_kin->getJointNames(), start_waypoint));
+    assert(checkJointPositionFormat(joint_names, start_waypoint));
     bool toleranced = false;
 
     if (isJointWaypoint(start_waypoint))
@@ -202,7 +242,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   }
   else
   {
-    throw std::runtime_error("TrajOpt Problem Generator: unknown waypoint type.");
+    throw std::runtime_error("TrajOpt IFOPT Problem Generator: unknown waypoint type.");
   }
 
   ++index;
@@ -220,8 +260,18 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
       const auto& plan_instruction = instruction.as<PlanInstruction>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
-      ManipulatorInfo manip_info = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
-      Eigen::Isometry3d tcp = request.env->findTCP(manip_info);
+      ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
+
+      if (mi.manipulator.empty())
+        throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator, manipulator is empty!");
+
+      if (mi.tcp_frame.empty())
+        throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator, tcp_frame is empty!");
+
+      if (mi.working_frame.empty())
+        throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator, working_frame is empty!");
+
+      Eigen::Isometry3d tcp_offset = request.env->findTCPOffset(mi);
 
       assert(isCompositeInstruction(seed_flat_pattern[i].get()));
       const auto& seed_composite = seed_flat_pattern[i].get().as<tesseract_planning::CompositeInstruction>();
@@ -247,10 +297,9 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
-            assert(checkJointPositionFormat(kin->getJointNames(), start_waypoint));
+            assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = kin->calcFwdKin(position);
-            prev_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * prev_pose * tcp;
+            prev_pose = problem->manip->calcFwdKin(position)[mi.tcp_frame] * tcp_offset;
           }
           else
           {
@@ -272,7 +321,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
         }
         else if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(kin->getJointNames(), plan_instruction.getWaypoint()));
+          assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           bool toleranced = false;
 
           JointWaypoint cur_position;
@@ -289,8 +338,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           else
             throw std::runtime_error("Unsupported waypoint type.");
 
-          Eigen::Isometry3d cur_pose = kin->calcFwdKin(cur_position);
-          cur_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * cur_pose * tcp;
+          Eigen::Isometry3d cur_pose = problem->manip->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offset;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
           if (isCartesianWaypoint(start_waypoint))
@@ -299,14 +347,13 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
-            assert(checkJointPositionFormat(problem->manip_fwd_kin->getJointNames(), start_waypoint));
+            assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = kin->calcFwdKin(position);
-            prev_pose = env->getCurrentState()->link_transforms.at(kin->getBaseLinkName()) * prev_pose * tcp;
+            prev_pose = problem->manip->calcFwdKin(position)[mi.tcp_frame] * tcp_offset;
           }
           else
           {
-            throw std::runtime_error("TrajOptPlannerUniversalConfig: uknown waypoint type.");
+            throw std::runtime_error("TrajOptPlannerUniversalConfig: unknown waypoint type.");
           }
 
           tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_pose, interpolate_cnt);
@@ -336,7 +383,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
       {
         if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
         {
-          assert(checkJointPositionFormat(kin->getJointNames(), plan_instruction.getWaypoint()));
+          assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
 
           // Add intermediate points with path costs and constraints
           for (std::size_t s = 0; s < seed_composite.size() - 1; ++s)
@@ -344,7 +391,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
 
           bool toleranced = false;
 
-          // Add final point with waypoint costs and contraints
+          // Add final point with waypoint costs and constraints
           JointWaypoint cur_position;
           if (isJointWaypoint(plan_instruction.getWaypoint()))
           {
@@ -360,7 +407,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
             throw std::runtime_error("Unsupported start_waypoint type.");
 
           /** @todo Should check that the joint names match the order of the manipulator */
-          cur_plan_profile->apply(*problem, cur_position, plan_instruction, manip_info, active_links, index);
+          cur_plan_profile->apply(*problem, cur_position, plan_instruction, mi, active_links, index);
 
           // Add to fixed indices
           if (!toleranced)
@@ -374,9 +421,9 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
           for (std::size_t s = 0; s < seed_composite.size() - 1; ++s)
             ++index;
 
-          // Add final point with waypoint costs and contraints
+          // Add final point with waypoint costs and constraints
           /** @todo Should check that the joint names match the order of the manipulator */
-          cur_plan_profile->apply(*problem, cur_wp, plan_instruction, manip_info, active_links, index);
+          cur_plan_profile->apply(*problem, cur_wp, plan_instruction, mi, active_links, index);
         }
         else
         {

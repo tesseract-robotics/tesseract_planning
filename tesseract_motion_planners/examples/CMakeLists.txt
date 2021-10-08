@@ -9,7 +9,7 @@ if(TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
     ${PROJECT_NAME}_descartes
     ${PROJECT_NAME}_trajopt
     ${PROJECT_NAME}_simple
-    tesseract::tesseract_environment_ofkt
+    tesseract::tesseract_state_solver_ofkt
     tesseract::tesseract_support
     tesseract::tesseract_visualization)
   target_compile_options(${PROJECT_NAME}_chain_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
@@ -28,7 +28,7 @@ if(TESSERACT_BUILD_DESCARTES AND TESSERACT_BUILD_TRAJOPT)
     ${PROJECT_NAME}_descartes
     ${PROJECT_NAME}_trajopt
     ${PROJECT_NAME}_simple
-    tesseract::tesseract_environment_ofkt
+    tesseract::tesseract_state_solver_ofkt
     tesseract::tesseract_support
     tesseract::tesseract_visualization)
   target_compile_options(${PROJECT_NAME}_raster_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
@@ -47,7 +47,7 @@ if(TESSERACT_BUILD_OMPL AND TESSERACT_BUILD_TRAJOPT)
     ${PROJECT_NAME}_ompl
     ${PROJECT_NAME}_trajopt
     ${PROJECT_NAME}_simple
-    tesseract::tesseract_environment_ofkt
+    tesseract::tesseract_state_solver_ofkt
     tesseract::tesseract_support
     tesseract::tesseract_visualization)
   target_compile_options(${PROJECT_NAME}_freespace_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}

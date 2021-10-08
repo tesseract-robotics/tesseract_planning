@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/ompl_motion_planner_status_category.h>
 #include <tesseract_motion_planners/ompl/problem_generators/default_problem_generator.h>
 
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_environment/utils.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/continuous_motion_validator.h>
 #include <tesseract_motion_planners/ompl/discrete_motion_validator.h>
@@ -252,7 +252,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
     // Enforce limits
     for (Eigen::Index i = 0; i < trajectory.rows(); i++)
-      tesseract_common::enforcePositionLimits(trajectory.row(i), p->manip_fwd_kin->getLimits().joint_limits);
+      tesseract_common::enforcePositionLimits(trajectory.row(i), p->manip->getLimits().joint_limits);
 
     assert(checkStartState(p->simple_setup->getProblemDefinition(), trajectory.row(0), p->extractor));
     assert(checkGoalState(p->simple_setup->getProblemDefinition(), trajectory.bottomRows(1).transpose(), p->extractor));

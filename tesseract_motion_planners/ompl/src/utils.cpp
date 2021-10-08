@@ -104,10 +104,10 @@ bool checkStateInCollision(OMPLProblem& prob,
                            const Eigen::VectorXd& state,
                            tesseract_collision::ContactResultMap& contact_map)
 {
-  tesseract_environment::EnvState::Ptr s = prob.state_solver->getState(prob.manip_fwd_kin->getJointNames(), state);
+  tesseract_common::TransformMap link_transforms = prob.manip->calcFwdKin(state);
 
   for (const auto& link_name : prob.contact_checker->getActiveCollisionObjects())
-    prob.contact_checker->setCollisionObjectsTransform(link_name, s->link_transforms[link_name]);
+    prob.contact_checker->setCollisionObjectsTransform(link_name, link_transforms[link_name]);
 
   prob.contact_checker->contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);
 
