@@ -82,7 +82,6 @@ DefaultDescartesProblemGenerator(const std::string& name,
     CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with KDL "
                             "(TrajOpt). Did you change the URDF recently?");
 
-  std::vector<std::string> active_link_names = prob->manip->getActiveLinkNames();
   std::vector<std::string> joint_names = prob->manip->getJointNames();
 
   // Flatten the input for planning
@@ -136,13 +135,13 @@ DefaultDescartesProblemGenerator(const std::string& name,
   if (isCartesianWaypoint(start_waypoint))
   {
     const auto& cwp = start_waypoint.as<CartesianWaypoint>();
-    cur_plan_profile->apply(*prob, cwp.waypoint, *start_instruction, composite_mi, active_link_names, index);
+    cur_plan_profile->apply(*prob, cwp.waypoint, *start_instruction, composite_mi, index);
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
     assert(checkJointPositionFormat(joint_names, start_waypoint));
     const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-    cur_plan_profile->apply(*prob, position, *start_instruction, composite_mi, active_link_names, index);
+    cur_plan_profile->apply(*prob, position, *start_instruction, composite_mi, index);
   }
   else
   {
@@ -216,13 +215,13 @@ DefaultDescartesProblemGenerator(const std::string& name,
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, active_link_names, index);
+            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, index);
 
             ++index;
           }
 
           // Add final point with waypoint
-          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, active_link_names, index);
+          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, index);
 
           ++index;
         }
@@ -252,13 +251,13 @@ DefaultDescartesProblemGenerator(const std::string& name,
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, active_link_names, index);
+            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, index);
 
             ++index;
           }
 
           // Add final point with waypoint
-          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, active_link_names, index);
+          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, index);
 
           ++index;
         }
@@ -280,7 +279,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
 
           // Add final point with waypoint costs and contraints
           /** @todo Should check that the joint names match the order of the manipulator */
-          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, active_link_names, index);
+          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, index);
 
           ++index;
         }
@@ -294,7 +293,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
 
           // Add final point with waypoint costs and contraints
           /** @todo Should check that the joint names match the order of the manipulator */
-          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, active_link_names, index);
+          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, index);
 
           ++index;
         }

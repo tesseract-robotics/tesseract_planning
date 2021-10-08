@@ -32,14 +32,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/types.h>
-#include <tesseract_environment/core/environment.h>
-#include <tesseract_environment/ofkt/ofkt_state_solver.h>
-#include <tesseract_command_language/command_language.h>
-#include <freespace_example_program.h>
-#include <tesseract_process_managers/utils/task_info_statistics.h>
+#include "freespace_example_program.h"
 
+#include <tesseract_common/types.h>
+#include <tesseract_environment/environment.h>
+#include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
+
+#include <tesseract_process_managers/utils/task_info_statistics.h>
 #include <tesseract_process_managers/taskflow_generators/freespace_taskflow.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
 #include <tesseract_process_managers/utils/task_info_statistics.h>
@@ -79,12 +79,11 @@ int main()
   // --------------------
   // Perform setup
   // --------------------
-  tesseract_scene_graph::ResourceLocator::Ptr locator =
-      std::make_shared<tesseract_scene_graph::SimpleResourceLocator>(locateResource);
+  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
   tesseract_environment::Environment::Ptr env = std::make_shared<tesseract_environment::Environment>();
   tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
   tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-  env->init<tesseract_environment::OFKTStateSolver>(urdf_path, srdf_path, locator);
+  env->init(urdf_path, srdf_path, locator);
 
   // Dynamically load ignition visualizer if exist
   tesseract_visualization::VisualizationLoader loader;
@@ -94,7 +93,7 @@ int main()
   {
     plotter->waitForConnection(3);
     if (plotter->isConnected())
-      plotter->plotEnvironment(env);
+      plotter->plotEnvironment(*env);
   }
 
   // Create Process Planning Server
@@ -120,7 +119,7 @@ int main()
     if (plotter != nullptr && plotter->isConnected())
     {
       plotter->waitForInput();
-      plotter->plotTrajectory(toJointTrajectory(response.results->as<CompositeInstruction>()), env->getStateSolver());
+      plotter->plotTrajectory(toJointTrajectory(response.results->as<CompositeInstruction>()), *env->getStateSolver());
     }
 
     // Convert to an easily loggable vector

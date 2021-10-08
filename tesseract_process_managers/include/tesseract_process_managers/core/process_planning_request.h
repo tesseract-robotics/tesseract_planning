@@ -34,11 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/types.h>
-
 #include <tesseract_command_language/core/instruction.h>
-
-#include <tesseract_environment/core/commands.h>
-#include <tesseract_environment/core/types.h>
+#include <tesseract_environment/commands.h>
 
 namespace tesseract_planning
 {
@@ -54,7 +51,7 @@ struct ProcessPlanningRequest
   Instruction seed{ NullInstruction() };
 
   /** @brief Environment state to start planning with (Optional)  */
-  tesseract_environment::EnvState::ConstPtr env_state;
+  tesseract_scene_graph::SceneState env_state;
 
   /** @brief Additional Commands to be applied to environment prior to planning (Optional) */
   tesseract_environment::Commands commands;

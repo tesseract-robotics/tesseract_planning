@@ -72,8 +72,7 @@ tesseract_environment::Environment::Ptr ProcessEnvironmentCache::getCachedEnviro
   // This is to make sure the cached items are updated if needed
   refreshCache();
 
-  tesseract_environment::EnvState current_state;
-  current_state = *(env_->getCurrentState());
+  tesseract_scene_graph::SceneState current_state = env_->getState();
 
   std::unique_lock<std::shared_mutex> lock(cache_mutex_);
   tesseract_environment::Environment::Ptr t = cache_.back();

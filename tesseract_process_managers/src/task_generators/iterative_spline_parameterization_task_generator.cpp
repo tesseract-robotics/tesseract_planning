@@ -83,7 +83,8 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
 
   auto& ci = input_results->as<CompositeInstruction>();
   const ManipulatorInfo& manip_info = ci.getManipulatorInfo();
-  const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
+  auto joint_group = input.env->getJointGroup(manip_info.manipulator);
+  auto limits = joint_group->getLimits();
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
@@ -131,8 +132,8 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   // Solve using parameters
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(ci);
   if (!solver_.compute(*trajectory,
-                       fwd_kin->getLimits().velocity_limits,
-                       fwd_kin->getLimits().acceleration_limits,
+                       limits.velocity_limits,
+                       limits.acceleration_limits,
                        velocity_scaling_factors,
                        acceleration_scaling_factors))
   {

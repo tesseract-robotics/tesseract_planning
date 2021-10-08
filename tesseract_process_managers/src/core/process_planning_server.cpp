@@ -143,8 +143,8 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   tesseract_environment::Environment::Ptr tc = cache_->getCachedEnvironment();
 
   // Set the env state if provided
-  if (request.env_state != nullptr)
-    tc->setState(request.env_state->joints);
+  if (!request.env_state.joints.empty())
+    tc->setState(request.env_state.joints);
 
   // This makes sure the Joint and State Waypoints match the same order as the kinematics
   if (formatProgram(composite_program, *tc))

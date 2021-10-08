@@ -125,7 +125,6 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::continuousCollisionCheck(
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
   tesseract_collision::ContinuousContactManager::Ptr cm;
-  tesseract_scene_graph::StateSolver* ss;
   mutex_.lock();
   auto it = continuous_contact_managers_.find(hash);
   if (it == continuous_contact_managers_.end())
@@ -159,7 +158,6 @@ bool DescartesCollisionEdgeEvaluator<FloatType>::discreteCollisionCheck(
   // It was time using chronos time elapsed and it was faster to cache the contact manager
   unsigned long int hash = std::hash<std::thread::id>{}(std::this_thread::get_id());
   tesseract_collision::DiscreteContactManager::Ptr cm;
-  tesseract_scene_graph::StateSolver* ss;
   mutex_.lock();
   auto it = discrete_contact_managers_.find(hash);
   if (it == discrete_contact_managers_.end())

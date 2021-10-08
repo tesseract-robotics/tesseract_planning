@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_kinematics/core/forward_kinematics.h>
+#include <tesseract_kinematics/core/joint_group.h>
 
 namespace tesseract_planning
 {
@@ -63,18 +63,25 @@ static const std::vector<std::string> RobotConfigString = { "NUT", "FUT", "NDT",
 
 /**
  * @brief Get the configuration of a six axis industrial robot
- * @param robot_kin The kinematics object of the robot.
+ * @param joint_group The kinematics JointGroup.
+ * @param base_link The base link to use.
+ * @param tcp_frame The tip link to use.
  * @param joint_values The joint values of the robot.
  * @param sign_correction Correct the sign for Joint 3 and Joint 5 based on the robot manufacturer.
  * @return Robot Config
  */
 template <typename FloatType>
-inline RobotConfig getRobotConfig(const tesseract_kinematics::ForwardKinematics::ConstPtr& robot_kin,
+inline RobotConfig getRobotConfig(const tesseract_kinematics::JointGroup& joint_group,
+                                  const std::string& base_link,
+                                  const std::string& tcp_frame,
                                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                                   const Eigen::Ref<const Eigen::Vector2i>& sign_correction = Eigen::Vector2i::Ones())
 {
+  // Get state
+  tesseract_common::TransformMap state = joint_group.calcFwdKin(joint_values.template cast<double>());
+
   // Get the pose at tool0
-  Eigen::Isometry3d pose = robot_kin->calcFwdKin(joint_values.template cast<double>());
+  Eigen::Isometry3d pose = state.at(base_link).inverse() * state.at(tcp_frame);
 
   // Get the base rotated by joint 1
   Eigen::Isometry3d prime_pose(Eigen::AngleAxisd(static_cast<double>(joint_values(0)), Eigen::Vector3d::UnitZ()));

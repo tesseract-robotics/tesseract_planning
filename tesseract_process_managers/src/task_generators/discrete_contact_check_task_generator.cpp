@@ -85,22 +85,11 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   }
 
   // Get state solver
-  tesseract_environment::StateSolver::Ptr state_solver = input.env->getStateSolver();
+  tesseract_kinematics::JointGroup::UPtr manip = input.env->getJointGroup(input.manip_info.manipulator);
+  tesseract_scene_graph::StateSolver::UPtr state_solver = input.env->getStateSolver();
   tesseract_collision::DiscreteContactManager::Ptr manager = input.env->getDiscreteContactManager();
   manager->setCollisionMarginData(config.collision_margin_data);
-
-  // Set the active links based on the manipulator
-  std::vector<std::string> active_links_manip;
-  {
-    tesseract_environment::AdjacencyMap::Ptr adjacency_map_manip =
-        std::make_shared<tesseract_environment::AdjacencyMap>(input.env->getSceneGraph(),
-                                                              input.env->getManipulatorManager()
-                                                                  ->getFwdKinematicSolver(input.manip_info.manipulator)
-                                                                  ->getActiveLinkNames(),
-                                                              input.env->getCurrentState()->link_transforms);
-    active_links_manip = adjacency_map_manip->getActiveLinkNames();
-  }
-  manager->setActiveCollisionObjects(active_links_manip);
+  manager->setActiveCollisionObjects(manip->getActiveLinkNames());
 
   const auto& ci = input_result->as<CompositeInstruction>();
   std::vector<tesseract_collision::ContactResultMap> contacts;

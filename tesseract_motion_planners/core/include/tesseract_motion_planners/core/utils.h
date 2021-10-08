@@ -49,8 +49,7 @@ namespace tesseract_planning
  * @param env The environment object used for getting kinematics and tcp information
  * @return A toolpath in world coordinate system
  */
-tesseract_common::Toolpath toToolpath(const Instruction& instruction,
-                                      const tesseract_environment::Environment::ConstPtr& env);
+tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tesseract_environment::Environment& env);
 
 /**
  * @brief Interpolate between two transforms return a vector of Eigen::Isometry transforms.

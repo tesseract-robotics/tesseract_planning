@@ -7,8 +7,7 @@ target_link_libraries(
   Eigen3::Eigen
   ${PROJECT_NAME}
   ${PROJECT_NAME}_utils
-  tesseract::tesseract_environment_core
-  tesseract::tesseract_environment_ofkt
+  tesseract::tesseract_environment
   tesseract::tesseract_command_language
   tesseract::tesseract_support
   ${CMAKE_THREAD_LIBS_INIT})
@@ -28,8 +27,7 @@ target_link_libraries(
   Eigen3::Eigen
   ${PROJECT_NAME}
   ${PROJECT_NAME}_utils
-  tesseract::tesseract_environment_core
-  tesseract::tesseract_environment_ofkt
+  tesseract::tesseract_environment
   tesseract::tesseract_command_language
   tesseract::tesseract_support
   ${CMAKE_THREAD_LIBS_INIT})
@@ -49,8 +47,7 @@ if(NOT WIN32)
     console_bridge::console_bridge
     Eigen3::Eigen
     ${PROJECT_NAME}
-    tesseract::tesseract_environment_core
-    tesseract::tesseract_environment_ofkt
+    tesseract::tesseract_environment
     tesseract::tesseract_command_language
     tesseract::tesseract_support
     ${CMAKE_THREAD_LIBS_INIT})
@@ -71,8 +68,7 @@ target_link_libraries(
   Eigen3::Eigen
   ${PROJECT_NAME}
   ${PROJECT_NAME}_utils
-  tesseract::tesseract_environment_core
-  tesseract::tesseract_environment_ofkt
+  tesseract::tesseract_environment
   tesseract::tesseract_command_language
   tesseract::tesseract_support
   ${CMAKE_THREAD_LIBS_INIT})

@@ -36,7 +36,8 @@ namespace tesseract_planning
 inline CompositeInstruction rasterDTExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                    const std::string& process_profile = "PROCESS")
 {
-  CompositeInstruction program(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
+  CompositeInstruction program(
+      DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };

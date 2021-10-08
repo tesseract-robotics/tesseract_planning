@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <trajopt/problem_description.hpp>
 #include <tesseract_common/timer.h>
-#include <tesseract_environment/core/utils.h>
+#include <tesseract_environment/utils.h>
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
@@ -51,18 +51,15 @@ bool StateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   using namespace tesseract_environment;
 
   auto env = input.env;
-  auto kin = env->getManipulatorManager()->getFwdKinematicSolver(input.manip_info.manipulator);
+  auto joint_group = env->getJointGroup(input.manip_info.manipulator);
 
   std::vector<ContactResultMap> collisions;
   DiscreteContactManager::Ptr manager = env->getDiscreteContactManager();
-  AdjacencyMap::Ptr adjacency_map = std::make_shared<tesseract_environment::AdjacencyMap>(
-      env->getSceneGraph(), kin->getActiveLinkNames(), env->getCurrentState()->link_transforms);
-
-  manager->setActiveCollisionObjects(adjacency_map->getActiveLinkNames());
+  manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
   manager->setCollisionMarginData(profile.collision_check_config.collision_margin_data);
   collisions.clear();
 
-  tesseract_environment::EnvState::Ptr state = env->getState(kin->getJointNames(), start_pos);
+  tesseract_common::TransformMap state = joint_group->calcFwdKin(start_pos);
   if (!checkTrajectoryState(collisions, *manager, state, profile.collision_check_config))
   {
     CONSOLE_BRIDGE_logDebug("No collisions found");
@@ -132,7 +129,7 @@ bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
   pci.basic_info.use_time = false;
 
   // Create Kinematic Object
-  pci.kin = pci.getManipulator(pci.basic_info.manip);
+  pci.kin = pci.env->getJointGroup(pci.basic_info.manip);
 
   // Initialize trajectory to waypoint position
   pci.init_info.type = InitInfo::GIVEN_TRAJ;
@@ -141,7 +138,7 @@ bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
 
   // Add constraint that position is allowed to be within a tolerance of the original position
   {
-    Eigen::MatrixX2d limits = pci.getManipulator(pci.basic_info.manip)->getLimits().joint_limits;
+    Eigen::MatrixX2d limits = pci.kin->getLimits().joint_limits;
     Eigen::VectorXd range = limits.col(1).array() - limits.col(0).array();
     Eigen::VectorXd pos_tolerance = range * profile.jiggle_factor;
     Eigen::VectorXd neg_tolerance = range * -profile.jiggle_factor;
@@ -216,7 +213,7 @@ bool MoveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
     return false;
   }
 
-  const auto kin = input.env->getManipulatorManager()->getFwdKinematicSolver(input.manip_info.manipulator);
+  tesseract_kinematics::JointGroup::UPtr kin = input.env->getJointGroup(input.manip_info.manipulator);
   Eigen::MatrixXd limits = kin->getLimits().joint_limits;
   Eigen::VectorXd range = limits.col(1).array() - limits.col(0).array();
 

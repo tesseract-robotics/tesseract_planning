@@ -150,7 +150,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   // --------------------
   PlannerRequest request;
   request.seed = input_results->as<CompositeInstruction>();
-  request.env_state = input.env->getCurrentState();
+  request.env_state = input.env->getState();
   request.env = input.env;
   request.instructions = instructions;
   request.plan_profile_remapping = input.plan_profile_remapping;

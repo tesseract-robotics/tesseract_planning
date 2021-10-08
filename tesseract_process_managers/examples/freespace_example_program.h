@@ -14,7 +14,8 @@ inline CompositeInstruction freespaceExampleProgramIIWA(
     const std::string& composite_profile = DEFAULT_PROFILE_KEY,
     const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
-  CompositeInstruction program(composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
+  CompositeInstruction program(
+      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
@@ -41,7 +42,8 @@ inline CompositeInstruction freespaceExampleProgramABB(
     const std::string& composite_profile = DEFAULT_PROFILE_KEY,
     const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
-  CompositeInstruction program(composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
+  CompositeInstruction program(
+      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
