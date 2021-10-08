@@ -39,7 +39,8 @@ inline CompositeInstruction rasterWAADDTExampleProgram(const std::string& freesp
                                                        const std::string& process_profile = "PROCESS",
                                                        const std::string& departure_profile = "DEPARTURE")
 {
-  CompositeInstruction program(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator"));
+  CompositeInstruction program(
+      DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };

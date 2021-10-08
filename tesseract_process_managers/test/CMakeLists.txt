@@ -46,7 +46,6 @@ target_link_libraries(
   PRIVATE GTest::GTest
           GTest::Main
           tesseract::tesseract_support
-          tesseract::tesseract_environment_ofkt
           tesseract::tesseract_kinematics_opw
           ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME}_unit PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/examples>")
@@ -69,7 +68,6 @@ target_link_libraries(
   PRIVATE GTest::GTest
           GTest::Main
           tesseract::tesseract_support
-          tesseract::tesseract_environment_ofkt
           ${PROJECT_NAME}
           ${TESSERACT_TCMALLOC_LIB})
 target_include_directories(${PROJECT_NAME}_fix_state_collision_task_generator_unit

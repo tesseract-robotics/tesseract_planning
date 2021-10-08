@@ -72,7 +72,8 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
 
   const auto& ci = input_instruction->as<CompositeInstruction>();
   const ManipulatorInfo& manip_info = input.manip_info;
-  const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
+  auto joint_group = input.env->getJointGroup(manip_info.manipulator);
+  auto limits = joint_group->getLimits();
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
@@ -89,9 +90,8 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     return 1;
   }
 
-  auto limits = fwd_kin->getLimits().joint_limits;
-  limits.col(0) = limits.col(0).array() + cur_composite_profile->lower_bounds_reduction;
-  limits.col(1) = limits.col(1).array() - cur_composite_profile->upper_bounds_reduction;
+  limits.joint_limits.col(0) = limits.joint_limits.col(0).array() + cur_composite_profile->lower_bounds_reduction;
+  limits.joint_limits.col(1) = limits.joint_limits.col(1).array() - cur_composite_profile->upper_bounds_reduction;
   switch (cur_composite_profile->mode)
   {
     case FixStateBoundsProfile::Settings::START_ONLY:
@@ -100,11 +100,11 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       if (instr_const_ptr != nullptr)
       {
         auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
-        if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits))
+        if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits.joint_limits))
         {
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
           if (!clampToJointLimits(
-                  mutable_instruction->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
+                  mutable_instruction->getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -120,11 +120,11 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       if (instr_const_ptr != nullptr)
       {
         auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
-        if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits))
+        if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits.joint_limits))
         {
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
           if (!clampToJointLimits(
-                  mutable_instruction->getWaypoint(), limits, cur_composite_profile->max_deviation_global))
+                  mutable_instruction->getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -149,7 +149,8 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       bool outside_limits = false;
       for (const auto& instruction : flattened)
       {
-        outside_limits |= isWithinJointLimits(instruction.get().as<PlanInstruction>().getWaypoint(), limits);
+        outside_limits |=
+            isWithinJointLimits(instruction.get().as<PlanInstruction>().getWaypoint(), limits.joint_limits);
       }
       if (!outside_limits)
         break;
@@ -160,7 +161,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
         const Instruction* instr_const_ptr = &instruction.get();
         auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
         auto& plan = mutable_instruction->as<PlanInstruction>();
-        if (!clampToJointLimits(plan.getWaypoint(), limits, cur_composite_profile->max_deviation_global))
+        if (!clampToJointLimits(plan.getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
         {
           saveOutputs(*info, input);
           info->elapsed_time = timer.elapsedSeconds();

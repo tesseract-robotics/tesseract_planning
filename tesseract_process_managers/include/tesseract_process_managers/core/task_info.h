@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/null_instruction.h>
-#include <tesseract_environment/core/environment.h>
+#include <tesseract_environment/environment.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::TaskInfo)
@@ -52,7 +52,7 @@ public:
   using Ptr = std::shared_ptr<TaskInfo>;
   using ConstPtr = std::shared_ptr<const TaskInfo>;
 
-  TaskInfo() = default;  // Required for serialziation
+  TaskInfo() = default;  // Required for serialization
   TaskInfo(std::size_t unique_id, std::string name = "");
   virtual ~TaskInfo() = default;
   TaskInfo(const TaskInfo&) = default;

@@ -90,7 +90,8 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
 
   auto& ci = input_results->as<CompositeInstruction>();
   const ManipulatorInfo& manip_info = ci.getManipulatorInfo();
-  const auto fwd_kin = input.env->getManipulatorManager()->getFwdKinematicSolver(manip_info.manipulator);
+  auto joint_group = input.env->getJointGroup(manip_info.manipulator);
+  auto limits = joint_group->getLimits();
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
@@ -149,8 +150,8 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   // Copy the Composite before passing in because it will get flattened and resampled
   CompositeInstruction resampled(ci);
   if (!solver.computeTimeStamps(resampled,
-                                fwd_kin->getLimits().velocity_limits,
-                                fwd_kin->getLimits().acceleration_limits,
+                                limits.velocity_limits,
+                                limits.acceleration_limits,
                                 velocity_scaling_factor,
                                 acceleration_scaling_factor))
   {

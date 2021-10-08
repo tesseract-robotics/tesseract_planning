@@ -76,19 +76,15 @@ Eigen::Isometry3d calcPose(const Waypoint& wp,
   throw std::runtime_error("toToolpath: Unsupported Waypoint Type!");
 }
 
-tesseract_common::Toolpath toToolpath(const Instruction& instruction,
-                                      const tesseract_environment::Environment::ConstPtr& env)
+tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tesseract_environment::Environment& env)
 {
   using namespace tesseract_planning;
-
-  if (env == nullptr)
-    throw std::runtime_error("toToolpath: The environment is a nullptr!");
 
   tesseract_common::Toolpath toolpath;
   tesseract_common::VectorIsometry3d poses;
 
-  tesseract_scene_graph::StateSolver::UPtr state_solver = env->getStateSolver();
-  tesseract_scene_graph::SceneState state = env->getState();
+  tesseract_scene_graph::StateSolver::UPtr state_solver = env.getStateSolver();
+  tesseract_scene_graph::SceneState state = env.getState();
   if (isCompositeInstruction(instruction))
   {
     const auto& ci = instruction.as<CompositeInstruction>();
@@ -125,7 +121,7 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
       }
 
       // Extract TCP
-      Eigen::Isometry3d tcp_offset = env->findTCPOffset(manip_info);
+      Eigen::Isometry3d tcp_offset = env.findTCPOffset(manip_info);
 
       // Calculate pose
       poses.push_back(calcPose(wp, manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, *state_solver));
@@ -142,7 +138,7 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction,
     ManipulatorInfo manip_info = composite_mi.getCombined(pi.getManipulatorInfo());
 
     // Extract TCP
-    Eigen::Isometry3d tcp_offset = env->findTCPOffset(manip_info);
+    Eigen::Isometry3d tcp_offset = env.findTCPOffset(manip_info);
 
     // Calculate pose
     poses.push_back(

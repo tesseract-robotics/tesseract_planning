@@ -168,7 +168,6 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
                                                    const Eigen::Isometry3d& cartesian_waypoint,
                                                    const Instruction& parent_instruction,
                                                    const ManipulatorInfo& manip_info,
-                                                   const std::vector<std::string>& active_links,
                                                    int index) const
 {
   assert(isPlanInstruction(parent_instruction));
@@ -275,7 +274,6 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
                                                    const Eigen::VectorXd& joint_waypoint,
                                                    const Instruction& /*parent_instruction*/,
                                                    const ManipulatorInfo& /*manip_info*/,
-                                                   const std::vector<std::string>& active_links,
                                                    int index) const
 {
   auto state = std::make_shared<descartes_light::State<FloatType>>(joint_waypoint.cast<FloatType>());
