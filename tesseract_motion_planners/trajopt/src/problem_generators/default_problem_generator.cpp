@@ -130,6 +130,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
   Waypoint start_waypoint{ NullWaypoint() };
+  ManipulatorInfo start_mi{ composite_mi };
   Instruction placeholder_instruction{ NullInstruction() };
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
@@ -140,6 +141,8 @@ DefaultTrajoptProblemGenerator(const std::string& name,
     {
       const auto& temp = start_instruction->as<PlanInstruction>();
       assert(temp.isStart());
+
+      start_mi = composite_mi.getCombined(temp.getManipulatorInfo());
       start_waypoint = temp.getWaypoint();
       profile = temp.getProfile();
       profile_overrides = temp.profile_overrides;
@@ -228,7 +231,7 @@ DefaultTrajoptProblemGenerator(const std::string& name,
       if (mi.working_frame.empty())
         throw std::runtime_error("TrajOpt, working_frame is empty!");
 
-      Eigen::Isometry3d tcp_offseet = request.env->findTCPOffset(mi);
+      Eigen::Isometry3d tcp_offset = request.env->findTCPOffset(mi);
 
       assert(isCompositeInstruction(seed_flat_pattern[i].get()));
       const auto& seed_composite = seed_flat_pattern[i].get().as<tesseract_planning::CompositeInstruction>();
@@ -246,29 +249,37 @@ DefaultTrajoptProblemGenerator(const std::string& name,
         if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
           const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
+          Eigen::Isometry3d cur_working_frame = request.env_state.link_transforms.at(mi.working_frame);
 
-          Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
+          Eigen::Isometry3d start_pose = Eigen::Isometry3d::Identity();
+          Eigen::Isometry3d start_working_frame = request.env_state.link_transforms.at(start_mi.working_frame);
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
+            // Convert to world coordinates
+            start_pose = start_working_frame * start_waypoint.as<CartesianWaypoint>().waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
+            Eigen::Isometry3d start_tcp_offset = request.env->findTCPOffset(start_mi);
+
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = pci->kin->calcFwdKin(position)[mi.tcp_frame] * tcp_offseet;
+            start_pose = pci->kin->calcFwdKin(position)[start_mi.tcp_frame] * start_tcp_offset;
           }
           else
           {
             throw std::runtime_error("TrajOptPlannerUniversalConfig: known waypoint type.");
           }
 
-          tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_wp, interpolate_cnt);
+          tesseract_common::VectorIsometry3d poses =
+              interpolate(start_pose, cur_working_frame * cur_wp, interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
             /** @todo Write a path constraint for this*/
-            cur_plan_profile->apply(*pci, poses[p], plan_instruction, composite_mi, active_links, index);
+            // The pose is also converted back into the working frame coordinates
+            cur_plan_profile->apply(
+                *pci, cur_working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
             ++index;
           }
 
@@ -295,30 +306,36 @@ DefaultTrajoptProblemGenerator(const std::string& name,
           else
             throw std::runtime_error("Unsupported waypoint type.");
 
-          Eigen::Isometry3d cur_pose = pci->kin->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offseet;
+          Eigen::Isometry3d cur_pose = pci->kin->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offset;
+          Eigen::Isometry3d cur_working_frame = request.env_state.link_transforms.at(mi.working_frame);
 
-          Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
+          Eigen::Isometry3d start_pose = Eigen::Isometry3d::Identity();
+          Eigen::Isometry3d start_working_frame = request.env_state.link_transforms.at(start_mi.working_frame);
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
+            // Convert to world coordinates
+            start_pose = start_working_frame * start_waypoint.as<CartesianWaypoint>().waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
+            Eigen::Isometry3d start_tcp_offset = request.env->findTCPOffset(start_mi);
+
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = pci->kin->calcFwdKin(position)[mi.tcp_frame] * tcp_offseet;
+            start_pose = pci->kin->calcFwdKin(position)[start_mi.tcp_frame] * start_tcp_offset;
           }
           else
           {
             throw std::runtime_error("TrajOptPlannerUniversalConfig: known waypoint type.");
           }
 
-          tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_pose, interpolate_cnt);
+          tesseract_common::VectorIsometry3d poses = interpolate(start_pose, cur_pose, interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
             /** @todo Add path constraint for this */
-            cur_plan_profile->apply(*pci, poses[p], plan_instruction, composite_mi, active_links, index);
+            cur_plan_profile->apply(
+                *pci, cur_working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
             ++index;
           }
 
