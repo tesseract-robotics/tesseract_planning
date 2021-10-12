@@ -140,6 +140,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
   Waypoint start_waypoint{ NullWaypoint() };
+  ManipulatorInfo start_mi{ composite_mi };
   Instruction placeholder_instruction{ NullInstruction() };
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
@@ -150,6 +151,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
     {
       const auto& temp = start_instruction->as<PlanInstruction>();
       assert(temp.isStart());
+
+      start_mi = composite_mi.getCombined(temp.getManipulatorInfo());
       start_waypoint = temp.getWaypoint();
       profile = temp.getProfile();
       profile_overrides = temp.profile_overrides;
@@ -289,24 +292,29 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
         if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
           const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
+          Eigen::Isometry3d cur_working_frame = request.env_state.link_transforms.at(mi.working_frame);
 
-          Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
+          Eigen::Isometry3d start_pose = Eigen::Isometry3d::Identity();
+          Eigen::Isometry3d start_working_frame = request.env_state.link_transforms.at(start_mi.working_frame);
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
+            start_pose = start_working_frame * start_waypoint.as<CartesianWaypoint>().waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
+            Eigen::Isometry3d start_tcp_offset = request.env->findTCPOffset(start_mi);
+
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = problem->manip->calcFwdKin(position)[mi.tcp_frame] * tcp_offset;
+            start_pose = problem->manip->calcFwdKin(position)[start_mi.tcp_frame] * start_tcp_offset;
           }
           else
           {
             throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator: unknown waypoint type.");
           }
 
-          tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_wp, interpolate_cnt);
+          tesseract_common::VectorIsometry3d poses =
+              interpolate(start_pose, cur_working_frame * cur_wp, interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
@@ -339,29 +347,35 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
             throw std::runtime_error("Unsupported waypoint type.");
 
           Eigen::Isometry3d cur_pose = problem->manip->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offset;
+          Eigen::Isometry3d cur_working_frame = request.env_state.link_transforms.at(mi.working_frame);
 
-          Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
+          Eigen::Isometry3d start_pose = Eigen::Isometry3d::Identity();
+          Eigen::Isometry3d start_working_frame = request.env_state.link_transforms.at(start_mi.working_frame);
           if (isCartesianWaypoint(start_waypoint))
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
+            // Convert to world coordinates
+            start_pose = start_working_frame * start_waypoint.as<CartesianWaypoint>().waypoint;
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
+            Eigen::Isometry3d start_tcp_offset = request.env->findTCPOffset(start_mi);
+
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
-            prev_pose = problem->manip->calcFwdKin(position)[mi.tcp_frame] * tcp_offset;
+            start_pose = problem->manip->calcFwdKin(position)[start_mi.tcp_frame] * start_tcp_offset;
           }
           else
           {
             throw std::runtime_error("TrajOptPlannerUniversalConfig: unknown waypoint type.");
           }
 
-          tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_pose, interpolate_cnt);
+          tesseract_common::VectorIsometry3d poses = interpolate(start_pose, cur_pose, interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
             /** @todo Add path constraint for this */
-            cur_plan_profile->apply(*problem, poses[p], plan_instruction, composite_mi, active_links, index);
+            cur_plan_profile->apply(
+                *problem, cur_working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
             ++index;
           }
 
