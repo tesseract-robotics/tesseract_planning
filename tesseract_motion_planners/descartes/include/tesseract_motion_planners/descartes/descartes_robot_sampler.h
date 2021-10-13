@@ -53,12 +53,12 @@ public:
    * @param allow_collision If true and no valid solution was found it will return the best of the worst
    * @param is_valid This is a user defined function to filter out solution
    */
-  DescartesRobotSampler(const std::string& target_working_frame,
+  DescartesRobotSampler(std::string target_working_frame,
                         const Eigen::Isometry3d& target_pose,
                         PoseSamplerFn target_pose_sampler,
                         tesseract_kinematics::KinematicGroup::ConstPtr manip,
                         DescartesCollision::Ptr collision,
-                        const std::string& tcp_frame,
+                        std::string tcp_frame,
                         const Eigen::Isometry3d& tcp_offset,
                         bool allow_collision,
                         DescartesVertexEvaluator::Ptr is_valid,
