@@ -19,11 +19,9 @@ Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Problem$<$ Float
 \item 
 tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a457714fd35071442603378470abe3bb3}{env}}
 \item 
-tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a458452fb9e98c4d494cbd4ea2dfcd17a}{env\+\_\+state}}
+tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a770b2ef9134d30c1f7cbbda76a8456fe}{env\+\_\+state}}
 \item 
-tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a9bcc257ec5a55fe29d82196c066e6955}{manip\+\_\+fwd\+\_\+kin}}
-\item 
-tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ada0fe37d0fdaccd3b0c064fe3f24447f}{manip\+\_\+inv\+\_\+kin}}
+tesseract\+\_\+kinematics\+::\+Kinematic\+Group\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}
 \item 
 std\+::vector$<$ typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$ Float\+Type $>$\+::Const\+Ptr $>$ \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\+\_\+evaluators}}
 \item 
@@ -50,26 +48,19 @@ std\+::vector$<$typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$Float\+Type
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::env}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_a458452fb9e98c4d494cbd4ea2dfcd17a}\label{structtesseract__planning_1_1DescartesProblem_a458452fb9e98c4d494cbd4ea2dfcd17a}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_a770b2ef9134d30c1f7cbbda76a8456fe}\label{structtesseract__planning_1_1DescartesProblem_a770b2ef9134d30c1f7cbbda76a8456fe}} 
 \index{tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}!env\_state@{env\_state}}
 \index{env\_state@{env\_state}!tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::env\+\_\+state}
+tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::env\+\_\+state}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_a9bcc257ec5a55fe29d82196c066e6955}\label{structtesseract__planning_1_1DescartesProblem_a9bcc257ec5a55fe29d82196c066e6955}} 
-\index{tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}!manip\_fwd\_kin@{manip\_fwd\_kin}}
-\index{manip\_fwd\_kin@{manip\_fwd\_kin}!tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}}
-\doxysubsubsection{\texorpdfstring{manip\_fwd\_kin}{manip\_fwd\_kin}}
+\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}\label{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}} 
+\index{tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}!manip@{manip}}
+\index{manip@{manip}!tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{manip}{manip}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::manip\+\_\+fwd\+\_\+kin}
-
-\mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_ada0fe37d0fdaccd3b0c064fe3f24447f}\label{structtesseract__planning_1_1DescartesProblem_ada0fe37d0fdaccd3b0c064fe3f24447f}} 
-\index{tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}!manip\_inv\_kin@{manip\_inv\_kin}}
-\index{manip\_inv\_kin@{manip\_inv\_kin}!tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}}
-\doxysubsubsection{\texorpdfstring{manip\_inv\_kin}{manip\_inv\_kin}}
-{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::manip\+\_\+inv\+\_\+kin}
+tesseract\+\_\+kinematics\+::\+Kinematic\+Group\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\+\_\+planning\+::\+Descartes\+Problem}}$<$ Float\+Type $>$\+::manip}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}\label{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}} 
 \index{tesseract\_planning::DescartesProblem$<$ FloatType $>$@{tesseract\_planning::DescartesProblem$<$ FloatType $>$}!num\_threads@{num\_threads}}

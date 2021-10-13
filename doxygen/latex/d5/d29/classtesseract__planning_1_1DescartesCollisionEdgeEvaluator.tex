@@ -27,7 +27,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Descartes\+Collision\+Edge\
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a2e2eb14e8a44e27729f432f558c5b4fd}{Descartes\+Collision\+Edge\+Evaluator}} (const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&collision\+\_\+env, std\+::vector$<$ std\+::string $>$ active\+\_\+links, std\+::vector$<$ std\+::string $>$ joint\+\_\+names, tesseract\+\_\+collision\+::\+Collision\+Check\+Config config, bool allow\+\_\+collision=false, bool debug=false)
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a9a4c440c2c4fd673057deac1f4ceb100}{Descartes\+Collision\+Edge\+Evaluator}} (const tesseract\+\_\+environment\+::\+Environment \&collision\+\_\+env, tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr manip, tesseract\+\_\+collision\+::\+Collision\+Check\+Config config, bool allow\+\_\+collision=false, bool debug=false)
 \item 
 std\+::pair$<$ bool, Float\+Type $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}{evaluate}} (const descartes\+\_\+light\+::\+State$<$ Float\+Type $>$ \&start, const descartes\+\_\+light\+::\+State$<$ Float\+Type $>$ \&end) const override
 \end{DoxyCompactItemize}
@@ -43,14 +43,12 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluato
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+environment\+::\+State\+Solver\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a3fc58466833001854895de5ba33d3655}{state\+\_\+solver\+\_\+}}
+tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a003d93da65807d5005368c4aae7834ef}{manip\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The tesseract state solver. \end{DoxyCompactList}\item 
 tesseract\+\_\+scene\+\_\+graph\+::\+Allowed\+Collision\+Matrix \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a16d6de5f3986534320570cd7aec1efbf}{acm\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The allowed collision matrix. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aaa722ee288880e45ad54fd124bc0e11a}{active\+\_\+link\+\_\+names\+\_\+}}
 \begin{DoxyCompactList}\small\item\em A vector of active link names. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a60515959824fcfa9b6623c8d41faff2d}{joint\+\_\+names\+\_\+}}
-\begin{DoxyCompactList}\small\item\em A vector of joint names. \end{DoxyCompactList}\item 
 tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a005b976fe7f8800d1d5f6b4f563a1b1a}{discrete\+\_\+contact\+\_\+manager\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The discrete contact manager. \end{DoxyCompactList}\item 
 tesseract\+\_\+collision\+::\+Continuous\+Contact\+Manager\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4cd2c16c78c1563f081ebf0a03dca87}{continuous\+\_\+contact\+\_\+manager\+\_\+}}
@@ -66,18 +64,16 @@ std\+::mutex \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdge
 std\+::map$<$ unsigned long int, tesseract\+\_\+collision\+::\+Continuous\+Contact\+Manager\+::\+Ptr $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4a3a55446ba76ef085160f5428028d2}{continuous\+\_\+contact\+\_\+managers\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The continuous contact manager cache. \end{DoxyCompactList}\item 
 std\+::map$<$ unsigned long int, tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager\+::\+Ptr $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a8f3bbe4ffb6f1b9dd7d3d16fc64e39aa}{discrete\+\_\+contact\+\_\+managers\+\_\+}}
-\begin{DoxyCompactList}\small\item\em The discrete contact manager cache. \end{DoxyCompactList}\item 
-std\+::map$<$ unsigned long int, tesseract\+\_\+environment\+::\+State\+Solver\+::\+Ptr $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aede336d4a19191c71cfc4d77ec808c56}{state\+\_\+solver\+\_\+managers\+\_\+}}
-\begin{DoxyCompactList}\small\item\em The state solver manager cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The discrete contact manager cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a2e2eb14e8a44e27729f432f558c5b4fd}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a2e2eb14e8a44e27729f432f558c5b4fd}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a9a4c440c2c4fd673057deac1f4ceb100}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a9a4c440c2c4fd673057deac1f4ceb100}} 
 \index{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}!DescartesCollisionEdgeEvaluator@{DescartesCollisionEdgeEvaluator}}
 \index{DescartesCollisionEdgeEvaluator@{DescartesCollisionEdgeEvaluator}!tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}}
 \doxysubsubsection{\texorpdfstring{DescartesCollisionEdgeEvaluator()}{DescartesCollisionEdgeEvaluator()}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Collision\+Edge\+Evaluator}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{Descartes\+Collision\+Edge\+Evaluator}} (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&}]{collision\+\_\+env,  }\item[{std\+::vector$<$ std\+::string $>$}]{active\+\_\+links,  }\item[{std\+::vector$<$ std\+::string $>$}]{joint\+\_\+names,  }\item[{tesseract\+\_\+collision\+::\+Collision\+Check\+Config}]{config,  }\item[{bool}]{allow\+\_\+collision = {\ttfamily false},  }\item[{bool}]{debug = {\ttfamily false} }\end{DoxyParamCaption})}
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Collision\+Edge\+Evaluator}}$<$ Float\+Type $>$\+::\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{Descartes\+Collision\+Edge\+Evaluator}} (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+environment\+::\+Environment \&}]{collision\+\_\+env,  }\item[{tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr}]{manip,  }\item[{tesseract\+\_\+collision\+::\+Collision\+Check\+Config}]{config,  }\item[{bool}]{allow\+\_\+collision = {\ttfamily false},  }\item[{bool}]{debug = {\ttfamily false} }\end{DoxyParamCaption})}
 
 
 
@@ -254,16 +250,16 @@ std\+::map$<$unsigned long int, tesseract\+\_\+collision\+::\+Discrete\+Contact\
 
 The discrete contact manager cache. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a60515959824fcfa9b6623c8d41faff2d}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a60515959824fcfa9b6623c8d41faff2d}} 
-\index{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}!joint\_names\_@{joint\_names\_}}
-\index{joint\_names\_@{joint\_names\_}!tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}}
-\doxysubsubsection{\texorpdfstring{joint\_names\_}{joint\_names\_}}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a003d93da65807d5005368c4aae7834ef}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a003d93da65807d5005368c4aae7834ef}} 
+\index{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}!manip\_@{manip\_}}
+\index{manip\_@{manip\_}!tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}}
+\doxysubsubsection{\texorpdfstring{manip\_}{manip\_}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-std\+::vector$<$std\+::string$>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Collision\+Edge\+Evaluator}}$<$ Float\+Type $>$\+::joint\+\_\+names\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Collision\+Edge\+Evaluator}}$<$ Float\+Type $>$\+::manip\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-A vector of joint names. 
+The tesseract state solver. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a58cfe5a68cbfbfedc13bc578ad30e85e}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a58cfe5a68cbfbfedc13bc578ad30e85e}} 
 \index{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}!mutex\_@{mutex\_}}
@@ -275,28 +271,6 @@ std\+::mutex \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdge
 
 
 Contact manager caching mutex. 
-
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a3fc58466833001854895de5ba33d3655}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a3fc58466833001854895de5ba33d3655}} 
-\index{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}!state\_solver\_@{state\_solver\_}}
-\index{state\_solver\_@{state\_solver\_}!tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}}
-\doxysubsubsection{\texorpdfstring{state\_solver\_}{state\_solver\_}}
-{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-tesseract\+\_\+environment\+::\+State\+Solver\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Collision\+Edge\+Evaluator}}$<$ Float\+Type $>$\+::state\+\_\+solver\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
-
-
-
-The tesseract state solver. 
-
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aede336d4a19191c71cfc4d77ec808c56}\label{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aede336d4a19191c71cfc4d77ec808c56}} 
-\index{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}!state\_solver\_managers\_@{state\_solver\_managers\_}}
-\index{state\_solver\_managers\_@{state\_solver\_managers\_}!tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$@{tesseract\_planning::DescartesCollisionEdgeEvaluator$<$ FloatType $>$}}
-\doxysubsubsection{\texorpdfstring{state\_solver\_managers\_}{state\_solver\_managers\_}}
-{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-std\+::map$<$unsigned long int, tesseract\+\_\+environment\+::\+State\+Solver\+::\+Ptr$>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{tesseract\+\_\+planning\+::\+Descartes\+Collision\+Edge\+Evaluator}}$<$ Float\+Type $>$\+::state\+\_\+solver\+\_\+managers\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [protected]}}
-
-
-
-The state solver manager cache. 
 
 
 

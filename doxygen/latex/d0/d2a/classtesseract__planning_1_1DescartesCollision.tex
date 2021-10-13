@@ -24,7 +24,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a21e8f93b6
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a6ba719dad3f2d0607cb279aab7356866}{Descartes\+Collision}} (const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&collision\+\_\+env, std\+::vector$<$ std\+::string $>$ active\+\_\+links, std\+::vector$<$ std\+::string $>$ joint\+\_\+names, tesseract\+\_\+collision\+::\+Collision\+Check\+Config collision\+\_\+check\+\_\+config=tesseract\+\_\+collision\+::\+Collision\+Check\+Config\{ 0.\+025 \}, bool debug=false)
+\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_abe52863078a64c6acbd3e898eb53a477}{Descartes\+Collision}} (const tesseract\+\_\+environment\+::\+Environment \&collision\+\_\+env, tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr manip, tesseract\+\_\+collision\+::\+Collision\+Check\+Config collision\+\_\+check\+\_\+config=tesseract\+\_\+collision\+::\+Collision\+Check\+Config\{ 0.\+025 \}, bool debug=false)
 \begin{DoxyCompactList}\small\item\em Tesseract\+Collision. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a5281b454f7fb9d3da0636c17e77475f9}{$\sim$\+Descartes\+Collision}} ()=default
 \item 
@@ -50,14 +50,12 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a94ee683e23
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+environment\+::\+State\+Solver\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a961d8276cd46d3f9dab0438589a53f8f}{state\+\_\+solver\+\_\+}}
+tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a7e0521663ef5539ef3210d0c6dea94fe}{manip\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The tesseract state solver. \end{DoxyCompactList}\item 
 tesseract\+\_\+scene\+\_\+graph\+::\+Allowed\+Collision\+Matrix \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a37d9e8850e5d91154daaf91d4f894151}{acm\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The allowed collision matrix. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a45e296a1ff9389fee602f327f3b280a2}{active\+\_\+link\+\_\+names\+\_\+}}
 \begin{DoxyCompactList}\small\item\em A vector of active link names. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a3568b8782d4fe768c261fbb07427ba50}{joint\+\_\+names\+\_\+}}
-\begin{DoxyCompactList}\small\item\em A vector of joint names. \end{DoxyCompactList}\item 
 tesseract\+\_\+collision\+::\+Discrete\+Contact\+Manager\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a71725f3b77546af5fbba5dc6da7ed77b}{contact\+\_\+manager\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The discrete contact manager. \end{DoxyCompactList}\item 
 tesseract\+\_\+collision\+::\+Collision\+Check\+Config \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a2f6483ce03ea9d7f4d8c84792b0decab}{collision\+\_\+check\+\_\+config\+\_\+}}
@@ -82,11 +80,11 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_a8e06271e27
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollision_a6ba719dad3f2d0607cb279aab7356866}\label{classtesseract__planning_1_1DescartesCollision_a6ba719dad3f2d0607cb279aab7356866}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollision_abe52863078a64c6acbd3e898eb53a477}\label{classtesseract__planning_1_1DescartesCollision_abe52863078a64c6acbd3e898eb53a477}} 
 \index{tesseract\_planning::DescartesCollision@{tesseract\_planning::DescartesCollision}!DescartesCollision@{DescartesCollision}}
 \index{DescartesCollision@{DescartesCollision}!tesseract\_planning::DescartesCollision@{tesseract\_planning::DescartesCollision}}
 \doxysubsubsection{\texorpdfstring{DescartesCollision()}{DescartesCollision()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Descartes\+Collision\+::\+Descartes\+Collision (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&}]{collision\+\_\+env,  }\item[{std\+::vector$<$ std\+::string $>$}]{active\+\_\+links,  }\item[{std\+::vector$<$ std\+::string $>$}]{joint\+\_\+names,  }\item[{tesseract\+\_\+collision\+::\+Collision\+Check\+Config}]{collision\+\_\+check\+\_\+config = {\ttfamily tesseract\+\_\+collision\+:\+:CollisionCheckConfig\{~0.025~\}},  }\item[{bool}]{debug = {\ttfamily false} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Descartes\+Collision\+::\+Descartes\+Collision (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+environment\+::\+Environment \&}]{collision\+\_\+env,  }\item[{tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr}]{manip,  }\item[{tesseract\+\_\+collision\+::\+Collision\+Check\+Config}]{collision\+\_\+check\+\_\+config = {\ttfamily tesseract\+\_\+collision\+:\+:CollisionCheckConfig\{~0.025~\}},  }\item[{bool}]{debug = {\ttfamily false} }\end{DoxyParamCaption})}
 
 
 
@@ -96,9 +94,7 @@ Tesseract\+Collision.
 \begin{DoxyParams}{Parameters}
 {\em collision\+\_\+env} & The collision Environment \\
 \hline
-{\em active\+\_\+links} & The list of active links \\
-\hline
-{\em joint\+\_\+names} & The list of joint names in the order that the data will be provided to the validate function. \\
+{\em manip} & The manipulator joint group \\
 \hline
 {\em edge\+\_\+collision\+\_\+check\+\_\+config} & Config used to set up collision checking \\
 \hline
@@ -267,21 +263,11 @@ The discrete contact manager.
 
 Enable debug information to be printed to the terminal. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollision_a3568b8782d4fe768c261fbb07427ba50}\label{classtesseract__planning_1_1DescartesCollision_a3568b8782d4fe768c261fbb07427ba50}} 
-\index{tesseract\_planning::DescartesCollision@{tesseract\_planning::DescartesCollision}!joint\_names\_@{joint\_names\_}}
-\index{joint\_names\_@{joint\_names\_}!tesseract\_planning::DescartesCollision@{tesseract\_planning::DescartesCollision}}
-\doxysubsubsection{\texorpdfstring{joint\_names\_}{joint\_names\_}}
-{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ tesseract\+\_\+planning\+::\+Descartes\+Collision\+::joint\+\_\+names\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-A vector of joint names. 
-
-\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollision_a961d8276cd46d3f9dab0438589a53f8f}\label{classtesseract__planning_1_1DescartesCollision_a961d8276cd46d3f9dab0438589a53f8f}} 
-\index{tesseract\_planning::DescartesCollision@{tesseract\_planning::DescartesCollision}!state\_solver\_@{state\_solver\_}}
-\index{state\_solver\_@{state\_solver\_}!tesseract\_planning::DescartesCollision@{tesseract\_planning::DescartesCollision}}
-\doxysubsubsection{\texorpdfstring{state\_solver\_}{state\_solver\_}}
-{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+State\+Solver\+::\+Ptr tesseract\+\_\+planning\+::\+Descartes\+Collision\+::state\+\_\+solver\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1DescartesCollision_a7e0521663ef5539ef3210d0c6dea94fe}\label{classtesseract__planning_1_1DescartesCollision_a7e0521663ef5539ef3210d0c6dea94fe}} 
+\index{tesseract\_planning::DescartesCollision@{tesseract\_planning::DescartesCollision}!manip\_@{manip\_}}
+\index{manip\_@{manip\_}!tesseract\_planning::DescartesCollision@{tesseract\_planning::DescartesCollision}}
+\doxysubsubsection{\texorpdfstring{manip\_}{manip\_}}
+{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Descartes\+Collision\+::manip\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

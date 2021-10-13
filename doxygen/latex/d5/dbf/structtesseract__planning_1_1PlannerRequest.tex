@@ -21,10 +21,10 @@ std\+::string \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_afa12
 \begin{DoxyCompactList}\small\item\em The name of the process manager to use. \end{DoxyCompactList}\item 
 tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}}
 \begin{DoxyCompactList}\small\item\em The environment. \end{DoxyCompactList}\item 
-tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a3d8e8938be52bd9aea4c37147202eb40}{env\+\_\+state}}
+tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\+\_\+state}}
 \begin{DoxyCompactList}\small\item\em The start state to use for planning. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}
-\begin{DoxyCompactList}\small\item\em The program instruction This must containt a minimum of two move instruction the first move instruction is the start state. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The program instruction This must contain a minimum of two move instruction the first move instruction is the start state. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}
 \begin{DoxyCompactList}\small\item\em This should be a one to one match with the instructions where the \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} is replaced with a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} of Move\+Instructions. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\+\_\+profile\+\_\+remapping}}
@@ -66,11 +66,11 @@ data Planner specific data. For planners included in Tesseract\+\_\+planning thi
 
 The environment. 
 
-\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a3d8e8938be52bd9aea4c37147202eb40}\label{structtesseract__planning_1_1PlannerRequest_a3d8e8938be52bd9aea4c37147202eb40}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}\label{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}} 
 \index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!env\_state@{env\_state}}
 \index{env\_state@{env\_state}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
 \doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
-{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Planner\+Request\+::env\+\_\+state}
+{\footnotesize\ttfamily tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State tesseract\+\_\+planning\+::\+Planner\+Request\+::env\+\_\+state}
 
 
 
@@ -84,7 +84,7 @@ The start state to use for planning.
 
 
 
-The program instruction This must containt a minimum of two move instruction the first move instruction is the start state. 
+The program instruction This must contain a minimum of two move instruction the first move instruction is the start state. 
 
 \mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_afa12fe79c6dae69afc0e13d1cfd3c37d}\label{structtesseract__planning_1_1PlannerRequest_afa12fe79c6dae69afc0e13d1cfd3c37d}} 
 \index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!name@{name}}

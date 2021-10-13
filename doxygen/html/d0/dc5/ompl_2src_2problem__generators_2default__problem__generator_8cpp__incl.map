@@ -1,52 +1,52 @@
 <map id="tesseract_motion_planners/ompl/src/problem_generators/default_problem_generator.cpp" name="tesseract_motion_planners/ompl/src/problem_generators/default_problem_generator.cpp">
-<area shape="rect" id="node1" title="Generates a OMPL problem from a planner request." alt="" coords="1157,5,1360,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="861,117,1008,158"/>
-<area shape="rect" id="node3" href="$da/de3/planner__utils_8h.html" title=" " alt="" coords="1660,117,1839,158"/>
-<area shape="rect" id="node11" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="1164,213,1343,255"/>
-<area shape="rect" id="node41" href="$d9/dd2/ompl_2include_2tesseract__motion__planners_2ompl_2problem__generators_2default__problem__generator_8h.html" title="Generates a OMPL problem from a planner request." alt="" coords="1032,109,1221,165"/>
-<area shape="rect" id="node46" href="$da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="2673,117,2871,158"/>
-<area shape="rect" id="node4" title=" " alt="" coords="1783,585,1974,612"/>
-<area shape="rect" id="node5" title=" " alt="" coords="1651,503,1765,530"/>
-<area shape="rect" id="node6" title=" " alt="" coords="1367,221,1535,247"/>
-<area shape="rect" id="node7" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="3326,496,3525,537"/>
-<area shape="rect" id="node9" title=" " alt="" coords="1547,310,1725,351"/>
-<area shape="rect" id="node10" href="$d2/d80/robot__config_8h.html" title=" " alt="" coords="1660,213,1839,255"/>
-<area shape="rect" id="node25" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="4093,496,4291,537"/>
-<area shape="rect" id="node8" title=" " alt="" coords="2903,585,2958,612"/>
-<area shape="rect" id="node12" title=" " alt="" coords="1364,310,1519,351"/>
-<area shape="rect" id="node13" title=" " alt="" coords="1167,310,1340,351"/>
-<area shape="rect" id="node14" title=" " alt="" coords="201,503,380,530"/>
-<area shape="rect" id="node15" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="2405,310,2603,351"/>
-<area shape="rect" id="node16" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="2831,496,3030,537"/>
-<area shape="rect" id="node17" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="3821,496,4019,537"/>
-<area shape="rect" id="node18" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="3054,496,3253,537"/>
-<area shape="rect" id="node19" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1539,407,1738,448"/>
-<area shape="rect" id="node21" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="1327,496,1526,537"/>
-<area shape="rect" id="node22" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="3237,407,3435,448"/>
-<area shape="rect" id="node24" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="3549,496,3747,537"/>
-<area shape="rect" id="node32" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="962,407,1161,448"/>
-<area shape="rect" id="node33" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="2591,407,2790,448"/>
-<area shape="rect" id="node34" href="$d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2863,407,3062,448"/>
-<area shape="rect" id="node35" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="690,407,889,448"/>
-<area shape="rect" id="node37" href="$d2/d61/timer__instruction_8h.html" title=" " alt="" coords="1941,496,2139,537"/>
-<area shape="rect" id="node38" href="$d0/d25/wait__instruction_8h.html" title=" " alt="" coords="2163,496,2362,537"/>
-<area shape="rect" id="node39" href="$d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="2386,496,2585,537"/>
-<area shape="rect" id="node40" href="$d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="2609,496,2807,537"/>
-<area shape="rect" id="node20" title=" " alt="" coords="908,503,993,530"/>
-<area shape="rect" id="node23" title=" " alt="" coords="1245,503,1304,530"/>
-<area shape="rect" id="node26" title=" " alt="" coords="4171,585,4213,612"/>
-<area shape="rect" id="node27" title=" " alt="" coords="4237,585,4309,612"/>
-<area shape="rect" id="node28" title=" " alt="" coords="4334,585,4410,612"/>
-<area shape="rect" id="node29" title=" " alt="" coords="3909,585,4019,612"/>
-<area shape="rect" id="node30" title=" " alt="" coords="1047,585,1115,612"/>
-<area shape="rect" id="node31" title=" " alt="" coords="4043,585,4146,612"/>
-<area shape="rect" id="node36" title=" " alt="" coords="582,496,743,537"/>
-<area shape="rect" id="node42" href="$d8/d16/ompl__default__plan__profile_8h.html" title="Tesseract OMPL default plan profile." alt="" coords="873,303,1052,359"/>
-<area shape="rect" id="node43" href="$d1/d13/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2utils_8h.html" title="Tesseract OMPL planner utility functions." alt="" coords="437,407,616,448"/>
-<area shape="rect" id="node44" href="$de/d1e/ompl__planner__configurator_8h.html" title="Tesseract OMPL planner configurator." alt="" coords="195,407,413,448"/>
-<area shape="rect" id="node45" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="1185,407,1364,448"/>
-<area shape="rect" id="node47" title=" " alt="" coords="3031,221,3084,247"/>
-<area shape="rect" id="node48" href="$de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="3105,310,3303,351"/>
-<area shape="rect" id="node49" href="$d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="3107,213,3306,255"/>
-<area shape="rect" id="node50" href="$d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="2809,213,3007,255"/>
+<area shape="rect" id="node1" title="Generates a OMPL problem from a planner request." alt="" coords="708,5,910,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="412,117,558,158"/>
+<area shape="rect" id="node3" href="$da/de3/planner__utils_8h.html" title=" " alt="" coords="912,117,1090,158"/>
+<area shape="rect" id="node12" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="714,213,893,255"/>
+<area shape="rect" id="node42" href="$d9/dd2/ompl_2include_2tesseract__motion__planners_2ompl_2problem__generators_2default__problem__generator_8h.html" title="Generates a OMPL problem from a planner request." alt="" coords="582,109,772,165"/>
+<area shape="rect" id="node46" href="$da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="2940,117,3139,158"/>
+<area shape="rect" id="node4" title=" " alt="" coords="1798,585,1988,612"/>
+<area shape="rect" id="node5" title=" " alt="" coords="885,503,1000,530"/>
+<area shape="rect" id="node6" title=" " alt="" coords="917,221,1085,247"/>
+<area shape="rect" id="node7" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="3586,496,3784,537"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1109,213,1288,255"/>
+<area shape="rect" id="node10" href="$d2/d80/robot__config_8h.html" title=" " alt="" coords="378,407,557,448"/>
+<area shape="rect" id="node26" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="4131,496,4330,537"/>
+<area shape="rect" id="node8" title=" " alt="" coords="2830,585,2884,612"/>
+<area shape="rect" id="node11" title=" " alt="" coords="360,496,506,537"/>
+<area shape="rect" id="node13" title=" " alt="" coords="885,310,1040,351"/>
+<area shape="rect" id="node14" title=" " alt="" coords="1064,310,1237,351"/>
+<area shape="rect" id="node15" title=" " alt="" coords="682,503,861,530"/>
+<area shape="rect" id="node16" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="2518,310,2716,351"/>
+<area shape="rect" id="node17" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="3314,496,3512,537"/>
+<area shape="rect" id="node18" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="3908,496,4107,537"/>
+<area shape="rect" id="node19" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="2868,496,3067,537"/>
+<area shape="rect" id="node20" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1140,407,1339,448"/>
+<area shape="rect" id="node22" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="1024,496,1223,537"/>
+<area shape="rect" id="node23" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="3299,407,3498,448"/>
+<area shape="rect" id="node25" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="3091,496,3290,537"/>
+<area shape="rect" id="node33" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="1736,407,1935,448"/>
+<area shape="rect" id="node34" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="3027,407,3226,448"/>
+<area shape="rect" id="node35" href="$d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2755,407,2954,448"/>
+<area shape="rect" id="node36" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="1514,407,1712,448"/>
+<area shape="rect" id="node38" href="$d2/d61/timer__instruction_8h.html" title=" " alt="" coords="1928,496,2127,537"/>
+<area shape="rect" id="node39" href="$d0/d25/wait__instruction_8h.html" title=" " alt="" coords="2200,496,2399,537"/>
+<area shape="rect" id="node40" href="$d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="2423,496,2622,537"/>
+<area shape="rect" id="node41" href="$d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="2646,496,2844,537"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1297,503,1382,530"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1846,503,1905,530"/>
+<area shape="rect" id="node27" title=" " alt="" coords="4209,585,4252,612"/>
+<area shape="rect" id="node28" title=" " alt="" coords="4276,585,4348,612"/>
+<area shape="rect" id="node29" title=" " alt="" coords="4372,585,4448,612"/>
+<area shape="rect" id="node30" title=" " alt="" coords="3947,585,4058,612"/>
+<area shape="rect" id="node31" title=" " alt="" coords="2012,585,2080,612"/>
+<area shape="rect" id="node32" title=" " alt="" coords="4082,585,4184,612"/>
+<area shape="rect" id="node37" title=" " alt="" coords="1458,496,1619,537"/>
+<area shape="rect" id="node43" href="$d8/d16/ompl__default__plan__profile_8h.html" title="Tesseract OMPL default plan profile." alt="" coords="632,303,810,359"/>
+<area shape="rect" id="node44" href="$d1/d13/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2utils_8h.html" title="Tesseract OMPL planner utility functions." alt="" coords="632,407,810,448"/>
+<area shape="rect" id="node45" href="$de/d1e/ompl__planner__configurator_8h.html" title="Tesseract OMPL planner configurator." alt="" coords="85,407,304,448"/>
+<area shape="rect" id="node47" title=" " alt="" coords="3673,221,3726,247"/>
+<area shape="rect" id="node48" href="$de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="3299,310,3498,351"/>
+<area shape="rect" id="node49" href="$d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="3163,213,3362,255"/>
+<area shape="rect" id="node50" href="$d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="2940,213,3139,255"/>
 </map>

@@ -144,10 +144,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a592c0a96be9938a36801ad6d0fa18eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of this planner.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a592c0a96be9938a36801ad6d0fa18eb8">More...</a><br /></td></tr>
 <tr class="separator:a592c0a96be9938a36801ad6d0fa18eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad11f91679e5a495d0b37c460f52ef5b4"><td class="memItemLeft" align="right" valign="top">tesseract_common::StatusCode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4">solve</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, <a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html">PlannerResponse</a> &amp;response, bool verbose=false) const override</td></tr>
-<tr class="memdesc:ad11f91679e5a495d0b37c460f52ef5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4">More...</a><br /></td></tr>
+<tr class="memdesc:ad11f91679e5a495d0b37c460f52ef5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4">More...</a><br /></td></tr>
 <tr class="separator:ad11f91679e5a495d0b37c460f52ef5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13a6df1d08a2fa9507cf4b9983e55d17"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a13a6df1d08a2fa9507cf4b9983e55d17">terminate</a> () override</td></tr>
-<tr class="memdesc:a13a6df1d08a2fa9507cf4b9983e55d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">If <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameters...">solve()</a> is running, terminate the computation. Return false if termination not possible. No-op if <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameters...">solve()</a> is not running (returns true).  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a13a6df1d08a2fa9507cf4b9983e55d17">More...</a><br /></td></tr>
+<tr class="memdesc:a13a6df1d08a2fa9507cf4b9983e55d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">If <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameter...">solve()</a> is running, terminate the computation. Return false if termination not possible. No-op if <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameter...">solve()</a> is not running (returns true).  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a13a6df1d08a2fa9507cf4b9983e55d17">More...</a><br /></td></tr>
 <tr class="separator:a13a6df1d08a2fa9507cf4b9983e55d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61c68448ab3ca6f602f97a24044518f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a61c68448ab3ca6f602f97a24044518f8">clear</a> () override</td></tr>
 <tr class="memdesc:a61c68448ab3ca6f602f97a24044518f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the data structures used by the planner.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a61c68448ab3ca6f602f97a24044518f8">More...</a><br /></td></tr>
@@ -191,9 +191,9 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a217cd7005be20ca0303647c7f76a752d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a217cd7005be20ca0303647c7f76a752d">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_environment::EnvState::ConstPtr &amp;current_state, const tesseract_kinematics::ForwardKinematics::Ptr &amp;fwd_kin)</td></tr>
-<tr class="memdesc:a217cd7005be20ca0303647c7f76a752d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planners status codes.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a217cd7005be20ca0303647c7f76a752d">More...</a><br /></td></tr>
-<tr class="separator:a217cd7005be20ca0303647c7f76a752d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab03e0226acdf31923ccb49f1a8d6f2ca"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ab03e0226acdf31923ccb49f1a8d6f2ca">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_kinematics::JointGroup &amp;manip)</td></tr>
+<tr class="memdesc:ab03e0226acdf31923ccb49f1a8d6f2ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planners status codes.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ab03e0226acdf31923ccb49f1a8d6f2ca">More...</a><br /></td></tr>
+<tr class="separator:ab03e0226acdf31923ccb49f1a8d6f2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -445,8 +445,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a217cd7005be20ca0303647c7f76a752d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a217cd7005be20ca0303647c7f76a752d">&#9670;&nbsp;</a></span>getStartInstruction()</h2>
+<a id="ab03e0226acdf31923ccb49f1a8d6f2ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab03e0226acdf31923ccb49f1a8d6f2ca">&#9670;&nbsp;</a></span>getStartInstruction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -463,14 +463,14 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_environment::EnvState::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const tesseract_scene_graph::SceneState &amp;&#160;</td>
           <td class="paramname"><em>current_state</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_kinematics::ForwardKinematics::Ptr &amp;&#160;</td>
-          <td class="paramname"><em>fwd_kin</em>&#160;</td>
+          <td class="paramtype">const tesseract_kinematics::JointGroup &amp;&#160;</td>
+          <td class="paramname"><em>manip</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -623,7 +623,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss. </p>
+<p>Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">response</td><td>The results of the optimization. Primary output is the optimized joint trajectory </td></tr>
@@ -661,7 +661,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>If <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameters...">solve()</a> is running, terminate the computation. Return false if termination not possible. No-op if <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameters...">solve()</a> is not running (returns true). </p>
+<p>If <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameter...">solve()</a> is running, terminate the computation. Return false if termination not possible. No-op if <a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ad11f91679e5a495d0b37c460f52ef5b4" title="Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameter...">solve()</a> is not running (returns true). </p>
 
 <p>Implements <a class="el" href="../../dd/d5f/classtesseract__planning_1_1MotionPlanner.html#a44afac05675a12abc7df47df8f495148">tesseract_planning::MotionPlanner</a>.</p>
 
@@ -681,7 +681,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The available composite profiles. </p>
-<p>Composite instruction is a way to namespace or organize your planning problem. The composite instruction has a profile which is used for applying multy waypoint costs and constraints like joint smoothing, collision avoidance, and velocity smoothing. </p>
+<p>Composite instruction is a way to namespace or organize your planning problem. The composite instruction has a profile which is used for applying multi waypoint costs and constraints like joint smoothing, collision avoidance, and velocity smoothing. </p>
 
 </div>
 </div>
@@ -720,7 +720,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The available plan profiles. </p>
-<p>Plan instruction profiles are used to control waypoint specific information like fixed waypoint, toleranced waypoint, corner distance waypoint, etc. </p>
+<p>Plan instruction profiles are used to control waypoint specific information like fixed waypoint, tolerance waypoint, corner distance waypoint, etc. </p>
 
 </div>
 </div>
@@ -753,7 +753,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

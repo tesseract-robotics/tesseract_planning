@@ -192,12 +192,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">tesseract_planning::getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;joint_names, const Eigen::MatrixXd &amp;states, const PlanInstruction &amp;base_instruction)</td></tr>
 <tr class="memdesc:a279ab58cb9c7b07e9e678f077bb4d932"><td class="mdescLeft">&#160;</td><td class="mdescRight">This takes the provided seed state for the base_instruction and create a corresponding composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">More...</a><br /></td></tr>
 <tr class="separator:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae29bc88fbc476c1b22d8e5ce0fdfb8d1">tesseract_planning::getClosestJointSolution</a> (const Eigen::Isometry3d &amp;p, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin, const Eigen::VectorXd &amp;seed)</td></tr>
-<tr class="memdesc:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae29bc88fbc476c1b22d8e5ce0fdfb8d1">More...</a><br /></td></tr>
-<tr class="separator:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed53b814bf5812f2272a14264314d601"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aed53b814bf5812f2272a14264314d601">tesseract_planning::getClosestJointSolution</a> (const Eigen::Isometry3d &amp;p1, const Eigen::Isometry3d &amp;p2, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin1, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin2, const Eigen::VectorXd &amp;seed)</td></tr>
-<tr class="memdesc:aed53b814bf5812f2272a14264314d601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#aed53b814bf5812f2272a14264314d601">More...</a><br /></td></tr>
-<tr class="separator:aed53b814bf5812f2272a14264314d601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2ca29a5ccf6deb8ea041aed822ebcf8e">tesseract_planning::getClosestJointSolution</a> (const InstructionInfo &amp;info, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2ca29a5ccf6deb8ea041aed822ebcf8e">More...</a><br /></td></tr>
+<tr class="separator:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0c30630add2fd3d49886a50ea0d8fad7">tesseract_planning::getClosestJointSolution</a> (const InstructionInfo &amp;info1, const InstructionInfo &amp;info2, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:a0c30630add2fd3d49886a50ea0d8fad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#a0c30630add2fd3d49886a50ea0d8fad7">More...</a><br /></td></tr>
+<tr class="separator:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides interpolation utils for simple planner profiles. </p>
@@ -212,7 +212,7 @@ Functions</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:56 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:07 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

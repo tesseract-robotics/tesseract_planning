@@ -44,9 +44,9 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a
 double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a58ee7a1921b88ff7137f2b120f7dfef1}{state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}
 \begin{DoxyCompactList}\small\item\em The maximum joint distance, the norm of changes to all joint positions between successive steps. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a7f5a90a2b2503640fcdc511f600d6bdc}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}
-\begin{DoxyCompactList}\small\item\em The maximum translational distance between successive steps. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The maximum translation distance between successive steps. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a8ae5221cb38f1afe3c9a6a5fe2d69be4}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}
-\begin{DoxyCompactList}\small\item\em The maximaum rotational distance between successive steps. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The maximum rotational distance between successive steps. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a094adae734ad0ba03704b781b51b68a6}{min\+\_\+steps}}
 \begin{DoxyCompactList}\small\item\em The minimum number of steps for the plan. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
@@ -92,9 +92,9 @@ int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a09
 \begin{DoxyParams}{Parameters}
 {\em state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length} & The maximum joint distance (norm of changes to all joint positions) between successive steps \\
 \hline
-{\em translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length} & The maximum translational distance between successive steps \\
+{\em translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length} & The maximum translation distance between successive steps \\
 \hline
-{\em rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length} & The maximaum rotational distance between successive steps \\
+{\em rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length} & The maximum rotational distance between successive steps \\
 \hline
 {\em min\+\_\+steps} & The minimum number of steps for the plan \\
 \hline
@@ -146,7 +146,7 @@ This function interpolates the motion from start state to end state. Results are
 \begin{DoxyItemize}
 \item the number of steps for the plan will be calculated such that\+:
 \begin{DoxyItemize}
-\item the translational distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the translation distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
 \item the rotational distance between successive steps is no longer than rotation\+\_\+longest\+\_\+valid\+\_\+segment
 \item the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length
 \item the max steps from the above calculations will be be compared to the min\+\_\+steps and the largest will be chosen
@@ -191,7 +191,7 @@ This function interpolates the motion from start state to end state. Results are
 \begin{DoxyItemize}
 \item the number of steps for the plan will be calculated such that\+:
 \begin{DoxyItemize}
-\item the translational distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the translation distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
 \item the rotational distance between successive steps is no longer than rotation\+\_\+longest\+\_\+valid\+\_\+segment
 \item the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length
 \item the max steps from the above calculations will be be compared to the min\+\_\+steps and the largest will be chosen
@@ -226,7 +226,7 @@ A composite instruction of move instruction with state waypoints
 \begin{DoxyItemize}
 \item the number of steps for the plan will be calculated such that\+:
 \begin{DoxyItemize}
-\item the translational distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the translation distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
 \item the rotational distance between successive steps is no longer than rotation\+\_\+longest\+\_\+valid\+\_\+segment
 \item the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length
 \item the max steps from the above calculations will be be compared to the min\+\_\+steps and the largest will be chosen
@@ -263,7 +263,7 @@ This function interpolates the motion from start state to end state. Results are
 \begin{DoxyItemize}
 \item the number of steps for the plan will be calculated such that\+:
 \begin{DoxyItemize}
-\item the translational distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the translation distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
 \item the rotational distance between successive steps is no longer than rotation\+\_\+longest\+\_\+valid\+\_\+segment
 \item the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length
 \item the max steps from the above calculations will be be compared to the min\+\_\+steps and the largest will be chosen
@@ -295,7 +295,7 @@ The minimum number of steps for the plan.
 
 
 
-The maximaum rotational distance between successive steps. 
+The maximum rotational distance between successive steps. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a58ee7a1921b88ff7137f2b120f7dfef1}\label{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a58ee7a1921b88ff7137f2b120f7dfef1}} 
 \index{tesseract\_planning::SimplePlannerLVSPlanProfile@{tesseract\_planning::SimplePlannerLVSPlanProfile}!state\_longest\_valid\_segment\_length@{state\_longest\_valid\_segment\_length}}
@@ -315,7 +315,7 @@ The maximum joint distance, the norm of changes to all joint positions between s
 
 
 
-The maximum translational distance between successive steps. 
+The maximum translation distance between successive steps. 
 
 
 

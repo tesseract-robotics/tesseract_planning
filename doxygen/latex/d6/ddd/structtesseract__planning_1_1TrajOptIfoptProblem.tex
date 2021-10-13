@@ -19,11 +19,9 @@ Collaboration diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Ifopt\+Problem\+
 \item 
 tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_aa04aee9862276b463ba831ce09f25528}{environment}}
 \item 
-tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a58c6e959ba3e74b889f56e1bd8f006f8}{env\+\_\+state}}
+tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a9e30d55f18257ea06c28bdfddd96a25d}{env\+\_\+state}}
 \item 
-tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_ab7b74e83bd2b3c0f496841ec7357ec80}{manip\+\_\+fwd\+\_\+kin}}
-\item 
-tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_ab0e3365cbf894375e3d2a0fb92799d00}{manip\+\_\+inv\+\_\+kin}}
+tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a71c88fb60b084fccbf7356264d4069fa}{manip}}
 \item 
 trajopt\+\_\+sqp\+::\+QPProblem\+::\+Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_acb2cab13676af34abe96b021cd487980}{nlp}}
 \item 
@@ -32,11 +30,11 @@ std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \mb
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structtesseract__planning_1_1TrajOptIfoptProblem_a58c6e959ba3e74b889f56e1bd8f006f8}\label{structtesseract__planning_1_1TrajOptIfoptProblem_a58c6e959ba3e74b889f56e1bd8f006f8}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1TrajOptIfoptProblem_a9e30d55f18257ea06c28bdfddd96a25d}\label{structtesseract__planning_1_1TrajOptIfoptProblem_a9e30d55f18257ea06c28bdfddd96a25d}} 
 \index{tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}!env\_state@{env\_state}}
 \index{env\_state@{env\_state}!tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}}
 \doxysubsubsection{\texorpdfstring{env\_state}{env\_state}}
-{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Problem\+::env\+\_\+state}
+{\footnotesize\ttfamily tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Problem\+::env\+\_\+state}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1TrajOptIfoptProblem_aa04aee9862276b463ba831ce09f25528}\label{structtesseract__planning_1_1TrajOptIfoptProblem_aa04aee9862276b463ba831ce09f25528}} 
 \index{tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}!environment@{environment}}
@@ -44,17 +42,11 @@ std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \mb
 \doxysubsubsection{\texorpdfstring{environment}{environment}}
 {\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Problem\+::environment}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1TrajOptIfoptProblem_ab7b74e83bd2b3c0f496841ec7357ec80}\label{structtesseract__planning_1_1TrajOptIfoptProblem_ab7b74e83bd2b3c0f496841ec7357ec80}} 
-\index{tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}!manip\_fwd\_kin@{manip\_fwd\_kin}}
-\index{manip\_fwd\_kin@{manip\_fwd\_kin}!tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}}
-\doxysubsubsection{\texorpdfstring{manip\_fwd\_kin}{manip\_fwd\_kin}}
-{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Problem\+::manip\+\_\+fwd\+\_\+kin}
-
-\mbox{\Hypertarget{structtesseract__planning_1_1TrajOptIfoptProblem_ab0e3365cbf894375e3d2a0fb92799d00}\label{structtesseract__planning_1_1TrajOptIfoptProblem_ab0e3365cbf894375e3d2a0fb92799d00}} 
-\index{tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}!manip\_inv\_kin@{manip\_inv\_kin}}
-\index{manip\_inv\_kin@{manip\_inv\_kin}!tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}}
-\doxysubsubsection{\texorpdfstring{manip\_inv\_kin}{manip\_inv\_kin}}
-{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Problem\+::manip\+\_\+inv\+\_\+kin}
+\mbox{\Hypertarget{structtesseract__planning_1_1TrajOptIfoptProblem_a71c88fb60b084fccbf7356264d4069fa}\label{structtesseract__planning_1_1TrajOptIfoptProblem_a71c88fb60b084fccbf7356264d4069fa}} 
+\index{tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}!manip@{manip}}
+\index{manip@{manip}!tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}}
+\doxysubsubsection{\texorpdfstring{manip}{manip}}
+{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Problem\+::manip}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1TrajOptIfoptProblem_acb2cab13676af34abe96b021cd487980}\label{structtesseract__planning_1_1TrajOptIfoptProblem_acb2cab13676af34abe96b021cd487980}} 
 \index{tesseract\_planning::TrajOptIfoptProblem@{tesseract\_planning::TrajOptIfoptProblem}!nlp@{nlp}}

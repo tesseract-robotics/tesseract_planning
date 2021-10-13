@@ -94,22 +94,21 @@ Collaboration diagram for tesseract_planning::DescartesCollisionEdgeEvaluator&lt
 <div class="dyncontent">
 <div class="center"><img src="../../df/db2/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator__coll__graph.png" border="0" usemap="#atesseract__planning_1_1DescartesCollisionEdgeEvaluator_3_01FloatType_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="atesseract__planning_1_1DescartesCollisionEdgeEvaluator_3_01FloatType_01_4_coll__map" id="atesseract__planning_1_1DescartesCollisionEdgeEvaluator_3_01FloatType_01_4_coll__map">
-<area shape="rect" title=" " alt="" coords="780,189,999,245"/>
+<area shape="rect" title=" " alt="" coords="780,151,999,207"/>
 <area shape="rect" title=" " alt="" coords="363,5,561,47"/>
 <area shape="rect" title=" " alt="" coords="366,71,558,141"/>
 <area shape="rect" title=" " alt="" coords="421,166,503,193"/>
 <area shape="rect" title=" " alt="" coords="375,217,549,288"/>
-<area shape="rect" title=" " alt="" coords="375,312,549,383"/>
-<area shape="rect" title=" " alt="" coords="382,407,542,434"/>
-<area shape="rect" title=" " alt="" coords="179,407,257,434"/>
-<area shape="rect" title=" " alt="" coords="5,400,129,441"/>
+<area shape="rect" title=" " alt="" coords="382,313,542,339"/>
+<area shape="rect" title=" " alt="" coords="179,313,257,339"/>
+<area shape="rect" title=" " alt="" coords="5,305,129,347"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2e2eb14e8a44e27729f432f558c5b4fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a2e2eb14e8a44e27729f432f558c5b4fd">DescartesCollisionEdgeEvaluator</a> (const tesseract_environment::Environment::ConstPtr &amp;collision_env, std::vector&lt; std::string &gt; active_links, std::vector&lt; std::string &gt; joint_names, tesseract_collision::CollisionCheckConfig config, bool allow_collision=false, bool debug=false)</td></tr>
-<tr class="separator:a2e2eb14e8a44e27729f432f558c5b4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a4c440c2c4fd673057deac1f4ceb100"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a9a4c440c2c4fd673057deac1f4ceb100">DescartesCollisionEdgeEvaluator</a> (const tesseract_environment::Environment &amp;collision_env, tesseract_kinematics::JointGroup::ConstPtr manip, tesseract_collision::CollisionCheckConfig config, bool allow_collision=false, bool debug=false)</td></tr>
+<tr class="separator:a9a4c440c2c4fd673057deac1f4ceb100"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30427575131a80dda8ef9b9160194149"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, FloatType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a30427575131a80dda8ef9b9160194149">evaluate</a> (const descartes_light::State&lt; FloatType &gt; &amp;start, const descartes_light::State&lt; FloatType &gt; &amp;end) const override</td></tr>
 <tr class="separator:a30427575131a80dda8ef9b9160194149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -127,18 +126,15 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a3fc58466833001854895de5ba33d3655"><td class="memItemLeft" align="right" valign="top">tesseract_environment::StateSolver::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a3fc58466833001854895de5ba33d3655">state_solver_</a></td></tr>
-<tr class="memdesc:a3fc58466833001854895de5ba33d3655"><td class="mdescLeft">&#160;</td><td class="mdescRight">The tesseract state solver.  <a href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a3fc58466833001854895de5ba33d3655">More...</a><br /></td></tr>
-<tr class="separator:a3fc58466833001854895de5ba33d3655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a003d93da65807d5005368c4aae7834ef"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::JointGroup::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a003d93da65807d5005368c4aae7834ef">manip_</a></td></tr>
+<tr class="memdesc:a003d93da65807d5005368c4aae7834ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The tesseract state solver.  <a href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a003d93da65807d5005368c4aae7834ef">More...</a><br /></td></tr>
+<tr class="separator:a003d93da65807d5005368c4aae7834ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16d6de5f3986534320570cd7aec1efbf"><td class="memItemLeft" align="right" valign="top">tesseract_scene_graph::AllowedCollisionMatrix&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a16d6de5f3986534320570cd7aec1efbf">acm_</a></td></tr>
 <tr class="memdesc:a16d6de5f3986534320570cd7aec1efbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The allowed collision matrix.  <a href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a16d6de5f3986534320570cd7aec1efbf">More...</a><br /></td></tr>
 <tr class="separator:a16d6de5f3986534320570cd7aec1efbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa722ee288880e45ad54fd124bc0e11a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#aaa722ee288880e45ad54fd124bc0e11a">active_link_names_</a></td></tr>
 <tr class="memdesc:aaa722ee288880e45ad54fd124bc0e11a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A vector of active link names.  <a href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#aaa722ee288880e45ad54fd124bc0e11a">More...</a><br /></td></tr>
 <tr class="separator:aaa722ee288880e45ad54fd124bc0e11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60515959824fcfa9b6623c8d41faff2d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a60515959824fcfa9b6623c8d41faff2d">joint_names_</a></td></tr>
-<tr class="memdesc:a60515959824fcfa9b6623c8d41faff2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A vector of joint names.  <a href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a60515959824fcfa9b6623c8d41faff2d">More...</a><br /></td></tr>
-<tr class="separator:a60515959824fcfa9b6623c8d41faff2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a005b976fe7f8800d1d5f6b4f563a1b1a"><td class="memItemLeft" align="right" valign="top">tesseract_collision::DiscreteContactManager::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a005b976fe7f8800d1d5f6b4f563a1b1a">discrete_contact_manager_</a></td></tr>
 <tr class="memdesc:a005b976fe7f8800d1d5f6b4f563a1b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The discrete contact manager.  <a href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a005b976fe7f8800d1d5f6b4f563a1b1a">More...</a><br /></td></tr>
 <tr class="separator:a005b976fe7f8800d1d5f6b4f563a1b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,13 +159,10 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a8f3bbe4ffb6f1b9dd7d3d16fc64e39aa"><td class="memItemLeft" align="right" valign="top">std::map&lt; unsigned long int, tesseract_collision::DiscreteContactManager::Ptr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a8f3bbe4ffb6f1b9dd7d3d16fc64e39aa">discrete_contact_managers_</a></td></tr>
 <tr class="memdesc:a8f3bbe4ffb6f1b9dd7d3d16fc64e39aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">The discrete contact manager cache.  <a href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#a8f3bbe4ffb6f1b9dd7d3d16fc64e39aa">More...</a><br /></td></tr>
 <tr class="separator:a8f3bbe4ffb6f1b9dd7d3d16fc64e39aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aede336d4a19191c71cfc4d77ec808c56"><td class="memItemLeft" align="right" valign="top">std::map&lt; unsigned long int, tesseract_environment::StateSolver::Ptr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#aede336d4a19191c71cfc4d77ec808c56">state_solver_managers_</a></td></tr>
-<tr class="memdesc:aede336d4a19191c71cfc4d77ec808c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state solver manager cache.  <a href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html#aede336d4a19191c71cfc4d77ec808c56">More...</a><br /></td></tr>
-<tr class="separator:aede336d4a19191c71cfc4d77ec808c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2e2eb14e8a44e27729f432f558c5b4fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e2eb14e8a44e27729f432f558c5b4fd">&#9670;&nbsp;</a></span>DescartesCollisionEdgeEvaluator()</h2>
+<a id="a9a4c440c2c4fd673057deac1f4ceb100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a4c440c2c4fd673057deac1f4ceb100">&#9670;&nbsp;</a></span>DescartesCollisionEdgeEvaluator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,20 +172,14 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html">tesseract_planning::DescartesCollisionEdgeEvaluator</a>&lt; FloatType &gt;::<a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html">DescartesCollisionEdgeEvaluator</a> </td>
           <td>(</td>
-          <td class="paramtype">const tesseract_environment::Environment::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const tesseract_environment::Environment &amp;&#160;</td>
           <td class="paramname"><em>collision_env</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; std::string &gt;&#160;</td>
-          <td class="paramname"><em>active_links</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::string &gt;&#160;</td>
-          <td class="paramname"><em>joint_names</em>, </td>
+          <td class="paramtype">tesseract_kinematics::JointGroup::ConstPtr&#160;</td>
+          <td class="paramname"><em>manip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -652,8 +639,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a60515959824fcfa9b6623c8d41faff2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60515959824fcfa9b6623c8d41faff2d">&#9670;&nbsp;</a></span>joint_names_</h2>
+<a id="a003d93da65807d5005368c4aae7834ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a003d93da65807d5005368c4aae7834ef">&#9670;&nbsp;</a></span>manip_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -664,7 +651,7 @@ template&lt;typename FloatType &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::string&gt; <a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html">tesseract_planning::DescartesCollisionEdgeEvaluator</a>&lt; FloatType &gt;::joint_names_</td>
+          <td class="memname">tesseract_kinematics::JointGroup::ConstPtr <a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html">tesseract_planning::DescartesCollisionEdgeEvaluator</a>&lt; FloatType &gt;::manip_</td>
         </tr>
       </table>
   </td>
@@ -674,7 +661,7 @@ template&lt;typename FloatType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>A vector of joint names. </p>
+<p>The tesseract state solver. </p>
 
 </div>
 </div>
@@ -704,58 +691,6 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a3fc58466833001854895de5ba33d3655"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fc58466833001854895de5ba33d3655">&#9670;&nbsp;</a></span>state_solver_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FloatType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_environment::StateSolver::ConstPtr <a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html">tesseract_planning::DescartesCollisionEdgeEvaluator</a>&lt; FloatType &gt;::state_solver_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The tesseract state solver. </p>
-
-</div>
-</div>
-<a id="aede336d4a19191c71cfc4d77ec808c56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aede336d4a19191c71cfc4d77ec808c56">&#9670;&nbsp;</a></span>state_solver_managers_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FloatType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::map&lt;unsigned long int, tesseract_environment::StateSolver::Ptr&gt; <a class="el" href="../../d5/d29/classtesseract__planning_1_1DescartesCollisionEdgeEvaluator.html">tesseract_planning::DescartesCollisionEdgeEvaluator</a>&lt; FloatType &gt;::state_solver_managers_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The state solver manager cache. </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/<a class="el" href="../../d2/d61/descartes__collision__edge__evaluator_8h_source.html">descartes_collision_edge_evaluator.h</a></li>
 <li>tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/impl/<a class="el" href="../../db/dec/descartes__collision__edge__evaluator_8hpp_source.html">descartes_collision_edge_evaluator.hpp</a></li>
@@ -763,7 +698,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

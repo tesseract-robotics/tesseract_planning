@@ -80,7 +80,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;tesseract_common/macros.h&gt;</code><br />
 <code>#include &lt;Eigen/Geometry&gt;</code><br />
-<code>#include &lt;tesseract_kinematics/core/forward_kinematics.h&gt;</code><br />
+<code>#include &lt;tesseract_kinematics/core/joint_group.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for robot_config.h:</div>
 <div class="dyncontent">
@@ -89,7 +89,7 @@ Include dependency graph for robot_config.h:</div>
 <area shape="rect" title=" " alt="" coords="174,5,382,61"/>
 <area shape="rect" title=" " alt="" coords="5,117,196,143"/>
 <area shape="rect" title=" " alt="" coords="221,117,335,143"/>
-<area shape="rect" title=" " alt="" coords="359,109,538,151"/>
+<area shape="rect" title=" " alt="" coords="359,109,506,151"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -144,10 +144,10 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af607325ca089b6dafd5b521c4b16351a"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
-<tr class="memitem:af607325ca089b6dafd5b521c4b16351a"><td class="memTemplItemLeft" align="right" valign="top">RobotConfig&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">tesseract_planning::getRobotConfig</a> (const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;robot_kin, const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</td></tr>
-<tr class="memdesc:af607325ca089b6dafd5b521c4b16351a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configuration of a six axis industrial robot.  <a href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">More...</a><br /></td></tr>
-<tr class="separator:af607325ca089b6dafd5b521c4b16351a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cfcdf93296e6806ae29ff7f48186fdc"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
+<tr class="memitem:a6cfcdf93296e6806ae29ff7f48186fdc"><td class="memTemplItemLeft" align="right" valign="top">RobotConfig&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6cfcdf93296e6806ae29ff7f48186fdc">tesseract_planning::getRobotConfig</a> (const tesseract_kinematics::JointGroup &amp;joint_group, const std::string &amp;base_link, const std::string &amp;tcp_frame, const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</td></tr>
+<tr class="memdesc:a6cfcdf93296e6806ae29ff7f48186fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configuration of a six axis industrial robot.  <a href="../../d9/dcd/namespacetesseract__planning.html#a6cfcdf93296e6806ae29ff7f48186fdc">More...</a><br /></td></tr>
+<tr class="separator:a6cfcdf93296e6806ae29ff7f48186fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adebdc685c90e8b2873f2e09adf04860b"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
 <tr class="memitem:adebdc685c90e8b2873f2e09adf04860b"><td class="memTemplItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adebdc685c90e8b2873f2e09adf04860b">tesseract_planning::getJointTurns</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values)</td></tr>
 <tr class="memdesc:adebdc685c90e8b2873f2e09adf04860b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of turns for joints that allow rotation beyond +- 180 degrees.  <a href="../../d9/dcd/namespacetesseract__planning.html#adebdc685c90e8b2873f2e09adf04860b">More...</a><br /></td></tr>
@@ -170,7 +170,7 @@ Variables</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:56 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:07 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

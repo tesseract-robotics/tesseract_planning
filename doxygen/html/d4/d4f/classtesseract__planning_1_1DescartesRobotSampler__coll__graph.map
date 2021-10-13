@@ -1,6 +1,8 @@
 <map id="tesseract_planning::DescartesRobotSampler&lt; FloatType &gt;" name="tesseract_planning::DescartesRobotSampler&lt; FloatType &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="288,63,457,119"/>
-<area shape="rect" id="node2" title=" " alt="" coords="9,5,179,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,71,183,112"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,136,183,177"/>
+<area shape="rect" id="node1" title=" " alt="" coords="533,89,703,145"/>
+<area shape="rect" id="node2" title=" " alt="" coords="183,5,352,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="228,71,307,98"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,64,129,105"/>
+<area shape="rect" id="node5" title=" " alt="" coords="179,123,356,164"/>
+<area shape="rect" id="node6" title=" " alt="" coords="179,188,356,229"/>
 </map>

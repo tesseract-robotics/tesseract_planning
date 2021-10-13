@@ -44,9 +44,9 @@ Move\+Instruction\+Type \mbox{\hyperlink{namespacetesseract__planning_aaec1f7a5a
 \begin{DoxyCompactList}\small\item\em Get the associated move instruction type for the give plan instruction type. \end{DoxyCompactList}\item 
 Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a279ab58cb9c7b07e9e678f077bb4d932}{tesseract\+\_\+planning\+::get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const Plan\+Instruction \&base\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae29bc88fbc476c1b22d8e5ce0fdfb8d1}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Eigen\+::\+Isometry3d \&p, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin, const Eigen\+::\+Vector\+Xd \&seed)
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a2ca29a5ccf6deb8ea041aed822ebcf8e}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Instruction\+Info \&info, const Eigen\+::\+Vector\+Xd \&seed)
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for p to the provided seed. \end{DoxyCompactList}\item 
-std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_aed53b814bf5812f2272a14264314d601}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Eigen\+::\+Isometry3d \&p1, const Eigen\+::\+Isometry3d \&p2, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin1, const tesseract\+\_\+kinematics\+::\+Inverse\+Kinematics\+::\+Ptr \&inv\+\_\+kin2, const Eigen\+::\+Vector\+Xd \&seed)
+std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_a0c30630add2fd3d49886a50ea0d8fad7}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Instruction\+Info \&info1, const Instruction\+Info \&info2, const Eigen\+::\+Vector\+Xd \&seed)
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for the two provided cartesian poses. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 

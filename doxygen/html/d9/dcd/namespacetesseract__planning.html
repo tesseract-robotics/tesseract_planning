@@ -426,8 +426,6 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aee75294c532e61c8a920439a38497490"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aee75294c532e61c8a920439a38497490">ToolCenterPoint</a> = tesseract_common::ToolCenterPoint</td></tr>
-<tr class="separator:aee75294c532e61c8a920439a38497490"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa96fe6a7234303baeef3b4a8afcedfc4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> = tesseract_common::ManipulatorInfo</td></tr>
 <tr class="separator:aa96fe6a7234303baeef3b4a8afcedfc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdc2315021b909f3a215f899b7d7c241"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> = std::function&lt; bool(const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;, bool parent_is_first_composite)&gt;</td></tr>
@@ -765,17 +763,17 @@ Functions</h2></td></tr>
 <tr class="separator:a51b9cedeb860025ec6725544f01d1816"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63dfee6d2a2b430c8fb8d17ee2c1db4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a63dfee6d2a2b430c8fb8d17ee2c1db4e">generateSkeletonSeedHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions)</td></tr>
 <tr class="separator:a63dfee6d2a2b430c8fb8d17ee2c1db4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad3c64a902f813fd357ae4b9f17631fc"><td class="memItemLeft" align="right" valign="top">tesseract_common::Toolpath&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aad3c64a902f813fd357ae4b9f17631fc">toToolpath</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const tesseract_environment::Environment::ConstPtr &amp;env)</td></tr>
-<tr class="memdesc:aad3c64a902f813fd357ae4b9f17631fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract toolpath from a composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#aad3c64a902f813fd357ae4b9f17631fc">More...</a><br /></td></tr>
-<tr class="separator:aad3c64a902f813fd357ae4b9f17631fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8785aa81a18f5f07d8e4d91bd5d565d4"><td class="memItemLeft" align="right" valign="top">tesseract_common::Toolpath&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8785aa81a18f5f07d8e4d91bd5d565d4">toToolpath</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const tesseract_environment::Environment &amp;env)</td></tr>
+<tr class="memdesc:a8785aa81a18f5f07d8e4d91bd5d565d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract toolpath from a composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8785aa81a18f5f07d8e4d91bd5d565d4">More...</a><br /></td></tr>
+<tr class="separator:a8785aa81a18f5f07d8e4d91bd5d565d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac20c8f9c8b01209fe4ced44c6964bba0"><td class="memItemLeft" align="right" valign="top">tesseract_common::VectorIsometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac20c8f9c8b01209fe4ced44c6964bba0">interpolate</a> (const Eigen::Isometry3d &amp;start, const Eigen::Isometry3d &amp;stop, int steps)</td></tr>
-<tr class="memdesc:ac20c8f9c8b01209fe4ced44c6964bba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inerpolate between two transforms return a vector of Eigen::Isometry transforms.  <a href="../../d9/dcd/namespacetesseract__planning.html#ac20c8f9c8b01209fe4ced44c6964bba0">More...</a><br /></td></tr>
+<tr class="memdesc:ac20c8f9c8b01209fe4ced44c6964bba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolate between two transforms return a vector of Eigen::Isometry transforms.  <a href="../../d9/dcd/namespacetesseract__planning.html#ac20c8f9c8b01209fe4ced44c6964bba0">More...</a><br /></td></tr>
 <tr class="separator:ac20c8f9c8b01209fe4ced44c6964bba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5d6d72fa7462d658a7a9e04c0d35d72"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae5d6d72fa7462d658a7a9e04c0d35d72">interpolate</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;start, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;stop, int steps)</td></tr>
-<tr class="memdesc:ae5d6d72fa7462d658a7a9e04c0d35d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inerpolate between two Eigen::VectorXd and return a Matrix.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae5d6d72fa7462d658a7a9e04c0d35d72">More...</a><br /></td></tr>
+<tr class="memdesc:ae5d6d72fa7462d658a7a9e04c0d35d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolate between two Eigen::VectorXd and return a Matrix.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae5d6d72fa7462d658a7a9e04c0d35d72">More...</a><br /></td></tr>
 <tr class="separator:ae5d6d72fa7462d658a7a9e04c0d35d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09d4b16a56667b1ae6ceec21ecb73348"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a09d4b16a56667b1ae6ceec21ecb73348">interpolate_waypoint</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;start, const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;stop, int steps)</td></tr>
-<tr class="memdesc:a09d4b16a56667b1ae6ceec21ecb73348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inerpolate between two waypoints return a vector of waypoints.  <a href="../../d9/dcd/namespacetesseract__planning.html#a09d4b16a56667b1ae6ceec21ecb73348">More...</a><br /></td></tr>
+<tr class="memdesc:a09d4b16a56667b1ae6ceec21ecb73348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolate between two waypoints return a vector of waypoints.  <a href="../../d9/dcd/namespacetesseract__planning.html#a09d4b16a56667b1ae6ceec21ecb73348">More...</a><br /></td></tr>
 <tr class="separator:a09d4b16a56667b1ae6ceec21ecb73348"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbc53b114f2f31699dd120ac52866a04"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afbc53b114f2f31699dd120ac52866a04">programFlattenFilter</a> (const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, bool parent_is_first_composite)</td></tr>
 <tr class="memdesc:afbc53b114f2f31699dd120ac52866a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">A program flatten filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#afbc53b114f2f31699dd120ac52866a04">More...</a><br /></td></tr>
@@ -787,26 +785,26 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2a1839f20041c926b5a327fae3fc6b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a>&amp;.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2a1839f20041c926b5a327fae3fc6b44">More...</a><br /></td></tr>
 <tr class="separator:a2a1839f20041c926b5a327fae3fc6b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a376b0dd548ca385a3128afc20bdc1dca"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a376b0dd548ca385a3128afc20bdc1dca">flattenProgramToPattern</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern)</td></tr>
-<tr class="memdesc:a376b0dd548ca385a3128afc20bdc1dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable.  <a href="../../d9/dcd/namespacetesseract__planning.html#a376b0dd548ca385a3128afc20bdc1dca">More...</a><br /></td></tr>
+<tr class="memdesc:a376b0dd548ca385a3128afc20bdc1dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-able.  <a href="../../d9/dcd/namespacetesseract__planning.html#a376b0dd548ca385a3128afc20bdc1dca">More...</a><br /></td></tr>
 <tr class="separator:a376b0dd548ca385a3128afc20bdc1dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b0907a5ac19772e3987ff0b20deb33e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0b0907a5ac19772e3987ff0b20deb33e">flattenProgramToPattern</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;pattern)</td></tr>
-<tr class="memdesc:a0b0907a5ac19772e3987ff0b20deb33e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable.  <a href="../../d9/dcd/namespacetesseract__planning.html#a0b0907a5ac19772e3987ff0b20deb33e">More...</a><br /></td></tr>
+<tr class="memdesc:a0b0907a5ac19772e3987ff0b20deb33e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-able.  <a href="../../d9/dcd/namespacetesseract__planning.html#a0b0907a5ac19772e3987ff0b20deb33e">More...</a><br /></td></tr>
 <tr class="separator:a0b0907a5ac19772e3987ff0b20deb33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae05068079159e86735a2cb60b6e59c1e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae05068079159e86735a2cb60b6e59c1e">contactCheckProgram</a> (std::vector&lt; tesseract_collision::ContactResultMap &gt; &amp;contacts, tesseract_collision::ContinuousContactManager &amp;manager, const tesseract_environment::StateSolver &amp;state_solver, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, const tesseract_collision::CollisionCheckConfig &amp;config)</td></tr>
-<tr class="memdesc:ae05068079159e86735a2cb60b6e59c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should perform a continuous collision check over the trajectory.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae05068079159e86735a2cb60b6e59c1e">More...</a><br /></td></tr>
-<tr class="separator:ae05068079159e86735a2cb60b6e59c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad504005f1ff526e360ee792e88b59248"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad504005f1ff526e360ee792e88b59248">contactCheckProgram</a> (std::vector&lt; tesseract_collision::ContactResultMap &gt; &amp;contacts, tesseract_collision::DiscreteContactManager &amp;manager, const tesseract_environment::StateSolver &amp;state_solver, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, const tesseract_collision::CollisionCheckConfig &amp;config)</td></tr>
-<tr class="memdesc:ad504005f1ff526e360ee792e88b59248"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should perform a discrete collision check over the trajectory.  <a href="../../d9/dcd/namespacetesseract__planning.html#ad504005f1ff526e360ee792e88b59248">More...</a><br /></td></tr>
-<tr class="separator:ad504005f1ff526e360ee792e88b59248"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82d7bc798089ef84c8c11d2806bbc9e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a82d7bc798089ef84c8c11d2806bbc9e7">contactCheckProgram</a> (std::vector&lt; tesseract_collision::ContactResultMap &gt; &amp;contacts, tesseract_collision::ContinuousContactManager &amp;manager, const tesseract_scene_graph::StateSolver &amp;state_solver, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, const tesseract_collision::CollisionCheckConfig &amp;config)</td></tr>
+<tr class="memdesc:a82d7bc798089ef84c8c11d2806bbc9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should perform a continuous collision check over the trajectory.  <a href="../../d9/dcd/namespacetesseract__planning.html#a82d7bc798089ef84c8c11d2806bbc9e7">More...</a><br /></td></tr>
+<tr class="separator:a82d7bc798089ef84c8c11d2806bbc9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7da45a95ed6e668c0c8f9b1d81aea3a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7da45a95ed6e668c0c8f9b1d81aea3a8">contactCheckProgram</a> (std::vector&lt; tesseract_collision::ContactResultMap &gt; &amp;contacts, tesseract_collision::DiscreteContactManager &amp;manager, const tesseract_scene_graph::StateSolver &amp;state_solver, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, const tesseract_collision::CollisionCheckConfig &amp;config)</td></tr>
+<tr class="memdesc:a7da45a95ed6e668c0c8f9b1d81aea3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should perform a discrete collision check over the trajectory.  <a href="../../d9/dcd/namespacetesseract__planning.html#a7da45a95ed6e668c0c8f9b1d81aea3a8">More...</a><br /></td></tr>
+<tr class="separator:a7da45a95ed6e668c0c8f9b1d81aea3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32251039111617f975deb5c3078bcdba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a32251039111617f975deb5c3078bcdba">generateNaiveSeed</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env)</td></tr>
 <tr class="memdesc:a32251039111617f975deb5c3078bcdba"><td class="mdescLeft">&#160;</td><td class="mdescRight">This generates a naive seed for the provided program.  <a href="../../d9/dcd/namespacetesseract__planning.html#a32251039111617f975deb5c3078bcdba">More...</a><br /></td></tr>
 <tr class="separator:a32251039111617f975deb5c3078bcdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac25e52a76d6ada60b39ff9bb422dcb91"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac25e52a76d6ada60b39ff9bb422dcb91">formatProgram</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env)</td></tr>
 <tr class="memdesc:ac25e52a76d6ada60b39ff9bb422dcb91"><td class="mdescLeft">&#160;</td><td class="mdescRight">This formats the joint and state waypoints to align with the kinematics object.  <a href="../../d9/dcd/namespacetesseract__planning.html#ac25e52a76d6ada60b39ff9bb422dcb91">More...</a><br /></td></tr>
 <tr class="separator:ac25e52a76d6ada60b39ff9bb422dcb91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10b5d093cd19df32120b7498f1ccbd1c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a10b5d093cd19df32120b7498f1ccbd1c">generateSeed</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;instructions, const tesseract_environment::EnvState::ConstPtr &amp;current_state, const tesseract_environment::Environment::ConstPtr &amp;env, double state_longest_valid_segment_length=5 *M_PI/180, double translation_longest_valid_segment_length=0.15, double rotation_longest_valid_segment_length=5 *M_PI/180, int min_steps=1)</td></tr>
-<tr class="memdesc:a10b5d093cd19df32120b7498f1ccbd1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provided for backwards compatibility.  <a href="../../d9/dcd/namespacetesseract__planning.html#a10b5d093cd19df32120b7498f1ccbd1c">More...</a><br /></td></tr>
-<tr class="separator:a10b5d093cd19df32120b7498f1ccbd1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cc42c6f98936d7b99258a4760d940f0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7cc42c6f98936d7b99258a4760d940f0">generateSeed</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;instructions, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_environment::Environment::ConstPtr &amp;env, double state_longest_valid_segment_length=5 *M_PI/180, double translation_longest_valid_segment_length=0.15, double rotation_longest_valid_segment_length=5 *M_PI/180, int min_steps=1)</td></tr>
+<tr class="memdesc:a7cc42c6f98936d7b99258a4760d940f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provided for backwards compatibility.  <a href="../../d9/dcd/namespacetesseract__planning.html#a7cc42c6f98936d7b99258a4760d940f0">More...</a><br /></td></tr>
+<tr class="separator:a7cc42c6f98936d7b99258a4760d940f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad74607eb14b341a905fb924913075660"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
 <tr class="memitem:ad74607eb14b341a905fb924913075660"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad74607eb14b341a905fb924913075660">isWithinJointLimits</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 2 &gt; &amp;limits)</td></tr>
 <tr class="memdesc:ad74607eb14b341a905fb924913075660"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a joint is within limits.  <a href="../../d9/dcd/namespacetesseract__planning.html#ad74607eb14b341a905fb924913075660">More...</a><br /></td></tr>
@@ -830,10 +828,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a3a4842f5288c1b198e848bae9d1e2ce6"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; const ProfileType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3a4842f5288c1b198e848bae9d1e2ce6">applyProfileOverrides</a> (const std::string task_name, const std::shared_ptr&lt; ProfileType &gt; &amp;nominal_profile, const <a class="el" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#ab9e6bb9185d333d45264d7c17c636bb4">ProfileDictionary::ConstPtr</a> &amp;overrides=nullptr)</td></tr>
 <tr class="memdesc:a3a4842f5288c1b198e848bae9d1e2ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns either nominal_profile or override based on task name passed in.  <a href="../../d9/dcd/namespacetesseract__planning.html#a3a4842f5288c1b198e848bae9d1e2ce6">More...</a><br /></td></tr>
 <tr class="separator:a3a4842f5288c1b198e848bae9d1e2ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af607325ca089b6dafd5b521c4b16351a"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
-<tr class="memitem:af607325ca089b6dafd5b521c4b16351a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579">RobotConfig</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">getRobotConfig</a> (const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;robot_kin, const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</td></tr>
-<tr class="memdesc:af607325ca089b6dafd5b521c4b16351a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configuration of a six axis industrial robot.  <a href="../../d9/dcd/namespacetesseract__planning.html#af607325ca089b6dafd5b521c4b16351a">More...</a><br /></td></tr>
-<tr class="separator:af607325ca089b6dafd5b521c4b16351a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cfcdf93296e6806ae29ff7f48186fdc"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
+<tr class="memitem:a6cfcdf93296e6806ae29ff7f48186fdc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579">RobotConfig</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6cfcdf93296e6806ae29ff7f48186fdc">getRobotConfig</a> (const tesseract_kinematics::JointGroup &amp;joint_group, const std::string &amp;base_link, const std::string &amp;tcp_frame, const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Ref&lt; const Eigen::Vector2i &gt; &amp;sign_correction=Eigen::Vector2i::Ones())</td></tr>
+<tr class="memdesc:a6cfcdf93296e6806ae29ff7f48186fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configuration of a six axis industrial robot.  <a href="../../d9/dcd/namespacetesseract__planning.html#a6cfcdf93296e6806ae29ff7f48186fdc">More...</a><br /></td></tr>
+<tr class="separator:a6cfcdf93296e6806ae29ff7f48186fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adebdc685c90e8b2873f2e09adf04860b"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
 <tr class="memitem:adebdc685c90e8b2873f2e09adf04860b"><td class="memTemplItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adebdc685c90e8b2873f2e09adf04860b">getJointTurns</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values)</td></tr>
 <tr class="memdesc:adebdc685c90e8b2873f2e09adf04860b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of turns for joints that allow rotation beyond +- 180 degrees.  <a href="../../d9/dcd/namespacetesseract__planning.html#adebdc685c90e8b2873f2e09adf04860b">More...</a><br /></td></tr>
@@ -844,18 +842,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;joint_names, const Eigen::MatrixXd &amp;states, const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;base_instruction)</td></tr>
 <tr class="memdesc:a279ab58cb9c7b07e9e678f077bb4d932"><td class="mdescLeft">&#160;</td><td class="mdescRight">This takes the provided seed state for the base_instruction and create a corresponding composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">More...</a><br /></td></tr>
 <tr class="separator:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae29bc88fbc476c1b22d8e5ce0fdfb8d1">getClosestJointSolution</a> (const Eigen::Isometry3d &amp;p, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin, const Eigen::VectorXd &amp;seed)</td></tr>
-<tr class="memdesc:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae29bc88fbc476c1b22d8e5ce0fdfb8d1">More...</a><br /></td></tr>
-<tr class="separator:ae29bc88fbc476c1b22d8e5ce0fdfb8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed53b814bf5812f2272a14264314d601"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aed53b814bf5812f2272a14264314d601">getClosestJointSolution</a> (const Eigen::Isometry3d &amp;p1, const Eigen::Isometry3d &amp;p2, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin1, const tesseract_kinematics::InverseKinematics::Ptr &amp;inv_kin2, const Eigen::VectorXd &amp;seed)</td></tr>
-<tr class="memdesc:aed53b814bf5812f2272a14264314d601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#aed53b814bf5812f2272a14264314d601">More...</a><br /></td></tr>
-<tr class="separator:aed53b814bf5812f2272a14264314d601"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8eb3f36ec354c71fac2d04e3a6c166a"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad8eb3f36ec354c71fac2d04e3a6c166a">calcPose</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;wp, const std::string &amp;working_frame, const std::string &amp;tip_link, const Eigen::Isometry3d &amp;tcp, const tesseract_environment::EnvState::ConstPtr &amp;current_state, tesseract_environment::StateSolver &amp;state_solver)</td></tr>
-<tr class="separator:ad8eb3f36ec354c71fac2d04e3a6c166a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fdd1c21a9abe55ec08548f16761ddf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9fdd1c21a9abe55ec08548f16761ddf5">generateNaiveSeedHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const tesseract_environment::EnvState &amp;env_state, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info)</td></tr>
-<tr class="separator:a9fdd1c21a9abe55ec08548f16761ddf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4669e4b5e4220ed6637a771a14f088af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4669e4b5e4220ed6637a771a14f088af">formatProgramHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info)</td></tr>
-<tr class="separator:a4669e4b5e4220ed6637a771a14f088af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2ca29a5ccf6deb8ea041aed822ebcf8e">getClosestJointSolution</a> (const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;info, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2ca29a5ccf6deb8ea041aed822ebcf8e">More...</a><br /></td></tr>
+<tr class="separator:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0c30630add2fd3d49886a50ea0d8fad7">getClosestJointSolution</a> (const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;info1, const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;info2, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:a0c30630add2fd3d49886a50ea0d8fad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#a0c30630add2fd3d49886a50ea0d8fad7">More...</a><br /></td></tr>
+<tr class="separator:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4244fdc5b54d25a4d77df5258e11af94"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4244fdc5b54d25a4d77df5258e11af94">calcPose</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;wp, const std::string &amp;working_frame, const std::string &amp;tip_link, const Eigen::Isometry3d &amp;tcp, const tesseract_scene_graph::SceneState &amp;current_state, tesseract_scene_graph::StateSolver &amp;state_solver)</td></tr>
+<tr class="separator:a4244fdc5b54d25a4d77df5258e11af94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0950a3c93b0b9ef5f40e0fcada8adb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac0950a3c93b0b9ef5f40e0fcada8adb0">generateNaiveSeedHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const tesseract_scene_graph::SceneState &amp;state, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info)</td></tr>
+<tr class="separator:ac0950a3c93b0b9ef5f40e0fcada8adb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c067267cd8dd3e60af7e57fbc3aa7ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c067267cd8dd3e60af7e57fbc3aa7ce">formatProgramHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt;&gt; &amp;manip_joint_names)</td></tr>
+<tr class="separator:a2c067267cd8dd3e60af7e57fbc3aa7ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf2bb32372d00e42763932cdde163c01"><td class="memItemLeft" align="right" valign="top">tesseract_common::VectorIsometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adf2bb32372d00e42763932cdde163c01">sampleToolAxis</a> (const Eigen::Isometry3d &amp;tool_pose, double resolution, const Eigen::Vector3d &amp;axis)</td></tr>
 <tr class="memdesc:adf2bb32372d00e42763932cdde163c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a tool pose create samples from [-PI, PI) around the provided axis.  <a href="../../d9/dcd/namespacetesseract__planning.html#adf2bb32372d00e42763932cdde163c01">More...</a><br /></td></tr>
 <tr class="separator:adf2bb32372d00e42763932cdde163c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -934,8 +932,8 @@ Functions</h2></td></tr>
 <tr class="separator:ab874903f32419c2a3c858027027ee9b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6a97e73f80873b61a00a24efb86eb86"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab6a97e73f80873b61a00a24efb86eb86">checkGoalState</a> (const ompl::base::ProblemDefinitionPtr &amp;prob_def, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;state, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> &amp;extractor)</td></tr>
 <tr class="separator:ab6a97e73f80873b61a00a24efb86eb86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab426fca18d5631d971d837bdf955a9b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html#aea12893d0ff5db7190406bc2822d343c">OMPLProblem::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab426fca18d5631d971d837bdf955a9b1">CreateOMPLSubProblem</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_kinematics::ForwardKinematics::Ptr &amp;manip_fwd_kin, const tesseract_kinematics::InverseKinematics::Ptr &amp;manip_inv_kin, const std::vector&lt; std::string &gt; &amp;active_link_names)</td></tr>
-<tr class="separator:ab426fca18d5631d971d837bdf955a9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab151789d704b6adb05b403236ecb0039"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html#aea12893d0ff5db7190406bc2822d343c">OMPLProblem::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab151789d704b6adb05b403236ecb0039">CreateOMPLSubProblem</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_kinematics::JointGroup::ConstPtr &amp;manip)</td></tr>
+<tr class="separator:ab151789d704b6adb05b403236ecb0039"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71b8091da4834d0db8a14fc29bad929b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d50/classtesseract__planning_1_1TrajOptDefaultPlanProfile.html">TrajOptDefaultPlanProfile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a71b8091da4834d0db8a14fc29bad929b">trajOptPlanParser</a> (const tinyxml2::XMLElement &amp;xml_element)</td></tr>
 <tr class="separator:a71b8091da4834d0db8a14fc29bad929b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a196abf916e5fa3062ff116cbb731367b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d50/classtesseract__planning_1_1TrajOptDefaultPlanProfile.html">TrajOptDefaultPlanProfile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a196abf916e5fa3062ff116cbb731367b">trajOptPlanFromXMLElement</a> (const tinyxml2::XMLElement *profile_xml)</td></tr>
@@ -970,10 +968,10 @@ Functions</h2></td></tr>
 <tr class="separator:a4a0d1ec51cba719360ce38442adf2a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a779fd51d39c63e67cd08d5bacaef0843"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a779fd51d39c63e67cd08d5bacaef0843">toXMLString</a> (const <a class="el" href="../../da/df1/classtesseract__planning_1_1TrajOptCompositeProfile.html">TrajOptCompositeProfile</a> &amp;composite_profile)</td></tr>
 <tr class="separator:a779fd51d39c63e67cd08d5bacaef0843"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad17260a4b9946d2c22fc3e2afa82bf26"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad17260a4b9946d2c22fc3e2afa82bf26">createCartesianWaypointTermInfo</a> (const Eigen::Isometry3d &amp;c_wp, int index, const std::string &amp;working_frame, const Eigen::Isometry3d &amp;tcp, const Eigen::VectorXd &amp;coeffs, const std::string &amp;link, trajopt::TermType type)</td></tr>
-<tr class="separator:ad17260a4b9946d2c22fc3e2afa82bf26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63259e82d26ef04e79e7355ae66bded3"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a63259e82d26ef04e79e7355ae66bded3">createDynamicCartesianWaypointTermInfo</a> (const Eigen::Isometry3d &amp;c_wp, int index, const std::string &amp;working_frame, const Eigen::Isometry3d &amp;tcp, const Eigen::VectorXd &amp;coeffs, const std::string &amp;link, trajopt::TermType type)</td></tr>
-<tr class="separator:a63259e82d26ef04e79e7355ae66bded3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa11db7ad8cf5b32dc084e010fad09328"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa11db7ad8cf5b32dc084e010fad09328">createCartesianWaypointTermInfo</a> (int index, const std::string &amp;working_frame, const Eigen::Isometry3d &amp;c_wp, const std::string &amp;tcp_frame, const Eigen::Isometry3d &amp;tcp_offset, const Eigen::VectorXd &amp;coeffs, trajopt::TermType type)</td></tr>
+<tr class="separator:aa11db7ad8cf5b32dc084e010fad09328"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2854663777685fec663c1e4a50ac35dc"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2854663777685fec663c1e4a50ac35dc">createDynamicCartesianWaypointTermInfo</a> (int index, const std::string &amp;working_frame, const Eigen::Isometry3d &amp;c_wp, const std::string &amp;tcp_frame, const Eigen::Isometry3d &amp;tcp_offset, const Eigen::VectorXd &amp;coeffs, trajopt::TermType type)</td></tr>
+<tr class="separator:a2854663777685fec663c1e4a50ac35dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d674bb8a647b4c66cfd60fcd2b9d449"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9d674bb8a647b4c66cfd60fcd2b9d449">createNearJointStateTermInfo</a> (const Eigen::VectorXd &amp;target, const std::vector&lt; std::string &gt; &amp;joint_names, int index, const Eigen::VectorXd &amp;coeffs, trajopt::TermType type)</td></tr>
 <tr class="separator:a9d674bb8a647b4c66cfd60fcd2b9d449"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad93bb03fdbd2da70052e05a160252fea"><td class="memItemLeft" align="right" valign="top">trajopt::TermInfo::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad93bb03fdbd2da70052e05a160252fea">createJointWaypointTermInfo</a> (const Eigen::VectorXd &amp;j_wp, int index, const Eigen::VectorXd &amp;coeffs, trajopt::TermType type)</td></tr>
@@ -1000,14 +998,14 @@ Functions</h2></td></tr>
 <tr class="separator:a089f108f9cc718b567607006aefc506e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bf73d52cb7fd8a5f5998ae62847957d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html">TrajOptIfoptProblem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8bf73d52cb7fd8a5f5998ae62847957d">DefaultTrajOptIfoptProblemGenerator</a> (const std::string &amp;name, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1e9bf5e3f3e5c2fc319a1c0c5718313b">TrajOptIfoptPlanProfileMap</a> &amp;plan_profiles, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abede68600c57fb593dc36ee9efbd1b0b">TrajOptIfoptCompositeProfileMap</a> &amp;composite_profiles)</td></tr>
 <tr class="separator:a8bf73d52cb7fd8a5f5998ae62847957d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac079dc90ef095ed3463689f683358a24"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac079dc90ef095ed3463689f683358a24">createCartesianPositionConstraint</a> (const Eigen::Isometry3d &amp;target, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;kin_info, const std::string &amp;source_link, const Eigen::Isometry3d &amp;source_tcp=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
-<tr class="separator:ac079dc90ef095ed3463689f683358a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ecca4ea7137a7265eaa723a31332d31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1ecca4ea7137a7265eaa723a31332d31">addCartesianPositionConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const Eigen::Isometry3d &amp;target, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;kin_info, const std::string &amp;source_link, const Eigen::Isometry3d &amp;source_tcp=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
-<tr class="separator:a1ecca4ea7137a7265eaa723a31332d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e95e6f40e683fd7ef5582d28f3e7beb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8e95e6f40e683fd7ef5582d28f3e7beb">addCartesianPositionSquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const Eigen::Isometry3d &amp;target, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;kin_info, const std::string &amp;source_link, const Eigen::Isometry3d &amp;source_tcp=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
-<tr class="separator:a8e95e6f40e683fd7ef5582d28f3e7beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7115225ce6646db2a24066bf789f9e78"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7115225ce6646db2a24066bf789f9e78">addCartesianPositionAbsoluteCost</a> (trajopt_sqp::QPProblem &amp;nlp, const Eigen::Isometry3d &amp;target, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;kin_info, const std::string &amp;source_link, const Eigen::Isometry3d &amp;source_tcp=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
-<tr class="separator:a7115225ce6646db2a24066bf789f9e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada99db5aba43e83678ab889b2f689c52"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ada99db5aba43e83678ab889b2f689c52">createCartesianPositionConstraint</a> (const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const tesseract_kinematics::JointGroup::ConstPtr &amp;manip, const std::string &amp;source_frame, const std::string &amp;target_frame, const Eigen::Isometry3d &amp;source_frame_offset=Eigen::Isometry3d::Identity(), const Eigen::Isometry3d &amp;target_frame_offset=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
+<tr class="separator:ada99db5aba43e83678ab889b2f689c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43989916928f32acc449fd4aaadfe09a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a43989916928f32acc449fd4aaadfe09a">addCartesianPositionConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const tesseract_kinematics::JointGroup::ConstPtr &amp;manip, const std::string &amp;source_frame, const std::string &amp;target_frame, const Eigen::Isometry3d &amp;source_frame_offset=Eigen::Isometry3d::Identity(), const Eigen::Isometry3d &amp;target_frame_offset=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
+<tr class="separator:a43989916928f32acc449fd4aaadfe09a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae98255bb1c15bc3373c2bdaa41658ea6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae98255bb1c15bc3373c2bdaa41658ea6">addCartesianPositionSquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const tesseract_kinematics::JointGroup::ConstPtr &amp;manip, const std::string &amp;source_frame, const std::string &amp;target_frame, const Eigen::Isometry3d &amp;source_frame_offset=Eigen::Isometry3d::Identity(), const Eigen::Isometry3d &amp;target_frame_offset=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
+<tr class="separator:ae98255bb1c15bc3373c2bdaa41658ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa70ead0956b13c6cadd4c9f0f78210f1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa70ead0956b13c6cadd4c9f0f78210f1">addCartesianPositionAbsoluteCost</a> (trajopt_sqp::QPProblem &amp;nlp, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const tesseract_kinematics::JointGroup::ConstPtr &amp;manip, const std::string &amp;source_frame, const std::string &amp;target_frame, const Eigen::Isometry3d &amp;source_frame_offset=Eigen::Isometry3d::Identity(), const Eigen::Isometry3d &amp;target_frame_offset=Eigen::Isometry3d::Identity(), const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeffs=Eigen::VectorXd::Ones(6))</td></tr>
+<tr class="separator:aa70ead0956b13c6cadd4c9f0f78210f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ffaf9223773224cc11dfdb59285feed"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0ffaf9223773224cc11dfdb59285feed">createJointPositionConstraint</a> (const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;joint_waypoint, const trajopt_ifopt::JointPosition::ConstPtr &amp;var, const Eigen::VectorXd &amp;)</td></tr>
 <tr class="separator:a0ffaf9223773224cc11dfdb59285feed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2aa911592142af3f76da18b590c5e689"><td class="memItemLeft" align="right" valign="top">std::vector&lt; ifopt::ConstraintSet::Ptr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2aa911592142af3f76da18b590c5e689">createCollisionConstraints</a> (const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const tesseract_environment::Environment::ConstPtr &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr &amp;config, const std::vector&lt; int &gt; &amp;fixed_indices)</td></tr>
@@ -1625,7 +1623,7 @@ template&lt;typename FloatType &gt; </div>
       </table>
 </div><div class="memdoc">
 <p>This used to store planner specific profile mapping with the request</p>
-<p>For example say you have a profile named Raster in your command language. Say you have multiple Raster profiles for descartes {Raster, Raster1, Rester2}. This allows you to remap the meaning of Raster in the command language to say Raster2 for the specific planner Descartes by Map&lt;Descartes, Map&lt;Raster, Raster1&gt;&gt;. </p>
+<p>For example say you have a profile named Raster in your command language. Say you have multiple Raster profiles for descartes {Raster, Raster1, Raster2}. This allows you to remap the meaning of Raster in the command language to say Raster2 for the specific planner Descartes by Map&lt;Descartes, Map&lt;Raster, Raster1&gt;&gt;. </p>
 
 </div>
 </div>
@@ -1749,20 +1747,6 @@ template&lt;typename FloatType &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9f65d17b8c6b778c35ea85dfdd20e142">tesseract_planning::TimeOptimalTrajectoryGenerationProfileMap</a> = typedef std::unordered_map&lt;std::string, <a class="el" href="../../db/d3c/structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile.html#af5d1e750ed57cdb38bdccb563074a3ed">TimeOptimalTrajectoryGenerationProfile::ConstPtr</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aee75294c532e61c8a920439a38497490"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee75294c532e61c8a920439a38497490">&#9670;&nbsp;</a></span>ToolCenterPoint</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aee75294c532e61c8a920439a38497490">tesseract_planning::ToolCenterPoint</a> = typedef tesseract_common::ToolCenterPoint</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2068,7 +2052,7 @@ template&lt;typename FloatType &gt; </div>
 <p>The RobotConfig enum. </p>
 <p>The first letter refers to 'Flip vs No-Flip', think of the human arm as the robot this would relate to wrist flipped or not flipped.</p><ul>
 <li>Which is indicated by flipping the sign of J5 requiring J4 and J6 to move by +/-180 degrees The second letter refers to 'Up vs Down' think of the human arm as the robot this would relate to elbow up or down</li>
-<li>Which is indicated, J3 is greater than or less than 90 degrees and tool0 positiion x is positive or negative The third letter refers to 'Front vs Back' think of the human arm as the robot this would relate to arm in front or back </li>
+<li>Which is indicated, J3 is greater than or less than 90 degrees and tool0 position x is positive or negative The third letter refers to 'Front vs Back' think of the human arm as the robot this would relate to arm in front or back </li>
 </ul>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0"></a>NUT&#160;</td><td class="fielddoc"></td></tr>
@@ -2166,8 +2150,8 @@ template&lt;typename FloatType &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a7115225ce6646db2a24066bf789f9e78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7115225ce6646db2a24066bf789f9e78">&#9670;&nbsp;</a></span>addCartesianPositionAbsoluteCost()</h2>
+<a id="aa70ead0956b13c6cadd4c9f0f78210f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa70ead0956b13c6cadd4c9f0f78210f1">&#9670;&nbsp;</a></span>addCartesianPositionAbsoluteCost()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2181,32 +2165,38 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>var</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;&#160;</td>
-          <td class="paramname"><em>kin_info</em>, </td>
+          <td class="paramtype">const tesseract_kinematics::JointGroup::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>manip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>source_link</em>, </td>
+          <td class="paramname"><em>source_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>target_frame</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>source_tcp</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+          <td class="paramname"><em>source_frame_offset</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>target_frame_offset</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2224,8 +2214,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a1ecca4ea7137a7265eaa723a31332d31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ecca4ea7137a7265eaa723a31332d31">&#9670;&nbsp;</a></span>addCartesianPositionConstraint()</h2>
+<a id="a43989916928f32acc449fd4aaadfe09a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43989916928f32acc449fd4aaadfe09a">&#9670;&nbsp;</a></span>addCartesianPositionConstraint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2239,32 +2229,38 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>var</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;&#160;</td>
-          <td class="paramname"><em>kin_info</em>, </td>
+          <td class="paramtype">const tesseract_kinematics::JointGroup::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>manip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>source_link</em>, </td>
+          <td class="paramname"><em>source_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>target_frame</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>source_tcp</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+          <td class="paramname"><em>source_frame_offset</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>target_frame_offset</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2282,8 +2278,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a8e95e6f40e683fd7ef5582d28f3e7beb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e95e6f40e683fd7ef5582d28f3e7beb">&#9670;&nbsp;</a></span>addCartesianPositionSquaredCost()</h2>
+<a id="ae98255bb1c15bc3373c2bdaa41658ea6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae98255bb1c15bc3373c2bdaa41658ea6">&#9670;&nbsp;</a></span>addCartesianPositionSquaredCost()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2297,32 +2293,38 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>var</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;&#160;</td>
-          <td class="paramname"><em>kin_info</em>, </td>
+          <td class="paramtype">const tesseract_kinematics::JointGroup::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>manip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>source_link</em>, </td>
+          <td class="paramname"><em>source_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>target_frame</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>source_tcp</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+          <td class="paramname"><em>source_frame_offset</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>target_frame_offset</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2742,8 +2744,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ad8eb3f36ec354c71fac2d04e3a6c166a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8eb3f36ec354c71fac2d04e3a6c166a">&#9670;&nbsp;</a></span>calcPose()</h2>
+<a id="a4244fdc5b54d25a4d77df5258e11af94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4244fdc5b54d25a4d77df5258e11af94">&#9670;&nbsp;</a></span>calcPose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2775,13 +2777,13 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_environment::EnvState::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const tesseract_scene_graph::SceneState &amp;&#160;</td>
           <td class="paramname"><em>current_state</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">tesseract_environment::StateSolver &amp;&#160;</td>
+          <td class="paramtype">tesseract_scene_graph::StateSolver &amp;&#160;</td>
           <td class="paramname"><em>state_solver</em>&#160;</td>
         </tr>
         <tr>
@@ -3093,8 +3095,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ae05068079159e86735a2cb60b6e59c1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae05068079159e86735a2cb60b6e59c1e">&#9670;&nbsp;</a></span>contactCheckProgram() <span class="overload">[1/2]</span></h2>
+<a id="a82d7bc798089ef84c8c11d2806bbc9e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82d7bc798089ef84c8c11d2806bbc9e7">&#9670;&nbsp;</a></span>contactCheckProgram() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3114,7 +3116,7 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_environment::StateSolver &amp;&#160;</td>
+          <td class="paramtype">const tesseract_scene_graph::StateSolver &amp;&#160;</td>
           <td class="paramname"><em>state_solver</em>, </td>
         </tr>
         <tr>
@@ -3152,8 +3154,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ad504005f1ff526e360ee792e88b59248"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad504005f1ff526e360ee792e88b59248">&#9670;&nbsp;</a></span>contactCheckProgram() <span class="overload">[2/2]</span></h2>
+<a id="a7da45a95ed6e668c0c8f9b1d81aea3a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7da45a95ed6e668c0c8f9b1d81aea3a8">&#9670;&nbsp;</a></span>contactCheckProgram() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3173,7 +3175,7 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_environment::StateSolver &amp;&#160;</td>
+          <td class="paramtype">const tesseract_scene_graph::StateSolver &amp;&#160;</td>
           <td class="paramname"><em>state_solver</em>, </td>
         </tr>
         <tr>
@@ -3276,8 +3278,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ac079dc90ef095ed3463689f683358a24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac079dc90ef095ed3463689f683358a24">&#9670;&nbsp;</a></span>createCartesianPositionConstraint()</h2>
+<a id="ada99db5aba43e83678ab889b2f689c52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada99db5aba43e83678ab889b2f689c52">&#9670;&nbsp;</a></span>createCartesianPositionConstraint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3285,32 +3287,38 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="memname">ifopt::ConstraintSet::Ptr tesseract_planning::createCartesianPositionConstraint </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const trajopt_ifopt::JointPosition::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>var</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const trajopt_ifopt::KinematicsInfo::ConstPtr &amp;&#160;</td>
-          <td class="paramname"><em>kin_info</em>, </td>
+          <td class="paramtype">const tesseract_kinematics::JointGroup::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>manip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>source_link</em>, </td>
+          <td class="paramname"><em>source_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>target_frame</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>source_tcp</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+          <td class="paramname"><em>source_frame_offset</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>target_frame_offset</em> = <code>Eigen::Isometry3d::Identity()</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -3328,8 +3336,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ad17260a4b9946d2c22fc3e2afa82bf26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad17260a4b9946d2c22fc3e2afa82bf26">&#9670;&nbsp;</a></span>createCartesianWaypointTermInfo()</h2>
+<a id="aa11db7ad8cf5b32dc084e010fad09328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa11db7ad8cf5b32dc084e010fad09328">&#9670;&nbsp;</a></span>createCartesianWaypointTermInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3337,12 +3345,6 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="memname">trajopt::TermInfo::Ptr tesseract_planning::createCartesianWaypointTermInfo </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>c_wp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>index</em>, </td>
         </tr>
@@ -3356,19 +3358,25 @@ template&lt;typename ProfileType &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>tcp</em>, </td>
+          <td class="paramname"><em>c_wp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tcp_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>tcp_offset</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
           <td class="paramname"><em>coeffs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>link</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -3527,8 +3535,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="a63259e82d26ef04e79e7355ae66bded3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63259e82d26ef04e79e7355ae66bded3">&#9670;&nbsp;</a></span>createDynamicCartesianWaypointTermInfo()</h2>
+<a id="a2854663777685fec663c1e4a50ac35dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2854663777685fec663c1e4a50ac35dc">&#9670;&nbsp;</a></span>createDynamicCartesianWaypointTermInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3536,12 +3544,6 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="memname">trajopt::TermInfo::Ptr tesseract_planning::createDynamicCartesianWaypointTermInfo </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>c_wp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>index</em>, </td>
         </tr>
@@ -3555,19 +3557,25 @@ template&lt;typename ProfileType &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>tcp</em>, </td>
+          <td class="paramname"><em>c_wp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tcp_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>tcp_offset</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
           <td class="paramname"><em>coeffs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>link</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -3777,8 +3785,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ab426fca18d5631d971d837bdf955a9b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab426fca18d5631d971d837bdf955a9b1">&#9670;&nbsp;</a></span>CreateOMPLSubProblem()</h2>
+<a id="ab151789d704b6adb05b403236ecb0039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab151789d704b6adb05b403236ecb0039">&#9670;&nbsp;</a></span>CreateOMPLSubProblem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3792,20 +3800,8 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_kinematics::ForwardKinematics::Ptr &amp;&#160;</td>
-          <td class="paramname"><em>manip_fwd_kin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const tesseract_kinematics::InverseKinematics::Ptr &amp;&#160;</td>
-          <td class="paramname"><em>manip_inv_kin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>active_link_names</em>&#160;</td>
+          <td class="paramtype">const tesseract_kinematics::JointGroup::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>manip</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -5163,7 +5159,7 @@ template&lt;typename FloatType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. </p>
+<p>Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-able. </p>
 <p>If /p composite_instruction parameter has a start instruction it is added but child composites are not check for start instructions.</p>
 <p>The motivation for this utility is a case where you flatten only the elements in a seed that correspond to composites in the parent instruction</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -5203,7 +5199,7 @@ template&lt;typename FloatType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flattenable. </p>
+<p>Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-able. </p>
 <p>If /p composite_instruction parameter has a start instruction it is added but child composites are not check for start instructions.</p>
 <p>The motivation for this utility is a case where you flatten only the elements in a seed that correspond to composites in the parent instruction</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -5497,12 +5493,12 @@ template&lt;typename FloatType &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the program required formating. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the program required formatting. </dd></dl>
 
 </div>
 </div>
-<a id="a4669e4b5e4220ed6637a771a14f088af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4669e4b5e4220ed6637a771a14f088af">&#9670;&nbsp;</a></span>formatProgramHelper()</h2>
+<a id="a2c067267cd8dd3e60af7e57fbc3aa7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c067267cd8dd3e60af7e57fbc3aa7ce">&#9670;&nbsp;</a></span>formatProgramHelper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5523,7 +5519,13 @@ template&lt;typename FloatType &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>&#160;</td>
+          <td class="paramname"><em>manip_info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; std::string, std::vector&lt; std::string &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>manip_joint_names</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -5657,8 +5659,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a9fdd1c21a9abe55ec08548f16761ddf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fdd1c21a9abe55ec08548f16761ddf5">&#9670;&nbsp;</a></span>generateNaiveSeedHelper()</h2>
+<a id="ac0950a3c93b0b9ef5f40e0fcada8adb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0950a3c93b0b9ef5f40e0fcada8adb0">&#9670;&nbsp;</a></span>generateNaiveSeedHelper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5678,8 +5680,8 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_environment::EnvState &amp;&#160;</td>
-          <td class="paramname"><em>env_state</em>, </td>
+          <td class="paramtype">const tesseract_scene_graph::SceneState &amp;&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -5697,8 +5699,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a10b5d093cd19df32120b7498f1ccbd1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10b5d093cd19df32120b7498f1ccbd1c">&#9670;&nbsp;</a></span>generateSeed()</h2>
+<a id="a7cc42c6f98936d7b99258a4760d940f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc42c6f98936d7b99258a4760d940f0">&#9670;&nbsp;</a></span>generateSeed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5715,7 +5717,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_environment::EnvState::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const tesseract_scene_graph::SceneState &amp;&#160;</td>
           <td class="paramname"><em>current_state</em>, </td>
         </tr>
         <tr>
@@ -5810,8 +5812,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ae29bc88fbc476c1b22d8e5ce0fdfb8d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae29bc88fbc476c1b22d8e5ce0fdfb8d1">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[1/2]</span></h2>
+<a id="a2ca29a5ccf6deb8ea041aed822ebcf8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ca29a5ccf6deb8ea041aed822ebcf8e">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5819,14 +5821,8 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">Eigen::VectorXd tesseract_planning::getClosestJointSolution </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>p</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const tesseract_kinematics::InverseKinematics::Ptr &amp;&#160;</td>
-          <td class="paramname"><em>inv_kin</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -5845,20 +5841,19 @@ template&lt;typename FloatType &gt; </div>
 <p>Find the closest joint solution for p to the provided seed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td>The cartesian position to solve inverse kinematics </td></tr>
-    <tr><td class="paramname">inv_kin</td><td>The inverse kinematics </td></tr>
+    <tr><td class="paramname">info</td><td>The instruction info to find closest joint solution </td></tr>
     <tr><td class="paramname">seed</td><td>The seed to find the closest solution </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The closest solution to the seed. This will be empty if a solution was not found during inverse kinematics </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed </dd></dl>
 
 </div>
 </div>
-<a id="aed53b814bf5812f2272a14264314d601"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed53b814bf5812f2272a14264314d601">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[2/2]</span></h2>
+<a id="a0c30630add2fd3d49886a50ea0d8fad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c30630add2fd3d49886a50ea0d8fad7">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5866,26 +5861,14 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname">std::array&lt; Eigen::VectorXd, 2 &gt; tesseract_planning::getClosestJointSolution </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>info1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>p2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const tesseract_kinematics::InverseKinematics::Ptr &amp;&#160;</td>
-          <td class="paramname"><em>inv_kin1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const tesseract_kinematics::InverseKinematics::Ptr &amp;&#160;</td>
-          <td class="paramname"><em>inv_kin2</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>info2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -5904,17 +5887,15 @@ template&lt;typename FloatType &gt; </div>
 <p>Find the closest joint solution for the two provided cartesian poses. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p1</td><td>The first cartesian position to solve inverse kinematics </td></tr>
-    <tr><td class="paramname">p2</td><td>The second cartesian position to solve inverse kinematics </td></tr>
-    <tr><td class="paramname">inv_kin1</td><td>The inverse kinematics associated to the first cartesian position </td></tr>
-    <tr><td class="paramname">inv_kin2</td><td>The inverse kinematics associated to the first cartesian position </td></tr>
+    <tr><td class="paramname">info1</td><td>The instruction info to find closest joint solution </td></tr>
+    <tr><td class="paramname">info2</td><td>The instruction info to find closest joint solution </td></tr>
     <tr><td class="paramname">seed</td><td>The seed to use during inverse kinematics </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The closest joint solution for the provided cartesian positions. If either are empty then it failed to solve inverse kinematics. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000002">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000002">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be neccessary because this is used to generate the seed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000002">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000002">Todo:</a></b></dt><dd>: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed. </dd></dl>
 
 </div>
 </div>
@@ -6486,7 +6467,7 @@ template&lt;typename FloatType &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of turns (as intergers), in a vector </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of turns (as integers), in a vector </dd></dl>
 
 </div>
 </div>
@@ -7003,8 +6984,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="af607325ca089b6dafd5b521c4b16351a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af607325ca089b6dafd5b521c4b16351a">&#9670;&nbsp;</a></span>getRobotConfig()</h2>
+<a id="a6cfcdf93296e6806ae29ff7f48186fdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cfcdf93296e6806ae29ff7f48186fdc">&#9670;&nbsp;</a></span>getRobotConfig()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7017,8 +6998,20 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579">RobotConfig</a> tesseract_planning::getRobotConfig </td>
           <td>(</td>
-          <td class="paramtype">const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;&#160;</td>
-          <td class="paramname"><em>robot_kin</em>, </td>
+          <td class="paramtype">const tesseract_kinematics::JointGroup &amp;&#160;</td>
+          <td class="paramname"><em>joint_group</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>base_link</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tcp_frame</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -7048,8 +7041,10 @@ template&lt;typename FloatType &gt; </div>
 <p>Get the configuration of a six axis industrial robot. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">robot_kin</td><td>The kinematics object of the robot. </td></tr>
-    <tr><td class="paramname">joint_values</td><td>The joint values of the robot. </td></tr>
+    <tr><td class="paramname">joint_group</td><td>The kinematics JointGroup. </td></tr>
+    <tr><td class="paramname">base_link</td><td>The base link to use. </td></tr>
+    <tr><td class="paramname">tcp_frame</td><td>The tip link to use. </td></tr>
+    <tr><td class="paramname">joint_values</td><td>The joint group joint values and assumes the last six are for the robot. </td></tr>
     <tr><td class="paramname">sign_correction</td><td>Correct the sign for Joint 3 and Joint 5 based on the robot manufacturer. </td></tr>
   </table>
   </dd>
@@ -7289,7 +7284,7 @@ template&lt;typename FloatType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Inerpolate between two transforms return a vector of Eigen::Isometry transforms. </p>
+<p>Interpolate between two transforms return a vector of Eigen::Isometry transforms. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">start</td><td>The Start Transform </td></tr>
@@ -7334,7 +7329,7 @@ template&lt;typename FloatType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Inerpolate between two Eigen::VectorXd and return a Matrix. </p>
+<p>Interpolate between two Eigen::VectorXd and return a Matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">start</td><td>The Start State </td></tr>
@@ -7379,7 +7374,7 @@ template&lt;typename FloatType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Inerpolate between two waypoints return a vector of waypoints. </p>
+<p>Interpolate between two waypoints return a vector of waypoints. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">start</td><td>The Start <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> </td></tr>
@@ -8962,8 +8957,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="aad3c64a902f813fd357ae4b9f17631fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad3c64a902f813fd357ae4b9f17631fc">&#9670;&nbsp;</a></span>toToolpath()</h2>
+<a id="a8785aa81a18f5f07d8e4d91bd5d565d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8785aa81a18f5f07d8e4d91bd5d565d4">&#9670;&nbsp;</a></span>toToolpath()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8977,7 +8972,7 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const tesseract_environment::Environment::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const tesseract_environment::Environment &amp;&#160;</td>
           <td class="paramname"><em>env</em>&#160;</td>
         </tr>
         <tr>
@@ -9766,7 +9761,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:07 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

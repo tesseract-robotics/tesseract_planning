@@ -86,7 +86,7 @@ Collaboration diagram for tesseract_planning::DescartesCollision:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d63/classtesseract__planning_1_1DescartesCollision__coll__graph.png" border="0" usemap="#atesseract__planning_1_1DescartesCollision_coll__map" alt="Collaboration graph"/></div>
 <map name="atesseract__planning_1_1DescartesCollision_coll__map" id="atesseract__planning_1_1DescartesCollision_coll__map">
-<area shape="rect" title=" " alt="" coords="17,289,153,331"/>
+<area shape="rect" title=" " alt="" coords="17,275,153,316"/>
 <area shape="rect" title=" " alt="" coords="5,185,165,212"/>
 <area shape="rect" title=" " alt="" coords="46,96,125,123"/>
 <area shape="rect" title=" " alt="" coords="23,5,147,47"/>
@@ -102,9 +102,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6ba719dad3f2d0607cb279aab7356866"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a6ba719dad3f2d0607cb279aab7356866">DescartesCollision</a> (const tesseract_environment::Environment::ConstPtr &amp;collision_env, std::vector&lt; std::string &gt; active_links, std::vector&lt; std::string &gt; joint_names, tesseract_collision::CollisionCheckConfig collision_check_config=tesseract_collision::CollisionCheckConfig{ 0.025 }, bool debug=false)</td></tr>
-<tr class="memdesc:a6ba719dad3f2d0607cb279aab7356866"><td class="mdescLeft">&#160;</td><td class="mdescRight">TesseractCollision.  <a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a6ba719dad3f2d0607cb279aab7356866">More...</a><br /></td></tr>
-<tr class="separator:a6ba719dad3f2d0607cb279aab7356866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe52863078a64c6acbd3e898eb53a477"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#abe52863078a64c6acbd3e898eb53a477">DescartesCollision</a> (const tesseract_environment::Environment &amp;collision_env, tesseract_kinematics::JointGroup::ConstPtr manip, tesseract_collision::CollisionCheckConfig collision_check_config=tesseract_collision::CollisionCheckConfig{ 0.025 }, bool debug=false)</td></tr>
+<tr class="memdesc:abe52863078a64c6acbd3e898eb53a477"><td class="mdescLeft">&#160;</td><td class="mdescRight">TesseractCollision.  <a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#abe52863078a64c6acbd3e898eb53a477">More...</a><br /></td></tr>
+<tr class="separator:abe52863078a64c6acbd3e898eb53a477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5281b454f7fb9d3da0636c17e77475f9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a5281b454f7fb9d3da0636c17e77475f9">~DescartesCollision</a> ()=default</td></tr>
 <tr class="separator:a5281b454f7fb9d3da0636c17e77475f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77c377df2ee0d3b0746aaff8a6762418"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a77c377df2ee0d3b0746aaff8a6762418">DescartesCollision</a> (const <a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html">DescartesCollision</a> &amp;collision_interface)</td></tr>
@@ -134,18 +134,15 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a961d8276cd46d3f9dab0438589a53f8f"><td class="memItemLeft" align="right" valign="top">tesseract_environment::StateSolver::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a961d8276cd46d3f9dab0438589a53f8f">state_solver_</a></td></tr>
-<tr class="memdesc:a961d8276cd46d3f9dab0438589a53f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The tesseract state solver.  <a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a961d8276cd46d3f9dab0438589a53f8f">More...</a><br /></td></tr>
-<tr class="separator:a961d8276cd46d3f9dab0438589a53f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e0521663ef5539ef3210d0c6dea94fe"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::JointGroup::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a7e0521663ef5539ef3210d0c6dea94fe">manip_</a></td></tr>
+<tr class="memdesc:a7e0521663ef5539ef3210d0c6dea94fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The tesseract state solver.  <a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a7e0521663ef5539ef3210d0c6dea94fe">More...</a><br /></td></tr>
+<tr class="separator:a7e0521663ef5539ef3210d0c6dea94fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37d9e8850e5d91154daaf91d4f894151"><td class="memItemLeft" align="right" valign="top">tesseract_scene_graph::AllowedCollisionMatrix&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a37d9e8850e5d91154daaf91d4f894151">acm_</a></td></tr>
 <tr class="memdesc:a37d9e8850e5d91154daaf91d4f894151"><td class="mdescLeft">&#160;</td><td class="mdescRight">The allowed collision matrix.  <a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a37d9e8850e5d91154daaf91d4f894151">More...</a><br /></td></tr>
 <tr class="separator:a37d9e8850e5d91154daaf91d4f894151"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45e296a1ff9389fee602f327f3b280a2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a45e296a1ff9389fee602f327f3b280a2">active_link_names_</a></td></tr>
 <tr class="memdesc:a45e296a1ff9389fee602f327f3b280a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A vector of active link names.  <a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a45e296a1ff9389fee602f327f3b280a2">More...</a><br /></td></tr>
 <tr class="separator:a45e296a1ff9389fee602f327f3b280a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3568b8782d4fe768c261fbb07427ba50"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a3568b8782d4fe768c261fbb07427ba50">joint_names_</a></td></tr>
-<tr class="memdesc:a3568b8782d4fe768c261fbb07427ba50"><td class="mdescLeft">&#160;</td><td class="mdescRight">A vector of joint names.  <a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a3568b8782d4fe768c261fbb07427ba50">More...</a><br /></td></tr>
-<tr class="separator:a3568b8782d4fe768c261fbb07427ba50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71725f3b77546af5fbba5dc6da7ed77b"><td class="memItemLeft" align="right" valign="top">tesseract_collision::DiscreteContactManager::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a71725f3b77546af5fbba5dc6da7ed77b">contact_manager_</a></td></tr>
 <tr class="memdesc:a71725f3b77546af5fbba5dc6da7ed77b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The discrete contact manager.  <a href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#a71725f3b77546af5fbba5dc6da7ed77b">More...</a><br /></td></tr>
 <tr class="separator:a71725f3b77546af5fbba5dc6da7ed77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,8 +182,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6ba719dad3f2d0607cb279aab7356866"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ba719dad3f2d0607cb279aab7356866">&#9670;&nbsp;</a></span>DescartesCollision() <span class="overload">[1/3]</span></h2>
+<a id="abe52863078a64c6acbd3e898eb53a477"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe52863078a64c6acbd3e898eb53a477">&#9670;&nbsp;</a></span>DescartesCollision() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,20 +191,14 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">tesseract_planning::DescartesCollision::DescartesCollision </td>
           <td>(</td>
-          <td class="paramtype">const tesseract_environment::Environment::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">const tesseract_environment::Environment &amp;&#160;</td>
           <td class="paramname"><em>collision_env</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; std::string &gt;&#160;</td>
-          <td class="paramname"><em>active_links</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::string &gt;&#160;</td>
-          <td class="paramname"><em>joint_names</em>, </td>
+          <td class="paramtype">tesseract_kinematics::JointGroup::ConstPtr&#160;</td>
+          <td class="paramname"><em>manip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -233,8 +224,7 @@ Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">collision_env</td><td>The collision Environment </td></tr>
-    <tr><td class="paramname">active_links</td><td>The list of active links </td></tr>
-    <tr><td class="paramname">joint_names</td><td>The list of joint names in the order that the data will be provided to the validate function. </td></tr>
+    <tr><td class="paramname">manip</td><td>The manipulator joint group </td></tr>
     <tr><td class="paramname">edge_collision_check_config</td><td>Config used to set up collision checking </td></tr>
     <tr><td class="paramname">longest_valid_segment_length</td><td>Used to check collisions between two state if norm(state0-state1) &gt; longest_valid_segment_length. </td></tr>
     <tr><td class="paramname">debug</td><td>If true, this print debug information to the terminal </td></tr>
@@ -613,8 +603,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3568b8782d4fe768c261fbb07427ba50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3568b8782d4fe768c261fbb07427ba50">&#9670;&nbsp;</a></span>joint_names_</h2>
+<a id="a7e0521663ef5539ef3210d0c6dea94fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e0521663ef5539ef3210d0c6dea94fe">&#9670;&nbsp;</a></span>manip_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -623,31 +613,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::string&gt; tesseract_planning::DescartesCollision::joint_names_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A vector of joint names. </p>
-
-</div>
-</div>
-<a id="a961d8276cd46d3f9dab0438589a53f8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a961d8276cd46d3f9dab0438589a53f8f">&#9670;&nbsp;</a></span>state_solver_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_environment::StateSolver::Ptr tesseract_planning::DescartesCollision::state_solver_</td>
+          <td class="memname">tesseract_kinematics::JointGroup::ConstPtr tesseract_planning::DescartesCollision::manip_</td>
         </tr>
       </table>
   </td>
@@ -668,7 +634,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

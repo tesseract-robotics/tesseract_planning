@@ -93,38 +93,46 @@ Collaboration diagram for tesseract_planning::DescartesRobotSampler&lt; FloatTyp
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d4f/classtesseract__planning_1_1DescartesRobotSampler__coll__graph.png" border="0" usemap="#atesseract__planning_1_1DescartesRobotSampler_3_01FloatType_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="atesseract__planning_1_1DescartesRobotSampler_3_01FloatType_01_4_coll__map" id="atesseract__planning_1_1DescartesRobotSampler_3_01FloatType_01_4_coll__map">
-<area shape="rect" title=" " alt="" coords="288,63,457,119"/>
-<area shape="rect" title=" " alt="" coords="9,5,179,47"/>
-<area shape="rect" title=" " alt="" coords="5,71,183,112"/>
-<area shape="rect" title=" " alt="" coords="5,136,183,177"/>
+<area shape="rect" title=" " alt="" coords="533,89,703,145"/>
+<area shape="rect" title=" " alt="" coords="183,5,352,47"/>
+<area shape="rect" title=" " alt="" coords="228,71,307,98"/>
+<area shape="rect" title=" " alt="" coords="5,64,129,105"/>
+<area shape="rect" title=" " alt="" coords="179,123,356,164"/>
+<area shape="rect" title=" " alt="" coords="179,188,356,229"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1aa53e4e2514a7e1e715c4ece0c7330e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a1aa53e4e2514a7e1e715c4ece0c7330e">DescartesRobotSampler</a> (const Eigen::Isometry3d &amp;target_pose, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae98ce6e841caa404388d1689b4ffe1db">PoseSamplerFn</a> target_pose_sampler, tesseract_kinematics::InverseKinematics::ConstPtr ik, <a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#aaeaeca3bdae2070fe34bdbd64fa19eb9">DescartesCollision::Ptr</a> collision, const Eigen::Isometry3d &amp;tcp, bool allow_collision, <a class="el" href="../../da/d8a/classtesseract__planning_1_1DescartesVertexEvaluator.html#af9323f7e0912986b89ba5a57ee6e3262">DescartesVertexEvaluator::Ptr</a> is_valid, bool use_redundant_joint_solutions)</td></tr>
-<tr class="memdesc:a1aa53e4e2514a7e1e715c4ece0c7330e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a descartes sampler for a robot.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a1aa53e4e2514a7e1e715c4ece0c7330e">More...</a><br /></td></tr>
-<tr class="separator:a1aa53e4e2514a7e1e715c4ece0c7330e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83e0240d0363f251ebdbe87b3e959d44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a83e0240d0363f251ebdbe87b3e959d44">DescartesRobotSampler</a> (std::string target_working_frame, const Eigen::Isometry3d &amp;target_pose, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae98ce6e841caa404388d1689b4ffe1db">PoseSamplerFn</a> target_pose_sampler, tesseract_kinematics::KinematicGroup::ConstPtr manip, <a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#aaeaeca3bdae2070fe34bdbd64fa19eb9">DescartesCollision::Ptr</a> collision, std::string tcp_frame, const Eigen::Isometry3d &amp;tcp_offset, bool allow_collision, <a class="el" href="../../da/d8a/classtesseract__planning_1_1DescartesVertexEvaluator.html#af9323f7e0912986b89ba5a57ee6e3262">DescartesVertexEvaluator::Ptr</a> is_valid, bool use_redundant_joint_solutions)</td></tr>
+<tr class="memdesc:a83e0240d0363f251ebdbe87b3e959d44"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a descartes sampler for a robot.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a83e0240d0363f251ebdbe87b3e959d44">More...</a><br /></td></tr>
+<tr class="separator:a83e0240d0363f251ebdbe87b3e959d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a673c54b9cea8d02596d5972b184d8d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; descartes_light::StateSample&lt; FloatType &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a5a673c54b9cea8d02596d5972b184d8d">sample</a> () const override</td></tr>
 <tr class="separator:a5a673c54b9cea8d02596d5972b184d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a46de057d464f9e7a20a51502846b21fd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a46de057d464f9e7a20a51502846b21fd">target_working_frame_</a></td></tr>
+<tr class="memdesc:a46de057d464f9e7a20a51502846b21fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The target pose working frame.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a46de057d464f9e7a20a51502846b21fd">More...</a><br /></td></tr>
+<tr class="separator:a46de057d464f9e7a20a51502846b21fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7a80abb190cdfc51112cd3916c281fc"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#ad7a80abb190cdfc51112cd3916c281fc">target_pose_</a></td></tr>
 <tr class="memdesc:ad7a80abb190cdfc51112cd3916c281fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The target pose to sample.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#ad7a80abb190cdfc51112cd3916c281fc">More...</a><br /></td></tr>
 <tr class="separator:ad7a80abb190cdfc51112cd3916c281fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad83f779b4149f2dfd8cd42ebb2d7f03e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae98ce6e841caa404388d1689b4ffe1db">PoseSamplerFn</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#ad83f779b4149f2dfd8cd42ebb2d7f03e">target_pose_sampler_</a></td></tr>
 <tr class="memdesc:ad83f779b4149f2dfd8cd42ebb2d7f03e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The target pose to sample.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#ad83f779b4149f2dfd8cd42ebb2d7f03e">More...</a><br /></td></tr>
 <tr class="separator:ad83f779b4149f2dfd8cd42ebb2d7f03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcd8aeeb29561bf1b31afbc9cbb4a1da"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::InverseKinematics::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#abcd8aeeb29561bf1b31afbc9cbb4a1da">ik_</a></td></tr>
-<tr class="memdesc:abcd8aeeb29561bf1b31afbc9cbb4a1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">The robot inverse kinematics.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#abcd8aeeb29561bf1b31afbc9cbb4a1da">More...</a><br /></td></tr>
-<tr class="separator:abcd8aeeb29561bf1b31afbc9cbb4a1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fec7df7289fef82c87e967d66745b05"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::KinematicGroup::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a9fec7df7289fef82c87e967d66745b05">manip_</a></td></tr>
+<tr class="memdesc:a9fec7df7289fef82c87e967d66745b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">The manipulator kinematic group.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a9fec7df7289fef82c87e967d66745b05">More...</a><br /></td></tr>
+<tr class="separator:a9fec7df7289fef82c87e967d66745b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ed558bfff6ed31e2db223688c35995f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d2a/classtesseract__planning_1_1DescartesCollision.html#aaeaeca3bdae2070fe34bdbd64fa19eb9">DescartesCollision::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a5ed558bfff6ed31e2db223688c35995f">collision_</a></td></tr>
 <tr class="memdesc:a5ed558bfff6ed31e2db223688c35995f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The collision interface.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a5ed558bfff6ed31e2db223688c35995f">More...</a><br /></td></tr>
 <tr class="separator:a5ed558bfff6ed31e2db223688c35995f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a625734f55898899a923ba7b9f84f29c0"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a625734f55898899a923ba7b9f84f29c0">tcp_</a></td></tr>
-<tr class="memdesc:a625734f55898899a923ba7b9f84f29c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The robot tool center point.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a625734f55898899a923ba7b9f84f29c0">More...</a><br /></td></tr>
-<tr class="separator:a625734f55898899a923ba7b9f84f29c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25836e817a5695f563d77d0fe6b7c570"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a25836e817a5695f563d77d0fe6b7c570">tcp_frame_</a></td></tr>
+<tr class="memdesc:a25836e817a5695f563d77d0fe6b7c570"><td class="mdescLeft">&#160;</td><td class="mdescRight">The robot tool center point frame.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a25836e817a5695f563d77d0fe6b7c570">More...</a><br /></td></tr>
+<tr class="separator:a25836e817a5695f563d77d0fe6b7c570"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a532ae3ced90e866ce3ca565cdaeb768b"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a532ae3ced90e866ce3ca565cdaeb768b">tcp_offset_</a></td></tr>
+<tr class="memdesc:a532ae3ced90e866ce3ca565cdaeb768b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The robot tool center point.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a532ae3ced90e866ce3ca565cdaeb768b">More...</a><br /></td></tr>
+<tr class="separator:a532ae3ced90e866ce3ca565cdaeb768b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4937408ae7e14b11fdb9edde2f0638bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a4937408ae7e14b11fdb9edde2f0638bf">allow_collision_</a></td></tr>
 <tr class="memdesc:a4937408ae7e14b11fdb9edde2f0638bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether states found to be in collision should be returned.  <a href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html#a4937408ae7e14b11fdb9edde2f0638bf">More...</a><br /></td></tr>
 <tr class="separator:a4937408ae7e14b11fdb9edde2f0638bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,8 +150,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a93a5a6940926da71c95477c5769b626a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1aa53e4e2514a7e1e715c4ece0c7330e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1aa53e4e2514a7e1e715c4ece0c7330e">&#9670;&nbsp;</a></span>DescartesRobotSampler()</h2>
+<a id="a83e0240d0363f251ebdbe87b3e959d44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83e0240d0363f251ebdbe87b3e959d44">&#9670;&nbsp;</a></span>DescartesRobotSampler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,6 +161,12 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html">tesseract_planning::DescartesRobotSampler</a>&lt; FloatType &gt;::<a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html">DescartesRobotSampler</a> </td>
           <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>target_working_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
           <td class="paramname"><em>target_pose</em>, </td>
         </tr>
@@ -165,8 +179,8 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">tesseract_kinematics::InverseKinematics::ConstPtr&#160;</td>
-          <td class="paramname"><em>ik</em>, </td>
+          <td class="paramtype">tesseract_kinematics::KinematicGroup::ConstPtr&#160;</td>
+          <td class="paramname"><em>manip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -177,8 +191,14 @@ template&lt;typename FloatType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>tcp_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>tcp</em>, </td>
+          <td class="paramname"><em>tcp_offset</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -211,9 +231,8 @@ template&lt;typename FloatType &gt; </div>
   <table class="params">
     <tr><td class="paramname">target_pose</td><td>The target pose in robot base link coordinates </td></tr>
     <tr><td class="paramname">target_pose_sampler</td><td>The target pose sampler function to be used </td></tr>
-    <tr><td class="paramname">robot_kinematics</td><td>The robot inverse kinematics object </td></tr>
+    <tr><td class="paramname">manip</td><td>The manipulator kinematic group object </td></tr>
     <tr><td class="paramname">collision</td><td>The collision interface </td></tr>
-    <tr><td class="paramname">curret_state</td><td>The currect state of the system </td></tr>
     <tr><td class="paramname">robot_tcp</td><td>The robot tcp to be used. </td></tr>
     <tr><td class="paramname">allow_collision</td><td>If true and no valid solution was found it will return the best of the worst </td></tr>
     <tr><td class="paramname">is_valid</td><td>This is a user defined function to filter out solution </td></tr>
@@ -327,32 +346,6 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="abcd8aeeb29561bf1b31afbc9cbb4a1da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcd8aeeb29561bf1b31afbc9cbb4a1da">&#9670;&nbsp;</a></span>ik_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FloatType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_kinematics::InverseKinematics::ConstPtr <a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html">tesseract_planning::DescartesRobotSampler</a>&lt; FloatType &gt;::ik_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The robot inverse kinematics. </p>
-
-</div>
-</div>
 <a id="ac3c8bb4a6ab874fb12f021cb1f8f29f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac3c8bb4a6ab874fb12f021cb1f8f29f3">&#9670;&nbsp;</a></span>ik_seed_</h2>
 
@@ -402,6 +395,32 @@ template&lt;typename FloatType &gt; </div>
 </div><div class="memdoc">
 
 <p>This is the vertex evaluator to filter out solution. </p>
+
+</div>
+</div>
+<a id="a9fec7df7289fef82c87e967d66745b05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fec7df7289fef82c87e967d66745b05">&#9670;&nbsp;</a></span>manip_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FloatType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_kinematics::KinematicGroup::ConstPtr <a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html">tesseract_planning::DescartesRobotSampler</a>&lt; FloatType &gt;::manip_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The manipulator kinematic group. </p>
 
 </div>
 </div>
@@ -457,8 +476,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a625734f55898899a923ba7b9f84f29c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a625734f55898899a923ba7b9f84f29c0">&#9670;&nbsp;</a></span>tcp_</h2>
+<a id="a46de057d464f9e7a20a51502846b21fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46de057d464f9e7a20a51502846b21fd">&#9670;&nbsp;</a></span>target_working_frame_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -469,7 +488,59 @@ template&lt;typename FloatType &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::Isometry3d <a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html">tesseract_planning::DescartesRobotSampler</a>&lt; FloatType &gt;::tcp_</td>
+          <td class="memname">std::string <a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html">tesseract_planning::DescartesRobotSampler</a>&lt; FloatType &gt;::target_working_frame_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The target pose working frame. </p>
+
+</div>
+</div>
+<a id="a25836e817a5695f563d77d0fe6b7c570"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25836e817a5695f563d77d0fe6b7c570">&#9670;&nbsp;</a></span>tcp_frame_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FloatType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html">tesseract_planning::DescartesRobotSampler</a>&lt; FloatType &gt;::tcp_frame_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The robot tool center point frame. </p>
+
+</div>
+</div>
+<a id="a532ae3ced90e866ce3ca565cdaeb768b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a532ae3ced90e866ce3ca565cdaeb768b">&#9670;&nbsp;</a></span>tcp_offset_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FloatType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Isometry3d <a class="el" href="../../db/d45/classtesseract__planning_1_1DescartesRobotSampler.html">tesseract_planning::DescartesRobotSampler</a>&lt; FloatType &gt;::tcp_offset_</td>
         </tr>
       </table>
   </td>
@@ -516,7 +587,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

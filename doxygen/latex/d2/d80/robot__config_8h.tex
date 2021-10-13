@@ -2,7 +2,7 @@
 \label{robot__config_8h}\index{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/robot\_config.h@{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/robot\_config.h}}
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$Eigen/\+Geometry$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+kinematics/core/forward\+\_\+kinematics.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+kinematics/core/joint\+\_\+group.\+h$>$}\newline
 Include dependency graph for robot\+\_\+config.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -42,7 +42,7 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\Robot\+Config \mbox{\hyperlink{namespacetesseract__planning_af607325ca089b6dafd5b521c4b16351a}{tesseract\+\_\+planning\+::get\+Robot\+Config}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector2i $>$ \&sign\+\_\+correction=Eigen\+::\+Vector2i\+::\+Ones())
+{\footnotesize template$<$typename Float\+Type $>$ }\\Robot\+Config \mbox{\hyperlink{namespacetesseract__planning_a6cfcdf93296e6806ae29ff7f48186fdc}{tesseract\+\_\+planning\+::get\+Robot\+Config}} (const tesseract\+\_\+kinematics\+::\+Joint\+Group \&joint\+\_\+group, const std\+::string \&base\+\_\+link, const std\+::string \&tcp\+\_\+frame, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector2i $>$ \&sign\+\_\+correction=Eigen\+::\+Vector2i\+::\+Ones())
 \begin{DoxyCompactList}\small\item\em Get the configuration of a six axis industrial robot. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\Eigen\+::\+Vector\+Xi \mbox{\hyperlink{namespacetesseract__planning_adebdc685c90e8b2873f2e09adf04860b}{tesseract\+\_\+planning\+::get\+Joint\+Turns}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values)
 \begin{DoxyCompactList}\small\item\em Get number of turns for joints that allow rotation beyond +-\/ 180 degrees. \end{DoxyCompactList}\end{DoxyCompactItemize}

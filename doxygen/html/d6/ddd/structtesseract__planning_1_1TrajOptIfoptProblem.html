@@ -92,26 +92,24 @@ Collaboration diagram for tesseract_planning::TrajOptIfoptProblem:</div>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aa04aee9862276b463ba831ce09f25528"><td class="memItemLeft" align="right" valign="top">tesseract_environment::Environment::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html#aa04aee9862276b463ba831ce09f25528">environment</a></td></tr>
 <tr class="separator:aa04aee9862276b463ba831ce09f25528"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58c6e959ba3e74b889f56e1bd8f006f8"><td class="memItemLeft" align="right" valign="top">tesseract_environment::EnvState::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html#a58c6e959ba3e74b889f56e1bd8f006f8">env_state</a></td></tr>
-<tr class="separator:a58c6e959ba3e74b889f56e1bd8f006f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7b74e83bd2b3c0f496841ec7357ec80"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::ForwardKinematics::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html#ab7b74e83bd2b3c0f496841ec7357ec80">manip_fwd_kin</a></td></tr>
-<tr class="separator:ab7b74e83bd2b3c0f496841ec7357ec80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0e3365cbf894375e3d2a0fb92799d00"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::InverseKinematics::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html#ab0e3365cbf894375e3d2a0fb92799d00">manip_inv_kin</a></td></tr>
-<tr class="separator:ab0e3365cbf894375e3d2a0fb92799d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e30d55f18257ea06c28bdfddd96a25d"><td class="memItemLeft" align="right" valign="top">tesseract_scene_graph::SceneState&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html#a9e30d55f18257ea06c28bdfddd96a25d">env_state</a></td></tr>
+<tr class="separator:a9e30d55f18257ea06c28bdfddd96a25d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71c88fb60b084fccbf7356264d4069fa"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::JointGroup::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html#a71c88fb60b084fccbf7356264d4069fa">manip</a></td></tr>
+<tr class="separator:a71c88fb60b084fccbf7356264d4069fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb2cab13676af34abe96b021cd487980"><td class="memItemLeft" align="right" valign="top">trajopt_sqp::QPProblem::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html#acb2cab13676af34abe96b021cd487980">nlp</a></td></tr>
 <tr class="separator:acb2cab13676af34abe96b021cd487980"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1504a59e767c8df8b63e035834cd6e77"><td class="memItemLeft" align="right" valign="top">std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/ddd/structtesseract__planning_1_1TrajOptIfoptProblem.html#a1504a59e767c8df8b63e035834cd6e77">vars</a></td></tr>
 <tr class="separator:a1504a59e767c8df8b63e035834cd6e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a58c6e959ba3e74b889f56e1bd8f006f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58c6e959ba3e74b889f56e1bd8f006f8">&#9670;&nbsp;</a></span>env_state</h2>
+<a id="a9e30d55f18257ea06c28bdfddd96a25d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e30d55f18257ea06c28bdfddd96a25d">&#9670;&nbsp;</a></span>env_state</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_environment::EnvState::ConstPtr tesseract_planning::TrajOptIfoptProblem::env_state</td>
+          <td class="memname">tesseract_scene_graph::SceneState tesseract_planning::TrajOptIfoptProblem::env_state</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -132,28 +130,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab7b74e83bd2b3c0f496841ec7357ec80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7b74e83bd2b3c0f496841ec7357ec80">&#9670;&nbsp;</a></span>manip_fwd_kin</h2>
+<a id="a71c88fb60b084fccbf7356264d4069fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71c88fb60b084fccbf7356264d4069fa">&#9670;&nbsp;</a></span>manip</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_kinematics::ForwardKinematics::ConstPtr tesseract_planning::TrajOptIfoptProblem::manip_fwd_kin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab0e3365cbf894375e3d2a0fb92799d00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0e3365cbf894375e3d2a0fb92799d00">&#9670;&nbsp;</a></span>manip_inv_kin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_kinematics::InverseKinematics::ConstPtr tesseract_planning::TrajOptIfoptProblem::manip_inv_kin</td>
+          <td class="memname">tesseract_kinematics::JointGroup::ConstPtr tesseract_planning::TrajOptIfoptProblem::manip</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -194,7 +178,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:58 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

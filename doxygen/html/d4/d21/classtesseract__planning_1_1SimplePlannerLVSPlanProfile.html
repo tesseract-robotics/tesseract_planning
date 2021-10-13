@@ -140,10 +140,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a58ee7a1921b88ff7137f2b120f7dfef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum joint distance, the norm of changes to all joint positions between successive steps.  <a href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a58ee7a1921b88ff7137f2b120f7dfef1">More...</a><br /></td></tr>
 <tr class="separator:a58ee7a1921b88ff7137f2b120f7dfef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f5a90a2b2503640fcdc511f600d6bdc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a7f5a90a2b2503640fcdc511f600d6bdc">translation_longest_valid_segment_length</a></td></tr>
-<tr class="memdesc:a7f5a90a2b2503640fcdc511f600d6bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum translational distance between successive steps.  <a href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a7f5a90a2b2503640fcdc511f600d6bdc">More...</a><br /></td></tr>
+<tr class="memdesc:a7f5a90a2b2503640fcdc511f600d6bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum translation distance between successive steps.  <a href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a7f5a90a2b2503640fcdc511f600d6bdc">More...</a><br /></td></tr>
 <tr class="separator:a7f5a90a2b2503640fcdc511f600d6bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ae5221cb38f1afe3c9a6a5fe2d69be4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a8ae5221cb38f1afe3c9a6a5fe2d69be4">rotation_longest_valid_segment_length</a></td></tr>
-<tr class="memdesc:a8ae5221cb38f1afe3c9a6a5fe2d69be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximaum rotational distance between successive steps.  <a href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a8ae5221cb38f1afe3c9a6a5fe2d69be4">More...</a><br /></td></tr>
+<tr class="memdesc:a8ae5221cb38f1afe3c9a6a5fe2d69be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum rotational distance between successive steps.  <a href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a8ae5221cb38f1afe3c9a6a5fe2d69be4">More...</a><br /></td></tr>
 <tr class="separator:a8ae5221cb38f1afe3c9a6a5fe2d69be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a094adae734ad0ba03704b781b51b68a6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a094adae734ad0ba03704b781b51b68a6">min_steps</a></td></tr>
 <tr class="memdesc:a094adae734ad0ba03704b781b51b68a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The minimum number of steps for the plan.  <a href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html#a094adae734ad0ba03704b781b51b68a6">More...</a><br /></td></tr>
@@ -236,8 +236,8 @@ Protected Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">state_longest_valid_segment_length</td><td>The maximum joint distance (norm of changes to all joint positions) between successive steps </td></tr>
-    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translational distance between successive steps </td></tr>
-    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximaum rotational distance between successive steps </td></tr>
+    <tr><td class="paramname">translation_longest_valid_segment_length</td><td>The maximum translation distance between successive steps </td></tr>
+    <tr><td class="paramname">rotation_longest_valid_segment_length</td><td>The maximum rotational distance between successive steps </td></tr>
     <tr><td class="paramname">min_steps</td><td>The minimum number of steps for the plan </td></tr>
   </table>
   </dd>
@@ -352,7 +352,7 @@ Protected Member Functions</h2></td></tr>
 <p>This function interpolates the motion from start state to end state. Results are stored in <a class="el" href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">StateWaypoint</a> objects.</p>
 <ul>
 <li>the number of steps for the plan will be calculated such that:<ul>
-<li>the translational distance between successive steps is no longer than translation_longest_valid_segment</li>
+<li>the translation distance between successive steps is no longer than translation_longest_valid_segment</li>
 <li>the rotational distance between successive steps is no longer than rotation_longest_valid_segment</li>
 <li>the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state_longest_valid_segment_length</li>
 <li>the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen</li>
@@ -420,7 +420,7 @@ Protected Member Functions</h2></td></tr>
 <p>This function interpolates the motion from start state to end state. Results are stored in <a class="el" href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">StateWaypoint</a> objects.</p>
 <ul>
 <li>the number of steps for the plan will be calculated such that:<ul>
-<li>the translational distance between successive steps is no longer than translation_longest_valid_segment</li>
+<li>the translation distance between successive steps is no longer than translation_longest_valid_segment</li>
 <li>the rotational distance between successive steps is no longer than rotation_longest_valid_segment</li>
 <li>the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state_longest_valid_segment_length</li>
 <li>the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen</li>
@@ -479,7 +479,7 @@ Protected Member Functions</h2></td></tr>
 <p><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> to <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a>. </p>
 <ul>
 <li>the number of steps for the plan will be calculated such that:<ul>
-<li>the translational distance between successive steps is no longer than translation_longest_valid_segment</li>
+<li>the translation distance between successive steps is no longer than translation_longest_valid_segment</li>
 <li>the rotational distance between successive steps is no longer than rotation_longest_valid_segment</li>
 <li>the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state_longest_valid_segment_length</li>
 <li>the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen</li>
@@ -539,7 +539,7 @@ Protected Member Functions</h2></td></tr>
 <p>This function interpolates the motion from start state to end state. Results are stored in <a class="el" href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">StateWaypoint</a> objects.</p>
 <ul>
 <li>the number of steps for the plan will be calculated such that:<ul>
-<li>the translational distance between successive steps is no longer than translation_longest_valid_segment</li>
+<li>the translation distance between successive steps is no longer than translation_longest_valid_segment</li>
 <li>the rotational distance between successive steps is no longer than rotation_longest_valid_segment</li>
 <li>the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state_longest_valid_segment_length</li>
 <li>the max steps from the above calculations will be be compared to the min_steps and the largest will be chosen</li>
@@ -580,7 +580,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The maximaum rotational distance between successive steps. </p>
+<p>The maximum rotational distance between successive steps. </p>
 
 </div>
 </div>
@@ -612,7 +612,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The maximum translational distance between successive steps. </p>
+<p>The maximum translation distance between successive steps. </p>
 
 </div>
 </div>
@@ -623,7 +623,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -94,12 +94,10 @@ Collaboration diagram for tesseract_planning::DescartesProblem&lt; FloatType &gt
 Public Attributes</h2></td></tr>
 <tr class="memitem:a457714fd35071442603378470abe3bb3"><td class="memItemLeft" align="right" valign="top">tesseract_environment::Environment::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#a457714fd35071442603378470abe3bb3">env</a></td></tr>
 <tr class="separator:a457714fd35071442603378470abe3bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a458452fb9e98c4d494cbd4ea2dfcd17a"><td class="memItemLeft" align="right" valign="top">tesseract_environment::EnvState::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#a458452fb9e98c4d494cbd4ea2dfcd17a">env_state</a></td></tr>
-<tr class="separator:a458452fb9e98c4d494cbd4ea2dfcd17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bcc257ec5a55fe29d82196c066e6955"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::ForwardKinematics::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#a9bcc257ec5a55fe29d82196c066e6955">manip_fwd_kin</a></td></tr>
-<tr class="separator:a9bcc257ec5a55fe29d82196c066e6955"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada0fe37d0fdaccd3b0c064fe3f24447f"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::InverseKinematics::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#ada0fe37d0fdaccd3b0c064fe3f24447f">manip_inv_kin</a></td></tr>
-<tr class="separator:ada0fe37d0fdaccd3b0c064fe3f24447f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a770b2ef9134d30c1f7cbbda76a8456fe"><td class="memItemLeft" align="right" valign="top">tesseract_scene_graph::SceneState&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#a770b2ef9134d30c1f7cbbda76a8456fe">env_state</a></td></tr>
+<tr class="separator:a770b2ef9134d30c1f7cbbda76a8456fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd8bcf13b73dc80b25846c3fef15826"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::KinematicGroup::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#a3cd8bcf13b73dc80b25846c3fef15826">manip</a></td></tr>
+<tr class="separator:a3cd8bcf13b73dc80b25846c3fef15826"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1673dcc7cd035754b59794534c71eafa"><td class="memItemLeft" align="right" valign="top">std::vector&lt; typename descartes_light::EdgeEvaluator&lt; FloatType &gt;::ConstPtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#a1673dcc7cd035754b59794534c71eafa">edge_evaluators</a></td></tr>
 <tr class="separator:a1673dcc7cd035754b59794534c71eafa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abeb575d4b7d1c7a8901ef479d4737a1d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; typename descartes_light::WaypointSampler&lt; FloatType &gt;::ConstPtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html#abeb575d4b7d1c7a8901ef479d4737a1d">samplers</a></td></tr>
@@ -142,8 +140,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a458452fb9e98c4d494cbd4ea2dfcd17a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a458452fb9e98c4d494cbd4ea2dfcd17a">&#9670;&nbsp;</a></span>env_state</h2>
+<a id="a770b2ef9134d30c1f7cbbda76a8456fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a770b2ef9134d30c1f7cbbda76a8456fe">&#9670;&nbsp;</a></span>env_state</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,15 +149,15 @@ template&lt;typename FloatType &gt; </div>
 template&lt;typename FloatType &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_environment::EnvState::ConstPtr <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">tesseract_planning::DescartesProblem</a>&lt; FloatType &gt;::env_state</td>
+          <td class="memname">tesseract_scene_graph::SceneState <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">tesseract_planning::DescartesProblem</a>&lt; FloatType &gt;::env_state</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9bcc257ec5a55fe29d82196c066e6955"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bcc257ec5a55fe29d82196c066e6955">&#9670;&nbsp;</a></span>manip_fwd_kin</h2>
+<a id="a3cd8bcf13b73dc80b25846c3fef15826"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cd8bcf13b73dc80b25846c3fef15826">&#9670;&nbsp;</a></span>manip</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,23 +165,7 @@ template&lt;typename FloatType &gt; </div>
 template&lt;typename FloatType &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_kinematics::ForwardKinematics::ConstPtr <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">tesseract_planning::DescartesProblem</a>&lt; FloatType &gt;::manip_fwd_kin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ada0fe37d0fdaccd3b0c064fe3f24447f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada0fe37d0fdaccd3b0c064fe3f24447f">&#9670;&nbsp;</a></span>manip_inv_kin</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FloatType &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_kinematics::InverseKinematics::ConstPtr <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">tesseract_planning::DescartesProblem</a>&lt; FloatType &gt;::manip_inv_kin</td>
+          <td class="memname">tesseract_kinematics::KinematicGroup::ConstPtr <a class="el" href="../../d1/dc0/structtesseract__planning_1_1DescartesProblem.html">tesseract_planning::DescartesProblem</a>&lt; FloatType &gt;::manip</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -244,7 +226,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -96,44 +96,36 @@ Collaboration diagram for tesseract_planning::StateCollisionValidator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d57/classtesseract__planning_1_1StateCollisionValidator__coll__graph.png" border="0" usemap="#atesseract__planning_1_1StateCollisionValidator_coll__map" alt="Collaboration graph"/></div>
 <map name="atesseract__planning_1_1StateCollisionValidator_coll__map" id="atesseract__planning_1_1StateCollisionValidator_coll__map">
-<area shape="rect" title="Continuous collision check between two states." alt="" coords="731,137,889,179"/>
+<area shape="rect" title="Continuous collision check between two states." alt="" coords="703,101,861,143"/>
 <area shape="rect" title=" " alt="" coords="369,5,531,47"/>
 <area shape="rect" title=" " alt="" coords="409,71,491,98"/>
 <area shape="rect" title=" " alt="" coords="363,123,537,193"/>
-<area shape="rect" title=" " alt="" coords="363,217,537,288"/>
-<area shape="rect" title=" " alt="" coords="370,313,530,339"/>
-<area shape="rect" title=" " alt="" coords="179,313,257,339"/>
-<area shape="rect" title=" " alt="" coords="5,305,129,347"/>
+<area shape="rect" title=" " alt="" coords="370,218,530,245"/>
+<area shape="rect" title=" " alt="" coords="179,218,257,245"/>
+<area shape="rect" title=" " alt="" coords="5,211,129,252"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a232fc39be1e4e24ecde84bb1cba07b8c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a232fc39be1e4e24ecde84bb1cba07b8c">StateCollisionValidator</a> (const ompl::base::SpaceInformationPtr &amp;space_info, tesseract_environment::Environment::ConstPtr env, tesseract_kinematics::ForwardKinematics::ConstPtr kin, const tesseract_collision::CollisionCheckConfig &amp;collision_check_config, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> extractor)</td></tr>
-<tr class="separator:a232fc39be1e4e24ecde84bb1cba07b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eff034b80520fea15bed6ecce0393b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a6eff034b80520fea15bed6ecce0393b5">StateCollisionValidator</a> (const ompl::base::SpaceInformationPtr &amp;space_info, const tesseract_environment::Environment &amp;env, tesseract_kinematics::JointGroup::ConstPtr manip, const tesseract_collision::CollisionCheckConfig &amp;collision_check_config, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a> extractor)</td></tr>
+<tr class="separator:a6eff034b80520fea15bed6ecce0393b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab25ae0da3293bf3d3310fc677e7b6c5a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#ab25ae0da3293bf3d3310fc677e7b6c5a">isValid</a> (const ompl::base::State *state) const override</td></tr>
 <tr class="separator:ab25ae0da3293bf3d3310fc677e7b6c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a639d4dcf039e59a9b17ec38c5d5ee51e"><td class="memItemLeft" align="right" valign="top">tesseract_environment::Environment::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a639d4dcf039e59a9b17ec38c5d5ee51e">env_</a></td></tr>
-<tr class="memdesc:a639d4dcf039e59a9b17ec38c5d5ee51e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Tesseract Environment.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a639d4dcf039e59a9b17ec38c5d5ee51e">More...</a><br /></td></tr>
-<tr class="separator:a639d4dcf039e59a9b17ec38c5d5ee51e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a678fb52afb9ecb96151a4452d6058ee3"><td class="memItemLeft" align="right" valign="top">tesseract_environment::StateSolver::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a678fb52afb9ecb96151a4452d6058ee3">state_solver_</a></td></tr>
-<tr class="separator:a678fb52afb9ecb96151a4452d6058ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a349f0ead5910a28c074138d7da448a7b"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::ForwardKinematics::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a349f0ead5910a28c074138d7da448a7b">kin_</a></td></tr>
-<tr class="memdesc:a349f0ead5910a28c074138d7da448a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Tesseract Forward Kinematics.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a349f0ead5910a28c074138d7da448a7b">More...</a><br /></td></tr>
-<tr class="separator:a349f0ead5910a28c074138d7da448a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb45cd490dee9bc2ac424a524941449e"><td class="memItemLeft" align="right" valign="top">tesseract_kinematics::JointGroup::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#aeb45cd490dee9bc2ac424a524941449e">manip_</a></td></tr>
+<tr class="memdesc:aeb45cd490dee9bc2ac424a524941449e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Tesseract Joint Group.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#aeb45cd490dee9bc2ac424a524941449e">More...</a><br /></td></tr>
+<tr class="separator:aeb45cd490dee9bc2ac424a524941449e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97deb9c4c2195c3c5aeaf0afa71342f1"><td class="memItemLeft" align="right" valign="top">tesseract_collision::DiscreteContactManager::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a97deb9c4c2195c3c5aeaf0afa71342f1">contact_manager_</a></td></tr>
 <tr class="memdesc:a97deb9c4c2195c3c5aeaf0afa71342f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The continuous contact manager used for creating cached continuous contact managers.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a97deb9c4c2195c3c5aeaf0afa71342f1">More...</a><br /></td></tr>
 <tr class="separator:a97deb9c4c2195c3c5aeaf0afa71342f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6418e02b460c43254eebbbb6a2574e3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#ab6418e02b460c43254eebbbb6a2574e3">links_</a></td></tr>
 <tr class="memdesc:ab6418e02b460c43254eebbbb6a2574e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of active links.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#ab6418e02b460c43254eebbbb6a2574e3">More...</a><br /></td></tr>
 <tr class="separator:ab6418e02b460c43254eebbbb6a2574e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77eb25f8720b5fc953747f2183a7366e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a77eb25f8720b5fc953747f2183a7366e">joints_</a></td></tr>
-<tr class="memdesc:a77eb25f8720b5fc953747f2183a7366e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of active joints.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a77eb25f8720b5fc953747f2183a7366e">More...</a><br /></td></tr>
-<tr class="separator:a77eb25f8720b5fc953747f2183a7366e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e88ed387b88754f07bc11a665d4318c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497">OMPLStateExtractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a5e88ed387b88754f07bc11a665d4318c">extractor_</a></td></tr>
+<tr class="memdesc:a5e88ed387b88754f07bc11a665d4318c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will extract an Eigen::VectorXd from the OMPL State.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a5e88ed387b88754f07bc11a665d4318c">More...</a><br /></td></tr>
 <tr class="separator:a5e88ed387b88754f07bc11a665d4318c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a836087fe204cc5141ef8f418dfb9af86"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a836087fe204cc5141ef8f418dfb9af86">mutex_</a></td></tr>
 <tr class="memdesc:a836087fe204cc5141ef8f418dfb9af86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contact manager caching mutex.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#a836087fe204cc5141ef8f418dfb9af86">More...</a><br /></td></tr>
@@ -141,15 +133,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ac76889937b58337f2bdea2b800bd01c5"><td class="memItemLeft" align="right" valign="top">std::map&lt; unsigned long int, tesseract_collision::DiscreteContactManager::Ptr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#ac76889937b58337f2bdea2b800bd01c5">contact_managers_</a></td></tr>
 <tr class="memdesc:ac76889937b58337f2bdea2b800bd01c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The continuous contact manager cache.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#ac76889937b58337f2bdea2b800bd01c5">More...</a><br /></td></tr>
 <tr class="separator:ac76889937b58337f2bdea2b800bd01c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab87d87be01cd38d5f853a07d7b85b40f"><td class="memItemLeft" align="right" valign="top">std::map&lt; unsigned long int, tesseract_environment::StateSolver::Ptr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#ab87d87be01cd38d5f853a07d7b85b40f">state_solver_managers_</a></td></tr>
-<tr class="memdesc:ab87d87be01cd38d5f853a07d7b85b40f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state solver manager cache.  <a href="../../dc/d1d/classtesseract__planning_1_1StateCollisionValidator.html#ab87d87be01cd38d5f853a07d7b85b40f">More...</a><br /></td></tr>
-<tr class="separator:ab87d87be01cd38d5f853a07d7b85b40f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Continuous collision check between two states. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a232fc39be1e4e24ecde84bb1cba07b8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a232fc39be1e4e24ecde84bb1cba07b8c">&#9670;&nbsp;</a></span>StateCollisionValidator()</h2>
+<a id="a6eff034b80520fea15bed6ecce0393b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eff034b80520fea15bed6ecce0393b5">&#9670;&nbsp;</a></span>StateCollisionValidator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,14 +152,14 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">tesseract_environment::Environment::ConstPtr&#160;</td>
+          <td class="paramtype">const tesseract_environment::Environment &amp;&#160;</td>
           <td class="paramname"><em>env</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">tesseract_kinematics::ForwardKinematics::ConstPtr&#160;</td>
-          <td class="paramname"><em>kin</em>, </td>
+          <td class="paramtype">tesseract_kinematics::JointGroup::ConstPtr&#160;</td>
+          <td class="paramname"><em>manip</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -270,31 +259,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a639d4dcf039e59a9b17ec38c5d5ee51e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a639d4dcf039e59a9b17ec38c5d5ee51e">&#9670;&nbsp;</a></span>env_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_environment::Environment::ConstPtr tesseract_planning::StateCollisionValidator::env_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The Tesseract Environment. </p>
-<p>The tesseract state solver </p>
-
-</div>
-</div>
 <a id="a5e88ed387b88754f07bc11a665d4318c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5e88ed387b88754f07bc11a665d4318c">&#9670;&nbsp;</a></span>extractor_</h2>
 
@@ -314,55 +278,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@bried This will extract an Eigen::VectorXd from the OMPL State </p>
 
-</div>
-</div>
-<a id="a77eb25f8720b5fc953747f2183a7366e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77eb25f8720b5fc953747f2183a7366e">&#9670;&nbsp;</a></span>joints_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;std::string&gt; tesseract_planning::StateCollisionValidator::joints_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A list of active joints. </p>
-
-</div>
-</div>
-<a id="a349f0ead5910a28c074138d7da448a7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a349f0ead5910a28c074138d7da448a7b">&#9670;&nbsp;</a></span>kin_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_kinematics::ForwardKinematics::ConstPtr tesseract_planning::StateCollisionValidator::kin_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The Tesseract Forward Kinematics. </p>
+<p>This will extract an Eigen::VectorXd from the OMPL State. </p>
 
 </div>
 </div>
@@ -390,6 +307,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aeb45cd490dee9bc2ac424a524941449e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb45cd490dee9bc2ac424a524941449e">&#9670;&nbsp;</a></span>manip_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_kinematics::JointGroup::ConstPtr tesseract_planning::StateCollisionValidator::manip_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The Tesseract Joint Group. </p>
+
+</div>
+</div>
 <a id="a836087fe204cc5141ef8f418dfb9af86"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a836087fe204cc5141ef8f418dfb9af86">&#9670;&nbsp;</a></span>mutex_</h2>
 
@@ -414,52 +355,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a678fb52afb9ecb96151a4452d6058ee3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a678fb52afb9ecb96151a4452d6058ee3">&#9670;&nbsp;</a></span>state_solver_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_environment::StateSolver::ConstPtr tesseract_planning::StateCollisionValidator::state_solver_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab87d87be01cd38d5f853a07d7b85b40f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab87d87be01cd38d5f853a07d7b85b40f">&#9670;&nbsp;</a></span>state_solver_managers_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::map&lt;unsigned long int, tesseract_environment::StateSolver::Ptr&gt; tesseract_planning::StateCollisionValidator::state_solver_managers_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The state solver manager cache. </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract_motion_planners/ompl/include/tesseract_motion_planners/ompl/<a class="el" href="../../d4/d86/state__collision__validator_8h_source.html">state_collision_validator.h</a></li>
 <li>tesseract_motion_planners/ompl/src/<a class="el" href="../../dc/d50/state__collision__validator_8cpp.html">state_collision_validator.cpp</a></li>
@@ -467,7 +362,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 24 2021 20:54:58 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Oct 13 2021 20:50:08 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

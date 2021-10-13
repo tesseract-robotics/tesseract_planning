@@ -54,7 +54,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a82aaf5bc
 const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a592c0a96be9938a36801ad6d0fa18eb8}{get\+Name}} () const override
 \begin{DoxyCompactList}\small\item\em Get the name of this planner. \end{DoxyCompactList}\item 
 tesseract\+\_\+common\+::\+Status\+Code \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}{solve}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{Planner\+Response}} \&response, bool verbose=false) const override
-\begin{DoxyCompactList}\small\item\em Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a13a6df1d08a2fa9507cf4b9983e55d17}{terminate}} () override
 \begin{DoxyCompactList}\small\item\em If \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}{solve()}} is running, terminate the computation. Return false if termination not possible. No-\/op if \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}{solve()}} is not running (returns true). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a61c68448ab3ca6f602f97a24044518f8}{clear}} () override
@@ -81,7 +81,7 @@ static bool \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ab9
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a217cd7005be20ca0303647c7f76a752d}{get\+Start\+Instruction}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&current\+\_\+state, const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr \&fwd\+\_\+kin)
+static \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ab03e0226acdf31923ccb49f1a8d6f2ca}{get\+Start\+Instruction}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&current\+\_\+state, const tesseract\+\_\+kinematics\+::\+Joint\+Group \&manip)
 \begin{DoxyCompactList}\small\item\em The planners status codes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -190,11 +190,11 @@ Get the name of this planner.
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b397e6b0c703b5165399e97ed671ee7}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a217cd7005be20ca0303647c7f76a752d}\label{classtesseract__planning_1_1SimpleMotionPlanner_a217cd7005be20ca0303647c7f76a752d}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_ab03e0226acdf31923ccb49f1a8d6f2ca}\label{classtesseract__planning_1_1SimpleMotionPlanner_ab03e0226acdf31923ccb49f1a8d6f2ca}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!getStartInstruction@{getStartInstruction}}
 \index{getStartInstruction@{getStartInstruction}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{getStartInstruction()}{getStartInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::get\+Start\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const tesseract\+\_\+environment\+::\+Env\+State\+::\+Const\+Ptr \&}]{current\+\_\+state,  }\item[{const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr \&}]{fwd\+\_\+kin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::get\+Start\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&}]{current\+\_\+state,  }\item[{const tesseract\+\_\+kinematics\+::\+Joint\+Group \&}]{manip }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
 
 
 
@@ -226,7 +226,7 @@ The planners status codes.
 
 
 
-Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss. 
+Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -271,7 +271,7 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac056
 
 The available composite profiles. 
 
-Composite instruction is a way to namespace or organize your planning problem. The composite instruction has a profile which is used for applying multy waypoint costs and constraints like joint smoothing, collision avoidance, and velocity smoothing. \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a04d7d2166e6a5712b6e09fdec45d2227}\label{classtesseract__planning_1_1SimpleMotionPlanner_a04d7d2166e6a5712b6e09fdec45d2227}} 
+Composite instruction is a way to namespace or organize your planning problem. The composite instruction has a profile which is used for applying multi waypoint costs and constraints like joint smoothing, collision avoidance, and velocity smoothing. \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a04d7d2166e6a5712b6e09fdec45d2227}\label{classtesseract__planning_1_1SimpleMotionPlanner_a04d7d2166e6a5712b6e09fdec45d2227}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!name\_@{name\_}}
 \index{name\_@{name\_}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{name\_}{name\_}}
@@ -287,7 +287,7 @@ Composite instruction is a way to namespace or organize your planning problem. T
 
 The available plan profiles. 
 
-Plan instruction profiles are used to control waypoint specific information like fixed waypoint, toleranced waypoint, corner distance waypoint, etc. \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_ac7474b5c7478761fdc6c07d4208c4999}\label{classtesseract__planning_1_1SimpleMotionPlanner_ac7474b5c7478761fdc6c07d4208c4999}} 
+Plan instruction profiles are used to control waypoint specific information like fixed waypoint, tolerance waypoint, corner distance waypoint, etc. \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_ac7474b5c7478761fdc6c07d4208c4999}\label{classtesseract__planning_1_1SimpleMotionPlanner_ac7474b5c7478761fdc6c07d4208c4999}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!status\_category\_@{status\_category\_}}
 \index{status\_category\_@{status\_category\_}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{status\_category\_}{status\_category\_}}
