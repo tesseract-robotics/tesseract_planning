@@ -39,22 +39,22 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesRobotSampler<FloatType>::DescartesRobotSampler(const std::string& target_working_frame,
+DescartesRobotSampler<FloatType>::DescartesRobotSampler(std::string target_working_frame,
                                                         const Eigen::Isometry3d& target_pose,
                                                         PoseSamplerFn target_pose_sampler,
                                                         tesseract_kinematics::KinematicGroup::ConstPtr manip,
                                                         DescartesCollision::Ptr collision,
-                                                        const std::string& tcp_frame,
+                                                        std::string tcp_frame,
                                                         const Eigen::Isometry3d& tcp_offset,
                                                         bool allow_collision,
                                                         DescartesVertexEvaluator::Ptr is_valid,
                                                         bool use_redundant_joint_solutions)
-  : target_working_frame_(target_working_frame)
+  : target_working_frame_(std::move(target_working_frame))
   , target_pose_(target_pose)
   , target_pose_sampler_(std::move(target_pose_sampler))
   , manip_(std::move(manip))
   , collision_(std::move(collision))
-  , tcp_frame_(tcp_frame)
+  , tcp_frame_(std::move(tcp_frame))
   , tcp_offset_(tcp_offset)
   , allow_collision_(allow_collision)
   , dof_(static_cast<int>(manip_->numJoints()))
