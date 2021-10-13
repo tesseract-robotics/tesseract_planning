@@ -5,11 +5,11 @@
 - git:
     local-name: tesseract
     uri: https://github.com/ros-industrial-consortium/tesseract.git
-    version: 436e1f9746687a114e24b863e387a7502701bcc0
+    version: 41cb83d03f388612412bdc0d8c0538086eb0c516
 - git:
     local-name: trajopt
     uri: https://github.com/ros-industrial-consortium/trajopt_ros.git
-    version: 83d18f8f3e0941abb83620cba93d0c67042d7cdd
+    version: f7c5b27ac87eee0d2e692741003f37efd78ebb76
 - git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
