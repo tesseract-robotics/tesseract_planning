@@ -66,7 +66,7 @@ static const std::vector<std::string> RobotConfigString = { "NUT", "FUT", "NDT",
  * @param joint_group The kinematics JointGroup.
  * @param base_link The base link to use.
  * @param tcp_frame The tip link to use.
- * @param joint_values The joint values of the robot.
+ * @param joint_values The joint group joint values and assumes the last six are for the robot.
  * @param sign_correction Correct the sign for Joint 3 and Joint 5 based on the robot manufacturer.
  * @return Robot Config
  */
@@ -84,7 +84,8 @@ inline RobotConfig getRobotConfig(const tesseract_kinematics::JointGroup& joint_
   Eigen::Isometry3d pose = state.at(base_link).inverse() * state.at(tcp_frame);
 
   // Get the base rotated by joint 1
-  Eigen::Isometry3d prime_pose(Eigen::AngleAxisd(static_cast<double>(joint_values(0)), Eigen::Vector3d::UnitZ()));
+  Eigen::Isometry3d prime_pose(
+      Eigen::AngleAxisd(static_cast<double>(joint_values.tail(6)(0)), Eigen::Vector3d::UnitZ()));
 
   // Transform tool0 pose into new frame
   Eigen::Isometry3d pose_prime = prime_pose.inverse() * pose;
