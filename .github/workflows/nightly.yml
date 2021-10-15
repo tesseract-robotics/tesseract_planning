@@ -11,44 +11,37 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'check-tesseract-ros') || github.event.schedule == true
     name: ${{ matrix.env.CI_NAME }}
     runs-on: ubuntu-latest
+    env:
+      OS_NAME: ubuntu
+      ROS_REPO: main
+      BUILDER: colcon
+      UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
+      DOWNSTREAM_WORKSPACE: 'github:ros-industrial-consortium/tesseract_ros#master github:ros-industrial-consortium/tesseract_python#master'
+      ROSDEP_SKIP_KEYS: "bullet ros_industrial_cmake_boilerplate fcl iwyu taskflow"
+      PARALLEL_TESTS: false
+      UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
+      TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
+      DOWNSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
     strategy:
       fail-fast: false
       matrix:
         env:
           - {CI_NAME: Bionic-Build-Nightly,
-             OS_NAME: ubuntu,
              OS_CODE_NAME: bionic,
              ROS_DISTRO: melodic,
-             ROS_REPO: main,
-             BUILDER: colcon,
-             UPSTREAM_WORKSPACE: 'dependencies.rosinstall',
-             DOWNSTREAM_WORKSPACE: 'github:ros-industrial-consortium/tesseract_ros#master github:ros-industrial-consortium/tesseract_python#master',
-             ROSDEP_SKIP_KEYS: "bullet ros_industrial_cmake_boilerplate fcl iwyu taskflow",
-             DOCKER_IMAGE: "rosindustrial/tesseract:melodic",
-             CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Bionic-Build-Nightly/.ccache",
-             PARALLEL_TESTS: false,
-             UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
-             TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
-             DOWNSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"}
+             DOCKER_IMAGE: "ghcr.io/ros-industrial/tesseract:melodic-0.6.0",
+             CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Bionic-Build-Nightly/.ccache"}
           - {CI_NAME: Focal-Build-Nightly,
-             OS_NAME: ubuntu,
              OS_CODE_NAME: focal,
              ROS_DISTRO: noetic,
-             ROS_REPO: main,
-             BUILDER: colcon,
-             UPSTREAM_WORKSPACE: 'dependencies.rosinstall',
-             DOWNSTREAM_WORKSPACE: 'github:ros-industrial-consortium/tesseract_ros#master github:ros-industrial-consortium/tesseract_python#master',
-             ROSDEP_SKIP_KEYS: "bullet ompl orocos_kdl python-numpy ifopt python descartes_light opw_kinematics ros_industrial_cmake_boilerplate iwyu",
-             DOCKER_IMAGE: "rosindustrial/tesseract:noetic",
-             CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Focal-Build-Nightly/.ccache",
-             UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
-             TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release",
-             DOWNSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"}
+             DOCKER_IMAGE: "ghcr.io/ros-industrial/tesseract:noetic-0.6.0",
+             CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Focal-Build-Nightly/.ccache"}
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v1
 
-      - name: Free Disk Space
+      - name: Free disk space
         continue-on-error: true
         run: |
           sudo swapoff -a
