@@ -59,7 +59,7 @@ jobs:
         env:
           OS_NAME: ubuntu
           OS_CODE_NAME: bionic
-          DOCKER_IMAGE: ${{ env.REGISTRY }}/ros-industrial/tesseract:melodic-0.6.0
+          DOCKER_IMAGE: ${{ env.REGISTRY }}/ros-industrial/tesseract:melodic-0.6.1
           ROS_REPO: main
           UNDERLAY: /root/ros-industrial/tesseract_target_ws/install
           PREFIX: ${{ github.repository }}_
