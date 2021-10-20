@@ -30,12 +30,12 @@ jobs:
              OS_CODE_NAME: bionic,
              ROS_DISTRO: melodic,
              DOCKER_IMAGE: "ghcr.io/ros-industrial/tesseract:melodic-0.6.1",
-             CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Bionic-Build-Nightly/.ccache"}
+             CCACHE_DIR: "${{ github.workspace }}/Bionic-Build-Nightly/.ccache"}
           - {CI_NAME: Focal-Build-Nightly,
              OS_CODE_NAME: focal,
              ROS_DISTRO: noetic,
              DOCKER_IMAGE: "ghcr.io/ros-industrial/tesseract:noetic-0.6.1",
-             CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/Focal-Build-Nightly/.ccache"}
+             CCACHE_DIR: "${{ github.workspace }}/Focal-Build-Nightly/.ccache"}
 
     steps:
       - name: Checkout repository

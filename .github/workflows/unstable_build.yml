@@ -15,7 +15,6 @@ jobs:
     env:
       CI_NAME: Unstable-Build
       ROS_DISTRO: noetic
-      CCACHE_DIR: "/home/runner/work/tesseract/tesseract/Unstable-Build/.ccache"
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
       PUSH_DOCKER_IMAGE: ${{ github.ref == 'refs/heads/master' || github.event_name == 'release' }}
@@ -61,7 +60,8 @@ jobs:
         env:
           OS_NAME: ubuntu
           OS_CODE_NAME: focal
-          DOCKER_IMAGE: "${{ env.REGISTRY }}/ros-industrial/tesseract:${{ env.ROS_DISTRO }}-master"
+          DOCKER_IMAGE: ${{ env.REGISTRY }}/ros-industrial/tesseract:${{ env.ROS_DISTRO }}-master
+          CCACHE_DIR: ${{ github.workspace }}/${{ env.CI_NAME }}/.ccache
           ROS_REPO: main
           UNDERLAY: /root/ros-industrial/tesseract_target_ws/install
           PREFIX: ${{ github.repository }}_

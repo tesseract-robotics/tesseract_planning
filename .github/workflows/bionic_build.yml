@@ -18,7 +18,6 @@ jobs:
     env:
       CI_NAME: Bionic-Build
       ROS_DISTRO: melodic
-      CCACHE_DIR: "/home/runner/work/tesseract/tesseract/Bionic-Build/.ccache"
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
       PUSH_DOCKER_IMAGE: ${{ github.ref == 'refs/heads/master' || github.event_name == 'release' }}
@@ -86,6 +85,7 @@ jobs:
           OS_NAME: ubuntu
           OS_CODE_NAME: bionic
           DOCKER_IMAGE: ${{ env.REGISTRY }}/ros-industrial/tesseract:${{ env.ROS_DISTRO }}-0.6.1
+          CCACHE_DIR: ${{ github.workspace }}/${{ env.CI_NAME }}/.ccache
           ROS_REPO: main
           UNDERLAY: /root/ros-industrial/tesseract_target_ws/install
           PREFIX: ${{ github.repository }}_
