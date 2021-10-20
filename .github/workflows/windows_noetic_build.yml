@@ -30,7 +30,7 @@ jobs:
 
         rosdep update
 
-        vcs import --input "${{ github.workspace }}/src/tesseract_planning/dependencies_with_ext.rosinstall" src/
+        vcs import --input "${{ github.workspace }}/src/tesseract_planning/ci/dependencies_windows_build.rosinstall" src/
 
         rosdep install -q --from-paths . --ignore-src -y
 

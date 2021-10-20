@@ -84,7 +84,4 @@ if(TESSERACT_ENABLE_TESTING)
 endif()
 
 # Package configuration
-install(EXPORT ${PROJECT_NAME}-targets NAMESPACE "tesseract::" DESTINATION lib/cmake/${PROJECT_NAME})
-export(EXPORT ${PROJECT_NAME}-targets NAMESPACE "tesseract::"
-       FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-targets.cmake)
-configure_package()
+configure_package(NAMESPACE tesseract)

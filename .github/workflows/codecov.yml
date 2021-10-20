@@ -14,23 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI_NAME: CodeCov
-      OS_NAME: ubuntu
-      OS_CODE_NAME: bionic
       ROS_DISTRO: melodic
-      ROS_REPO: main
-      UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
-      ROSDEP_SKIP_KEYS: "bullet ros_industrial_cmake_boilerplate iwyu fcl taskflow"
-      DOCKER_IMAGE: "rosindustrial/tesseract:melodic"
       CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/CodeCov/.ccache"
-      PARALLEL_BUILDS: 1
-      UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-      TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON"
-      AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_command_language tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args ccov-all
-                     && bash <(curl -s https://codecov.io/bash) -t a89e6f59-5409-4686-b615-b2341c7ef69a -s $target_ws/build -f *all-merged.info'
-    steps:
-      - uses: actions/checkout@v1
+      REGISTRY: ghcr.io
 
-      - name: Free Disk Space
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Free disk space
         continue-on-error: true
         run: |
           sudo swapoff -a
@@ -55,5 +47,26 @@ jobs:
           restore-keys: |
             ${{ env.CI_NAME }}-ccache-
 
-      - uses: 'ros-industrial/industrial_ci@master'
-        env: ${{env}}
+      - name: Login to Github container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build repository
+        uses: 'ros-industrial/industrial_ci@master'
+        env:
+          OS_NAME: ubuntu
+          OS_CODE_NAME: bionic
+          DOCKER_IMAGE: ${{ env.REGISTRY }}/ros-industrial/tesseract:melodic-0.6.1
+          ROS_REPO: main
+          UNDERLAY: /root/ros-industrial/tesseract_target_ws/install
+          PREFIX: ${{ github.repository }}_
+          UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
+          UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
+          ROSDEP_SKIP_KEYS: "bullet ros_industrial_cmake_boilerplate iwyu fcl taskflow"
+          TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON"
+          PARALLEL_BUILDS: 1
+          AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_command_language tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args ccov-all
+                         && bash <(curl -s https://codecov.io/bash) -t a89e6f59-5409-4686-b615-b2341c7ef69a -s $target_ws/build -f *all-merged.info'
