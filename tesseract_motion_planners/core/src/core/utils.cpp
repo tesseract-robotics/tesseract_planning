@@ -582,13 +582,15 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
 void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
                              const tesseract_environment::Environment& env,
                              const tesseract_scene_graph::SceneState& state,
-                             const ManipulatorInfo& manip_info)
+                             const ManipulatorInfo& manip_info,
+                             std::unordered_map<std::string, std::vector<std::string>>& manip_joint_names)
 {
+  std::vector<std::string> group_joint_names;
   for (auto& i : composite_instructions)
   {
     if (isCompositeInstruction(i))
     {
-      generateNaiveSeedHelper(i.as<CompositeInstruction>(), env, state, manip_info);
+      generateNaiveSeedHelper(i.as<CompositeInstruction>(), env, state, manip_info, manip_joint_names);
     }
     else if (isPlanInstruction(i))
     {
@@ -601,8 +603,18 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       ci.setManipulatorInfo(base_instruction.getManipulatorInfo());
       ci.profile_overrides = base_instruction.profile_overrides;
 
-      auto fwd_kin = env.getJointGroup(mi.manipulator);
-      Eigen::VectorXd jv = state.getJointValues(fwd_kin->getJointNames());
+      auto it = manip_joint_names.find(mi.manipulator);
+      if (it == manip_joint_names.end())
+      {
+        group_joint_names = env.getGroupJointNames(mi.manipulator);
+        manip_joint_names[mi.manipulator] = group_joint_names;
+      }
+      else
+      {
+        group_joint_names = it->second;
+      }
+
+      Eigen::VectorXd jv = state.getJointValues(group_joint_names);
 
       // Get move type base on base instruction type
       MoveInstructionType move_type;
@@ -615,7 +627,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
 
       if (isStateWaypoint(base_instruction.getWaypoint()))
       {
-        assert(checkJointPositionFormat(fwd_kin->getJointNames(), base_instruction.getWaypoint()));
+        assert(checkJointPositionFormat(group_joint_names, base_instruction.getWaypoint()));
         MoveInstruction move_instruction(base_instruction.getWaypoint(), move_type);
         move_instruction.setManipulatorInfo(base_instruction.getManipulatorInfo());
         move_instruction.setDescription(base_instruction.getDescription());
@@ -625,7 +637,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       }
       else if (isJointWaypoint(base_instruction.getWaypoint()))
       {
-        assert(checkJointPositionFormat(fwd_kin->getJointNames(), base_instruction.getWaypoint()));
+        assert(checkJointPositionFormat(group_joint_names, base_instruction.getWaypoint()));
         const auto& jwp = base_instruction.getWaypoint().as<JointWaypoint>();
         MoveInstruction move_instruction(StateWaypoint(jwp.joint_names, jwp.waypoint), move_type);
         move_instruction.setManipulatorInfo(base_instruction.getManipulatorInfo());
@@ -636,7 +648,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       }
       else
       {
-        MoveInstruction move_instruction(StateWaypoint(fwd_kin->getJointNames(), jv), move_type);
+        MoveInstruction move_instruction(StateWaypoint(group_joint_names, jv), move_type);
         move_instruction.setManipulatorInfo(base_instruction.getManipulatorInfo());
         move_instruction.setDescription(base_instruction.getDescription());
         move_instruction.setProfile(base_instruction.getProfile());
@@ -655,6 +667,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   if (!composite_instructions.hasStartInstruction())
     throw std::runtime_error("Top most composite instruction is missing start instruction!");
 
+  std::unordered_map<std::string, std::vector<std::string>> manip_joint_names;
   tesseract_scene_graph::SceneState state = env.getState();
   CompositeInstruction seed = composite_instructions;
   const ManipulatorInfo& mi = composite_instructions.getManipulatorInfo();
@@ -686,12 +699,13 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     throw std::runtime_error("Top most composite instruction start instruction has invalid waypoint type!");
 
   ManipulatorInfo start_mi = mi.getCombined(base_mi);
-  auto fwd_kin = env.getJointGroup(start_mi.manipulator);
-  Eigen::VectorXd jv = state.getJointValues(fwd_kin->getJointNames());
+  std::vector<std::string> joint_names = env.getGroupJointNames(start_mi.manipulator);
+  manip_joint_names[start_mi.manipulator] = joint_names;
+  Eigen::VectorXd jv = state.getJointValues(joint_names);
 
   if (isStateWaypoint(wp))
   {
-    assert(checkJointPositionFormat(fwd_kin->getJointNames(), wp));
+    assert(checkJointPositionFormat(joint_names, wp));
     MoveInstruction move_instruction(wp, MoveInstructionType::START);
     move_instruction.setManipulatorInfo(base_mi);
     move_instruction.setDescription(description);
@@ -701,7 +715,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   }
   else if (isJointWaypoint(wp))
   {
-    assert(checkJointPositionFormat(fwd_kin->getJointNames(), wp));
+    assert(checkJointPositionFormat(joint_names, wp));
     const auto& jwp = wp.as<JointWaypoint>();
     MoveInstruction move_instruction(StateWaypoint(jwp.joint_names, jwp.waypoint), MoveInstructionType::START);
     move_instruction.setManipulatorInfo(base_mi);
@@ -712,7 +726,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   }
   else
   {
-    MoveInstruction move_instruction(StateWaypoint(fwd_kin->getJointNames(), jv), MoveInstructionType::START);
+    MoveInstruction move_instruction(StateWaypoint(joint_names, jv), MoveInstructionType::START);
     move_instruction.setManipulatorInfo(base_mi);
     move_instruction.setDescription(description);
     move_instruction.setProfile(profile);
@@ -720,7 +734,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     seed.setStartInstruction(move_instruction);
   }
 
-  generateNaiveSeedHelper(seed, env, state, mi);
+  generateNaiveSeedHelper(seed, env, state, mi, manip_joint_names);
   return seed;
 }
 
@@ -748,8 +762,7 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
       auto it = manip_joint_names.find(combined_mi.manipulator);
       if (it == manip_joint_names.end())
       {
-        auto fwd_kin = env.getJointGroup(combined_mi.manipulator);
-        joint_names = fwd_kin->getJointNames();
+        joint_names = env.getGroupJointNames(combined_mi.manipulator);
         manip_joint_names[combined_mi.manipulator] = joint_names;
       }
       else
@@ -774,8 +787,7 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
       auto it = manip_joint_names.find(combined_mi.manipulator);
       if (it == manip_joint_names.end())
       {
-        auto fwd_kin = env.getJointGroup(combined_mi.manipulator);
-        joint_names = fwd_kin->getJointNames();
+        joint_names = env.getGroupJointNames(combined_mi.manipulator);
         manip_joint_names[combined_mi.manipulator] = joint_names;
       }
       else
@@ -814,8 +826,7 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
     auto it = manip_joint_names.find(start_mi.manipulator);
     if (it == manip_joint_names.end())
     {
-      auto fwd_kin = env.getJointGroup(start_mi.manipulator);
-      joint_names = fwd_kin->getJointNames();
+      joint_names = env.getGroupJointNames(start_mi.manipulator);
       manip_joint_names[start_mi.manipulator] = joint_names;
     }
     else
@@ -839,8 +850,7 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
     auto it = manip_joint_names.find(start_mi.manipulator);
     if (it == manip_joint_names.end())
     {
-      auto fwd_kin = env.getJointGroup(start_mi.manipulator);
-      joint_names = fwd_kin->getJointNames();
+      joint_names = env.getGroupJointNames(start_mi.manipulator);
       manip_joint_names[start_mi.manipulator] = joint_names;
     }
     else
