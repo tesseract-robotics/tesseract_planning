@@ -850,8 +850,8 @@ Functions</h2></td></tr>
 <tr class="separator:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4244fdc5b54d25a4d77df5258e11af94"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4244fdc5b54d25a4d77df5258e11af94">calcPose</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;wp, const std::string &amp;working_frame, const std::string &amp;tip_link, const Eigen::Isometry3d &amp;tcp, const tesseract_scene_graph::SceneState &amp;current_state, tesseract_scene_graph::StateSolver &amp;state_solver)</td></tr>
 <tr class="separator:a4244fdc5b54d25a4d77df5258e11af94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0950a3c93b0b9ef5f40e0fcada8adb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac0950a3c93b0b9ef5f40e0fcada8adb0">generateNaiveSeedHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const tesseract_scene_graph::SceneState &amp;state, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info)</td></tr>
-<tr class="separator:ac0950a3c93b0b9ef5f40e0fcada8adb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42780aa466baa0c5e1a46e8eb34ddd9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a42780aa466baa0c5e1a46e8eb34ddd9d">generateNaiveSeedHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const tesseract_scene_graph::SceneState &amp;state, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt;&gt; &amp;manip_joint_names)</td></tr>
+<tr class="separator:a42780aa466baa0c5e1a46e8eb34ddd9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c067267cd8dd3e60af7e57fbc3aa7ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c067267cd8dd3e60af7e57fbc3aa7ce">formatProgramHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt;&gt; &amp;manip_joint_names)</td></tr>
 <tr class="separator:a2c067267cd8dd3e60af7e57fbc3aa7ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf2bb32372d00e42763932cdde163c01"><td class="memItemLeft" align="right" valign="top">tesseract_common::VectorIsometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adf2bb32372d00e42763932cdde163c01">sampleToolAxis</a> (const Eigen::Isometry3d &amp;tool_pose, double resolution, const Eigen::Vector3d &amp;axis)</td></tr>
@@ -5659,8 +5659,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ac0950a3c93b0b9ef5f40e0fcada8adb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0950a3c93b0b9ef5f40e0fcada8adb0">&#9670;&nbsp;</a></span>generateNaiveSeedHelper()</h2>
+<a id="a42780aa466baa0c5e1a46e8eb34ddd9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42780aa466baa0c5e1a46e8eb34ddd9d">&#9670;&nbsp;</a></span>generateNaiveSeedHelper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5687,7 +5687,13 @@ template&lt;typename FloatType &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>manip_info</em>&#160;</td>
+          <td class="paramname"><em>manip_info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; std::string, std::vector&lt; std::string &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>manip_joint_names</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -9761,7 +9767,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 20 2021 21:19:34 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sun Oct 24 2021 18:57:56 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

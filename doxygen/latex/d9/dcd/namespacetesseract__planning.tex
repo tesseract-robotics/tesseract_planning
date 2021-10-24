@@ -649,7 +649,7 @@ std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for the two provided cartesian poses. \end{DoxyCompactList}\item 
 Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a4244fdc5b54d25a4d77df5258e11af94}{calc\+Pose}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&wp, const std\+::string \&working\+\_\+frame, const std\+::string \&tip\+\_\+link, const Eigen\+::\+Isometry3d \&tcp, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&current\+\_\+state, tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver)
 \item 
-void \mbox{\hyperlink{namespacetesseract__planning_ac0950a3c93b0b9ef5f40e0fcada8adb0}{generate\+Naive\+Seed\+Helper}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&state, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info)
+void \mbox{\hyperlink{namespacetesseract__planning_a42780aa466baa0c5e1a46e8eb34ddd9d}{generate\+Naive\+Seed\+Helper}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&state, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info, std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ std\+::string $>$$>$ \&manip\+\_\+joint\+\_\+names)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a2c067267cd8dd3e60af7e57fbc3aa7ce}{format\+Program\+Helper}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite\+\_\+instructions, const tesseract\+\_\+environment\+::\+Environment \&env, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info, std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ std\+::string $>$$>$ \&manip\+\_\+joint\+\_\+names)
 \item 
@@ -2608,11 +2608,11 @@ This will generate a seed where each plan instruction has a single move instruct
 \begin{DoxyReturn}{Returns}
 The generated seed 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_ac0950a3c93b0b9ef5f40e0fcada8adb0}\label{namespacetesseract__planning_ac0950a3c93b0b9ef5f40e0fcada8adb0}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a42780aa466baa0c5e1a46e8eb34ddd9d}\label{namespacetesseract__planning_a42780aa466baa0c5e1a46e8eb34ddd9d}} 
 \index{tesseract\_planning@{tesseract\_planning}!generateNaiveSeedHelper@{generateNaiveSeedHelper}}
 \index{generateNaiveSeedHelper@{generateNaiveSeedHelper}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{generateNaiveSeedHelper()}{generateNaiveSeedHelper()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::generate\+Naive\+Seed\+Helper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite\+\_\+instructions,  }\item[{const tesseract\+\_\+environment\+::\+Environment \&}]{env,  }\item[{const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&}]{state,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::generate\+Naive\+Seed\+Helper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite\+\_\+instructions,  }\item[{const tesseract\+\_\+environment\+::\+Environment \&}]{env,  }\item[{const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&}]{state,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info,  }\item[{std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ std\+::string $>$$>$ \&}]{manip\+\_\+joint\+\_\+names }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a7cc42c6f98936d7b99258a4760d940f0}\label{namespacetesseract__planning_a7cc42c6f98936d7b99258a4760d940f0}} 
 \index{tesseract\_planning@{tesseract\_planning}!generateSeed@{generateSeed}}
