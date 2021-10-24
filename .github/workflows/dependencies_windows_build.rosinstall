@@ -9,11 +9,7 @@
 - git:
     local-name: tesseract
     uri: https://github.com/ros-industrial-consortium/tesseract.git
-<<<<<<< HEAD:.github/workflows/dependencies_windows_build.rosinstall
-    version: 0.6.1
-=======
-    version: d4f9c108afc813def16e41bf924f956a013db738
->>>>>>> Update to leverage environment getGroupJointNames:dependencies_with_ext.rosinstall
+    version: 0.6.2
 - git:
     local-name: trajopt
     uri: https://github.com/ros-industrial-consortium/trajopt_ros.git
