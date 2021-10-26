@@ -43,6 +43,8 @@ class EnvironmentCache
 public:
   using Ptr = std::shared_ptr<EnvironmentCache>;
   using ConstPtr = std::shared_ptr<const EnvironmentCache>;
+  using UPtr = std::unique_ptr<EnvironmentCache>;
+  using ConstUPtr = std::unique_ptr<const EnvironmentCache>;
 
   EnvironmentCache() = default;
   virtual ~EnvironmentCache() = default;
@@ -64,13 +66,13 @@ public:
   virtual long getCacheSize() const = 0;
 
   /** @brief If the environment has changed it will rebuild the cache of tesseract objects */
-  virtual void refreshCache() = 0;
+  virtual void refreshCache() const = 0;
 
   /**
    * @brief This will pop an Environment object from the queue
    * @details This will first call refreshCache to ensure it has an updated tesseract then proceed
    */
-  virtual tesseract_environment::Environment::Ptr getCachedEnvironment() = 0;
+  virtual tesseract_environment::Environment::UPtr getCachedEnvironment() const = 0;
 };
 
 class ProcessEnvironmentCache : public EnvironmentCache
@@ -85,35 +87,35 @@ public:
    * @brief Set the cache size used to hold tesseract objects for motion planning
    * @param size The size of the cache.
    */
-  void setCacheSize(long size) override;
+  void setCacheSize(long size) override final;
 
   /**
    * @brief Get the cache size used to hold tesseract objects for motion planning
    * @return The size of the cache.
    */
-  long getCacheSize() const override;
+  long getCacheSize() const override final;
 
   /** @brief If the environment has changed it will rebuild the cache of tesseract objects */
-  void refreshCache() override;
+  void refreshCache() const override final;
 
   /**
    * @brief This will pop an Environment object from the queue
    * @details This will first call refreshCache to ensure it has an updated tesseract then proceed
    */
-  tesseract_environment::Environment::Ptr getCachedEnvironment() override;
+  tesseract_environment::Environment::UPtr getCachedEnvironment() const override final;
 
 protected:
   /** @brief The tesseract_object used to create the cache */
   tesseract_environment::Environment::ConstPtr env_;
 
-  /** @brief The environment revision number at the time the cache was populated */
-  int cache_env_revision_{ 0 };
-
   /** @brief The assigned cache size */
   std::size_t cache_size_{ 5 };
 
-  /** @brief A vector of cached Tesseact objects */
-  std::deque<tesseract_environment::Environment::Ptr> cache_;
+  /** @brief The environment revision number at the time the cache was populated */
+  mutable int cache_env_revision_{ 0 };
+
+  /** @brief A vector of cached Tesseract objects */
+  mutable std::deque<tesseract_environment::Environment::UPtr> cache_;
 
   /** @brief The mutex used when reading and writing to cache_ */
   mutable std::shared_mutex cache_mutex_;

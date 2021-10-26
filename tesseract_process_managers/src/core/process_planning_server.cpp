@@ -45,7 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-ProcessPlanningServer::ProcessPlanningServer(EnvironmentCache::Ptr cache, size_t n)
+ProcessPlanningServer::ProcessPlanningServer(EnvironmentCache::ConstPtr cache, size_t n)
   : cache_(std::move(cache)), executor_(std::make_shared<tf::Executor>(n))
 {
   /** @todo Need to figure out if these can associated with an individual run versus global */
