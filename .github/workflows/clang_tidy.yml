@@ -58,7 +58,7 @@ jobs:
         env:
           OS_NAME: ubuntu
           OS_CODE_NAME: focal
-          DOCKER_IMAGE: ${{ env.REGISTRY }}/ros-industrial/tesseract:${{ env.ROS_DISTRO }}-0.6.3
+          DOCKER_IMAGE: ${{ env.REGISTRY }}/ros-industrial/tesseract:${{ env.ROS_DISTRO }}-0.6.4
           CCACHE_DIR: ${{ github.workspace }}/${{ env.CI_NAME }}/.ccache
           ROS_REPO: main
           UNDERLAY: /root/ros-industrial/tesseract_target_ws/install
