@@ -2,7 +2,7 @@
 \label{classtesseract__planning_1_1ProcessPlanningServer}\index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
 
 
-A process planning server that support asynchronous exectuion of process planning requests.  
+A process planning server that support asynchronous execution of process planning requests.  
 
 
 
@@ -25,11 +25,15 @@ Collaboration diagram for tesseract\+\_\+planning\+::Process\+Planning\+Server\+
 using \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aa52737a3f539bf58cf5b124ddfc82044}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{Process\+Planning\+Server}} $>$
 \item 
 using \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a0d014430a22f19fe839bd9836622753b}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{Process\+Planning\+Server}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a5e5350edc87c24aade648d0bdc8c9aae}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{Process\+Planning\+Server}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aeac5a0989d5f0a56f6ad64cf65db8575}{Const\+UPtr}} = std\+::unique\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{Process\+Planning\+Server}} $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a1fa695dff8d05b226d7e0b1aa8c4f148}{Process\+Planning\+Server}} (\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}{Environment\+Cache\+::\+Ptr}} cache, size\+\_\+t n=std\+::thread\+::hardware\+\_\+concurrency())
+\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a398f6e28a76b6b1ef5886a5e7cedeeed}{Process\+Planning\+Server}} (\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{Environment\+Cache\+::\+Const\+Ptr}} cache, size\+\_\+t n=std\+::thread\+::hardware\+\_\+concurrency())
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_ae9f2c3feb1b64bbfe362579da1a07698}{Process\+Planning\+Server}} (tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr environment, int cache\+\_\+size=1, size\+\_\+t n=std\+::thread\+::hardware\+\_\+concurrency())
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
@@ -68,7 +72,7 @@ void \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a1b47d65
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}{Environment\+Cache\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a648987d21fc5ce6fca50532053a1212b}{cache\+\_\+}}
+\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{Environment\+Cache\+::\+Const\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_ab37a53f8825bd9c0375d7d7c0aafe5fa}{cache\+\_\+}}
 \item 
 std\+::shared\+\_\+ptr$<$ tf\+::\+Executor $>$ \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_acc2fa854c5cfb08fe24ce0d169f018aa}{executor\+\_\+}}
 \item 
@@ -81,7 +85,7 @@ std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classtesseract__pla
 
 
 \doxysubsection{Detailed Description}
-A process planning server that support asynchronous exectuion of process planning requests. 
+A process planning server that support asynchronous execution of process planning requests. 
 
 It allows the developer to register Process pipelines (aka. Taskflow Generators) so they may be request 
 
@@ -92,20 +96,32 @@ It allows the developer to register Process pipelines (aka. Taskflow Generators)
 \doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a0d014430a22f19fe839bd9836622753b}{tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{Process\+Planning\+Server}}$>$}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_aeac5a0989d5f0a56f6ad64cf65db8575}\label{classtesseract__planning_1_1ProcessPlanningServer_aeac5a0989d5f0a56f6ad64cf65db8575}} 
+\index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!ConstUPtr@{ConstUPtr}}
+\index{ConstUPtr@{ConstUPtr}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
+\doxysubsubsection{\texorpdfstring{ConstUPtr}{ConstUPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aeac5a0989d5f0a56f6ad64cf65db8575}{tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::\+Const\+UPtr}} =  std\+::unique\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{Process\+Planning\+Server}}$>$}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_aa52737a3f539bf58cf5b124ddfc82044}\label{classtesseract__planning_1_1ProcessPlanningServer_aa52737a3f539bf58cf5b124ddfc82044}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!Ptr@{Ptr}}
 \index{Ptr@{Ptr}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
 \doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aa52737a3f539bf58cf5b124ddfc82044}{tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{Process\+Planning\+Server}}$>$}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a5e5350edc87c24aade648d0bdc8c9aae}\label{classtesseract__planning_1_1ProcessPlanningServer_a5e5350edc87c24aade648d0bdc8c9aae}} 
+\index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a5e5350edc87c24aade648d0bdc8c9aae}{tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{Process\+Planning\+Server}}$>$}
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a1fa695dff8d05b226d7e0b1aa8c4f148}\label{classtesseract__planning_1_1ProcessPlanningServer_a1fa695dff8d05b226d7e0b1aa8c4f148}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a398f6e28a76b6b1ef5886a5e7cedeeed}\label{classtesseract__planning_1_1ProcessPlanningServer_a398f6e28a76b6b1ef5886a5e7cedeeed}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!ProcessPlanningServer@{ProcessPlanningServer}}
 \index{ProcessPlanningServer@{ProcessPlanningServer}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
 \doxysubsubsection{\texorpdfstring{ProcessPlanningServer()}{ProcessPlanningServer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::\+Process\+Planning\+Server (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}{Environment\+Cache\+::\+Ptr}}}]{cache,  }\item[{size\+\_\+t}]{n = {\ttfamily std\+:\+:thread\+:\+:hardware\+\_\+concurrency()} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::\+Process\+Planning\+Server (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{Environment\+Cache\+::\+Const\+Ptr}}}]{cache,  }\item[{size\+\_\+t}]{n = {\ttfamily std\+:\+:thread\+:\+:hardware\+\_\+concurrency()} }\end{DoxyParamCaption})}
 
 
 
@@ -327,11 +343,11 @@ Wait for all process currently being executed to finish before returning.
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a648987d21fc5ce6fca50532053a1212b}\label{classtesseract__planning_1_1ProcessPlanningServer_a648987d21fc5ce6fca50532053a1212b}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_ab37a53f8825bd9c0375d7d7c0aafe5fa}\label{classtesseract__planning_1_1ProcessPlanningServer_ab37a53f8825bd9c0375d7d7c0aafe5fa}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!cache\_@{cache\_}}
 \index{cache\_@{cache\_}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
 \doxysubsubsection{\texorpdfstring{cache\_}{cache\_}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}{Environment\+Cache\+::\+Ptr}} tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::cache\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{Environment\+Cache\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::cache\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_acc2fa854c5cfb08fe24ce0d169f018aa}\label{classtesseract__planning_1_1ProcessPlanningServer_acc2fa854c5cfb08fe24ce0d169f018aa}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!executor\_@{executor\_}}

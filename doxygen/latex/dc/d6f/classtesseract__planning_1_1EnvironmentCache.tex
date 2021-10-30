@@ -20,6 +20,10 @@ Inheritance diagram for tesseract\+\_\+planning\+::Environment\+Cache\+:
 using \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}} $>$
 \item 
 using \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac491726422e4dfc43f4b386d7fd46676}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_adb280591159e2e3ac45514afa4544c77}{Const\+UPtr}} = std\+::unique\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}} $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -40,9 +44,9 @@ virtual void \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a969f
 \begin{DoxyCompactList}\small\item\em Set the cache size used to hold tesseract objects for motion planning. \end{DoxyCompactList}\item 
 virtual long \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_adc8514ac4c6b3c57efc6e6d3739cdec0}{get\+Cache\+Size}} () const =0
 \begin{DoxyCompactList}\small\item\em Get the cache size used to hold tesseract objects for motion planning. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a2107eaeecee1840117f677908eba68c6}{refresh\+Cache}} ()=0
+virtual void \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_aa5a67a8dabbd80d6c135e2a07c5070cd}{refresh\+Cache}} () const =0
 \begin{DoxyCompactList}\small\item\em If the environment has changed it will rebuild the cache of tesseract objects. \end{DoxyCompactList}\item 
-virtual tesseract\+\_\+environment\+::\+Environment\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a53a0af46b3aabb05cb4fb72a16cf45bf}{get\+Cached\+Environment}} ()=0
+virtual tesseract\+\_\+environment\+::\+Environment\+::\+UPtr \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a1884ebeed433e9c398e9fe8c8ad33e3a}{get\+Cached\+Environment}} () const =0
 \begin{DoxyCompactList}\small\item\em This will pop an Environment object from the queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -53,11 +57,23 @@ virtual tesseract\+\_\+environment\+::\+Environment\+::\+Ptr \mbox{\hyperlink{cl
 \doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{tesseract\+\_\+planning\+::\+Environment\+Cache\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}}$>$}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_adb280591159e2e3ac45514afa4544c77}\label{classtesseract__planning_1_1EnvironmentCache_adb280591159e2e3ac45514afa4544c77}} 
+\index{tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}!ConstUPtr@{ConstUPtr}}
+\index{ConstUPtr@{ConstUPtr}!tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}}
+\doxysubsubsection{\texorpdfstring{ConstUPtr}{ConstUPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_adb280591159e2e3ac45514afa4544c77}{tesseract\+\_\+planning\+::\+Environment\+Cache\+::\+Const\+UPtr}} =  std\+::unique\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}}$>$}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}\label{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}} 
 \index{tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}!Ptr@{Ptr}}
 \index{Ptr@{Ptr}!tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}}
 \doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}{tesseract\+\_\+planning\+::\+Environment\+Cache\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_ac491726422e4dfc43f4b386d7fd46676}\label{classtesseract__planning_1_1EnvironmentCache_ac491726422e4dfc43f4b386d7fd46676}} 
+\index{tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac491726422e4dfc43f4b386d7fd46676}{tesseract\+\_\+planning\+::\+Environment\+Cache\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}}$>$}
 
 
 
@@ -89,11 +105,11 @@ virtual tesseract\+\_\+environment\+::\+Environment\+::\+Ptr \mbox{\hyperlink{cl
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_a53a0af46b3aabb05cb4fb72a16cf45bf}\label{classtesseract__planning_1_1EnvironmentCache_a53a0af46b3aabb05cb4fb72a16cf45bf}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_a1884ebeed433e9c398e9fe8c8ad33e3a}\label{classtesseract__planning_1_1EnvironmentCache_a1884ebeed433e9c398e9fe8c8ad33e3a}} 
 \index{tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}!getCachedEnvironment@{getCachedEnvironment}}
 \index{getCachedEnvironment@{getCachedEnvironment}!tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}}
 \doxysubsubsection{\texorpdfstring{getCachedEnvironment()}{getCachedEnvironment()}}
-{\footnotesize\ttfamily virtual tesseract\+\_\+environment\+::\+Environment\+::\+Ptr tesseract\+\_\+planning\+::\+Environment\+Cache\+::get\+Cached\+Environment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+environment\+::\+Environment\+::\+UPtr tesseract\+\_\+planning\+::\+Environment\+Cache\+::get\+Cached\+Environment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -101,7 +117,7 @@ This will pop an Environment object from the queue.
 
 This will first call refresh\+Cache to ensure it has an updated tesseract then proceed 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_a6b631f773c3aa231756737b25bf042f7}{tesseract\+\_\+planning\+::\+Process\+Environment\+Cache}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_a8028fe41ce319c85f52d4988382f0696}{tesseract\+\_\+planning\+::\+Process\+Environment\+Cache}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_adc8514ac4c6b3c57efc6e6d3739cdec0}\label{classtesseract__planning_1_1EnvironmentCache_adc8514ac4c6b3c57efc6e6d3739cdec0}} 
 \index{tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}!getCacheSize@{getCacheSize}}
@@ -118,7 +134,7 @@ The size of the cache.
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_ae1fb223ac2630cb5e8e40b19c9b81b32}{tesseract\+\_\+planning\+::\+Process\+Environment\+Cache}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_ad67e0fab02c7421305363666e29f91f3}{tesseract\+\_\+planning\+::\+Process\+Environment\+Cache}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_ad9e2949f8b4ff42ea2c7f28e42878f34}\label{classtesseract__planning_1_1EnvironmentCache_ad9e2949f8b4ff42ea2c7f28e42878f34}} 
 \index{tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}!operator=@{operator=}}
@@ -132,11 +148,11 @@ Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCa
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}}\& tesseract\+\_\+planning\+::\+Environment\+Cache\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{Environment\+Cache}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_a2107eaeecee1840117f677908eba68c6}\label{classtesseract__planning_1_1EnvironmentCache_a2107eaeecee1840117f677908eba68c6}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_aa5a67a8dabbd80d6c135e2a07c5070cd}\label{classtesseract__planning_1_1EnvironmentCache_aa5a67a8dabbd80d6c135e2a07c5070cd}} 
 \index{tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}!refreshCache@{refreshCache}}
 \index{refreshCache@{refreshCache}!tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}}
 \doxysubsubsection{\texorpdfstring{refreshCache()}{refreshCache()}}
-{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+Environment\+Cache\+::refresh\+Cache (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::\+Environment\+Cache\+::refresh\+Cache (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -144,7 +160,7 @@ If the environment has changed it will rebuild the cache of tesseract objects.
 
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_a6c9ca6c6af20b16cc912862719a9ee31}{tesseract\+\_\+planning\+::\+Process\+Environment\+Cache}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_aaae26cf6c9e346cffe2ab63d8b99ac72}{tesseract\+\_\+planning\+::\+Process\+Environment\+Cache}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1EnvironmentCache_a969f8fdd4c30030846446fb0a389be58}\label{classtesseract__planning_1_1EnvironmentCache_a969f8fdd4c30030846446fb0a389be58}} 
 \index{tesseract\_planning::EnvironmentCache@{tesseract\_planning::EnvironmentCache}!setCacheSize@{setCacheSize}}
@@ -163,7 +179,7 @@ Set the cache size used to hold tesseract objects for motion planning.
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_a95b421c3b8375b860e6c71ae630a4dfa}{tesseract\+\_\+planning\+::\+Process\+Environment\+Cache}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_ab9f9ec51cc6ecb0a71476810ab6396c2}{tesseract\+\_\+planning\+::\+Process\+Environment\+Cache}}.
 
 
 

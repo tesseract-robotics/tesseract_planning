@@ -95,6 +95,10 @@ Public Types</h2></td></tr>
 <tr class="separator:a9399f81225576994056c06a964592529"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8f871381306bdefe97c8a48cc1de157"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#ac8f871381306bdefe97c8a48cc1de157">ConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html">EnvironmentCache</a> &gt;</td></tr>
 <tr class="separator:ac8f871381306bdefe97c8a48cc1de157"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac491726422e4dfc43f4b386d7fd46676"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#ac491726422e4dfc43f4b386d7fd46676">UPtr</a> = std::unique_ptr&lt; <a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html">EnvironmentCache</a> &gt;</td></tr>
+<tr class="separator:ac491726422e4dfc43f4b386d7fd46676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb280591159e2e3ac45514afa4544c77"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#adb280591159e2e3ac45514afa4544c77">ConstUPtr</a> = std::unique_ptr&lt; const <a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html">EnvironmentCache</a> &gt;</td></tr>
+<tr class="separator:adb280591159e2e3ac45514afa4544c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -116,12 +120,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adc8514ac4c6b3c57efc6e6d3739cdec0"><td class="memItemLeft" align="right" valign="top">virtual long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#adc8514ac4c6b3c57efc6e6d3739cdec0">getCacheSize</a> () const =0</td></tr>
 <tr class="memdesc:adc8514ac4c6b3c57efc6e6d3739cdec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the cache size used to hold tesseract objects for motion planning.  <a href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#adc8514ac4c6b3c57efc6e6d3739cdec0">More...</a><br /></td></tr>
 <tr class="separator:adc8514ac4c6b3c57efc6e6d3739cdec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2107eaeecee1840117f677908eba68c6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#a2107eaeecee1840117f677908eba68c6">refreshCache</a> ()=0</td></tr>
-<tr class="memdesc:a2107eaeecee1840117f677908eba68c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the environment has changed it will rebuild the cache of tesseract objects.  <a href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#a2107eaeecee1840117f677908eba68c6">More...</a><br /></td></tr>
-<tr class="separator:a2107eaeecee1840117f677908eba68c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53a0af46b3aabb05cb4fb72a16cf45bf"><td class="memItemLeft" align="right" valign="top">virtual tesseract_environment::Environment::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#a53a0af46b3aabb05cb4fb72a16cf45bf">getCachedEnvironment</a> ()=0</td></tr>
-<tr class="memdesc:a53a0af46b3aabb05cb4fb72a16cf45bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will pop an Environment object from the queue.  <a href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#a53a0af46b3aabb05cb4fb72a16cf45bf">More...</a><br /></td></tr>
-<tr class="separator:a53a0af46b3aabb05cb4fb72a16cf45bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5a67a8dabbd80d6c135e2a07c5070cd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#aa5a67a8dabbd80d6c135e2a07c5070cd">refreshCache</a> () const =0</td></tr>
+<tr class="memdesc:aa5a67a8dabbd80d6c135e2a07c5070cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the environment has changed it will rebuild the cache of tesseract objects.  <a href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#aa5a67a8dabbd80d6c135e2a07c5070cd">More...</a><br /></td></tr>
+<tr class="separator:aa5a67a8dabbd80d6c135e2a07c5070cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1884ebeed433e9c398e9fe8c8ad33e3a"><td class="memItemLeft" align="right" valign="top">virtual tesseract_environment::Environment::UPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#a1884ebeed433e9c398e9fe8c8ad33e3a">getCachedEnvironment</a> () const =0</td></tr>
+<tr class="memdesc:a1884ebeed433e9c398e9fe8c8ad33e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will pop an Environment object from the queue.  <a href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#a1884ebeed433e9c398e9fe8c8ad33e3a">More...</a><br /></td></tr>
+<tr class="separator:a1884ebeed433e9c398e9fe8c8ad33e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ac8f871381306bdefe97c8a48cc1de157"></a>
@@ -138,6 +142,20 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="adb280591159e2e3ac45514afa4544c77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb280591159e2e3ac45514afa4544c77">&#9670;&nbsp;</a></span>ConstUPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#adb280591159e2e3ac45514afa4544c77">tesseract_planning::EnvironmentCache::ConstUPtr</a> =  std::unique_ptr&lt;const <a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html">EnvironmentCache</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9399f81225576994056c06a964592529"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9399f81225576994056c06a964592529">&#9670;&nbsp;</a></span>Ptr</h2>
 
@@ -146,6 +164,20 @@ Public Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#a9399f81225576994056c06a964592529">tesseract_planning::EnvironmentCache::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html">EnvironmentCache</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac491726422e4dfc43f4b386d7fd46676"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac491726422e4dfc43f4b386d7fd46676">&#9670;&nbsp;</a></span>UPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html#ac491726422e4dfc43f4b386d7fd46676">tesseract_planning::EnvironmentCache::UPtr</a> =  std::unique_ptr&lt;<a class="el" href="../../dc/d6f/classtesseract__planning_1_1EnvironmentCache.html">EnvironmentCache</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -256,8 +288,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a53a0af46b3aabb05cb4fb72a16cf45bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53a0af46b3aabb05cb4fb72a16cf45bf">&#9670;&nbsp;</a></span>getCachedEnvironment()</h2>
+<a id="a1884ebeed433e9c398e9fe8c8ad33e3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1884ebeed433e9c398e9fe8c8ad33e3a">&#9670;&nbsp;</a></span>getCachedEnvironment()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,10 +298,10 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual tesseract_environment::Environment::Ptr tesseract_planning::EnvironmentCache::getCachedEnvironment </td>
+          <td class="memname">virtual tesseract_environment::Environment::UPtr tesseract_planning::EnvironmentCache::getCachedEnvironment </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -282,7 +314,7 @@ Public Member Functions</h2></td></tr>
 <p>This will pop an Environment object from the queue. </p>
 <p>This will first call refreshCache to ensure it has an updated tesseract then proceed </p>
 
-<p>Implemented in <a class="el" href="../../d9/d71/classtesseract__planning_1_1ProcessEnvironmentCache.html#a6b631f773c3aa231756737b25bf042f7">tesseract_planning::ProcessEnvironmentCache</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d71/classtesseract__planning_1_1ProcessEnvironmentCache.html#a8028fe41ce319c85f52d4988382f0696">tesseract_planning::ProcessEnvironmentCache</a>.</p>
 
 </div>
 </div>
@@ -312,7 +344,7 @@ Public Member Functions</h2></td></tr>
 <p>Get the cache size used to hold tesseract objects for motion planning. </p>
 <dl class="section return"><dt>Returns</dt><dd>The size of the cache. </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d9/d71/classtesseract__planning_1_1ProcessEnvironmentCache.html#ae1fb223ac2630cb5e8e40b19c9b81b32">tesseract_planning::ProcessEnvironmentCache</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d71/classtesseract__planning_1_1ProcessEnvironmentCache.html#ad67e0fab02c7421305363666e29f91f3">tesseract_planning::ProcessEnvironmentCache</a>.</p>
 
 </div>
 </div>
@@ -368,8 +400,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2107eaeecee1840117f677908eba68c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2107eaeecee1840117f677908eba68c6">&#9670;&nbsp;</a></span>refreshCache()</h2>
+<a id="aa5a67a8dabbd80d6c135e2a07c5070cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5a67a8dabbd80d6c135e2a07c5070cd">&#9670;&nbsp;</a></span>refreshCache()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,7 +413,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">virtual void tesseract_planning::EnvironmentCache::refreshCache </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -393,7 +425,7 @@ Public Member Functions</h2></td></tr>
 
 <p>If the environment has changed it will rebuild the cache of tesseract objects. </p>
 
-<p>Implemented in <a class="el" href="../../d9/d71/classtesseract__planning_1_1ProcessEnvironmentCache.html#a6c9ca6c6af20b16cc912862719a9ee31">tesseract_planning::ProcessEnvironmentCache</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d71/classtesseract__planning_1_1ProcessEnvironmentCache.html#aaae26cf6c9e346cffe2ab63d8b99ac72">tesseract_planning::ProcessEnvironmentCache</a>.</p>
 
 </div>
 </div>
@@ -429,7 +461,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d9/d71/classtesseract__planning_1_1ProcessEnvironmentCache.html#a95b421c3b8375b860e6c71ae630a4dfa">tesseract_planning::ProcessEnvironmentCache</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d71/classtesseract__planning_1_1ProcessEnvironmentCache.html#ab9f9ec51cc6ecb0a71476810ab6396c2">tesseract_planning::ProcessEnvironmentCache</a>.</p>
 
 </div>
 </div>
@@ -439,7 +471,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 24 2021 18:57:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Oct 30 2021 02:44:42 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
