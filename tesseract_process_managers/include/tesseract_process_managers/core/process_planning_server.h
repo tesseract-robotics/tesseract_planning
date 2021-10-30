@@ -48,7 +48,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 /**
- * @brief A process planning server that support asynchronous exectuion of process planning requests
+ * @brief A process planning server that support asynchronous execution of process planning requests
  * @details It allows the developer to register Process pipelines (aka. Taskflow Generators) so they may be request
  */
 class ProcessPlanningServer
@@ -56,6 +56,8 @@ class ProcessPlanningServer
 public:
   using Ptr = std::shared_ptr<ProcessPlanningServer>;
   using ConstPtr = std::shared_ptr<const ProcessPlanningServer>;
+  using UPtr = std::unique_ptr<ProcessPlanningServer>;
+  using ConstUPtr = std::unique_ptr<const ProcessPlanningServer>;
 
 #ifndef SWIG
   /**
@@ -63,7 +65,7 @@ public:
    * @param cache The cache to use for getting Environment objects
    * @param n The number of threads used by the planning server
    */
-  ProcessPlanningServer(EnvironmentCache::Ptr cache, size_t n = std::thread::hardware_concurrency());
+  ProcessPlanningServer(EnvironmentCache::ConstPtr cache, size_t n = std::thread::hardware_concurrency());
 #endif  // SWIG
 
   /**
@@ -162,7 +164,7 @@ public:
   ProfileDictionary::ConstPtr getProfiles() const;
 
 protected:
-  EnvironmentCache::Ptr cache_;
+  EnvironmentCache::ConstPtr cache_;
   std::shared_ptr<tf::Executor> executor_;
   std::shared_ptr<tf::TFProfObserver> profile_observer_;
 
