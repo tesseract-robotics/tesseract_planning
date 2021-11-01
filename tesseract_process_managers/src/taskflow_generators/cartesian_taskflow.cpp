@@ -166,7 +166,7 @@ TaskflowContainer CartesianTaskflow::generateTaskflow(TaskInput input, TaskflowV
       if (input.profiles->hasProfileEntry<IterativeSplineParameterizationProfile>())
         iterative_time_parameterization_generator->composite_profiles = input.profiles->getProfileEntry<IterativeSplineParameterizationProfile>();
     }
-    time_parameterization_generator = std::move(iterative_time_parameterization_generator); //verstehen
+    time_parameterization_generator = std::move(iterative_time_parameterization_generator);
   }
 
   // Add Final Continuous Contact Check of trajectory and Time parameterization trajectory
