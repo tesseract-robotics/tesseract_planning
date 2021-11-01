@@ -37,6 +37,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_generators/iterative_spline_parameterization_task_generator.h>
 #include <tesseract_process_managers/task_generators/seed_min_length_task_generator.h>
 
+#include <tesseract_time_parameterization/iterative_spline_parameterization.h>
+
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
@@ -155,7 +157,17 @@ TaskflowContainer CartesianTaskflow::generateTaskflow(TaskInput input, TaskflowV
 
   TaskGenerator::UPtr time_parameterization_generator;
   if (params_.enable_time_parameterization)
-    time_parameterization_generator = std::make_unique<IterativeSplineParameterizationTaskGenerator>();
+  {
+    IterativeSplineParameterizationTaskGenerator::UPtr iterative_time_parameterization_generator;
+    iterative_time_parameterization_generator = std::make_unique<IterativeSplineParameterizationTaskGenerator>();
+    
+    if (input.profiles)
+    {
+      if (input.profiles->hasProfileEntry<IterativeSplineParameterizationProfile>())
+        iterative_time_parameterization_generator->composite_profiles = input.profiles->getProfileEntry<IterativeSplineParameterizationProfile>();
+    }
+    time_parameterization_generator = std::move(iterative_time_parameterization_generator); //verstehen
+  }
 
   // Add Final Continuous Contact Check of trajectory and Time parameterization trajectory
   if (has_contact_check && params_.enable_time_parameterization)
