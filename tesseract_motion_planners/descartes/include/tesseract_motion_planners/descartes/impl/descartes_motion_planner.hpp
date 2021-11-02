@@ -52,7 +52,6 @@ template <typename FloatType>
 DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name)
   : name_(std::move(name)), status_category_(std::make_shared<const DescartesMotionPlannerStatusCategory>(name_))
 {
-  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<DescartesDefaultPlanProfile<FloatType>>();
 }
 
 template <typename FloatType>
@@ -83,7 +82,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
 
     try
     {
-      problem = problem_generator(name_, request, plan_profiles);
+      problem = problem_generator(name_, request);
     }
     catch (std::exception& e)
     {

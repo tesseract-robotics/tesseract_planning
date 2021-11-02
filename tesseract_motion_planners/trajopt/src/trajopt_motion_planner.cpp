@@ -75,8 +75,6 @@ std::string TrajOptMotionPlannerStatusCategory::message(int code) const
 TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name)
   : name_(std::move(name)), status_category_(std::make_shared<const TrajOptMotionPlannerStatusCategory>(name_))
 {
-  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<TrajOptDefaultPlanProfile>();
-  composite_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<TrajOptDefaultCompositeProfile>();
 }
 
 const std::string& TrajOptMotionPlanner::getName() const { return name_; }
@@ -119,7 +117,7 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
 
     try
     {
-      pci = problem_generator(name_, request, plan_profiles, composite_profiles, solver_profiles);
+      pci = problem_generator(name_, request);
     }
     catch (std::exception& e)
     {

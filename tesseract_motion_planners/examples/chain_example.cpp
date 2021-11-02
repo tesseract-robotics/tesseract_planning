@@ -165,17 +165,23 @@ int main(int /*argc*/, char** /*argv*/)
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env);
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<DescartesPlanProfile<double>>("DEFAULT", descartes_plan_profile);
+  profiles->addProfile<TrajOptPlanProfile>("DEFAULT", trajopt_plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>("DEFAULT", trajopt_composite_profile);
+
   // Create Planning Request
   PlannerRequest request;
   request.seed = seed;
   request.instructions = program;
   request.env = env;
   request.env_state = cur_state;
+  request.profiles = profiles;
 
   // Solve Descartes Plan
   PlannerResponse descartes_response;
   DescartesMotionPlannerD descartes_planner;
-  descartes_planner.plan_profiles["DEFAULT"] = descartes_plan_profile;
   descartes_planner.problem_generator = tesseract_planning::DefaultDescartesProblemGenerator<double>;
   auto descartes_status = descartes_planner.solve(request, descartes_response);
   assert(descartes_status);
@@ -194,8 +200,6 @@ int main(int /*argc*/, char** /*argv*/)
   PlannerResponse trajopt_response;
   TrajOptMotionPlanner trajopt_planner;
   trajopt_planner.problem_generator = tesseract_planning::DefaultTrajoptProblemGenerator;
-  trajopt_planner.plan_profiles["DEFAULT"] = trajopt_plan_profile;
-  trajopt_planner.composite_profiles["DEFAULT"] = trajopt_composite_profile;
   auto trajopt_status = trajopt_planner.solve(request, trajopt_response);
   assert(trajopt_status);
 

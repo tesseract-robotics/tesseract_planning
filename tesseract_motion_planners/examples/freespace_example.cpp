@@ -139,17 +139,23 @@ int main(int /*argc*/, char** /*argv*/)
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env);
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<OMPLPlanProfile>("DEFAULT", ompl_plan_profile);
+  profiles->addProfile<TrajOptPlanProfile>("DEFAULT", trajopt_plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>("DEFAULT", trajopt_composite_profile);
+
   // Create Planning Request
   PlannerRequest request;
   request.seed = seed;
   request.instructions = program;
   request.env = env;
   request.env_state = cur_state;
+  request.profiles = profiles;
 
   // Solve OMPL Plan
   PlannerResponse ompl_response;
   OMPLMotionPlanner ompl_planner;
-  ompl_planner.plan_profiles["DEFAULT"] = ompl_plan_profile;
   ompl_planner.problem_generator = tesseract_planning::DefaultOMPLProblemGenerator;
   auto ompl_status = ompl_planner.solve(request, ompl_response);
   assert(ompl_status);
@@ -168,8 +174,6 @@ int main(int /*argc*/, char** /*argv*/)
   PlannerResponse trajopt_response;
   TrajOptMotionPlanner trajopt_planner;
   trajopt_planner.problem_generator = tesseract_planning::DefaultTrajoptProblemGenerator;
-  trajopt_planner.plan_profiles["DEFAULT"] = trajopt_plan_profile;
-  trajopt_planner.composite_profiles["DEFAULT"] = trajopt_composite_profile;
   auto trajopt_status = trajopt_planner.solve(request, trajopt_response);
   assert(trajopt_status);
 

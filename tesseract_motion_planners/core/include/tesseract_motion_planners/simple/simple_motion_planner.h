@@ -67,23 +67,6 @@ public:
   const std::string& getName() const override;
 
   /**
-   * @brief The available composite profiles
-   *
-   * Composite instruction is a way to namespace or organize your planning problem. The composite instruction has a
-   * profile which is used for applying multi waypoint costs and constraints like joint smoothing, collision avoidance,
-   * and velocity smoothing.
-   */
-  SimplePlannerCompositeProfileMap composite_profiles;
-
-  /**
-   * @brief The available plan profiles
-   *
-   * Plan instruction profiles are used to control waypoint specific information like fixed waypoint, tolerance
-   * waypoint, corner distance waypoint, etc.
-   */
-  SimplePlannerPlanProfileMap plan_profiles;
-
-  /**
    * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
    * @param response The results of the optimization. Primary output is the optimized joint trajectory
    * @param check_type The type of collision check to perform on the planned trajectory

@@ -82,14 +82,6 @@ TaskflowContainer OMPLTaskflow::generateTaskflow(TaskInput input, TaskflowVoidFn
 
   // Setup Interpolator
   auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
-  if (input.profiles)
-  {
-    if (input.profiles->hasProfileEntry<SimplePlannerPlanProfile>())
-      interpolator->plan_profiles = input.profiles->getProfileEntry<SimplePlannerPlanProfile>();
-
-    if (input.profiles->hasProfileEntry<SimplePlannerCompositeProfile>())
-      interpolator->composite_profiles = input.profiles->getProfileEntry<SimplePlannerCompositeProfile>();
-  }
   auto interpolator_generator = std::make_unique<MotionPlannerTaskGenerator>(interpolator);
   interpolator_generator->assignConditionalTask(input, interpolator_task);
   container.generators.push_back(std::move(interpolator_generator));
@@ -97,11 +89,6 @@ TaskflowContainer OMPLTaskflow::generateTaskflow(TaskInput input, TaskflowVoidFn
   // Setup TrajOpt
   auto ompl_planner = std::make_shared<OMPLMotionPlanner>();
   ompl_planner->problem_generator = &DefaultOMPLProblemGenerator;
-  if (input.profiles)
-  {
-    if (input.profiles->hasProfileEntry<OMPLPlanProfile>())
-      ompl_planner->plan_profiles = input.profiles->getProfileEntry<OMPLPlanProfile>();
-  }
   auto ompl_generator = std::make_unique<MotionPlannerTaskGenerator>(ompl_planner);
   ompl_generator->assignConditionalTask(input, ompl_task);
   container.generators.push_back(std::move(ompl_generator));

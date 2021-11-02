@@ -45,9 +45,7 @@ OMPLProblem::Ptr CreateOMPLSubProblem(const PlannerRequest& request,
   return sub_prob;
 }
 
-std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& name,
-                                                          const PlannerRequest& request,
-                                                          const OMPLPlanProfileMap& plan_profiles)
+std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& name, const PlannerRequest& request)
 {
   std::vector<OMPLProblem::Ptr> problem;
   tesseract_kinematics::JointGroup::Ptr manip;
@@ -152,7 +150,7 @@ std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& nam
       std::string profile = plan_instruction.getProfile();
       profile = getProfileString(profile, name, request.plan_profile_remapping);
       auto cur_plan_profile =
-          getProfile<OMPLPlanProfile>(profile, plan_profiles, std::make_shared<OMPLDefaultPlanProfile>());
+          getProfile<OMPLPlanProfile>(profile, *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
       cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, plan_instruction.profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("OMPLMotionPlannerDefaultConfig: Invalid profile");

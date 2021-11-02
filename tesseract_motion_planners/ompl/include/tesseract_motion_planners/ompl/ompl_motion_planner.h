@@ -50,8 +50,7 @@ namespace tesseract_planning
 {
 class OMPLMotionPlannerStatusCategory;
 
-using OMPLProblemGeneratorFn =
-    std::function<std::vector<OMPLProblem::Ptr>(const std::string&, const PlannerRequest&, const OMPLPlanProfileMap&)>;
+using OMPLProblemGeneratorFn = std::function<std::vector<OMPLProblem::Ptr>(const std::string&, const PlannerRequest&)>;
 /**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
  * take a start and end point and automate the generation of the OMPL problem.
@@ -65,14 +64,6 @@ public:
   const std::string& getName() const override;
 
   OMPLProblemGeneratorFn problem_generator;
-
-  /**
-   * @brief The available plan profiles
-   *
-   * Plan instruction profiles are used to control waypoint specific information like fixed waypoint, toleranced
-   * waypoint, corner distance waypoint, etc.
-   */
-  OMPLPlanProfileMap plan_profiles;
 
   /**
    * @brief Sets up the OMPL problem then solves. It is intended to simplify setting up

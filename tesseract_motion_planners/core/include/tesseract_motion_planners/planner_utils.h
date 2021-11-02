@@ -144,26 +144,24 @@ inline std::string getProfileString(const std::string& profile,
  * @return The profile requested if found. Otherwise the default_profile
  */
 template <typename ProfileType>
-std::shared_ptr<const ProfileType>
-getProfile(const std::string& profile,
-           const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>& profile_map,
-           std::shared_ptr<const ProfileType> default_profile = nullptr)
+std::shared_ptr<const ProfileType> getProfile(const std::string& profile,
+                                              const ProfileDictionary& profile_dictionary,
+                                              std::shared_ptr<const ProfileType> default_profile = nullptr)
 {
-  std::shared_ptr<const ProfileType> results;
+  if (profile_dictionary.hasProfile<ProfileType>(profile))
+    return profile_dictionary.getProfile<ProfileType>(profile);
 
-  auto it = profile_map.find(profile);
-  if (it == profile_map.end())
+  CONSOLE_BRIDGE_logDebug("Profile %s was not found. Using default if available. Available profiles:", profile.c_str());
+
+  if (profile_dictionary.hasProfileEntry<ProfileType>())
   {
-    CONSOLE_BRIDGE_logDebug("Profile %s was not found. Using default if available. Available profiles:",
-                            profile.c_str());
-    for (const auto& pair : profile_map)
+    for (const auto& pair : profile_dictionary.getProfileEntry<ProfileType>())
+    {
       CONSOLE_BRIDGE_logDebug("%s", pair.first.c_str());
-    results = default_profile;
+    }
   }
-  else
-    results = it->second;
 
-  return results;
+  return default_profile;
 }
 
 /**

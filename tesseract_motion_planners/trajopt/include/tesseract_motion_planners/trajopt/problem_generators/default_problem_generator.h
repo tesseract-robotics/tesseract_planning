@@ -36,12 +36,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-std::shared_ptr<trajopt::ProblemConstructionInfo>
-DefaultTrajoptProblemGenerator(const std::string& name,
-                               const PlannerRequest& request,
-                               const TrajOptPlanProfileMap& plan_profiles,
-                               const TrajOptCompositeProfileMap& composite_profiles,
-                               const TrajOptSolverProfileMap& solver_profiles);
+std::shared_ptr<trajopt::ProblemConstructionInfo> DefaultTrajoptProblemGenerator(const std::string& name,
+                                                                                 const PlannerRequest& request);
 
 }  // namespace tesseract_planning
 #endif

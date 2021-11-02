@@ -36,10 +36,8 @@
 namespace tesseract_planning
 {
 template <typename FloatType>
-inline std::shared_ptr<DescartesProblem<FloatType>>
-DefaultDescartesProblemGenerator(const std::string& name,
-                                 const PlannerRequest& request,
-                                 const DescartesPlanProfileMap<FloatType>& plan_profiles)
+inline std::shared_ptr<DescartesProblem<FloatType>> DefaultDescartesProblemGenerator(const std::string& name,
+                                                                                     const PlannerRequest& request)
 {
   auto prob = std::make_shared<DescartesProblem<FloatType>>();
 
@@ -126,7 +124,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
 
   profile = getProfileString(profile, name, request.plan_profile_remapping);
   auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
-      profile, plan_profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+      profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
   cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, profile_overrides);
   if (!cur_plan_profile)
     throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
@@ -184,7 +182,7 @@ DefaultDescartesProblemGenerator(const std::string& name,
       std::string profile = plan_instruction.getProfile();
       profile = getProfileString(profile, name, request.plan_profile_remapping);
       auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
-          profile, plan_profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+          profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
       cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, plan_instruction.profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");

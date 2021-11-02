@@ -53,6 +53,9 @@ struct PlannerRequest
   /** @brief The start state to use for planning */
   tesseract_scene_graph::SceneState env_state;
 
+  /** @brief The profile dictionary */
+  ProfileDictionary::ConstPtr profiles{ std::make_shared<ProfileDictionary>() };
+
   /**
    * @brief The program instruction
    * This must contain a minimum of two move instruction the first move instruction is the start state

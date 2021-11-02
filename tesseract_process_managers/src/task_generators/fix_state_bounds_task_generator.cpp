@@ -39,11 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-FixStateBoundsTaskGenerator::FixStateBoundsTaskGenerator(std::string name) : TaskGenerator(std::move(name))
-{
-  // Register default profile
-  composite_profiles["DEFAULT"] = std::make_shared<FixStateBoundsProfile>();
-}
+FixStateBoundsTaskGenerator::FixStateBoundsTaskGenerator(std::string name) : TaskGenerator(std::move(name)) {}
 
 int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
 {
@@ -79,7 +75,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile =
-      getProfile<FixStateBoundsProfile>(profile, composite_profiles, std::make_shared<FixStateBoundsProfile>());
+      getProfile<FixStateBoundsProfile>(profile, *input.profiles, std::make_shared<FixStateBoundsProfile>());
   cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)

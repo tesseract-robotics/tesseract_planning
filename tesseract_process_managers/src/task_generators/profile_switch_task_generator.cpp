@@ -38,11 +38,7 @@ namespace tesseract_planning
 {
 ProfileSwitchProfile::ProfileSwitchProfile(const int& return_value) : return_value(return_value) {}
 
-ProfileSwitchTaskGenerator::ProfileSwitchTaskGenerator(std::string name) : TaskGenerator(std::move(name))
-{
-  // Register default profile
-  composite_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<ProfileSwitchProfile>();
-}
+ProfileSwitchTaskGenerator::ProfileSwitchTaskGenerator(std::string name) : TaskGenerator(std::move(name)) {}
 
 int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
 {
@@ -74,7 +70,7 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile =
-      getProfile<ProfileSwitchProfile>(profile, composite_profiles, std::make_shared<ProfileSwitchProfile>());
+      getProfile<ProfileSwitchProfile>(profile, *input.profiles, std::make_shared<ProfileSwitchProfile>());
   cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   // Return the value specified in the profile

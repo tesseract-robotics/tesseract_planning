@@ -62,11 +62,17 @@ static CompositeInstruction generateSeed(const CompositeInstruction& instruction
                                                                translation_longest_valid_segment_length,
                                                                rotation_longest_valid_segment_length,
                                                                min_steps);
-  planner.plan_profiles[instructions.getProfile()] = profile;
+
+  // Create profile dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<SimplePlannerPlanProfile>(instructions.getProfile(), profile);
   auto flat = flattenProgram(instructions);
   for (const auto& i : flat)
     if (isPlanInstruction(i.get()))
-      planner.plan_profiles[i.get().as<PlanInstruction>().getProfile()] = profile;
+      profiles->addProfile<SimplePlannerPlanProfile>(i.get().as<PlanInstruction>().getProfile(), profile);
+
+  // Assign profile dictionary
+  request.profiles = profiles;
 
   // Solve
   planner.solve(request, response);

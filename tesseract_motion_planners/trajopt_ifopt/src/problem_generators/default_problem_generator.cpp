@@ -41,11 +41,8 @@
 namespace tesseract_planning
 {
 /// @todo: Restructure this into several smaller functions that are testable and easier to understand
-std::shared_ptr<TrajOptIfoptProblem>
-DefaultTrajOptIfoptProblemGenerator(const std::string& name,
-                                    const PlannerRequest& request,
-                                    const TrajOptIfoptPlanProfileMap& plan_profiles,
-                                    const TrajOptIfoptCompositeProfileMap& composite_profiles)
+std::shared_ptr<TrajOptIfoptProblem> DefaultTrajOptIfoptProblemGenerator(const std::string& name,
+                                                                         const PlannerRequest& request)
 {
   // Store fixed steps
   std::vector<int> fixed_steps;
@@ -208,8 +205,8 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   }
 
   profile = getProfileString(profile, name, request.plan_profile_remapping);
-  TrajOptIfoptPlanProfile::ConstPtr start_plan_profile =
-      getProfile<TrajOptIfoptPlanProfile>(profile, plan_profiles, std::make_shared<TrajOptIfoptDefaultPlanProfile>());
+  TrajOptIfoptPlanProfile::ConstPtr start_plan_profile = getProfile<TrajOptIfoptPlanProfile>(
+      profile, *request.profiles, std::make_shared<TrajOptIfoptDefaultPlanProfile>());
   start_plan_profile = applyProfileOverrides(name, start_plan_profile, profile_overrides);
   if (!start_plan_profile)
     throw std::runtime_error("TrajOptIfoptPlannerUniversalConfig: Invalid profile");
@@ -282,7 +279,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
 
       std::string profile = getProfileString(plan_instruction.getProfile(), name, request.plan_profile_remapping);
       TrajOptIfoptPlanProfile::ConstPtr cur_plan_profile = getProfile<TrajOptIfoptPlanProfile>(
-          profile, plan_profiles, std::make_shared<TrajOptIfoptDefaultPlanProfile>());
+          profile, *request.profiles, std::make_shared<TrajOptIfoptDefaultPlanProfile>());
       cur_plan_profile = applyProfileOverrides(name, cur_plan_profile, plan_instruction.profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator: Invalid profile");
@@ -460,7 +457,7 @@ DefaultTrajOptIfoptProblemGenerator(const std::string& name,
   // ----------------
   profile = getProfileString(request.instructions.getProfile(), name, request.composite_profile_remapping);
   TrajOptIfoptCompositeProfile::ConstPtr cur_composite_profile = getProfile<TrajOptIfoptCompositeProfile>(
-      profile, composite_profiles, std::make_shared<TrajOptIfoptDefaultCompositeProfile>());
+      profile, *request.profiles, std::make_shared<TrajOptIfoptDefaultCompositeProfile>());
   cur_composite_profile = applyProfileOverrides(name, cur_composite_profile, request.instructions.profile_overrides);
   if (!cur_composite_profile)
     throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator: Invalid profile");

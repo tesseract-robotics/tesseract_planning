@@ -89,7 +89,6 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 OMPLMotionPlanner::OMPLMotionPlanner(std::string name)
   : name_(std::move(name)), status_category_(std::make_shared<const OMPLMotionPlannerStatusCategory>(name_))
 {
-  plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<OMPLDefaultPlanProfile>();
 }
 
 const std::string& OMPLMotionPlanner::getName() const { return name_; }
@@ -127,7 +126,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
     try
     {
-      problem = problem_generator(name_, request, plan_profiles);
+      problem = problem_generator(name_, request);
     }
     catch (std::exception& e)
     {
