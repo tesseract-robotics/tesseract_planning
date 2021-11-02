@@ -138,6 +138,13 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlan
   EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<SimplePlannerPlanProfile>(process_profile,
+                                                 std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>());
+  profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile,
+                                                 std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>());
+
   auto interpolator = std::make_shared<SimpleMotionPlanner>("INTERPOLATOR");
 
   // Create Planning Request
@@ -145,10 +152,9 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlan
   request.instructions = program;
   request.env = env_;
   request.env_state = env_->getState();
+  request.profiles = profiles;
 
   PlannerResponse response;
-  interpolator->plan_profiles[process_profile] = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
-  interpolator->plan_profiles[freespace_profile] = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
@@ -174,6 +180,11 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSPlanProfi
   EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<SimplePlannerPlanProfile>(process_profile, std::make_shared<SimplePlannerLVSPlanProfile>());
+  profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile, std::make_shared<SimplePlannerLVSPlanProfile>());
+
   auto interpolator = std::make_shared<SimpleMotionPlanner>("INTERPOLATOR");
 
   // Create Planning Request
@@ -181,10 +192,9 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSPlanProfi
   request.instructions = program;
   request.env = env_;
   request.env_state = env_->getState();
+  request.profiles = profiles;
 
   PlannerResponse response;
-  interpolator->plan_profiles[process_profile] = std::make_shared<SimplePlannerLVSPlanProfile>();
-  interpolator->plan_profiles[freespace_profile] = std::make_shared<SimplePlannerLVSPlanProfile>();
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
@@ -208,14 +218,19 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignP
 
   auto interpolator = std::make_shared<SimpleMotionPlanner>("INTERPOLATOR");
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<SimplePlannerPlanProfile>(DEFAULT_PROFILE_KEY,
+                                                 std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>());
+
   // Create Planning Request
   PlannerRequest request;
   request.instructions = program;
   request.env = env_;
   request.env_state = env_->getState();
+  request.profiles = profiles;
 
   PlannerResponse response;
-  interpolator->plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
@@ -238,6 +253,10 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanPr
   EXPECT_TRUE(program.hasStartInstruction());
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<SimplePlannerPlanProfile>(DEFAULT_PROFILE_KEY, std::make_shared<SimplePlannerLVSPlanProfile>());
+
   auto interpolator = std::make_shared<SimpleMotionPlanner>("INTERPOLATOR");
 
   // Create Planning Request
@@ -245,9 +264,9 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanPr
   request.instructions = program;
   request.env = env_;
   request.env_state = env_->getState();
+  request.profiles = profiles;
 
   PlannerResponse response;
-  interpolator->plan_profiles[DEFAULT_PROFILE_KEY] = std::make_shared<SimplePlannerLVSPlanProfile>();
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 

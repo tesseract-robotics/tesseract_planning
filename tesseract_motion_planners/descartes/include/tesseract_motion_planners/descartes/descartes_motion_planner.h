@@ -17,9 +17,7 @@ namespace tesseract_planning
 {
 template <typename FloatType>
 using DescartesProblemGeneratorFn =
-    std::function<std::shared_ptr<DescartesProblem<FloatType>>(const std::string&,
-                                                               const PlannerRequest&,
-                                                               const DescartesPlanProfileMap<FloatType>&)>;
+    std::function<std::shared_ptr<DescartesProblem<FloatType>>(const std::string&, const PlannerRequest&)>;
 
 using DescartesProblemGeneratorFnD = DescartesProblemGeneratorFn<double>;
 using DescartesProblemGeneratorFnF = DescartesProblemGeneratorFn<float>;
@@ -52,18 +50,6 @@ public:
   DescartesProblemGeneratorFn<FloatType> problem_generator;
 #else
   DescartesProblemGeneratorFnD problem_generator;
-#endif
-
-  /**
-   * @brief The available plan profiles
-   *
-   * Plan instruction profiles are used to control waypoint specific information like fixed waypoint, toleranced
-   * waypoint, corner distance waypoint, etc.
-   */
-#ifndef SWIG
-  DescartesPlanProfileMap<FloatType> plan_profiles;
-#else
-  DescartesPlanProfileMapD plan_profiles;
 #endif
 
   /**

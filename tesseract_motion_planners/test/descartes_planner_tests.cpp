@@ -139,10 +139,13 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   // Create Profiles
   auto plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<DescartesPlanProfile<double>>("TEST_PROFILE", plan_profile);
+
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner;
   plan_profile->num_threads = 1;
-  single_descartes_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
   single_descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
   // Create Planning Request
@@ -151,6 +154,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   request.instructions = program;
   request.env = env_;
   request.env_state = cur_state;
+  request.profiles = profiles;
 
   PlannerResponse single_planner_response;
   auto single_status = single_descartes_planner.solve(request, single_planner_response);
@@ -162,15 +166,13 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   {
     // Test the problem generator
     {
-      auto problem = DefaultDescartesProblemGenerator<double>(
-          single_descartes_planner.getName(), request, single_descartes_planner.plan_profiles);
+      auto problem = DefaultDescartesProblemGenerator<double>(single_descartes_planner.getName(), request);
       EXPECT_EQ(problem->samplers.size(), 11);
       EXPECT_EQ(problem->edge_evaluators.size(), 10);
     }
 
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
-    descartes_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
     descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
     PlannerResponse planner_response;
@@ -259,10 +261,13 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
     return tesseract_planning::sampleToolAxis(tool_pose, M_PI_4, Eigen::Vector3d(0, 0, 1));
   };
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<DescartesPlanProfile<double>>("TEST_PROFILE", plan_profile);
+
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner;
   plan_profile->num_threads = 1;
-  single_descartes_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
   single_descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
   // Create Planning Request
@@ -271,9 +276,9 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   request.instructions = program;
   request.env = env_;
   request.env_state = cur_state;
+  request.profiles = profiles;
 
-  auto problem = DefaultDescartesProblemGenerator<double>(
-      single_descartes_planner.getName(), request, single_descartes_planner.plan_profiles);
+  auto problem = DefaultDescartesProblemGenerator<double>(single_descartes_planner.getName(), request);
   problem->num_threads = 1;
   EXPECT_EQ(problem->samplers.size(), 11);
   EXPECT_EQ(problem->edge_evaluators.size(), 10);
@@ -288,7 +293,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   {
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
-    descartes_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
     descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
     PlannerResponse planner_response;
@@ -366,21 +370,24 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   };
   plan_profile->enable_edge_collision = true;  // Add collision edge evaluator
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<DescartesPlanProfile<double>>("TEST_PROFILE", plan_profile);
+
   // Create Planning Request
   PlannerRequest request;
   request.seed = seed;
   request.instructions = program;
   request.env = env_;
   request.env_state = cur_state;
+  request.profiles = profiles;
 
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner;
   plan_profile->num_threads = 1;
-  single_descartes_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
 
   // Test Problem size - TODO: Make dedicated unit test for DefaultDescartesProblemGenerator
-  auto problem = DefaultDescartesProblemGenerator<double>(
-      single_descartes_planner.getName(), request, single_descartes_planner.plan_profiles);
+  auto problem = DefaultDescartesProblemGenerator<double>(single_descartes_planner.getName(), request);
   EXPECT_EQ(problem->samplers.size(), 3);
   EXPECT_EQ(problem->edge_evaluators.size(), 2);
   EXPECT_EQ(problem->num_threads, 1);
@@ -395,7 +402,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   {
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
-    descartes_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
     descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
     PlannerResponse planner_response;

@@ -304,7 +304,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile =
-      getProfile<FixStateCollisionProfile>(profile, composite_profiles, std::make_shared<FixStateCollisionProfile>());
+      getProfile<FixStateCollisionProfile>(profile, *input.profiles, std::make_shared<FixStateCollisionProfile>());
   cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   switch (cur_composite_profile->mode)

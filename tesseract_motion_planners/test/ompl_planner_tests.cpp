@@ -213,8 +213,11 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Create Planner
   OMPLMotionPlanner ompl_planner;
-  ompl_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
   ompl_planner.problem_generator = &DefaultOMPLProblemGenerator;
+
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<OMPLPlanProfile>("TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
@@ -222,6 +225,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   request.seed = seed;
   request.env = env;
   request.env_state = cur_state;
+  request.profiles = profiles;
 
   PlannerResponse planner_response;
   auto status = ompl_planner.solve(request, planner_response);
@@ -264,7 +268,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   request.instructions = program;
   request.seed = seed;
   request.data = nullptr;  // Note: Nust clear the saved problem or it will use it instead.
-  ompl_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
 
   // Solve
   status = ompl_planner.solve(request, planner_response);
@@ -299,7 +302,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   request.instructions = program;
   request.seed = seed;
   request.data = nullptr;  // Note: Nust clear the saved problem or it will use it instead.
-  ompl_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
 
   // Set new configuration and solve
   status = ompl_planner.solve(request, planner_response);
@@ -368,9 +370,12 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   plan_profile->simplify = false;
   plan_profile->planners = { this->configurator, this->configurator };
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<OMPLPlanProfile>("TEST_PROFILE", plan_profile);
+
   // Create Planner
   OMPLMotionPlanner ompl_planner;
-  ompl_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
   ompl_planner.problem_generator = &DefaultOMPLProblemGenerator;
 
   // Create Planner Request
@@ -379,6 +384,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   request.seed = seed;
   request.env = env;
   request.env_state = cur_state;
+  request.profiles = profiles;
 
   PlannerResponse planner_response;
   auto status = ompl_planner.solve(request, planner_response);
@@ -460,9 +466,12 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
   plan_profile->simplify = false;
   plan_profile->planners = { this->configurator, this->configurator };
 
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<OMPLPlanProfile>("TEST_PROFILE", plan_profile);
+
   // Create Planner
   OMPLMotionPlanner ompl_planner;
-  ompl_planner.plan_profiles["TEST_PROFILE"] = plan_profile;
   ompl_planner.problem_generator = &DefaultOMPLProblemGenerator;
 
   // Create Planner Request
@@ -471,6 +480,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
   request.seed = seed;
   request.env = env;
   request.env_state = cur_state;
+  request.profiles = profiles;
 
   PlannerResponse planner_response;
   auto status = ompl_planner.solve(request, planner_response);

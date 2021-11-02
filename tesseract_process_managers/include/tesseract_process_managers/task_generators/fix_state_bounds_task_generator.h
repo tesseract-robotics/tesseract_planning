@@ -77,8 +77,6 @@ public:
   FixStateBoundsTaskGenerator(FixStateBoundsTaskGenerator&&) = delete;
   FixStateBoundsTaskGenerator& operator=(FixStateBoundsTaskGenerator&&) = delete;
 
-  FixStateBoundsProfileMap composite_profiles;
-
   int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
 
   void process(TaskInput input, std::size_t unique_id) const override;

@@ -40,10 +40,7 @@ namespace tesseract_planning
 class TrajOptIfoptMotionPlannerStatusCategory;
 
 using TrajOptIfoptProblemGeneratorFn =
-    std::function<std::shared_ptr<TrajOptIfoptProblem>(const std::string&,
-                                                       const PlannerRequest&,
-                                                       const TrajOptIfoptPlanProfileMap&,
-                                                       const TrajOptIfoptCompositeProfileMap&)>;
+    std::function<std::shared_ptr<TrajOptIfoptProblem>(const std::string&, const PlannerRequest&)>;
 
 class TrajOptIfoptMotionPlanner : public MotionPlanner
 {
@@ -60,23 +57,6 @@ public:
   const std::string& getName() const override;
 
   TrajOptIfoptProblemGeneratorFn problem_generator;
-
-  /**
-   * @brief The available composite profiles
-   *
-   * Composite instruction is a way to namespace or organize your planning problem. The composite instruction has a
-   * profile which is used for applying multy waypoint costs and constraints like joint smoothing, collision avoidance,
-   * and velocity smoothing.
-   */
-  TrajOptIfoptCompositeProfileMap composite_profiles;
-
-  /**
-   * @brief The available plan profiles
-   *
-   * Plan instruction profiles are used to control waypoint specific information like fixed waypoint, toleranced
-   * waypoint, corner distance waypoint, etc.
-   */
-  TrajOptIfoptPlanProfileMap plan_profiles;
 
   /** @brief Optimization parameters to be used (Optional) */
   //  sco::BasicTrustRegionSQPParameters params;

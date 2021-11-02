@@ -94,14 +94,6 @@ TaskflowContainer CartesianTaskflow::generateTaskflow(TaskInput input, TaskflowV
 
   // Setup Interpolator
   auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
-  if (input.profiles)
-  {
-    if (input.profiles->hasProfileEntry<SimplePlannerPlanProfile>())
-      interpolator->plan_profiles = input.profiles->getProfileEntry<SimplePlannerPlanProfile>();
-
-    if (input.profiles->hasProfileEntry<SimplePlannerCompositeProfile>())
-      interpolator->composite_profiles = input.profiles->getProfileEntry<SimplePlannerCompositeProfile>();
-  }
   TaskGenerator::UPtr interpolator_generator = std::make_unique<MotionPlannerTaskGenerator>(interpolator);
   interpolator_generator->assignConditionalTask(input, interpolator_task);
   container.generators.push_back(std::move(interpolator_generator));
@@ -116,11 +108,6 @@ TaskflowContainer CartesianTaskflow::generateTaskflow(TaskInput input, TaskflowV
   // Setup Descartes
   auto descartes_planner = std::make_shared<DescartesMotionPlanner<float>>();
   descartes_planner->problem_generator = &DefaultDescartesProblemGenerator<float>;
-  if (input.profiles)
-  {
-    if (input.profiles->hasProfileEntry<DescartesPlanProfile<float>>())
-      descartes_planner->plan_profiles = input.profiles->getProfileEntry<DescartesPlanProfile<float>>();
-  }
   auto descartes_generator = std::make_unique<MotionPlannerTaskGenerator>(descartes_planner);
   descartes_generator->assignConditionalTask(input, descartes_task);
   container.generators.push_back(std::move(descartes_generator));
@@ -128,17 +115,6 @@ TaskflowContainer CartesianTaskflow::generateTaskflow(TaskInput input, TaskflowV
   // Setup TrajOpt
   auto trajopt_planner = std::make_shared<TrajOptMotionPlanner>();
   trajopt_planner->problem_generator = &DefaultTrajoptProblemGenerator;
-  if (input.profiles)
-  {
-    if (input.profiles->hasProfileEntry<TrajOptPlanProfile>())
-      trajopt_planner->plan_profiles = input.profiles->getProfileEntry<TrajOptPlanProfile>();
-
-    if (input.profiles->hasProfileEntry<TrajOptCompositeProfile>())
-      trajopt_planner->composite_profiles = input.profiles->getProfileEntry<TrajOptCompositeProfile>();
-
-    if (input.profiles->hasProfileEntry<TrajOptSolverProfile>())
-      trajopt_planner->solver_profiles = input.profiles->getProfileEntry<TrajOptSolverProfile>();
-  }
   TaskGenerator::UPtr trajopt_generator = std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner);
   trajopt_generator->assignConditionalTask(input, trajopt_task);
   container.generators.push_back(std::move(trajopt_generator));

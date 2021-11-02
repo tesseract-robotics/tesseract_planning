@@ -60,8 +60,6 @@ TimeOptimalTrajectoryGenerationProfile::TimeOptimalTrajectoryGenerationProfile(d
 TimeOptimalTrajectoryGenerationTaskGenerator::TimeOptimalTrajectoryGenerationTaskGenerator(std::string name)
   : TaskGenerator(std::move(name))
 {
-  // Register default profile
-  composite_profiles["DEFAULT"] = std::make_shared<TimeOptimalTrajectoryGenerationProfile>();
 }
 
 int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
@@ -97,7 +95,7 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(
-      profile, composite_profiles, std::make_shared<TimeOptimalTrajectoryGenerationProfile>());
+      profile, *input.profiles, std::make_shared<TimeOptimalTrajectoryGenerationProfile>());
   cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   // Create data structures for checking for plan profile overrides
@@ -124,7 +122,8 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
 
     // Check for remapping of the plan profile
     std::string remap = getProfileString(profile, name_, input.plan_profile_remapping);
-    auto cur_move_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(remap, composite_profiles, nullptr);
+    auto cur_move_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(
+        remap, *input.profiles, std::make_shared<TimeOptimalTrajectoryGenerationProfile>());
     cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters

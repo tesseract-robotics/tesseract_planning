@@ -90,14 +90,6 @@ TaskflowContainer TrajOptIfoptTaskflow::generateTaskflow(TaskInput input,
 
   // Setup Interpolator
   auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
-  if (input.profiles)
-  {
-    if (input.profiles->hasProfileEntry<SimplePlannerPlanProfile>())
-      interpolator->plan_profiles = input.profiles->getProfileEntry<SimplePlannerPlanProfile>();
-
-    if (input.profiles->hasProfileEntry<SimplePlannerCompositeProfile>())
-      interpolator->composite_profiles = input.profiles->getProfileEntry<SimplePlannerCompositeProfile>();
-  }
   TaskGenerator::UPtr interpolator_generator = std::make_unique<MotionPlannerTaskGenerator>(interpolator);
   interpolator_generator->assignConditionalTask(input, interpolator_task);
   container.generators.push_back(std::move(interpolator_generator));
@@ -112,17 +104,6 @@ TaskflowContainer TrajOptIfoptTaskflow::generateTaskflow(TaskInput input,
   // Setup TrajOpt
   auto trajopt_planner = std::make_shared<TrajOptIfoptMotionPlanner>();
   trajopt_planner->problem_generator = &DefaultTrajOptIfoptProblemGenerator;
-  if (input.profiles)
-  {
-    if (input.profiles->hasProfileEntry<TrajOptIfoptPlanProfile>())
-      trajopt_planner->plan_profiles = input.profiles->getProfileEntry<TrajOptIfoptPlanProfile>();
-
-    if (input.profiles->hasProfileEntry<TrajOptIfoptCompositeProfile>())
-      trajopt_planner->composite_profiles = input.profiles->getProfileEntry<TrajOptIfoptCompositeProfile>();
-
-    //    if (input.profiles->hasProfileEntry<TrajOptSolverProfile>())
-    //      trajopt_planner->solver_profiles = input.profiles->getProfileEntry<TrajOptSolverProfile>();
-  }
   TaskGenerator::UPtr trajopt_generator = std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner);
   trajopt_generator->assignConditionalTask(input, trajopt_task);
   container.generators.push_back(std::move(trajopt_generator));

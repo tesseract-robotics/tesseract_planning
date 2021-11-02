@@ -88,9 +88,6 @@ public:
   TimeOptimalTrajectoryGenerationTaskGenerator(TimeOptimalTrajectoryGenerationTaskGenerator&&) = delete;
   TimeOptimalTrajectoryGenerationTaskGenerator& operator=(TimeOptimalTrajectoryGenerationTaskGenerator&&) = delete;
 
-  TimeOptimalTrajectoryGenerationProfileMap composite_profiles;
-  TimeOptimalTrajectoryGenerationProfileMap move_profiles;
-
   int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
 
   void process(TaskInput input, std::size_t unique_id) const override;

@@ -53,8 +53,6 @@ IterativeSplineParameterizationTaskGenerator::IterativeSplineParameterizationTas
                                                                                            std::string name)
   : TaskGenerator(std::move(name)), solver_(add_points)
 {
-  // Register default profile
-  composite_profiles["DEFAULT"] = std::make_shared<IterativeSplineParameterizationProfile>();
 }
 
 int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
@@ -90,7 +88,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   std::string profile = ci.getProfile();
   profile = getProfileString(profile, name_, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
-      profile, composite_profiles, std::make_shared<IterativeSplineParameterizationProfile>());
+      profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
   cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
 
   // Create data structures for checking for plan profile overrides
@@ -117,8 +115,8 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
 
     // Check for remapping of the plan profile
     plan_profile = getProfileString(profile, name_, input.plan_profile_remapping);
-    auto cur_move_profile =
-        getProfile<IterativeSplineParameterizationProfile>(plan_profile, composite_profiles, nullptr);
+    auto cur_move_profile = getProfile<IterativeSplineParameterizationProfile>(
+        plan_profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
     cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters

@@ -36,9 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& name,
-                                                          const PlannerRequest& request,
-                                                          const OMPLPlanProfileMap& plan_profiles);
+std::vector<OMPLProblem::Ptr> DefaultOMPLProblemGenerator(const std::string& name, const PlannerRequest& request);
 
 }  // namespace tesseract_planning
 #endif
