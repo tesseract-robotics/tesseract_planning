@@ -13,19 +13,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_problem.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
 
-namespace tesseract_planning
-{
-template <typename FloatType>
-using DescartesProblemGeneratorFn =
-    std::function<std::shared_ptr<DescartesProblem<FloatType>>(const std::string&, const PlannerRequest&)>;
-
-using DescartesProblemGeneratorFnD = DescartesProblemGeneratorFn<double>;
-using DescartesProblemGeneratorFnF = DescartesProblemGeneratorFn<float>;
-
-}  // namespace tesseract_planning
-
 #ifdef SWIG
-%template(DescartesProblemGeneratorFnD) tesseract_planning::DescartesProblemGeneratorFn<double>;
 %shared_ptr(tesseract_planning::DescartesMotionPlannerD);
 %shared_ptr(tesseract_planning::DescartesMotionPlanner<double>);
 #endif  // SWIG
@@ -46,14 +34,8 @@ public:
 
   const std::string& getName() const override;
 
-#ifndef SWIG
-  DescartesProblemGeneratorFn<FloatType> problem_generator;
-#else
-  DescartesProblemGeneratorFnD problem_generator;
-#endif
-
   /**
-   * @brief Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss
+   * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
    * @param response The results of the optimization. Primary output is the optimized joint trajectory
    * @param check_type The type of validation check to be performed on the planned trajectory
    * @param verbose Boolean indicating whether logging information about the motion planning solution should be printed
@@ -71,6 +53,9 @@ public:
   void clear() override;
 
   MotionPlanner::Ptr clone() const override;
+
+  virtual std::shared_ptr<DescartesProblem<FloatType>> createProblem(const std::string& name,
+                                                                     const PlannerRequest& request) const;
 
 private:
   /** @brief The planners status codes */

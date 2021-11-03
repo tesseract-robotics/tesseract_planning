@@ -7,8 +7,7 @@ add_library(
   src/trajopt_ifopt_motion_planner.cpp
   src/trajopt_ifopt_utils.cpp
   src/profile/trajopt_ifopt_default_plan_profile.cpp
-  src/profile/trajopt_ifopt_default_composite_profile.cpp
-  src/problem_generators/default_problem_generator.cpp)
+  src/profile/trajopt_ifopt_default_composite_profile.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_trajopt_ifopt
   PUBLIC Boost::boost

@@ -12,7 +12,6 @@ set(OMPL_SRC
     src/ompl_planner_configurator.cpp
     src/ompl_problem.cpp
     src/profile/ompl_default_plan_profile.cpp
-    src/problem_generators/default_problem_generator.cpp
     src/utils.cpp
     src/state_collision_validator.cpp
     src/compound_state_validator.cpp

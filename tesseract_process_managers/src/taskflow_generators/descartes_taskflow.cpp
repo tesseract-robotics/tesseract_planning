@@ -39,7 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
-#include <tesseract_motion_planners/descartes/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
 
 using namespace tesseract_planning;
@@ -90,7 +89,6 @@ TaskflowContainer DescartesTaskflow::generateTaskflow(TaskInput input, TaskflowV
 
   // Setup Descartes
   auto descartes_planner = std::make_shared<DescartesMotionPlanner<float>>();
-  descartes_planner->problem_generator = &DefaultDescartesProblemGenerator<float>;
   auto descartes_generator = std::make_unique<MotionPlannerTaskGenerator>(descartes_planner);
   descartes_generator->assignConditionalTask(input, descartes_task);
   container.generators.push_back(std::move(descartes_generator));

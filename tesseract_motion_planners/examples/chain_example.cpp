@@ -38,11 +38,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_collision.h>
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
-#include <tesseract_motion_planners/descartes/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
-#include <tesseract_motion_planners/trajopt/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 
@@ -84,128 +82,134 @@ std::string locateResource(const std::string& url)
 
 int main(int /*argc*/, char** /*argv*/)
 {
-  // Setup
-  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
-  auto env = std::make_shared<tesseract_environment::Environment>();
-  tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
-  tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
-  env->init(urdf_path, srdf_path, locator);
-
-  // Dynamically load ignition visualizer if exist
-  tesseract_visualization::VisualizationLoader loader;
-  auto plotter = loader.get();
-
-  if (plotter != nullptr)
+  try
   {
-    plotter->waitForConnection();
-    plotter->plotEnvironment(*env);
+    // Setup
+    auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
+    auto env = std::make_shared<tesseract_environment::Environment>();
+    tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
+    tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
+    env->init(urdf_path, srdf_path, locator);
+
+    // Dynamically load ignition visualizer if exist
+    tesseract_visualization::VisualizationLoader loader;
+    auto plotter = loader.get();
+
+    if (plotter != nullptr)
+    {
+      plotter->waitForConnection();
+      plotter->plotEnvironment(*env);
+    }
+
+    ManipulatorInfo manip;
+    manip.manipulator = "manipulator";
+    manip.manipulator_ik_solver = "OPWInvKin";
+
+    auto state_solver = env->getStateSolver();
+    auto kin_group = env->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
+    auto cur_state = env->getState();
+
+    // Specify start location
+    JointWaypoint wp0(kin_group->getJointNames(), Eigen::VectorXd::Zero(6));
+
+    // Specify raster 1 start waypoint and end waypoint
+    CartesianWaypoint wp1 =
+        Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+    CartesianWaypoint wp2 =
+        Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+
+    // Specify raster 2 start waypoint and end waypoint
+    CartesianWaypoint wp3 =
+        Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.9, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+    CartesianWaypoint wp4 =
+        Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.9, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+
+    // Specify raster 4 start waypoint and end waypoint
+    CartesianWaypoint wp5 =
+        Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+    CartesianWaypoint wp6 =
+        Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+
+    // Define Plan Instructions
+    PlanInstruction start_instruction(wp0, PlanInstructionType::START);
+    PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, "DEFAULT");
+    PlanInstruction plan_c1(wp2, PlanInstructionType::LINEAR, "DEFAULT");
+    PlanInstruction plan_c2(wp3, PlanInstructionType::LINEAR, "DEFAULT");
+    PlanInstruction plan_c3(wp4, PlanInstructionType::LINEAR, "DEFAULT");
+    PlanInstruction plan_c4(wp5, PlanInstructionType::LINEAR, "DEFAULT");
+    PlanInstruction plan_c5(wp6, PlanInstructionType::LINEAR, "DEFAULT");
+    PlanInstruction plan_f3(wp0, PlanInstructionType::FREESPACE, "DEFAULT");
+
+    // Create program
+    CompositeInstruction program;
+    program.setStartInstruction(start_instruction);
+    program.setManipulatorInfo(manip);
+    program.push_back(plan_f1);
+    program.push_back(plan_c1);
+    program.push_back(plan_c2);
+    program.push_back(plan_c3);
+    program.push_back(plan_c4);
+    program.push_back(plan_c5);
+    program.push_back(plan_f3);
+
+    // Plot Program
+    if (plotter)
+    {
+    }
+
+    // Create Profiles
+    auto descartes_plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
+    auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+
+    // Create a seed
+    CompositeInstruction seed = generateSeed(program, cur_state, env);
+
+    // Profile Dictionary
+    auto profiles = std::make_shared<ProfileDictionary>();
+    profiles->addProfile<DescartesPlanProfile<double>>("DEFAULT", descartes_plan_profile);
+    profiles->addProfile<TrajOptPlanProfile>("DEFAULT", trajopt_plan_profile);
+    profiles->addProfile<TrajOptCompositeProfile>("DEFAULT", trajopt_composite_profile);
+
+    // Create Planning Request
+    PlannerRequest request;
+    request.seed = seed;
+    request.instructions = program;
+    request.env = env;
+    request.env_state = cur_state;
+    request.profiles = profiles;
+
+    // Solve Descartes Plan
+    PlannerResponse descartes_response;
+    DescartesMotionPlannerD descartes_planner;
+    auto descartes_status = descartes_planner.solve(request, descartes_response);
+    assert(descartes_status);
+
+    // Plot Descartes Trajectory
+    if (plotter)
+    {
+      plotter->waitForInput();
+      plotter->plotTrajectory(toJointTrajectory(descartes_response.results), *state_solver);
+    }
+
+    // Update Seed
+    request.seed = descartes_response.results;
+
+    // Solve TrajOpt Plan
+    PlannerResponse trajopt_response;
+    TrajOptMotionPlanner trajopt_planner;
+    auto trajopt_status = trajopt_planner.solve(request, trajopt_response);
+    assert(trajopt_status);
+
+    if (plotter)
+    {
+      plotter->waitForInput();
+      plotter->plotTrajectory(toJointTrajectory(trajopt_response.results), *state_solver);
+    }
   }
-
-  ManipulatorInfo manip;
-  manip.manipulator = "manipulator";
-  manip.manipulator_ik_solver = "OPWInvKin";
-
-  auto state_solver = env->getStateSolver();
-  auto kin_group = env->getKinematicGroup(manip.manipulator, manip.manipulator_ik_solver);
-  auto cur_state = env->getState();
-
-  // Specify start location
-  JointWaypoint wp0(kin_group->getJointNames(), Eigen::VectorXd::Zero(6));
-
-  // Specify raster 1 start waypoint and end waypoint
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
-
-  // Specify raster 2 start waypoint and end waypoint
-  CartesianWaypoint wp3 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.9, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
-  CartesianWaypoint wp4 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.9, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
-
-  // Specify raster 4 start waypoint and end waypoint
-  CartesianWaypoint wp5 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
-  CartesianWaypoint wp6 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
-
-  // Define Plan Instructions
-  PlanInstruction start_instruction(wp0, PlanInstructionType::START);
-  PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, "DEFAULT");
-  PlanInstruction plan_c1(wp2, PlanInstructionType::LINEAR, "DEFAULT");
-  PlanInstruction plan_c2(wp3, PlanInstructionType::LINEAR, "DEFAULT");
-  PlanInstruction plan_c3(wp4, PlanInstructionType::LINEAR, "DEFAULT");
-  PlanInstruction plan_c4(wp5, PlanInstructionType::LINEAR, "DEFAULT");
-  PlanInstruction plan_c5(wp6, PlanInstructionType::LINEAR, "DEFAULT");
-  PlanInstruction plan_f3(wp0, PlanInstructionType::FREESPACE, "DEFAULT");
-
-  // Create program
-  CompositeInstruction program;
-  program.setStartInstruction(start_instruction);
-  program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
-  program.push_back(plan_c1);
-  program.push_back(plan_c2);
-  program.push_back(plan_c3);
-  program.push_back(plan_c4);
-  program.push_back(plan_c5);
-  program.push_back(plan_f3);
-
-  // Plot Program
-  if (plotter)
+  catch (const std::exception& e)
   {
-  }
-
-  // Create Profiles
-  auto descartes_plan_profile = std::make_shared<DescartesDefaultPlanProfileD>();
-  auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-  auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-
-  // Create a seed
-  CompositeInstruction seed = generateSeed(program, cur_state, env);
-
-  // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<DescartesPlanProfile<double>>("DEFAULT", descartes_plan_profile);
-  profiles->addProfile<TrajOptPlanProfile>("DEFAULT", trajopt_plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("DEFAULT", trajopt_composite_profile);
-
-  // Create Planning Request
-  PlannerRequest request;
-  request.seed = seed;
-  request.instructions = program;
-  request.env = env;
-  request.env_state = cur_state;
-  request.profiles = profiles;
-
-  // Solve Descartes Plan
-  PlannerResponse descartes_response;
-  DescartesMotionPlannerD descartes_planner;
-  descartes_planner.problem_generator = tesseract_planning::DefaultDescartesProblemGenerator<double>;
-  auto descartes_status = descartes_planner.solve(request, descartes_response);
-  assert(descartes_status);
-
-  // Plot Descartes Trajectory
-  if (plotter)
-  {
-    plotter->waitForInput();
-    plotter->plotTrajectory(toJointTrajectory(descartes_response.results), *state_solver);
-  }
-
-  // Update Seed
-  request.seed = descartes_response.results;
-
-  // Solve TrajOpt Plan
-  PlannerResponse trajopt_response;
-  TrajOptMotionPlanner trajopt_planner;
-  trajopt_planner.problem_generator = tesseract_planning::DefaultTrajoptProblemGenerator;
-  auto trajopt_status = trajopt_planner.solve(request, trajopt_response);
-  assert(trajopt_status);
-
-  if (plotter)
-  {
-    plotter->waitForInput();
-    plotter->plotTrajectory(toJointTrajectory(trajopt_response.results), *state_solver);
+    CONSOLE_BRIDGE_logError("Example failed with message: %s", e.what());
+    return -1;
   }
 }

@@ -40,11 +40,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
-#include <tesseract_motion_planners/ompl/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
-#include <tesseract_motion_planners/trajopt/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 
 using namespace tesseract_planning;
@@ -106,13 +104,11 @@ TaskflowContainer FreespaceTaskflow::generateTaskflow(TaskInput input, TaskflowV
   container.generators.push_back(std::move(seed_min_length_generator));
 
   auto ompl_planner = std::make_shared<OMPLMotionPlanner>();
-  ompl_planner->problem_generator = &DefaultOMPLProblemGenerator;
   auto ompl_generator = std::make_unique<MotionPlannerTaskGenerator>(ompl_planner);
   ompl_generator->assignTask(input, ompl_task);
   container.generators.push_back(std::move(ompl_generator));
 
   auto trajopt_planner = std::make_shared<TrajOptMotionPlanner>();
-  trajopt_planner->problem_generator = &DefaultTrajoptProblemGenerator;
   auto trajopt_generator = std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner);
   trajopt_generator->assignConditionalTask(input, trajopt_task);
   container.generators.push_back(std::move(trajopt_generator));
@@ -139,7 +135,6 @@ TaskflowContainer FreespaceTaskflow::generateTaskflow(TaskInput input, TaskflowV
 
     // Setup TrajOpt
     auto trajopt_planner2 = std::make_shared<TrajOptMotionPlanner>();
-    trajopt_planner2->problem_generator = &DefaultTrajoptProblemGenerator;
     TaskGenerator::UPtr trajopt_generator2 = std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner2);
     trajopt_generator2->assignConditionalTask(input, trajopt_second_task);
     container.generators.push_back(std::move(trajopt_generator2));
