@@ -111,7 +111,7 @@ struct TaskInput
   /**
    * @brief This indicates if a seed was provided
    * @details In the case of the raster process planner a skeleton seed is provided which make it
-   * computationaly intensive to determine if a seed was provide so this was added.
+   * computationally intensive to determine if a seed was provide so this was added.
    */
   const bool has_seed{ false };
 
@@ -124,7 +124,7 @@ struct TaskInput
 
   /**
    * @brief Gets the number of instructions contained in the TaskInput
-   * @return 1 instruction if not a composite, otherwise size of the composite @todo Should this be -1, becuase
+   * @return 1 instruction if not a composite, otherwise size of the composite @todo Should this be -1, because
    * composite size could be 1, 0, or other?
    */
   std::size_t size();
@@ -182,19 +182,19 @@ protected:
   /** @brief Results/Seed for this process */
   Instruction* results_;
 
-  /** @brief The indicies used to access this process inputs instructions and results */
+  /** @brief The indices used to access this process inputs instructions and results */
   std::vector<std::size_t> instruction_indice_;
 
-  /** @brief This proccess inputs start instruction */
+  /** @brief This process inputs start instruction */
   Instruction start_instruction_{ NullInstruction() };
 
-  /** @brief Indices to the start instruction in the results data struction */
+  /** @brief Indices to the start instruction in the results data structure */
   std::vector<std::size_t> start_instruction_indice_;
 
-  /** @brief This proccess inputs end instruction */
+  /** @brief This process inputs end instruction */
   Instruction end_instruction_{ NullInstruction() };
 
-  /** @brief Indices to the end instruction in the results data struction */
+  /** @brief Indices to the end instruction in the results data structure */
   std::vector<std::size_t> end_instruction_indice_;
 
   /** @brief Used to store if process input is aborted which is thread safe */

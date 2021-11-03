@@ -59,10 +59,12 @@ add_library(
   src/core/default_process_planners.cpp
   src/core/taskflow_container.cpp
   src/core/utils.cpp
+  src/task_generators/check_input_task_generator.cpp
   src/task_generators/continuous_contact_check_task_generator.cpp
   src/task_generators/discrete_contact_check_task_generator.cpp
   src/task_generators/fix_state_bounds_task_generator.cpp
   src/task_generators/fix_state_collision_task_generator.cpp
+  src/task_generators/has_seed_task_generator.cpp
   src/task_generators/iterative_spline_parameterization_task_generator.cpp
   src/task_generators/motion_planner_task_generator.cpp
   src/task_generators/profile_switch_task_generator.cpp
@@ -75,13 +77,7 @@ add_library(
   src/taskflow_generators/raster_only_global_taskflow.cpp
   src/taskflow_generators/raster_dt_taskflow.cpp
   src/taskflow_generators/raster_waad_taskflow.cpp
-  src/taskflow_generators/raster_waad_dt_taskflow.cpp
-  src/taskflow_generators/descartes_taskflow.cpp
-  src/taskflow_generators/ompl_taskflow.cpp
-  src/taskflow_generators/trajopt_ifopt_taskflow.cpp
-  src/taskflow_generators/trajopt_taskflow.cpp
-  src/taskflow_generators/cartesian_taskflow.cpp
-  src/taskflow_generators/freespace_taskflow.cpp)
+  src/taskflow_generators/raster_waad_dt_taskflow.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC console_bridge::console_bridge

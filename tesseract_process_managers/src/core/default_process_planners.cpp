@@ -25,12 +25,6 @@
  */
 
 #include <tesseract_process_managers/core/default_process_planners.h>
-#include <tesseract_process_managers/taskflow_generators/cartesian_taskflow.h>
-#include <tesseract_process_managers/taskflow_generators/descartes_taskflow.h>
-#include <tesseract_process_managers/taskflow_generators/freespace_taskflow.h>
-#include <tesseract_process_managers/taskflow_generators/ompl_taskflow.h>
-#include <tesseract_process_managers/taskflow_generators/trajopt_taskflow.h>
-#include <tesseract_process_managers/taskflow_generators/trajopt_ifopt_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/raster_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/raster_global_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/raster_only_taskflow.h>
@@ -38,55 +32,431 @@
 #include <tesseract_process_managers/taskflow_generators/raster_dt_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/raster_waad_taskflow.h>
 #include <tesseract_process_managers/taskflow_generators/raster_waad_dt_taskflow.h>
+#include <tesseract_process_managers/taskflow_generators/graph_taskflow.h>
+
+#include <tesseract_process_managers/task_generators/has_seed_task_generator.h>
+#include <tesseract_process_managers/task_generators/motion_planner_task_generator.h>
+#include <tesseract_process_managers/task_generators/seed_min_length_task_generator.h>
+#include <tesseract_process_managers/task_generators/discrete_contact_check_task_generator.h>
+#include <tesseract_process_managers/task_generators/iterative_spline_parameterization_task_generator.h>
+#include <tesseract_process_managers/task_generators/check_input_task_generator.h>
+
+#include <tesseract_motion_planners/simple/simple_motion_planner.h>
+#include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
+#include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
+#include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 
 namespace tesseract_planning
 {
-TaskflowGenerator::UPtr createTrajOptGenerator()
+TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_collisin_check)
 {
-  TrajOptTaskflowParams params;
-  return std::make_unique<TrajOptTaskflow>(params);
+  auto tf = std::make_unique<GraphTaskflow>("TrajOptTaskflow");
+
+  int check_input_task{ std::numeric_limits<int>::min() };
+  if (check_input)
+    check_input_task = tf->addNode(std::make_unique<CheckInputTaskGenerator>(), true);
+
+  // Check if seed was provided
+  int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
+
+  // Simple planner as interpolator
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
+
+  // Setup Seed Min Length Process Generator
+  // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
+  // to short.
+  int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
+
+  // Setup TrajOpt
+  auto motion_planner = std::make_shared<TrajOptMotionPlanner>();
+  int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
+
+  // Setup post collision check
+  int contact_check_task{ std::numeric_limits<int>::min() };
+  if (post_collisin_check)
+    contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
+
+  // Setup time parameterization
+  int time_parameterization_task = tf->addNode(std::make_unique<IterativeSplineParameterizationTaskGenerator>(), true);
+
+  if (check_input)
+    tf->addEdges(check_input_task, { GraphTaskflow::ERROR_NODE, has_seed_task });
+
+  tf->addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
+  tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
+  tf->addEdges(seed_min_length_task, { motion_planner_task });
+
+  if (post_collisin_check)
+  {
+    tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
+    tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  }
+  else
+  {
+    tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  }
+
+  tf->addEdges(time_parameterization_task, { GraphTaskflow::ERROR_NODE, GraphTaskflow::DONE_NODE });
+
+  return tf;
 }
 
-TaskflowGenerator::UPtr createTrajOptIfoptGenerator()
+TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_collisin_check)
 {
-  TrajOptIfoptTaskflowParams params;
-  return std::make_unique<TrajOptIfoptTaskflow>(params);
+  auto tf = std::make_unique<GraphTaskflow>("TrajOptIfoptTaskflow");
+
+  int check_input_task{ std::numeric_limits<int>::min() };
+  if (check_input)
+    check_input_task = tf->addNode(std::make_unique<CheckInputTaskGenerator>(), true);
+
+  // Check if seed was provided
+  int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
+
+  // Simple planner as interpolator
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
+
+  // Setup Seed Min Length Process Generator
+  // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
+  // to short.
+  int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
+
+  // Setup TrajOpt IFOPT
+  auto motion_planner = std::make_shared<TrajOptIfoptMotionPlanner>();
+  int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
+
+  // Setup post collision check
+  int contact_check_task{ std::numeric_limits<int>::min() };
+  if (post_collisin_check)
+    contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
+
+  // Setup time parameterization
+  int time_parameterization_task = tf->addNode(std::make_unique<IterativeSplineParameterizationTaskGenerator>(), true);
+
+  if (check_input)
+    tf->addEdges(check_input_task, { GraphTaskflow::ERROR_NODE, has_seed_task });
+
+  tf->addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
+  tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
+  tf->addEdges(seed_min_length_task, { motion_planner_task });
+
+  if (post_collisin_check)
+  {
+    tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
+    tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  }
+  else
+  {
+    tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  }
+
+  tf->addEdges(time_parameterization_task, { GraphTaskflow::ERROR_NODE, GraphTaskflow::DONE_NODE });
+
+  return tf;
 }
 
-TaskflowGenerator::UPtr createOMPLGenerator()
+TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collisin_check)
 {
-  OMPLTaskflowParams params;
-  return std::make_unique<OMPLTaskflow>(params);
+  auto tf = std::make_unique<GraphTaskflow>("OMPLTaskflow");
+
+  int check_input_task{ std::numeric_limits<int>::min() };
+  if (check_input)
+    check_input_task = tf->addNode(std::make_unique<CheckInputTaskGenerator>(), true);
+
+  // Check if seed was provided
+  int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
+
+  // Simple planner as interpolator
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
+
+  // Setup Seed Min Length Process Generator
+  // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
+  // to short.
+  int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
+
+  // Setup OMPL
+  auto motion_planner = std::make_shared<OMPLMotionPlanner>();
+  int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
+
+  // Setup post collision check
+  int contact_check_task{ std::numeric_limits<int>::min() };
+  if (post_collisin_check)
+    contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
+
+  // Setup time parameterization
+  int time_parameterization_task = tf->addNode(std::make_unique<IterativeSplineParameterizationTaskGenerator>(), true);
+
+  if (check_input)
+    tf->addEdges(check_input_task, { GraphTaskflow::ERROR_NODE, has_seed_task });
+
+  tf->addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
+  tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
+  tf->addEdges(seed_min_length_task, { motion_planner_task });
+
+  if (post_collisin_check)
+  {
+    tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
+    tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  }
+  else
+  {
+    tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  }
+
+  tf->addEdges(time_parameterization_task, { GraphTaskflow::ERROR_NODE, GraphTaskflow::DONE_NODE });
+
+  return tf;
 }
 
-TaskflowGenerator::UPtr createDescartesGenerator()
+TaskflowGenerator::UPtr createDescartesGenerator(bool check_input, bool post_collisin_check)
 {
-  DescartesTaskflowParams params;
-  return std::make_unique<DescartesTaskflow>(params);
+  auto tf = std::make_unique<GraphTaskflow>("DescartesTaskflow");
+
+  int check_input_task{ std::numeric_limits<int>::min() };
+  if (check_input)
+    check_input_task = tf->addNode(std::make_unique<CheckInputTaskGenerator>(), true);
+
+  // Check if seed was provided
+  int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
+
+  // Simple planner as interpolator
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
+
+  // Setup Seed Min Length Process Generator
+  // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
+  // to short.
+  int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
+
+  // Setup Descartes
+  auto motion_planner = std::make_shared<DescartesMotionPlannerF>();
+  int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
+
+  // Setup post collision check
+  int contact_check_task{ std::numeric_limits<int>::min() };
+  if (post_collisin_check)
+    contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
+
+  // Setup time parameterization
+  int time_parameterization_task = tf->addNode(std::make_unique<IterativeSplineParameterizationTaskGenerator>(), true);
+
+  if (check_input)
+    tf->addEdges(check_input_task, { GraphTaskflow::ERROR_NODE, has_seed_task });
+
+  tf->addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
+  tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
+  tf->addEdges(seed_min_length_task, { motion_planner_task });
+
+  if (post_collisin_check)
+  {
+    tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
+    tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  }
+  else
+  {
+    tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  }
+
+  tf->addEdges(time_parameterization_task, { GraphTaskflow::ERROR_NODE, GraphTaskflow::DONE_NODE });
+
+  return tf;
 }
 
-TaskflowGenerator::UPtr createCartesianGenerator()
+TaskflowGenerator::UPtr createDescartesOnlyGenerator(bool check_input)
 {
-  CartesianTaskflowParams params;
-  return std::make_unique<CartesianTaskflow>(params);
+  auto tf = std::make_unique<GraphTaskflow>("DescartesTaskflow");
+
+  int check_input_task{ std::numeric_limits<int>::min() };
+  if (check_input)
+    check_input_task = tf->addNode(std::make_unique<CheckInputTaskGenerator>(), true);
+
+  // Check if seed was provided
+  int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
+
+  // Simple planner as interpolator
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
+
+  // Setup Seed Min Length Process Generator
+  // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
+  // to short.
+  int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
+
+  // Setup Descartes
+  auto motion_planner = std::make_shared<DescartesMotionPlannerF>();
+  int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
+
+  if (check_input)
+    tf->addEdges(check_input_task, { GraphTaskflow::ERROR_NODE, has_seed_task });
+
+  tf->addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
+  tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
+  tf->addEdges(seed_min_length_task, { motion_planner_task });
+  tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, GraphTaskflow::DONE_NODE });
+
+  return tf;
 }
 
-TaskflowGenerator::UPtr createFreespaceGenerator()
+TaskflowGenerator::UPtr createCartesianGenerator(bool check_input)
 {
-  FreespaceTaskflowParams params;
-  return std::make_unique<FreespaceTaskflow>(params);
+  auto tf = std::make_unique<GraphTaskflow>("CartesianTaskflow");
+
+  int check_input_task{ std::numeric_limits<int>::min() };
+  if (check_input)
+    check_input_task = tf->addNode(std::make_unique<CheckInputTaskGenerator>(), true);
+
+  // Check if seed was provided
+  int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
+
+  // Simple planner as interpolator
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
+
+  // Setup Seed Min Length Process Generator
+  // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
+  // to short.
+  int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
+
+  // Setup Descartes
+  auto descartes_planner = std::make_shared<DescartesMotionPlannerF>();
+  int descartes_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(descartes_planner), true);
+
+  // Setup TrajOpt
+  auto trajopt_planner = std::make_shared<TrajOptMotionPlanner>();
+  int trajopt_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner), true);
+
+  // Setup post collision check
+  int contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
+
+  // Setup time parameterization
+  int time_parameterization_task = tf->addNode(std::make_unique<IterativeSplineParameterizationTaskGenerator>(), true);
+
+  if (check_input)
+    tf->addEdges(check_input_task, { GraphTaskflow::ERROR_NODE, has_seed_task });
+
+  tf->addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
+  tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
+  tf->addEdges(seed_min_length_task, { descartes_planner_task });
+  tf->addEdges(descartes_planner_task, { GraphTaskflow::ERROR_NODE, trajopt_planner_task });
+  tf->addEdges(trajopt_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
+  tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  tf->addEdges(time_parameterization_task, { GraphTaskflow::ERROR_NODE, GraphTaskflow::DONE_NODE });
+
+  return tf;
+}
+
+TaskflowGenerator::UPtr createFreespaceGenerator(bool check_input)
+{
+  auto tf = std::make_unique<GraphTaskflow>("FreespaceTaskflow");
+
+  int check_input_task{ std::numeric_limits<int>::min() };
+  if (check_input)
+    check_input_task = tf->addNode(std::make_unique<CheckInputTaskGenerator>(), true);
+
+  // Check if seed was provided
+  int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
+
+  // Simple planner as interpolator
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
+
+  // Setup Seed Min Length Process Generator
+  // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
+  // to short.
+  int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
+
+  // Setup OMPL
+  auto ompl_planner = std::make_shared<OMPLMotionPlanner>();
+  int ompl_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(ompl_planner), true);
+
+  // Setup TrajOpt
+  auto trajopt_planner = std::make_shared<TrajOptMotionPlanner>();
+  int trajopt_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner), true);
+
+  // Setup post collision check
+  int contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
+
+  // Setup time parameterization
+  int time_parameterization_task = tf->addNode(std::make_unique<IterativeSplineParameterizationTaskGenerator>(), true);
+
+  if (check_input)
+    tf->addEdges(check_input_task, { GraphTaskflow::ERROR_NODE, has_seed_task });
+
+  tf->addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
+  tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
+  tf->addEdges(seed_min_length_task, { ompl_planner_task });
+  tf->addEdges(ompl_planner_task, { GraphTaskflow::ERROR_NODE, trajopt_planner_task });
+  tf->addEdges(trajopt_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
+  tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  tf->addEdges(time_parameterization_task, { GraphTaskflow::ERROR_NODE, GraphTaskflow::DONE_NODE });
+
+  return tf;
+}
+
+TaskflowGenerator::UPtr createFreespaceTrajOptFirstGenerator(bool check_input)
+{
+  auto tf = std::make_unique<GraphTaskflow>("FreespaceTrajOptFirstTaskflow");
+
+  int check_input_task{ std::numeric_limits<int>::min() };
+  if (check_input)
+    check_input_task = tf->addNode(std::make_unique<CheckInputTaskGenerator>(), true);
+
+  // Check if seed was provided
+  int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
+
+  // Simple planner as interpolator
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
+
+  // Setup Seed Min Length Process Generator
+  // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
+  // to short.
+  int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
+
+  // Setup TrajOpt
+  auto trajopt_planner1 = std::make_shared<TrajOptMotionPlanner>();
+  int trajopt_planner1_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner1), true);
+
+  // Setup OMPL
+  auto ompl_planner = std::make_shared<OMPLMotionPlanner>();
+  int ompl_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(ompl_planner), true);
+
+  // Setup TrajOpt
+  auto trajopt_planner2 = std::make_shared<TrajOptMotionPlanner>();
+  int trajopt_planner2_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner2), true);
+
+  // Setup post collision check
+  int contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
+
+  // Setup time parameterization
+  int time_parameterization_task = tf->addNode(std::make_unique<IterativeSplineParameterizationTaskGenerator>(), true);
+
+  if (check_input)
+    tf->addEdges(check_input_task, { GraphTaskflow::ERROR_NODE, has_seed_task });
+
+  tf->addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
+  tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
+  tf->addEdges(seed_min_length_task, { trajopt_planner1_task });
+  tf->addEdges(trajopt_planner1_task, { ompl_planner_task, contact_check_task });
+  tf->addEdges(ompl_planner_task, { GraphTaskflow::ERROR_NODE, trajopt_planner2_task });
+  tf->addEdges(trajopt_planner2_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
+  tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
+  tf->addEdges(time_parameterization_task, { GraphTaskflow::ERROR_NODE, GraphTaskflow::DONE_NODE });
+
+  return tf;
 }
 
 TaskflowGenerator::UPtr createRasterGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams fparams;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(fparams);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<FreespaceTaskflow>(fparams);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cparams;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cparams);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterTaskflow>(
       std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -95,31 +465,20 @@ TaskflowGenerator::UPtr createRasterGenerator()
 TaskflowGenerator::UPtr createRasterOnlyGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams tparams;
-  TaskflowGenerator::UPtr transition_task = std::make_unique<FreespaceTaskflow>(tparams);
+  TaskflowGenerator::UPtr transition_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cparams;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cparams);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterOnlyTaskflow>(std::move(transition_task), std::move(raster_task));
 }
 
 TaskflowGenerator::UPtr createRasterGlobalGenerator()
 {
-  DescartesTaskflowParams global_params;
-  global_params.enable_post_contact_discrete_check = false;
-  global_params.enable_post_contact_continuous_check = false;
-  global_params.enable_time_parameterization = false;
-  TaskflowGenerator::UPtr global_task = std::make_unique<DescartesTaskflow>(global_params);
-
-  FreespaceTaskflowParams freespace_params;
-  freespace_params.type = FreespaceTaskflowType::TRAJOPT_FIRST;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(freespace_params);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<FreespaceTaskflow>(freespace_params);
-
-  TrajOptTaskflowParams raster_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<TrajOptTaskflow>(raster_params);
+  TaskflowGenerator::UPtr global_task = createDescartesOnlyGenerator(false);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceTrajOptFirstGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createFreespaceTrajOptFirstGenerator(false);
+  TaskflowGenerator::UPtr raster_task = createTrajOptGenerator(false);
 
   return std::make_unique<RasterGlobalTaskflow>(
       std::move(global_task), std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -128,13 +487,11 @@ TaskflowGenerator::UPtr createRasterGlobalGenerator()
 TaskflowGenerator::UPtr createRasterDTGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams fparams;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(fparams);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<FreespaceTaskflow>(fparams);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cparams;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cparams);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterDTTaskflow>(
       std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -143,13 +500,11 @@ TaskflowGenerator::UPtr createRasterDTGenerator()
 TaskflowGenerator::UPtr createRasterWAADGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams fparams;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(fparams);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<FreespaceTaskflow>(fparams);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cparams;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cparams);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator();
 
   return std::make_unique<RasterWAADTaskflow>(
       std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -158,13 +513,11 @@ TaskflowGenerator::UPtr createRasterWAADGenerator()
 TaskflowGenerator::UPtr createRasterWAADDTGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams fparams;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(fparams);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<FreespaceTaskflow>(fparams);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cparams;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cparams);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterWAADDTTaskflow>(
       std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -172,18 +525,9 @@ TaskflowGenerator::UPtr createRasterWAADDTGenerator()
 
 TaskflowGenerator::UPtr createRasterOnlyGlobalGenerator()
 {
-  DescartesTaskflowParams global_params;
-  global_params.enable_post_contact_discrete_check = false;
-  global_params.enable_post_contact_continuous_check = false;
-  global_params.enable_time_parameterization = false;
-  TaskflowGenerator::UPtr global_task = std::make_unique<DescartesTaskflow>(global_params);
-
-  FreespaceTaskflowParams transition_params;
-  transition_params.type = FreespaceTaskflowType::TRAJOPT_FIRST;
-  TaskflowGenerator::UPtr transition_task = std::make_unique<FreespaceTaskflow>(transition_params);
-
-  TrajOptTaskflowParams raster_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<TrajOptTaskflow>(raster_params);
+  TaskflowGenerator::UPtr global_task = createDescartesOnlyGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createFreespaceTrajOptFirstGenerator(false);
+  TaskflowGenerator::UPtr raster_task = createTrajOptGenerator(false);
 
   return std::make_unique<RasterOnlyGlobalTaskflow>(
       std::move(global_task), std::move(transition_task), std::move(raster_task));
@@ -192,13 +536,11 @@ TaskflowGenerator::UPtr createRasterOnlyGlobalGenerator()
 TaskflowGenerator::UPtr createRasterCTGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams freespace_params;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(freespace_params);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cartesian_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cartesian_params);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<CartesianTaskflow>(cartesian_params);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterTaskflow>(
       std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -207,9 +549,8 @@ TaskflowGenerator::UPtr createRasterCTGenerator()
 TaskflowGenerator::UPtr createRasterOnlyCTGenerator()
 {
   // Create Transition and Raster Taskflow
-  CartesianTaskflowParams cartesian_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cartesian_params);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<CartesianTaskflow>(cartesian_params);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterOnlyTaskflow>(std::move(transition_task), std::move(raster_task));
 }
@@ -217,13 +558,11 @@ TaskflowGenerator::UPtr createRasterOnlyCTGenerator()
 TaskflowGenerator::UPtr createRasterCTDTGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams freespace_params;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(freespace_params);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cartesian_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cartesian_params);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<CartesianTaskflow>(cartesian_params);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterDTTaskflow>(
       std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -232,13 +571,11 @@ TaskflowGenerator::UPtr createRasterCTDTGenerator()
 TaskflowGenerator::UPtr createRasterCTWAADGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams freespace_params;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(freespace_params);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cartesian_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cartesian_params);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<CartesianTaskflow>(cartesian_params);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterWAADTaskflow>(
       std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -247,13 +584,11 @@ TaskflowGenerator::UPtr createRasterCTWAADGenerator()
 TaskflowGenerator::UPtr createRasterCTWAADDTGenerator()
 {
   // Create Freespace and Transition Taskflows
-  FreespaceTaskflowParams freespace_params;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(freespace_params);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceGenerator(false);
 
   // Create Raster Taskflow
-  CartesianTaskflowParams cartesian_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<CartesianTaskflow>(cartesian_params);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<CartesianTaskflow>(cartesian_params);
+  TaskflowGenerator::UPtr raster_task = createCartesianGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createCartesianGenerator(false);
 
   return std::make_unique<RasterWAADDTTaskflow>(
       std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -261,19 +596,10 @@ TaskflowGenerator::UPtr createRasterCTWAADDTGenerator()
 
 TaskflowGenerator::UPtr createRasterGlobalCTGenerator()
 {
-  DescartesTaskflowParams global_params;
-  global_params.enable_post_contact_discrete_check = false;
-  global_params.enable_post_contact_continuous_check = false;
-  global_params.enable_time_parameterization = false;
-  TaskflowGenerator::UPtr global_task = std::make_unique<DescartesTaskflow>(global_params);
-
-  FreespaceTaskflowParams freespace_params;
-  freespace_params.type = FreespaceTaskflowType::TRAJOPT_FIRST;
-  TaskflowGenerator::UPtr freespace_task = std::make_unique<FreespaceTaskflow>(freespace_params);
-
-  TrajOptTaskflowParams raster_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<TrajOptTaskflow>(raster_params);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<TrajOptTaskflow>(raster_params);
+  TaskflowGenerator::UPtr global_task = createDescartesOnlyGenerator(false);
+  TaskflowGenerator::UPtr freespace_task = createFreespaceTrajOptFirstGenerator(false);
+  TaskflowGenerator::UPtr raster_task = createTrajOptGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createTrajOptGenerator(false);
 
   return std::make_unique<RasterGlobalTaskflow>(
       std::move(global_task), std::move(freespace_task), std::move(transition_task), std::move(raster_task));
@@ -281,15 +607,9 @@ TaskflowGenerator::UPtr createRasterGlobalCTGenerator()
 
 TaskflowGenerator::UPtr createRasterOnlyGlobalCTGenerator()
 {
-  DescartesTaskflowParams global_params;
-  global_params.enable_post_contact_discrete_check = false;
-  global_params.enable_post_contact_continuous_check = false;
-  global_params.enable_time_parameterization = false;
-  TaskflowGenerator::UPtr global_task = std::make_unique<DescartesTaskflow>(global_params);
-
-  TrajOptTaskflowParams raster_params;
-  TaskflowGenerator::UPtr raster_task = std::make_unique<TrajOptTaskflow>(raster_params);
-  TaskflowGenerator::UPtr transition_task = std::make_unique<TrajOptTaskflow>(raster_params);
+  TaskflowGenerator::UPtr global_task = createDescartesOnlyGenerator(false);
+  TaskflowGenerator::UPtr raster_task = createTrajOptGenerator(false);
+  TaskflowGenerator::UPtr transition_task = createTrajOptGenerator(false);
 
   return std::make_unique<RasterOnlyGlobalTaskflow>(
       std::move(global_task), std::move(transition_task), std::move(raster_task));
