@@ -84,7 +84,7 @@ public:
   int addNode(TaskGenerator::UPtr process, bool is_conditional = false);
 
   /**
-   * @brief Adds directed edges from a source node to desintation nodes in the taskflow graph
+   * @brief Adds directed edges from a source node to destination nodes in the taskflow graph
    * @details If source is a non-conditional task, it is only relevant to provide one destination as the output of a
    * non-conditional tf::Task is void. If source is a conditional task, the order of the destinations should correspond
    * to the integer output of the conditional tf::Task. For example,if the output of the conditional tf::Task is 0, the

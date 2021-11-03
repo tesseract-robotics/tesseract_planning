@@ -52,7 +52,7 @@ struct TaskDisplayInfo
  * @param task_info_map Key: Task name, Value: Information about that task to add to the visualization
  */
 inline void dump(std::ostream& os,
-                 const GraphTaskflow::UPtr& graph,
+                 const GraphTaskflow& graph,
                  const std::unordered_map<std::string, TaskDisplayInfo>& task_info_map =
                      std::unordered_map<std::string, TaskDisplayInfo>())
 {
@@ -61,7 +61,7 @@ inline void dump(std::ostream& os,
     os << "subgraph cluster"
        << " {\nlabel=\"Taskflow:\";\n";
     {
-      const std::vector<GraphTaskflowNode>& nodes = graph->getNodes();
+      const std::vector<GraphTaskflowNode>& nodes = graph.getNodes();
       for (std::size_t idx = 0; idx < nodes.size(); idx++)
       {
         const GraphTaskflowNode& node = nodes[idx];

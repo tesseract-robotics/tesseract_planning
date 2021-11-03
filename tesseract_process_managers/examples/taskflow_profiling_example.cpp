@@ -40,9 +40,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils/utils.h>
 
 #include <tesseract_process_managers/utils/task_info_statistics.h>
-#include <tesseract_process_managers/taskflow_generators/freespace_taskflow.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
 #include <tesseract_process_managers/utils/task_info_statistics.h>
+#include <tesseract_process_managers/core/default_process_planners.h>
 #include <tesseract_visualization/visualization_loader.h>
 
 using namespace tesseract_planning;
@@ -149,13 +149,12 @@ int main()
   auto display_info = profiler.getTaskDisplayInfo();
 
   /// @todo When FreespaceTaskflow is rewritten to inherit from GraphTaskflow this will work.
-  //  std::ofstream out_data;
-  //  out_data.open(tesseract_common::getTempPath() + "profiling_taskflow-" + tesseract_common::getTimestampString() +
-  //                ".dot");
-  //  FreespaceTaskflowParams params;
-  //  auto graph_taskflow = std::make_unique<FreespaceTaskflow>(params);
-  //  dump(out_data, graph_taskflow, display_info);
-  //  out_data.close();
+  std::ofstream out_data;
+  out_data.open(tesseract_common::getTempPath() + "profiling_taskflow-" + tesseract_common::getTimestampString() +
+                ".dot");
+  auto graph_taskflow = createFreespaceGenerator();
+  dump(out_data, dynamic_cast<const GraphTaskflow&>(*graph_taskflow), display_info);
+  out_data.close();
 
   return 0;
 }

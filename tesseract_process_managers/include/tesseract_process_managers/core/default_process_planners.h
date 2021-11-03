@@ -31,22 +31,41 @@
 namespace tesseract_planning
 {
 /** @brief Create TrajOpt Process Pipeline */
-TaskflowGenerator::UPtr createTrajOptGenerator();
+TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input = true, bool post_collisin_check = true);
 
 /** @brief Create TrajOpt IFOPT Process Pipeline */
-TaskflowGenerator::UPtr createTrajOptIfoptGenerator();
+TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input = true, bool post_collisin_check = true);
 
 /** @brief Create OMPL Process Pipeline */
-TaskflowGenerator::UPtr createOMPLGenerator();
+TaskflowGenerator::UPtr createOMPLGenerator(bool check_input = true, bool post_collisin_check = true);
 
 /** @brief Create Descartes Process Pipeline */
-TaskflowGenerator::UPtr createDescartesGenerator();
+TaskflowGenerator::UPtr createDescartesGenerator(bool check_input = true, bool post_collisin_check = true);
+
+/**
+ *  @brief Create Descartes Only Process Pipeline
+ *  @details This does not perform post collision check or time parameterization
+ */
+TaskflowGenerator::UPtr createDescartesOnlyGenerator(bool check_input = true);
+
+/**
+ *  @brief Create Descartes No Collision Check Process Pipeline
+ *  @details This does not perform post collision check
+ */
+TaskflowGenerator::UPtr createDescartesNoCollisionGenerator(bool check_input = true);
 
 /** @brief Create Cartesian Process Pipeline */
-TaskflowGenerator::UPtr createCartesianGenerator();
+TaskflowGenerator::UPtr createCartesianGenerator(bool check_input = true);
 
 /** @brief Create Freespace Process Pipeline */
-TaskflowGenerator::UPtr createFreespaceGenerator();
+TaskflowGenerator::UPtr createFreespaceGenerator(bool check_input = true);
+
+/**
+ *  @brief Create Freespace TrajOpt First Process Pipeline
+ *  @details This will try trajopt first before OMPL, but if trajopt fails
+ *  it runs OMPL followed by trajopt.
+ */
+TaskflowGenerator::UPtr createFreespaceTrajOptFirstGenerator(bool check_input = true);
 
 /** @brief Create Raster Process Pipeline */
 TaskflowGenerator::UPtr createRasterGenerator();
