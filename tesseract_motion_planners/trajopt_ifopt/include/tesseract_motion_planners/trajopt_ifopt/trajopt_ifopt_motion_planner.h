@@ -39,9 +39,6 @@ namespace tesseract_planning
 {
 class TrajOptIfoptMotionPlannerStatusCategory;
 
-using TrajOptIfoptProblemGeneratorFn =
-    std::function<std::shared_ptr<TrajOptIfoptProblem>(const std::string&, const PlannerRequest&)>;
-
 class TrajOptIfoptMotionPlanner : public MotionPlanner
 {
 public:
@@ -56,16 +53,11 @@ public:
 
   const std::string& getName() const override;
 
-  TrajOptIfoptProblemGeneratorFn problem_generator;
-
-  /** @brief Optimization parameters to be used (Optional) */
-  //  sco::BasicTrustRegionSQPParameters params;
-
   /** @brief Callback functions called on each iteration of the optimization (Optional) */
   std::vector<trajopt_sqp::SQPCallback::Ptr> callbacks;
 
   /**
-   * @brief Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss
+   * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
    * @param response The results of the optimization. Primary output is the optimized joint trajectory
    * @param check_type The type of collision check to perform on the planned trajectory
    * @param verbose Boolean indicating whether logging information about the motion planning solution should be printed
@@ -76,20 +68,23 @@ public:
                                      PlannerResponse& response,
                                      bool verbose = false) const override;
 
-  static bool checkUserInput(const PlannerRequest& request);
-
   bool terminate() override;
 
   void clear() override;
 
   MotionPlanner::Ptr clone() const override;
 
+  virtual std::shared_ptr<TrajOptIfoptProblem> createProblem(const std::string& name,
+                                                             const PlannerRequest& request) const;
+
+  static bool checkUserInput(const PlannerRequest& request);
+
 protected:
   /** @brief Name of planner */
   std::string name_;
 
-  std::shared_ptr<const TrajOptIfoptMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes
-                                                                                    */
+  /** @brief The planners status codes */
+  std::shared_ptr<const TrajOptIfoptMotionPlannerStatusCategory> status_category_;
 };
 
 class TrajOptIfoptMotionPlannerStatusCategory : public tesseract_common::StatusCategory

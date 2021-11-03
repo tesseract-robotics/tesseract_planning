@@ -41,7 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
-#include <tesseract_motion_planners/trajopt_ifopt/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h>
 
 using namespace tesseract_planning;
@@ -103,7 +102,6 @@ TaskflowContainer TrajOptIfoptTaskflow::generateTaskflow(TaskInput input,
 
   // Setup TrajOpt
   auto trajopt_planner = std::make_shared<TrajOptIfoptMotionPlanner>();
-  trajopt_planner->problem_generator = &DefaultTrajOptIfoptProblemGenerator;
   TaskGenerator::UPtr trajopt_generator = std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner);
   trajopt_generator->assignConditionalTask(input, trajopt_task);
   container.generators.push_back(std::move(trajopt_generator));

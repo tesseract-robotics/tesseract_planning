@@ -41,7 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
-#include <tesseract_motion_planners/descartes/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/interface_utils.h>
@@ -146,7 +145,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner;
   plan_profile->num_threads = 1;
-  single_descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
   // Create Planning Request
   PlannerRequest request;
@@ -166,14 +164,13 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   {
     // Test the problem generator
     {
-      auto problem = DefaultDescartesProblemGenerator<double>(single_descartes_planner.getName(), request);
+      auto problem = single_descartes_planner.createProblem(single_descartes_planner.getName(), request);
       EXPECT_EQ(problem->samplers.size(), 11);
       EXPECT_EQ(problem->edge_evaluators.size(), 10);
     }
 
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
-    descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
     PlannerResponse planner_response;
     auto status = descartes_planner.solve(request, planner_response);
@@ -268,7 +265,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner;
   plan_profile->num_threads = 1;
-  single_descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
   // Create Planning Request
   PlannerRequest request;
@@ -278,7 +274,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   request.env_state = cur_state;
   request.profiles = profiles;
 
-  auto problem = DefaultDescartesProblemGenerator<double>(single_descartes_planner.getName(), request);
+  auto problem = single_descartes_planner.createProblem(single_descartes_planner.getName(), request);
   problem->num_threads = 1;
   EXPECT_EQ(problem->samplers.size(), 11);
   EXPECT_EQ(problem->edge_evaluators.size(), 10);
@@ -293,7 +289,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   {
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
-    descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
     PlannerResponse planner_response;
     request.seed = seed;  // reset seed to the original seed
@@ -387,7 +382,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   plan_profile->num_threads = 1;
 
   // Test Problem size - TODO: Make dedicated unit test for DefaultDescartesProblemGenerator
-  auto problem = DefaultDescartesProblemGenerator<double>(single_descartes_planner.getName(), request);
+  auto problem = single_descartes_planner.createProblem(single_descartes_planner.getName(), request);
   EXPECT_EQ(problem->samplers.size(), 3);
   EXPECT_EQ(problem->edge_evaluators.size(), 2);
   EXPECT_EQ(problem->num_threads, 1);
@@ -402,7 +397,6 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   {
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
-    descartes_planner.problem_generator = &DefaultDescartesProblemGenerator<double>;
 
     PlannerResponse planner_response;
     request.seed = seed;  // reset seed to the original seed

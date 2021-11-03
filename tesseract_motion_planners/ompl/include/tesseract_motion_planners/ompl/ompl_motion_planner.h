@@ -50,7 +50,6 @@ namespace tesseract_planning
 {
 class OMPLMotionPlannerStatusCategory;
 
-using OMPLProblemGeneratorFn = std::function<std::vector<OMPLProblem::Ptr>(const std::string&, const PlannerRequest&)>;
 /**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
  * take a start and end point and automate the generation of the OMPL problem.
@@ -62,8 +61,6 @@ public:
   OMPLMotionPlanner(std::string name = "OMPL");
 
   const std::string& getName() const override;
-
-  OMPLProblemGeneratorFn problem_generator;
 
   /**
    * @brief Sets up the OMPL problem then solves. It is intended to simplify setting up
@@ -95,6 +92,8 @@ public:
   MotionPlanner::Ptr clone() const override;
 
   static bool checkUserInput(const PlannerRequest& request);
+
+  virtual std::vector<OMPLProblem::Ptr> createProblems(const std::string& name, const PlannerRequest& request) const;
 
 protected:
   /** @brief Name of planner */

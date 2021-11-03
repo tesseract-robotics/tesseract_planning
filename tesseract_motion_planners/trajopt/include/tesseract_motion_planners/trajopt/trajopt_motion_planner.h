@@ -43,9 +43,6 @@ namespace tesseract_planning
 {
 class TrajOptMotionPlannerStatusCategory;
 
-using TrajOptProblemGeneratorFn =
-    std::function<std::shared_ptr<trajopt::ProblemConstructionInfo>(const std::string&, const PlannerRequest&)>;
-
 class TrajOptMotionPlanner : public MotionPlanner
 {
 public:
@@ -59,8 +56,6 @@ public:
   TrajOptMotionPlanner& operator=(TrajOptMotionPlanner&&) = delete;
 
   const std::string& getName() const override;
-
-  TrajOptProblemGeneratorFn problem_generator;
 
   /** @brief Callback functions called on each iteration of the optimization (Optional) */
   std::vector<sco::Optimizer::Callback> callbacks;
@@ -82,6 +77,9 @@ public:
   void clear() override;
 
   MotionPlanner::Ptr clone() const override;
+
+  virtual std::shared_ptr<trajopt::ProblemConstructionInfo> createProblem(const std::string& name,
+                                                                          const PlannerRequest& request) const;
 
   static bool checkUserInput(const PlannerRequest& request);
 

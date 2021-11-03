@@ -40,7 +40,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
-#include <tesseract_motion_planners/ompl/problem_generators/default_problem_generator.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 
 using namespace tesseract_planning;
@@ -88,7 +87,6 @@ TaskflowContainer OMPLTaskflow::generateTaskflow(TaskInput input, TaskflowVoidFn
 
   // Setup TrajOpt
   auto ompl_planner = std::make_shared<OMPLMotionPlanner>();
-  ompl_planner->problem_generator = &DefaultOMPLProblemGenerator;
   auto ompl_generator = std::make_unique<MotionPlannerTaskGenerator>(ompl_planner);
   ompl_generator->assignConditionalTask(input, ompl_task);
   container.generators.push_back(std::move(ompl_generator));
