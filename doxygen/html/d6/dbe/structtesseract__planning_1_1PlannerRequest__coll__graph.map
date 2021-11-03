@@ -1,12 +1,13 @@
 <map id="tesseract_planning::PlannerRequest" name="tesseract_planning::PlannerRequest">
-<area shape="rect" id="node1" title=" " alt="" coords="1244,254,1375,295"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1244,313,1375,354"/>
 <area shape="rect" id="node2" title=" " alt="" coords="841,298,1024,369"/>
 <area shape="rect" id="node3" title=" " alt="" coords="579,236,658,263"/>
-<area shape="rect" id="node6" href="$d0/d76/classtesseract__planning_1_1CompositeInstruction.html" title=" " alt="" coords="857,125,1008,166"/>
+<area shape="rect" id="node7" href="$d0/d76/classtesseract__planning_1_1CompositeInstruction.html" title=" " alt="" coords="857,125,1008,166"/>
 <area shape="rect" id="node4" title=" " alt="" coords="309,229,433,270"/>
 <area shape="rect" id="node5" title=" " alt="" coords="856,393,1009,420"/>
-<area shape="rect" id="node7" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="305,13,436,54"/>
-<area shape="rect" id="node9" title=" " alt="" coords="541,65,696,106"/>
-<area shape="rect" id="node8" title=" " alt="" coords="5,5,187,61"/>
-<area shape="rect" id="node10" title=" " alt="" coords="541,130,696,171"/>
+<area shape="rect" id="node6" title=" " alt="" coords="857,445,1008,486"/>
+<area shape="rect" id="node8" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="305,13,436,54"/>
+<area shape="rect" id="node10" title=" " alt="" coords="541,65,696,106"/>
+<area shape="rect" id="node9" title=" " alt="" coords="5,5,187,61"/>
+<area shape="rect" id="node11" title=" " alt="" coords="541,130,696,171"/>
 </map>

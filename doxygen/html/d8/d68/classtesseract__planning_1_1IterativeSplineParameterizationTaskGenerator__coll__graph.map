@@ -1,10 +1,7 @@
 <map id="tesseract_planning::IterativeSplineParameterizationTaskGenerator" name="tesseract_planning::IterativeSplineParameterizationTaskGenerator">
-<area shape="rect" id="node1" title=" " alt="" coords="821,83,1029,139"/>
-<area shape="rect" id="node2" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="485,90,615,131"/>
-<area shape="rect" id="node3" title=" " alt="" coords="225,81,304,108"/>
-<area shape="rect" id="node6" title=" " alt="" coords="439,11,661,67"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,74,129,115"/>
-<area shape="rect" id="node5" href="$d4/d5b/classtesseract__planning_1_1IterativeSplineParameterization.html" title="This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints...." alt="" coords="446,155,654,197"/>
-<area shape="rect" id="node7" title=" " alt="" coords="196,7,333,33"/>
-<area shape="rect" id="node8" title=" " alt="" coords="48,7,87,33"/>
+<area shape="rect" id="node1" title=" " alt="" coords="649,46,857,102"/>
+<area shape="rect" id="node2" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="387,5,517,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="179,13,257,39"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,5,129,47"/>
+<area shape="rect" id="node5" href="$d4/d5b/classtesseract__planning_1_1IterativeSplineParameterization.html" title="This class sets the timestamps of a trajectory to enforce velocity, acceleration constraints...." alt="" coords="348,71,556,112"/>
 </map>

@@ -23,6 +23,8 @@ tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \mbox{\hyperlink{str
 \begin{DoxyCompactList}\small\item\em The environment. \end{DoxyCompactList}\item 
 tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\+\_\+state}}
 \begin{DoxyCompactList}\small\item\em The start state to use for planning. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}} \{ std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$() \}
+\begin{DoxyCompactList}\small\item\em The profile dictionary. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}
 \begin{DoxyCompactList}\small\item\em The program instruction This must contain a minimum of two move instruction the first move instruction is the start state. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}
@@ -105,6 +107,16 @@ The name of the process manager to use.
 
 
 This allows the remapping of the Plan Profile identified in the command language to a specific profile for a given motion planner. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}\label{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}} 
+\index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!profiles@{profiles}}
+\index{profiles@{profiles}!tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}}
+\doxysubsubsection{\texorpdfstring{profiles}{profiles}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::\+Planner\+Request\+::profiles \{ std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}$>$() \}}
+
+
+
+The profile dictionary. 
 
 \mbox{\Hypertarget{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}\label{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}} 
 \index{tesseract\_planning::PlannerRequest@{tesseract\_planning::PlannerRequest}!seed@{seed}}

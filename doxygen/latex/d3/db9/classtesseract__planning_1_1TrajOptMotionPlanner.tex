@@ -48,7 +48,9 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_afa51678f
 void \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_ab1d0ea8c9505aa9ad3d2fcf017da9e84}{clear}} () override
 \begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a8eb60c2a9f65e4af4eb5ce8386a368ab}{clone}} () const override
-\begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\item 
+virtual std\+::shared\+\_\+ptr$<$ trajopt\+::\+Problem\+Construction\+Info $>$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a6f471ef6cd0a838490ca79f50c580d9f}{create\+Problem}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -57,14 +59,6 @@ static bool \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a8
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_a86f2ba162b57f9d163fa1b7ecd0b6951}{Traj\+Opt\+Problem\+Generator\+Fn}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a466703a4956481c5a49c17ca719abe8c}{problem\+\_\+generator}}
-\item 
-\mbox{\hyperlink{namespacetesseract__planning_ab990993d1a2002f7e044ba3693f8b2d7}{Traj\+Opt\+Solver\+Profile\+Map}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a5066c420b9a02ae72480cd01b12c13d2}{solver\+\_\+profiles}}
-\begin{DoxyCompactList}\small\item\em The available solver profiles. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{namespacetesseract__planning_ab3cb92652402bb6903e4b0333bc02520}{Traj\+Opt\+Composite\+Profile\+Map}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a4712dc15eae8667ff5bd570a0a2517a1}{composite\+\_\+profiles}}
-\begin{DoxyCompactList}\small\item\em The available composite profiles. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{namespacetesseract__planning_a236fae69ae2291021feaa4f865803781}{Traj\+Opt\+Plan\+Profile\+Map}} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_a15c74e6e5e02d71a2ede66ef12814161}{plan\+\_\+profiles}}
-\begin{DoxyCompactList}\small\item\em The available plan profiles. \end{DoxyCompactList}\item 
 std\+::vector$<$ sco\+::\+Optimizer\+::\+Callback $>$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptMotionPlanner_ad3ae239cd6b073cd44bf504788b0f61b}{callbacks}}
 \begin{DoxyCompactList}\small\item\em Callback functions called on each iteration of the optimization (Optional) \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
@@ -143,6 +137,26 @@ Clone the motion planner.
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d77127016c7aa39afc4125e2744}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a6f471ef6cd0a838490ca79f50c580d9f}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a6f471ef6cd0a838490ca79f50c580d9f}} 
+\index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!createProblem@{createProblem}}
+\index{createProblem@{createProblem}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
+\doxysubsubsection{\texorpdfstring{createProblem()}{createProblem()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ trajopt\+::\+Problem\+Construction\+Info $>$ tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+::create\+Problem (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000022}{Todo}}]Write a path constraint for this \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000023}{Todo}}]Add path constraint for this \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000024}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000025}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a1847bc55479e8c53de7b2af73fcf7ad8}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a1847bc55479e8c53de7b2af73fcf7ad8}} 
 \index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!getName@{getName}}
 \index{getName@{getName}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
@@ -222,49 +236,13 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac056
 
 Callback functions called on each iteration of the optimization (Optional) 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a4712dc15eae8667ff5bd570a0a2517a1}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a4712dc15eae8667ff5bd570a0a2517a1}} 
-\index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!composite\_profiles@{composite\_profiles}}
-\index{composite\_profiles@{composite\_profiles}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{composite\_profiles}{composite\_profiles}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_ab3cb92652402bb6903e4b0333bc02520}{Traj\+Opt\+Composite\+Profile\+Map}} tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+::composite\+\_\+profiles}
-
-
-
-The available composite profiles. 
-
-Composite instruction is a way to namespace or organize your planning problem. The composite instruction has a profile which is used for applying multy waypoint costs and constraints like joint smoothing, collision avoidance, and velocity smoothing. \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_aa58bd1e75b19e9a27754bb9a167e61e4}\label{classtesseract__planning_1_1TrajOptMotionPlanner_aa58bd1e75b19e9a27754bb9a167e61e4}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_aa58bd1e75b19e9a27754bb9a167e61e4}\label{classtesseract__planning_1_1TrajOptMotionPlanner_aa58bd1e75b19e9a27754bb9a167e61e4}} 
 \index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!name\_@{name\_}}
 \index{name\_@{name\_}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{name\_}{name\_}}
 {\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+::name\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a15c74e6e5e02d71a2ede66ef12814161}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a15c74e6e5e02d71a2ede66ef12814161}} 
-\index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!plan\_profiles@{plan\_profiles}}
-\index{plan\_profiles@{plan\_profiles}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{plan\_profiles}{plan\_profiles}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a236fae69ae2291021feaa4f865803781}{Traj\+Opt\+Plan\+Profile\+Map}} tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+::plan\+\_\+profiles}
-
-
-
-The available plan profiles. 
-
-Plan instruction profiles are used to control waypoint specific information like fixed waypoint, toleranced waypoint, corner distance waypoint, etc. \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a466703a4956481c5a49c17ca719abe8c}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a466703a4956481c5a49c17ca719abe8c}} 
-\index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!problem\_generator@{problem\_generator}}
-\index{problem\_generator@{problem\_generator}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{problem\_generator}{problem\_generator}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a86f2ba162b57f9d163fa1b7ecd0b6951}{Traj\+Opt\+Problem\+Generator\+Fn}} tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+::problem\+\_\+generator}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a5066c420b9a02ae72480cd01b12c13d2}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a5066c420b9a02ae72480cd01b12c13d2}} 
-\index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!solver\_profiles@{solver\_profiles}}
-\index{solver\_profiles@{solver\_profiles}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
-\doxysubsubsection{\texorpdfstring{solver\_profiles}{solver\_profiles}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_ab990993d1a2002f7e044ba3693f8b2d7}{Traj\+Opt\+Solver\+Profile\+Map}} tesseract\+\_\+planning\+::\+Traj\+Opt\+Motion\+Planner\+::solver\+\_\+profiles}
-
-
-
-The available solver profiles. 
-
-This is used to look up solver parameters by the planner \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a77be4ead57d9c1ad9ab8d28cd446e7a5}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a77be4ead57d9c1ad9ab8d28cd446e7a5}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptMotionPlanner_a77be4ead57d9c1ad9ab8d28cd446e7a5}\label{classtesseract__planning_1_1TrajOptMotionPlanner_a77be4ead57d9c1ad9ab8d28cd446e7a5}} 
 \index{tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}!status\_category\_@{status\_category\_}}
 \index{status\_category\_@{status\_category\_}!tesseract\_planning::TrajOptMotionPlanner@{tesseract\_planning::TrajOptMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{status\_category\_}{status\_category\_}}

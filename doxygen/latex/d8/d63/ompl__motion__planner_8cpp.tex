@@ -10,9 +10,10 @@ Tesseract OMPL motion planner.
 {\ttfamily \#include $<$ompl/base/goals/\+Goal\+State.\+h$>$}\newline
 {\ttfamily \#include $<$ompl/base/goals/\+Goal\+States.\+h$>$}\newline
 {\ttfamily \#include $<$ompl/tools/multiplan/\+Parallel\+Plan.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+motion\+\_\+planner\+\_\+status\+\_\+category.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/problem\+\_\+generators/default\+\_\+problem\+\_\+generator.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+environment/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+kinematics/core/validate.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/planner\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+motion\+\_\+planner\+\_\+status\+\_\+category.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+motion\+\_\+planner.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/continuous\+\_\+motion\+\_\+validator.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/discrete\+\_\+motion\+\_\+validator.\+h$>$}\newline
@@ -40,6 +41,8 @@ Include dependency graph for ompl\+\_\+motion\+\_\+planner.\+cpp\+:
 bool \mbox{\hyperlink{namespacetesseract__planning_ab874903f32419c2a3c858027027ee9b2}{tesseract\+\_\+planning\+::check\+Start\+State}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const OMPLState\+Extractor \&extractor)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_ab6a97e73f80873b61a00a24efb86eb86}{tesseract\+\_\+planning\+::check\+Goal\+State}} (const ompl\+::base\+::\+Problem\+Definition\+Ptr \&prob\+\_\+def, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&state, const OMPLState\+Extractor \&extractor)
+\item 
+OMPLProblem\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a096c3d69a03a81681dee44a6cf290dc6}{tesseract\+\_\+planning\+::create\+OMPLSub\+Problem}} (const Planner\+Request \&request, const tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \&manip)
 \end{DoxyCompactItemize}
 
 
@@ -56,7 +59,7 @@ April 18, 2018
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000111}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000109}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

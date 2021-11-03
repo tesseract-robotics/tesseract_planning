@@ -1,11 +1,8 @@
 <map id="tesseract_planning::OMPLMotionPlanner" name="tesseract_planning::OMPLMotionPlanner">
-<area shape="rect" id="node1" title="This planner is intended to provide an easy to use interface to OMPL for freespace planning...." alt="" coords="807,143,956,184"/>
-<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="482,5,613,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="474,71,621,112"/>
-<area shape="rect" id="node4" title=" " alt="" coords="439,135,656,191"/>
-<area shape="rect" id="node5" title=" " alt="" coords="225,282,304,309"/>
-<area shape="rect" id="node7" title=" " alt="" coords="449,215,645,271"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,275,129,316"/>
-<area shape="rect" id="node8" title=" " alt="" coords="196,207,333,234"/>
-<area shape="rect" id="node9" title=" " alt="" coords="48,207,87,234"/>
+<area shape="rect" id="node1" title="This planner is intended to provide an easy to use interface to OMPL for freespace planning...." alt="" coords="547,107,696,148"/>
+<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="222,5,353,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="214,71,361,112"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,135,396,191"/>
+<area shape="rect" id="node5" title=" " alt="" coords="248,215,327,242"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,208,129,249"/>
 </map>

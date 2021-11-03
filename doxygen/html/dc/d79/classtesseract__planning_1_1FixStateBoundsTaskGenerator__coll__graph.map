@@ -1,9 +1,6 @@
 <map id="tesseract_planning::FixStateBoundsTaskGenerator" name="tesseract_planning::FixStateBoundsTaskGenerator">
-<area shape="rect" id="node1" title="This generator modifies the const input instructions in order to push waypoints that are outside of t..." alt="" coords="787,55,993,97"/>
-<area shape="rect" id="node2" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="467,90,598,131"/>
-<area shape="rect" id="node3" title=" " alt="" coords="225,81,304,108"/>
-<area shape="rect" id="node5" title=" " alt="" coords="439,11,627,67"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,74,129,115"/>
-<area shape="rect" id="node6" title=" " alt="" coords="196,7,333,33"/>
-<area shape="rect" id="node7" title=" " alt="" coords="48,7,87,33"/>
+<area shape="rect" id="node1" title="This generator modifies the const input instructions in order to push waypoints that are outside of t..." alt="" coords="5,276,212,317"/>
+<area shape="rect" id="node2" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="43,185,174,227"/>
+<area shape="rect" id="node3" title=" " alt="" coords="69,96,148,123"/>
+<area shape="rect" id="node4" title=" " alt="" coords="47,5,171,47"/>
 </map>
