@@ -1,12 +1,14 @@
 <map id="tesseract_planning::TaskInfo" name="tesseract_planning::TaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="5,273,136,315"/>
-<area shape="rect" id="node2" href="$d7/d02/classtesseract__planning_1_1ContinuousContactCheckTaskInfo.html" title=" " alt="" coords="184,5,411,47"/>
-<area shape="rect" id="node3" href="$d9/d2b/classtesseract__planning_1_1DiscreteContactCheckTaskInfo.html" title=" " alt="" coords="193,71,402,112"/>
-<area shape="rect" id="node4" href="$de/d8e/classtesseract__planning_1_1FixStateBoundsTaskInfo.html" title=" " alt="" coords="212,136,383,177"/>
-<area shape="rect" id="node5" href="$db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html" title=" " alt="" coords="209,201,385,243"/>
-<area shape="rect" id="node6" href="$d5/d18/classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo.html" title=" " alt="" coords="193,266,401,322"/>
-<area shape="rect" id="node7" href="$d1/d9c/classtesseract__planning_1_1MotionPlannerTaskInfo.html" title=" " alt="" coords="216,345,379,387"/>
-<area shape="rect" id="node8" href="$d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html" title=" " alt="" coords="220,411,375,452"/>
-<area shape="rect" id="node9" href="$d4/df6/classtesseract__planning_1_1SeedMinLengthTaskInfo.html" title=" " alt="" coords="212,476,383,517"/>
-<area shape="rect" id="node10" href="$de/df8/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo.html" title=" " alt="" coords="186,541,409,597"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,332,136,373"/>
+<area shape="rect" id="node2" href="$dc/d75/classtesseract__planning_1_1CheckInputTaskInfo.html" title=" " alt="" coords="225,5,370,47"/>
+<area shape="rect" id="node3" href="$d7/d02/classtesseract__planning_1_1ContinuousContactCheckTaskInfo.html" title=" " alt="" coords="184,71,411,112"/>
+<area shape="rect" id="node4" href="$d9/d2b/classtesseract__planning_1_1DiscreteContactCheckTaskInfo.html" title=" " alt="" coords="193,136,402,177"/>
+<area shape="rect" id="node5" href="$de/d8e/classtesseract__planning_1_1FixStateBoundsTaskInfo.html" title=" " alt="" coords="212,201,383,243"/>
+<area shape="rect" id="node6" href="$db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html" title=" " alt="" coords="209,267,385,308"/>
+<area shape="rect" id="node7" href="$da/dee/classtesseract__planning_1_1HasSeedTaskInfo.html" title=" " alt="" coords="231,332,364,373"/>
+<area shape="rect" id="node8" href="$d5/d18/classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo.html" title=" " alt="" coords="193,397,401,453"/>
+<area shape="rect" id="node9" href="$d1/d9c/classtesseract__planning_1_1MotionPlannerTaskInfo.html" title=" " alt="" coords="216,476,379,517"/>
+<area shape="rect" id="node10" href="$d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html" title=" " alt="" coords="220,541,375,583"/>
+<area shape="rect" id="node11" href="$d4/df6/classtesseract__planning_1_1SeedMinLengthTaskInfo.html" title=" " alt="" coords="212,607,383,648"/>
+<area shape="rect" id="node12" href="$de/df8/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo.html" title=" " alt="" coords="186,671,409,727"/>
 </map>

@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['xmlelementname_1604',['XMLElementName',['../dd/d3a/structtesseract__planning_1_1XMLElementName.html',1,'tesseract_planning']]],
-  ['xmlelementname_3c_20instruction_20_3e_1605',['XMLElementName&lt; Instruction &gt;',['../da/d58/structtesseract__planning_1_1XMLElementName_3_01Instruction_01_4.html',1,'tesseract_planning']]],
-  ['xmlelementname_3c_20waypoint_20_3e_1606',['XMLElementName&lt; Waypoint &gt;',['../d9/dd4/structtesseract__planning_1_1XMLElementName_3_01Waypoint_01_4.html',1,'tesseract_planning']]]
+  ['waitinstruction_1546',['WaitInstruction',['../d9/d2c/classtesseract__planning_1_1WaitInstruction.html',1,'tesseract_planning']]],
+  ['waypoint_1547',['Waypoint',['../d0/d3a/classtesseract__planning_1_1Waypoint.html',1,'tesseract_planning']]],
+  ['waypointinner_1548',['WaypointInner',['../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html',1,'tesseract_planning::detail_waypoint']]],
+  ['waypointinnerbase_1549',['WaypointInnerBase',['../dd/d8e/structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase.html',1,'tesseract_planning::detail_waypoint']]],
+  ['weightedrealvectorstatesampler_1550',['WeightedRealVectorStateSampler',['../d8/d11/classtesseract__planning_1_1WeightedRealVectorStateSampler.html',1,'tesseract_planning']]]
 ];

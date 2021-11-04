@@ -56,7 +56,7 @@ const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflo
 int \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ad5ea6d81b5b59baf1ed8b33529f7d791}{add\+Node}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{Task\+Generator\+::\+UPtr}} process, bool is\+\_\+conditional=false)
 \begin{DoxyCompactList}\small\item\em Add a node to the taskflow graph along with setting the process type. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ac9ef12438f9e921ecc4b6ce52928b918}{add\+Edges}} (int source, std\+::vector$<$ int $>$ destinations)
-\begin{DoxyCompactList}\small\item\em Adds directed edges from a source node to desintation nodes in the taskflow graph. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Adds directed edges from a source node to destination nodes in the taskflow graph. \end{DoxyCompactList}\item 
 const std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode}{Graph\+Taskflow\+Node}} $>$ \& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ae4379223822b0baaaea4347fb64ba51a}{get\+Nodes}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
@@ -123,7 +123,7 @@ This class facilitates the composition of an arbitrary taskflow graph. Tasks are
 
 
 
-Adds directed edges from a source node to desintation nodes in the taskflow graph. 
+Adds directed edges from a source node to destination nodes in the taskflow graph. 
 
 If source is a non-\/conditional task, it is only relevant to provide one destination as the output of a non-\/conditional tf\+::\+Task is void. If source is a conditional task, the order of the destinations should correspond to the integer output of the conditional tf\+::\+Task. For example,if the output of the conditional tf\+::\+Task is 0, the taskflow would transition to the node identified by the ID at index 0 in the destinations input. A leaf node (i.\+e. node without defined edges) is always connected to the done callback. If the leaf node is a conditional node, it is connected to the error task at index 0 and the done task at index 1 
 \begin{DoxyParams}{Parameters}

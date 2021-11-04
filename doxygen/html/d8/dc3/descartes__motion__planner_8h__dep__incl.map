@@ -1,10 +1,9 @@
 <map id="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_motion_planner.h" name="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_motion_planner.h">
-<area shape="rect" id="node1" title=" " alt="" coords="589,5,777,76"/>
+<area shape="rect" id="node1" title=" " alt="" coords="484,5,672,76"/>
 <area shape="rect" id="node2" href="$dd/dad/descartes__motion__planner_8hpp.html" title="Tesseract ROS Descartes planner." alt="" coords="5,124,236,195"/>
 <area shape="rect" id="node4" href="$d2/de8/chain__example_8cpp.html" title="Chained motion planning example." alt="" coords="261,139,455,180"/>
 <area shape="rect" id="node5" href="$d4/dfe/raster__example_8cpp.html" title="Raster motion planning example." alt="" coords="479,139,677,180"/>
 <area shape="rect" id="node6" href="$d6/dcb/descartes__planner__tests_8cpp.html" title="This contains unit test for the tesseract descartes planner." alt="" coords="701,131,879,187"/>
-<area shape="rect" id="node7" href="$d5/de3/cartesian__taskflow_8cpp.html" title="Cartesian Graph Taskflow." alt="" coords="904,131,1097,187"/>
-<area shape="rect" id="node8" href="$dd/d54/descartes__taskflow_8cpp.html" title="Descartes Taskflow." alt="" coords="1121,131,1315,187"/>
+<area shape="rect" id="node7" href="$d1/d5e/default__process__planners_8cpp.html" title=" " alt="" coords="904,131,1097,187"/>
 <area shape="rect" id="node3" href="$d5/dd0/descartes__motion__planner_8cpp.html" title="Tesseract ROS Descartes planner." alt="" coords="31,243,210,299"/>
 </map>

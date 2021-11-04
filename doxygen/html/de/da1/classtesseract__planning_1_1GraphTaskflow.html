@@ -141,7 +141,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad5ea6d81b5b59baf1ed8b33529f7d791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a node to the taskflow graph along with setting the process type.  <a href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html#ad5ea6d81b5b59baf1ed8b33529f7d791">More...</a><br /></td></tr>
 <tr class="separator:ad5ea6d81b5b59baf1ed8b33529f7d791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9ef12438f9e921ecc4b6ce52928b918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html#ac9ef12438f9e921ecc4b6ce52928b918">addEdges</a> (int source, std::vector&lt; int &gt; destinations)</td></tr>
-<tr class="memdesc:ac9ef12438f9e921ecc4b6ce52928b918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds directed edges from a source node to desintation nodes in the taskflow graph.  <a href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html#ac9ef12438f9e921ecc4b6ce52928b918">More...</a><br /></td></tr>
+<tr class="memdesc:ac9ef12438f9e921ecc4b6ce52928b918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds directed edges from a source node to destination nodes in the taskflow graph.  <a href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html#ac9ef12438f9e921ecc4b6ce52928b918">More...</a><br /></td></tr>
 <tr class="separator:ac9ef12438f9e921ecc4b6ce52928b918"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4379223822b0baaaea4347fb64ba51a"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="../../dd/ddd/structtesseract__planning_1_1GraphTaskflowNode.html">GraphTaskflowNode</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html#ae4379223822b0baaaea4347fb64ba51a">getNodes</a> () const</td></tr>
 <tr class="separator:ae4379223822b0baaaea4347fb64ba51a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -315,7 +315,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds directed edges from a source node to desintation nodes in the taskflow graph. </p>
+<p>Adds directed edges from a source node to destination nodes in the taskflow graph. </p>
 <p>If source is a non-conditional task, it is only relevant to provide one destination as the output of a non-conditional tf::Task is void. If source is a conditional task, the order of the destinations should correspond to the integer output of the conditional tf::Task. For example,if the output of the conditional tf::Task is 0, the taskflow would transition to the node identified by the ID at index 0 in the destinations input. A leaf node (i.e. node without defined edges) is always connected to the done callback. If the leaf node is a conditional node, it is connected to the error task at index 0 and the done task at index 1 </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">from</td><td>The ID of the source node of the edge </td></tr>
@@ -626,7 +626,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 3 2021 12:19:58 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Nov 4 2021 00:28:18 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

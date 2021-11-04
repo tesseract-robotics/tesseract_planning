@@ -94,15 +94,15 @@ const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $\
 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_abbbf89b490693aa3fea9d8efa16ed4f8}{results\+\_\+}}
 \begin{DoxyCompactList}\small\item\em Results/\+Seed for this process. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a1963307f607b38990134de796b65e519}{instruction\+\_\+indice\+\_\+}}
-\begin{DoxyCompactList}\small\item\em The indicies used to access this process inputs instructions and results. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The indices used to access this process inputs instructions and results. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ab147783b0f2db81daf99b9f237622d51}{start\+\_\+instruction\+\_\+}} \{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}}() \}
-\begin{DoxyCompactList}\small\item\em This proccess inputs start instruction. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em This process inputs start instruction. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a60ae2d0e2229116539883ab4115f8562}{start\+\_\+instruction\+\_\+indice\+\_\+}}
-\begin{DoxyCompactList}\small\item\em Indices to the start instruction in the results data struction. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Indices to the start instruction in the results data structure. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a7dfbc3c0aedbfe9ab8b7cc6023b8cb9d}{end\+\_\+instruction\+\_\+}} \{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}}() \}
-\begin{DoxyCompactList}\small\item\em This proccess inputs end instruction. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em This process inputs end instruction. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a8d5ff9ef9112a9c404f8a0114e55430e}{end\+\_\+instruction\+\_\+indice\+\_\+}}
-\begin{DoxyCompactList}\small\item\em Indices to the end instruction in the results data struction. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Indices to the end instruction in the results data structure. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Taskflow\+Interface\+::\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a3b6b243d44c555bc22d956d1aa1a5eb8}{interface\+\_\+}} \{ std\+::make\+\_\+shared$<$\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}}$>$() \}
 \begin{DoxyCompactList}\small\item\em Used to store if process input is aborted which is thread safe. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -303,7 +303,7 @@ Gets the number of instructions contained in the \mbox{\hyperlink{structtesserac
 1 instruction if not a composite, otherwise size of the composite 
 \end{DoxyReturn}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000033}{Todo}}]Should this be -\/1, becuase composite size could be 1, 0, or other? \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000033}{Todo}}]Should this be -\/1, because composite size could be 1, 0, or other? \end{DoxyRefDesc}
 
 
 \doxysubsection{Member Data Documentation}
@@ -325,7 +325,7 @@ This allows the remapping of the Composite Profile identified in the command lan
 
 
 
-This proccess inputs end instruction. 
+This process inputs end instruction. 
 
 \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a8d5ff9ef9112a9c404f8a0114e55430e}\label{structtesseract__planning_1_1TaskInput_a8d5ff9ef9112a9c404f8a0114e55430e}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!end\_instruction\_indice\_@{end\_instruction\_indice\_}}
@@ -335,7 +335,7 @@ This proccess inputs end instruction.
 
 
 
-Indices to the end instruction in the results data struction. 
+Indices to the end instruction in the results data structure. 
 
 \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}\label{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!env@{env}}
@@ -357,7 +357,7 @@ Tesseract associated with current state of the system.
 
 This indicates if a seed was provided. 
 
-In the case of the raster process planner a skeleton seed is provided which make it computationaly intensive to determine if a seed was provide so this was added. \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_ac0ae7d951978b405c399f1224da9c26d}\label{structtesseract__planning_1_1TaskInput_ac0ae7d951978b405c399f1224da9c26d}} 
+In the case of the raster process planner a skeleton seed is provided which make it computationally intensive to determine if a seed was provide so this was added. \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_ac0ae7d951978b405c399f1224da9c26d}\label{structtesseract__planning_1_1TaskInput_ac0ae7d951978b405c399f1224da9c26d}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!instruction\_@{instruction\_}}
 \index{instruction\_@{instruction\_}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
 \doxysubsubsection{\texorpdfstring{instruction\_}{instruction\_}}
@@ -375,7 +375,7 @@ Instructions to be carried out by process.
 
 
 
-The indicies used to access this process inputs instructions and results. 
+The indices used to access this process inputs instructions and results. 
 
 \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a3b6b243d44c555bc22d956d1aa1a5eb8}\label{structtesseract__planning_1_1TaskInput_a3b6b243d44c555bc22d956d1aa1a5eb8}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!interface\_@{interface\_}}
@@ -445,7 +445,7 @@ If true the task will save the inputs and outputs to the \mbox{\hyperlink{classt
 
 
 
-This proccess inputs start instruction. 
+This process inputs start instruction. 
 
 \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a60ae2d0e2229116539883ab4115f8562}\label{structtesseract__planning_1_1TaskInput_a60ae2d0e2229116539883ab4115f8562}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!start\_instruction\_indice\_@{start\_instruction\_indice\_}}
@@ -455,7 +455,7 @@ This proccess inputs start instruction.
 
 
 
-Indices to the start instruction in the results data struction. 
+Indices to the start instruction in the results data structure. 
 
 
 

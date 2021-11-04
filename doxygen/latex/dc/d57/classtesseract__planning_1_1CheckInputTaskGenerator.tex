@@ -1,0 +1,197 @@
+\hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator}{}\doxysection{tesseract\+\_\+planning\+::Check\+Input\+Task\+Generator Class Reference}
+\label{classtesseract__planning_1_1CheckInputTaskGenerator}\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+
+
+{\ttfamily \#include $<$check\+\_\+input\+\_\+task\+\_\+generator.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Check\+Input\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{d0/d42/classtesseract__planning_1_1CheckInputTaskGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Check\+Input\+Task\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{df/d6f/classtesseract__planning_1_1CheckInputTaskGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ae228706441431e84d27a78c9d6c476f4}{UPtr}} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ae4382f4e6a837e814c1d75c9d68ab52f}{Check\+Input\+Task\+Generator}} (std\+::string name=\char`\"{}Check Taks\+Input\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ae466c6882e5abcbd10fca5634221d299}{Check\+Input\+Task\+Generator}} (\mbox{\hyperlink{namespacetesseract__planning_a96a3ca70ee9bdda5405da3a5ca5120a7}{Check\+Input\+Fn}} fn, std\+::string name=\char`\"{}Check Taks\+Input\char`\"{})
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a4ee8c4d623cec4bf0cfc38f6496c63c0}{$\sim$\+Check\+Input\+Task\+Generator}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a529a39e02c5ad91cd306e0f79b2dffa6}{Check\+Input\+Task\+Generator}} (const \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a40830a9719fb3c19ab35360127bfe70a}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a4c062e60b1fa22dfe2f3c58443a0b80d}{Check\+Input\+Task\+Generator}} (\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a70f02fe4a556302c03feff5c41e0a75d}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \&\&)=delete
+\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a2bcca590ad25a1a4f34544a0b5380a7c}{conditional\+Process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generate Conditional Task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a1b66c98ab5976ebfece166aad83cb4af}{process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+\begin{DoxyCompactList}\small\item\em Generated a Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a9b873b7aa09c7fc216abeaadc4296d11}{check\+Task\+Input}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input)
+\begin{DoxyCompactList}\small\item\em Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetesseract__planning_a96a3ca70ee9bdda5405da3a5ca5120a7}{Check\+Input\+Fn}} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a385abd31b0821e509bffe5e1fa273d7a}{fn\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_ae228706441431e84d27a78c9d6c476f4}\label{classtesseract__planning_1_1CheckInputTaskGenerator_ae228706441431e84d27a78c9d6c476f4}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!UPtr@{UPtr}}
+\index{UPtr@{UPtr}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{UPtr}{UPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ae228706441431e84d27a78c9d6c476f4}{tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::\+UPtr}} =  std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_ae4382f4e6a837e814c1d75c9d68ab52f}\label{classtesseract__planning_1_1CheckInputTaskGenerator_ae4382f4e6a837e814c1d75c9d68ab52f}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!CheckInputTaskGenerator@{CheckInputTaskGenerator}}
+\index{CheckInputTaskGenerator@{CheckInputTaskGenerator}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{CheckInputTaskGenerator()}{CheckInputTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::\+Check\+Input\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}Check~TaksInput\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_ae466c6882e5abcbd10fca5634221d299}\label{classtesseract__planning_1_1CheckInputTaskGenerator_ae466c6882e5abcbd10fca5634221d299}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!CheckInputTaskGenerator@{CheckInputTaskGenerator}}
+\index{CheckInputTaskGenerator@{CheckInputTaskGenerator}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{CheckInputTaskGenerator()}{CheckInputTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::\+Check\+Input\+Task\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_a96a3ca70ee9bdda5405da3a5ca5120a7}{Check\+Input\+Fn}}}]{fn,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}Check~TaksInput\char`\"{}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a4ee8c4d623cec4bf0cfc38f6496c63c0}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a4ee8c4d623cec4bf0cfc38f6496c63c0}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!````~CheckInputTaskGenerator@{$\sim$CheckInputTaskGenerator}}
+\index{````~CheckInputTaskGenerator@{$\sim$CheckInputTaskGenerator}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$CheckInputTaskGenerator()}{~CheckInputTaskGenerator()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::$\sim$\+Check\+Input\+Task\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a529a39e02c5ad91cd306e0f79b2dffa6}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a529a39e02c5ad91cd306e0f79b2dffa6}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!CheckInputTaskGenerator@{CheckInputTaskGenerator}}
+\index{CheckInputTaskGenerator@{CheckInputTaskGenerator}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{CheckInputTaskGenerator()}{CheckInputTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::\+Check\+Input\+Task\+Generator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a4c062e60b1fa22dfe2f3c58443a0b80d}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a4c062e60b1fa22dfe2f3c58443a0b80d}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!CheckInputTaskGenerator@{CheckInputTaskGenerator}}
+\index{CheckInputTaskGenerator@{CheckInputTaskGenerator}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{CheckInputTaskGenerator()}{CheckInputTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::\+Check\+Input\+Task\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a9b873b7aa09c7fc216abeaadc4296d11}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a9b873b7aa09c7fc216abeaadc4296d11}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!checkTaskInput@{checkTaskInput}}
+\index{checkTaskInput@{checkTaskInput}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{checkTaskInput()}{checkTaskInput()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::check\+Task\+Input (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Checks that the \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} is in the correct format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if in the correct format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a2bcca590ad25a1a4f34544a0b5380a7c}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a2bcca590ad25a1a4f34544a0b5380a7c}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!conditionalProcess@{conditionalProcess}}
+\index{conditionalProcess@{conditionalProcess}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{conditionalProcess()}{conditionalProcess()}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::conditional\+Process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generate Conditional Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Conditional Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e60805cfe9276ace7be827f2e}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a70f02fe4a556302c03feff5c41e0a75d}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a70f02fe4a556302c03feff5c41e0a75d}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a40830a9719fb3c19ab35360127bfe70a}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a40830a9719fb3c19ab35360127bfe70a}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{Check\+Input\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a1b66c98ab5976ebfece166aad83cb4af}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a1b66c98ab5976ebfece166aad83cb4af}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!process@{process}}
+\index{process@{process}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generated a Task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The process input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Task 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c150554739834a1d467fc726baba8}{tesseract\+\_\+planning\+::\+Task\+Generator}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1CheckInputTaskGenerator_a385abd31b0821e509bffe5e1fa273d7a}\label{classtesseract__planning_1_1CheckInputTaskGenerator_a385abd31b0821e509bffe5e1fa273d7a}} 
+\index{tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}!fn\_@{fn\_}}
+\index{fn\_@{fn\_}!tesseract\_planning::CheckInputTaskGenerator@{tesseract\_planning::CheckInputTaskGenerator}}
+\doxysubsubsection{\texorpdfstring{fn\_}{fn\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a96a3ca70ee9bdda5405da3a5ca5120a7}{Check\+Input\+Fn}} tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator\+::fn\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/\mbox{\hyperlink{check__input__task__generator_8h}{check\+\_\+input\+\_\+task\+\_\+generator.\+h}}\item 
+tesseract\+\_\+process\+\_\+managers/src/task\+\_\+generators/\mbox{\hyperlink{check__input__task__generator_8cpp}{check\+\_\+input\+\_\+task\+\_\+generator.\+cpp}}\end{DoxyCompactItemize}

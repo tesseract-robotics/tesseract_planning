@@ -1,13 +1,15 @@
 <map id="tesseract_planning::TaskGenerator" name="tesseract_planning::TaskGenerator">
-<area shape="rect" id="node1" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="5,317,136,358"/>
+<area shape="rect" id="node1" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="5,379,136,421"/>
 <area shape="rect" id="node2" href="$d9/de1/classTestGenerator.html" title=" " alt="" coords="243,5,348,32"/>
-<area shape="rect" id="node3" href="$d0/d79/classtesseract__planning_1_1ContinuousContactCheckTaskGenerator.html" title=" " alt="" coords="193,56,397,112"/>
-<area shape="rect" id="node4" href="$d5/d9a/classtesseract__planning_1_1DiscreteContactCheckTaskGenerator.html" title=" " alt="" coords="202,136,389,192"/>
-<area shape="rect" id="node5" href="$d2/d0a/classtesseract__planning_1_1FixStateBoundsTaskGenerator.html" title="This generator modifies the const input instructions in order to push waypoints that are outside of t..." alt="" coords="192,215,399,257"/>
-<area shape="rect" id="node6" href="$df/d56/classtesseract__planning_1_1FixStateCollisionTaskGenerator.html" title="This generator modifies the const input instructions in order to push waypoints that are in collision..." alt="" coords="190,281,401,322"/>
-<area shape="rect" id="node7" href="$d0/d8f/classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator.html" title=" " alt="" coords="191,345,399,401"/>
-<area shape="rect" id="node8" href="$d2/d4c/classtesseract__planning_1_1MotionPlannerTaskGenerator.html" title=" " alt="" coords="197,425,394,466"/>
-<area shape="rect" id="node9" href="$d5/d10/classtesseract__planning_1_1ProfileSwitchTaskGenerator.html" title="This generator simply returns a value specified in the composite profile. This can be used to switch ..." alt="" coords="200,490,391,531"/>
-<area shape="rect" id="node10" href="$da/d1a/classtesseract__planning_1_1SeedMinLengthTaskGenerator.html" title=" " alt="" coords="193,555,398,597"/>
-<area shape="rect" id="node11" href="$d4/d66/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator.html" title=" " alt="" coords="184,620,407,676"/>
+<area shape="rect" id="node3" href="$dc/d57/classtesseract__planning_1_1CheckInputTaskGenerator.html" title=" " alt="" coords="205,57,385,98"/>
+<area shape="rect" id="node4" href="$d0/d79/classtesseract__planning_1_1ContinuousContactCheckTaskGenerator.html" title=" " alt="" coords="193,121,397,177"/>
+<area shape="rect" id="node5" href="$d5/d9a/classtesseract__planning_1_1DiscreteContactCheckTaskGenerator.html" title=" " alt="" coords="202,201,389,257"/>
+<area shape="rect" id="node6" href="$d2/d0a/classtesseract__planning_1_1FixStateBoundsTaskGenerator.html" title="This generator modifies the const input instructions in order to push waypoints that are outside of t..." alt="" coords="192,281,399,322"/>
+<area shape="rect" id="node7" href="$df/d56/classtesseract__planning_1_1FixStateCollisionTaskGenerator.html" title="This generator modifies the const input instructions in order to push waypoints that are in collision..." alt="" coords="190,346,401,387"/>
+<area shape="rect" id="node8" href="$d2/d04/classtesseract__planning_1_1HasSeedTaskGenerator.html" title=" " alt="" coords="211,411,379,453"/>
+<area shape="rect" id="node9" href="$d0/d8f/classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator.html" title=" " alt="" coords="191,476,399,532"/>
+<area shape="rect" id="node10" href="$d2/d4c/classtesseract__planning_1_1MotionPlannerTaskGenerator.html" title=" " alt="" coords="197,555,394,597"/>
+<area shape="rect" id="node11" href="$d5/d10/classtesseract__planning_1_1ProfileSwitchTaskGenerator.html" title="This generator simply returns a value specified in the composite profile. This can be used to switch ..." alt="" coords="200,621,391,662"/>
+<area shape="rect" id="node12" href="$da/d1a/classtesseract__planning_1_1SeedMinLengthTaskGenerator.html" title=" " alt="" coords="193,686,398,727"/>
+<area shape="rect" id="node13" href="$d4/d66/classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator.html" title=" " alt="" coords="184,751,407,807"/>
 </map>

@@ -79,6 +79,7 @@ var menudata={children:[
 {text:"t",url:"namespacemembers_vars.html#index_t"},
 {text:"v",url:"namespacemembers_vars.html#index_v"}]},
 {text:"Typedefs",url:"namespacemembers_type.html",children:[
+{text:"c",url:"namespacemembers_type.html#index_c"},
 {text:"d",url:"namespacemembers_type.html#index_d"},
 {text:"f",url:"namespacemembers_type.html#index_f"},
 {text:"i",url:"namespacemembers_type.html#index_i"},

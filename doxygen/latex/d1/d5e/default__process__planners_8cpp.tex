@@ -1,12 +1,6 @@
 \hypertarget{default__process__planners_8cpp}{}\doxysection{tesseract\+\_\+process\+\_\+managers/src/core/default\+\_\+process\+\_\+planners.cpp File Reference}
 \label{default__process__planners_8cpp}\index{tesseract\_process\_managers/src/core/default\_process\_planners.cpp@{tesseract\_process\_managers/src/core/default\_process\_planners.cpp}}
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/default\+\_\+process\+\_\+planners.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/cartesian\+\_\+taskflow.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/descartes\+\_\+taskflow.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/freespace\+\_\+taskflow.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/ompl\+\_\+taskflow.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/trajopt\+\_\+taskflow.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/trajopt\+\_\+ifopt\+\_\+taskflow.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/raster\+\_\+taskflow.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/raster\+\_\+global\+\_\+taskflow.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/raster\+\_\+only\+\_\+taskflow.\+h$>$}\newline
@@ -14,6 +8,18 @@
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/raster\+\_\+dt\+\_\+taskflow.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/raster\+\_\+waad\+\_\+taskflow.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/raster\+\_\+waad\+\_\+dt\+\_\+taskflow.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/taskflow\+\_\+generators/graph\+\_\+taskflow.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/has\+\_\+seed\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/motion\+\_\+planner\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/seed\+\_\+min\+\_\+length\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/discrete\+\_\+contact\+\_\+check\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/iterative\+\_\+spline\+\_\+parameterization\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/check\+\_\+input\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/simple\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt/trajopt\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt\+\_\+ifopt/trajopt\+\_\+ifopt\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/ompl/ompl\+\_\+motion\+\_\+planner.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/descartes/descartes\+\_\+motion\+\_\+planner.\+h$>$}\newline
 Include dependency graph for default\+\_\+process\+\_\+planners.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -30,18 +36,22 @@ Include dependency graph for default\+\_\+process\+\_\+planners.\+cpp\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a3004cc847e018d695e85486ea5f3b8c7}{tesseract\+\_\+planning\+::create\+Traj\+Opt\+Generator}} ()
+Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_ab5081941b9a484b79bf3fc0a5e003947}{tesseract\+\_\+planning\+::create\+Traj\+Opt\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collisin\+\_\+check=true)
 \begin{DoxyCompactList}\small\item\em Create Traj\+Opt Process Pipeline. \end{DoxyCompactList}\item 
-Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a4277009933adfc13b317c6936f2d5eeb}{tesseract\+\_\+planning\+::create\+Traj\+Opt\+Ifopt\+Generator}} ()
+Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_ab7926380f20adaa821f3c87f19e50ded}{tesseract\+\_\+planning\+::create\+Traj\+Opt\+Ifopt\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collisin\+\_\+check=true)
 \begin{DoxyCompactList}\small\item\em Create Traj\+Opt IFOPT Process Pipeline. \end{DoxyCompactList}\item 
-Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a4226c63556ced9af20ca0b9d504bf5da}{tesseract\+\_\+planning\+::create\+OMPLGenerator}} ()
+Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a1b6871580ad92536ee6532e80739afa3}{tesseract\+\_\+planning\+::create\+OMPLGenerator}} (bool check\+\_\+input=true, bool post\+\_\+collisin\+\_\+check=true)
 \begin{DoxyCompactList}\small\item\em Create OMPL Process Pipeline. \end{DoxyCompactList}\item 
-Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_ac8b3ca2ef4dad0479d810564240c9595}{tesseract\+\_\+planning\+::create\+Descartes\+Generator}} ()
+Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a8e999a76ce93932b3e7580263388c556}{tesseract\+\_\+planning\+::create\+Descartes\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collisin\+\_\+check=true)
 \begin{DoxyCompactList}\small\item\em Create Descartes Process Pipeline. \end{DoxyCompactList}\item 
-Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a71d1e586b515d2dadd1b0ec3bfc71a24}{tesseract\+\_\+planning\+::create\+Cartesian\+Generator}} ()
+Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_ab6299da3758d4581971338ef25a48048}{tesseract\+\_\+planning\+::create\+Descartes\+Only\+Generator}} (bool check\+\_\+input=true)
+\begin{DoxyCompactList}\small\item\em Create Descartes Only Process Pipeline. \end{DoxyCompactList}\item 
+Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_ad0b6cf9061ccc25ab27e00c3f35c1977}{tesseract\+\_\+planning\+::create\+Cartesian\+Generator}} (bool check\+\_\+input=true)
 \begin{DoxyCompactList}\small\item\em Create Cartesian Process Pipeline. \end{DoxyCompactList}\item 
-Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a04d8a62064aa5ca0ee5c8207e2314819}{tesseract\+\_\+planning\+::create\+Freespace\+Generator}} ()
+Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a27b495d6b573f884c6e5b5b5a1a48838}{tesseract\+\_\+planning\+::create\+Freespace\+Generator}} (bool check\+\_\+input=true)
 \begin{DoxyCompactList}\small\item\em Create Freespace Process Pipeline. \end{DoxyCompactList}\item 
+Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a76350fe37cdaa29e4b23a211849de5d3}{tesseract\+\_\+planning\+::create\+Freespace\+Traj\+Opt\+First\+Generator}} (bool check\+\_\+input=true)
+\begin{DoxyCompactList}\small\item\em Create Freespace Traj\+Opt First Process Pipeline. \end{DoxyCompactList}\item 
 Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_a06f9c176d34352e10e12a6e33c5cb1e5}{tesseract\+\_\+planning\+::create\+Raster\+Generator}} ()
 \begin{DoxyCompactList}\small\item\em Create Raster Process Pipeline. \end{DoxyCompactList}\item 
 Taskflow\+Generator\+::\+UPtr \mbox{\hyperlink{namespacetesseract__planning_ae291a258d33d86ab5e89fc3711fed0dd}{tesseract\+\_\+planning\+::create\+Raster\+Only\+Generator}} ()

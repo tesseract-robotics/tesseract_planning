@@ -1,10 +1,10 @@
 <map id="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h" name="tesseract_motion_planners/trajopt_ifopt/include/tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_profile.h">
-<area shape="rect" id="node1" title=" " alt="" coords="415,5,597,91"/>
-<area shape="rect" id="node2" href="$dd/da4/trajopt__ifopt__default__composite__profile_8h.html" title=" " alt="" coords="69,139,287,224"/>
-<area shape="rect" id="node5" href="$dd/d35/trajopt__ifopt__default__plan__profile_8h.html" title=" " alt="" coords="312,139,495,224"/>
-<area shape="rect" id="node7" href="$d6/d25/trajopt__ifopt__motion__planner_8h.html" title=" " alt="" coords="519,139,701,224"/>
-<area shape="rect" id="node8" href="$d9/d21/trajopt__ifopt__taskflow_8cpp.html" title="TrajOpt IFOPT Graph Taskflow." alt="" coords="643,279,836,335"/>
+<area shape="rect" id="node1" title=" " alt="" coords="340,5,523,91"/>
+<area shape="rect" id="node2" href="$dd/da4/trajopt__ifopt__default__composite__profile_8h.html" title=" " alt="" coords="97,139,315,224"/>
+<area shape="rect" id="node5" href="$dd/d35/trajopt__ifopt__default__plan__profile_8h.html" title=" " alt="" coords="340,139,523,224"/>
+<area shape="rect" id="node7" href="$d6/d25/trajopt__ifopt__motion__planner_8h.html" title=" " alt="" coords="547,139,729,224"/>
 <area shape="rect" id="node3" href="$d9/d01/trajopt__ifopt__default__composite__profile_8cpp.html" title=" " alt="" coords="5,272,212,343"/>
 <area shape="rect" id="node4" href="$d8/d69/trajopt__ifopt__motion__planner_8cpp.html" title=" " alt="" coords="237,279,415,335"/>
 <area shape="rect" id="node6" href="$d9/d01/trajopt__ifopt__default__plan__profile_8cpp.html" title=" " alt="" coords="439,272,618,343"/>
+<area shape="rect" id="node8" href="$d1/d5e/default__process__planners_8cpp.html" title=" " alt="" coords="643,279,836,335"/>
 </map>
