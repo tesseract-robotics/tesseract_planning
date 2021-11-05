@@ -1,8 +1,8 @@
 \label{index_md_README}%
 \Hypertarget{index_md_README}%
- \href{https://codecov.io/gh/ros-industrial-consortium/tesseract_planning}{\texttt{ }}
+ \href{https://codecov.io/gh/tesseract-robotics/tesseract_planning}{\texttt{ }}
 
-\href{https://github.com/ros-industrial-consortium/tesseract_python}{\texttt{ }}
+\href{https://github.com/tesseract-robotics/tesseract_python}{\texttt{ }}
 
 \tabulinesep=1mm
 \begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
@@ -14,17 +14,17 @@
 \hline
 \PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Platform   }&\cellcolor{\tableheadbgcolor}\textbf{ CI Status    }\\\cline{1-2}
 \endhead
-Linux (Focal)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
-Linux (Bionic)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
-Linux (Unstable)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
-Windows   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
-Lint (Clang-\/\+Format)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
-Lint (Clang-\/\+Tidy)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
-Lint (Code\+Cov)   &\href{https://github.com/ros-industrial-consortium/tesseract_planning/actions}{\texttt{ }}   \\\cline{1-2}
+Linux (Focal)   &\href{https://github.com/tesseract-robotics/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Linux (Bionic)   &\href{https://github.com/tesseract-robotics/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Linux (Unstable)   &\href{https://github.com/tesseract-robotics/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Windows   &\href{https://github.com/tesseract-robotics/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Lint (Clang-\/\+Format)   &\href{https://github.com/tesseract-robotics/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Lint (Clang-\/\+Tidy)   &\href{https://github.com/tesseract-robotics/tesseract_planning/actions}{\texttt{ }}    \\\cline{1-2}
+Lint (Code\+Cov)   &\href{https://github.com/tesseract-robotics/tesseract_planning/actions}{\texttt{ }}   \\\cline{1-2}
 \end{longtabu}
 
 
-\href{http://github.com/ros-industrial-consortium/tesseract_planning/issues}{\texttt{ }}
+\href{http://github.com/tesseract-robotics/tesseract_planning/issues}{\texttt{ }}
 
 \href{https://opensource.org/licenses/Apache-2.0}{\texttt{ }} \href{https://opensource.org/licenses/BSD-2-Clause}{\texttt{ }}
 
@@ -40,15 +40,16 @@ This include packages related to both motion and process planning for the Tesser
 \end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Related Repositories}\label{index_autotoc_md3}
 
 \begin{DoxyItemize}
-\item \href{https://github.com/ros-industrial-consortium/tesseract}{\texttt{ Tesseract}}
-\item \href{https://github.com/ros-industrial-consortium/tesseract_python}{\texttt{ Tesseract Python}}
-\item \href{https://github.com/ros-industrial-consortium/tesseract_ros}{\texttt{ Tesseract ROS}}
+\item \href{https://github.com/tesseract-robotics/tesseract}{\texttt{ Tesseract}}
+\item \href{https://github.com/tesseract-robotics/tesseract_python}{\texttt{ Tesseract Python}}
+\item \href{https://github.com/tesseract-robotics/tesseract_ros}{\texttt{ Tesseract ROS}}
+\item \href{https://github.com/tesseract-robotics/tesseract_docs}{\texttt{ Tesseract Documentation}}
 \end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysection{Documentation}\label{index_autotoc_md4}
 
 \begin{DoxyItemize}
-\item \href{https://ros-industrial-tesseract-planning.rtfd.io}{\texttt{ Wiki}}
-\item \href{https://ros-industrial-consortium.github.io/tesseract_planning/}{\texttt{ Doxygen}}
-\item \href{https://ros-industrial-consortium.github.io/tesseract_planning/dev/bench}{\texttt{ Benchmark}}
+\item \href{https://tesseract-docs.readthedocs.io}{\texttt{ Wiki}}
+\item \href{https://tesseract-robotics.github.io/tesseract_planning/}{\texttt{ Doxygen}}
+\item \href{https://tesseract-robotics.github.io/tesseract_planning/dev/bench}{\texttt{ Benchmark}}
 \end{DoxyItemize}\hypertarget{index_autotoc_md5}{}\doxysection{Process Planning Server Tuning}\label{index_autotoc_md5}
 The planning server is built leveraging the library taskflow which enables you to quickly write parallel and heterogeneous tasks programs which aligns well with process motion planning. These types of libraries leverage thread pools to quickly spin up different tasks as needed. One interesting thing found, if a task consumes a lot of memory, then the malloc library can make a performance decision to allow the thread to hold onto the memory it has for subsequent tasks opposed to giving the memory back to your system. This may be fine if this was the only set of tasks being run but typically in our use case there are other computationally intensive processes which could use this memory.\hypertarget{index_autotoc_md6}{}\doxysubsection{Ubuntu}\label{index_autotoc_md6}
 \hypertarget{index_autotoc_md7}{}\doxysubsection{tcmalloc (\+Recommend)}\label{index_autotoc_md7}
@@ -111,7 +112,7 @@ How to create\+:
 \end{DoxyItemize}\hypertarget{index_autotoc_md11}{}\doxysection{TODO\textquotesingle{}s}\label{index_autotoc_md11}
 Warning\+: These packages are under heavy development and are subject to change.
 
-See \href{https://github.com/ros-industrial-consortium/tesseract/issues/66}{\texttt{ issue \#66}}\hypertarget{index_autotoc_md12}{}\doxysection{Build Instructions}\label{index_autotoc_md12}
+See \href{https://github.com/tesseract-robotics/tesseract/issues/66}{\texttt{ issue \#66}}\hypertarget{index_autotoc_md12}{}\doxysection{Build Instructions}\label{index_autotoc_md12}
 1) Clone repository into your workspace 2) Clone the repositories in the dependencies.\+rosinstall file using wstool or some other method (e.\+g. manually git cloning them) 3) Build the workspace using catkin tools, colcon, or a similar tool
 
 NOTE\+: To speed up clean build you may want to add tesseract\+\_\+ext to an extended workspace.
