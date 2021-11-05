@@ -1,20 +1,20 @@
 # Tesseract Planning
 
-[![codecov](https://codecov.io/gh/ros-industrial-consortium/tesseract_planning/branch/master/graph/badge.svg)](https://codecov.io/gh/ros-industrial-consortium/tesseract_planning)
+[![codecov](https://codecov.io/gh/tesseract-robotics/tesseract_planning/branch/master/graph/badge.svg)](https://codecov.io/gh/tesseract-robotics/tesseract_planning)
 
-[![Python](https://img.shields.io/badge/python-2.7+|3.6+-blue.svg)](https://github.com/ros-industrial-consortium/tesseract_python)
+[![Python](https://img.shields.io/badge/python-2.7+|3.6+-blue.svg)](https://github.com/tesseract-robotics/tesseract_python)
 
 Platform             | CI Status
 ---------------------|:---------
-Linux (Focal)        | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Focal-Build/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
-Linux (Bionic)       | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Bionic-Build/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
-Linux (Unstable)     | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Unstable-Build/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
-Windows              | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Windows-Noetic-Build/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
-Lint  (Clang-Format) | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Clang-Format/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
-Lint  (Clang-Tidy)   | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/Clang-Tidy/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
-Lint  (CodeCov)      | [![Build Status](https://github.com/ros-industrial-consortium/tesseract_planning/workflows/CodeCov/badge.svg)](https://github.com/ros-industrial-consortium/tesseract_planning/actions)
+Linux (Focal)        | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Focal-Build/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
+Linux (Bionic)       | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Bionic-Build/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
+Linux (Unstable)     | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Unstable-Build/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
+Windows              | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Windows-Noetic-Build/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
+Lint  (Clang-Format) | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Clang-Format/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
+Lint  (Clang-Tidy)   | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/Clang-Tidy/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
+Lint  (CodeCov)      | [![Build Status](https://github.com/tesseract-robotics/tesseract_planning/workflows/CodeCov/badge.svg)](https://github.com/tesseract-robotics/tesseract_planning/actions)
 
-[![Github Issues](https://img.shields.io/github/issues/ros-industrial-consortium/tesseract_planning.svg)](http://github.com/ros-industrial-consortium/tesseract_planning/issues)
+[![Github Issues](https://img.shields.io/github/issues/tesseract-robotics/tesseract_planning.svg)](http://github.com/tesseract-robotics/tesseract_planning/issues)
 
 [![license - apache 2.0](https://img.shields.io/:license-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 [![license - bsd 2 clause](https://img.shields.io/:license-BSD%202--Clause-blue.svg)](https://opensource.org/licenses/BSD-2-Clause)
@@ -35,15 +35,16 @@ This include packages related to both motion and process planning for the Tesser
 
 ## Related Repositories
 
-* [Tesseract](https://github.com/ros-industrial-consortium/tesseract)
-* [Tesseract Python](https://github.com/ros-industrial-consortium/tesseract_python)
-* [Tesseract ROS](https://github.com/ros-industrial-consortium/tesseract_ros)
+* [Tesseract](https://github.com/tesseract-robotics/tesseract)
+* [Tesseract Python](https://github.com/tesseract-robotics/tesseract_python)
+* [Tesseract ROS](https://github.com/tesseract-robotics/tesseract_ros)
+* [Tesseract Documentation](https://github.com/tesseract-robotics/tesseract_docs)
 
 ## Documentation
 
-* [Wiki](https://ros-industrial-tesseract-planning.rtfd.io)
-* [Doxygen](https://ros-industrial-consortium.github.io/tesseract_planning/)
-* [Benchmark](https://ros-industrial-consortium.github.io/tesseract_planning/dev/bench)
+* [Wiki](https://tesseract-docs.readthedocs.io)
+* [Doxygen](https://tesseract-robotics.github.io/tesseract_planning/)
+* [Benchmark](https://tesseract-robotics.github.io/tesseract_planning/dev/bench)
 
 ## Process Planning Server Tuning
 The planning server is built leveraging the library taskflow which enables you to quickly write parallel and heterogeneous tasks programs which aligns well with process motion planning. These types of libraries leverage thread pools to quickly spin up different tasks as needed. One interesting thing found, if a task consumes a lot of memory, then the malloc library can make a performance decision to allow the thread to hold onto the memory it has for subsequent tasks opposed to giving the memory back to your system. This may be fine if this was the only set of tasks being run but typically in our use case there are other computationally intensive processes which could use this memory.
@@ -111,7 +112,7 @@ How to create:
 
 Warning: These packages are under heavy development and are subject to change.
 
-See [issue #66](https://github.com/ros-industrial-consortium/tesseract/issues/66)
+See [issue #66](https://github.com/tesseract-robotics/tesseract/issues/66)
 
 ## Build Instructions
 
