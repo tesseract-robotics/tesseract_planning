@@ -69,4 +69,4 @@ jobs:
           TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON"
           PARALLEL_BUILDS: 1
           AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_command_language tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args ccov-all
-                         && bash <(curl -s https://codecov.io/bash) -t a89e6f59-5409-4686-b615-b2341c7ef69a -s $target_ws/build -f *all-merged.info'
+                         && bash <(curl -s https://codecov.io/bash) -t ff5e009a-3bc9-47ca-9755-6223c7f9aee1 -s $target_ws/build -f *all-merged.info'
