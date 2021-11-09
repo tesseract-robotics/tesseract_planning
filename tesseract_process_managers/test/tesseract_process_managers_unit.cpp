@@ -9,6 +9,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/interface_utils.h>
 
@@ -164,7 +165,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlan
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }
 
-TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSPlanProfileTest)  // NOLINT
+TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)  // NOLINT
 {
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
   std::string process_profile = "PROCESS";
@@ -199,6 +200,46 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSPlanProfi
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
   EXPECT_EQ(161, mcnt);
+  EXPECT_TRUE(response.results.hasStartInstruction());
+  EXPECT_FALSE(response.results.getManipulatorInfo().empty());
+}
+
+TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanProfileTest)  // NOLINT
+{
+  std::string freespace_profile = DEFAULT_PROFILE_KEY;
+  std::string process_profile = "PROCESS";
+
+  tesseract_planning::CompositeInstruction program = rasterExampleProgram();
+  EXPECT_FALSE(program.getManipulatorInfo().empty());
+
+  program.setManipulatorInfo(manip);
+  EXPECT_TRUE(program.hasStartInstruction());
+  EXPECT_FALSE(program.getManipulatorInfo().empty());
+
+  // Profile Dictionary
+  auto profiles = std::make_shared<ProfileDictionary>();
+  profiles->addProfile<SimplePlannerPlanProfile>(process_profile, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+  profiles->addProfile<SimplePlannerPlanProfile>(freespace_profile,
+                                                 std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+
+  auto interpolator = std::make_shared<SimpleMotionPlanner>("INTERPOLATOR");
+
+  // Create Planning Request
+  PlannerRequest request;
+  request.instructions = program;
+  request.env = env_;
+  request.env_state = env_->getState();
+  request.profiles = profiles;
+
+  PlannerResponse response;
+  auto status = interpolator->solve(request, response);
+  EXPECT_TRUE(status);
+
+  auto mcnt = getMoveInstructionCount(response.results);
+
+  // The first plan instruction is the start instruction and every other plan instruction should be converted into
+  // ten move instruction.
+  EXPECT_EQ(83, mcnt);
   EXPECT_TRUE(response.results.hasStartInstruction());
   EXPECT_FALSE(response.results.getManipulatorInfo().empty());
 }

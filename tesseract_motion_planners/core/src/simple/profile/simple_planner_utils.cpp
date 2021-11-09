@@ -30,9 +30,62 @@
 
 namespace tesseract_planning
 {
-InstructionInfo::InstructionInfo(const PlanInstruction& plan_instruction,
-                                 const PlannerRequest& request,
-                                 const ManipulatorInfo& manip_info)
+JointGroupInstructionInfo::JointGroupInstructionInfo(const PlanInstruction& plan_instruction,
+                                                     const PlannerRequest& request,
+                                                     const ManipulatorInfo& manip_info)
+  : instruction(plan_instruction)
+{
+  assert(!(manip_info.empty() && plan_instruction.getManipulatorInfo().empty()));
+  ManipulatorInfo mi = manip_info.getCombined(plan_instruction.getManipulatorInfo());
+
+  // Check required manipulator information
+  if (mi.manipulator.empty())
+    throw std::runtime_error("InstructionInfo, manipulator is empty!");
+
+  if (mi.tcp_frame.empty())
+    throw std::runtime_error("InstructionInfo, TCP frame is empty!");
+
+  if (mi.working_frame.empty())
+    throw std::runtime_error("InstructionInfo, working frame is empty!");
+
+  // Get Previous Instruction Kinematics
+  manip = request.env->getJointGroup(mi.manipulator);
+
+  // Get Previous Instruction TCP and Working Frame
+  working_frame = mi.working_frame;
+  tcp_frame = mi.tcp_frame;
+  tcp_offset = request.env->findTCPOffset(mi);
+
+  // Get Previous Instruction Waypoint Info
+  if (isStateWaypoint(plan_instruction.getWaypoint()) || isJointWaypoint(plan_instruction.getWaypoint()))
+    has_cartesian_waypoint = false;
+  else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+    has_cartesian_waypoint = true;
+  else
+    throw std::runtime_error("Simple planner currently only supports State, Joint and Cartesian Waypoint types!");
+}
+
+Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp) const
+{
+  return manip->calcFwdKin(jp)[tcp_frame] * tcp_offset;
+}
+
+Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose() const
+{
+  if (!isCartesianWaypoint(instruction.getWaypoint()))
+    throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
+
+  return instruction.getWaypoint().as<CartesianWaypoint>();
+}
+
+const Eigen::VectorXd& JointGroupInstructionInfo::extractJointPosition() const
+{
+  return getJointPosition(instruction.getWaypoint());
+}
+
+KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const PlanInstruction& plan_instruction,
+                                                             const PlannerRequest& request,
+                                                             const ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
 {
   assert(!(manip_info.empty() && plan_instruction.getManipulatorInfo().empty()));
@@ -65,12 +118,12 @@ InstructionInfo::InstructionInfo(const PlanInstruction& plan_instruction,
     throw std::runtime_error("Simple planner currently only supports State, Joint and Cartesian Waypoint types!");
 }
 
-Eigen::Isometry3d InstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp) const
+Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp) const
 {
   return manip->calcFwdKin(jp)[tcp_frame] * tcp_offset;
 }
 
-Eigen::Isometry3d InstructionInfo::extractCartesianPose() const
+Eigen::Isometry3d KinematicGroupInstructionInfo::extractCartesianPose() const
 {
   if (!isCartesianWaypoint(instruction.getWaypoint()))
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
@@ -78,7 +131,7 @@ Eigen::Isometry3d InstructionInfo::extractCartesianPose() const
   return instruction.getWaypoint().as<CartesianWaypoint>();
 }
 
-const Eigen::VectorXd& InstructionInfo::extractJointPosition() const
+const Eigen::VectorXd& KinematicGroupInstructionInfo::extractJointPosition() const
 {
   return getJointPosition(instruction.getWaypoint());
 }
@@ -124,7 +177,7 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
   return composite;
 }
 
-Eigen::VectorXd getClosestJointSolution(const InstructionInfo& info, const Eigen::VectorXd& seed)
+Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& info, const Eigen::VectorXd& seed)
 {
   auto limits = info.manip->getLimits();
   auto redundancy_indices = info.manip->getRedundancyCapableJointIndices();
@@ -174,8 +227,8 @@ Eigen::VectorXd getClosestJointSolution(const InstructionInfo& info, const Eigen
   return jp_final;
 }
 
-std::array<Eigen::VectorXd, 2> getClosestJointSolution(const InstructionInfo& info1,
-                                                       const InstructionInfo& info2,
+std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstructionInfo& info1,
+                                                       const KinematicGroupInstructionInfo& info2,
                                                        const Eigen::VectorXd& seed)
 {
   auto manip1_limits = info1.manip->getLimits();

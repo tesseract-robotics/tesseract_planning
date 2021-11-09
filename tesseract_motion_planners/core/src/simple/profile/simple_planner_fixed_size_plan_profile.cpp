@@ -39,8 +39,8 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::generate(const PlanInstr
                                                                  const PlannerRequest& request,
                                                                  const ManipulatorInfo& global_manip_info) const
 {
-  InstructionInfo info1(prev_instruction, request, global_manip_info);
-  InstructionInfo info2(base_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
 
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return stateJointJointWaypoint(info1, info2);
@@ -54,8 +54,9 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::generate(const PlanInstr
   return stateCartCartWaypoint(info1, info2, request);
 }
 
-CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointJointWaypoint(const InstructionInfo& prev,
-                                                                                const InstructionInfo& base) const
+CompositeInstruction
+SimplePlannerFixedSizePlanProfile::stateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                           const KinematicGroupInstructionInfo& base) const
 {
   // Calculate FK for start and end
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -84,8 +85,9 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointJointWaypoint(
   return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(const InstructionInfo& prev,
-                                                                               const InstructionInfo& base) const
+CompositeInstruction
+SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                          const KinematicGroupInstructionInfo& base) const
 {
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
 
@@ -126,8 +128,9 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(c
   return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(const InstructionInfo& prev,
-                                                                               const InstructionInfo& base) const
+CompositeInstruction
+SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                          const KinematicGroupInstructionInfo& base) const
 {
   const Eigen::VectorXd& j2 = base.extractJointPosition();
   Eigen::VectorXd j1 = getClosestJointSolution(prev, j2);
@@ -167,8 +170,8 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(c
   return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(const InstructionInfo& prev,
-                                                                              const InstructionInfo& base,
+CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                                              const KinematicGroupInstructionInfo& base,
                                                                               const PlannerRequest& request) const
 {
   // Get IK seed

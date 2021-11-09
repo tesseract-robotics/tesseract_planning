@@ -1,13 +1,13 @@
 /**
- * @file simple_planner_lvs_plan_profile.h
- * @brief
+ * @file simple_planner_lvs_no_ik_plan_profile.h
+ * @brief This does not use inverse kinematics
  *
- * @author Tyler Marr
- * @date September 16, 2020
+ * @author Levi Armstrong
+ * @date November 8, 2021
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2020, Southwest Research Institute
+ * @copyright Copyright (c) 2021, Southwest Research Institute
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -24,8 +24,8 @@
  * limitations under the License.
  */
 
-#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H
-#define TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H
+#ifndef TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_PLAN_PROFILE_H
+#define TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_PLAN_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -36,29 +36,29 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
 
 #ifdef SWIG
-%shared_ptr(tesseract_planning::SimplePlannerLVSPlanProfile)
+%shared_ptr(tesseract_planning::SimplePlannerLVSNoIKPlanProfile)
 #endif  // SWIG
 
 namespace tesseract_planning
 {
-class SimplePlannerLVSPlanProfile : public SimplePlannerPlanProfile
+class SimplePlannerLVSNoIKPlanProfile : public SimplePlannerPlanProfile
 {
 public:
-  using Ptr = std::shared_ptr<SimplePlannerLVSPlanProfile>;
-  using ConstPtr = std::shared_ptr<const SimplePlannerLVSPlanProfile>;
+  using Ptr = std::shared_ptr<SimplePlannerLVSNoIKPlanProfile>;
+  using ConstPtr = std::shared_ptr<const SimplePlannerLVSNoIKPlanProfile>;
 
   /**
-   * @brief SimplePlannerLVSPlanProfile
+   * @brief SimplePlannerLVSNoIKPlanProfile
    * @param state_longest_valid_segment_length The maximum joint distance (norm of changes to all joint positions)
    *between successive steps
    * @param translation_longest_valid_segment_length The maximum translation distance between successive steps
    * @param rotation_longest_valid_segment_length The maximum rotational distance between successive steps
    * @param min_steps The minimum number of steps for the plan
    */
-  SimplePlannerLVSPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
-                              double translation_longest_valid_segment_length = 0.1,
-                              double rotation_longest_valid_segment_length = 5 * M_PI / 180,
-                              int min_steps = 1);
+  SimplePlannerLVSNoIKPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
+                                  double translation_longest_valid_segment_length = 0.1,
+                                  double rotation_longest_valid_segment_length = 5 * M_PI / 180,
+                                  int min_steps = 1);
 
   CompositeInstruction generate(const PlanInstruction& prev_instruction,
                                 const PlanInstruction& base_instruction,
@@ -93,8 +93,8 @@ protected:
    *
    * @return A composite instruction of move instruction with state waypoints
    **/
-  CompositeInstruction stateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                               const KinematicGroupInstructionInfo& base) const;
+  CompositeInstruction stateJointJointWaypoint(const JointGroupInstructionInfo& prev,
+                                               const JointGroupInstructionInfo& base) const;
 
   /**
    * @brief JointWaypoint to CartesianWaypoint
@@ -113,8 +113,8 @@ protected:
    *
    * @return A composite instruction of move instruction with state waypoints
    **/
-  CompositeInstruction stateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                              const KinematicGroupInstructionInfo& base) const;
+  CompositeInstruction stateJointCartWaypoint(const JointGroupInstructionInfo& prev,
+                                              const JointGroupInstructionInfo& base) const;
 
   /**
    * @brief CartesianWaypoint to JointWaypoint
@@ -135,8 +135,8 @@ protected:
    *
    * @return A composite instruction of move instruction with state waypoints
    **/
-  CompositeInstruction stateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                              const KinematicGroupInstructionInfo& base) const;
+  CompositeInstruction stateCartJointWaypoint(const JointGroupInstructionInfo& prev,
+                                              const JointGroupInstructionInfo& base) const;
 
   /**
    * @brief CartesianWaypoint to CartesianWaypoint
@@ -161,11 +161,11 @@ protected:
    *
    * @return A composite instruction of move instruction with state waypoints
    **/
-  CompositeInstruction stateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                             const KinematicGroupInstructionInfo& base,
+  CompositeInstruction stateCartCartWaypoint(const JointGroupInstructionInfo& prev,
+                                             const JointGroupInstructionInfo& base,
                                              const PlannerRequest& request) const;
 };
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_PLAN_PROFILE_H
+#endif  // TESSERACT_MOTION_PLANNERS_SIMPLE_LVS_NO_IK_PLAN_PROFILE_H

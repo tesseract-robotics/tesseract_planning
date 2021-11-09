@@ -39,8 +39,8 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
                                                                        const PlannerRequest& request,
                                                                        const ManipulatorInfo& global_manip_info) const
 {
-  InstructionInfo info1(prev_instruction, request, global_manip_info);
-  InstructionInfo info2(base_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
+  KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
 
   Eigen::MatrixXd states;
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)

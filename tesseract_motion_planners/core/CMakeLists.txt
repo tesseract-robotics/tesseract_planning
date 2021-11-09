@@ -28,6 +28,7 @@ add_library(
   ${PROJECT_NAME}_simple
   src/simple/simple_motion_planner.cpp
   src/simple/profile/simple_planner_lvs_plan_profile.cpp
+  src/simple/profile/simple_planner_lvs_no_ik_plan_profile.cpp
   src/simple/profile/simple_planner_fixed_size_assign_plan_profile.cpp
   src/simple/profile/simple_planner_fixed_size_plan_profile.cpp
   src/simple/profile/simple_planner_utils.cpp)
