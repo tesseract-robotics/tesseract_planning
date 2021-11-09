@@ -38,12 +38,48 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-/** @brief The Instruction Information struct */
-struct InstructionInfo
+/** @brief The Joint Group Instruction Information struct */
+struct JointGroupInstructionInfo
 {
-  InstructionInfo(const PlanInstruction& plan_instruction,
-                  const PlannerRequest& request,
-                  const ManipulatorInfo& manip_info);
+  JointGroupInstructionInfo(const PlanInstruction& plan_instruction,
+                            const PlannerRequest& request,
+                            const ManipulatorInfo& manip_info);
+
+  const PlanInstruction& instruction;
+  tesseract_kinematics::JointGroup::UPtr manip;
+  std::string working_frame;
+  std::string tcp_frame;
+  Eigen::Isometry3d tcp_offset{ Eigen::Isometry3d::Identity() };
+  bool has_cartesian_waypoint{ false };
+
+  /**
+   * @brief Calculate the cartesian pose given the joint solution
+   * @param jp The joint solution to calculate the pose
+   * @return The pose give the joint solution
+   */
+  Eigen::Isometry3d calcCartesianPose(const Eigen::VectorXd& jp) const;
+
+  /**
+   * @brief Extract the cartesian pose from the instruction
+   * @details If the instruction does not have a cartesian waypoint this throws an exception
+   * @return Cartesian pose
+   */
+  Eigen::Isometry3d extractCartesianPose() const;
+
+  /**
+   * @brief Extract the joint position from the instruction waypoint
+   * @details If the instruction does not have a joint/state waypoint this throws an exception
+   * @return Joint Position
+   */
+  const Eigen::VectorXd& extractJointPosition() const;
+};
+
+/** @brief The Kinematic Group Instruction Information struct */
+struct KinematicGroupInstructionInfo
+{
+  KinematicGroupInstructionInfo(const PlanInstruction& plan_instruction,
+                                const PlannerRequest& request,
+                                const ManipulatorInfo& manip_info);
 
   const PlanInstruction& instruction;
   tesseract_kinematics::KinematicGroup::UPtr manip;
@@ -98,7 +134,7 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
  * @param seed The seed to find the closest solution
  * @return The closest solution to the seed. This will be empty if a solution was not found during inverse kinematics
  */
-Eigen::VectorXd getClosestJointSolution(const InstructionInfo& info, const Eigen::VectorXd& seed);
+Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& info, const Eigen::VectorXd& seed);
 
 /**
  * @brief Find the closest joint solution for the two provided cartesian poses.
@@ -108,8 +144,8 @@ Eigen::VectorXd getClosestJointSolution(const InstructionInfo& info, const Eigen
  * @return The closest joint solution for the provided cartesian positions. If either are empty then it failed to solve
  * inverse kinematics.
  */
-std::array<Eigen::VectorXd, 2> getClosestJointSolution(const InstructionInfo& info1,
-                                                       const InstructionInfo& info2,
+std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstructionInfo& info1,
+                                                       const KinematicGroupInstructionInfo& info2,
                                                        const Eigen::VectorXd& seed);
 
 }  // namespace tesseract_planning

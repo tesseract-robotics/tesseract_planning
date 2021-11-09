@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
@@ -222,7 +222,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
 
       std::string profile = getProfileString(base_instruction.getProfile(), name_, request.plan_profile_remapping);
       SimplePlannerPlanProfile::ConstPtr start_plan_profile = getProfile<SimplePlannerPlanProfile>(
-          profile, *request.profiles, std::make_shared<SimplePlannerLVSPlanProfile>());
+          profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
       start_plan_profile = applyProfileOverrides(name_, start_plan_profile, base_instruction.profile_overrides);
       if (!start_plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid start profile");

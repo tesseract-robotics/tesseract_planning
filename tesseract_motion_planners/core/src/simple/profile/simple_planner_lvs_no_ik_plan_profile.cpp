@@ -1,13 +1,13 @@
 /**
- * @file simple_planner_default_lvs_plan_profile.cpp
- * @brief
+ * @file simple_planner_lvs_no_ik_plan_profile.cpp
+ * @brief This does not use inverse kinematics
  *
- * @author Tyler Marr
- * @date Septemeber 16, 2020
+ * @author Levi Armstrong
+ * @date November 8, 2021
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2020, Southwest Research Institute
+ * @copyright Copyright (c) 2021, Southwest Research Institute
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -24,15 +24,15 @@
  * limitations under the License.
  */
 
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 namespace tesseract_planning
 {
-SimplePlannerLVSPlanProfile::SimplePlannerLVSPlanProfile(double state_longest_valid_segment_length,
-                                                         double translation_longest_valid_segment_length,
-                                                         double rotation_longest_valid_segment_length,
-                                                         int min_steps)
+SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_longest_valid_segment_length,
+                                                                 double translation_longest_valid_segment_length,
+                                                                 double rotation_longest_valid_segment_length,
+                                                                 int min_steps)
   : state_longest_valid_segment_length(state_longest_valid_segment_length)
   , translation_longest_valid_segment_length(translation_longest_valid_segment_length)
   , rotation_longest_valid_segment_length(rotation_longest_valid_segment_length)
@@ -40,13 +40,13 @@ SimplePlannerLVSPlanProfile::SimplePlannerLVSPlanProfile(double state_longest_va
 {
 }
 
-CompositeInstruction SimplePlannerLVSPlanProfile::generate(const PlanInstruction& prev_instruction,
-                                                           const PlanInstruction& base_instruction,
-                                                           const PlannerRequest& request,
-                                                           const ManipulatorInfo& global_manip_info) const
+CompositeInstruction SimplePlannerLVSNoIKPlanProfile::generate(const PlanInstruction& prev_instruction,
+                                                               const PlanInstruction& base_instruction,
+                                                               const PlannerRequest& request,
+                                                               const ManipulatorInfo& global_manip_info) const
 {
-  KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
-  KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
+  JointGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
+  JointGroupInstructionInfo info2(base_instruction, request, global_manip_info);
 
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
     return stateJointJointWaypoint(info1, info2);
@@ -61,8 +61,8 @@ CompositeInstruction SimplePlannerLVSPlanProfile::generate(const PlanInstruction
 }
 
 CompositeInstruction
-SimplePlannerLVSPlanProfile::stateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                     const KinematicGroupInstructionInfo& base) const
+SimplePlannerLVSNoIKPlanProfile::stateJointJointWaypoint(const JointGroupInstructionInfo& prev,
+                                                         const JointGroupInstructionInfo& base) const
 {
   // Calculate FK for start and end
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -89,8 +89,8 @@ SimplePlannerLVSPlanProfile::stateJointJointWaypoint(const KinematicGroupInstruc
 }
 
 CompositeInstruction
-SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                    const KinematicGroupInstructionInfo& base) const
+SimplePlannerLVSNoIKPlanProfile::stateJointCartWaypoint(const JointGroupInstructionInfo& prev,
+                                                        const JointGroupInstructionInfo& base) const
 {
   // Calculate FK for start
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -106,21 +106,6 @@ SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const KinematicGroupInstruct
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
-  Eigen::VectorXd j2_final = getClosestJointSolution(base, j1);
-  if (j2_final.size() != 0)
-  {
-    double joint_dist = (j2_final - j1).norm();
-    int state_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
-    steps = std::max(steps, state_steps);
-
-    // Check min steps requirement
-    steps = std::max(steps, min_steps);
-
-    // Linearly interpolate in joint space
-    Eigen::MatrixXd states = interpolate(j1, j2_final, steps);
-    return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
-  }
-
   // Check min steps requirement
   steps = std::max(steps, min_steps);
 
@@ -130,8 +115,8 @@ SimplePlannerLVSPlanProfile::stateJointCartWaypoint(const KinematicGroupInstruct
 }
 
 CompositeInstruction
-SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                    const KinematicGroupInstructionInfo& base) const
+SimplePlannerLVSNoIKPlanProfile::stateCartJointWaypoint(const JointGroupInstructionInfo& prev,
+                                                        const JointGroupInstructionInfo& base) const
 {
   // Calculate FK for end
   const Eigen::VectorXd& j2 = base.extractJointPosition();
@@ -147,21 +132,6 @@ SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const KinematicGroupInstruct
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
-  Eigen::VectorXd j1_final = getClosestJointSolution(prev, j2);
-  if (j1_final.size() != 0)
-  {
-    double joint_dist = (j2 - j1_final).norm();
-    int state_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
-    steps = std::max(steps, state_steps);
-
-    // Check min steps requirement
-    steps = std::max(steps, min_steps);
-
-    // Linearly interpolate in joint space
-    Eigen::MatrixXd states = interpolate(j1_final, j2, steps);
-    return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
-  }
-
   // Check min steps requirement
   steps = std::max(steps, min_steps);
 
@@ -170,9 +140,9 @@ SimplePlannerLVSPlanProfile::stateCartJointWaypoint(const KinematicGroupInstruct
   return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                                        const KinematicGroupInstructionInfo& base,
-                                                                        const PlannerRequest& request) const
+CompositeInstruction SimplePlannerLVSNoIKPlanProfile::stateCartCartWaypoint(const JointGroupInstructionInfo& prev,
+                                                                            const JointGroupInstructionInfo& base,
+                                                                            const PlannerRequest& request) const
 {
   // Get IK seed
   Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
@@ -188,46 +158,11 @@ CompositeInstruction SimplePlannerLVSPlanProfile::stateCartCartWaypoint(const Ki
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   int steps = std::max(trans_steps, rot_steps);
 
-  std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(prev, base, seed);
-
-  Eigen::MatrixXd states;
-  if (sol[0].size() != 0 && sol[1].size() != 0)
-  {
-    double joint_dist = (sol[1] - sol[0]).norm();
-    int state_steps = int(joint_dist / state_longest_valid_segment_length) + 1;
-    steps = std::max(steps, state_steps);
-
-    // Check min steps requirement
-    steps = std::max(steps, min_steps);
-
-    // Interpolate
-    states = interpolate(sol[0], sol[1], steps);
-  }
-  else if (sol[0].size() != 0)
-  {
-    // Check min steps requirement
-    steps = std::max(steps, min_steps);
-
-    // Interpolate
-    states = sol[0].replicate(1, steps + 1);
-  }
-  else if (sol[1].size() != 0)
-  {
-    // Check min steps requirement
-    steps = std::max(steps, min_steps);
-
-    // Interpolate
-    states = sol[1].replicate(1, steps + 1);
-  }
-  else
-  {
-    // Check min steps requirement
-    steps = std::max(steps, min_steps);
-
-    states = seed.replicate(1, steps + 1);
-  }
+  // Check min steps requirement
+  steps = std::max(steps, min_steps);
 
   // Convert to MoveInstructions
+  Eigen::MatrixXd states = seed.replicate(1, steps + 1);
   return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
 }
 }  // namespace tesseract_planning

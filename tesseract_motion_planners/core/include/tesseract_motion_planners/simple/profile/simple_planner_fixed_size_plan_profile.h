@@ -65,14 +65,17 @@ public:
   int linear_steps;
 
 protected:
-  CompositeInstruction stateJointJointWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+  CompositeInstruction stateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                               const KinematicGroupInstructionInfo& base) const;
 
-  CompositeInstruction stateJointCartWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+  CompositeInstruction stateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                              const KinematicGroupInstructionInfo& base) const;
 
-  CompositeInstruction stateCartJointWaypoint(const InstructionInfo& prev, const InstructionInfo& base) const;
+  CompositeInstruction stateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                              const KinematicGroupInstructionInfo& base) const;
 
-  CompositeInstruction stateCartCartWaypoint(const InstructionInfo& prev,
-                                             const InstructionInfo& base,
+  CompositeInstruction stateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                             const KinematicGroupInstructionInfo& base,
                                              const PlannerRequest& request) const;
 };
 
