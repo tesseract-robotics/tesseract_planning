@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d9/d2c/classtesseract__planning_1_1WaitInstruction.html" title="This is a wait instruction similar to wait instruction on industrial controllers." alt="" coords="5,5,136,47"/>
+<area shape="rect" id="node1" href="$d7/d0a/classtesseract__planning_1_1TrajOptSolverProfile.html" title=" " alt="" coords="5,5,149,47"/>
+<area shape="rect" id="node2" href="$d9/dc5/classtesseract__planning_1_1TrajOptDefaultSolverProfile.html" title="The contains the default solver parameters available for setting up TrajOpt." alt="" coords="197,5,383,47"/>
 </map>

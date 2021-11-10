@@ -153,19 +153,19 @@ Functions</h2></td></tr>
 <tr class="memitem:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">tesseract_planning::getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;joint_names, const Eigen::MatrixXd &amp;states, const PlanInstruction &amp;base_instruction)</td></tr>
 <tr class="memdesc:a279ab58cb9c7b07e9e678f077bb4d932"><td class="mdescLeft">&#160;</td><td class="mdescRight">This takes the provided seed state for the base_instruction and create a corresponding composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">More...</a><br /></td></tr>
 <tr class="separator:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2ca29a5ccf6deb8ea041aed822ebcf8e">tesseract_planning::getClosestJointSolution</a> (const InstructionInfo &amp;info, const Eigen::VectorXd &amp;seed)</td></tr>
-<tr class="memdesc:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2ca29a5ccf6deb8ea041aed822ebcf8e">More...</a><br /></td></tr>
-<tr class="separator:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0c30630add2fd3d49886a50ea0d8fad7">tesseract_planning::getClosestJointSolution</a> (const InstructionInfo &amp;info1, const InstructionInfo &amp;info2, const Eigen::VectorXd &amp;seed)</td></tr>
-<tr class="memdesc:a0c30630add2fd3d49886a50ea0d8fad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#a0c30630add2fd3d49886a50ea0d8fad7">More...</a><br /></td></tr>
-<tr class="separator:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c73959c536f2f1f881910a889315465"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c73959c536f2f1f881910a889315465">tesseract_planning::getClosestJointSolution</a> (const KinematicGroupInstructionInfo &amp;info, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:a2c73959c536f2f1f881910a889315465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2c73959c536f2f1f881910a889315465">More...</a><br /></td></tr>
+<tr class="separator:a2c73959c536f2f1f881910a889315465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d0dfd4f3bf9af354959f93dc8dcaa4"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af6d0dfd4f3bf9af354959f93dc8dcaa4">tesseract_planning::getClosestJointSolution</a> (const KinematicGroupInstructionInfo &amp;info1, const KinematicGroupInstructionInfo &amp;info2, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:af6d0dfd4f3bf9af354959f93dc8dcaa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#af6d0dfd4f3bf9af354959f93dc8dcaa4">More...</a><br /></td></tr>
+<tr class="separator:af6d0dfd4f3bf9af354959f93dc8dcaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides interpolation utils structs. </p>
 <dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>January 12, 2021 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000061">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000063">Bug:</a></b></dt><dd>No known bugs</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2021, Southwest Research Institute</dd></dl>
 <dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
@@ -173,7 +173,7 @@ Functions</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 5 2021 12:24:02 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Nov 10 2021 14:02:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

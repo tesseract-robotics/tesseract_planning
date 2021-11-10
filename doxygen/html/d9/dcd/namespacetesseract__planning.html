@@ -135,6 +135,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dec/classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile.html">SimplePlannerFixedSizePlanProfile</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d22/classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile.html">SimplePlannerLVSNoIKPlanProfile</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d21/classtesseract__planning_1_1SimplePlannerLVSPlanProfile.html">SimplePlannerLVSPlanProfile</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html">SimplePlannerPlanProfile</a></td></tr>
@@ -142,8 +144,11 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/da7/classtesseract__planning_1_1SimplePlannerCompositeProfile.html">SimplePlannerCompositeProfile</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> Information struct.  <a href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d0f/structtesseract__planning_1_1JointGroupInstructionInfo.html">JointGroupInstructionInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Joint Group <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> Information struct.  <a href="../../d3/d0f/structtesseract__planning_1_1JointGroupInstructionInfo.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html">KinematicGroupInstructionInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Kinematic Group <a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">Instruction</a> Information struct.  <a href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html">SimpleMotionPlanner</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the PlanInstructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#details">More...</a><br /></td></tr>
@@ -811,12 +816,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;joint_names, const Eigen::MatrixXd &amp;states, const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;base_instruction)</td></tr>
 <tr class="memdesc:a279ab58cb9c7b07e9e678f077bb4d932"><td class="mdescLeft">&#160;</td><td class="mdescRight">This takes the provided seed state for the base_instruction and create a corresponding composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">More...</a><br /></td></tr>
 <tr class="separator:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2ca29a5ccf6deb8ea041aed822ebcf8e">getClosestJointSolution</a> (const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;info, const Eigen::VectorXd &amp;seed)</td></tr>
-<tr class="memdesc:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2ca29a5ccf6deb8ea041aed822ebcf8e">More...</a><br /></td></tr>
-<tr class="separator:a2ca29a5ccf6deb8ea041aed822ebcf8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0c30630add2fd3d49886a50ea0d8fad7">getClosestJointSolution</a> (const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;info1, const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;info2, const Eigen::VectorXd &amp;seed)</td></tr>
-<tr class="memdesc:a0c30630add2fd3d49886a50ea0d8fad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#a0c30630add2fd3d49886a50ea0d8fad7">More...</a><br /></td></tr>
-<tr class="separator:a0c30630add2fd3d49886a50ea0d8fad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c73959c536f2f1f881910a889315465"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c73959c536f2f1f881910a889315465">getClosestJointSolution</a> (const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html">KinematicGroupInstructionInfo</a> &amp;info, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:a2c73959c536f2f1f881910a889315465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2c73959c536f2f1f881910a889315465">More...</a><br /></td></tr>
+<tr class="separator:a2c73959c536f2f1f881910a889315465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d0dfd4f3bf9af354959f93dc8dcaa4"><td class="memItemLeft" align="right" valign="top">std::array&lt; Eigen::VectorXd, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af6d0dfd4f3bf9af354959f93dc8dcaa4">getClosestJointSolution</a> (const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html">KinematicGroupInstructionInfo</a> &amp;info1, const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html">KinematicGroupInstructionInfo</a> &amp;info2, const Eigen::VectorXd &amp;seed)</td></tr>
+<tr class="memdesc:af6d0dfd4f3bf9af354959f93dc8dcaa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for the two provided cartesian poses.  <a href="../../d9/dcd/namespacetesseract__planning.html#af6d0dfd4f3bf9af354959f93dc8dcaa4">More...</a><br /></td></tr>
+<tr class="separator:af6d0dfd4f3bf9af354959f93dc8dcaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4244fdc5b54d25a4d77df5258e11af94"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4244fdc5b54d25a4d77df5258e11af94">calcPose</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;wp, const std::string &amp;working_frame, const std::string &amp;tip_link, const Eigen::Isometry3d &amp;tcp, const tesseract_scene_graph::SceneState &amp;current_state, tesseract_scene_graph::StateSolver &amp;state_solver)</td></tr>
 <tr class="separator:a4244fdc5b54d25a4d77df5258e11af94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42780aa466baa0c5e1a46e8eb34ddd9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a42780aa466baa0c5e1a46e8eb34ddd9d">generateNaiveSeedHelper</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const tesseract_scene_graph::SceneState &amp;state, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt;&gt; &amp;manip_joint_names)</td></tr>
@@ -5616,8 +5621,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="a2ca29a5ccf6deb8ea041aed822ebcf8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ca29a5ccf6deb8ea041aed822ebcf8e">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[1/2]</span></h2>
+<a id="a2c73959c536f2f1f881910a889315465"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c73959c536f2f1f881910a889315465">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5625,7 +5630,7 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="memname">Eigen::VectorXd tesseract_planning::getClosestJointSolution </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html">KinematicGroupInstructionInfo</a> &amp;&#160;</td>
           <td class="paramname"><em>info</em>, </td>
         </tr>
         <tr>
@@ -5656,8 +5661,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="a0c30630add2fd3d49886a50ea0d8fad7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c30630add2fd3d49886a50ea0d8fad7">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[2/2]</span></h2>
+<a id="af6d0dfd4f3bf9af354959f93dc8dcaa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d0dfd4f3bf9af354959f93dc8dcaa4">&#9670;&nbsp;</a></span>getClosestJointSolution() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5665,13 +5670,13 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="memname">std::array&lt; Eigen::VectorXd, 2 &gt; tesseract_planning::getClosestJointSolution </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html">KinematicGroupInstructionInfo</a> &amp;&#160;</td>
           <td class="paramname"><em>info1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d4/d3a/structtesseract__planning_1_1InstructionInfo.html">InstructionInfo</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html">KinematicGroupInstructionInfo</a> &amp;&#160;</td>
           <td class="paramname"><em>info2</em>, </td>
         </tr>
         <tr>
@@ -9565,7 +9570,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 5 2021 12:24:03 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Nov 10 2021 14:02:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

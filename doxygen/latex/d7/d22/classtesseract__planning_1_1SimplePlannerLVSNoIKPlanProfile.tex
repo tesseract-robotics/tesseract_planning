@@ -1,0 +1,325 @@
+\hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{}\doxysection{tesseract\+\_\+planning\+::Simple\+Planner\+LVSNo\+IKPlan\+Profile Class Reference}
+\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+
+
+{\ttfamily \#include $<$simple\+\_\+planner\+\_\+lvs\+\_\+no\+\_\+ik\+\_\+plan\+\_\+profile.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Simple\+Planner\+LVSNo\+IKPlan\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{d7/d8b/classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Simple\+Planner\+LVSNo\+IKPlan\+Profile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{d8/dc8/classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_abf26ea47864eb3c435945a9c5d11194e}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}} $>$
+\item 
+using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a963b7097b59ffe79f36a200793b0396d}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a6d7a9bbd41bdbb9d21c43850c0cbeae4}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}} (double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a86c4bba2a0eb82a1648790ec1fbb3ad8}{state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}=5 $\ast$M\+\_\+\+PI/180, double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a40a572cb6d82354019fc8d8b8bad82d0}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}=0.\+1, double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a9eb177e869246eaeae0426b356b71a4c}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}=5 $\ast$M\+\_\+\+PI/180, int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a9962b1c871b6acafd51b8ba00ef8fb0d}{min\+\_\+steps}}=1)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a5f144f92911494b6d5c29199bc5a7f6c}{generate}} (const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&prev\+\_\+instruction, const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&global\+\_\+manip\+\_\+info) const override
+\begin{DoxyCompactList}\small\item\em Generate a seed for the provided base\+\_\+instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a86c4bba2a0eb82a1648790ec1fbb3ad8}{state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}
+\begin{DoxyCompactList}\small\item\em The maximum joint distance, the norm of changes to all joint positions between successive steps. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a40a572cb6d82354019fc8d8b8bad82d0}{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}
+\begin{DoxyCompactList}\small\item\em The maximum translation distance between successive steps. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a9eb177e869246eaeae0426b356b71a4c}{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}}
+\begin{DoxyCompactList}\small\item\em The maximum rotational distance between successive steps. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a9962b1c871b6acafd51b8ba00ef8fb0d}{min\+\_\+steps}}
+\begin{DoxyCompactList}\small\item\em The minimum number of steps for the plan. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_ae12da409f45ef1e237f2bcb878ce6c90}{state\+Joint\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&base) const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a7afd999be58b62041bf987f33e587787}{state\+Joint\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&base) const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_ada655346bec868962a4f3b6efd7351b9}{state\+Cart\+Joint\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&base) const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a25a53540a7c4ef766938e544d6b7d5a9}{state\+Cart\+Cart\+Waypoint}} (const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&prev, const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&base, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a963b7097b59ffe79f36a200793b0396d}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a963b7097b59ffe79f36a200793b0396d}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a963b7097b59ffe79f36a200793b0396d}{tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}}$>$}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_abf26ea47864eb3c435945a9c5d11194e}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_abf26ea47864eb3c435945a9c5d11194e}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_abf26ea47864eb3c435945a9c5d11194e}{tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a6d7a9bbd41bdbb9d21c43850c0cbeae4}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a6d7a9bbd41bdbb9d21c43850c0cbeae4}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!SimplePlannerLVSNoIKPlanProfile@{SimplePlannerLVSNoIKPlanProfile}}
+\index{SimplePlannerLVSNoIKPlanProfile@{SimplePlannerLVSNoIKPlanProfile}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{SimplePlannerLVSNoIKPlanProfile()}{SimplePlannerLVSNoIKPlanProfile()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile (\begin{DoxyParamCaption}\item[{double}]{state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length = {\ttfamily 5~$\ast$~M\+\_\+PI~/~180},  }\item[{double}]{translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length = {\ttfamily 0.1},  }\item[{double}]{rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length = {\ttfamily 5~$\ast$~M\+\_\+PI~/~180},  }\item[{int}]{min\+\_\+steps = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length} & The maximum joint distance (norm of changes to all joint positions) between successive steps \\
+\hline
+{\em translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length} & The maximum translation distance between successive steps \\
+\hline
+{\em rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length} & The maximum rotational distance between successive steps \\
+\hline
+{\em min\+\_\+steps} & The minimum number of steps for the plan \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a5f144f92911494b6d5c29199bc5a7f6c}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a5f144f92911494b6d5c29199bc5a7f6c}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!generate@{generate}}
+\index{generate@{generate}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{prev\+\_\+instruction,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{base\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{global\+\_\+manip\+\_\+info }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generate a seed for the provided base\+\_\+instruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prev\+\_\+instruction} & The previous instruction \\
+\hline
+{\em base\+\_\+instruction} & The base/current instruction to generate the seed for \\
+\hline
+{\em request} & The planning request \\
+\hline
+{\em global\+\_\+manip\+\_\+info} & The global manipulator information \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A composite instruction representing the seed for the base\+\_\+instruction 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ac928c2f283feed84dea1a471c70bcf81}{tesseract\+\_\+planning\+::\+Simple\+Planner\+Plan\+Profile}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a25a53540a7c4ef766938e544d6b7d5a9}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a25a53540a7c4ef766938e544d6b7d5a9}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!stateCartCartWaypoint@{stateCartCartWaypoint}}
+\index{stateCartCartWaypoint@{stateCartCartWaypoint}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{stateCartCartWaypoint()}{stateCartCartWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::state\+Cart\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&}]{base,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}. 
+
+This function interpolates the motion from start state to end state. Results are stored in \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} objects.
+
+
+\begin{DoxyItemize}
+\item the number of steps for the plan will be calculated such that\+:
+\begin{DoxyItemize}
+\item the translation distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the rotational distance between successive steps is no longer than rotation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length
+\item the max steps from the above calculations will be be compared to the min\+\_\+steps and the largest will be chosen
+\end{DoxyItemize}
+\item the interpolation will be done based on the condition below
+\begin{DoxyItemize}
+\item Case 1\+: Joint solution found for start and end cartesian waypoint
+\begin{DoxyItemize}
+\item It interpolates the joint position from the start to the end state
+\end{DoxyItemize}
+\item Case 2\+: Joint solution only found for start cartesian waypoint
+\begin{DoxyItemize}
+\item It creates number states based on the steps and sets the value to found start solution
+\end{DoxyItemize}
+\item Case 3\+: Joint solution only found for end cartesian waypoint
+\begin{DoxyItemize}
+\item It creates number states based on the steps and sets the value to found end solution
+\end{DoxyItemize}
+\item Case 4\+: No joint solution found for end and start cartesian waypoint
+\begin{DoxyItemize}
+\item It creates number states based on the steps and sets the value to the current state of the environment
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+A composite instruction of move instruction with state waypoints 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_ada655346bec868962a4f3b6efd7351b9}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_ada655346bec868962a4f3b6efd7351b9}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!stateCartJointWaypoint@{stateCartJointWaypoint}}
+\index{stateCartJointWaypoint@{stateCartJointWaypoint}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{stateCartJointWaypoint()}{stateCartJointWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::state\+Cart\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}. 
+
+This function interpolates the motion from start state to end state. Results are stored in \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} objects.
+
+
+\begin{DoxyItemize}
+\item the number of steps for the plan will be calculated such that\+:
+\begin{DoxyItemize}
+\item the translation distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the rotational distance between successive steps is no longer than rotation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length
+\item the max steps from the above calculations will be be compared to the min\+\_\+steps and the largest will be chosen
+\end{DoxyItemize}
+\item the interpolation will be done based on the condition below
+\begin{DoxyItemize}
+\item Case 1\+: Joint solution found for start cartesian waypoint
+\begin{DoxyItemize}
+\item It interpolates the joint position from the start to the end state
+\end{DoxyItemize}
+\item Case 2\+: Unable to find joint solution for start cartesian waypoint
+\begin{DoxyItemize}
+\item It creates number states based on the steps and sets the value to end joint waypoint
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+A composite instruction of move instruction with state waypoints 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a7afd999be58b62041bf987f33e587787}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a7afd999be58b62041bf987f33e587787}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!stateJointCartWaypoint@{stateJointCartWaypoint}}
+\index{stateJointCartWaypoint@{stateJointCartWaypoint}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{stateJointCartWaypoint()}{stateJointCartWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::state\+Joint\+Cart\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}}. 
+
+
+\begin{DoxyItemize}
+\item the number of steps for the plan will be calculated such that\+:
+\begin{DoxyItemize}
+\item the translation distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the rotational distance between successive steps is no longer than rotation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length
+\item the max steps from the above calculations will be be compared to the min\+\_\+steps and the largest will be chosen
+\end{DoxyItemize}
+\item the interpolation will be done based on the condition below
+\begin{DoxyItemize}
+\item Case 1\+: Joint solution found for end cartesian waypoint
+\begin{DoxyItemize}
+\item It interpolates the joint position from the start to the end state
+\end{DoxyItemize}
+\item Case 2\+: Unable to find joint solution for end cartesian waypoint
+\begin{DoxyItemize}
+\item It creates number states based on the steps and sets the value to start joint waypoint
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+A composite instruction of move instruction with state waypoints 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_ae12da409f45ef1e237f2bcb878ce6c90}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_ae12da409f45ef1e237f2bcb878ce6c90}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!stateJointJointWaypoint@{stateJointJointWaypoint}}
+\index{stateJointJointWaypoint@{stateJointJointWaypoint}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{stateJointJointWaypoint()}{stateJointJointWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::state\+Joint\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&}]{prev,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}} \&}]{base }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} to \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}. 
+
+This function interpolates the motion from start state to end state. Results are stored in \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} objects.
+
+
+\begin{DoxyItemize}
+\item the number of steps for the plan will be calculated such that\+:
+\begin{DoxyItemize}
+\item the translation distance between successive steps is no longer than translation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the rotational distance between successive steps is no longer than rotation\+\_\+longest\+\_\+valid\+\_\+segment
+\item the number of steps for the plan will be calculated such that the norm of all joint distances between successive steps is no longer than state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length
+\item the max steps from the above calculations will be be compared to the min\+\_\+steps and the largest will be chosen
+\end{DoxyItemize}
+\item the interpolation will be done in joint space
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+A composite instruction of move instruction with state waypoints 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a9962b1c871b6acafd51b8ba00ef8fb0d}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a9962b1c871b6acafd51b8ba00ef8fb0d}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!min\_steps@{min\_steps}}
+\index{min\_steps@{min\_steps}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{min\_steps}{min\_steps}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::min\+\_\+steps}
+
+
+
+The minimum number of steps for the plan. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a9eb177e869246eaeae0426b356b71a4c}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a9eb177e869246eaeae0426b356b71a4c}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!rotation\_longest\_valid\_segment\_length@{rotation\_longest\_valid\_segment\_length}}
+\index{rotation\_longest\_valid\_segment\_length@{rotation\_longest\_valid\_segment\_length}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{rotation\_longest\_valid\_segment\_length}{rotation\_longest\_valid\_segment\_length}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}
+
+
+
+The maximum rotational distance between successive steps. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a86c4bba2a0eb82a1648790ec1fbb3ad8}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a86c4bba2a0eb82a1648790ec1fbb3ad8}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!state\_longest\_valid\_segment\_length@{state\_longest\_valid\_segment\_length}}
+\index{state\_longest\_valid\_segment\_length@{state\_longest\_valid\_segment\_length}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{state\_longest\_valid\_segment\_length}{state\_longest\_valid\_segment\_length}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}
+
+
+
+The maximum joint distance, the norm of changes to all joint positions between successive steps. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a40a572cb6d82354019fc8d8b8bad82d0}\label{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile_a40a572cb6d82354019fc8d8b8bad82d0}} 
+\index{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}!translation\_longest\_valid\_segment\_length@{translation\_longest\_valid\_segment\_length}}
+\index{translation\_longest\_valid\_segment\_length@{translation\_longest\_valid\_segment\_length}!tesseract\_planning::SimplePlannerLVSNoIKPlanProfile@{tesseract\_planning::SimplePlannerLVSNoIKPlanProfile}}
+\doxysubsubsection{\texorpdfstring{translation\_longest\_valid\_segment\_length}{translation\_longest\_valid\_segment\_length}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Simple\+Planner\+LVSNo\+IKPlan\+Profile\+::translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length}
+
+
+
+The maximum translation distance between successive steps. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+motion\+\_\+planners/core/include/tesseract\+\_\+motion\+\_\+planners/simple/profile/\mbox{\hyperlink{simple__planner__lvs__no__ik__plan__profile_8h}{simple\+\_\+planner\+\_\+lvs\+\_\+no\+\_\+ik\+\_\+plan\+\_\+profile.\+h}}\item 
+tesseract\+\_\+motion\+\_\+planners/core/src/simple/profile/\mbox{\hyperlink{simple__planner__lvs__no__ik__plan__profile_8cpp}{simple\+\_\+planner\+\_\+lvs\+\_\+no\+\_\+ik\+\_\+plan\+\_\+profile.\+cpp}}\end{DoxyCompactItemize}

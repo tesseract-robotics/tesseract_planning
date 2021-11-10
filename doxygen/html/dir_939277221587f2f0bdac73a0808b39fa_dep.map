@@ -1,7 +1,7 @@
 <map id="tesseract_motion_planners/core/src/simple" name="tesseract_motion_planners/core/src/simple">
 <area shape="rect" id="node2" href="dir_4f82bf6ac79a9fb57af6afb301026434.html" title="profile" alt="" coords="70,63,142,111"/>
 <area shape="rect" id="node3" href="dir_d1e60de41e683bed0b92ca30d9c9d9c7.html" title="include" alt="" coords="33,159,105,207"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000041_000010.html" title="7" alt="" coords="88,138,96,152"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000041_000010.html" title="9" alt="" coords="88,138,96,152"/>
 <area shape="rect" id="node4" href="dir_fa47c2fa9b13a12fc195f1b83854b816.html" title="tesseract_command_language" alt="" coords="5,255,204,303"/>
 <area shape="rect" id="edge3-headlabel" href="dir_000041_000004.html" title="1" alt="" coords="117,231,125,246"/>
 <area shape="rect" id="edge1-headlabel" href="dir_000010_000004.html" title="7" alt="" coords="93,227,101,242"/>

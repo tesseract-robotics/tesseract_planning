@@ -56,14 +56,18 @@ class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignP
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile}{Simple\+Planner\+Fixed\+Size\+Plan\+Profile}}
 \item 
+class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSNoIKPlanProfile}{Simple\+Planner\+LVSNo\+IKPlan\+Profile}}
+\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{Simple\+Planner\+LVSPlan\+Profile}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{Simple\+Planner\+Plan\+Profile}}
 \begin{DoxyCompactList}\small\item\em Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases. The planner then simply loops over all of the plan instructions and calls the correct function. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{Simple\+Planner\+Composite\+Profile}}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}}
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{Joint\+Group\+Instruction\+Info}}
+\begin{DoxyCompactList}\small\item\em The Joint Group \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}}
+\begin{DoxyCompactList}\small\item\em The Kinematic Group \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}
 \begin{DoxyCompactList}\small\item\em The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the Plan\+Instructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.\+g. linear interpolation. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlannerStatusCategory}{Simple\+Motion\+Planner\+Status\+Category}}
@@ -613,9 +617,9 @@ std\+::string \mbox{\hyperlink{namespacetesseract__planning_a2c3697d8b33f7e6ffa4
 \begin{DoxyCompactList}\small\item\em Get the associated move instruction type for the give plan instruction type. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a279ab58cb9c7b07e9e678f077bb4d932}{get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a2ca29a5ccf6deb8ea041aed822ebcf8e}{get\+Closest\+Joint\+Solution}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&info, const Eigen\+::\+Vector\+Xd \&seed)
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{get\+Closest\+Joint\+Solution}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&info, const Eigen\+::\+Vector\+Xd \&seed)
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for p to the provided seed. \end{DoxyCompactList}\item 
-std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_a0c30630add2fd3d49886a50ea0d8fad7}{get\+Closest\+Joint\+Solution}} (const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&info1, const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&info2, const Eigen\+::\+Vector\+Xd \&seed)
+std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_af6d0dfd4f3bf9af354959f93dc8dcaa4}{get\+Closest\+Joint\+Solution}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&info1, const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&info2, const Eigen\+::\+Vector\+Xd \&seed)
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for the two provided cartesian poses. \end{DoxyCompactList}\item 
 Eigen\+::\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a4244fdc5b54d25a4d77df5258e11af94}{calc\+Pose}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&wp, const std\+::string \&working\+\_\+frame, const std\+::string \&tip\+\_\+link, const Eigen\+::\+Isometry3d \&tcp, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&current\+\_\+state, tesseract\+\_\+scene\+\_\+graph\+::\+State\+Solver \&state\+\_\+solver)
 \item 
@@ -2522,11 +2526,11 @@ This creates a seed by looping over and replacing every plan instruction with a 
 \doxysubsubsection{\texorpdfstring{generateSkeletonSeedHelper()}{generateSkeletonSeedHelper()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::generate\+Skeleton\+Seed\+Helper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite\+\_\+instructions }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a2ca29a5ccf6deb8ea041aed822ebcf8e}\label{namespacetesseract__planning_a2ca29a5ccf6deb8ea041aed822ebcf8e}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}\label{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}} 
 \index{tesseract\_planning@{tesseract\_planning}!getClosestJointSolution@{getClosestJointSolution}}
 \index{getClosestJointSolution@{getClosestJointSolution}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{getClosestJointSolution()}{getClosestJointSolution()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{info,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{seed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{info,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{seed }\end{DoxyParamCaption})}
 
 
 
@@ -2548,11 +2552,11 @@ The closest solution to the seed. This will be empty if a solution was not found
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000001}{Todo}}]\+: May be nice to add contact checking to find best solution, but may not be necessary because this is used to generate the seed \end{DoxyRefDesc}
-\mbox{\Hypertarget{namespacetesseract__planning_a0c30630add2fd3d49886a50ea0d8fad7}\label{namespacetesseract__planning_a0c30630add2fd3d49886a50ea0d8fad7}} 
+\mbox{\Hypertarget{namespacetesseract__planning_af6d0dfd4f3bf9af354959f93dc8dcaa4}\label{namespacetesseract__planning_af6d0dfd4f3bf9af354959f93dc8dcaa4}} 
 \index{tesseract\_planning@{tesseract\_planning}!getClosestJointSolution@{getClosestJointSolution}}
 \index{getClosestJointSolution@{getClosestJointSolution}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{getClosestJointSolution()}{getClosestJointSolution()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{info1,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{Instruction\+Info}} \&}]{info2,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{seed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{info1,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&}]{info2,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{seed }\end{DoxyParamCaption})}
 
 
 

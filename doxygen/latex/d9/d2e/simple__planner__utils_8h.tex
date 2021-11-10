@@ -30,8 +30,10 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1InstructionInfo}{tesseract\+\_\+planning\+::\+Instruction\+Info}}
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info}}
+\begin{DoxyCompactList}\small\item\em The Joint Group \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{tesseract\+\_\+planning\+::\+Kinematic\+Group\+Instruction\+Info}}
+\begin{DoxyCompactList}\small\item\em The Kinematic Group \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -44,9 +46,9 @@ Move\+Instruction\+Type \mbox{\hyperlink{namespacetesseract__planning_aaec1f7a5a
 \begin{DoxyCompactList}\small\item\em Get the associated move instruction type for the give plan instruction type. \end{DoxyCompactList}\item 
 Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_a279ab58cb9c7b07e9e678f077bb4d932}{tesseract\+\_\+planning\+::get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const Plan\+Instruction \&base\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a2ca29a5ccf6deb8ea041aed822ebcf8e}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Instruction\+Info \&info, const Eigen\+::\+Vector\+Xd \&seed)
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Kinematic\+Group\+Instruction\+Info \&info, const Eigen\+::\+Vector\+Xd \&seed)
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for p to the provided seed. \end{DoxyCompactList}\item 
-std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_a0c30630add2fd3d49886a50ea0d8fad7}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Instruction\+Info \&info1, const Instruction\+Info \&info2, const Eigen\+::\+Vector\+Xd \&seed)
+std\+::array$<$ Eigen\+::\+Vector\+Xd, 2 $>$ \mbox{\hyperlink{namespacetesseract__planning_af6d0dfd4f3bf9af354959f93dc8dcaa4}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Kinematic\+Group\+Instruction\+Info \&info1, const Kinematic\+Group\+Instruction\+Info \&info2, const Eigen\+::\+Vector\+Xd \&seed)
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for the two provided cartesian poses. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -63,7 +65,7 @@ January 12, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000055}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000056}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

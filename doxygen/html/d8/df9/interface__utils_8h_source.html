@@ -86,7 +86,7 @@ $(function() {
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html">tesseract_motion_planners/core/utils.h</a>&gt;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../de/dd7/simple__motion__planner_8h.html">tesseract_motion_planners/simple/simple_motion_planner.h</a>&gt;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d6/d72/simple__planner__lvs__plan__profile_8h.html">tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h</a>&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d4/d1d/simple__planner__lvs__no__ik__plan__profile_8h.html">tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h</a>&gt;</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
@@ -108,10 +108,10 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">// Set up planner</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html">SimpleMotionPlanner</a> planner;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">auto</span> profile = std::make_shared&lt;SimplePlannerLVSPlanProfile&gt;(state_longest_valid_segment_length,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                               translation_longest_valid_segment_length,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                               rotation_longest_valid_segment_length,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                               min_steps);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">auto</span> profile = std::make_shared&lt;SimplePlannerLVSNoIKPlanProfile&gt;(state_longest_valid_segment_length,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                                   translation_longest_valid_segment_length,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                                   rotation_longest_valid_segment_length,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                                   min_steps);</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="comment">// Create profile dictionary</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">auto</span> profiles = std::make_shared&lt;ProfileDictionary&gt;();</div>
@@ -145,7 +145,7 @@ $(function() {
 <div class="ttc" id="anamespacetesseract__planning_html_a7c15fced3d0a2819bef3c874d85b1f8f"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a7c15fced3d0a2819bef3c874d85b1f8f">tesseract_planning::isPlanInstruction</a></div><div class="ttdeci">bool isPlanInstruction(const Instruction &amp;instruction)</div><div class="ttdef"><b>Definition:</b> instruction_type.cpp:73</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a7cc42c6f98936d7b99258a4760d940f0"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a7cc42c6f98936d7b99258a4760d940f0">tesseract_planning::generateSeed</a></div><div class="ttdeci">static CompositeInstruction generateSeed(const CompositeInstruction &amp;instructions, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_environment::Environment::ConstPtr &amp;env, double state_longest_valid_segment_length=5 *M_PI/180, double translation_longest_valid_segment_length=0.15, double rotation_longest_valid_segment_length=5 *M_PI/180, int min_steps=1)</div><div class="ttdoc">Provided for backwards compatibility.</div><div class="ttdef"><b>Definition:</b> interface_utils.h:43</div></div>
 <div class="ttc" id="asimple__motion__planner_8h_html"><div class="ttname"><a href="../../de/dd7/simple__motion__planner_8h.html">simple_motion_planner.h</a></div><div class="ttdoc">The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o...</div></div>
-<div class="ttc" id="asimple__planner__lvs__plan__profile_8h_html"><div class="ttname"><a href="../../d6/d72/simple__planner__lvs__plan__profile_8h.html">simple_planner_lvs_plan_profile.h</a></div></div>
+<div class="ttc" id="asimple__planner__lvs__no__ik__plan__profile_8h_html"><div class="ttname"><a href="../../d4/d1d/simple__planner__lvs__no__ik__plan__profile_8h.html">simple_planner_lvs_no_ik_plan_profile.h</a></div><div class="ttdoc">This does not use inverse kinematics.</div></div>
 <div class="ttc" id="astructtesseract__planning_1_1PlannerRequest_html"><div class="ttname"><a href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">tesseract_planning::PlannerRequest</a></div><div class="ttdef"><b>Definition:</b> types.h:46</div></div>
 <div class="ttc" id="astructtesseract__planning_1_1PlannerRequest_html_a15896a8c7bd1050d934da96ab05c27b2"><div class="ttname"><a href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a15896a8c7bd1050d934da96ab05c27b2">tesseract_planning::PlannerRequest::env_state</a></div><div class="ttdeci">tesseract_scene_graph::SceneState env_state</div><div class="ttdoc">The start state to use for planning.</div><div class="ttdef"><b>Definition:</b> types.h:54</div></div>
 <div class="ttc" id="astructtesseract__planning_1_1PlannerRequest_html_a2808ed97d04b1681ec4b5b7c5b3155f0"><div class="ttname"><a href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html#a2808ed97d04b1681ec4b5b7c5b3155f0">tesseract_planning::PlannerRequest::env</a></div><div class="ttdeci">tesseract_environment::Environment::ConstPtr env</div><div class="ttdoc">The environment.</div><div class="ttdef"><b>Definition:</b> types.h:51</div></div>
@@ -157,7 +157,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 5 2021 12:24:01 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Nov 10 2021 14:02:12 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
