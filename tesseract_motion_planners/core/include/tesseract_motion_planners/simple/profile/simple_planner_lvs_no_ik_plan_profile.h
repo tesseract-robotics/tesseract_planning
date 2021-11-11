@@ -54,11 +54,13 @@ public:
    * @param translation_longest_valid_segment_length The maximum translation distance between successive steps
    * @param rotation_longest_valid_segment_length The maximum rotational distance between successive steps
    * @param min_steps The minimum number of steps for the plan
+   * @param max_steps The maximum number of steps for the plan
    */
   SimplePlannerLVSNoIKPlanProfile(double state_longest_valid_segment_length = 5 * M_PI / 180,
                                   double translation_longest_valid_segment_length = 0.1,
                                   double rotation_longest_valid_segment_length = 5 * M_PI / 180,
-                                  int min_steps = 1);
+                                  int min_steps = 1,
+                                  int max_steps = std::numeric_limits<int>::max());
 
   CompositeInstruction generate(const PlanInstruction& prev_instruction,
                                 const PlanInstruction& base_instruction,
@@ -76,6 +78,9 @@ public:
 
   /** @brief The minimum number of steps for the plan */
   int min_steps;
+
+  /** @brief The maximum number of steps for the plan */
+  int max_steps;
 
 protected:
   /**
