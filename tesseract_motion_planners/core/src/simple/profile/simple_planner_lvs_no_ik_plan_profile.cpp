@@ -32,11 +32,13 @@ namespace tesseract_planning
 SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_longest_valid_segment_length,
                                                                  double translation_longest_valid_segment_length,
                                                                  double rotation_longest_valid_segment_length,
-                                                                 int min_steps)
+                                                                 int min_steps,
+                                                                 int max_steps)
   : state_longest_valid_segment_length(state_longest_valid_segment_length)
   , translation_longest_valid_segment_length(translation_longest_valid_segment_length)
   , rotation_longest_valid_segment_length(rotation_longest_valid_segment_length)
   , min_steps(min_steps)
+  , max_steps(max_steps)
 {
 }
 
@@ -82,6 +84,7 @@ SimplePlannerLVSNoIKPlanProfile::stateJointJointWaypoint(const JointGroupInstruc
   int steps = std::max(trans_steps, rot_steps);
   steps = std::max(steps, joint_steps);
   steps = std::max(steps, min_steps);
+  steps = std::min(steps, max_steps);
 
   // Linearly interpolate in joint space
   Eigen::MatrixXd states = interpolate(j1, j2, steps);
@@ -108,6 +111,7 @@ SimplePlannerLVSNoIKPlanProfile::stateJointCartWaypoint(const JointGroupInstruct
 
   // Check min steps requirement
   steps = std::max(steps, min_steps);
+  steps = std::min(steps, max_steps);
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = j1.replicate(1, steps + 1);
@@ -134,6 +138,7 @@ SimplePlannerLVSNoIKPlanProfile::stateCartJointWaypoint(const JointGroupInstruct
 
   // Check min steps requirement
   steps = std::max(steps, min_steps);
+  steps = std::min(steps, max_steps);
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = j2.replicate(1, steps + 1);
@@ -160,6 +165,7 @@ CompositeInstruction SimplePlannerLVSNoIKPlanProfile::stateCartCartWaypoint(cons
 
   // Check min steps requirement
   steps = std::max(steps, min_steps);
+  steps = std::min(steps, max_steps);
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = seed.replicate(1, steps + 1);
