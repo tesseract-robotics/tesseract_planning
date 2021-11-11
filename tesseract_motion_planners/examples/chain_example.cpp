@@ -102,6 +102,8 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     ManipulatorInfo manip;
+    manip.tcp_frame = "tool0";
+    manip.working_frame = "base_link";
     manip.manipulator = "manipulator";
     manip.manipulator_ik_solver = "OPWInvKin";
 
