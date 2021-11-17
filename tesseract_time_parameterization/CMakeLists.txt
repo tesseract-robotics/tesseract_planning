@@ -46,10 +46,10 @@ add_library(
   src/tesseract_common_trajectory.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
-  PUBLIC console_bridge::console_bridge
-         Eigen3::Eigen
-         tesseract::tesseract_common
-         tesseract::tesseract_command_language)
+  PUBLIC tesseract::tesseract_common
+         tesseract::tesseract_command_language
+         console_bridge::console_bridge
+         Eigen3::Eigen)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})

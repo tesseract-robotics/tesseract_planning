@@ -10,11 +10,11 @@ add_library(
   src/profile/trajopt_ifopt_default_composite_profile.cpp)
 target_link_libraries(
   ${PROJECT_NAME}_trajopt_ifopt
-  PUBLIC Boost::boost
-         Eigen3::Eigen
-         ${PROJECT_NAME}_core
+  PUBLIC ${PROJECT_NAME}_core
          trajopt::trajopt_ifopt
-         trajopt::trajopt_sqp)
+         trajopt::trajopt_sqp
+         Boost::boost
+         Eigen3::Eigen)
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME}_trajopt_ifopt PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
