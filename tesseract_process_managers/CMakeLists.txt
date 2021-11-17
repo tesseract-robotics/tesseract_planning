@@ -13,7 +13,8 @@ endif()
 find_package(Eigen3 REQUIRED)
 find_package(Taskflow REQUIRED)
 find_package(console_bridge REQUIRED)
-find_package(tesseract_common REQUIRED) # This must be before tcmalloc because it contains the Findtcmalloc.cmake
+find_package(tesseract_environment REQUIRED)
+find_package(tesseract_common REQUIRED)
 find_package(tesseract_support REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(tesseract_motion_planners REQUIRED)
@@ -42,8 +43,7 @@ add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
-
-include(GenerateExportHeader)
+# get_target_property(v Taskflow::Taskflow INTERFACE_INCLUDE_DIRECTORIES) message(SEND_ERROR ${v})
 
 # Create interface
 add_library(
@@ -80,17 +80,18 @@ add_library(
   src/taskflow_generators/raster_waad_dt_taskflow.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
-  PUBLIC console_bridge::console_bridge
-         Taskflow::Taskflow
-         Eigen3::Eigen
-         tesseract::tesseract_common
+  PUBLIC tesseract::tesseract_common
+         tesseract::tesseract_environment
          tesseract::tesseract_command_language
          tesseract::tesseract_motion_planners_simple
          tesseract::tesseract_motion_planners_trajopt_ifopt
          tesseract::tesseract_motion_planners_trajopt
          tesseract::tesseract_motion_planners_descartes
          tesseract::tesseract_motion_planners_ompl
-         tesseract::tesseract_time_parameterization)
+         tesseract::tesseract_time_parameterization
+         console_bridge::console_bridge
+         Taskflow::Taskflow
+         Eigen3::Eigen)
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
