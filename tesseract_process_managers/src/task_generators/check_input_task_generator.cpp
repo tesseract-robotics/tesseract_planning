@@ -31,47 +31,30 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
 #include <tesseract_process_managers/task_generators/check_input_task_generator.h>
+#include <tesseract_process_managers/task_profiles/check_input_profile.h>
+#include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
 {
-CheckInputTaskGenerator::CheckInputTaskGenerator(std::string name)
-  : TaskGenerator(std::move(name)), fn_(tesseract_planning::CheckInputTaskGenerator::checkTaskInput)
-{
-}
-
-CheckInputTaskGenerator::CheckInputTaskGenerator(CheckInputFn fn, std::string name)
-  : TaskGenerator(std::move(name)), fn_(std::move(fn))
-{
-}
+CheckInputTaskGenerator::CheckInputTaskGenerator(std::string name) : TaskGenerator(std::move(name)) {}
 
 int CheckInputTaskGenerator::conditionalProcess(TaskInput input, std::size_t /*unique_id*/) const
 {
-  return ((fn_(input)) ? 1 : 0);
+  // Get Composite Profile
+  const Instruction* input_instruction = input.getInstruction();
+  const auto& ci = input_instruction->as<CompositeInstruction>();
+  std::string profile = ci.getProfile();
+  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  auto cur_composite_profile =
+      getProfile<CheckInputProfile>(name_, profile, *input.profiles, std::make_shared<CheckInputProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
+
+  return ((cur_composite_profile->isValid(input)) ? 1 : 0);
 }
 
 void CheckInputTaskGenerator::process(TaskInput input, std::size_t unique_id) const
 {
   conditionalProcess(input, unique_id);
-}
-
-bool CheckInputTaskGenerator::checkTaskInput(const TaskInput& input)
-{
-  // Check Input
-  if (!input.env)
-  {
-    CONSOLE_BRIDGE_logError("TaskInput env is a nullptr");
-    return false;
-  }
-
-  // Check the overall input
-  const Instruction* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
-  {
-    CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
-    return false;
-  }
-
-  return true;
 }
 
 CheckInputTaskInfo::CheckInputTaskInfo(std::size_t unique_id, std::string name) : TaskInfo(unique_id, std::move(name))

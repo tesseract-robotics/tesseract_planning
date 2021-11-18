@@ -1,7 +1,7 @@
 /**
  * @file seed_length_task_generator.h
  * @brief Process generator for processing the seed so it meets a minimum length. Planners like trajopt need
- * at least 10 states in the trajectory to perform velocity, accelleration and jerk smoothing.
+ * at least 10 states in the trajectory to perform velocity, acceleration and jerk smoothing.
  *
  * @author Levi Armstrong
  * @date November 2. 2020
@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/task_generator.h>
+#include <tesseract_process_managers/core/default_task_namespaces.h>
 
 namespace tesseract_planning
 {
@@ -41,9 +42,7 @@ class SeedMinLengthTaskGenerator : public TaskGenerator
 public:
   using UPtr = std::unique_ptr<SeedMinLengthTaskGenerator>;
 
-  SeedMinLengthTaskGenerator(std::string name = "Seed Min Length");
-
-  SeedMinLengthTaskGenerator(long min_length, std::string name = "Seed Min Length");
+  SeedMinLengthTaskGenerator(std::string name = profile_ns::SEED_MIN_LENGTH_DEFAULT_NAMESPACE);
 
   ~SeedMinLengthTaskGenerator() override = default;
   SeedMinLengthTaskGenerator(const SeedMinLengthTaskGenerator&) = delete;
@@ -51,13 +50,11 @@ public:
   SeedMinLengthTaskGenerator(SeedMinLengthTaskGenerator&&) = delete;
   SeedMinLengthTaskGenerator& operator=(SeedMinLengthTaskGenerator&&) = delete;
 
-  int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
+  int conditionalProcess(TaskInput input, std::size_t unique_id) const override final;
 
-  void process(TaskInput input, std::size_t unique_id) const override;
+  void process(TaskInput input, std::size_t unique_id) const override final;
 
 private:
-  long min_length_{ 10 };
-
   void subdivide(CompositeInstruction& composite,
                  const CompositeInstruction& current_composite,
                  Instruction& start_instruction,
@@ -70,7 +67,7 @@ public:
   using Ptr = std::shared_ptr<SeedMinLengthTaskInfo>;
   using ConstPtr = std::shared_ptr<const SeedMinLengthTaskInfo>;
 
-  SeedMinLengthTaskInfo(std::size_t unique_id, std::string name = "Seed Min Length");
+  SeedMinLengthTaskInfo(std::size_t unique_id, std::string name = profile_ns::SEED_MIN_LENGTH_DEFAULT_NAMESPACE);
 };
 }  // namespace tesseract_planning
 

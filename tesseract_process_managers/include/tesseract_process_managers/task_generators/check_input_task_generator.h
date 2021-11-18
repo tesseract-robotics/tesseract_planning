@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/task_generator.h>
+#include <tesseract_process_managers/core/default_task_namespaces.h>
 
 namespace tesseract_planning
 {
@@ -42,28 +43,16 @@ class CheckInputTaskGenerator : public TaskGenerator
 public:
   using UPtr = std::unique_ptr<CheckInputTaskGenerator>;
 
-  CheckInputTaskGenerator(std::string name = "Check TaksInput");
-  CheckInputTaskGenerator(CheckInputFn fn, std::string name = "Check TaksInput");
-
+  CheckInputTaskGenerator(std::string name = profile_ns::CHECK_INPUT_DEFAULT_NAMESPACE);
   ~CheckInputTaskGenerator() override = default;
   CheckInputTaskGenerator(const CheckInputTaskGenerator&) = delete;
   CheckInputTaskGenerator& operator=(const CheckInputTaskGenerator&) = delete;
   CheckInputTaskGenerator(CheckInputTaskGenerator&&) = delete;
   CheckInputTaskGenerator& operator=(CheckInputTaskGenerator&&) = delete;
 
-  int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
+  int conditionalProcess(TaskInput input, std::size_t unique_id) const override final;
 
-  void process(TaskInput input, std::size_t unique_id) const override;
-
-protected:
-  CheckInputFn fn_;
-
-  /**
-   * @brief Checks that the TaskInput is in the correct format.
-   * @param input TaskInput to be checked
-   * @return True if in the correct format
-   */
-  static bool checkTaskInput(const TaskInput& input);
+  void process(TaskInput input, std::size_t unique_id) const override final;
 };
 
 class CheckInputTaskInfo : public TaskInfo
@@ -72,7 +61,7 @@ public:
   using Ptr = std::shared_ptr<CheckInputTaskInfo>;
   using ConstPtr = std::shared_ptr<const CheckInputTaskInfo>;
 
-  CheckInputTaskInfo(std::size_t unique_id, std::string name = "Check TaksInput");
+  CheckInputTaskInfo(std::size_t unique_id, std::string name = profile_ns::CHECK_INPUT_DEFAULT_NAMESPACE);
 };
 }  // namespace tesseract_planning
 

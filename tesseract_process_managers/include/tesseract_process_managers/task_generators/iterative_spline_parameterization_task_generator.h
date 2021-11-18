@@ -28,6 +28,7 @@
 
 #include <tesseract_process_managers/core/task_generator.h>
 #include <tesseract_time_parameterization/iterative_spline_parameterization.h>
+#include <tesseract_process_managers/core/default_task_namespaces.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::IterativeSplineParameterizationProfile)
@@ -37,30 +38,14 @@
 
 namespace tesseract_planning
 {
-struct IterativeSplineParameterizationProfile
-{
-  using Ptr = std::shared_ptr<IterativeSplineParameterizationProfile>;
-  using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationProfile>;
-
-  IterativeSplineParameterizationProfile(double max_velocity_scaling_factor = 1.0,
-                                         double max_acceleration_scaling_factor = 1.0);
-
-  /** @brief max_velocity_scaling_factor The max velocity scaling factor passed to the solver */
-  double max_velocity_scaling_factor = 1.0;
-
-  /** @brief max_velocity_scaling_factor The max acceleration scaling factor passed to the solver */
-  double max_acceleration_scaling_factor = 1.0;
-};
-using IterativeSplineParameterizationProfileMap =
-    std::unordered_map<std::string, IterativeSplineParameterizationProfile::ConstPtr>;
-
 class IterativeSplineParameterizationTaskGenerator : public TaskGenerator
 {
 public:
   using UPtr = std::unique_ptr<IterativeSplineParameterizationTaskGenerator>;
 
-  IterativeSplineParameterizationTaskGenerator(bool add_points = true,
-                                               std::string name = "Iterative Spline Parameterization");
+  IterativeSplineParameterizationTaskGenerator(
+      bool add_points = true,
+      std::string name = profile_ns::ITERATIVE_SPLINE_PARAMETERIZATION_DEFAULT_NAMESPACE);
 
   ~IterativeSplineParameterizationTaskGenerator() override = default;
   IterativeSplineParameterizationTaskGenerator(const IterativeSplineParameterizationTaskGenerator&) = delete;
@@ -68,9 +53,9 @@ public:
   IterativeSplineParameterizationTaskGenerator(IterativeSplineParameterizationTaskGenerator&&) = delete;
   IterativeSplineParameterizationTaskGenerator& operator=(IterativeSplineParameterizationTaskGenerator&&) = delete;
 
-  int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
+  int conditionalProcess(TaskInput input, std::size_t unique_id) const override final;
 
-  void process(TaskInput input, std::size_t unique_id) const override;
+  void process(TaskInput input, std::size_t unique_id) const override final;
 
 private:
   IterativeSplineParameterization solver_;
@@ -82,8 +67,9 @@ public:
   using Ptr = std::shared_ptr<IterativeSplineParameterizationTaskInfo>;
   using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationTaskInfo>;
 
-  IterativeSplineParameterizationTaskInfo(std::size_t unique_id,
-                                          std::string name = "Iterative Spline Parameterization");
+  IterativeSplineParameterizationTaskInfo(
+      std::size_t unique_id,
+      std::string name = profile_ns::ITERATIVE_SPLINE_PARAMETERIZATION_DEFAULT_NAMESPACE);
 };
 }  // namespace tesseract_planning
 

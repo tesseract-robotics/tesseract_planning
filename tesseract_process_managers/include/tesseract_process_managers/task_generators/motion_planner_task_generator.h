@@ -45,9 +45,9 @@ public:
   MotionPlannerTaskGenerator(MotionPlannerTaskGenerator&&) = delete;
   MotionPlannerTaskGenerator& operator=(MotionPlannerTaskGenerator&&) = delete;
 
-  int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
+  int conditionalProcess(TaskInput input, std::size_t unique_id) const override final;
 
-  void process(TaskInput input, std::size_t unique_id) const override;
+  void process(TaskInput input, std::size_t unique_id) const override final;
 
 private:
   std::shared_ptr<MotionPlanner> planner_{ nullptr };
@@ -59,7 +59,7 @@ public:
   using Ptr = std::shared_ptr<MotionPlannerTaskInfo>;
   using ConstPtr = std::shared_ptr<const MotionPlannerTaskInfo>;
 
-  MotionPlannerTaskInfo(std::size_t unique_id, std::string name = "Motion Planner Process Generator");
+  MotionPlannerTaskInfo(std::size_t unique_id, std::string name);
 };
 
 }  // namespace tesseract_planning

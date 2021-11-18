@@ -59,21 +59,31 @@ public:
 
   /**
    * @brief Check if a profile entry exists
+   * @param ns The namesspace to search under
    * @return True if exists, otherwise false
    */
   template <typename ProfileType>
-  bool hasProfileEntry() const
+  bool hasProfileEntry(const std::string& ns) const
   {
     std::shared_lock lock(mutex_);
-    return (profiles_.find(std::type_index(typeid(ProfileType))) != profiles_.end());
+    auto it = profiles_.find(ns);
+    if (it == profiles_.end())
+      return false;
+
+    return (it->second.find(std::type_index(typeid(ProfileType))) != it->second.end());
   }
 
   /** @brief Remove a profile entry */
   template <typename ProfileType>
-  void removeProfileEntry()
+  void removeProfileEntry(const std::string& ns)
   {
     std::unique_lock lock(mutex_);
-    profiles_.erase(std::type_index(typeid(ProfileType)));
+
+    auto it = profiles_.find(ns);
+    if (it == profiles_.end())
+      return;
+
+    it->second.erase(std::type_index(typeid(ProfileType)));
   }
 
   /**
@@ -81,26 +91,34 @@ public:
    * @return The profile map associated with the profile entry
    */
   template <typename ProfileType>
-  std::unordered_map<std::string, std::shared_ptr<const ProfileType>> getProfileEntry() const
+  std::unordered_map<std::string, std::shared_ptr<const ProfileType>> getProfileEntry(const std::string& ns) const
   {
     std::shared_lock lock(mutex_);
-    auto it = profiles_.find(std::type_index(typeid(ProfileType)));
-    if (it != profiles_.end())
-      return std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it->second);
+    auto it = profiles_.find(ns);
+    if (it == profiles_.end())
+      throw std::runtime_error("Profile namespace does not exist for '" + ns + "'!");
 
-    throw std::runtime_error("Profile entry does not exist for type name " +
-                             std::string(std::type_index(typeid(ProfileType)).name()));
+    auto it2 = it->second.find(std::type_index(typeid(ProfileType)));
+    if (it2 != it->second.end())
+      return std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it2->second);
+
+    throw std::runtime_error("Profile entry does not exist for type name '" +
+                             std::string(std::type_index(typeid(ProfileType)).name()) + "' in namespace '" + ns + "'!");
   }
 
   /**
    * @brief Add a profile
    * @details If the profile entry does not exist it will create one
+   * @param ns The profile namespace
    * @param profile_name The profile name
    * @param profile The profile to add
    */
   template <typename ProfileType>
-  void addProfile(const std::string& profile_name, std::shared_ptr<const ProfileType> profile)
+  void addProfile(const std::string& ns, const std::string& profile_name, std::shared_ptr<const ProfileType> profile)
   {
+    if (ns.empty())
+      throw std::runtime_error("Adding profile with an empty namespace!");
+
     if (profile_name.empty())
       throw std::runtime_error("Adding profile with an empty string as the key!");
 
@@ -108,17 +126,27 @@ public:
       throw std::runtime_error("Adding profile that is a nullptr");
 
     std::unique_lock lock(mutex_);
-    auto it = profiles_.find(std::type_index(typeid(ProfileType)));
-    if (it != profiles_.end())
-    {
-      std::any_cast<std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it->second)[profile_name] =
-          profile;
-    }
-    else
+    auto it = profiles_.find(ns);
+    if (it == profiles_.end())
     {
       std::unordered_map<std::string, std::shared_ptr<const ProfileType>> new_entry;
       new_entry[profile_name] = profile;
-      profiles_[std::type_index(typeid(ProfileType))] = new_entry;
+      profiles_[ns][std::type_index(typeid(ProfileType))] = new_entry;
+    }
+    else
+    {
+      auto it2 = it->second.find(std::type_index(typeid(ProfileType)));
+      if (it2 != it->second.end())
+      {
+        std::any_cast<std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it2->second)[profile_name] =
+            profile;
+      }
+      else
+      {
+        std::unordered_map<std::string, std::shared_ptr<const ProfileType>> new_entry;
+        new_entry[profile_name] = profile;
+        it->second[std::type_index(typeid(ProfileType))] = new_entry;
+      }
     }
   }
 
@@ -128,16 +156,20 @@ public:
    * @return True if profile exists, otherwise false
    */
   template <typename ProfileType>
-  bool hasProfile(const std::string& profile_name) const
+  bool hasProfile(const std::string& ns, const std::string& profile_name) const
   {
     std::shared_lock lock(mutex_);
-    auto it = profiles_.find(std::type_index(typeid(ProfileType)));
-    if (it != profiles_.end())
+    auto it = profiles_.find(ns);
+    if (it == profiles_.end())
+      return false;
+
+    auto it2 = it->second.find(std::type_index(typeid(ProfileType)));
+    if (it2 != it->second.end())
     {
       const auto& profile_map =
-          std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it->second);
-      auto it2 = profile_map.find(profile_name);
-      if (it2 != profile_map.end())
+          std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it2->second);
+      auto it3 = profile_map.find(profile_name);
+      if (it3 != profile_map.end())
         return true;
     }
     return false;
@@ -150,12 +182,13 @@ public:
    * @return The profile
    */
   template <typename ProfileType>
-  std::shared_ptr<const ProfileType> getProfile(const std::string& profile_name) const
+  std::shared_ptr<const ProfileType> getProfile(const std::string& ns, const std::string& profile_name) const
   {
     std::shared_lock lock(mutex_);
-    auto it = profiles_.at(std::type_index(typeid(ProfileType)));
+    const auto& it = profiles_.at(ns);
+    const auto& it2 = it.at(std::type_index(typeid(ProfileType)));
     const auto& profile_map =
-        std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it);
+        std::any_cast<const std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it2);
     return profile_map.at(profile_name);
   }
 
@@ -164,17 +197,21 @@ public:
    * @param profile_name The profile to be removed
    */
   template <typename ProfileType>
-  void removeProfile(const std::string& profile_name)
+  void removeProfile(const std::string& ns, const std::string& profile_name)
   {
     std::unique_lock lock(mutex_);
-    auto it = profiles_.find(std::type_index(typeid(ProfileType)));
-    if (it != profiles_.end())
-      std::any_cast<std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it->second)
+    auto it = profiles_.find(ns);
+    if (it == profiles_.end())
+      return;
+
+    auto it2 = it->second.find(std::type_index(typeid(ProfileType)));
+    if (it2 != it->second.end())
+      std::any_cast<std::unordered_map<std::string, std::shared_ptr<const ProfileType>>&>(it2->second)
           .erase(profile_name);
   }
 
 protected:
-  std::unordered_map<std::type_index, std::any> profiles_;
+  std::unordered_map<std::string, std::unordered_map<std::type_index, std::any>> profiles_;
   mutable std::shared_mutex mutex_;
 };
 }  // namespace tesseract_planning

@@ -33,7 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_process_managers/core/utils.h>
-#include <tesseract_process_managers/task_generators/time_optimal_trajectory_generation_task_generator.h>
+#include <tesseract_process_managers/task_generators/time_optimal_parameterization_task_generator.h>
+#include <tesseract_process_managers/task_profiles/time_optimal_parameterization_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils/filter_functions.h>
@@ -44,25 +45,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TimeOptimalTrajectoryGenerationProfile::TimeOptimalTrajectoryGenerationProfile(double max_velocity_scaling_factor,
-                                                                               double max_acceleration_scaling_factor,
-                                                                               double path_tolerance,
-                                                                               double resample_dt,
-                                                                               double min_angle_change)
-  : max_velocity_scaling_factor(max_velocity_scaling_factor)
-  , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
-  , path_tolerance(path_tolerance)
-  , resample_dt(resample_dt)
-  , min_angle_change(min_angle_change)
-{
-}
-
-TimeOptimalTrajectoryGenerationTaskGenerator::TimeOptimalTrajectoryGenerationTaskGenerator(std::string name)
+TimeOptimalParameterizationTaskGenerator::TimeOptimalParameterizationTaskGenerator(std::string name)
   : TaskGenerator(std::move(name))
 {
 }
 
-int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
+int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
 {
   if (input.isAborted())
     return 0;
@@ -93,10 +81,10 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(profile, name_, input.composite_profile_remapping);
-  auto cur_composite_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(
-      profile, *input.profiles, std::make_shared<TimeOptimalTrajectoryGenerationProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
+  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  auto cur_composite_profile = getProfile<TimeOptimalParameterizationProfile>(
+      name_, profile, *input.profiles, std::make_shared<TimeOptimalParameterizationProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   // Create data structures for checking for plan profile overrides
   auto flattened = flatten(ci, moveFilter);
@@ -121,10 +109,10 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
     profile = mi.getProfile();
 
     // Check for remapping of the plan profile
-    std::string remap = getProfileString(profile, name_, input.plan_profile_remapping);
-    auto cur_move_profile = getProfile<TimeOptimalTrajectoryGenerationProfile>(
-        remap, *input.profiles, std::make_shared<TimeOptimalTrajectoryGenerationProfile>());
-    cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi.profile_overrides);
+    std::string remap = getProfileString(name_, profile, input.plan_profile_remapping);
+    auto cur_move_profile = getProfile<TimeOptimalParameterizationProfile>(
+        name_, remap, *input.profiles, std::make_shared<TimeOptimalParameterizationProfile>());
+    cur_move_profile = applyProfileOverrides(name_, remap, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)
@@ -193,15 +181,14 @@ int TimeOptimalTrajectoryGenerationTaskGenerator::conditionalProcess(TaskInput i
   return 1;
 }
 
-void TimeOptimalTrajectoryGenerationTaskGenerator::process(TaskInput input, std::size_t unique_id) const
+void TimeOptimalParameterizationTaskGenerator::process(TaskInput input, std::size_t unique_id) const
 {
   conditionalProcess(input, unique_id);
 }
 
-CompositeInstruction
-TimeOptimalTrajectoryGenerationTaskGenerator::unflatten(const CompositeInstruction& flattened_input,
-                                                        const CompositeInstruction& pattern,
-                                                        double tolerance)
+CompositeInstruction TimeOptimalParameterizationTaskGenerator::unflatten(const CompositeInstruction& flattened_input,
+                                                                         const CompositeInstruction& pattern,
+                                                                         double tolerance)
 {
   CompositeInstruction unflattened(pattern);
   unflattened.setStartInstruction(flattened_input.getStartInstruction());

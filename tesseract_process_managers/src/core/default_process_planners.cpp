@@ -61,7 +61,7 @@ TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_colli
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  auto interpolator = std::make_shared<SimpleMotionPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -115,7 +115,7 @@ TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  auto interpolator = std::make_shared<SimpleMotionPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -169,7 +169,7 @@ TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collisin
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  auto interpolator = std::make_shared<SimpleMotionPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -223,7 +223,7 @@ TaskflowGenerator::UPtr createDescartesGenerator(bool check_input, bool post_col
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  auto interpolator = std::make_shared<SimpleMotionPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -277,7 +277,7 @@ TaskflowGenerator::UPtr createDescartesOnlyGenerator(bool check_input)
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  auto interpolator = std::make_shared<SimpleMotionPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -312,7 +312,7 @@ TaskflowGenerator::UPtr createCartesianGenerator(bool check_input)
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  auto interpolator = std::make_shared<SimpleMotionPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -360,7 +360,7 @@ TaskflowGenerator::UPtr createFreespaceGenerator(bool check_input)
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  auto interpolator = std::make_shared<SimpleMotionPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -408,7 +408,7 @@ TaskflowGenerator::UPtr createFreespaceTrajOptFirstGenerator(bool check_input)
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>("Interpolator");
+  auto interpolator = std::make_shared<SimpleMotionPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator

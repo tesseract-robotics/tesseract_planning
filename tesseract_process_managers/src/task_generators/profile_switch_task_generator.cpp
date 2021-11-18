@@ -30,14 +30,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/profile_switch_task_generator.h>
+#include <tesseract_process_managers/task_profiles/profile_switch_profile.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
 {
-ProfileSwitchProfile::ProfileSwitchProfile(const int& return_value) : return_value(return_value) {}
-
 ProfileSwitchTaskGenerator::ProfileSwitchTaskGenerator(std::string name) : TaskGenerator(std::move(name)) {}
 
 int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
@@ -64,14 +63,13 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 0;
   }
 
-  const auto& ci = input_instruction->as<CompositeInstruction>();
-
   // Get Composite Profile
+  const auto& ci = input_instruction->as<CompositeInstruction>();
   std::string profile = ci.getProfile();
-  profile = getProfileString(profile, name_, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile =
-      getProfile<ProfileSwitchProfile>(profile, *input.profiles, std::make_shared<ProfileSwitchProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
+      getProfile<ProfileSwitchProfile>(name_, profile, *input.profiles, std::make_shared<ProfileSwitchProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);

@@ -32,32 +32,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/continuous_contact_check_task_generator.h>
+#include <tesseract_process_managers/task_profiles/contact_check_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
 {
 ContinuousContactCheckTaskGenerator::ContinuousContactCheckTaskGenerator(std::string name)
   : TaskGenerator(std::move(name))
 {
-  config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-  config.longest_valid_segment_length = 0.05;
-  config.collision_margin_data = tesseract_collision::CollisionMarginData(0);
-}
-
-ContinuousContactCheckTaskGenerator::ContinuousContactCheckTaskGenerator(double longest_valid_segment_length,
-                                                                         double contact_distance,
-                                                                         std::string name)
-  : TaskGenerator(std::move(name))
-{
-  config.longest_valid_segment_length = longest_valid_segment_length;
-  config.type = tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS;
-  config.collision_margin_data = tesseract_collision::CollisionMarginData(contact_distance);
-  if (config.longest_valid_segment_length <= 0)
-  {
-    CONSOLE_BRIDGE_logWarn("ContinuousContactCheckTaskGenerator: Invalid longest valid segment. Defaulting to 0.05");
-    config.longest_valid_segment_length = 0.05;
-  }
 }
 
 int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
@@ -85,17 +69,24 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
     return 0;
   }
 
+  // Get Composite Profile
+  const auto& ci = input_results->as<CompositeInstruction>();
+  std::string profile = ci.getProfile();
+  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  auto cur_composite_profile =
+      getProfile<ContactCheckProfile>(name_, profile, *input.profiles, std::make_shared<ContactCheckProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
+
   // Get state solver
   tesseract_kinematics::JointGroup::UPtr manip = input.env->getJointGroup(input.manip_info.manipulator);
   tesseract_scene_graph::StateSolver::UPtr state_solver = input.env->getStateSolver();
 
   tesseract_collision::ContinuousContactManager::Ptr manager = input.env->getContinuousContactManager();
-  manager->setCollisionMarginData(config.collision_margin_data);
+  manager->setCollisionMarginData(cur_composite_profile->config.collision_margin_data);
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
 
-  const auto& ci = input_results->as<CompositeInstruction>();
   std::vector<tesseract_collision::ContactResultMap> contacts;
-  if (contactCheckProgram(contacts, *manager, *state_solver, ci, config))
+  if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->config))
   {
     CONSOLE_BRIDGE_logInform("Results are not contact free for process input: %s!",
                              input_results->getDescription().c_str());

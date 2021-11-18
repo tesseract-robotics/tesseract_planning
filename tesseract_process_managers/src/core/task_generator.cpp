@@ -28,7 +28,11 @@
 
 namespace tesseract_planning
 {
-TaskGenerator::TaskGenerator(std::string name) : name_(std::move(name)) {}
+TaskGenerator::TaskGenerator(std::string name) : name_(std::move(name))
+{
+  if (name_.empty())
+    throw std::runtime_error("TaskGenerator name is empty!");
+}
 
 const std::string& TaskGenerator::getName() const { return name_; }
 

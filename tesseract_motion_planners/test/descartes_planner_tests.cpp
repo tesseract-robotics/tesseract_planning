@@ -51,6 +51,7 @@ using namespace tesseract_collision;
 using namespace tesseract_planning;
 using namespace tesseract_kinematics;
 using namespace descartes_light;
+using namespace tesseract_planning::profile_ns;
 
 const bool DEBUG = false;
 
@@ -140,7 +141,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<DescartesPlanProfile<double>>("TEST_PROFILE", plan_profile);
+  profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner;
@@ -164,7 +165,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   {
     // Test the problem generator
     {
-      auto problem = single_descartes_planner.createProblem(single_descartes_planner.getName(), request);
+      auto problem = single_descartes_planner.createProblem(request);
       EXPECT_EQ(problem->samplers.size(), 11);
       EXPECT_EQ(problem->edge_evaluators.size(), 10);
     }
@@ -260,7 +261,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<DescartesPlanProfile<double>>("TEST_PROFILE", plan_profile);
+  profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner
   DescartesMotionPlannerD single_descartes_planner;
@@ -274,7 +275,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   request.env_state = cur_state;
   request.profiles = profiles;
 
-  auto problem = single_descartes_planner.createProblem(single_descartes_planner.getName(), request);
+  auto problem = single_descartes_planner.createProblem(request);
   problem->num_threads = 1;
   EXPECT_EQ(problem->samplers.size(), 11);
   EXPECT_EQ(problem->edge_evaluators.size(), 10);
@@ -367,7 +368,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<DescartesPlanProfile<double>>("TEST_PROFILE", plan_profile);
+  profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planning Request
   PlannerRequest request;
@@ -382,7 +383,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   plan_profile->num_threads = 1;
 
   // Test Problem size - TODO: Make dedicated unit test for DefaultDescartesProblemGenerator
-  auto problem = single_descartes_planner.createProblem(single_descartes_planner.getName(), request);
+  auto problem = single_descartes_planner.createProblem(request);
   EXPECT_EQ(problem->samplers.size(), 3);
   EXPECT_EQ(problem->edge_evaluators.size(), 2);
   EXPECT_EQ(problem->num_threads, 1);

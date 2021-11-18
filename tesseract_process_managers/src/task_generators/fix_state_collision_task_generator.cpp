@@ -264,14 +264,7 @@ bool ApplyCorrectionWorkflow(Waypoint& waypoint,
   return false;
 }
 
-FixStateCollisionTaskGenerator::FixStateCollisionTaskGenerator(std::string name) : TaskGenerator(std::move(name))
-{
-  // Register default profile
-  auto default_profile = std::make_shared<FixStateCollisionProfile>();
-  default_profile->collision_check_config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
-  default_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::DISCRETE;
-  composite_profiles["DEFAULT"] = default_profile;
-}
+FixStateCollisionTaskGenerator::FixStateCollisionTaskGenerator(std::string name) : TaskGenerator(std::move(name)) {}
 
 int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
 {
@@ -302,10 +295,10 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(profile, name_, input.composite_profile_remapping);
-  auto cur_composite_profile =
-      getProfile<FixStateCollisionProfile>(profile, *input.profiles, std::make_shared<FixStateCollisionProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
+  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  auto cur_composite_profile = getProfile<FixStateCollisionProfile>(
+      name_, profile, *input.profiles, std::make_shared<FixStateCollisionProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   switch (cur_composite_profile->mode)
   {

@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
 
@@ -58,7 +59,7 @@ class OMPLMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a planner */
-  OMPLMotionPlanner(std::string name = "OMPL");
+  OMPLMotionPlanner(std::string name = profile_ns::OMPL_DEFAULT_NAMESPACE);
 
   const std::string& getName() const override;
 
@@ -93,7 +94,7 @@ public:
 
   static bool checkUserInput(const PlannerRequest& request);
 
-  virtual std::vector<OMPLProblem::Ptr> createProblems(const std::string& name, const PlannerRequest& request) const;
+  virtual std::vector<OMPLProblem::Ptr> createProblems(const PlannerRequest& request) const;
 
 protected:
   /** @brief Name of planner */

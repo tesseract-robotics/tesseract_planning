@@ -27,50 +27,11 @@
 #define TESSERACT_PROCESS_MANAGERS_FIX_STATE_COLLISION_TASK_GENERATOR_H
 
 #include <tesseract_process_managers/core/task_generator.h>
+#include <tesseract_process_managers/core/default_task_namespaces.h>
+#include <tesseract_process_managers/task_profiles/fix_state_collision_profile.h>
 
 namespace tesseract_planning
 {
-struct FixStateCollisionProfile
-{
-  using Ptr = std::shared_ptr<FixStateCollisionProfile>;
-  using ConstPtr = std::shared_ptr<const FixStateCollisionProfile>;
-
-  enum class Settings
-  {
-    START_ONLY,
-    END_ONLY,
-    ALL,
-    DISABLED
-  };
-
-  /** @brief Used to specify method used to correct states in collision */
-  enum class CorrectionMethod
-  {
-    NONE,
-    TRAJOPT,
-    RANDOM_SAMPLER
-  };
-
-  FixStateCollisionProfile(Settings mode = Settings::ALL) : mode(mode) {}
-
-  /** @brief Sets which terms will be corrected  */
-  Settings mode;
-
-  /** @brief Order that correction methods will be applied. These will be attempted in order until one succeeds or all
-   * have been tried */
-  std::vector<CorrectionMethod> correction_workflow{ CorrectionMethod::TRAJOPT, CorrectionMethod::RANDOM_SAMPLER };
-
-  /** @brief Percent of the total joint range that a joint will be allowed to be adjusted */
-  double jiggle_factor{ 0.02 };
-
-  /** @brief Safety margin applied to collision costs/cnts when using trajopt to correct collisions */
-  tesseract_collision::CollisionCheckConfig collision_check_config;
-
-  /** @brief Number of sampling attempts if TrajOpt correction fails*/
-  int sampling_attempts{ 100 };
-};
-using FixStateCollisionProfileMap = std::unordered_map<std::string, FixStateCollisionProfile::ConstPtr>;
-
 /**
  * @brief This generator modifies the const input instructions in order to push waypoints that are in collision out of
  * collision.
@@ -82,7 +43,7 @@ class FixStateCollisionTaskGenerator : public TaskGenerator
 public:
   using UPtr = std::unique_ptr<FixStateCollisionTaskGenerator>;
 
-  FixStateCollisionTaskGenerator(std::string name = "Fix State Collision");
+  FixStateCollisionTaskGenerator(std::string name = profile_ns::FIX_STATE_COLLISION_DEFAULT_NAMESPACE);
 
   ~FixStateCollisionTaskGenerator() override = default;
   FixStateCollisionTaskGenerator(const FixStateCollisionTaskGenerator&) = delete;
@@ -90,11 +51,9 @@ public:
   FixStateCollisionTaskGenerator(FixStateCollisionTaskGenerator&&) = delete;
   FixStateCollisionTaskGenerator& operator=(FixStateCollisionTaskGenerator&&) = delete;
 
-  FixStateCollisionProfileMap composite_profiles;
+  int conditionalProcess(TaskInput input, std::size_t unique_id) const override final;
 
-  int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
-
-  void process(TaskInput input, std::size_t unique_id) const override;
+  void process(TaskInput input, std::size_t unique_id) const override final;
 };
 
 class FixStateCollisionTaskInfo : public TaskInfo
@@ -103,7 +62,8 @@ public:
   using Ptr = std::shared_ptr<FixStateCollisionTaskInfo>;
   using ConstPtr = std::shared_ptr<const FixStateCollisionTaskInfo>;
 
-  FixStateCollisionTaskInfo(std::size_t unique_id, std::string name = "Fix State Collision");
+  FixStateCollisionTaskInfo(std::size_t unique_id,
+                            std::string name = profile_ns::FIX_STATE_COLLISION_DEFAULT_NAMESPACE);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 };

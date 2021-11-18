@@ -65,11 +65,12 @@ static CompositeInstruction generateSeed(const CompositeInstruction& instruction
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(instructions.getProfile(), profile);
+  profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), instructions.getProfile(), profile);
   auto flat = flattenProgram(instructions);
   for (const auto& i : flat)
     if (isPlanInstruction(i.get()))
-      profiles->addProfile<SimplePlannerPlanProfile>(i.get().as<PlanInstruction>().getProfile(), profile);
+      profiles->addProfile<SimplePlannerPlanProfile>(
+          planner.getName(), i.get().as<PlanInstruction>().getProfile(), profile);
 
   // Assign profile dictionary
   request.profiles = profiles;

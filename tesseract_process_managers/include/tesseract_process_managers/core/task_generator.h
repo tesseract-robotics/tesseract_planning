@@ -49,7 +49,12 @@ class TaskGenerator
 public:
   using UPtr = std::unique_ptr<TaskGenerator>;
 
-  TaskGenerator(std::string name = "");
+  /**
+   * @brief A task generator base class
+   * @details The name parameter should also be used as the namespace when looking up profiles in the profile dictionary
+   * @param name The name given to the task.
+   */
+  TaskGenerator(std::string name);
   virtual ~TaskGenerator() = default;
   TaskGenerator(const TaskGenerator&) = delete;
   TaskGenerator& operator=(const TaskGenerator&) = delete;
@@ -58,6 +63,7 @@ public:
 
   /**
    * @brief Get the task name
+   * @details This is also the namespace that is used when looking up profiles in the profile dictionary
    * @return The name
    */
   virtual const std::string& getName() const;

@@ -50,6 +50,7 @@ using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_planning;
+using namespace tesseract_planning::profile_ns;
 
 std::string locateResource(const std::string& url)
 {
@@ -162,8 +163,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>("TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -190,7 +191,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
     composite_profile->collision_constraint_config.enabled = t4;
     composite_profile->collision_cost_config.enabled = t4;
 
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -236,8 +237,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>("TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -251,7 +252,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   request.profiles = profiles;
 
   {
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -266,7 +267,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   {
     plan_profile->term_type = trajopt::TermType::TT_COST;
 
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -316,8 +317,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>("TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -331,7 +332,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   request.profiles = profiles;
 
   {
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -346,7 +347,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
 
   {
     plan_profile->term_type = trajopt::TermType::TT_COST;
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -400,8 +401,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>("TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -415,7 +416,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   request.profiles = profiles;
 
   {
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -430,7 +431,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
 
   {
     plan_profile->term_type = trajopt::TermType::TT_COST;
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -484,8 +485,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>("TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -499,7 +500,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   request.profiles = profiles;
 
   {
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -513,7 +514,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   }
   {
     plan_profile->term_type = trajopt::TermType::TT_COST;
-    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+    std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
     trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -568,8 +569,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>("TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -599,7 +600,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
     composite_profile->collision_constraint_config.enabled = t4;
     composite_profile->collision_cost_config.enabled = t4;
 
-    pci = test_planner.createProblem(test_planner.getName(), request);
+    pci = test_planner.createProblem(request);
 
     problem = trajopt::ConstructProblem(*pci);
 
@@ -660,8 +661,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>("TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -674,7 +675,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   request.env_state = cur_state;
   request.profiles = profiles;
 
-  std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+  std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
   trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
@@ -731,8 +732,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<TrajOptPlanProfile>("TEST_PROFILE", plan_profile);
-  profiles->addProfile<TrajOptCompositeProfile>("TEST_PROFILE", composite_profile);
+  profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
+  profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "TEST_PROFILE", composite_profile);
 
   // Create Planner
   TrajOptMotionPlanner test_planner;
@@ -745,7 +746,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   request.env_state = cur_state;
   request.profiles = profiles;
 
-  std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(test_planner.getName(), request);
+  std::shared_ptr<trajopt::ProblemConstructionInfo> pci = test_planner.createProblem(request);
 
   trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
