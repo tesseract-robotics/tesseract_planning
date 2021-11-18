@@ -67,6 +67,7 @@ using namespace tesseract_environment;
 using namespace tesseract_geometry;
 using namespace tesseract_kinematics;
 using namespace tesseract_planning;
+using namespace tesseract_planning::profile_ns;
 
 const static int SEED = 1;
 const static std::vector<double> start_state = { -0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
@@ -212,7 +213,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>("TEST_PROFILE", plan_profile);
+  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
@@ -369,7 +370,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>("TEST_PROFILE", plan_profile);
+  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
@@ -463,7 +464,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
 
   // Profile Dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>("TEST_PROFILE", plan_profile);
+  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;

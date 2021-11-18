@@ -99,24 +99,24 @@ TEST_F(TesseractPlanningUtilsUnit, GetProfileStringTest)  // NOLINT
   remapping["Planner_2"] = remap;
 
   // Empty input profile
-  std::string output_profile = getProfileString(input_profile, planner_name, remapping);
+  std::string output_profile = getProfileString(planner_name, input_profile, remapping);
   EXPECT_EQ(output_profile, "DEFAULT");
-  output_profile = getProfileString(input_profile, planner_name, remapping, default_planner);
+  output_profile = getProfileString(planner_name, input_profile, remapping, default_planner);
   EXPECT_EQ(output_profile, default_planner);
 
   // Planner name doesn't match
   input_profile = "profile_1";
-  output_profile = getProfileString(input_profile, planner_name, remapping, default_planner);
+  output_profile = getProfileString(planner_name, input_profile, remapping, default_planner);
   EXPECT_EQ(input_profile, output_profile);
 
   // Profile name doesn't match
   input_profile = "doesnt_match";
-  output_profile = getProfileString(input_profile, "Planner_2", remapping, default_planner);
+  output_profile = getProfileString("Planner_2", input_profile, remapping, default_planner);
   EXPECT_EQ(input_profile, output_profile);
 
   // Successful remap
   input_profile = "profile_1";
-  output_profile = getProfileString(input_profile, "Planner_2", remapping, default_planner);
+  output_profile = getProfileString("Planner_2", input_profile, remapping, default_planner);
   EXPECT_EQ(output_profile, "profile_1_remapped");
 }
 

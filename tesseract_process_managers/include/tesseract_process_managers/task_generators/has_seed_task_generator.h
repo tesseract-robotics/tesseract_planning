@@ -27,6 +27,7 @@
 #define TESSERACT_PROCESS_MANAGERS_HAS_SEED_TASK_GENERATOR_H
 
 #include <tesseract_process_managers/core/task_generator.h>
+#include <tesseract_process_managers/core/default_task_namespaces.h>
 
 namespace tesseract_planning
 {
@@ -35,7 +36,7 @@ class HasSeedTaskGenerator : public TaskGenerator
 public:
   using UPtr = std::unique_ptr<HasSeedTaskGenerator>;
 
-  HasSeedTaskGenerator(std::string name = "Has Seed");
+  HasSeedTaskGenerator(std::string name = profile_ns::HAS_SEED_DEFAULT_NAMESPACE);
 
   ~HasSeedTaskGenerator() override = default;
   HasSeedTaskGenerator(const HasSeedTaskGenerator&) = delete;
@@ -43,9 +44,9 @@ public:
   HasSeedTaskGenerator(HasSeedTaskGenerator&&) = delete;
   HasSeedTaskGenerator& operator=(HasSeedTaskGenerator&&) = delete;
 
-  int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
+  int conditionalProcess(TaskInput input, std::size_t unique_id) const override final;
 
-  void process(TaskInput input, std::size_t unique_id) const override;
+  void process(TaskInput input, std::size_t unique_id) const override final;
 };
 
 class HasSeedTaskInfo : public TaskInfo
@@ -54,7 +55,7 @@ public:
   using Ptr = std::shared_ptr<HasSeedTaskInfo>;
   using ConstPtr = std::shared_ptr<const HasSeedTaskInfo>;
 
-  HasSeedTaskInfo(std::size_t unique_id, std::string name = "Has Seed");
+  HasSeedTaskInfo(std::size_t unique_id, std::string name = profile_ns::HAS_SEED_DEFAULT_NAMESPACE);
 };
 }  // namespace tesseract_planning
 

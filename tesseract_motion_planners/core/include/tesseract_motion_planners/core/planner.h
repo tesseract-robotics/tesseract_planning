@@ -53,7 +53,10 @@ public:
   MotionPlanner(MotionPlanner&&) = delete;
   MotionPlanner& operator=(MotionPlanner&&) = delete;
 
-  /** @brief Get the name of this planner */
+  /**
+   *  @brief Get the name of this planner
+   *  @details This is also used as the namespace for the profiles in the profile dictionary
+   */
   virtual const std::string& getName() const = 0;
 
   /**

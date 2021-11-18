@@ -70,6 +70,8 @@ std::string SimpleMotionPlannerStatusCategory::message(int code) const
 SimpleMotionPlanner::SimpleMotionPlanner(std::string name)
   : name_(std::move(name)), status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
 {
+  if (name_.empty())
+    throw std::runtime_error("SimpleMotionPlanner name is empty!");
 }
 
 const std::string& SimpleMotionPlanner::getName() const { return name_; }
@@ -220,10 +222,11 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
     {
       const auto& base_instruction = instruction.as<PlanInstruction>();
 
-      std::string profile = getProfileString(base_instruction.getProfile(), name_, request.plan_profile_remapping);
+      std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
       SimplePlannerPlanProfile::ConstPtr start_plan_profile = getProfile<SimplePlannerPlanProfile>(
-          profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-      start_plan_profile = applyProfileOverrides(name_, start_plan_profile, base_instruction.profile_overrides);
+          name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+      start_plan_profile =
+          applyProfileOverrides(name_, profile, start_plan_profile, base_instruction.profile_overrides);
       if (!start_plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid start profile");
 

@@ -25,6 +25,7 @@
 #define TESSERACT_PROCESS_MANAGERS_PROFILE_SWITCH_TASK_GENERATOR_H
 
 #include <tesseract_process_managers/core/task_generator.h>
+#include <tesseract_process_managers/core/default_task_namespaces.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::ProfileSwitchProfile)
@@ -34,17 +35,6 @@
 
 namespace tesseract_planning
 {
-struct ProfileSwitchProfile
-{
-  ProfileSwitchProfile(const int& return_value = 1);
-
-  using Ptr = std::shared_ptr<ProfileSwitchProfile>;
-  using ConstPtr = std::shared_ptr<const ProfileSwitchProfile>;
-
-  int return_value;
-};
-using ProfileSwitchProfileMap = std::unordered_map<std::string, ProfileSwitchProfile::ConstPtr>;
-
 /**
  * @brief This generator simply returns a value specified in the composite profile. This can be used to switch execution
  * based on the profile
@@ -54,7 +44,7 @@ class ProfileSwitchTaskGenerator : public TaskGenerator
 public:
   using UPtr = std::unique_ptr<ProfileSwitchTaskGenerator>;
 
-  ProfileSwitchTaskGenerator(std::string name = "Profile Switch");
+  ProfileSwitchTaskGenerator(std::string name = profile_ns::PROFILE_SWITCH_DEFAULT_NAMESPACE);
 
   ~ProfileSwitchTaskGenerator() override = default;
   ProfileSwitchTaskGenerator(const ProfileSwitchTaskGenerator&) = delete;
@@ -62,9 +52,9 @@ public:
   ProfileSwitchTaskGenerator(ProfileSwitchTaskGenerator&&) = delete;
   ProfileSwitchTaskGenerator& operator=(ProfileSwitchTaskGenerator&&) = delete;
 
-  int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
+  int conditionalProcess(TaskInput input, std::size_t unique_id) const override final;
 
-  void process(TaskInput input, std::size_t unique_id) const override;
+  void process(TaskInput input, std::size_t unique_id) const override final;
 };
 
 class ProfileSwitchTaskInfo : public TaskInfo
@@ -73,7 +63,7 @@ public:
   using Ptr = std::shared_ptr<ProfileSwitchTaskInfo>;
   using ConstPtr = std::shared_ptr<const ProfileSwitchTaskInfo>;
 
-  ProfileSwitchTaskInfo(std::size_t unique_id, std::string name = "Profile Switch");
+  ProfileSwitchTaskInfo(std::size_t unique_id, std::string name = profile_ns::PROFILE_SWITCH_DEFAULT_NAMESPACE);
 };
 }  // namespace tesseract_planning
 

@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h>
+#include <tesseract_process_managers/task_profiles/fix_state_bounds_profile.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_command_language/utils/filter_functions.h>
 #include <tesseract_motion_planners/planner_utils.h>
@@ -73,10 +74,10 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(profile, name_, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile =
-      getProfile<FixStateBoundsProfile>(profile, *input.profiles, std::make_shared<FixStateBoundsProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
+      getProfile<FixStateBoundsProfile>(name_, profile, *input.profiles, std::make_shared<FixStateBoundsProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   if (cur_composite_profile->mode == FixStateBoundsProfile::Settings::DISABLED)
   {

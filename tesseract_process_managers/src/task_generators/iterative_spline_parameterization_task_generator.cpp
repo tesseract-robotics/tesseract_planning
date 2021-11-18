@@ -33,22 +33,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/iterative_spline_parameterization_task_generator.h>
+#include <tesseract_process_managers/task_profiles/interative_spline_parameterization_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils/filter_functions.h>
 #include <tesseract_command_language/utils/flatten_utils.h>
-#include <tesseract_time_parameterization/iterative_spline_parameterization.h>
 #include <tesseract_time_parameterization/instructions_trajectory.h>
 
 namespace tesseract_planning
 {
-IterativeSplineParameterizationProfile::IterativeSplineParameterizationProfile(double max_velocity_scaling_factor,
-                                                                               double max_acceleration_scaling_factor)
-  : max_velocity_scaling_factor(max_velocity_scaling_factor)
-  , max_acceleration_scaling_factor(max_acceleration_scaling_factor)
-{
-}
-
 IterativeSplineParameterizationTaskGenerator::IterativeSplineParameterizationTaskGenerator(bool add_points,
                                                                                            std::string name)
   : TaskGenerator(std::move(name)), solver_(add_points)
@@ -86,10 +79,10 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
-  profile = getProfileString(profile, name_, input.composite_profile_remapping);
+  profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
-      profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, cur_composite_profile, ci.profile_overrides);
+      name_, profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   // Create data structures for checking for plan profile overrides
   auto flattened = flatten(ci, moveFilter);
@@ -114,10 +107,10 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
     std::string plan_profile = mi.getProfile();
 
     // Check for remapping of the plan profile
-    plan_profile = getProfileString(profile, name_, input.plan_profile_remapping);
+    plan_profile = getProfileString(name_, profile, input.plan_profile_remapping);
     auto cur_move_profile = getProfile<IterativeSplineParameterizationProfile>(
-        plan_profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-    cur_move_profile = applyProfileOverrides(name_, cur_move_profile, mi.profile_overrides);
+        name_, plan_profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
+    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)

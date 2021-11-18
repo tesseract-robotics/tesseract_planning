@@ -52,6 +52,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils/utils.h>
 
 using namespace tesseract_planning;
+using namespace tesseract_planning::profile_ns;
 
 std::string locateResource(const std::string& url)
 {
@@ -169,9 +170,9 @@ int main(int /*argc*/, char** /*argv*/)
 
     // Profile Dictionary
     auto profiles = std::make_shared<ProfileDictionary>();
-    profiles->addProfile<DescartesPlanProfile<double>>("DEFAULT", descartes_plan_profile);
-    profiles->addProfile<TrajOptPlanProfile>("DEFAULT", trajopt_plan_profile);
-    profiles->addProfile<TrajOptCompositeProfile>("DEFAULT", trajopt_composite_profile);
+    profiles->addProfile<DescartesPlanProfile<double>>(DESCARTES_DEFAULT_NAMESPACE, "DEFAULT", descartes_plan_profile);
+    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_plan_profile);
+    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
 
     // Create Planning Request
     PlannerRequest request;

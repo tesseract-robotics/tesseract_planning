@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt/problem_description.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_profile.h>
 
@@ -47,7 +48,7 @@ class TrajOptMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a basic planner */
-  TrajOptMotionPlanner(std::string name = "TRAJOPT");
+  TrajOptMotionPlanner(std::string name = profile_ns::TRAJOPT_DEFAULT_NAMESPACE);
 
   ~TrajOptMotionPlanner() override = default;
   TrajOptMotionPlanner(const TrajOptMotionPlanner&) = delete;
@@ -61,7 +62,7 @@ public:
   std::vector<sco::Optimizer::Callback> callbacks;
 
   /**
-   * @brief Sets up the opimizer and solves a SQP problem read from json with no callbacks and dafault parameterss
+   * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
    * @param response The results of the optimization. Primary output is the optimized joint trajectory
    * @param check_type The type of collision check to perform on the planned trajectory
    * @param verbose Boolean indicating whether logging information about the motion planning solution should be printed
@@ -78,8 +79,7 @@ public:
 
   MotionPlanner::Ptr clone() const override;
 
-  virtual std::shared_ptr<trajopt::ProblemConstructionInfo> createProblem(const std::string& name,
-                                                                          const PlannerRequest& request) const;
+  virtual std::shared_ptr<trajopt::ProblemConstructionInfo> createProblem(const PlannerRequest& request) const;
 
   static bool checkUserInput(const PlannerRequest& request);
 

@@ -33,22 +33,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/seed_min_length_task_generator.h>
+#include <tesseract_process_managers/task_profiles/seed_min_length_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_command_language/utils/get_instruction_utils.h>
 
 namespace tesseract_planning
 {
 SeedMinLengthTaskGenerator::SeedMinLengthTaskGenerator(std::string name) : TaskGenerator(std::move(name)) {}
-
-SeedMinLengthTaskGenerator::SeedMinLengthTaskGenerator(long min_length, std::string name)
-  : TaskGenerator(std::move(name)), min_length_(min_length)
-{
-  if (min_length_ <= 1)
-  {
-    CONSOLE_BRIDGE_logWarn("SeedMinLengthTaskGenerator: The min length must be greater than 1, setting to default.");
-    min_length_ = 10;
-  }
-}
 
 int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
 {
@@ -72,9 +64,17 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 0;
   }
 
+  // Get Composite Profile
+  const auto& ci = input_results->as<CompositeInstruction>();
+  std::string profile = ci.getProfile();
+  profile = getProfileString(name_, profile, input.composite_profile_remapping);
+  auto cur_composite_profile =
+      getProfile<SeedMinLengthProfile>(name_, profile, *input.profiles, std::make_shared<SeedMinLengthProfile>());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
+
   auto& results = input_results->as<CompositeInstruction>();
   long cnt = getMoveInstructionCount(results);
-  if (cnt >= min_length_)
+  if (cnt >= cur_composite_profile->min_length)
   {
     info->return_value = 1;
     saveOutputs(*info, input);
@@ -83,7 +83,9 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   }
 
   Instruction start_instruction = results.getStartInstruction();
-  auto subdivisions = static_cast<int>(std::ceil(static_cast<double>(min_length_) / static_cast<double>(cnt))) + 1;
+  auto subdivisions =
+      static_cast<int>(std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt))) +
+      1;
 
   CompositeInstruction new_results(results);
   new_results.clear();

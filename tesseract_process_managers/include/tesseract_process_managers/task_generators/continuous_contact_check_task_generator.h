@@ -31,6 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/task_generator.h>
+#include <tesseract_process_managers/core/default_task_namespaces.h>
 
 namespace tesseract_planning
 {
@@ -39,11 +40,7 @@ class ContinuousContactCheckTaskGenerator : public TaskGenerator
 public:
   using UPtr = std::unique_ptr<ContinuousContactCheckTaskGenerator>;
 
-  ContinuousContactCheckTaskGenerator(std::string name = "Continuous Contact Check Trajectory");
-
-  ContinuousContactCheckTaskGenerator(double longest_valid_segment_length,
-                                      double contact_distance,
-                                      std::string name = "Continuous Contact Check Trajectory");
+  ContinuousContactCheckTaskGenerator(std::string name = profile_ns::CONTINUOUS_CONTACT_CHECK_DEFAULT_NAMESPACE);
 
   ~ContinuousContactCheckTaskGenerator() override = default;
   ContinuousContactCheckTaskGenerator(const ContinuousContactCheckTaskGenerator&) = delete;
@@ -51,11 +48,9 @@ public:
   ContinuousContactCheckTaskGenerator(ContinuousContactCheckTaskGenerator&&) = delete;
   ContinuousContactCheckTaskGenerator& operator=(ContinuousContactCheckTaskGenerator&&) = delete;
 
-  tesseract_collision::CollisionCheckConfig config;
+  int conditionalProcess(TaskInput input, std::size_t unique_id) const override final;
 
-  int conditionalProcess(TaskInput input, std::size_t unique_id) const override;
-
-  void process(TaskInput input, std::size_t unique_id) const override;
+  void process(TaskInput input, std::size_t unique_id) const override final;
 };
 
 class ContinuousContactCheckTaskInfo : public TaskInfo
@@ -64,7 +59,8 @@ public:
   using Ptr = std::shared_ptr<ContinuousContactCheckTaskInfo>;
   using ConstPtr = std::shared_ptr<const ContinuousContactCheckTaskInfo>;
 
-  ContinuousContactCheckTaskInfo(std::size_t unique_id, std::string name = "Continuous Contact Check Trajectory");
+  ContinuousContactCheckTaskInfo(std::size_t unique_id,
+                                 std::string name = profile_ns::CONTINUOUS_CONTACT_CHECK_DEFAULT_NAMESPACE);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 };
