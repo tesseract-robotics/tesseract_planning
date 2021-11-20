@@ -38,11 +38,11 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{DoxyCompactList}\small\item\em Check if a joint is within limits This will allows you to provide joint 4 and joint 6 coupling limits. This will still work if the robot is on a position. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_af7579ecfe9720ccc20d9ee43cd47a589}{tesseract\+\_\+planning\+::is\+Valid\+State}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
 \begin{DoxyCompactList}\small\item\em Check if the robot is in a valid state. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{namespacetesseract__planning_a2c3697d8b33f7e6ffa453a80d765c2dd}{tesseract\+\_\+planning\+::get\+Profile\+String}} (const std\+::string \&profile, const std\+::string \&planner\+\_\+name, const Planner\+Profile\+Remapping \&profile\+\_\+remapping, std\+::string default\+\_\+profile=DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY)
+std\+::string \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{tesseract\+\_\+planning\+::get\+Profile\+String}} (const std\+::string \&ns, const std\+::string \&profile, const Planner\+Profile\+Remapping \&profile\+\_\+remapping, std\+::string default\+\_\+profile=DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY)
 \begin{DoxyCompactList}\small\item\em Get the profile string taking into account defaults and profile remapping. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a128c3b05825f2c7e1901031985e61aef}{tesseract\+\_\+planning\+::get\+Profile}} (const std\+::string \&profile, const Profile\+Dictionary \&profile\+\_\+dictionary, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ default\+\_\+profile=nullptr)
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_ac76e404fb48dd591d085ee3e7ad57a75}{tesseract\+\_\+planning\+::get\+Profile}} (const std\+::string \&ns, const std\+::string \&profile, const Profile\+Dictionary \&profile\+\_\+dictionary, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ default\+\_\+profile=nullptr)
 \begin{DoxyCompactList}\small\item\em Gets the profile specified from the profile map. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a3a4842f5288c1b198e848bae9d1e2ce6}{tesseract\+\_\+planning\+::apply\+Profile\+Overrides}} (const std\+::string task\+\_\+name, const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&nominal\+\_\+profile, const Profile\+Dictionary\+::\+Const\+Ptr \&overrides=nullptr)
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a6990d23e5298e84970b67848a87e25bc}{tesseract\+\_\+planning\+::apply\+Profile\+Overrides}} (const std\+::string \&ns, const std\+::string \&profile, const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&nominal\+\_\+profile, const Profile\+Dictionary\+::\+Const\+Ptr \&overrides=nullptr)
 \begin{DoxyCompactList}\small\item\em Returns either nominal\+\_\+profile or override based on task name passed in. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -57,7 +57,7 @@ June 18, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000049}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000050}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

@@ -32,9 +32,7 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a6051281a476b48b2fd50bd90fcc95a1f}{Seed\+Min\+Length\+Task\+Generator}} (std\+::string name=\char`\"{}Seed Min Length\char`\"{})
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a804be60155f45410817a91b026678fcf}{Seed\+Min\+Length\+Task\+Generator}} (long min\+\_\+length, std\+::string name=\char`\"{}Seed Min Length\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a36e4ee21d832950a509cf698cfa012c7}{Seed\+Min\+Length\+Task\+Generator}} (std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a5ccd8bb62754f8a205bf9b512d62dc24}{profile\+\_\+ns\+::\+SEED\+\_\+\+MIN\+\_\+\+LENGTH\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a3b8e0d070f03f77f7de0b5d9de7867c1}{$\sim$\+Seed\+Min\+Length\+Task\+Generator}} () override=default
 \item 
@@ -46,19 +44,14 @@ using \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a1
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator}{Seed\+Min\+Length\+Task\+Generator}} \& \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a0abfacf207289153c4b1bf8a69405317}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator}{Seed\+Min\+Length\+Task\+Generator}} \&\&)=delete
 \item 
-int \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_af651145e3b09745a3f1bceafe53e545b}{conditional\+Process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+int \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a2964f2e1975ed5bdb372aee1f9c348d3}{conditional\+Process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override final
 \begin{DoxyCompactList}\small\item\em Generate Conditional Task. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a1964cedd6cc87c2b76c7fe0de501d3f2}{process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override
+void \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a05c6f979bb1876db6f3c0c557d8fd727}{process}} (\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} input, std\+::size\+\_\+t unique\+\_\+id) const override final
 \begin{DoxyCompactList}\small\item\em Generated a Task. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a7c08949e74a956b794aaf68f4c4404ac}{subdivide}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&current\+\_\+composite, \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&start\+\_\+instruction, int subdivisions) const
-\end{DoxyCompactItemize}
-\doxysubsection*{Private Attributes}
-\begin{DoxyCompactItemize}
-\item 
-long \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_ae31aee532e8643c3fc58ddddd307a418}{min\+\_\+length\+\_\+}} \{ 10 \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -73,17 +66,11 @@ long \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_ae3
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a6051281a476b48b2fd50bd90fcc95a1f}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a6051281a476b48b2fd50bd90fcc95a1f}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a36e4ee21d832950a509cf698cfa012c7}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a36e4ee21d832950a509cf698cfa012c7}} 
 \index{tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}!SeedMinLengthTaskGenerator@{SeedMinLengthTaskGenerator}}
 \index{SeedMinLengthTaskGenerator@{SeedMinLengthTaskGenerator}!tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}}
-\doxysubsubsection{\texorpdfstring{SeedMinLengthTaskGenerator()}{SeedMinLengthTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::\+Seed\+Min\+Length\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}Seed~Min~Length\char`\"{}} }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a804be60155f45410817a91b026678fcf}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a804be60155f45410817a91b026678fcf}} 
-\index{tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}!SeedMinLengthTaskGenerator@{SeedMinLengthTaskGenerator}}
-\index{SeedMinLengthTaskGenerator@{SeedMinLengthTaskGenerator}!tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}}
-\doxysubsubsection{\texorpdfstring{SeedMinLengthTaskGenerator()}{SeedMinLengthTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::\+Seed\+Min\+Length\+Task\+Generator (\begin{DoxyParamCaption}\item[{long}]{min\+\_\+length,  }\item[{std\+::string}]{name = {\ttfamily \char`\"{}Seed~Min~Length\char`\"{}} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{SeedMinLengthTaskGenerator()}{SeedMinLengthTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::\+Seed\+Min\+Length\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a5ccd8bb62754f8a205bf9b512d62dc24}{profile\+\_\+ns\+::\+SEED\+\_\+\+MIN\+\_\+\+LENGTH\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a3b8e0d070f03f77f7de0b5d9de7867c1}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a3b8e0d070f03f77f7de0b5d9de7867c1}} 
 \index{tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}!````~SeedMinLengthTaskGenerator@{$\sim$SeedMinLengthTaskGenerator}}
@@ -94,23 +81,23 @@ long \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_ae3
 \mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a0267def51bb9033912bea1a3cb14b436}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a0267def51bb9033912bea1a3cb14b436}} 
 \index{tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}!SeedMinLengthTaskGenerator@{SeedMinLengthTaskGenerator}}
 \index{SeedMinLengthTaskGenerator@{SeedMinLengthTaskGenerator}!tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}}
-\doxysubsubsection{\texorpdfstring{SeedMinLengthTaskGenerator()}{SeedMinLengthTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{SeedMinLengthTaskGenerator()}{SeedMinLengthTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::\+Seed\+Min\+Length\+Task\+Generator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator}{Seed\+Min\+Length\+Task\+Generator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a06efe1bbda7a2779649f57bc684efcb3}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a06efe1bbda7a2779649f57bc684efcb3}} 
 \index{tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}!SeedMinLengthTaskGenerator@{SeedMinLengthTaskGenerator}}
 \index{SeedMinLengthTaskGenerator@{SeedMinLengthTaskGenerator}!tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}}
-\doxysubsubsection{\texorpdfstring{SeedMinLengthTaskGenerator()}{SeedMinLengthTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{SeedMinLengthTaskGenerator()}{SeedMinLengthTaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::\+Seed\+Min\+Length\+Task\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator}{Seed\+Min\+Length\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_af651145e3b09745a3f1bceafe53e545b}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_af651145e3b09745a3f1bceafe53e545b}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a2964f2e1975ed5bdb372aee1f9c348d3}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a2964f2e1975ed5bdb372aee1f9c348d3}} 
 \index{tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}!conditionalProcess@{conditionalProcess}}
 \index{conditionalProcess@{conditionalProcess}!tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}}
 \doxysubsubsection{\texorpdfstring{conditionalProcess()}{conditionalProcess()}}
-{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::conditional\+Process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily int tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::conditional\+Process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -140,11 +127,11 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e6
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator}{Seed\+Min\+Length\+Task\+Generator}}\& tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator}{Seed\+Min\+Length\+Task\+Generator}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a1964cedd6cc87c2b76c7fe0de501d3f2}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a1964cedd6cc87c2b76c7fe0de501d3f2}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a05c6f979bb1876db6f3c0c557d8fd727}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a05c6f979bb1876db6f3c0c557d8fd727}} 
 \index{tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}!process@{process}}
 \index{process@{process}!tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}}
 \doxysubsubsection{\texorpdfstring{process()}{process()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}}}]{input,  }\item[{std\+::size\+\_\+t}]{unique\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -167,15 +154,6 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c15055
 \index{subdivide@{subdivide}!tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}}
 \doxysubsubsection{\texorpdfstring{subdivide()}{subdivide()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::subdivide (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{current\+\_\+composite,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{start\+\_\+instruction,  }\item[{int}]{subdivisions }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1SeedMinLengthTaskGenerator_ae31aee532e8643c3fc58ddddd307a418}\label{classtesseract__planning_1_1SeedMinLengthTaskGenerator_ae31aee532e8643c3fc58ddddd307a418}} 
-\index{tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}!min\_length\_@{min\_length\_}}
-\index{min\_length\_@{min\_length\_}!tesseract\_planning::SeedMinLengthTaskGenerator@{tesseract\_planning::SeedMinLengthTaskGenerator}}
-\doxysubsubsection{\texorpdfstring{min\_length\_}{min\_length\_}}
-{\footnotesize\ttfamily long tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator\+::min\+\_\+length\+\_\+ \{ 10 \}\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

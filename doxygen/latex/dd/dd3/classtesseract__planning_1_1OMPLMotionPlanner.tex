@@ -32,7 +32,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::OMPLMotion\+Planner\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_ad889ebb577145280c592dee2b5bcd9c3}{OMPLMotion\+Planner}} (std\+::string name=\char`\"{}OMPL\char`\"{})
+\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a352554812cb613cb02075c3ad662e068}{OMPLMotion\+Planner}} (std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a811e05491f894926eee1f76ec7d05f5d}{profile\+\_\+ns\+::\+OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \begin{DoxyCompactList}\small\item\em Construct a planner. \end{DoxyCompactList}\item 
 const std\+::string \& \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a8e3ee620e4faa02e5782f68ec10e7c23}{get\+Name}} () const override
 \begin{DoxyCompactList}\small\item\em Get the name of this planner. \end{DoxyCompactList}\item 
@@ -44,7 +44,7 @@ void \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a7852b146c5b
 \begin{DoxyCompactList}\small\item\em Clear the data structures used by the planner. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Motion\+Planner\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a468109943a10b09807c769bdb9f39d86}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Clone the motion planner. \end{DoxyCompactList}\item 
-virtual std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a11312a30312549a148c46a54eed5505f}{create\+Problems}} (const std\+::string \&name, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
+virtual std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a26896a1ffb6a331553b3e7dec2af8684}{create\+Problems}} (const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -67,11 +67,11 @@ std\+::shared\+\_\+ptr$<$ ompl\+::tools\+::\+Parallel\+Plan $>$ \mbox{\hyperlink
 This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to take a start and end point and automate the generation of the OMPL problem. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1OMPLMotionPlanner_ad889ebb577145280c592dee2b5bcd9c3}\label{classtesseract__planning_1_1OMPLMotionPlanner_ad889ebb577145280c592dee2b5bcd9c3}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLMotionPlanner_a352554812cb613cb02075c3ad662e068}\label{classtesseract__planning_1_1OMPLMotionPlanner_a352554812cb613cb02075c3ad662e068}} 
 \index{tesseract\_planning::OMPLMotionPlanner@{tesseract\_planning::OMPLMotionPlanner}!OMPLMotionPlanner@{OMPLMotionPlanner}}
 \index{OMPLMotionPlanner@{OMPLMotionPlanner}!tesseract\_planning::OMPLMotionPlanner@{tesseract\_planning::OMPLMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{OMPLMotionPlanner()}{OMPLMotionPlanner()}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+::\+OMPLMotion\+Planner (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}OMPL\char`\"{}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+::\+OMPLMotion\+Planner (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a811e05491f894926eee1f76ec7d05f5d}{profile\+\_\+ns\+::\+OMPL\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
 
 
 
@@ -114,11 +114,11 @@ Clone the motion planner.
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d77127016c7aa39afc4125e2744}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1OMPLMotionPlanner_a11312a30312549a148c46a54eed5505f}\label{classtesseract__planning_1_1OMPLMotionPlanner_a11312a30312549a148c46a54eed5505f}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1OMPLMotionPlanner_a26896a1ffb6a331553b3e7dec2af8684}\label{classtesseract__planning_1_1OMPLMotionPlanner_a26896a1ffb6a331553b3e7dec2af8684}} 
 \index{tesseract\_planning::OMPLMotionPlanner@{tesseract\_planning::OMPLMotionPlanner}!createProblems@{createProblems}}
 \index{createProblems@{createProblems}!tesseract\_planning::OMPLMotionPlanner@{tesseract\_planning::OMPLMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{createProblems()}{createProblems()}}
-{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}} $>$ tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+::create\+Problems (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{OMPLProblem\+::\+Ptr}} $>$ tesseract\+\_\+planning\+::\+OMPLMotion\+Planner\+::create\+Problems (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000012}{Todo}}]Should check that the joint names match the order of the manipulator \end{DoxyRefDesc}
@@ -144,7 +144,7 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d771
 
 Get the name of this planner. 
 
-
+This is also used as the namespace for the profiles in the profile dictionary 
 
 Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b397e6b0c703b5165399e97ed671ee7}{tesseract\+\_\+planning\+::\+Motion\+Planner}}.
 

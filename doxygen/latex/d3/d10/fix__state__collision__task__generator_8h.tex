@@ -6,6 +6,8 @@ Process generator for process that pushes plan instructions to be out of collisi
 
 
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/default\+\_\+task\+\_\+namespaces.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+profiles/fix\+\_\+state\+\_\+collision\+\_\+profile.\+h$>$}\newline
 Include dependency graph for fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+generator.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -25,8 +27,6 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Profile}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator}}
 \begin{DoxyCompactList}\small\item\em This generator modifies the const input instructions in order to push waypoints that are in collision out of collision. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Info}}
@@ -35,11 +35,6 @@ class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{te
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
-\begin{DoxyCompactItemize}
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a64dea74b9f067dcf31db88fa2cdddf82}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, Fix\+State\+Collision\+Profile\+::\+Const\+Ptr $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -69,7 +64,7 @@ August 31. 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000179}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000181}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

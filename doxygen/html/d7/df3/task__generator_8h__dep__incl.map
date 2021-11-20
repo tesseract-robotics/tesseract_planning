@@ -13,8 +13,8 @@
 <area shape="rect" id="node42" href="$d9/df0/motion__planner__task__generator_8h.html" title="Generates a motion planning process." alt="" coords="2891,117,3108,187"/>
 <area shape="rect" id="node44" href="$db/de8/profile__switch__task__generator_8h.html" title="Process generator that returns a value based on the profile." alt="" coords="3990,117,4198,187"/>
 <area shape="rect" id="node46" href="$d9/d5b/seed__min__length__task__generator_8h.html" title=" " alt="" coords="3083,361,3310,432"/>
-<area shape="rect" id="node48" href="$d4/de8/time__optimal__trajectory__generation__task__generator_8h.html" title="Perform TOTG." alt="" coords="4222,109,4449,195"/>
-<area shape="rect" id="node50" href="$d4/d3a/task__generator_8cpp.html" title="Process generator." alt="" coords="4473,131,4667,173"/>
+<area shape="rect" id="node48" href="$df/d92/time__optimal__parameterization__task__generator_8h.html" title="Perform TOTG." alt="" coords="4222,109,4425,195"/>
+<area shape="rect" id="node50" href="$d4/d3a/task__generator_8cpp.html" title="Process generator." alt="" coords="4449,131,4643,173"/>
 <area shape="rect" id="node26" href="$db/db8/taskflow__container_8cpp.html" title="Taskflow container is used to contain everything that must stay around until it finishes." alt="" coords="1513,257,1723,299"/>
 <area shape="rect" id="node4" href="$df/d74/default__process__planners_8h.html" title="The default process planners provided by Tesseract." alt="" coords="161,361,371,432"/>
 <area shape="rect" id="node8" href="$d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="447,361,667,432"/>
@@ -48,5 +48,5 @@
 <area shape="rect" id="node43" href="$db/d7a/motion__planner__task__generator_8cpp.html" title="Perform motion planning." alt="" coords="2915,250,3108,306"/>
 <area shape="rect" id="node45" href="$db/d1d/profile__switch__task__generator_8cpp.html" title=" " alt="" coords="4209,250,4403,306"/>
 <area shape="rect" id="node47" href="$d0/db0/seed__min__length__task__generator_8cpp.html" title=" " alt="" coords="3204,487,3413,543"/>
-<area shape="rect" id="node49" href="$d4/d25/time__optimal__trajectory__generation__task__generator_8cpp.html" title=" " alt="" coords="4427,243,4625,313"/>
+<area shape="rect" id="node49" href="$d4/dfb/time__optimal__parameterization__task__generator_8cpp.html" title=" " alt="" coords="4427,243,4620,313"/>
 </map>

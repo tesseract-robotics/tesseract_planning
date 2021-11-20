@@ -1,0 +1,145 @@
+\hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile}{}\doxysection{tesseract\+\_\+planning\+::Time\+Optimal\+Parameterization\+Profile Struct Reference}
+\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile}\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+
+
+{\ttfamily \#include $<$time\+\_\+optimal\+\_\+parameterization\+\_\+profile.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_acf7e32454e5e1fe597f8410f2eea205b}{Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile}{Time\+Optimal\+Parameterization\+Profile}} $>$
+\item 
+using \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a41730f38c608c917a4e616a10c240a41}{Const\+Ptr}} = std\+::shared\+\_\+ptr$<$ const \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile}{Time\+Optimal\+Parameterization\+Profile}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a4e9fbd4203b65173f8fa47dfa879bb54}{Time\+Optimal\+Parameterization\+Profile}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a94655c80ee60f13163978705fb16d621}{Time\+Optimal\+Parameterization\+Profile}} (double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_af668eef5282dd09ef9c4599a26191613}{max\+\_\+velocity\+\_\+scaling\+\_\+factor}}, double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac91430398dc1e12eec3bcaff584f0d13}{max\+\_\+acceleration\+\_\+scaling\+\_\+factor}}, double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a485ce3f52789d5e598ad64c82a6edc3d}{path\+\_\+tolerance}}, double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_aa1e59d0545f60f8d7a4441a0209f5339}{resample\+\_\+dt}}, double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a387ce3f47bd19079022a57cc82e35a0b}{min\+\_\+angle\+\_\+change}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_af668eef5282dd09ef9c4599a26191613}{max\+\_\+velocity\+\_\+scaling\+\_\+factor}} \{ 1.\+0 \}
+\begin{DoxyCompactList}\small\item\em The max velocity scaling factor passed to the solver. Default\+: 1.\+0. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac91430398dc1e12eec3bcaff584f0d13}{max\+\_\+acceleration\+\_\+scaling\+\_\+factor}} \{ 1.\+0 \}
+\begin{DoxyCompactList}\small\item\em The max acceleration scaling factor passed to the solver. Default\+: 1.\+0. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a485ce3f52789d5e598ad64c82a6edc3d}{path\+\_\+tolerance}} \{ 0.\+1 \}
+\begin{DoxyCompactList}\small\item\em path\+\_\+tolerance. Default\+: 0.\+1 \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_aa1e59d0545f60f8d7a4441a0209f5339}{resample\+\_\+dt}} \{ 0.\+1 \}
+\begin{DoxyCompactList}\small\item\em Timestep used to resample trajectory. Default\+: 0.\+1. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a387ce3f47bd19079022a57cc82e35a0b}{min\+\_\+angle\+\_\+change}} \{ 0.\+001 \}
+\begin{DoxyCompactList}\small\item\em At least one joint must change by greater than this amount for the point to be added. Default\+: 0.\+001. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac98e9b97abd5b5a15abe1f198e171f25}{unflatten}} \{ true \}
+\begin{DoxyCompactList}\small\item\em TOTG flattens the Composite structure. If this is true, the task will attempt to restructure the resulting composite back into the format of the seed. This is required if Move\+Profiles are specified. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ad1f5cf61a0941d1faf318ee408d846ec}{unflatten\+\_\+tolerance}} \{ 0.\+3 \}
+\begin{DoxyCompactList}\small\item\em Tolerance used to unflatten results. When resample\+\_\+dt is small, this can be close to path\+\_\+tolerance. When resample\+\_\+dt is large, this may have to be significantly larger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a41730f38c608c917a4e616a10c240a41}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a41730f38c608c917a4e616a10c240a41}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!ConstPtr@{ConstPtr}}
+\index{ConstPtr@{ConstPtr}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{ConstPtr}{ConstPtr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a41730f38c608c917a4e616a10c240a41}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::\+Const\+Ptr}} =  std\+::shared\+\_\+ptr$<$const \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile}{Time\+Optimal\+Parameterization\+Profile}}$>$}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_acf7e32454e5e1fe597f8410f2eea205b}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_acf7e32454e5e1fe597f8410f2eea205b}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!Ptr@{Ptr}}
+\index{Ptr@{Ptr}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{Ptr}{Ptr}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_acf7e32454e5e1fe597f8410f2eea205b}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::\+Ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile}{Time\+Optimal\+Parameterization\+Profile}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a4e9fbd4203b65173f8fa47dfa879bb54}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a4e9fbd4203b65173f8fa47dfa879bb54}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!TimeOptimalParameterizationProfile@{TimeOptimalParameterizationProfile}}
+\index{TimeOptimalParameterizationProfile@{TimeOptimalParameterizationProfile}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationProfile()}{TimeOptimalParameterizationProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::\+Time\+Optimal\+Parameterization\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a94655c80ee60f13163978705fb16d621}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a94655c80ee60f13163978705fb16d621}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!TimeOptimalParameterizationProfile@{TimeOptimalParameterizationProfile}}
+\index{TimeOptimalParameterizationProfile@{TimeOptimalParameterizationProfile}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalParameterizationProfile()}{TimeOptimalParameterizationProfile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::\+Time\+Optimal\+Parameterization\+Profile (\begin{DoxyParamCaption}\item[{double}]{max\+\_\+velocity\+\_\+scaling\+\_\+factor,  }\item[{double}]{max\+\_\+acceleration\+\_\+scaling\+\_\+factor,  }\item[{double}]{path\+\_\+tolerance,  }\item[{double}]{resample\+\_\+dt,  }\item[{double}]{min\+\_\+angle\+\_\+change }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac91430398dc1e12eec3bcaff584f0d13}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac91430398dc1e12eec3bcaff584f0d13}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!max\_acceleration\_scaling\_factor@{max\_acceleration\_scaling\_factor}}
+\index{max\_acceleration\_scaling\_factor@{max\_acceleration\_scaling\_factor}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{max\_acceleration\_scaling\_factor}{max\_acceleration\_scaling\_factor}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::max\+\_\+acceleration\+\_\+scaling\+\_\+factor \{ 1.\+0 \}}
+
+
+
+The max acceleration scaling factor passed to the solver. Default\+: 1.\+0. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_af668eef5282dd09ef9c4599a26191613}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_af668eef5282dd09ef9c4599a26191613}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!max\_velocity\_scaling\_factor@{max\_velocity\_scaling\_factor}}
+\index{max\_velocity\_scaling\_factor@{max\_velocity\_scaling\_factor}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{max\_velocity\_scaling\_factor}{max\_velocity\_scaling\_factor}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::max\+\_\+velocity\+\_\+scaling\+\_\+factor \{ 1.\+0 \}}
+
+
+
+The max velocity scaling factor passed to the solver. Default\+: 1.\+0. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a387ce3f47bd19079022a57cc82e35a0b}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a387ce3f47bd19079022a57cc82e35a0b}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!min\_angle\_change@{min\_angle\_change}}
+\index{min\_angle\_change@{min\_angle\_change}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{min\_angle\_change}{min\_angle\_change}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::min\+\_\+angle\+\_\+change \{ 0.\+001 \}}
+
+
+
+At least one joint must change by greater than this amount for the point to be added. Default\+: 0.\+001. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a485ce3f52789d5e598ad64c82a6edc3d}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a485ce3f52789d5e598ad64c82a6edc3d}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!path\_tolerance@{path\_tolerance}}
+\index{path\_tolerance@{path\_tolerance}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{path\_tolerance}{path\_tolerance}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::path\+\_\+tolerance \{ 0.\+1 \}}
+
+
+
+path\+\_\+tolerance. Default\+: 0.\+1 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_aa1e59d0545f60f8d7a4441a0209f5339}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_aa1e59d0545f60f8d7a4441a0209f5339}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!resample\_dt@{resample\_dt}}
+\index{resample\_dt@{resample\_dt}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{resample\_dt}{resample\_dt}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::resample\+\_\+dt \{ 0.\+1 \}}
+
+
+
+Timestep used to resample trajectory. Default\+: 0.\+1. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac98e9b97abd5b5a15abe1f198e171f25}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac98e9b97abd5b5a15abe1f198e171f25}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!unflatten@{unflatten}}
+\index{unflatten@{unflatten}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{unflatten}{unflatten}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::unflatten \{ true \}}
+
+
+
+TOTG flattens the Composite structure. If this is true, the task will attempt to restructure the resulting composite back into the format of the seed. This is required if Move\+Profiles are specified. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ad1f5cf61a0941d1faf318ee408d846ec}\label{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ad1f5cf61a0941d1faf318ee408d846ec}} 
+\index{tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}!unflatten\_tolerance@{unflatten\_tolerance}}
+\index{unflatten\_tolerance@{unflatten\_tolerance}!tesseract\_planning::TimeOptimalParameterizationProfile@{tesseract\_planning::TimeOptimalParameterizationProfile}}
+\doxysubsubsection{\texorpdfstring{unflatten\_tolerance}{unflatten\_tolerance}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Profile\+::unflatten\+\_\+tolerance \{ 0.\+3 \}}
+
+
+
+Tolerance used to unflatten results. When resample\+\_\+dt is small, this can be close to path\+\_\+tolerance. When resample\+\_\+dt is large, this may have to be significantly larger. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+process\+\_\+managers/include/tesseract\+\_\+process\+\_\+managers/task\+\_\+profiles/\mbox{\hyperlink{time__optimal__parameterization__profile_8h}{time\+\_\+optimal\+\_\+parameterization\+\_\+profile.\+h}}\end{DoxyCompactItemize}

@@ -9,6 +9,8 @@
 \item 
  \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names}{process\+\_\+planner\+\_\+names}}
 \item 
+ \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns}{profile\+\_\+ns}}
+\item 
  \mbox{\hyperlink{namespacetesseract__planning_1_1totg}{totg}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Classes}
@@ -214,13 +216,9 @@ class \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGener
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskInfo}{Discrete\+Contact\+Check\+Task\+Info}}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{Fix\+State\+Bounds\+Task\+Generator}}
 \begin{DoxyCompactList}\small\item\em This generator modifies the const input instructions in order to push waypoints that are outside of their limits back within them. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskInfo}{Fix\+State\+Bounds\+Task\+Info}}
-\item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{Fix\+State\+Collision\+Task\+Generator}}
 \begin{DoxyCompactList}\small\item\em This generator modifies the const input instructions in order to push waypoints that are in collision out of collision. \end{DoxyCompactList}\item 
@@ -230,8 +228,6 @@ class \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskGenerator}{Has\+Se
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo}{Has\+Seed\+Task\+Info}}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1IterativeSplineParameterizationProfile}{Iterative\+Spline\+Parameterization\+Profile}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator}{Iterative\+Spline\+Parameterization\+Task\+Generator}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo}{Iterative\+Spline\+Parameterization\+Task\+Info}}
@@ -239,8 +235,6 @@ class \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizati
 class \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTaskGenerator}{Motion\+Planner\+Task\+Generator}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTaskInfo}{Motion\+Planner\+Task\+Info}}
-\item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1ProfileSwitchProfile}{Profile\+Switch\+Profile}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator}{Profile\+Switch\+Task\+Generator}}
 \begin{DoxyCompactList}\small\item\em This generator simply returns a value specified in the composite profile. This can be used to switch execution based on the profile. \end{DoxyCompactList}\item 
@@ -250,11 +244,25 @@ class \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator}{S
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskInfo}{Seed\+Min\+Length\+Task\+Info}}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile}{Time\+Optimal\+Trajectory\+Generation\+Profile}}
-\item 
-class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator}{Time\+Optimal\+Trajectory\+Generation\+Task\+Generator}}
+class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{Time\+Optimal\+Parameterization\+Task\+Generator}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1CheckInputProfile}{Check\+Input\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile}{Contact\+Check\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{Fix\+State\+Bounds\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1IterativeSplineParameterizationProfile}{Iterative\+Spline\+Parameterization\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1ProfileSwitchProfile}{Profile\+Switch\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1SeedMinLengthProfile}{Seed\+Min\+Length\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile}{Time\+Optimal\+Parameterization\+Profile}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode}{Graph\+Taskflow\+Node}}
 \begin{DoxyCompactList}\small\item\em Helper struct for holding relevant information about the nodes. \end{DoxyCompactList}\item 
@@ -368,16 +376,6 @@ using \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12
 using \mbox{\hyperlink{namespacetesseract__planning_af3b90ef413e2f0486a7041e60a5118ed}{Taskflow\+Int\+Fn}} = std\+::function$<$ int()$>$
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_a96a3ca70ee9bdda5405da3a5ca5120a7}{Check\+Input\+Fn}} = std\+::function$<$ bool(const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&)$>$
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_afab625970b53c202e0538bc4b1161419}{Fix\+State\+Bounds\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a826df42c20a84024f0b1ca5ef395de35}{Fix\+State\+Bounds\+Profile\+::\+Const\+Ptr}} $>$
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a64dea74b9f067dcf31db88fa2cdddf82}{Fix\+State\+Collision\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_ae49ccc0d1458edc47e2d9177f8c49711}{Fix\+State\+Collision\+Profile\+::\+Const\+Ptr}} $>$
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}{Iterative\+Spline\+Parameterization\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1IterativeSplineParameterizationProfile_ad8b06635b63e3acfad61bed7b9730f94}{Iterative\+Spline\+Parameterization\+Profile\+::\+Const\+Ptr}} $>$
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a5bc05735cc05cb4e74ff500e6dfe5645}{Profile\+Switch\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1ProfileSwitchProfile_a815532d5f39b7a910f0e59f0175b545a}{Profile\+Switch\+Profile\+::\+Const\+Ptr}} $>$
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_a9f65d17b8c6b778c35ea85dfdd20e142}{Time\+Optimal\+Trajectory\+Generation\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_af5d1e750ed57cdb38bdccb563074a3ed}{Time\+Optimal\+Trajectory\+Generation\+Profile\+::\+Const\+Ptr}} $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -603,11 +601,11 @@ static \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Compos
 \begin{DoxyCompactList}\small\item\em Check if a joint is within limits This will allows you to provide joint 4 and joint 6 coupling limits. This will still work if the robot is on a position. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_af7579ecfe9720ccc20d9ee43cd47a589}{is\+Valid\+State}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
 \begin{DoxyCompactList}\small\item\em Check if the robot is in a valid state. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{namespacetesseract__planning_a2c3697d8b33f7e6ffa453a80d765c2dd}{get\+Profile\+String}} (const std\+::string \&profile, const std\+::string \&planner\+\_\+name, const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&profile\+\_\+remapping, std\+::string default\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
+std\+::string \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{get\+Profile\+String}} (const std\+::string \&ns, const std\+::string \&profile, const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&profile\+\_\+remapping, std\+::string default\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
 \begin{DoxyCompactList}\small\item\em Get the profile string taking into account defaults and profile remapping. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a128c3b05825f2c7e1901031985e61aef}{get\+Profile}} (const std\+::string \&profile, const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} \&profile\+\_\+dictionary, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ default\+\_\+profile=nullptr)
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_ac76e404fb48dd591d085ee3e7ad57a75}{get\+Profile}} (const std\+::string \&ns, const std\+::string \&profile, const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} \&profile\+\_\+dictionary, std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ default\+\_\+profile=nullptr)
 \begin{DoxyCompactList}\small\item\em Gets the profile specified from the profile map. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a3a4842f5288c1b198e848bae9d1e2ce6}{apply\+Profile\+Overrides}} (const std\+::string task\+\_\+name, const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&nominal\+\_\+profile, const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \&overrides=nullptr)
+{\footnotesize template$<$typename Profile\+Type $>$ }\\std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$ \mbox{\hyperlink{namespacetesseract__planning_a6990d23e5298e84970b67848a87e25bc}{apply\+Profile\+Overrides}} (const std\+::string \&ns, const std\+::string \&profile, const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&nominal\+\_\+profile, const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \&overrides=nullptr)
 \begin{DoxyCompactList}\small\item\em Returns either nominal\+\_\+profile or override based on task name passed in. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\\mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{Robot\+Config}} \mbox{\hyperlink{namespacetesseract__planning_a6cfcdf93296e6806ae29ff7f48186fdc}{get\+Robot\+Config}} (const tesseract\+\_\+kinematics\+::\+Joint\+Group \&joint\+\_\+group, const std\+::string \&base\+\_\+link, const std\+::string \&tcp\+\_\+frame, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector2i $>$ \&sign\+\_\+correction=Eigen\+::\+Vector2i\+::\+Ones())
 \begin{DoxyCompactList}\small\item\em Get the configuration of a six axis industrial robot. \end{DoxyCompactList}\item 
@@ -1011,19 +1009,7 @@ using \mbox{\hyperlink{namespacetesseract__planning_a7a8351e5785986a6e075296e3bf
 
 This is used for tesseract descartes samplers that filters out invalid solutions. 
 
-Example\+: This would be used to filter out solution outside of custom joint limits. \mbox{\Hypertarget{namespacetesseract__planning_afab625970b53c202e0538bc4b1161419}\label{namespacetesseract__planning_afab625970b53c202e0538bc4b1161419}} 
-\index{tesseract\_planning@{tesseract\_planning}!FixStateBoundsProfileMap@{FixStateBoundsProfileMap}}
-\index{FixStateBoundsProfileMap@{FixStateBoundsProfileMap}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{FixStateBoundsProfileMap}{FixStateBoundsProfileMap}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_afab625970b53c202e0538bc4b1161419}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a826df42c20a84024f0b1ca5ef395de35}{Fix\+State\+Bounds\+Profile\+::\+Const\+Ptr}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a64dea74b9f067dcf31db88fa2cdddf82}\label{namespacetesseract__planning_a64dea74b9f067dcf31db88fa2cdddf82}} 
-\index{tesseract\_planning@{tesseract\_planning}!FixStateCollisionProfileMap@{FixStateCollisionProfileMap}}
-\index{FixStateCollisionProfileMap@{FixStateCollisionProfileMap}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{FixStateCollisionProfileMap}{FixStateCollisionProfileMap}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a64dea74b9f067dcf31db88fa2cdddf82}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_ae49ccc0d1458edc47e2d9177f8c49711}{Fix\+State\+Collision\+Profile\+::\+Const\+Ptr}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}\label{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}} 
+Example\+: This would be used to filter out solution outside of custom joint limits. \mbox{\Hypertarget{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}\label{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}} 
 \index{tesseract\_planning@{tesseract\_planning}!flattenFilterFn@{flattenFilterFn}}
 \index{flattenFilterFn@{flattenFilterFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{flattenFilterFn}{flattenFilterFn}}
@@ -1035,13 +1021,7 @@ This is used for filtering only what you want in the vector.
 
 The first parameter is the instruction consider, the second is it\textquotesingle{}s parent composite instruction, and the third indicates if the parent composite is the top most composite
 
-The filter should return true when the instruction passed should be included not throw. \mbox{\Hypertarget{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}\label{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}} 
-\index{tesseract\_planning@{tesseract\_planning}!IterativeSplineParameterizationProfileMap@{IterativeSplineParameterizationProfileMap}}
-\index{IterativeSplineParameterizationProfileMap@{IterativeSplineParameterizationProfileMap}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{IterativeSplineParameterizationProfileMap}{IterativeSplineParameterizationProfileMap}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a8b3f0cd7f00cdcfcd2f7467b4b2249be}{tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1IterativeSplineParameterizationProfile_ad8b06635b63e3acfad61bed7b9730f94}{Iterative\+Spline\+Parameterization\+Profile\+::\+Const\+Ptr}}$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_ac008e09ddce5c25c00e2c77ff18929e8}\label{namespacetesseract__planning_ac008e09ddce5c25c00e2c77ff18929e8}} 
+The filter should return true when the instruction passed should be included not throw. \mbox{\Hypertarget{namespacetesseract__planning_ac008e09ddce5c25c00e2c77ff18929e8}\label{namespacetesseract__planning_ac008e09ddce5c25c00e2c77ff18929e8}} 
 \index{tesseract\_planning@{tesseract\_planning}!locateFilterFn@{locateFilterFn}}
 \index{locateFilterFn@{locateFilterFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{locateFilterFn}{locateFilterFn}}
@@ -1091,12 +1071,6 @@ For example say you have a profile named Raster in your command language. Say yo
 \doxysubsubsection{\texorpdfstring{PoseSamplerFn}{PoseSamplerFn}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{tesseract\+\_\+planning\+::\+Pose\+Sampler\+Fn}} = typedef std\+::function$<$tesseract\+\_\+common\+::\+Vector\+Isometry3d(const Eigen\+::\+Isometry3d\& tool\+\_\+pose)$>$}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a5bc05735cc05cb4e74ff500e6dfe5645}\label{namespacetesseract__planning_a5bc05735cc05cb4e74ff500e6dfe5645}} 
-\index{tesseract\_planning@{tesseract\_planning}!ProfileSwitchProfileMap@{ProfileSwitchProfileMap}}
-\index{ProfileSwitchProfileMap@{ProfileSwitchProfileMap}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{ProfileSwitchProfileMap}{ProfileSwitchProfileMap}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a5bc05735cc05cb4e74ff500e6dfe5645}{tesseract\+\_\+planning\+::\+Profile\+Switch\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1ProfileSwitchProfile_a815532d5f39b7a910f0e59f0175b545a}{Profile\+Switch\+Profile\+::\+Const\+Ptr}}$>$}
-
 \mbox{\Hypertarget{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}\label{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}} 
 \index{tesseract\_planning@{tesseract\_planning}!SimplePlannerCompositeProfileMap@{SimplePlannerCompositeProfileMap}}
 \index{SimplePlannerCompositeProfileMap@{SimplePlannerCompositeProfileMap}!tesseract\_planning@{tesseract\_planning}}
@@ -1132,12 +1106,6 @@ For example say you have a profile named Raster in your command language. Say yo
 \index{TaskflowVoidFn@{TaskflowVoidFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{TaskflowVoidFn}{TaskflowVoidFn}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{tesseract\+\_\+planning\+::\+Taskflow\+Void\+Fn}} = typedef std\+::function$<$void()$>$}
-
-\mbox{\Hypertarget{namespacetesseract__planning_a9f65d17b8c6b778c35ea85dfdd20e142}\label{namespacetesseract__planning_a9f65d17b8c6b778c35ea85dfdd20e142}} 
-\index{tesseract\_planning@{tesseract\_planning}!TimeOptimalTrajectoryGenerationProfileMap@{TimeOptimalTrajectoryGenerationProfileMap}}
-\index{TimeOptimalTrajectoryGenerationProfileMap@{TimeOptimalTrajectoryGenerationProfileMap}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{TimeOptimalTrajectoryGenerationProfileMap}{TimeOptimalTrajectoryGenerationProfileMap}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespacetesseract__planning_a9f65d17b8c6b778c35ea85dfdd20e142}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalTrajectoryGenerationProfile_af5d1e750ed57cdb38bdccb563074a3ed}{Time\+Optimal\+Trajectory\+Generation\+Profile\+::\+Const\+Ptr}}$>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_ab3cb92652402bb6903e4b0333bc02520}\label{namespacetesseract__planning_ab3cb92652402bb6903e4b0333bc02520}} 
 \index{tesseract\_planning@{tesseract\_planning}!TrajOptCompositeProfileMap@{TrajOptCompositeProfileMap}}
@@ -1517,12 +1485,12 @@ OMPL state sampler shared pointer
 \doxysubsubsection{\texorpdfstring{ApplyCorrectionWorkflow()}{ApplyCorrectionWorkflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Apply\+Correction\+Workflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile,  }\item[{tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&}]{contacts }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a3a4842f5288c1b198e848bae9d1e2ce6}\label{namespacetesseract__planning_a3a4842f5288c1b198e848bae9d1e2ce6}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a6990d23e5298e84970b67848a87e25bc}\label{namespacetesseract__planning_a6990d23e5298e84970b67848a87e25bc}} 
 \index{tesseract\_planning@{tesseract\_planning}!applyProfileOverrides@{applyProfileOverrides}}
 \index{applyProfileOverrides@{applyProfileOverrides}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{applyProfileOverrides()}{applyProfileOverrides()}}
 {\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
-std\+::shared\+\_\+ptr$<$const Profile\+Type$>$ tesseract\+\_\+planning\+::apply\+Profile\+Overrides (\begin{DoxyParamCaption}\item[{const std\+::string}]{task\+\_\+name,  }\item[{const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&}]{nominal\+\_\+profile,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \&}]{overrides = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+std\+::shared\+\_\+ptr$<$const Profile\+Type$>$ tesseract\+\_\+planning\+::apply\+Profile\+Overrides (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ns,  }\item[{const std\+::string \&}]{profile,  }\item[{const std\+::shared\+\_\+ptr$<$ Profile\+Type $>$ \&}]{nominal\+\_\+profile,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \&}]{overrides = {\ttfamily nullptr} }\end{DoxyParamCaption})}
 
 
 
@@ -1530,7 +1498,9 @@ Returns either nominal\+\_\+profile or override based on task name passed in.
 
 
 \begin{DoxyParams}{Parameters}
-{\em task\+\_\+name} & Task name used to look up if there is a profile override \\
+{\em ns} & The namespace to search for requested profile \\
+\hline
+{\em profile} & The name used to look up if there is a profile override \\
 \hline
 {\em nominal\+\_\+profile} & Profile that will be used if no override is present \\
 \hline
@@ -3018,12 +2988,12 @@ Get number of Plan \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Ins
 \begin{DoxyReturn}{Returns}
 The number of Plan Instructions 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a128c3b05825f2c7e1901031985e61aef}\label{namespacetesseract__planning_a128c3b05825f2c7e1901031985e61aef}} 
+\mbox{\Hypertarget{namespacetesseract__planning_ac76e404fb48dd591d085ee3e7ad57a75}\label{namespacetesseract__planning_ac76e404fb48dd591d085ee3e7ad57a75}} 
 \index{tesseract\_planning@{tesseract\_planning}!getProfile@{getProfile}}
 \index{getProfile@{getProfile}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{getProfile()}{getProfile()}}
 {\footnotesize\ttfamily template$<$typename Profile\+Type $>$ \\
-std\+::shared\+\_\+ptr$<$const Profile\+Type$>$ tesseract\+\_\+planning\+::get\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} \&}]{profile\+\_\+dictionary,  }\item[{std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$}]{default\+\_\+profile = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+std\+::shared\+\_\+ptr$<$const Profile\+Type$>$ tesseract\+\_\+planning\+::get\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ns,  }\item[{const std\+::string \&}]{profile,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} \&}]{profile\+\_\+dictionary,  }\item[{std\+::shared\+\_\+ptr$<$ const Profile\+Type $>$}]{default\+\_\+profile = {\ttfamily nullptr} }\end{DoxyParamCaption})}
 
 
 
@@ -3031,6 +3001,8 @@ Gets the profile specified from the profile map.
 
 
 \begin{DoxyParams}{Parameters}
+{\em ns} & The namespace to search for requested profile \\
+\hline
 {\em profile} & The requested profile \\
 \hline
 {\em profile\+\_\+map} & map that contains the profiles \\
@@ -3041,11 +3013,11 @@ Gets the profile specified from the profile map.
 \begin{DoxyReturn}{Returns}
 The profile requested if found. Otherwise the default\+\_\+profile 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a2c3697d8b33f7e6ffa453a80d765c2dd}\label{namespacetesseract__planning_a2c3697d8b33f7e6ffa453a80d765c2dd}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}\label{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}} 
 \index{tesseract\_planning@{tesseract\_planning}!getProfileString@{getProfileString}}
 \index{getProfileString@{getProfileString}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{getProfileString()}{getProfileString()}}
-{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::get\+Profile\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile,  }\item[{const std\+::string \&}]{planner\+\_\+name,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&}]{profile\+\_\+remapping,  }\item[{std\+::string}]{default\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::get\+Profile\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ns,  }\item[{const std\+::string \&}]{profile,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{Planner\+Profile\+Remapping}} \&}]{profile\+\_\+remapping,  }\item[{std\+::string}]{default\+\_\+profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -3053,9 +3025,9 @@ Get the profile string taking into account defaults and profile remapping.
 
 
 \begin{DoxyParams}{Parameters}
-{\em profile} & The requested profile name in the instructions \\
+{\em ns} & Used to look up if there are remappings available \\
 \hline
-{\em planner\+\_\+name} & Used to look up if there are remappings available \\
+{\em profile} & The requested profile name in the instructions \\
 \hline
 {\em profile\+\_\+remapping} & Remapping used to remap a profile name based on the planner name \\
 \hline

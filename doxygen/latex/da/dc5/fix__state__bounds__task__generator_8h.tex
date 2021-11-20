@@ -6,7 +6,7 @@ Process generator for process that pushes plan instructions back within joint li
 
 
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/task\+\_\+generator.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+time\+\_\+parameterization/iterative\+\_\+spline\+\_\+parameterization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/default\+\_\+task\+\_\+namespaces.\+h$>$}\newline
 Include dependency graph for fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+generator.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -26,8 +26,6 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Profile}}
-\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator}}
 \begin{DoxyCompactList}\small\item\em This generator modifies the const input instructions in order to push waypoints that are outside of their limits back within them. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskInfo}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Info}}
@@ -36,11 +34,6 @@ class \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskInfo}{tesse
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
-\begin{DoxyCompactItemize}
-\item 
-using \mbox{\hyperlink{namespacetesseract__planning_afab625970b53c202e0538bc4b1161419}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, Fix\+State\+Bounds\+Profile\+::\+Const\+Ptr $>$
 \end{DoxyCompactItemize}
 
 
@@ -57,7 +50,7 @@ August 31. 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000178}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000180}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

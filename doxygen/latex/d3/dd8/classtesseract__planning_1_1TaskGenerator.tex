@@ -37,8 +37,8 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a9100e6a6a8cda2505796778f09b4f194}{Task\+Generator}} (std\+::string name=\char`\"{}\char`\"{})
-\item 
+\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_af575e2f6dbed505f3c0678e4f8163a46}{Task\+Generator}} (std\+::string name)
+\begin{DoxyCompactList}\small\item\em A task generator base class. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a18338e3eb9e438e41c819d587e413e06}{$\sim$\+Task\+Generator}} ()=default
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_ae64558eb3904db994c3ba952c2bff66e}{Task\+Generator}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{Task\+Generator}} \&)=delete
@@ -88,12 +88,21 @@ Only unique pointers should be used because of the ability to abort the process.
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1TaskGenerator_a9100e6a6a8cda2505796778f09b4f194}\label{classtesseract__planning_1_1TaskGenerator_a9100e6a6a8cda2505796778f09b4f194}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskGenerator_af575e2f6dbed505f3c0678e4f8163a46}\label{classtesseract__planning_1_1TaskGenerator_af575e2f6dbed505f3c0678e4f8163a46}} 
 \index{tesseract\_planning::TaskGenerator@{tesseract\_planning::TaskGenerator}!TaskGenerator@{TaskGenerator}}
 \index{TaskGenerator@{TaskGenerator}!tesseract\_planning::TaskGenerator@{tesseract\_planning::TaskGenerator}}
 \doxysubsubsection{\texorpdfstring{TaskGenerator()}{TaskGenerator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Generator\+::\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Task\+Generator\+::\+Task\+Generator (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})}
 
+
+
+A task generator base class. 
+
+The name parameter should also be used as the namespace when looking up profiles in the profile dictionary 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name given to the task. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskGenerator_a18338e3eb9e438e41c819d587e413e06}\label{classtesseract__planning_1_1TaskGenerator_a18338e3eb9e438e41c819d587e413e06}} 
 \index{tesseract\_planning::TaskGenerator@{tesseract\_planning::TaskGenerator}!````~TaskGenerator@{$\sim$TaskGenerator}}
 \index{````~TaskGenerator@{$\sim$TaskGenerator}!tesseract\_planning::TaskGenerator@{tesseract\_planning::TaskGenerator}}
@@ -169,7 +178,7 @@ Conditional Task
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classTestGenerator_a09182c7c94b993d4c51c845d7f3f067f}{Test\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator_a64938ccb201a60d0bdffb1515f1216dc}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_af651145e3b09745a3f1bceafe53e545b}{tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a4f7cf0e5d029bdcdf62a2d74f0fb5086}{tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTaskGenerator_a71d57b24a4ace523323ce5c4f01f6bc9}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator_a3964f8557b7faf476d8e89d59c1bfe58}{tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskGenerator_a95e7a7b6387dd7d352488a5dffda9337}{tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_af07f634ff4967b6dbced4e3b6ac3d076}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_add1b70028b615cf85bc006d4c1334678}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_aa2798b938c8776caaa49f8129f20ee7c}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskGenerator_a9b74b049f2abf6ba0ab3949615c59578}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Generator}}, and \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a2bcca590ad25a1a4f34544a0b5380a7c}{tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator}}.
+Implemented in \mbox{\hyperlink{classTestGenerator_a09182c7c94b993d4c51c845d7f3f067f}{Test\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_ada1e972fdb44d94ebfc379cba4cb3ee5}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a2964f2e1975ed5bdb372aee1f9c348d3}{tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_af19b46be8cb4878a5c8ad2f4f4c196a8}{tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTaskGenerator_a09d7a340750c4ae37deeac148b1642e0}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator_a44a4094e730f2cc8ca288563745de312}{tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskGenerator_ae2ceb5874a30da560deba30063d8e39d}{tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_aaf23c969dd53a03e7c39640c875c93ba}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a51ad565b28d62f98ad21c2579673eac9}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_ade9bdb8cad61afcd00717bcdca887cb7}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskGenerator_aa35a136322d3798a6e62f56fb581f263}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Generator}}, and \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a8d44231b7a6dd71dc9872324bf553535}{tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskGenerator_a7d409cc625a38c57cb55097085f18853}\label{classtesseract__planning_1_1TaskGenerator_a7d409cc625a38c57cb55097085f18853}} 
 \index{tesseract\_planning::TaskGenerator@{tesseract\_planning::TaskGenerator}!generateConditionalTask@{generateConditionalTask}}
@@ -221,7 +230,7 @@ Task
 
 Get the task name. 
 
-\begin{DoxyReturn}{Returns}
+This is also the namespace that is used when looking up profiles in the profile dictionary \begin{DoxyReturn}{Returns}
 The name 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classtesseract__planning_1_1TaskGenerator_ae940314bc32c7365f54c5b87d800f662}\label{classtesseract__planning_1_1TaskGenerator_ae940314bc32c7365f54c5b87d800f662}} 
@@ -256,7 +265,7 @@ Task
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classTestGenerator_a32bb740843dbb25a6a870af2dab933f2}{Test\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskGenerator_ab4eab1da2d1ac7b2cd6875345ce4aa53}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a1964cedd6cc87c2b76c7fe0de501d3f2}{tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_a828fabbb9a3ec455227475d3baae3f10}{tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTaskGenerator_af29dc7ae6310d9719da6610ffbc83e5a}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator_a421f13f12df058d3f12d61c3d9c27d27}{tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskGenerator_a13b2651c64c4549fd83d7897ee710d21}{tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_afbc0e2578db8260e2384762c1075ad4a}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a8f9dfb2f21f459dabcf8b3ca33d5beba}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_aa3ec878111e7ca708084177ca15b5312}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskGenerator_aaee216636e6e07606ba82a5385724c45}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Generator}}, and \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a1b66c98ab5976ebfece166aad83cb4af}{tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator}}.
+Implemented in \mbox{\hyperlink{classTestGenerator_a32bb740843dbb25a6a870af2dab933f2}{Test\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_aec90851b288c89e9207a152ebd91b7e8}{tesseract\+\_\+planning\+::\+Time\+Optimal\+Parameterization\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskGenerator_a05c6f979bb1876db6f3c0c557d8fd727}{tesseract\+\_\+planning\+::\+Seed\+Min\+Length\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskGenerator_ac49a3661049a7a44a0d55a917f489c65}{tesseract\+\_\+planning\+::\+Profile\+Switch\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTaskGenerator_aa5dcf42a0c2a120c3c3c6c6fd13ab737}{tesseract\+\_\+planning\+::\+Motion\+Planner\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator_aa7eeb995beef246f7e10ca8f4bbf9cb8}{tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskGenerator_a9995317c1b9e2aaca137052ed6d992c7}{tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a7c97ba0a0234f0956566e273ca5c37f8}{tesseract\+\_\+planning\+::\+Fix\+State\+Collision\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskGenerator_a278efb7f1eb897b67957a5a152595063}{tesseract\+\_\+planning\+::\+Fix\+State\+Bounds\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1DiscreteContactCheckTaskGenerator_a6476b8a6602a9c22c2294fa432e96553}{tesseract\+\_\+planning\+::\+Discrete\+Contact\+Check\+Task\+Generator}}, \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskGenerator_a6c79f1991ba03d59aa6a869fe2a8dab2}{tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Generator}}, and \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ada1ca6c3b94d9b4147814494f032a165}{tesseract\+\_\+planning\+::\+Check\+Input\+Task\+Generator}}.
 
 
 

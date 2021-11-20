@@ -1,5 +1,7 @@
 <map id="tesseract_planning::ProfileDictionary" name="tesseract_planning::ProfileDictionary">
-<area shape="rect" id="node1" title="This class is used to store profiles for motion planning and process planning." alt="" coords="90,124,221,165"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,148,61"/>
-<area shape="rect" id="node3" title=" " alt="" coords="172,20,299,47"/>
+<area shape="rect" id="node1" title="This class is used to store profiles for motion planning and process planning." alt="" coords="607,34,737,75"/>
+<area shape="rect" id="node2" title=" " alt="" coords="358,5,485,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="336,57,507,127"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,79,257,105"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,71,129,113"/>
 </map>

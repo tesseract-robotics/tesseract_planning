@@ -146,18 +146,22 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/de0/planner__utils_8h__dep__incl.png" border="0" usemap="#atesseract__motion__planners_2core_2include_2tesseract__motion__planners_2planner__utils_8hdep" alt=""/></div>
 <map name="atesseract__motion__planners_2core_2include_2tesseract__motion__planners_2planner__utils_8hdep" id="atesseract__motion__planners_2core_2include_2tesseract__motion__planners_2planner__utils_8hdep">
-<area shape="rect" title=" " alt="" coords="1120,5,1299,76"/>
+<area shape="rect" title=" " alt="" coords="1567,5,1745,76"/>
 <area shape="rect" href="../../dc/d28/simple__motion__planner_8cpp.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="5,131,184,187"/>
 <area shape="rect" href="../../dd/dad/descartes__motion__planner_8hpp.html" title="Tesseract ROS Descartes planner." alt="" coords="209,124,439,195"/>
 <area shape="rect" href="../../d8/d63/ompl__motion__planner_8cpp.html" title="Tesseract OMPL motion planner." alt="" coords="464,139,691,180"/>
 <area shape="rect" href="../../d7/ddd/tesseract__motion__planners_2test_2utils__test_8cpp.html" title=" " alt="" coords="715,139,893,180"/>
 <area shape="rect" href="../../dc/df5/trajopt__motion__planner_8cpp.html" title=" " alt="" coords="917,131,1096,187"/>
 <area shape="rect" href="../../d8/d69/trajopt__ifopt__motion__planner_8cpp.html" title=" " alt="" coords="1120,131,1299,187"/>
-<area shape="rect" href="../../d4/d46/fix__state__bounds__task__generator_8cpp.html" title="Process generator that changes the plan instructions to make push them back within joint limits." alt="" coords="1323,131,1547,187"/>
-<area shape="rect" href="../../d2/d3f/fix__state__collision__task__generator_8cpp.html" title=" " alt="" coords="1571,131,1800,187"/>
-<area shape="rect" href="../../df/d01/iterative__spline__parameterization__task__generator_8cpp.html" title="Perform iterative spline time parameterization." alt="" coords="1824,124,2021,195"/>
-<area shape="rect" href="../../db/d1d/profile__switch__task__generator_8cpp.html" title=" " alt="" coords="2046,131,2239,187"/>
-<area shape="rect" href="../../d4/d25/time__optimal__trajectory__generation__task__generator_8cpp.html" title=" " alt="" coords="2263,124,2462,195"/>
+<area shape="rect" href="../../d9/d0a/check__input__task__generator_8cpp.html" title=" " alt="" coords="1323,131,1517,187"/>
+<area shape="rect" href="../../d9/d33/continuous__contact__check__task__generator_8cpp.html" title="Continuous collision check trajectory." alt="" coords="1541,131,1771,187"/>
+<area shape="rect" href="../../dc/d21/discrete__contact__check__task__generator_8cpp.html" title="Discrete collision check trajectory." alt="" coords="1795,131,2026,187"/>
+<area shape="rect" href="../../d4/d46/fix__state__bounds__task__generator_8cpp.html" title="Process generator that changes the plan instructions to make push them back within joint limits." alt="" coords="2051,131,2275,187"/>
+<area shape="rect" href="../../d2/d3f/fix__state__collision__task__generator_8cpp.html" title=" " alt="" coords="2299,131,2528,187"/>
+<area shape="rect" href="../../df/d01/iterative__spline__parameterization__task__generator_8cpp.html" title="Perform iterative spline time parameterization." alt="" coords="2552,124,2749,195"/>
+<area shape="rect" href="../../db/d1d/profile__switch__task__generator_8cpp.html" title=" " alt="" coords="2774,131,2967,187"/>
+<area shape="rect" href="../../d0/db0/seed__min__length__task__generator_8cpp.html" title=" " alt="" coords="2991,131,3201,187"/>
+<area shape="rect" href="../../d4/dfb/time__optimal__parameterization__task__generator_8cpp.html" title=" " alt="" coords="3225,124,3418,195"/>
 <area shape="rect" href="../../d5/dd0/descartes__motion__planner_8cpp.html" title="Tesseract ROS Descartes planner." alt="" coords="235,243,413,299"/>
 </map>
 </div>
@@ -183,23 +187,23 @@ Functions</h2></td></tr>
 <tr class="memitem:af7579ecfe9720ccc20d9ee43cd47a589"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#af7579ecfe9720ccc20d9ee43cd47a589">tesseract_planning::isValidState</a> (const tesseract_kinematics::ForwardKinematics::ConstPtr &amp;robot_kin, const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values, const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 2 &gt; &amp;limits)</td></tr>
 <tr class="memdesc:af7579ecfe9720ccc20d9ee43cd47a589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the robot is in a valid state.  <a href="../../d9/dcd/namespacetesseract__planning.html#af7579ecfe9720ccc20d9ee43cd47a589">More...</a><br /></td></tr>
 <tr class="separator:af7579ecfe9720ccc20d9ee43cd47a589"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c3697d8b33f7e6ffa453a80d765c2dd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c3697d8b33f7e6ffa453a80d765c2dd">tesseract_planning::getProfileString</a> (const std::string &amp;profile, const std::string &amp;planner_name, const PlannerProfileRemapping &amp;profile_remapping, std::string default_profile=DEFAULT_PROFILE_KEY)</td></tr>
-<tr class="memdesc:a2c3697d8b33f7e6ffa453a80d765c2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the profile string taking into account defaults and profile remapping.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2c3697d8b33f7e6ffa453a80d765c2dd">More...</a><br /></td></tr>
-<tr class="separator:a2c3697d8b33f7e6ffa453a80d765c2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a128c3b05825f2c7e1901031985e61aef"><td class="memTemplParams" colspan="2">template&lt;typename ProfileType &gt; </td></tr>
-<tr class="memitem:a128c3b05825f2c7e1901031985e61aef"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; const ProfileType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a128c3b05825f2c7e1901031985e61aef">tesseract_planning::getProfile</a> (const std::string &amp;profile, const ProfileDictionary &amp;profile_dictionary, std::shared_ptr&lt; const ProfileType &gt; default_profile=nullptr)</td></tr>
-<tr class="memdesc:a128c3b05825f2c7e1901031985e61aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the profile specified from the profile map.  <a href="../../d9/dcd/namespacetesseract__planning.html#a128c3b05825f2c7e1901031985e61aef">More...</a><br /></td></tr>
-<tr class="separator:a128c3b05825f2c7e1901031985e61aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a4842f5288c1b198e848bae9d1e2ce6"><td class="memTemplParams" colspan="2">template&lt;typename ProfileType &gt; </td></tr>
-<tr class="memitem:a3a4842f5288c1b198e848bae9d1e2ce6"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; const ProfileType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3a4842f5288c1b198e848bae9d1e2ce6">tesseract_planning::applyProfileOverrides</a> (const std::string task_name, const std::shared_ptr&lt; ProfileType &gt; &amp;nominal_profile, const ProfileDictionary::ConstPtr &amp;overrides=nullptr)</td></tr>
-<tr class="memdesc:a3a4842f5288c1b198e848bae9d1e2ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns either nominal_profile or override based on task name passed in.  <a href="../../d9/dcd/namespacetesseract__planning.html#a3a4842f5288c1b198e848bae9d1e2ce6">More...</a><br /></td></tr>
-<tr class="separator:a3a4842f5288c1b198e848bae9d1e2ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c2dd8bf456bf47e36e6777ac7f3e513"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4c2dd8bf456bf47e36e6777ac7f3e513">tesseract_planning::getProfileString</a> (const std::string &amp;ns, const std::string &amp;profile, const PlannerProfileRemapping &amp;profile_remapping, std::string default_profile=DEFAULT_PROFILE_KEY)</td></tr>
+<tr class="memdesc:a4c2dd8bf456bf47e36e6777ac7f3e513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the profile string taking into account defaults and profile remapping.  <a href="../../d9/dcd/namespacetesseract__planning.html#a4c2dd8bf456bf47e36e6777ac7f3e513">More...</a><br /></td></tr>
+<tr class="separator:a4c2dd8bf456bf47e36e6777ac7f3e513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac76e404fb48dd591d085ee3e7ad57a75"><td class="memTemplParams" colspan="2">template&lt;typename ProfileType &gt; </td></tr>
+<tr class="memitem:ac76e404fb48dd591d085ee3e7ad57a75"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; const ProfileType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac76e404fb48dd591d085ee3e7ad57a75">tesseract_planning::getProfile</a> (const std::string &amp;ns, const std::string &amp;profile, const ProfileDictionary &amp;profile_dictionary, std::shared_ptr&lt; const ProfileType &gt; default_profile=nullptr)</td></tr>
+<tr class="memdesc:ac76e404fb48dd591d085ee3e7ad57a75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the profile specified from the profile map.  <a href="../../d9/dcd/namespacetesseract__planning.html#ac76e404fb48dd591d085ee3e7ad57a75">More...</a><br /></td></tr>
+<tr class="separator:ac76e404fb48dd591d085ee3e7ad57a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6990d23e5298e84970b67848a87e25bc"><td class="memTemplParams" colspan="2">template&lt;typename ProfileType &gt; </td></tr>
+<tr class="memitem:a6990d23e5298e84970b67848a87e25bc"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; const ProfileType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6990d23e5298e84970b67848a87e25bc">tesseract_planning::applyProfileOverrides</a> (const std::string &amp;ns, const std::string &amp;profile, const std::shared_ptr&lt; ProfileType &gt; &amp;nominal_profile, const ProfileDictionary::ConstPtr &amp;overrides=nullptr)</td></tr>
+<tr class="memdesc:a6990d23e5298e84970b67848a87e25bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns either nominal_profile or override based on task name passed in.  <a href="../../d9/dcd/namespacetesseract__planning.html#a6990d23e5298e84970b67848a87e25bc">More...</a><br /></td></tr>
+<tr class="separator:a6990d23e5298e84970b67848a87e25bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>June 18, 2020 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000049">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000050">Bug:</a></b></dt><dd>No known bugs</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020, Southwest Research Institute</dd></dl>
 <dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
@@ -207,7 +211,7 @@ Functions</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 17 2021 15:01:55 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Sat Nov 20 2021 17:30:33 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
