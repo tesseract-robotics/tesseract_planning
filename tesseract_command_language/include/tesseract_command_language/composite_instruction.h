@@ -201,6 +201,7 @@ public:
   iterator insert(const_iterator p, const value_type& x);
   iterator insert(const_iterator p, value_type&& x);
   iterator insert(const_iterator p, std::initializer_list<value_type> l);
+  iterator insert(const_iterator p, std::size_t n, const value_type& x);
   template <class InputIt>
   void insert(const_iterator pos, InputIt first, InputIt last)
   {

@@ -166,6 +166,10 @@ CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, st
 {
   return container_.insert(p, l);
 }
+CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, std::size_t n, const value_type& x)
+{
+  return container_.insert(p, n, x);
+}
 
 template <class... Args>
 CompositeInstruction::iterator CompositeInstruction::emplace(const_iterator pos, Args&&... args)
