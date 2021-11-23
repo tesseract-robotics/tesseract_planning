@@ -317,6 +317,11 @@ OMPLCompositeProfileData OMPLCompositeProfileRVSS::create(const CompositeInstruc
       const JointWaypoint& jw = start_waypoint.as<JointWaypoint>();
       simple_setup->addStartState(createState(jw, env, joint_group, simple_setup->getStateSpace()));
     }
+    else if (isStateWaypoint(start_waypoint))
+    {
+      const StateWaypoint& sw = start_waypoint.as<StateWaypoint>();
+      simple_setup->addStartState(createState(sw.position, env, joint_group, simple_setup->getStateSpace()));
+    }
     else
     {
       throw std::runtime_error("Unsupported start waypoint type");
@@ -328,10 +333,12 @@ OMPLCompositeProfileData OMPLCompositeProfileRVSS::create(const CompositeInstruc
     tesseract_common::ManipulatorInfo goal_mi =
         goal_instruction.getManipulatorInfo().getCombined(instruction.getManipulatorInfo());
 
+    const Waypoint& goal_waypoint = goal_instruction.getWaypoint();
+
     // Add the goal state
-    if (isCartesianWaypoint(goal_instruction.getWaypoint()))
+    if (isCartesianWaypoint(goal_waypoint))
     {
-      const CartesianWaypoint& cw = goal_instruction.getWaypoint().as<CartesianWaypoint>();
+      const CartesianWaypoint& cw = goal_waypoint.as<CartesianWaypoint>();
       tesseract_kinematics::IKSolutions sols = getValidIKSolutions(cw, goal_mi, env);
       auto states = createOMPLStates(sols, simple_setup->getSpaceInformation());
 
@@ -342,10 +349,15 @@ OMPLCompositeProfileData OMPLCompositeProfileRVSS::create(const CompositeInstruc
 
       simple_setup->setGoal(goal_states);
     }
-    else if (isJointWaypoint(goal_instruction.getWaypoint()))
+    else if (isJointWaypoint(goal_waypoint))
     {
-      const JointWaypoint& jw = goal_instruction.getWaypoint().as<JointWaypoint>();
+      const JointWaypoint& jw = goal_waypoint.as<JointWaypoint>();
       simple_setup->setGoalState(createState(jw, env, joint_group, simple_setup->getStateSpace()));
+    }
+    else if (isStateWaypoint(goal_waypoint))
+    {
+      const StateWaypoint& sw = goal_waypoint.as<StateWaypoint>();
+      simple_setup->addStartState(createState(sw.position, env, joint_group, simple_setup->getStateSpace()));
     }
     else
     {
