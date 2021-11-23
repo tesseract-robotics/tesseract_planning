@@ -29,27 +29,66 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <functional>
+#include <ompl/base/State.h>
+#include <ompl/geometric/SimpleSetup.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
-#include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
+#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::OMPLMotionPlanner)
 #endif  // SWIG
 
-namespace ompl
-{
-namespace tools
-{
-class ParallelPlan;
-}
-}  // namespace ompl
-
 namespace tesseract_planning
 {
-class OMPLMotionPlannerStatusCategory;
+/** @brief Configuration parameters for the Tesseract OMPL planner */
+struct OMPLPlannerParameters
+{
+  /** @brief Max planning time allowed in seconds */
+  double planning_time = 5.0;
+
+  /** @brief The max number of solutions. If max solutions are hit it will exit even if other threads are running. */
+  int max_solutions = 10;
+
+  /**
+   * @brief Simplify trajectory to the minimum required number of states.
+   * @details Note: trajectory simplification can require a non-trivial amount of time to perform
+   */
+  bool simplify = true;
+
+  /**
+   * @brief Use all available planning time to create the most optimized trajectory given the objective function.
+   * @details This is required because not all OMPL planners are optimize graph planners. If the planner you choose is
+   * an optimize graph planner then setting this to true has no affect. In the case of non-optimize planners they still
+   * use the OptimizeObjective function but only when searching the graph to find the most optimize solution based
+   * on the provided optimize objective function. In the case of these type of planners like RRT and RRTConnect if set
+   * to true it will leverage all planning time to keep finding solutions up to your max solutions count to find the
+   * most optimal solution.
+   */
+  bool optimize = true;
+
+  /** @brief OMPL planning factories for creating OMPL planners to solve the planning problem */
+  std::vector<OMPLPlannerConfigurator::ConstPtr> planners;
+};
+
+/** @brief Function signature for extracting a Tesseract state representations from an OMPL state representation */
+using OMPLStateExtractor = std::function<Eigen::Map<Eigen::VectorXd>(const ompl::base::State*)>;
+
+/**
+ * Structure for the output data of an OMPL composite instruction
+ */
+using OMPLCompositeProfileData = std::tuple<ompl::geometric::SimpleSetupPtr, OMPLStateExtractor>;
+
+/**
+ * @brief Planner profile that produces the high level parameters for the OMPL planner
+ */
+struct OMPLPlannerProfile : public PlannerProfile<OMPLPlannerParameters>
+{
+  OMPLPlannerParameters params;
+  inline OMPLPlannerParameters create() const override { return params; };
+};
 
 /**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
@@ -94,17 +133,9 @@ public:
 
   static bool checkUserInput(const PlannerRequest& request);
 
-  virtual std::vector<OMPLProblem::Ptr> createProblems(const PlannerRequest& request) const;
-
 protected:
   /** @brief Name of planner */
   std::string name_;
-
-  /** @brief The planners status codes */
-  std::shared_ptr<const OMPLMotionPlannerStatusCategory> status_category_;
-
-  /** @brief OMPL Parallel planner */
-  std::shared_ptr<ompl::tools::ParallelPlan> parallel_plan_;
 };
 
 }  // namespace tesseract_planning
