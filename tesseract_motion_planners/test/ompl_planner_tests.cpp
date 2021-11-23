@@ -26,20 +26,6 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <ompl/geometric/planners/sbl/SBL.h>
-#include <ompl/geometric/planners/est/EST.h>
-#include <ompl/geometric/planners/kpiece/LBKPIECE1.h>
-#include <ompl/geometric/planners/kpiece/BKPIECE1.h>
-#include <ompl/geometric/planners/kpiece/KPIECE1.h>
-#include <ompl/geometric/planners/rrt/RRT.h>
-#include <ompl/geometric/planners/rrt/RRTConnect.h>
-#include <ompl/geometric/planners/rrt/RRTstar.h>
-#include <ompl/geometric/planners/rrt/TRRT.h>
-#include <ompl/geometric/planners/prm/PRM.h>
-#include <ompl/geometric/planners/prm/PRMstar.h>
-#include <ompl/geometric/planners/prm/LazyPRMstar.h>
-#include <ompl/geometric/planners/prm/SPARS.h>
-
 #include <ompl/util/RandomNumbers.h>
 
 #include <functional>
@@ -53,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/utils.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
-#include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_composite_profile_rvss.h>
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -69,9 +55,7 @@ using namespace tesseract_kinematics;
 using namespace tesseract_planning;
 using namespace tesseract_planning::profile_ns;
 
-const static int SEED = 1;
-const static std::vector<double> start_state = { -0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
-const static std::vector<double> end_state = { 0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
+const static long SEED = 1;
 
 std::string locateResource(const std::string& url)
 {
@@ -127,10 +111,63 @@ template <typename Configurator>
 class OMPLTestFixture : public ::testing::Test
 {
 public:
-  OMPLTestFixture() { configurator = std::make_shared<Configurator>(); }
   using ::testing::Test::Test;
-  std::shared_ptr<Configurator> configurator;
-  OMPLMotionPlanner ompl_planner;
+
+  OMPLTestFixture()
+    : env(std::make_shared<Environment>())
+    , manip("manipulator", "base_link", "tool0")
+    , configurator(std::make_shared<Configurator>())
+  {
+    // Load scene and srdf
+    auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
+    tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
+    tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
+    EXPECT_TRUE(this->env->init(urdf_path, srdf_path, locator));
+
+    // Add box to environment
+    addBox(*env);
+  }
+
+  std::shared_ptr<OMPLCompositeProfileRVSS> createCompositeProfile()
+  {
+    auto composite_profile = std::make_shared<OMPLCompositeProfileRVSS>();
+    composite_profile->collision_check_config.contact_manager_config.margin_data_override_type =
+        tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
+    composite_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.025);
+    composite_profile->collision_check_config.longest_valid_segment_length = 0.1;
+    composite_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
+    composite_profile->rng_seed = SEED;
+
+    return composite_profile;
+  }
+
+  std::shared_ptr<OMPLPlannerProfile> createPlannerProfile()
+  {
+    auto planner_profile = std::make_shared<OMPLPlannerProfile>();
+    planner_profile->params.planning_time = 10.0;
+    planner_profile->params.optimize = false;
+    planner_profile->params.max_solutions = 2;
+    planner_profile->params.simplify = false;
+    planner_profile->params.planners = { this->configurator, this->configurator };
+    return planner_profile;
+  }
+
+  /** @brief Motion planning environment */
+  Environment::Ptr env;
+  /** @brief Manipulator information for planning */
+  const ManipulatorInfo manip;
+  /** @brief OMPL planner factory */
+  const std::shared_ptr<Configurator> configurator;
+  /** @brief Tesseract OMPL motion planner */
+  const OMPLMotionPlanner ompl_planner;
+  /** @brief Arbitrary trajectory start state */
+  const std::vector<double> start_state_ = { -0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
+  /** @brief Arbitrary trajectory end state */
+  const std::vector<double> end_state_ = { 0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
+  /** @brief Motion planning profile name */
+  const std::string profile_name_ = "TEST_PROFILE";
+  /** @brief Number of states in the seed trajectory */
+  const int seed_size_ = 10;
 };
 
 using Implementations = ::testing::Types<tesseract_planning::SBLConfigurator,
@@ -149,349 +186,291 @@ using Implementations = ::testing::Types<tesseract_planning::SBLConfigurator,
 
 TYPED_TEST_CASE(OMPLTestFixture, Implementations);  // NOLINT
 
-TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
+TYPED_TEST(OMPLTestFixture, JointStartJointGoal)  // NOLINT
 {
-  EXPECT_EQ(ompl::RNG::getSeed(), SEED) << "Randomization seed does not match expected: " << ompl::RNG::getSeed()
-                                        << " vs. " << SEED;
-
-  // Step 1: Load scene and srdf
-  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
-  Environment::Ptr env = std::make_shared<Environment>();
-  tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
-  tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-  EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
-
-  ManipulatorInfo manip;
-  manip.manipulator = "manipulator";
-  manip.working_frame = "base_link";
-  manip.tcp_frame = "tool0";
-
-  // Step 2: Add box to environment
-  addBox(*env);
-
-  // Step 3: Create ompl planner config and populate it
-  auto joint_group = env->getJointGroup(manip.manipulator);
-  auto cur_state = env->getState();
+  const auto joint_group = this->env->getJointGroup(this->manip.manipulator);
+  const auto cur_state = this->env->getState();
 
   // Specify a start waypoint
-  JointWaypoint wp1(joint_group->getJointNames(),
-                    Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())));
+  const JointWaypoint wp1(
+      joint_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(this->start_state_.data(), static_cast<long>(this->start_state_.size())));
 
   // Specify a end waypoint
-  JointWaypoint wp2(joint_group->getJointNames(),
-                    Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())));
+  const JointWaypoint wp2(
+      joint_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(this->end_state_.data(), static_cast<long>(this->end_state_.size())));
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  const PlanInstruction start_instruction(wp1, PlanInstructionType::START, this->profile_name_);
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
-  PlanInstruction plan_f2(wp1, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  const PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, this->profile_name_);
 
   // Create a program
   CompositeInstruction program;
+  program.setProfile(this->profile_name_);
   program.setStartInstruction(start_instruction);
-  program.setManipulatorInfo(manip);
+  program.setManipulatorInfo(this->manip);
   program.push_back(plan_f1);
-  program.push_back(plan_f2);
-
-  // Create a seed
-  CompositeInstruction seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
-
-  // Create Profiles
-  auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
-      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
-  plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.025);
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
-  plan_profile->planning_time = 10;
-  plan_profile->optimize = false;
-  plan_profile->max_solutions = 2;
-  plan_profile->simplify = false;
-  plan_profile->planners = { this->configurator, this->configurator };
-
-  // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = program;
-  request.seed = seed;
-  request.env = env;
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.env = this->env;
   request.env_state = cur_state;
-  request.profiles = profiles;
 
-  // Create Planner and solve
-  OMPLMotionPlanner ompl_planner;
+  // Add the profiles
+  {
+    auto d = std::make_unique<ProfileDictionary>();
+    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
+    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
+    request.profiles = std::move(d);
+  }
+
   PlannerResponse planner_response;
-  auto status = ompl_planner.solve(request, planner_response);
+  auto status = this->ompl_planner.solve(request, planner_response);
 
   if (!status)
   {
     CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
   }
 
-  EXPECT_TRUE(&status);
+  ASSERT_TRUE(&status);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_EQ(getMoveInstructionCount(planner_response.results), 21);  // 10 per segment + start a instruction
-  EXPECT_EQ(planner_response.results.size(), 2);
+  EXPECT_GE(getMoveInstructionCount(planner_response.results), request.seed.size());
+  EXPECT_EQ(planner_response.results.size(), 1);
   EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
   EXPECT_TRUE(wp2.isApprox(
       getJointPosition(
           getLastMoveInstruction(planner_response.results.front().as<CompositeInstruction>())->getWaypoint()),
       1e-5));
-  EXPECT_TRUE(wp1.isApprox(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
+}
+
+TYPED_TEST(OMPLTestFixture, StartStateInCollision)
+{
+  const auto joint_group = this->env->getJointGroup(this->manip.manipulator);
+  const auto cur_state = this->env->getState();
 
   // Check for start state in collision error
-  std::vector<double> swp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
+  const std::vector<double> swp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
+  const JointWaypoint wp1(joint_group->getJointNames(),
+                          Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size())));
+  const PlanInstruction start_instruction(wp1, PlanInstructionType::START, this->profile_name_);
 
-  // Define New Start Instruction
-  wp1 = Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size()));
-  wp1.joint_names = joint_group->getJointNames();
-
-  start_instruction = PlanInstruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  // Specify a end waypoint
+  const JointWaypoint wp2(
+      joint_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(this->end_state_.data(), static_cast<long>(this->end_state_.size())));
+  const PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, this->profile_name_);
 
   // Create a new program
-  program = CompositeInstruction();
+  CompositeInstruction program;
+  program.setProfile(this->profile_name_);
   program.setStartInstruction(start_instruction);
-  program.setManipulatorInfo(manip);
+  program.setManipulatorInfo(this->manip);
   program.push_back(plan_f1);
 
-  // Create a new seed
-  seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
-
   // Update Configuration
+  PlannerRequest request;
   request.instructions = program;
-  request.seed = seed;
-  request.data = nullptr;  // Note: Nust clear the saved problem or it will use it instead.
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.env = this->env;
+  request.env_state = cur_state;
+
+  // Add the profiles
+  {
+    auto d = std::make_unique<ProfileDictionary>();
+    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
+    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
+    request.profiles = std::move(d);
+  }
 
   // Solve
-  status = ompl_planner.solve(request, planner_response);
-  EXPECT_FALSE(status);
-
-  // Check for end state in collision error
-  swp = start_state;
-  std::vector<double> ewp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
-
-  wp1 = Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size()));
-  wp1.joint_names = joint_group->getJointNames();
-
-  wp2 = Eigen::Map<const Eigen::VectorXd>(ewp.data(), static_cast<long>(ewp.size()));
-  wp2.joint_names = joint_group->getJointNames();
-
-  // Define Start Instruction
-  start_instruction = PlanInstruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
-
-  // Define Plan Instructions
-  plan_f1 = PlanInstruction(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
-
-  // Create a new program
-  program = CompositeInstruction();
-  program.setStartInstruction(start_instruction);
-  program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
-
-  // Create a new seed
-  seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
-
-  // Update Configuration
-  request.instructions = program;
-  request.seed = seed;
-  request.data = nullptr;  // Note: Nust clear the saved problem or it will use it instead.
-
-  // Set new configuration and solve
-  status = ompl_planner.solve(request, planner_response);
+  PlannerResponse planner_response;
+  auto status = this->ompl_planner.solve(request, planner_response);
   EXPECT_FALSE(status);
 }
 
-TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
+TYPED_TEST(OMPLTestFixture, EndStateInCollision)
 {
-  EXPECT_EQ(ompl::RNG::getSeed(), SEED) << "Randomization seed does not match expected: " << ompl::RNG::getSeed()
-                                        << " vs. " << SEED;
-
-  // Step 1: Load scene and srdf
-  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
-  Environment::Ptr env = std::make_shared<Environment>();
-  tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
-  tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-  EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
-
-  // Set manipulator
-  ManipulatorInfo manip;
-  manip.tcp_frame = "tool0";
-  manip.manipulator = "manipulator";
-  manip.working_frame = "base_link";
-
-  // Step 2: Add box to environment
-  addBox(*(env));
-
-  // Step 3: Create ompl planner config and populate it
-  auto kin_group = env->getKinematicGroup(manip.manipulator);
-  auto cur_state = env->getState();
+  const auto joint_group = this->env->getJointGroup(this->manip.manipulator);
+  const auto cur_state = this->env->getState();
 
   // Specify a start waypoint
-  JointWaypoint wp1(kin_group->getJointNames(),
-                    Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())));
+  const JointWaypoint wp1(
+      joint_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(this->start_state_.data(), static_cast<long>(this->start_state_.size())));
+  const PlanInstruction start_instruction(wp1, PlanInstructionType::START, this->profile_name_);
+
+  // Check for end state in collision error
+  const std::vector<double> ewp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
+  const JointWaypoint wp2(joint_group->getJointNames(),
+                          Eigen::Map<const Eigen::VectorXd>(ewp.data(), static_cast<long>(ewp.size())));
+  const PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, this->profile_name_);
+
+  // Create a new program
+  CompositeInstruction program;
+  program.setProfile(this->profile_name_);
+  program.setStartInstruction(start_instruction);
+  program.setManipulatorInfo(this->manip);
+  program.push_back(plan_f1);
+
+  PlannerRequest request;
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.instructions = program;
+  request.env = this->env;
+  request.env_state = cur_state;
+
+  // Add the profiles
+  {
+    auto d = std::make_unique<ProfileDictionary>();
+    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
+    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
+    request.profiles = std::move(d);
+  }
+
+  // Set new configuration and solve
+  PlannerResponse planner_response;
+  auto status = this->ompl_planner.solve(request, planner_response);
+  EXPECT_FALSE(status);
+}
+
+TYPED_TEST(OMPLTestFixture, JointStartCartesianGoal)
+{
+  const auto kin_group = this->env->getKinematicGroup(this->manip.manipulator);
+  const auto cur_state = this->env->getState();
+
+  // Specify a start waypoint
+  const JointWaypoint wp1(
+      kin_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(this->start_state_.data(), static_cast<long>(this->start_state_.size())));
 
   // Specify a end waypoint
-  auto goal_jv = Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size()));
-  Eigen::Isometry3d goal = kin_group->calcFwdKin(goal_jv).at(manip.tcp_frame);
-  CartesianWaypoint wp2 = goal;
+  const auto goal_jv =
+      Eigen::Map<const Eigen::VectorXd>(this->end_state_.data(), static_cast<long>(this->end_state_.size()));
+  const Eigen::Isometry3d goal = kin_group->calcFwdKin(goal_jv).at(this->manip.tcp_frame);
+  const CartesianWaypoint wp2 = goal;
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  const PlanInstruction start_instruction(wp1, PlanInstructionType::START, this->profile_name_);
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  const PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, this->profile_name_);
 
   // Create a program
   CompositeInstruction program;
+  program.setProfile(this->profile_name_);
   program.setStartInstruction(start_instruction);
-  program.setManipulatorInfo(manip);
+  program.setManipulatorInfo(this->manip);
   program.push_back(plan_f1);
-
-  // Create a seed
-  CompositeInstruction seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
-
-  // Create Profiles
-  auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
-      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
-  plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.02);
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
-  plan_profile->planning_time = 10;
-  plan_profile->optimize = false;
-  plan_profile->max_solutions = 2;
-  plan_profile->simplify = false;
-  plan_profile->planners = { this->configurator, this->configurator };
-
-  // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = program;
-  request.seed = seed;
-  request.env = env;
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.env = this->env;
   request.env_state = cur_state;
-  request.profiles = profiles;
 
-  // Create Planner and solve
-  OMPLMotionPlanner ompl_planner;
+  // Add the profiles
+  {
+    auto d = std::make_unique<ProfileDictionary>();
+    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
+    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
+    request.profiles = std::move(d);
+  }
+
   PlannerResponse planner_response;
-  auto status = ompl_planner.solve(request, planner_response);
+  auto status = this->ompl_planner.solve(request, planner_response);
 
   if (!status)
   {
     CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
   }
-  EXPECT_TRUE(&status);
-  EXPECT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_EQ(getMoveInstructionCount(planner_response.results), 11);
+  ASSERT_TRUE(&status);
+  ASSERT_TRUE(planner_response.results.hasStartInstruction());
+  EXPECT_GE(getMoveInstructionCount(planner_response.results), request.seed.size());
   EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
 
-  Eigen::Isometry3d check_goal =
-      kin_group->calcFwdKin(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()))
-          .at(manip.tcp_frame);
+  const MoveInstruction* last_move = getLastMoveInstruction(planner_response.results);
+  const Eigen::VectorXd& last_move_joints = getJointPosition(last_move->getWaypoint());
+  const Eigen::Isometry3d check_goal = kin_group->calcFwdKin(last_move_joints).at(this->manip.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(check_goal, 1e-3));
 }
 
-TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
+TYPED_TEST(OMPLTestFixture, CartesianStartJointGoal)
 {
-  EXPECT_EQ(ompl::RNG::getSeed(), SEED) << "Randomization seed does not match expected: " << ompl::RNG::getSeed()
-                                        << " vs. " << SEED;
-
-  // Step 1: Load scene and srdf
-  auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
-  Environment::Ptr env = std::make_shared<Environment>();
-  tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.urdf");
-  tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
-  EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
-
-  // Set manipulator
-  ManipulatorInfo manip;
-  manip.tcp_frame = "tool0";
-  manip.manipulator = "manipulator";
-  manip.working_frame = "base_link";
-
-  // Step 2: Add box to environment
-  addBox(*(env));
-
-  // Step 3: Create ompl planner config and populate it
-  auto kin_group = env->getKinematicGroup(manip.manipulator);
-  auto cur_state = env->getState();
+  const auto kin_group = this->env->getKinematicGroup(this->manip.manipulator);
+  const auto cur_state = this->env->getState();
 
   // Specify a start waypoint
-  auto start_jv = Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size()));
-  Eigen::Isometry3d start = kin_group->calcFwdKin(start_jv).at(manip.tcp_frame);
-  CartesianWaypoint wp1 = start;
+  const auto start_jv =
+      Eigen::Map<const Eigen::VectorXd>(this->start_state_.data(), static_cast<long>(this->start_state_.size()));
+  const Eigen::Isometry3d start = kin_group->calcFwdKin(start_jv).at(this->manip.tcp_frame);
+  const CartesianWaypoint wp1 = start;
 
   // Specify a end waypoint
-  JointWaypoint wp2(kin_group->getJointNames(),
-                    Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())));
+  const JointWaypoint wp2(
+      kin_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(this->end_state_.data(), static_cast<long>(this->end_state_.size())));
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  const PlanInstruction start_instruction(wp1, PlanInstructionType::START, this->profile_name_);
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  const PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, this->profile_name_);
 
   // Create a program
   CompositeInstruction program;
+  program.setProfile(this->profile_name_);
   program.setStartInstruction(start_instruction);
-  program.setManipulatorInfo(manip);
+  program.setManipulatorInfo(this->manip);
   program.push_back(plan_f1);
-
-  // Create a seed
-  CompositeInstruction seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
-
-  // Create Profiles
-  auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
-      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
-  plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.02);
-  plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
-  plan_profile->planning_time = 10;
-  plan_profile->optimize = false;
-  plan_profile->max_solutions = 2;
-  plan_profile->simplify = false;
-  plan_profile->planners = { this->configurator, this->configurator };
-
-  // Profile Dictionary
-  auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "TEST_PROFILE", plan_profile);
 
   // Create Planner Request
   PlannerRequest request;
   request.instructions = program;
-  request.seed = seed;
-  request.env = env;
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.env = this->env;
   request.env_state = cur_state;
-  request.profiles = profiles;
 
-  // Create Planner and solve
-  OMPLMotionPlanner ompl_planner;
+  // Add the profiles
+  {
+    auto d = std::make_unique<ProfileDictionary>();
+    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
+    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
+        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
+    request.profiles = std::move(d);
+  }
+
   PlannerResponse planner_response;
-  auto status = ompl_planner.solve(request, planner_response);
+  auto status = this->ompl_planner.solve(request, planner_response);
 
   if (!status)
   {
     CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
   }
 
-  EXPECT_TRUE(&status);
-  EXPECT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_EQ(getMoveInstructionCount(planner_response.results), 11);
-  EXPECT_TRUE(wp2.isApprox(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
+  ASSERT_TRUE(&status);
+  ASSERT_TRUE(planner_response.results.hasStartInstruction());
+  EXPECT_GE(getMoveInstructionCount(planner_response.results), request.seed.size());
 
-  Eigen::Isometry3d check_start =
-      kin_group->calcFwdKin(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()))
-          .at(manip.tcp_frame);
+  const MoveInstruction* last_mi = getLastMoveInstruction(planner_response.results);
+  EXPECT_TRUE(wp2.isApprox(getJointPosition(last_mi->getWaypoint()), 1e-5));
+
+  const MoveInstruction* first_mi = getFirstMoveInstruction(planner_response.results);
+  const Eigen::VectorXd& joints = getJointPosition(first_mi->getWaypoint());
+  const Eigen::Isometry3d check_start = kin_group->calcFwdKin(joints).at(this->manip.tcp_frame);
   EXPECT_TRUE(wp1.isApprox(check_start, 1e-3));
 }
 
@@ -512,7 +491,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
 //  addBox(*(env));
 
 //  // Step 3: Create ompl planner config and populate it
-//  auto kin = env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
+//  auto kin = this->env->getManipulatorManager()->getFwdKinematicSolver(manip.manipulator);
 //  std::vector<double> swp = start_state;
 //  std::vector<double> ewp = end_state;
 
@@ -531,7 +510,6 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
 //  ompl_config->collision_continuous = true;
 //  ompl_config->collision_check = true;
 //  ompl_config->simplify = false;
-//  ompl_config->n_output_states = 50;
 
 //  // Set the planner configuration
 //  ompl_planner.setConfiguration(ompl_config);
@@ -544,7 +522,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
 //    CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
 //  }
 //  EXPECT_TRUE(&status);
-//  EXPECT_EQ(ompl_planning_response.joint_trajectory.trajectory.rows(), ompl_config->n_output_states);
+//  EXPECT_GE(ompl_planning_response.joint_trajectory.trajectory.rows(), request.seed.size());
 
 //  // Check for start state in collision error
 //  swp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
@@ -580,8 +558,7 @@ int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
 
-  // Set the randomization seed for the planners to get repeatable results
-  ompl::RNG::setSeed(SEED);
+  ompl::RNG::setSeed(static_cast<unsigned long>(SEED));
 
   return RUN_ALL_TESTS();
 }
