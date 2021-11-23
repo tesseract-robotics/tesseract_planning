@@ -89,7 +89,10 @@ public:
   /** @returns norm of vector */
   inline double norm() const { return waypoint.norm(); }
   /** @returns true if two are approximate */
-  inline bool isApprox(const Eigen::VectorXd& other, double prec = 1e-12) { return waypoint.isApprox(other, prec); }
+  inline bool isApprox(const Eigen::VectorXd& other, double prec = 1e-12) const
+  {
+    return waypoint.isApprox(other, prec);
+  }
   /** @returns the transpose of the joint positions */
   inline ConstTransposeReturnType transpose() const { return waypoint.transpose(); }  // NOLINT
 
