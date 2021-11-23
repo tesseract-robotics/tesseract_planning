@@ -357,4 +357,4 @@ OMPLCompositeProfileData OMPLCompositeProfileRVSS::create(const CompositeInstruc
   return std::make_tuple(simple_setup, extractor);
 }
 
-} // namespace tesseract_planning
+}  // namespace tesseract_planning

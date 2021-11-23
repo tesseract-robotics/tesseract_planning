@@ -20,8 +20,7 @@ namespace tesseract_planning
 using StateValidityCheckerAllocator =
     std::function<ompl::base::StateValidityCheckerPtr(const ompl::base::SpaceInformationPtr&)>;
 
-using MotionValidatorAllocator =
-    std::function<ompl::base::MotionValidatorPtr(const ompl::base::SpaceInformationPtr&)>;
+using MotionValidatorAllocator = std::function<ompl::base::MotionValidatorPtr(const ompl::base::SpaceInformationPtr&)>;
 
 using OptimizationObjectiveAllocator =
     std::function<ompl::base::OptimizationObjectivePtr(const ompl::base::SpaceInformationPtr&)>;
@@ -74,11 +73,12 @@ struct OMPLCompositeProfileRVSS : public CompositeProfile<OMPLCompositeProfileDa
 
   /**
    * @brief Seed for OMPL random number generator
-   * @details When this value is greater than or equal to zero, the OMPL random number generator will produce a determinstic sequence of random samples
+   * @details When this value is greater than or equal to zero, the OMPL random number generator will produce a
+   * determinstic sequence of random samples
    */
   long rng_seed = -1;
 };
 
-} // namespace tesseract_planning
+}  // namespace tesseract_planning
 
-#endif // TESSERACT_MOTION_PLANNERS_OMPL_PROFILE_OMPL_COMPOSITE_PROFILE_RVSS_H
+#endif  // TESSERACT_MOTION_PLANNERS_OMPL_PROFILE_OMPL_COMPOSITE_PROFILE_RVSS_H

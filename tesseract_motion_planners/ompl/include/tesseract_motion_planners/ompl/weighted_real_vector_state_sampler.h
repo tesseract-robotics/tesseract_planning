@@ -53,7 +53,8 @@ public:
    * @param space
    * @param weights
    * @param bounds
-   * @param rng_seed Seed for the OMPL random number generator to produce deterministic sampling. The seed is only set if the input value is greater than greater than or equal to zero
+   * @param rng_seed Seed for the OMPL random number generator to produce deterministic sampling. The seed is only set
+   * if the input value is greater than greater than or equal to zero
    */
   WeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
                                  const Eigen::Ref<const Eigen::VectorXd>& weights,

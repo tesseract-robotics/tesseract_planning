@@ -81,8 +81,7 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 }
 
 /** @brief Construct a basic planner */
-OMPLMotionPlanner::OMPLMotionPlanner(std::string name)
-  : name_(std::move(name))
+OMPLMotionPlanner::OMPLMotionPlanner(std::string name) : name_(std::move(name))
 {
   if (name_.empty())
     throw std::runtime_error("OMPLMotionPlanner name is empty!");
@@ -96,10 +95,7 @@ bool OMPLMotionPlanner::terminate()
   return false;
 }
 
-void OMPLMotionPlanner::clear()
-{
-
-}
+void OMPLMotionPlanner::clear() {}
 
 tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& request,
                                                       PlannerResponse& response,
@@ -108,7 +104,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   auto status_category_ = std::make_shared<const OMPLMotionPlannerStatusCategory>(name_);
 
   // Check the format of the request
-  if (!checkUserInput(request)) // NOLINT
+  if (!checkUserInput(request))  // NOLINT
   {
     response.status =
         tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
@@ -213,8 +209,8 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
   if (status != ompl::base::PlannerStatus::EXACT_SOLUTION)
   {
-    response.status = tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::ErrorFailedToFindValidSolution,
-                                                   status_category_);
+    response.status =
+        tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::ErrorFailedToFindValidSolution, status_category_);
     return response.status;
   }
 

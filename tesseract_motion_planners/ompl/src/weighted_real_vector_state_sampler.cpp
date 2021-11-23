@@ -44,7 +44,7 @@ WeightedRealVectorStateSampler::WeightedRealVectorStateSampler(const ompl::base:
   : ompl::base::StateSampler(space), weights_(weights), bounds_(bounds)
 {
   assert(bounds_.rows() == weights_.size());
-  if(rng_seed >= 0)
+  if (rng_seed >= 0)
     rng_.setLocalSeed(static_cast<unsigned long>(rng_seed));
 }
 
