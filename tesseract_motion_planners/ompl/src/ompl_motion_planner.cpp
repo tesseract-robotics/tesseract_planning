@@ -149,6 +149,25 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     return response.status;
   }
 
+  if (request.data != nullptr)
+  {
+    ompl::geometric::SimpleSetupPtr ss = std::static_pointer_cast<ompl::geometric::SimpleSetup>(request.data);
+    ss->clearStartStates();
+
+    // Add the start states from the newly configured simple setup to the simple setup from the request
+    for (unsigned i = 0; i < simple_setup->getProblemDefinition()->getStartStateCount(); ++i)
+    {
+      ompl::base::ScopedState<> s(ss->getStateSpace(), simple_setup->getProblemDefinition()->getStartState(i));
+      ss->addStartState(s);
+    }
+
+    // Add the goal states from the newly configured
+    ss->setGoal(simple_setup->getGoal());
+
+    // Overwrite the configured simple setup with the modified simple setup from the request
+    simple_setup.swap(ss);
+  }
+
   // Create an OMPL planner that can run multiple OMPL planners in parallele
   auto parallel_plan = std::make_shared<ompl::tools::ParallelPlan>(simple_setup->getProblemDefinition());
 
@@ -232,10 +251,12 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   }
   else
   {
-    // Trajectory length matches seed length, so no need to simplify or interpolate
+    // Trajectory length matches or exceeds seed length and simplification is disabled, so no need to simplify or
+    // interpolate
   }
 
   // Get the results
+  response.data = std::static_pointer_cast<void>(simple_setup);
   tesseract_common::TrajArray trajectory = toTrajArray(simple_setup->getSolutionPath(), extractor);
   assert(checkStartState(simple_setup->getProblemDefinition(), trajectory.row(0), extractor));
   assert(checkGoalState(simple_setup->getProblemDefinition(), trajectory.bottomRows(1).transpose(), extractor));
