@@ -100,31 +100,4 @@ void processLongestValidSegment(const ompl::base::StateSpacePtr& state_space_ptr
   state_space_ptr->setLongestValidSegmentFraction(longest_valid_segment_fraction);
 }
 
-bool checkStateInCollision(OMPLProblem& prob,
-                           const Eigen::VectorXd& state,
-                           tesseract_collision::ContactResultMap& contact_map)
-{
-  tesseract_common::TransformMap link_transforms = prob.manip->calcFwdKin(state);
-
-  for (const auto& link_name : prob.contact_checker->getActiveCollisionObjects())
-    prob.contact_checker->setCollisionObjectsTransform(link_name, link_transforms[link_name]);
-
-  prob.contact_checker->contactTest(contact_map, tesseract_collision::ContactTestType::FIRST);
-
-  return (!contact_map.empty());
-}
-
-bool checkStateInCollision(OMPLProblem& prob, const Eigen::VectorXd& state)
-{
-  tesseract_collision::ContactResultMap contact_map;
-  return checkStateInCollision(prob, state, contact_map);
-}
-
-ompl::base::StateSamplerPtr allocWeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
-                                                                const Eigen::VectorXd& weights,
-                                                                const Eigen::MatrixX2d& limits)
-{
-  return std::make_shared<WeightedRealVectorStateSampler>(space, weights, limits);
-}
-
 }  // namespace tesseract_planning
