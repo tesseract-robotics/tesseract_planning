@@ -200,8 +200,8 @@ OMPLCompositeProfileData OMPLCompositeProfileRVSS::create(const CompositeInstruc
   {
     Eigen::VectorXd weights = Eigen::VectorXd::Ones(dof);
     rss->setStateSamplerAllocator(
-        [weights, limits](const ompl::base::StateSpace* state_space) -> ompl::base::StateSamplerPtr {
-          return std::make_shared<WeightedRealVectorStateSampler>(state_space, weights, limits);
+        [weights, limits, this](const ompl::base::StateSpace* state_space) -> ompl::base::StateSamplerPtr {
+          return std::make_shared<WeightedRealVectorStateSampler>(state_space, weights, limits, this->rng_seed);
         });
   }
 

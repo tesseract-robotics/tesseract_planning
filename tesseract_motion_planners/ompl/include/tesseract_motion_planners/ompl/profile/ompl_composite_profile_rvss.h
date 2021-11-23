@@ -71,6 +71,12 @@ struct OMPLCompositeProfileRVSS : public CompositeProfile<OMPLCompositeProfileDa
    */
   OMPLCompositeProfileData create(const CompositeInstruction& instruction,
                                   tesseract_environment::Environment::ConstPtr env) const override;
+
+  /**
+   * @brief Seed for OMPL random number generator
+   * @details When this value is greater than or equal to zero, the OMPL random number generator will produce a determinstic sequence of random samples
+   */
+  long rng_seed = -1;
 };
 
 } // namespace tesseract_planning
