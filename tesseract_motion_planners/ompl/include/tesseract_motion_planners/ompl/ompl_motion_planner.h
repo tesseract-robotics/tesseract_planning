@@ -87,7 +87,12 @@ using OMPLCompositeProfileData = std::tuple<ompl::geometric::SimpleSetupPtr, OMP
 struct OMPLPlannerProfile : public PlannerProfile<OMPLPlannerParameters>
 {
   OMPLPlannerParameters params;
-  inline OMPLPlannerParameters create() const override { return params; };
+  inline OMPLPlannerParameters create() const override
+  {
+    if (params.planners.empty())
+      throw std::runtime_error("No OMPL planner factories defined");
+    return params;
+  };
 };
 
 /**
