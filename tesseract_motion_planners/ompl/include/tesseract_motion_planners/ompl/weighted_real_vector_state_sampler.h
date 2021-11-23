@@ -48,9 +48,17 @@ namespace tesseract_planning
 class WeightedRealVectorStateSampler : public ompl::base::StateSampler
 {
 public:
+  /**
+   * @brief Constructor
+   * @param space
+   * @param weights
+   * @param bounds
+   * @param rng_seed Seed for the OMPL random number generator to produce deterministic sampling. The seed is only set if the input value is greater than greater than or equal to zero
+   */
   WeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
                                  const Eigen::Ref<const Eigen::VectorXd>& weights,
-                                 const Eigen::Ref<const Eigen::MatrixX2d>& bounds);
+                                 const Eigen::Ref<const Eigen::MatrixX2d>& bounds,
+                                 long rng_seed = -1);
 
   void sampleUniform(ompl::base::State* state) override;
 

@@ -39,10 +39,13 @@ namespace tesseract_planning
 {
 WeightedRealVectorStateSampler::WeightedRealVectorStateSampler(const ompl::base::StateSpace* space,
                                                                const Eigen::Ref<const Eigen::VectorXd>& weights,
-                                                               const Eigen::Ref<const Eigen::MatrixX2d>& bounds)
+                                                               const Eigen::Ref<const Eigen::MatrixX2d>& bounds,
+                                                               long rng_seed)
   : ompl::base::StateSampler(space), weights_(weights), bounds_(bounds)
 {
   assert(bounds_.rows() == weights_.size());
+  if(rng_seed >= 0)
+    rng_.setLocalSeed(static_cast<unsigned long>(rng_seed));
 }
 
 void WeightedRealVectorStateSampler::sampleUniform(ompl::base::State* state)
