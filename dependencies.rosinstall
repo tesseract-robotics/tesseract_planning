@@ -1,7 +1,7 @@
 - git:
     local-name: trajopt
     uri: https://github.com/tesseract-robotics/trajopt.git
-    version: 0.1.0
+    version: c02b1dfb1ad49c688856b482092700439f57c867
 - git:
     local-name: descartes_light
     uri: https://github.com/swri-robotics/descartes_light.git
