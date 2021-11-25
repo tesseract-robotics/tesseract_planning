@@ -168,7 +168,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     simple_setup.swap(ss);
   }
 
-  // Create an OMPL planner that can run multiple OMPL planners in parallele
+  // Create an OMPL planner that can run multiple OMPL planners in parallel
   auto parallel_plan = std::make_shared<ompl::tools::ParallelPlan>(simple_setup->getProblemDefinition());
 
   // Add all the specified OMPL planners to the parallel planner
@@ -234,25 +234,31 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   }
 
   // The trajectory must have at least as many states as the seed trajectory
-  const std::size_t n_states = simple_setup->getSolutionPath().getStateCount();
-  if (n_states < request.seed.size())
+  if (!request.seed.empty())
   {
-    // Upsample the number of states to match the length of the seed
-    simple_setup->getSolutionPath().interpolate(static_cast<unsigned>(request.seed.size()));
-  }
-  else if (n_states > request.seed.size() && params.simplify)
-  {
-    // Simplify the solution
-    simple_setup->simplifySolution();
+    const std::size_t n_states = simple_setup->getSolutionPath().getStateCount();
+    // The number of states in the seed is the size of the composite instruction plus one for the start state
+    const unsigned n_seed_states = static_cast<unsigned>(request.seed.at(0).as<CompositeInstruction>().size()) + 1;
 
-    // Upsample the number of states to match the length of the seed if required
-    if (simple_setup->getSolutionPath().getStateCount() < request.seed.size())
-      simple_setup->getSolutionPath().interpolate(static_cast<unsigned>(request.seed.size()));
-  }
-  else
-  {
-    // Trajectory length matches or exceeds seed length and simplification is disabled, so no need to simplify or
-    // interpolate
+    if (n_states < n_seed_states)
+    {
+      // Upsample the number of states to match the length of the seed
+      simple_setup->getSolutionPath().interpolate(n_seed_states);
+    }
+    else if (n_states > n_seed_states && params.simplify)
+    {
+      // Simplify the solution
+      simple_setup->simplifySolution();
+
+      // Upsample the number of states to match the length of the seed if required
+      if (simple_setup->getSolutionPath().getStateCount() < n_seed_states)
+        simple_setup->getSolutionPath().interpolate(n_seed_states);
+    }
+    else
+    {
+      // Trajectory length matches or exceeds seed length and simplification is disabled, so no need to simplify or
+      // interpolate
+    }
   }
 
   // Get the results
@@ -282,9 +288,11 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
   // The results composite will only have as many states as the seed, but the OMPL trajectory might require more states
   // In this case, we need to insert more states into the composite to cover the difference
-  if (composite.size() < trajectory.rows())
+  // Remember the composite does not include the start state, so compare its size with one less than the size of the
+  // trajectory
+  if (composite.size() < trajectory.rows() - 1)
   {
-    const std::size_t diff = static_cast<std::size_t>(trajectory.rows()) - composite.size();
+    const std::size_t diff = static_cast<std::size_t>(trajectory.rows() - 1) - composite.size();
     composite.insert(composite.end(), diff, composite.back());
   }
 
@@ -299,7 +307,10 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     else
     {
       // Subsequent trajectory states go into the composite instruction
-      auto& move_instruction = composite.at(static_cast<std::size_t>(i)).as<MoveInstruction>();
+      // The index into the composite of these states is one less than the index of the trajectory state since the first
+      // trajectory state was saved outside the composite
+      const std::size_t composite_idx = static_cast<std::size_t>(i - 1);
+      auto& move_instruction = composite.at(composite_idx).as<MoveInstruction>();
       move_instruction.getWaypoint().as<StateWaypoint>().position = trajectory.row(i);
     }
   }
@@ -320,7 +331,10 @@ bool OMPLMotionPlanner::checkUserInput(const PlannerRequest& request)
     std::runtime_error("Request contains no instructions");
 
   if (request.instructions.size() > 1)
-    std::runtime_error("OMPL planner only supports one plan instruction");
+    std::runtime_error("OMPL planner instruction only supports one plan instruction");
+
+  if (request.seed.size() > 1)
+    std::runtime_error("OMPL planner seed only supports a single trajectory");
 
   // Attempt to cast the first child instruction to a PlanInstruction
   request.instructions.at(0).as<PlanInstruction>();

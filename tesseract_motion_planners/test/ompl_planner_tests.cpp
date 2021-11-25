@@ -27,7 +27,6 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/util/RandomNumbers.h>
-
 #include <functional>
 #include <cmath>
 #include <gtest/gtest.h>
@@ -166,8 +165,8 @@ public:
   const std::vector<double> end_state_ = { 0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
   /** @brief Motion planning profile name */
   const std::string profile_name_ = "TEST_PROFILE";
-  /** @brief Number of states in the seed trajectory */
-  const int seed_size_ = 10;
+  /** @brief Number of steps in the seed trajectory, equivalent to the the number of states minus one */
+  const int seed_steps_ = 10;
 };
 
 using Implementations = ::testing::Types<tesseract_planning::SBLConfigurator,
@@ -217,7 +216,7 @@ TYPED_TEST(OMPLTestFixture, JointStartJointGoal)  // NOLINT
   // Create Planner Request
   PlannerRequest request;
   request.instructions = program;
-  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_steps_);
   request.env = this->env;
   request.env_state = cur_state;
 
@@ -241,7 +240,7 @@ TYPED_TEST(OMPLTestFixture, JointStartJointGoal)  // NOLINT
 
   ASSERT_TRUE(&status);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_GE(getMoveInstructionCount(planner_response.results), request.seed.size());
+  EXPECT_GE(getMoveInstructionCount(planner_response.results), this->seed_steps_);
   EXPECT_EQ(planner_response.results.size(), 1);
   EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
   EXPECT_TRUE(wp2.isApprox(
@@ -277,7 +276,7 @@ TYPED_TEST(OMPLTestFixture, StartStateInCollision)
   // Update Configuration
   PlannerRequest request;
   request.instructions = program;
-  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_steps_);
   request.env = this->env;
   request.env_state = cur_state;
 
@@ -322,7 +321,7 @@ TYPED_TEST(OMPLTestFixture, EndStateInCollision)
   program.push_back(plan_f1);
 
   PlannerRequest request;
-  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_steps_);
   request.instructions = program;
   request.env = this->env;
   request.env_state = cur_state;
@@ -375,7 +374,7 @@ TYPED_TEST(OMPLTestFixture, JointStartCartesianGoal)
   // Create Planner Request
   PlannerRequest request;
   request.instructions = program;
-  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_steps_);
   request.env = this->env;
   request.env_state = cur_state;
 
@@ -398,7 +397,7 @@ TYPED_TEST(OMPLTestFixture, JointStartCartesianGoal)
   }
   ASSERT_TRUE(&status);
   ASSERT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_GE(getMoveInstructionCount(planner_response.results), request.seed.size());
+  EXPECT_GE(getMoveInstructionCount(planner_response.results), this->seed_steps_);
   EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
 
   const MoveInstruction* last_move = getLastMoveInstruction(planner_response.results);
@@ -439,7 +438,7 @@ TYPED_TEST(OMPLTestFixture, CartesianStartJointGoal)
   // Create Planner Request
   PlannerRequest request;
   request.instructions = program;
-  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_size_);
+  request.seed = generateSeed(program, cur_state, this->env, 3.14, 1.0, 3.14, this->seed_steps_);
   request.env = this->env;
   request.env_state = cur_state;
 
@@ -463,7 +462,7 @@ TYPED_TEST(OMPLTestFixture, CartesianStartJointGoal)
 
   ASSERT_TRUE(&status);
   ASSERT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_GE(getMoveInstructionCount(planner_response.results), request.seed.size());
+  EXPECT_GE(getMoveInstructionCount(planner_response.results), this->seed_steps_);
 
   const MoveInstruction* last_mi = getLastMoveInstruction(planner_response.results);
   EXPECT_TRUE(wp2.isApprox(getJointPosition(last_mi->getWaypoint()), 1e-5));
