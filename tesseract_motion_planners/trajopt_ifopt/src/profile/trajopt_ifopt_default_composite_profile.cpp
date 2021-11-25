@@ -70,10 +70,10 @@ void TrajOptIfoptDefaultCompositeProfile::apply(TrajOptIfoptProblem& problem,
     addJointVelocitySquaredCost(*problem.nlp, vars, velocity_coeff);
 
   if (smooth_accelerations)
-    CONSOLE_BRIDGE_logWarn("Acceleration smoothing not yet supported by trajopt_ifopt. PRs welcome");
+    addJointAccelerationSquaredCost(*problem.nlp, vars, acceleration_coeff);
 
   if (smooth_jerks)
-    CONSOLE_BRIDGE_logWarn("Jerk smoothing not yet supported by trajopt_ifopt. PRs welcome");
+    addJointJerkSquaredCost(*problem.nlp, vars, jerk_coeff);
 }
 
 tinyxml2::XMLElement* TrajOptIfoptDefaultCompositeProfile::toXML(tinyxml2::XMLDocument& /*doc*/) const

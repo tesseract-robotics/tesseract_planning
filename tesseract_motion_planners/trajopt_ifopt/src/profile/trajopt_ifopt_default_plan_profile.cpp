@@ -125,17 +125,17 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                            int index) const
 {
   auto idx = static_cast<std::size_t>(index);
-  auto vel_constraint = createJointPositionConstraint(joint_waypoint, problem.vars[idx], joint_coeff);
+  auto constraint = createJointPositionConstraint(joint_waypoint, problem.vars[idx], joint_coeff);
   switch (term_type)
   {
     case TrajOptIfoptTermType::CONSTRAINT:
-      problem.nlp->addConstraintSet(vel_constraint);
+      problem.nlp->addConstraintSet(constraint);
       break;
     case TrajOptIfoptTermType::SQUARED_COST:
-      problem.nlp->addCostSet(vel_constraint, trajopt_sqp::CostPenaltyType::SQUARED);
+      problem.nlp->addCostSet(constraint, trajopt_sqp::CostPenaltyType::SQUARED);
       break;
     case TrajOptIfoptTermType::ABSOLUTE_COST:
-      problem.nlp->addCostSet(vel_constraint, trajopt_sqp::CostPenaltyType::ABSOLUTE);
+      problem.nlp->addCostSet(constraint, trajopt_sqp::CostPenaltyType::ABSOLUTE);
       break;
   }
 }

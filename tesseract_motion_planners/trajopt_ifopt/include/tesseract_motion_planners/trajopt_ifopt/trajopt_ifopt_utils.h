@@ -114,6 +114,31 @@ bool addJointVelocitySquaredCost(trajopt_sqp::QPProblem& nlp,
                                  const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                                  const Eigen::Ref<const Eigen::VectorXd>& coeff);
 
+ifopt::ConstraintSet::Ptr
+createJointAccelerationConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
+                                  const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                                  const Eigen::VectorXd& coeffs);
+
+bool addJointAccelerationConstraint(trajopt_sqp::QPProblem& nlp,
+                                    const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                                    const Eigen::Ref<const Eigen::VectorXd>& coeff);
+
+bool addJointAccelerationSquaredCost(trajopt_sqp::QPProblem& nlp,
+                                     const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                                     const Eigen::Ref<const Eigen::VectorXd>& coeff);
+
+ifopt::ConstraintSet::Ptr createJointJerkConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
+                                                    const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                                                    const Eigen::VectorXd& coeffs);
+
+bool addJointJerkConstraint(trajopt_sqp::QPProblem& nlp,
+                            const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                            const Eigen::Ref<const Eigen::VectorXd>& coeff);
+
+bool addJointJerkSquaredCost(trajopt_sqp::QPProblem& nlp,
+                             const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                             const Eigen::Ref<const Eigen::VectorXd>& coeff);
+
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_UTILS_H

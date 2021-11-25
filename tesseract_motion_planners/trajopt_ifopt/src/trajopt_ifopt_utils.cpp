@@ -24,11 +24,11 @@
  * limitations under the License.
  */
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
-#include <trajopt_ifopt/trajopt_ifopt.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
 #include <tesseract_command_language/types.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_collision/core/common.h>
+#include <trajopt_ifopt/trajopt_ifopt.h>
 
 #include <ifopt/problem.h>
 
@@ -338,12 +338,11 @@ bool addCollisionCost(trajopt_sqp::QPProblem& nlp,
 
 ifopt::ConstraintSet::Ptr createJointVelocityConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
                                                         const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
-                                                        const Eigen::VectorXd& /*coeffs*/)
+                                                        const Eigen::VectorXd& coeffs)
 
 {
   assert(!vars.empty());
-  trajopt_ifopt::JointVelConstraint::Ptr vel_constraint =
-      std::make_shared<trajopt_ifopt::JointVelConstraint>(target, vars, "JointVelocity");
+  auto vel_constraint = std::make_shared<trajopt_ifopt::JointVelConstraint>(target, vars, coeffs, "JointVelocity");
   return vel_constraint;
 }
 
@@ -370,6 +369,80 @@ bool addJointVelocitySquaredCost(trajopt_sqp::QPProblem& nlp,
   Eigen::VectorXd vel_target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
   auto vel_constraint = createJointVelocityConstraint(vel_target, vars, coeff);
   nlp.addCostSet(vel_constraint, trajopt_sqp::CostPenaltyType::SQUARED);
+  return true;
+}
+
+ifopt::ConstraintSet::Ptr
+createJointAccelerationConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
+                                  const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                                  const Eigen::VectorXd& coeffs)
+
+{
+  assert(!vars.empty());
+  auto accel_constraint =
+      std::make_shared<trajopt_ifopt::JointAccelConstraint>(target, vars, coeffs, "JointAcceleration");
+  return accel_constraint;
+}
+
+bool addJointAccelerationConstraint(trajopt_sqp::QPProblem& nlp,
+                                    const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                                    const Eigen::Ref<const Eigen::VectorXd>& coeff)
+{
+  if (vars.empty())
+    return true;
+
+  Eigen::VectorXd accel_target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+  auto accel_constraint = createJointAccelerationConstraint(accel_target, vars, coeff);
+  nlp.addConstraintSet(accel_constraint);
+  return true;
+}
+
+bool addJointAccelerationSquaredCost(trajopt_sqp::QPProblem& nlp,
+                                     const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                                     const Eigen::Ref<const Eigen::VectorXd>& coeff)
+{
+  if (vars.empty())
+    return true;
+
+  Eigen::VectorXd accel_target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+  auto accel_constraint = createJointAccelerationConstraint(accel_target, vars, coeff);
+  nlp.addCostSet(accel_constraint, trajopt_sqp::CostPenaltyType::SQUARED);
+  return true;
+}
+
+ifopt::ConstraintSet::Ptr createJointJerkConstraint(const Eigen::Ref<const Eigen::VectorXd>& target,
+                                                    const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                                                    const Eigen::VectorXd& coeffs)
+
+{
+  assert(!vars.empty());
+  auto jerk_constraint = std::make_shared<trajopt_ifopt::JointJerkConstraint>(target, vars, coeffs, "JointJerk");
+  return jerk_constraint;
+}
+
+bool addJointJerkConstraint(trajopt_sqp::QPProblem& nlp,
+                            const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                            const Eigen::Ref<const Eigen::VectorXd>& coeff)
+{
+  if (vars.empty())
+    return true;
+
+  Eigen::VectorXd jerk_target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+  auto jerk_constraint = createJointJerkConstraint(jerk_target, vars, coeff);
+  nlp.addConstraintSet(jerk_constraint);
+  return true;
+}
+
+bool addJointJerkSquaredCost(trajopt_sqp::QPProblem& nlp,
+                             const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
+                             const Eigen::Ref<const Eigen::VectorXd>& coeff)
+{
+  if (vars.empty())
+    return true;
+
+  Eigen::VectorXd jerk_target = Eigen::VectorXd::Zero(static_cast<Eigen::Index>(vars.front()->GetJointNames().size()));
+  auto jerk_constraint = createJointJerkConstraint(jerk_target, vars, coeff);
+  nlp.addCostSet(jerk_constraint, trajopt_sqp::CostPenaltyType::SQUARED);
   return true;
 }
 
