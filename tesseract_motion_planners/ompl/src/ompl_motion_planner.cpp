@@ -149,31 +149,36 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     return response.status;
   }
 
-  if (request.data != nullptr)
-  {
-    ompl::geometric::SimpleSetupPtr ss = std::static_pointer_cast<ompl::geometric::SimpleSetup>(request.data);
-    ss->clearStartStates();
-
-    // Add the start states from the newly configured simple setup to the simple setup from the request
-    for (unsigned i = 0; i < simple_setup->getProblemDefinition()->getStartStateCount(); ++i)
-    {
-      ompl::base::ScopedState<> s(ss->getStateSpace(), simple_setup->getProblemDefinition()->getStartState(i));
-      ss->addStartState(s);
-    }
-
-    // Add the goal states from the newly configured
-    ss->setGoal(simple_setup->getGoal());
-
-    // Overwrite the configured simple setup with the modified simple setup from the request
-    simple_setup.swap(ss);
-  }
-
   // Create an OMPL planner that can run multiple OMPL planners in parallel
   auto parallel_plan = std::make_shared<ompl::tools::ParallelPlan>(simple_setup->getProblemDefinition());
 
   // Add all the specified OMPL planners to the parallel planner
+  std::vector<ompl::base::PlannerPtr> planners;
+  planners.reserve(params.planners.size());
   for (const auto& factory : params.planners)
-    parallel_plan->addPlanner(factory->create(simple_setup->getSpaceInformation()));
+  {
+    ompl::base::PlannerPtr planner = factory->create(simple_setup->getSpaceInformation());
+
+    //    // TODO: construct planner from the saved planner data (only valid for multi-query planners, such as PRM)
+    //    if (request.data != nullptr)
+    //    {
+    //      auto planner_data = std::static_pointer_cast<ompl::base::PlannerData>(request.data);
+    //      planner = factory->create(*planner_data);
+    //      if (!planner)
+    //      {
+    //        CONSOLE_BRIDGE_logWarn("Unable to construct planner with saved PlannerData; constructing planner from
+    //        scratch instead"); planner = factory->create(simple_setup->getSpaceInformation());
+    //      }
+    //    }
+    //    else
+    //    {
+    //      planner = factory->create(simple_setup->getSpaceInformation());
+    //    }
+
+    // Add the planner to the parallel planner object and save a pointer to it
+    parallel_plan->addPlanner(planner);
+    planners.push_back(planner);
+  }
 
   ompl::base::PlannerStatus status;
   if (!params.optimize)
@@ -226,6 +231,23 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     }
   }
 
+  // Extract the planner data from each planner and concatenate
+  // TODO: Investigate whether it is problematic to concatenate planner data from multiple different planners. The
+  // getPlannerData function handles new vertex and edge indices correctly, but vertices that are close enough in the
+  // space to be considered equivalent are not merged or connected. Also different planners add edges in different ways
+  // and set different vertex/edge properties, so it may not make sense to combine them
+  auto planner_data = std::make_shared<ompl::base::PlannerData>(simple_setup->getSpaceInformation());
+  for (auto planner : planners)
+    planner->getPlannerData(*planner_data);
+
+  // The planning data is actually owned by the planner instances themselves. Deep copy the planning information by
+  // decoupling from the planner instances so the data is not lost when the planner instances go out of scope
+  planner_data->decoupleFromPlanner();
+
+  // Save the combined planner data in the response
+  response.data = std::static_pointer_cast<void>(planner_data);
+
+  // Check the planner status
   if (status != ompl::base::PlannerStatus::EXACT_SOLUTION)
   {
     response.status =
@@ -262,7 +284,6 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   }
 
   // Get the results
-  response.data = std::static_pointer_cast<void>(simple_setup);
   tesseract_common::TrajArray trajectory = toTrajArray(simple_setup->getSolutionPath(), extractor);
   assert(checkStartState(simple_setup->getProblemDefinition(), trajectory.row(0), extractor));
   assert(checkGoalState(simple_setup->getProblemDefinition(), trajectory.bottomRows(1).transpose(), extractor));
