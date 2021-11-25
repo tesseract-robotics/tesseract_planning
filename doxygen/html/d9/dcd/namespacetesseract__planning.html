@@ -983,6 +983,18 @@ Functions</h2></td></tr>
 <tr class="separator:a216be24b4b331e388446241f3200758b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaefbdf02206df96ab97a09cf1610105"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acaefbdf02206df96ab97a09cf1610105">addJointVelocitySquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
 <tr class="separator:acaefbdf02206df96ab97a09cf1610105"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae856124e83649eb867f966266685819e"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae856124e83649eb867f966266685819e">createJointAccelerationConstraint</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;target, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::VectorXd &amp;coeffs)</td></tr>
+<tr class="separator:ae856124e83649eb867f966266685819e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1183808fe926c0a6fb1d5fece15d9dad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1183808fe926c0a6fb1d5fece15d9dad">addJointAccelerationConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:a1183808fe926c0a6fb1d5fece15d9dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f39cde237235b7e767b518f23802899"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3f39cde237235b7e767b518f23802899">addJointAccelerationSquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:a3f39cde237235b7e767b518f23802899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b6a7c026717824b0f588b88cc9357df"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4b6a7c026717824b0f588b88cc9357df">createJointJerkConstraint</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;target, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::VectorXd &amp;coeffs)</td></tr>
+<tr class="separator:a4b6a7c026717824b0f588b88cc9357df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2db7e409488f9230cb7e7b8708d5762"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac2db7e409488f9230cb7e7b8708d5762">addJointJerkConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:ac2db7e409488f9230cb7e7b8708d5762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb81bc948f8ba685cbbcdff2236f946"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aadb81bc948f8ba685cbbcdff2236f946">addJointJerkSquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:aadb81bc948f8ba685cbbcdff2236f946"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d0aafc81bd3d3129b23ec8e814f5ee4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4d0aafc81bd3d3129b23ec8e814f5ee4">freespaceExampleProgramIIWA</a> (const Eigen::Isometry3d &amp;goal=Eigen::Isometry3d::Identity() *Eigen::Translation3d(0.2, 0.2, 1.0), const std::string &amp;composite_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>, const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>)</td></tr>
 <tr class="separator:a4d0aafc81bd3d3129b23ec8e814f5ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a2039b9a45e29e30050777ff8b69bfa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7a2039b9a45e29e30050777ff8b69bfa">freespaceExampleProgramABB</a> (const Eigen::Isometry3d &amp;goal=Eigen::Isometry3d::Identity() *Eigen::Translation3d(0.2, 0.2, 1.0), const std::string &amp;composite_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>, const std::string &amp;freespace_profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>)</td></tr>
@@ -2248,6 +2260,142 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
+<a id="a1183808fe926c0a6fb1d5fece15d9dad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1183808fe926c0a6fb1d5fece15d9dad">&#9670;&nbsp;</a></span>addJointAccelerationConstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::addJointAccelerationConstraint </td>
+          <td>(</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
+          <td class="paramname"><em>nlp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>coeff</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3f39cde237235b7e767b518f23802899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f39cde237235b7e767b518f23802899">&#9670;&nbsp;</a></span>addJointAccelerationSquaredCost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::addJointAccelerationSquaredCost </td>
+          <td>(</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
+          <td class="paramname"><em>nlp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>coeff</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac2db7e409488f9230cb7e7b8708d5762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2db7e409488f9230cb7e7b8708d5762">&#9670;&nbsp;</a></span>addJointJerkConstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::addJointJerkConstraint </td>
+          <td>(</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
+          <td class="paramname"><em>nlp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>coeff</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aadb81bc948f8ba685cbbcdff2236f946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadb81bc948f8ba685cbbcdff2236f946">&#9670;&nbsp;</a></span>addJointJerkSquaredCost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::addJointJerkSquaredCost </td>
+          <td>(</td>
+          <td class="paramtype">trajopt_sqp::QPProblem &amp;&#160;</td>
+          <td class="paramname"><em>nlp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>coeff</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a216be24b4b331e388446241f3200758b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a216be24b4b331e388446241f3200758b">&#9670;&nbsp;</a></span>addJointVelocityConstraint()</h2>
 
@@ -3494,6 +3642,74 @@ template&lt;typename ProfileType &gt; </div>
 
 <p>Create Freespace TrajOpt First Process Pipeline. </p>
 <p>This will try trajopt first before OMPL, but if trajopt fails it runs OMPL followed by trajopt. </p>
+
+</div>
+</div>
+<a id="ae856124e83649eb867f966266685819e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae856124e83649eb867f966266685819e">&#9670;&nbsp;</a></span>createJointAccelerationConstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ifopt::ConstraintSet::Ptr tesseract_planning::createJointAccelerationConstraint </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>coeffs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b6a7c026717824b0f588b88cc9357df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b6a7c026717824b0f588b88cc9357df">&#9670;&nbsp;</a></span>createJointJerkConstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ifopt::ConstraintSet::Ptr tesseract_planning::createJointJerkConstraint </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vars</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>coeffs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -9512,7 +9728,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 20 2021 17:30:34 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Nov 25 2021 15:02:25 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

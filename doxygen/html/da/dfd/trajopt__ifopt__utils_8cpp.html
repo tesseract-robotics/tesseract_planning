@@ -77,11 +77,11 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d8/d0f/trajopt__ifopt__utils_8h_source.html">tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h</a>&gt;</code><br />
-<code>#include &lt;trajopt_ifopt/trajopt_ifopt.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d1/d0e/trajopt__ifopt__problem_8h_source.html">tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h_source.html">tesseract_command_language/types.h</a>&gt;</code><br />
 <code>#include &lt;tesseract_common/utils.h&gt;</code><br />
 <code>#include &lt;tesseract_collision/core/common.h&gt;</code><br />
+<code>#include &lt;trajopt_ifopt/trajopt_ifopt.h&gt;</code><br />
 <code>#include &lt;ifopt/problem.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for trajopt_ifopt_utils.cpp:</div>
@@ -158,6 +158,18 @@ Functions</h2></td></tr>
 <tr class="separator:a216be24b4b331e388446241f3200758b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaefbdf02206df96ab97a09cf1610105"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acaefbdf02206df96ab97a09cf1610105">tesseract_planning::addJointVelocitySquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
 <tr class="separator:acaefbdf02206df96ab97a09cf1610105"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae856124e83649eb867f966266685819e"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae856124e83649eb867f966266685819e">tesseract_planning::createJointAccelerationConstraint</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;target, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::VectorXd &amp;coeffs)</td></tr>
+<tr class="separator:ae856124e83649eb867f966266685819e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1183808fe926c0a6fb1d5fece15d9dad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1183808fe926c0a6fb1d5fece15d9dad">tesseract_planning::addJointAccelerationConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:a1183808fe926c0a6fb1d5fece15d9dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f39cde237235b7e767b518f23802899"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3f39cde237235b7e767b518f23802899">tesseract_planning::addJointAccelerationSquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:a3f39cde237235b7e767b518f23802899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b6a7c026717824b0f588b88cc9357df"><td class="memItemLeft" align="right" valign="top">ifopt::ConstraintSet::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4b6a7c026717824b0f588b88cc9357df">tesseract_planning::createJointJerkConstraint</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;target, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::VectorXd &amp;coeffs)</td></tr>
+<tr class="separator:a4b6a7c026717824b0f588b88cc9357df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2db7e409488f9230cb7e7b8708d5762"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac2db7e409488f9230cb7e7b8708d5762">tesseract_planning::addJointJerkConstraint</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:ac2db7e409488f9230cb7e7b8708d5762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb81bc948f8ba685cbbcdff2236f946"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aadb81bc948f8ba685cbbcdff2236f946">tesseract_planning::addJointJerkSquaredCost</a> (trajopt_sqp::QPProblem &amp;nlp, const std::vector&lt; trajopt_ifopt::JointPosition::ConstPtr &gt; &amp;vars, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;coeff)</td></tr>
+<tr class="separator:aadb81bc948f8ba685cbbcdff2236f946"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
@@ -171,7 +183,7 @@ Functions</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 20 2021 17:30:33 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Thu Nov 25 2021 15:02:25 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

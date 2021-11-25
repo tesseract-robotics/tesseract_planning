@@ -771,6 +771,18 @@ bool \mbox{\hyperlink{namespacetesseract__planning_a216be24b4b331e388446241f3200
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_acaefbdf02206df96ab97a09cf1610105}{add\+Joint\+Velocity\+Squared\+Cost}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
 \item 
+ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_ae856124e83649eb867f966266685819e}{create\+Joint\+Acceleration\+Constraint}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&target, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Vector\+Xd \&coeffs)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a1183808fe926c0a6fb1d5fece15d9dad}{add\+Joint\+Acceleration\+Constraint}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a3f39cde237235b7e767b518f23802899}{add\+Joint\+Acceleration\+Squared\+Cost}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a4b6a7c026717824b0f588b88cc9357df}{create\+Joint\+Jerk\+Constraint}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&target, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Vector\+Xd \&coeffs)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ac2db7e409488f9230cb7e7b8708d5762}{add\+Joint\+Jerk\+Constraint}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_aadb81bc948f8ba685cbbcdff2236f946}{add\+Joint\+Jerk\+Squared\+Cost}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeff)
+\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a4d0aafc81bd3d3129b23ec8e814f5ee4}{freespace\+Example\+Program\+IIWA}} (const Eigen\+::\+Isometry3d \&goal=Eigen\+::\+Isometry3d\+::\+Identity() $\ast$Eigen\+::\+Translation3d(0.\+2, 0.\+2, 1.\+0), const std\+::string \&composite\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a7a2039b9a45e29e30050777ff8b69bfa}{freespace\+Example\+Program\+ABB}} (const Eigen\+::\+Isometry3d \&goal=Eigen\+::\+Isometry3d\+::\+Identity() $\ast$Eigen\+::\+Translation3d(0.\+2, 0.\+2, 1.\+0), const std\+::string \&composite\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}})
@@ -1437,6 +1449,30 @@ DIGITAL\+\_\+\+OUTPUT\+\_\+\+LOW&\\
 \doxysubsubsection{\texorpdfstring{addCollisionCost()}{addCollisionCost()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::add\+Collision\+Cost (\begin{DoxyParamCaption}\item[{trajopt\+\_\+sqp\+::\+QPProblem \&}]{nlp,  }\item[{const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&}]{vars,  }\item[{const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&}]{env,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info,  }\item[{const trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&}]{config,  }\item[{const std\+::vector$<$ int $>$ \&}]{fixed\+\_\+indices }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespacetesseract__planning_a1183808fe926c0a6fb1d5fece15d9dad}\label{namespacetesseract__planning_a1183808fe926c0a6fb1d5fece15d9dad}} 
+\index{tesseract\_planning@{tesseract\_planning}!addJointAccelerationConstraint@{addJointAccelerationConstraint}}
+\index{addJointAccelerationConstraint@{addJointAccelerationConstraint}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{addJointAccelerationConstraint()}{addJointAccelerationConstraint()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::add\+Joint\+Acceleration\+Constraint (\begin{DoxyParamCaption}\item[{trajopt\+\_\+sqp\+::\+QPProblem \&}]{nlp,  }\item[{const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&}]{vars,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{coeff }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a3f39cde237235b7e767b518f23802899}\label{namespacetesseract__planning_a3f39cde237235b7e767b518f23802899}} 
+\index{tesseract\_planning@{tesseract\_planning}!addJointAccelerationSquaredCost@{addJointAccelerationSquaredCost}}
+\index{addJointAccelerationSquaredCost@{addJointAccelerationSquaredCost}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{addJointAccelerationSquaredCost()}{addJointAccelerationSquaredCost()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::add\+Joint\+Acceleration\+Squared\+Cost (\begin{DoxyParamCaption}\item[{trajopt\+\_\+sqp\+::\+QPProblem \&}]{nlp,  }\item[{const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&}]{vars,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{coeff }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_ac2db7e409488f9230cb7e7b8708d5762}\label{namespacetesseract__planning_ac2db7e409488f9230cb7e7b8708d5762}} 
+\index{tesseract\_planning@{tesseract\_planning}!addJointJerkConstraint@{addJointJerkConstraint}}
+\index{addJointJerkConstraint@{addJointJerkConstraint}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{addJointJerkConstraint()}{addJointJerkConstraint()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::add\+Joint\+Jerk\+Constraint (\begin{DoxyParamCaption}\item[{trajopt\+\_\+sqp\+::\+QPProblem \&}]{nlp,  }\item[{const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&}]{vars,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{coeff }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_aadb81bc948f8ba685cbbcdff2236f946}\label{namespacetesseract__planning_aadb81bc948f8ba685cbbcdff2236f946}} 
+\index{tesseract\_planning@{tesseract\_planning}!addJointJerkSquaredCost@{addJointJerkSquaredCost}}
+\index{addJointJerkSquaredCost@{addJointJerkSquaredCost}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{addJointJerkSquaredCost()}{addJointJerkSquaredCost()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::add\+Joint\+Jerk\+Squared\+Cost (\begin{DoxyParamCaption}\item[{trajopt\+\_\+sqp\+::\+QPProblem \&}]{nlp,  }\item[{const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&}]{vars,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{coeff }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespacetesseract__planning_a216be24b4b331e388446241f3200758b}\label{namespacetesseract__planning_a216be24b4b331e388446241f3200758b}} 
 \index{tesseract\_planning@{tesseract\_planning}!addJointVelocityConstraint@{addJointVelocityConstraint}}
 \index{addJointVelocityConstraint@{addJointVelocityConstraint}!tesseract\_planning@{tesseract\_planning}}
@@ -1792,7 +1828,19 @@ Create Freespace Process Pipeline.
 
 Create Freespace Traj\+Opt First Process Pipeline. 
 
-This will try trajopt first before OMPL, but if trajopt fails it runs OMPL followed by trajopt. \mbox{\Hypertarget{namespacetesseract__planning_a0ffaf9223773224cc11dfdb59285feed}\label{namespacetesseract__planning_a0ffaf9223773224cc11dfdb59285feed}} 
+This will try trajopt first before OMPL, but if trajopt fails it runs OMPL followed by trajopt. \mbox{\Hypertarget{namespacetesseract__planning_ae856124e83649eb867f966266685819e}\label{namespacetesseract__planning_ae856124e83649eb867f966266685819e}} 
+\index{tesseract\_planning@{tesseract\_planning}!createJointAccelerationConstraint@{createJointAccelerationConstraint}}
+\index{createJointAccelerationConstraint@{createJointAccelerationConstraint}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{createJointAccelerationConstraint()}{createJointAccelerationConstraint()}}
+{\footnotesize\ttfamily ifopt\+::\+Constraint\+Set\+::\+Ptr tesseract\+\_\+planning\+::create\+Joint\+Acceleration\+Constraint (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{target,  }\item[{const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&}]{vars,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{coeffs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a4b6a7c026717824b0f588b88cc9357df}\label{namespacetesseract__planning_a4b6a7c026717824b0f588b88cc9357df}} 
+\index{tesseract\_planning@{tesseract\_planning}!createJointJerkConstraint@{createJointJerkConstraint}}
+\index{createJointJerkConstraint@{createJointJerkConstraint}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{createJointJerkConstraint()}{createJointJerkConstraint()}}
+{\footnotesize\ttfamily ifopt\+::\+Constraint\+Set\+::\+Ptr tesseract\+\_\+planning\+::create\+Joint\+Jerk\+Constraint (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{target,  }\item[{const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&}]{vars,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{coeffs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a0ffaf9223773224cc11dfdb59285feed}\label{namespacetesseract__planning_a0ffaf9223773224cc11dfdb59285feed}} 
 \index{tesseract\_planning@{tesseract\_planning}!createJointPositionConstraint@{createJointPositionConstraint}}
 \index{createJointPositionConstraint@{createJointPositionConstraint}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{createJointPositionConstraint()}{createJointPositionConstraint()}}
