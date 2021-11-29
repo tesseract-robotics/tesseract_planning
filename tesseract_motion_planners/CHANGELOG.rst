@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.6 (2021-11-29)
+------------------
 * Add acceleration and jerk ifopt support
 * CollisionConstraintConfig set default type to DISCRETE_CONTINUOUS
 * Fix ability to use same task with different parameters adding namespaces to the profile dictionary

@@ -2,8 +2,8 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.6 (2021-11-29)
+------------------
 * Fix ability to use same task with different parameters adding namespaces to the profile dictionary
 * Update CI docker tag and target linking order (`#135 <https://github.com/tesseract-robotics/tesseract_planning/issues/135>`_)
   * Update CI docker tag

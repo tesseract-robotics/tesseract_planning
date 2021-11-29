@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.6 (2021-11-29)
+------------------
 * Fix ability to use same task with different parameters adding namespaces to the profile dictionary
 * Contributors: Levi Armstrong
 
