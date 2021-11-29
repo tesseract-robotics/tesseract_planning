@@ -59,11 +59,11 @@ void TrajOptIfoptDefaultCompositeProfile::apply(TrajOptIfoptProblem& problem,
   const std::vector<trajopt_ifopt::JointPosition::ConstPtr> vars(problem.vars.begin() + start_index,
                                                                  problem.vars.begin() + end_index + 1);
 
-  if (collision_constraint_config->type != tesseract_collision::CollisionEvaluatorType::NONE)
+  if (collision_constraint_config != nullptr)
     addCollisionConstraint(
         *problem.nlp, vars, problem.environment, manip_info, collision_constraint_config, fixed_indices);
 
-  if (collision_cost_config->type != tesseract_collision::CollisionEvaluatorType::NONE)
+  if (collision_cost_config != nullptr)
     addCollisionCost(*problem.nlp, vars, problem.environment, manip_info, collision_cost_config, fixed_indices);
 
   if (smooth_velocities)
