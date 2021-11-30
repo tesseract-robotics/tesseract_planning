@@ -7,10 +7,6 @@
     uri: https://github.com/swri-robotics/descartes_light.git
     version: 0.3.0
 - git:
-    local-name: opw_kinematics
-    uri: https://github.com/Jmeyer1292/opw_kinematics.git
-    version: 0.4.4
-- git:
     local-name: ifopt
     uri: https://github.com/ethz-adrl/ifopt.git
     version: 2.1.2
