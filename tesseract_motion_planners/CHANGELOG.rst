@@ -2,6 +2,11 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix trajopt ifopt composite profile check for adding collision
+* Contributors: Levi Armstrong
+
 0.6.6 (2021-11-29)
 ------------------
 * Add acceleration and jerk ifopt support
