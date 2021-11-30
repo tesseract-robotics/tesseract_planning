@@ -82,7 +82,6 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
   tesseract_scene_graph::StateSolver::UPtr state_solver = input.env->getStateSolver();
 
   tesseract_collision::ContinuousContactManager::Ptr manager = input.env->getContinuousContactManager();
-  manager->setCollisionMarginData(cur_composite_profile->config.collision_margin_data);
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
 
   std::vector<tesseract_collision::ContactResultMap> contacts;
