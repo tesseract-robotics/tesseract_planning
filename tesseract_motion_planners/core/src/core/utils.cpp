@@ -291,6 +291,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       config.type != tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
     throw std::runtime_error("contactCheckProgram was given an CollisionEvaluatorType that is inconsistent with the "
                              "ContactManager type (Continuous)");
+  manager.setCollisionMarginData(config.collision_margin_data, config.collision_margin_override_type);
+
   bool found = false;
 
   if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
@@ -320,7 +322,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
           tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
           tesseract_scene_graph::SceneState state1 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep + 1));
           if (tesseract_environment::checkTrajectorySegment(
-                  contacts, manager, state0.link_transforms, state1.link_transforms, config))
+                  contacts, manager, state0.link_transforms, state1.link_transforms, config.contact_request))
           {
             found = true;
             if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -374,7 +376,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
               tesseract_scene_graph::SceneState state1 =
                   state_solver.getState(swp0.joint_names, subtraj.row(iSubStep + 1));
               if (tesseract_environment::checkTrajectorySegment(
-                      contacts, manager, state0.link_transforms, state1.link_transforms, config))
+                      contacts, manager, state0.link_transforms, state1.link_transforms, config.contact_request))
               {
                 found = true;
                 if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -459,6 +461,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       config.type != tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
     throw std::runtime_error("contactCheckProgram was given an CollisionEvaluatorType that is inconsistent with the "
                              "ContactManager type (Discrete)");
+
+  manager.setCollisionMarginData(config.collision_margin_data, config.collision_margin_override_type);
   bool found = false;
 
   if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
@@ -520,7 +524,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       else
       {
         tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, swp0.position);
-        if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config))
+        if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config.contact_request))
         {
           found = true;
           if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -554,7 +558,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       const auto& swp0 = mi.at(iStep).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
 
       tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, swp0.position);
-      if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config))
+      if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config.contact_request))
       {
         found = true;
         if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
