@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.6.8 (2021-12-01)
+------------------
 * Fix bug in trajopt ifopt default plan profile
 * Contributors: Levi Armstrong
 
