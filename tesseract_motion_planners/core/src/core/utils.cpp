@@ -524,7 +524,8 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       else
       {
         tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, swp0.position);
-        if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config.contact_request))
+        if (tesseract_environment::checkTrajectoryState(
+                contacts, manager, state.link_transforms, config.contact_request))
         {
           found = true;
           if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
