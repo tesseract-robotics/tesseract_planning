@@ -56,7 +56,7 @@ protected:
   /** @brief The tesseract state solver */
   tesseract_kinematics::JointGroup::ConstPtr manip_;
   /** @brief The allowed collision matrix */
-  tesseract_scene_graph::AllowedCollisionMatrix acm_;
+  tesseract_common::AllowedCollisionMatrix acm_;
   /** @brief A vector of active link names */
   std::vector<std::string> active_link_names_;
   /** @brief The discrete contact manager */
