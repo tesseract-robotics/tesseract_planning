@@ -50,6 +50,7 @@ StateCollisionValidator::StateCollisionValidator(
   contact_manager_->setActiveCollisionObjects(links_);
   contact_manager_->setCollisionMarginData(collision_check_config.collision_margin_data,
                                            collision_check_config.collision_margin_override_type);
+  applyIsContactAllowedFnOverride(continuous_contact_manager_, collision_check_config.acm, collision_check_config.acm_override_type);
 }
 
 bool StateCollisionValidator::isValid(const ompl::base::State* state) const

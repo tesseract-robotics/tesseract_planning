@@ -49,6 +49,7 @@ DescartesCollision::DescartesCollision(const tesseract_environment::Environment&
                                            collision_check_config_.collision_margin_override_type);
   contact_manager_->setIsContactAllowedFn(
       [this](const std::string& a, const std::string& b) { return isContactAllowed(a, b); });
+  applyIsContactAllowedFnOverride(contact_manager, collision_check_config.acm, collision_check_config.acm_override_type);
 }
 
 DescartesCollision::DescartesCollision(const DescartesCollision& collision_interface)

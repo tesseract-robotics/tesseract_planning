@@ -51,6 +51,7 @@ ContinuousMotionValidator::ContinuousMotionValidator(
   continuous_contact_manager_->setActiveCollisionObjects(links_);
   continuous_contact_manager_->setCollisionMarginData(collision_check_config.collision_margin_data,
                                                       collision_check_config.collision_margin_override_type);
+  applyIsContactAllowedFnOverride(continuous_contact_manager_, collision_check_config.acm, collision_check_config.acm_override_type);
 }
 
 bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1, const ompl::base::State* s2) const
