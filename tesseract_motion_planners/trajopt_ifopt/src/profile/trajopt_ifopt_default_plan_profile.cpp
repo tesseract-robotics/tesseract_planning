@@ -67,7 +67,7 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
   /* Check if this cartesian waypoint is dynamic
    * (i.e. defined relative to a frame that will move with the kinematic chain)
    */
-  bool is_active_tcp_frame = (std::find(active_links.begin(), active_links.end(), mi.tcp_frame) == active_links.end());
+  bool is_active_tcp_frame = (std::find(active_links.begin(), active_links.end(), mi.tcp_frame) != active_links.end());
   bool is_static_working_frame =
       (std::find(active_links.begin(), active_links.end(), mi.working_frame) == active_links.end());
 
