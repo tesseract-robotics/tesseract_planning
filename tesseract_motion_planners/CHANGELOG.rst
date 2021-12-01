@@ -2,6 +2,11 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix bug in trajopt ifopt default plan profile
+* Contributors: Levi Armstrong
+
 0.6.7 (2021-11-30)
 ------------------
 * Fix trajopt ifopt composite profile check for adding collision
