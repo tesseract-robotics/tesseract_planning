@@ -47,7 +47,7 @@ DescartesCollision::DescartesCollision(const tesseract_environment::Environment&
   contact_manager_->setActiveCollisionObjects(active_link_names_);
   contact_manager_->setIsContactAllowedFn(
       [this](const std::string& a, const std::string& b) { return isContactAllowed(a, b); });
-  contact_manager_->applyCollisionCheckConfig(collision_check_config);
+  contact_manager_->applyContactManagerConfig(collision_check_config.contact_manager_config);
 }
 
 DescartesCollision::DescartesCollision(const DescartesCollision& collision_interface)
@@ -59,8 +59,8 @@ DescartesCollision::DescartesCollision(const DescartesCollision& collision_inter
   , debug_(collision_interface.debug_)
 {
   contact_manager_->setActiveCollisionObjects(active_link_names_);
-  contact_manager_->setCollisionMarginData(collision_check_config_.collision_margin_data,
-                                           collision_check_config_.collision_margin_override_type);
+  contact_manager_->setCollisionMarginData(collision_check_config_.contact_manager_config.collision_margin_data,
+                                           collision_check_config_.contact_manager_config.collision_margin_override_type);
   contact_manager_->setIsContactAllowedFn(
       [this](const std::string& a, const std::string& b) { return isContactAllowed(a, b); });
 }

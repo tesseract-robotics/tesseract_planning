@@ -48,7 +48,7 @@ StateCollisionValidator::StateCollisionValidator(
   links_ = manip_->getActiveLinkNames();
 
   contact_manager_->setActiveCollisionObjects(links_);
-  contact_manager_->applyCollisionCheckConfig(collision_check_config);
+  contact_manager_->applyContactManagerConfig(collision_check_config.contact_manager_config);
 }
 
 bool StateCollisionValidator::isValid(const ompl::base::State* state) const

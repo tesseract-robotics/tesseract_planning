@@ -291,8 +291,8 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
   prob.max_solutions = max_solutions;
   prob.simplify = simplify;
   prob.optimize = optimize;
-  prob.contact_checker->setCollisionMarginData(collision_check_config.collision_margin_data,
-                                               collision_check_config.collision_margin_override_type);
+  prob.contact_checker->setCollisionMarginData(collision_check_config.contact_manager_config.collision_margin_data,
+                                               collision_check_config.contact_manager_config.collision_margin_override_type);
 
   std::vector<std::string> joint_names = prob.manip->getJointNames();
   auto dof = static_cast<unsigned>(prob.manip->numJoints());
