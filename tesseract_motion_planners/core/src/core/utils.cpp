@@ -291,7 +291,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       config.type != tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
     throw std::runtime_error("contactCheckProgram was given an CollisionEvaluatorType that is inconsistent with the "
                              "ContactManager type (Continuous)");
-  manager.applyCollisionCheckConfig(config);
+  manager.applyContactManagerConfig(config.contact_manager_config);
   bool found = false;
 
   if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
@@ -461,7 +461,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     throw std::runtime_error("contactCheckProgram was given an CollisionEvaluatorType that is inconsistent with the "
                              "ContactManager type (Discrete)");
 
-  manager.applyCollisionCheckConfig(config);
+  manager.applyContactManagerConfig(config.contact_manager_config);
   bool found = false;
 
   if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)

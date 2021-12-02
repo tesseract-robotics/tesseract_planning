@@ -49,7 +49,7 @@ ContinuousMotionValidator::ContinuousMotionValidator(
   links_ = manip_->getActiveLinkNames();
 
   continuous_contact_manager_->setActiveCollisionObjects(links_);
-  continuous_contact_manager_->applyCollisionCheckConfig(collision_check_config);
+  continuous_contact_manager_->applyContactManagerConfig(collision_check_config.contact_manager_config);
 }
 
 bool ContinuousMotionValidator::checkMotion(const ompl::base::State* s1, const ompl::base::State* s2) const
