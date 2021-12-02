@@ -34,6 +34,7 @@ static const std::string DESCARTES_DEFAULT_NAMESPACE     = "DESCARTES";
 static const std::string OMPL_DEFAULT_NAMESPACE          = "OMPL";
 static const std::string TRAJOPT_DEFAULT_NAMESPACE       = "TRAJOPT";
 static const std::string TRAJOPT_IFOPT_DEFAULT_NAMESPACE = "TRAJOPT_IFOPT";
+static const std::string TRAJOPT_CONSTRAINT_NAMESPACE = "TRAJOPT_CONSTRAINT";
 // clang-format on
 }  // namespace tesseract_planning::profile_ns
 #endif  // TESSERACT_MOTION_PLANNERS_DEFAULT_PLANNER_NAMESPACES_H

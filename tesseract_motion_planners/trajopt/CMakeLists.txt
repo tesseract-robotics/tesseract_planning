@@ -10,6 +10,7 @@ add_library(
   src/profile/trajopt_default_plan_profile.cpp
   src/profile/trajopt_default_composite_profile.cpp
   src/profile/trajopt_default_solver_profile.cpp
+  src/profile/trajopt_constraint_plan_profile.cpp
   src/serialize.cpp
   src/deserialize.cpp)
 target_link_libraries(
