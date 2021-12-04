@@ -54,14 +54,16 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
   , debug_(debug)
 {
   discrete_contact_manager_->setActiveCollisionObjects(active_link_names_);
-  discrete_contact_manager_->setCollisionMarginData(collision_check_config_.contact_manager_config.collision_margin_data,
-                                                    collision_check_config_.contact_manager_config.collision_margin_override_type);
+  discrete_contact_manager_->setCollisionMarginData(
+      collision_check_config_.contact_manager_config.margin_data,
+      collision_check_config_.contact_manager_config.margin_data_override_type);
   discrete_contact_manager_->setIsContactAllowedFn(
       [this](const std::string& a, const std::string& b) { return isContactAllowed(a, b); });
 
   continuous_contact_manager_->setActiveCollisionObjects(active_link_names_);
-  continuous_contact_manager_->setCollisionMarginData(collision_check_config_.contact_manager_config.collision_margin_data,
-                                                      collision_check_config_.contact_manager_config.collision_margin_override_type);
+  continuous_contact_manager_->setCollisionMarginData(
+      collision_check_config_.contact_manager_config.margin_data,
+      collision_check_config_.contact_manager_config.margin_data_override_type);
   continuous_contact_manager_->setIsContactAllowedFn(
       [this](const std::string& a, const std::string& b) { return isContactAllowed(a, b); });
 }
@@ -92,7 +94,7 @@ DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const descartes_light::Stat
 
   // TODO: Update this to consider link pairs
   auto collision_safety_margin_ =
-      static_cast<FloatType>(collision_check_config_.contact_manager_config.collision_margin_data.getMaxCollisionMargin());
+      static_cast<FloatType>(collision_check_config_.contact_manager_config.margin_data.getMaxCollisionMargin());
 
   if (!discrete_in_contact && continuous_in_contact && allow_collision_)
     return std::make_pair(true, collision_safety_margin_ - continuous_results.begin()->begin()->second[0].distance);

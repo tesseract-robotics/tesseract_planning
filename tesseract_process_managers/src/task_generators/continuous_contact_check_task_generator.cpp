@@ -83,6 +83,7 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
 
   tesseract_collision::ContinuousContactManager::Ptr manager = input.env->getContinuousContactManager();
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
+  manager->applyContactManagerConfig(cur_composite_profile->config.contact_manager_config);
 
   std::vector<tesseract_collision::ContactResultMap> contacts;
   if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->config))

@@ -58,9 +58,6 @@ DescartesCollision::DescartesCollision(const DescartesCollision& collision_inter
   , collision_check_config_(collision_interface.collision_check_config_)
   , debug_(collision_interface.debug_)
 {
-  contact_manager_->setActiveCollisionObjects(active_link_names_);
-  contact_manager_->setCollisionMarginData(collision_check_config_.contact_manager_config.collision_margin_data,
-                                           collision_check_config_.contact_manager_config.collision_margin_override_type);
   contact_manager_->setIsContactAllowedFn(
       [this](const std::string& a, const std::string& b) { return isContactAllowed(a, b); });
 }
