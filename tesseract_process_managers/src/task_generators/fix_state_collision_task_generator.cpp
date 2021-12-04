@@ -57,6 +57,7 @@ bool StateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   DiscreteContactManager::Ptr manager = env->getDiscreteContactManager();
   manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
   manager->applyContactManagerConfig(profile.collision_check_config.contact_manager_config);
+
   collisions.clear();
 
   tesseract_common::TransformMap state = joint_group->calcFwdKin(start_pos);
@@ -164,7 +165,9 @@ bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
     collision->first_step = 0;
     collision->last_step = 0;
     collision->info = util::createSafetyMarginDataVector(
-        pci.basic_info.n_steps, profile.collision_check_config.contact_manager_config.collision_margin_data.getMaxCollisionMargin(), 1);
+        pci.basic_info.n_steps,
+        profile.collision_check_config.contact_manager_config.margin_data.getMaxCollisionMargin(),
+        1);
     collision->use_weighted_sum = true;
     pci.cnt_infos.push_back(collision);
   }
@@ -177,7 +180,9 @@ bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
     collision->first_step = 0;
     collision->last_step = 0;
     collision->info = util::createSafetyMarginDataVector(
-        pci.basic_info.n_steps, profile.collision_check_config.contact_manager_config.collision_margin_data.getMaxCollisionMargin(), 20);
+        pci.basic_info.n_steps,
+        profile.collision_check_config.contact_manager_config.margin_data.getMaxCollisionMargin(),
+        20);
     collision->use_weighted_sum = true;
     pci.cost_infos.push_back(collision);
   }

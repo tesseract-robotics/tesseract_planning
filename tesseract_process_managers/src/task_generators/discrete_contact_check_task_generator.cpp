@@ -80,7 +80,9 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   tesseract_kinematics::JointGroup::UPtr manip = input.env->getJointGroup(input.manip_info.manipulator);
   tesseract_scene_graph::StateSolver::UPtr state_solver = input.env->getStateSolver();
   tesseract_collision::DiscreteContactManager::Ptr manager = input.env->getDiscreteContactManager();
+
   manager->setActiveCollisionObjects(manip->getActiveLinkNames());
+  manager->applyContactManagerConfig(cur_composite_profile->config.contact_manager_config);
 
   std::vector<tesseract_collision::ContactResultMap> contacts;
   if (contactCheckProgram(contacts, *manager, *state_solver, ci, cur_composite_profile->config))

@@ -44,15 +44,17 @@ struct ContactCheckProfile
   {
     config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     config.longest_valid_segment_length = 0.05;
-    config.contact_manager_config.collision_margin_data = tesseract_collision::CollisionMarginData(0);
+    config.contact_manager_config.margin_data = tesseract_collision::CollisionMarginData(0);
   }
 
   ContactCheckProfile(double longest_valid_segment_length, double contact_distance)
   {
     config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
     config.longest_valid_segment_length = longest_valid_segment_length;
-    config.contact_manager_config.collision_margin_data = tesseract_collision::CollisionMarginData(contact_distance);
-    config.contact_manager_config.collision_margin_override_type = tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
+    config.contact_manager_config.margin_data = tesseract_collision::CollisionMarginData(contact_distance);
+    config.contact_manager_config.margin_data_override_type =
+        tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
+
     if (config.longest_valid_segment_length <= 0)
     {
       CONSOLE_BRIDGE_logWarn("ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05");

@@ -200,9 +200,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_check_config.collision_margin_override_type =
+  plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
-  plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMargin(0.025);
+  plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.025);
   plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
@@ -357,9 +357,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_check_config.collision_margin_override_type =
+  plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
-  plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMargin(0.02);
+  plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.02);
   plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
@@ -451,9 +451,9 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-  plan_profile->collision_check_config.collision_margin_override_type =
+  plan_profile->collision_check_config.contact_manager_config.margin_data_override_type =
       tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
-  plan_profile->collision_check_config.collision_margin_data.setDefaultCollisionMargin(0.02);
+  plan_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.02);
   plan_profile->collision_check_config.longest_valid_segment_length = 0.1;
   plan_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
   plan_profile->planning_time = 10;
