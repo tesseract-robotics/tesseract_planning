@@ -2,6 +2,17 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove ACM from the descartes planner and use ContactManagerConfig
+* Update renaming of ContactManagerConfig variables
+* Add ContactManagerConfig inside CollisionCheckConfig
+* Add applyCollisionCheckConfig to contact managers
+* Add AllowedCollisionMatrix to CollisionCheckConfig
+* Support moving AllowedCollisionMatrix into tesseract_common namespace
+* Correctly set collision margin data in collision checking utils
+* Contributors: Levi Armstrong, Matthew Powelson
+
 0.6.8 (2021-12-01)
 ------------------
 * Fix bug in trajopt ifopt default plan profile

@@ -2,6 +2,14 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix fix state collision task generator unit tests
+* Update renaming of ContactManagerConfig variables
+* Add ContactManagerConfig inside CollisionCheckConfig
+* Correctly set collision margin data in collision checking utils
+* Contributors: Levi Armstrong, Matthew Powelson
+
 0.6.8 (2021-12-01)
 ------------------
 
