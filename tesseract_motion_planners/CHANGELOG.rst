@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.7.0 (2021-12-06)
+------------------
 * Remove ACM from the descartes planner and use ContactManagerConfig
 * Update renaming of ContactManagerConfig variables
 * Add ContactManagerConfig inside CollisionCheckConfig
