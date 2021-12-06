@@ -55,8 +55,6 @@ public:
 protected:
   /** @brief The tesseract state solver */
   tesseract_kinematics::JointGroup::ConstPtr manip_;
-  /** @brief The allowed collision matrix */
-  tesseract_common::AllowedCollisionMatrix acm_;
   /** @brief A vector of active link names */
   std::vector<std::string> active_link_names_;
   /** @brief The discrete contact manager */
@@ -69,14 +67,6 @@ protected:
   bool allow_collision_;
   /** @brief Enable debug information to be printed to the terminal */
   bool debug_;
-
-  /**
-   * @brief Check if two links are allowed to be in collision
-   * @param a The name of the first link
-   * @param b The name of the second link
-   * @return True if allowed to be in collision, otherwise false
-   */
-  bool isContactAllowed(const std::string& a, const std::string& b) const;
 
   // The member variables below are to cache the contact manager based on thread ID. Currently descartes is multi
   // threaded but the methods used to implement collision checking are not thread safe. To prevent

@@ -45,7 +45,6 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
     bool allow_collision,
     bool debug)
   : manip_(std::move(manip))
-  , acm_(*(collision_env.getAllowedCollisionMatrix()))
   , active_link_names_(manip_->getActiveLinkNames())
   , discrete_contact_manager_(collision_env.getDiscreteContactManager())
   , continuous_contact_manager_(collision_env.getContinuousContactManager())
@@ -54,18 +53,10 @@ DescartesCollisionEdgeEvaluator<FloatType>::DescartesCollisionEdgeEvaluator(
   , debug_(debug)
 {
   discrete_contact_manager_->setActiveCollisionObjects(active_link_names_);
-  discrete_contact_manager_->setCollisionMarginData(
-      collision_check_config_.contact_manager_config.margin_data,
-      collision_check_config_.contact_manager_config.margin_data_override_type);
-  discrete_contact_manager_->setIsContactAllowedFn(
-      [this](const std::string& a, const std::string& b) { return isContactAllowed(a, b); });
+  discrete_contact_manager_->applyContactManagerConfig(config.contact_manager_config);
 
   continuous_contact_manager_->setActiveCollisionObjects(active_link_names_);
-  continuous_contact_manager_->setCollisionMarginData(
-      collision_check_config_.contact_manager_config.margin_data,
-      collision_check_config_.contact_manager_config.margin_data_override_type);
-  continuous_contact_manager_->setIsContactAllowedFn(
-      [this](const std::string& a, const std::string& b) { return isContactAllowed(a, b); });
+  continuous_contact_manager_->applyContactManagerConfig(config.contact_manager_config);
 }
 
 template <typename FloatType>
@@ -110,12 +101,6 @@ DescartesCollisionEdgeEvaluator<FloatType>::evaluate(const descartes_light::Stat
   }
 
   return std::make_pair(false, 0);
-}
-
-template <typename FloatType>
-bool DescartesCollisionEdgeEvaluator<FloatType>::isContactAllowed(const std::string& a, const std::string& b) const
-{
-  return acm_.isCollisionAllowed(a, b);
 }
 
 template <typename FloatType>
