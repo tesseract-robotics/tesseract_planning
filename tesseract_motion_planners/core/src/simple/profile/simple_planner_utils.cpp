@@ -210,6 +210,7 @@ Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& inf
         if (jp_final.rows() == 0)
         {
           jp_final = solution;
+          dist = (solution - seed).norm();
           continue;
         }
 

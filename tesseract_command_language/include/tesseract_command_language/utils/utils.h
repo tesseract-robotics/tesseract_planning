@@ -39,12 +39,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/types.h>
-#include <tesseract_common/joint_state.h>
 
 namespace tesseract_planning
 {
 /**
- * @brief Convert composite intruction to a joint trajectory
+ * @brief Convert composite instruction to a joint trajectory
  * @param composite_instructions The composite instruction to convert
  * @return A joint trajectory
  */
@@ -79,7 +78,7 @@ const std::vector<std::string>& getJointNames(const Waypoint& waypoint);
  *
  * @param joint_names The joint names defining the order desired
  * @param waypoint The waypoint to
- * @return The joint values ordered by the provied joint_names
+ * @return The joint values ordered by the provided joint_names
  */
 Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const Waypoint& waypoint);
 
@@ -93,7 +92,7 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
  *
  * @param joint_names The joint names defining the order desired
  * @param waypoint The waypoint to format
- * @return True if formating was required, otherwise false.
+ * @return True if formatting was required, otherwise false.
  */
 bool formatJointPosition(const std::vector<std::string>& joint_names, Waypoint& waypoint);
 
