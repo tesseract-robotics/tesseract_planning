@@ -160,9 +160,9 @@ public:
   /** @brief Tesseract OMPL motion planner */
   const OMPLMotionPlanner ompl_planner;
   /** @brief Arbitrary trajectory start state */
-  const std::vector<double> start_state_ = { -0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
+  const std::vector<double> start_state_ = { -0.6, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
   /** @brief Arbitrary trajectory end state */
-  const std::vector<double> end_state_ = { 0.5, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
+  const std::vector<double> end_state_ = { 0.6, 0.5, 0.0, -1.3348, 0.0, 1.4959, 0.0 };
   /** @brief Motion planning profile name */
   const std::string profile_name_ = "TEST_PROFILE";
   /** @brief Number of steps in the seed trajectory, equivalent to the the number of states minus one */
