@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/geometric/SimpleSetup.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/types.h>
 #include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>

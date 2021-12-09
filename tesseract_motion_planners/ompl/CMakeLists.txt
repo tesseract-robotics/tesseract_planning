@@ -16,7 +16,8 @@ set(OMPL_SRC
     src/ompl_motion_planner.cpp
     src/utils.cpp
     # Profiles
-    src/profile/ompl_composite_profile_rvss.cpp)
+    src/profile/ompl_composite_profile_rvss.cpp
+    src/profile/ompl_waypoint_profile.cpp)
 
 # if(NOT OMPL_VERSION VERSION_LESS "1.4.0") list(APPEND OMPL_SRC src/config/ompl_planner_constrained_config.cpp) endif()
 
