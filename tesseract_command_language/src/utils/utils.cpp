@@ -37,7 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-static tesseract_planning::locateFilterFn toJointTrajectoryMoveFilter =
+static const tesseract_planning::locateFilterFn toJointTrajectoryMoveFilter =
     [](const tesseract_planning::Instruction& i,
        const tesseract_planning::CompositeInstruction& /*composite*/,
        bool parent_is_first_composite) {

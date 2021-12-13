@@ -34,8 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_environment/utils.h>
 
-#include <tesseract_kinematics/core/validate.h>
-
 #include <tesseract_motion_planners/planner_utils.h>
 
 #include <tesseract_motion_planners/ompl/ompl_motion_planner_status_category.h>
@@ -362,13 +360,6 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
       throw std::runtime_error(error_msg);
     }
 
-#ifndef NDEBUG
-    if (!tesseract_kinematics::checkKinematics(*kin_group))
-    {
-      CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with Forward "
-                              "Kinematics. Did you change the URDF recently?");
-    }
-#endif
     manip = kin_group;
   }
   catch (...)

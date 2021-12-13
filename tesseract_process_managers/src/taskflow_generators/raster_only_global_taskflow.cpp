@@ -94,7 +94,7 @@ TaskflowContainer RasterOnlyGlobalTaskflow::generateTaskflow(TaskInput input,
     else
     {
       TaskInput pre_raster_input = input[idx - 1];
-      auto& pre_raster_composite = pre_raster_input.getInstruction()->as<CompositeInstruction>();
+      const auto& pre_raster_composite = pre_raster_input.getInstruction()->as<CompositeInstruction>();
       PlanInstruction lpi = *getLastPlanInstruction(pre_raster_composite);
       lpi.setPlanType(PlanInstructionType::START);
       raster_input.setStartInstruction(lpi);

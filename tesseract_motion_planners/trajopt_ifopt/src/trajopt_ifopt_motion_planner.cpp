@@ -42,8 +42,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
 
-#include <tesseract_kinematics/core/validate.h>
-
 using namespace trajopt_ifopt;
 
 namespace tesseract_planning
@@ -271,14 +269,6 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
       CONSOLE_BRIDGE_logError("%s", error_msg.c_str());
       throw std::runtime_error(error_msg);
     }
-
-#ifndef NDEBUG
-    if (!tesseract_kinematics::checkKinematics(*kin_group))
-    {
-      CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with Forward "
-                              "Kinematics. Did you change the URDF recently?");
-    }
-#endif
 
     problem->manip = kin_group;
   }
