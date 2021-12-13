@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-bool DEBUG = false;
+static const bool DEBUG = false;
 
 TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
 {

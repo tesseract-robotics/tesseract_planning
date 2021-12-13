@@ -38,8 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-bool DEBUG = false;
-
 CompositeInstruction getProgram()
 {
   CompositeInstruction program(

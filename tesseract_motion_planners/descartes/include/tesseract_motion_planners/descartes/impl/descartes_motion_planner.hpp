@@ -39,8 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
 
-#include <tesseract_kinematics/core/validate.h>
-
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -283,11 +281,6 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
   prob->env_state = request.env_state;
   prob->env = request.env;
-
-  // Process instructions
-  if (!tesseract_kinematics::checkKinematics(*(prob->manip)))
-    CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with KDL "
-                            "(TrajOpt). Did you change the URDF recently?");
 
   std::vector<std::string> joint_names = prob->manip->getJointNames();
 

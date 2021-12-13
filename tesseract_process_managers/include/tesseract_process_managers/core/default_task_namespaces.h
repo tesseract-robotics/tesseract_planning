@@ -26,6 +26,11 @@
 #ifndef TESSERACT_PROCESS_MANAGERS_DEFAULT_TASK_NAMESPACES_H
 #define TESSERACT_PROCESS_MANAGERS_DEFAULT_TASK_NAMESPACES_H
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <string>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_motion_planners/default_planner_namespaces.h>
 
 namespace tesseract_planning::profile_ns

@@ -31,7 +31,7 @@
 
 namespace tesseract_planning
 {
-static flattenFilterFn programFlattenMoveInstructionFilter =
+static const flattenFilterFn programFlattenMoveInstructionFilter =
     [](const Instruction& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
       if (isMoveInstruction(i))
       {
