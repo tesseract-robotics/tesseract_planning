@@ -153,10 +153,12 @@ std::shared_ptr<const ProfileType> getProfile(const std::string& ns,
   if (profile_dictionary.hasProfile<ProfileType>(ns, profile))
     return profile_dictionary.getProfile<ProfileType>(ns, profile);
 
-  CONSOLE_BRIDGE_logDebug("Profile '%s' was not found in namespace '%s'. Using default if available. Available "
+  CONSOLE_BRIDGE_logDebug("Profile '%s' was not found in namespace '%s' for type '%s'. Using default if available. "
+                          "Available "
                           "profiles:",
                           profile.c_str(),
-                          ns.c_str());
+                          ns.c_str(),
+                          typeid(ProfileType).name());
 
   if (profile_dictionary.hasProfileEntry<ProfileType>(ns))
   {
