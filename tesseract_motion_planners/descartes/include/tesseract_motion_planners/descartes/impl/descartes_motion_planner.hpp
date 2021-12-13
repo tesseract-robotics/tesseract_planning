@@ -285,9 +285,13 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   prob->env = request.env;
 
   // Process instructions
+#ifndef NDEBUG
   if (!tesseract_kinematics::checkKinematics(*(prob->manip)))
+  {
     CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with KDL "
                             "(TrajOpt). Did you change the URDF recently?");
+  }
+#endif
 
   std::vector<std::string> joint_names = prob->manip->getJointNames();
 

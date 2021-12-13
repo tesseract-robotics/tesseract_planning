@@ -258,12 +258,13 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       throw std::runtime_error(error_msg);
     }
 
-    // Process instructions
+#ifndef NDEBUG
     if (!tesseract_kinematics::checkKinematics(*kin_group))
     {
       CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with Forward "
                               "Kinematics. Did you change the URDF recently?");
     }
+#endif
     pci->kin = kin_group;
   }
   catch (...)

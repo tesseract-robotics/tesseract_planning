@@ -272,12 +272,14 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
       throw std::runtime_error(error_msg);
     }
 
-    // Process instructions
+#ifndef NDEBUG
     if (!tesseract_kinematics::checkKinematics(*kin_group))
     {
       CONSOLE_BRIDGE_logError("Check Kinematics failed. This means that Inverse Kinematics does not agree with Forward "
                               "Kinematics. Did you change the URDF recently?");
     }
+#endif
+
     problem->manip = kin_group;
   }
   catch (...)
