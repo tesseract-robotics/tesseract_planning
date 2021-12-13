@@ -166,40 +166,42 @@ $(function() {
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keywordflow">if</span> (profile_dictionary.<a class="code" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#aa72e7841d99a279c706c6cac7e73b2a2">hasProfile</a>&lt;ProfileType&gt;(ns, profile))</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">return</span> profile_dictionary.<a class="code" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#a85e7fa84ee67364e88226575a5c30633">getProfile</a>&lt;ProfileType&gt;(ns, profile);</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  CONSOLE_BRIDGE_logDebug(<span class="stringliteral">&quot;Profile &#39;%s&#39; was not found in namespace &#39;%s&#39;. Using default if available. Available &quot;</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                          <span class="stringliteral">&quot;profiles:&quot;</span>,</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                          profile.c_str(),</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                          ns.c_str());</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="keywordflow">if</span> (profile_dictionary.<a class="code" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#a027d12665c57e25d5bbdf62520d076ff">hasProfileEntry</a>&lt;ProfileType&gt;(ns))</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  {</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; pair : profile_dictionary.<a class="code" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#ab17820afff1052b134c217ea00ecd4b5">getProfileEntry</a>&lt;ProfileType&gt;(ns))</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;      CONSOLE_BRIDGE_logDebug(<span class="stringliteral">&quot;%s&quot;</span>, pair.first.c_str());</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <span class="keywordflow">return</span> default_profile;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> ProfileType&gt;</div>
-<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="../../d9/dcd/namespacetesseract__planning.html#a6990d23e5298e84970b67848a87e25bc">  182</a></span>&#160;std::shared_ptr&lt;const ProfileType&gt; <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a6990d23e5298e84970b67848a87e25bc">applyProfileOverrides</a>(<span class="keyword">const</span> std::string&amp; ns,</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                                                         <span class="keyword">const</span> std::string&amp; profile,</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                                                         <span class="keyword">const</span> std::shared_ptr&lt;ProfileType&gt;&amp; nominal_profile,</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                                                         <span class="keyword">const</span> <a class="code" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#ab9e6bb9185d333d45264d7c17c636bb4">ProfileDictionary::ConstPtr</a>&amp; overrides = <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;{</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  <span class="keywordflow">if</span> (!overrides)</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">return</span> nominal_profile;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="keywordflow">if</span> (overrides-&gt;hasProfile&lt;ProfileType&gt;(ns, profile))</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordflow">return</span> overrides-&gt;getProfile&lt;ProfileType&gt;(ns, profile);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  <span class="keywordflow">return</span> nominal_profile;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;}</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  CONSOLE_BRIDGE_logDebug(<span class="stringliteral">&quot;Profile &#39;%s&#39; was not found in namespace &#39;%s&#39; for type &#39;%s&#39;. Using default if available. &quot;</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                          <span class="stringliteral">&quot;Available &quot;</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                          <span class="stringliteral">&quot;profiles:&quot;</span>,</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                          profile.c_str(),</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                          ns.c_str(),</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                          <span class="keyword">typeid</span>(ProfileType).name());</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="keywordflow">if</span> (profile_dictionary.<a class="code" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#a027d12665c57e25d5bbdf62520d076ff">hasProfileEntry</a>&lt;ProfileType&gt;(ns))</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; pair : profile_dictionary.<a class="code" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#ab17820afff1052b134c217ea00ecd4b5">getProfileEntry</a>&lt;ProfileType&gt;(ns))</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      CONSOLE_BRIDGE_logDebug(<span class="stringliteral">&quot;%s&quot;</span>, pair.first.c_str());</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  }</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="keywordflow">return</span> default_profile;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> ProfileType&gt;</div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="../../d9/dcd/namespacetesseract__planning.html#a6990d23e5298e84970b67848a87e25bc">  184</a></span>&#160;std::shared_ptr&lt;const ProfileType&gt; <a class="code" href="../../d9/dcd/namespacetesseract__planning.html#a6990d23e5298e84970b67848a87e25bc">applyProfileOverrides</a>(<span class="keyword">const</span> std::string&amp; ns,</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                                                         <span class="keyword">const</span> std::string&amp; profile,</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                                                         <span class="keyword">const</span> std::shared_ptr&lt;ProfileType&gt;&amp; nominal_profile,</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                                                         <span class="keyword">const</span> <a class="code" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#ab9e6bb9185d333d45264d7c17c636bb4">ProfileDictionary::ConstPtr</a>&amp; overrides = <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;{</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="keywordflow">if</span> (!overrides)</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> nominal_profile;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keywordflow">if</span> (overrides-&gt;hasProfile&lt;ProfileType&gt;(ns, profile))</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">return</span> overrides-&gt;getProfile&lt;ProfileType&gt;(ns, profile);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  <span class="keywordflow">return</span> nominal_profile;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_MOTION_PLANNERS_PLANNER_UTILS_H</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;}  <span class="comment">// namespace tesseract_planning</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_MOTION_PLANNERS_PLANNER_UTILS_H</span></div>
 <div class="ttc" id="aclasstesseract__planning_1_1ProfileDictionary_html"><div class="ttname"><a href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html">tesseract_planning::ProfileDictionary</a></div><div class="ttdoc">This class is used to store profiles for motion planning and process planning.</div><div class="ttdef"><b>Definition:</b> profile_dictionary.h:55</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1ProfileDictionary_html_a027d12665c57e25d5bbdf62520d076ff"><div class="ttname"><a href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#a027d12665c57e25d5bbdf62520d076ff">tesseract_planning::ProfileDictionary::hasProfileEntry</a></div><div class="ttdeci">bool hasProfileEntry(const std::string &amp;ns) const</div><div class="ttdoc">Check if a profile entry exists.</div><div class="ttdef"><b>Definition:</b> profile_dictionary.h:66</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1ProfileDictionary_html_a85e7fa84ee67364e88226575a5c30633"><div class="ttname"><a href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#a85e7fa84ee67364e88226575a5c30633">tesseract_planning::ProfileDictionary::getProfile</a></div><div class="ttdeci">std::shared_ptr&lt; const ProfileType &gt; getProfile(const std::string &amp;ns, const std::string &amp;profile_name) const</div><div class="ttdoc">Get a profile by name.</div><div class="ttdef"><b>Definition:</b> profile_dictionary.h:185</div></div>
@@ -211,7 +213,7 @@ $(function() {
 <div class="ttc" id="anamespacetesseract__planning_html_a006d576ff51dbc06d744c7655d75b94b"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a006d576ff51dbc06d744c7655d75b94b">tesseract_planning::isWithinJointLimits</a></div><div class="ttdeci">bool isWithinJointLimits(const Waypoint &amp;wp, const Eigen::Ref&lt; const Eigen::MatrixX2d &gt; &amp;limits)</div><div class="ttdoc">Checks if a waypoint is.</div><div class="ttdef"><b>Definition:</b> utils.cpp:220</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a2c7f691c616d8edb55709be6ced8d565"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">tesseract_planning::DEFAULT_PROFILE_KEY</a></div><div class="ttdeci">static const std::string DEFAULT_PROFILE_KEY</div><div class="ttdoc">Set to DEFAULT. Default profiles are given this name.</div><div class="ttdef"><b>Definition:</b> constants.h:30</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a4c2dd8bf456bf47e36e6777ac7f3e513"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a4c2dd8bf456bf47e36e6777ac7f3e513">tesseract_planning::getProfileString</a></div><div class="ttdeci">std::string getProfileString(const std::string &amp;ns, const std::string &amp;profile, const PlannerProfileRemapping &amp;profile_remapping, std::string default_profile=DEFAULT_PROFILE_KEY)</div><div class="ttdoc">Get the profile string taking into account defaults and profile remapping.</div><div class="ttdef"><b>Definition:</b> planner_utils.h:119</div></div>
-<div class="ttc" id="anamespacetesseract__planning_html_a6990d23e5298e84970b67848a87e25bc"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a6990d23e5298e84970b67848a87e25bc">tesseract_planning::applyProfileOverrides</a></div><div class="ttdeci">std::shared_ptr&lt; const ProfileType &gt; applyProfileOverrides(const std::string &amp;ns, const std::string &amp;profile, const std::shared_ptr&lt; ProfileType &gt; &amp;nominal_profile, const ProfileDictionary::ConstPtr &amp;overrides=nullptr)</div><div class="ttdoc">Returns either nominal_profile or override based on task name passed in.</div><div class="ttdef"><b>Definition:</b> planner_utils.h:182</div></div>
+<div class="ttc" id="anamespacetesseract__planning_html_a6990d23e5298e84970b67848a87e25bc"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a6990d23e5298e84970b67848a87e25bc">tesseract_planning::applyProfileOverrides</a></div><div class="ttdeci">std::shared_ptr&lt; const ProfileType &gt; applyProfileOverrides(const std::string &amp;ns, const std::string &amp;profile, const std::shared_ptr&lt; ProfileType &gt; &amp;nominal_profile, const ProfileDictionary::ConstPtr &amp;overrides=nullptr)</div><div class="ttdoc">Returns either nominal_profile or override based on task name passed in.</div><div class="ttdef"><b>Definition:</b> planner_utils.h:184</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a97a7a198edf46fea10c33898f4b1e2c5"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a97a7a198edf46fea10c33898f4b1e2c5">tesseract_planning::PlannerProfileRemapping</a></div><div class="ttdeci">std::unordered_map&lt; std::string, std::unordered_map&lt; std::string, std::string &gt; &gt; PlannerProfileRemapping</div><div class="ttdef"><b>Definition:</b> types.h:43</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_ac76e404fb48dd591d085ee3e7ad57a75"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#ac76e404fb48dd591d085ee3e7ad57a75">tesseract_planning::getProfile</a></div><div class="ttdeci">std::shared_ptr&lt; const ProfileType &gt; getProfile(const std::string &amp;ns, const std::string &amp;profile, const ProfileDictionary &amp;profile_dictionary, std::shared_ptr&lt; const ProfileType &gt; default_profile=nullptr)</div><div class="ttdoc">Gets the profile specified from the profile map.</div><div class="ttdef"><b>Definition:</b> planner_utils.h:148</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_adc15a5456ea446dfa3dc95852bc9d579"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#adc15a5456ea446dfa3dc95852bc9d579">tesseract_planning::RobotConfig</a></div><div class="ttdeci">RobotConfig</div><div class="ttdoc">The RobotConfig enum.</div><div class="ttdef"><b>Definition:</b> robot_config.h:51</div></div>
@@ -224,7 +226,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 8 2021 20:18:27 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Dec 13 2021 21:46:03 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

@@ -85,7 +85,6 @@ $(function() {
 <code>#include &lt;ompl/base/goals/GoalStates.h&gt;</code><br />
 <code>#include &lt;ompl/tools/multiplan/ParallelPlan.h&gt;</code><br />
 <code>#include &lt;tesseract_environment/utils.h&gt;</code><br />
-<code>#include &lt;tesseract_kinematics/core/validate.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../da/de3/planner__utils_8h_source.html">tesseract_motion_planners/planner_utils.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d4/d92/ompl__motion__planner__status__category_8h_source.html">tesseract_motion_planners/ompl/ompl_motion_planner_status_category.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d2/dec/ompl__motion__planner_8h_source.html">tesseract_motion_planners/ompl/ompl_motion_planner.h</a>&gt;</code><br />
@@ -101,56 +100,56 @@ Include dependency graph for ompl_motion_planner.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d3d/ompl__motion__planner_8cpp__incl.png" border="0" usemap="#atesseract__motion__planners_2ompl_2src_2ompl__motion__planner_8cpp" alt=""/></div>
 <map name="atesseract__motion__planners_2ompl_2src_2ompl__motion__planner_8cpp" id="atesseract__motion__planners_2ompl_2src_2ompl__motion__planner_8cpp">
-<area shape="rect" title="Tesseract OMPL motion planner." alt="" coords="1288,5,1515,47"/>
-<area shape="rect" title=" " alt="" coords="1999,675,2190,701"/>
-<area shape="rect" title=" " alt="" coords="379,392,547,419"/>
-<area shape="rect" title=" " alt="" coords="519,102,708,129"/>
-<area shape="rect" title=" " alt="" coords="733,102,929,129"/>
-<area shape="rect" title=" " alt="" coords="953,95,1092,136"/>
-<area shape="rect" title=" " alt="" coords="1844,385,1999,426"/>
-<area shape="rect" title=" " alt="" coords="1167,95,1313,136"/>
-<area shape="rect" href="../../da/de3/planner__utils_8h.html" title=" " alt="" coords="1947,184,2125,225"/>
-<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="843,385,1042,426"/>
-<area shape="rect" href="../../d4/d92/ompl__motion__planner__status__category_8h.html" title="Tesseract OMPL motion planner status category." alt="" coords="1149,273,1331,329"/>
-<area shape="rect" href="../../d2/dec/ompl__motion__planner_8h.html" title="Tesseract OMPL motion planner." alt="" coords="2337,95,2527,136"/>
-<area shape="rect" href="../../d3/d7a/continuous__motion__validator_8h.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="3280,273,3459,329"/>
-<area shape="rect" href="../../d9/d64/discrete__motion__validator_8h.html" title="Tesseract OMPL planner discrete collision check between two states." alt="" coords="3569,281,3785,322"/>
-<area shape="rect" href="../../d8/d16/ompl__default__plan__profile_8h.html" title="Tesseract OMPL default plan profile." alt="" coords="2905,377,3084,433"/>
-<area shape="rect" href="../../dc/d1a/weighted__real__vector__state__sampler_8h.html" title="Tesseract OMPL Weighted State Sampler." alt="" coords="3825,481,4007,537"/>
-<area shape="rect" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="1540,281,1719,322"/>
-<area shape="rect" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="1217,385,1415,426"/>
-<area shape="rect" title=" " alt="" coords="2663,593,2777,619"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="273,585,471,627"/>
-<area shape="rect" title=" " alt="" coords="2073,385,2252,426"/>
-<area shape="rect" href="../../d2/d80/robot__config_8h.html" title=" " alt="" coords="2500,489,2679,530"/>
-<area shape="rect" href="../../d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2451,281,2629,322"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="990,585,1189,627"/>
-<area shape="rect" title=" " alt="" coords="345,675,399,701"/>
-<area shape="rect" title=" " alt="" coords="2524,385,2679,426"/>
-<area shape="rect" title=" " alt="" coords="2327,385,2500,426"/>
-<area shape="rect" title=" " alt="" coords="2132,593,2311,619"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1262,585,1461,627"/>
-<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="495,585,694,627"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="50,585,249,627"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1995,489,2194,530"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="922,489,1121,530"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="718,585,917,627"/>
-<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="1673,489,1871,530"/>
-<area shape="rect" title=" " alt="" coords="1972,593,2057,619"/>
-<area shape="rect" title=" " alt="" coords="1737,593,1796,619"/>
-<area shape="rect" title=" " alt="" coords="1310,675,1378,701"/>
-<area shape="rect" title=" " alt="" coords="3247,593,3326,619"/>
-<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="2221,184,2427,225"/>
-<area shape="rect" href="../../d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="2451,184,2629,225"/>
-<area shape="rect" href="../../d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="1420,489,1599,530"/>
-<area shape="rect" title=" " alt="" coords="3584,392,3771,419"/>
-<area shape="rect" title=" " alt="" coords="3109,392,3326,419"/>
-<area shape="rect" title=" " alt="" coords="3350,392,3407,419"/>
-<area shape="rect" href="../../d1/d13/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2utils_8h.html" title="Tesseract OMPL planner utility functions." alt="" coords="3108,489,3287,530"/>
-<area shape="rect" href="../../de/d1e/ompl__planner__configurator_8h.html" title="Tesseract OMPL planner configurator." alt="" coords="3412,489,3631,530"/>
-<area shape="rect" href="../../da/df9/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2types_8h.html" title="Tesseract OMPL types." alt="" coords="2905,489,3084,530"/>
-<area shape="rect" title=" " alt="" coords="3826,593,4001,619"/>
-<area shape="rect" title=" " alt="" coords="1490,385,1667,426"/>
+<area shape="rect" title="Tesseract OMPL motion planner." alt="" coords="2070,5,2297,47"/>
+<area shape="rect" title=" " alt="" coords="2269,675,2460,701"/>
+<area shape="rect" title=" " alt="" coords="421,392,589,419"/>
+<area shape="rect" title=" " alt="" coords="886,102,1075,129"/>
+<area shape="rect" title=" " alt="" coords="1100,102,1296,129"/>
+<area shape="rect" title=" " alt="" coords="1321,95,1459,136"/>
+<area shape="rect" title=" " alt="" coords="242,385,397,426"/>
+<area shape="rect" href="../../da/de3/planner__utils_8h.html" title=" " alt="" coords="2193,184,2371,225"/>
+<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="1017,385,1216,426"/>
+<area shape="rect" href="../../d4/d92/ompl__motion__planner__status__category_8h.html" title="Tesseract OMPL motion planner status category." alt="" coords="2962,273,3143,329"/>
+<area shape="rect" href="../../d2/dec/ompl__motion__planner_8h.html" title="Tesseract OMPL motion planner." alt="" coords="2983,95,3173,136"/>
+<area shape="rect" href="../../d3/d7a/continuous__motion__validator_8h.html" title="Tesseract OMPL planner continuous collision check between two states." alt="" coords="3650,273,3829,329"/>
+<area shape="rect" href="../../d9/d64/discrete__motion__validator_8h.html" title="Tesseract OMPL planner discrete collision check between two states." alt="" coords="3363,281,3579,322"/>
+<area shape="rect" href="../../d8/d16/ompl__default__plan__profile_8h.html" title="Tesseract OMPL default plan profile." alt="" coords="2497,377,2675,433"/>
+<area shape="rect" href="../../dc/d1a/weighted__real__vector__state__sampler_8h.html" title="Tesseract OMPL Weighted State Sampler." alt="" coords="4151,481,4333,537"/>
+<area shape="rect" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="1769,281,1947,322"/>
+<area shape="rect" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="1920,385,2119,426"/>
+<area shape="rect" title=" " alt="" coords="2266,593,2381,619"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="521,585,720,627"/>
+<area shape="rect" title=" " alt="" coords="2193,385,2371,426"/>
+<area shape="rect" href="../../d2/d80/robot__config_8h.html" title=" " alt="" coords="2057,489,2235,530"/>
+<area shape="rect" href="../../d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2759,281,2938,322"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="744,585,943,627"/>
+<area shape="rect" title=" " alt="" coords="457,675,512,701"/>
+<area shape="rect" title=" " alt="" coords="2886,385,3041,426"/>
+<area shape="rect" title=" " alt="" coords="3065,385,3238,426"/>
+<area shape="rect" title=" " alt="" coords="2907,593,3086,619"/>
+<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1288,585,1487,627"/>
+<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="249,585,448,627"/>
+<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1016,585,1215,627"/>
+<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1733,489,1932,530"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="663,489,861,530"/>
+<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="27,585,225,627"/>
+<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="1461,489,1660,530"/>
+<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="935,489,1133,530"/>
+<area shape="rect" title=" " alt="" coords="1795,593,1881,619"/>
+<area shape="rect" title=" " alt="" coords="1510,593,1569,619"/>
+<area shape="rect" title=" " alt="" coords="1191,675,1259,701"/>
+<area shape="rect" title=" " alt="" coords="3260,593,3339,619"/>
+<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="3083,184,3289,225"/>
+<area shape="rect" href="../../d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="2881,184,3059,225"/>
+<area shape="rect" href="../../d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="1258,489,1437,530"/>
+<area shape="rect" title=" " alt="" coords="3414,392,3601,419"/>
+<area shape="rect" title=" " alt="" coords="3676,392,3893,419"/>
+<area shape="rect" title=" " alt="" coords="3917,392,3975,419"/>
+<area shape="rect" href="../../d1/d13/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2utils_8h.html" title="Tesseract OMPL planner utility functions." alt="" coords="3059,489,3238,530"/>
+<area shape="rect" href="../../de/d1e/ompl__planner__configurator_8h.html" title="Tesseract OMPL planner configurator." alt="" coords="2715,489,2934,530"/>
+<area shape="rect" href="../../da/df9/tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2types_8h.html" title="Tesseract OMPL types." alt="" coords="2411,489,2590,530"/>
+<area shape="rect" title=" " alt="" coords="4152,593,4327,619"/>
+<area shape="rect" title=" " alt="" coords="765,385,943,426"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -181,7 +180,7 @@ Functions</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 8 2021 20:18:28 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Dec 13 2021 21:46:04 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
