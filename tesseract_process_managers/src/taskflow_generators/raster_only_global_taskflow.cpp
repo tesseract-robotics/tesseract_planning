@@ -88,12 +88,17 @@ TaskflowContainer RasterOnlyGlobalTaskflow::generateTaskflow(TaskInput input,
   {
     TaskInput raster_input = input[idx];
     if (idx == 0)
+    {
       raster_input.setStartInstruction(input_instruction->as<CompositeInstruction>().getStartInstruction());
+    }
     else
-      raster_input.setStartInstruction(std::vector<std::size_t>({ idx - 1 }));
-
-    if (idx < (input.size() - 1))
-      raster_input.setEndInstruction(std::vector<std::size_t>({ idx + 1 }));
+    {
+      TaskInput pre_raster_input = input[idx - 1];
+      auto& pre_raster_composite = pre_raster_input.getInstruction()->as<CompositeInstruction>();
+      PlanInstruction lpi = *getLastPlanInstruction(pre_raster_composite);
+      lpi.setPlanType(PlanInstructionType::START);
+      raster_input.setStartInstruction(lpi);
+    }
 
     TaskflowContainer sub_container = raster_taskflow_generator_->generateTaskflow(
         raster_input,
