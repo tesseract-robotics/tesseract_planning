@@ -29,12 +29,12 @@ jobs:
           - {CI_NAME: Bionic-Build-Nightly,
              OS_CODE_NAME: bionic,
              ROS_DISTRO: melodic,
-             DOCKER_IMAGE: "ghcr.io/tesseract-robotics/tesseract:melodic-0.7.0",
+             DOCKER_IMAGE: "ghcr.io/tesseract-robotics/tesseract:melodic-0.7",
              CCACHE_DIR: "${{ github.workspace }}/Bionic-Build-Nightly/.ccache"}
           - {CI_NAME: Focal-Build-Nightly,
              OS_CODE_NAME: focal,
              ROS_DISTRO: noetic,
-             DOCKER_IMAGE: "ghcr.io/tesseract-robotics/tesseract:noetic-0.7.0",
+             DOCKER_IMAGE: "ghcr.io/tesseract-robotics/tesseract:noetic-0.7",
              CCACHE_DIR: "${{ github.workspace }}/Focal-Build-Nightly/.ccache"}
 
     steps:
