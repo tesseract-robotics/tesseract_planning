@@ -60,7 +60,7 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tess
  */
 tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
                                                const Eigen::Isometry3d& stop,
-                                               int steps);
+                                               long steps);
 
 /**
  * @brief Interpolate between two Eigen::VectorXd and return a Matrix
@@ -71,7 +71,7 @@ tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
  */
 Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
                             const Eigen::Ref<const Eigen::VectorXd>& stop,
-                            int steps);
+                            long steps);
 
 /**
  * @brief Interpolate between two waypoints return a vector of waypoints.
@@ -80,7 +80,7 @@ Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
  * @param steps The number of step
  * @return A vector of waypoints with a length = steps + 1
  */
-std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint& stop, int steps);
+std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint& stop, long steps);
 
 /**
  * @brief A program flatten filter
