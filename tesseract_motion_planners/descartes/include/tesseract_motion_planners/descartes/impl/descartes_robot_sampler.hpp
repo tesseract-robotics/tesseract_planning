@@ -97,6 +97,11 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
       {
         samples.push_back(descartes_light::StateSample<FloatType>{ state, static_cast<FloatType>(0.0) });
       }
+      else if (!allow_collision_)
+      {
+        if (collision_->validate(sol))
+          samples.push_back(descartes_light::StateSample<FloatType>{ state, 0.0 });
+      }
       else
       {
         const FloatType cost = static_cast<FloatType>(collision_->distance(sol));
@@ -108,31 +113,27 @@ std::vector<descartes_light::StateSample<FloatType>> DescartesRobotSampler<Float
   if (samples.empty())
     return samples;
 
-  // Sort state samples in descending order by distance from nearest collision (i.e. state cost)
-  std::sort(samples.begin(), samples.end(), [](const auto& a, const auto& b) { return a.cost > b.cost; });
-
-  // Prune collision solutions
-  if (!allow_collision_)
+  if (allow_collision_)
   {
-    auto it = std::find_if(samples.begin(), samples.end(), [](const auto& sample) { return sample.cost < 0.0; });
-    samples.erase(it, samples.end());
-  }
+    // Sort state samples in descending order by distance from nearest collision (i.e. state cost)
+    std::sort(samples.begin(), samples.end(), [](const auto& a, const auto& b) { return a.cost > b.cost; });
 
-  // Convert the distance into a cost and normalize
-  if (samples.size() > 1)
-  {
-    const FloatType max_dist = samples.front().cost;
-    const FloatType min_dist = samples.back().cost;
-    const FloatType range = max_dist - min_dist;
-    if (range > std::numeric_limits<FloatType>::epsilon())
+    // Convert the distance into a cost and normalize
+    if (samples.size() > 1)
     {
-      std::for_each(samples.begin(), samples.end(), [&min_dist, &range](auto& sample) {
-        sample.cost = static_cast<FloatType>(1.0) - (sample.cost - min_dist) / range;
-      });
-    }
-    else
-    {
-      std::for_each(samples.begin(), samples.end(), [](auto& sample) { sample.cost = 0.0; });
+      const FloatType max_dist = samples.front().cost;
+      const FloatType min_dist = samples.back().cost;
+      const FloatType range = max_dist - min_dist;
+      if (range > std::numeric_limits<FloatType>::epsilon())
+      {
+        std::for_each(samples.begin(), samples.end(), [&min_dist, &range](auto& sample) {
+          sample.cost = static_cast<FloatType>(1.0) - (sample.cost - min_dist) / range;
+        });
+      }
+      else
+      {
+        std::for_each(samples.begin(), samples.end(), [](auto& sample) { sample.cost = 0.0; });
+      }
     }
   }
 
