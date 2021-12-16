@@ -2,6 +2,12 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add upsample trajectory task generator
+* Fix bug in descartes returning solution within contact margin
+* Contributors: Levi Armstrong
+
 0.7.1 (2021-12-15)
 ------------------
 * Only check kinematics if built in debug (`#149 <https://github.com/tesseract-robotics/tesseract_planning/issues/149>`_)
