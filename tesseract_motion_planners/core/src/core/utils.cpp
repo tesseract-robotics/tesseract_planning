@@ -153,7 +153,9 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tess
   return toolpath;
 }
 
-tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start, const Eigen::Isometry3d& stop, int steps)
+tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
+                                               const Eigen::Isometry3d& stop,
+                                               long steps)
 {
   // Required position change
   Eigen::Vector3d delta_translation = (stop.translation() - start.translation());
@@ -167,7 +169,7 @@ tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start, c
   // Orientation interpolation
   Eigen::Quaterniond start_q(start.rotation());
   Eigen::Quaterniond stop_q(stop.rotation());
-  double slerp_ratio = 1.0 / steps;
+  double slerp_ratio = 1.0 / static_cast<double>(steps);
 
   tesseract_common::VectorIsometry3d result;
   Eigen::Vector3d trans;
@@ -186,7 +188,7 @@ tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start, c
 
 Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
                             const Eigen::Ref<const Eigen::VectorXd>& stop,
-                            int steps)
+                            long steps)
 {
   assert(start.size() == stop.size());
 
@@ -198,7 +200,7 @@ Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
   return result;
 }
 
-std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint& stop, int steps)
+std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint& stop, long steps)
 {
   if (isCartesianWaypoint(start))
   {
