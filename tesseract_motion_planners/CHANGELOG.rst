@@ -2,6 +2,16 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Only check kinematics if built in debug (`#149 <https://github.com/tesseract-robotics/tesseract_planning/issues/149>`_)
+  * Only check kinematics if built in debug
+  * Global process plans should not fix raster start and end position based on the global results
+  * Add typeid name to failed to find profile message
+  * Fix clang-tidy issues
+* Fix bug in getClosestJointSolution in simple planner utils
+* Contributors: Levi Armstrong
+
 0.7.0 (2021-12-06)
 ------------------
 * Remove ACM from the descartes planner and use ContactManagerConfig
