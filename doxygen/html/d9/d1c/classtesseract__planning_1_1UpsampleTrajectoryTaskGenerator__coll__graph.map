@@ -1,0 +1,6 @@
+<map id="tesseract_planning::UpsampleTrajectoryTaskGenerator" name="tesseract_planning::UpsampleTrajectoryTaskGenerator">
+<area shape="rect" id="node1" title="This is used to upsample the results trajectory based on the longest valid segment length." alt="" coords="5,276,236,317"/>
+<area shape="rect" id="node2" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="55,185,186,227"/>
+<area shape="rect" id="node3" title=" " alt="" coords="81,96,160,123"/>
+<area shape="rect" id="node4" title=" " alt="" coords="59,5,183,47"/>
+</map>

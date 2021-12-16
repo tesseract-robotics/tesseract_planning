@@ -248,6 +248,10 @@ class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTa
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}}
 \item 
+class \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator}{Upsample\+Trajectory\+Task\+Generator}}
+\begin{DoxyCompactList}\small\item\em This is used to upsample the results trajectory based on the longest valid segment length. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo}{Upsample\+Trajectory\+Task\+Info}}
+\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1CheckInputProfile}{Check\+Input\+Profile}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile}{Contact\+Check\+Profile}}
@@ -263,6 +267,8 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1ProfileSwitchProfile}{Profi
 struct \mbox{\hyperlink{structtesseract__planning_1_1SeedMinLengthProfile}{Seed\+Min\+Length\+Profile}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile}{Time\+Optimal\+Parameterization\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1UpsampleTrajectoryProfile}{Upsample\+Trajectory\+Profile}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode}{Graph\+Taskflow\+Node}}
 \begin{DoxyCompactList}\small\item\em Helper struct for holding relevant information about the nodes. \end{DoxyCompactList}\item 
@@ -569,11 +575,11 @@ void \mbox{\hyperlink{namespacetesseract__planning_a63dfee6d2a2b430c8fb8d17ee2c1
 \item 
 tesseract\+\_\+common\+::\+Toolpath \mbox{\hyperlink{namespacetesseract__planning_a8785aa81a18f5f07d8e4d91bd5d565d4}{to\+Toolpath}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction, const tesseract\+\_\+environment\+::\+Environment \&env)
 \begin{DoxyCompactList}\small\item\em Extract toolpath from a composite instruction. \end{DoxyCompactList}\item 
-tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}{interpolate}} (const Eigen\+::\+Isometry3d \&start, const Eigen\+::\+Isometry3d \&stop, int steps)
+tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}} (const Eigen\+::\+Isometry3d \&start, const Eigen\+::\+Isometry3d \&stop, long steps)
 \begin{DoxyCompactList}\small\item\em Interpolate between two transforms return a vector of Eigen\+::\+Isometry transforms. \end{DoxyCompactList}\item 
-Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{namespacetesseract__planning_ae5d6d72fa7462d658a7a9e04c0d35d72}{interpolate}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&stop, int steps)
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{namespacetesseract__planning_a4d235e9e8929e3538792a8226ba8b855}{interpolate}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&stop, long steps)
 \begin{DoxyCompactList}\small\item\em Interpolate between two Eigen\+::\+Vector\+Xd and return a Matrix. \end{DoxyCompactList}\item 
-std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ \mbox{\hyperlink{namespacetesseract__planning_a09d4b16a56667b1ae6ceec21ecb73348}{interpolate\+\_\+waypoint}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&start, const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&stop, int steps)
+std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ \mbox{\hyperlink{namespacetesseract__planning_a9334a5b78251b487976695f9cde7b5c3}{interpolate\+\_\+waypoint}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&start, const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&stop, long steps)
 \begin{DoxyCompactList}\small\item\em Interpolate between two waypoints return a vector of waypoints. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{namespacetesseract__planning_afbc53b114f2f31699dd120ac52866a04}{program\+Flatten\+Filter}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction, const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&composite, bool parent\+\_\+is\+\_\+first\+\_\+composite)
 \begin{DoxyCompactList}\small\item\em A program flatten filter. \end{DoxyCompactList}\item 
@@ -3148,11 +3154,11 @@ One if seed exists, otherwise zero
 \doxysubsubsection{\texorpdfstring{init\_times()}{init\_times()}}
 {\footnotesize\ttfamily static void tesseract\+\_\+planning\+::init\+\_\+times (\begin{DoxyParamCaption}\item[{long}]{n,  }\item[{double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{const double}]{max\+\_\+velocity\mbox{[}$\,$\mbox{]},  }\item[{double}]{min\+\_\+velocity\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-\mbox{\Hypertarget{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}\label{namespacetesseract__planning_ac20c8f9c8b01209fe4ced44c6964bba0}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}\label{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}} 
 \index{tesseract\_planning@{tesseract\_planning}!interpolate@{interpolate}}
 \index{interpolate@{interpolate}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{interpolate()}{interpolate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Vector\+Isometry3d tesseract\+\_\+planning\+::interpolate (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{start,  }\item[{const Eigen\+::\+Isometry3d \&}]{stop,  }\item[{int}]{steps }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Vector\+Isometry3d tesseract\+\_\+planning\+::interpolate (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{start,  }\item[{const Eigen\+::\+Isometry3d \&}]{stop,  }\item[{long}]{steps }\end{DoxyParamCaption})}
 
 
 
@@ -3170,11 +3176,11 @@ Interpolate between two transforms return a vector of Eigen\+::\+Isometry transf
 \begin{DoxyReturn}{Returns}
 A vector of Eigen\+::\+Isometry with a length = steps + 1 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_ae5d6d72fa7462d658a7a9e04c0d35d72}\label{namespacetesseract__planning_ae5d6d72fa7462d658a7a9e04c0d35d72}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a4d235e9e8929e3538792a8226ba8b855}\label{namespacetesseract__planning_a4d235e9e8929e3538792a8226ba8b855}} 
 \index{tesseract\_planning@{tesseract\_planning}!interpolate@{interpolate}}
 \index{interpolate@{interpolate}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{interpolate()}{interpolate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd tesseract\+\_\+planning\+::interpolate (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{start,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{stop,  }\item[{int}]{steps }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd tesseract\+\_\+planning\+::interpolate (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{start,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{stop,  }\item[{long}]{steps }\end{DoxyParamCaption})}
 
 
 
@@ -3192,11 +3198,11 @@ Interpolate between two Eigen\+::\+Vector\+Xd and return a Matrix.
 \begin{DoxyReturn}{Returns}
 A matrix where columns = steps + 1 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a09d4b16a56667b1ae6ceec21ecb73348}\label{namespacetesseract__planning_a09d4b16a56667b1ae6ceec21ecb73348}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a9334a5b78251b487976695f9cde7b5c3}\label{namespacetesseract__planning_a9334a5b78251b487976695f9cde7b5c3}} 
 \index{tesseract\_planning@{tesseract\_planning}!interpolate\_waypoint@{interpolate\_waypoint}}
 \index{interpolate\_waypoint@{interpolate\_waypoint}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{interpolate\_waypoint()}{interpolate\_waypoint()}}
-{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ tesseract\+\_\+planning\+::interpolate\+\_\+waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{start,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{stop,  }\item[{int}]{steps }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} $>$ tesseract\+\_\+planning\+::interpolate\+\_\+waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{start,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{stop,  }\item[{long}]{steps }\end{DoxyParamCaption})}
 
 
 

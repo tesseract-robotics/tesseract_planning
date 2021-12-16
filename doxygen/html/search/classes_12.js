@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['waitinstruction_1552',['WaitInstruction',['../d9/d2c/classtesseract__planning_1_1WaitInstruction.html',1,'tesseract_planning']]],
-  ['waypoint_1553',['Waypoint',['../d0/d3a/classtesseract__planning_1_1Waypoint.html',1,'tesseract_planning']]],
-  ['waypointinner_1554',['WaypointInner',['../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html',1,'tesseract_planning::detail_waypoint']]],
-  ['waypointinnerbase_1555',['WaypointInnerBase',['../dd/d8e/structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase.html',1,'tesseract_planning::detail_waypoint']]],
-  ['weightedrealvectorstatesampler_1556',['WeightedRealVectorStateSampler',['../d8/d11/classtesseract__planning_1_1WeightedRealVectorStateSampler.html',1,'tesseract_planning']]]
+  ['upsampletrajectoryprofile_1561',['UpsampleTrajectoryProfile',['../d9/dd4/structtesseract__planning_1_1UpsampleTrajectoryProfile.html',1,'tesseract_planning']]],
+  ['upsampletrajectorytaskgenerator_1562',['UpsampleTrajectoryTaskGenerator',['../d2/d60/classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator.html',1,'tesseract_planning']]],
+  ['upsampletrajectorytaskinfo_1563',['UpsampleTrajectoryTaskInfo',['../dd/dbf/classtesseract__planning_1_1UpsampleTrajectoryTaskInfo.html',1,'tesseract_planning']]]
 ];
