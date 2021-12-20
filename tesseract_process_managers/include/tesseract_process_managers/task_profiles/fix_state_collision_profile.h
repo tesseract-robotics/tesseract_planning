@@ -45,7 +45,10 @@ struct FixStateCollisionProfile
   {
     START_ONLY,
     END_ONLY,
+    INTERMEDIATE_ONLY,
     ALL,
+    ALL_EXCEPT_START,
+    ALL_EXCEPT_END,
     DISABLED
   };
 
