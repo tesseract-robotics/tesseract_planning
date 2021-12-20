@@ -17,9 +17,14 @@ Collaboration diagram for tesseract\+\_\+planning\+::Fix\+State\+Collision\+Prof
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-enum class \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9}{Settings}} \{ \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9abb03441eb46f5ceb12559eabc4b3f223}{START\+\_\+\+ONLY}}
+enum class \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9}{Settings}} \{ \newline
+\mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9abb03441eb46f5ceb12559eabc4b3f223}{START\+\_\+\+ONLY}}
 , \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9af450a15955e3c2958a698f3724efa3c9}{END\+\_\+\+ONLY}}
+, \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a71418f9d29a18ee01e485fa7293deade}{INTERMEDIATE\+\_\+\+ONLY}}
 , \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a5fb1f955b45e38e31789286a1790398d}{ALL}}
+, \newline
+\mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a9e5d385e88e18c5746f5942e02c569aa}{ALL\+\_\+\+EXCEPT\+\_\+\+START}}
+, \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a487f07603df23e590161529a684a7dbc}{ALL\+\_\+\+EXCEPT\+\_\+\+END}}
 , \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a055c1a591abb0e8cd86dc969727bcc0b}{DISABLED}}
  \}
 \item 
@@ -108,8 +113,20 @@ START\+\_\+\+ONLY&\\
 END\+\_\+\+ONLY&\\
 \hline
 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INTERMEDIATE\_ONLY@{INTERMEDIATE\_ONLY}!tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}}\index{tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}!INTERMEDIATE\_ONLY@{INTERMEDIATE\_ONLY}}}\mbox{\Hypertarget{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a71418f9d29a18ee01e485fa7293deade}\label{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a71418f9d29a18ee01e485fa7293deade}} 
+INTERMEDIATE\+\_\+\+ONLY&\\
+\hline
+
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ALL@{ALL}!tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}}\index{tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}!ALL@{ALL}}}\mbox{\Hypertarget{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a5fb1f955b45e38e31789286a1790398d}\label{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a5fb1f955b45e38e31789286a1790398d}} 
 ALL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALL\_EXCEPT\_START@{ALL\_EXCEPT\_START}!tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}}\index{tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}!ALL\_EXCEPT\_START@{ALL\_EXCEPT\_START}}}\mbox{\Hypertarget{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a9e5d385e88e18c5746f5942e02c569aa}\label{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a9e5d385e88e18c5746f5942e02c569aa}} 
+ALL\+\_\+\+EXCEPT\+\_\+\+START&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALL\_EXCEPT\_END@{ALL\_EXCEPT\_END}!tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}}\index{tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}!ALL\_EXCEPT\_END@{ALL\_EXCEPT\_END}}}\mbox{\Hypertarget{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a487f07603df23e590161529a684a7dbc}\label{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a487f07603df23e590161529a684a7dbc}} 
+ALL\+\_\+\+EXCEPT\+\_\+\+END&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{DISABLED@{DISABLED}!tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}}\index{tesseract\_planning::FixStateCollisionProfile@{tesseract\_planning::FixStateCollisionProfile}!DISABLED@{DISABLED}}}\mbox{\Hypertarget{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a055c1a591abb0e8cd86dc969727bcc0b}\label{structtesseract__planning_1_1FixStateCollisionProfile_a976575acddb9598ca7f42f5e5dd132e9a055c1a591abb0e8cd86dc969727bcc0b}} 

@@ -92,10 +92,16 @@ Collaboration diagram for tesseract_planning::FixStateCollisionProfile:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a976575acddb9598ca7f42f5e5dd132e9"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9">Settings</a> { <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9abb03441eb46f5ceb12559eabc4b3f223">START_ONLY</a>
+<tr class="memitem:a976575acddb9598ca7f42f5e5dd132e9"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9">Settings</a> { <br />
+&#160;&#160;<a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9abb03441eb46f5ceb12559eabc4b3f223">START_ONLY</a>
 , <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9af450a15955e3c2958a698f3724efa3c9">END_ONLY</a>
+, <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9a71418f9d29a18ee01e485fa7293deade">INTERMEDIATE_ONLY</a>
 , <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9a5fb1f955b45e38e31789286a1790398d">ALL</a>
+, <br />
+&#160;&#160;<a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9a9e5d385e88e18c5746f5942e02c569aa">ALL_EXCEPT_START</a>
+, <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9a487f07603df23e590161529a684a7dbc">ALL_EXCEPT_END</a>
 , <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a976575acddb9598ca7f42f5e5dd132e9a055c1a591abb0e8cd86dc969727bcc0b">DISABLED</a>
+<br />
  }</td></tr>
 <tr class="separator:a976575acddb9598ca7f42f5e5dd132e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a616b958914a7cfbc44c21810cac79770"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a616b958914a7cfbc44c21810cac79770">CorrectionMethod</a> { <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html#a616b958914a7cfbc44c21810cac79770ab50339a10e1de285ac99d4c3990b8693">NONE</a>
@@ -214,7 +220,10 @@ Public Attributes</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a976575acddb9598ca7f42f5e5dd132e9abb03441eb46f5ceb12559eabc4b3f223"></a>START_ONLY&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a976575acddb9598ca7f42f5e5dd132e9af450a15955e3c2958a698f3724efa3c9"></a>END_ONLY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a976575acddb9598ca7f42f5e5dd132e9a71418f9d29a18ee01e485fa7293deade"></a>INTERMEDIATE_ONLY&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a976575acddb9598ca7f42f5e5dd132e9a5fb1f955b45e38e31789286a1790398d"></a>ALL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a976575acddb9598ca7f42f5e5dd132e9a9e5d385e88e18c5746f5942e02c569aa"></a>ALL_EXCEPT_START&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a976575acddb9598ca7f42f5e5dd132e9a487f07603df23e590161529a684a7dbc"></a>ALL_EXCEPT_END&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a976575acddb9598ca7f42f5e5dd132e9a055c1a591abb0e8cd86dc969727bcc0b"></a>DISABLED&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -335,7 +344,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 16 2021 21:27:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Dec 20 2021 20:58:16 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
