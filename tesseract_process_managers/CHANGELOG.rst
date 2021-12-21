@@ -2,8 +2,8 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.7.3 (2021-12-21)
+------------------
 * Add additional option to fix state collision profile
 * Contributors: Levi Armstrong
 
