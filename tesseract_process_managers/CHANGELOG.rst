@@ -2,6 +2,11 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add additional option to fix state collision profile
+* Contributors: Levi Armstrong
+
 0.7.2 (2021-12-16)
 ------------------
 * Add upsample trajectory task generator
