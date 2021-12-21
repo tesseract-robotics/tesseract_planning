@@ -76,18 +76,18 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, StateInCollisionTest)  // NOLINT
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
   tesseract_collision::ContactResultMap contacts;
-  EXPECT_TRUE(StateInCollision(state, input, profile, contacts));
+  EXPECT_TRUE(stateInCollision(state, input, profile, contacts));
   EXPECT_FALSE(contacts.empty());
   state[0] = 1.5;
 
   contacts.clear();
-  EXPECT_FALSE(StateInCollision(state, input, profile, contacts));
+  EXPECT_FALSE(stateInCollision(state, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
   state[0] = 0.0;
   state[1] = 1.5;
 
   contacts.clear();
-  EXPECT_FALSE(StateInCollision(state, input, profile, contacts));
+  EXPECT_FALSE(stateInCollision(state, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 
   // Check that the safety margin is obeyed
@@ -95,12 +95,12 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, StateInCollisionTest)  // NOLINT
   state[0] = 0.0;
   state[1] = 1.05;
   contacts.clear();
-  EXPECT_TRUE(StateInCollision(state, input, profile, contacts));
+  EXPECT_TRUE(stateInCollision(state, input, profile, contacts));
   EXPECT_FALSE(contacts.empty());
 
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.01);
   contacts.clear();
-  EXPECT_FALSE(StateInCollision(state, input, profile, contacts));
+  EXPECT_FALSE(stateInCollision(state, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 }
 
@@ -117,18 +117,18 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, WaypointInCollisionTest)  // NOLINT
   JointWaypoint waypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state);
   tesseract_collision::ContactResultMap contacts;
 
-  EXPECT_TRUE(WaypointInCollision(waypoint, input, profile, contacts));
+  EXPECT_TRUE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_FALSE(contacts.empty());
 
   waypoint[0] = 1.5;
   contacts.clear();
-  EXPECT_FALSE(WaypointInCollision(waypoint, input, profile, contacts));
+  EXPECT_FALSE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 
   waypoint[0] = 0.0;
   waypoint[1] = 1.5;
   contacts.clear();
-  EXPECT_FALSE(WaypointInCollision(waypoint, input, profile, contacts));
+  EXPECT_FALSE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 
   // Check that the safety margin is obeyed
@@ -136,18 +136,18 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, WaypointInCollisionTest)  // NOLINT
   waypoint[0] = 0.0;
   waypoint[1] = 1.05;
   contacts.clear();
-  EXPECT_TRUE(WaypointInCollision(waypoint, input, profile, contacts));
+  EXPECT_TRUE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_FALSE(contacts.empty());
 
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.01);
   contacts.clear();
-  EXPECT_FALSE(WaypointInCollision(waypoint, input, profile, contacts));
+  EXPECT_FALSE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 
   // Check that it catches invalid inputs correctly
   CartesianWaypoint cart_wp(Eigen::Isometry3d::Identity());
   contacts.clear();
-  EXPECT_FALSE(WaypointInCollision(cart_wp, input, profile, contacts));
+  EXPECT_FALSE(waypointInCollision(cart_wp, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 }
 
@@ -173,14 +173,14 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionRandomSample
 
   // Attempts are 0, so it should still be in collision
   profile.sampling_attempts = 0;
-  EXPECT_TRUE(WaypointInCollision(wp, input, profile, contacts));
-  EXPECT_FALSE(MoveWaypointFromCollisionRandomSampler(wp, input, profile));
-  EXPECT_TRUE(WaypointInCollision(wp, input, profile, contacts));
+  EXPECT_TRUE(waypointInCollision(wp, input, profile, contacts));
+  EXPECT_FALSE(moveWaypointFromCollisionRandomSampler(wp, input, profile));
+  EXPECT_TRUE(waypointInCollision(wp, input, profile, contacts));
 
   // It is very unlikely that this will still fail
   profile.sampling_attempts = 1000;
-  EXPECT_TRUE(MoveWaypointFromCollisionRandomSampler(wp, input, profile));
-  EXPECT_FALSE(WaypointInCollision(wp, input, profile, contacts));
+  EXPECT_TRUE(moveWaypointFromCollisionRandomSampler(wp, input, profile));
+  EXPECT_FALSE(waypointInCollision(wp, input, profile, contacts));
 }
 
 TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLINT
@@ -203,9 +203,9 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionTrajoptTest)
   Waypoint wp(waypoint);
   tesseract_collision::ContactResultMap contacts;
 
-  EXPECT_TRUE(WaypointInCollision(wp, input, profile, contacts));
-  EXPECT_TRUE(MoveWaypointFromCollisionTrajopt(wp, input, profile));
-  EXPECT_FALSE(WaypointInCollision(wp, input, profile, contacts));
+  EXPECT_TRUE(waypointInCollision(wp, input, profile, contacts));
+  EXPECT_TRUE(moveWaypointFromCollisionTrajopt(wp, input, profile));
+  EXPECT_FALSE(waypointInCollision(wp, input, profile, contacts));
 }
 
 int main(int argc, char** argv)

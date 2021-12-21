@@ -74,7 +74,7 @@ public:
  * @param input Process Input associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
-bool StateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
+bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
                       const TaskInput& input,
                       const FixStateCollisionProfile& profile,
                       tesseract_collision::ContactResultMap& contacts);
@@ -85,7 +85,7 @@ bool StateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
  * @param input Process Input associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
-bool WaypointInCollision(const Waypoint& waypoint,
+bool waypointInCollision(const Waypoint& waypoint,
                          const TaskInput& input,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts);
@@ -97,7 +97,7 @@ bool WaypointInCollision(const Waypoint& waypoint,
  * @param profile Profile containing needed params
  * @return True if successful
  */
-bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
+bool moveWaypointFromCollisionTrajopt(Waypoint& waypoint,
                                       const TaskInput& input,
                                       const FixStateCollisionProfile& profile);
 
@@ -108,10 +108,10 @@ bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
  * @param profile Profile containing needed params
  * @return True if successful
  */
-bool MoveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
+bool moveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
                                             const TaskInput& input,
                                             const FixStateCollisionProfile& profile);
 
-bool ApplyCorrectionWorkflow(Waypoint& waypoint, const TaskInput& input, const FixStateCollisionProfile& profile);
+bool applyCorrectionWorkflow(Waypoint& waypoint, const TaskInput& input, const FixStateCollisionProfile& profile);
 }  // namespace tesseract_planning
 #endif  // TESSERACT_PROCESS_MANAGERS_FIX_STATE_BOUNDS_TASK_GENERATOR_H

@@ -42,7 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-bool StateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
+bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
                       const TaskInput& input,
                       const FixStateCollisionProfile& profile,
                       tesseract_collision::ContactResultMap& contacts)
@@ -85,7 +85,7 @@ bool StateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   return true;
 }
 
-bool WaypointInCollision(const Waypoint& waypoint,
+bool waypointInCollision(const Waypoint& waypoint,
                          const TaskInput& input,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts)
@@ -101,10 +101,10 @@ bool WaypointInCollision(const Waypoint& waypoint,
     CONSOLE_BRIDGE_logError("WaypointInCollision error: %s", e.what());
     return false;
   }
-  return StateInCollision(start_pos, input, profile, contacts);
+  return stateInCollision(start_pos, input, profile, contacts);
 }
 
-bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
+bool moveWaypointFromCollisionTrajopt(Waypoint& waypoint,
                                       const TaskInput& input,
                                       const FixStateCollisionProfile& profile)
 {
@@ -195,6 +195,24 @@ bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
   if (opt.results().status != sco::OptStatus::OPT_CONVERGED)
   {
     CONSOLE_BRIDGE_logError("MoveWaypointFromCollision did not converge");
+
+    tesseract_collision::ContactResultMap collisions;
+    tesseract_collision::DiscreteContactManager::Ptr manager = pci.env->getDiscreteContactManager();
+    tesseract_common::TransformMap state = pci.kin->calcFwdKin(start_pos);
+    manager->setActiveCollisionObjects(pci.kin->getActiveLinkNames());
+    manager->applyContactManagerConfig(profile.collision_check_config.contact_manager_config);
+    manager->setCollisionObjectsTransform(state);
+    manager->contactTest(collisions, profile.collision_check_config.contact_request);
+
+    for (auto& collision : collisions)
+    {
+      std::stringstream ss;
+      ss << "Discrete collision detected between '" << collision.first.first << "' and '" << collision.first.second
+         << "' with distance " << collision.second.front().distance << std::endl;
+
+      CONSOLE_BRIDGE_logError(ss.str().c_str());
+    }
+
     return false;
   }
   Eigen::VectorXd results(start_pos.size());
@@ -202,7 +220,7 @@ bool MoveWaypointFromCollisionTrajopt(Waypoint& waypoint,
   return setJointPosition(waypoint, results);
 }
 
-bool MoveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
+bool moveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
                                             const TaskInput& input,
                                             const FixStateCollisionProfile& profile)
 {
@@ -234,7 +252,7 @@ bool MoveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
     sampled_pos = sampled_pos.cwiseMin(limits.col(1));
 
     tesseract_collision::ContactResultMap contacts;
-    if (!StateInCollision(sampled_pos, input, profile, contacts))
+    if (!stateInCollision(sampled_pos, input, profile, contacts))
     {
       return setJointPosition(waypoint, sampled_pos);
     }
@@ -243,7 +261,7 @@ bool MoveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
   return false;
 }
 
-bool ApplyCorrectionWorkflow(Waypoint& waypoint,
+bool applyCorrectionWorkflow(Waypoint& waypoint,
                              const TaskInput& input,
                              const FixStateCollisionProfile& profile,
                              tesseract_collision::ContactResultMap& contacts)
@@ -255,17 +273,17 @@ bool ApplyCorrectionWorkflow(Waypoint& waypoint,
       case FixStateCollisionProfile::CorrectionMethod::NONE:
         return false;  // No correction and in collision, so return false
       case FixStateCollisionProfile::CorrectionMethod::TRAJOPT:
-        if (MoveWaypointFromCollisionTrajopt(waypoint, input, profile))
+        if (moveWaypointFromCollisionTrajopt(waypoint, input, profile))
           return true;
         break;
       case FixStateCollisionProfile::CorrectionMethod::RANDOM_SAMPLER:
-        if (MoveWaypointFromCollisionRandomSampler(waypoint, input, profile))
+        if (moveWaypointFromCollisionRandomSampler(waypoint, input, profile))
           return true;
         break;
     }
   }
   // If all methods have tried without returning, then correction failed
-  WaypointInCollision(waypoint, input, profile, contacts);  // NOLINT Not sure why clang-tidy errors here
+  waypointInCollision(waypoint, input, profile, contacts);  // NOLINT Not sure why clang-tidy errors here
   return false;
 }
 
@@ -314,11 +332,11 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
         info->contact_results.resize(1);
-        if (WaypointInCollision(
+        if (waypointInCollision(
                 mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
         {
           CONSOLE_BRIDGE_logInform("FixStateCollisionTaskGenerator is modifying the const input instructions");
-          if (!ApplyCorrectionWorkflow(
+          if (!applyCorrectionWorkflow(
                   mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
           {
             saveOutputs(*info, input);
@@ -336,11 +354,11 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
         info->contact_results.resize(1);
-        if (WaypointInCollision(
+        if (waypointInCollision(
                 mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
         {
           CONSOLE_BRIDGE_logInform("FixStateCollisionTaskGenerator is modifying the const input instructions");
-          if (!ApplyCorrectionWorkflow(
+          if (!applyCorrectionWorkflow(
                   mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
           {
             saveOutputs(*info, input);
@@ -373,7 +391,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 1; i < flattened.size() - 1; i++)
       {
-        in_collision_vec[i] = WaypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
+        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -391,7 +409,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
           auto& plan = mutable_instruction->as<PlanInstruction>();
 
-          if (!ApplyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
+          if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -416,7 +434,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 0; i < flattened.size(); i++)
       {
-        in_collision_vec[i] = WaypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
+        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -434,7 +452,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
           auto& plan = mutable_instruction->as<PlanInstruction>();
 
-          if (!ApplyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
+          if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -459,7 +477,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 1; i < flattened.size(); i++)
       {
-        in_collision_vec[i] = WaypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
+        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -477,7 +495,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
           auto& plan = mutable_instruction->as<PlanInstruction>();
 
-          if (!ApplyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
+          if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -502,7 +520,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 0; i < flattened.size() - 1; i++)
       {
-        in_collision_vec[i] = WaypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
+        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -520,7 +538,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
           auto& plan = mutable_instruction->as<PlanInstruction>();
 
-          if (!ApplyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
+          if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
