@@ -1106,28 +1106,28 @@ Functions</h2></td></tr>
 <tr class="memitem:ae75e0f05d9f60801aef29c9341c914d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae75e0f05d9f60801aef29c9341c914d0">saveOutputs</a> (<a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &amp;info, <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input)</td></tr>
 <tr class="memdesc:ae75e0f05d9f60801aef29c9341c914d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the appropriate outputs to the <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae75e0f05d9f60801aef29c9341c914d0">More...</a><br /></td></tr>
 <tr class="separator:ae75e0f05d9f60801aef29c9341c914d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a627d417f4d206352657ce7f78bc79287"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a627d417f4d206352657ce7f78bc79287">StateInCollision</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;start_pos, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
-<tr class="memdesc:a627d417f4d206352657ce7f78bc79287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a joint state is in collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#a627d417f4d206352657ce7f78bc79287">More...</a><br /></td></tr>
-<tr class="separator:a627d417f4d206352657ce7f78bc79287"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73655d12321af410a05104228465cbd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a73655d12321af410a05104228465cbd3">WaypointInCollision</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
-<tr class="memdesc:a73655d12321af410a05104228465cbd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a waypoint is in collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#a73655d12321af410a05104228465cbd3">More...</a><br /></td></tr>
-<tr class="separator:a73655d12321af410a05104228465cbd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1879658a88319d5e8fc4798abdaac2d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1879658a88319d5e8fc4798abdaac2d3">MoveWaypointFromCollisionTrajopt</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile)</td></tr>
-<tr class="memdesc:a1879658a88319d5e8fc4798abdaac2d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a waypoint and uses a small trajopt problem to push it out of collision if necessary.  <a href="../../d9/dcd/namespacetesseract__planning.html#a1879658a88319d5e8fc4798abdaac2d3">More...</a><br /></td></tr>
-<tr class="separator:a1879658a88319d5e8fc4798abdaac2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c1bad9f7a45c68fc162ddd786b7f257"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5c1bad9f7a45c68fc162ddd786b7f257">MoveWaypointFromCollisionRandomSampler</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile)</td></tr>
-<tr class="memdesc:a5c1bad9f7a45c68fc162ddd786b7f257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a waypoint and uses random sampling to find a position that is out of collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#a5c1bad9f7a45c68fc162ddd786b7f257">More...</a><br /></td></tr>
-<tr class="separator:a5c1bad9f7a45c68fc162ddd786b7f257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae71c4e857f363d16f291068a588bd5ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae71c4e857f363d16f291068a588bd5ef">ApplyCorrectionWorkflow</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile)</td></tr>
-<tr class="separator:ae71c4e857f363d16f291068a588bd5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8de1e2ad1859b273e7309823a0e3169"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ab8de1e2ad1859b273e7309823a0e3169">stateInCollision</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;start_pos, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
+<tr class="memdesc:ab8de1e2ad1859b273e7309823a0e3169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a joint state is in collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#ab8de1e2ad1859b273e7309823a0e3169">More...</a><br /></td></tr>
+<tr class="separator:ab8de1e2ad1859b273e7309823a0e3169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad363fafbebdbc798d27b67a1b77f2d02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad363fafbebdbc798d27b67a1b77f2d02">waypointInCollision</a> (const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
+<tr class="memdesc:ad363fafbebdbc798d27b67a1b77f2d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a waypoint is in collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#ad363fafbebdbc798d27b67a1b77f2d02">More...</a><br /></td></tr>
+<tr class="separator:ad363fafbebdbc798d27b67a1b77f2d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dd63103a6135dde01a636744ee7fa50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5dd63103a6135dde01a636744ee7fa50">moveWaypointFromCollisionTrajopt</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile)</td></tr>
+<tr class="memdesc:a5dd63103a6135dde01a636744ee7fa50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a waypoint and uses a small trajopt problem to push it out of collision if necessary.  <a href="../../d9/dcd/namespacetesseract__planning.html#a5dd63103a6135dde01a636744ee7fa50">More...</a><br /></td></tr>
+<tr class="separator:a5dd63103a6135dde01a636744ee7fa50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93c0a45e4db2b2827bb6cdce50c33858"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a93c0a45e4db2b2827bb6cdce50c33858">moveWaypointFromCollisionRandomSampler</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile)</td></tr>
+<tr class="memdesc:a93c0a45e4db2b2827bb6cdce50c33858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a waypoint and uses random sampling to find a position that is out of collision.  <a href="../../d9/dcd/namespacetesseract__planning.html#a93c0a45e4db2b2827bb6cdce50c33858">More...</a><br /></td></tr>
+<tr class="separator:a93c0a45e4db2b2827bb6cdce50c33858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a832b46bc73c7f290a6ed036f00ca0b8e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a832b46bc73c7f290a6ed036f00ca0b8e">applyCorrectionWorkflow</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile)</td></tr>
+<tr class="separator:a832b46bc73c7f290a6ed036f00ca0b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae57bb0d41e17673d6eb453a74f1253c5"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::vector&lt; <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ae57bb0d41e17673d6eb453a74f1253c5">sortTaskInfosByTaskName</a> (const std::vector&lt; std::vector&lt; <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">TaskInfo</a> &gt;&gt; &amp;task_infos)</td></tr>
 <tr class="memdesc:ae57bb0d41e17673d6eb453a74f1253c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes multiple vectors of task infos from repeated planning calls and sorts them into a map keyed by task name.  <a href="../../d9/dcd/namespacetesseract__planning.html#ae57bb0d41e17673d6eb453a74f1253c5">More...</a><br /></td></tr>
 <tr class="separator:ae57bb0d41e17673d6eb453a74f1253c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6062b2278e30eeb6c0f829db9fdd3e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa6062b2278e30eeb6c0f829db9fdd3e3">dump</a> (std::ostream &amp;os, const <a class="el" href="../../de/da1/classtesseract__planning_1_1GraphTaskflow.html">GraphTaskflow</a> &amp;graph, const std::unordered_map&lt; std::string, <a class="el" href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html">TaskDisplayInfo</a> &gt; &amp;task_info_map=std::unordered_map&lt; std::string, <a class="el" href="../../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html">TaskDisplayInfo</a> &gt;())</td></tr>
 <tr class="memdesc:aa6062b2278e30eeb6c0f829db9fdd3e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility for a custom graphviz dump for graph taskflows that allows the addition of addition information.  <a href="../../d9/dcd/namespacetesseract__planning.html#aa6062b2278e30eeb6c0f829db9fdd3e3">More...</a><br /></td></tr>
 <tr class="separator:aa6062b2278e30eeb6c0f829db9fdd3e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38a77d0f5635d9f28460c5f038e8f14c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a38a77d0f5635d9f28460c5f038e8f14c">ApplyCorrectionWorkflow</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
-<tr class="separator:a38a77d0f5635d9f28460c5f038e8f14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31f83a3707606af80baa531a0f1a3cfe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a31f83a3707606af80baa531a0f1a3cfe">applyCorrectionWorkflow</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;waypoint, const <a class="el" href="../../db/da2/structtesseract__planning_1_1TaskInput.html">TaskInput</a> &amp;input, const <a class="el" href="../../d3/db2/structtesseract__planning_1_1FixStateCollisionProfile.html">FixStateCollisionProfile</a> &amp;profile, tesseract_collision::ContactResultMap &amp;contacts)</td></tr>
+<tr class="separator:a31f83a3707606af80baa531a0f1a3cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8c98bef4d1dd9386473cc9c4eebaacd7">RescaleTimings</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;program, std::vector&lt; double &gt; scalings)</td></tr>
 <tr class="memdesc:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rescale the sub-composites of a program linearly.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8c98bef4d1dd9386473cc9c4eebaacd7">More...</a><br /></td></tr>
 <tr class="separator:a8c98bef4d1dd9386473cc9c4eebaacd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2580,14 +2580,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="ae71c4e857f363d16f291068a588bd5ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae71c4e857f363d16f291068a588bd5ef">&#9670;&nbsp;</a></span>ApplyCorrectionWorkflow() <span class="overload">[1/2]</span></h2>
+<a id="a832b46bc73c7f290a6ed036f00ca0b8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a832b46bc73c7f290a6ed036f00ca0b8e">&#9670;&nbsp;</a></span>applyCorrectionWorkflow() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::ApplyCorrectionWorkflow </td>
+          <td class="memname">bool tesseract_planning::applyCorrectionWorkflow </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td>
           <td class="paramname"><em>waypoint</em>, </td>
@@ -2614,14 +2614,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a38a77d0f5635d9f28460c5f038e8f14c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38a77d0f5635d9f28460c5f038e8f14c">&#9670;&nbsp;</a></span>ApplyCorrectionWorkflow() <span class="overload">[2/2]</span></h2>
+<a id="a31f83a3707606af80baa531a0f1a3cfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31f83a3707606af80baa531a0f1a3cfe">&#9670;&nbsp;</a></span>applyCorrectionWorkflow() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::ApplyCorrectionWorkflow </td>
+          <td class="memname">bool tesseract_planning::applyCorrectionWorkflow </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td>
           <td class="paramname"><em>waypoint</em>, </td>
@@ -7810,14 +7810,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a5c1bad9f7a45c68fc162ddd786b7f257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c1bad9f7a45c68fc162ddd786b7f257">&#9670;&nbsp;</a></span>MoveWaypointFromCollisionRandomSampler()</h2>
+<a id="a93c0a45e4db2b2827bb6cdce50c33858"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c0a45e4db2b2827bb6cdce50c33858">&#9670;&nbsp;</a></span>moveWaypointFromCollisionRandomSampler()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::MoveWaypointFromCollisionRandomSampler </td>
+          <td class="memname">bool tesseract_planning::moveWaypointFromCollisionRandomSampler </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td>
           <td class="paramname"><em>waypoint</em>, </td>
@@ -7855,14 +7855,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a1879658a88319d5e8fc4798abdaac2d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1879658a88319d5e8fc4798abdaac2d3">&#9670;&nbsp;</a></span>MoveWaypointFromCollisionTrajopt()</h2>
+<a id="a5dd63103a6135dde01a636744ee7fa50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dd63103a6135dde01a636744ee7fa50">&#9670;&nbsp;</a></span>moveWaypointFromCollisionTrajopt()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::MoveWaypointFromCollisionTrajopt </td>
+          <td class="memname">bool tesseract_planning::moveWaypointFromCollisionTrajopt </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td>
           <td class="paramname"><em>waypoint</em>, </td>
@@ -8759,14 +8759,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a627d417f4d206352657ce7f78bc79287"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a627d417f4d206352657ce7f78bc79287">&#9670;&nbsp;</a></span>StateInCollision()</h2>
+<a id="ab8de1e2ad1859b273e7309823a0e3169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8de1e2ad1859b273e7309823a0e3169">&#9670;&nbsp;</a></span>stateInCollision()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::StateInCollision </td>
+          <td class="memname">bool tesseract_planning::stateInCollision </td>
           <td>(</td>
           <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;&#160;</td>
           <td class="paramname"><em>start_pos</em>, </td>
@@ -9482,14 +9482,14 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a73655d12321af410a05104228465cbd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73655d12321af410a05104228465cbd3">&#9670;&nbsp;</a></span>WaypointInCollision()</h2>
+<a id="ad363fafbebdbc798d27b67a1b77f2d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad363fafbebdbc798d27b67a1b77f2d02">&#9670;&nbsp;</a></span>waypointInCollision()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::WaypointInCollision </td>
+          <td class="memname">bool tesseract_planning::waypointInCollision </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td>
           <td class="paramname"><em>waypoint</em>, </td>
@@ -9735,7 +9735,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 21 2021 16:55:41 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Mon Dec 27 2021 15:40:27 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

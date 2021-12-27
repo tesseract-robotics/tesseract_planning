@@ -861,21 +861,21 @@ void \mbox{\hyperlink{namespacetesseract__planning_a902cd4c3fb783d8f4fcabda2f054
 \begin{DoxyCompactList}\small\item\em Saves the appropriate inputs to the \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacetesseract__planning_ae75e0f05d9f60801aef29c9341c914d0}{save\+Outputs}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} \&info, \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input)
 \begin{DoxyCompactList}\small\item\em Saves the appropriate outputs to the \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a627d417f4d206352657ce7f78bc79287}{State\+In\+Collision}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start\+\_\+pos, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+bool \mbox{\hyperlink{namespacetesseract__planning_ab8de1e2ad1859b273e7309823a0e3169}{state\+In\+Collision}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start\+\_\+pos, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
 \begin{DoxyCompactList}\small\item\em Checks if a joint state is in collision. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a73655d12321af410a05104228465cbd3}{Waypoint\+In\+Collision}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+bool \mbox{\hyperlink{namespacetesseract__planning_ad363fafbebdbc798d27b67a1b77f2d02}{waypoint\+In\+Collision}} (const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
 \begin{DoxyCompactList}\small\item\em Checks if a waypoint is in collision. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a1879658a88319d5e8fc4798abdaac2d3}{Move\+Waypoint\+From\+Collision\+Trajopt}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile)
+bool \mbox{\hyperlink{namespacetesseract__planning_a5dd63103a6135dde01a636744ee7fa50}{move\+Waypoint\+From\+Collision\+Trajopt}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile)
 \begin{DoxyCompactList}\small\item\em Takes a waypoint and uses a small trajopt problem to push it out of collision if necessary. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a5c1bad9f7a45c68fc162ddd786b7f257}{Move\+Waypoint\+From\+Collision\+Random\+Sampler}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile)
+bool \mbox{\hyperlink{namespacetesseract__planning_a93c0a45e4db2b2827bb6cdce50c33858}{move\+Waypoint\+From\+Collision\+Random\+Sampler}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile)
 \begin{DoxyCompactList}\small\item\em Takes a waypoint and uses random sampling to find a position that is out of collision. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ae71c4e857f363d16f291068a588bd5ef}{Apply\+Correction\+Workflow}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile)
+bool \mbox{\hyperlink{namespacetesseract__planning_a832b46bc73c7f290a6ed036f00ca0b8e}{apply\+Correction\+Workflow}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile)
 \item 
 std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} $>$ $>$ \mbox{\hyperlink{namespacetesseract__planning_ae57bb0d41e17673d6eb453a74f1253c5}{sort\+Task\+Infos\+By\+Task\+Name}} (const std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} $>$$>$ \&task\+\_\+infos)
 \begin{DoxyCompactList}\small\item\em Takes multiple vectors of task infos from repeated planning calls and sorts them into a map keyed by task name. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacetesseract__planning_aa6062b2278e30eeb6c0f829db9fdd3e3}{dump}} (std\+::ostream \&os, const \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{Graph\+Taskflow}} \&graph, const std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo}{Task\+Display\+Info}} $>$ \&task\+\_\+info\+\_\+map=std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo}{Task\+Display\+Info}} $>$())
 \begin{DoxyCompactList}\small\item\em Utility for a custom graphviz dump for graph taskflows that allows the addition of addition information. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a38a77d0f5635d9f28460c5f038e8f14c}{Apply\+Correction\+Workflow}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+bool \mbox{\hyperlink{namespacetesseract__planning_a31f83a3707606af80baa531a0f1a3cfe}{apply\+Correction\+Workflow}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&waypoint, const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&input, const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
 \item 
 void \mbox{\hyperlink{namespacetesseract__planning_a8c98bef4d1dd9386473cc9c4eebaacd7}{Rescale\+Timings}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&program, std\+::vector$<$ double $>$ scalings)
 \begin{DoxyCompactList}\small\item\em Rescale the sub-\/composites of a program linearly. \end{DoxyCompactList}\item 
@@ -1515,17 +1515,17 @@ Default State sampler which uses the weights information to scale the sampled st
 \begin{DoxyReturn}{Returns}
 OMPL state sampler shared pointer 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_ae71c4e857f363d16f291068a588bd5ef}\label{namespacetesseract__planning_ae71c4e857f363d16f291068a588bd5ef}} 
-\index{tesseract\_planning@{tesseract\_planning}!ApplyCorrectionWorkflow@{ApplyCorrectionWorkflow}}
-\index{ApplyCorrectionWorkflow@{ApplyCorrectionWorkflow}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{ApplyCorrectionWorkflow()}{ApplyCorrectionWorkflow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Apply\+Correction\+Workflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacetesseract__planning_a832b46bc73c7f290a6ed036f00ca0b8e}\label{namespacetesseract__planning_a832b46bc73c7f290a6ed036f00ca0b8e}} 
+\index{tesseract\_planning@{tesseract\_planning}!applyCorrectionWorkflow@{applyCorrectionWorkflow}}
+\index{applyCorrectionWorkflow@{applyCorrectionWorkflow}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{applyCorrectionWorkflow()}{applyCorrectionWorkflow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::apply\+Correction\+Workflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a38a77d0f5635d9f28460c5f038e8f14c}\label{namespacetesseract__planning_a38a77d0f5635d9f28460c5f038e8f14c}} 
-\index{tesseract\_planning@{tesseract\_planning}!ApplyCorrectionWorkflow@{ApplyCorrectionWorkflow}}
-\index{ApplyCorrectionWorkflow@{ApplyCorrectionWorkflow}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{ApplyCorrectionWorkflow()}{ApplyCorrectionWorkflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Apply\+Correction\+Workflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile,  }\item[{tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&}]{contacts }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacetesseract__planning_a31f83a3707606af80baa531a0f1a3cfe}\label{namespacetesseract__planning_a31f83a3707606af80baa531a0f1a3cfe}} 
+\index{tesseract\_planning@{tesseract\_planning}!applyCorrectionWorkflow@{applyCorrectionWorkflow}}
+\index{applyCorrectionWorkflow@{applyCorrectionWorkflow}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{applyCorrectionWorkflow()}{applyCorrectionWorkflow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::apply\+Correction\+Workflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile,  }\item[{tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&}]{contacts }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a6990d23e5298e84970b67848a87e25bc}\label{namespacetesseract__planning_a6990d23e5298e84970b67848a87e25bc}} 
 \index{tesseract\_planning@{tesseract\_planning}!applyProfileOverrides@{applyProfileOverrides}}
@@ -3403,11 +3403,11 @@ True if the waypoit falls within the joint limits
 \doxysubsubsection{\texorpdfstring{moveFilter()}{moveFilter()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::move\+Filter (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction,  }\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{composite,  }\item[{bool}]{parent\+\_\+is\+\_\+first\+\_\+composite }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a5c1bad9f7a45c68fc162ddd786b7f257}\label{namespacetesseract__planning_a5c1bad9f7a45c68fc162ddd786b7f257}} 
-\index{tesseract\_planning@{tesseract\_planning}!MoveWaypointFromCollisionRandomSampler@{MoveWaypointFromCollisionRandomSampler}}
-\index{MoveWaypointFromCollisionRandomSampler@{MoveWaypointFromCollisionRandomSampler}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{MoveWaypointFromCollisionRandomSampler()}{MoveWaypointFromCollisionRandomSampler()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Move\+Waypoint\+From\+Collision\+Random\+Sampler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacetesseract__planning_a93c0a45e4db2b2827bb6cdce50c33858}\label{namespacetesseract__planning_a93c0a45e4db2b2827bb6cdce50c33858}} 
+\index{tesseract\_planning@{tesseract\_planning}!moveWaypointFromCollisionRandomSampler@{moveWaypointFromCollisionRandomSampler}}
+\index{moveWaypointFromCollisionRandomSampler@{moveWaypointFromCollisionRandomSampler}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{moveWaypointFromCollisionRandomSampler()}{moveWaypointFromCollisionRandomSampler()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Random\+Sampler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile }\end{DoxyParamCaption})}
 
 
 
@@ -3425,11 +3425,11 @@ Takes a waypoint and uses random sampling to find a position that is out of coll
 \begin{DoxyReturn}{Returns}
 True if successful 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a1879658a88319d5e8fc4798abdaac2d3}\label{namespacetesseract__planning_a1879658a88319d5e8fc4798abdaac2d3}} 
-\index{tesseract\_planning@{tesseract\_planning}!MoveWaypointFromCollisionTrajopt@{MoveWaypointFromCollisionTrajopt}}
-\index{MoveWaypointFromCollisionTrajopt@{MoveWaypointFromCollisionTrajopt}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{MoveWaypointFromCollisionTrajopt()}{MoveWaypointFromCollisionTrajopt()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Move\+Waypoint\+From\+Collision\+Trajopt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacetesseract__planning_a5dd63103a6135dde01a636744ee7fa50}\label{namespacetesseract__planning_a5dd63103a6135dde01a636744ee7fa50}} 
+\index{tesseract\_planning@{tesseract\_planning}!moveWaypointFromCollisionTrajopt@{moveWaypointFromCollisionTrajopt}}
+\index{moveWaypointFromCollisionTrajopt@{moveWaypointFromCollisionTrajopt}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{moveWaypointFromCollisionTrajopt()}{moveWaypointFromCollisionTrajopt()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Trajopt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile }\end{DoxyParamCaption})}
 
 
 
@@ -3781,11 +3781,11 @@ This is so that we can look up all task infos by the task name since they will h
 \begin{DoxyReturn}{Returns}
 Task infos sorted into a map keyed by task name 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a627d417f4d206352657ce7f78bc79287}\label{namespacetesseract__planning_a627d417f4d206352657ce7f78bc79287}} 
-\index{tesseract\_planning@{tesseract\_planning}!StateInCollision@{StateInCollision}}
-\index{StateInCollision@{StateInCollision}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{StateInCollision()}{StateInCollision()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+State\+In\+Collision (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{start\+\_\+pos,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile,  }\item[{tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&}]{contacts }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacetesseract__planning_ab8de1e2ad1859b273e7309823a0e3169}\label{namespacetesseract__planning_ab8de1e2ad1859b273e7309823a0e3169}} 
+\index{tesseract\_planning@{tesseract\_planning}!stateInCollision@{stateInCollision}}
+\index{stateInCollision@{stateInCollision}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{stateInCollision()}{stateInCollision()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::state\+In\+Collision (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{start\+\_\+pos,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile,  }\item[{tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&}]{contacts }\end{DoxyParamCaption})}
 
 
 
@@ -4054,11 +4054,11 @@ Every plan instruction in /p composite\+\_\+instruction should have a coorespond
 \begin{DoxyReturn}{Returns}
 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_a73655d12321af410a05104228465cbd3}\label{namespacetesseract__planning_a73655d12321af410a05104228465cbd3}} 
-\index{tesseract\_planning@{tesseract\_planning}!WaypointInCollision@{WaypointInCollision}}
-\index{WaypointInCollision@{WaypointInCollision}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{WaypointInCollision()}{WaypointInCollision()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Waypoint\+In\+Collision (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile,  }\item[{tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&}]{contacts }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacetesseract__planning_ad363fafbebdbc798d27b67a1b77f2d02}\label{namespacetesseract__planning_ad363fafbebdbc798d27b67a1b77f2d02}} 
+\index{tesseract\_planning@{tesseract\_planning}!waypointInCollision@{waypointInCollision}}
+\index{waypointInCollision@{waypointInCollision}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{waypointInCollision()}{waypointInCollision()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::waypoint\+In\+Collision (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{Task\+Input}} \&}]{input,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{Fix\+State\+Collision\+Profile}} \&}]{profile,  }\item[{tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&}]{contacts }\end{DoxyParamCaption})}
 
 
 
