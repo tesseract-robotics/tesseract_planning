@@ -289,6 +289,7 @@ private:
 }  // namespace tesseract_planning
 
 #ifndef SWIG
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::detail_waypoint::WaypointInnerBase)
 BOOST_CLASS_TRACKING(tesseract_planning::Waypoint, boost::serialization::track_never);
 #endif  // SWIG
 
