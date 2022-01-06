@@ -329,6 +329,7 @@ private:
 #ifdef SWIG
 %template(Instructions) std::vector<tesseract_planning::Instruction>;
 #else
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::detail_instruction::InstructionInnerBase)
 BOOST_CLASS_TRACKING(tesseract_planning::Instruction, boost::serialization::track_never);
 #endif  // SWIG
 
