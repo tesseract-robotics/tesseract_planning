@@ -374,10 +374,11 @@ $(function() {
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="preprocessor">#ifdef SWIG</span></div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;%<span class="keyword">template</span>(Instructions) std::vector&lt;tesseract_planning::Instruction&gt;;</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno"><a class="line" href="../../d8/df4/instruction_8h.html#a117374dd98af81801c0ccb8018e93215">  332</a></span>&#160;<a class="code" href="../../d8/df4/instruction_8h.html#a117374dd98af81801c0ccb8018e93215">BOOST_CLASS_TRACKING</a>(<a class="code" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a>, boost::serialization::track_never);</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SWIG</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;BOOST_SERIALIZATION_ASSUME_ABSTRACT(<a class="code" href="../../d7/d3a/structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase.html">tesseract_planning::detail_instruction::InstructionInnerBase</a>)</div>
+<div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="../../d8/df4/instruction_8h.html#a117374dd98af81801c0ccb8018e93215">  333</a></span>&#160;<a class="code" href="../../d8/df4/instruction_8h.html#a117374dd98af81801c0ccb8018e93215">BOOST_CLASS_TRACKING</a>(<a class="code" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a>::Instruction, <a class="code" href="../../d4/da9/namespaceboost.html">boost</a>::serialization::track_never);</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SWIG</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H</span></div>
 <div class="ttc" id="aclasstesseract__planning_1_1Instruction_html"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.h:232</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1Instruction_html_a08eed8e813b8e7b50c6b57572a2b69f4"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html#a08eed8e813b8e7b50c6b57572a2b69f4">tesseract_planning::Instruction::~Instruction</a></div><div class="ttdeci">~Instruction()=default</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1Instruction_html_a11864c347841f43f99e1688efd91f11d"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html#a11864c347841f43f99e1688efd91f11d">tesseract_planning::Instruction::getType</a></div><div class="ttdeci">std::type_index getType() const</div><div class="ttdef"><b>Definition:</b> instruction.h:277</div></div>
@@ -451,7 +452,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 27 2021 15:40:26 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Fri Jan 7 2022 15:46:41 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>
