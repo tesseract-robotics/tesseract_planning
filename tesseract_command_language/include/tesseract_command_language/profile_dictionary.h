@@ -29,6 +29,7 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <any>
+#include <boost/serialization/serialization.hpp>
 #include <iostream>
 #include <typeindex>
 #include <unordered_map>
@@ -36,15 +37,20 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <shared_mutex>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_environment/environment.h>
-
 #ifdef SWIG
 %shared_ptr(tesseract_planning::ProfileDictionary)
 #endif  // SWIG
 
+namespace tesseract_environment
+{
+class Environment;
+}
+
 namespace tesseract_planning
 {
+class Instruction;
+class CompositeInstruction;
+
 /**
  * @brief Struct to produce a planner-specific planning profile to apply to a single waypoint.
  * @details Examples of waypoint profiles might include costs/constraints for a waypoint or a waypoint sampler
@@ -63,7 +69,7 @@ public:
 
   virtual ~WaypointProfile() = default;
 
-  virtual std::any create(const Instruction& instruction, tesseract_environment::Environment::ConstPtr env) const = 0;
+  virtual std::any create(const Instruction& instruction, const tesseract_environment::Environment& env) const = 0;
 
 private:
   friend class boost::serialization::access;
@@ -92,7 +98,7 @@ public:
 
   virtual ~CompositeProfile() = default;
   virtual std::any create(const CompositeInstruction& instruction,
-                          tesseract_environment::Environment::ConstPtr env) const = 0;
+                          const tesseract_environment::Environment& env) const = 0;
 
 private:
   friend class boost::serialization::access;
