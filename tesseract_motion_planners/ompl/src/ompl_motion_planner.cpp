@@ -231,28 +231,19 @@ std::shared_ptr<ompl::base::PlannerData> plan(ompl::geometric::SimpleSetupPtr si
 }
 
 CompositeInstruction buildTrajectoryInstruction(const tesseract_common::TrajArray& trajectory,
-                                                const CompositeInstruction& input_instructions,
                                                 const CompositeInstruction& seed)
 {
   // Initialize the output by copying the input program and flattening it
   CompositeInstruction output(seed);
-  std::vector<std::reference_wrapper<Instruction>> output_flattened =
-      flattenProgramToPattern(output, input_instructions);
-
-  // Element 0 of the flattened results is a start instruction that should contain the first trajectory state
-  auto& start_instruction = output_flattened.at(0).get().as<MoveInstruction>();
-
-  // Element 1 of the flattened results is a composite instruction containing the reset of the trajectory
-  auto& composite = output_flattened.at(1).get().as<CompositeInstruction>();
 
   // The results composite will only have as many states as the seed, but the OMPL trajectory might require more states
   // In this case, we need to insert more states into the composite to cover the difference
   // Remember the composite does not include the start state, so compare its size with one less than the size of the
   // trajectory
-  if (composite.size() < trajectory.rows() - 1)
+  if (seed.size() < trajectory.rows() - 1)
   {
-    const std::size_t diff = static_cast<std::size_t>(trajectory.rows() - 1) - composite.size();
-    composite.insert(composite.end(), diff, composite.back());
+    const std::size_t diff = static_cast<std::size_t>(trajectory.rows() - 1) - output.size();
+    output.insert(output.end(), diff, output.back());
   }
 
   // Overwrite the contents of each copied waypoint
@@ -261,7 +252,7 @@ CompositeInstruction buildTrajectoryInstruction(const tesseract_common::TrajArra
     // The first trajectory state goes into the start instruction
     if (i == 0)
     {
-      start_instruction.getWaypoint().as<StateWaypoint>().position = trajectory.row(i);
+      output.getStartInstruction().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().position = trajectory.row(i);
     }
     else
     {
@@ -269,7 +260,7 @@ CompositeInstruction buildTrajectoryInstruction(const tesseract_common::TrajArra
       // The index into the composite of these states is one less than the index of the trajectory state since the first
       // trajectory state was saved outside the composite
       const std::size_t composite_idx = static_cast<std::size_t>(i - 1);
-      auto& move_instruction = composite.at(composite_idx).as<MoveInstruction>();
+      auto& move_instruction = output.at(composite_idx).as<MoveInstruction>();
       move_instruction.getWaypoint().as<StateWaypoint>().position = trajectory.row(i);
     }
   }
@@ -346,35 +337,44 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     return response.status;
   }
 
-  // Loop over each simple setup produced by the composite waypoint
-  for (std::size_t i = 0; i < 1; ++i)
+  // Set up the output trajectory to be a composite of composites
+  response.results.reserve(request.instructions.size());
+
+  // Loop over each pair of waypoints
+  for (std::size_t i = 0; i < request.instructions.size(); ++i)
   {
     simple_setup->clearStartStates();
 
-    // Get the start waypoint profile and add the states to the SimpleSetup
-    if (i == 0)
+    // Add the start state(s)
     {
-      const PlanInstruction& pi = request.instructions[i].as<PlanInstruction>();
+      std::vector<Eigen::VectorXd> start_states;
 
-      const std::string profile_name = getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
-      auto p = request.profiles->getProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(name_, profile_name);
-
-      auto states = createOMPLStates(p->create(pi, request.env), simple_setup->getSpaceInformation());
+      // Get the start waypoint profile and add the states to the SimpleSetup
+      if (i == 0)
+      {
+        const PlanInstruction& pi = request.instructions.getStartInstruction().as<PlanInstruction>();
+        const std::string profile_name = getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
+        auto p = request.profiles->getProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(name_, profile_name);
+        start_states = p->create(pi, request.env);
+      }
+      else
+      {
+        // Use the last state of the previous trajectory as the single start state for this plan
+        const MoveInstruction& mi = response.results.back().as<CompositeInstruction>().back().as<MoveInstruction>();
+        const StateWaypoint& sw = mi.getWaypoint().as<StateWaypoint>();
+        start_states.push_back(sw.position);
+      }
 
       // Add the states to the SimpleSetup
+      auto states = createOMPLStates(start_states, simple_setup->getSpaceInformation());
       std::for_each(states.begin(), states.end(), [&simple_setup](const ompl::base::ScopedState<>& state) {
         simple_setup->addStartState(state);
       });
     }
-    else
-    {
-      // Use the last state of the previous trajectory as the single start state for this plan
 
-    }
-
-    // Get the end waypoint profile and add the states to the simple setup
+    // Add the goal waypoint(s)
     {
-      const PlanInstruction& pi = request.instructions[i + 1].as<PlanInstruction>();
+      const PlanInstruction& pi = request.instructions[i].as<PlanInstruction>();
 
       const std::string profile_name = getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
       auto p = request.profiles->getProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(name_, profile_name);
@@ -408,20 +408,15 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
         tesseract_common::enforcePositionLimits(trajectory.row(i), joint_limits);
     }
 
-    // Construct the output
-    CompositeInstruction foo = buildTrajectoryInstruction(trajectory, request.instructions, request.seed[i].as<CompositeInstruction>());
+    // Construct the output trajectory instruction and add it to the response
+    response.results.push_back(buildTrajectoryInstruction(trajectory, request.seed[i].as<CompositeInstruction>()));
   }
 
-
+  // Set top-level composite start instruction to first waypoint of first trajectory
+  response.results.getStartInstruction() = response.results.at(0).as<CompositeInstruction>().getStartInstruction();
 
   // Save the combined planner data in the response
 //  response.data = std::static_pointer_cast<void>(planner_data);
-
-
-
-
-
-
 
   response.status = tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::SolutionFound, status_category_);
   return response.status;
