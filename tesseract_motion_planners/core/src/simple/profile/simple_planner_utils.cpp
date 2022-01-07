@@ -163,15 +163,20 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
   // Get move type base on base instruction type
   MoveInstructionType move_type = getMoveInstructionType(base_instruction);
 
+  auto create_move_inst = [&](const Eigen::Index idx) -> MoveInstruction {
+    MoveInstruction inst(StateWaypoint(joint_names, states.col(idx)), move_type);
+    inst.setManipulatorInfo(base_instruction.getManipulatorInfo());
+    inst.setDescription(base_instruction.getDescription());
+    inst.setProfile(base_instruction.getProfile());
+    inst.profile_overrides = base_instruction.profile_overrides;
+    return inst;
+  };
+
   // Convert to MoveInstructions
+  composite.setStartInstruction(create_move_inst(0));
   for (long i = 1; i < states.cols(); ++i)
   {
-    MoveInstruction move_instruction(StateWaypoint(joint_names, states.col(i)), move_type);
-    move_instruction.setManipulatorInfo(base_instruction.getManipulatorInfo());
-    move_instruction.setDescription(base_instruction.getDescription());
-    move_instruction.setProfile(base_instruction.getProfile());
-    move_instruction.profile_overrides = base_instruction.profile_overrides;
-    composite.push_back(move_instruction);
+    composite.push_back(create_move_inst(i));
   }
 
   return composite;
