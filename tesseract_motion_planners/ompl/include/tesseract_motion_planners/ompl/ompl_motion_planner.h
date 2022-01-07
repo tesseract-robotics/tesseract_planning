@@ -85,15 +85,23 @@ using OMPLCompositeProfileData = std::tuple<ompl::geometric::SimpleSetupPtr, OMP
 /**
  * @brief Planner profile that produces the high level parameters for the OMPL planner
  */
-struct OMPLPlannerProfile : public PlannerProfile<OMPLPlannerParameters>
+class OMPLPlannerProfile : public PlannerProfile
 {
+public:
   OMPLPlannerParameters params;
-  inline OMPLPlannerParameters create() const override
+  inline std::any create() const override
   {
     if (params.planners.empty())
       throw std::runtime_error("No OMPL planner factories defined");
     return params;
   };
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int)
+  {
+  }
 };
 
 /**

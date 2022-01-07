@@ -224,12 +224,9 @@ TYPED_TEST(OMPLTestFixture, JointStartJointGoal)  // NOLINT
   // Add the profiles
   {
     auto d = std::make_unique<ProfileDictionary>();
-    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
-    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
-    d->addProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, std::make_shared<OMPLWaypointProfile>());
+    d->planner_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createPlannerProfile();
+    d->composite_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createCompositeProfile();
+    d->waypoint_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = std::make_shared<OMPLWaypointProfile>();
     request.profiles = std::move(d);
   }
 
@@ -286,12 +283,9 @@ TYPED_TEST(OMPLTestFixture, StartStateInCollision)
   // Add the profiles
   {
     auto d = std::make_unique<ProfileDictionary>();
-    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
-    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
-    d->addProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, std::make_shared<OMPLWaypointProfile>());
+    d->planner_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createPlannerProfile();
+    d->composite_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createCompositeProfile();
+    d->waypoint_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = std::make_shared<OMPLWaypointProfile>();
     request.profiles = std::move(d);
   }
 
@@ -334,12 +328,9 @@ TYPED_TEST(OMPLTestFixture, EndStateInCollision)
   // Add the profiles
   {
     auto d = std::make_unique<ProfileDictionary>();
-    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
-    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
-    d->addProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, std::make_shared<OMPLWaypointProfile>());
+    d->planner_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createPlannerProfile();
+    d->composite_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createCompositeProfile();
+    d->waypoint_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = std::make_shared<OMPLWaypointProfile>();
     request.profiles = std::move(d);
   }
 
@@ -388,12 +379,9 @@ TYPED_TEST(OMPLTestFixture, JointStartCartesianGoal)
   // Add the profiles
   {
     auto d = std::make_unique<ProfileDictionary>();
-    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
-    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
-    d->addProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, std::make_shared<OMPLWaypointProfile>());
+    d->planner_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createPlannerProfile();
+    d->composite_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createCompositeProfile();
+    d->waypoint_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = std::make_shared<OMPLWaypointProfile>();
     request.profiles = std::move(d);
   }
 
@@ -454,12 +442,9 @@ TYPED_TEST(OMPLTestFixture, CartesianStartJointGoal)
   // Add the profiles
   {
     auto d = std::make_unique<ProfileDictionary>();
-    d->addProfile<PlannerProfile<OMPLPlannerParameters>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createPlannerProfile());
-    d->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, this->createCompositeProfile());
-    d->addProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(
-        OMPL_DEFAULT_NAMESPACE, this->profile_name_, std::make_shared<OMPLWaypointProfile>());
+    d->planner_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createPlannerProfile();
+    d->composite_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = this->createCompositeProfile();
+    d->waypoint_profiles[OMPL_DEFAULT_NAMESPACE][this->profile_name_] = std::make_shared<OMPLWaypointProfile>();
     request.profiles = std::move(d);
   }
 

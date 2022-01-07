@@ -309,8 +309,8 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   {
     const std::string profile_name =
         getProfileString(name_, request.instructions.getProfile(), request.plan_profile_remapping);
-    auto pp = request.profiles->getProfile<PlannerProfile<OMPLPlannerParameters>>(name_, profile_name);
-    params = pp->create();
+    PlannerProfile::ConstPtr pp = request.profiles->planner_profiles.at(name_).at(profile_name);
+    params = std::any_cast<OMPLPlannerParameters>(pp->create());
   }
   catch (const std::exception&)
   {
@@ -326,8 +326,8 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   {
     const std::string profile_name =
         getProfileString(name_, request.instructions.getProfile(), request.composite_profile_remapping);
-    auto cp = request.profiles->getProfile<CompositeProfile<OMPLCompositeProfileData>>(name_, profile_name);
-    std::tie(simple_setup, extractor) = cp->create(request.instructions, request.env);
+    CompositeProfile::ConstPtr cp = request.profiles->composite_profiles.at(name_).at(profile_name);
+    std::tie(simple_setup, extractor) = std::any_cast<OMPLCompositeProfileData>(cp->create(request.instructions, *request.env));
   }
   catch (const std::exception& ex)
   {
@@ -354,8 +354,8 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
       {
         const PlanInstruction& pi = request.instructions.getStartInstruction().as<PlanInstruction>();
         const std::string profile_name = getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
-        auto p = request.profiles->getProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(name_, profile_name);
-        start_states = p->create(pi, request.env);
+        WaypointProfile::ConstPtr p = request.profiles->waypoint_profiles.at(name_).at(profile_name);
+        start_states = std::any_cast<std::vector<Eigen::VectorXd>>(p->create(pi, *request.env));
       }
       else
       {
@@ -377,9 +377,10 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
       const PlanInstruction& pi = request.instructions[i].as<PlanInstruction>();
 
       const std::string profile_name = getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
-      auto p = request.profiles->getProfile<WaypointProfile<std::vector<Eigen::VectorXd>>>(name_, profile_name);
+      WaypointProfile::ConstPtr p = request.profiles->waypoint_profiles.at(name_).at(profile_name);
 
-      auto states = createOMPLStates(p->create(pi, request.env), simple_setup->getSpaceInformation());
+      auto states = createOMPLStates(std::any_cast<std::vector<Eigen::VectorXd>>(p->create(pi, *request.env)),
+                                     simple_setup->getSpaceInformation());
 
       auto goal_states = std::make_shared<ompl::base::GoalStates>(simple_setup->getSpaceInformation());
       std::for_each(states.begin(), states.end(), [&goal_states](const ompl::base::ScopedState<>& state) {

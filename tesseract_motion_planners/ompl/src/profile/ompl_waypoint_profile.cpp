@@ -4,10 +4,10 @@
 namespace tesseract_planning
 {
 void checkCollision(const Eigen::VectorXd& state,
-                    tesseract_environment::Environment::ConstPtr env,
+                    const tesseract_environment::Environment& env,
                     tesseract_kinematics::JointGroup::ConstPtr manip)
 {
-  tesseract_collision::DiscreteContactManager::Ptr contact_checker = env->getDiscreteContactManager();
+  tesseract_collision::DiscreteContactManager::Ptr contact_checker = env.getDiscreteContactManager();
   tesseract_common::TransformMap link_transforms = manip->calcFwdKin(state);
 
   for (const auto& link_name : contact_checker->getActiveCollisionObjects())
@@ -40,7 +40,7 @@ Eigen::VectorXd updateLimits(Eigen::Ref<const Eigen::VectorXd> joint_waypoint, t
 
 tesseract_kinematics::IKSolutions getValidIKSolutions(const Eigen::Isometry3d& cartesian_waypoint,
                                                       const ManipulatorInfo& mi,
-                                                      tesseract_environment::Environment::ConstPtr env)
+                                                      const tesseract_environment::Environment& env)
 {
   if (mi.manipulator.empty())
     throw std::runtime_error("OMPL: manipulator is empty!");
@@ -53,9 +53,9 @@ tesseract_kinematics::IKSolutions getValidIKSolutions(const Eigen::Isometry3d& c
 
   // Get the kinematics group for solving IK
   tesseract_kinematics::KinematicGroup::ConstPtr manip =
-      env->getKinematicGroup(mi.manipulator, mi.manipulator_ik_solver);
+      env.getKinematicGroup(mi.manipulator, mi.manipulator_ik_solver);
 
-  Eigen::Isometry3d tcp_offset = env->findTCPOffset(mi);
+  Eigen::Isometry3d tcp_offset = env.findTCPOffset(mi);
   Eigen::Isometry3d tcp_frame_cwp = cartesian_waypoint * tcp_offset.inverse();
   tesseract_kinematics::KinGroupIKInput ik_input(tcp_frame_cwp, mi.working_frame, mi.tcp_frame);
   const tesseract_kinematics::IKSolutions joint_solutions =
@@ -83,7 +83,7 @@ tesseract_kinematics::IKSolutions getValidIKSolutions(const Eigen::Isometry3d& c
           solution, limits.joint_limits, manip->getRedundancyCapableJointIndices());
       valid_solutions.insert(valid_solutions.end(), redundant_solutions.begin(), redundant_solutions.end());
     }
-    catch(const std::exception& ex)
+    catch (const std::exception& ex)
     {
       CONSOLE_BRIDGE_logDebug(ex.what());
       continue;
@@ -96,8 +96,8 @@ tesseract_kinematics::IKSolutions getValidIKSolutions(const Eigen::Isometry3d& c
   return valid_solutions;
 }
 
-std::vector<Eigen::VectorXd> OMPLWaypointProfile::create(const Instruction& instruction,
-                                                         tesseract_environment::Environment::ConstPtr env) const
+std::any OMPLWaypointProfile::create(const Instruction& instruction,
+                                     const tesseract_environment::Environment& env) const
 {
   PlanInstruction plan_instruction = instruction.as<PlanInstruction>();
   tesseract_common::ManipulatorInfo mi = plan_instruction.getManipulatorInfo();
@@ -111,18 +111,18 @@ std::vector<Eigen::VectorXd> OMPLWaypointProfile::create(const Instruction& inst
   else if (isJointWaypoint(waypoint))
   {
     const JointWaypoint& jw = waypoint.as<JointWaypoint>();
-    const Eigen::VectorXd updated_state = updateLimits(jw, env->getJointGroup(mi.manipulator)->getLimits());
+    const Eigen::VectorXd updated_state = updateLimits(jw, env.getJointGroup(mi.manipulator)->getLimits());
     return { updated_state };
   }
   else if (isStateWaypoint(waypoint))
   {
     const StateWaypoint& sw = waypoint.as<StateWaypoint>();
     Eigen::Map<const Eigen::VectorXd> state(sw.position.data(), sw.position.size());
-    const Eigen::VectorXd updated_state = updateLimits(state, env->getJointGroup(mi.manipulator)->getLimits());
+    const Eigen::VectorXd updated_state = updateLimits(state, env.getJointGroup(mi.manipulator)->getLimits());
     return { updated_state };
   }
 
   throw std::runtime_error("Unsupported waypoint type");
 }
 
-} // namespace tesseract_planning
+}  // namespace tesseract_planning

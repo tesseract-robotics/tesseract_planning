@@ -5,12 +5,19 @@
 
 namespace tesseract_planning
 {
-struct OMPLWaypointProfile : public WaypointProfile<std::vector<Eigen::VectorXd>>
+class OMPLWaypointProfile : public WaypointProfile
 {
-  virtual std::vector<Eigen::VectorXd> create(const Instruction& instruction,
-                                              tesseract_environment::Environment::ConstPtr env) const override;
+public:
+  virtual std::any create(const Instruction& instruction, const tesseract_environment::Environment& env) const override;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int)
+  {
+  }
 };
 
-} // namespace tesseract_planning
+}  // namespace tesseract_planning
 
-#endif // TESSERACT_PLANNING_OMPL_PROFILE_OMPL_WAYPOINT_PROFILE_H
+#endif  // TESSERACT_PLANNING_OMPL_PROFILE_OMPL_WAYPOINT_PROFILE_H

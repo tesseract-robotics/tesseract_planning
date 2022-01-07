@@ -28,8 +28,9 @@ using OptimizationObjectiveAllocator =
 /**
  * @brief OMPL composite profile for real-vector state spaces
  */
-struct OMPLCompositeProfileRVSS : public CompositeProfile<OMPLCompositeProfileData>
+class OMPLCompositeProfileRVSS : public CompositeProfile
 {
+public:
   /**
    * @brief The collision check configuration
    * @details Different validators will be created depending on the type of collision checking requested
@@ -68,8 +69,8 @@ struct OMPLCompositeProfileRVSS : public CompositeProfile<OMPLCompositeProfileDa
   /**
    * @brief Creates the OMPL composite profile data given a composite instruction and environment
    */
-  OMPLCompositeProfileData create(const CompositeInstruction& instruction,
-                                  tesseract_environment::Environment::ConstPtr env) const override;
+  std::any create(const CompositeInstruction& instruction,
+                  const tesseract_environment::Environment& env) const override;
 
   /**
    * @brief Seed for OMPL random number generator
@@ -77,6 +78,13 @@ struct OMPLCompositeProfileRVSS : public CompositeProfile<OMPLCompositeProfileDa
    * determinstic sequence of random samples
    */
   long rng_seed = -1;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive&, const unsigned int)
+  {
+  }
 };
 
 }  // namespace tesseract_planning
