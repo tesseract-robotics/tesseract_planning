@@ -49,7 +49,7 @@ void flattenHelper(std::vector<std::reference_wrapper<Instruction>>& flattened,
                    const flattenFilterFn& filter,
                    bool first_composite)
 {
-  if (composite.hasStartInstruction())
+  if (composite.hasStartInstruction() && first_composite)
     if (!filter || filter(composite.getStartInstruction(), composite, first_composite))
       flattened.emplace_back(composite.getStartInstruction());
 
@@ -92,7 +92,7 @@ void flattenHelper(std::vector<std::reference_wrapper<const Instruction>>& flatt
                    const flattenFilterFn& filter,
                    bool first_composite)
 {
-  if (composite.hasStartInstruction())
+  if (composite.hasStartInstruction() && first_composite)
     if (!filter || filter(composite.getStartInstruction(), composite, first_composite))
       flattened.emplace_back(composite.getStartInstruction());
 
@@ -143,7 +143,7 @@ void flattenToPatternHelper(std::vector<std::reference_wrapper<Instruction>>& fl
     return;
   }
 
-  if (composite.hasStartInstruction())
+  if (composite.hasStartInstruction() && first_composite)
     if (!filter || filter(composite.getStartInstruction(), composite, first_composite))
       flattened.emplace_back(composite.getStartInstruction());
 
@@ -196,7 +196,7 @@ void flattenToPatternHelper(std::vector<std::reference_wrapper<const Instruction
     return;
   }
 
-  if (composite.hasStartInstruction())
+  if (composite.hasStartInstruction() && first_composite)
     if (!filter || filter(composite.getStartInstruction(), composite, first_composite))
       flattened.emplace_back(composite.getStartInstruction());
 
