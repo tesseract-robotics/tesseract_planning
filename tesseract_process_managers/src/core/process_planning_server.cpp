@@ -109,7 +109,7 @@ std::vector<std::string> ProcessPlanningServer::getAvailableProcessPlanners() co
   return planners;
 }
 
-ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& request)
+ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& request) const
 {
   CONSOLE_BRIDGE_logInform("Tesseract Planning Server Received Request!");
   ProcessPlanningFuture response;
@@ -183,7 +183,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   return response;
 }
 
-tf::Future<void> ProcessPlanningServer::run(tf::Taskflow& taskflow) { return executor_->run(taskflow); }
+tf::Future<void> ProcessPlanningServer::run(tf::Taskflow& taskflow) const { return executor_->run(taskflow); }
 
 void ProcessPlanningServer::waitForAll() { executor_->wait_for_all(); }
 

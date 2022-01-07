@@ -122,14 +122,14 @@ public:
    * @param request The process planning request to execute
    * @return A process planning future to get results and monitor the execution along with the ability to abort
    */
-  ProcessPlanningFuture run(const ProcessPlanningRequest& request);
+  ProcessPlanningFuture run(const ProcessPlanningRequest& request) const;
 
   /**
    * @brief This is a utility function to run arbitrary taskflows
    * @param taskflow the taskflow to execute
    * @return A future to monitor progress
    */
-  tf::Future<void> run(tf::Taskflow& taskflow);
+  tf::Future<void> run(tf::Taskflow& taskflow) const;
 #endif  // SWIG
 
 #ifdef SWIG
@@ -165,7 +165,7 @@ public:
 
 protected:
   EnvironmentCache::ConstPtr cache_;
-  std::shared_ptr<tf::Executor> executor_;
+  mutable std::shared_ptr<tf::Executor> executor_;
   std::shared_ptr<tf::TFProfObserver> profile_observer_;
 
   std::unordered_map<std::string, TaskflowGenerator::UPtr> process_planners_;
