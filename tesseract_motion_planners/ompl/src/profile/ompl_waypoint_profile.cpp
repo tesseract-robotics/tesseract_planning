@@ -112,14 +112,16 @@ std::any OMPLWaypointProfile::create(const Instruction& instruction,
   {
     const JointWaypoint& jw = waypoint.as<JointWaypoint>();
     const Eigen::VectorXd updated_state = updateLimits(jw, env.getJointGroup(mi.manipulator)->getLimits());
-    return { updated_state };
+    checkCollision(updated_state, env, env.getJointGroup(mi.manipulator));
+    return std::vector<Eigen::VectorXd>{ updated_state };
   }
   else if (isStateWaypoint(waypoint))
   {
     const StateWaypoint& sw = waypoint.as<StateWaypoint>();
     Eigen::Map<const Eigen::VectorXd> state(sw.position.data(), sw.position.size());
     const Eigen::VectorXd updated_state = updateLimits(state, env.getJointGroup(mi.manipulator)->getLimits());
-    return { updated_state };
+    checkCollision(updated_state, env, env.getJointGroup(mi.manipulator));
+    return std::vector<Eigen::VectorXd>{ updated_state };
   }
 
   throw std::runtime_error("Unsupported waypoint type");
