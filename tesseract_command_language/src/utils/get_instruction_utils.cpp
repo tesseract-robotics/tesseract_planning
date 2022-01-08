@@ -42,7 +42,7 @@ const Instruction* getFirstInstructionHelper(const CompositeInstruction& composi
                                              bool process_child_composites,
                                              bool first_composite)
 {
-  if (composite_instruction.hasStartInstruction())
+  if (composite_instruction.hasStartInstruction() && first_composite)
     if (!locate_filter ||
         locate_filter(composite_instruction.getStartInstruction(), composite_instruction, first_composite))
       return &(composite_instruction.getStartInstruction());
@@ -78,7 +78,7 @@ Instruction* getFirstInstructionHelper(CompositeInstruction& composite_instructi
                                        bool process_child_composites,
                                        bool first_composite)
 {
-  if (composite_instruction.hasStartInstruction())
+  if (composite_instruction.hasStartInstruction() && first_composite)
     if (!locate_filter ||
         locate_filter(composite_instruction.getStartInstruction(), composite_instruction, first_composite))
       return &(composite_instruction.getStartInstruction());
@@ -197,7 +197,7 @@ long getInstructionCountHelper(const CompositeInstruction& composite_instruction
                                bool first_composite)
 {
   long cnt = 0;
-  if (composite_instruction.hasStartInstruction())
+  if (composite_instruction.hasStartInstruction() && first_composite)
     if (!locate_filter ||
         locate_filter(composite_instruction.getStartInstruction(), composite_instruction, first_composite))
       ++cnt;
