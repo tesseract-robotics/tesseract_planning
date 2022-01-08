@@ -503,6 +503,67 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
   EXPECT_EQ(check, buffer.str());
 }
 
+TEST(TesseractCommandLanguageUtilsUnit, getUtils)  // NOLINT
+{
+  const Eigen::Index dof = 6;
+  const std::vector<std::string> names(static_cast<std::size_t>(dof), "joint");
+
+  CompositeInstruction composite;
+  for (Eigen::Index i = 0; i < 3; ++i)
+  {
+    CompositeInstruction child;
+    for (Eigen::Index j = 0; j < 10; ++j)
+    {
+      if (j == 0)
+      {
+        child.setStartInstruction(
+            MoveInstruction(JointWaypoint(names, Eigen::VectorXd::Zero(dof)), MoveInstructionType::START));
+      }
+      else
+      {
+        child.push_back(MoveInstruction(JointWaypoint(names, Eigen::VectorXd::Zero(dof)), MoveInstructionType::LINEAR));
+      }
+    }
+    composite.push_back(child);
+  }
+
+  // Add an empty composite with a start instruction to the end of the top-level composite
+  {
+    CompositeInstruction child;
+    child.setStartInstruction(
+        MoveInstruction(JointWaypoint(names, Eigen::VectorXd::Zero(dof)), MoveInstructionType::START));
+    composite.push_back(child);
+  }
+
+  // The first move instruction should be the first instruction of the first nested composite (the top level composite
+  // instruction does not have a start instruction yet)
+  ASSERT_EQ(getFirstInstruction(composite, &moveFilter), &composite.front().as<CompositeInstruction>().front());
+
+  // Add a move instruction to the top-level composite
+  composite.setStartInstruction(
+      MoveInstruction(JointWaypoint(names, Eigen::VectorXd::Zero(dof)), MoveInstructionType::START));
+  // The first move instruction should now be the start instruction of the top-level composite
+  ASSERT_EQ(getFirstInstruction(composite, &moveFilter), &composite.getStartInstruction());
+
+  // The last move instruction should be the last instruction of the second to last composite instruction since the last
+  // nested composite is empty except for a start instruction
+  ASSERT_EQ(getLastInstruction(composite, &moveFilter), &composite.at(2).as<CompositeInstruction>().back());
+
+  // Add an instruction to the last nested composite instruction
+  composite.back().as<CompositeInstruction>().push_back(
+      MoveInstruction(JointWaypoint(names, Eigen::VectorXd::Zero(dof)), MoveInstructionType::LINEAR));
+  // The last move instruction should now be the last instruction of the last nested composite
+  ASSERT_EQ(getLastInstruction(composite, &moveFilter), &composite.back().as<CompositeInstruction>().back());
+
+  // The total count of move instructions, excluding start instructions of nested composite instructions, should be:
+  //   - the number of original nested composites times the number of waypoints per composite (minus one for the one
+  //   used in the start
+  //     instruction)
+  //   - plus one for an initial start instruction in the top-level composite
+  //   - plus one instruction added in the initially empty last nested composite
+  ASSERT_EQ(getInstructionCount(composite, &moveFilter), 3 * (10 - 1) + 2);
+}
+
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
