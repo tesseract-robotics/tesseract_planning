@@ -47,7 +47,7 @@ bool checkStartState(const ompl::base::ProblemDefinitionPtr& prob_def,
                      const Eigen::Ref<const Eigen::VectorXd>& state,
                      const OMPLStateExtractor& extractor)
 {
-  if (!(prob_def->getStartStateCount() >= 1))
+  if (prob_def->getStartStateCount() < 1)
     return false;
 
   for (unsigned i = 0; i < prob_def->getStartStateCount(); ++i)
