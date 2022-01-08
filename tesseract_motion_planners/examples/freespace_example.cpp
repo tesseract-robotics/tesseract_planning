@@ -29,24 +29,21 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
-
 #include <tesseract_kinematics/core/utils.h>
-
 #include <tesseract_environment/environment.h>
-
-#include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
-#include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
-
-#include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
-#include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
-
+#include <tesseract_visualization/visualization_loader.h>
+#include <tesseract_command_language/utils/utils.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/interface_utils.h>
-
-#include <tesseract_visualization/visualization_loader.h>
-#include <tesseract_command_language/utils/utils.h>
+// OMPL
+#include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_composite_profile_rvss.h>
+#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
+// TrajOpt
+#include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 
 using namespace tesseract_planning;
 using namespace tesseract_planning::profile_ns;
@@ -89,7 +86,7 @@ int main(int /*argc*/, char** /*argv*/)
     tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");
     env->init(urdf_path, srdf_path, locator);
 
-    // Dynamically load ignition visualizer if exist
+    // Dynamically load ignition visualizer if it exists
     tesseract_visualization::VisualizationLoader loader;
     auto plotter = loader.get();
 
@@ -132,18 +129,19 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     // Create Profiles
-    auto ompl_plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
-    auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
-    auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
-
-    // Create a seed
-    CompositeInstruction seed = generateSeed(program, cur_state, env);
+    auto ompl_composite_profile = std::make_shared<OMPLCompositeProfileRVSS>();
+    auto ompl_planner_profile = std::make_shared<OMPLPlannerProfile>();
+    ompl_planner_profile->params.planners.push_back(std::make_shared<RRTConnectConfigurator>());
 
     // Profile Dictionary
     auto profiles = std::make_shared<ProfileDictionary>();
-    profiles->addProfile<OMPLPlanProfile>(OMPL_DEFAULT_NAMESPACE, "DEFAULT", ompl_plan_profile);
-    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_plan_profile);
-    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+    profiles->addProfile<PlannerProfile<OMPLPlannerParameters>>(
+        OMPL_DEFAULT_NAMESPACE, "DEFAULT", ompl_planner_profile);
+    profiles->addProfile<CompositeProfile<OMPLCompositeProfileData>>(
+        OMPL_DEFAULT_NAMESPACE, "DEFAULT", ompl_composite_profile);
+
+    // Create a seed
+    CompositeInstruction seed = generateSeed(program, cur_state, env);
 
     // Create Planning Request
     PlannerRequest request;
@@ -166,7 +164,15 @@ int main(int /*argc*/, char** /*argv*/)
       plotter->plotTrajectory(toJointTrajectory(ompl_response.results), *state_solver);
     }
 
-    // Update Seed
+    // Create the TrajOpt profiles
+    auto trajopt_plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
+    auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
+
+    // Add the TrajOpt profiles to the dictionary
+    profiles->addProfile<TrajOptPlanProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_plan_profile);
+    profiles->addProfile<TrajOptCompositeProfile>(TRAJOPT_DEFAULT_NAMESPACE, "DEFAULT", trajopt_composite_profile);
+
+    // Update the seed to be the OMPL trajecory
     request.seed = ompl_response.results;
 
     // Solve TrajOpt Plan
