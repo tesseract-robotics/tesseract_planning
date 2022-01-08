@@ -328,6 +328,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     for (std::size_t i = 0; i < request.instructions.size(); ++i)
     {
       simple_setup->clearStartStates();
+      simple_setup->clear();
 
       // Add the start state(s)
       {
