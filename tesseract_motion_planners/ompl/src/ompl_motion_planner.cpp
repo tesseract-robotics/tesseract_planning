@@ -306,7 +306,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     {
       const std::string profile_name =
           getProfileString(name_, request.instructions.getProfile(), request.plan_profile_remapping);
-      PlannerProfile::ConstPtr pp = request.profiles->planner_profiles.at(name_).at(profile_name);
+      PlannerProfile::ConstPtr pp = request.profiles->getPlannerProfile(name_, profile_name);
       params = std::any_cast<OMPLPlannerParameters>(pp->create());
     }
 
@@ -316,7 +316,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     {
       const std::string profile_name =
           getProfileString(name_, request.instructions.getProfile(), request.composite_profile_remapping);
-      CompositeProfile::ConstPtr cp = request.profiles->composite_profiles.at(name_).at(profile_name);
+      CompositeProfile::ConstPtr cp = request.profiles->getCompositeProfile(name_, profile_name);
       std::tie(simple_setup, extractor) =
           std::any_cast<OMPLCompositeProfileData>(cp->create(request.instructions, *request.env));
     }
@@ -340,7 +340,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
           const PlanInstruction& pi = request.instructions.getStartInstruction().as<PlanInstruction>();
           const std::string profile_name =
               getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
-          WaypointProfile::ConstPtr p = request.profiles->waypoint_profiles.at(name_).at(profile_name);
+          WaypointProfile::ConstPtr p = request.profiles->getWaypointProfile(name_, profile_name);
           start_states = std::any_cast<std::vector<Eigen::VectorXd>>(p->create(pi, *request.env));
         }
         else
@@ -363,7 +363,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
         const PlanInstruction& pi = request.instructions[i].as<PlanInstruction>();
 
         const std::string profile_name = getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
-        WaypointProfile::ConstPtr p = request.profiles->waypoint_profiles.at(name_).at(profile_name);
+        WaypointProfile::ConstPtr p = request.profiles->getWaypointProfile(name_, profile_name);
 
         std::vector<Eigen::VectorXd> states = std::any_cast<std::vector<Eigen::VectorXd>>(p->create(pi, *request.env));
         auto ompl_states = createOMPLStates(states, simple_setup->getSpaceInformation());
