@@ -30,11 +30,13 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <any>
 #include <boost/serialization/serialization.hpp>
+#include <boost/core/demangle.hpp>
 #include <iostream>
 #include <typeindex>
 #include <unordered_map>
 #include <memory>
 #include <shared_mutex>
+#include <sstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #ifdef SWIG
@@ -307,7 +309,54 @@ public:
   std::unordered_map<std::string, std::unordered_map<std::string, CompositeProfile::ConstPtr>> composite_profiles;
   std::unordered_map<std::string, std::unordered_map<std::string, PlannerProfile::ConstPtr>> planner_profiles;
 
+  WaypointProfile::ConstPtr getWaypointProfile(const std::string& ns, const std::string& profile_name) const
+  {
+    return getProfile<WaypointProfile>(ns, profile_name, waypoint_profiles);
+  }
+
+  CompositeProfile::ConstPtr getCompositeProfile(const std::string& ns, const std::string& profile_name) const
+  {
+    return getProfile<CompositeProfile>(ns, profile_name, composite_profiles);
+  }
+
+  PlannerProfile::ConstPtr getPlannerProfile(const std::string& ns, const std::string& profile_name) const
+  {
+    return getProfile<PlannerProfile>(ns, profile_name, planner_profiles);
+  }
+
 protected:
+  template <typename ProfileT>
+  typename ProfileT::ConstPtr getProfile(
+      const std::string& ns,
+      const std::string& profile_name,
+      const std::unordered_map<std::string, std::unordered_map<std::string, typename ProfileT::ConstPtr>>& map) const
+  {
+    try
+    {
+      return map.at(ns).at(profile_name);
+    }
+    catch (const std::out_of_range&)
+    {
+      std::stringstream ss;
+      ss << "Failed to get " << boost::core::demangle(typeid(ProfileT).name()) << " for '" << ns << "/" << profile_name
+         << "'\n";
+      if (map.find(ns) == map.end())
+      {
+        ss << "Profile namespace '" << ns << "' does not exist";
+      }
+      else
+      {
+        ss << "Entries in profile namespace '" << ns << "' are:";
+        for (auto it = map.at(ns).begin(); it != map.at(ns).end(); ++it)
+        {
+          ss << "\n\t" << it->first;
+        }
+      }
+
+      throw std::out_of_range(ss.str());
+    }
+  }
+
   std::unordered_map<std::string, std::unordered_map<std::type_index, std::any>> profiles_;
   mutable std::shared_mutex mutex_;
 };
