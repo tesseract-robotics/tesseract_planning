@@ -38,9 +38,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/interface_utils.h>
 // OMPL
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_planner_profile.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_composite_profile_rvss.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_waypoint_profile.h>
-#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 // TrajOpt
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
@@ -76,30 +76,6 @@ std::string locateResource(const std::string& url)
   }
 
   return mod_url;
-}
-
-std::shared_ptr<OMPLCompositeProfileRVSS> createOMPLCompositeProfile()
-{
-  auto composite_profile = std::make_shared<OMPLCompositeProfileRVSS>();
-  composite_profile->collision_check_config.contact_manager_config.margin_data_override_type =
-      tesseract_collision::CollisionMarginOverrideType::OVERRIDE_DEFAULT_MARGIN;
-  composite_profile->collision_check_config.contact_manager_config.margin_data.setDefaultCollisionMargin(0.025);
-  composite_profile->collision_check_config.longest_valid_segment_length = 0.1;
-  composite_profile->collision_check_config.type = tesseract_collision::CollisionEvaluatorType::CONTINUOUS;
-
-  return composite_profile;
-}
-
-std::shared_ptr<OMPLPlannerProfile> createOMPLPlannerProfile()
-{
-  auto planner_profile = std::make_shared<OMPLPlannerProfile>();
-  planner_profile->params.planning_time = 10.0;
-  planner_profile->params.optimize = false;
-  planner_profile->params.max_solutions = 2;
-  planner_profile->params.simplify = false;
-  planner_profile->params.planners = { std::make_shared<RRTConnectConfigurator>(),
-                                       std::make_shared<RRTConnectConfigurator>() };
-  return planner_profile;
 }
 
 int main(int argc, char** argv)
@@ -155,8 +131,8 @@ int main(int argc, char** argv)
 
     // Profile Dictionary
     auto profiles = std::make_shared<ProfileDictionary>();
-    profiles->planner_profiles[OMPL_DEFAULT_NAMESPACE][PROFILE_NAME] = createOMPLPlannerProfile();
-    profiles->composite_profiles[OMPL_DEFAULT_NAMESPACE][PROFILE_NAME] = createOMPLCompositeProfile();
+    profiles->planner_profiles[OMPL_DEFAULT_NAMESPACE][PROFILE_NAME] = std::make_shared<OMPLPlannerProfile>();
+    profiles->composite_profiles[OMPL_DEFAULT_NAMESPACE][PROFILE_NAME] = std::make_shared<OMPLCompositeProfileRVSS>();
     profiles->waypoint_profiles[OMPL_DEFAULT_NAMESPACE][PROFILE_NAME] = std::make_shared<OMPLWaypointProfile>();
 
     // Create a seed

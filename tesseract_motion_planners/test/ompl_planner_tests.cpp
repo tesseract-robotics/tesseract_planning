@@ -37,7 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/environment.h>
 #include <tesseract_environment/utils.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
-#include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_planner_profile.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_composite_profile_rvss.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_waypoint_profile.h>
 

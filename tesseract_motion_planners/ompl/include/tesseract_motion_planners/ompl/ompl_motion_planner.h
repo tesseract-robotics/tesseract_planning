@@ -83,28 +83,6 @@ using OMPLStateExtractor = std::function<Eigen::Map<Eigen::VectorXd>(const ompl:
 using OMPLCompositeProfileData = std::tuple<ompl::geometric::SimpleSetupPtr, OMPLStateExtractor>;
 
 /**
- * @brief Planner profile that produces the high level parameters for the OMPL planner
- */
-class OMPLPlannerProfile : public PlannerProfile
-{
-public:
-  OMPLPlannerParameters params;
-  inline std::any create() const override
-  {
-    if (params.planners.empty())
-      throw std::runtime_error("No OMPL planner factories defined");
-    return params;
-  };
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive&, const unsigned int)
-  {
-  }
-};
-
-/**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
  * take a start and end point and automate the generation of the OMPL problem.
  */
