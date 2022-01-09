@@ -131,16 +131,16 @@ void ProcessPlanningServer::loadDefaultProfiles()
 
   // Add TrajOpt IFOPT Default profiles
   profiles_->addProfile<TrajOptIfoptPlanProfile>(profile_ns::TRAJOPT_IFOPT_DEFAULT_NAMESPACE,
-                                                DEFAULT_PROFILE_KEY,
-                                                std::make_shared<TrajOptIfoptDefaultPlanProfile>());
+                                                 DEFAULT_PROFILE_KEY,
+                                                 std::make_shared<TrajOptIfoptDefaultPlanProfile>());
   profiles_->addProfile<TrajOptIfoptCompositeProfile>(profile_ns::TRAJOPT_IFOPT_DEFAULT_NAMESPACE,
-                                                     DEFAULT_PROFILE_KEY,
-                                                     std::make_shared<TrajOptIfoptDefaultCompositeProfile>());
+                                                      DEFAULT_PROFILE_KEY,
+                                                      std::make_shared<TrajOptIfoptDefaultCompositeProfile>());
 
   // Add Descartes Default profiles
   profiles_->addProfile<DescartesPlanProfile<double>>(profile_ns::DESCARTES_DEFAULT_NAMESPACE,
-                                                     DEFAULT_PROFILE_KEY,
-                                                     std::make_shared<DescartesDefaultPlanProfile<double>>());
+                                                      DEFAULT_PROFILE_KEY,
+                                                      std::make_shared<DescartesDefaultPlanProfile<double>>());
 
   // Add OMPL Default profiles
   profiles_->planner_profiles[profile_ns::OMPL_DEFAULT_NAMESPACE][DEFAULT_PROFILE_KEY] =
