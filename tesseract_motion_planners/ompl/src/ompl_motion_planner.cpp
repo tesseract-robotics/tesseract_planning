@@ -321,6 +321,11 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
           std::any_cast<OMPLCompositeProfileData>(cp->create(request.instructions, *request.env));
     }
 
+    // Copy the meta-data from the request instruction into the response and clear any child instructions from the
+    // response
+    response.results = request.instructions;
+    response.results.clear();
+
     // Set up the output trajectory to be a composite of composites
     response.results.reserve(request.instructions.size());
 
@@ -403,7 +408,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     }
 
     // Set top-level composite start instruction to first waypoint of first trajectory
-    response.results.getStartInstruction() = response.results.at(0).as<CompositeInstruction>().getStartInstruction();
+    response.results.setStartInstruction(response.results.at(0).as<CompositeInstruction>().getStartInstruction());
 
     response.status = tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::SolutionFound, status_category_);
   }
