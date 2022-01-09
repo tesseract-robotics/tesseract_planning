@@ -139,7 +139,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlan
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
   std::string process_profile = "PROCESS";
 
-  tesseract_planning::CompositeInstruction program = rasterExampleProgram();
+  tesseract_planning::CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
@@ -181,7 +181,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
   std::string process_profile = "PROCESS";
 
-  tesseract_planning::CompositeInstruction program = rasterExampleProgram();
+  tesseract_planning::CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
   EXPECT_FALSE(program.getManipulatorInfo().empty());
 
   program.setManipulatorInfo(manip);
@@ -220,7 +220,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)
 TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanProfileTest)  // NOLINT
 {
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   tesseract_planning::CompositeInstruction program = rasterExampleProgram();
   EXPECT_FALSE(program.getManipulatorInfo().empty());
@@ -344,7 +344,7 @@ TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultPlanProfileTest) 
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -381,7 +381,7 @@ TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultLVSPlanProfileTes
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -418,7 +418,7 @@ TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultPlanProfile
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -455,7 +455,7 @@ TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultLVSPlanProf
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -492,7 +492,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultPlanProfileTe
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -529,7 +529,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultLVSPlanProfil
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -566,7 +566,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultPlanPro
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -603,7 +603,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultLVSPlan
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -640,7 +640,7 @@ TEST_F(TesseractProcessManagerUnit, RasterDTProcessManagerDefaultPlanProfileTest
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterDTExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -677,7 +677,7 @@ TEST_F(TesseractProcessManagerUnit, RasterDTProcessManagerDefaultLVSPlanProfileT
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string process_profile = "PROCESS";
+  std::string process_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program = rasterDTExampleProgram(freespace_profile, process_profile);
   request.instructions = Instruction(program);
@@ -714,9 +714,9 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADProcessManagerDefaultPlanProfileTe
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string approach_profile = "APPROACH";
-  std::string process_profile = "PROCESS";
-  std::string departure_profile = "DEPARTURE";
+  std::string approach_profile = DEFAULT_PROFILE_KEY;
+  std::string process_profile = DEFAULT_PROFILE_KEY;
+  std::string departure_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program =
       rasterWAADExampleProgram(freespace_profile, approach_profile, process_profile, departure_profile);
@@ -758,9 +758,9 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADProcessManagerDefaultLVSPlanProfil
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string approach_profile = "APPROACH";
-  std::string process_profile = "PROCESS";
-  std::string departure_profile = "DEPARTURE";
+  std::string approach_profile = DEFAULT_PROFILE_KEY;
+  std::string process_profile = DEFAULT_PROFILE_KEY;
+  std::string departure_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program =
       rasterWAADExampleProgram(freespace_profile, approach_profile, process_profile, departure_profile);
@@ -802,9 +802,9 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADDTProcessManagerDefaultPlanProfile
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string approach_profile = "APPROACH";
-  std::string process_profile = "PROCESS";
-  std::string departure_profile = "DEPARTURE";
+  std::string approach_profile = DEFAULT_PROFILE_KEY;
+  std::string process_profile = DEFAULT_PROFILE_KEY;
+  std::string departure_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program =
       rasterWAADDTExampleProgram(freespace_profile, approach_profile, process_profile, departure_profile);
@@ -846,9 +846,9 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADDTProcessManagerDefaultLVSPlanProf
 
   // Define the program
   std::string freespace_profile = DEFAULT_PROFILE_KEY;
-  std::string approach_profile = "APPROACH";
-  std::string process_profile = "PROCESS";
-  std::string departure_profile = "DEPARTURE";
+  std::string approach_profile = DEFAULT_PROFILE_KEY;
+  std::string process_profile = DEFAULT_PROFILE_KEY;
+  std::string departure_profile = DEFAULT_PROFILE_KEY;
 
   CompositeInstruction program =
       rasterWAADDTExampleProgram(freespace_profile, approach_profile, process_profile, departure_profile);
