@@ -36,20 +36,20 @@ namespace tesseract_planning
 inline CompositeInstruction rasterExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                  const std::string& process_profile = "PROCESS")
 {
-  CompositeInstruction program(
-      DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  const ManipulatorInfo manip("manipulator", "base_link", "tool0");
+  CompositeInstruction program(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, manip);
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
   StateWaypoint swp1 = StateWaypoint(joint_names, Eigen::VectorXd::Zero(6));
-  PlanInstruction start_instruction(swp1, PlanInstructionType::START);
+  PlanInstruction start_instruction(swp1, PlanInstructionType::START, freespace_profile, manip);
   program.setStartInstruction(start_instruction);
 
   Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
                                    Eigen::Quaterniond(0, 0, -1.0, 0));
 
   // Define from start composite instruction
-  PlanInstruction plan_f0(wp1, PlanInstructionType::FREESPACE, freespace_profile);
+  PlanInstruction plan_f0(wp1, PlanInstructionType::FREESPACE, freespace_profile, manip);
   plan_f0.setDescription("from_start_plan");
   CompositeInstruction from_start(freespace_profile);
   from_start.setDescription("from_start");
@@ -75,25 +75,25 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
     Waypoint wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
                                      Eigen::Quaterniond(0, 0, -1.0, 0));
 
-    CompositeInstruction raster_segment(process_profile);
+    CompositeInstruction raster_segment(process_profile, CompositeInstructionOrder::ORDERED, manip);
     raster_segment.setDescription("Raster #" + std::to_string(i + 1));
     if (i == 0 || i == 2)
     {
-      raster_segment.push_back(PlanInstruction(wp2, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp3, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp4, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp5, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp6, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp7, PlanInstructionType::LINEAR, process_profile));
+      raster_segment.push_back(PlanInstruction(wp2, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp3, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp4, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp5, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp6, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp7, PlanInstructionType::LINEAR, process_profile, manip));
     }
     else
     {
-      raster_segment.push_back(PlanInstruction(wp6, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp5, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp4, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp3, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp2, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp1, PlanInstructionType::LINEAR, process_profile));
+      raster_segment.push_back(PlanInstruction(wp6, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp5, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp4, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp3, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp2, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp1, PlanInstructionType::LINEAR, process_profile, manip));
     }
     program.push_back(raster_segment);
 
@@ -104,10 +104,10 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
-      PlanInstruction plan_f1(wp7, PlanInstructionType::FREESPACE, freespace_profile);
+      PlanInstruction plan_f1(wp7, PlanInstructionType::FREESPACE, freespace_profile, manip);
       plan_f1.setDescription("transition_from_end_plan");
 
-      CompositeInstruction transition(freespace_profile);
+      CompositeInstruction transition(freespace_profile, CompositeInstructionOrder::ORDERED, manip);
       transition.setDescription("transition_from_end");
       transition.push_back(plan_f1);
       program.push_back(transition);
@@ -118,19 +118,19 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
-      PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, freespace_profile);
+      PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, freespace_profile, manip);
       plan_f1.setDescription("transition_from_end_plan");
 
-      CompositeInstruction transition(freespace_profile);
+      CompositeInstruction transition(freespace_profile, CompositeInstructionOrder::ORDERED, manip);
       transition.setDescription("transition_from_end");
       transition.push_back(plan_f1);
       program.push_back(transition);
     }
   }
 
-  PlanInstruction plan_f2(swp1, PlanInstructionType::FREESPACE, freespace_profile);
+  PlanInstruction plan_f2(swp1, PlanInstructionType::FREESPACE, freespace_profile, manip);
   plan_f2.setDescription("to_end_plan");
-  CompositeInstruction to_end(freespace_profile);
+  CompositeInstruction to_end(freespace_profile, CompositeInstructionOrder::ORDERED, manip);
   to_end.setDescription("to_end");
   to_end.push_back(plan_f2);
   program.push_back(to_end);
@@ -141,14 +141,14 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
 inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                      const std::string& process_profile = "PROCESS")
 {
-  CompositeInstruction program(
-      DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  const ManipulatorInfo manip("manipulator", "base_link", "tool0");
+  CompositeInstruction program(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, manip);
 
   Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
                                    Eigen::Quaterniond(0, 0, -1.0, 0));
 
   // Define start instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START);
+  PlanInstruction start_instruction(wp1, PlanInstructionType::START, process_profile, manip);
   start_instruction.setDescription("Start Instruction");
   program.setStartInstruction(start_instruction);
 
@@ -170,25 +170,25 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
     Waypoint wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
                                      Eigen::Quaterniond(0, 0, -1.0, 0));
 
-    CompositeInstruction raster_segment(process_profile);
+    CompositeInstruction raster_segment(process_profile, CompositeInstructionOrder::ORDERED, manip);
     raster_segment.setDescription("Raster #" + std::to_string(i + 1));
     if (i == 0 || i == 2)
     {
-      raster_segment.push_back(PlanInstruction(wp2, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp3, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp4, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp5, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp6, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp7, PlanInstructionType::LINEAR, process_profile));
+      raster_segment.push_back(PlanInstruction(wp2, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp3, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp4, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp5, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp6, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp7, PlanInstructionType::LINEAR, process_profile, manip));
     }
     else
     {
-      raster_segment.push_back(PlanInstruction(wp6, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp5, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp4, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp3, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp2, PlanInstructionType::LINEAR, process_profile));
-      raster_segment.push_back(PlanInstruction(wp1, PlanInstructionType::LINEAR, process_profile));
+      raster_segment.push_back(PlanInstruction(wp6, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp5, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp4, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp3, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp2, PlanInstructionType::LINEAR, process_profile, manip));
+      raster_segment.push_back(PlanInstruction(wp1, PlanInstructionType::LINEAR, process_profile, manip));
     }
     program.push_back(raster_segment);
 
@@ -199,10 +199,10 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
-      PlanInstruction plan_f1(wp7, PlanInstructionType::FREESPACE, freespace_profile);
+      PlanInstruction plan_f1(wp7, PlanInstructionType::FREESPACE, freespace_profile, manip);
       plan_f1.setDescription("transition_from_end_plan");
 
-      CompositeInstruction transition(freespace_profile);
+      CompositeInstruction transition(freespace_profile, CompositeInstructionOrder::ORDERED, manip);
       transition.setDescription("transition_from_end");
       transition.push_back(plan_f1);
       program.push_back(transition);
@@ -213,10 +213,10 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
-      PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, freespace_profile);
+      PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, freespace_profile, manip);
       plan_f1.setDescription("transition_from_end_plan");
 
-      CompositeInstruction transition(freespace_profile);
+      CompositeInstruction transition(freespace_profile, CompositeInstructionOrder::ORDERED, manip);
       transition.setDescription("transition_from_end");
       transition.push_back(plan_f1);
       program.push_back(transition);

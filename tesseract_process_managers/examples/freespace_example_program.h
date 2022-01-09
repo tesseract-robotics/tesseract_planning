@@ -14,24 +14,24 @@ inline CompositeInstruction freespaceExampleProgramIIWA(
     const std::string& composite_profile = DEFAULT_PROFILE_KEY,
     const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
-  CompositeInstruction program(
-      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  const ManipulatorInfo manip("manipulator", "base_link", "tool0");
+  CompositeInstruction program(composite_profile, CompositeInstructionOrder::ORDERED, manip);
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_a1", "joint_a2", "joint_a3", "joint_a4",
                                            "joint_a5", "joint_a6", "joint_a7" };
   Waypoint wp1 = StateWaypoint(joint_names, Eigen::VectorXd::Zero(7));
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START);
+  PlanInstruction start_instruction(wp1, PlanInstructionType::START, freespace_profile, manip);
   program.setStartInstruction(start_instruction);
 
   // Define target pose
   Waypoint wp2 = CartesianWaypoint(goal);
-  PlanInstruction plan_f0(wp2, PlanInstructionType::FREESPACE, freespace_profile);
+  PlanInstruction plan_f0(wp2, PlanInstructionType::FREESPACE, freespace_profile, manip);
   plan_f0.setDescription("freespace_motion");
   program.push_back(plan_f0);
 
   Waypoint wp3 = JointWaypoint(joint_names, Eigen::VectorXd::Zero(7));
-  PlanInstruction plan_f1(wp3, PlanInstructionType::FREESPACE);
+  PlanInstruction plan_f1(wp3, PlanInstructionType::FREESPACE, freespace_profile, manip);
   program.push_back(plan_f1);
 
   return program;
@@ -42,23 +42,23 @@ inline CompositeInstruction freespaceExampleProgramABB(
     const std::string& composite_profile = DEFAULT_PROFILE_KEY,
     const std::string& freespace_profile = DEFAULT_PROFILE_KEY)
 {
-  CompositeInstruction program(
-      composite_profile, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
+  const ManipulatorInfo manip("manipulator", "base_link", "tool0");
+  CompositeInstruction program(composite_profile, CompositeInstructionOrder::ORDERED, manip);
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
   Waypoint wp1 = StateWaypoint(joint_names, Eigen::VectorXd::Zero(6));
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START);
+  PlanInstruction start_instruction(wp1, PlanInstructionType::START, freespace_profile, manip);
   program.setStartInstruction(start_instruction);
 
   // Define target pose
   Waypoint wp2 = CartesianWaypoint(goal);
-  PlanInstruction plan_f0(wp2, PlanInstructionType::FREESPACE, freespace_profile);
+  PlanInstruction plan_f0(wp2, PlanInstructionType::FREESPACE, freespace_profile, manip);
   plan_f0.setDescription("freespace_motion");
   program.push_back(plan_f0);
 
   Waypoint wp3 = JointWaypoint(joint_names, Eigen::VectorXd::Zero(6));
-  PlanInstruction plan_f1(wp3, PlanInstructionType::FREESPACE);
+  PlanInstruction plan_f1(wp3, PlanInstructionType::FREESPACE, freespace_profile, manip);
   program.push_back(plan_f1);
 
   return program;
