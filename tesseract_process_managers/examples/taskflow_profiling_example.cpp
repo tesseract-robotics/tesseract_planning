@@ -99,6 +99,7 @@ int main()
   // Create Process Planning Server
   ProcessPlanningServer planning_server(std::make_shared<ProcessEnvironmentCache>(env), 1);
   planning_server.loadDefaultProcessPlanners();
+  planning_server.loadDefaultProfiles();
 
   for (int idx = -10; idx < 10; idx++)
   {

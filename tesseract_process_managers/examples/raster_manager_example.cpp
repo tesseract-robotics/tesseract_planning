@@ -69,13 +69,14 @@ int main()
   // Create Process Planning Server
   ProcessPlanningServer planning_server(std::make_shared<ProcessEnvironmentCache>(env), 1);
   planning_server.loadDefaultProcessPlanners();
+  planning_server.loadDefaultProfiles();
 
   // Create Process Planning Request
   ProcessPlanningRequest request;
   request.name = process_planner_names::RASTER_G_FT_PLANNER_NAME;
 
   // Define the program
-  CompositeInstruction program = rasterExampleProgram();
+  CompositeInstruction program = rasterExampleProgram(DEFAULT_PROFILE_KEY, DEFAULT_PROFILE_KEY);
   request.instructions = Instruction(program);
 
   // Print Diagnostics

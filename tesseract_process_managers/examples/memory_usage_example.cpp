@@ -151,6 +151,7 @@ int main()
   // Create Process Planning Server
   ProcessPlanningServer planning_server(std::make_shared<ProcessEnvironmentCache>(env), 5);
   planning_server.loadDefaultProcessPlanners();
+  planning_server.loadDefaultProfiles();
 
   // Solve process plan
   using Clock = std::chrono::high_resolution_clock;
