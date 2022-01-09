@@ -68,10 +68,10 @@ struct OMPLPlannerParameters
    * to true it will leverage all planning time to keep finding solutions up to your max solutions count to find the
    * most optimal solution.
    */
-  bool optimize = true;
+  bool optimize = false;
 
   /** @brief OMPL planning factories for creating OMPL planners to solve the planning problem */
-  std::vector<OMPLPlannerConfigurator::ConstPtr> planners;
+  std::vector<OMPLPlannerConfigurator::ConstPtr> planners = { std::make_shared<RRTConnectConfigurator>() };
 };
 
 /** @brief Function signature for extracting a Tesseract state representations from an OMPL state representation */
