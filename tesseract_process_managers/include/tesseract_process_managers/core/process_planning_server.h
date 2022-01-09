@@ -115,6 +115,11 @@ public:
    */
   std::vector<std::string> getAvailableProcessPlanners() const;
 
+  /**
+   * @brief Loads the default profiles for the various motion planners
+   */
+  void loadDefaultProfiles();
+
 #ifndef SWIG
   /**
    * @brief Execute a process planning request.

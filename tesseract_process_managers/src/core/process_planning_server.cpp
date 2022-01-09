@@ -36,6 +36,23 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/debug_observer.h>
 #include <tesseract_process_managers/core/default_process_planners.h>
 
+// Default profiles
+// Descartes
+#include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
+// OMPL
+#include <tesseract_motion_planners/ompl/profile/ompl_planner_profile.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_composite_profile_rvss.h>
+#include <tesseract_motion_planners/ompl/profile/ompl_waypoint_profile.h>
+// Simple
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
+// Trajopt
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
+#include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
+// Trajopt IFOPT
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
+#include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
+
 namespace tesseract_planning
 {
 ProcessPlanningServer::ProcessPlanningServer(EnvironmentCache::ConstPtr cache, size_t n)
@@ -100,6 +117,42 @@ std::vector<std::string> ProcessPlanningServer::getAvailableProcessPlanners() co
     planners.push_back(planner.first);
 
   return planners;
+}
+
+void ProcessPlanningServer::loadDefaultProfiles()
+{
+  // Add TrajOpt Default profiles
+  profiles_->addProfile<TrajOptPlanProfile>(
+      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, std::make_shared<TrajOptDefaultPlanProfile>());
+  profiles_->addProfile<TrajOptCompositeProfile>(
+      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, std::make_shared<TrajOptDefaultCompositeProfile>());
+  profiles_->addProfile<TrajOptSolverProfile>(
+      profile_ns::TRAJOPT_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, std::make_shared<TrajOptDefaultSolverProfile>());
+
+  // Add TrajOpt IFOPT Default profiles
+  profiles_->addProfile<TrajOptIfoptPlanProfile>(profile_ns::TRAJOPT_IFOPT_DEFAULT_NAMESPACE,
+                                                DEFAULT_PROFILE_KEY,
+                                                std::make_shared<TrajOptIfoptDefaultPlanProfile>());
+  profiles_->addProfile<TrajOptIfoptCompositeProfile>(profile_ns::TRAJOPT_IFOPT_DEFAULT_NAMESPACE,
+                                                     DEFAULT_PROFILE_KEY,
+                                                     std::make_shared<TrajOptIfoptDefaultCompositeProfile>());
+
+  // Add Descartes Default profiles
+  profiles_->addProfile<DescartesPlanProfile<double>>(profile_ns::DESCARTES_DEFAULT_NAMESPACE,
+                                                     DEFAULT_PROFILE_KEY,
+                                                     std::make_shared<DescartesDefaultPlanProfile<double>>());
+
+  // Add OMPL Default profiles
+  profiles_->planner_profiles[profile_ns::OMPL_DEFAULT_NAMESPACE][DEFAULT_PROFILE_KEY] =
+      std::make_shared<OMPLPlannerProfile>();
+  profiles_->composite_profiles[profile_ns::OMPL_DEFAULT_NAMESPACE][DEFAULT_PROFILE_KEY] =
+      std::make_shared<OMPLCompositeProfileRVSS>();
+  profiles_->waypoint_profiles[profile_ns::OMPL_DEFAULT_NAMESPACE][DEFAULT_PROFILE_KEY] =
+      std::make_shared<OMPLWaypointProfile>();
+
+  // Add Simple Default profiles
+  profiles_->addProfile<SimplePlannerPlanProfile>(
+      profile_ns::SIMPLE_DEFAULT_NAMESPACE, DEFAULT_PROFILE_KEY, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
 }
 
 ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& request)
