@@ -389,8 +389,19 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       if (!cur_plan_profile)
         throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
 
+      // Get Plan Path Profile: Default is an empty string
+      std::string path_profile = plan_instruction.getPathProfile();
+      path_profile = getProfileString(name_, path_profile, request.plan_profile_remapping, "");
+
       if (plan_instruction.isLinear())
       {
+        auto cur_path_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
+            name_, path_profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+        cur_path_plan_profile =
+            applyProfileOverrides(name_, path_profile, cur_path_plan_profile, plan_instruction.profile_overrides);
+        if (!cur_path_plan_profile)
+          throw std::runtime_error("DescartesMotionPlannerConfig: Invalid transition profile");
+
         if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
           const auto& cur_wp = plan_instruction.getWaypoint().template as<tesseract_planning::CartesianWaypoint>();
@@ -415,7 +426,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, index);
+            cur_path_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, index);
 
             ++index;
           }
@@ -451,7 +462,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
-            cur_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, index);
+            cur_path_plan_profile->apply(*prob, poses[p], plan_instruction, composite_mi, index);
 
             ++index;
           }

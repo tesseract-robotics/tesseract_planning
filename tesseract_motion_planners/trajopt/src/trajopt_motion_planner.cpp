@@ -412,6 +412,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       const auto& seed_composite = seed_flat_pattern[i].get().as<tesseract_planning::CompositeInstruction>();
       auto interpolate_cnt = static_cast<int>(seed_composite.size());
 
+      // Get Plan Profile
       std::string profile = getProfileString(name_, plan_instruction.getProfile(), request.plan_profile_remapping);
       TrajOptPlanProfile::ConstPtr cur_plan_profile = getProfile<TrajOptPlanProfile>(
           name_, profile, *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
@@ -419,8 +420,19 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       if (!cur_plan_profile)
         throw std::runtime_error("TrajOptPlannerUniversalConfig: Invalid profile");
 
+      // Get Plan Path Profile: Default is an empty string
+      std::string path_profile = plan_instruction.getPathProfile();
+      path_profile = getProfileString(name_, path_profile, request.plan_profile_remapping, "");
+
       if (plan_instruction.isLinear())
       {
+        auto cur_path_plan_profile = getProfile<TrajOptPlanProfile>(
+            name_, path_profile, *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
+        cur_path_plan_profile =
+            applyProfileOverrides(name_, path_profile, cur_path_plan_profile, plan_instruction.profile_overrides);
+        if (!cur_path_plan_profile)
+          throw std::runtime_error("TrajOptPlannerUniversalConfig: Invalid path profile");
+
         if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
           const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
@@ -453,7 +465,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
           {
             /** @todo Write a path constraint for this*/
             // The pose is also converted back into the working frame coordinates
-            cur_plan_profile->apply(
+            cur_path_plan_profile->apply(
                 *pci, cur_working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
             ++index;
           }
@@ -509,7 +521,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
             /** @todo Add path constraint for this */
-            cur_plan_profile->apply(
+            cur_path_plan_profile->apply(
                 *pci, cur_working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
             ++index;
           }

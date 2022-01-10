@@ -111,11 +111,17 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   // Get the start waypoint/instruction
   PlanInstruction start_instruction = getStartInstruction(request, request.env_state, *manip);
 
+  // Set start instruction
+  MoveInstruction start_instruction_seed(start_instruction.getWaypoint(), start_instruction);
+  start_instruction_seed.setMoveType(MoveInstructionType::START);
+
   // Process the instructions into the seed
   try
   {
     PlanInstruction start_instruction_copy = start_instruction;
-    seed = processCompositeInstruction(request.instructions, start_instruction_copy, request);
+    MoveInstruction start_instruction_seed_copy = start_instruction_seed;
+    seed =
+        processCompositeInstruction(request.instructions, start_instruction_copy, start_instruction_seed_copy, request);
   }
   catch (std::exception& e)
   {
@@ -125,13 +131,8 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
     return response.status;
   }
 
-  // Set start instruction
-  MoveInstruction move_start_instruction_seed(start_instruction.getWaypoint(),
-                                              MoveInstructionType::START,
-                                              start_instruction.getProfile(),
-                                              start_instruction.getManipulatorInfo());
-  move_start_instruction_seed.profile_overrides = start_instruction.profile_overrides;
-  seed.setStartInstruction(move_start_instruction_seed);
+  // Set seed start state
+  seed.setStartInstruction(start_instruction_seed);
 
   // Fill out the response
   response.results = seed;
@@ -175,6 +176,7 @@ PlanInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& r
     }
     else if (isCartesianWaypoint(start_waypoint))
     {
+      /** @todo Update to run IK to find solution closest to start */
       StateWaypoint temp(manip.getJointNames(), current_state.getJointValues(manip.getJointNames()));
       start_waypoint = temp;
 
@@ -207,20 +209,35 @@ PlanInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& r
 
 CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
                                                                       PlanInstruction& prev_instruction,
+                                                                      MoveInstruction& prev_seed,
                                                                       const PlannerRequest& request) const
 {
   CompositeInstruction seed(instructions);
   seed.clear();
 
-  for (const auto& instruction : instructions)
+  for (std::size_t i = 0; i < instructions.size(); ++i)
   {
+    const auto& instruction = instructions[i];
+
     if (isCompositeInstruction(instruction))
     {
-      seed.push_back(processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, request));
+      seed.push_back(
+          processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, prev_seed, request));
     }
     else if (isPlanInstruction(instruction))
     {
       const auto& base_instruction = instruction.as<PlanInstruction>();
+
+      // Get the next plan instruction if it exists
+      Instruction next_instruction = NullInstruction();
+      for (std::size_t n = i + 1; n < instructions.size(); ++n)
+      {
+        if (isPlanInstruction(instructions[n]))
+        {
+          next_instruction = instructions[n];
+          break;
+        }
+      }
 
       std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
       SimplePlannerPlanProfile::ConstPtr start_plan_profile = getProfile<SimplePlannerPlanProfile>(
@@ -230,10 +247,16 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       if (!start_plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid start profile");
 
-      seed.push_back(start_plan_profile->generate(
-          prev_instruction, base_instruction, request, request.instructions.getManipulatorInfo()));
+      CompositeInstruction instruction_seed = start_plan_profile->generate(prev_instruction,
+                                                                           prev_seed,
+                                                                           base_instruction,
+                                                                           next_instruction,
+                                                                           request,
+                                                                           request.instructions.getManipulatorInfo());
+      seed.push_back(instruction_seed);
 
       prev_instruction = base_instruction;
+      prev_seed = instruction_seed.back().as<MoveInstruction>();
     }
     else if (isMoveInstruction(instruction))
     {

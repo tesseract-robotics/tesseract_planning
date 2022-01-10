@@ -49,13 +49,44 @@ enum class PlanInstructionType : int
   START = 3
 };
 
+/**
+ * @brief The plan instruction is used when generating motion planning requests
+ * @details
+ * The profile is used to define a set of costs/constraints on the waypoint
+ * The path profile is used to define a set of costs/constraints on the transition waypoints to this waypoint
+ */
 class PlanInstruction
 {
 public:
   PlanInstruction() = default;  // Required for boost serialization do not use
+
+  /**
+   * @brief Plan Instruction Constructor
+   * @details This constructor automatically assigns the transition profile based on the type of motion.
+   * If the motion is LINEAR/CIRCULAR it assigns the transition_profile to the defined profile.
+   * If the motion is FREESPACE/START it is left empty.
+   * @param waypoint The waypoint associated with the instruction
+   * @param type The type of instruction (LINEAR, FREESPACE, CIRGULAR, START)
+   * @param profile The waypoint profile.
+   * @param manipulator_info Then manipulator information
+   */
   PlanInstruction(Waypoint waypoint,
                   PlanInstructionType type,
                   std::string profile = DEFAULT_PROFILE_KEY,
+                  ManipulatorInfo manipulator_info = ManipulatorInfo());
+
+  /**
+   * @brief Plan Instruction Constructor
+   * @param waypoint The waypoint associated with the instruction
+   * @param type The type of instruction (LINEAR, FREESPACE, CIRGULAR, START)
+   * @param profile The waypoint profile.
+   * @param path_profile The waypoint path profile.
+   * @param manipulator_info Then manipulator information
+   */
+  PlanInstruction(Waypoint waypoint,
+                  PlanInstructionType type,
+                  std::string profile,
+                  std::string path_profile,
                   ManipulatorInfo manipulator_info = ManipulatorInfo());
 
   void setWaypoint(Waypoint waypoint);
@@ -68,6 +99,9 @@ public:
 
   void setProfile(const std::string& profile);
   const std::string& getProfile() const;
+
+  void setPathProfile(const std::string& profile);
+  const std::string& getPathProfile() const;
 
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
   ProfileDictionary::Ptr profile_overrides;
@@ -101,6 +135,9 @@ private:
 
   /** @brief The profile used for this plan instruction */
   std::string profile_{ DEFAULT_PROFILE_KEY };
+
+  /** @brief The profile used for the path to this plan instruction */
+  std::string path_profile_;
 
   /** @brief Contains information about the manipulator associated with this instruction*/
   ManipulatorInfo manipulator_info_;

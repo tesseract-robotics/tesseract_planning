@@ -45,6 +45,59 @@ MoveInstruction::MoveInstruction(Waypoint waypoint,
   , waypoint_(std::move(waypoint))
   , manipulator_info_(std::move(manipulator_info))
 {
+  if (!isStateWaypoint(waypoint_))
+    CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
+}
+
+MoveInstruction::MoveInstruction(Waypoint waypoint,
+                                 MoveInstructionType type,
+                                 std::string profile,
+                                 std::string path_profile,
+                                 ManipulatorInfo manipulator_info)
+  : move_type_(type)
+  , profile_(std::move(profile))
+  , path_profile_(std::move(path_profile))
+  , waypoint_(std::move(waypoint))
+  , manipulator_info_(std::move(manipulator_info))
+{
+}
+
+MoveInstruction::MoveInstruction(Waypoint waypoint, const PlanInstruction& plan_instruction)
+  : waypoint_(std::move(waypoint))
+{
+  switch (plan_instruction.getPlanType())
+  {
+    case PlanInstructionType::LINEAR:
+    {
+      move_type_ = MoveInstructionType::LINEAR;
+      break;
+    }
+    case PlanInstructionType::FREESPACE:
+    {
+      move_type_ = MoveInstructionType::FREESPACE;
+      break;
+    }
+    case PlanInstructionType::CIRCULAR:
+    {
+      move_type_ = MoveInstructionType::CIRCULAR;
+      break;
+    }
+    case PlanInstructionType::START:
+    {
+      move_type_ = MoveInstructionType::START;
+      break;
+    }
+    default:
+    {
+      throw std::runtime_error("MoveInstruction, unable to convert plan type to move type!");
+    }
+  }
+
+  profile_ = plan_instruction.getProfile();
+  path_profile_ = plan_instruction.getPathProfile();
+  manipulator_info_ = plan_instruction.getManipulatorInfo();
+  description_ = plan_instruction.getDescription();
+  profile_overrides = plan_instruction.profile_overrides;
 }
 
 void MoveInstruction::setWaypoint(Waypoint waypoint)
@@ -67,6 +120,9 @@ void MoveInstruction::setProfile(const std::string& profile)
   profile_ = (profile.empty()) ? DEFAULT_PROFILE_KEY : profile;
 }
 const std::string& MoveInstruction::getProfile() const { return profile_; }
+
+void MoveInstruction::setPathProfile(const std::string& profile) { path_profile_ = profile; }
+const std::string& MoveInstruction::getPathProfile() const { return path_profile_; }
 
 const std::string& MoveInstruction::getDescription() const { return description_; }
 
@@ -97,7 +153,8 @@ bool MoveInstruction::operator==(const MoveInstruction& rhs) const
   equal &= (static_cast<int>(move_type_) == static_cast<int>(rhs.move_type_));
   equal &= (waypoint_ == rhs.waypoint_);
   equal &= (manipulator_info_ == rhs.manipulator_info_);
-  equal &= (profile_ == rhs.profile_);  // NO LINT
+  equal &= (profile_ == rhs.profile_);            // NO LINT
+  equal &= (path_profile_ == rhs.path_profile_);  // NO LINT
   return equal;
 }
 
@@ -109,6 +166,7 @@ void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("move_type", move_type_);
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("profile", profile_);
+  ar& boost::serialization::make_nvp("path_profile", path_profile_);
   ar& boost::serialization::make_nvp("waypoint", waypoint_);
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
 }

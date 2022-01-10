@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/null_waypoint.h>
+#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/types.h>
@@ -53,10 +54,42 @@ class MoveInstruction
 {
 public:
   MoveInstruction() = default;  // Required for boost serialization do not use
+
+  /**
+   * @brief Plan Instruction Constructor
+   * @details This constructor automatically assigns the transition profile based on the type of motion.
+   * If the motion is LINEAR/CIRCULAR it assigns the transition_profile to the defined profile.
+   * If the motion is FREESPACE/START it is left empty.
+   * @param waypoint The waypoint associated with the instruction
+   * @param type The type of instruction (LINEAR, FREESPACE, CIRGULAR, START)
+   * @param profile The waypoint profile.
+   * @param manipulator_info Then manipulator information
+   */
   MoveInstruction(Waypoint waypoint,
                   MoveInstructionType type,
                   std::string profile = DEFAULT_PROFILE_KEY,
                   ManipulatorInfo manipulator_info = ManipulatorInfo());
+
+  /**
+   * @brief Move Instruction Constructor
+   * @param waypoint The waypoint associated with the instruction
+   * @param type The type of instruction (LINEAR, FREESPACE, CIRGULAR, START)
+   * @param profile The waypoint profile.
+   * @param path_profile The waypoint path profile.
+   * @param manipulator_info Then manipulator information
+   */
+  MoveInstruction(Waypoint waypoint,
+                  MoveInstructionType type,
+                  std::string profile,
+                  std::string path_profile,
+                  ManipulatorInfo manipulator_info = ManipulatorInfo());
+
+  /**
+   * @brief Create a move instruction using properties of the plan_instruction
+   * @param waypoint The waypoint associated with the instruction
+   * @param plan_instruction The plan instruction to copy data from
+   */
+  MoveInstruction(Waypoint waypoint, const PlanInstruction& plan_instruction);
 
   void setWaypoint(Waypoint waypoint);
   Waypoint& getWaypoint();
@@ -68,6 +101,9 @@ public:
 
   void setProfile(const std::string& profile);
   const std::string& getProfile() const;
+
+  void setPathProfile(const std::string& profile);
+  const std::string& getPathProfile() const;
 
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
   ProfileDictionary::Ptr profile_overrides;
@@ -99,6 +135,9 @@ private:
 
   /** @brief The profile used for this move instruction */
   std::string profile_{ DEFAULT_PROFILE_KEY };
+
+  /** @brief The profile used for the path to this move instruction */
+  std::string path_profile_;
 
   /** @brief The assigned waypoint (Cartesian or Joint) */
   Waypoint waypoint_{ NullWaypoint() };

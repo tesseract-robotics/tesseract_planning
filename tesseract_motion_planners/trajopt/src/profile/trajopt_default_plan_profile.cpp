@@ -180,6 +180,9 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
     pci.cnt_infos.push_back(ti);
   else
     pci.cost_infos.push_back(ti);
+
+  // Add constraints from error functions if available.
+  addConstraintErrorFunctions(pci, index);
 }
 
 void TrajOptDefaultPlanProfile::addConstraintErrorFunctions(trajopt::ProblemConstructionInfo& pci, int index) const

@@ -43,7 +43,9 @@ SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_lo
 }
 
 CompositeInstruction SimplePlannerLVSNoIKPlanProfile::generate(const PlanInstruction& prev_instruction,
+                                                               const MoveInstruction& /*prev_seed*/,
                                                                const PlanInstruction& base_instruction,
+                                                               const Instruction& /*next_instruction*/,
                                                                const PlannerRequest& request,
                                                                const ManipulatorInfo& global_manip_info) const
 {

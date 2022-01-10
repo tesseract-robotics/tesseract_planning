@@ -111,13 +111,6 @@ struct KinematicGroupInstructionInfo
 };
 
 /**
- * @brief Get the associated move instruction type for the give plan instruction type
- * @param base_instruction The plan instruction
- * @returnThe associated move instruction type for the give plan instruction type
- */
-MoveInstructionType getMoveInstructionType(const PlanInstruction& base_instruction);
-
-/**
  * @brief This takes the provided seed state for the base_instruction and create a corresponding composite instruction
  * @param joint_names The joint names associated with the states
  * @param states The joint states to populate the composite instruction with

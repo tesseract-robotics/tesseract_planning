@@ -43,6 +43,21 @@ PlanInstruction::PlanInstruction(Waypoint waypoint,
   , profile_(std::move(profile))
   , manipulator_info_(std::move(manipulator_info))
 {
+  if (plan_type_ == PlanInstructionType::LINEAR || plan_type_ == PlanInstructionType::CIRCULAR)
+    path_profile_ = profile_;
+}
+
+PlanInstruction::PlanInstruction(Waypoint waypoint,
+                                 PlanInstructionType type,
+                                 std::string profile,
+                                 std::string path_profile,
+                                 ManipulatorInfo manipulator_info)
+  : plan_type_(type)
+  , waypoint_(std::move(waypoint))
+  , profile_(std::move(profile))
+  , path_profile_(std::move(path_profile))
+  , manipulator_info_(std::move(manipulator_info))
+{
 }
 
 void PlanInstruction::setWaypoint(Waypoint waypoint) { waypoint_ = std::move(waypoint); }
@@ -58,6 +73,9 @@ void PlanInstruction::setProfile(const std::string& profile)
   profile_ = (profile.empty()) ? DEFAULT_PROFILE_KEY : profile;
 }
 const std::string& PlanInstruction::getProfile() const { return profile_; }
+
+void PlanInstruction::setPathProfile(const std::string& profile) { path_profile_ = profile; }
+const std::string& PlanInstruction::getPathProfile() const { return path_profile_; }
 
 const std::string& PlanInstruction::getDescription() const { return description_; }
 
@@ -88,7 +106,8 @@ bool PlanInstruction::operator==(const PlanInstruction& rhs) const
   equal &= (static_cast<int>(plan_type_) == static_cast<int>(rhs.plan_type_));
   equal &= (waypoint_ == rhs.waypoint_);
   equal &= (manipulator_info_ == rhs.manipulator_info_);
-  equal &= (profile_ == rhs.profile_);  // NO LINT
+  equal &= (profile_ == rhs.profile_);            // NO LINT
+  equal &= (path_profile_ == rhs.path_profile_);  // NO LINT
   return equal;
 }
 
@@ -100,6 +119,7 @@ void PlanInstruction::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("plan_type", plan_type_);
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("profile", profile_);
+  ar& boost::serialization::make_nvp("path_profile", path_profile_);
   ar& boost::serialization::make_nvp("waypoint", waypoint_);
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
 }
