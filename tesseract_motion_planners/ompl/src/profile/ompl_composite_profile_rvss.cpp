@@ -21,7 +21,7 @@ std::any OMPLCompositeProfileRVSS::create(const CompositeInstruction& instructio
 {
   for (const Instruction& inst : instruction)
   {
-    const PlanInstruction& goal_instruction = inst.as<PlanInstruction>();
+    const auto& goal_instruction = inst.as<PlanInstruction>();
     if (goal_instruction.getPlanType() != PlanInstructionType::FREESPACE)
       throw std::runtime_error("Only freespace plan instruction types are currently supported");
   }
@@ -87,7 +87,7 @@ std::any OMPLCompositeProfileRVSS::create(const CompositeInstruction& instructio
           break;
         }
         default:
-          CONSOLE_BRIDGE_logDebug("DOING NOTHING HERE");
+          CONSOLE_BRIDGE_logDebug("No collision state validator added");
       }
       simple_setup->setStateValidityChecker(csvc);
     }
@@ -124,7 +124,7 @@ std::any OMPLCompositeProfileRVSS::create(const CompositeInstruction& instructio
         break;
       }
       default:
-        CONSOLE_BRIDGE_logDebug("Nothing doing");
+        CONSOLE_BRIDGE_logDebug("No collision validator added");
     }
 
     simple_setup->getSpaceInformation()->setMotionValidator(mv);

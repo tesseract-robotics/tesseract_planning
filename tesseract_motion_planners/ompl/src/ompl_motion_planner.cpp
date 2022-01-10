@@ -81,7 +81,7 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 }
 
 std::vector<ompl::base::ScopedState<>> createOMPLStates(const std::vector<Eigen::VectorXd>& joint_states,
-                                                        ompl::base::SpaceInformationPtr si)
+                                                        const ompl::base::SpaceInformationPtr& si)
 {
   std::vector<ompl::base::ScopedState<>> states;
   states.reserve(joint_states.size());
@@ -98,7 +98,7 @@ std::vector<ompl::base::ScopedState<>> createOMPLStates(const std::vector<Eigen:
   return states;
 }
 
-std::shared_ptr<ompl::base::PlannerData> plan(ompl::geometric::SimpleSetupPtr simple_setup,
+std::shared_ptr<ompl::base::PlannerData> plan(const ompl::geometric::SimpleSetupPtr& simple_setup,
                                               const OMPLPlannerParameters& params,
                                               const unsigned n_output_states)
 {
@@ -220,7 +220,7 @@ std::shared_ptr<ompl::base::PlannerData> plan(ompl::geometric::SimpleSetupPtr si
   // space to be considered equivalent are not merged or connected. Also different planners add edges in different ways
   // and set different vertex/edge properties, so it may not make sense to combine them
   auto planner_data = std::make_shared<ompl::base::PlannerData>(simple_setup->getSpaceInformation());
-  for (auto planner : planners)
+  for (const ompl::base::PlannerPtr& planner : planners)
     planner->getPlannerData(*planner_data);
 
   // The planning data is actually owned by the planner instances themselves. Deep copy the planning information by
@@ -240,7 +240,7 @@ CompositeInstruction buildTrajectoryInstruction(const tesseract_common::TrajArra
   // In this case, we need to insert more states into the composite to cover the difference
   // Remember the composite does not include the start state, so compare its size with one less than the size of the
   // trajectory
-  if (seed.size() < trajectory.rows() - 1)
+  if (static_cast<Eigen::Index>(seed.size()) < trajectory.rows() - 1)
   {
     const std::size_t diff = static_cast<std::size_t>(trajectory.rows() - 1) - output.size();
     output.insert(output.end(), diff, output.back());
@@ -259,7 +259,7 @@ CompositeInstruction buildTrajectoryInstruction(const tesseract_common::TrajArra
       // Subsequent trajectory states go into the composite instruction
       // The index into the composite of these states is one less than the index of the trajectory state since the first
       // trajectory state was saved outside the composite
-      const std::size_t composite_idx = static_cast<std::size_t>(i - 1);
+      const auto composite_idx = static_cast<std::size_t>(i - 1);
       auto& move_instruction = output.at(composite_idx).as<MoveInstruction>();
       move_instruction.getWaypoint().as<StateWaypoint>().position = trajectory.row(i);
     }
@@ -342,7 +342,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
         // Get the start waypoint profile and add the states to the SimpleSetup
         if (i == 0)
         {
-          const PlanInstruction& pi = request.instructions.getStartInstruction().as<PlanInstruction>();
+          const auto& pi = request.instructions.getStartInstruction().as<PlanInstruction>();
           const std::string profile_name =
               getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
           WaypointProfile::ConstPtr p = request.profiles->getWaypointProfile(name_, profile_name);
@@ -351,8 +351,8 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
         else
         {
           // Use the last state of the previous trajectory as the single start state for this plan
-          const MoveInstruction& mi = response.results.back().as<CompositeInstruction>().back().as<MoveInstruction>();
-          const StateWaypoint& sw = mi.getWaypoint().as<StateWaypoint>();
+          const auto& mi = response.results.back().as<CompositeInstruction>().back().as<MoveInstruction>();
+          const auto& sw = mi.getWaypoint().as<StateWaypoint>();
           start_states.push_back(sw.position);
         }
 
@@ -365,12 +365,12 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
       // Add the goal waypoint(s)
       {
-        const PlanInstruction& pi = request.instructions[i].as<PlanInstruction>();
+        const auto& pi = request.instructions[i].as<PlanInstruction>();
 
         const std::string profile_name = getProfileString(name_, pi.getProfile(), request.composite_profile_remapping);
         WaypointProfile::ConstPtr p = request.profiles->getWaypointProfile(name_, profile_name);
 
-        std::vector<Eigen::VectorXd> states = std::any_cast<std::vector<Eigen::VectorXd>>(p->create(pi, *request.env));
+        auto states = std::any_cast<std::vector<Eigen::VectorXd>>(p->create(pi, *request.env));
         auto ompl_states = createOMPLStates(states, simple_setup->getSpaceInformation());
 
         auto goal_states = std::make_shared<ompl::base::GoalStates>(simple_setup->getSpaceInformation());
@@ -428,14 +428,14 @@ bool OMPLMotionPlanner::checkUserInput(const PlannerRequest& request)
 {
   // Check that parameters are valid
   if (request.env == nullptr)
-    std::runtime_error("Environment is invalid (nullptr)");
+    throw std::runtime_error("Environment is invalid (nullptr)");
 
   if (request.instructions.empty())
-    std::runtime_error("Request contains no instructions");
+    throw std::runtime_error("Request contains no instructions");
 
   if (request.instructions.size() != request.seed.size())
-    std::runtime_error("Instruction size (" + std::to_string(request.instructions.size()) +
-                       ") does not match seed size (" + std::to_string(request.seed.size()) + ")");
+    throw std::runtime_error("Instruction size (" + std::to_string(request.instructions.size()) +
+                             ") does not match seed size (" + std::to_string(request.seed.size()) + ")");
 
   return true;
 }

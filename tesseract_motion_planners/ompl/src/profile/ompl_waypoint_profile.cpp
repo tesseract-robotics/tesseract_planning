@@ -5,7 +5,7 @@ namespace tesseract_planning
 {
 void checkCollision(const Eigen::VectorXd& state,
                     const tesseract_environment::Environment& env,
-                    tesseract_kinematics::JointGroup::ConstPtr manip)
+                    const tesseract_kinematics::JointGroup::ConstPtr& manip)
 {
   tesseract_collision::DiscreteContactManager::Ptr contact_checker = env.getDiscreteContactManager();
   tesseract_common::TransformMap link_transforms = manip->calcFwdKin(state);
@@ -28,7 +28,8 @@ void checkCollision(const Eigen::VectorXd& state,
   }
 }
 
-Eigen::VectorXd updateLimits(Eigen::Ref<const Eigen::VectorXd> joint_waypoint, tesseract_common::KinematicLimits limits)
+Eigen::VectorXd updateLimits(const Eigen::Ref<const Eigen::VectorXd>& joint_waypoint,
+                             const tesseract_common::KinematicLimits& limits)
 {
   if (!tesseract_common::satisfiesPositionLimits(joint_waypoint, limits.joint_limits))
     throw std::runtime_error("State violates joint limits");
@@ -65,12 +66,12 @@ tesseract_kinematics::IKSolutions getValidIKSolutions(const Eigen::Isometry3d& c
   tesseract_common::KinematicLimits limits = manip->getLimits();
   tesseract_kinematics::IKSolutions valid_solutions;
   valid_solutions.reserve(joint_solutions.size());
-  for (std::size_t i = 0; i < joint_solutions.size(); ++i)
+  for (const Eigen::VectorXd& js : joint_solutions)
   {
     try
     {
       // Update the joint solution based on the kinematic limits
-      Eigen::VectorXd solution = updateLimits(joint_solutions[i], limits);
+      Eigen::VectorXd solution = updateLimits(js, limits);
 
       // Ensure the solution is collision-free
       checkCollision(solution, env, manip);
@@ -99,25 +100,27 @@ tesseract_kinematics::IKSolutions getValidIKSolutions(const Eigen::Isometry3d& c
 std::any OMPLWaypointProfile::create(const Instruction& instruction,
                                      const tesseract_environment::Environment& env) const
 {
-  PlanInstruction plan_instruction = instruction.as<PlanInstruction>();
-  tesseract_common::ManipulatorInfo mi = plan_instruction.getManipulatorInfo();
+  const auto& plan_instruction = instruction.as<PlanInstruction>();
+  const tesseract_common::ManipulatorInfo& mi = plan_instruction.getManipulatorInfo();
   const Waypoint& waypoint = plan_instruction.getWaypoint();
 
   if (isCartesianWaypoint(waypoint))
   {
-    const CartesianWaypoint& cw = waypoint.as<CartesianWaypoint>();
+    const auto& cw = waypoint.as<CartesianWaypoint>();
     return getValidIKSolutions(cw, mi, env);
   }
-  else if (isJointWaypoint(waypoint))
+
+  if (isJointWaypoint(waypoint))
   {
-    const JointWaypoint& jw = waypoint.as<JointWaypoint>();
+    const auto& jw = waypoint.as<JointWaypoint>();
     const Eigen::VectorXd updated_state = updateLimits(jw, env.getJointGroup(mi.manipulator)->getLimits());
     checkCollision(updated_state, env, env.getJointGroup(mi.manipulator));
     return std::vector<Eigen::VectorXd>{ updated_state };
   }
-  else if (isStateWaypoint(waypoint))
+
+  if (isStateWaypoint(waypoint))
   {
-    const StateWaypoint& sw = waypoint.as<StateWaypoint>();
+    const auto& sw = waypoint.as<StateWaypoint>();
     Eigen::Map<const Eigen::VectorXd> state(sw.position.data(), sw.position.size());
     const Eigen::VectorXd updated_state = updateLimits(state, env.getJointGroup(mi.manipulator)->getLimits());
     checkCollision(updated_state, env, env.getJointGroup(mi.manipulator));
