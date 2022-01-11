@@ -55,9 +55,9 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a794151a
 \begin{DoxyCompactList}\small\item\em Check if the planning server has a name associated with a process pipeline. \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a36d424b8bf418d63e6afdc9e7beed003}{get\+Available\+Process\+Planners}} () const
 \begin{DoxyCompactList}\small\item\em Get a list of process planner registered with the planning server. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aa94b1d2240918b56c4d16cc865b3c6bd}{run}} (const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}} \&request)
+\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}} (const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}} \&request) const
 \begin{DoxyCompactList}\small\item\em Execute a process planning request. \end{DoxyCompactList}\item 
-tf\+::\+Future$<$ void $>$ \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a80ec1db4d0c774444020c25072bb3307}{run}} (tf\+::\+Taskflow \&taskflow)
+tf\+::\+Future$<$ void $>$ \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_ad0fa296f44c2e42c79b8b4876b9f8ecb}{run}} (tf\+::\+Taskflow \&taskflow) const
 \begin{DoxyCompactList}\small\item\em This is a utility function to run arbitrary taskflows. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a1b42f2a10cb21c2beced991b82ac1bad}{wait\+For\+All}} ()
 \begin{DoxyCompactList}\small\item\em Wait for all process currently being executed to finish before returning. \end{DoxyCompactList}\item 
@@ -294,11 +294,11 @@ Register a process planner with the planning server.
 {\em generator} & The Taskflow Generator associated with the name \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_aa94b1d2240918b56c4d16cc865b3c6bd}\label{classtesseract__planning_1_1ProcessPlanningServer_aa94b1d2240918b56c4d16cc865b3c6bd}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}\label{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!run@{run}}
 \index{run@{run}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
 \doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}} tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::run (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}} \&}]{request }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}} tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::run (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}} \&}]{request }\end{DoxyParamCaption}) const}
 
 
 
@@ -312,11 +312,11 @@ This does not block to allow for multiple requests, use future to wait if needed
 \begin{DoxyReturn}{Returns}
 A process planning future to get results and monitor the execution along with the ability to abort 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a80ec1db4d0c774444020c25072bb3307}\label{classtesseract__planning_1_1ProcessPlanningServer_a80ec1db4d0c774444020c25072bb3307}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_ad0fa296f44c2e42c79b8b4876b9f8ecb}\label{classtesseract__planning_1_1ProcessPlanningServer_ad0fa296f44c2e42c79b8b4876b9f8ecb}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!run@{run}}
 \index{run@{run}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
 \doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily tf\+::\+Future$<$ void $>$ tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::run (\begin{DoxyParamCaption}\item[{tf\+::\+Taskflow \&}]{taskflow }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tf\+::\+Future$<$ void $>$ tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::run (\begin{DoxyParamCaption}\item[{tf\+::\+Taskflow \&}]{taskflow }\end{DoxyParamCaption}) const}
 
 
 
@@ -353,7 +353,7 @@ Wait for all process currently being executed to finish before returning.
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!executor\_@{executor\_}}
 \index{executor\_@{executor\_}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
 \doxysubsubsection{\texorpdfstring{executor\_}{executor\_}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$tf\+::\+Executor$>$ tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::executor\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$tf\+::\+Executor$>$ tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::executor\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a4473171d5be06464c461e76eeabbf4ba}\label{classtesseract__planning_1_1ProcessPlanningServer_a4473171d5be06464c461e76eeabbf4ba}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!process\_planners\_@{process\_planners\_}}
