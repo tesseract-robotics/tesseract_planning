@@ -401,6 +401,20 @@ TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultLVSPlanProfileTes
 
   // Solve
   EXPECT_TRUE(response.interface->isSuccessful());
+
+  // Test planning server thread safety
+#pragma omp parallel for num_threads(10) shared(planning_server, request)
+  for (long i = 0; i < 10; ++i)  // NOLINT
+  {
+    const int tn = omp_get_thread_num();
+    CONSOLE_BRIDGE_logDebug("Thread (ID: %i): %i of %i", tn, i, 10);
+    ProcessPlanningFuture response = planning_server.run(request);
+    response.wait();
+
+    // Confirm that the task is finished and still successful
+    EXPECT_TRUE(response.ready());
+    EXPECT_TRUE(response.interface->isSuccessful());
+  }
 }
 
 TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultPlanProfileTest)  // NOLINT
