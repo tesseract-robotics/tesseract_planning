@@ -62,11 +62,11 @@ public:
 
   /**
    * @brief Plan Instruction Constructor
-   * @details This constructor automatically assigns the transition profile based on the type of motion.
-   * If the motion is LINEAR/CIRCULAR it assigns the transition_profile to the defined profile.
+   * @details This constructor automatically assigns the path profile based on the type of motion.
+   * If the motion is LINEAR/CIRCULAR it assigns the profile to the defined profile.
    * If the motion is FREESPACE/START it is left empty.
    * @param waypoint The waypoint associated with the instruction
-   * @param type The type of instruction (LINEAR, FREESPACE, CIRGULAR, START)
+   * @param type The type of instruction (LINEAR, FREESPACE, CIRCULAR, START)
    * @param profile The waypoint profile.
    * @param manipulator_info Then manipulator information
    */
@@ -78,7 +78,7 @@ public:
   /**
    * @brief Plan Instruction Constructor
    * @param waypoint The waypoint associated with the instruction
-   * @param type The type of instruction (LINEAR, FREESPACE, CIRGULAR, START)
+   * @param type The type of instruction (LINEAR, FREESPACE, CIRCULAR, START)
    * @param profile The waypoint profile.
    * @param path_profile The waypoint path profile.
    * @param manipulator_info Then manipulator information

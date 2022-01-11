@@ -45,6 +45,9 @@ MoveInstruction::MoveInstruction(Waypoint waypoint,
   , waypoint_(std::move(waypoint))
   , manipulator_info_(std::move(manipulator_info))
 {
+  if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
+    path_profile_ = profile_;
+
   if (!isStateWaypoint(waypoint_))
     CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
 }
@@ -60,11 +63,16 @@ MoveInstruction::MoveInstruction(Waypoint waypoint,
   , waypoint_(std::move(waypoint))
   , manipulator_info_(std::move(manipulator_info))
 {
+  if (!isStateWaypoint(waypoint_))
+    CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
 }
 
 MoveInstruction::MoveInstruction(Waypoint waypoint, const PlanInstruction& plan_instruction)
   : waypoint_(std::move(waypoint))
 {
+  if (!isStateWaypoint(waypoint_))
+    CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
+
   switch (plan_instruction.getPlanType())
   {
     case PlanInstructionType::LINEAR:

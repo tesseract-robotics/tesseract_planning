@@ -92,7 +92,9 @@ public:
                                         const PlannerRequest& request,
                                         const ManipulatorInfo& global_manip_info) const
   {
+    TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
     return generate(prev_instruction, base_instruction, request, global_manip_info);
+    TESSERACT_COMMON_IGNORE_WARNINGS_POP
   }
 };
 
