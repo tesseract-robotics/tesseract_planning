@@ -1,8 +1,8 @@
 <map id="tesseract_planning::PlanInstruction" name="tesseract_planning::PlanInstruction">
-<area shape="rect" id="node1" title=" " alt="" coords="587,65,717,107"/>
+<area shape="rect" id="node1" title="The plan instruction is used when generating motion planning requests." alt="" coords="587,80,717,121"/>
 <area shape="rect" id="node2" title=" " alt="" coords="287,5,441,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="325,71,403,98"/>
-<area shape="rect" id="node4" title=" " alt="" coords="29,61,153,103"/>
-<area shape="rect" id="node5" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="299,129,429,171"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,126,177,182"/>
+<area shape="rect" id="node3" title=" " alt="" coords="325,77,403,103"/>
+<area shape="rect" id="node4" title=" " alt="" coords="29,65,153,107"/>
+<area shape="rect" id="node5" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="299,133,429,175"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,130,177,186"/>
 </map>

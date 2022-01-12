@@ -105,12 +105,14 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The move instruction is used when defining the results of a motion planning request.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dfd/classtesseract__planning_1_1NullInstruction.html">NullInstruction</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d18/classtesseract__planning_1_1NullWaypoint.html">NullWaypoint</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The plan instruction is used when generating motion planning requests.  <a href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html">ProfileDictionary</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class is used to store profiles for motion planning and process planning.  <a href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html#details">More...</a><br /></td></tr>
@@ -815,9 +817,6 @@ Functions</h2></td></tr>
 <tr class="memitem:adebdc685c90e8b2873f2e09adf04860b"><td class="memTemplItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adebdc685c90e8b2873f2e09adf04860b">getJointTurns</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt;&gt; &amp;joint_values)</td></tr>
 <tr class="memdesc:adebdc685c90e8b2873f2e09adf04860b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of turns for joints that allow rotation beyond +- 180 degrees.  <a href="../../d9/dcd/namespacetesseract__planning.html#adebdc685c90e8b2873f2e09adf04860b">More...</a><br /></td></tr>
 <tr class="separator:adebdc685c90e8b2873f2e09adf04860b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aaec1f7a5aa934efc7e7771e5cdd158ff">getMoveInstructionType</a> (const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;base_instruction)</td></tr>
-<tr class="memdesc:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the associated move instruction type for the give plan instruction type.  <a href="../../d9/dcd/namespacetesseract__planning.html#aaec1f7a5aa934efc7e7771e5cdd158ff">More...</a><br /></td></tr>
-<tr class="separator:aaec1f7a5aa934efc7e7771e5cdd158ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;joint_names, const Eigen::MatrixXd &amp;states, const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;base_instruction)</td></tr>
 <tr class="memdesc:a279ab58cb9c7b07e9e678f077bb4d932"><td class="mdescLeft">&#160;</td><td class="mdescRight">This takes the provided seed state for the base_instruction and create a corresponding composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">More...</a><br /></td></tr>
 <tr class="separator:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -6783,32 +6782,6 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="aaec1f7a5aa934efc7e7771e5cdd158ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaec1f7a5aa934efc7e7771e5cdd158ff">&#9670;&nbsp;</a></span>getMoveInstructionType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> tesseract_planning::getMoveInstructionType </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>base_instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the associated move instruction type for the give plan instruction type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base_instruction</td><td>The plan instruction @returnThe associated move instruction type for the give plan instruction type </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ad2314582d78deda35f1533d63c9bd732"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad2314582d78deda35f1533d63c9bd732">&#9670;&nbsp;</a></span>getPlanInstructionCount()</h2>
 
@@ -9727,15 +9700,15 @@ template&lt;typename FloatType &gt; </div>
 <div class="ttc" id="aclasstesseract__planning_1_1CompositeInstruction_html"><div class="ttname"><a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a></div><div class="ttdef"><b>Definition:</b> composite_instruction.h:52</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1Instruction_html"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.h:232</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1Instruction_html_aeab521a6324ea11932be55f13ce197f9"><div class="ttname"><a href="../../de/d58/classtesseract__planning_1_1Instruction.html#aeab521a6324ea11932be55f13ce197f9">tesseract_planning::Instruction::as</a></div><div class="ttdeci">T &amp; as()</div><div class="ttdef"><b>Definition:</b> instruction.h:290</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a></div><div class="ttdef"><b>Definition:</b> move_instruction.h:53</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html_ad7ea2fb0fcfc4259ace79dafc6ac8179"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad7ea2fb0fcfc4259ace79dafc6ac8179">tesseract_planning::MoveInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> move_instruction.cpp:92</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a></div><div class="ttdoc">The move instruction is used when defining the results of a motion planning request.</div><div class="ttdef"><b>Definition:</b> move_instruction.h:64</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html_ad7ea2fb0fcfc4259ace79dafc6ac8179"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad7ea2fb0fcfc4259ace79dafc6ac8179">tesseract_planning::MoveInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> move_instruction.cpp:153</div></div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 11 2022 23:10:11 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Jan 12 2022 15:59:17 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

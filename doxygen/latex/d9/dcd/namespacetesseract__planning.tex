@@ -29,13 +29,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}
 class \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}
-\item 
+\begin{DoxyCompactList}\small\item\em The move instruction is used when defining the results of a motion planning request. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{Null\+Instruction}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{Null\+Waypoint}}
 \item 
 class \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}}
-\item 
+\begin{DoxyCompactList}\small\item\em The plan instruction is used when generating motion planning requests. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}}
 \begin{DoxyCompactList}\small\item\em This class is used to store profiles for motion planning and process planning. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classtesseract__planning_1_1SetAnalogInstruction}{Set\+Analog\+Instruction}}
@@ -617,8 +617,6 @@ std\+::string \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e
 \begin{DoxyCompactList}\small\item\em Get the configuration of a six axis industrial robot. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\Eigen\+::\+Vector\+Xi \mbox{\hyperlink{namespacetesseract__planning_adebdc685c90e8b2873f2e09adf04860b}{get\+Joint\+Turns}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$$>$ \&joint\+\_\+values)
 \begin{DoxyCompactList}\small\item\em Get number of turns for joints that allow rotation beyond +-\/ 180 degrees. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{namespacetesseract__planning_aaec1f7a5aa934efc7e7771e5cdd158ff}{get\+Move\+Instruction\+Type}} (const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Get the associated move instruction type for the give plan instruction type. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a279ab58cb9c7b07e9e678f077bb4d932}{get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&base\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
 Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{get\+Closest\+Joint\+Solution}} (const \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{Kinematic\+Group\+Instruction\+Info}} \&info, const Eigen\+::\+Vector\+Xd \&seed)
@@ -3009,21 +3007,6 @@ Get number of Move \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Ins
 \begin{DoxyReturn}{Returns}
 The number of Move Instructions 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_aaec1f7a5aa934efc7e7771e5cdd158ff}\label{namespacetesseract__planning_aaec1f7a5aa934efc7e7771e5cdd158ff}} 
-\index{tesseract\_planning@{tesseract\_planning}!getMoveInstructionType@{getMoveInstructionType}}
-\index{getMoveInstructionType@{getMoveInstructionType}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{getMoveInstructionType()}{getMoveInstructionType()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} tesseract\+\_\+planning\+::get\+Move\+Instruction\+Type (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{base\+\_\+instruction }\end{DoxyParamCaption})}
-
-
-
-Get the associated move instruction type for the give plan instruction type. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em base\+\_\+instruction} & The plan instruction @return\+The associated move instruction type for the give plan instruction type \\
-\hline
-\end{DoxyParams}
 \mbox{\Hypertarget{namespacetesseract__planning_ad2314582d78deda35f1533d63c9bd732}\label{namespacetesseract__planning_ad2314582d78deda35f1533d63c9bd732}} 
 \index{tesseract\_planning@{tesseract\_planning}!getPlanInstructionCount@{getPlanInstructionCount}}
 \index{getPlanInstructionCount@{getPlanInstructionCount}!tesseract\_planning@{tesseract\_planning}}

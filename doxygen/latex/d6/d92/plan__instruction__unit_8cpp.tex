@@ -1,0 +1,94 @@
+\hypertarget{plan__instruction__unit_8cpp}{}\doxysection{tesseract\+\_\+command\+\_\+language/test/plan\+\_\+instruction\+\_\+unit.cpp File Reference}
+\label{plan__instruction__unit_8cpp}\index{tesseract\_command\_language/test/plan\_instruction\_unit.cpp@{tesseract\_command\_language/test/plan\_instruction\_unit.cpp}}
+
+
+Contains unit tests for Plan\+Instruction.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+oarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/plan\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+instruction.\+h$>$}\newline
+Include dependency graph for plan\+\_\+instruction\+\_\+unit.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/de6/plan__instruction__unit_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a1e3c45e9fa48a9cbc73ee76ad4f26450}{TEST}} (Tesseract\+Command\+Language\+Plan\+Instruction\+Unit, constructor)
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_a54830c974db5ff47f5533f2ba7c68ef3}{TEST}} (Tesseract\+Command\+Language\+Plan\+Instruction\+Unit, setters)
+\item 
+\mbox{\hyperlink{plan__instruction__unit_8cpp_ae10cd2eb85d7b5ded135bee228e13463}{TEST}} (Tesseract\+Command\+Language\+Plan\+Instruction\+Unit, boost\+Serialization)
+\item 
+int \mbox{\hyperlink{plan__instruction__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains unit tests for Plan\+Instruction. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 15, 2021 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000044}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022, Levi Armstrong
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{plan__instruction__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!main@{main}}
+\index{main@{main}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_ae10cd2eb85d7b5ded135bee228e13463}\label{plan__instruction__unit_8cpp_ae10cd2eb85d7b5ded135bee228e13463}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Plan\+Instruction\+Unit}]{,  }\item[{boost\+Serialization}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a1e3c45e9fa48a9cbc73ee76ad4f26450}\label{plan__instruction__unit_8cpp_a1e3c45e9fa48a9cbc73ee76ad4f26450}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Plan\+Instruction\+Unit}]{,  }\item[{constructor}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{plan__instruction__unit_8cpp_a54830c974db5ff47f5533f2ba7c68ef3}\label{plan__instruction__unit_8cpp_a54830c974db5ff47f5533f2ba7c68ef3}} 
+\index{plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!plan\_instruction\_unit.cpp@{plan\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Plan\+Instruction\+Unit}]{,  }\item[{setters}]{ }\end{DoxyParamCaption})}
+

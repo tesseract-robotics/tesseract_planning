@@ -69,7 +69,7 @@ static bool \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ab9
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a2820c0d406b29dd303b2dd2320d081e1}{process\+Composite\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&instructions, \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&prev\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a326864bcaedf6f7d220e96211cff9e17}{process\+Composite\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&instructions, \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&prev\+\_\+instruction, \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \&prev\+\_\+seed, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -193,6 +193,8 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b397e6b0
 
 The planners status codes. 
 
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]Update to run IK to find solution closest to start \end{DoxyRefDesc}
 \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a7f3cbe94b1de019d5b0e280b70ab5979}\label{classtesseract__planning_1_1SimpleMotionPlanner_a7f3cbe94b1de019d5b0e280b70ab5979}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!operator=@{operator=}}
 \index{operator=@{operator=}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
@@ -205,11 +207,11 @@ The planners status codes.
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}}\& tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner}{Simple\+Motion\+Planner}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a2820c0d406b29dd303b2dd2320d081e1}\label{classtesseract__planning_1_1SimpleMotionPlanner_a2820c0d406b29dd303b2dd2320d081e1}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_a326864bcaedf6f7d220e96211cff9e17}\label{classtesseract__planning_1_1SimpleMotionPlanner_a326864bcaedf6f7d220e96211cff9e17}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!processCompositeInstruction@{processCompositeInstruction}}
 \index{processCompositeInstruction@{processCompositeInstruction}!tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}}
 \doxysubsubsection{\texorpdfstring{processCompositeInstruction()}{processCompositeInstruction()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::process\+Composite\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{instructions,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{prev\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} tesseract\+\_\+planning\+::\+Simple\+Motion\+Planner\+::process\+Composite\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&}]{instructions,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{prev\+\_\+instruction,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \&}]{prev\+\_\+seed,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}\label{classtesseract__planning_1_1SimpleMotionPlanner_ad11f91679e5a495d0b37c460f52ef5b4}} 
 \index{tesseract\_planning::SimpleMotionPlanner@{tesseract\_planning::SimpleMotionPlanner}!solve@{solve}}
