@@ -52,8 +52,12 @@ enum class PlanInstructionType : int
 /**
  * @brief The plan instruction is used when generating motion planning requests
  * @details
- * The profile is used to define a set of costs/constraints on the waypoint
- * The path profile is used to define a set of costs/constraints on the transition waypoints to this waypoint
+ * This instruction contains two profiles 'profile' and 'path_profile' which are similar to industrial robots
+ * termination type and Motion Options.
+ *   - profile (Termination Type): is used to define a set of costs/constraints associated only with the waypoint
+ * assigned to this instruction
+ *   - path_profile (Motion Options): is used to define a set of costs/constraints associated only with the path taken
+ * to the waypoint assigned to this instruction
  */
 class PlanInstruction
 {
@@ -62,12 +66,12 @@ public:
 
   /**
    * @brief Plan Instruction Constructor
-   * @details This constructor automatically assigns the path profile based on the type of motion.
-   * If the motion is LINEAR/CIRCULAR it assigns the profile to the defined profile.
-   * If the motion is FREESPACE/START it is left empty.
+   * @details This constructor automatically assigns the path profile which is only associated to the path taken to the
+   * waypoint. If the motion is LINEAR/CIRCULAR it assigns the profile to the defined profile. If the motion is
+   * FREESPACE/START it is left empty.
    * @param waypoint The waypoint associated with the instruction
    * @param type The type of instruction (LINEAR, FREESPACE, CIRCULAR, START)
-   * @param profile The waypoint profile.
+   * @param profile The waypoint profile, which is only associated to the waypoint and not the path taken.
    * @param manipulator_info Then manipulator information
    */
   PlanInstruction(Waypoint waypoint,
@@ -79,8 +83,8 @@ public:
    * @brief Plan Instruction Constructor
    * @param waypoint The waypoint associated with the instruction
    * @param type The type of instruction (LINEAR, FREESPACE, CIRCULAR, START)
-   * @param profile The waypoint profile.
-   * @param path_profile The waypoint path profile.
+   * @param profile The waypoint profile, which is only associated to the waypoint and not the path taken.
+   * @param path_profile The waypoint path profile which is only associated to the path taken to the waypoint.
    * @param manipulator_info Then manipulator information
    */
   PlanInstruction(Waypoint waypoint,
