@@ -49,13 +49,48 @@ enum class PlanInstructionType : int
   START = 3
 };
 
+/**
+ * @brief The plan instruction is used when generating motion planning requests
+ * @details
+ * This instruction contains two profiles 'profile' and 'path_profile' which are similar to industrial robots
+ * termination type and Motion Options.
+ *   - profile (Termination Type): is used to define a set of costs/constraints associated only with the waypoint
+ * assigned to this instruction
+ *   - path_profile (Motion Options): is used to define a set of costs/constraints associated only with the path taken
+ * to the waypoint assigned to this instruction
+ */
 class PlanInstruction
 {
 public:
   PlanInstruction() = default;  // Required for boost serialization do not use
+
+  /**
+   * @brief Plan Instruction Constructor
+   * @details This constructor automatically assigns the path profile which is only associated to the path taken to the
+   * waypoint. If the motion is LINEAR/CIRCULAR it assigns the profile to the defined profile. If the motion is
+   * FREESPACE/START it is left empty.
+   * @param waypoint The waypoint associated with the instruction
+   * @param type The type of instruction (LINEAR, FREESPACE, CIRCULAR, START)
+   * @param profile The waypoint profile, which is only associated to the waypoint and not the path taken.
+   * @param manipulator_info Then manipulator information
+   */
   PlanInstruction(Waypoint waypoint,
                   PlanInstructionType type,
                   std::string profile = DEFAULT_PROFILE_KEY,
+                  ManipulatorInfo manipulator_info = ManipulatorInfo());
+
+  /**
+   * @brief Plan Instruction Constructor
+   * @param waypoint The waypoint associated with the instruction
+   * @param type The type of instruction (LINEAR, FREESPACE, CIRCULAR, START)
+   * @param profile The waypoint profile, which is only associated to the waypoint and not the path taken.
+   * @param path_profile The waypoint path profile which is only associated to the path taken to the waypoint.
+   * @param manipulator_info Then manipulator information
+   */
+  PlanInstruction(Waypoint waypoint,
+                  PlanInstructionType type,
+                  std::string profile,
+                  std::string path_profile,
                   ManipulatorInfo manipulator_info = ManipulatorInfo());
 
   void setWaypoint(Waypoint waypoint);
@@ -68,6 +103,9 @@ public:
 
   void setProfile(const std::string& profile);
   const std::string& getProfile() const;
+
+  void setPathProfile(const std::string& profile);
+  const std::string& getPathProfile() const;
 
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
   ProfileDictionary::Ptr profile_overrides;
@@ -101,6 +139,9 @@ private:
 
   /** @brief The profile used for this plan instruction */
   std::string profile_{ DEFAULT_PROFILE_KEY };
+
+  /** @brief The profile used for the path to this plan instruction */
+  std::string path_profile_;
 
   /** @brief Contains information about the manipulator associated with this instruction*/
   ManipulatorInfo manipulator_info_;

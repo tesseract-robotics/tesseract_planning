@@ -458,6 +458,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
       const auto& seed_composite = seed_flat_pattern[i].get().as<tesseract_planning::CompositeInstruction>();
       auto interpolate_cnt = static_cast<int>(seed_composite.size());
 
+      // Get Plan Profile
       std::string profile = getProfileString(name_, plan_instruction.getProfile(), request.plan_profile_remapping);
       TrajOptIfoptPlanProfile::ConstPtr cur_plan_profile = getProfile<TrajOptIfoptPlanProfile>(
           name_, profile, *request.profiles, std::make_shared<TrajOptIfoptDefaultPlanProfile>());
@@ -465,8 +466,19 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
       if (!cur_plan_profile)
         throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator: Invalid profile");
 
+      // Get Plan Path Profile: Default is an empty string
+      std::string path_profile = plan_instruction.getPathProfile();
+      path_profile = getProfileString(name_, path_profile, request.plan_profile_remapping, "");
+
       if (plan_instruction.isLinear())
       {
+        auto cur_path_plan_profile = getProfile<TrajOptIfoptPlanProfile>(
+            name_, path_profile, *request.profiles, std::make_shared<TrajOptIfoptDefaultPlanProfile>());
+        cur_path_plan_profile =
+            applyProfileOverrides(name_, path_profile, cur_path_plan_profile, plan_instruction.profile_overrides);
+        if (!cur_path_plan_profile)
+          throw std::runtime_error("DefaultTrajoptIfoptProblemGenerator: Invalid path profile");
+
         if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
           const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
@@ -497,7 +509,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
             /** @todo Write a path constraint for this*/
-            cur_plan_profile->apply(*problem, poses[p], plan_instruction, composite_mi, active_links, index);
+            cur_path_plan_profile->apply(*problem, poses[p], plan_instruction, composite_mi, active_links, index);
             ++index;
           }
 
@@ -552,7 +564,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
             /** @todo Add path constraint for this */
-            cur_plan_profile->apply(
+            cur_path_plan_profile->apply(
                 *problem, cur_working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
             ++index;
           }

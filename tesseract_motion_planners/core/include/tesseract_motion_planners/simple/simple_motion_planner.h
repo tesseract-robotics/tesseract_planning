@@ -97,6 +97,7 @@ protected:
 
   CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,
                                                    PlanInstruction& prev_instruction,
+                                                   MoveInstruction& prev_seed,
                                                    const PlannerRequest& request) const;
 };
 

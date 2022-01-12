@@ -136,20 +136,6 @@ const Eigen::VectorXd& KinematicGroupInstructionInfo::extractJointPosition() con
   return getJointPosition(instruction.getWaypoint());
 }
 
-MoveInstructionType getMoveInstructionType(const PlanInstruction& base_instruction)
-{
-  // Get move type base on base instruction type
-  MoveInstructionType move_type;
-  if (base_instruction.isLinear())
-    move_type = MoveInstructionType::LINEAR;
-  else if (base_instruction.isFreespace())
-    move_type = MoveInstructionType::FREESPACE;
-  else
-    throw std::runtime_error("Interpolation: Unsupported Move Instruction Type!");
-
-  return move_type;
-}
-
 CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
                                               const Eigen::MatrixXd& states,
                                               const PlanInstruction& base_instruction)
@@ -160,19 +146,17 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
   composite.setProfile(base_instruction.getProfile());
   composite.profile_overrides = base_instruction.profile_overrides;
 
-  // Get move type base on base instruction type
-  MoveInstructionType move_type = getMoveInstructionType(base_instruction);
-
   // Convert to MoveInstructions
-  for (long i = 1; i < states.cols(); ++i)
+  for (long i = 1; i < states.cols() - 1; ++i)
   {
-    MoveInstruction move_instruction(StateWaypoint(joint_names, states.col(i)), move_type);
-    move_instruction.setManipulatorInfo(base_instruction.getManipulatorInfo());
-    move_instruction.setDescription(base_instruction.getDescription());
-    move_instruction.setProfile(base_instruction.getProfile());
-    move_instruction.profile_overrides = base_instruction.profile_overrides;
+    MoveInstruction move_instruction(StateWaypoint(joint_names, states.col(i)), base_instruction);
+    move_instruction.setProfile(base_instruction.getPathProfile());
+    move_instruction.setPathProfile(base_instruction.getPathProfile());
     composite.push_back(move_instruction);
   }
+
+  MoveInstruction move_instruction(StateWaypoint(joint_names, states.col(states.cols() - 1)), base_instruction);
+  composite.push_back(move_instruction);
 
   return composite;
 }
