@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/waypoint_type.h>
-#include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_common/utils.h>
 
@@ -171,12 +170,11 @@ public:
   Eigen::VectorXd upper_tolerance;
 
   /**
-   * @brief Allow storing a seed associated with this cartesian waypoint
-   * @details Using the waypoint type erasure type to allow user defined types.
-   * The most common type that would be used it the joint waypoint for the following
-   *   - providing a seed to the IK solver
+   * @brief Waypoint seed associated with this Cartesian waypoint
+   * @details The waypoint seed can be used for purposes like:
+   *   - providing a joint state seed to an IK solver
    *   - providing a seed to the IK solver with modified limits using the tolerances
-   *   - providing a state to be used in a simple planner for interpolation to avoid running IK
+   *   - providing a joint state to be used by a motion planner for interpolation to avoid performing IK
    */
   Waypoint seed{ NullWaypoint() };
 
