@@ -12,6 +12,7 @@ void tesseract_planning::CartesianWaypoint::serialize(Archive& ar, const unsigne
   ar& BOOST_SERIALIZATION_NVP(waypoint);
   ar& BOOST_SERIALIZATION_NVP(upper_tolerance);
   ar& BOOST_SERIALIZATION_NVP(lower_tolerance);
+  ar& BOOST_SERIALIZATION_NVP(seed);
 }
 
 #include <boost/archive/xml_oarchive.hpp>

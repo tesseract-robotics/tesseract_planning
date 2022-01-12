@@ -34,6 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -169,8 +171,18 @@ public:
   Eigen::VectorXd upper_tolerance;
 
   /**
-   * @brief Returns true if waypoint is toleranced
-   * @return True if waypoint is toleranced
+   * @brief Allow storing a seed associated with this cartesian waypoint
+   * @details Using the waypoint type erasure type to allow user defined types.
+   * The most common type that would be used it the joint waypoint for the following
+   *   - providing a seed to the IK solver
+   *   - providing a seed to the IK solver with modified limits using the tolerances
+   *   - providing a state to be used in a simple planner for interpolation to avoid running IK
+   */
+  Waypoint seed{ NullWaypoint() };
+
+  /**
+   * @brief Returns true if waypoint has tolerances
+   * @return True if waypoint has tolerances
    */
   bool isToleranced() const
   {
@@ -197,6 +209,7 @@ public:
     equal &= waypoint.isApprox(rhs.waypoint);
     equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
     equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
+    equal &= (seed == rhs.seed);
     return equal;
   }
   bool operator!=(const CartesianWaypoint& rhs) const { return !operator==(rhs); }
