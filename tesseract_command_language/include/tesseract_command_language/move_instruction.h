@@ -131,7 +131,7 @@ public:
 
 private:
   MoveInstructionType move_type_{ MoveInstructionType::START };
-  std::string description_;
+  std::string description_{ "Tesseract Move Instruction" };
 
   /** @brief The profile used for this move instruction */
   std::string profile_{ DEFAULT_PROFILE_KEY };

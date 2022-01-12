@@ -92,21 +92,33 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
   request.env = env_;
   request.env_state = env_->getState();
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(composite.size(), 10);
-  for (const auto& c : composite)
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
+
     const auto& mi = c.as<MoveInstruction>();
     EXPECT_TRUE(wp1.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   }
+  const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_TRUE(wp1.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 }
 
 TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint_AssignJointPosition)  // NOLINT
@@ -115,21 +127,33 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
   request.env = env_;
   request.env_state = env_->getState();
   CartesianWaypoint wp1 = Eigen::Isometry3d::Identity();
-  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Zero(7));
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Zero(7));
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(composite.size(), 10);
-  for (const auto& c : composite)
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
+
     const auto& mi = c.as<MoveInstruction>();
     EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   }
+  const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 }
 
 TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCartesian_AssignJointPosition)  // NOLINT
@@ -138,23 +162,35 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
   request.env = env_;
   request.env_state = env_->getState();
   CartesianWaypoint wp1 = Eigen::Isometry3d::Identity();
-  CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  CartesianWaypoint wp2 = Eigen::Isometry3d::Identity();
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   auto fwd_kin = env_->getJointGroup(manip_info_.manipulator);
   Eigen::VectorXd position = request.env_state.getJointValues(fwd_kin->getJointNames());
   EXPECT_EQ(composite.size(), 10);
-  for (const auto& c : composite)
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
+
     const auto& mi = c.as<MoveInstruction>();
     EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   }
+  const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 }
 
 int main(int argc, char** argv)

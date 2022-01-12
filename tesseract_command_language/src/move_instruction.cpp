@@ -123,10 +123,7 @@ void MoveInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_inf
 const ManipulatorInfo& MoveInstruction::getManipulatorInfo() const { return manipulator_info_; }
 ManipulatorInfo& MoveInstruction::getManipulatorInfo() { return manipulator_info_; }
 
-void MoveInstruction::setProfile(const std::string& profile)
-{
-  profile_ = (profile.empty()) ? DEFAULT_PROFILE_KEY : profile;
-}
+void MoveInstruction::setProfile(const std::string& profile) { profile_ = profile; }
 const std::string& MoveInstruction::getProfile() const { return profile_; }
 
 void MoveInstruction::setPathProfile(const std::string& profile) { path_profile_ = profile; }

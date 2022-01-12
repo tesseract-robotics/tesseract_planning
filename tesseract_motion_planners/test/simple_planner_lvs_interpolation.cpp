@@ -95,31 +95,40 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   request.env_state = env_->getState();
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  for (const auto& c : composite)
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
   }
   const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
   SimplePlannerLVSPlanProfile cs_profile(6.28, 0.5, 1.57, min_steps);
-  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cs = cs_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure state_longest_valid_segment_length is used
   double longest_valid_segment_length = 0.05;
   SimplePlannerLVSPlanProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
-  auto cl = cl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cl = cl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   double dist = (wp1 - wp2).norm();
   int steps = int(dist / longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
@@ -134,31 +143,40 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  for (const auto& c : composite)
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
   }
   const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
   SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
-  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cs = cs_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure translation_longest_valid_segment_length is used when large motion given
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
-  auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto ctl = ctl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1).at(manip_info_.tcp_frame);
   Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2).at(manip_info_.tcp_frame);
   double trans_dist = (p2.translation() - p1.translation()).norm();
@@ -169,7 +187,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   // Ensure rotation_longest_valid_segment_length is used
   double rotation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile crl_profile(6.28, 10, rotation_longest_valid_segment_length, min_steps);
-  auto crl = crl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto crl = crl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(p1.linear()).angularDistance(Eigen::Quaterniond(p2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
@@ -184,19 +202,29 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
+
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  for (const auto& c : composite)
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
   }
   const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
   Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
@@ -204,13 +232,13 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
   SimplePlannerLVSPlanProfile cs_profile(6.28, 0.5, 1.57, min_steps);
-  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cs = cs_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure state_longest_valid_segment_length is used
   double longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
-  auto cl = cl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cl = cl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
@@ -222,20 +250,28 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = request.env->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
-
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  for (const auto& c : composite)
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
   }
   const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
   Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
@@ -243,13 +279,13 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
   SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
-  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cs = cs_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure translation_longest_valid_segment_length is used
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
-  auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto ctl = ctl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   Eigen::Isometry3d p1 = joint_group->calcFwdKin(wp1).at(manip_info_.tcp_frame);
   double trans_dist = (wp2.translation() - p1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
@@ -259,7 +295,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   // Ensure rotation_longest_valid_segment_length is used
   double rotation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile crl_profile(6.28, 10, rotation_longest_valid_segment_length, min_steps);
-  auto crl = crl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto crl = crl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(p1.linear()).angularDistance(Eigen::Quaterniond(wp2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
@@ -275,31 +311,40 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
-  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  for (const auto& c : composite)
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
   }
   const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
   SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
-  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cs = cs_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure state_longest_valid_segment_length is used
   double longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
-  auto cl = cl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cl = cl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
@@ -312,31 +357,40 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
-  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  for (const auto& c : composite)
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
   }
   const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
 
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
   SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
-  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cs = cs_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure translation_longest_valid_segment_length is used
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
-  auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto ctl = ctl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   Eigen::Isometry3d p2 = joint_group->calcFwdKin(wp2).at(manip_info_.tcp_frame);
   double trans_dist = (p2.translation() - wp1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
@@ -346,7 +400,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   // Ensure rotation_longest_valid_segment_length is used
   double rotation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile crl_profile(6.28, 10, rotation_longest_valid_segment_length, min_steps);
-  auto crl = crl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto crl = crl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(wp1.linear()).angularDistance(Eigen::Quaterniond(p2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
@@ -362,19 +416,28 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
-  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
   PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  for (const auto& c : composite)
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
   }
   const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
   Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
@@ -382,13 +445,13 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
   SimplePlannerLVSPlanProfile cs_profile(6.28, 0.5, 1.57, min_steps);
-  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cs = cs_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure state_longest_valid_segment_length is used
   double longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile cl_profile(longest_valid_segment_length, 10, 6.28, min_steps);
-  auto cl = cl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cl = cl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_TRUE(static_cast<int>(cl.size()) > min_steps);
 }
 
@@ -401,19 +464,28 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
-  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
+  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
   PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed(wp1_seed, instr1);
+
+  CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
   PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
+  NullInstruction instr3;
+
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
-  auto composite = profile.generate(instr1, instr2, request, ManipulatorInfo());
-  for (const auto& c : composite)
+  auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
+  for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
+    const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
     EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
   }
   const auto& mi = composite.back().as<MoveInstruction>();
+  EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+  EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;
   Eigen::Isometry3d final_pose = joint_group->calcFwdKin(last_position).at(manip_info_.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(final_pose, 1e-3));
@@ -421,13 +493,13 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   // Ensure equal to minimum number steps when all params set large
   int min_steps = 5;
   SimplePlannerLVSPlanProfile cs_profile(6.28, 10, 6.28, min_steps);
-  auto cs = cs_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto cs = cs_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   EXPECT_EQ(cs.size(), min_steps);
 
   // Ensure translation_longest_valid_segment_length is used
   double translation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile ctl_profile(6.28, translation_longest_valid_segment_length, 6.28, min_steps);
-  auto ctl = ctl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto ctl = ctl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   double trans_dist = (wp2.translation() - wp1.translation()).norm();
   int trans_steps = int(trans_dist / translation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(ctl.size()) > min_steps);
@@ -436,7 +508,7 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   // Ensure rotation_longest_valid_segment_length is used
   double rotation_longest_valid_segment_length = 0.01;
   SimplePlannerLVSPlanProfile crl_profile(6.28, 10, rotation_longest_valid_segment_length, min_steps);
-  auto crl = crl_profile.generate(instr1, instr2, request, ManipulatorInfo());
+  auto crl = crl_profile.generate(instr1, instr1_seed, instr2, instr3, request, ManipulatorInfo());
   double rot_dist = Eigen::Quaterniond(wp1.linear()).angularDistance(Eigen::Quaterniond(wp2.linear()));
   int rot_steps = int(rot_dist / rotation_longest_valid_segment_length) + 1;
   EXPECT_TRUE(static_cast<int>(crl.size()) > min_steps);
