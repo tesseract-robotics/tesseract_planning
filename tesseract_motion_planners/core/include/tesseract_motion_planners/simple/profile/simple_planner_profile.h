@@ -67,10 +67,11 @@ public:
    * @param global_manip_info The global manipulator information
    * @return A composite instruction representing the seed for the base_instruction
    */
-  virtual DEPRECATED() CompositeInstruction generate(const PlanInstruction& /*prev_instruction*/,
-                                                     const PlanInstruction& /*base_instruction*/,
-                                                     const PlannerRequest& /*request*/,
-                                                     const ManipulatorInfo& /*global_manip_info*/) const
+  virtual DEPRECATED("Use other generate method.") CompositeInstruction
+      generate(const PlanInstruction& /*prev_instruction*/,
+               const PlanInstruction& /*base_instruction*/,
+               const PlannerRequest& /*request*/,
+               const ManipulatorInfo& /*global_manip_info*/) const
   {
     throw std::runtime_error("SimplePlannerPlanProfile, this must be implemented in the derived class");
   }
