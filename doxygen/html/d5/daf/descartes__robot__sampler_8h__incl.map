@@ -1,41 +1,42 @@
 <map id="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_robot_sampler.h" name="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/descartes_robot_sampler.h">
-<area shape="rect" id="node1" title="Tesseract Descartes Kinematics Sampler." alt="" coords="1418,5,1605,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1428,511,1619,537"/>
-<area shape="rect" id="node3" title=" " alt="" coords="565,414,705,455"/>
-<area shape="rect" id="node4" title=" " alt="" coords="2901,131,2996,158"/>
-<area shape="rect" id="node5" title=" " alt="" coords="730,421,789,448"/>
-<area shape="rect" id="node6" title=" " alt="" coords="3021,124,3181,165"/>
-<area shape="rect" id="node7" href="$d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="1668,124,1853,165"/>
-<area shape="rect" id="node29" href="$de/d2e/descartes__collision_8h.html" title="Tesseract Descartes Collision Implementation." alt="" coords="302,310,510,351"/>
-<area shape="rect" id="node33" href="$d7/d5d/tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="1173,213,1351,255"/>
-<area shape="rect" id="node8" title=" " alt="" coords="1885,221,2063,247"/>
-<area shape="rect" id="node9" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1661,213,1860,255"/>
-<area shape="rect" id="node10" title=" " alt="" coords="2079,317,2165,344"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1466,421,1581,448"/>
-<area shape="rect" id="node12" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="2188,310,2387,351"/>
-<area shape="rect" id="node27" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="1661,310,1860,351"/>
-<area shape="rect" id="node28" title=" " alt="" coords="1885,317,2055,344"/>
-<area shape="rect" id="node13" title=" " alt="" coords="1323,421,1391,448"/>
-<area shape="rect" id="node14" title=" " alt="" coords="2520,421,2575,448"/>
-<area shape="rect" id="node15" title=" " alt="" coords="2599,421,2675,448"/>
-<area shape="rect" id="node16" title=" " alt="" coords="2699,414,2825,455"/>
-<area shape="rect" id="node17" title=" " alt="" coords="1707,414,1833,455"/>
-<area shape="rect" id="node18" title=" " alt="" coords="1857,414,1984,455"/>
-<area shape="rect" id="node19" title=" " alt="" coords="2008,414,2135,455"/>
-<area shape="rect" id="node20" title=" " alt="" coords="2159,414,2301,455"/>
-<area shape="rect" id="node21" href="$dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="2900,414,3099,455"/>
-<area shape="rect" id="node26" title=" " alt="" coords="2325,414,2495,455"/>
-<area shape="rect" id="node22" title=" " alt="" coords="3045,511,3111,537"/>
-<area shape="rect" id="node23" title=" " alt="" coords="3135,511,3205,537"/>
-<area shape="rect" id="node24" title=" " alt="" coords="2592,511,2796,537"/>
-<area shape="rect" id="node25" title=" " alt="" coords="2821,511,3021,537"/>
-<area shape="rect" id="node30" title=" " alt="" coords="386,414,541,455"/>
-<area shape="rect" id="node31" title=" " alt="" coords="5,407,156,463"/>
-<area shape="rect" id="node32" title=" " alt="" coords="181,414,311,455"/>
-<area shape="rect" id="node34" title=" " alt="" coords="1145,317,1224,344"/>
-<area shape="rect" id="node35" title=" " alt="" coords="1109,414,1247,455"/>
-<area shape="rect" id="node36" href="$df/dfc/descartes__vertex__evaluator_8h.html" title="Tesseract Descartes Vertex Evaluator." alt="" coords="1299,303,1486,359"/>
-<area shape="rect" id="node37" href="$d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="845,310,1052,351"/>
-<area shape="rect" id="node38" title=" " alt="" coords="895,414,1034,455"/>
-<area shape="rect" id="node39" title=" " alt="" coords="813,421,871,448"/>
+<area shape="rect" id="node1" title="Tesseract Descartes Kinematics Sampler." alt="" coords="2903,5,3089,76"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1651,600,1842,627"/>
+<area shape="rect" id="node3" title=" " alt="" coords="3134,503,3274,545"/>
+<area shape="rect" id="node4" title=" " alt="" coords="3182,131,3277,158"/>
+<area shape="rect" id="node5" title=" " alt="" coords="3299,511,3357,537"/>
+<area shape="rect" id="node6" title=" " alt="" coords="3301,124,3461,165"/>
+<area shape="rect" id="node7" href="$d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="1754,124,1939,165"/>
+<area shape="rect" id="node30" href="$de/d2e/descartes__collision_8h.html" title="Tesseract Descartes Collision Implementation." alt="" coords="1971,399,2179,441"/>
+<area shape="rect" id="node34" href="$d7/d5d/tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="2619,303,2797,344"/>
+<area shape="rect" id="node8" title=" " alt="" coords="1544,221,1723,247"/>
+<area shape="rect" id="node9" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1747,213,1946,255"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1880,310,1965,337"/>
+<area shape="rect" id="node11" title=" " alt="" coords="2536,511,2651,537"/>
+<area shape="rect" id="node12" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="1103,399,1302,441"/>
+<area shape="rect" id="node27" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="1462,303,1661,344"/>
+<area shape="rect" id="node28" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1239,303,1438,344"/>
+<area shape="rect" id="node29" title=" " alt="" coords="1685,310,1856,337"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1989,511,2057,537"/>
+<area shape="rect" id="node14" title=" " alt="" coords="1603,511,1658,537"/>
+<area shape="rect" id="node15" title=" " alt="" coords="489,511,565,537"/>
+<area shape="rect" id="node16" title=" " alt="" coords="1453,503,1579,545"/>
+<area shape="rect" id="node17" title=" " alt="" coords="589,503,715,545"/>
+<area shape="rect" id="node18" title=" " alt="" coords="739,503,866,545"/>
+<area shape="rect" id="node19" title=" " alt="" coords="890,503,1017,545"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1041,503,1183,545"/>
+<area shape="rect" id="node21" href="$dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="215,503,414,545"/>
+<area shape="rect" id="node26" title=" " alt="" coords="1207,503,1377,545"/>
+<area shape="rect" id="node22" title=" " alt="" coords="552,600,619,627"/>
+<area shape="rect" id="node23" title=" " alt="" coords="5,600,75,627"/>
+<area shape="rect" id="node24" title=" " alt="" coords="99,600,303,627"/>
+<area shape="rect" id="node25" title=" " alt="" coords="328,600,528,627"/>
+<area shape="rect" id="node31" title=" " alt="" coords="2357,503,2512,545"/>
+<area shape="rect" id="node32" title=" " alt="" coords="2081,496,2231,552"/>
+<area shape="rect" id="node33" title=" " alt="" coords="1835,503,1965,545"/>
+<area shape="rect" id="node35" title=" " alt="" coords="2977,407,3055,433"/>
+<area shape="rect" id="node36" title=" " alt="" coords="2675,503,2813,545"/>
+<area shape="rect" id="node37" href="$df/dfc/descartes__vertex__evaluator_8h.html" title="Tesseract Descartes Vertex Evaluator." alt="" coords="2307,392,2493,448"/>
+<area shape="rect" id="node38" href="$d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="2746,399,2953,441"/>
+<area shape="rect" id="node39" title=" " alt="" coords="2888,503,3027,545"/>
+<area shape="rect" id="node40" title=" " alt="" coords="3051,511,3109,537"/>
 </map>

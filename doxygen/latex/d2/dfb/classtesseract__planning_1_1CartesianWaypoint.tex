@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$cartesian\+\_\+waypoint.\+h$>$}
 
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Cartesian\+Waypoint\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{db/d9d/classtesseract__planning_1_1CartesianWaypoint__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -53,7 +63,7 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aff9ff33469b
 \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_aa4d92c367361046248a0823430eb2427}{operator Eigen\+::\+Isometry3d \&}} ()
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_abc9a862e008f530b644e331c0aba9c24}{is\+Toleranced}} () const
-\begin{DoxyCompactList}\small\item\em Returns true if waypoint is toleranced. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns true if waypoint has tolerances. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_af97621c785fd0f45905a407b06ba5d6b}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \&rhs) const
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_acec128e53f208e555f9a88763821adfc}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \&rhs) const
@@ -68,7 +78,9 @@ Eigen\+::\+Isometry3d \mbox{\hyperlink{classtesseract__planning_1_1CartesianWayp
 Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_ac1b7fe49f6f66274db17ee2bdd4894ea}{lower\+\_\+tolerance}}
 \begin{DoxyCompactList}\small\item\em Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen\+::\+Angle\+Axisd.\+axis() $\ast$ Eigen\+::\+Angle\+Axisd.\+angle()) \end{DoxyCompactList}\item 
 Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_acb2234c33b744233913fa43229100616}{upper\+\_\+tolerance}}
-\begin{DoxyCompactList}\small\item\em Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen\+::\+Angle\+Axisd.\+axis() $\ast$ Eigen\+::\+Angle\+Axisd.\+angle()) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen\+::\+Angle\+Axisd.\+axis() $\ast$ Eigen\+::\+Angle\+Axisd.\+angle()) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint_a346d0cf53486b584c4396e67fce3f6a6}{seed}} \{ \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{Null\+Waypoint}}() \}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} seed associated with this Cartesian waypoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -148,10 +160,10 @@ true if two are approximate
 
 
 
-Returns true if waypoint is toleranced. 
+Returns true if waypoint has tolerances. 
 
 \begin{DoxyReturn}{Returns}
-True if waypoint is toleranced 
+True if waypoint has tolerances 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a8a6d6be6ec7829242b26a728909f5452}\label{classtesseract__planning_1_1CartesianWaypoint_a8a6d6be6ec7829242b26a728909f5452}} 
 \index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!linear@{linear}}
@@ -300,7 +312,22 @@ a read-\/only expression of the translation vector of the transformation
 
 Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen\+::\+Angle\+Axisd.\+axis() $\ast$ Eigen\+::\+Angle\+Axisd.\+angle()) 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_acb2234c33b744233913fa43229100616}\label{classtesseract__planning_1_1CartesianWaypoint_acb2234c33b744233913fa43229100616}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_a346d0cf53486b584c4396e67fce3f6a6}\label{classtesseract__planning_1_1CartesianWaypoint_a346d0cf53486b584c4396e67fce3f6a6}} 
+\index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!seed@{seed}}
+\index{seed@{seed}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
+\doxysubsubsection{\texorpdfstring{seed}{seed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+::seed \{ \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{Null\+Waypoint}}() \}}
+
+
+
+\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} seed associated with this Cartesian waypoint. 
+
+The waypoint seed can be used for purposes like\+:
+\begin{DoxyItemize}
+\item providing a joint state seed to an IK solver
+\item providing a seed to the IK solver with modified limits using the tolerances
+\item providing a joint state to be used by a motion planner for interpolation to avoid performing IK 
+\end{DoxyItemize}\mbox{\Hypertarget{classtesseract__planning_1_1CartesianWaypoint_acb2234c33b744233913fa43229100616}\label{classtesseract__planning_1_1CartesianWaypoint_acb2234c33b744233913fa43229100616}} 
 \index{tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}!upper\_tolerance@{upper\_tolerance}}
 \index{upper\_tolerance@{upper\_tolerance}!tesseract\_planning::CartesianWaypoint@{tesseract\_planning::CartesianWaypoint}}
 \doxysubsubsection{\texorpdfstring{upper\_tolerance}{upper\_tolerance}}
