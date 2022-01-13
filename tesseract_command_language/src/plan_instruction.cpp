@@ -108,6 +108,7 @@ bool PlanInstruction::operator==(const PlanInstruction& rhs) const
   equal &= (manipulator_info_ == rhs.manipulator_info_);
   equal &= (profile_ == rhs.profile_);            // NO LINT
   equal &= (path_profile_ == rhs.path_profile_);  // NO LINT
+  equal &= (user_data == rhs.user_data);          // NO LINT
   return equal;
 }
 
@@ -122,6 +123,7 @@ void PlanInstruction::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("path_profile", path_profile_);
   ar& boost::serialization::make_nvp("waypoint", waypoint_);
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
+  ar& boost::serialization::make_nvp("user_data", user_data);
 }
 
 }  // namespace tesseract_planning

@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/types.h>
+#include <tesseract_common/any.h>
 
 namespace tesseract_planning
 {
@@ -130,6 +131,12 @@ public:
 
   bool operator==(const PlanInstruction& rhs) const;
   bool operator!=(const PlanInstruction& rhs) const;
+
+  /**
+   * @brief Store user data
+   * @brief The object must be boost serializable
+   */
+  tesseract_common::Any user_data;
 
 private:
   PlanInstructionType plan_type_{ PlanInstructionType::START };
