@@ -303,9 +303,12 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     // Flatten results
     std::vector<std::reference_wrapper<const Instruction>> mi = flatten(program, moveFilter);
 
-    contacts.reserve(mi.size() - 1);
+    contacts.resize(mi.size() - 1);
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
     {
+      tesseract_collision::ContactResultMap& segment_results = contacts[static_cast<size_t>(iStep)];
+      segment_results.clear();
+
       const auto& swp0 = mi.at(iStep).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
       const auto& swp1 = mi.at(iStep + 1).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
 
@@ -322,10 +325,18 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         {
           tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
           tesseract_scene_graph::SceneState state1 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep + 1));
-          if (tesseract_environment::checkTrajectorySegment(
-                  contacts, manager, state0.link_transforms, state1.link_transforms, config.contact_request))
+          tesseract_collision::ContactResultMap sub_segment_results = tesseract_environment::checkTrajectorySegment(
+              manager, state0.link_transforms, state1.link_transforms, config.contact_request);
+          if (!sub_segment_results.empty())
           {
             found = true;
+            tesseract_environment::processInterpolatedSubSegmentCollisionResults(segment_results,
+                                                                                 sub_segment_results,
+                                                                                 iSubStep,
+                                                                                 static_cast<int>(subtraj.rows() - 1),
+                                                                                 manager.getActiveCollisionObjects(),
+                                                                                 false);
+
             if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
             {
               std::stringstream ss;
@@ -356,55 +367,40 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         // Flatten results
         std::vector<std::reference_wrapper<const Instruction>> mi = flatten(program, moveFilter);
 
-        contacts.reserve(mi.size() - 1);
+        contacts.resize(mi.size() - 1);
         for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
         {
+          tesseract_collision::ContactResultMap& segment_results = contacts[static_cast<size_t>(iStep)];
+          segment_results.clear();
+
           const auto& swp0 = mi.at(iStep).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
           const auto& swp1 = mi.at(iStep + 1).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-
-          // TODO: Should check joint names and make sure they are in the same order
-          double dist = (swp1.position - swp0.position).norm();
-          if (dist > config.longest_valid_segment_length)
+          tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.joint_names, swp0.position);
+          tesseract_scene_graph::SceneState state1 = state_solver.getState(swp1.joint_names, swp1.position);
+          segment_results = tesseract_environment::checkTrajectorySegment(
+              manager, state0.link_transforms, state1.link_transforms, config);
+          if (!segment_results.empty())
           {
-            auto cnt = static_cast<long>(std::ceil(dist / config.longest_valid_segment_length)) + 1;
-            tesseract_common::TrajArray subtraj(cnt, swp0.position.size());
-            for (long iVar = 0; iVar < swp0.position.size(); ++iVar)
-              subtraj.col(iVar) = Eigen::VectorXd::LinSpaced(cnt, swp0.position(iVar), swp1.position(iVar));
-
-            for (int iSubStep = 0; iSubStep < subtraj.rows() - 1; ++iSubStep)
+            found = true;
+            if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
             {
-              tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
-              tesseract_scene_graph::SceneState state1 =
-                  state_solver.getState(swp0.joint_names, subtraj.row(iSubStep + 1));
-              if (tesseract_environment::checkTrajectorySegment(
-                      contacts, manager, state0.link_transforms, state1.link_transforms, config.contact_request))
-              {
-                found = true;
-                if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
-                {
-                  std::stringstream ss;
-                  ss << "Continuous collision detected at step: " << iStep << " of " << (mi.size() - 1)
-                     << " substep: " << iSubStep << std::endl;
+              std::stringstream ss;
+              ss << "Discrete collision detected at step: " << iStep << " of " << (mi.size() - 1) << std::endl;
 
-                  ss << "     Names:";
-                  for (const auto& name : swp0.joint_names)
-                    ss << " " << name;
+              ss << "     Names:";
+              for (const auto& name : swp0.joint_names)
+                ss << " " << name;
 
-                  ss << std::endl
-                     << "    State0: " << subtraj.row(iSubStep) << std::endl
-                     << "    State1: " << subtraj.row(iSubStep + 1) << std::endl;
+              ss << std::endl
+                 << "    State0: " << swp0.position << std::endl
+                 << "    State1: " << swp1.position << std::endl;
 
-                  CONSOLE_BRIDGE_logError(ss.str().c_str());
-                }
-              }
-
-              if (found && (config.contact_request.type == tesseract_collision::ContactTestType::FIRST))
-                break;
+              CONSOLE_BRIDGE_logError(ss.str().c_str());
             }
-
-            if (found && (config.contact_request.type == tesseract_collision::ContactTestType::FIRST))
-              break;
           }
+
+          if (found && (config.contact_request.type == tesseract_collision::ContactTestType::FIRST))
+            break;
         }
       }
     }
@@ -416,16 +412,19 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     // Flatten results
     std::vector<std::reference_wrapper<const Instruction>> mi = flatten(program, moveFilter);
 
-    contacts.reserve(mi.size());
+    contacts.resize(mi.size() - 1);
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
     {
+      tesseract_collision::ContactResultMap& segment_results = contacts[static_cast<size_t>(iStep)];
+      segment_results.clear();
+
       const auto& swp0 = mi.at(iStep).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
       const auto& swp1 = mi.at(iStep + 1).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
       tesseract_scene_graph::SceneState state0 = state_solver.getState(swp0.joint_names, swp0.position);
       tesseract_scene_graph::SceneState state1 = state_solver.getState(swp1.joint_names, swp1.position);
-
-      if (tesseract_environment::checkTrajectorySegment(
-              contacts, manager, state0.link_transforms, state1.link_transforms, config))
+      segment_results = tesseract_environment::checkTrajectorySegment(
+          manager, state0.link_transforms, state1.link_transforms, config);
+      if (!segment_results.empty())
       {
         found = true;
         if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
@@ -473,9 +472,12 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     // Flatten results
     std::vector<std::reference_wrapper<const Instruction>> mi = flatten(program, moveFilter);
 
-    contacts.reserve(mi.size());
+    contacts.resize(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size(); ++iStep)
     {
+      tesseract_collision::ContactResultMap& segment_results = contacts[static_cast<size_t>(iStep)];
+      segment_results.clear();
+
       const auto& swp0 = mi.at(iStep).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
       const StateWaypoint* swp1 = nullptr;
 
@@ -496,9 +498,18 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
         for (int iSubStep = 0; iSubStep < subtraj.rows() - 1; ++iSubStep)
         {
           tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, subtraj.row(iSubStep));
-          if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config))
+          tesseract_collision::ContactResultMap sub_segment_results =
+              tesseract_environment::checkTrajectoryState(manager, state.link_transforms, config);
+          if (!sub_segment_results.empty())
           {
             found = true;
+            tesseract_environment::processInterpolatedSubSegmentCollisionResults(segment_results,
+                                                                                 sub_segment_results,
+                                                                                 iSubStep,
+                                                                                 static_cast<int>(subtraj.rows() - 1),
+                                                                                 manager.getActiveCollisionObjects(),
+                                                                                 true);
+
             if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
             {
               std::stringstream ss;
@@ -525,10 +536,13 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
       else
       {
         tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, swp0.position);
-        if (tesseract_environment::checkTrajectoryState(
-                contacts, manager, state.link_transforms, config.contact_request))
+        tesseract_collision::ContactResultMap sub_segment_results =
+            tesseract_environment::checkTrajectoryState(manager, state.link_transforms, config.contact_request);
+        if (!sub_segment_results.empty())
         {
           found = true;
+          tesseract_environment::processInterpolatedSubSegmentCollisionResults(
+              segment_results, sub_segment_results, 0, 0, manager.getActiveCollisionObjects(), true);
           if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
           {
             std::stringstream ss;
@@ -554,15 +568,22 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     // Flatten results
     std::vector<std::reference_wrapper<const Instruction>> mi = flatten(program, moveFilter);
 
-    contacts.reserve(mi.size());
+    contacts.resize(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
     {
+      tesseract_collision::ContactResultMap& segment_results = contacts[static_cast<size_t>(iStep)];
+      segment_results.clear();
+
       const auto& swp0 = mi.at(iStep).get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
 
       tesseract_scene_graph::SceneState state = state_solver.getState(swp0.joint_names, swp0.position);
-      if (tesseract_environment::checkTrajectoryState(contacts, manager, state.link_transforms, config.contact_request))
+      tesseract_collision::ContactResultMap sub_segment_results =
+          tesseract_environment::checkTrajectoryState(manager, state.link_transforms, config.contact_request);
+      if (!sub_segment_results.empty())
       {
         found = true;
+        tesseract_environment::processInterpolatedSubSegmentCollisionResults(
+            segment_results, sub_segment_results, 0, 0, manager.getActiveCollisionObjects(), true);
         if (console_bridge::getLogLevel() > console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_INFO)
         {
           std::stringstream ss;

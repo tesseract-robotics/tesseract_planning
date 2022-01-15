@@ -53,15 +53,13 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   auto env = input.env;
   auto joint_group = env->getJointGroup(input.manip_info.manipulator);
 
-  std::vector<ContactResultMap> collisions;
   DiscreteContactManager::Ptr manager = env->getDiscreteContactManager();
   manager->setActiveCollisionObjects(joint_group->getActiveLinkNames());
   manager->applyContactManagerConfig(profile.collision_check_config.contact_manager_config);
 
-  collisions.clear();
-
   tesseract_common::TransformMap state = joint_group->calcFwdKin(start_pos);
-  if (!checkTrajectoryState(collisions, *manager, state, profile.collision_check_config))
+  contacts = checkTrajectoryState(*manager, state, profile.collision_check_config);
+  if (contacts.empty())
   {
     CONSOLE_BRIDGE_logDebug("No collisions found");
     if (profile.collision_check_config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
@@ -70,16 +68,12 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   }
 
   CONSOLE_BRIDGE_logDebug("Waypoint is not contact free!");
-  for (std::size_t i = 0; i < collisions.size(); i++)
+  for (const auto& pair : contacts)
   {
-    for (const auto& contact_vec : collisions[i])
-    {
-      for (const auto& contact : contact_vec.second)
-        CONSOLE_BRIDGE_logDebug(("timestep: " + std::to_string(i) + " Links: " + contact.link_names[0] + ", " +
-                                 contact.link_names[1] + " Dist: " + std::to_string(contact.distance))
-                                    .c_str());
-      contacts = collisions[i];
-    }
+    for (const auto& contact : pair.second)
+      CONSOLE_BRIDGE_logDebug(("Contact Results: Links: " + contact.link_names[0] + ", " + contact.link_names[1] +
+                               " Dist: " + std::to_string(contact.distance))
+                                  .c_str());
   }
 
   return true;
