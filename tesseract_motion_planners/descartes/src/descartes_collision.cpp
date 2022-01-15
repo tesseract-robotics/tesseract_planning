@@ -58,11 +58,11 @@ bool DescartesCollision::validate(const Eigen::Ref<const Eigen::VectorXd>& pos)
   // 1. Compute the transform of all objects
   tesseract_common::TransformMap state = manip_->calcFwdKin(pos);
 
-  std::vector<tesseract_collision::ContactResultMap> results;
   tesseract_collision::CollisionCheckConfig config(collision_check_config_);
   config.contact_request.type = tesseract_collision::ContactTestType::FIRST;
-  bool in_contact = tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
-  return (!in_contact);
+  tesseract_collision::ContactResultMap results =
+      tesseract_environment::checkTrajectoryState(*contact_manager_, state, config);
+  return results.empty();
 }
 
 double DescartesCollision::distance(const Eigen::Ref<const Eigen::VectorXd>& pos)
@@ -71,15 +71,15 @@ double DescartesCollision::distance(const Eigen::Ref<const Eigen::VectorXd>& pos
   // 1. Compute the transform of all objects
   tesseract_common::TransformMap state = manip_->calcFwdKin(pos);
 
-  std::vector<tesseract_collision::ContactResultMap> results;
   tesseract_collision::CollisionCheckConfig config(collision_check_config_);
   config.contact_request.type = tesseract_collision::ContactTestType::CLOSEST;
-  bool in_contact = tesseract_environment::checkTrajectoryState(results, *contact_manager_, state, config);
+  tesseract_collision::ContactResultMap results =
+      tesseract_environment::checkTrajectoryState(*contact_manager_, state, config);
 
-  if (!in_contact)
+  if (results.empty())
     return contact_manager_->getCollisionMarginData().getMaxCollisionMargin();
 
-  return results.begin()->begin()->second[0].distance;
+  return results.begin()->second.front().distance;
 }
 
 DescartesCollision::Ptr DescartesCollision::clone() const { return std::make_shared<DescartesCollision>(*this); }
