@@ -162,7 +162,8 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   // Enforce limits
   for (Eigen::Index i = 0; i < trajectory.rows(); i++)
   {
-    assert(tesseract_common::satisfiesPositionLimits(trajectory.row(i), problem->GetKin()->getLimits().joint_limits));
+    assert(tesseract_common::satisfiesPositionLimits(
+        trajectory.row(i), problem->GetKin()->getLimits().joint_limits, 1e-4));
     tesseract_common::enforcePositionLimits(trajectory.row(i), problem->GetKin()->getLimits().joint_limits);
   }
 
