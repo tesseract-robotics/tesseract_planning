@@ -239,20 +239,33 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
         }
       }
 
-      std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
-      SimplePlannerPlanProfile::ConstPtr start_plan_profile = getProfile<SimplePlannerPlanProfile>(
-          name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-      start_plan_profile =
-          applyProfileOverrides(name_, profile, start_plan_profile, base_instruction.profile_overrides);
-      if (!start_plan_profile)
-        throw std::runtime_error("SimpleMotionPlanner: Invalid start profile");
+      // If a path profile exists for the instruction it should use that instead of the termination profile
+      SimplePlannerPlanProfile::ConstPtr plan_profile;
+      if (base_instruction.getPathProfile().empty())
+      {
+        std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
+        plan_profile = getProfile<SimplePlannerPlanProfile>(
+            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.profile_overrides);
+      }
+      else
+      {
+        std::string profile =
+            getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
+        plan_profile = getProfile<SimplePlannerPlanProfile>(
+            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.profile_overrides);
+      }
 
-      CompositeInstruction instruction_seed = start_plan_profile->generate(prev_instruction,
-                                                                           prev_seed,
-                                                                           base_instruction,
-                                                                           next_instruction,
-                                                                           request,
-                                                                           request.instructions.getManipulatorInfo());
+      if (!plan_profile)
+        throw std::runtime_error("SimpleMotionPlanner: Invalid profile");
+
+      CompositeInstruction instruction_seed = plan_profile->generate(prev_instruction,
+                                                                     prev_seed,
+                                                                     base_instruction,
+                                                                     next_instruction,
+                                                                     request,
+                                                                     request.instructions.getManipulatorInfo());
       seed.push_back(instruction_seed);
 
       prev_instruction = base_instruction;
