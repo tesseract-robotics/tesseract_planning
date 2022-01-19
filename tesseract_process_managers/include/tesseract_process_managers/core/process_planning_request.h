@@ -59,6 +59,9 @@ struct ProcessPlanningRequest
   /** @brief Enable profiling of the planning request (Optional) */
   bool profile{ false };
 
+  /** @brief Indicate if tasks should store input and output results in the task info */
+  bool save_io{ false };
+
   /**
    * @brief This allows the remapping of the Plan Profile identified in the command language to a specific profile for a
    * given motion planner. (Optional)

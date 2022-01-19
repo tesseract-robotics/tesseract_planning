@@ -166,6 +166,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
                        response.results.get(),
                        has_seed,
                        profiles_);
+  task_input.save_io = request.save_io;
   response.interface = task_input.getTaskInterface();
   response.taskflow_container = it->second->generateTaskflow(task_input, nullptr, nullptr);
 
