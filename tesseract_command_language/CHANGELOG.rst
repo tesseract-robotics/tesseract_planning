@@ -2,6 +2,13 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add seed parameter to cartesian waypoint (`#161 <https://github.com/tesseract-robotics/tesseract_planning/issues/161>`_)
+* Add path profile to plan and move instruction and modify simple plan profile interface (`#159 <https://github.com/tesseract-robotics/tesseract_planning/issues/159>`_)
+* Fix random boost serializaton segfault
+* Contributors: Levi Armstrong
+
 0.7.3 (2021-12-21)
 ------------------
 

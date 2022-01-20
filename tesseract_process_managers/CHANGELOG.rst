@@ -2,6 +2,14 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Expose save input and output for tasks in process planning request
+* Update for fix in checkTrajectory and supporting functions
+* Make ProcessPlanningServer::run const (`#160 <https://github.com/tesseract-robotics/tesseract_planning/issues/160>`_)
+* Print collision details when fix state collision task trajopt failure
+* Contributors: Levi Armstrong, Matthew Powelson
+
 0.7.3 (2021-12-21)
 ------------------
 * Add additional option to fix state collision profile

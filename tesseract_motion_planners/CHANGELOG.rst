@@ -2,6 +2,15 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Simple planner should default to path profile if it exists
+* Relax assert on satisfiesPositionLimits tolernace to 1e-4 for trajopt planners
+* Update for fix in checkTrajectory and supporting functions
+* Add seed parameter to cartesian waypoint (`#161 <https://github.com/tesseract-robotics/tesseract_planning/issues/161>`_)
+* Add path profile to plan and move instruction and modify simple plan profile interface (`#159 <https://github.com/tesseract-robotics/tesseract_planning/issues/159>`_)
+* Contributors: Levi Armstrong
+
 0.7.3 (2021-12-21)
 ------------------
 
