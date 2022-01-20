@@ -2,8 +2,8 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.8.0 (2022-01-20)
+------------------
 * Expose save input and output for tasks in process planning request
 * Update for fix in checkTrajectory and supporting functions
 * Make ProcessPlanningServer::run const (`#160 <https://github.com/tesseract-robotics/tesseract_planning/issues/160>`_)

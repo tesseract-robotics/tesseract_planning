@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.8.0 (2022-01-20)
+------------------
 * Simple planner should default to path profile if it exists
 * Relax assert on satisfiesPositionLimits tolernace to 1e-4 for trajopt planners
 * Update for fix in checkTrajectory and supporting functions
