@@ -2,6 +2,9 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.8.0 (2022-01-20)
 ------------------
 * Simple planner should default to path profile if it exists

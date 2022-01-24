@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Second attempt to fix random serialization segfault
+* Contributors: Levi Armstrong
+
 0.8.0 (2022-01-20)
 ------------------
 * Add seed parameter to cartesian waypoint (`#161 <https://github.com/tesseract-robotics/tesseract_planning/issues/161>`_)
