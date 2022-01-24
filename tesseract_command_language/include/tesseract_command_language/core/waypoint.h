@@ -105,9 +105,7 @@ struct WaypointInnerBase
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
-  {
-  }
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
 };
 
 template <typename T>
@@ -215,23 +213,16 @@ public:
   ~Waypoint() = default;
 
   // Copy constructor
-  Waypoint(const Waypoint& other) { waypoint_ = other.waypoint_->clone(); }
+  Waypoint(const Waypoint& other);
 
   // Move ctor.
-  Waypoint(Waypoint&& other) noexcept { waypoint_.swap(other.waypoint_); }
+  Waypoint(Waypoint&& other) noexcept;
+
   // Move assignment.
-  Waypoint& operator=(Waypoint&& other) noexcept
-  {
-    waypoint_.swap(other.waypoint_);
-    return (*this);
-  }
+  Waypoint& operator=(Waypoint&& other) noexcept;
 
   // Copy assignment.
-  Waypoint& operator=(const Waypoint& other)
-  {
-    (*this) = Waypoint(other);
-    return (*this);
-  }
+  Waypoint& operator=(const Waypoint& other);
 
   template <typename T, generic_ctor_enabler<T> = 0>
   Waypoint& operator=(T&& other)
@@ -240,19 +231,20 @@ public:
     return (*this);
   }
 
-  std::type_index getType() const { return waypoint_->getType(); }
+  std::type_index getType() const;
 
-  void print(const std::string& prefix = "") const { waypoint_->print(prefix); }
+  void print(const std::string& prefix = "") const;
 
-  bool operator==(const Waypoint& rhs) const { return waypoint_->operator==(*rhs.waypoint_); }
+  bool operator==(const Waypoint& rhs) const;
 
-  bool operator!=(const Waypoint& rhs) const { return !operator==(rhs); }
+  bool operator!=(const Waypoint& rhs) const;
 
   template <typename T>
   T& as()
   {
     if (getType() != typeid(T))
-      throw std::bad_cast();
+      throw std::runtime_error("Waypoint, tried to cast '" + std::string(getType().name()) + "' to '" +
+                               std::string(typeid(T).name()) + "'!");
 
     auto* p = static_cast<uncvref_t<T>*>(waypoint_->recover());
     return *p;
@@ -262,7 +254,8 @@ public:
   const T& as() const
   {
     if (getType() != typeid(T))
-      throw std::bad_cast();
+      throw std::runtime_error("Waypoint, tried to cast '" + std::string(getType().name()) + "' to '" +
+                               std::string(typeid(T).name()) + "'!");
 
     const auto* p = static_cast<const uncvref_t<T>*>(waypoint_->recover());
     return *p;
@@ -272,16 +265,10 @@ private:
   friend class boost::serialization::access;
   friend struct tesseract_planning::Serialization;
 
-  Waypoint()  // NOLINT
-    : waypoint_(nullptr)
-  {
-  }
+  Waypoint();  // NOLINT
 
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-  {
-    ar& boost::serialization::make_nvp("waypoint", waypoint_);
-  }
+  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 
   std::unique_ptr<detail_waypoint::WaypointInnerBase> waypoint_;
 };

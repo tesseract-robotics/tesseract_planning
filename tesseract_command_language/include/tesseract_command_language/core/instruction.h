@@ -115,9 +115,7 @@ struct InstructionInnerBase
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
-  {
-  }
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
 };
 
 template <typename T>
@@ -249,23 +247,16 @@ public:
   ~Instruction() = default;
 
   // Copy constructor
-  Instruction(const Instruction& other) { instruction_ = other.instruction_->clone(); }
+  Instruction(const Instruction& other);
 
   // Move ctor.
-  Instruction(Instruction&& other) noexcept { instruction_.swap(other.instruction_); }
+  Instruction(Instruction&& other) noexcept;
+
   // Move assignment.
-  Instruction& operator=(Instruction&& other) noexcept
-  {
-    instruction_.swap(other.instruction_);
-    return (*this);
-  }
+  Instruction& operator=(Instruction&& other) noexcept;
 
   // Copy assignment.
-  Instruction& operator=(const Instruction& other)
-  {
-    (*this) = Instruction(other);
-    return (*this);
-  }
+  Instruction& operator=(const Instruction& other);
 
   template <typename T, generic_ctor_enabler<T> = 0>
   Instruction& operator=(T&& other)
@@ -274,23 +265,24 @@ public:
     return (*this);
   }
 
-  std::type_index getType() const { return instruction_->getType(); }
+  std::type_index getType() const;
 
-  const std::string& getDescription() const { return instruction_->getDescription(); }
+  const std::string& getDescription() const;
 
-  void setDescription(const std::string& description) { instruction_->setDescription(description); }
+  void setDescription(const std::string& description);
 
-  void print(const std::string& prefix = "") const { instruction_->print(prefix); }
+  void print(const std::string& prefix = "") const;
 
-  bool operator==(const Instruction& rhs) const { return instruction_->operator==(*rhs.instruction_); }
+  bool operator==(const Instruction& rhs) const;
 
-  bool operator!=(const Instruction& rhs) const { return !operator==(rhs); }
+  bool operator!=(const Instruction& rhs) const;
 
   template <typename T>
   T& as()
   {
     if (getType() != typeid(T))
-      throw std::bad_cast();
+      throw std::runtime_error("Instruction, tried to cast '" + std::string(getType().name()) + "' to '" +
+                               std::string(typeid(T).name()) + "'!");
 
     auto* p = static_cast<uncvref_t<T>*>(instruction_->recover());
     return *p;
@@ -300,7 +292,8 @@ public:
   const T& as() const
   {
     if (getType() != typeid(T))
-      throw std::bad_cast();
+      throw std::runtime_error("Instruction, tried to cast '" + std::string(getType().name()) + "' to '" +
+                               std::string(typeid(T).name()) + "'!");
 
     const auto* p = static_cast<const uncvref_t<T>*>(instruction_->recover());
     return *p;
@@ -310,16 +303,10 @@ private:
   friend class boost::serialization::access;
   friend struct tesseract_planning::Serialization;
 
-  Instruction()  // NOLINT
-    : instruction_(nullptr)
-  {
-  }
+  Instruction();  // NOLINT
 
   template <class Archive>
-  void serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
-  {
-    ar& boost::serialization::make_nvp("instruction", instruction_);
-  }
+  void serialize(Archive& ar, const unsigned int /*version*/);  // NOLINT
 
   std::unique_ptr<detail_instruction::InstructionInnerBase> instruction_;
 };
