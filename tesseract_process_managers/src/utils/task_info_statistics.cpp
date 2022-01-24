@@ -88,7 +88,7 @@ void TaskInfoProfiler::load(const std::vector<std::vector<TaskInfo>>& task_info_
   }
 }
 
-void TaskInfoProfiler::load(const std::map<std::size_t, TaskInfo::ConstPtr>& task_info_map)
+void TaskInfoProfiler::load(const std::map<std::size_t, TaskInfo::UPtr>& task_info_map)
 {
   for (const auto& kv : task_info_map)
   {
@@ -101,7 +101,7 @@ void TaskInfoProfiler::clear() { stats_map.clear(); }
 void TaskInfoProfiler::print(std::ostream& os) const
 {
   using std::setw;
-  const std::vector<std::string> column_names = { "Task Name",    "Occurances",    "Min Time (s)",  "Max Time (s)",
+  const std::vector<std::string> column_names = { "Task Name",    "Occurrences",   "Min Time (s)",  "Max Time (s)",
                                                   "Avg Time (s)", "Return values", "Return value %" };
   const int column_width = 20;
 
@@ -126,7 +126,7 @@ void TaskInfoProfiler::print(std::ostream& os) const
 
     // Name
     os << setw(column_width * 2) << kv.first.substr(0, column_width * 2) << "|";
-    // Occurances
+    // Occurrences
     os << setw(column_width) << kv.second.occurances << "|";
     // Time
     os << setw(column_width) << kv.second.min_time << "|" << setw(column_width) << kv.second.max_time << "|"

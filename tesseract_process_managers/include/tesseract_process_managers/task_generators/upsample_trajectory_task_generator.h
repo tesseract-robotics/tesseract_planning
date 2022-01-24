@@ -73,6 +73,8 @@ public:
 
   UpsampleTrajectoryTaskInfo(std::size_t unique_id,
                              std::string name = profile_ns::UPSAMPLE_TRAJECTORY_DEFAULT_NAMESPACE);
+
+  TaskInfo::UPtr clone() const override;
 };
 }  // namespace tesseract_planning
 

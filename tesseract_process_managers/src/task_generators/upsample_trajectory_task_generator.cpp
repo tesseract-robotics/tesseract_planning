@@ -45,9 +45,8 @@ int UpsampleTrajectoryTaskGenerator::conditionalProcess(TaskInput input, std::si
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<UpsampleTrajectoryTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<UpsampleTrajectoryTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -59,6 +58,7 @@ int UpsampleTrajectoryTaskGenerator::conditionalProcess(TaskInput input, std::si
     CONSOLE_BRIDGE_logError("Input seed to UpsampleTrajectoryTaskGenerator must be a composite instruction");
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -82,6 +82,7 @@ int UpsampleTrajectoryTaskGenerator::conditionalProcess(TaskInput input, std::si
   info->return_value = 1;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 
@@ -153,4 +154,6 @@ UpsampleTrajectoryTaskInfo::UpsampleTrajectoryTaskInfo(std::size_t unique_id, st
   : TaskInfo(unique_id, std::move(name))
 {
 }
+
+TaskInfo::UPtr UpsampleTrajectoryTaskInfo::clone() const { return std::make_unique<UpsampleTrajectoryTaskInfo>(*this); }
 }  // namespace tesseract_planning

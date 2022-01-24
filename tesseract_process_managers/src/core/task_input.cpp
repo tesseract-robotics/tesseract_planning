@@ -268,17 +268,17 @@ Instruction TaskInput::getEndInstruction() const
   return *ci;
 }
 
-void TaskInput::addTaskInfo(const TaskInfo::ConstPtr& task_info)
+void TaskInput::addTaskInfo(TaskInfo::UPtr task_info)
 {
-  interface_->getTaskInfoContainer()->addTaskInfo(task_info);
+  interface_->getTaskInfoContainer()->addTaskInfo(std::move(task_info));
 }
 
-TaskInfo::ConstPtr TaskInput::getTaskInfo(const std::size_t& index) const
+TaskInfo::UPtr TaskInput::getTaskInfo(const std::size_t& index) const
 {
   return (*interface_->getTaskInfoContainer())[index];
 }
 
-std::map<std::size_t, TaskInfo::ConstPtr> TaskInput::getTaskInfoMap() const
+std::map<std::size_t, TaskInfo::UPtr> TaskInput::getTaskInfoMap() const
 {
   return interface_->getTaskInfoContainer()->getTaskInfoMap();
 }

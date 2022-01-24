@@ -47,9 +47,8 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<FixStateBoundsTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<FixStateBoundsTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -64,6 +63,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -84,6 +84,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     info->return_value = 1;
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 1;
   }
 
@@ -105,6 +106,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
+            input.addTaskInfo(std::move(info));
             return 0;
           }
         }
@@ -125,6 +127,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
+            input.addTaskInfo(std::move(info));
             return 0;
           }
         }
@@ -140,6 +143,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
         info->return_value = 1;
         saveOutputs(*info, input);
         info->elapsed_time = timer.elapsedSeconds();
+        input.addTaskInfo(std::move(info));
         return 1;
       }
 
@@ -162,6 +166,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
         {
           saveOutputs(*info, input);
           info->elapsed_time = timer.elapsedSeconds();
+          input.addTaskInfo(std::move(info));
           return 0;
         }
       }
@@ -171,6 +176,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       info->return_value = 1;
       saveOutputs(*info, input);
       info->elapsed_time = timer.elapsedSeconds();
+      input.addTaskInfo(std::move(info));
       return 1;
   }
 
@@ -178,6 +184,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   info->return_value = 1;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 
@@ -190,4 +197,6 @@ FixStateBoundsTaskInfo::FixStateBoundsTaskInfo(std::size_t unique_id, std::strin
   : TaskInfo(unique_id, std::move(name))
 {
 }
+
+TaskInfo::UPtr FixStateBoundsTaskInfo::clone() const { return std::make_unique<FixStateBoundsTaskInfo>(*this); }
 }  // namespace tesseract_planning

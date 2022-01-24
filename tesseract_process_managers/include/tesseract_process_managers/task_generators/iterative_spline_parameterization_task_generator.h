@@ -70,6 +70,8 @@ public:
   IterativeSplineParameterizationTaskInfo(
       std::size_t unique_id,
       std::string name = profile_ns::ITERATIVE_SPLINE_PARAMETERIZATION_DEFAULT_NAMESPACE);
+
+  TaskInfo::UPtr clone() const override;
 };
 }  // namespace tesseract_planning
 

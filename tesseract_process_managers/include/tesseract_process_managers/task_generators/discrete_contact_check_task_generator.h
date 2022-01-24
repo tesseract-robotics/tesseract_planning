@@ -63,6 +63,8 @@ public:
                                std::string name = profile_ns::DISCRETE_CONTACT_CHECK_DEFAULT_NAMESPACE);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
+
+  TaskInfo::UPtr clone() const override;
 };
 
 }  // namespace tesseract_planning

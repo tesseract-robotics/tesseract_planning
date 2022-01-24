@@ -62,6 +62,8 @@ public:
   using ConstPtr = std::shared_ptr<const CheckInputTaskInfo>;
 
   CheckInputTaskInfo(std::size_t unique_id, std::string name = profile_ns::CHECK_INPUT_DEFAULT_NAMESPACE);
+
+  TaskInfo::UPtr clone() const override;
 };
 }  // namespace tesseract_planning
 

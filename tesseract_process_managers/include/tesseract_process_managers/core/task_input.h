@@ -168,9 +168,9 @@ struct TaskInput
   void setEndInstruction(std::vector<std::size_t> end);
   Instruction getEndInstruction() const;
 
-  void addTaskInfo(const TaskInfo::ConstPtr& task_info);
-  TaskInfo::ConstPtr getTaskInfo(const std::size_t& index) const;
-  std::map<std::size_t, TaskInfo::ConstPtr> getTaskInfoMap() const;
+  void addTaskInfo(TaskInfo::UPtr task_info);
+  TaskInfo::UPtr getTaskInfo(const std::size_t& index) const;
+  std::map<std::size_t, TaskInfo::UPtr> getTaskInfoMap() const;
 
   /** @brief If true the task will save the inputs and outputs to the TaskInfo*/
   bool save_io{ false };

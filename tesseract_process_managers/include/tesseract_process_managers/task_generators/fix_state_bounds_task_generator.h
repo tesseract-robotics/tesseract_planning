@@ -62,6 +62,8 @@ public:
   FixStateBoundsTaskInfo(std::size_t unique_id, std::string name = profile_ns::FIX_STATE_BOUNDS_DEFAULT_NAMESPACE);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
+
+  TaskInfo::UPtr clone() const override;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_PROCESS_MANAGERS_FIX_STATE_BOUNDS_TASK_GENERATOR_H

@@ -60,6 +60,8 @@ public:
   using ConstPtr = std::shared_ptr<const MotionPlannerTaskInfo>;
 
   MotionPlannerTaskInfo(std::size_t unique_id, std::string name);
+
+  TaskInfo::UPtr clone() const override;
 };
 
 }  // namespace tesseract_planning

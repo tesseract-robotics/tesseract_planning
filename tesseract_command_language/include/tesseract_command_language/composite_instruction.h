@@ -51,6 +51,8 @@ enum class CompositeInstructionOrder
 class CompositeInstruction
 {
 public:
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
   CompositeInstruction(std::string profile = DEFAULT_PROFILE_KEY,
                        CompositeInstructionOrder order = CompositeInstructionOrder::ORDERED,
                        ManipulatorInfo manipulator_info = ManipulatorInfo());

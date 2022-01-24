@@ -73,7 +73,7 @@ public:
    * load(response.interface->getTaskInfoMap());
    * @param task_info_map Key: unique_id (unused), Value: TaskInfo to be inserted
    */
-  void load(const std::map<std::size_t, TaskInfo::ConstPtr>& task_info_map);
+  void load(const std::map<std::size_t, TaskInfo::UPtr>& task_info_map);
 
   /** @brief Clears any loaded data */
   void clear();
