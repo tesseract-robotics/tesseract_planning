@@ -40,6 +40,9 @@ tesseract_variables()
 
 add_library(
   ${PROJECT_NAME}
+  src/core/instruction.cpp
+  src/core/serialization.cpp
+  src/core/waypoint.cpp
   src/null_instruction.cpp
   src/null_waypoint.cpp
   src/plan_instruction.cpp
