@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.8.1 (2022-01-24)
+------------------
 * Second attempt to fix random serialization segfault
 * Contributors: Levi Armstrong
 
