@@ -56,6 +56,8 @@ public:
   using ConstPtr = std::shared_ptr<const HasSeedTaskInfo>;
 
   HasSeedTaskInfo(std::size_t unique_id, std::string name = profile_ns::HAS_SEED_DEFAULT_NAMESPACE);
+
+  TaskInfo::UPtr clone() const override;
 };
 }  // namespace tesseract_planning
 

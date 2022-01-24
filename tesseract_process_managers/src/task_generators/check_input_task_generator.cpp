@@ -60,4 +60,6 @@ void CheckInputTaskGenerator::process(TaskInput input, std::size_t unique_id) co
 CheckInputTaskInfo::CheckInputTaskInfo(std::size_t unique_id, std::string name) : TaskInfo(unique_id, std::move(name))
 {
 }
+
+TaskInfo::UPtr CheckInputTaskInfo::clone() const { return std::make_unique<CheckInputTaskInfo>(*this); }
 }  // namespace tesseract_planning

@@ -64,6 +64,8 @@ public:
   using ConstPtr = std::shared_ptr<const ProfileSwitchTaskInfo>;
 
   ProfileSwitchTaskInfo(std::size_t unique_id, std::string name = profile_ns::PROFILE_SWITCH_DEFAULT_NAMESPACE);
+
+  TaskInfo::UPtr clone() const override;
 };
 }  // namespace tesseract_planning
 

@@ -48,9 +48,8 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<MotionPlannerTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<MotionPlannerTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -64,6 +63,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -74,6 +74,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -177,6 +178,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     info->return_value = 1;
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 1;
   }
 
@@ -187,6 +189,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   info->message = status.message();
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 0;
 }
 
@@ -199,4 +202,6 @@ MotionPlannerTaskInfo::MotionPlannerTaskInfo(std::size_t unique_id, std::string 
   : TaskInfo(unique_id, std::move(name))
 {
 }
+
+TaskInfo::UPtr MotionPlannerTaskInfo::clone() const { return std::make_unique<MotionPlannerTaskInfo>(*this); }
 }  // namespace tesseract_planning

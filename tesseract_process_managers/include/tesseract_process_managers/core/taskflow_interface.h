@@ -42,7 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 /**
- * @brief This is a thread safe class used for aborting a process along with checking if a process was succesful
+ * @brief This is a thread safe class used for aborting a process along with checking if a process was successful
  * @details If a process failed then the process has been abort by some child process
  */
 class TaskflowInterface
@@ -70,13 +70,13 @@ public:
    * @param index Unique ID assigned the task from taskflow
    * @return The TaskInfo associated with this task
    */
-  TaskInfo::ConstPtr getTaskInfo(const std::size_t& index) const;
+  TaskInfo::UPtr getTaskInfo(const std::size_t& index) const;
 
   /**
    * @brief Get the entire stored map of TaskInfos
    * @return The map of TaskInfos stored by unique ID
    */
-  std::map<std::size_t, TaskInfo::ConstPtr> getTaskInfoMap() const;
+  std::map<std::size_t, TaskInfo::UPtr> getTaskInfoMap() const;
 
   /**
    * @brief Not meant to be used by users. Exposes TaskInfoContainer so that the

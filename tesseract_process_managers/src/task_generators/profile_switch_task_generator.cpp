@@ -44,9 +44,8 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<ProfileSwitchTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<ProfileSwitchTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -60,6 +59,7 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     CONSOLE_BRIDGE_logError("Input instruction to ProfileSwitch must be a composite instruction. Returning 0");
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -73,6 +73,10 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
 
   // Return the value specified in the profile
   CONSOLE_BRIDGE_logDebug("ProfileSwitchProfile returning %d", cur_composite_profile->return_value);
+
+  saveOutputs(*info, input);
+  info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return cur_composite_profile->return_value;
 }
 
@@ -85,4 +89,6 @@ ProfileSwitchTaskInfo::ProfileSwitchTaskInfo(std::size_t unique_id, std::string 
   : TaskInfo(unique_id, std::move(name))
 {
 }
+
+TaskInfo::UPtr ProfileSwitchTaskInfo::clone() const { return std::make_unique<ProfileSwitchTaskInfo>(*this); }
 }  // namespace tesseract_planning

@@ -68,6 +68,8 @@ public:
   using ConstPtr = std::shared_ptr<const SeedMinLengthTaskInfo>;
 
   SeedMinLengthTaskInfo(std::size_t unique_id, std::string name = profile_ns::SEED_MIN_LENGTH_DEFAULT_NAMESPACE);
+
+  TaskInfo::UPtr clone() const override;
 };
 }  // namespace tesseract_planning
 

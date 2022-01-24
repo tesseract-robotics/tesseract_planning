@@ -48,9 +48,8 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<DiscreteContactCheckTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<DiscreteContactCheckTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -65,6 +64,7 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -98,6 +98,7 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
     info->contact_results = contacts;
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -105,6 +106,7 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   info->return_value = 1;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 
@@ -116,5 +118,10 @@ void DiscreteContactCheckTaskGenerator::process(TaskInput input, std::size_t uni
 DiscreteContactCheckTaskInfo::DiscreteContactCheckTaskInfo(std::size_t unique_id, std::string name)
   : TaskInfo(unique_id, std::move(name))
 {
+}
+
+TaskInfo::UPtr DiscreteContactCheckTaskInfo::clone() const
+{
+  return std::make_unique<DiscreteContactCheckTaskInfo>(*this);
 }
 }  // namespace tesseract_planning

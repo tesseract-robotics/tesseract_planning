@@ -47,9 +47,8 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<SeedMinLengthTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<SeedMinLengthTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -61,6 +60,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     CONSOLE_BRIDGE_logError("Input seed to SeedMinLengthTaskGenerator must be a composite instruction");
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -79,6 +79,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     info->return_value = 1;
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 1;
   }
 
@@ -97,6 +98,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   info->return_value = 1;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 
@@ -157,4 +159,6 @@ SeedMinLengthTaskInfo::SeedMinLengthTaskInfo(std::size_t unique_id, std::string 
   : TaskInfo(unique_id, std::move(name))
 {
 }
+
+TaskInfo::UPtr SeedMinLengthTaskInfo::clone() const { return std::make_unique<SeedMinLengthTaskInfo>(*this); }
 }  // namespace tesseract_planning

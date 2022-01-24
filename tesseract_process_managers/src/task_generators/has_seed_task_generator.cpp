@@ -48,4 +48,6 @@ void HasSeedTaskGenerator::process(TaskInput input, std::size_t unique_id) const
 }
 
 HasSeedTaskInfo::HasSeedTaskInfo(std::size_t unique_id, std::string name) : TaskInfo(unique_id, std::move(name)) {}
+
+TaskInfo::UPtr HasSeedTaskInfo::clone() const { return std::make_unique<HasSeedTaskInfo>(*this); }
 }  // namespace tesseract_planning

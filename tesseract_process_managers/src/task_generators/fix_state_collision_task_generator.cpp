@@ -288,9 +288,8 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<FixStateCollisionTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<FixStateCollisionTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -305,6 +304,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -335,6 +335,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
+            input.addTaskInfo(std::move(info));
             return 0;
           }
         }
@@ -357,6 +358,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
+            input.addTaskInfo(std::move(info));
             return 0;
           }
         }
@@ -371,6 +373,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no PlanInstructions to process");
         info->return_value = 1;
+        input.addTaskInfo(std::move(info));
         return 1;
       }
 
@@ -378,6 +381,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found intermediate PlanInstructions to process");
         info->return_value = 1;
+        input.addTaskInfo(std::move(info));
         return 1;
       }
 
@@ -407,6 +411,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
+            input.addTaskInfo(std::move(info));
             return 0;
           }
         }
@@ -421,6 +426,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no PlanInstructions to process");
         info->return_value = 1;
+        input.addTaskInfo(std::move(info));
         return 1;
       }
 
@@ -450,6 +456,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
+            input.addTaskInfo(std::move(info));
             return 0;
           }
         }
@@ -464,6 +471,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no PlanInstructions to process");
         info->return_value = 1;
+        input.addTaskInfo(std::move(info));
         return 1;
       }
 
@@ -493,6 +501,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
+            input.addTaskInfo(std::move(info));
             return 0;
           }
         }
@@ -507,6 +516,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no PlanInstructions to process");
         info->return_value = 1;
+        input.addTaskInfo(std::move(info));
         return 1;
       }
 
@@ -536,6 +546,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
           {
             saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
+            input.addTaskInfo(std::move(info));
             return 0;
           }
         }
@@ -546,6 +557,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       info->return_value = 1;
       saveOutputs(*info, input);
       info->elapsed_time = timer.elapsedSeconds();
+      input.addTaskInfo(std::move(info));
       return 1;
   }
 
@@ -553,6 +565,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   info->return_value = 1;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 
@@ -565,5 +578,7 @@ FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(std::size_t unique_id, std:
   : TaskInfo(unique_id, std::move(name))
 {
 }
+
+TaskInfo::UPtr FixStateCollisionTaskInfo::clone() const { return std::make_unique<FixStateCollisionTaskInfo>(*this); }
 
 }  // namespace tesseract_planning

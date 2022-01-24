@@ -53,9 +53,8 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<IterativeSplineParameterizationTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<IterativeSplineParameterizationTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -69,6 +68,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
     CONSOLE_BRIDGE_logError("Input results to iterative spline parameterization must be a composite instruction");
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -92,6 +92,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
     info->return_value = 1;
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 1;
   }
 
@@ -132,6 +133,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
                              input_results->getDescription().c_str());
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -139,6 +141,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   info->return_value = 1;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 
@@ -151,5 +154,10 @@ IterativeSplineParameterizationTaskInfo::IterativeSplineParameterizationTaskInfo
                                                                                  std::string name)
   : TaskInfo(unique_id, std::move(name))
 {
+}
+
+TaskInfo::UPtr IterativeSplineParameterizationTaskInfo::clone() const
+{
+  return std::make_unique<IterativeSplineParameterizationTaskInfo>(*this);
 }
 }  // namespace tesseract_planning

@@ -55,9 +55,8 @@ int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<TimeOptimalTrajectoryGenerationTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<TimeOptimalTrajectoryGenerationTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -71,6 +70,7 @@ int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input
     CONSOLE_BRIDGE_logError("Input results to TOTG must be a composite instruction");
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -94,6 +94,7 @@ int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input
     info->return_value = 1;
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 1;
   }
 
@@ -145,6 +146,7 @@ int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input
     CONSOLE_BRIDGE_logInform("Failed to perform TOTG for process input: %s!", input_results->getDescription().c_str());
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -178,6 +180,7 @@ int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input
   info->return_value = 1;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 
@@ -258,5 +261,10 @@ TimeOptimalTrajectoryGenerationTaskInfo::TimeOptimalTrajectoryGenerationTaskInfo
                                                                                  std::string name)
   : TaskInfo(unique_id, std::move(name))
 {
+}
+
+TaskInfo::UPtr TimeOptimalTrajectoryGenerationTaskInfo::clone() const
+{
+  return std::make_unique<TimeOptimalTrajectoryGenerationTaskInfo>(*this);
 }
 }  // namespace tesseract_planning

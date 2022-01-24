@@ -51,6 +51,8 @@ class TaskInfo
 public:
   using Ptr = std::shared_ptr<TaskInfo>;
   using ConstPtr = std::shared_ptr<const TaskInfo>;
+  using UPtr = std::unique_ptr<TaskInfo>;
+  using ConstUPtr = std::unique_ptr<const TaskInfo>;
 
   TaskInfo() = default;  // Required for serialization
   TaskInfo(std::size_t unique_id, std::string name = "");
@@ -87,6 +89,8 @@ public:
   bool operator==(const TaskInfo& rhs) const;
   bool operator!=(const TaskInfo& rhs) const;
 
+  virtual TaskInfo::UPtr clone() const;
+
 private:
   friend class boost::serialization::access;
   template <class Archive>
@@ -99,16 +103,16 @@ struct TaskInfoContainer
   using Ptr = std::shared_ptr<TaskInfoContainer>;
   using ConstPtr = std::shared_ptr<const TaskInfoContainer>;
 
-  void addTaskInfo(TaskInfo::ConstPtr task_info);
+  void addTaskInfo(TaskInfo::UPtr task_info);
 
-  TaskInfo::ConstPtr operator[](std::size_t index) const;
+  TaskInfo::UPtr operator[](std::size_t index) const;
 
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
-  std::map<std::size_t, TaskInfo::ConstPtr> getTaskInfoMap() const;
+  std::map<std::size_t, TaskInfo::UPtr> getTaskInfoMap() const;
 
 private:
   mutable std::shared_mutex mutex_;
-  std::map<std::size_t, TaskInfo::ConstPtr> task_info_map_;
+  std::map<std::size_t, TaskInfo::UPtr> task_info_map_;
 };
 }  // namespace tesseract_planning
 

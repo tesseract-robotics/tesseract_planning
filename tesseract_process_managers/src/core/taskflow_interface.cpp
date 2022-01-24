@@ -35,14 +35,14 @@ bool TaskflowInterface::isSuccessful() const { return !abort_; }
 
 void TaskflowInterface::abort() { abort_ = true; }
 
-TaskInfo::ConstPtr TaskflowInterface::getTaskInfo(const std::size_t& index) const
+TaskInfo::UPtr TaskflowInterface::getTaskInfo(const std::size_t& index) const
 {
   if (task_infos_)
     return (*task_infos_)[index];
   return nullptr;
 }
 
-std::map<std::size_t, TaskInfo::ConstPtr> TaskflowInterface::getTaskInfoMap() const
+std::map<std::size_t, TaskInfo::UPtr> TaskflowInterface::getTaskInfoMap() const
 {
   return task_infos_->getTaskInfoMap();
 }

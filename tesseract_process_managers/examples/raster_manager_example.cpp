@@ -95,7 +95,7 @@ int main()
   std::cout << "Execution Complete" << std::endl;
 
   // Print summary statistics
-  std::map<std::size_t, TaskInfo::ConstPtr> info_map = response.interface->getTaskInfoMap();
+  std::map<std::size_t, TaskInfo::UPtr> info_map = response.interface->getTaskInfoMap();
   TaskInfoProfiler profiler;
   profiler.load(info_map);
   profiler.print();

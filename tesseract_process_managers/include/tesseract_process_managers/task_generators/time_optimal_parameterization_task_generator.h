@@ -82,6 +82,8 @@ public:
   TimeOptimalTrajectoryGenerationTaskInfo(
       std::size_t unique_id,
       std::string name = profile_ns::TIME_OPTIMAL_PARAMETERIZATION_DEFAULT_NAMESPACE);
+
+  TaskInfo::UPtr clone() const override;
 };
 }  // namespace tesseract_planning
 

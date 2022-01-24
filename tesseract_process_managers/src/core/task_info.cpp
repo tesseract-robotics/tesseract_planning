@@ -46,7 +46,10 @@ bool TaskInfo::operator==(const TaskInfo& rhs) const
   equal &= results_output == rhs.results_output;
   return equal;
 }
+
 bool TaskInfo::operator!=(const TaskInfo& rhs) const { return !operator==(rhs); }
+
+TaskInfo::UPtr TaskInfo::clone() const { return std::make_unique<TaskInfo>(*this); }
 
 template <class Archive>
 void TaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
@@ -65,22 +68,25 @@ void TaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
   //  ar& boost::serialization::make_nvp("environment", environment);
 }
 
-void TaskInfoContainer::addTaskInfo(TaskInfo::ConstPtr task_info)
+void TaskInfoContainer::addTaskInfo(TaskInfo::UPtr task_info)
 {
   std::unique_lock<std::shared_mutex> lock(mutex_);
   task_info_map_[task_info->unique_id] = std::move(task_info);
 }
 
-TaskInfo::ConstPtr TaskInfoContainer::operator[](std::size_t index) const
+TaskInfo::UPtr TaskInfoContainer::operator[](std::size_t index) const
 {
   std::shared_lock<std::shared_mutex> lock(mutex_);
-  return task_info_map_.at(index);
+  return task_info_map_.at(index)->clone();
 }
 
-std::map<std::size_t, TaskInfo::ConstPtr> TaskInfoContainer::getTaskInfoMap() const
+std::map<std::size_t, TaskInfo::UPtr> TaskInfoContainer::getTaskInfoMap() const
 {
   std::shared_lock<std::shared_mutex> lock(mutex_);
-  return task_info_map_;
+  std::map<std::size_t, TaskInfo::UPtr> copy;
+  for (const auto& pair : task_info_map_)
+    copy[pair.first] = pair.second->clone();
+  return copy;
 }
 
 }  // namespace tesseract_planning

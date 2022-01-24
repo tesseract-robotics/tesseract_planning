@@ -66,6 +66,8 @@ public:
                             std::string name = profile_ns::FIX_STATE_COLLISION_DEFAULT_NAMESPACE);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
+
+  TaskInfo::UPtr clone() const override;
 };
 
 /**

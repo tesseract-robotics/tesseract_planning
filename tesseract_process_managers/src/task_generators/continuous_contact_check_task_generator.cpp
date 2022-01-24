@@ -49,9 +49,8 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_shared<ContinuousContactCheckTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<ContinuousContactCheckTaskInfo>(unique_id, name_);
   info->return_value = 0;
-  input.addTaskInfo(info);
   tesseract_common::Timer timer;
   timer.start();
   saveInputs(*info, input);
@@ -66,6 +65,7 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -99,6 +99,7 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
     info->contact_results = contacts;
     saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -106,6 +107,7 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
   info->return_value = 1;
   saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 
@@ -117,5 +119,10 @@ void ContinuousContactCheckTaskGenerator::process(TaskInput input, std::size_t u
 ContinuousContactCheckTaskInfo::ContinuousContactCheckTaskInfo(std::size_t unique_id, std::string name)
   : TaskInfo(unique_id, std::move(name))
 {
+}
+
+TaskInfo::UPtr ContinuousContactCheckTaskInfo::clone() const
+{
+  return std::make_unique<ContinuousContactCheckTaskInfo>(*this);
 }
 }  // namespace tesseract_planning
