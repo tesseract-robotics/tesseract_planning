@@ -1,7 +1,7 @@
 <map id="tesseract_planning::TaskInfoContainer" name="tesseract_planning::TaskInfoContainer">
-<area shape="rect" id="node1" title="A threadsafe container for TaskInfos." alt="" coords="61,288,196,329"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,191,132,218"/>
-<area shape="rect" id="node3" title=" " alt="" coords="156,184,315,225"/>
-<area shape="rect" id="node4" title=" " alt="" coords="167,95,304,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="216,5,255,32"/>
+<area shape="rect" id="node1" title="A threadsafe container for TaskInfos." alt="" coords="97,288,231,329"/>
+<area shape="rect" id="node2" title=" " alt="" coords="6,184,141,225"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,95,141,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="54,5,93,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="165,191,291,218"/>
 </map>

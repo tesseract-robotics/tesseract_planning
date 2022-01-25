@@ -2,7 +2,7 @@
 \label{classtesseract__planning_1_1TaskflowInterface}\index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
 
 
-This is a thread safe class used for aborting a process along with checking if a process was succesful.  
+This is a thread safe class used for aborting a process along with checking if a process was successful.  
 
 
 
@@ -33,9 +33,9 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_abf3ae2851bf
 \begin{DoxyCompactList}\small\item\em Check if the process finished without error. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_aa52f465d4226ba1e9c68b3d556abb49d}{abort}} ()
 \begin{DoxyCompactList}\small\item\em Abort the process associated with this interface. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a2b512f216e946ba6311cd8bbb0716193}{get\+Task\+Info}} (const std\+::size\+\_\+t \&index) const
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a679debd90e35ed989bb3fbf43c5f8ec3}{get\+Task\+Info}} (const std\+::size\+\_\+t \&index) const
 \begin{DoxyCompactList}\small\item\em Get \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} for a specific task by unique ID. \end{DoxyCompactList}\item 
-std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a4fcb59fd3f6c894f1d556f2c2f56908e}{get\+Task\+Info\+Map}} () const
+std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a878065f953619496fe5711d4de5058f8}{get\+Task\+Info\+Map}} () const
 \begin{DoxyCompactList}\small\item\em Get the entire stored map of Task\+Infos. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{Task\+Info\+Container\+::\+Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a08e43b2328567c9d4b7ed3eb226f5996}{get\+Task\+Info\+Container}} () const
 \begin{DoxyCompactList}\small\item\em Not meant to be used by users. Exposes \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}} so that the. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -49,7 +49,7 @@ std\+::atomic$<$ bool $>$ \mbox{\hyperlink{classtesseract__planning_1_1TaskflowI
 
 
 \doxysubsection{Detailed Description}
-This is a thread safe class used for aborting a process along with checking if a process was succesful. 
+This is a thread safe class used for aborting a process along with checking if a process was successful. 
 
 If a process failed then the process has been abort by some child process 
 
@@ -73,11 +73,11 @@ If a process failed then the process has been abort by some child process
 
 Abort the process associated with this interface. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a2b512f216e946ba6311cd8bbb0716193}\label{classtesseract__planning_1_1TaskflowInterface_a2b512f216e946ba6311cd8bbb0716193}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a679debd90e35ed989bb3fbf43c5f8ec3}\label{classtesseract__planning_1_1TaskflowInterface_a679debd90e35ed989bb3fbf43c5f8ec3}} 
 \index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!getTaskInfo@{getTaskInfo}}
 \index{getTaskInfo@{getTaskInfo}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
 \doxysubsubsection{\texorpdfstring{getTaskInfo()}{getTaskInfo()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::get\+Task\+Info (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{index }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::get\+Task\+Info (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{index }\end{DoxyParamCaption}) const}
 
 
 
@@ -104,11 +104,11 @@ Not meant to be used by users. Exposes \mbox{\hyperlink{structtesseract__plannin
 \begin{DoxyReturn}{Returns}
 Threadsafe \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}} container 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a4fcb59fd3f6c894f1d556f2c2f56908e}\label{classtesseract__planning_1_1TaskflowInterface_a4fcb59fd3f6c894f1d556f2c2f56908e}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TaskflowInterface_a878065f953619496fe5711d4de5058f8}\label{classtesseract__planning_1_1TaskflowInterface_a878065f953619496fe5711d4de5058f8}} 
 \index{tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}!getTaskInfoMap@{getTaskInfoMap}}
 \index{getTaskInfoMap@{getTaskInfoMap}!tesseract\_planning::TaskflowInterface@{tesseract\_planning::TaskflowInterface}}
 \doxysubsubsection{\texorpdfstring{getTaskInfoMap()}{getTaskInfoMap()}}
-{\footnotesize\ttfamily std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::get\+Task\+Info\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ tesseract\+\_\+planning\+::\+Taskflow\+Interface\+::get\+Task\+Info\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 

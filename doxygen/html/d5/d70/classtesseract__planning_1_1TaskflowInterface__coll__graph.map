@@ -1,5 +1,5 @@
 <map id="tesseract_planning::TaskflowInterface" name="tesseract_planning::TaskflowInterface">
-<area shape="rect" id="node1" title="This is a thread safe class used for aborting a process along with checking if a process was succesfu..." alt="" coords="92,109,223,151"/>
+<area shape="rect" id="node1" title="This is a thread safe class used for aborting a process along with checking if a process was successf..." alt="" coords="92,109,223,151"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,13,136,39"/>
 <area shape="rect" id="node3" title=" " alt="" coords="161,5,330,47"/>
 </map>

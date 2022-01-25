@@ -63,11 +63,11 @@ void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a386baa6447e670fb29
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a3585d1d5778d749269dbbf0d53c4af48}{get\+End\+Instruction}} () const
 \item 
-void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aafa9f67d552e87a9a14090e0d302cd48}{add\+Task\+Info}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \&task\+\_\+info)
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a3b24f402c763aaa8bb101e1c77016266}{add\+Task\+Info}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} task\+\_\+info)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_adce6f163a196f73968b6e9f82f818f02}{get\+Task\+Info}} (const std\+::size\+\_\+t \&index) const
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a45183afbfdfa02b1d4eb1f997fc62b57}{get\+Task\+Info}} (const std\+::size\+\_\+t \&index) const
 \item 
-std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a13a6c6afb107ce0fef54b05f5ceffdb6}{get\+Task\+Info\+Map}} () const
+std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a1c8a5c55206fb1635d32c43bbeaa2d79}{get\+Task\+Info\+Map}} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -165,11 +165,11 @@ Note that it does not have ownership of any of its members (except the pointer).
 
 Abort the process input. 
 
-This accesses the internal process interface class to abort the process \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_aafa9f67d552e87a9a14090e0d302cd48}\label{structtesseract__planning_1_1TaskInput_aafa9f67d552e87a9a14090e0d302cd48}} 
+This accesses the internal process interface class to abort the process \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a3b24f402c763aaa8bb101e1c77016266}\label{structtesseract__planning_1_1TaskInput_a3b24f402c763aaa8bb101e1c77016266}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!addTaskInfo@{addTaskInfo}}
 \index{addTaskInfo@{addTaskInfo}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
 \doxysubsubsection{\texorpdfstring{addTaskInfo()}{addTaskInfo()}}
-{\footnotesize\ttfamily void Task\+Input\+::add\+Task\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \&}]{task\+\_\+info }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Task\+Input\+::add\+Task\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}}}]{task\+\_\+info }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a3585d1d5778d749269dbbf0d53c4af48}\label{structtesseract__planning_1_1TaskInput_a3585d1d5778d749269dbbf0d53c4af48}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getEndInstruction@{getEndInstruction}}
@@ -209,17 +209,17 @@ A pointer to the results instruction
 \doxysubsubsection{\texorpdfstring{getStartInstruction()}{getStartInstruction()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} Task\+Input\+::get\+Start\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_adce6f163a196f73968b6e9f82f818f02}\label{structtesseract__planning_1_1TaskInput_adce6f163a196f73968b6e9f82f818f02}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a45183afbfdfa02b1d4eb1f997fc62b57}\label{structtesseract__planning_1_1TaskInput_a45183afbfdfa02b1d4eb1f997fc62b57}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getTaskInfo@{getTaskInfo}}
 \index{getTaskInfo@{getTaskInfo}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
 \doxysubsubsection{\texorpdfstring{getTaskInfo()}{getTaskInfo()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} Task\+Input\+::get\+Task\+Info (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{index }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} Task\+Input\+::get\+Task\+Info (\begin{DoxyParamCaption}\item[{const std\+::size\+\_\+t \&}]{index }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a13a6c6afb107ce0fef54b05f5ceffdb6}\label{structtesseract__planning_1_1TaskInput_a13a6c6afb107ce0fef54b05f5ceffdb6}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a1c8a5c55206fb1635d32c43bbeaa2d79}\label{structtesseract__planning_1_1TaskInput_a1c8a5c55206fb1635d32c43bbeaa2d79}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getTaskInfoMap@{getTaskInfoMap}}
 \index{getTaskInfoMap@{getTaskInfoMap}!tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}}
 \doxysubsubsection{\texorpdfstring{getTaskInfoMap()}{getTaskInfoMap()}}
-{\footnotesize\ttfamily std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ Task\+Input\+::get\+Task\+Info\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ Task\+Input\+::get\+Task\+Info\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1TaskInput_a069e1079b41ce681b600bee95129b29f}\label{structtesseract__planning_1_1TaskInput_a069e1079b41ce681b600bee95129b29f}} 
 \index{tesseract\_planning::TaskInput@{tesseract\_planning::TaskInput}!getTaskInterface@{getTaskInterface}}

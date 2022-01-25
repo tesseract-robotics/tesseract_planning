@@ -16,7 +16,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Task\+Info\+Container\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=312pt]{d5/d07/structtesseract__planning_1_1TaskInfoContainer__coll__graph}
+\includegraphics[width=295pt]{d5/d07/structtesseract__planning_1_1TaskInfoContainer__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
@@ -29,18 +29,18 @@ using \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a3647488a5
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a369fe67103f0fcd746d47c285a49e7b6}{add\+Task\+Info}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} task\+\_\+info)
+void \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a1a428483f1584837631ab0fe11106d26}{add\+Task\+Info}} (\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} task\+\_\+info)
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_addb8aaadf24ef502f4b81b33929e12e8}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t index) const
+\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_ab2416b2baf950aab0b2c1630b75a477d}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t index) const
 \item 
-std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a202439ce1900808f2d1a8b156b339108}{get\+Task\+Info\+Map}} () const
+std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a82260d50ae3750256641a7ae10db1639}{get\+Task\+Info\+Map}} () const
 \begin{DoxyCompactList}\small\item\em Get a copy of the task\+\_\+info\+\_\+map\+\_\+ in case it gets resized. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 std\+::shared\+\_\+mutex \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a15867bcf8c34ef15cf0e11f1e8fcbd34}{mutex\+\_\+}}
 \item 
-std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a4a0b58cc60619bd410c98e98a84d5535}{task\+\_\+info\+\_\+map\+\_\+}}
+std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_ad2711f58c335a14331b418283e1f9fcd}{task\+\_\+info\+\_\+map\+\_\+}}
 \end{DoxyCompactItemize}
 
 
@@ -63,27 +63,27 @@ A threadsafe container for Task\+Infos.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_a369fe67103f0fcd746d47c285a49e7b6}\label{structtesseract__planning_1_1TaskInfoContainer_a369fe67103f0fcd746d47c285a49e7b6}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_a1a428483f1584837631ab0fe11106d26}\label{structtesseract__planning_1_1TaskInfoContainer_a1a428483f1584837631ab0fe11106d26}} 
 \index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!addTaskInfo@{addTaskInfo}}
 \index{addTaskInfo@{addTaskInfo}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
 \doxysubsubsection{\texorpdfstring{addTaskInfo()}{addTaskInfo()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::add\+Task\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}}}]{task\+\_\+info }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::add\+Task\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}}}]{task\+\_\+info }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_a202439ce1900808f2d1a8b156b339108}\label{structtesseract__planning_1_1TaskInfoContainer_a202439ce1900808f2d1a8b156b339108}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_a82260d50ae3750256641a7ae10db1639}\label{structtesseract__planning_1_1TaskInfoContainer_a82260d50ae3750256641a7ae10db1639}} 
 \index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!getTaskInfoMap@{getTaskInfoMap}}
 \index{getTaskInfoMap@{getTaskInfoMap}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
 \doxysubsubsection{\texorpdfstring{getTaskInfoMap()}{getTaskInfoMap()}}
-{\footnotesize\ttfamily std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} $>$ tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::get\+Task\+Info\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::get\+Task\+Info\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
 Get a copy of the task\+\_\+info\+\_\+map\+\_\+ in case it gets resized. 
 
-\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_addb8aaadf24ef502f4b81b33929e12e8}\label{structtesseract__planning_1_1TaskInfoContainer_addb8aaadf24ef502f4b81b33929e12e8}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_ab2416b2baf950aab0b2c1630b75a477d}\label{structtesseract__planning_1_1TaskInfoContainer_ab2416b2baf950aab0b2c1630b75a477d}} 
 \index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
 \doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{index }\end{DoxyParamCaption}) const}
 
 
 
@@ -94,11 +94,11 @@ Get a copy of the task\+\_\+info\+\_\+map\+\_\+ in case it gets resized.
 \doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
 {\footnotesize\ttfamily std\+::shared\+\_\+mutex tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_a4a0b58cc60619bd410c98e98a84d5535}\label{structtesseract__planning_1_1TaskInfoContainer_a4a0b58cc60619bd410c98e98a84d5535}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_ad2711f58c335a14331b418283e1f9fcd}\label{structtesseract__planning_1_1TaskInfoContainer_ad2711f58c335a14331b418283e1f9fcd}} 
 \index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!task\_info\_map\_@{task\_info\_map\_}}
 \index{task\_info\_map\_@{task\_info\_map\_}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
 \doxysubsubsection{\texorpdfstring{task\_info\_map\_}{task\_info\_map\_}}
-{\footnotesize\ttfamily std\+::map$<$std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{Task\+Info\+::\+Const\+Ptr}}$>$ tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::task\+\_\+info\+\_\+map\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily std\+::map$<$std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}}$>$ tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::task\+\_\+info\+\_\+map\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
