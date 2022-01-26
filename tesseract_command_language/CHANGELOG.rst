@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.9.0 (2022-01-26)
+------------------
 * Fix thread safety issue with TaskInfoContainer
 * Contributors: Levi Armstrong
 
