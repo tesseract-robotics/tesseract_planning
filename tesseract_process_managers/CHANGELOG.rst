@@ -2,6 +2,11 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix thread safety issue with TaskInfoContainer
+* Contributors: Levi Armstrong
+
 0.8.1 (2022-01-24)
 ------------------
 

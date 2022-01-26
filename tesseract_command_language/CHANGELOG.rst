@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix thread safety issue with TaskInfoContainer
+* Contributors: Levi Armstrong
+
 0.8.1 (2022-01-24)
 ------------------
 * Second attempt to fix random serialization segfault
