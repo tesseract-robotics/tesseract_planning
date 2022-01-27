@@ -84,6 +84,12 @@ bool waypointInCollision(const Waypoint& waypoint,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts)
 {
+  if (isCartesianWaypoint(waypoint))
+  {
+    CONSOLE_BRIDGE_logDebug("WaypointInCollision, skipping cartesian waypoint!");
+    return false;
+  }
+
   // Get position associated with waypoint
   Eigen::VectorXd start_pos;
   try
@@ -95,6 +101,7 @@ bool waypointInCollision(const Waypoint& waypoint,
     CONSOLE_BRIDGE_logError("WaypointInCollision error: %s", e.what());
     return false;
   }
+
   return stateInCollision(start_pos, input, profile, contacts);
 }
 
@@ -103,6 +110,12 @@ bool moveWaypointFromCollisionTrajopt(Waypoint& waypoint,
                                       const FixStateCollisionProfile& profile)
 {
   using namespace trajopt;
+
+  if (isCartesianWaypoint(waypoint))
+  {
+    CONSOLE_BRIDGE_logDebug("MoveWaypointFromCollision, skipping cartesian waypoint!");
+    return true;
+  }
 
   // Get position associated with waypoint
   Eigen::VectorXd start_pos;
@@ -218,6 +231,12 @@ bool moveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
                                             const TaskInput& input,
                                             const FixStateCollisionProfile& profile)
 {
+  if (isCartesianWaypoint(waypoint))
+  {
+    CONSOLE_BRIDGE_logDebug("MoveWaypointFromCollisionRandomSampler, skipping cartesian waypoint!");
+    return true;
+  }
+
   // Get position associated with waypoint
   Eigen::VectorXd start_pos;
   try
