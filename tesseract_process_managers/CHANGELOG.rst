@@ -2,8 +2,8 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.9.1 (2022-01-27)
+------------------
 * Update fix_state_collision_task to skip cartesian waypoints
 * Contributors: Levi Armstrong
 
