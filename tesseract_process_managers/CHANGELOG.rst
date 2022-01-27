@@ -2,6 +2,11 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update fix_state_collision_task to skip cartesian waypoints
+* Contributors: Levi Armstrong
+
 0.9.0 (2022-01-26)
 ------------------
 * Fix thread safety issue with TaskInfoContainer
