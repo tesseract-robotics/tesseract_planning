@@ -131,6 +131,17 @@ private:
   std::list<std::unique_ptr<PathSegment>> path_segments_;
 };
 
+/** @brief Structure to store path data sampled at a point in time. */
+struct PathData
+{
+  double prev_path_pos{ 0 };
+  double prev_path_vel{ 0 };
+  double prev_time{ 0 };
+  double path_pos{ 0 };
+  double path_vel{ 0 };
+  double time{ 0 };
+};
+
 class Trajectory
 {
 public:
@@ -158,18 +169,14 @@ public:
   /// @brief Returns the optimal duration of the trajectory
   double getDuration() const;
 
+  /** @brief Return the path data for a given point in time */
+  PathData getPathData(double time) const;
   /** @brief Return the position/configuration vector for a given point in time */
   Eigen::VectorXd getPosition(double time) const;
   /** @brief Return the velocity vector for a given point in time */
   Eigen::VectorXd getVelocity(double time) const;
   /** @brief Return the acceleration vector for a given point in time */
   Eigen::VectorXd getAcceleration(double time) const;
-
-  /**
-   * @brief Assign trajectory velocity acceleration and time
-   * @details This search linear in time for the next waypoint within the provided tolerance
-   */
-  bool assignData(TrajectoryContainer& trajectory, double path_tolerance) const;
 
   /**
    * @brief Assign trajectory velocity acceleration and time
