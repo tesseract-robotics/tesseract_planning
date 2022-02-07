@@ -198,6 +198,22 @@ private:
     double time_{ 0 };
   };
 
+  /**
+   * @brief Calculate the distance form the provided state to all states in the TOTG trajectory at the provided time
+   * samples
+   * @param p The state to calculate distance to all TOTG states at the provided times
+   * @param times The time to pull states from the TOTG trajectory
+   * @return The distance from the provided state to all TOTG states at the provided times.
+   */
+  Eigen::VectorXd calcDistanceToAll(const Eigen::VectorXd& p, const Eigen::VectorXd& times) const;
+
+  /**
+   * @brief Find all of the minimum points in the provided data
+   * @param x The data to search for local minimums
+   * @return The vector of indices for each local minimum in the provided data
+   */
+  static std::vector<Eigen::Index> findLocalMinimums(const Eigen::VectorXd& x);
+
   bool getNextSwitchingPoint(double path_pos,
                              TrajectoryStep& next_switching_point,
                              double& before_acceleration,

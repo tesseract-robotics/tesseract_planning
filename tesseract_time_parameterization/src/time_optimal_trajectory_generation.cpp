@@ -1092,6 +1092,7 @@ double Trajectory::getDuration() const { return trajectory_.back().time_; }
 
 bool Trajectory::assignData(TrajectoryContainer& trajectory) const
 {
+  // Store the path length from the start for each state in the trajectory
   Eigen::VectorXd path_lengths = Eigen::VectorXd::Zero(trajectory.size());
   double length = 0;
   for (Eigen::Index i = 1; i < trajectory.size(); ++i)
@@ -1103,12 +1104,20 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory) const
   if (tesseract_common::almostEqualRelativeAndAbs(length, 0))
     throw std::runtime_error("Tried to assign trajectory with length zero.");
 
-  double scale = path_.getLength() / length;
+  // The length of the joint interpolated trajectory is not the same length
+  // of the TOTG path because it using cubic spline so this scales the joint
+  // interpolated path length matches the TOTG length.
+  const double scale = path_.getLength() / length;
   path_lengths = scale * path_lengths;
 
-  long cnt = 0;
-  Eigen::Index sample_size = std::max(static_cast<Eigen::Index>(getDuration() / 0.01), trajectory.size());
-  Eigen::VectorXd times = Eigen::VectorXd::LinSpaced(sample_size, 0, getDuration());
+  const Eigen::Index num_samples = std::max(static_cast<Eigen::Index>(getDuration() / time_step_), trajectory.size());
+  Eigen::VectorXd times = Eigen::VectorXd::LinSpaced(num_samples, 0, getDuration());
+
+  // Store the path position at each of the sample times
+  Eigen::VectorXd x(num_samples);
+  for (Eigen::Index j = 0; j < num_samples; ++j)
+    x[j] = getPathData(times[j]).path_pos;
+
   for (long i = 0; i < trajectory.size(); ++i)
   {
     Eigen::VectorXd uv;
@@ -1120,76 +1129,93 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory) const
       uv = getVelocity(0).head(trajectory.dof());
       ua = getAcceleration(0).head(trajectory.dof());
       time = 0;
-      cnt++;
     }
     else if (i == trajectory.size() - 1)
     {
       time = getDuration();
       uv = getVelocity(time).head(trajectory.dof());
       ua = getAcceleration(time).head(trajectory.dof());
-      cnt++;
     }
     else
     {
       const Eigen::VectorXd& p = trajectory.getPosition(i);
       double path_length = path_lengths[i];
+
       // calculate distance from this point to all other points in the trajectory
+      Eigen::VectorXd dists = calcDistanceToAll(p, times);
 
-      Eigen::VectorXd x(sample_size);
-      Eigen::VectorXd dists(sample_size);
-      for (Eigen::Index j = 0; j < sample_size; ++j)
-      {
-        PathData data = getPathData(times[j]);
-        x[j] = data.path_pos;
-        dists[j] = (getPosition(times[j]).head(trajectory.dof()) - p).norm();
-      }
+      // Next find the local minimums
+      std::vector<Eigen::Index> minimums = findLocalMinimums(dists);
 
-      // calculate the numerical diff
-      Eigen::VectorXd ndiff(sample_size - 1);
-      for (Eigen::Index i = 0; i < sample_size - 1; ++i)
-        ndiff[i] = dists[i + 1] - dists[i];
-
-      // Next find the minimums
-      std::vector<Eigen::Index> minimums;
-      bool is_neg = (ndiff[0] < 0);
-      for (Eigen::Index i = 0; i < sample_size - 1; ++i)
-      {
-        if (ndiff[i] < 0 && !is_neg)
-        {
-          is_neg = true;
-        }
-        else if (ndiff[i] > 0 && is_neg)
-        {
-          minimums.push_back(i + 1);
-          is_neg = false;
-        }
-      }
-
-      // If empty then it is either start or end so add them
-      if (minimums.empty())
-      {
-        minimums.push_back(1);
-        minimums.push_back(sample_size - 2);
-      }
-
+      // Store the index for the minimum solution found in the TOTG trajectory which has
+      // the closest path length for the search state in the input trajectory.
       double dist = std::numeric_limits<double>::max();
       Eigen::Index index = 0;
       for (const auto& minimum : minimums)
       {
-        if (std::abs(x[minimum] - path_length) < dist)
+        double d = std::abs(x[minimum] - path_length);
+        if (d < dist)
+        {
           index = minimum;
+          dist = d;
+        }
       }
 
       time = times[index];
       uv = getVelocity(time).head(trajectory.dof());
       ua = getAcceleration(time).head(trajectory.dof());
-      cnt++;
     }
     trajectory.setData(i, uv, ua, time);
   }
 
   assert(trajectory.isTimeStrictlyIncreasing());
-  return (cnt == trajectory.size());
+  return true;
+}
+
+Eigen::VectorXd Trajectory::calcDistanceToAll(const Eigen::VectorXd& p, const Eigen::VectorXd& times) const
+{
+  // calculate distance from this point to all other points in the trajectory
+  Eigen::VectorXd dists(times.size());
+  for (Eigen::Index j = 0; j < times.size(); ++j)
+  {
+    dists[j] = (getPosition(times[j]).head(p.rows()) - p).norm();
+  }
+  return dists;
+}
+
+std::vector<Eigen::Index> Trajectory::findLocalMinimums(const Eigen::VectorXd& x)
+{
+  // calculate the numerical diff
+  Eigen::VectorXd ndiff(x.size() - 1);
+  for (Eigen::Index i = 0; i < x.size() - 1; ++i)
+    ndiff[i] = x[i + 1] - x[i];
+
+  std::vector<Eigen::Index> minimums;
+  bool is_neg = (ndiff[0] < 0);
+  for (Eigen::Index i = 0; i < x.size() - 1; ++i)
+  {
+    if (ndiff[i] < 0 && !is_neg)
+    {
+      is_neg = true;
+    }
+    else if (ndiff[i] > 0 && is_neg)
+    {
+      minimums.push_back(i + 1);
+      is_neg = false;
+    }
+  }
+
+  // If empty then it is either start or end so add them
+  // It intentionally stores the second and second to last because the start and end
+  // state are handled separately so intermediate states should never use the start
+  // or end as its minimum.
+  if (minimums.empty())
+  {
+    minimums.push_back(1);
+    minimums.push_back(x.size() - 2);
+  }
+
+  return minimums;
 }
 
 std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectorySegment(double time) const
