@@ -2,6 +2,11 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add robust method for assigning data for TOTG (`#169 <https://github.com/tesseract-robotics/tesseract_planning/issues/169>`_)
+* Contributors: Levi Armstrong
+
 0.9.1 (2022-01-27)
 ------------------
 
