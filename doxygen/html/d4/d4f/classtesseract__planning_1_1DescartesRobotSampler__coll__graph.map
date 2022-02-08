@@ -1,8 +1,11 @@
 <map id="tesseract_planning::DescartesRobotSampler&lt; FloatType &gt;" name="tesseract_planning::DescartesRobotSampler&lt; FloatType &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="533,89,703,145"/>
-<area shape="rect" id="node2" title=" " alt="" coords="183,5,352,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="228,71,307,98"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,64,129,105"/>
-<area shape="rect" id="node5" title=" " alt="" coords="179,123,356,164"/>
-<area shape="rect" id="node6" title=" " alt="" coords="179,188,356,229"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1217,75,1387,131"/>
+<area shape="rect" id="node2" title=" " alt="" coords="939,5,1108,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="179,98,257,125"/>
+<area shape="rect" id="node7" title=" " alt="" coords="363,126,523,153"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,91,129,132"/>
+<area shape="rect" id="node5" title=" " alt="" coords="935,125,1112,167"/>
+<area shape="rect" id="node6" href="$d0/d2a/classtesseract__planning_1_1DescartesCollision.html" title=" " alt="" coords="711,133,847,175"/>
+<area shape="rect" id="node8" title=" " alt="" coords="935,196,1112,237"/>
+<area shape="rect" id="node9" href="$da/d8a/classtesseract__planning_1_1DescartesVertexEvaluator.html" title=" " alt="" coords="689,199,868,240"/>
 </map>

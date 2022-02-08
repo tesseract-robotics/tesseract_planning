@@ -1,0 +1,53 @@
+\hypertarget{contact__check__profile_8h_source}{}\doxysection{contact\+\_\+check\+\_\+profile.\+h}
+\label{contact__check__profile_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_profiles/contact\_check\_profile.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_profiles/contact\_check\_profile.h}}
+\mbox{\hyperlink{contact__check__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_CONTACT\_CHECK\_PROFILE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_CONTACT\_CHECK\_PROFILE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <console\_bridge/console.h>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <tesseract\_collision/core/types.h>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile}{ContactCheckProfile}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_ad7fa7cf037d3a6583d7233d2b9861fe5}{Ptr}} = std::shared\_ptr<ContactCheckProfile>;}
+\DoxyCodeLine{41   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a54ab4acdd3c6386d57c4b228f908d393}{ConstPtr}} = std::shared\_ptr<const ContactCheckProfile>;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_ac269c2f1aa10a971a3b59e0f34e2d116}{ContactCheckProfile}}()}
+\DoxyCodeLine{44   \{}
+\DoxyCodeLine{45     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.type = tesseract\_collision::CollisionEvaluatorType::LVS\_DISCRETE;}
+\DoxyCodeLine{46     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.longest\_valid\_segment\_length = 0.05;}
+\DoxyCodeLine{47     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.contact\_manager\_config.margin\_data = tesseract\_collision::CollisionMarginData(0);}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a7028b7498c1dc25cf162ec2ef0a643f3}{ContactCheckProfile}}(\textcolor{keywordtype}{double} longest\_valid\_segment\_length, \textcolor{keywordtype}{double} contact\_distance)}
+\DoxyCodeLine{51   \{}
+\DoxyCodeLine{52     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.type = tesseract\_collision::CollisionEvaluatorType::LVS\_DISCRETE;}
+\DoxyCodeLine{53     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.longest\_valid\_segment\_length = longest\_valid\_segment\_length;}
+\DoxyCodeLine{54     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.contact\_manager\_config.margin\_data = tesseract\_collision::CollisionMarginData(contact\_distance);}
+\DoxyCodeLine{55     \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.contact\_manager\_config.margin\_data\_override\_type =}
+\DoxyCodeLine{56         tesseract\_collision::CollisionMarginOverrideType::OVERRIDE\_DEFAULT\_MARGIN;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     \textcolor{keywordflow}{if} (\mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.longest\_valid\_segment\_length <= 0)}
+\DoxyCodeLine{59     \{}
+\DoxyCodeLine{60       CONSOLE\_BRIDGE\_logWarn(\textcolor{stringliteral}{"{}ContactCheckProfile: Invalid longest valid segment. Defaulting to 0.05"{}});}
+\DoxyCodeLine{61       \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}}.longest\_valid\_segment\_length = 0.05;}
+\DoxyCodeLine{62     \}}
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a3acf59a22dd1d17810e0c9c4032db429}{\string~ContactCheckProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   tesseract\_collision::CollisionCheckConfig \mbox{\hyperlink{structtesseract__planning_1_1ContactCheckProfile_a6be50113444231bf821037b7af2efa43}{config}};}
+\DoxyCodeLine{68 \};}
+\DoxyCodeLine{69 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_CONTACT\_CHECK\_PROFILE\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,259 @@
+\hypertarget{waypoint_8h_source}{}\doxysection{waypoint.\+h}
+\label{waypoint_8h_source}\index{tesseract\_command\_language/include/tesseract\_command\_language/core/waypoint.h@{tesseract\_command\_language/include/tesseract\_command\_language/core/waypoint.h}}
+\mbox{\hyperlink{waypoint_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_COMMAND\_LANGUAGE\_WAYPOINT\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_COMMAND\_LANGUAGE\_WAYPOINT\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <typeindex>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <boost/serialization/base\_object.hpp>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <boost/serialization/nvp.hpp>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <boost/serialization/unique\_ptr.hpp>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <boost/type\_traits/is\_virtual\_base\_of.hpp>}}
+\DoxyCodeLine{40 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{serialization_8h}{tesseract\_command\_language/core/serialization.h}}>}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#include <tesseract\_common/sfinae\_utils.h>}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{46 \textcolor{comment}{//\%template(Waypoints) std::vector<tesseract\_planning::Waypoint>;}}
+\DoxyCodeLine{47 \%ignore \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}{tesseract\_planning::Waypoint::getType}};}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#define TESSERACT\_WAYPOINT\_EXPORT\_KEY(wp)                                                                              \(\backslash\)}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY2(tesseract\_planning::detail\_waypoint::WaypointInner<wp>, \#wp)                                 \(\backslash\)}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(tesseract\_planning::detail\_waypoint::WaypointInner<wp>, boost::serialization::track\_never)}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#define TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT(wp)                                                                        \(\backslash\)}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(tesseract\_planning::detail\_waypoint::WaypointInner<wp>)}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#define TESSERACT\_WAYPOINT\_EXPORT(wp)                                                                                  \(\backslash\)}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{  TESSERACT\_WAYPOINT\_EXPORT\_KEY(wp)                                                                                    \(\backslash\)}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{  TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT(wp)}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{68 \{}
+\DoxyCodeLine{69 \textcolor{keyword}{class }Waypoint;}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{72 \textcolor{keyword}{namespace }detail\_waypoint}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74 \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint_aeb4b2095e38318bdeb0b7f6f1464f2a0}{CREATE\_MEMBER\_CHECK}}(print);}
+\DoxyCodeLine{75 \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint_aee4cafa219303554570b0d3b13607d26}{CREATE\_MEMBER\_FUNC\_SIGNATURE\_CHECK}}(print, \textcolor{keywordtype}{void}, std::string);}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}}
+\DoxyCodeLine{78 \{}
+\DoxyCodeLine{79   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a6adaa2555835fdba2f8b70b8dde72c8b}{WaypointInnerBase}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{80   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a195ce493018c6b6be9fd7183f972dccb}{\string~WaypointInnerBase}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{81   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_af17ca1d105a6585f57c12eab2ffd41ca}{WaypointInnerBase}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{82   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a1f7529321173e371779674eb71ec3f17}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{83   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a58d0bb4318fc4e5c895fbbda3d3887d2}{WaypointInnerBase}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{84   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a62719d08f6930a1030c946c6de8924b4}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   \textcolor{comment}{// User-\/defined methods}}
+\DoxyCodeLine{87   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a76980f59f736344c8f37de32f5709c64}{print}}(\textcolor{keyword}{const} std::string\& prefix) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{88   \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a7a54cebda671d64d60b065e75ed82ee8}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\& rhs) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   \textcolor{comment}{// This is not required for user defined implementation}}
+\DoxyCodeLine{91   \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a4dd547b6f7c4a1bff0c1f51cc34a89e5}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\& rhs) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{comment}{// This is not required for user defined implementation}}
+\DoxyCodeLine{94   \textcolor{keyword}{virtual} std::type\_index \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a8be306b2a7d0390a2cefd81a0c15f0dd}{getType}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \textcolor{comment}{// This is not required for user defined implementation}}
+\DoxyCodeLine{97   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void}* \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a4975b84b1a5b7bf4850345f4d90a1920}{recover}}() = 0;}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99   \textcolor{comment}{// This is not required for user defined implementation}}
+\DoxyCodeLine{100   \textcolor{keyword}{virtual} \textcolor{keyword}{const} \textcolor{keywordtype}{void}* \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a40e7ef8f2dde07df7ffa936042da2ffa}{recover}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102   \textcolor{comment}{// This is not required for user defined implementation}}
+\DoxyCodeLine{103   \textcolor{keyword}{virtual} std::unique\_ptr<WaypointInnerBase> \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a6326bfb2769cd7053e51a2459084aa80}{clone}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 \textcolor{keyword}{private}:}
+\DoxyCodeLine{106   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{107   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{108   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_acd5f961e7728e405a786b43348aeae75}{serialize}}(Archive\& \textcolor{comment}{/*ar*/}, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/});  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{109 \};}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{112 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{WaypointInner}} final : \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}}
+\DoxyCodeLine{113 \{}
+\DoxyCodeLine{114   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aeb2ee55dedaf6b6becc06b5cf7cd661e}{WaypointInner}}()}
+\DoxyCodeLine{115   \{}
+\DoxyCodeLine{116     \textcolor{keyword}{static\_assert}(has\_member\_print<T>::value, \textcolor{stringliteral}{"{}Class does not have member function 'print'"{}});}
+\DoxyCodeLine{117     \textcolor{keyword}{static\_assert}(has\_member\_func\_signature\_print<T>::value, \textcolor{stringliteral}{"{}Class 'print' function has incorrect signature"{}});}
+\DoxyCodeLine{118   \}}
+\DoxyCodeLine{119   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a8cf0f6e37967febe7601913043dde35e}{\string~WaypointInner}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{120   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a3271d67a126389bc75166280afd3aaa6}{WaypointInner}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{WaypointInner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{121   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a0d82e928b812a3c65afc059d58421e05}{WaypointInner}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{WaypointInner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{122   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{WaypointInner}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a54e6be8b18a26a53e9a0a5a357b54ba7}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{WaypointInner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{123   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{WaypointInner}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_ab560420c9aa4a5827ec6b9062520eee9}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{WaypointInner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125   \textcolor{comment}{// Constructors from T (copy and move variants).}}
+\DoxyCodeLine{126   \textcolor{keyword}{explicit} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a2c99117f7cf9e2239f41ba70188101db}{WaypointInner}}(T waypoint) : \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}}(std::move(waypoint))}
+\DoxyCodeLine{127   \{}
+\DoxyCodeLine{128     \textcolor{keyword}{static\_assert}(has\_member\_print<T>::value, \textcolor{stringliteral}{"{}Class does not have member function 'print'"{}});}
+\DoxyCodeLine{129     \textcolor{keyword}{static\_assert}(has\_member\_func\_signature\_print<T>::value, \textcolor{stringliteral}{"{}Class 'print' function has incorrect signature"{}});}
+\DoxyCodeLine{130   \}}
+\DoxyCodeLine{131   \textcolor{keyword}{explicit} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a6e940337e632c371b36cd78a1ed78dcc}{WaypointInner}}(T\&\& waypoint) : \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}}(std::move(waypoint))}
+\DoxyCodeLine{132   \{}
+\DoxyCodeLine{133     \textcolor{keyword}{static\_assert}(has\_member\_print<T>::value, \textcolor{stringliteral}{"{}Class does not have member function 'print'"{}});}
+\DoxyCodeLine{134     \textcolor{keyword}{static\_assert}(has\_member\_func\_signature\_print<T>::value, \textcolor{stringliteral}{"{}Class 'print' function has incorrect signature"{}});}
+\DoxyCodeLine{135   \}}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137   std::unique\_ptr<WaypointInnerBase> \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a3a9c6a975a7eadb8788a1d58c54c385c}{clone}}() const final \{ \textcolor{keywordflow}{return} std::make\_unique<WaypointInner>(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}}); \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139   std::type\_index \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a5dfdcdb4574163c96b989dd7857c482f}{getType}}() const final \{ \textcolor{keywordflow}{return} std::type\_index(\textcolor{keyword}{typeid}(T)); \}}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a8a0a5dffbcf9e679afa43ea62629e0f1}{print}}(\textcolor{keyword}{const} std::string\& prefix) \textcolor{keyword}{const} \textcolor{keyword}{final} \{ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}}.print(prefix); \}}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143   \textcolor{keywordtype}{void}* \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a14b9a115a691d429850dbbef18ba6f04}{recover}}() final \{ \textcolor{keywordflow}{return} \&\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}}; \}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145   \textcolor{keyword}{const} \textcolor{keywordtype}{void}* \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_ac03ea21132902b92d85d2b73b74c9b5a}{recover}}() const final \{ \textcolor{keywordflow}{return} \&\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}}; \}}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_adb642b31d3d6ad6b28d1b25710dc15f8}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\& rhs) \textcolor{keyword}{const} \textcolor{keyword}{final}}
+\DoxyCodeLine{148   \{}
+\DoxyCodeLine{149     \textcolor{comment}{// Compare class types before casting the incoming object to the T type}}
+\DoxyCodeLine{150     \textcolor{keywordflow}{if} (rhs.getType() == \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a5dfdcdb4574163c96b989dd7857c482f}{getType}}())}
+\DoxyCodeLine{151     \{}
+\DoxyCodeLine{152       \textcolor{keyword}{const} \textcolor{keyword}{auto}* waypoint = \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }T*\textcolor{keyword}{>}(rhs.recover());}
+\DoxyCodeLine{153       \textcolor{keywordflow}{return} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}} == *waypoint;}
+\DoxyCodeLine{154     \}}
+\DoxyCodeLine{155     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{156   \}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a1a1be495a279d22ea54eb88ba68d0933}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{WaypointInnerBase}}\& rhs) \textcolor{keyword}{const} \textcolor{keyword}{final} \{ \textcolor{keywordflow}{return} !\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_adb642b31d3d6ad6b28d1b25710dc15f8}{operator==}}(rhs); \}}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160 \textcolor{keyword}{private}:}
+\DoxyCodeLine{161   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{162   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{163   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_ae4ffa1fd4ba05e25c1517949824c20a4}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/})  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{164   \{}
+\DoxyCodeLine{165     \textcolor{comment}{// If this line is removed a exception is thrown for unregistered cast need to too look into this.}}
+\DoxyCodeLine{166     ar\& boost::serialization::make\_nvp(\textcolor{stringliteral}{"{}base"{}}, boost::serialization::base\_object<WaypointInnerBase>(*\textcolor{keyword}{this}));}
+\DoxyCodeLine{167     ar\& boost::serialization::make\_nvp(\textcolor{stringliteral}{"{}impl"{}}, \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}});}
+\DoxyCodeLine{168   \}}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170   T \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_aa471b48f53c127ad98b0488bb2b502a0}{waypoint\_}};}
+\DoxyCodeLine{171 \};}
+\DoxyCodeLine{172 \}  \textcolor{comment}{// namespace detail\_waypoint}}
+\DoxyCodeLine{173 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{174 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespaceboost}{boost}}}
+\DoxyCodeLine{177 \{}
+\DoxyCodeLine{178 \textcolor{comment}{// Taken from pagmo to address the same issue}}
+\DoxyCodeLine{179 \textcolor{comment}{// NOTE: in some earlier versions of Boost (i.e., at least up to 1.67)}}
+\DoxyCodeLine{180 \textcolor{comment}{// the is\_virtual\_base\_of type trait, used by the Boost serialization library, fails}}
+\DoxyCodeLine{181 \textcolor{comment}{// with a compile time error if a class is declared final. Thus, we provide a specialised}}
+\DoxyCodeLine{182 \textcolor{comment}{// implementation of this type trait to work around the issue. See:}}
+\DoxyCodeLine{183 \textcolor{comment}{// https://www.boost.org/doc/libs/1\_52\_0/libs/type\_traits/doc/html/boost\_typetraits/reference/is\_virtual\_base\_of.html}}
+\DoxyCodeLine{184 \textcolor{comment}{// https://stackoverflow.com/questions/18982064/boost-\/serialization-\/of-\/base-\/class-\/of-\/final-\/subclass-\/error}}
+\DoxyCodeLine{185 \textcolor{comment}{// We never use virtual inheritance, thus the specialisation is always false.}}
+\DoxyCodeLine{186 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{187 \textcolor{keyword}{struct }is\_virtual\_base\_of<\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::detail\_waypoint::WaypointInnerBase,}
+\DoxyCodeLine{188                           \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\_planning::detail\_waypoint::WaypointInner}}<T>> : false\_type}
+\DoxyCodeLine{189 \{}
+\DoxyCodeLine{190 \};}
+\DoxyCodeLine{191 \}  \textcolor{comment}{// namespace boost}}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{194 \{}
+\DoxyCodeLine{195 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}}
+\DoxyCodeLine{196 \{}
+\DoxyCodeLine{197   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{198   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a04b88b47f1b1896d23dff70d8789cf38}{uncvref\_t}} = std::remove\_cv\_t<typename std::remove\_reference<T>::type>;}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200   \textcolor{comment}{// Enable the generic ctor only if ``T`` is not a ForwardKinematics (after removing const/reference qualifiers)}}
+\DoxyCodeLine{201   \textcolor{comment}{// If ``T`` is of type ForwardKinematics we disable so it will use the copy or move constructors of this class.}}
+\DoxyCodeLine{202   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{203   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a5ac6a5067579005627c41b4c4adef724}{generic\_ctor\_enabler}} = std::enable\_if\_t<!std::is\_same<Waypoint, uncvref\_t<T>>::value, \textcolor{keywordtype}{int}>;}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{205 \textcolor{keyword}{public}:}
+\DoxyCodeLine{206   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{generic}\_ctor\_enabler<T> = 0>}
+\DoxyCodeLine{207   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2aa99ae5d279e338b076a408c9c6b730}{Waypoint}}(T\&\& waypoint)  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{208     : \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a7d6f714c5b6ab4cef8b4c7965304d25d}{waypoint\_}}(std::make\_unique<detail\_waypoint::WaypointInner<\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a04b88b47f1b1896d23dff70d8789cf38}{uncvref\_t}}<T>>>(waypoint))}
+\DoxyCodeLine{209   \{}
+\DoxyCodeLine{210   \}}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212   \textcolor{comment}{// Destructor}}
+\DoxyCodeLine{213   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2c93120a35f4cbb827ae367cd2f35770}{\string~Waypoint}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215   \textcolor{comment}{// Copy constructor}}
+\DoxyCodeLine{216   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}{Waypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& other);}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218   \textcolor{comment}{// Move ctor.}}
+\DoxyCodeLine{219   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}{Waypoint}}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\&\& other) \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{220 }
+\DoxyCodeLine{221   \textcolor{comment}{// Move assignment.}}
+\DoxyCodeLine{222   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a712a8d908885fba1139fc0158f41268b}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\&\& other) \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224   \textcolor{comment}{// Copy assignment.}}
+\DoxyCodeLine{225   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a712a8d908885fba1139fc0158f41268b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& other);}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{generic}\_ctor\_enabler<T> = 0>}
+\DoxyCodeLine{228   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a98476865e5849f14382d11d0d7f3709f}{operator=}}(T\&\& other)}
+\DoxyCodeLine{229   \{}
+\DoxyCodeLine{230     (*this) = \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}{Waypoint}}(std::forward<T>(other));}
+\DoxyCodeLine{231     \textcolor{keywordflow}{return} (*\textcolor{keyword}{this});}
+\DoxyCodeLine{232   \}}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234   std::type\_index \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}{getType}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_abde424e3ff48cd826a002cf287fb7f25}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ae823d78bd8d1166b466d0dde0fa15e66}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{239 }
+\DoxyCodeLine{240   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a81c4b284806ab72c2d8ba5be190b59b6}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{241 }
+\DoxyCodeLine{242   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{243   T\& \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a8a921b53dc06875534de2d145fd738ae}{as}}()}
+\DoxyCodeLine{244   \{}
+\DoxyCodeLine{245     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}{getType}}() != \textcolor{keyword}{typeid}(T))}
+\DoxyCodeLine{246       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Waypoint, tried to cast '"{}} + std::string(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}{getType}}().name()) + \textcolor{stringliteral}{"{}' to '"{}} +}
+\DoxyCodeLine{247                                std::string(\textcolor{keyword}{typeid}(T).name()) + \textcolor{stringliteral}{"{}'!"{}});}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{249     \textcolor{keyword}{auto}* p = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a04b88b47f1b1896d23dff70d8789cf38}{uncvref\_t<T>}}*\textcolor{keyword}{>}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a7d6f714c5b6ab4cef8b4c7965304d25d}{waypoint\_}}-\/>recover());}
+\DoxyCodeLine{250     \textcolor{keywordflow}{return} *p;}
+\DoxyCodeLine{251   \}}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{254   \textcolor{keyword}{const} T\& \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a7db91f5eba793b99cbb6fc4142f9c650}{as}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{255 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{256     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}{getType}}() != \textcolor{keyword}{typeid}(T))}
+\DoxyCodeLine{257       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Waypoint, tried to cast '"{}} + std::string(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a2a58faa0c305f681e250118310cd7943}{getType}}().name()) + \textcolor{stringliteral}{"{}' to '"{}} +}
+\DoxyCodeLine{258                                std::string(\textcolor{keyword}{typeid}(T).name()) + \textcolor{stringliteral}{"{}'!"{}});}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260     \textcolor{keyword}{const} \textcolor{keyword}{auto}* p = \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a04b88b47f1b1896d23dff70d8789cf38}{uncvref\_t<T>}}*\textcolor{keyword}{>}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a7d6f714c5b6ab4cef8b4c7965304d25d}{waypoint\_}}-\/>recover());}
+\DoxyCodeLine{261     \textcolor{keywordflow}{return} *p;}
+\DoxyCodeLine{262   \}}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{264 \textcolor{keyword}{private}:}
+\DoxyCodeLine{265   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{266   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1Serialization}{tesseract\_planning::Serialization}};}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_aa2a357f6e13f181a88a9b20aa3b4068e}{Waypoint}}();  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{269 }
+\DoxyCodeLine{270   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{271   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_ae812da5c41885a89439efdc769bd1e87}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/});  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{272 }
+\DoxyCodeLine{273   std::unique\_ptr<detail\_waypoint::WaypointInnerBase> \mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a7d6f714c5b6ab4cef8b4c7965304d25d}{waypoint\_}};}
+\DoxyCodeLine{274 \};}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{277 }
+\DoxyCodeLine{278 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{279 BOOST\_SERIALIZATION\_ASSUME\_ABSTRACT(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{tesseract\_planning::detail\_waypoint::WaypointInnerBase}})}
+\DoxyCodeLine{280 \mbox{\hyperlink{waypoint_8h_af7c56dbaa4ac7d73153dd5bb77359646}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::Waypoint, \mbox{\hyperlink{namespaceboost}{boost}}::serialization::track\_never);}
+\DoxyCodeLine{281 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{283 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_WAYPOINT\_H}}
+
+\end{DoxyCode}

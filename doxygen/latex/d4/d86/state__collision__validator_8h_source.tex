@@ -1,0 +1,54 @@
+\hypertarget{state__collision__validator_8h_source}{}\doxysection{state\+\_\+collision\+\_\+validator.\+h}
+\label{state__collision__validator_8h_source}\index{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/state\_collision\_validator.h@{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/state\_collision\_validator.h}}
+\mbox{\hyperlink{state__collision__validator_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_OMPL\_STATE\_COLLISION\_VALIDATOR\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_OMPL\_STATE\_COLLISION\_VALIDATOR\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <ompl/base/StateValidityChecker.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <mutex>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2utils_8h}{tesseract\_motion\_planners/ompl/utils.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <tesseract\_environment/environment.h>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <tesseract\_kinematics/core/forward\_kinematics.h>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator}{StateCollisionValidator}} : \textcolor{keyword}{public} ompl::base::StateValidityChecker}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{public}:}
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator_a6eff034b80520fea15bed6ecce0393b5}{StateCollisionValidator}}(\textcolor{keyword}{const} ompl::base::SpaceInformationPtr\& space\_info,}
+\DoxyCodeLine{46                           \textcolor{keyword}{const} tesseract\_environment::Environment\& env,}
+\DoxyCodeLine{47                           tesseract\_kinematics::JointGroup::ConstPtr manip,}
+\DoxyCodeLine{48                           \textcolor{keyword}{const} tesseract\_collision::CollisionCheckConfig\& collision\_check\_config,}
+\DoxyCodeLine{49                           \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLStateExtractor}} extractor);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator_ab25ae0da3293bf3d3310fc677e7b6c5a}{isValid}}(\textcolor{keyword}{const} ompl::base::State* state) \textcolor{keyword}{const override};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{keyword}{private}:}
+\DoxyCodeLine{55   tesseract\_kinematics::JointGroup::ConstPtr \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator_aeb45cd490dee9bc2ac424a524941449e}{manip\_}};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{58   tesseract\_collision::DiscreteContactManager::Ptr \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator_a97deb9c4c2195c3c5aeaf0afa71342f1}{contact\_manager\_}};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{61   std::vector<std::string> \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator_ab6418e02b460c43254eebbbb6a2574e3}{links\_}};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{64   \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLStateExtractor}} \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator_a5e88ed387b88754f07bc11a665d4318c}{extractor\_}};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \textcolor{comment}{// The items below are to cache the contact manager based on thread ID. Currently ompl is multi}}
+\DoxyCodeLine{67   \textcolor{comment}{// threaded but the methods used to implement collision checking are not thread safe. To prevent}}
+\DoxyCodeLine{68   \textcolor{comment}{// reconstructing the collision environment for every check this will cache a contact manager}}
+\DoxyCodeLine{69   \textcolor{comment}{// based on its thread ID.}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{72   \textcolor{keyword}{mutable} std::mutex \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator_a836087fe204cc5141ef8f418dfb9af86}{mutex\_}};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{75   \textcolor{keyword}{mutable} std::map<unsigned long int, tesseract\_collision::DiscreteContactManager::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1StateCollisionValidator_ac76889937b58337f2bdea2b800bd01c5}{contact\_managers\_}};}
+\DoxyCodeLine{76 \};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_STATE\_COLLISION\_VALIDATOR\_H}}
+
+\end{DoxyCode}

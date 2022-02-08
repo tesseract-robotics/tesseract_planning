@@ -1,0 +1,152 @@
+\hypertarget{descartes__robot__sampler_8hpp_source}{}\doxysection{descartes\+\_\+robot\+\_\+sampler.\+hpp}
+\label{descartes__robot__sampler_8hpp_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/impl/descartes\_robot\_sampler.hpp@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/impl/descartes\_robot\_sampler.hpp}}
+\mbox{\hyperlink{descartes__robot__sampler_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_ROBOT\_SAMPLER\_HPP}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_ROBOT\_SAMPLER\_HPP}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <console\_bridge/console.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__robot__sampler_8h}{tesseract\_motion\_planners/descartes/descartes\_robot\_sampler.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <tesseract\_kinematics/core/utils.h>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{42 \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a83e0240d0363f251ebdbe87b3e959d44}{DescartesRobotSampler<FloatType>::DescartesRobotSampler}}(std::string target\_working\_frame,}
+\DoxyCodeLine{43                                                         \textcolor{keyword}{const} Eigen::Isometry3d\& target\_pose,}
+\DoxyCodeLine{44                                                         \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{PoseSamplerFn}} target\_pose\_sampler,}
+\DoxyCodeLine{45                                                         tesseract\_kinematics::KinematicGroup::ConstPtr manip,}
+\DoxyCodeLine{46                                                         \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{DescartesCollision::Ptr}} collision,}
+\DoxyCodeLine{47                                                         std::string tcp\_frame,}
+\DoxyCodeLine{48                                                         \textcolor{keyword}{const} Eigen::Isometry3d\& tcp\_offset,}
+\DoxyCodeLine{49                                                         \textcolor{keywordtype}{bool} allow\_collision,}
+\DoxyCodeLine{50                                                         \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{DescartesVertexEvaluator::Ptr}} is\_valid,}
+\DoxyCodeLine{51                                                         \textcolor{keywordtype}{bool} use\_redundant\_joint\_solutions)}
+\DoxyCodeLine{52   : target\_working\_frame\_(std::move(target\_working\_frame))}
+\DoxyCodeLine{53   , target\_pose\_(target\_pose)}
+\DoxyCodeLine{54   , target\_pose\_sampler\_(std::move(target\_pose\_sampler))}
+\DoxyCodeLine{55   , manip\_(std::move(manip))}
+\DoxyCodeLine{56   , collision\_(std::move(collision))}
+\DoxyCodeLine{57   , tcp\_frame\_(std::move(tcp\_frame))}
+\DoxyCodeLine{58   , tcp\_offset\_(tcp\_offset)}
+\DoxyCodeLine{59   , allow\_collision\_(allow\_collision)}
+\DoxyCodeLine{60   , dof\_(static\_cast<int>(manip\_-\/>numJoints()))}
+\DoxyCodeLine{61   , ik\_seed\_(Eigen::VectorXd::Zero(dof\_))}
+\DoxyCodeLine{62   , is\_valid\_(std::move(is\_valid))}
+\DoxyCodeLine{63   , use\_redundant\_joint\_solutions\_(use\_redundant\_joint\_solutions)}
+\DoxyCodeLine{64 \{}
+\DoxyCodeLine{65   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a4937408ae7e14b11fdb9edde2f0638bf}{allow\_collision\_}} \&\& !\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a5ed558bfff6ed31e2db223688c35995f}{collision\_}})}
+\DoxyCodeLine{66     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Collision checker must not be a nullptr if collisions are not allowed during planning"{}});}
+\DoxyCodeLine{67 \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{70 std::vector<descartes\_light::StateSample<FloatType>> \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a5a673c54b9cea8d02596d5972b184d8d}{DescartesRobotSampler<FloatType>::sample}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{71 \textcolor{keyword}{}\{}
+\DoxyCodeLine{72   \textcolor{comment}{// Generate all possible Cartesian poses}}
+\DoxyCodeLine{73   tesseract\_common::VectorIsometry3d target\_poses = target\_pose\_sampler\_(target\_pose\_);}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75   \textcolor{comment}{// Generate the IK solutions for those poses}}
+\DoxyCodeLine{76   std::vector<descartes\_light::StateSample<FloatType>> samples;}
+\DoxyCodeLine{77   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& pose : target\_poses)}
+\DoxyCodeLine{78   \{}
+\DoxyCodeLine{79     \textcolor{comment}{// Get the transformation to the kinematic tip link}}
+\DoxyCodeLine{80     Eigen::Isometry3d target\_pose = pose * tcp\_offset\_.inverse();}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82     \textcolor{comment}{// Solve IK (TODO Should tcp\_offset be stored in KinGroupIKInput?)}}
+\DoxyCodeLine{83     tesseract\_kinematics::KinGroupIKInput ik\_input(target\_pose, target\_working\_frame\_, tcp\_frame\_);}
+\DoxyCodeLine{84     tesseract\_kinematics::IKSolutions ik\_solutions = manip\_-\/>calcInvKin(\{ ik\_input \}, ik\_seed\_);}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     \textcolor{keywordflow}{if} (ik\_solutions.empty())}
+\DoxyCodeLine{87       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89     \textcolor{comment}{// Check each individual joint solution}}
+\DoxyCodeLine{90     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sol : ik\_solutions)}
+\DoxyCodeLine{91     \{}
+\DoxyCodeLine{92       \textcolor{keywordflow}{if} ((is\_valid\_ != \textcolor{keyword}{nullptr}) \&\& !(*is\_valid\_)(sol))}
+\DoxyCodeLine{93         \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95       \textcolor{keyword}{auto} state = std::make\_shared<descartes\_light::State<FloatType>>(sol.cast<FloatType>());}
+\DoxyCodeLine{96       \textcolor{keywordflow}{if} (allow\_collision\_ \&\& collision\_ == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{97       \{}
+\DoxyCodeLine{98         samples.push\_back(descartes\_light::StateSample<FloatType>\{ state, \textcolor{keyword}{static\_cast<}FloatType\textcolor{keyword}{>}(0.0) \});}
+\DoxyCodeLine{99       \}}
+\DoxyCodeLine{100       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!allow\_collision\_)}
+\DoxyCodeLine{101       \{}
+\DoxyCodeLine{102         \textcolor{keywordflow}{if} (collision\_-\/>validate(sol))}
+\DoxyCodeLine{103           samples.push\_back(descartes\_light::StateSample<FloatType>\{ state, 0.0 \});}
+\DoxyCodeLine{104       \}}
+\DoxyCodeLine{105       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{106       \{}
+\DoxyCodeLine{107         \textcolor{keyword}{const} FloatType cost = \textcolor{keyword}{static\_cast<}FloatType\textcolor{keyword}{>}(collision\_-\/>distance(sol));}
+\DoxyCodeLine{108         samples.push\_back(descartes\_light::StateSample<FloatType>\{ state, cost \});}
+\DoxyCodeLine{109       \}}
+\DoxyCodeLine{110     \}}
+\DoxyCodeLine{111   \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113   \textcolor{keywordflow}{if} (samples.empty())}
+\DoxyCodeLine{114     \textcolor{keywordflow}{return} samples;}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116   \textcolor{keywordflow}{if} (allow\_collision\_)}
+\DoxyCodeLine{117   \{}
+\DoxyCodeLine{118     \textcolor{comment}{// Sort state samples in descending order by distance from nearest collision (i.e. state cost)}}
+\DoxyCodeLine{119     std::sort(samples.begin(), samples.end(), [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& a, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& b) \{ return a.cost > b.cost; \});}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121     \textcolor{comment}{// Convert the distance into a cost and normalize}}
+\DoxyCodeLine{122     \textcolor{keywordflow}{if} (samples.size() > 1)}
+\DoxyCodeLine{123     \{}
+\DoxyCodeLine{124       \textcolor{keyword}{const} FloatType max\_dist = samples.front().cost;}
+\DoxyCodeLine{125       \textcolor{keyword}{const} FloatType min\_dist = samples.back().cost;}
+\DoxyCodeLine{126       \textcolor{keyword}{const} FloatType range = max\_dist -\/ min\_dist;}
+\DoxyCodeLine{127       \textcolor{keywordflow}{if} (range > std::numeric\_limits<FloatType>::epsilon())}
+\DoxyCodeLine{128       \{}
+\DoxyCodeLine{129         std::for\_each(samples.begin(), samples.end(), [\&min\_dist, \&range](\textcolor{keyword}{auto}\& sample) \{}
+\DoxyCodeLine{130           sample.cost = static\_cast<FloatType>(1.0) -\/ (sample.cost -\/ min\_dist) / range;}
+\DoxyCodeLine{131         \});}
+\DoxyCodeLine{132       \}}
+\DoxyCodeLine{133       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{134       \{}
+\DoxyCodeLine{135         std::for\_each(samples.begin(), samples.end(), [](\textcolor{keyword}{auto}\& sample) \{ sample.cost = 0.0; \});}
+\DoxyCodeLine{136       \}}
+\DoxyCodeLine{137     \}}
+\DoxyCodeLine{138   \}}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140   \textcolor{comment}{// Generate the redundant solutions}}
+\DoxyCodeLine{141   \textcolor{keywordflow}{if} (use\_redundant\_joint\_solutions\_)}
+\DoxyCodeLine{142   \{}
+\DoxyCodeLine{143     \textcolor{keyword}{const} Eigen::MatrixX2d\& limits = manip\_-\/>getLimits().joint\_limits;}
+\DoxyCodeLine{144     std::vector<Eigen::Index> redundancy\_capable\_joints = manip\_-\/>getRedundancyCapableJointIndices();}
+\DoxyCodeLine{145     std::vector<descartes\_light::StateSample<FloatType>> redundant\_samples;}
+\DoxyCodeLine{146     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} descartes\_light::StateSample<FloatType>\& sample : samples)}
+\DoxyCodeLine{147     \{}
+\DoxyCodeLine{148       \textcolor{keyword}{const} \textcolor{keyword}{auto} redundant\_solutions =}
+\DoxyCodeLine{149           tesseract\_kinematics::getRedundantSolutions<FloatType>(*(sample.state), limits, redundancy\_capable\_joints);}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151       \textcolor{comment}{// Add the redundant samples with the same cost as the nominal sample}}
+\DoxyCodeLine{152       std::transform(redundant\_solutions.begin(),}
+\DoxyCodeLine{153                      redundant\_solutions.end(),}
+\DoxyCodeLine{154                      std::back\_inserter(redundant\_samples),}
+\DoxyCodeLine{155                      [\&sample](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& sol) \{}
+\DoxyCodeLine{156                        auto state = std::make\_shared<descartes\_light::State<FloatType>>(sol.template cast<FloatType>());}
+\DoxyCodeLine{157                        return descartes\_light::StateSample<FloatType>\{ state, sample.cost \};}
+\DoxyCodeLine{158                      \});}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161     \textcolor{comment}{// Combine the nominal samples with the redundant samples}}
+\DoxyCodeLine{162     samples.insert(samples.end(), redundant\_samples.begin(), redundant\_samples.end());}
+\DoxyCodeLine{163   \}}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{165   \textcolor{keywordflow}{return} samples;}
+\DoxyCodeLine{166 \}}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_ROBOT\_SAMPLER\_HPP}}
+
+\end{DoxyCode}

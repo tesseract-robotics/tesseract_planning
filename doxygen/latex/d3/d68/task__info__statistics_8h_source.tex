@@ -1,0 +1,70 @@
+\hypertarget{task__info__statistics_8h_source}{}\doxysection{task\+\_\+info\+\_\+statistics.\+h}
+\label{task__info__statistics_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/utils/task\_info\_statistics.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/utils/task\_info\_statistics.h}}
+\mbox{\hyperlink{task__info__statistics_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_TASK\_INFO\_UTILS\_H}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_TASK\_INFO\_UTILS\_H}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{28 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__info_8h}{tesseract\_process\_managers/core/task\_info.h}}>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{taskflow__visualization__utils_8h}{tesseract\_process\_managers/utils/taskflow\_visualization\_utils.h}}>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics}{TaskInfoStatistics}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43   std::string \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a56cbb2762da1577f277a32e83589803e}{task\_name}};}
+\DoxyCodeLine{44   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_aff7ab80cad5f97db0d50d8eabf011001}{insert}}(\textcolor{keyword}{const} std::vector<TaskInfo>\& task\_info\_vec);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a09cb765d764320662b17a7f914940ebd}{occurances}}\{ 0 \};}
+\DoxyCodeLine{47   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a4597f9e04a9d4eadbe186bef1ec315dd}{min\_time}}\{ std::numeric\_limits<double>::max() \};}
+\DoxyCodeLine{48   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a2e213bf5d76f2def58a8d979d0bcf4ad}{max\_time}}\{ 0 \};}
+\DoxyCodeLine{49   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_a33c67492477a1bc434e94801e4d17a57}{avg\_time}}\{ 0 \};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{52   std::map<int, int> \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoStatistics_aac0145fa088682fe7c9c5f7cda36c1b8}{return\_val\_map}};}
+\DoxyCodeLine{53 \};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{58 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler}{TaskInfoProfiler}}}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60 \textcolor{keyword}{public}:}
+\DoxyCodeLine{65   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_af844220f52f5a96eeb05ec820c96a1a8}{load}}(\textcolor{keyword}{const} tesseract\_common::fs::path\& directory);}
+\DoxyCodeLine{70   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_af844220f52f5a96eeb05ec820c96a1a8}{load}}(\textcolor{keyword}{const} std::vector<std::vector<TaskInfo>>\& task\_info\_vecs);}
+\DoxyCodeLine{76   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_af844220f52f5a96eeb05ec820c96a1a8}{load}}(\textcolor{keyword}{const} std::map<std::size\_t, TaskInfo::UPtr>\& task\_info\_map);}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{79   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_a7dda476d6cb0333c1fa7d0cd1e47c7e7}{clear}}();}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{85   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_ac41f1bd57d23cd760bb7419985d4a139}{print}}(std::ostream\& os = std::cout) \textcolor{keyword}{const};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{93   std::unordered\_map<std::string, TaskDisplayInfo> \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_a5b2a4c6aff6d368d03dbdfcd90c4e9e0}{getTaskDisplayInfo}}();}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \textcolor{keyword}{private}:}
+\DoxyCodeLine{97   std::unordered\_map<std::string, TaskInfoStatistics> \mbox{\hyperlink{classtesseract__planning_1_1TaskInfoProfiler_a327c088e3ac853db138d9ed81f058f4a}{stats\_map}};}
+\DoxyCodeLine{98 \};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{108 \textcolor{keyword}{inline} std::unordered\_map<std::string, std::vector<TaskInfo>>}
+\DoxyCodeLine{109 \mbox{\hyperlink{namespacetesseract__planning_ad9bb77677b8e3df9048ee470720d591e}{sortTaskInfosByTaskName}}(\textcolor{keyword}{const} std::vector<std::vector<TaskInfo>>\& task\_infos)}
+\DoxyCodeLine{110 \{}
+\DoxyCodeLine{111   std::unordered\_map<std::string, std::vector<TaskInfo>> task\_info\_map;}
+\DoxyCodeLine{112   \textcolor{comment}{// Loop over planning calls}}
+\DoxyCodeLine{113   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& task\_info\_vector : task\_infos)}
+\DoxyCodeLine{114   \{}
+\DoxyCodeLine{115     \textcolor{comment}{// Loop over tasks in the planning Taskflow}}
+\DoxyCodeLine{116     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& task\_info : task\_info\_vector)}
+\DoxyCodeLine{117     \{}
+\DoxyCodeLine{118       \textcolor{comment}{// Insert them into the map so we can look them up by task\_name}}
+\DoxyCodeLine{119       task\_info\_map[task\_info.task\_name].push\_back(task\_info);}
+\DoxyCodeLine{120     \}}
+\DoxyCodeLine{121   \}}
+\DoxyCodeLine{122   \textcolor{keywordflow}{return} task\_info\_map;}
+\DoxyCodeLine{123 \}}
+\DoxyCodeLine{124 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_task\_info\_H}}
+
+\end{DoxyCode}

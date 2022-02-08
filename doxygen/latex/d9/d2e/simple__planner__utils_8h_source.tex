@@ -1,0 +1,74 @@
+\hypertarget{simple__planner__utils_8h_source}{}\doxysection{simple\+\_\+planner\+\_\+utils.\+h}
+\label{simple__planner__utils_8h_source}\index{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/simple/profile/simple\_planner\_utils.h@{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/simple/profile/simple\_planner\_utils.h}}
+\mbox{\hyperlink{simple__planner__utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_PROFILE\_SIMPLE\_PLANNER\_UTILS\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_PROFILE\_SIMPLE\_PLANNER\_UTILS\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{command__language_8h}{tesseract\_command\_language/command\_language.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h}{tesseract\_motion\_planners/core/types.h}}>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{JointGroupInstructionInfo}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44   \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_af53c8b9c7edb497f6bf334efacd2e960}{JointGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}\& plan\_instruction,}
+\DoxyCodeLine{45                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{46                             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}\& \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_aab8662856b87b5c7689646b8aba1093e}{instruction}};}
+\DoxyCodeLine{49   tesseract\_kinematics::JointGroup::UPtr \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a131a12f7a15dee90161c802ebc363c6f}{manip}};}
+\DoxyCodeLine{50   std::string \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a28b9536a0b150e7252039d7fc49189f3}{working\_frame}};}
+\DoxyCodeLine{51   std::string \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a9be5829f56e092d8f6e66fd6a1d34ff4}{tcp\_frame}};}
+\DoxyCodeLine{52   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a03227d4a466c0a55da1baa88c8b7645a}{tcp\_offset}}\{ Eigen::Isometry3d::Identity() \};}
+\DoxyCodeLine{53   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a39bc11f28bfbbf5fe8943bc7e5b1c112}{has\_cartesian\_waypoint}}\{ \textcolor{keyword}{false} \};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{60   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac690d530dc64aceb9d78338c7c466d64}{calcCartesianPose}}(\textcolor{keyword}{const} Eigen::VectorXd\& jp) \textcolor{keyword}{const};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{67   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ab497a761c032cbd09f2f5f59ae2c13c0}{extractCartesianPose}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{74   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a349a09bf21a6b8847f543dbb3d468b17}{extractJointPosition}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{75 \};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{78 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80   \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_ae26433248bf869727c71fbf0631fa7ec}{KinematicGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}\& plan\_instruction,}
+\DoxyCodeLine{81                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{82                                 \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info);}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84   \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}\& \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a2eb7089932035e4b23b4717c7452160b}{instruction}};}
+\DoxyCodeLine{85   tesseract\_kinematics::KinematicGroup::UPtr \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a86faee3de3c751f3b7dd90174aee9cbc}{manip}};}
+\DoxyCodeLine{86   std::string \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a6d4e59f4dbad3edf61f24921f0bab51d}{working\_frame}};}
+\DoxyCodeLine{87   std::string \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a8e019f911a0a76de8d56a6e8f17c7638}{tcp\_frame}};}
+\DoxyCodeLine{88   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_af9126c862eb98c69d6813c81a87b97df}{tcp\_offset}}\{ Eigen::Isometry3d::Identity() \};}
+\DoxyCodeLine{89   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_af3bf322bd93d2d0e95c216b997962efe}{has\_cartesian\_waypoint}}\{ \textcolor{keyword}{false} \};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{96   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a1fef756f80700726afa89909dae497c2}{calcCartesianPose}}(\textcolor{keyword}{const} Eigen::VectorXd\& jp) \textcolor{keyword}{const};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{103   Eigen::Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a28e72f5326caac97aea47e23c047259a}{extractCartesianPose}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{110   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a448fba85565b0588262fb146b9f1e581}{extractJointPosition}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{111 \};}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{120 CompositeInstruction \mbox{\hyperlink{namespacetesseract__planning_a279ab58cb9c7b07e9e678f077bb4d932}{getInterpolatedComposite}}(\textcolor{keyword}{const} std::vector<std::string>\& joint\_names,}
+\DoxyCodeLine{121                                               \textcolor{keyword}{const} Eigen::MatrixXd\& states,}
+\DoxyCodeLine{122                                               \textcolor{keyword}{const} PlanInstruction\& base\_instruction);}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{130 Eigen::VectorXd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{getClosestJointSolution}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& info, \textcolor{keyword}{const} Eigen::VectorXd\& seed);}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{140 std::array<Eigen::VectorXd, 2> \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{getClosestJointSolution}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& info1,}
+\DoxyCodeLine{141                                                        \textcolor{keyword}{const} KinematicGroupInstructionInfo\& info2,}
+\DoxyCodeLine{142                                                        \textcolor{keyword}{const} Eigen::VectorXd\& seed);}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{145 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_PROFILE\_SIMPLE\_PLANNER\_UTILS\_H}}
+
+\end{DoxyCode}

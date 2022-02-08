@@ -1,0 +1,69 @@
+\hypertarget{fix__state__collision__task__generator_8h_source}{}\doxysection{fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+generator.\+h}
+\label{fix__state__collision__task__generator_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_generators/fix\_state\_collision\_task\_generator.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_generators/fix\_state\_collision\_task\_generator.h}}
+\mbox{\hyperlink{fix__state__collision__task__generator_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_FIX\_STATE\_COLLISION\_TASK\_GENERATOR\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_FIX\_STATE\_COLLISION\_TASK\_GENERATOR\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{fix__state__collision__profile_8h}{tesseract\_process\_managers/task\_profiles/fix\_state\_collision\_profile.h}}>}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{FixStateCollisionTaskGenerator}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<FixStateCollisionTaskGenerator>;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a544aae52ce0b7c51d06e9a7b8f4cc94f}{FixStateCollisionTaskGenerator}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_af8af3cd70136a1a3aae91f9a946e645f}{profile\_ns::FIX\_STATE\_COLLISION\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a2d0df83d9b8b69dbce36c08ed0044b1c}{\string~FixStateCollisionTaskGenerator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a1479dea16db622614542d9a7a1405dc3}{FixStateCollisionTaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{FixStateCollisionTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{FixStateCollisionTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_aa531cf8e18b43804174c13bdbb087000}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{FixStateCollisionTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_af6a6f42ebbf3d5989ce458b4e4d81a2c}{FixStateCollisionTaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{FixStateCollisionTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{FixStateCollisionTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a58b5b7bbc458367952608bf64a04cbf0}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator}{FixStateCollisionTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_aaf23c969dd53a03e7c39640c875c93ba}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskGenerator_a7c97ba0a0234f0956566e273ca5c37f8}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{FixStateCollisionTaskInfo}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61 \textcolor{keyword}{public}:}
+\DoxyCodeLine{62   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<FixStateCollisionTaskInfo>;}
+\DoxyCodeLine{63   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const FixStateCollisionTaskInfo>;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_a96bd4b767221681b5fadb544764c2765}{FixStateCollisionTaskInfo}}(std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}},}
+\DoxyCodeLine{66                             std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_af8af3cd70136a1a3aae91f9a946e645f}{profile\_ns::FIX\_STATE\_COLLISION\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   std::vector<tesseract\_collision::ContactResultMap> \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_aa15f3ca76f3612599bf98f41f589caf2}{contact\_results}};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo_ab21448f2a4d5c45e818aa780295441b1}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{71 \};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{79 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ab8de1e2ad1859b273e7309823a0e3169}{stateInCollision}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& start\_pos,}
+\DoxyCodeLine{80                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}}\& input,}
+\DoxyCodeLine{81                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& profile,}
+\DoxyCodeLine{82                       tesseract\_collision::ContactResultMap\& contacts);}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{90 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ad363fafbebdbc798d27b67a1b77f2d02}{waypointInCollision}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& waypoint,}
+\DoxyCodeLine{91                          \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}}\& input,}
+\DoxyCodeLine{92                          \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& profile,}
+\DoxyCodeLine{93                          tesseract\_collision::ContactResultMap\& contacts);}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{102 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a5dd63103a6135dde01a636744ee7fa50}{moveWaypointFromCollisionTrajopt}}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& waypoint,}
+\DoxyCodeLine{103                                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}}\& input,}
+\DoxyCodeLine{104                                       \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& profile);}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{113 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a93c0a45e4db2b2827bb6cdce50c33858}{moveWaypointFromCollisionRandomSampler}}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& waypoint,}
+\DoxyCodeLine{114                                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}}\& input,}
+\DoxyCodeLine{115                                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& profile);}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a832b46bc73c7f290a6ed036f00ca0b8e}{applyCorrectionWorkflow}}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& waypoint, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}}\& input, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1FixStateCollisionProfile}{FixStateCollisionProfile}}\& profile);}
+\DoxyCodeLine{118 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_FIX\_STATE\_BOUNDS\_TASK\_GENERATOR\_H}}
+
+\end{DoxyCode}

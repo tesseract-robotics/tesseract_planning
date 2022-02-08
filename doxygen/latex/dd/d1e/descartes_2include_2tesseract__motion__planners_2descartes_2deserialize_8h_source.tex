@@ -1,0 +1,30 @@
+\hypertarget{descartes_2include_2tesseract__motion__planners_2descartes_2deserialize_8h_source}{}\doxysection{deserialize.\+h}
+\label{descartes_2include_2tesseract__motion__planners_2descartes_2deserialize_8h_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/deserialize.h@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/deserialize.h}}
+\mbox{\hyperlink{descartes_2include_2tesseract__motion__planners_2descartes_2deserialize_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_DESERIALIZE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_DESERIALIZE\_H}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{29 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tinyxml2.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__default__plan__profile_8h}{tesseract\_motion\_planners/descartes/profile/descartes\_default\_plan\_profile.h}}>}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36 DescartesDefaultPlanProfile<double> \mbox{\hyperlink{namespacetesseract__planning_a0ad510e7a8c963b588b4726454bc0757}{descartesPlanParser}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 DescartesDefaultPlanProfile<double> \mbox{\hyperlink{namespacetesseract__planning_a11dc6dd5696a5d921ef46b7804689594}{descartesPlanFromXMLElement}}(\textcolor{keyword}{const} tinyxml2::XMLElement* profile\_xml);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 DescartesDefaultPlanProfile<double> \mbox{\hyperlink{namespacetesseract__planning_ab6c029e5547e27960c05a22d6d18e8e1}{descartesPlanFromXMLDocument}}(\textcolor{keyword}{const} tinyxml2::XMLDocument\& xml\_doc);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 DescartesDefaultPlanProfile<double> \mbox{\hyperlink{namespacetesseract__planning_a3d32bf7f0ce6ae3027d3c00ad8791d09}{descartesPlanFromXMLFile}}(\textcolor{keyword}{const} std::string\& file\_path);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 DescartesDefaultPlanProfile<double> \mbox{\hyperlink{namespacetesseract__planning_a551fbbd466c2c528a7bbf80f4b219ca0}{descartesPlanFromXMLString}}(\textcolor{keyword}{const} std::string\& xml\_string);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_DESERIALIZE\_H}}
+
+\end{DoxyCode}

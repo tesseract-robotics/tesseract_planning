@@ -1,0 +1,63 @@
+\hypertarget{tesseract__time__parameterization_2include_2tesseract__time__parameterization_2utils_8h_source}{}\doxysection{utils.\+h}
+\label{tesseract__time__parameterization_2include_2tesseract__time__parameterization_2utils_8h_source}\index{tesseract\_time\_parameterization/include/tesseract\_time\_parameterization/utils.h@{tesseract\_time\_parameterization/include/tesseract\_time\_parameterization/utils.h}}
+\mbox{\hyperlink{tesseract__time__parameterization_2include_2tesseract__time__parameterization_2utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifndef TESSERACT\_TIME\_PARAMETERIZATION\_UTILS\_H}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define TESSERACT\_TIME\_PARAMETERIZATION\_UTILS\_H}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{28 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <Eigen/Eigen>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <console\_bridge/console.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{command__language_8h}{tesseract\_command\_language/command\_language.h}}>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{get__instruction__utils_8h}{tesseract\_command\_language/utils/get\_instruction\_utils.h}}>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{45 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacetesseract__planning_a8c98bef4d1dd9386473cc9c4eebaacd7}{RescaleTimings}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& program, std::vector<double> scalings)}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47   assert(program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a152d0e323ef91226498dc982c8af3724}{size}}() == scalings.size());}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \textcolor{keywordtype}{double} prev\_time\_scaled = 0;}
+\DoxyCodeLine{50   \textcolor{keywordtype}{double} prev\_time\_original = 0;}
+\DoxyCodeLine{51   \textcolor{keywordflow}{for} (std::size\_t sub\_composite\_idx = 0; sub\_composite\_idx < program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a152d0e323ef91226498dc982c8af3724}{size}}(); sub\_composite\_idx++)}
+\DoxyCodeLine{52   \{}
+\DoxyCodeLine{53     \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& sub = program[sub\_composite\_idx].as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
+\DoxyCodeLine{54     \textcolor{keywordflow}{for} (std::size\_t move\_idx = 0; move\_idx < sub.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a152d0e323ef91226498dc982c8af3724}{size}}(); move\_idx++)}
+\DoxyCodeLine{55     \{}
+\DoxyCodeLine{56       \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(sub.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a42076f07a201bdee759baa5a37596ff3}{at}}(move\_idx)))}
+\DoxyCodeLine{57       \{}
+\DoxyCodeLine{58         \textcolor{keyword}{auto}\& move = sub.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a42076f07a201bdee759baa5a37596ff3}{at}}(move\_idx).as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>();}
+\DoxyCodeLine{59         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}{isStateWaypoint}}(move.getWaypoint()))}
+\DoxyCodeLine{60         \{}
+\DoxyCodeLine{61           \textcolor{keyword}{auto}\& state = move.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_af9dd6ba043a2ae38129847a98d90a540}{getWaypoint}}().\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a8a921b53dc06875534de2d145fd738ae}{as}}<\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}>();}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63           \textcolor{keywordtype}{double} scaling\_factor = scalings[sub\_composite\_idx];}
+\DoxyCodeLine{64           \textcolor{keywordflow}{if} (scaling\_factor < 1e-\/6)}
+\DoxyCodeLine{65           \{}
+\DoxyCodeLine{66             CONSOLE\_BRIDGE\_logWarn(\textcolor{stringliteral}{"{}Scaling factor is close to 0 (\%f), defaulting to 1"{}}, scaling\_factor);}
+\DoxyCodeLine{67             scaling\_factor = 1.0;}
+\DoxyCodeLine{68           \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70           state.velocity = state.velocity * scaling\_factor;}
+\DoxyCodeLine{71           state.acceleration = state.acceleration * scaling\_factor * scaling\_factor;}
+\DoxyCodeLine{72           state.effort = state.effort * scaling\_factor * scaling\_factor;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74           \textcolor{keywordtype}{double} temp = state.time;}
+\DoxyCodeLine{75           state.time = prev\_time\_scaled +}
+\DoxyCodeLine{76                        (state.time -\/ prev\_time\_original) / scaling\_factor;  \textcolor{comment}{// scale dt and add to previous time}}
+\DoxyCodeLine{77           prev\_time\_scaled = state.time;}
+\DoxyCodeLine{78           prev\_time\_original = temp;}
+\DoxyCodeLine{79         \}}
+\DoxyCodeLine{80       \}}
+\DoxyCodeLine{81     \}}
+\DoxyCodeLine{82   \}}
+\DoxyCodeLine{83 \}}
+\DoxyCodeLine{84 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

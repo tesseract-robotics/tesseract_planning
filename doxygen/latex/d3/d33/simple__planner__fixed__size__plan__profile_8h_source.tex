@@ -1,0 +1,61 @@
+\hypertarget{simple__planner__fixed__size__plan__profile_8h_source}{}\doxysection{simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+plan\+\_\+profile.\+h}
+\label{simple__planner__fixed__size__plan__profile_8h_source}\index{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/simple/profile/simple\_planner\_fixed\_size\_plan\_profile.h@{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/simple/profile/simple\_planner\_fixed\_size\_plan\_profile.h}}
+\mbox{\hyperlink{simple__planner__fixed__size__plan__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_FIXED\_SIZE\_PLAN\_PROFILE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_FIXED\_SIZE\_PLAN\_PROFILE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__profile_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_profile.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__utils_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_utils.h}}>}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{38 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile}{tesseract\_planning::SimplePlannerFixedSizePlanProfile}})}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile}{SimplePlannerFixedSizePlanProfile}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45 \textcolor{keyword}{public}:}
+\DoxyCodeLine{46   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a8b3064c2f3747d13143289ce625fc3f0}{Ptr}} = std::shared\_ptr<SimplePlannerFixedSizePlanProfile>;}
+\DoxyCodeLine{47   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a5dca8c46dd2c38f09fe06870dce9a52f}{ConstPtr}} = std::shared\_ptr<const SimplePlannerFixedSizePlanProfile>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a7f0f5874d4644bf152ea1ca98bd27621}{SimplePlannerFixedSizePlanProfile}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a593d08cc3e9f41ad79488b4e538f544c}{freespace\_steps}} = 10, \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a03d52871cc1b08713e150f7627ee4b51}{linear\_steps}} = 10);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a27fc71d037a7b933d5fda88a8932e5c4}{generate}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}\& prev\_instruction,}
+\DoxyCodeLine{57                                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}\& prev\_seed,}
+\DoxyCodeLine{58                                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}\& base\_instruction,}
+\DoxyCodeLine{59                                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& next\_instruction,}
+\DoxyCodeLine{60                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{61                                 \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& global\_manip\_info) \textcolor{keyword}{const override};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{64   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a593d08cc3e9f41ad79488b4e538f544c}{freespace\_steps}};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a03d52871cc1b08713e150f7627ee4b51}{linear\_steps}};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{70   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a0ca334c0811a221850f53a36d0bf21e0}{stateJointJointWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
+\DoxyCodeLine{71                                                \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a7c4c49a822bab297185548e708392d39}{stateJointCartWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
+\DoxyCodeLine{74                                               \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_a8e83e3afb09cfe5586877c7175f8c9fb}{stateCartJointWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
+\DoxyCodeLine{77                                               \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizePlanProfile_ab37352752649216e30dd4c76e8136849}{stateCartCartWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
+\DoxyCodeLine{80                                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base,}
+\DoxyCodeLine{81                                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
+\DoxyCodeLine{82 \};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_FIXED\_SIZE\_PLAN\_PROFILE\_H}}
+
+\end{DoxyCode}

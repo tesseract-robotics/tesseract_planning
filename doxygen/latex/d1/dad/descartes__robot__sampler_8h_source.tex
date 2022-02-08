@@ -1,0 +1,71 @@
+\hypertarget{descartes__robot__sampler_8h_source}{}\doxysection{descartes\+\_\+robot\+\_\+sampler.\+h}
+\label{descartes__robot__sampler_8h_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_robot\_sampler.h@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_robot\_sampler.h}}
+\mbox{\hyperlink{descartes__robot__sampler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_ROBOT\_SAMPLER\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_ROBOT\_SAMPLER\_H}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{29 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <descartes\_light/core/waypoint\_sampler.h>}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <tesseract\_kinematics/core/kinematic\_group.h>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__utils_8h}{tesseract\_motion\_planners/descartes/descartes\_utils.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__collision_8h}{tesseract\_motion\_planners/descartes/descartes\_collision.h}}>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h}{tesseract\_motion\_planners/descartes/types.h}}>}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{43 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{DescartesRobotSampler}} : \textcolor{keyword}{public} descartes\_light::WaypointSampler<FloatType>}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45 \textcolor{keyword}{public}:}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a83e0240d0363f251ebdbe87b3e959d44}{DescartesRobotSampler}}(std::string target\_working\_frame,}
+\DoxyCodeLine{57                         \textcolor{keyword}{const} Eigen::Isometry3d\& target\_pose,}
+\DoxyCodeLine{58                         \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{PoseSamplerFn}} target\_pose\_sampler,}
+\DoxyCodeLine{59                         tesseract\_kinematics::KinematicGroup::ConstPtr manip,}
+\DoxyCodeLine{60                         \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{DescartesCollision::Ptr}} collision,}
+\DoxyCodeLine{61                         std::string tcp\_frame,}
+\DoxyCodeLine{62                         \textcolor{keyword}{const} Eigen::Isometry3d\& tcp\_offset,}
+\DoxyCodeLine{63                         \textcolor{keywordtype}{bool} allow\_collision,}
+\DoxyCodeLine{64                         \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{DescartesVertexEvaluator::Ptr}} is\_valid,}
+\DoxyCodeLine{65                         \textcolor{keywordtype}{bool} use\_redundant\_joint\_solutions);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   std::vector<descartes\_light::StateSample<FloatType>> \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a5a673c54b9cea8d02596d5972b184d8d}{sample}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{keyword}{private}:}
+\DoxyCodeLine{71   std::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a46de057d464f9e7a20a51502846b21fd}{target\_working\_frame\_}};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{74   Eigen::Isometry3d \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_ad7a80abb190cdfc51112cd3916c281fc}{target\_pose\_}};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{77   \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{PoseSamplerFn}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_ad83f779b4149f2dfd8cd42ebb2d7f03e}{target\_pose\_sampler\_}};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{80   tesseract\_kinematics::KinematicGroup::ConstPtr \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a9fec7df7289fef82c87e967d66745b05}{manip\_}};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{83   \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{DescartesCollision::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a5ed558bfff6ed31e2db223688c35995f}{collision\_}};}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{86   std::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a25836e817a5695f563d77d0fe6b7c570}{tcp\_frame\_}};}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{89   Eigen::Isometry3d \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a532ae3ced90e866ce3ca565cdaeb768b}{tcp\_offset\_}};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{92   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a4937408ae7e14b11fdb9edde2f0638bf}{allow\_collision\_}};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{95   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a9ba2c4b2b1a38339cda34844bc680662}{dof\_}};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{98   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_ac3c8bb4a6ab874fb12f021cb1f8f29f3}{ik\_seed\_}};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{101   \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{DescartesVertexEvaluator::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a449c5ea39c79a35a1765c63061bafc5d}{is\_valid\_}};}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{104   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler_a93a5a6940926da71c95477c5769b626a}{use\_redundant\_joint\_solutions\_}}\{ \textcolor{keyword}{false} \};}
+\DoxyCodeLine{105 \};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{DescartesRobotSamplerF}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{DescartesRobotSampler<float>}};}
+\DoxyCodeLine{108 \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{DescartesRobotSamplerD}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesRobotSampler}{DescartesRobotSampler<double>}};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_ROBOT\_SAMPLER\_H}}
+
+\end{DoxyCode}

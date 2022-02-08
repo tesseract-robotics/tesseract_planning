@@ -1,0 +1,126 @@
+\hypertarget{trajopt__ifopt__utils_8h_source}{}\doxysection{trajopt\+\_\+ifopt\+\_\+utils.\+h}
+\label{trajopt__ifopt__utils_8h_source}\index{tesseract\_motion\_planners/trajopt\_ifopt/include/tesseract\_motion\_planners/trajopt\_ifopt/trajopt\_ifopt\_utils.h@{tesseract\_motion\_planners/trajopt\_ifopt/include/tesseract\_motion\_planners/trajopt\_ifopt/trajopt\_ifopt\_utils.h}}
+\mbox{\hyperlink{trajopt__ifopt__utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_IFOPT\_UTILS\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_IFOPT\_UTILS\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <ifopt/constraint\_set.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <trajopt\_sqp/trajopt\_qp\_problem.h>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <trajopt\_ifopt/trajopt\_ifopt.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <trajopt\_ifopt/constraints/collision/discrete\_collision\_evaluators.h>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <trajopt\_ifopt/constraints/collision/continuous\_collision\_evaluators.h>}}
+\DoxyCodeLine{36 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__command__language_2include_2tesseract__command__language_2types_8h}{tesseract\_command\_language/types.h}}>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{cartesian__waypoint_8h}{tesseract\_command\_language/cartesian\_waypoint.h}}>}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{joint__waypoint_8h}{tesseract\_command\_language/joint\_waypoint.h}}>}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 ifopt::ConstraintSet::Ptr}
+\DoxyCodeLine{45 \mbox{\hyperlink{namespacetesseract__planning_ada99db5aba43e83678ab889b2f689c52}{createCartesianPositionConstraint}}(\textcolor{keyword}{const} trajopt\_ifopt::JointPosition::ConstPtr\& var,}
+\DoxyCodeLine{46                                   \textcolor{keyword}{const} tesseract\_kinematics::JointGroup::ConstPtr\& manip,}
+\DoxyCodeLine{47                                   \textcolor{keyword}{const} std::string\& source\_frame,}
+\DoxyCodeLine{48                                   \textcolor{keyword}{const} std::string\& target\_frame,}
+\DoxyCodeLine{49                                   \textcolor{keyword}{const} Eigen::Isometry3d\& source\_frame\_offset = Eigen::Isometry3d::Identity(),}
+\DoxyCodeLine{50                                   \textcolor{keyword}{const} Eigen::Isometry3d\& target\_frame\_offset = Eigen::Isometry3d::Identity(),}
+\DoxyCodeLine{51                                   \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeffs = Eigen::VectorXd::Ones(6));}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a43989916928f32acc449fd4aaadfe09a}{addCartesianPositionConstraint}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{54                                     \textcolor{keyword}{const} trajopt\_ifopt::JointPosition::ConstPtr\& var,}
+\DoxyCodeLine{55                                     \textcolor{keyword}{const} tesseract\_kinematics::JointGroup::ConstPtr\& manip,}
+\DoxyCodeLine{56                                     \textcolor{keyword}{const} std::string\& source\_frame,}
+\DoxyCodeLine{57                                     \textcolor{keyword}{const} std::string\& target\_frame,}
+\DoxyCodeLine{58                                     \textcolor{keyword}{const} Eigen::Isometry3d\& source\_frame\_offset = Eigen::Isometry3d::Identity(),}
+\DoxyCodeLine{59                                     \textcolor{keyword}{const} Eigen::Isometry3d\& target\_frame\_offset = Eigen::Isometry3d::Identity(),}
+\DoxyCodeLine{60                                     \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeffs = Eigen::VectorXd::Ones(6));}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ae98255bb1c15bc3373c2bdaa41658ea6}{addCartesianPositionSquaredCost}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{63                                      \textcolor{keyword}{const} trajopt\_ifopt::JointPosition::ConstPtr\& var,}
+\DoxyCodeLine{64                                      \textcolor{keyword}{const} tesseract\_kinematics::JointGroup::ConstPtr\& manip,}
+\DoxyCodeLine{65                                      \textcolor{keyword}{const} std::string\& source\_frame,}
+\DoxyCodeLine{66                                      \textcolor{keyword}{const} std::string\& target\_frame,}
+\DoxyCodeLine{67                                      \textcolor{keyword}{const} Eigen::Isometry3d\& source\_frame\_offset = Eigen::Isometry3d::Identity(),}
+\DoxyCodeLine{68                                      \textcolor{keyword}{const} Eigen::Isometry3d\& target\_frame\_offset = Eigen::Isometry3d::Identity(),}
+\DoxyCodeLine{69                                      \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeffs = Eigen::VectorXd::Ones(6));}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_aa70ead0956b13c6cadd4c9f0f78210f1}{addCartesianPositionAbsoluteCost}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{72                                       \textcolor{keyword}{const} trajopt\_ifopt::JointPosition::ConstPtr\& var,}
+\DoxyCodeLine{73                                       \textcolor{keyword}{const} tesseract\_kinematics::JointGroup::ConstPtr\& manip,}
+\DoxyCodeLine{74                                       \textcolor{keyword}{const} std::string\& source\_frame,}
+\DoxyCodeLine{75                                       \textcolor{keyword}{const} std::string\& target\_frame,}
+\DoxyCodeLine{76                                       \textcolor{keyword}{const} Eigen::Isometry3d\& source\_frame\_offset = Eigen::Isometry3d::Identity(),}
+\DoxyCodeLine{77                                       \textcolor{keyword}{const} Eigen::Isometry3d\& target\_frame\_offset = Eigen::Isometry3d::Identity(),}
+\DoxyCodeLine{78                                       \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeffs = Eigen::VectorXd::Ones(6));}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 ifopt::ConstraintSet::Ptr \mbox{\hyperlink{namespacetesseract__planning_a0ffaf9223773224cc11dfdb59285feed}{createJointPositionConstraint}}(\textcolor{keyword}{const} JointWaypoint\& joint\_waypoint,}
+\DoxyCodeLine{81                                                         \textcolor{keyword}{const} trajopt\_ifopt::JointPosition::ConstPtr\& var,}
+\DoxyCodeLine{82                                                         \textcolor{keyword}{const} Eigen::VectorXd\& \textcolor{comment}{/*coeffs*/});}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 std::vector<ifopt::ConstraintSet::Ptr>}
+\DoxyCodeLine{85 \mbox{\hyperlink{namespacetesseract__planning_a2aa911592142af3f76da18b590c5e689}{createCollisionConstraints}}(\textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{86                            \textcolor{keyword}{const} tesseract\_environment::Environment::ConstPtr\& env,}
+\DoxyCodeLine{87                            \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{88                            \textcolor{keyword}{const} trajopt\_ifopt::TrajOptCollisionConfig::ConstPtr\& config,}
+\DoxyCodeLine{89                            \textcolor{keyword}{const} std::vector<int>\& fixed\_indices);}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_aea0acfda2d541adc2eea63cca9f65b64}{addCollisionConstraint}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{92                             \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{93                             \textcolor{keyword}{const} tesseract\_environment::Environment::ConstPtr\& env,}
+\DoxyCodeLine{94                             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{95                             \textcolor{keyword}{const} trajopt\_ifopt::TrajOptCollisionConfig::ConstPtr\& config,}
+\DoxyCodeLine{96                             \textcolor{keyword}{const} std::vector<int>\& fixed\_indices);}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a5583cb5d78e1752c81bd14ad5869393e}{addCollisionCost}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{99                       \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{100                       \textcolor{keyword}{const} tesseract\_environment::Environment::ConstPtr\& env,}
+\DoxyCodeLine{101                       \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{102                       \textcolor{keyword}{const} trajopt\_ifopt::TrajOptCollisionConfig::ConstPtr\& config,}
+\DoxyCodeLine{103                       \textcolor{keyword}{const} std::vector<int>\& fixed\_indices);}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 ifopt::ConstraintSet::Ptr \mbox{\hyperlink{namespacetesseract__planning_a80b38fe22cbfcec32fa79f689abf5fec}{createJointVelocityConstraint}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& target,}
+\DoxyCodeLine{106                                                         \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{107                                                         \textcolor{keyword}{const} Eigen::VectorXd\& coeffs);}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a216be24b4b331e388446241f3200758b}{addJointVelocityConstraint}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{110                                 \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{111                                 \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeff);}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_acaefbdf02206df96ab97a09cf1610105}{addJointVelocitySquaredCost}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{114                                  \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{115                                  \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeff);}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 ifopt::ConstraintSet::Ptr}
+\DoxyCodeLine{118 \mbox{\hyperlink{namespacetesseract__planning_ae856124e83649eb867f966266685819e}{createJointAccelerationConstraint}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& target,}
+\DoxyCodeLine{119                                   \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{120                                   \textcolor{keyword}{const} Eigen::VectorXd\& coeffs);}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a1183808fe926c0a6fb1d5fece15d9dad}{addJointAccelerationConstraint}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{123                                     \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{124                                     \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeff);}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a3f39cde237235b7e767b518f23802899}{addJointAccelerationSquaredCost}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{127                                      \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{128                                      \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeff);}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130 ifopt::ConstraintSet::Ptr \mbox{\hyperlink{namespacetesseract__planning_a4b6a7c026717824b0f588b88cc9357df}{createJointJerkConstraint}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& target,}
+\DoxyCodeLine{131                                                     \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{132                                                     \textcolor{keyword}{const} Eigen::VectorXd\& coeffs);}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ac2db7e409488f9230cb7e7b8708d5762}{addJointJerkConstraint}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{135                             \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{136                             \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeff);}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_aadb81bc948f8ba685cbbcdff2236f946}{addJointJerkSquaredCost}}(trajopt\_sqp::QPProblem\& nlp,}
+\DoxyCodeLine{139                              \textcolor{keyword}{const} std::vector<trajopt\_ifopt::JointPosition::ConstPtr>\& vars,}
+\DoxyCodeLine{140                              \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& coeff);}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_IFOPT\_UTILS\_H}}
+
+\end{DoxyCode}

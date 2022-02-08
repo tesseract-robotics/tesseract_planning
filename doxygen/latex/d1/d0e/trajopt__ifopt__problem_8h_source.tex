@@ -1,0 +1,44 @@
+\hypertarget{trajopt__ifopt__problem_8h_source}{}\doxysection{trajopt\+\_\+ifopt\+\_\+problem.\+h}
+\label{trajopt__ifopt__problem_8h_source}\index{tesseract\_motion\_planners/trajopt\_ifopt/include/tesseract\_motion\_planners/trajopt\_ifopt/trajopt\_ifopt\_problem.h@{tesseract\_motion\_planners/trajopt\_ifopt/include/tesseract\_motion\_planners/trajopt\_ifopt/trajopt\_ifopt\_problem.h}}
+\mbox{\hyperlink{trajopt__ifopt__problem_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_IFOPT\_PROBLEM\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_IFOPT\_PROBLEM\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <trajopt\_sqp/qp\_problem.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <trajopt\_ifopt/variable\_sets/joint\_position\_variable.h>}}
+\DoxyCodeLine{35 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <tesseract\_environment/environment.h>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{enum class} \mbox{\hyperlink{namespacetesseract__planning_a4075aba51db3be039f29037d09d85a94}{TrajOptIfoptTermType}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43   \mbox{\hyperlink{namespacetesseract__planning_a4075aba51db3be039f29037d09d85a94ae0f588affe0abe2e0565de8a962c4502}{CONSTRAINT}},}
+\DoxyCodeLine{44   \mbox{\hyperlink{namespacetesseract__planning_a4075aba51db3be039f29037d09d85a94abe2b638ec952eec71f8a27b8b0be5b06}{SQUARED\_COST}},}
+\DoxyCodeLine{45   \mbox{\hyperlink{namespacetesseract__planning_a4075aba51db3be039f29037d09d85a94aad2514bbf670f76fbd63cad25a4afc0c}{ABSOLUTE\_COST}}}
+\DoxyCodeLine{46 \};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{TrajOptIfoptProblem}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \textcolor{comment}{// These are required for Tesseract to configure Descartes}}
+\DoxyCodeLine{51   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_aa04aee9862276b463ba831ce09f25528}{environment}};}
+\DoxyCodeLine{52   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a9e30d55f18257ea06c28bdfddd96a25d}{env\_state}};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{comment}{// Kinematic Objects}}
+\DoxyCodeLine{55   tesseract\_kinematics::JointGroup::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a71c88fb60b084fccbf7356264d4069fa}{manip}};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   trajopt\_sqp::QPProblem::Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_acb2cab13676af34abe96b021cd487980}{nlp}};}
+\DoxyCodeLine{58   std::vector<trajopt\_ifopt::JointPosition::ConstPtr> \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a1504a59e767c8df8b63e035834cd6e77}{vars}};}
+\DoxyCodeLine{59 \};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_PROBLEM\_H}}
+
+\end{DoxyCode}

@@ -1,8 +1,8 @@
 <map id="tesseract_planning::TaskInfoProfiler" name="tesseract_planning::TaskInfoProfiler">
 <area shape="rect" id="node1" title="Loads TaskInfos from various sources and calculates some statistics." alt="" coords="159,408,289,449"/>
 <area shape="rect" id="node2" title=" " alt="" coords="124,289,324,345"/>
-<area shape="rect" id="node3" href="$d8/dcc/structtesseract__planning_1_1TaskInfoStatistics.html" title="Container for stats on one TaskInfo." alt="" coords="98,185,233,227"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,96,133,123"/>
-<area shape="rect" id="node5" title=" " alt="" coords="199,96,278,123"/>
-<area shape="rect" id="node6" title=" " alt="" coords="177,5,301,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="199,96,278,123"/>
+<area shape="rect" id="node5" href="$d8/dcc/structtesseract__planning_1_1TaskInfoStatistics.html" title="Container for stats on one TaskInfo." alt="" coords="98,185,233,227"/>
+<area shape="rect" id="node4" title=" " alt="" coords="177,5,301,47"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,96,133,123"/>
 </map>

@@ -1,0 +1,103 @@
+\hypertarget{process__planning__server_8h_source}{}\doxysection{process\+\_\+planning\+\_\+server.\+h}
+\label{process__planning__server_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/core/process\_planning\_server.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/core/process\_planning\_server.h}}
+\mbox{\hyperlink{process__planning__server_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_SERVER\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_SERVER\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <taskflow/taskflow.hpp>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{profile__dictionary_8h}{tesseract\_command\_language/profile\_dictionary.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{process__environment__cache_8h}{tesseract\_process\_managers/core/process\_environment\_cache.h}}>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{taskflow__generator_8h}{tesseract\_process\_managers/core/taskflow\_generator.h}}>}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{process__planning__request_8h}{tesseract\_process\_managers/core/process\_planning\_request.h}}>}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{process__planning__future_8h}{tesseract\_process\_managers/core/process\_planning\_future.h}}>}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{44 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{tesseract\_planning::ProcessPlanningServer}})}
+\DoxyCodeLine{45 \%nodefaultctor \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{tesseract\_planning::ProcessPlanningServer}};}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{54 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{ProcessPlanningServer}}}
+\DoxyCodeLine{55 \{}
+\DoxyCodeLine{56 \textcolor{keyword}{public}:}
+\DoxyCodeLine{57   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aa52737a3f539bf58cf5b124ddfc82044}{Ptr}} = std::shared\_ptr<ProcessPlanningServer>;}
+\DoxyCodeLine{58   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a0d014430a22f19fe839bd9836622753b}{ConstPtr}} = std::shared\_ptr<const ProcessPlanningServer>;}
+\DoxyCodeLine{59   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a5e5350edc87c24aade648d0bdc8c9aae}{UPtr}} = std::unique\_ptr<ProcessPlanningServer>;}
+\DoxyCodeLine{60   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aeac5a0989d5f0a56f6ad64cf65db8575}{ConstUPtr}} = std::unique\_ptr<const ProcessPlanningServer>;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{68   \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a398f6e28a76b6b1ef5886a5e7cedeeed}{ProcessPlanningServer}}(\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{EnvironmentCache::ConstPtr}} cache, \textcolor{keywordtype}{size\_t} n = std::thread::hardware\_concurrency());}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{78   \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a398f6e28a76b6b1ef5886a5e7cedeeed}{ProcessPlanningServer}}(tesseract\_environment::Environment::ConstPtr environment,}
+\DoxyCodeLine{79                         \textcolor{keywordtype}{int} cache\_size = 1,}
+\DoxyCodeLine{80                         \textcolor{keywordtype}{size\_t} n = std::thread::hardware\_concurrency());}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aa3d92ad3529217bf5be540c352ed7af6}{\string~ProcessPlanningServer}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{84   \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a18d1ac5e71817fe328466b2c19aaebf4}{ProcessPlanningServer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{ProcessPlanningServer}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{85   \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{ProcessPlanningServer}}\& \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_adaa0554bfb05365bb0abc378f388f18a}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{ProcessPlanningServer}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{86   \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_ac45e91f2eb43fa2f08345bdc5d26560b}{ProcessPlanningServer}}(\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{ProcessPlanningServer}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{87   \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{ProcessPlanningServer}}\& \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a73c77f8bafb830062c93ade10af1b36f}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer}{ProcessPlanningServer}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{96   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aeb6dc48a6d26f9e04f1e2573485ad35d}{registerProcessPlanner}}(\textcolor{keyword}{const} std::string\& name, \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{TaskflowGenerator::UPtr}} generator);}
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{103   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a26a046655f7cdf7476ea7545f902b939}{loadDefaultProcessPlanners}}();}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{110   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a794151af498ccc64116cf02b990f7676}{hasProcessPlanner}}(\textcolor{keyword}{const} std::string\& name) \textcolor{keyword}{const};}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{116   std::vector<std::string> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a36d424b8bf418d63e6afdc9e7beed003}{getAvailableProcessPlanners}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{125   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{ProcessPlanningFuture}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{ProcessPlanningRequest}}\& request) \textcolor{keyword}{const};}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{132   tf::Future<void> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}}(tf::Taskflow\& taskflow) \textcolor{keyword}{const};}
+\DoxyCodeLine{133 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{136   \%extend}
+\DoxyCodeLine{137   \{}
+\DoxyCodeLine{138     std::shared\_ptr<tesseract\_planning::ProcessPlanningFuture> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{ProcessPlanningRequest}}\& request)}
+\DoxyCodeLine{139     \{}
+\DoxyCodeLine{140       \textcolor{keywordflow}{return} std::make\_shared<tesseract\_planning::ProcessPlanningFuture>(std::move(\$self-\/>run(request)));}
+\DoxyCodeLine{141     \}}
+\DoxyCodeLine{142   \}}
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{146   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a1b42f2a10cb21c2beced991b82ac1bad}{waitForAll}}();}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{149   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_afef33656a36e7bed394856303b107e47}{enableTaskflowProfiling}}();}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{152   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a1b47d651661d1f609a36d57432518dcc}{disableTaskflowProfiling}}();}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{158   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}{ProfileDictionary::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a0728b09ad735c8eba717b893cb1ec185}{getProfiles}}();}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{164   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a0728b09ad735c8eba717b893cb1ec185}{getProfiles}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{167   \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{EnvironmentCache::ConstPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_ab37a53f8825bd9c0375d7d7c0aafe5fa}{cache\_}};}
+\DoxyCodeLine{168   \textcolor{keyword}{mutable} std::shared\_ptr<tf::Executor> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_acc2fa854c5cfb08fe24ce0d169f018aa}{executor\_}};}
+\DoxyCodeLine{169   std::shared\_ptr<tf::TFProfObserver> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a97fabee9a832bc34caecf3f8d962aee1}{profile\_observer\_}};}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171   std::unordered\_map<std::string, TaskflowGenerator::UPtr> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a4473171d5be06464c461e76eeabbf4ba}{process\_planners\_}};}
+\DoxyCodeLine{172   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}{ProfileDictionary::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_aa1471d06301e3721bbe65e65387c72fb}{profiles\_}}\{ std::make\_shared<ProfileDictionary>() \};}
+\DoxyCodeLine{173 \};}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{177 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_SERVER\_H}}
+
+\end{DoxyCode}

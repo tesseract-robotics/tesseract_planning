@@ -1,0 +1,228 @@
+\hypertarget{time__optimal__trajectory__generation_8h_source}{}\doxysection{time\+\_\+optimal\+\_\+trajectory\+\_\+generation.\+h}
+\label{time__optimal__trajectory__generation_8h_source}\index{tesseract\_time\_parameterization/include/tesseract\_time\_parameterization/time\_optimal\_trajectory\_generation.h@{tesseract\_time\_parameterization/include/tesseract\_time\_parameterization/time\_optimal\_trajectory\_generation.h}}
+\mbox{\hyperlink{time__optimal__trajectory__generation_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*}}
+\DoxyCodeLine{2 \textcolor{comment}{ * Copyright (c) 2011-\/2012, Georgia Tech Research Corporation}}
+\DoxyCodeLine{3 \textcolor{comment}{ * All rights reserved.}}
+\DoxyCodeLine{4 \textcolor{comment}{ *}}
+\DoxyCodeLine{5 \textcolor{comment}{ * Author: Tobias Kunz <tobias@gatech.edu>}}
+\DoxyCodeLine{6 \textcolor{comment}{ * Date: 05/2012}}
+\DoxyCodeLine{7 \textcolor{comment}{ *}}
+\DoxyCodeLine{8 \textcolor{comment}{ * Humanoid Robotics Lab      Georgia Institute of Technology}}
+\DoxyCodeLine{9 \textcolor{comment}{ * Director: Mike Stilman     http://www.golems.org}}
+\DoxyCodeLine{10 \textcolor{comment}{ *}}
+\DoxyCodeLine{11 \textcolor{comment}{ * Algorithm details and publications:}}
+\DoxyCodeLine{12 \textcolor{comment}{ * http://www.golems.org/node/1570}}
+\DoxyCodeLine{13 \textcolor{comment}{ *}}
+\DoxyCodeLine{14 \textcolor{comment}{ * This file is provided under the following "{}BSD-\/style"{} License:}}
+\DoxyCodeLine{15 \textcolor{comment}{ *   Redistribution and use in source and binary forms, with or}}
+\DoxyCodeLine{16 \textcolor{comment}{ *   without modification, are permitted provided that the following}}
+\DoxyCodeLine{17 \textcolor{comment}{ *   conditions are met:}}
+\DoxyCodeLine{18 \textcolor{comment}{ *   * Redistributions of source code must retain the above copyright}}
+\DoxyCodeLine{19 \textcolor{comment}{ *     notice, this list of conditions and the following disclaimer.}}
+\DoxyCodeLine{20 \textcolor{comment}{ *   * Redistributions in binary form must reproduce the above}}
+\DoxyCodeLine{21 \textcolor{comment}{ *     copyright notice, this list of conditions and the following}}
+\DoxyCodeLine{22 \textcolor{comment}{ *     disclaimer in the documentation and/or other materials provided}}
+\DoxyCodeLine{23 \textcolor{comment}{ *     with the distribution.}}
+\DoxyCodeLine{24 \textcolor{comment}{ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND}}
+\DoxyCodeLine{25 \textcolor{comment}{ *   CONTRIBUTORS "{}AS IS"{} AND ANY EXPRESS OR IMPLIED WARRANTIES,}}
+\DoxyCodeLine{26 \textcolor{comment}{ *   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF}}
+\DoxyCodeLine{27 \textcolor{comment}{ *   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE}}
+\DoxyCodeLine{28 \textcolor{comment}{ *   DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR}}
+\DoxyCodeLine{29 \textcolor{comment}{ *   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,}}
+\DoxyCodeLine{30 \textcolor{comment}{ *   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT}}
+\DoxyCodeLine{31 \textcolor{comment}{ *   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF}}
+\DoxyCodeLine{32 \textcolor{comment}{ *   USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED}}
+\DoxyCodeLine{33 \textcolor{comment}{ *   AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT}}
+\DoxyCodeLine{34 \textcolor{comment}{ *   LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN}}
+\DoxyCodeLine{35 \textcolor{comment}{ *   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE}}
+\DoxyCodeLine{36 \textcolor{comment}{ *   POSSIBILITY OF SUCH DAMAGE.}}
+\DoxyCodeLine{37 \textcolor{comment}{ */}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifndef TESSERACT\_TIME\_PARAMETERIZATION\_TIME\_OPTIMAL\_TRAJECTORY\_GENERATION\_H}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#define TESSERACT\_TIME\_PARAMETERIZATION\_TIME\_OPTIMAL\_TRAJECTORY\_GENERATION\_H}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{43 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include <Eigen/Eigen>}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#include <list>}}
+\DoxyCodeLine{46 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{command__language_8h}{tesseract\_command\_language/command\_language.h}}>}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{trajectory__container_8h}{tesseract\_time\_parameterization/trajectory\_container.h}}>}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{52 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration}{tesseract\_planning::TimeOptimalTrajectoryGeneration}})}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{56 \{}
+\DoxyCodeLine{57 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration}{TimeOptimalTrajectoryGeneration}}}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{59 \textcolor{keyword}{public}:}
+\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a98a79af492ed73331f8071f589d0c9a7}{TimeOptimalTrajectoryGeneration}}(\textcolor{keywordtype}{double} path\_tolerance = 0.1,}
+\DoxyCodeLine{61                                   \textcolor{keywordtype}{double} resample\_dt = 0.1,}
+\DoxyCodeLine{62                                   \textcolor{keywordtype}{double} min\_angle\_change = 0.001);}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a808c675ec842305c839339e77f1103cf}{computeTimeStamps}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& program,}
+\DoxyCodeLine{65                          \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& max\_velocity,}
+\DoxyCodeLine{66                          \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& max\_acceleration,}
+\DoxyCodeLine{67                          \textcolor{keywordtype}{double} max\_velocity\_scaling\_factor = 1.0,}
+\DoxyCodeLine{68                          \textcolor{keywordtype}{double} max\_acceleration\_scaling\_factor = 1.0) \textcolor{keyword}{const};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a808c675ec842305c839339e77f1103cf}{computeTimeStamps}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{TrajectoryContainer}}\& trajectory,}
+\DoxyCodeLine{71                          \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& max\_velocity,}
+\DoxyCodeLine{72                          \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& max\_acceleration,}
+\DoxyCodeLine{73                          \textcolor{keywordtype}{double} max\_velocity\_scaling\_factor = 1.0,}
+\DoxyCodeLine{74                          \textcolor{keywordtype}{double} max\_acceleration\_scaling\_factor = 1.0) \textcolor{keyword}{const};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{keyword}{private}:}
+\DoxyCodeLine{77   \textcolor{keyword}{const} \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a41a8b6b920a5686846dcb599566ea90d}{path\_tolerance\_}};}
+\DoxyCodeLine{78   \textcolor{keyword}{const} \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_aee06504a71034b3ba2b1e5772edf9580}{resample\_dt\_}};}
+\DoxyCodeLine{79   \textcolor{keyword}{const} \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGeneration_a2b350abe71f5718b6a1c95c195ad0b8a}{min\_angle\_change\_}};}
+\DoxyCodeLine{80 \};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{83 \textcolor{keyword}{namespace }totg}
+\DoxyCodeLine{84 \{}
+\DoxyCodeLine{85 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}}
+\DoxyCodeLine{86 \{}
+\DoxyCodeLine{87 \textcolor{keyword}{public}:}
+\DoxyCodeLine{88   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a45cd0e79bdaae8ca9304c89af41c9754}{PathSegment}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{89   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_ac5f12c85461d466a7fdb1ba0930879e4}{PathSegment}}(\textcolor{keywordtype}{double} length) : \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a0cbe6c329d81179a6c3904bba17ce229}{length\_}}(length) \{\}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_ad236fa1fd151f54728a88abb389a58d5}{\string~PathSegment}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{92   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_adda86ab70870dc352cbbf8dcc513d99e}{PathSegment}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{93   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}\& \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_ad356a4bd5b975a9cec817c13c79a3040}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{94   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a44ef399c2653b333a8423e8741dd2105}{PathSegment}}(\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{95   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}\& \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a30163219c51078eed9cf03db6fe5c8c8}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a82c9637678eabd49845f5375986a90f2}{getLength}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a0cbe6c329d81179a6c3904bba17ce229}{length\_}}; \}}
+\DoxyCodeLine{98   \textcolor{keyword}{virtual} Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_ae74e9ed2da4856b2d3a7a2e7fd7f44bf}{getConfig}}(\textcolor{keywordtype}{double} s) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{99   \textcolor{keyword}{virtual} Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a761d9992074e8330da30be8de36c6419}{getTangent}}(\textcolor{keywordtype}{double} s) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{100   \textcolor{keyword}{virtual} Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_ad60ae94c06d867ce85b6eee1ea8ce599}{getCurvature}}(\textcolor{keywordtype}{double} s) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{101   \textcolor{keyword}{virtual} std::list<double> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a733705e290cd708238dd2f30625dea48}{getSwitchingPoints}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{102   \textcolor{keyword}{virtual} std::unique\_ptr<PathSegment> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a85a60dcd5b7bd2728dd6927ec5252dae}{clone}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a43263660f8c474d70399b88092585e55}{position\_}}\{ 0 \};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{107   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment_a0cbe6c329d81179a6c3904bba17ce229}{length\_}}\{ 0 \};}
+\DoxyCodeLine{108 \};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}}}
+\DoxyCodeLine{111 \{}
+\DoxyCodeLine{112 \textcolor{keyword}{public}:}
+\DoxyCodeLine{113   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a2f32e539e4f39d79075cb36430c854a7}{Path}}(\textcolor{keyword}{const} std::list<Eigen::VectorXd>\& path, \textcolor{keywordtype}{double} max\_deviation = 0.0);}
+\DoxyCodeLine{114   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a597ddd95c0429d6cbfa4e78d6d1fef05}{\string~Path}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{115   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a2f32e539e4f39d79075cb36430c854a7}{Path}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}}\& path);}
+\DoxyCodeLine{116   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}}\& \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a91720e74b56860e6f793983eaf004285}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{117   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_ad1b8b1b55228c4b3d7eb207cc1aea434}{Path}}(\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{118   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}}\& \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a7ccf0a8e6994a5f229c3b3d2e3a6d268}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a469b1d53874435740ad38ce3ce1f0371}{getLength}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{121   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_ae6dd7bb8fbecb78b67a2c21f96ff2263}{getConfig}}(\textcolor{keywordtype}{double} s) \textcolor{keyword}{const};}
+\DoxyCodeLine{122   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_afc9a0cba491d12d66b3569fa7bd83813}{getTangent}}(\textcolor{keywordtype}{double} s) \textcolor{keyword}{const};}
+\DoxyCodeLine{123   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_aed62a0ae20ff5aa4be51c11f8567e415}{getCurvature}}(\textcolor{keywordtype}{double} s) \textcolor{keyword}{const};}
+\DoxyCodeLine{124   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a3f3443c58d31d31c6978295966ac22df}{getNextSwitchingPoint}}(\textcolor{keywordtype}{double} s, \textcolor{keywordtype}{bool}\& discontinuity) \textcolor{keyword}{const};}
+\DoxyCodeLine{125   std::list<std::pair<double, bool>> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a6859e51ad90d1a9b151fffb82c0edf9b}{getSwitchingPoints}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127 \textcolor{keyword}{private}:}
+\DoxyCodeLine{128   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}* \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a0d8f74ea1f4f0005adedc0e777476c57}{getPathSegment}}(\textcolor{keywordtype}{double}\& s) \textcolor{keyword}{const};}
+\DoxyCodeLine{129   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a74cf1fc1664eb074bd5d80f5f6b0dddc}{length\_}};}
+\DoxyCodeLine{130   std::list<std::pair<double, bool>> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_aeb698a4cc8682db0a5911d97f0d01db8}{switching\_points\_}};}
+\DoxyCodeLine{131   std::list<std::unique\_ptr<PathSegment>> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a529591f51c2567fcfec42529d49cf13b}{path\_segments\_}};}
+\DoxyCodeLine{132 \};}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{135 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{PathData}}}
+\DoxyCodeLine{136 \{}
+\DoxyCodeLine{137   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData_a36408ce7106e9cdaf42ca8120592990f}{prev\_path\_pos}}\{ 0 \};}
+\DoxyCodeLine{138   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData_a378b465e558952bae80ca5cc1197c31a}{prev\_path\_vel}}\{ 0 \};}
+\DoxyCodeLine{139   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData_a1432dca182811d74e4854aa06a0532ec}{prev\_time}}\{ 0 \};}
+\DoxyCodeLine{140   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData_ab80ec934c95eca460f382cdddfb14178}{path\_pos}}\{ 0 \};}
+\DoxyCodeLine{141   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData_a9169c4b647f5721bbf9685e5f3919fc9}{path\_vel}}\{ 0 \};}
+\DoxyCodeLine{142   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData_a1a834dca76a2d07d4e0c0fd4147f5e89}{time}}\{ 0 \};}
+\DoxyCodeLine{143 \};}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory}{Trajectory}}}
+\DoxyCodeLine{146 \{}
+\DoxyCodeLine{147 \textcolor{keyword}{public}:}
+\DoxyCodeLine{159   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a78d9b62367b7178b2d23eaf185969319}{Trajectory}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}}\& path,}
+\DoxyCodeLine{160              \textcolor{keyword}{const} Eigen::VectorXd\& max\_velocity,}
+\DoxyCodeLine{161              \textcolor{keyword}{const} Eigen::VectorXd\& max\_acceleration,}
+\DoxyCodeLine{162              \textcolor{keywordtype}{double} time\_step = 0.001);}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{167   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a6dfde6fc848c5cfeb4dda5fc343b29cb}{isValid}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{170   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a3db1b8b16490e92cd122f6fe72f8153b}{getDuration}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{173   \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1PathData}{PathData}} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a148195f8e5d6faa3c46908bd7cd0f07d}{getPathData}}(\textcolor{keywordtype}{double} time) \textcolor{keyword}{const};}
+\DoxyCodeLine{175   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ac62c6ac25c7bb74a661cc3a762ac104e}{getPosition}}(\textcolor{keywordtype}{double} time) \textcolor{keyword}{const};}
+\DoxyCodeLine{177   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_af771b4b9b78767499fdea297b9fbab1c}{getVelocity}}(\textcolor{keywordtype}{double} time) \textcolor{keyword}{const};}
+\DoxyCodeLine{179   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1acebaa67669a12fa69dbf1d768ccea1}{getAcceleration}}(\textcolor{keywordtype}{double} time) \textcolor{keyword}{const};}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{185   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ab4f3648c196728cd55bd0397032eb312}{assignData}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{TrajectoryContainer}}\& trajectory) \textcolor{keyword}{const};}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187 \textcolor{keyword}{private}:}
+\DoxyCodeLine{188   \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep}{TrajectoryStep}}}
+\DoxyCodeLine{189   \{}
+\DoxyCodeLine{190     \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep_a3bf000c878e0a4a4f815996d2dff3913}{TrajectoryStep}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{191     \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep_a01e326776ac288b62e9598dd04c37508}{TrajectoryStep}}(\textcolor{keywordtype}{double} path\_pos, \textcolor{keywordtype}{double} path\_vel) : \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep_a8f0fc4c56138b1cee438c0f13031c711}{path\_pos\_}}(path\_pos), \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep_a14caf8e77f91cd24285ef2d7bdacc8af}{path\_vel\_}}(path\_vel)}
+\DoxyCodeLine{192     \{}
+\DoxyCodeLine{193       assert(!std::isnan(path\_pos));}
+\DoxyCodeLine{194       assert(!std::isnan(path\_vel));}
+\DoxyCodeLine{195     \}}
+\DoxyCodeLine{196     \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep_a8f0fc4c56138b1cee438c0f13031c711}{path\_pos\_}}\{ 0 \};}
+\DoxyCodeLine{197     \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep_a14caf8e77f91cd24285ef2d7bdacc8af}{path\_vel\_}}\{ 0 \};}
+\DoxyCodeLine{198     \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep_a7c54754d2de4ba191f59ae740a7786b2}{time\_}}\{ 0 \};}
+\DoxyCodeLine{199   \};}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{208   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_aaaae4fa69790f3d709541adab634a8c1}{calcDistanceToAll}}(\textcolor{keyword}{const} Eigen::VectorXd\& p, \textcolor{keyword}{const} Eigen::VectorXd\& times) \textcolor{keyword}{const};}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{215   \textcolor{keyword}{static} std::vector<Eigen::Index> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a3259cbc41dd8396dad3b4804835d475d}{findLocalMinimums}}(\textcolor{keyword}{const} Eigen::VectorXd\& x);}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1bebe4cc6057d1c225744262942850ed}{getNextSwitchingPoint}}(\textcolor{keywordtype}{double} path\_pos,}
+\DoxyCodeLine{218                              TrajectoryStep\& next\_switching\_point,}
+\DoxyCodeLine{219                              \textcolor{keywordtype}{double}\& before\_acceleration,}
+\DoxyCodeLine{220                              \textcolor{keywordtype}{double}\& after\_acceleration);}
+\DoxyCodeLine{221   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ad1226143d69b5c6d77a4e3ea546f33d8}{getNextAccelerationSwitchingPoint}}(\textcolor{keywordtype}{double} path\_pos,}
+\DoxyCodeLine{222                                          TrajectoryStep\& next\_switching\_point,}
+\DoxyCodeLine{223                                          \textcolor{keywordtype}{double}\& before\_acceleration,}
+\DoxyCodeLine{224                                          \textcolor{keywordtype}{double}\& after\_acceleration);}
+\DoxyCodeLine{225   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a95e0598a803ca04faba42ac224dd3a99}{getNextVelocitySwitchingPoint}}(\textcolor{keywordtype}{double} path\_pos,}
+\DoxyCodeLine{226                                      TrajectoryStep\& next\_switching\_point,}
+\DoxyCodeLine{227                                      \textcolor{keywordtype}{double}\& before\_acceleration,}
+\DoxyCodeLine{228                                      \textcolor{keywordtype}{double}\& after\_acceleration);}
+\DoxyCodeLine{229   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_aa3481e6bce77318230ca08d6462d58cb}{integrateForward}}(std::list<TrajectoryStep>\& trajectory, \textcolor{keywordtype}{double} acceleration);}
+\DoxyCodeLine{230   \textcolor{keywordtype}{void}}
+\DoxyCodeLine{231   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a68b0f0a20c3fb3daeddfdf0e9c9cc014}{integrateBackward}}(std::list<TrajectoryStep>\& start\_trajectory, \textcolor{keywordtype}{double} path\_pos, \textcolor{keywordtype}{double} path\_vel, \textcolor{keywordtype}{double} acceleration);}
+\DoxyCodeLine{232   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_af2854a2ea439f6c62440cb8d36da03fe}{getMinMaxPathAcceleration}}(\textcolor{keywordtype}{double} path\_position, \textcolor{keywordtype}{double} path\_velocity, \textcolor{keywordtype}{bool} max);}
+\DoxyCodeLine{233   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a22be84daf3ee5b9ca6aeca2976f2ce68}{getMinMaxPhaseSlope}}(\textcolor{keywordtype}{double} path\_position, \textcolor{keywordtype}{double} path\_velocity, \textcolor{keywordtype}{bool} max);}
+\DoxyCodeLine{234   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a2a6cc8dbe612bc00684c2f36d79dafda}{getAccelerationMaxPathVelocity}}(\textcolor{keywordtype}{double} path\_pos) \textcolor{keyword}{const};}
+\DoxyCodeLine{235   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a4538bbbeece65992d82d815d63de5901}{getVelocityMaxPathVelocity}}(\textcolor{keywordtype}{double} path\_pos) \textcolor{keyword}{const};}
+\DoxyCodeLine{236   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a3e1e5770e70296bf6bf94cbdaa294ddc}{getAccelerationMaxPathVelocityDeriv}}(\textcolor{keywordtype}{double} path\_pos);}
+\DoxyCodeLine{237   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a91859c584e68e094902b4b0b8fe9957f}{getVelocityMaxPathVelocityDeriv}}(\textcolor{keywordtype}{double} path\_pos);}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239   std::list<TrajectoryStep>::const\_iterator \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_aaf40a03478a500b51d85a55582054d64}{getTrajectorySegment}}(\textcolor{keywordtype}{double} time) \textcolor{keyword}{const};}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{241   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path}{Path}} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a59d48e23d358e4d22032be9dcd5aaa3b}{path\_}};}
+\DoxyCodeLine{242   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1f19c9e1c4e0e7f0e4658905fcc7d959}{max\_velocity\_}};}
+\DoxyCodeLine{243   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a60b63597cc710e486899ee6d690555d2}{max\_acceleration\_}};}
+\DoxyCodeLine{244   Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ad6579d7d438d619b9893c4e33fbad6f7}{joint\_num\_}};}
+\DoxyCodeLine{245   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a39b8cf96eba362784fe54ac9b3e806ef}{valid\_}};}
+\DoxyCodeLine{246   std::list<TrajectoryStep> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ae723b459dc992b85b96132947773c9f0}{trajectory\_}};}
+\DoxyCodeLine{247   std::list<TrajectoryStep> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a80309de5bda8f3a685cc463b621e8414}{end\_trajectory\_}};  \textcolor{comment}{// non-\/empty only if the trajectory generation failed.}}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{249   \textcolor{keyword}{const} \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_aca63aae0ee60715b8bbe6c5e2fefaac8}{time\_step\_}};}
+\DoxyCodeLine{250 }
+\DoxyCodeLine{251   \textcolor{keyword}{mutable} \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_af146a46ba1395c70096fb5697175bf74}{cached\_time\_}};}
+\DoxyCodeLine{252   \textcolor{keyword}{mutable} std::list<TrajectoryStep>::const\_iterator \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a6c6fad45947c0decb25a6c3815844673}{cached\_trajectory\_segment\_}};}
+\DoxyCodeLine{253 \};}
+\DoxyCodeLine{254 \}  \textcolor{comment}{// namespace totg}}
+\DoxyCodeLine{255 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{256 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,64 @@
+\hypertarget{graph__taskflow_8h_source}{}\doxysection{graph\+\_\+taskflow.\+h}
+\label{graph__taskflow_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/taskflow\_generators/graph\_taskflow.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/taskflow\_generators/graph\_taskflow.h}}
+\mbox{\hyperlink{graph__taskflow_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_GRAPH\_TASKFLOW\_H}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_GRAPH\_TASKFLOW\_H}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <taskflow/taskflow.hpp>}}
+\DoxyCodeLine{35 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{taskflow__generator_8h}{tesseract\_process\_managers/core/taskflow\_generator.h}}>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode}{GraphTaskflowNode}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode_a9d1a746cbcc8b7bce9fb3330e4262cbc}{GraphTaskflowNode}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{TaskGenerator::UPtr}} process\_, \textcolor{keywordtype}{bool} is\_conditional\_);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{TaskGenerator::UPtr}} \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode_aa7b47f464b904427ce3f2eb9dbe80c3e}{process}};}
+\DoxyCodeLine{48   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode_af603ddbcc4d67eb6cf61178f9332547f}{is\_conditional}};}
+\DoxyCodeLine{50   std::vector<int> \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode_a40f11f6da663598b08c3e57f93940667}{edges}};}
+\DoxyCodeLine{51 \};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{57 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{GraphTaskflow}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{TaskflowGenerator}}}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{59 \textcolor{keyword}{public}:}
+\DoxyCodeLine{60   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{UPtr}} = std::unique\_ptr<GraphTaskflow>;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{63   \textcolor{keyword}{const} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a75c8f5bd89f847d5cb7aedc19ca63810}{DONE\_NODE}} = -\/1;}
+\DoxyCodeLine{65   \textcolor{keyword}{const} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a58454ba4eaf04a5898d50f3a06fe71ef}{ERROR\_NODE}} = -\/2;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a02e730e399a30322d5b069d2cce144ca}{GraphTaskflow}}(std::string name = \textcolor{stringliteral}{"{}GraphTaskflow"{}});}
+\DoxyCodeLine{68   \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ac58d5697b16cd3d310ac06974597be7b}{\string~GraphTaskflow}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{69   \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a8744d2007fd04fb4caa28fe4767ff6df}{GraphTaskflow}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{GraphTaskflow}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{70   \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{GraphTaskflow}}\& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a8b14b3f8204f690769f1bf83fa162564}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{GraphTaskflow}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{71   \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_afd628bbd3298dcf1d050d60594bece3e}{GraphTaskflow}}(\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{GraphTaskflow}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{72   \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{GraphTaskflow}}\& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_aefec47db7b0ce318b4519a244b1f5fc8}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{GraphTaskflow}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a69e66fd067bc9b8a06f80efd91190c80}{getName}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{TaskflowContainer}} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_abb28fe9e4192e83d86d693d88cff9b15}{generateTaskflow}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{TaskflowVoidFn}} done\_cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{TaskflowVoidFn}} error\_cb) \textcolor{keyword}{override};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{84   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ad5ea6d81b5b59baf1ed8b33529f7d791}{addNode}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{TaskGenerator::UPtr}} process, \textcolor{keywordtype}{bool} is\_conditional = \textcolor{keyword}{false});}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{97   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_ac9ef12438f9e921ecc4b6ce52928b918}{addEdges}}(\textcolor{keywordtype}{int} source, std::vector<int> destinations);}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99   \textcolor{keyword}{const} std::vector<GraphTaskflowNode>\& \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a6f41e8515a91ef9c93b68b09f393965f}{getNodes}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a68605f16f84bfb6c92259cba3ea7c736}{nodes\_}}; \};}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{private}:}
+\DoxyCodeLine{102   std::vector<GraphTaskflowNode> \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a68605f16f84bfb6c92259cba3ea7c736}{nodes\_}};}
+\DoxyCodeLine{103   std::string \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a9a783069508a9746304aefb7168b8207}{name\_}};}
+\DoxyCodeLine{104 \};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_GRAPH\_TASKFLOW\_H}}
+
+\end{DoxyCode}

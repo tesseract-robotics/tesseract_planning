@@ -1,0 +1,41 @@
+\hypertarget{trajopt_2include_2tesseract__motion__planners_2trajopt_2deserialize_8h_source}{}\doxysection{deserialize.\+h}
+\label{trajopt_2include_2tesseract__motion__planners_2trajopt_2deserialize_8h_source}\index{tesseract\_motion\_planners/trajopt/include/tesseract\_motion\_planners/trajopt/deserialize.h@{tesseract\_motion\_planners/trajopt/include/tesseract\_motion\_planners/trajopt/deserialize.h}}
+\mbox{\hyperlink{trajopt_2include_2tesseract__motion__planners_2trajopt_2deserialize_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_DESERIALIZE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_DESERIALIZE\_H}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{29 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tinyxml2.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{trajopt__default__plan__profile_8h}{tesseract\_motion\_planners/trajopt/profile/trajopt\_default\_plan\_profile.h}}>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{trajopt__default__composite__profile_8h}{tesseract\_motion\_planners/trajopt/profile/trajopt\_default\_composite\_profile.h}}>}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 TrajOptDefaultPlanProfile \mbox{\hyperlink{namespacetesseract__planning_a71b8091da4834d0db8a14fc29bad929b}{trajOptPlanParser}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 TrajOptDefaultPlanProfile \mbox{\hyperlink{namespacetesseract__planning_a196abf916e5fa3062ff116cbb731367b}{trajOptPlanFromXMLElement}}(\textcolor{keyword}{const} tinyxml2::XMLElement* profile\_xml);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 TrajOptDefaultPlanProfile \mbox{\hyperlink{namespacetesseract__planning_a99d0f69362210dd6d63b332698912881}{trajOptPlanFromXMLDocument}}(\textcolor{keyword}{const} tinyxml2::XMLDocument\& xml\_doc);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 TrajOptDefaultPlanProfile \mbox{\hyperlink{namespacetesseract__planning_a0760c83c00cbc3225c366ae5692594df}{trajOptPlanFromXMLFile}}(\textcolor{keyword}{const} std::string\& file\_path);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 TrajOptDefaultPlanProfile \mbox{\hyperlink{namespacetesseract__planning_aea4642f11df2fdfbb605552c11059adb}{trajOptPlanFromXMLString}}(\textcolor{keyword}{const} std::string\& xml\_string);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 TrajOptDefaultCompositeProfile \mbox{\hyperlink{namespacetesseract__planning_ab6b92684e28ffa3f27c20a04e84f306a}{trajOptCompositeParser}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 TrajOptDefaultCompositeProfile \mbox{\hyperlink{namespacetesseract__planning_acfb2c5e378608fb0f715ad49db48d923}{trajOptCompositeFromXMLElement}}(\textcolor{keyword}{const} tinyxml2::XMLElement* profile\_xml);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 TrajOptDefaultCompositeProfile \mbox{\hyperlink{namespacetesseract__planning_a08e177e831209e1fdc0d859823302198}{trajOptCompositeFromXMLDocument}}(\textcolor{keyword}{const} tinyxml2::XMLDocument\& xml\_doc);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 TrajOptDefaultCompositeProfile \mbox{\hyperlink{namespacetesseract__planning_a2ec7ec6bb22970c4fc3ed793ff5dcb4d}{trajOptCompositeFromXMLFile}}(\textcolor{keyword}{const} std::string\& file\_path);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 TrajOptDefaultCompositeProfile \mbox{\hyperlink{namespacetesseract__planning_a1af88e4a9c01d2926c0c25fbcdc44457}{trajOptCompositeFromXMLString}}(\textcolor{keyword}{const} std::string\& xml\_string);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_DESERIALIZE\_H}}
+
+\end{DoxyCode}

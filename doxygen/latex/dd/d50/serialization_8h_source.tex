@@ -1,0 +1,96 @@
+\hypertarget{serialization_8h_source}{}\doxysection{serialization.\+h}
+\label{serialization_8h_source}\index{tesseract\_command\_language/include/tesseract\_command\_language/core/serialization.h@{tesseract\_command\_language/include/tesseract\_command\_language/core/serialization.h}}
+\mbox{\hyperlink{serialization_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#ifndef TESSERACT\_COMMAND\_LANGUAGE\_SERIALIZATION\_H}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#define TESSERACT\_COMMAND\_LANGUAGE\_SERIALIZATION\_H}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{35 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <sstream>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <boost/archive/xml\_oarchive.hpp>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <boost/archive/xml\_iarchive.hpp>}}
+\DoxyCodeLine{40 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1Serialization}{Serialization}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializableType>}
+\DoxyCodeLine{47   \textcolor{keyword}{static} std::string \mbox{\hyperlink{structtesseract__planning_1_1Serialization_a912a752df02b73643b77ab366974ac97}{toArchiveStringXML}}(\textcolor{keyword}{const} SerializableType\& archive\_type, \textcolor{keyword}{const} std::string\& name = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{48   \{}
+\DoxyCodeLine{49     std::stringstream ss;}
+\DoxyCodeLine{50     \{  \textcolor{comment}{// Must be scoped because all data is not written until the oost::archive::xml\_oarchive goes out of scope}}
+\DoxyCodeLine{51       boost::archive::xml\_oarchive oa(ss);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53       \textcolor{comment}{// Boost uses the same function for serialization and deserialization so it requires a non-\/const reference}}
+\DoxyCodeLine{54       \textcolor{comment}{// Because we are only serializing here it is safe to cast away const}}
+\DoxyCodeLine{55       \textcolor{keywordflow}{if} (name.empty())}
+\DoxyCodeLine{56         oa << boost::serialization::make\_nvp<SerializableType>(\textcolor{stringliteral}{"{}archive\_type"{}},}
+\DoxyCodeLine{57                                                                \textcolor{keyword}{const\_cast<}SerializableType\&\textcolor{keyword}{>}(archive\_type));  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{58       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{59         oa << boost::serialization::make\_nvp<SerializableType>(name.c\_str(),}
+\DoxyCodeLine{60                                                                \textcolor{keyword}{const\_cast<}SerializableType\&\textcolor{keyword}{>}(archive\_type));  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{keywordflow}{return} ss.str();}
+\DoxyCodeLine{64   \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializableType>}
+\DoxyCodeLine{67   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1Serialization_a1ffecf51a7aab6c42876eb28394a05b7}{toArchiveFileXML}}(\textcolor{keyword}{const} SerializableType\& archive\_type,}
+\DoxyCodeLine{68                                \textcolor{keyword}{const} std::string\& file\_path,}
+\DoxyCodeLine{69                                \textcolor{keyword}{const} std::string\& name = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{70   \{}
+\DoxyCodeLine{71     std::ofstream os(file\_path);}
+\DoxyCodeLine{72     \{  \textcolor{comment}{// Must be scoped because all data is not written until the oost::archive::xml\_oarchive goes out of scope}}
+\DoxyCodeLine{73       boost::archive::xml\_oarchive oa(os);}
+\DoxyCodeLine{74       \textcolor{comment}{// Boost uses the same function for serialization and deserialization so it requires a non-\/const reference}}
+\DoxyCodeLine{75       \textcolor{comment}{// Because we are only serializing here it is safe to cast away const}}
+\DoxyCodeLine{76       \textcolor{keywordflow}{if} (name.empty())}
+\DoxyCodeLine{77         oa << boost::serialization::make\_nvp<SerializableType>(\textcolor{stringliteral}{"{}archive\_type"{}},}
+\DoxyCodeLine{78                                                                \textcolor{keyword}{const\_cast<}SerializableType\&\textcolor{keyword}{>}(archive\_type));  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{79       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{80         oa << boost::serialization::make\_nvp<SerializableType>(name.c\_str(),}
+\DoxyCodeLine{81                                                                \textcolor{keyword}{const\_cast<}SerializableType\&\textcolor{keyword}{>}(archive\_type));  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{82     \}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{85   \}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializableType>}
+\DoxyCodeLine{88   \textcolor{keyword}{static} SerializableType \mbox{\hyperlink{structtesseract__planning_1_1Serialization_afab669e4bc0bf3006b2cae8dee19a49a}{fromArchiveStringXML}}(\textcolor{keyword}{const} std::string\& archive\_xml)}
+\DoxyCodeLine{89   \{}
+\DoxyCodeLine{90     SerializableType archive\_type;}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     \{  \textcolor{comment}{// Must be scoped because all data is not written until the oost::archive::xml\_oarchive goes out of scope}}
+\DoxyCodeLine{93       std::stringstream ss(archive\_xml);}
+\DoxyCodeLine{94       boost::archive::xml\_iarchive ia(ss);}
+\DoxyCodeLine{95       ia >> BOOST\_SERIALIZATION\_NVP(archive\_type);}
+\DoxyCodeLine{96     \}}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98     \textcolor{keywordflow}{return} archive\_type;}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializableType>}
+\DoxyCodeLine{102   \textcolor{keyword}{static} SerializableType \mbox{\hyperlink{structtesseract__planning_1_1Serialization_aae95c5a49009d7284c85a9043acc0dcf}{fromArchiveFileXML}}(\textcolor{keyword}{const} std::string\& file\_path)}
+\DoxyCodeLine{103   \{}
+\DoxyCodeLine{104     SerializableType archive\_type;}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \{  \textcolor{comment}{// Must be scoped because all data is not written until the oost::archive::xml\_oarchive goes out of scope}}
+\DoxyCodeLine{107       std::ifstream ifs(file\_path);}
+\DoxyCodeLine{108       assert(ifs.good());}
+\DoxyCodeLine{109       boost::archive::xml\_iarchive ia(ifs);}
+\DoxyCodeLine{110       ia >> BOOST\_SERIALIZATION\_NVP(archive\_type);}
+\DoxyCodeLine{111     \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113     \textcolor{keywordflow}{return} archive\_type;}
+\DoxyCodeLine{114   \}}
+\DoxyCodeLine{115 \};}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_SERIALIZATION\_H}}
+
+\end{DoxyCode}

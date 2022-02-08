@@ -1,0 +1,26 @@
+\hypertarget{filter__functions_8h_source}{}\doxysection{filter\+\_\+functions.\+h}
+\label{filter__functions_8h_source}\index{tesseract\_command\_language/include/tesseract\_command\_language/utils/filter\_functions.h@{tesseract\_command\_language/include/tesseract\_command\_language/utils/filter\_functions.h}}
+\mbox{\hyperlink{filter__functions_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_COMMAND\_LANGUAGE\_UTILS\_FILTER\_FUNCTIONS\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_COMMAND\_LANGUAGE\_UTILS\_FILTER\_FUNCTIONS\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_acdc2315021b909f3a215f899b7d7c241}{flattenFilterFn}} =}
+\DoxyCodeLine{42     std::function<bool(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\&, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\&, \textcolor{keywordtype}{bool} parent\_is\_first\_composite)>;}
+\DoxyCodeLine{43 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_ac008e09ddce5c25c00e2c77ff18929e8}{locateFilterFn}} =}
+\DoxyCodeLine{44     std::function<bool(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\&, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\&, \textcolor{keywordtype}{bool} parent\_is\_first\_composite)>;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a156eaa9e3dde1379bf9200c43c351d3f}{moveFilter}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& instruction, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite, \textcolor{keywordtype}{bool} parent\_is\_first\_composite);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_adeeccffb6d57f3e11925e31af40b13a4}{planFilter}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& instruction, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite, \textcolor{keywordtype}{bool} parent\_is\_first\_composite);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_COMMAND\_LANGUAGE\_UTILS\_H}}
+
+\end{DoxyCode}

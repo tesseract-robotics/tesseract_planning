@@ -1,0 +1,75 @@
+\hypertarget{process__environment__cache_8h_source}{}\doxysection{process\+\_\+environment\+\_\+cache.\+h}
+\label{process__environment__cache_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/core/process\_environment\_cache.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/core/process\_environment\_cache.h}}
+\mbox{\hyperlink{process__environment__cache_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_ENVIRONMENT\_CACHE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_ENVIRONMENT\_CACHE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <mutex>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <shared\_mutex>}}
+\DoxyCodeLine{35 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <tesseract\_environment/environment.h>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{EnvironmentCache}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}{Ptr}} = std::shared\_ptr<EnvironmentCache>;}
+\DoxyCodeLine{45   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{ConstPtr}} = std::shared\_ptr<const EnvironmentCache>;}
+\DoxyCodeLine{46   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac491726422e4dfc43f4b386d7fd46676}{UPtr}} = std::unique\_ptr<EnvironmentCache>;}
+\DoxyCodeLine{47   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_adb280591159e2e3ac45514afa4544c77}{ConstUPtr}} = std::unique\_ptr<const EnvironmentCache>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a4f921d7bd5dbac9fde08c8a58fd18131}{EnvironmentCache}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a1c6b3d2596255c66322b7f120431ab2f}{\string~EnvironmentCache}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a3b08a9dddb1e532693b197e955a2aaa4}{EnvironmentCache}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{EnvironmentCache}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{EnvironmentCache}}\& \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ab624d3103fd4bd9d9689c7b904ea2fa2}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{EnvironmentCache}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ad92509a65ee8a00d311ee39b0626332c}{EnvironmentCache}}(\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{EnvironmentCache}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{EnvironmentCache}}\& \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_acf977160bbe531f476f7a333ae81df5f}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{EnvironmentCache}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{60   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a969f8fdd4c30030846446fb0a389be58}{setCacheSize}}(\textcolor{keywordtype}{long} size) = 0;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{66   \textcolor{keyword}{virtual} \textcolor{keywordtype}{long} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_adc8514ac4c6b3c57efc6e6d3739cdec0}{getCacheSize}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{69   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_aa5a67a8dabbd80d6c135e2a07c5070cd}{refreshCache}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{75   \textcolor{keyword}{virtual} tesseract\_environment::Environment::UPtr \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a1884ebeed433e9c398e9fe8c8ad33e3a}{getCachedEnvironment}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{76 \};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache}{ProcessEnvironmentCache}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache}{EnvironmentCache}}}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80 \textcolor{keyword}{public}:}
+\DoxyCodeLine{81   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_a9399f81225576994056c06a964592529}{Ptr}} = std::shared\_ptr<ProcessEnvironmentCache>;}
+\DoxyCodeLine{82   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{ConstPtr}} = std::shared\_ptr<const ProcessEnvironmentCache>;}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84   \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_a3074177709c529034b950c8b7c9c33cd}{ProcessEnvironmentCache}}(tesseract\_environment::Environment::ConstPtr env, std::size\_t cache\_size = 5);}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{90   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_ab9f9ec51cc6ecb0a71476810ab6396c2}{setCacheSize}}(\textcolor{keywordtype}{long} size) \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{96   \textcolor{keywordtype}{long} \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_ad67e0fab02c7421305363666e29f91f3}{getCacheSize}}() const override final;}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{99   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_aaae26cf6c9e346cffe2ab63d8b99ac72}{refreshCache}}() const override final;}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{105   tesseract\_environment::Environment::\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac491726422e4dfc43f4b386d7fd46676}{UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_a8028fe41ce319c85f52d4988382f0696}{getCachedEnvironment}}() const override final;}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 protected:}
+\DoxyCodeLine{109   tesseract\_environment::Environment::\mbox{\hyperlink{classtesseract__planning_1_1EnvironmentCache_ac8f871381306bdefe97c8a48cc1de157}{ConstPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_ac958fcbbea9fc0dd42207b2c1ed7c163}{env\_}};}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{112   std::\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_a242a7548a25be9bfcfa914648d08c3dd}{cache\_size\_}}\{ 5 \};}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{115   \textcolor{keyword}{mutable} \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_ac6f661864c56a6f999ffcb6651e415fc}{cache\_env\_revision\_}}\{ 0 \};}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{118   \textcolor{keyword}{mutable} std::deque<tesseract\_environment::Environment::UPtr> \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_ada6ac1131f33015551cde6fe424a99dd}{cache\_}};}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{121   \textcolor{keyword}{mutable} std::shared\_mutex \mbox{\hyperlink{classtesseract__planning_1_1ProcessEnvironmentCache_a2d94cbb69eef8a9b1e26eeb134391ef9}{cache\_mutex\_}};}
+\DoxyCodeLine{122 \};}
+\DoxyCodeLine{123 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_ENVIRONMENT\_CACHE\_H}}
+
+\end{DoxyCode}

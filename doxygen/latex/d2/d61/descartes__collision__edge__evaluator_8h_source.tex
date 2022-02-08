@@ -1,0 +1,70 @@
+\hypertarget{descartes__collision__edge__evaluator_8h_source}{}\doxysection{descartes\+\_\+collision\+\_\+edge\+\_\+evaluator.\+h}
+\label{descartes__collision__edge__evaluator_8h_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_collision\_edge\_evaluator.h@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_collision\_edge\_evaluator.h}}
+\mbox{\hyperlink{descartes__collision__edge__evaluator_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_COLLISION\_EDGE\_EVALUATOR\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_COLLISION\_EDGE\_EVALUATOR\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <descartes\_light/core/edge\_evaluator.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <tesseract\_environment/environment.h>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <tesseract\_collision/core/discrete\_contact\_manager.h>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <tesseract\_collision/core/continuous\_contact\_manager.h>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <tesseract\_collision/core/types.h>}}
+\DoxyCodeLine{38 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{43 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{DescartesCollisionEdgeEvaluator}} : \textcolor{keyword}{public} descartes\_light::EdgeEvaluator<FloatType>}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45 \textcolor{keyword}{public}:}
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a9a4c440c2c4fd673057deac1f4ceb100}{DescartesCollisionEdgeEvaluator}}(\textcolor{keyword}{const} tesseract\_environment::Environment\& collision\_env,}
+\DoxyCodeLine{47                                   tesseract\_kinematics::JointGroup::ConstPtr manip,}
+\DoxyCodeLine{48                                   tesseract\_collision::CollisionCheckConfig config,}
+\DoxyCodeLine{49                                   \textcolor{keywordtype}{bool} allow\_collision = \textcolor{keyword}{false},}
+\DoxyCodeLine{50                                   \textcolor{keywordtype}{bool} debug = \textcolor{keyword}{false});}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   std::pair<bool, FloatType> \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a30427575131a80dda8ef9b9160194149}{evaluate}}(\textcolor{keyword}{const} descartes\_light::State<FloatType>\& start,}
+\DoxyCodeLine{53                                       \textcolor{keyword}{const} descartes\_light::State<FloatType>\& end) \textcolor{keyword}{const override};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{57   tesseract\_kinematics::JointGroup::ConstPtr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a003d93da65807d5005368c4aae7834ef}{manip\_}};}
+\DoxyCodeLine{59   std::vector<std::string> \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_aaa722ee288880e45ad54fd124bc0e11a}{active\_link\_names\_}};}
+\DoxyCodeLine{61   tesseract\_collision::DiscreteContactManager::Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a005b976fe7f8800d1d5f6b4f563a1b1a}{discrete\_contact\_manager\_}};}
+\DoxyCodeLine{63   tesseract\_collision::ContinuousContactManager::Ptr \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4cd2c16c78c1563f081ebf0a03dca87}{continuous\_contact\_manager\_}};}
+\DoxyCodeLine{65   tesseract\_collision::CollisionCheckConfig \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a06cec4d2777042340abf623c20a9792d}{collision\_check\_config\_}};}
+\DoxyCodeLine{67   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_ae19bc892dd6f9e041aaf3d4f7d297a5f}{allow\_collision\_}};}
+\DoxyCodeLine{69   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a6a2a418bbe8fe925154104e96b98bd1a}{debug\_}};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   \textcolor{comment}{// The member variables below are to cache the contact manager based on thread ID. Currently descartes is multi}}
+\DoxyCodeLine{72   \textcolor{comment}{// threaded but the methods used to implement collision checking are not thread safe. To prevent}}
+\DoxyCodeLine{73   \textcolor{comment}{// reconstructing the collision environment for every check this will cache a contact manager}}
+\DoxyCodeLine{74   \textcolor{comment}{// based on its thread ID.}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{77   \textcolor{keyword}{mutable} std::mutex \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a58cfe5a68cbfbfedc13bc578ad30e85e}{mutex\_}};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{80   \textcolor{keyword}{mutable} std::map<unsigned long int, tesseract\_collision::ContinuousContactManager::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_af4a3a55446ba76ef085160f5428028d2}{continuous\_contact\_managers\_}};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{83   \textcolor{keyword}{mutable} std::map<unsigned long int, tesseract\_collision::DiscreteContactManager::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a8f3bbe4ffb6f1b9dd7d3d16fc64e39aa}{discrete\_contact\_managers\_}};}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{91   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_ac2e4fa4cd2becf3016bea15a4702f684}{continuousCollisionCheck}}(std::vector<tesseract\_collision::ContactResultMap>\& results,}
+\DoxyCodeLine{92                                 \textcolor{keyword}{const} tesseract\_common::TrajArray\& segment,}
+\DoxyCodeLine{93                                 \textcolor{keywordtype}{bool} find\_best) \textcolor{keyword}{const};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{101   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator_a57d71274366e887d079a49fadd1b34cc}{discreteCollisionCheck}}(std::vector<tesseract\_collision::ContactResultMap>\& results,}
+\DoxyCodeLine{102                               \textcolor{keyword}{const} tesseract\_common::TrajArray\& segment,}
+\DoxyCodeLine{103                               \textcolor{keywordtype}{bool} find\_best) \textcolor{keyword}{const};}
+\DoxyCodeLine{104 \};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{DescartesCollisionEdgeEvaluatorF}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{DescartesCollisionEdgeEvaluator<float>}};}
+\DoxyCodeLine{107 \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{DescartesCollisionEdgeEvaluatorD}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{DescartesCollisionEdgeEvaluator<double>}};}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_COLLISION\_EDGE\_EVALUATOR\_H}}
+
+\end{DoxyCode}

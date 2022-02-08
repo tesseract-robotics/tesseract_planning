@@ -35,18 +35,20 @@ virtual \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a36fd05
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a61900d172d1f15c5077313a898976e80}{Trajectory\+Container}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&)=default
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aaf1659e5bc214bb76725b528b43e36c5}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&)=default
+\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ace2dd5ac217006718e13fae750025263}{operator=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&)=default
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a30a6a01f5b081e6cca816c220eab13c6}{Trajectory\+Container}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&) noexcept=default
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aa1bd83ef83ab0452b215ea2a753c4b61}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&) noexcept=default
+\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a037217c94365f5590335ef6d53f2dc6f}{operator=}} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&) noexcept=default
 \item 
-virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a83dcd133c1987ea474ce372cfd6c1ffb}{get\+Position}} (Eigen\+::\+Index i) const =0
+virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_afcd7d25def666683f9c7c6127e4b3fb9}{get\+Position}} (Eigen\+::\+Index i) const =0
 \begin{DoxyCompactList}\small\item\em Get the position data at a given index. \end{DoxyCompactList}\item 
-virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a9234b7c4def3902d4c9e146895400f95}{get\+Velocity}} (Eigen\+::\+Index i) const =0
+virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a49d1701f3c4000a4208215c41020168c}{get\+Velocity}} (Eigen\+::\+Index i) const =0
 \begin{DoxyCompactList}\small\item\em Get the velocity data at a given index. \end{DoxyCompactList}\item 
-virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aa8adcaf372e945d085c588d4c5ff2171}{get\+Acceleration}} (Eigen\+::\+Index i) const =0
+virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a61bbe3c433e60e6bd4a34e953e2c67ec}{get\+Acceleration}} (Eigen\+::\+Index i) const =0
 \begin{DoxyCompactList}\small\item\em Get the acceleration data at a given index. \end{DoxyCompactList}\item 
+virtual double \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}{get\+Time\+From\+Start}} (Eigen\+::\+Index i) const =0
+\begin{DoxyCompactList}\small\item\em Get the time from start at a given index. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a8c1ce5305755a8bc39f78d58865f7b06}{set\+Data}} (Eigen\+::\+Index i, const Eigen\+::\+Vector\+Xd \&velocity, const Eigen\+::\+Vector\+Xd \&acceleration, double time)=0
 \begin{DoxyCompactList}\small\item\em Set data for a given index. \end{DoxyCompactList}\item 
 virtual Eigen\+::\+Index \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}{size}} () const =0
@@ -54,7 +56,9 @@ virtual Eigen\+::\+Index \mbox{\hyperlink{classtesseract__planning_1_1Trajectory
 virtual Eigen\+::\+Index \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a4ee218a55ff4c8d8f01737627076378f}{dof}} () const =0
 \begin{DoxyCompactList}\small\item\em The degree of freedom for the path. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ada5c7d8dc47cbd55fe4628aed62ec01f}{empty}} () const =0
-\begin{DoxyCompactList}\small\item\em Check if the path is empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Check if the path is empty. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a4441870f906bef42e6ea0a0af7deb72b}{is\+Time\+Strictly\+Increasing}} () const
+\begin{DoxyCompactList}\small\item\em Check if time is strictly increasing. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -115,7 +119,7 @@ The degree of freedom for the path.
 
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_af6786ec396abf3620a1c3d7fd6982868}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a114374b50070c7ebbf88c494771d856d}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a114374b50070c7ebbf88c494771d856d}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_af6786ec396abf3620a1c3d7fd6982868}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_ada5c7d8dc47cbd55fe4628aed62ec01f}\label{classtesseract__planning_1_1TrajectoryContainer_ada5c7d8dc47cbd55fe4628aed62ec01f}} 
 \index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!empty@{empty}}
@@ -129,13 +133,13 @@ Check if the path is empty.
 
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_aeab002984c6ec4a8bb2ce4e9431cf77b}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_adf9404685a6a3b7e6f886b502ab366e6}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_adf9404685a6a3b7e6f886b502ab366e6}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_aeab002984c6ec4a8bb2ce4e9431cf77b}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_aa8adcaf372e945d085c588d4c5ff2171}\label{classtesseract__planning_1_1TrajectoryContainer_aa8adcaf372e945d085c588d4c5ff2171}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a61bbe3c433e60e6bd4a34e953e2c67ec}\label{classtesseract__planning_1_1TrajectoryContainer_a61bbe3c433e60e6bd4a34e953e2c67ec}} 
 \index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!getAcceleration@{getAcceleration}}
 \index{getAcceleration@{getAcceleration}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
 \doxysubsubsection{\texorpdfstring{getAcceleration()}{getAcceleration()}}
-{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Acceleration (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Acceleration (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -151,13 +155,13 @@ The acceleration data
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_aff8da43281a951b422fc93124c9632fe}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a58ccefc219b724dbb3817a62a3086c85}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a58ccefc219b724dbb3817a62a3086c85}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_aff8da43281a951b422fc93124c9632fe}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a83dcd133c1987ea474ce372cfd6c1ffb}\label{classtesseract__planning_1_1TrajectoryContainer_a83dcd133c1987ea474ce372cfd6c1ffb}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_afcd7d25def666683f9c7c6127e4b3fb9}\label{classtesseract__planning_1_1TrajectoryContainer_afcd7d25def666683f9c7c6127e4b3fb9}} 
 \index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!getPosition@{getPosition}}
 \index{getPosition@{getPosition}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
 \doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
-{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Position (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Position (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -173,13 +177,35 @@ The position data
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a4f2c10d91593f50e34cc04211b692b5d}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a6c638153b5418117bd0760039031510a}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a6c638153b5418117bd0760039031510a}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a4f2c10d91593f50e34cc04211b692b5d}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a9234b7c4def3902d4c9e146895400f95}\label{classtesseract__planning_1_1TrajectoryContainer_a9234b7c4def3902d4c9e146895400f95}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}\label{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!getTimeFromStart@{getTimeFromStart}}
+\index{getTimeFromStart@{getTimeFromStart}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{getTimeFromStart()}{getTimeFromStart()}}
+{\footnotesize\ttfamily virtual double tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Time\+From\+Start (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the time from start at a given index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index to extract time from start \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The time from start 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_aaa3cdddc45819a59fe2add3e099e2182}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a83fc09458a6729131da3fb34fff283fe}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a49d1701f3c4000a4208215c41020168c}\label{classtesseract__planning_1_1TrajectoryContainer_a49d1701f3c4000a4208215c41020168c}} 
 \index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!getVelocity@{getVelocity}}
 \index{getVelocity@{getVelocity}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
 \doxysubsubsection{\texorpdfstring{getVelocity()}{getVelocity()}}
-{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Velocity (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::get\+Velocity (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -195,19 +221,29 @@ The velocity data
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a44b984ebb4c59cb910324c177315e0cc}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_af6dbbeb6519ca8a436fe5250d6d14ad4}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_af6dbbeb6519ca8a436fe5250d6d14ad4}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a44b984ebb4c59cb910324c177315e0cc}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_aaf1659e5bc214bb76725b528b43e36c5}\label{classtesseract__planning_1_1TrajectoryContainer_aaf1659e5bc214bb76725b528b43e36c5}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a4441870f906bef42e6ea0a0af7deb72b}\label{classtesseract__planning_1_1TrajectoryContainer_a4441870f906bef42e6ea0a0af7deb72b}} 
+\index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!isTimeStrictlyIncreasing@{isTimeStrictlyIncreasing}}
+\index{isTimeStrictlyIncreasing@{isTimeStrictlyIncreasing}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
+\doxysubsubsection{\texorpdfstring{isTimeStrictlyIncreasing()}{isTimeStrictlyIncreasing()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Trajectory\+Container\+::is\+Time\+Strictly\+Increasing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if time is strictly increasing. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_ace2dd5ac217006718e13fae750025263}\label{classtesseract__planning_1_1TrajectoryContainer_ace2dd5ac217006718e13fae750025263}} 
 \index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!operator=@{operator=}}
 \index{operator=@{operator=}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}}\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_aa1bd83ef83ab0452b215ea2a753c4b61}\label{classtesseract__planning_1_1TrajectoryContainer_aa1bd83ef83ab0452b215ea2a753c4b61}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a037217c94365f5590335ef6d53f2dc6f}\label{classtesseract__planning_1_1TrajectoryContainer_a037217c94365f5590335ef6d53f2dc6f}} 
 \index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!operator=@{operator=}}
 \index{operator=@{operator=}!tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}}\& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \& tesseract\+\_\+planning\+::\+Trajectory\+Container\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_a8c1ce5305755a8bc39f78d58865f7b06}\label{classtesseract__planning_1_1TrajectoryContainer_a8c1ce5305755a8bc39f78d58865f7b06}} 
 \index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!setData@{setData}}
@@ -232,7 +268,7 @@ Set data for a given index.
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a616e2ff51fb510ca5f5c9bccb1ed40cb}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a55ec99a13d28298b2e70cb00ab8b2567}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a55ec99a13d28298b2e70cb00ab8b2567}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a616e2ff51fb510ca5f5c9bccb1ed40cb}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}\label{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}} 
 \index{tesseract\_planning::TrajectoryContainer@{tesseract\_planning::TrajectoryContainer}!size@{size}}
@@ -246,7 +282,7 @@ The size of the path.
 
 
 
-Implemented in \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a1bd9caf9e73b95c09262ed8bf2a0e439}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_ac2aec373653272c376c0a59a9b7b33fa}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}.
+Implemented in \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_ac2aec373653272c376c0a59a9b7b33fa}{tesseract\+\_\+planning\+::\+Instructions\+Trajectory}}, and \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a1bd9caf9e73b95c09262ed8bf2a0e439}{tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory}}.
 
 
 

@@ -1,0 +1,81 @@
+\hypertarget{taskflow__visualization__utils_8h_source}{}\doxysection{taskflow\+\_\+visualization\+\_\+utils.\+h}
+\label{taskflow__visualization__utils_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/utils/taskflow\_visualization\_utils.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/utils/taskflow\_visualization\_utils.h}}
+\mbox{\hyperlink{taskflow__visualization__utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_TASKFLOW\_VISUALIZATION\_UTILS\_H}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_TASKFLOW\_VISUALIZATION\_UTILS\_H}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{28 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__info_8h}{tesseract\_process\_managers/core/task\_info.h}}>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{graph__taskflow_8h}{tesseract\_process\_managers/taskflow\_generators/graph\_taskflow.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__info__statistics_8h}{tesseract\_process\_managers/utils/task\_info\_statistics.h}}>}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo}{TaskDisplayInfo}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44   std::string \mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo_a0a8a8992e3855d5a0eda781071b61767}{task\_info}};}
+\DoxyCodeLine{45   std::map<int, std::string> \mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo_a0b98cf302991183c1254e4524c2ac0f7}{edge\_info}};}
+\DoxyCodeLine{46 \};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{54 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacetesseract__planning_aa6062b2278e30eeb6c0f829db9fdd3e3}{dump}}(std::ostream\& os,}
+\DoxyCodeLine{55                  \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow}{GraphTaskflow}}\& graph,}
+\DoxyCodeLine{56                  \textcolor{keyword}{const} std::unordered\_map<std::string, TaskDisplayInfo>\& task\_info\_map =}
+\DoxyCodeLine{57                      std::unordered\_map<std::string, TaskDisplayInfo>())}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{59   os << \textcolor{stringliteral}{"{}digraph Taskflow \{\(\backslash\)n"{}};}
+\DoxyCodeLine{60   \{}
+\DoxyCodeLine{61     os << \textcolor{stringliteral}{"{}subgraph cluster"{}}}
+\DoxyCodeLine{62        << \textcolor{stringliteral}{"{} \{\(\backslash\)nlabel=\(\backslash\)"{}Taskflow:\(\backslash\)"{};\(\backslash\)n"{}};}
+\DoxyCodeLine{63     \{}
+\DoxyCodeLine{64       \textcolor{keyword}{const} std::vector<GraphTaskflowNode>\& nodes = graph.\mbox{\hyperlink{classtesseract__planning_1_1GraphTaskflow_a6f41e8515a91ef9c93b68b09f393965f}{getNodes}}();}
+\DoxyCodeLine{65       \textcolor{keywordflow}{for} (std::size\_t idx = 0; idx < nodes.size(); idx++)}
+\DoxyCodeLine{66       \{}
+\DoxyCodeLine{67         \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode}{GraphTaskflowNode}}\& node = nodes[idx];}
+\DoxyCodeLine{68         \textcolor{keyword}{const} std::string node\_name = node.\mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode_aa7b47f464b904427ce3f2eb9dbe80c3e}{process}}-\/>getName();}
+\DoxyCodeLine{69         \mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo}{TaskDisplayInfo}} task\_display\_info;}
+\DoxyCodeLine{70         \textcolor{keywordflow}{if} (task\_info\_map.find(node\_name) != task\_info\_map.end())}
+\DoxyCodeLine{71           task\_display\_info = task\_info\_map.at(node\_name);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73         \textcolor{comment}{// Add the node}}
+\DoxyCodeLine{74         os << \textcolor{stringliteral}{"{}node\_"{}} + std::to\_string(idx + 2);}
+\DoxyCodeLine{75         os << \textcolor{stringliteral}{"{} [label=<"{}} << node\_name;}
+\DoxyCodeLine{76         \textcolor{keywordflow}{if} (!task\_display\_info.\mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo_a0a8a8992e3855d5a0eda781071b61767}{task\_info}}.empty())}
+\DoxyCodeLine{77           os << \textcolor{stringliteral}{"{}<BR /> <FONT POINT-\/SIZE=\(\backslash\)"{}10\(\backslash\)"{}>"{}} << task\_display\_info.\mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo_a0a8a8992e3855d5a0eda781071b61767}{task\_info}} << \textcolor{stringliteral}{"{}</FONT>"{}};}
+\DoxyCodeLine{78         os << \textcolor{stringliteral}{"{}>"{}};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80         \textcolor{keywordflow}{if} (node.\mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode_af603ddbcc4d67eb6cf61178f9332547f}{is\_conditional}})}
+\DoxyCodeLine{81           os << \textcolor{stringliteral}{"{} shape=diamond color=black fillcolor=aquamarine style=filled"{}};}
+\DoxyCodeLine{82         os << \textcolor{stringliteral}{"{} ];\(\backslash\)n"{}};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84         \textcolor{comment}{// Add the edge}}
+\DoxyCodeLine{85         \textcolor{keywordtype}{int} return\_value = 0;}
+\DoxyCodeLine{86         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& edge : node.\mbox{\hyperlink{structtesseract__planning_1_1GraphTaskflowNode_a40f11f6da663598b08c3e57f93940667}{edges}})}
+\DoxyCodeLine{87         \{}
+\DoxyCodeLine{88           os << \textcolor{stringliteral}{"{}node\_"{}} + std::to\_string(idx + 2);}
+\DoxyCodeLine{89           os << \textcolor{stringliteral}{"{} -\/> "{}};}
+\DoxyCodeLine{90           os << \textcolor{stringliteral}{"{}node\_"{}} + std::to\_string(edge + 2);}
+\DoxyCodeLine{91           os << \textcolor{stringliteral}{"{}[style=dashed label=\(\backslash\)"{}"{}} + std::to\_string(return\_value);}
+\DoxyCodeLine{92           \textcolor{keywordflow}{if} (!task\_display\_info.\mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo_a0b98cf302991183c1254e4524c2ac0f7}{edge\_info}}[return\_value].empty())}
+\DoxyCodeLine{93             os << \textcolor{stringliteral}{"{}: "{}} << task\_display\_info.\mbox{\hyperlink{structtesseract__planning_1_1TaskDisplayInfo_a0b98cf302991183c1254e4524c2ac0f7}{edge\_info}}[return\_value];}
+\DoxyCodeLine{94           os << \textcolor{stringliteral}{"{}\(\backslash\)"{} ];\(\backslash\)n"{}};}
+\DoxyCodeLine{95           return\_value++;}
+\DoxyCodeLine{96         \}}
+\DoxyCodeLine{97       \}}
+\DoxyCodeLine{98     \}}
+\DoxyCodeLine{99     os << \textcolor{stringliteral}{"{}\}\(\backslash\)n"{}};}
+\DoxyCodeLine{100   \}}
+\DoxyCodeLine{101   os << \textcolor{stringliteral}{"{}\}\(\backslash\)n"{}};}
+\DoxyCodeLine{102 \}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_task\_info\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,43 @@
+\hypertarget{ompl__motion__planner__status__category_8h_source}{}\doxysection{ompl\+\_\+motion\+\_\+planner\+\_\+status\+\_\+category.\+h}
+\label{ompl__motion__planner__status__category_8h_source}\index{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/ompl\_motion\_planner\_status\_category.h@{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/ompl\_motion\_planner\_status\_category.h}}
+\mbox{\hyperlink{ompl__motion__planner__status__category_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_OMPL\_MOTION\_PLANNER\_STATUS\_CATEGORY\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_OMPL\_MOTION\_PLANNER\_STATUS\_CATEGORY\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <tesseract\_common/status\_code.h>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{37 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory}{tesseract\_planning::OMPLMotionPlannerStatusCategory}})}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory}{OMPLMotionPlannerStatusCategory}} : \textcolor{keyword}{public} tesseract\_common::StatusCategory}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{public}:}
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory_aaba5a437c5d4fdbad55e46e8813fa36f}{OMPLMotionPlannerStatusCategory}}(std::string \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory_af972b90c21cdc63254a90c77ee422df5}{name}});}
+\DoxyCodeLine{46   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory_af972b90c21cdc63254a90c77ee422df5}{name}}() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \textcolor{keyword}{override};}
+\DoxyCodeLine{47   std::string \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory_aa6a69a954195a407df776db87b50f0a0}{message}}(\textcolor{keywordtype}{int} code) \textcolor{keyword}{const override};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \textcolor{keyword}{enum}}
+\DoxyCodeLine{50   \{}
+\DoxyCodeLine{51     \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory_a251426b1e061328ef6ef90aae0ffbdbda572c6fac40918d68cd9db90123881af1}{SolutionFound}} = 0,}
+\DoxyCodeLine{52     \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory_a251426b1e061328ef6ef90aae0ffbdbda9b73f49476637e5f82bca2ad1af51f69}{ErrorInvalidInput}} = -\/2,}
+\DoxyCodeLine{53     \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory_a251426b1e061328ef6ef90aae0ffbdbda7a7135a5a64d88b867e40291a49fc451}{ErrorFailedToFindValidSolution}} = -\/3,}
+\DoxyCodeLine{54   \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{private}:}
+\DoxyCodeLine{57   std::string \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlannerStatusCategory_a96905d175a71f93c70b0453ea8916ff0}{name\_}};}
+\DoxyCodeLine{58 \};}
+\DoxyCodeLine{59 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_MOTION\_PLANNER\_STATUS\_CATEGORY\_H}}
+
+\end{DoxyCode}

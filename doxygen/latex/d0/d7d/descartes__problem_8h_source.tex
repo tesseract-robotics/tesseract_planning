@@ -1,0 +1,54 @@
+\hypertarget{descartes__problem_8h_source}{}\doxysection{descartes\+\_\+problem.\+h}
+\label{descartes__problem_8h_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_problem.h@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_problem.h}}
+\mbox{\hyperlink{descartes__problem_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_PROBLEM\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_PROBLEM\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <descartes\_light/core/edge\_evaluator.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <descartes\_light/core/state\_evaluator.h>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <descartes\_light/core/waypoint\_sampler.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{36 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <tesseract\_environment/environment.h>}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{41 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\_planning::DescartesProblem<double>}})}
+\DoxyCodeLine{42 \%shared\_ptr(\mbox{\hyperlink{namespacetesseract__planning_a1aeac89e2c069ada0e8cc16f290c7576}{DescartesProblemD}})}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \textcolor{comment}{// These are required for Tesseract to configure Descartes}}
+\DoxyCodeLine{51   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a457714fd35071442603378470abe3bb3}{env}};}
+\DoxyCodeLine{52   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a770b2ef9134d30c1f7cbbda76a8456fe}{env\_state}};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{comment}{// Kinematic Objects}}
+\DoxyCodeLine{55   tesseract\_kinematics::KinematicGroup::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{comment}{// These are required for descartes}}
+\DoxyCodeLine{58   std::vector<typename descartes\_light::EdgeEvaluator<FloatType>::ConstPtr> \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\_evaluators}};}
+\DoxyCodeLine{59   std::vector<typename descartes\_light::WaypointSampler<FloatType>::ConstPtr> \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_abeb575d4b7d1c7a8901ef479d4737a1d}{samplers}};}
+\DoxyCodeLine{60   std::vector<typename descartes\_light::StateEvaluator<FloatType>::ConstPtr> \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ad3a33ab7c267a46a72baf5b5a274fba2}{state\_evaluators}};}
+\DoxyCodeLine{61   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}{num\_threads}} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(std::thread::hardware\_concurrency());}
+\DoxyCodeLine{62 \};}
+\DoxyCodeLine{63 \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblemF}} = \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<float>}};}
+\DoxyCodeLine{64 \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblemD}} = \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<double>}};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{69 \%\textcolor{keyword}{template}(\mbox{\hyperlink{namespacetesseract__planning_a1aeac89e2c069ada0e8cc16f290c7576}{DescartesProblemD}}) \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{tesseract\_planning::DescartesProblem<double>}};}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_PROBLEM\_H}}
+
+\end{DoxyCode}

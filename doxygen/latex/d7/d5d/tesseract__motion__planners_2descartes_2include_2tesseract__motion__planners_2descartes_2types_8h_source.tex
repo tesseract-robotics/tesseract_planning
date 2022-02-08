@@ -1,0 +1,36 @@
+\hypertarget{tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h_source}{}\doxysection{types.\+h}
+\label{tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/types.h@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/types.h}}
+\mbox{\hyperlink{tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_TYPES\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_TYPES\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <descartes\_light/core/edge\_evaluator.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__vertex__evaluator_8h}{tesseract\_motion\_planners/descartes/descartes\_vertex\_evaluator.h}}>}}
+\DoxyCodeLine{35 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__problem_8h}{tesseract\_motion\_planners/descartes/descartes\_problem.h}}>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{47 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{48 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a7a8351e5785986a6e075296e3bfdb7fc}{DescartesVertexEvaluatorAllocatorFn}} =}
+\DoxyCodeLine{49     std::function<\mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{DescartesVertexEvaluator::Ptr}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\&)>;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{55 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{56 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}{DescartesEdgeEvaluatorAllocatorFn}} =}
+\DoxyCodeLine{57     std::function<typename descartes\_light::EdgeEvaluator<FloatType>::Ptr(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\&)>;}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{62 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{63 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{DescartesStateEvaluatorAllocatorFn}} =}
+\DoxyCodeLine{64     std::function<typename descartes\_light::StateEvaluator<FloatType>::Ptr(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\&)>;}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_TYPES\_H}}
+
+\end{DoxyCode}

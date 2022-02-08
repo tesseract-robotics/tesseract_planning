@@ -1,0 +1,47 @@
+\hypertarget{simple__planner__fixed__size__assign__plan__profile_8h_source}{}\doxysection{simple\+\_\+planner\+\_\+fixed\+\_\+size\+\_\+assign\+\_\+plan\+\_\+profile.\+h}
+\label{simple__planner__fixed__size__assign__plan__profile_8h_source}\index{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/simple/profile/simple\_planner\_fixed\_size\_assign\_plan\_profile.h@{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/simple/profile/simple\_planner\_fixed\_size\_assign\_plan\_profile.h}}
+\mbox{\hyperlink{simple__planner__fixed__size__assign__plan__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_FIXED\_SIZE\_ASSIGN\_PLAN\_PROFILE\_H}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_FIXED\_SIZE\_ASSIGN\_PLAN\_PROFILE\_H}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__profile_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_profile.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__utils_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_utils.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{39 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{tesseract\_planning::SimplePlannerFixedSizeAssignPlanProfile}})}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile}{SimplePlannerFixedSizeAssignPlanProfile}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_ac0d6578cf3dd04aa4e15be3a57b96f7e}{Ptr}} = std::shared\_ptr<SimplePlannerFixedSizeAssignPlanProfile>;}
+\DoxyCodeLine{48   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_af49642f390c7e571ab31dbf279b4e627}{ConstPtr}} = std::shared\_ptr<const SimplePlannerFixedSizeAssignPlanProfile>;}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_ab0c23c3841993a856ab910e0d3cdeb63}{SimplePlannerFixedSizeAssignPlanProfile}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a72bff7121b717a2e6576c2f8ac78811b}{freespace\_steps}} = 10, \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_ad9cdf829813cf735597644e9b9f9cf58}{linear\_steps}} = 10);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a46d2245f3f93f982acd74f1390a28d0c}{generate}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}\& prev\_instruction,}
+\DoxyCodeLine{58                                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}\& prev\_seed,}
+\DoxyCodeLine{59                                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}\& base\_instruction,}
+\DoxyCodeLine{60                                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& next\_instruction,}
+\DoxyCodeLine{61                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{62                                 \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& global\_manip\_info) \textcolor{keyword}{const override};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{65   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_a72bff7121b717a2e6576c2f8ac78811b}{freespace\_steps}};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{68   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerFixedSizeAssignPlanProfile_ad9cdf829813cf735597644e9b9f9cf58}{linear\_steps}};}
+\DoxyCodeLine{69 \};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_FIXED\_SIZE\_ASSIGN\_PLAN\_PROFILE\_H}}
+
+\end{DoxyCode}

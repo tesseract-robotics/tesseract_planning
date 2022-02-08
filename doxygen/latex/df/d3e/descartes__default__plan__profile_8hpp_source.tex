@@ -1,0 +1,357 @@
+\hypertarget{descartes__default__plan__profile_8hpp_source}{}\doxysection{descartes\+\_\+default\+\_\+plan\+\_\+profile.\+hpp}
+\label{descartes__default__plan__profile_8hpp_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/impl/profile/descartes\_default\_plan\_profile.hpp@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/impl/profile/descartes\_default\_plan\_profile.hpp}}
+\mbox{\hyperlink{descartes__default__plan__profile_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_IMPL\_DESCARTES\_DEFAULT\_PLAN\_PROFILE\_HPP}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_IMPL\_DESCARTES\_DEFAULT\_PLAN\_PROFILE\_HPP}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{move__instruction_8h}{tesseract\_command\_language/move\_instruction.h}}>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{plan__instruction_8h}{tesseract\_command\_language/plan\_instruction.h}}>}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__type_8h}{tesseract\_command\_language/instruction\_type.h}}>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{waypoint__type_8h}{tesseract\_command\_language/waypoint\_type.h}}>}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__default__plan__profile_8h}{tesseract\_motion\_planners/descartes/profile/descartes\_default\_plan\_profile.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__robot__sampler_8h}{tesseract\_motion\_planners/descartes/descartes\_robot\_sampler.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__collision_8h}{tesseract\_motion\_planners/descartes/descartes\_collision.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__collision__edge__evaluator_8h}{tesseract\_motion\_planners/descartes/descartes\_collision\_edge\_evaluator.h}}>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <descartes\_light/edge\_evaluators/euclidean\_distance\_edge\_evaluator.h>}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <descartes\_light/edge\_evaluators/compound\_edge\_evaluator.h>}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <descartes\_light/state\_evaluators/euclidean\_distance\_state\_evaluator.h>}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <descartes\_light/samplers/fixed\_joint\_waypoint\_sampler.h>}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include <tesseract\_kinematics/core/utils.h>}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{49 \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_a0cb9445174912d33abb6e26ba446fb2a}{DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element)}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51   \textcolor{keyword}{const} tinyxml2::XMLElement* vertex\_collisions\_element = xml\_element.FirstChildElement(\textcolor{stringliteral}{"{}VertexCollisions"{}});}
+\DoxyCodeLine{52   \textcolor{keyword}{const} tinyxml2::XMLElement* edge\_collisions\_element = xml\_element.FirstChildElement(\textcolor{stringliteral}{"{}EdgeCollisions"{}});}
+\DoxyCodeLine{53   \textcolor{keyword}{const} tinyxml2::XMLElement* num\_threads\_element = xml\_element.FirstChildElement(\textcolor{stringliteral}{"{}NumberThreads"{}});}
+\DoxyCodeLine{54   \textcolor{keyword}{const} tinyxml2::XMLElement* allow\_collisions\_element = xml\_element.FirstChildElement(\textcolor{stringliteral}{"{}AllowCollisions"{}});}
+\DoxyCodeLine{55   \textcolor{keyword}{const} tinyxml2::XMLElement* debug\_element = xml\_element.FirstChildElement(\textcolor{stringliteral}{"{}Debug"{}});}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   tinyxml2::XMLError status\{ tinyxml2::XMLError::XML\_SUCCESS \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   \textcolor{keywordflow}{if} (vertex\_collisions\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{60   \{}
+\DoxyCodeLine{61     \textcolor{keyword}{const} tinyxml2::XMLElement* enabled\_element = vertex\_collisions\_element-\/>FirstChildElement(\textcolor{stringliteral}{"{}Enabled"{}});}
+\DoxyCodeLine{62     \textcolor{comment}{//    const tinyxml2::XMLElement* coll\_safety\_margin\_element =}}
+\DoxyCodeLine{63     \textcolor{comment}{//    vertex\_collisions\_element-\/>FirstChildElement("{}CollisionSaf"{}}}
+\DoxyCodeLine{64     \textcolor{comment}{//                                                                                                          "{}etyMargin"{});}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{keywordflow}{if} (enabled\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{67     \{}
+\DoxyCodeLine{68       status = enabled\_element-\/>QueryBoolText(\&enable\_collision);}
+\DoxyCodeLine{69       \textcolor{keywordflow}{if} (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}
+\DoxyCodeLine{70         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: VertexCollisions: Error parsing Enabled string"{}});}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{74     \textcolor{comment}{//    if (coll\_safety\_margin\_element)}}
+\DoxyCodeLine{75     \textcolor{comment}{//    \{}}
+\DoxyCodeLine{76     \textcolor{comment}{//      std::string coll\_safety\_margin\_string;}}
+\DoxyCodeLine{77     \textcolor{comment}{//      status = tesseract\_common::QueryStringText(coll\_safety\_margin\_element, coll\_safety\_margin\_string);}}
+\DoxyCodeLine{78     \textcolor{comment}{//      if (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}}
+\DoxyCodeLine{79     \textcolor{comment}{//        throw std::runtime\_error("{}DescartesPlanProfile: VertexCollisions:: Error parsing CollisionSafetyMargin}}
+\DoxyCodeLine{80     \textcolor{comment}{//        string"{});}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82     \textcolor{comment}{//      if (!tesseract\_common::isNumeric(coll\_safety\_margin\_string))}}
+\DoxyCodeLine{83     \textcolor{comment}{//        throw std::runtime\_error("{}DescartesPlanProfile: VertexCollisions:: CollisionSafetyMargin is not a numeric}}
+\DoxyCodeLine{84     \textcolor{comment}{//        "{}}}
+\DoxyCodeLine{85     \textcolor{comment}{//                                 "{}values."{});}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{comment}{//      tesseract\_common::toNumeric<double>(coll\_safety\_margin\_string, collision\_safety\_margin);}}
+\DoxyCodeLine{88     \textcolor{comment}{//    \}}}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   \textcolor{keywordflow}{if} (edge\_collisions\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{92   \{}
+\DoxyCodeLine{93     \textcolor{keyword}{const} tinyxml2::XMLElement* enabled\_element = edge\_collisions\_element-\/>FirstChildElement(\textcolor{stringliteral}{"{}Enabled"{}});}
+\DoxyCodeLine{94     \textcolor{keyword}{const} tinyxml2::XMLElement* coll\_safety\_margin\_element = edge\_collisions\_element-\/>FirstChildElement(\textcolor{stringliteral}{"{}CollisionSafet"{}}}
+\DoxyCodeLine{95                                                                                                         \textcolor{stringliteral}{"{}yMargin"{}});}
+\DoxyCodeLine{96     \textcolor{keyword}{const} tinyxml2::XMLElement* long\_valid\_seg\_len\_element = edge\_collisions\_element-\/>FirstChildElement(\textcolor{stringliteral}{"{}LongestValidSe"{}}}
+\DoxyCodeLine{97                                                                                                         \textcolor{stringliteral}{"{}gmentLength"{}});}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99     \textcolor{keywordflow}{if} (enabled\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{100     \{}
+\DoxyCodeLine{101       status = enabled\_element-\/>QueryBoolText(\&enable\_edge\_collision);}
+\DoxyCodeLine{102       \textcolor{keywordflow}{if} (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}
+\DoxyCodeLine{103         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: EdgeCollisions: Error parsing Enabled string"{}});}
+\DoxyCodeLine{104     \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} (coll\_safety\_margin\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{107     \{}
+\DoxyCodeLine{108       std::string coll\_safety\_margin\_string;}
+\DoxyCodeLine{109       status = tesseract\_common::QueryStringText(coll\_safety\_margin\_element, coll\_safety\_margin\_string);}
+\DoxyCodeLine{110       \textcolor{keywordflow}{if} (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}
+\DoxyCodeLine{111         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: EdgeCollisions: Error parsing CollisionSafetyMargin string"{}});}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113       \textcolor{keywordflow}{if} (!tesseract\_common::isNumeric(coll\_safety\_margin\_string))}
+\DoxyCodeLine{114         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: EdgeCollisions: CollisionSafetyMargin is not a numeric "{}}}
+\DoxyCodeLine{115                                  \textcolor{stringliteral}{"{}values."{}});}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{118       \textcolor{comment}{//      tesseract\_common::toNumeric<double>(coll\_safety\_margin\_string, edge\_collision\_saftey\_margin);}}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121     \textcolor{keywordflow}{if} (long\_valid\_seg\_len\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{122     \{}
+\DoxyCodeLine{123       std::string long\_valid\_seg\_len\_string;}
+\DoxyCodeLine{124       status = tesseract\_common::QueryStringText(long\_valid\_seg\_len\_element, long\_valid\_seg\_len\_string);}
+\DoxyCodeLine{125       \textcolor{keywordflow}{if} (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}
+\DoxyCodeLine{126         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: EdgeCollisions: Error parsing LongestValidSegmentLength "{}}}
+\DoxyCodeLine{127                                  \textcolor{stringliteral}{"{}string"{}});}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129       \textcolor{keywordflow}{if} (!tesseract\_common::isNumeric(long\_valid\_seg\_len\_string))}
+\DoxyCodeLine{130         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: EdgeCollisions: LongestValidSegmentLength is not a numeric "{}}}
+\DoxyCodeLine{131                                  \textcolor{stringliteral}{"{}values."{}});}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{134       \textcolor{comment}{//      tesseract\_common::toNumeric<double>(long\_valid\_seg\_len\_string, edge\_longest\_valid\_segment\_length);}}
+\DoxyCodeLine{135     \}}
+\DoxyCodeLine{136   \}}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138   \textcolor{keywordflow}{if} (num\_threads\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{139   \{}
+\DoxyCodeLine{140     std::string num\_threads\_string;}
+\DoxyCodeLine{141     status = tesseract\_common::QueryStringText(num\_threads\_element, num\_threads\_string);}
+\DoxyCodeLine{142     \textcolor{keywordflow}{if} (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}
+\DoxyCodeLine{143       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: Error parsing NumberThreads string"{}});}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     \textcolor{keywordflow}{if} (!tesseract\_common::isNumeric(num\_threads\_string))}
+\DoxyCodeLine{146       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: NumberThreads is not a numeric values."{}});}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148     tesseract\_common::toNumeric<int>(num\_threads\_string, num\_threads);}
+\DoxyCodeLine{149   \}}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151   \textcolor{keywordflow}{if} (allow\_collisions\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{152   \{}
+\DoxyCodeLine{153     status = allow\_collisions\_element-\/>QueryBoolText(\&allow\_collision);}
+\DoxyCodeLine{154     \textcolor{keywordflow}{if} (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}
+\DoxyCodeLine{155       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: Error parsing AllowCollisions string"{}});}
+\DoxyCodeLine{156   \}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158   \textcolor{keywordflow}{if} (debug\_element != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{159   \{}
+\DoxyCodeLine{160     status = debug\_element-\/>QueryBoolText(\&debug);}
+\DoxyCodeLine{161     \textcolor{keywordflow}{if} (status != tinyxml2::XML\_NO\_ATTRIBUTE \&\& status != tinyxml2::XML\_SUCCESS)}
+\DoxyCodeLine{162       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesPlanProfile: Error parsing Debug string"{}});}
+\DoxyCodeLine{163   \}}
+\DoxyCodeLine{164 \}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{167 \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ae7160b6481f6fefea7d2ee9f60f2e359}{DescartesDefaultPlanProfile<FloatType>::apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\& prob,}
+\DoxyCodeLine{168                                                    \textcolor{keyword}{const} Eigen::Isometry3d\& cartesian\_waypoint,}
+\DoxyCodeLine{169                                                    \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
+\DoxyCodeLine{170                                                    \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{171                                                    \textcolor{keywordtype}{int} index)\textcolor{keyword}{ const}}
+\DoxyCodeLine{172 \textcolor{keyword}{}\{}
+\DoxyCodeLine{173   assert(\mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(parent\_instruction));}
+\DoxyCodeLine{174   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& base\_instruction = parent\_instruction.\mbox{\hyperlink{classtesseract__planning_1_1Instruction_a6e112bfd5d2d562d60f8abceb251a148}{as}}<\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}>();}
+\DoxyCodeLine{175   assert(!(manip\_info.empty() \&\& base\_instruction.getManipulatorInfo().empty()));}
+\DoxyCodeLine{176   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}} mi = manip\_info.getCombined(base\_instruction.getManipulatorInfo());}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178   \textcolor{keywordflow}{if} (mi.manipulator.empty())}
+\DoxyCodeLine{179     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, manipulator is empty!"{}});}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181   \textcolor{keywordflow}{if} (mi.tcp\_frame.empty())}
+\DoxyCodeLine{182     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, tcp\_frame is empty!"{}});}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184   \textcolor{keywordflow}{if} (mi.working\_frame.empty())}
+\DoxyCodeLine{185     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, working\_frame is empty!"{}});}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187   Eigen::Isometry3d tcp\_offset = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a457714fd35071442603378470abe3bb3}{env}}-\/>findTCPOffset(mi);}
+\DoxyCodeLine{188   std::vector<std::string> joint\_names = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}-\/>getJointNames();}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190   \textcolor{comment}{/* Check if this cartesian waypoint is dynamic}}
+\DoxyCodeLine{191 \textcolor{comment}{   * (i.e. defined relative to a frame that will move with the kinematic chain) */}}
+\DoxyCodeLine{192   \textcolor{comment}{//  auto it = std::find(active\_links.begin(), active\_links.end(), prob.manip\_inv\_kin-\/>getBaseLinkName());}}
+\DoxyCodeLine{193   \textcolor{comment}{//  if (it != active\_links.end() \&\& prob.manip\_inv\_kin-\/>getBaseLinkName() != mi.working\_frame)}}
+\DoxyCodeLine{194   \textcolor{comment}{//    throw std::runtime\_error("{}DescartesDefaultPlanProfile: Assigned dynamic waypoint but parent instruction working}}
+\DoxyCodeLine{195   \textcolor{comment}{//    is "{}}}
+\DoxyCodeLine{196   \textcolor{comment}{//                             "{}not set to the base link of manipulator!"{});}}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{198   \mbox{\hyperlink{classtesseract__planning_1_1DescartesCollision_aaeaeca3bdae2070fe34bdbd64fa19eb9}{DescartesCollision::Ptr}} ci = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{199   \textcolor{keywordflow}{if} (enable\_collision)}
+\DoxyCodeLine{200     ci = std::make\_shared<DescartesCollision>(*prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a457714fd35071442603378470abe3bb3}{env}}, prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}, vertex\_collision\_check\_config, debug);}
+\DoxyCodeLine{201 }
+\DoxyCodeLine{202   \textcolor{comment}{// Add vertex evaluator}}
+\DoxyCodeLine{203   std::shared\_ptr<descartes\_light::WaypointSampler<FloatType>> sampler;}
+\DoxyCodeLine{204   \textcolor{keywordflow}{if} (vertex\_evaluator == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{205   \{}
+\DoxyCodeLine{206     \textcolor{keyword}{auto} ve = std::make\_shared<DescartesJointLimitsVertexEvaluator>(prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}-\/>getLimits().joint\_limits);}
+\DoxyCodeLine{207     sampler = std::make\_shared<DescartesRobotSampler<FloatType>>(mi.working\_frame,}
+\DoxyCodeLine{208                                                                  cartesian\_waypoint,}
+\DoxyCodeLine{209                                                                  target\_pose\_sampler,}
+\DoxyCodeLine{210                                                                  prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}},}
+\DoxyCodeLine{211                                                                  ci,}
+\DoxyCodeLine{212                                                                  mi.tcp\_frame,}
+\DoxyCodeLine{213                                                                  tcp\_offset,}
+\DoxyCodeLine{214                                                                  allow\_collision,}
+\DoxyCodeLine{215                                                                  ve,}
+\DoxyCodeLine{216                                                                  use\_redundant\_joint\_solutions);}
+\DoxyCodeLine{217   \}}
+\DoxyCodeLine{218   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{219   \{}
+\DoxyCodeLine{220     sampler = std::make\_shared<DescartesRobotSampler<FloatType>>(mi.working\_frame,}
+\DoxyCodeLine{221                                                                  cartesian\_waypoint,}
+\DoxyCodeLine{222                                                                  target\_pose\_sampler,}
+\DoxyCodeLine{223                                                                  prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}},}
+\DoxyCodeLine{224                                                                  ci,}
+\DoxyCodeLine{225                                                                  mi.tcp\_frame,}
+\DoxyCodeLine{226                                                                  tcp\_offset,}
+\DoxyCodeLine{227                                                                  allow\_collision,}
+\DoxyCodeLine{228                                                                  vertex\_evaluator(prob),}
+\DoxyCodeLine{229                                                                  use\_redundant\_joint\_solutions);}
+\DoxyCodeLine{230   \}}
+\DoxyCodeLine{231   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_abeb575d4b7d1c7a8901ef479d4737a1d}{samplers}}.push\_back(std::move(sampler));}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233   \textcolor{keywordflow}{if} (index != 0)}
+\DoxyCodeLine{234   \{}
+\DoxyCodeLine{235     \textcolor{comment}{// Add edge Evaluator}}
+\DoxyCodeLine{236     \textcolor{keywordflow}{if} (edge\_evaluator == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{237     \{}
+\DoxyCodeLine{238       \textcolor{keywordflow}{if} (enable\_edge\_collision)}
+\DoxyCodeLine{239       \{}
+\DoxyCodeLine{240         \textcolor{keyword}{auto} compound\_evaluator = std::make\_shared<descartes\_light::CompoundEdgeEvaluator<FloatType>>();}
+\DoxyCodeLine{241         compound\_evaluator-\/>evaluators.push\_back(}
+\DoxyCodeLine{242             std::make\_shared<descartes\_light::EuclideanDistanceEdgeEvaluator<FloatType>>());}
+\DoxyCodeLine{243         compound\_evaluator-\/>evaluators.push\_back(std::make\_shared<\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{DescartesCollisionEdgeEvaluator<FloatType>}}>(}
+\DoxyCodeLine{244             *prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a457714fd35071442603378470abe3bb3}{env}}, prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}, edge\_collision\_check\_config, allow\_collision, debug));}
+\DoxyCodeLine{245         prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\_evaluators}}.push\_back(compound\_evaluator);}
+\DoxyCodeLine{246       \}}
+\DoxyCodeLine{247       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{248       \{}
+\DoxyCodeLine{249         prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\_evaluators}}.push\_back(std::make\_shared<descartes\_light::EuclideanDistanceEdgeEvaluator<FloatType>>());}
+\DoxyCodeLine{250       \}}
+\DoxyCodeLine{251     \}}
+\DoxyCodeLine{252     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{253     \{}
+\DoxyCodeLine{254       prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\_evaluators}}.push\_back(edge\_evaluator(prob));}
+\DoxyCodeLine{255     \}}
+\DoxyCodeLine{256   \}}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258   \textcolor{comment}{// Add state evaluator}}
+\DoxyCodeLine{259   \textcolor{keywordflow}{if} (state\_evaluator != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{260     prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ad3a33ab7c267a46a72baf5b5a274fba2}{state\_evaluators}}.push\_back(state\_evaluator(prob));}
+\DoxyCodeLine{261   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{262   \{}
+\DoxyCodeLine{263     \textcolor{keyword}{auto} ref = std::make\_shared<descartes\_light::State<FloatType>>(}
+\DoxyCodeLine{264         Eigen::Matrix<FloatType, Eigen::Dynamic, 1>::Zero(\textcolor{keyword}{static\_cast<}Eigen::Index\textcolor{keyword}{>}(joint\_names.size())));}
+\DoxyCodeLine{265     prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ad3a33ab7c267a46a72baf5b5a274fba2}{state\_evaluators}}.push\_back(}
+\DoxyCodeLine{266         std::make\_shared<\textcolor{keyword}{const} descartes\_light::EuclideanDistanceStateEvaluator<FloatType>>(ref));}
+\DoxyCodeLine{267   \}}
+\DoxyCodeLine{268 }
+\DoxyCodeLine{269   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}{num\_threads}} = num\_threads;}
+\DoxyCodeLine{270 \}}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{272 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{273 \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ae7160b6481f6fefea7d2ee9f60f2e359}{DescartesDefaultPlanProfile<FloatType>::apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\& prob,}
+\DoxyCodeLine{274                                                    \textcolor{keyword}{const} Eigen::VectorXd\& joint\_waypoint,}
+\DoxyCodeLine{275                                                    \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& \textcolor{comment}{/*parent\_instruction*/},}
+\DoxyCodeLine{276                                                    \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& \textcolor{comment}{/*manip\_info*/},}
+\DoxyCodeLine{277                                                    \textcolor{keywordtype}{int} index)\textcolor{keyword}{ const}}
+\DoxyCodeLine{278 \textcolor{keyword}{}\{}
+\DoxyCodeLine{279   \textcolor{keyword}{auto} state = std::make\_shared<descartes\_light::State<FloatType>>(joint\_waypoint.cast<FloatType>());}
+\DoxyCodeLine{280   \textcolor{keyword}{auto} sampler = std::make\_shared<descartes\_light::FixedJointWaypointSampler<FloatType>>(state);}
+\DoxyCodeLine{281   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_abeb575d4b7d1c7a8901ef479d4737a1d}{samplers}}.push\_back(std::move(sampler));}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{283   std::vector<std::string> joint\_names = prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}-\/>getJointNames();}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285   \textcolor{keywordflow}{if} (index != 0)}
+\DoxyCodeLine{286   \{}
+\DoxyCodeLine{287     \textcolor{comment}{// Add edge Evaluator}}
+\DoxyCodeLine{288     \textcolor{keywordflow}{if} (edge\_evaluator == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{289     \{}
+\DoxyCodeLine{290       \textcolor{keywordflow}{if} (enable\_edge\_collision)}
+\DoxyCodeLine{291       \{}
+\DoxyCodeLine{292         \textcolor{keyword}{auto} compound\_evaluator = std::make\_shared<descartes\_light::CompoundEdgeEvaluator<FloatType>>();}
+\DoxyCodeLine{293         compound\_evaluator-\/>evaluators.push\_back(}
+\DoxyCodeLine{294             std::make\_shared<descartes\_light::EuclideanDistanceEdgeEvaluator<FloatType>>());}
+\DoxyCodeLine{295         compound\_evaluator-\/>evaluators.push\_back(std::make\_shared<\mbox{\hyperlink{classtesseract__planning_1_1DescartesCollisionEdgeEvaluator}{DescartesCollisionEdgeEvaluator<FloatType>}}>(}
+\DoxyCodeLine{296             *prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a457714fd35071442603378470abe3bb3}{env}}, prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a3cd8bcf13b73dc80b25846c3fef15826}{manip}}, edge\_collision\_check\_config, allow\_collision, debug));}
+\DoxyCodeLine{297         prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\_evaluators}}.push\_back(compound\_evaluator);}
+\DoxyCodeLine{298       \}}
+\DoxyCodeLine{299       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{300       \{}
+\DoxyCodeLine{301         prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\_evaluators}}.push\_back(std::make\_shared<descartes\_light::EuclideanDistanceEdgeEvaluator<FloatType>>());}
+\DoxyCodeLine{302       \}}
+\DoxyCodeLine{303     \}}
+\DoxyCodeLine{304     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{305     \{}
+\DoxyCodeLine{306       prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_a1673dcc7cd035754b59794534c71eafa}{edge\_evaluators}}.push\_back(edge\_evaluator(prob));}
+\DoxyCodeLine{307     \}}
+\DoxyCodeLine{308   \}}
+\DoxyCodeLine{309 }
+\DoxyCodeLine{310   \textcolor{keywordflow}{if} (state\_evaluator != \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{311     prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ad3a33ab7c267a46a72baf5b5a274fba2}{state\_evaluators}}.push\_back(state\_evaluator(prob));}
+\DoxyCodeLine{312   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{313   \{}
+\DoxyCodeLine{314     \textcolor{keyword}{auto} ref = std::make\_shared<descartes\_light::State<FloatType>>(}
+\DoxyCodeLine{315         Eigen::Matrix<FloatType, Eigen::Dynamic, 1>::Zero(\textcolor{keyword}{static\_cast<}Eigen::Index\textcolor{keyword}{>}(joint\_names.size())));}
+\DoxyCodeLine{316     prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_ad3a33ab7c267a46a72baf5b5a274fba2}{state\_evaluators}}.push\_back(}
+\DoxyCodeLine{317         std::make\_shared<\textcolor{keyword}{const} descartes\_light::EuclideanDistanceStateEvaluator<FloatType>>(ref));}
+\DoxyCodeLine{318   \}}
+\DoxyCodeLine{319 }
+\DoxyCodeLine{320   prob.\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem_af402017d6500a4bb68d357e141dd3668}{num\_threads}} = num\_threads;}
+\DoxyCodeLine{321 \}}
+\DoxyCodeLine{322 }
+\DoxyCodeLine{323 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{324 tinyxml2::XMLElement* \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ab0ef1a785193fd3a1b91dba16e547462}{DescartesDefaultPlanProfile<FloatType>::toXML}}(tinyxml2::XMLDocument\& doc)\textcolor{keyword}{ const}}
+\DoxyCodeLine{325 \textcolor{keyword}{}\{}
+\DoxyCodeLine{326   tinyxml2::XMLElement* xml\_planner = doc.NewElement(\textcolor{stringliteral}{"{}Planner"{}});}
+\DoxyCodeLine{327   xml\_planner-\/>SetAttribute(\textcolor{stringliteral}{"{}type"{}}, std::to\_string(3).c\_str());}
+\DoxyCodeLine{328 }
+\DoxyCodeLine{329   tinyxml2::XMLElement* xml\_descartes = doc.NewElement(\textcolor{stringliteral}{"{}DescartesPlanProfile"{}});}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{331   tinyxml2::XMLElement* vertex\_collisions = doc.NewElement(\textcolor{stringliteral}{"{}VertexCollisions"{}});}
+\DoxyCodeLine{332   tinyxml2::XMLElement* vertex\_collisions\_enabled = doc.NewElement(\textcolor{stringliteral}{"{}Enabled"{}});}
+\DoxyCodeLine{333   vertex\_collisions\_enabled-\/>SetText(enable\_collision);}
+\DoxyCodeLine{334   vertex\_collisions-\/>InsertEndChild(vertex\_collisions\_enabled);}
+\DoxyCodeLine{335 }
+\DoxyCodeLine{336   \textcolor{comment}{//  tinyxml2::XMLElement* vertex\_collisions\_safety\_margin = doc.NewElement("{}CollisionSafetyMargin"{});}}
+\DoxyCodeLine{337   \textcolor{comment}{//  vertex\_collisions\_safety\_margin-\/>SetText(collision\_safety\_margin);}}
+\DoxyCodeLine{338   \textcolor{comment}{//  vertex\_collisions-\/>InsertEndChild(vertex\_collisions\_safety\_margin);}}
+\DoxyCodeLine{339 }
+\DoxyCodeLine{340   xml\_descartes-\/>InsertEndChild(vertex\_collisions);}
+\DoxyCodeLine{341 }
+\DoxyCodeLine{342   tinyxml2::XMLElement* edge\_collisions = doc.NewElement(\textcolor{stringliteral}{"{}EdgeCollisions"{}});}
+\DoxyCodeLine{343   tinyxml2::XMLElement* edge\_collisions\_enabled = doc.NewElement(\textcolor{stringliteral}{"{}Enabled"{}});}
+\DoxyCodeLine{344   edge\_collisions\_enabled-\/>SetText(enable\_edge\_collision);}
+\DoxyCodeLine{345   edge\_collisions-\/>InsertEndChild(edge\_collisions\_enabled);}
+\DoxyCodeLine{346 }
+\DoxyCodeLine{348   \textcolor{comment}{//  tinyxml2::XMLElement* edge\_collisions\_safety\_margin = doc.NewElement("{}CollisionSafetyMargin"{});}}
+\DoxyCodeLine{349   \textcolor{comment}{//  edge\_collisions\_safety\_margin-\/>SetText(edge\_collision\_saftey\_margin);}}
+\DoxyCodeLine{350   \textcolor{comment}{//  edge\_collisions-\/>InsertEndChild(edge\_collisions\_safety\_margin);}}
+\DoxyCodeLine{351 }
+\DoxyCodeLine{352   \textcolor{comment}{//  tinyxml2::XMLElement* edge\_collisions\_long\_valid\_seg\_len = doc.NewElement("{}LongestValidSegmentLength"{});}}
+\DoxyCodeLine{353   \textcolor{comment}{//  edge\_collisions\_long\_valid\_seg\_len-\/>SetText(edge\_longest\_valid\_segment\_length);}}
+\DoxyCodeLine{354   \textcolor{comment}{//  edge\_collisions-\/>InsertEndChild(edge\_collisions\_long\_valid\_seg\_len);}}
+\DoxyCodeLine{355 }
+\DoxyCodeLine{356   xml\_descartes-\/>InsertEndChild(edge\_collisions);}
+\DoxyCodeLine{357 }
+\DoxyCodeLine{358   tinyxml2::XMLElement* number\_threads = doc.NewElement(\textcolor{stringliteral}{"{}NumberThreads"{}});}
+\DoxyCodeLine{359   number\_threads-\/>SetText(num\_threads);}
+\DoxyCodeLine{360   xml\_descartes-\/>InsertEndChild(number\_threads);}
+\DoxyCodeLine{361 }
+\DoxyCodeLine{362   tinyxml2::XMLElement* allow\_collision\_element = doc.NewElement(\textcolor{stringliteral}{"{}AllowCollisions"{}});}
+\DoxyCodeLine{363   allow\_collision\_element-\/>SetText(allow\_collision);}
+\DoxyCodeLine{364   xml\_descartes-\/>InsertEndChild(allow\_collision\_element);}
+\DoxyCodeLine{365 }
+\DoxyCodeLine{366   tinyxml2::XMLElement* debug\_element = doc.NewElement(\textcolor{stringliteral}{"{}Debug"{}});}
+\DoxyCodeLine{367   debug\_element-\/>SetText(debug);}
+\DoxyCodeLine{368   xml\_descartes-\/>InsertEndChild(debug\_element);}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{370   xml\_planner-\/>InsertEndChild(xml\_descartes);}
+\DoxyCodeLine{371 }
+\DoxyCodeLine{372   \textcolor{comment}{// TODO: Add Edge Evaluator and IsValidFn?}}
+\DoxyCodeLine{373 }
+\DoxyCodeLine{374   \textcolor{keywordflow}{return} xml\_planner;}
+\DoxyCodeLine{375 \}}
+\DoxyCodeLine{376 }
+\DoxyCodeLine{377 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{378 }
+\DoxyCodeLine{379 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_IMPL\_DESCARTES\_DEFAULT\_PLAN\_PROFILE\_HPP}}
+
+\end{DoxyCode}

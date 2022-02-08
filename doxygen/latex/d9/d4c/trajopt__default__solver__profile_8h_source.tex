@@ -1,0 +1,42 @@
+\hypertarget{trajopt__default__solver__profile_8h_source}{}\doxysection{trajopt\+\_\+default\+\_\+solver\+\_\+profile.\+h}
+\label{trajopt__default__solver__profile_8h_source}\index{tesseract\_motion\_planners/trajopt/include/tesseract\_motion\_planners/trajopt/profile/trajopt\_default\_solver\_profile.h@{tesseract\_motion\_planners/trajopt/include/tesseract\_motion\_planners/trajopt/profile/trajopt\_default\_solver\_profile.h}}
+\mbox{\hyperlink{trajopt__default__solver__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_DEFAULT\_SOLVER\_PROFILE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_DEFAULT\_SOLVER\_PROFILE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{trajopt__profile_8h}{tesseract\_motion\_planners/trajopt/profile/trajopt\_profile.h}}>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <trajopt\_sco/solver\_interface.hpp>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{33 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{tesseract\_planning::TrajOptDefaultSolverProfile}})}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{TrajOptDefaultSolverProfile}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptSolverProfile}{TrajOptSolverProfile}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{public}:}
+\DoxyCodeLine{42   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_af6441e1b2c07be1f18e9f6f9653e5034}{Ptr}} = std::shared\_ptr<TrajOptDefaultSolverProfile>;}
+\DoxyCodeLine{43   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ac9fd47257b5980d3bb3ac3eea5c2c34f}{ConstPtr}} = std::shared\_ptr<const TrajOptDefaultSolverProfile>;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_acc4acb1dffd4a42109a45bfdb15d42e7}{TrajOptDefaultSolverProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad7ffb9c5910cfdd746305aff1cfc40e2}{\string~TrajOptDefaultSolverProfile}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad06941368a815d278d8f6b925171e117}{TrajOptDefaultSolverProfile}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{TrajOptDefaultSolverProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{TrajOptDefaultSolverProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_adf5510d2ad7dc436958944ca0ee6d977}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{TrajOptDefaultSolverProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a34a81526b31cc42c4f104d07c38b98ce}{TrajOptDefaultSolverProfile}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{TrajOptDefaultSolverProfile}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{TrajOptDefaultSolverProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_add2cd12929b773a3dedc7c2438d2ac98}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile}{TrajOptDefaultSolverProfile}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{53   sco::ModelType \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a68bc22f75793bef4d4665f168944926b}{convex\_solver}}\{ sco::ModelType::OSQP \};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{56   sco::BasicTrustRegionSQPParameters \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a67b241436e8f35c35012a2be860772e6}{opt\_info}};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a944cb3cf440abccc752398c723c1fea1}{apply}}(trajopt::ProblemConstructionInfo\& pci) \textcolor{keyword}{const override};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   tinyxml2::XMLElement* \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_ad23e09c9b05915b56a9c4adf412c9378}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{61 \};}
+\DoxyCodeLine{62 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_DEFAULT\_SOLVER\_PROFILE\_H}}
+
+\end{DoxyCode}

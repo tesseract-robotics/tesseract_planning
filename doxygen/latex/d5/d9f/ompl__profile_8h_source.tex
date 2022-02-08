@@ -1,0 +1,84 @@
+\hypertarget{ompl__profile_8h_source}{}\doxysection{ompl\+\_\+profile.\+h}
+\label{ompl__profile_8h_source}\index{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/profile/ompl\_profile.h@{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/profile/ompl\_profile.h}}
+\mbox{\hyperlink{ompl__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_OMPL\_OMPL\_PROFILE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_OMPL\_OMPL\_PROFILE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction_8h}{tesseract\_command\_language/core/instruction.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__command__language_2include_2tesseract__command__language_2types_8h}{tesseract\_command\_language/types.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{ompl__problem_8h}{tesseract\_motion\_planners/ompl/ompl\_problem.h}}>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{40 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{tesseract\_planning::OMPLPlanProfile}})}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47 \textcolor{keyword}{public}:}
+\DoxyCodeLine{48   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a83c4a65439b6ad2e3b6e5257846f3e13}{Ptr}} = std::shared\_ptr<OMPLPlanProfile>;}
+\DoxyCodeLine{49   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_aa66df30df5a8bf9c2ea1eb69e78b6517}{ConstPtr}} = std::shared\_ptr<const OMPLPlanProfile>;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_adc10936820427ab6a2584935c7a7d57c}{OMPLPlanProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a53126f969284a44aef8a29118a4f38a7}{\string~OMPLPlanProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_ac7a230b37c43cf876d513807ba427e55}{OMPLPlanProfile}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a36f010196770f37fb41b88fa92f6d231}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a9bf82bcf0a230870a2e7418cdec3f917}{OMPLPlanProfile}}(\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}\&\&) noexcept = default;}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}\&\&) noexcept = default;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}(const tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a62808c3408bb70633b2b6ac8f2f53597}{setup}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob) const = 0;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a743dccd6c17bbbad02d30cceb9ffd9a7}{applyGoalStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
+\DoxyCodeLine{63                                const Eigen::Isometry3d\& cartesian\_waypoint,}
+\DoxyCodeLine{64                                const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
+\DoxyCodeLine{65                                const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{66                                const std::vector<std::\textcolor{keywordtype}{string}>\& active\_links,}
+\DoxyCodeLine{67                                \textcolor{keywordtype}{int} index) const = 0;}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a743dccd6c17bbbad02d30cceb9ffd9a7}{applyGoalStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
+\DoxyCodeLine{70                                const Eigen::VectorXd\& joint\_waypoint,}
+\DoxyCodeLine{71                                const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
+\DoxyCodeLine{72                                const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{73                                const std::vector<std::\textcolor{keywordtype}{string}>\& active\_links,}
+\DoxyCodeLine{74                                \textcolor{keywordtype}{int} index) const = 0;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_ab92f4ff018fcb73f432eeb718ddbabbe}{applyStartStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
+\DoxyCodeLine{77                                 const Eigen::Isometry3d\& cartesian\_waypoint,}
+\DoxyCodeLine{78                                 const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
+\DoxyCodeLine{79                                 const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{80                                 const std::vector<std::\textcolor{keywordtype}{string}>\& active\_links,}
+\DoxyCodeLine{81                                 \textcolor{keywordtype}{int} index) const = 0;}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_ab92f4ff018fcb73f432eeb718ddbabbe}{applyStartStates}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\& prob,}
+\DoxyCodeLine{84                                 const Eigen::VectorXd\& joint\_waypoint,}
+\DoxyCodeLine{85                                 const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
+\DoxyCodeLine{86                                 const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{87                                 const std::vector<std::\textcolor{keywordtype}{string}>\& active\_links,}
+\DoxyCodeLine{88                                 \textcolor{keywordtype}{int} index) const = 0;}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   virtual tinyxml2::XMLElement* \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_a30ad5598ff71f172046d4ce3f8867e85}{toXML}}(tinyxml2::XMLDocument\& doc) const = 0;}
+\DoxyCodeLine{91 \};}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93 using \mbox{\hyperlink{namespacetesseract__planning_a0baf978812f03229209b3f8fe481788a}{OMPLPlanProfileMap}} = std::unordered\_map<std::\textcolor{keywordtype}{string}, \mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}}::\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile_aa66df30df5a8bf9c2ea1eb69e78b6517}{ConstPtr}}>;}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{97 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{100 \%\textcolor{keyword}{template}(\mbox{\hyperlink{namespacetesseract__planning_a0baf978812f03229209b3f8fe481788a}{OMPLPlanProfileMap}}) std::unordered\_map<std::string, std::shared\_ptr<const tesseract\_planning::OMPLPlanProfile>>;}
+\DoxyCodeLine{101 \%tesseract\_command\_language\_add\_profile\_type(\mbox{\hyperlink{classtesseract__planning_1_1OMPLPlanProfile}{OMPLPlanProfile}});}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_OMPL\_PROFILE\_H}}
+
+\end{DoxyCode}

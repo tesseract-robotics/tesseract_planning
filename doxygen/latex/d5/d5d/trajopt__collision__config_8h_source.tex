@@ -1,0 +1,57 @@
+\hypertarget{trajopt__collision__config_8h_source}{}\doxysection{trajopt\+\_\+collision\+\_\+config.\+h}
+\label{trajopt__collision__config_8h_source}\index{tesseract\_motion\_planners/trajopt/include/tesseract\_motion\_planners/trajopt/trajopt\_collision\_config.h@{tesseract\_motion\_planners/trajopt/include/tesseract\_motion\_planners/trajopt/trajopt\_collision\_config.h}}
+\mbox{\hyperlink{trajopt__collision__config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_CONFIG\_TRAJOPT\_COLLISION\_CONFIG\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_CONFIG\_TRAJOPT\_COLLISION\_CONFIG\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <trajopt/problem\_description.hpp>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <tinyxml2.h>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <boost/algorithm/string.hpp>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <tesseract\_common/utils.h>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig}{CollisionCostConfig}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_a4e559dd58adf8a7cca8c1984ba73bdfd}{CollisionCostConfig}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{46   \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_a4e559dd58adf8a7cca8c1984ba73bdfd}{CollisionCostConfig}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{49   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_a35d0062ca5354102ce9171df7b249717}{enabled}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{55   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_a7aad0f203aff0e2457471598012101b0}{use\_weighted\_sum}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{58   trajopt::CollisionEvaluatorType \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_a1219691b8aea784d903ceb5130cf2dba}{type}} = trajopt::CollisionEvaluatorType::DISCRETE\_CONTINUOUS;}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{61   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_a8a016f55ec3c25712678d45e39bd1b63}{safety\_margin}} = 0.025;}
+\DoxyCodeLine{64   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_a4951d3cc5c0d6d82ea367ee4e4aa8201}{safety\_margin\_buffer}} = 0.0;}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_ad626be87046f64f2c3fdcece8ce37b82}{coeff}} = 20;}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1CollisionCostConfig_aaffa2b3d96eb63a19e13957328c76b5a}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const};}
+\DoxyCodeLine{70 \};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{75 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig}{CollisionConstraintConfig}}}
+\DoxyCodeLine{76 \{}
+\DoxyCodeLine{77   \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ab5138886faa0d30de30030746085e3c6}{CollisionConstraintConfig}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{78   \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ab5138886faa0d30de30030746085e3c6}{CollisionConstraintConfig}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{81   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ac6398f5c88e56cae6720c143987fa30b}{enabled}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{86   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_aba3c9164666b0d99191bd2ee896430db}{use\_weighted\_sum}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{88   trajopt::CollisionEvaluatorType \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_a41fe83e461bd840f4e78b8ee25c094de}{type}} = trajopt::CollisionEvaluatorType::DISCRETE\_CONTINUOUS;}
+\DoxyCodeLine{90   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ad23bb69b859a3267bdbb119bce19eab0}{safety\_margin}} = 0.01;}
+\DoxyCodeLine{92   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_a3435a7ea81e12637b97b096d0d487a51}{safety\_margin\_buffer}} = 0.05;}
+\DoxyCodeLine{94   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_af1c72680e820ab29362f9ca3eb9000f2}{coeff}} = 20;}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1CollisionConstraintConfig_ac299f01ad1c06b906f535323953d8133}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const};}
+\DoxyCodeLine{97 \};}
+\DoxyCodeLine{98 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_TRAJOPT\_CONFIG\_TRAJOPT\_COLLISION\_CONFIG\_H}}
+
+\end{DoxyCode}

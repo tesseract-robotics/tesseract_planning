@@ -1,0 +1,54 @@
+\hypertarget{raster__waad__taskflow_8h_source}{}\doxysection{raster\+\_\+waad\+\_\+taskflow.\+h}
+\label{raster__waad__taskflow_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/taskflow\_generators/raster\_waad\_taskflow.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/taskflow\_generators/raster\_waad\_taskflow.h}}
+\mbox{\hyperlink{raster__waad__taskflow_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_RASTER\_WAAD\_TASKFLOW\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_RASTER\_WAAD\_TASKFLOW\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <taskflow/taskflow.hpp>}}
+\DoxyCodeLine{36 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{taskflow__generator_8h}{tesseract\_process\_managers/core/taskflow\_generator.h}}>}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{77 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow}{RasterWAADTaskflow}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{TaskflowGenerator}}}
+\DoxyCodeLine{78 \{}
+\DoxyCodeLine{79 \textcolor{keyword}{public}:}
+\DoxyCodeLine{80   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{UPtr}} = std::unique\_ptr<RasterWAADTaskflow>;}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_a13a877ac8cde0ed00a12b6a5f4ce03bc}{RasterWAADTaskflow}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{TaskflowGenerator::UPtr}} freespace\_taskflow\_generator,}
+\DoxyCodeLine{83                      \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{TaskflowGenerator::UPtr}} transition\_taskflow\_generator,}
+\DoxyCodeLine{84                      \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{TaskflowGenerator::UPtr}} raster\_taskflow\_generator,}
+\DoxyCodeLine{85                      std::string name = \textcolor{stringliteral}{"{}RasterWAADTaskflow"{}});}
+\DoxyCodeLine{86   \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_a4c3f651a8b9d8be830951d847f7b4763}{\string~RasterWAADTaskflow}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{87   \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_ab80450041bfb508f1e5a9ad673c5fd17}{RasterWAADTaskflow}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow}{RasterWAADTaskflow}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{88   \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow}{RasterWAADTaskflow}}\& \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_af0ab7818fae3f234686647ee4685d41c}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow}{RasterWAADTaskflow}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{89   \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_a7633a5605975ecf620bd533a2fb0dca2}{RasterWAADTaskflow}}(\mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow}{RasterWAADTaskflow}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{90   \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow}{RasterWAADTaskflow}}\& \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_aea57fc503464570b63cb30a22dfd57cf}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow}{RasterWAADTaskflow}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_ab3448bd47775374520ff52d3cf8c8af6}{getName}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94   \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{TaskflowContainer}} \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_a7ee71d7cf938b0237a8f5ec719a9916f}{generateTaskflow}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{TaskflowVoidFn}} done\_cb, \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{TaskflowVoidFn}} error\_cb) \textcolor{keyword}{override};}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{101   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_a31802a170c58b2ca9fee5c9d867028be}{checkTaskInput}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}}\& input);}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{keyword}{private}:}
+\DoxyCodeLine{104   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{TaskflowGenerator::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_a1616753f422bd3c3de1658e59115e0b7}{freespace\_taskflow\_generator\_}};}
+\DoxyCodeLine{105   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{TaskflowGenerator::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_ab9308918941ec1cd2ac8591f14940d75}{transition\_taskflow\_generator\_}};}
+\DoxyCodeLine{106   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{TaskflowGenerator::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_aca0ba69312dd7d1913fe91daba769604}{raster\_taskflow\_generator\_}};}
+\DoxyCodeLine{107   std::string \mbox{\hyperlink{classtesseract__planning_1_1RasterWAADTaskflow_aa3528a8b18453b8912dd58bcb282ff36}{name\_}};}
+\DoxyCodeLine{108 \};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_RASTER\_WAAD\_TASKFLOW\_H}}
+
+\end{DoxyCode}

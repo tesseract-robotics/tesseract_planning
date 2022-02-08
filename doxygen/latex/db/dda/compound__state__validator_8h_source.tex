@@ -1,0 +1,37 @@
+\hypertarget{compound__state__validator_8h_source}{}\doxysection{compound\+\_\+state\+\_\+validator.\+h}
+\label{compound__state__validator_8h_source}\index{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/compound\_state\_validator.h@{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/compound\_state\_validator.h}}
+\mbox{\hyperlink{compound__state__validator_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_COMPOUND\_STATE\_VALIDATOR\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_COMPOUND\_STATE\_VALIDATOR\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <ompl/base/StateValidityChecker.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <ompl/base/SpaceInformation.h>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator}{CompoundStateValidator}} : \textcolor{keyword}{public} ompl::base::StateValidityChecker}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{public}:}
+\DoxyCodeLine{42   \mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator_a6d9958b713b143dd40ba99a938343aed}{CompoundStateValidator}}();}
+\DoxyCodeLine{43   \mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator_a6d9958b713b143dd40ba99a938343aed}{CompoundStateValidator}}(ompl::base::StateValidityCheckerPtr validator);}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator_a6d9958b713b143dd40ba99a938343aed}{CompoundStateValidator}}(ompl::base::StateValidityCheckerFn validator);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator_ada0ec99449c5a72bb4c331c0076a4c2a}{isValid}}(\textcolor{keyword}{const} ompl::base::State* state) \textcolor{keyword}{const override};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator_af87667c38e207d6540f817143bdfe084}{addStateValidator}}(ompl::base::StateValidityCheckerPtr validator);}
+\DoxyCodeLine{49   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator_af87667c38e207d6540f817143bdfe084}{addStateValidator}}(ompl::base::StateValidityCheckerFn validator);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{keyword}{private}:}
+\DoxyCodeLine{52   std::vector<ompl::base::StateValidityCheckerPtr> \mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator_a80291b64f5ee3cf16ac31217baa3c4db}{cache\_}};}
+\DoxyCodeLine{53   std::vector<ompl::base::StateValidityCheckerFn> \mbox{\hyperlink{classtesseract__planning_1_1CompoundStateValidator_a173362038fb54652d120714eba942818}{validators\_}};}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_COMPOUND\_STATE\_VALIDATOR\_H}}
+
+\end{DoxyCode}

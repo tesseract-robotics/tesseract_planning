@@ -1,6 +1,7 @@
 <map id="tesseract_planning::totg::Path" name="tesseract_planning::totg::Path">
-<area shape="rect" id="node1" title=" " alt="" coords="632,62,763,103"/>
-<area shape="rect" id="node2" title=" " alt="" coords="312,5,476,61"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,13,207,54"/>
-<area shape="rect" id="node4" title=" " alt="" coords="332,85,456,126"/>
+<area shape="rect" id="node1" title=" " alt="" coords="833,41,964,83"/>
+<area shape="rect" id="node2" title=" " alt="" coords="533,5,657,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="513,70,677,126"/>
+<area shape="rect" id="node4" title=" " alt="" coords="207,77,408,119"/>
+<area shape="rect" id="node5" href="$de/dc1/classtesseract__planning_1_1totg_1_1PathSegment.html" title=" " alt="" coords="5,77,140,119"/>
 </map>

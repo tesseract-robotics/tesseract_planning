@@ -1,0 +1,51 @@
+\hypertarget{taskflow__interface_8h_source}{}\doxysection{taskflow\+\_\+interface.\+h}
+\label{taskflow__interface_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/core/taskflow\_interface.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/core/taskflow\_interface.h}}
+\mbox{\hyperlink{taskflow__interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_taskflow\_interface\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_taskflow\_interface\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <atomic>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__info_8h}{tesseract\_process\_managers/core/task\_info.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{39 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{tesseract\_planning::TaskflowInterface}})}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50 \textcolor{keyword}{public}:}
+\DoxyCodeLine{51   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Ptr}} = std::shared\_ptr<TaskflowInterface>;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{57   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a9faf63e6869fde4268637551ce1f0774}{isAborted}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{63   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_abf3ae2851bf6906c3dbfd33162cce011}{isSuccessful}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{66   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_aa52f465d4226ba1e9c68b3d556abb49d}{abort}}();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{73   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a679debd90e35ed989bb3fbf43c5f8ec3}{getTaskInfo}}(\textcolor{keyword}{const} std::size\_t\& index) \textcolor{keyword}{const};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{79   std::map<std::size\_t, TaskInfo::UPtr> \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a878065f953619496fe5711d4de5058f8}{getTaskInfoMap}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{85   \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{TaskInfoContainer::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a08e43b2328567c9d4b7ed3eb226f5996}{getTaskInfoContainer}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{88   std::atomic<bool> \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}}\{ \textcolor{keyword}{false} \};}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{91   \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{TaskInfoContainer::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}}\{ std::make\_shared<TaskInfoContainer>() \};}
+\DoxyCodeLine{92 \};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_taskflow\_interface\_H}}
+
+\end{DoxyCode}

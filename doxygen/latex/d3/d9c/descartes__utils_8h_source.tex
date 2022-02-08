@@ -1,0 +1,31 @@
+\hypertarget{descartes__utils_8h_source}{}\doxysection{descartes\+\_\+utils.\+h}
+\label{descartes__utils_8h_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_utils.h@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_utils.h}}
+\mbox{\hyperlink{descartes__utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PLANNING\_DESCARTES\_UTILS\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PLANNING\_DESCARTES\_UTILS\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/types.h>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{cartesian__waypoint_8h}{tesseract\_command\_language/cartesian\_waypoint.h}}>}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_ae98ce6e841caa404388d1689b4ffe1db}{PoseSamplerFn}} = std::function<tesseract\_common::VectorIsometry3d(\textcolor{keyword}{const} Eigen::Isometry3d\& tool\_pose)>;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{43 tesseract\_common::VectorIsometry3d \mbox{\hyperlink{namespacetesseract__planning_adf2bb32372d00e42763932cdde163c01}{sampleToolAxis}}(\textcolor{keyword}{const} Eigen::Isometry3d\& tool\_pose,}
+\DoxyCodeLine{44                                                   \textcolor{keywordtype}{double} resolution,}
+\DoxyCodeLine{45                                                   \textcolor{keyword}{const} Eigen::Vector3d\& axis);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{53 tesseract\_common::VectorIsometry3d \mbox{\hyperlink{namespacetesseract__planning_a2e764ea5552076ce638ecc666d19f193}{sampleToolXAxis}}(\textcolor{keyword}{const} Eigen::Isometry3d\& tool\_pose, \textcolor{keywordtype}{double} resolution);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{61 tesseract\_common::VectorIsometry3d \mbox{\hyperlink{namespacetesseract__planning_abbb704ce9eb5e224a1462e09ac93d1a2}{sampleToolYAxis}}(\textcolor{keyword}{const} Eigen::Isometry3d\& tool\_pose, \textcolor{keywordtype}{double} resolution);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{69 tesseract\_common::VectorIsometry3d \mbox{\hyperlink{namespacetesseract__planning_a76bb74926e4356e2c7ae23eb24bcfe90}{sampleToolZAxis}}(\textcolor{keyword}{const} Eigen::Isometry3d\& tool\_pose, \textcolor{keywordtype}{double} resolution);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{76 tesseract\_common::VectorIsometry3d \mbox{\hyperlink{namespacetesseract__planning_a7783726ef3508bc3baf1bd8b96829e07}{sampleFixed}}(\textcolor{keyword}{const} Eigen::Isometry3d\& tool\_pose);}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_DESCARTES\_UTILS\_H}}
+
+\end{DoxyCode}

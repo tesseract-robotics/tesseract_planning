@@ -1,0 +1,44 @@
+\hypertarget{tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h_source}{}\doxysection{utils.\+h}
+\label{tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/core/utils.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/core/utils.h}}
+\mbox{\hyperlink{tesseract__process__managers_2include_2tesseract__process__managers_2core_2utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_UTILS\_H}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_UTILS\_H}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__process__managers_2include_2tesseract__process__managers_2core_2types_8h}{tesseract\_process\_managers/core/types.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__input_8h}{tesseract\_process\_managers/core/task\_input.h}}>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__info_8h}{tesseract\_process\_managers/core/task\_info.h}}>}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{49 \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacetesseract__planning_afa3626408640368d63608d050329f4a1}{successTask}}(\textcolor{keyword}{const} \mbox{\hyperlink{structTaskInput}{TaskInput}}\& \textcolor{comment}{/*instruction*/},}
+\DoxyCodeLine{50                  \textcolor{keyword}{const} std::string\& name,}
+\DoxyCodeLine{51                  \textcolor{keyword}{const} std::string\& message,}
+\DoxyCodeLine{52                  \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{TaskflowVoidFn}}\& user\_callback = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{61 \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacetesseract__planning_a4a082cae593b327f12943022ad5cf5f7}{failureTask}}(\mbox{\hyperlink{structTaskInput}{TaskInput}} instruction,}
+\DoxyCodeLine{62                  \textcolor{keyword}{const} std::string\& name,}
+\DoxyCodeLine{63                  \textcolor{keyword}{const} std::string\& message,}
+\DoxyCodeLine{64                  \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ab54ff51797cb237e3e8461f4a12950e0}{TaskflowVoidFn}}\& user\_callback = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{71 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_ad650c5f30094ce1ee9f44381657d9da7}{isCompositeEmpty}}(\textcolor{keyword}{const} CompositeInstruction\& composite);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{79 \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacetesseract__planning_a6e3bc51fc2552d2913c17d1f020c23b4}{hasSeedTask}}(\mbox{\hyperlink{structTaskInput}{TaskInput}} input);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{86 \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacetesseract__planning_a902cd4c3fb783d8f4fcabda2f054490c}{saveInputs}}(TaskInfo\& info, \mbox{\hyperlink{structTaskInput}{TaskInput}}\& input);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{93 \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacetesseract__planning_ae75e0f05d9f60801aef29c9341c914d0}{saveOutputs}}(TaskInfo\& info, \mbox{\hyperlink{structTaskInput}{TaskInput}}\& input);}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_UTILS\_H}}
+
+\end{DoxyCode}

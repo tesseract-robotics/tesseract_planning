@@ -1,0 +1,45 @@
+\hypertarget{fix__state__bounds__profile_8h_source}{}\doxysection{fix\+\_\+state\+\_\+bounds\+\_\+profile.\+h}
+\label{fix__state__bounds__profile_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_profiles/fix\_state\_bounds\_profile.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_profiles/fix\_state\_bounds\_profile.h}}
+\mbox{\hyperlink{fix__state__bounds__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_FIX\_STATE\_BOUNDS\_PROFILE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_FIX\_STATE\_BOUNDS\_PROFILE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <numeric>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile}{FixStateBoundsProfile}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a057a1225472ec63df8b8d4a30b1bae8c}{Ptr}} = std::shared\_ptr<FixStateBoundsProfile>;}
+\DoxyCodeLine{41   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a826df42c20a84024f0b1ca5ef395de35}{ConstPtr}} = std::shared\_ptr<const FixStateBoundsProfile>;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{keyword}{enum class} \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Settings}}}
+\DoxyCodeLine{44   \{}
+\DoxyCodeLine{45     START\_ONLY,}
+\DoxyCodeLine{46     END\_ONLY,}
+\DoxyCodeLine{47     ALL,}
+\DoxyCodeLine{48     DISABLED}
+\DoxyCodeLine{49   \};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a111836090eff833ffdd190f51f7cbf58}{FixStateBoundsProfile}}(\mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Settings}} \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a8046abce74f4f88c979b72bb9e899ed2}{mode}} = \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560a5fb1f955b45e38e31789286a1790398d}{Settings::ALL}}) : \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a8046abce74f4f88c979b72bb9e899ed2}{mode}}(\mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a8046abce74f4f88c979b72bb9e899ed2}{mode}}) \{\}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{54   \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Settings}} \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a8046abce74f4f88c979b72bb9e899ed2}{mode}};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{57   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a2a2e620e40a97fee76c63cae02662d92}{max\_deviation\_global}} = std::numeric\_limits<double>::max();}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{60   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_aaa208cc8731fa28da672532e9a2d39b7}{upper\_bounds\_reduction}}\{ std::numeric\_limits<float>::epsilon() \};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{63   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a223b3a65c5df399f0adc3c28f60297c1}{lower\_bounds\_reduction}}\{ std::numeric\_limits<float>::epsilon() \};}
+\DoxyCodeLine{64 \};}
+\DoxyCodeLine{65 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_FIX\_STATE\_BOUNDS\_PROFILE\_H}}
+
+\end{DoxyCode}

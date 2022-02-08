@@ -35,8 +35,8 @@ const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1Tess
 \begin{DoxyCompactList}\small\item\em Get the velocity data at a given index. \end{DoxyCompactList}\item 
 const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_aff8da43281a951b422fc93124c9632fe}{get\+Acceleration}} (Eigen\+::\+Index i) const override final
 \begin{DoxyCompactList}\small\item\em Get the acceleration data at a given index. \end{DoxyCompactList}\item 
-const double \& \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a8ae99da4673db1ac925a526aae7bac9d}{get\+Time}} (Eigen\+::\+Index i) const
-\item 
+double \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a83fc09458a6729131da3fb34fff283fe}{get\+Time\+From\+Start}} (Eigen\+::\+Index i) const final
+\begin{DoxyCompactList}\small\item\em Get the time from start at a given index. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a616e2ff51fb510ca5f5c9bccb1ed40cb}{set\+Data}} (Eigen\+::\+Index i, const Eigen\+::\+Vector\+Xd \&velocity, const Eigen\+::\+Vector\+Xd \&acceleration, double time) override final
 \begin{DoxyCompactList}\small\item\em Set data for a given index. \end{DoxyCompactList}\item 
 Eigen\+::\+Index \mbox{\hyperlink{classtesseract__planning_1_1TesseractCommonTrajectory_a1bd9caf9e73b95c09262ed8bf2a0e439}{size}} () const override final
@@ -113,7 +113,7 @@ The acceleration data
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_aa8adcaf372e945d085c588d4c5ff2171}{tesseract\+\_\+planning\+::\+Trajectory\+Container}}.
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a61bbe3c433e60e6bd4a34e953e2c67ec}{tesseract\+\_\+planning\+::\+Trajectory\+Container}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TesseractCommonTrajectory_a4f2c10d91593f50e34cc04211b692b5d}\label{classtesseract__planning_1_1TesseractCommonTrajectory_a4f2c10d91593f50e34cc04211b692b5d}} 
 \index{tesseract\_planning::TesseractCommonTrajectory@{tesseract\_planning::TesseractCommonTrajectory}!getPosition@{getPosition}}
@@ -135,13 +135,29 @@ The position data
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a83dcd133c1987ea474ce372cfd6c1ffb}{tesseract\+\_\+planning\+::\+Trajectory\+Container}}.
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_afcd7d25def666683f9c7c6127e4b3fb9}{tesseract\+\_\+planning\+::\+Trajectory\+Container}}.
 
-\mbox{\Hypertarget{classtesseract__planning_1_1TesseractCommonTrajectory_a8ae99da4673db1ac925a526aae7bac9d}\label{classtesseract__planning_1_1TesseractCommonTrajectory_a8ae99da4673db1ac925a526aae7bac9d}} 
-\index{tesseract\_planning::TesseractCommonTrajectory@{tesseract\_planning::TesseractCommonTrajectory}!getTime@{getTime}}
-\index{getTime@{getTime}!tesseract\_planning::TesseractCommonTrajectory@{tesseract\_planning::TesseractCommonTrajectory}}
-\doxysubsubsection{\texorpdfstring{getTime()}{getTime()}}
-{\footnotesize\ttfamily const double \& tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory\+::get\+Time (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const}
+\mbox{\Hypertarget{classtesseract__planning_1_1TesseractCommonTrajectory_a83fc09458a6729131da3fb34fff283fe}\label{classtesseract__planning_1_1TesseractCommonTrajectory_a83fc09458a6729131da3fb34fff283fe}} 
+\index{tesseract\_planning::TesseractCommonTrajectory@{tesseract\_planning::TesseractCommonTrajectory}!getTimeFromStart@{getTimeFromStart}}
+\index{getTimeFromStart@{getTimeFromStart}!tesseract\_planning::TesseractCommonTrajectory@{tesseract\_planning::TesseractCommonTrajectory}}
+\doxysubsubsection{\texorpdfstring{getTimeFromStart()}{getTimeFromStart()}}
+{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Tesseract\+Common\+Trajectory\+::get\+Time\+From\+Start (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Get the time from start at a given index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index to extract time from start \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The time from start 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}{tesseract\+\_\+planning\+::\+Trajectory\+Container}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TesseractCommonTrajectory_a44b984ebb4c59cb910324c177315e0cc}\label{classtesseract__planning_1_1TesseractCommonTrajectory_a44b984ebb4c59cb910324c177315e0cc}} 
 \index{tesseract\_planning::TesseractCommonTrajectory@{tesseract\_planning::TesseractCommonTrajectory}!getVelocity@{getVelocity}}
@@ -163,7 +179,7 @@ The velocity data
 \end{DoxyReturn}
 
 
-Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a9234b7c4def3902d4c9e146895400f95}{tesseract\+\_\+planning\+::\+Trajectory\+Container}}.
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a49d1701f3c4000a4208215c41020168c}{tesseract\+\_\+planning\+::\+Trajectory\+Container}}.
 
 \mbox{\Hypertarget{classtesseract__planning_1_1TesseractCommonTrajectory_a616e2ff51fb510ca5f5c9bccb1ed40cb}\label{classtesseract__planning_1_1TesseractCommonTrajectory_a616e2ff51fb510ca5f5c9bccb1ed40cb}} 
 \index{tesseract\_planning::TesseractCommonTrajectory@{tesseract\_planning::TesseractCommonTrajectory}!setData@{setData}}

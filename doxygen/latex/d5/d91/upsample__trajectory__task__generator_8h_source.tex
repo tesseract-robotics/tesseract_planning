@@ -1,0 +1,58 @@
+\hypertarget{upsample__trajectory__task__generator_8h_source}{}\doxysection{upsample\+\_\+trajectory\+\_\+task\+\_\+generator.\+h}
+\label{upsample__trajectory__task__generator_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_generators/upsample\_trajectory\_task\_generator.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_generators/upsample\_trajectory\_task\_generator.h}}
+\mbox{\hyperlink{upsample__trajectory__task__generator_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_UPSAMPLE\_TRAJECTORY\_TASK\_GENERATOR\_H}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_UPSAMPLE\_TRAJECTORY\_TASK\_GENERATOR\_H}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{29 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator}{UpsampleTrajectoryTaskGenerator}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<UpsampleTrajectoryTaskGenerator>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_a1f4072260132ace5541695d932423aad}{UpsampleTrajectoryTaskGenerator}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a562e57536b7b7a61363ad37405b875bf}{profile\_ns::UPSAMPLE\_TRAJECTORY\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_ae4bbc3d3b72d48c242cdac18e03eb2cf}{\string~UpsampleTrajectoryTaskGenerator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_a0ddc45a7c94507dd2e28f0b8386a58d5}{UpsampleTrajectoryTaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator}{UpsampleTrajectoryTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator}{UpsampleTrajectoryTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_af961a95bd37ddf83e222d45bc4307f89}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator}{UpsampleTrajectoryTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_a41f0a21edc0d2c10a574b6305eced02c}{UpsampleTrajectoryTaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator}{UpsampleTrajectoryTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator}{UpsampleTrajectoryTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_a44a631d81507551437e345af823bb6c8}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator}{UpsampleTrajectoryTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_a5cc9382e55697fcd97bb80382e0ba81d}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_a4509acb3ed416ee29398427be518dba8}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{private}:}
+\DoxyCodeLine{62   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator_ad9f35ffdeb11c72ccc793b5577b5f744}{upsample}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
+\DoxyCodeLine{63                 \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& current\_composite,}
+\DoxyCodeLine{64                 \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& start\_instruction,}
+\DoxyCodeLine{65                 \textcolor{keywordtype}{double} longest\_valid\_segment\_length) \textcolor{keyword}{const};}
+\DoxyCodeLine{66 \};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo}{UpsampleTrajectoryTaskInfo}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
+\DoxyCodeLine{69 \{}
+\DoxyCodeLine{70 \textcolor{keyword}{public}:}
+\DoxyCodeLine{71   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<UpsampleTrajectoryTaskInfo>;}
+\DoxyCodeLine{72   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const UpsampleTrajectoryTaskInfo>;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a490aeaca88197770bde4b4751ef20038}{UpsampleTrajectoryTaskInfo}}(std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}},}
+\DoxyCodeLine{75                              std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a562e57536b7b7a61363ad37405b875bf}{profile\_ns::UPSAMPLE\_TRAJECTORY\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_ab74c8a6e992c4f619b95ee60c9491f99}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{78 \};}
+\DoxyCodeLine{79 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_UPSAMPLE\_TRAJECTORY\_TASK\_GENERATOR\_H}}
+
+\end{DoxyCode}

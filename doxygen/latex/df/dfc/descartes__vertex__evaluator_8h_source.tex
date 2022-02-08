@@ -1,0 +1,55 @@
+\hypertarget{descartes__vertex__evaluator_8h_source}{}\doxysection{descartes\+\_\+vertex\+\_\+evaluator.\+h}
+\label{descartes__vertex__evaluator_8h_source}\index{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_vertex\_evaluator.h@{tesseract\_motion\_planners/descartes/include/tesseract\_motion\_planners/descartes/descartes\_vertex\_evaluator.h}}
+\mbox{\hyperlink{descartes__vertex__evaluator_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_VERTEX\_EVALUATOR\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_VERTEX\_EVALUATOR\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{DescartesVertexEvaluator}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{public}:}
+\DoxyCodeLine{40   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{Ptr}} = std::shared\_ptr<DescartesVertexEvaluator>;}
+\DoxyCodeLine{41   \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_a761d7fe995f1d777f458a5bbc5edad16}{DescartesVertexEvaluator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{42   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af2de728dc3734ac840a3b9c9a3bac27a}{\string~DescartesVertexEvaluator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{43   \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_a49f955a4c2f3b1855f792672ab5476bf}{DescartesVertexEvaluator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{DescartesVertexEvaluator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{DescartesVertexEvaluator}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_a512fb00fb451ceaaed793ce56a15b04f}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{DescartesVertexEvaluator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_a28ea5aa91ab3e3e0b7e253437aad8f5c}{DescartesVertexEvaluator}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{DescartesVertexEvaluator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{DescartesVertexEvaluator}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_adcc4c2eab3fd7d529ae8b1a7e9f9f13d}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{DescartesVertexEvaluator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{53   \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_aabf4cbd61c7b253edbf9a95f4a6f1bed}{operator()}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& vertex) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator}{DescartesJointLimitsVertexEvaluator}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator}{DescartesVertexEvaluator}}}
+\DoxyCodeLine{57 \{}
+\DoxyCodeLine{58 \textcolor{keyword}{public}:}
+\DoxyCodeLine{59   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{Ptr}} = std::shared\_ptr<DescartesJointLimitsVertexEvaluator>;}
+\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_aff06dda04b8d6809889c48f77961f8fb}{DescartesJointLimitsVertexEvaluator}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::MatrixX2d>\& limits) : \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a1ff357d2661ad2889b52485f1285f881}{limits\_}}(limits) \{\}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a3a66004283ebac1345e279900e79a225}{operator()}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& vertex)\textcolor{keyword}{ const override}}
+\DoxyCodeLine{63 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{64     assert(\mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a1ff357d2661ad2889b52485f1285f881}{limits\_}}.rows() == vertex.rows());}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a1ff357d2661ad2889b52485f1285f881}{limits\_}}.rows(); ++i)}
+\DoxyCodeLine{67       \textcolor{keywordflow}{if} ((vertex(i) < \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a1ff357d2661ad2889b52485f1285f881}{limits\_}}(i, 0)) || (vertex(i) > \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a1ff357d2661ad2889b52485f1285f881}{limits\_}}(i, 1)))}
+\DoxyCodeLine{68         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{71   \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{74   Eigen::MatrixX2d \mbox{\hyperlink{classtesseract__planning_1_1DescartesJointLimitsVertexEvaluator_a1ff357d2661ad2889b52485f1285f881}{limits\_}};}
+\DoxyCodeLine{75 \};}
+\DoxyCodeLine{76 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_VERTEX\_EVALUATOR\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,119 @@
+\hypertarget{robot__config_8h_source}{}\doxysection{robot\+\_\+config.\+h}
+\label{robot__config_8h_source}\index{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/robot\_config.h@{tesseract\_motion\_planners/core/include/tesseract\_motion\_planners/robot\_config.h}}
+\mbox{\hyperlink{robot__config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_ROBOT\_CONFIG\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_ROBOT\_CONFIG\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <tesseract\_kinematics/core/joint\_group.h>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{50 \textcolor{keyword}{enum class} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{RobotConfig}}}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0}{NUT}} = 0,}
+\DoxyCodeLine{53   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf}{FUT}} = 1,}
+\DoxyCodeLine{54   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42}{NDT}} = 2,}
+\DoxyCodeLine{55   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a97d38c259b5e41097c285878bdc750ba}{FDT}} = 3,}
+\DoxyCodeLine{56   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a57eaecb0d3cb5d6855b841b911f6778c}{NDB}} = 4,}
+\DoxyCodeLine{57   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa26eb45c36831fefc4e66aabddd7b450}{FDB}} = 5,}
+\DoxyCodeLine{58   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020}{NUB}} = 6,}
+\DoxyCodeLine{59   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a5def066398a04b9d615c6a9d4cf63d3b}{FUB}} = 7}
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{keyword}{static} \textcolor{keyword}{const} std::vector<std::string> \mbox{\hyperlink{namespacetesseract__planning_ad2c39c4d68bea0d0071b0ab44b6a0fad}{RobotConfigString}} = \{ \textcolor{stringliteral}{"{}NUT"{}}, \textcolor{stringliteral}{"{}FUT"{}}, \textcolor{stringliteral}{"{}NDT"{}}, \textcolor{stringliteral}{"{}FDT"{}}, \textcolor{stringliteral}{"{}NDB"{}}, \textcolor{stringliteral}{"{}FDB"{}}, \textcolor{stringliteral}{"{}NUB"{}}, \textcolor{stringliteral}{"{}FUB"{}} \};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{73 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{74 \textcolor{keyword}{inline} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{RobotConfig}} \mbox{\hyperlink{namespacetesseract__planning_afb2005ce4bffdfb711e9db3cd91768e9}{getRobotConfig}}(\textcolor{keyword}{const} tesseract\_kinematics::JointGroup\& joint\_group,}
+\DoxyCodeLine{75                                   \textcolor{keyword}{const} std::string\& base\_link,}
+\DoxyCodeLine{76                                   \textcolor{keyword}{const} std::string\& tcp\_frame,}
+\DoxyCodeLine{77                                   \textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
+\DoxyCodeLine{78                                   \textcolor{keyword}{const} Eigen::Ref<const Eigen::Vector2i>\& sign\_correction = Eigen::Vector2i::Ones())}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80   \textcolor{comment}{// Get state}}
+\DoxyCodeLine{81   tesseract\_common::TransformMap state = joint\_group.calcFwdKin(joint\_values.template cast<double>());}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   \textcolor{comment}{// Get the pose at tool0}}
+\DoxyCodeLine{84   Eigen::Isometry3d pose = state.at(base\_link).inverse() * state.at(tcp\_frame);}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   \textcolor{comment}{// Get the base rotated by joint 1}}
+\DoxyCodeLine{87   Eigen::Isometry3d prime\_pose(}
+\DoxyCodeLine{88       Eigen::AngleAxisd(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(joint\_values.tail(6)(0)), Eigen::Vector3d::UnitZ()));}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   \textcolor{comment}{// Transform tool0 pose into new frame}}
+\DoxyCodeLine{91   Eigen::Isometry3d pose\_prime = prime\_pose.inverse() * pose;}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{comment}{// If pose\_prime.x is greater than and equal to zero then it is in the forward configuration, otherwise}}
+\DoxyCodeLine{94   \textcolor{comment}{// in the backward configuration.}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   std::array<std::string, 3> config;}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98   \textcolor{comment}{// Wrist Flip or Not Flip}}
+\DoxyCodeLine{99   \textcolor{keywordflow}{if} ((sign\_correction[1] * joint\_values(4)) >= 0)}
+\DoxyCodeLine{100     config[0] = \textcolor{stringliteral}{"{}F"{}};}
+\DoxyCodeLine{101   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{102     config[0] = \textcolor{stringliteral}{"{}N"{}};}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104   \textcolor{comment}{// Elbow Up or Down}}
+\DoxyCodeLine{105   \textcolor{keywordflow}{if} ((sign\_correction[0] * joint\_values(2)) < M\_PI / 2)}
+\DoxyCodeLine{106     config[1] = \textcolor{stringliteral}{"{}U"{}};}
+\DoxyCodeLine{107   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{108     config[1] = \textcolor{stringliteral}{"{}D"{}};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110   \textcolor{comment}{// Robot Front or Back}}
+\DoxyCodeLine{111   \textcolor{keywordflow}{if} (pose\_prime.translation().x() >= 0)}
+\DoxyCodeLine{112     config[2] = \textcolor{stringliteral}{"{}T"{}};}
+\DoxyCodeLine{113   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{114     config[2] = \textcolor{stringliteral}{"{}B"{}};}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116   \textcolor{keywordflow}{if} (config == std::array<std::string, 3>(\{ \textcolor{stringliteral}{"{}F"{}}, \textcolor{stringliteral}{"{}U"{}}, \textcolor{stringliteral}{"{}T"{}} \}))}
+\DoxyCodeLine{117     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf}{RobotConfig::FUT}};}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119   \textcolor{keywordflow}{if} (config == std::array<std::string, 3>(\{ \textcolor{stringliteral}{"{}N"{}}, \textcolor{stringliteral}{"{}U"{}}, \textcolor{stringliteral}{"{}T"{}} \}))}
+\DoxyCodeLine{120     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0}{RobotConfig::NUT}};}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122   \textcolor{keywordflow}{if} (config == std::array<std::string, 3>(\{ \textcolor{stringliteral}{"{}F"{}}, \textcolor{stringliteral}{"{}D"{}}, \textcolor{stringliteral}{"{}T"{}} \}))}
+\DoxyCodeLine{123     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a97d38c259b5e41097c285878bdc750ba}{RobotConfig::FDT}};}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125   \textcolor{keywordflow}{if} (config == std::array<std::string, 3>(\{ \textcolor{stringliteral}{"{}N"{}}, \textcolor{stringliteral}{"{}D"{}}, \textcolor{stringliteral}{"{}T"{}} \}))}
+\DoxyCodeLine{126     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aed4c02276b8f3078120ac166c16cec42}{RobotConfig::NDT}};}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128   \textcolor{keywordflow}{if} (config == std::array<std::string, 3>(\{ \textcolor{stringliteral}{"{}F"{}}, \textcolor{stringliteral}{"{}U"{}}, \textcolor{stringliteral}{"{}B"{}} \}))}
+\DoxyCodeLine{129     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a5def066398a04b9d615c6a9d4cf63d3b}{RobotConfig::FUB}};}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131   \textcolor{keywordflow}{if} (config == std::array<std::string, 3>(\{ \textcolor{stringliteral}{"{}N"{}}, \textcolor{stringliteral}{"{}U"{}}, \textcolor{stringliteral}{"{}B"{}} \}))}
+\DoxyCodeLine{132     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579ab88543707db70c2c6ea5b19ac7301020}{RobotConfig::NUB}};}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134   \textcolor{keywordflow}{if} (config == std::array<std::string, 3>(\{ \textcolor{stringliteral}{"{}F"{}}, \textcolor{stringliteral}{"{}D"{}}, \textcolor{stringliteral}{"{}B"{}} \}))}
+\DoxyCodeLine{135     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa26eb45c36831fefc4e66aabddd7b450}{RobotConfig::FDB}};}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a57eaecb0d3cb5d6855b841b911f6778c}{RobotConfig::NDB}};}
+\DoxyCodeLine{138 \}}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{145 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{146 \textcolor{keyword}{inline} Eigen::VectorXi \mbox{\hyperlink{namespacetesseract__planning_a8c543584d607b7345d6ad3e12178f48c}{getJointTurns}}(\textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values)}
+\DoxyCodeLine{147 \{}
+\DoxyCodeLine{148   Eigen::VectorXi joint\_turns;}
+\DoxyCodeLine{149   joint\_turns.resize(joint\_values.rows());}
+\DoxyCodeLine{150   \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < joint\_values.rows(); ++i)}
+\DoxyCodeLine{151     joint\_turns(i) = int(joint\_values(i) / M\_PI);}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153   \textcolor{keywordflow}{return} joint\_turns;}
+\DoxyCodeLine{154 \}}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{159 \%\textcolor{keyword}{template}(\mbox{\hyperlink{namespacetesseract__planning_afb2005ce4bffdfb711e9db3cd91768e9}{getRobotConfig}}) tesseract\_planning::getRobotConfig<double>;}
+\DoxyCodeLine{160 \%\textcolor{keyword}{template}(\mbox{\hyperlink{namespacetesseract__planning_a8c543584d607b7345d6ad3e12178f48c}{getJointTurns}}) tesseract\_planning::getJointTurns<double>;}
+\DoxyCodeLine{161 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_ROBOT\_CONFIG\_H}}
+
+\end{DoxyCode}

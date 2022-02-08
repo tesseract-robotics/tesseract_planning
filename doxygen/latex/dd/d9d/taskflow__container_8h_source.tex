@@ -1,0 +1,37 @@
+\hypertarget{taskflow__container_8h_source}{}\doxysection{taskflow\+\_\+container.\+h}
+\label{taskflow__container_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/core/taskflow\_container.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/core/taskflow\_container.h}}
+\mbox{\hyperlink{taskflow__container_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_TASKFLOW\_CONTAINER\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_TASKFLOW\_CONTAINER\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <taskflow/taskflow.hpp>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{52 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{TaskflowContainer}}}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{58   std::unique\_ptr<tf::Taskflow> \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a0e048e6b0dfe4507768445cdb7144ca7}{taskflow}};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{65   tf::Task \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a75d193ffb9c416de192e8c6821bc8d3c}{input}};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{72   std::vector<tf::Task> \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a5ee740711c275b3836b736667dd3e5b6}{outputs}};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{78   std::vector<TaskflowContainer> \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a696d65a9b9b48b66f06811e2a3caa42d}{containers}};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{84   std::vector<TaskGenerator::UPtr> \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a4d9ece2b4c856ac92de4035e2eb3ea6b}{generators}};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{87   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer_a60badc5958a411d500d5dcda184051aa}{clear}}();}
+\DoxyCodeLine{88 \};}
+\DoxyCodeLine{89 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_TASKFLOW\_CONTAINER\_H}}
+
+\end{DoxyCode}

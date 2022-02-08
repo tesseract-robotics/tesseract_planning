@@ -1,0 +1,38 @@
+\hypertarget{weighted__real__vector__state__sampler_8h_source}{}\doxysection{weighted\+\_\+real\+\_\+vector\+\_\+state\+\_\+sampler.\+h}
+\label{weighted__real__vector__state__sampler_8h_source}\index{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/weighted\_real\_vector\_state\_sampler.h@{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/weighted\_real\_vector\_state\_sampler.h}}
+\mbox{\hyperlink{weighted__real__vector__state__sampler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_WEIGHTED\_REAL\_VECTOR\_STATE\_SAMPLER\_H}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_WEIGHTED\_REAL\_VECTOR\_STATE\_SAMPLER\_H}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <ompl/base/StateSampler.h>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{36 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler}{WeightedRealVectorStateSampler}} : \textcolor{keyword}{public} ompl::base::StateSampler}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50 \textcolor{keyword}{public}:}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a382b5c40d281195bae710e9d0d732b4a}{WeightedRealVectorStateSampler}}(\textcolor{keyword}{const} ompl::base::StateSpace* space,}
+\DoxyCodeLine{52                                  \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& weights,}
+\DoxyCodeLine{53                                  \textcolor{keyword}{const} Eigen::Ref<const Eigen::MatrixX2d>\& bounds);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_ae684f3f4cd7f095d3785199e0cfdc581}{sampleUniform}}(ompl::base::State* state) \textcolor{keyword}{override};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{61   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a74178942b848c494c3b9c74ea3693caf}{sampleUniformNear}}(ompl::base::State* state, \textcolor{keyword}{const} ompl::base::State* near, \textcolor{keywordtype}{double} distance) \textcolor{keyword}{override};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a3abf0597a4cdc80723b22d144ed76ca9}{sampleGaussian}}(ompl::base::State* state, \textcolor{keyword}{const} ompl::base::State* mean, \textcolor{keywordtype}{double} stdDev) \textcolor{keyword}{override};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{70   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a0c7758c2d7de4154b4b02097856a7730}{weights\_}};}
+\DoxyCodeLine{71   Eigen::MatrixX2d \mbox{\hyperlink{classtesseract__planning_1_1WeightedRealVectorStateSampler_a4af14719e6d4c903323d2278971ffa60}{bounds\_}};}
+\DoxyCodeLine{72 \};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_WEIGHTED\_REAL\_VECTOR\_STATE\_SAMPLER\_H}}
+
+\end{DoxyCode}

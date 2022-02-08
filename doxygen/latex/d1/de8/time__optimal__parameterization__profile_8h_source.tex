@@ -1,0 +1,51 @@
+\hypertarget{time__optimal__parameterization__profile_8h_source}{}\doxysection{time\+\_\+optimal\+\_\+parameterization\+\_\+profile.\+h}
+\label{time__optimal__parameterization__profile_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_profiles/time\_optimal\_parameterization\_profile.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_profiles/time\_optimal\_parameterization\_profile.h}}
+\mbox{\hyperlink{time__optimal__parameterization__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#ifndef TIME\_OPTIMAL\_PARAMETERIZATION\_PROFILE\_H}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define TIME\_OPTIMAL\_PARAMETERIZATION\_PROFILE\_H}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile}{TimeOptimalParameterizationProfile}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_acf7e32454e5e1fe597f8410f2eea205b}{Ptr}} = std::shared\_ptr<TimeOptimalParameterizationProfile>;}
+\DoxyCodeLine{40   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a41730f38c608c917a4e616a10c240a41}{ConstPtr}} = std::shared\_ptr<const TimeOptimalParameterizationProfile>;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42   \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a4e9fbd4203b65173f8fa47dfa879bb54}{TimeOptimalParameterizationProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{43   \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a94655c80ee60f13163978705fb16d621}{TimeOptimalParameterizationProfile}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_af668eef5282dd09ef9c4599a26191613}{max\_velocity\_scaling\_factor}},}
+\DoxyCodeLine{44                                      \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac91430398dc1e12eec3bcaff584f0d13}{max\_acceleration\_scaling\_factor}},}
+\DoxyCodeLine{45                                      \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a485ce3f52789d5e598ad64c82a6edc3d}{path\_tolerance}},}
+\DoxyCodeLine{46                                      \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_aa1e59d0545f60f8d7a4441a0209f5339}{resample\_dt}},}
+\DoxyCodeLine{47                                      \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a387ce3f47bd19079022a57cc82e35a0b}{min\_angle\_change}})}
+\DoxyCodeLine{48     : \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_af668eef5282dd09ef9c4599a26191613}{max\_velocity\_scaling\_factor}}(\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_af668eef5282dd09ef9c4599a26191613}{max\_velocity\_scaling\_factor}})}
+\DoxyCodeLine{49     , \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac91430398dc1e12eec3bcaff584f0d13}{max\_acceleration\_scaling\_factor}}(\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac91430398dc1e12eec3bcaff584f0d13}{max\_acceleration\_scaling\_factor}})}
+\DoxyCodeLine{50     , \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a485ce3f52789d5e598ad64c82a6edc3d}{path\_tolerance}}(\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a485ce3f52789d5e598ad64c82a6edc3d}{path\_tolerance}})}
+\DoxyCodeLine{51     , \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_aa1e59d0545f60f8d7a4441a0209f5339}{resample\_dt}}(\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_aa1e59d0545f60f8d7a4441a0209f5339}{resample\_dt}})}
+\DoxyCodeLine{52     , \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a387ce3f47bd19079022a57cc82e35a0b}{min\_angle\_change}}(\mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a387ce3f47bd19079022a57cc82e35a0b}{min\_angle\_change}})\{\};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{55   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_af668eef5282dd09ef9c4599a26191613}{max\_velocity\_scaling\_factor}}\{ 1.0 \};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{58   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac91430398dc1e12eec3bcaff584f0d13}{max\_acceleration\_scaling\_factor}}\{ 1.0 \};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{61   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a485ce3f52789d5e598ad64c82a6edc3d}{path\_tolerance}}\{ 0.1 \};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{64   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_aa1e59d0545f60f8d7a4441a0209f5339}{resample\_dt}}\{ 0.1 \};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_a387ce3f47bd19079022a57cc82e35a0b}{min\_angle\_change}}\{ 0.001 \};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{71   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ac98e9b97abd5b5a15abe1f198e171f25}{unflatten}}\{ \textcolor{keyword}{true} \};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{75   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TimeOptimalParameterizationProfile_ad1f5cf61a0941d1faf318ee408d846ec}{unflatten\_tolerance}}\{ 0.3 \};}
+\DoxyCodeLine{76 \};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TIME\_OPTIMAL\_PARAMETERIZATION\_PROFILE\_H}}
+
+\end{DoxyCode}

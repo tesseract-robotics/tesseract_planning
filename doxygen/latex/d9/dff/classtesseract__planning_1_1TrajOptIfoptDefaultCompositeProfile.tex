@@ -57,7 +57,7 @@ Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptD
 double \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_aa4545fa9c7587addd8fc3aac16e78b62}{longest\+\_\+valid\+\_\+segment\+\_\+fraction}} = 0.\+01
 \begin{DoxyCompactList}\small\item\em Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid in post checking of trajectory returned by Traj\+Opt\+Ifopt. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a8831cff1c1cd5893963a23760fe7d9f0}{longest\+\_\+valid\+\_\+segment\+\_\+length}} = 0.\+5
-\begin{DoxyCompactList}\small\item\em Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 -\/ state0) $>$ longest\+\_\+valid\+\_\+segment\+\_\+length. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 -\/ state0) \texorpdfstring{$>$}{>} longest\+\_\+valid\+\_\+segment\+\_\+length. \end{DoxyCompactList}\item 
 util\+::\+Safety\+Margin\+Data\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a275b8ab3457fdae4a4ef7c2cbdf80dec}{special\+\_\+collision\+\_\+cost}} \{ nullptr \}
 \begin{DoxyCompactList}\small\item\em Special link collision cost distances. \end{DoxyCompactList}\item 
 util\+::\+Safety\+Margin\+Data\+::\+Ptr \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a936ba0b768e68b9eedd0faf40f102e1c}{special\+\_\+collision\+\_\+constraint}} \{ nullptr \}
@@ -99,7 +99,7 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptCompositePro
 
 
 
-Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptCompositeProfile_a31611db3cc8d6f11e0cf8e09b27e5fbf}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Composite\+Profile}}.
+Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajOptIfoptCompositeProfile_a39d9d428325b439128f688ed589493bc}{tesseract\+\_\+planning\+::\+Traj\+Opt\+Ifopt\+Composite\+Profile}}.
 
 
 
@@ -178,7 +178,7 @@ Note\+: The planner takes the conservative of either longest\+\_\+valid\+\_\+seg
 
 
 
-Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 -\/ state0) $>$ longest\+\_\+valid\+\_\+segment\+\_\+length. 
+Set the resolution at which state validity needs to be verified in order for a motion between two states to be considered valid. If norm(state1 -\/ state0) \texorpdfstring{$>$}{>} longest\+\_\+valid\+\_\+segment\+\_\+length. 
 
 Note\+: This gets converted to longest\+\_\+valid\+\_\+segment\+\_\+fraction. longest\+\_\+valid\+\_\+segment\+\_\+fraction = longest\+\_\+valid\+\_\+segment\+\_\+length / state\+\_\+space.\+get\+Maximum\+Extent() \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a4ff0d69837d6de209dbe64aa04cee05c}\label{classtesseract__planning_1_1TrajOptIfoptDefaultCompositeProfile_a4ff0d69837d6de209dbe64aa04cee05c}} 
 \index{tesseract\_planning::TrajOptIfoptDefaultCompositeProfile@{tesseract\_planning::TrajOptIfoptDefaultCompositeProfile}!smooth\_accelerations@{smooth\_accelerations}}

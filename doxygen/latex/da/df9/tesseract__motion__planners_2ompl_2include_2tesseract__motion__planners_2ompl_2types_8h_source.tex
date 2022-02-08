@@ -1,0 +1,24 @@
+\hypertarget{tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2types_8h_source}{}\doxysection{types.\+h}
+\label{tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2types_8h_source}\index{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/types.h@{tesseract\_motion\_planners/ompl/include/tesseract\_motion\_planners/ompl/types.h}}
+\mbox{\hyperlink{tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2types_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#ifndef TESSERACT\_MOTION\_PLANNERS\_OMPL\_TYPES\_H}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define TESSERACT\_MOTION\_PLANNERS\_OMPL\_TYPES\_H}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <ompl/base/OptimizationObjective.h>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <ompl/base/objectives/PathLengthOptimizationObjective.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{35 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{ompl__problem_8h}{tesseract\_motion\_planners/ompl/ompl\_problem.h}}>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLStateExtractor}} = std::function<Eigen::Map<Eigen::VectorXd>(\textcolor{keyword}{const} ompl::base::State*)>;}
+\DoxyCodeLine{42 \}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_TYPES\_H}}
+
+\end{DoxyCode}

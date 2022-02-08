@@ -1,0 +1,88 @@
+\hypertarget{process__planning__request_8h_source}{}\doxysection{process\+\_\+planning\+\_\+request.\+h}
+\label{process__planning__request_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/core/process\_planning\_request.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/core/process\_planning\_request.h}}
+\mbox{\hyperlink{process__planning__request_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_REQUEST\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_REQUEST\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h}{tesseract\_motion\_planners/core/types.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction_8h}{tesseract\_command\_language/core/instruction.h}}>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <tesseract\_environment/commands.h>}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{ProcessPlanningRequest}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{45   std::string \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_afc60e75cd751d1c616cabe3f105294b8}{name}};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_ae5a302b8d1c7b1024054709f84baa2b6}{instructions}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a2cc972679537d139c511a1409086f3b2}{seed}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{54   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a2e47b111e568148fefcd18ec8e96056e}{env\_state}};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{57   tesseract\_environment::Commands \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_abd9fdaf610b171569ed357fd126bb358}{commands}};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{60   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a2775b01cc935c233d8e19b27edb535c3}{profile}}\{ \textcolor{keyword}{false} \};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{63   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a67d5afa63122724e8b9640bac0fadcec}{save\_io}}\{ \textcolor{keyword}{false} \};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{69   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a6383ab82508b0f59826b540792fc451b}{plan\_profile\_remapping}};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{75   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest_a98ef542902a7ecda89b51752bcf57986}{composite\_profile\_remapping}};}
+\DoxyCodeLine{76 \};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{keyword}{namespace }process\_planner\_names}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{81 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_ad4b2d9473a19a0877d125d3be6247df4}{TRAJOPT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}TrajOptPlanner"{}};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{84 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a8ace94ce0e28d121f7d2f621cfc8596f}{TRAJOPT\_IFOPT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}TrajOptIfoptPlanner"{}};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{87 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a3b2c2355de3db81df58e2fac8f75297e}{OMPL\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}OMPLPlanner"{}};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{90 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_af81be52d9fd2a437967ec44a4e29eb8c}{DESCARTES\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}DescartesPlanner"{}};}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{93 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_ad0a78ef90ec7f39516b6d31d086f8cb1}{FREESPACE\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}FreespacePlanner"{}};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{96 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_aa6f0d62a9d17dd600681a545998b67e2}{CARTESIAN\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}CartesianPlanner"{}};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{99 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a7c8ab03f50077672f3f18913009e95d9}{RASTER\_FT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterFTPlanner"{}};}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{102 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_abb63d1a4c2c5c889eded6cae57b0a339}{RASTER\_FT\_DT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterFTDTPlanner"{}};}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{105 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a0dd6ebe08c0b27205e00490d3535b251}{RASTER\_FT\_WAAD\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterFTWAADPlanner"{}};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{108 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a924746bab786488bc953def73a60f2a6}{RASTER\_FT\_WAAD\_DT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterFTWAADDTPlanner"{}};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{111 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_ae1899dd70358fe468900550742c99daa}{RASTER\_CT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterCTPlanner"{}};}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{114 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_af93a83cf6f85d7caa9e533d71337f3ee}{RASTER\_CT\_DT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterCTDTPlanner"{}};}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{117 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_aa4d23579ce0385417d528923be2b4e99}{RASTER\_CT\_WAAD\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterCTWAADPlanner"{}};}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{120 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_ae13410a0b029bf1522ffa315fca8c619}{RASTER\_CT\_WAAD\_DT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterCTWAADDTPlanner"{}};}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{123 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a9409eb4c9c8c6006cc7ab3e3e6b4263d}{RASTER\_G\_FT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterGFTPlanner"{}};}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{126 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a004ab168118948b90a6a3e55ce4653bd}{RASTER\_G\_CT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterGCTPlanner"{}};}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{129 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a3211571ada35b27e8eda8615c3f7a5f9}{RASTER\_O\_FT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterOFTPlanner"{}};}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{132 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_af98d5a510689ebe55b9268462bc4a496}{RASTER\_O\_CT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterOCTPlanner"{}};}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{135 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a015d8a71e41ca0516a7cbf94b21021e9}{RASTER\_O\_G\_FT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterOGFTPlanner"{}};}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{138 \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{namespacetesseract__planning_1_1process__planner__names_a1564f4424bdfaeb6e831c51c4f15e32c}{RASTER\_O\_G\_CT\_PLANNER\_NAME}} = \textcolor{stringliteral}{"{}RasterOGCTPlanner"{}};}
+\DoxyCodeLine{139 \}  \textcolor{comment}{// namespace process\_planner\_names}}
+\DoxyCodeLine{140 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_REQUEST\_H}}
+
+\end{DoxyCode}
