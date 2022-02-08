@@ -55,7 +55,7 @@ const Eigen::VectorXd& TesseractCommonTrajectory::getAcceleration(Eigen::Index i
   return trajectory_.at(static_cast<std::size_t>(i)).acceleration;
 }
 
-const double& TesseractCommonTrajectory::getTime(Eigen::Index i) const
+double TesseractCommonTrajectory::getTimeFromStart(Eigen::Index i) const
 {
   return trajectory_.at(static_cast<std::size_t>(i)).time;
 }

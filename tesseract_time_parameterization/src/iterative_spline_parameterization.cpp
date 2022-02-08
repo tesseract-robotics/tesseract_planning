@@ -480,6 +480,7 @@ bool IterativeSplineParameterization::compute(
     trajectory.setData(idx++, uv, ua, time);
   }
 
+  assert(trajectory.isTimeStrictlyIncreasing());
   return true;
 }
 

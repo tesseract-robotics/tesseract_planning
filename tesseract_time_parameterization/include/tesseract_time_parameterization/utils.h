@@ -42,7 +42,7 @@ namespace tesseract_planning
  * speed
  * @return True if successful
  */
-void RescaleTimings(CompositeInstruction& program, std::vector<double> scalings)
+inline void RescaleTimings(CompositeInstruction& program, std::vector<double> scalings)
 {
   assert(program.size() == scalings.size());
 

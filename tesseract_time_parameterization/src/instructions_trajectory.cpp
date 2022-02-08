@@ -98,6 +98,13 @@ const Eigen::VectorXd& InstructionsTrajectory::getAcceleration(Eigen::Index i) c
       .acceleration;
 }
 
+double InstructionsTrajectory::getTimeFromStart(Eigen::Index i) const
+{
+  assert(isMoveInstruction(trajectory_[static_cast<std::size_t>(i)].get()));
+  assert(isStateWaypoint(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstruction>().getWaypoint()));
+  return trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time;
+}
+
 void InstructionsTrajectory::setData(Eigen::Index i,
                                      const Eigen::VectorXd& velocity,
                                      const Eigen::VectorXd& acceleration,

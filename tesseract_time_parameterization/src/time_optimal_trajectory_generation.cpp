@@ -344,10 +344,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(TrajectoryContainer& tra
     return false;
   }
 
-  if (!parameterized.assignData(trajectory, 0.001))
-    return parameterized.assignData(trajectory);
-
-  return true;
+  return parameterized.assignData(trajectory);
 }
 
 namespace totg
@@ -1093,138 +1090,132 @@ bool Trajectory::isValid() const { return valid_; }
 
 double Trajectory::getDuration() const { return trajectory_.back().time_; }
 
-bool Trajectory::assignData(TrajectoryContainer& trajectory, double path_tolerance) const
-{
-  auto it = trajectory_.begin();
-  long cnt = 0;
-  double error = 0;
-  double prev_error = 1;
-  bool hit_tolerance = false;
-  bool error_increasing = false;
-  for (long i = 0; i < trajectory.size(); ++i)
-  {
-    const Eigen::VectorXd& p = trajectory.getPosition(i);
-
-    if (i == 0)
-    {
-      // Set first point
-      Eigen::VectorXd uv = getVelocity(trajectory_.front().time_).head(trajectory.dof());
-      Eigen::VectorXd ua = getAcceleration(trajectory_.front().time_).head(trajectory.dof());
-      trajectory.setData(0, uv, ua, it->time_);
-      ++cnt;
-    }
-    else if (i == (trajectory.size() - 1))
-    {
-      // Set last point
-      Eigen::VectorXd uv = getVelocity(trajectory_.back().time_).head(trajectory.dof());
-      Eigen::VectorXd ua = getAcceleration(trajectory_.back().time_).head(trajectory.dof());
-      trajectory.setData(trajectory.size() - 1, uv, ua, it->time_);
-      ++cnt;
-    }
-    else
-    {
-      for (; it != trajectory_.end(); ++it)
-      {
-        Eigen::VectorXd compare_p = getPosition(it->time_).head(trajectory.dof());
-        error = (p - compare_p).norm();
-
-        // Check if we've hit the tolerance and if the error is still decreasing
-        if (error < path_tolerance)
-        {
-          hit_tolerance = true;
-        }
-        if (prev_error < error)
-        {
-          error_increasing = true;
-        }
-        prev_error = error;
-
-        if (hit_tolerance && error_increasing)
-        {
-          --it;
-          Eigen::VectorXd uv = getVelocity(it->time_).head(trajectory.dof());
-          Eigen::VectorXd ua = getAcceleration(it->time_).head(trajectory.dof());
-          trajectory.setData(i, uv, ua, it->time_);
-          ++cnt;
-
-          // Reset search data
-          error = 0;  // NOLINT
-          prev_error = 1;
-          hit_tolerance = false;
-          error_increasing = false;
-          break;
-        }
-      }
-    }
-  }
-
-  return (cnt == trajectory.size());
-}
-
 bool Trajectory::assignData(TrajectoryContainer& trajectory) const
 {
-  Eigen::VectorXd path_length(trajectory.size());
+  // Store the path length from the start for each state in the trajectory
+  Eigen::VectorXd path_lengths = Eigen::VectorXd::Zero(trajectory.size());
   double length = 0;
-  path_length[0] = 0;
   for (Eigen::Index i = 1; i < trajectory.size(); ++i)
   {
-    length += ((trajectory.getPosition(i) - trajectory.getPosition(i - 1)).norm() + 1);
-    path_length[i] = length;
+    length += (trajectory.getPosition(i) - trajectory.getPosition(i - 1)).norm();
+    path_lengths[i] = length;
   }
 
   if (tesseract_common::almostEqualRelativeAndAbs(length, 0))
-    throw std::runtime_error("Tried to assing trajectory with length zero.");
+    throw std::runtime_error("Tried to assign trajectory with length zero.");
 
-  double scale = path_.getLength() / length;
-  path_length = scale * path_length;
+  // The length of the joint interpolated trajectory is not the same length
+  // of the TOTG path because it using cubic spline so this scales the joint
+  // interpolated path length matches the TOTG length.
+  const double scale = path_.getLength() / length;
+  path_lengths = scale * path_lengths;
 
-  long cnt = 0;
+  const Eigen::Index num_samples = std::max(static_cast<Eigen::Index>(getDuration() / time_step_), trajectory.size());
+  Eigen::VectorXd times = Eigen::VectorXd::LinSpaced(num_samples, 0, getDuration());
+
+  // Store the path position at each of the sample times
+  Eigen::VectorXd x(num_samples);
+  for (Eigen::Index j = 0; j < num_samples; ++j)
+    x[j] = getPathData(times[j]).path_pos;
+
   for (long i = 0; i < trajectory.size(); ++i)
   {
-    const Eigen::VectorXd& p = trajectory.getPosition(i);
-
-    double start_search = path_length[i] - 0.01;  // NOLINT TODO Not sure why this produces a clang-tidy error
-    if (start_search < 0)
-      start_search = 0;
-
-    double end_search = path_length[i] + 0.01;
-    if (end_search > path_.getLength())
-      end_search = path_.getLength();
-
     Eigen::VectorXd uv;
     Eigen::VectorXd ua;
     double time{ 0 };
-    double dist = std::numeric_limits<double>::max();
-    bool found = false;
-    for (const auto& it : trajectory_)
+
+    if (i == 0)
     {
-      if (it.path_pos_ > start_search && it.path_pos_ < end_search)
+      uv = getVelocity(0).head(trajectory.dof());
+      ua = getAcceleration(0).head(trajectory.dof());
+      time = 0;
+    }
+    else if (i == trajectory.size() - 1)
+    {
+      time = getDuration();
+      uv = getVelocity(time).head(trajectory.dof());
+      ua = getAcceleration(time).head(trajectory.dof());
+    }
+    else
+    {
+      const Eigen::VectorXd& p = trajectory.getPosition(i);
+      double path_length = path_lengths[i];
+
+      // calculate distance from this point to all other points in the trajectory
+      Eigen::VectorXd dists = calcDistanceToAll(p, times);
+
+      // Next find the local minimums
+      std::vector<Eigen::Index> minimums = findLocalMinimums(dists);
+
+      // Store the index for the minimum solution found in the TOTG trajectory which has
+      // the closest path length for the search state in the input trajectory.
+      double dist = std::numeric_limits<double>::max();
+      Eigen::Index index = 0;
+      for (const auto& minimum : minimums)
       {
-        double check_dist = (p - getPosition(it.time_).head(trajectory.dof())).norm();
-        if (check_dist < dist)
+        double d = std::abs(x[minimum] - path_length);
+        if (d < dist)
         {
-          dist = check_dist;
-          uv = getVelocity(it.time_).head(trajectory.dof());
-          ua = getAcceleration(it.time_).head(trajectory.dof());
-          time = it.time_;
-          found = true;
+          index = minimum;
+          dist = d;
         }
       }
-    }
-    if (found)
-      ++cnt;
 
+      time = times[index];
+      uv = getVelocity(time).head(trajectory.dof());
+      ua = getAcceleration(time).head(trajectory.dof());
+    }
     trajectory.setData(i, uv, ua, time);
   }
-  // set start and end
-  Eigen::VectorXd uv = getVelocity(0).head(trajectory.dof());
-  Eigen::VectorXd ua = getAcceleration(0).head(trajectory.dof());
-  trajectory.setData(0, uv, ua, 0);
 
-  uv = getVelocity(getDuration()).head(trajectory.dof());
-  ua = getAcceleration(getDuration()).head(trajectory.dof());
-  trajectory.setData(trajectory.size() - 1, uv, ua, getDuration());
-  return (cnt == trajectory.size());
+  assert(trajectory.isTimeStrictlyIncreasing());
+  return true;
+}
+
+Eigen::VectorXd Trajectory::calcDistanceToAll(const Eigen::VectorXd& p, const Eigen::VectorXd& times) const
+{
+  // calculate distance from this point to all other points in the trajectory
+  Eigen::VectorXd dists(times.size());
+  for (Eigen::Index j = 0; j < times.size(); ++j)
+  {
+    dists[j] = (getPosition(times[j]).head(p.rows()) - p).norm();
+  }
+  return dists;
+}
+
+std::vector<Eigen::Index> Trajectory::findLocalMinimums(const Eigen::VectorXd& x)
+{
+  // calculate the numerical diff
+  Eigen::VectorXd ndiff(x.size() - 1);
+  for (Eigen::Index i = 0; i < x.size() - 1; ++i)
+    ndiff[i] = x[i + 1] - x[i];
+
+  std::vector<Eigen::Index> minimums;
+  bool is_neg = (ndiff[0] < 0);
+  for (Eigen::Index i = 0; i < x.size() - 1; ++i)
+  {
+    if (ndiff[i] < 0 && !is_neg)
+    {
+      is_neg = true;
+    }
+    else if (ndiff[i] > 0 && is_neg)
+    {
+      minimums.push_back(i + 1);
+      is_neg = false;
+    }
+  }
+
+  // If empty then it is either start or end so add them
+  // It intentionally stores the second and second to last because the start and end
+  // state are handled separately so intermediate states should never use the start
+  // or end as its minimum.
+  if (minimums.empty())
+  {
+    minimums.push_back(1);
+    minimums.push_back(x.size() - 2);
+  }
+
+  return minimums;
 }
 
 std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectorySegment(double time) const
@@ -1248,8 +1239,10 @@ std::list<Trajectory::TrajectoryStep>::const_iterator Trajectory::getTrajectoryS
   return cached_trajectory_segment_;
 }
 
-Eigen::VectorXd Trajectory::getPosition(double time) const
+PathData Trajectory::getPathData(double time) const
 {
+  PathData data;
+
   auto it = getTrajectorySegment(time);
   auto previous = it;
   previous--;
@@ -1259,46 +1252,33 @@ Eigen::VectorXd Trajectory::getPosition(double time) const
       2.0 * (it->path_pos_ - previous->path_pos_ - time_step * previous->path_vel_) / (time_step * time_step);
 
   time_step = time - previous->time_;
-  const double path_pos =
-      previous->path_pos_ + time_step * previous->path_vel_ + 0.5 * time_step * time_step * acceleration;
+  data.path_pos = (previous->path_pos_ + time_step * previous->path_vel_ + 0.5 * time_step * time_step * acceleration);
+  data.path_vel = previous->path_vel_ + time_step * acceleration;
+  data.time = time;
+  data.prev_path_pos = previous->path_pos_;
+  data.prev_path_vel = previous->path_vel_;
+  data.prev_time = previous->time_;
+  return data;
+}
 
-  return path_.getConfig(path_pos);
+Eigen::VectorXd Trajectory::getPosition(double time) const
+{
+  PathData data = getPathData(time);
+  return path_.getConfig(data.path_pos);
 }
 
 Eigen::VectorXd Trajectory::getVelocity(double time) const
 {
-  auto it = getTrajectorySegment(time);
-  auto previous = it;
-  previous--;
-
-  double time_step = it->time_ - previous->time_;
-  const double acceleration =
-      2.0 * (it->path_pos_ - previous->path_pos_ - time_step * previous->path_vel_) / (time_step * time_step);
-
-  time_step = time - previous->time_;
-  const double path_pos =
-      previous->path_pos_ + time_step * previous->path_vel_ + 0.5 * time_step * time_step * acceleration;
-  const double path_vel = previous->path_vel_ + time_step * acceleration;
-
-  return path_.getTangent(path_pos) * path_vel;
+  PathData data = getPathData(time);
+  return path_.getTangent(data.path_pos) * data.path_vel;
 }
 
 Eigen::VectorXd Trajectory::getAcceleration(double time) const
 {
-  auto it = getTrajectorySegment(time);
-  auto previous = it;
-  previous--;
-
-  double time_step = it->time_ - previous->time_;
-  const double acceleration =
-      2.0 * (it->path_pos_ - previous->path_pos_ - time_step * previous->path_vel_) / (time_step * time_step);
-
-  time_step = time - previous->time_;
-  const double path_pos =
-      previous->path_pos_ + time_step * previous->path_vel_ + 0.5 * time_step * time_step * acceleration;
-  const double path_vel = previous->path_vel_ + time_step * acceleration;
+  PathData data = getPathData(time);
   Eigen::VectorXd path_acc =
-      (path_.getTangent(path_pos) * path_vel - path_.getTangent(previous->path_pos_) * previous->path_vel_);
+      (path_.getTangent(data.path_pos) * data.path_vel - path_.getTangent(data.prev_path_pos) * data.prev_path_vel);
+  double time_step = data.time - data.prev_time;
   if (time_step > 0.0)
     path_acc /= time_step;
   return path_acc;

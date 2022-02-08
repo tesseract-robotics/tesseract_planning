@@ -50,6 +50,7 @@ public:
   const Eigen::VectorXd& getPosition(Eigen::Index i) const final;
   const Eigen::VectorXd& getVelocity(Eigen::Index i) const final;
   const Eigen::VectorXd& getAcceleration(Eigen::Index i) const final;
+  double getTimeFromStart(Eigen::Index i) const final;
 
   void setData(Eigen::Index i, const Eigen::VectorXd& velocity, const Eigen::VectorXd& acceleration, double time) final;
 
