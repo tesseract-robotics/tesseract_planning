@@ -59,6 +59,7 @@ public:
   SimplePlannerPlanProfile(SimplePlannerPlanProfile&&) noexcept = default;
   SimplePlannerPlanProfile& operator=(SimplePlannerPlanProfile&&) noexcept = default;
 
+#ifndef SWIG
   /**
    * @brief Generate a seed for the provided base_instruction
    * @param prev_instruction The previous instruction
@@ -75,6 +76,7 @@ public:
   {
     throw std::runtime_error("SimplePlannerPlanProfile, this must be implemented in the derived class");
   }
+#endif // SWIG
 
   /**
    * @brief Generate a seed for the provided base_instruction
@@ -87,9 +89,9 @@ public:
    * @return A composite instruction representing the seed for the base_instruction
    */
   virtual CompositeInstruction generate(const PlanInstruction& prev_instruction,
-                                        const MoveInstruction& /*prev_seed*/,
+                                        const MoveInstruction& prev_seed,
                                         const PlanInstruction& base_instruction,
-                                        const Instruction& /*next_instruction*/,
+                                        const Instruction& next_instruction,
                                         const PlannerRequest& request,
                                         const ManipulatorInfo& global_manip_info) const
   {

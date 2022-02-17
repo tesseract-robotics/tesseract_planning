@@ -28,8 +28,6 @@
 #include <tesseract_process_managers/core/default_task_namespaces.h>
 
 #ifdef SWIG
-%shared_ptr(tesseract_planning::ProfileSwitchProfile)
-%ignore ProfileSwitchTaskGenerator;
 %ignore ProfileSwitchTaskInfo;
 #endif  // SWIG
 
@@ -70,7 +68,8 @@ public:
 }  // namespace tesseract_planning
 
 #ifdef SWIG
-%tesseract_command_language_add_profile_type(ProfileSwitchProfile);
+// TODO: where did ProfileSwitchProfile go?
+//%tesseract_command_language_add_profile_type(ProfileSwitchProfile);
 #endif
 
 #endif  // TESSERACT_PROCESS_MANAGERS_PROFILE_SWITCH_TASK_GENERATOR_H

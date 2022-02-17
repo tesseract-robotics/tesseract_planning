@@ -60,7 +60,7 @@ public:
                               double rotation_longest_valid_segment_length = 5 * M_PI / 180,
                               int min_steps = 1);
 
-  CompositeInstruction generate(const PlanInstruction& prev_instruction,
+  virtual CompositeInstruction generate(const PlanInstruction& prev_instruction,
                                 const MoveInstruction& prev_seed,
                                 const PlanInstruction& base_instruction,
                                 const Instruction& next_instruction,
