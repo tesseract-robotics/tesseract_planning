@@ -63,11 +63,11 @@ public:
                                   int max_steps = std::numeric_limits<int>::max());
 
   virtual CompositeInstruction generate(const PlanInstruction& prev_instruction,
-                                const MoveInstruction& prev_seed,
-                                const PlanInstruction& base_instruction,
-                                const Instruction& next_instruction,
-                                const PlannerRequest& request,
-                                const ManipulatorInfo& global_manip_info) const override;
+                                        const MoveInstruction& prev_seed,
+                                        const PlanInstruction& base_instruction,
+                                        const Instruction& next_instruction,
+                                        const PlannerRequest& request,
+                                        const ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The maximum joint distance, the norm of changes to all joint positions between successive steps. */
   double state_longest_valid_segment_length;

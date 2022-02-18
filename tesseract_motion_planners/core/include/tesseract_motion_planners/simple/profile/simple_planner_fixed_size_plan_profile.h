@@ -54,11 +54,11 @@ public:
   SimplePlannerFixedSizePlanProfile(int freespace_steps = 10, int linear_steps = 10);
 
   virtual CompositeInstruction generate(const PlanInstruction& prev_instruction,
-                                const MoveInstruction& prev_seed,
-                                const PlanInstruction& base_instruction,
-                                const Instruction& next_instruction,
-                                const PlannerRequest& request,
-                                const ManipulatorInfo& global_manip_info) const override;
+                                        const MoveInstruction& prev_seed,
+                                        const PlanInstruction& base_instruction,
+                                        const Instruction& next_instruction,
+                                        const PlannerRequest& request,
+                                        const ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The number of steps to use for freespace instruction */
   int freespace_steps;

@@ -76,7 +76,7 @@ public:
   {
     throw std::runtime_error("SimplePlannerPlanProfile, this must be implemented in the derived class");
   }
-#endif // SWIG
+#endif  // SWIG
 
   /**
    * @brief Generate a seed for the provided base_instruction
