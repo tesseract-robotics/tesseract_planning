@@ -73,6 +73,13 @@ public:
   virtual const Eigen::VectorXd& getAcceleration(Eigen::Index i) const = 0;
 
   /**
+   * @brief Get the time from start at a given index
+   * @param i The index to extract time from start
+   * @return The time from start
+   */
+  virtual double getTimeFromStart(Eigen::Index i) const = 0;
+
+  /**
    * @brief Set data for a given index
    * @param i The index to set data
    * @param velocity The velocity data to assign to index
@@ -90,6 +97,25 @@ public:
 
   /** @brief Check if the path is empty */
   virtual bool empty() const = 0;
+
+  /** @brief Check if time is strictly increasing */
+  bool isTimeStrictlyIncreasing() const
+  {
+    if (size() < 2)
+      return true;
+
+    double t1 = getTimeFromStart(0);
+    for (Eigen::Index i = 1; i < size() - 1; ++i)
+    {
+      double t2 = getTimeFromStart(i);
+      if (t1 >= t2)
+        return false;
+
+      t1 = t2;
+    }
+
+    return true;
+  }
 };
 
 }  // namespace tesseract_planning

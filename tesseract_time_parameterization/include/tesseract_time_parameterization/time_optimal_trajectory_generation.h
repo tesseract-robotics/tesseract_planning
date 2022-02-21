@@ -131,6 +131,17 @@ private:
   std::list<std::unique_ptr<PathSegment>> path_segments_;
 };
 
+/** @brief Structure to store path data sampled at a point in time. */
+struct PathData
+{
+  double prev_path_pos{ 0 };
+  double prev_path_vel{ 0 };
+  double prev_time{ 0 };
+  double path_pos{ 0 };
+  double path_vel{ 0 };
+  double time{ 0 };
+};
+
 class Trajectory
 {
 public:
@@ -158,18 +169,14 @@ public:
   /// @brief Returns the optimal duration of the trajectory
   double getDuration() const;
 
+  /** @brief Return the path data for a given point in time */
+  PathData getPathData(double time) const;
   /** @brief Return the position/configuration vector for a given point in time */
   Eigen::VectorXd getPosition(double time) const;
   /** @brief Return the velocity vector for a given point in time */
   Eigen::VectorXd getVelocity(double time) const;
   /** @brief Return the acceleration vector for a given point in time */
   Eigen::VectorXd getAcceleration(double time) const;
-
-  /**
-   * @brief Assign trajectory velocity acceleration and time
-   * @details This search linear in time for the next waypoint within the provided tolerance
-   */
-  bool assignData(TrajectoryContainer& trajectory, double path_tolerance) const;
 
   /**
    * @brief Assign trajectory velocity acceleration and time
@@ -190,6 +197,22 @@ private:
     double path_vel_{ 0 };
     double time_{ 0 };
   };
+
+  /**
+   * @brief Calculate the distance form the provided state to all states in the TOTG trajectory at the provided time
+   * samples
+   * @param p The state to calculate distance to all TOTG states at the provided times
+   * @param times The time to pull states from the TOTG trajectory
+   * @return The distance from the provided state to all TOTG states at the provided times.
+   */
+  Eigen::VectorXd calcDistanceToAll(const Eigen::VectorXd& p, const Eigen::VectorXd& times) const;
+
+  /**
+   * @brief Find all of the minimum points in the provided data
+   * @param x The data to search for local minimums
+   * @return The vector of indices for each local minimum in the provided data
+   */
+  static std::vector<Eigen::Index> findLocalMinimums(const Eigen::VectorXd& x);
 
   bool getNextSwitchingPoint(double path_pos,
                              TrajectoryStep& next_switching_point,

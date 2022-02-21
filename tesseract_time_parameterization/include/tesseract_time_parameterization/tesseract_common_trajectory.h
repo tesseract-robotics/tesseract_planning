@@ -44,7 +44,7 @@ public:
   const Eigen::VectorXd& getPosition(Eigen::Index i) const override final;
   const Eigen::VectorXd& getVelocity(Eigen::Index i) const override final;
   const Eigen::VectorXd& getAcceleration(Eigen::Index i) const override final;
-  const double& getTime(Eigen::Index i) const;
+  double getTimeFromStart(Eigen::Index i) const final;
 
   void setData(Eigen::Index i,
                const Eigen::VectorXd& velocity,
