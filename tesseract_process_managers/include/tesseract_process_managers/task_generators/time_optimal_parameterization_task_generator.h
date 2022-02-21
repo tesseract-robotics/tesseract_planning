@@ -87,9 +87,4 @@ public:
 };
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-// TODO: Where did the profile go?
-//%tesseract_command_language_add_profile_type(TimeOptimalTrajectoryGenerationProfile);
-#endif
-
 #endif  // TESSERACT_PROCESS_MANAGERS_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_GENERATOR_H

@@ -67,9 +67,4 @@ public:
 };
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-// TODO: where did ProfileSwitchProfile go?
-//%tesseract_command_language_add_profile_type(ProfileSwitchProfile);
-#endif
-
 #endif  // TESSERACT_PROCESS_MANAGERS_PROFILE_SWITCH_TASK_GENERATOR_H

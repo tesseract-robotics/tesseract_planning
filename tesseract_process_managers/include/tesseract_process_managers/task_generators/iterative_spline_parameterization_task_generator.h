@@ -75,9 +75,4 @@ public:
 };
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-//TODO: Where did IterativeSplineParameterizationProfile go?
-//%tesseract_command_language_add_profile_type(IterativeSplineParameterizationProfile);
-#endif
-
 #endif  // TESSERACT_PROCESS_MANAGERS_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_GENERATOR_H
