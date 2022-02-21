@@ -95,6 +95,7 @@ public:
                                         const PlannerRequest& request,
                                         const ManipulatorInfo& global_manip_info) const
   {
+    // SWIG segfaults if parameters are not named. Use UNUSED() if parameter unused.
     UNUSED(prev_seed);
     UNUSED(next_instruction);
     TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
