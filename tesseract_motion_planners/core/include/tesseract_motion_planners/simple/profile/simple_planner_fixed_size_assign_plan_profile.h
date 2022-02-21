@@ -54,7 +54,7 @@ public:
    */
   SimplePlannerFixedSizeAssignPlanProfile(int freespace_steps = 10, int linear_steps = 10);
 
-  virtual CompositeInstruction generate(const PlanInstruction& prev_instruction,
+  CompositeInstruction generate(const PlanInstruction& prev_instruction,
                                         const MoveInstruction& prev_seed,
                                         const PlanInstruction& base_instruction,
                                         const Instruction& next_instruction,

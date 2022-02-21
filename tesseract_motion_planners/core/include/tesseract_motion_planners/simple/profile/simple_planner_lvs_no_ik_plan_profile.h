@@ -62,7 +62,7 @@ public:
                                   int min_steps = 1,
                                   int max_steps = std::numeric_limits<int>::max());
 
-  virtual CompositeInstruction generate(const PlanInstruction& prev_instruction,
+  CompositeInstruction generate(const PlanInstruction& prev_instruction,
                                         const MoveInstruction& prev_seed,
                                         const PlanInstruction& base_instruction,
                                         const Instruction& next_instruction,
