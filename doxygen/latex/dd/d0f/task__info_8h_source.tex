@@ -18,73 +18,72 @@
 \DoxyCodeLine{38 \textcolor{preprocessor}{\#include <tesseract\_environment/environment.h>}}
 \DoxyCodeLine{39 }
 \DoxyCodeLine{40 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{41 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{tesseract\_planning::TaskInfo}})}
-\DoxyCodeLine{42 \%\textcolor{keyword}{template}(TaskInfoMap) std::map<std::size\_t, std::shared\_ptr<const tesseract\_planning::TaskInfo>>;}
-\DoxyCodeLine{43 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{tesseract\_planning::TaskInfoContainer}})}
-\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{47 \{}
-\DoxyCodeLine{49 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
-\DoxyCodeLine{50 \{}
-\DoxyCodeLine{51 \textcolor{keyword}{public}:}
-\DoxyCodeLine{52   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<TaskInfo>;}
-\DoxyCodeLine{53   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const TaskInfo>;}
-\DoxyCodeLine{54   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{UPtr}} = std::unique\_ptr<TaskInfo>;}
-\DoxyCodeLine{55   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a7d5dcbc23c6ead3322d9e4d00fdb0ece}{ConstUPtr}} = std::unique\_ptr<const TaskInfo>;}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ad8e113122aae15a0c1241ce3c277fd75}{TaskInfo}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}(std::size\_t unique\_id, std::string name = \textcolor{stringliteral}{"{}"{}});}
-\DoxyCodeLine{59   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ab87d7477633c44a5a19b97fddb6e7589}{\string~TaskInfo}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a05c78070a46fc8b826f838a5612b0f66}{TaskInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_aa97b9184ff86e1f0e1f575a9fbb537dc}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a34452e9cc3fe27d5713b40bc67659a27}{TaskInfo}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{63   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a23e31a32aa5aa703525dfcff0a249377}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{66   \textcolor{keywordtype}{int} return\_value\{ std::numeric\_limits<int>::lowest() \};}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{69   std::size\_t unique\_id\{ 0 \};}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a9b96aab3e6bcf8593fdafda89476a999}{task\_name}};}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_aa9931c1dcc3e4f5ee9331067e1088915}{message}};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{76   \textcolor{keywordtype}{double} elapsed\_time\{ 0 \};}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{79   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} instructions\_input\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
-\DoxyCodeLine{81   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} instructions\_output\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
-\DoxyCodeLine{83   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} results\_input\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
-\DoxyCodeLine{85   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} results\_output\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
-\DoxyCodeLine{87   tesseract\_environment::Environment::ConstPtr environment\{ \textcolor{keyword}{nullptr} \};}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89   \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{90   \textcolor{keywordtype}{bool} operator!=(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{92   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} clone() \textcolor{keyword}{const};}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{94 \textcolor{keyword}{private}:}
-\DoxyCodeLine{95   \textcolor{keyword}{friend} \textcolor{keyword}{class }boost::serialization::access;}
-\DoxyCodeLine{96   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{97   \textcolor{keywordtype}{void} serialize(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{98 \};}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{101 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{TaskInfoContainer}}}
-\DoxyCodeLine{102 \{}
-\DoxyCodeLine{103   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{Ptr}} = std::shared\_ptr<TaskInfoContainer>;}
-\DoxyCodeLine{104   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a3647488a5e35a360ea5d078996aa1d24}{ConstPtr}} = std::shared\_ptr<const TaskInfoContainer>;}
-\DoxyCodeLine{105 }
-\DoxyCodeLine{106   \textcolor{keywordtype}{void} addTaskInfo(\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} task\_info);}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} operator[](std::size\_t index) \textcolor{keyword}{const};}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{111   std::map<std::size\_t, TaskInfo::UPtr> getTaskInfoMap() \textcolor{keyword}{const};}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{113 \textcolor{keyword}{private}:}
-\DoxyCodeLine{114   \textcolor{keyword}{mutable} std::shared\_mutex \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a15867bcf8c34ef15cf0e11f1e8fcbd34}{mutex\_}};}
-\DoxyCodeLine{115   std::map<std::size\_t, TaskInfo::UPtr> \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_ad2711f58c335a14331b418283e1f9fcd}{task\_info\_map\_}};}
-\DoxyCodeLine{116 \};}
-\DoxyCodeLine{117 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{119 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_task\_info\_H}}
+\DoxyCodeLine{41 \%wrap\_unique\_ptr(TaskInfoUPtr,\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{tesseract\_planning::TaskInfo}})}
+\DoxyCodeLine{42 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{tesseract\_planning::TaskInfoContainer}})}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50 \textcolor{keyword}{public}:}
+\DoxyCodeLine{51   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<TaskInfo>;}
+\DoxyCodeLine{52   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const TaskInfo>;}
+\DoxyCodeLine{53   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{UPtr}} = std::unique\_ptr<TaskInfo>;}
+\DoxyCodeLine{54   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a7d5dcbc23c6ead3322d9e4d00fdb0ece}{ConstUPtr}} = std::unique\_ptr<const TaskInfo>;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ad8e113122aae15a0c1241ce3c277fd75}{TaskInfo}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for serialization}}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ad8e113122aae15a0c1241ce3c277fd75}{TaskInfo}}(std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}}, std::string name = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{58   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ab87d7477633c44a5a19b97fddb6e7589}{\string~TaskInfo}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a05c78070a46fc8b826f838a5612b0f66}{TaskInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_aa97b9184ff86e1f0e1f575a9fbb537dc}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a34452e9cc3fe27d5713b40bc67659a27}{TaskInfo}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a23e31a32aa5aa703525dfcff0a249377}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{65   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ace8c85481552083472c05e92a9f395fd}{return\_value}}\{ std::numeric\_limits<int>::lowest() \};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{68   std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}}\{ 0 \};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a9b96aab3e6bcf8593fdafda89476a999}{task\_name}};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_aa9931c1dcc3e4f5ee9331067e1088915}{message}};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{75   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a1d45557cd69a1d78308fd4c551b4b9d1}{elapsed\_time}}\{ 0 \};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{78   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a06d4291049c2db3f355c70ac9b0c1a85}{instructions\_input}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
+\DoxyCodeLine{80   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ad7d6a0292ea43a8a3ea03076cedff577}{instructions\_output}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
+\DoxyCodeLine{82   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a381196467b56bae705eb47fa8840c868}{results\_input}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
+\DoxyCodeLine{84   \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a82fc8d13c42c929dd8f10d714491256a}{results\_output}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
+\DoxyCodeLine{86   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2f357bbfe8948bbfbf4d373dfc162af0}{environment}}\{ \textcolor{keyword}{nullptr} \};}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_abfce112f2f879fefbb4ebabdc3627330}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{89   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a570e486bd3838d1001b60578689334c9}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ae626624b019017bb0607ef68f16df8bb}{clone}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93 \textcolor{keyword}{private}:}
+\DoxyCodeLine{94   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{95   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{96   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a82960bb42b5a5cde7524228f7deb1967}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{97 \};}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{100 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{TaskInfoContainer}}}
+\DoxyCodeLine{101 \{}
+\DoxyCodeLine{102   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{Ptr}} = std::shared\_ptr<TaskInfoContainer>;}
+\DoxyCodeLine{103   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a3647488a5e35a360ea5d078996aa1d24}{ConstPtr}} = std::shared\_ptr<const TaskInfoContainer>;}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a1a428483f1584837631ab0fe11106d26}{addTaskInfo}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} task\_info);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_ab2416b2baf950aab0b2c1630b75a477d}{operator[]}}(std::size\_t index) \textcolor{keyword}{const};}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{110   std::map<std::size\_t, TaskInfo::UPtr> \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a82260d50ae3750256641a7ae10db1639}{getTaskInfoMap}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112 \textcolor{keyword}{private}:}
+\DoxyCodeLine{113   \textcolor{keyword}{mutable} std::shared\_mutex \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a15867bcf8c34ef15cf0e11f1e8fcbd34}{mutex\_}};}
+\DoxyCodeLine{114   std::map<std::size\_t, TaskInfo::UPtr> \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_ad2711f58c335a14331b418283e1f9fcd}{task\_info\_map\_}};}
+\DoxyCodeLine{115 \};}
+\DoxyCodeLine{116 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_task\_info\_H}}
 
 \end{DoxyCode}
