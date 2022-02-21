@@ -35,6 +35,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/task_input.h>
 
+#ifdef SWIG
+%wrap_unique_ptr(TaskGeneratorUPtr,tesseract_planning::TaskGenerator)
+#endif  // SWIG
+
 namespace tesseract_planning
 {
 /**
