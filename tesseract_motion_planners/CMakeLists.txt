@@ -75,7 +75,7 @@ endif()
 
 # Examples
 if(TESSERACT_ENABLE_EXAMPLES)
-add_subdirectory(examples)
+  add_subdirectory(examples)
 endif()
 
 # Tests
