@@ -132,7 +132,9 @@ target_include_directories(${PROJECT_NAME}_utils PUBLIC "$<BUILD_INTERFACE:${CMA
                                                         "$<INSTALL_INTERFACE:include>")
 list(APPEND Targets ${PROJECT_NAME}_utils)
 
-add_subdirectory(examples)
+if(TESSERACT_ENABLE_EXAMPLES)
+  add_subdirectory(examples)
+endif()
 
 configure_package(NAMESPACE tesseract TARGETS ${Targets})
 
