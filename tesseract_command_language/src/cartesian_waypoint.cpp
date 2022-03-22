@@ -3,6 +3,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/eigen_serialization.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 
@@ -15,11 +16,6 @@ void tesseract_planning::CartesianWaypoint::serialize(Archive& ar, const unsigne
   ar& BOOST_SERIALIZATION_NVP(seed);
 }
 
-#include <boost/archive/xml_oarchive.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-template void tesseract_planning::CartesianWaypoint::serialize(boost::archive::xml_oarchive& ar,
-                                                               const unsigned int version);
-template void tesseract_planning::CartesianWaypoint::serialize(boost::archive::xml_iarchive& ar,
-                                                               const unsigned int version);
-
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::CartesianWaypoint)
 TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::CartesianWaypoint);
