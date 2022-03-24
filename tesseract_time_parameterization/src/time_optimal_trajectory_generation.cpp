@@ -1118,6 +1118,7 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory) const
   for (Eigen::Index j = 0; j < num_samples; ++j)
     x[j] = getPathData(times[j]).path_pos;
 
+  double prev_time{ 0 };
   for (long i = 0; i < trajectory.size(); ++i)
   {
     Eigen::VectorXd uv;
@@ -1164,7 +1165,15 @@ bool Trajectory::assignData(TrajectoryContainer& trajectory) const
       time = times[index];
       uv = getVelocity(time).head(trajectory.dof());
       ua = getAcceleration(time).head(trajectory.dof());
+
+      if (time < prev_time)
+      {
+        CONSOLE_BRIDGE_logError("Time Optimal Trajectory 'assignData()' found time that is not strictly increasing, "
+                                "returing false!");
+        return false;
+      }
     }
+    prev_time = time;
     trajectory.setData(i, uv, ua, time);
   }
 
