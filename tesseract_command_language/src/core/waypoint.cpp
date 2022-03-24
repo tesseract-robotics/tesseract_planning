@@ -50,7 +50,6 @@ void tesseract_planning::Waypoint::serialize(Archive& ar, const unsigned int /*v
   ar& boost::serialization::make_nvp("waypoint", waypoint_);
 }
 
-
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_waypoint::WaypointInnerBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Waypoint)

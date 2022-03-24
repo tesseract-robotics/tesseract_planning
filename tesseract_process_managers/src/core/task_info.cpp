@@ -24,6 +24,13 @@
  * limitations under the License.
  */
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/unique_ptr.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_process_managers/core/task_info.h>
 
 namespace tesseract_planning
@@ -89,8 +96,30 @@ std::map<std::size_t, TaskInfo::UPtr> TaskInfoContainer::getTaskInfoMap() const
   return copy;
 }
 
+bool TaskInfoContainer::operator==(const TaskInfoContainer& rhs) const
+{
+  bool equal = true;
+  auto equality = [](const TaskInfo::UPtr& p1, const TaskInfo::UPtr& p2) {
+    return (p1 && p2 && *p1 == *p2) || (!p1 && !p2);
+  };
+  equal &= tesseract_common::isIdenticalMap<std::map<std::size_t, TaskInfo::UPtr>, TaskInfo::UPtr>(
+      task_info_map_, rhs.task_info_map_, equality);
+  return equal;
+}
+
+bool TaskInfoContainer::operator!=(const TaskInfoContainer& rhs) const { return !operator==(rhs); }
+
+template <class Archive>
+void TaskInfoContainer::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_NVP(task_info_map_);
+}
+
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskInfo)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskInfo)
+
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskInfoContainer)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskInfoContainer)

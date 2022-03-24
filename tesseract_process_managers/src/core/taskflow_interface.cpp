@@ -24,6 +24,12 @@
  * limitations under the License.
  */
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/shared_ptr.hpp>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract_common/atomic_serialization.h>
 #include <tesseract_process_managers/core/task_info.h>
 #include <tesseract_process_managers/core/taskflow_interface.h>
 
@@ -49,4 +55,26 @@ std::map<std::size_t, TaskInfo::UPtr> TaskflowInterface::getTaskInfoMap() const
 
 TaskInfoContainer::Ptr TaskflowInterface::getTaskInfoContainer() const { return task_infos_; }
 
+bool TaskflowInterface::operator==(const tesseract_planning::TaskflowInterface& rhs) const
+{
+  bool equal = true;
+  equal &= abort_ == rhs.abort_;
+  equal &= tesseract_common::pointersEqual(task_infos_, rhs.task_infos_);
+
+  return equal;
+}
+
+bool TaskflowInterface::operator!=(const tesseract_planning::TaskflowInterface& rhs) const { return !operator==(rhs); }
+
+template <class Archive>
+void TaskflowInterface::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_NVP(abort_);
+  ar& BOOST_SERIALIZATION_NVP(task_infos_);
+}
+
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TaskflowInterface)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TaskflowInterface)
