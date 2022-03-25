@@ -6,12 +6,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_command_language/core/instruction.h>
 
-template <class Archive>
-void tesseract_planning::detail_instruction::InstructionInnerBase::serialize(Archive& /*ar*/,
-                                                                             const unsigned int /*version*/)
-{
-}
-
 tesseract_planning::Instruction::Instruction()  // NOLINT
   : instruction_(nullptr)
 {
@@ -61,5 +55,4 @@ void tesseract_planning::Instruction::serialize(Archive& ar, const unsigned int 
 }
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_instruction::InstructionInnerBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Instruction)
