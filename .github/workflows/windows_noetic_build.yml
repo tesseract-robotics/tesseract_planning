@@ -37,3 +37,9 @@ jobs:
         catkin_make_isolated --install --use-nmake --force-cmake --only-pkg-with-deps tesseract_command_language tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --cmake-args -DCMAKE_BUILD_TYPE=Release -DINSTALL_OMPL=ON -DINSTALL_OMPL_TAG=main -DBUILD_IPOPT=OFF -DBUILD_SNOPT=OFF -DINSTALL_FCL=ON -DINSTALL_BULLET=ON
         call "D:\a\tesseract\tesseract\install_isolated\setup.bat"
         catkin_make_isolated --install --use-nmake --force-cmake --pkg tesseract_command_language tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --cmake-args -DCMAKE_BUILD_TYPE=Release -DTESSERACT_ENABLE_TESTING=ON -DINSTALL_OMPL=ON -DINSTALL_OMPL_TAG=main -DBUILD_IPOPT=OFF -DBUILD_SNOPT=OFF -DINSTALL_FCL=ON -DINSTALL_BULLET=ON
+
+        install_isolated\setup.bat
+        cmd /c "cd build_isolated\tesseract_command_language\install\test && ctest -C Release"
+        cmd /c "cd build_isolated\tesseract_motion_planners\install\test && ctest -C Release"
+        cmd /c "cd build_isolated\tesseract_process_managers\install\test && ctest -C Release"
+        cmd /c "cd build_isolated\tesseract_time_parameterization\install\test && ctest -C Release"
