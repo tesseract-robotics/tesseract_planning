@@ -34,13 +34,27 @@ void \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a1a428483f1
 \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_ab2416b2baf950aab0b2c1630b75a477d}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t index) const
 \item 
 std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a82260d50ae3750256641a7ae10db1639}{get\+Task\+Info\+Map}} () const
-\begin{DoxyCompactList}\small\item\em Get a copy of the task\+\_\+info\+\_\+map\+\_\+ in case it gets resized. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get a copy of the task\+\_\+info\+\_\+map\+\_\+ in case it gets resized. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a6ee3c7c4e1df938f52f074eca53263fc}{operator==}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_adad71314fba9e271da8883cf9543b04c}{operator!=}} (const \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_aa49181b67dbc87a9dda9e83c8706ca57}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 std\+::shared\+\_\+mutex \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a15867bcf8c34ef15cf0e11f1e8fcbd34}{mutex\+\_\+}}
 \item 
 std\+::map$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_ad2711f58c335a14331b418283e1f9fcd}{task\+\_\+info\+\_\+map\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
 \end{DoxyCompactItemize}
 
 
@@ -79,11 +93,39 @@ A threadsafe container for Task\+Infos.
 
 Get a copy of the task\+\_\+info\+\_\+map\+\_\+ in case it gets resized. 
 
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_adad71314fba9e271da8883cf9543b04c}\label{structtesseract__planning_1_1TaskInfoContainer_adad71314fba9e271da8883cf9543b04c}} 
+\index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_a6ee3c7c4e1df938f52f074eca53263fc}\label{structtesseract__planning_1_1TaskInfoContainer_a6ee3c7c4e1df938f52f074eca53263fc}} 
+\index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer}{Task\+Info\+Container}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_ab2416b2baf950aab0b2c1630b75a477d}\label{structtesseract__planning_1_1TaskInfoContainer_ab2416b2baf950aab0b2c1630b75a477d}} 
 \index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
 \doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_aa49181b67dbc87a9dda9e83c8706ca57}\label{structtesseract__planning_1_1TaskInfoContainer_aa49181b67dbc87a9dda9e83c8706ca57}} 
+\index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Task\+Info\+Container\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1TaskInfoContainer_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{structtesseract__planning_1_1TaskInfoContainer_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::TaskInfoContainer@{tesseract\_planning::TaskInfoContainer}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

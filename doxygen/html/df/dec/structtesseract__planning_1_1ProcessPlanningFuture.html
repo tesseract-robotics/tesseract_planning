@@ -73,6 +73,8 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../de/db2/structtesseract__planning_1_1ProcessPlanningFuture-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">tesseract_planning::ProcessPlanningFuture Struct Reference</div></div>
 </div><!--header-->
@@ -133,6 +135,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa24eea317ac39d160ba12a3c18df497c"><td class="memItemLeft" align="right" valign="top">std::future_status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#aa24eea317ac39d160ba12a3c18df497c">waitUntil</a> (const std::chrono::time_point&lt; std::chrono::high_resolution_clock &gt; &amp;abs) const</td></tr>
 <tr class="memdesc:aa24eea317ac39d160ba12a3c18df497c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a process has finished up to a given time point.  <a href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#aa24eea317ac39d160ba12a3c18df497c">More...</a><br /></td></tr>
 <tr class="separator:aa24eea317ac39d160ba12a3c18df497c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c7278b005f24272e688d23973329ac7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#a8c7278b005f24272e688d23973329ac7">operator==</a> (const <a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html">ProcessPlanningFuture</a> &amp;rhs) const</td></tr>
+<tr class="separator:a8c7278b005f24272e688d23973329ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c52a67caf471895b8a9c5c8e4f3098"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#aa1c52a67caf471895b8a9c5c8e4f3098">operator!=</a> (const <a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html">ProcessPlanningFuture</a> &amp;rhs) const</td></tr>
+<tr class="separator:aa1c52a67caf471895b8a9c5c8e4f3098"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -160,6 +166,17 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a7a1bf130fec34c058ca2778442a50c80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d07/structtesseract__planning_1_1TaskflowContainer.html">TaskflowContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#a7a1bf130fec34c058ca2778442a50c80">taskflow_container</a></td></tr>
 <tr class="memdesc:a7a1bf130fec34c058ca2778442a50c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">The taskflow container returned from the <a class="el" href="../../d1/d32/classtesseract__planning_1_1TaskflowGenerator.html" title="Base class for generating a taskflow.">TaskflowGenerator</a> that must remain during taskflow execution.  <a href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#a7a1bf130fec34c058ca2778442a50c80">More...</a><br /></td></tr>
 <tr class="separator:a7a1bf130fec34c058ca2778442a50c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ad3a6352d523e28f4e16c7b47482075bb"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:ad3a6352d523e28f4e16c7b47482075bb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#ad3a6352d523e28f4e16c7b47482075bb">serialize</a> (Archive &amp;ar, const unsigned int version)</td></tr>
+<tr class="separator:ad3a6352d523e28f4e16c7b47482075bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
+<tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >This contains the result for the process planning request. </p>
@@ -184,6 +201,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa1c52a67caf471895b8a9c5c8e4f3098" name="aa1c52a67caf471895b8a9c5c8e4f3098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c52a67caf471895b8a9c5c8e4f3098">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::ProcessPlanningFuture::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html">ProcessPlanningFuture</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c7278b005f24272e688d23973329ac7" name="a8c7278b005f24272e688d23973329ac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c7278b005f24272e688d23973329ac7">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::ProcessPlanningFuture::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html">ProcessPlanningFuture</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5fc2dad07a0386329699e8960e48ba5d" name="a5fc2dad07a0386329699e8960e48ba5d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5fc2dad07a0386329699e8960e48ba5d">&#9670;&nbsp;</a></span>ready()</h2>
 
@@ -201,6 +254,44 @@ Public Attributes</h2></td></tr>
 
 <p>This checks if the process has finished. </p>
 <dl class="section return"><dt>Returns</dt><dd>True if the process finished, otherwise false </dd></dl>
+
+</div>
+</div>
+<a id="ad3a6352d523e28f4e16c7b47482075bb" name="ad3a6352d523e28f4e16c7b47482075bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a6352d523e28f4e16c7b47482075bb">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Archive &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::ProcessPlanningFuture::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Archive &amp;&#160;</td>
+          <td class="paramname"><em>ar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>version</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -262,6 +353,29 @@ Public Attributes</h2></td></tr>
 
 <p>Check if a process has finished up to a given time point. </p>
 <dl class="section return"><dt>Returns</dt><dd>The future status </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac98d07dd8f7b70e16ccb9a01abf56b9c" name="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class boost::serialization::access</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -401,7 +515,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 1 2022 05:10:58 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Fri Mar 25 2022 21:32:43 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>

@@ -62,7 +62,7 @@
 \DoxyCodeLine{116   std::vector<std::string> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a36d424b8bf418d63e6afdc9e7beed003}{getAvailableProcessPlanners}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{117 }
 \DoxyCodeLine{118 \textcolor{preprocessor}{\#ifndef SWIG}}
-\DoxyCodeLine{125   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{ProcessPlanningFuture}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{ProcessPlanningRequest}}\& request) \textcolor{keyword}{const};}
+\DoxyCodeLine{125   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{ProcessPlanningFuture}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{ProcessPlanningRequest}}\& request) \textcolor{keyword}{const};}
 \DoxyCodeLine{126 }
 \DoxyCodeLine{132   tf::Future<void> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}}(tf::Taskflow\& taskflow) \textcolor{keyword}{const};}
 \DoxyCodeLine{133 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
@@ -70,7 +70,7 @@
 \DoxyCodeLine{135 \textcolor{preprocessor}{\#ifdef SWIG}}
 \DoxyCodeLine{136   \%extend}
 \DoxyCodeLine{137   \{}
-\DoxyCodeLine{138     std::shared\_ptr<tesseract\_planning::ProcessPlanningFuture> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningRequest}{ProcessPlanningRequest}}\& request)}
+\DoxyCodeLine{138     std::shared\_ptr<tesseract\_planning::ProcessPlanningFuture> \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{ProcessPlanningRequest}}\& request)}
 \DoxyCodeLine{139     \{}
 \DoxyCodeLine{140       \textcolor{keywordflow}{return} std::make\_shared<tesseract\_planning::ProcessPlanningFuture>(std::move(\$self-\/>run(request)));}
 \DoxyCodeLine{141     \}}

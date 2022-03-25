@@ -86,6 +86,7 @@ $(function() {
 <code>#include &lt;boost/serialization/nvp.hpp&gt;</code><br />
 <code>#include &lt;boost/serialization/unique_ptr.hpp&gt;</code><br />
 <code>#include &lt;boost/type_traits/is_virtual_base_of.hpp&gt;</code><br />
+<code>#include &lt;tesseract_common/serialization.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d4/d08/waypoint_8h_source.html">tesseract_command_language/core/waypoint.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../dd/d50/serialization_8h_source.html">tesseract_command_language/core/serialization.h</a>&gt;</code><br />
 <code>#include &lt;tesseract_common/sfinae_utils.h&gt;</code><br />
@@ -94,7 +95,7 @@ Include dependency graph for instruction.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d6b/instruction_8h__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2core_2instruction_8h" alt=""/></div>
 <map name="atesseract__command__language_2include_2tesseract__command__language_2core_2instruction_8h" id="atesseract__command__language_2include_2tesseract__command__language_2core_2instruction_8h">
-<area shape="rect" title=" " alt="" coords="454,5,653,61"/>
+<area shape="rect" title=" " alt="" coords="457,5,656,61"/>
 <area shape="rect" title=" " alt="" coords="594,288,785,315"/>
 <area shape="rect" title=" " alt="" coords="45,206,100,233"/>
 <area shape="rect" title=" " alt="" coords="124,206,200,233"/>
@@ -103,7 +104,8 @@ Include dependency graph for instruction.h:</div>
 <area shape="rect" title=" " alt="" coords="525,199,652,240"/>
 <area shape="rect" title=" " alt="" coords="820,199,946,240"/>
 <area shape="rect" title=" " alt="" coords="971,199,1112,240"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="590,109,789,151"/>
+<area shape="rect" title=" " alt="" coords="798,117,1013,143"/>
+<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="525,109,724,151"/>
 <area shape="rect" href="../../dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="1136,199,1334,240"/>
 <area shape="rect" title=" " alt="" coords="1359,199,1530,240"/>
 <area shape="rect" title=" " alt="" coords="728,206,796,233"/>
@@ -249,7 +251,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="../../d8/df4/instruction_8h.html#a6635650e56c113a9dbc55aaaf50de52e">TESSERACT_INSTRUCTION_EXPORT_KEY</a>(inst)                                                                               \</div>
 <div class="line">  TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(inst)</div>
-<div class="ttc" id="ainstruction_8h_html_a6635650e56c113a9dbc55aaaf50de52e"><div class="ttname"><a href="../../d8/df4/instruction_8h.html#a6635650e56c113a9dbc55aaaf50de52e">TESSERACT_INSTRUCTION_EXPORT_KEY</a></div><div class="ttdeci">#define TESSERACT_INSTRUCTION_EXPORT_KEY(inst)</div><div class="ttdoc">If shared library, this must go in the header after the class definition.</div><div class="ttdef"><b>Definition:</b> instruction.h:53</div></div>
+<div class="ttc" id="ainstruction_8h_html_a6635650e56c113a9dbc55aaaf50de52e"><div class="ttname"><a href="../../d8/df4/instruction_8h.html#a6635650e56c113a9dbc55aaaf50de52e">TESSERACT_INSTRUCTION_EXPORT_KEY</a></div><div class="ttdeci">#define TESSERACT_INSTRUCTION_EXPORT_KEY(inst)</div><div class="ttdoc">If shared library, this must go in the header after the class definition.</div><div class="ttdef"><b>Definition:</b> instruction.h:54</div></div>
 </div><!-- fragment -->
 <p>This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. </p>
 
@@ -293,7 +295,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">  BOOST_CLASS_EXPORT_KEY2(<a class="code hl_struct" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner&lt;inst&gt;</a>, #inst)                       \</div>
 <div class="line">  BOOST_CLASS_TRACKING(<a class="code hl_struct" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner&lt;inst&gt;</a>,                                 \</div>
 <div class="line">                       boost::serialization::track_never)</div>
-<div class="ttc" id="astructtesseract__planning_1_1detail__instruction_1_1InstructionInner_html"><div class="ttname"><a href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner</a></div><div class="ttdef"><b>Definition:</b> instruction.h:123</div></div>
+<div class="ttc" id="astructtesseract__planning_1_1detail__instruction_1_1InstructionInner_html"><div class="ttname"><a href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner</a></div><div class="ttdef"><b>Definition:</b> instruction.h:126</div></div>
 </div><!-- fragment -->
 <p>If shared library, this must go in the header after the class definition. </p>
 
@@ -331,7 +333,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 1 2022 05:10:57 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Fri Mar 25 2022 21:32:42 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>

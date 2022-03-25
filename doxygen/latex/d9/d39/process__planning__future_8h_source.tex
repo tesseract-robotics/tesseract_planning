@@ -84,9 +84,20 @@
 \DoxyCodeLine{127 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
 \DoxyCodeLine{128 }
 \DoxyCodeLine{133   std::future\_status \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_aa24eea317ac39d160ba12a3c18df497c}{waitUntil}}(\textcolor{keyword}{const} std::chrono::time\_point<std::chrono::high\_resolution\_clock>\& abs) \textcolor{keyword}{const};}
-\DoxyCodeLine{134 \};}
-\DoxyCodeLine{135 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{137 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_FUTURE\_H}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a8c7278b005f24272e688d23973329ac7}{operator==}}(\textcolor{keyword}{const} ProcessPlanningFuture\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{136   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_aa1c52a67caf471895b8a9c5c8e4f3098}{operator!=}}(\textcolor{keyword}{const} ProcessPlanningFuture\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138 \textcolor{keyword}{private}:}
+\DoxyCodeLine{139   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{140   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{141   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ad3a6352d523e28f4e16c7b47482075bb}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{142 \};}
+\DoxyCodeLine{143 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{146 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{tesseract\_planning::ProcessPlanningFuture}}, \textcolor{stringliteral}{"{}ProcessPlanningFuture"{}})}
+\DoxyCodeLine{147 \mbox{\hyperlink{instruction_8h_a117374dd98af81801c0ccb8018e93215}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::ProcessPlanningFuture, \mbox{\hyperlink{namespaceboost}{boost}}::serialization::track\_never)}
+\DoxyCodeLine{148 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_FUTURE\_H}}
 
 \end{DoxyCode}

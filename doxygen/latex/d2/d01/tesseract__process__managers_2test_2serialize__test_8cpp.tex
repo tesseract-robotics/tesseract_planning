@@ -2,8 +2,12 @@
 \label{tesseract__process__managers_2test_2serialize__test_8cpp}\index{tesseract\_process\_managers/test/serialize\_test.cpp@{tesseract\_process\_managers/test/serialize\_test.cpp}}
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/unit\+\_\+test\+\_\+utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/commands/add\+\_\+allowed\+\_\+collision\+\_\+command.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/task\+\_\+info.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/process\+\_\+planning\+\_\+request.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/process\+\_\+planning\+\_\+future.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}raster\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}raster\+\_\+dt\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}freespace\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
@@ -18,7 +22,13 @@ Include dependency graph for serialize\+\_\+test.\+cpp\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{tesseract__process__managers_2test_2serialize__test_8cpp_a5ebd3c914beb988d4d91565b98c7eac2}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, serialization\+Composite\+Instruction)
+\mbox{\hyperlink{tesseract__process__managers_2test_2serialize__test_8cpp_ad41dd121a99c43215efa518161ca6a85}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers_2test_2serialize__test_8cpp_a8c1015ed44506b393186f8e84f9114fe}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers_2test_2serialize__test_8cpp_ae29787c60830ab0153fab31dfc8be769}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers_2test_2serialize__test_8cpp_a0b851ab0d88df4d91d2291954fac4df9}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}})
 \item 
 int \mbox{\hyperlink{tesseract__process__managers_2test_2serialize__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
@@ -37,7 +47,7 @@ June 22, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000243}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000244}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -61,9 +71,27 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{tesseract__process__managers_2test_2serialize__test_8cpp_a5ebd3c914beb988d4d91565b98c7eac2}\label{tesseract__process__managers_2test_2serialize__test_8cpp_a5ebd3c914beb988d4d91565b98c7eac2}} 
+\mbox{\Hypertarget{tesseract__process__managers_2test_2serialize__test_8cpp_a0b851ab0d88df4d91d2291954fac4df9}\label{tesseract__process__managers_2test_2serialize__test_8cpp_a0b851ab0d88df4d91d2291954fac4df9}} 
 \index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
 \index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}}
-{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{serialization\+Composite\+Instruction}]{ }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers_2test_2serialize__test_8cpp_ae29787c60830ab0153fab31dfc8be769}\label{tesseract__process__managers_2test_2serialize__test_8cpp_ae29787c60830ab0153fab31dfc8be769}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers_2test_2serialize__test_8cpp_a8c1015ed44506b393186f8e84f9114fe}\label{tesseract__process__managers_2test_2serialize__test_8cpp_a8c1015ed44506b393186f8e84f9114fe}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers_2test_2serialize__test_8cpp_ad41dd121a99c43215efa518161ca6a85}\label{tesseract__process__managers_2test_2serialize__test_8cpp_ad41dd121a99c43215efa518161ca6a85}} 
+\index{serialize\_test.cpp@{serialize\_test.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!serialize\_test.cpp@{serialize\_test.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}}]{ }\end{DoxyParamCaption})}
 
