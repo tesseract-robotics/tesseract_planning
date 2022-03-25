@@ -23,6 +23,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/nvp.hpp>
+#include <boost/serialization/unordered_map.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/unique_ptr.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_process_managers/core/process_planning_future.h>
 
 namespace tesseract_planning
@@ -55,4 +65,46 @@ ProcessPlanningFuture::waitUntil(const std::chrono::time_point<std::chrono::high
 {
   return process_future.wait_until(abs);
 }
+
+bool ProcessPlanningFuture::operator==(const tesseract_planning::ProcessPlanningFuture& rhs) const
+{
+  bool equal = true;
+  equal &= process_future.valid() == rhs.process_future.valid();
+  equal &= (input && rhs.input && *input == *rhs.input) || (!input && !rhs.input);
+  equal &= (results && rhs.results && *results == *rhs.results) || (!results && !rhs.results);
+  equal &= (global_manip_info && rhs.global_manip_info && *global_manip_info == *rhs.global_manip_info) ||
+           (!global_manip_info && !rhs.global_manip_info);
+  equal &= (plan_profile_remapping && rhs.plan_profile_remapping &&
+            *plan_profile_remapping == *rhs.plan_profile_remapping) ||
+           (!plan_profile_remapping && !rhs.plan_profile_remapping);
+  equal &= (composite_profile_remapping && rhs.composite_profile_remapping &&
+            *composite_profile_remapping == *rhs.composite_profile_remapping) ||
+           (!composite_profile_remapping && !rhs.composite_profile_remapping);
+  equal &= tesseract_common::pointersEqual(interface, rhs.interface);
+
+  return equal;
+}
+
+bool ProcessPlanningFuture::operator!=(const tesseract_planning::ProcessPlanningFuture& rhs) const
+{
+  return !operator==(rhs);
+}
+
+template <class Archive>
+void ProcessPlanningFuture::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_NVP(input);
+  ar& BOOST_SERIALIZATION_NVP(results);
+  ar& BOOST_SERIALIZATION_NVP(global_manip_info);
+  ar& BOOST_SERIALIZATION_NVP(plan_profile_remapping);
+  ar& BOOST_SERIALIZATION_NVP(composite_profile_remapping);
+  ar& BOOST_SERIALIZATION_NVP(interface);
+  // These are not currently serializable
+  //  ar& BOOST_SERIALIZATION_NVP(process_future);
+  //  ar& BOOST_SERIALIZATION_NVP(taskflow_container);
+}
+
 }  // namespace tesseract_planning
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProcessPlanningFuture)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ProcessPlanningFuture)

@@ -39,8 +39,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-struct ProcessPlanningRequest
+class ProcessPlanningRequest
 {
+public:
   /** @brief The name of the Process Pipeline (aka. Taskflow) to use */
   std::string name;
 
@@ -73,6 +74,14 @@ struct ProcessPlanningRequest
    * for a given motion planner. (Optional)
    */
   PlannerProfileRemapping composite_profile_remapping;
+
+  bool operator==(const ProcessPlanningRequest& rhs) const;
+  bool operator!=(const ProcessPlanningRequest& rhs) const;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 namespace process_planner_names
@@ -138,4 +147,8 @@ static const std::string RASTER_O_G_FT_PLANNER_NAME = "RasterOGFTPlanner";
 static const std::string RASTER_O_G_CT_PLANNER_NAME = "RasterOGCTPlanner";
 }  // namespace process_planner_names
 }  // namespace tesseract_planning
+
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ProcessPlanningRequest, "ProcessPlanningRequest")
+BOOST_CLASS_TRACKING(tesseract_planning::ProcessPlanningRequest, boost::serialization::track_never)
 #endif  // TESSERACT_PROCESS_MANAGERS_PROCESS_PLANNING_REQUEST_H

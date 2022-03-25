@@ -38,6 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/type_traits/is_virtual_base_of.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/serialization.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/core/serialization.h>
 #include <tesseract_common/sfinae_utils.h>
@@ -115,7 +116,9 @@ struct InstructionInnerBase
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/);  // NOLINT
+  void serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
+  {
+  }
 };
 
 template <typename T>

@@ -29,8 +29,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_common/unit_test_utils.h>
 #include <tesseract_command_language/core/serialization.h>
+#include <tesseract_environment/commands/add_allowed_collision_command.h>
 #include <tesseract_process_managers/core/task_info.h>
+#include <tesseract_process_managers/core/process_planning_request.h>
+#include <tesseract_process_managers/core/process_planning_future.h>
 
 #include "raster_example_program.h"
 #include "raster_dt_example_program.h"
@@ -38,7 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
-TEST(TesseractProcessManagersSerializeUnit, serializationCompositeInstruction)  // NOLINT
+TEST(TesseractProcessManagersSerializeUnit, TaskInfo)  // NOLINT
 {
   TaskInfo task_info(123456, "my task");
   task_info.elapsed_time = 123.456;
@@ -48,21 +52,55 @@ TEST(TesseractProcessManagersSerializeUnit, serializationCompositeInstruction)  
   task_info.results_input = freespaceExampleProgramIIWA();
   task_info.results_output = rasterDTExampleProgram();
 
-  {  // Archive program to file
-    std::string file_path = tesseract_common::getTempPath() + "task_info_unit.xml";
-    EXPECT_TRUE(Serialization::toArchiveFileXML<TaskInfo>(task_info, file_path));
+  tesseract_common::testSerialization<TaskInfo>(task_info, "TaskInfo");
+}
 
-    auto ntask_info = Serialization::fromArchiveFileXML<TaskInfo>(file_path);
-    EXPECT_TRUE(task_info == ntask_info);
-  }
+TEST(TesseractProcessManagersSerializeUnit, TaskflowInterface)  // NOLINT
+{
+  auto task_info = std::make_unique<TaskInfo>(123456, "my task");
+  task_info->elapsed_time = 123.456;
+  task_info->message = "Test message";
+  task_info->instructions_input = rasterExampleProgram();
+  task_info->instructions_output = freespaceExampleProgramABB();
+  task_info->results_input = freespaceExampleProgramIIWA();
+  task_info->results_output = rasterDTExampleProgram();
 
-  {  // Archive program to string
-    std::string task_info_string = Serialization::toArchiveStringXML<TaskInfo>(task_info, "task_info");
-    EXPECT_FALSE(task_info_string.empty());
+  TaskflowInterface interface;
+  interface.getTaskInfoContainer()->addTaskInfo(std::move(task_info));
+  interface.abort();
 
-    auto ntask_info = Serialization::fromArchiveStringXML<TaskInfo>(task_info_string);
-    EXPECT_TRUE(task_info == ntask_info);
-  }
+  tesseract_common::testSerialization<TaskflowInterface>(interface, "TaskflowInterface");
+}
+
+TEST(TesseractProcessManagersSerializeUnit, ProcessPlanningRequest)  // NOLINT
+{
+  // Create the test case
+  ProcessPlanningRequest request;
+  request.name = "process_planning_request";
+  request.instructions = rasterExampleProgram();
+  request.seed = freespaceExampleProgramIIWA();
+  request.env_state.joints["joint 1"] = 5;
+  request.commands.push_back(
+      std::make_shared<tesseract_environment::AddAllowedCollisionCommand>("link1", "link2", "reason"));
+  request.profile = true;
+  request.save_io = true;
+  std::unordered_map<std::string, std::string> remapping;
+  remapping["test1a_key"] = "test1a_value";
+  request.plan_profile_remapping["test1_key"] = remapping;
+  remapping["test2a_key"] = "test2a_value";
+  request.plan_profile_remapping["test2_key"] = remapping;
+
+  tesseract_common::testSerialization<ProcessPlanningRequest>(request, "ProcessPlanningRequest");
+}
+
+TEST(TesseractProcessManagersSerializeUnit, ProcessPlanningFuture)  // NOLINT
+{
+  // Create the test case
+  ProcessPlanningFuture request;
+  request.input = std::make_unique<Instruction>(rasterExampleProgram());
+  request.results = std::make_unique<Instruction>(freespaceExampleProgramIIWA());
+
+  tesseract_common::testSerialization<ProcessPlanningFuture>(request, "ProcessPlanningFuture");
 }
 
 int main(int argc, char** argv)
