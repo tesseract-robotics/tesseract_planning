@@ -2,6 +2,15 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add serialization for ProcessPlanningRequest (`#174 <https://github.com/tesseract-robotics/tesseract_planning/issues/174>`_)
+  * Switch serialization instantiations to use tesseract_common macro
+  * Add serialization for ProcessPlanningRequest
+  * Fix Windows build
+* Add TESSERACT_ENABLE_EXAMPLES compile option (`#173 <https://github.com/tesseract-robotics/tesseract_planning/issues/173>`_)
+* Contributors: John Wason, Matthew Powelson
+
 0.9.3 (2022-02-22)
 ------------------
 * Python patches for Feb 2022 update (`#172 <https://github.com/tesseract-robotics/tesseract_planning/issues/172>`_)
