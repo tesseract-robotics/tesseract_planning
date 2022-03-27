@@ -55,4 +55,4 @@ void tesseract_planning::Instruction::serialize(Archive& ar, const unsigned int 
 }
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Instruction)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Instruction);
