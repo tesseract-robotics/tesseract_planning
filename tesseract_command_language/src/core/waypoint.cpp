@@ -7,7 +7,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/waypoint.h>
 
 template <class Archive>
-void tesseract_planning::detail_waypoint::WaypointInnerBase::serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
+void tesseract_planning::detail_waypoint::WaypointInnerBase::serialize(Archive& /*ar*/,
+                                                                       const unsigned int /*version*/)  // NOLINT
 {
 }
 
