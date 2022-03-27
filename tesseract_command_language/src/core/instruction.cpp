@@ -54,5 +54,12 @@ void tesseract_planning::Instruction::serialize(Archive& ar, const unsigned int 
   ar& boost::serialization::make_nvp("instruction", instruction_);
 }
 
-#include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Instruction);
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+template void tesseract_planning::Instruction::serialize(boost::archive::xml_oarchive& ar, const unsigned int version);                         \
+template void tesseract_planning::Instruction::serialize(boost::archive::xml_iarchive& ar, const unsigned int version);                         \
+template void tesseract_planning::Instruction::serialize(boost::archive::binary_oarchive& ar, const unsigned int version);                      \
+template void tesseract_planning::Instruction::serialize(boost::archive::binary_iarchive& ar, const unsigned int version);
+//TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Instruction);
