@@ -50,6 +50,25 @@ class TaskflowInterface
 public:
   using Ptr = std::shared_ptr<TaskflowInterface>;
 
+  TaskflowInterface() = default;
+  ~TaskflowInterface() = default;
+  TaskflowInterface(const TaskflowInterface& rhs) { *this = rhs; }
+  TaskflowInterface& operator=(const TaskflowInterface& rhs)
+  {
+    if (this == &rhs)
+      return *this;
+    abort_ = rhs.abort_.load();
+    task_infos_ = rhs.task_infos_;
+    return *this;
+  }
+  TaskflowInterface(TaskflowInterface&& rhs) noexcept { abort_ = rhs.abort_.load(); }
+  TaskflowInterface& operator=(TaskflowInterface&& rhs) noexcept
+  {
+    abort_ = rhs.abort_.load();
+    task_infos_ = rhs.task_infos_;
+    return *this;
+  }
+
   /**
    * @brief Check if the process was aborted
    * @return True if aborted, otherwise false
@@ -84,13 +103,23 @@ public:
    */
   TaskInfoContainer::Ptr getTaskInfoContainer() const;
 
+  bool operator==(const TaskflowInterface& rhs) const;
+  bool operator!=(const TaskflowInterface& rhs) const;
+
 protected:
   std::atomic<bool> abort_{ false };
 
   /** @brief Threadsafe container for TaskInfos */
   TaskInfoContainer::Ptr task_infos_{ std::make_shared<TaskInfoContainer>() };
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskflowInterface, "TaskflowInterface")
 #endif  // TESSERACT_PROCESS_MANAGERS_taskflow_interface_H

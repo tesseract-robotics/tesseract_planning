@@ -44,9 +44,6 @@ void NullWaypoint::serialize(Archive& /*ar*/, const unsigned int /*version*/)
 }
 }  // namespace tesseract_planning
 
-#include <boost/archive/xml_oarchive.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-template void tesseract_planning::NullWaypoint::serialize(boost::archive::xml_oarchive& ar, const unsigned int version);
-template void tesseract_planning::NullWaypoint::serialize(boost::archive::xml_iarchive& ar, const unsigned int version);
-
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::NullWaypoint)
 TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::NullWaypoint);

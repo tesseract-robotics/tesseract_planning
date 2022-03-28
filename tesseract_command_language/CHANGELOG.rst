@@ -2,6 +2,14 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.9.4 (2022-03-25)
+------------------
+* Add serialization for ProcessPlanningRequest (`#174 <https://github.com/tesseract-robotics/tesseract_planning/issues/174>`_)
+  * Switch serialization instantiations to use tesseract_common macro
+  * Add serialization for ProcessPlanningRequest
+  * Fix Windows build
+* Contributors: Matthew Powelson
+
 0.9.3 (2022-02-22)
 ------------------
 * Python patches for Feb 2022 update (`#172 <https://github.com/tesseract-robotics/tesseract_planning/issues/172>`_)
