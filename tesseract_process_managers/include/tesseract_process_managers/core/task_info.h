@@ -109,9 +109,16 @@ struct TaskInfoContainer
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<std::size_t, TaskInfo::UPtr> getTaskInfoMap() const;
 
+  bool operator==(const TaskInfoContainer& rhs) const;
+  bool operator!=(const TaskInfoContainer& rhs) const;
+
 private:
   mutable std::shared_mutex mutex_;
   std::map<std::size_t, TaskInfo::UPtr> task_info_map_;
+
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 

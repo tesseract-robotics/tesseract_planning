@@ -2,6 +2,11 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.9.4 (2022-03-25)
+------------------
+* Add TESSERACT_ENABLE_EXAMPLES compile option (`#173 <https://github.com/tesseract-robotics/tesseract_planning/issues/173>`_)
+* Contributors: John Wason
+
 0.9.3 (2022-02-22)
 ------------------
 * Python patches for Feb 2022 update (`#172 <https://github.com/tesseract-robotics/tesseract_planning/issues/172>`_)

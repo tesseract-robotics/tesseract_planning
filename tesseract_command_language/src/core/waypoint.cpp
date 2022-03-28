@@ -50,12 +50,6 @@ void tesseract_planning::Waypoint::serialize(Archive& ar, const unsigned int /*v
   ar& boost::serialization::make_nvp("waypoint", waypoint_);
 }
 
-#include <boost/archive/xml_oarchive.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-template void tesseract_planning::detail_waypoint::WaypointInnerBase::serialize(boost::archive::xml_oarchive& ar,
-                                                                                const unsigned int version);
-template void tesseract_planning::detail_waypoint::WaypointInnerBase::serialize(boost::archive::xml_iarchive& ar,
-                                                                                const unsigned int version);
-
-template void tesseract_planning::Waypoint::serialize(boost::archive::xml_oarchive& ar, const unsigned int version);
-template void tesseract_planning::Waypoint::serialize(boost::archive::xml_iarchive& ar, const unsigned int version);
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_waypoint::WaypointInnerBase)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Waypoint)
