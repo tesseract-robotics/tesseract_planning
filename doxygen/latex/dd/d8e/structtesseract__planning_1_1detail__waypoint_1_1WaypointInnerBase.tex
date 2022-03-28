@@ -42,11 +42,13 @@ virtual void $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoi
 virtual const void $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a40e7ef8f2dde07df7ffa936042da2ffa}{recover}} () const =0
 \item 
 virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{Waypoint\+Inner\+Base}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a6326bfb2769cd7053e51a2459084aa80}{clone}} () const =0
+\item 
+{\footnotesize template$<$class Archive $>$ }\\TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP void \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a8ef4a805d8a7c373bfa38cafea3981c9}{serialize}} (Archive \&, const unsigned int)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_acd5f961e7728e405a786b43348aeae75}{serialize}} (Archive \&, const unsigned int)
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a0e649555d7c091e1bee2f92c8a0c22e0}{serialize}} (Archive \&ar, const unsigned int version)
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -165,12 +167,19 @@ Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_
 
 Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner_a14b9a115a691d429850dbbef18ba6f04}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}.
 
-\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_acd5f961e7728e405a786b43348aeae75}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_acd5f961e7728e405a786b43348aeae75}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a8ef4a805d8a7c373bfa38cafea3981c9}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a8ef4a805d8a7c373bfa38cafea3981c9}} 
 \index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
-\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
-void tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP void tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a0e649555d7c091e1bee2f92c8a0c22e0}\label{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase_a0e649555d7c091e1bee2f92c8a0c22e0}} 
+\index{tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::detail\_waypoint::WaypointInnerBase@{tesseract\_planning::detail\_waypoint::WaypointInnerBase}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -183,6 +192,7 @@ void tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base\
 
 
 
-The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/core/\mbox{\hyperlink{waypoint_8h}{waypoint.\+h}}\end{DoxyCompactItemize}
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/core/\mbox{\hyperlink{waypoint_8h}{waypoint.\+h}}\item 
+tesseract\+\_\+command\+\_\+language/src/core/\mbox{\hyperlink{waypoint_8cpp}{waypoint.\+cpp}}\end{DoxyCompactItemize}

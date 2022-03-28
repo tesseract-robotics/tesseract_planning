@@ -46,11 +46,13 @@ virtual void $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1detail__instru
 virtual const void $\ast$ \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_a254a86d7223e18fc2f4f62a956d7e969}{recover}} () const =0
 \item 
 virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase}{Instruction\+Inner\+Base}} $>$ \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_ab9119a2c37172f6e2ce222e741980719}{clone}} () const =0
+\item 
+{\footnotesize template$<$class Archive $>$ }\\TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP void \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_a900e4a1f4f1ee25deef4bc49f7c05d6e}{serialize}} (Archive \&, const unsigned int)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_ad2af3dab2323bdd23865051315ea0f12}{serialize}} (Archive \&, const unsigned int)
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_ab23f3af46913efe0941bd9f7521b1551}{serialize}} (Archive \&ar, const unsigned int version)
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -179,12 +181,19 @@ Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction
 
 Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner_a2b6f912cc8f24308a585ddc2ef0c0a1a}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner$<$ T $>$}}.
 
-\mbox{\Hypertarget{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_ad2af3dab2323bdd23865051315ea0f12}\label{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_ad2af3dab2323bdd23865051315ea0f12}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_a900e4a1f4f1ee25deef4bc49f7c05d6e}\label{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_a900e4a1f4f1ee25deef4bc49f7c05d6e}} 
 \index{tesseract\_planning::detail\_instruction::InstructionInnerBase@{tesseract\_planning::detail\_instruction::InstructionInnerBase}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::detail\_instruction::InstructionInnerBase@{tesseract\_planning::detail\_instruction::InstructionInnerBase}}
-\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
-void tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner\+Base\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP void tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner\+Base\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_ab23f3af46913efe0941bd9f7521b1551}\label{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_ab23f3af46913efe0941bd9f7521b1551}} 
+\index{tesseract\_planning::detail\_instruction::InstructionInnerBase@{tesseract\_planning::detail\_instruction::InstructionInnerBase}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::detail\_instruction::InstructionInnerBase@{tesseract\_planning::detail\_instruction::InstructionInnerBase}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner\+Base\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_a111658ecb2c52b4682a1ddcea070eaaa}\label{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase_a111658ecb2c52b4682a1ddcea070eaaa}} 
 \index{tesseract\_planning::detail\_instruction::InstructionInnerBase@{tesseract\_planning::detail\_instruction::InstructionInnerBase}!setDescription@{setDescription}}
@@ -207,6 +216,7 @@ Implemented in \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction
 
 
 
-The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/core/\mbox{\hyperlink{instruction_8h}{instruction.\+h}}\end{DoxyCompactItemize}
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/core/\mbox{\hyperlink{instruction_8h}{instruction.\+h}}\item 
+tesseract\+\_\+command\+\_\+language/src/core/\mbox{\hyperlink{instruction_8cpp}{instruction.\+cpp}}\end{DoxyCompactItemize}
