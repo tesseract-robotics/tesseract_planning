@@ -116,9 +116,7 @@ struct InstructionInnerBase
 private:
   friend class boost::serialization::access;
   template <class Archive>
-  void serialize(Archive& /*ar*/, const unsigned int /*version*/)  // NOLINT
-  {
-  }
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 template <typename T>

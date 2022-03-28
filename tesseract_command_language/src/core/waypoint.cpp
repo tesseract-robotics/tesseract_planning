@@ -6,6 +6,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_command_language/core/waypoint.h>
 
+template <class Archive>
+void tesseract_planning::detail_waypoint::WaypointInnerBase::serialize(Archive& /*ar*/,
+                                                                       const unsigned int /*version*/)  // NOLINT
+{
+}
+
 tesseract_planning::Waypoint::Waypoint()  // NOLINT
   : waypoint_(nullptr)
 {
@@ -45,4 +51,5 @@ void tesseract_planning::Waypoint::serialize(Archive& ar, const unsigned int /*v
 }
 
 #include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_waypoint::WaypointInnerBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Waypoint)
