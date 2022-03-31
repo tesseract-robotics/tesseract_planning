@@ -47,43 +47,17 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_visualization/visualization_loader.h>
 #include <tesseract_command_language/utils/utils.h>
+#include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_planning;
 using namespace tesseract_planning::profile_ns;
-
-std::string locateResource(const std::string& url)
-{
-  std::string mod_url = url;
-  if (url.find("package://tesseract_support") == 0)
-  {
-    mod_url.erase(0, strlen("package://tesseract_support"));
-    size_t pos = mod_url.find('/');
-    if (pos == std::string::npos)
-    {
-      return std::string();
-    }
-
-    std::string package = mod_url.substr(0, pos);
-    mod_url.erase(0, pos);
-    std::string package_path = std::string(TESSERACT_SUPPORT_DIR);
-
-    if (package_path.empty())
-    {
-      return std::string();
-    }
-
-    mod_url = package_path + mod_url;
-  }
-
-  return mod_url;
-}
 
 int main(int /*argc*/, char** /*argv*/)
 {
   try
   {
     // Setup
-    auto locator = std::make_shared<tesseract_common::SimpleResourceLocator>(locateResource);
+    auto locator = std::make_shared<tesseract_common::TesseractSupportResourceLocator>();
     auto env = std::make_shared<tesseract_environment::Environment>();
     tesseract_common::fs::path urdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.urdf");
     tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/abb_irb2400.srdf");

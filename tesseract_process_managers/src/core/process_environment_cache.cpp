@@ -47,6 +47,7 @@ void ProcessEnvironmentCache::refreshCache() const
   std::unique_lock<std::shared_mutex> lock(cache_mutex_);
   tesseract_environment::Environment::UPtr env;
 
+  auto lock_read = env_->lockRead();
   int rev = env_->getRevision();
   if (rev != cache_env_revision_ || cache_.empty())
   {
