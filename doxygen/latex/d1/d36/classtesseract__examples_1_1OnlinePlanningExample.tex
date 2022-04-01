@@ -1,0 +1,306 @@
+\hypertarget{classtesseract__examples_1_1OnlinePlanningExample}{}\doxysection{tesseract\+\_\+examples\+::Online\+Planning\+Example Class Reference}
+\label{classtesseract__examples_1_1OnlinePlanningExample}\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+
+
+This example demonstrates running the inner loop of Traj\+Opt in an \char`\"{}online\char`\"{} manner. As the environment changes, Traj\+Opt dynamically adjusts to avoid collisions and follow the given toolpath.  
+
+
+
+
+{\ttfamily \#include $<$online\+\_\+planning\+\_\+example.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+examples\+::Online\+Planning\+Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{dc/d9b/classtesseract__examples_1_1OnlinePlanningExample__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+examples\+::Online\+Planning\+Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{dd/d77/classtesseract__examples_1_1OnlinePlanningExample__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a108c6775befdcdf853c2d600ddc28b46}{Online\+Planning\+Example}} (tesseract\+\_\+environment\+::\+Environment\+::\+Ptr env, tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr plotter=nullptr, int steps=12, double box\+\_\+size=0.\+01, bool update\+\_\+start\+\_\+state=false, bool use\+\_\+continuous=false)
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_ac9fc0bbc779f4f4c212dbb6e4af8700e}{$\sim$\+Online\+Planning\+Example}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a0ee83739fbecbd480e55324f4c5dab4c}{Online\+Planning\+Example}} (const \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a0cf519c5cf210186fc91d05f24f2c131}{operator=}} (const \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \&)=delete
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a97793511e648cb87a1bddcdaaa5add2e}{Online\+Planning\+Example}} (\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a48efed635a3a8c58731e0d4ddb386bcc}{operator=}} (\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \&\&)=default
+\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_add98f9737f038fed650370120808574b}{run}} () override
+\begin{DoxyCompactList}\small\item\em Runs the example. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a08fe19239ecd80ad0a22a8d052c93249}{update\+State}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const std\+::vector$<$ double $>$ \&joint\+\_\+values)
+\begin{DoxyCompactList}\small\item\em Update the current state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_ad707dc38570e2aff16273184f23c4172}{toggle\+Realtime}} (bool enable)
+\begin{DoxyCompactList}\small\item\em Toggle real-\/time mode. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a00d5cc68407523acf0b7db16f8809f03}{setup\+Problem}} (const std\+::vector$<$ Eigen\+::\+Vector\+Xd $>$ \&initial\+\_\+trajectory=std\+::vector$<$ Eigen\+::\+Vector\+Xd $>$())
+\begin{DoxyCompactList}\small\item\em Sets up the IFOPT problem. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a354985cdbaa511e24b5c010271477fad}{online\+Plan}} ()
+\begin{DoxyCompactList}\small\item\em Runs the online planning process, occasionally checking ROS callbacks until realtime\+\_\+running\+\_\+ = false. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_ae078bfd75354b2ce7b6b2487250694fd}{update\+And\+Plot\+Trajectory}} (const Eigen\+::\+Vector\+Xd \&osqp\+\_\+vals)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a5e9a1afd3f5667151cc6181cd8f7c830}{steps\+\_\+}}
+\item 
+double \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a4f21249555cbbe83fc31c845e4b6b2ff}{box\+\_\+size\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_af8f6a2dd6ebf8b739b66aabf02cbf796}{update\+\_\+start\+\_\+state\+\_\+}} \{ false \}
+\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a5e740142b5f8a90c9c903e94ea4c4c29}{use\+\_\+continuous\+\_\+}} \{ false \}
+\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a197174a32cd4d3452a60511006f50710}{realtime\+\_\+running\+\_\+}}
+\item 
+tesseract\+\_\+kinematics\+::\+Kinematic\+Group\+::\+Const\+Ptr \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_ae723f55c5dd71cf38a85093c29bfcaac}{manip\+\_\+}}
+\item 
+tesseract\+\_\+visualization\+::\+Trajectory\+Player \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a853e967e825bb21d800a67475764ed9d}{player\+\_\+}}
+\item 
+tesseract\+\_\+common\+::\+Traj\+Array \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a97f417e07f424bee384c16151fa7c761}{current\+\_\+trajectory\+\_\+}}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a50c7d970b399a5f512411849a5e1a911}{target\+\_\+pose\+\_\+delta\+\_\+}}
+\item 
+Eigen\+::\+Isometry3d \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_aeb978f8437a939fa245e5ffff3b965e5}{target\+\_\+pose\+\_\+base\+\_\+frame\+\_\+}}
+\item 
+trajopt\+\_\+ifopt\+::\+Cart\+Pos\+Constraint\+::\+Ptr \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a387068174d3eca71c9fab8c398ec4a10}{target\+\_\+pose\+\_\+constraint\+\_\+}}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_af60b9796de0ff46482cb64778ba7becb}{joint\+\_\+names\+\_\+}}
+\item 
+trajopt\+\_\+sqp\+::\+QPProblem\+::\+Ptr \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_a7749d7184ab45082f04e21f27e570b5b}{nlp\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This example demonstrates running the inner loop of Traj\+Opt in an \char`\"{}online\char`\"{} manner. As the environment changes, Traj\+Opt dynamically adjusts to avoid collisions and follow the given toolpath. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a108c6775befdcdf853c2d600ddc28b46}\label{classtesseract__examples_1_1OnlinePlanningExample_a108c6775befdcdf853c2d600ddc28b46}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!OnlinePlanningExample@{OnlinePlanningExample}}
+\index{OnlinePlanningExample@{OnlinePlanningExample}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{OnlinePlanningExample()}{OnlinePlanningExample()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::\+Online\+Planning\+Example (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Ptr}]{env,  }\item[{tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr}]{plotter = {\ttfamily nullptr},  }\item[{int}]{steps = {\ttfamily 12},  }\item[{double}]{box\+\_\+size = {\ttfamily 0.01},  }\item[{bool}]{update\+\_\+start\+\_\+state = {\ttfamily false},  }\item[{bool}]{use\+\_\+continuous = {\ttfamily false} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_ac9fc0bbc779f4f4c212dbb6e4af8700e}\label{classtesseract__examples_1_1OnlinePlanningExample_ac9fc0bbc779f4f4c212dbb6e4af8700e}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!````~OnlinePlanningExample@{$\sim$OnlinePlanningExample}}
+\index{````~OnlinePlanningExample@{$\sim$OnlinePlanningExample}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{$\sim$OnlinePlanningExample()}{~OnlinePlanningExample()}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::$\sim$\+Online\+Planning\+Example (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a0ee83739fbecbd480e55324f4c5dab4c}\label{classtesseract__examples_1_1OnlinePlanningExample_a0ee83739fbecbd480e55324f4c5dab4c}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!OnlinePlanningExample@{OnlinePlanningExample}}
+\index{OnlinePlanningExample@{OnlinePlanningExample}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{OnlinePlanningExample()}{OnlinePlanningExample()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::\+Online\+Planning\+Example (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a97793511e648cb87a1bddcdaaa5add2e}\label{classtesseract__examples_1_1OnlinePlanningExample_a97793511e648cb87a1bddcdaaa5add2e}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!OnlinePlanningExample@{OnlinePlanningExample}}
+\index{OnlinePlanningExample@{OnlinePlanningExample}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{OnlinePlanningExample()}{OnlinePlanningExample()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::\+Online\+Planning\+Example (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a354985cdbaa511e24b5c010271477fad}\label{classtesseract__examples_1_1OnlinePlanningExample_a354985cdbaa511e24b5c010271477fad}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!onlinePlan@{onlinePlan}}
+\index{onlinePlan@{onlinePlan}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{onlinePlan()}{onlinePlan()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::online\+Plan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Runs the online planning process, occasionally checking ROS callbacks until realtime\+\_\+running\+\_\+ = false. 
+
+\begin{DoxyReturn}{Returns}
+True if successful 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Should check status here and maybe solve global plan again \end{DoxyRefDesc}
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a0cf519c5cf210186fc91d05f24f2c131}\label{classtesseract__examples_1_1OnlinePlanningExample_a0cf519c5cf210186fc91d05f24f2c131}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \& tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a48efed635a3a8c58731e0d4ddb386bcc}\label{classtesseract__examples_1_1OnlinePlanningExample_a48efed635a3a8c58731e0d4ddb386bcc}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \& tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_add98f9737f038fed650370120808574b}\label{classtesseract__examples_1_1OnlinePlanningExample_add98f9737f038fed650370120808574b}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!run@{run}}
+\index{run@{run}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Runs the example. 
+
+\begin{DoxyReturn}{Returns}
+True if successful 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classtesseract__examples_1_1Example_a740e02a0b018f07266b9101715430b2f}{tesseract\+\_\+examples\+::\+Example}}.
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a00d5cc68407523acf0b7db16f8809f03}\label{classtesseract__examples_1_1OnlinePlanningExample_a00d5cc68407523acf0b7db16f8809f03}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!setupProblem@{setupProblem}}
+\index{setupProblem@{setupProblem}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{setupProblem()}{setupProblem()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::setup\+Problem (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Eigen\+::\+Vector\+Xd $>$ \&}]{initial\+\_\+trajectory = {\ttfamily std\+:\+:vector$<$Eigen\+:\+:VectorXd$>$()} }\end{DoxyParamCaption})}
+
+
+
+Sets up the IFOPT problem. 
+
+\begin{DoxyReturn}{Returns}
+True if successful 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_ad707dc38570e2aff16273184f23c4172}\label{classtesseract__examples_1_1OnlinePlanningExample_ad707dc38570e2aff16273184f23c4172}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!toggleRealtime@{toggleRealtime}}
+\index{toggleRealtime@{toggleRealtime}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{toggleRealtime()}{toggleRealtime()}}
+{\footnotesize\ttfamily void tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::toggle\+Realtime (\begin{DoxyParamCaption}\item[{bool}]{enable }\end{DoxyParamCaption})}
+
+
+
+Toggle real-\/time mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enable} & True/\+False \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_ae078bfd75354b2ce7b6b2487250694fd}\label{classtesseract__examples_1_1OnlinePlanningExample_ae078bfd75354b2ce7b6b2487250694fd}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!updateAndPlotTrajectory@{updateAndPlotTrajectory}}
+\index{updateAndPlotTrajectory@{updateAndPlotTrajectory}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{updateAndPlotTrajectory()}{updateAndPlotTrajectory()}}
+{\footnotesize\ttfamily void tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::update\+And\+Plot\+Trajectory (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{osqp\+\_\+vals }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a08fe19239ecd80ad0a22a8d052c93249}\label{classtesseract__examples_1_1OnlinePlanningExample_a08fe19239ecd80ad0a22a8d052c93249}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!updateState@{updateState}}
+\index{updateState@{updateState}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{updateState()}{updateState()}}
+{\footnotesize\ttfamily void tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::update\+State (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{joint\+\_\+names,  }\item[{const std\+::vector$<$ double $>$ \&}]{joint\+\_\+values }\end{DoxyParamCaption})}
+
+
+
+Update the current state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em joint\+\_\+names} & The joint names \\
+\hline
+{\em joint\+\_\+values} & The joint values \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a4f21249555cbbe83fc31c845e4b6b2ff}\label{classtesseract__examples_1_1OnlinePlanningExample_a4f21249555cbbe83fc31c845e4b6b2ff}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!box\_size\_@{box\_size\_}}
+\index{box\_size\_@{box\_size\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{box\_size\_}{box\_size\_}}
+{\footnotesize\ttfamily double tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::box\+\_\+size\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a97f417e07f424bee384c16151fa7c761}\label{classtesseract__examples_1_1OnlinePlanningExample_a97f417e07f424bee384c16151fa7c761}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!current\_trajectory\_@{current\_trajectory\_}}
+\index{current\_trajectory\_@{current\_trajectory\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{current\_trajectory\_}{current\_trajectory\_}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Traj\+Array tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::current\+\_\+trajectory\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_af60b9796de0ff46482cb64778ba7becb}\label{classtesseract__examples_1_1OnlinePlanningExample_af60b9796de0ff46482cb64778ba7becb}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!joint\_names\_@{joint\_names\_}}
+\index{joint\_names\_@{joint\_names\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{joint\_names\_}{joint\_names\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::joint\+\_\+names\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_ae723f55c5dd71cf38a85093c29bfcaac}\label{classtesseract__examples_1_1OnlinePlanningExample_ae723f55c5dd71cf38a85093c29bfcaac}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!manip\_@{manip\_}}
+\index{manip\_@{manip\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{manip\_}{manip\_}}
+{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Kinematic\+Group\+::\+Const\+Ptr tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::manip\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a7749d7184ab45082f04e21f27e570b5b}\label{classtesseract__examples_1_1OnlinePlanningExample_a7749d7184ab45082f04e21f27e570b5b}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!nlp\_@{nlp\_}}
+\index{nlp\_@{nlp\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{nlp\_}{nlp\_}}
+{\footnotesize\ttfamily trajopt\+\_\+sqp\+::\+QPProblem\+::\+Ptr tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::nlp\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a853e967e825bb21d800a67475764ed9d}\label{classtesseract__examples_1_1OnlinePlanningExample_a853e967e825bb21d800a67475764ed9d}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!player\_@{player\_}}
+\index{player\_@{player\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{player\_}{player\_}}
+{\footnotesize\ttfamily tesseract\+\_\+visualization\+::\+Trajectory\+Player tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::player\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a197174a32cd4d3452a60511006f50710}\label{classtesseract__examples_1_1OnlinePlanningExample_a197174a32cd4d3452a60511006f50710}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!realtime\_running\_@{realtime\_running\_}}
+\index{realtime\_running\_@{realtime\_running\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{realtime\_running\_}{realtime\_running\_}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::realtime\+\_\+running\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a5e9a1afd3f5667151cc6181cd8f7c830}\label{classtesseract__examples_1_1OnlinePlanningExample_a5e9a1afd3f5667151cc6181cd8f7c830}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!steps\_@{steps\_}}
+\index{steps\_@{steps\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{steps\_}{steps\_}}
+{\footnotesize\ttfamily int tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::steps\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_aeb978f8437a939fa245e5ffff3b965e5}\label{classtesseract__examples_1_1OnlinePlanningExample_aeb978f8437a939fa245e5ffff3b965e5}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!target\_pose\_base\_frame\_@{target\_pose\_base\_frame\_}}
+\index{target\_pose\_base\_frame\_@{target\_pose\_base\_frame\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{target\_pose\_base\_frame\_}{target\_pose\_base\_frame\_}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::target\+\_\+pose\+\_\+base\+\_\+frame\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a387068174d3eca71c9fab8c398ec4a10}\label{classtesseract__examples_1_1OnlinePlanningExample_a387068174d3eca71c9fab8c398ec4a10}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!target\_pose\_constraint\_@{target\_pose\_constraint\_}}
+\index{target\_pose\_constraint\_@{target\_pose\_constraint\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{target\_pose\_constraint\_}{target\_pose\_constraint\_}}
+{\footnotesize\ttfamily trajopt\+\_\+ifopt\+::\+Cart\+Pos\+Constraint\+::\+Ptr tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::target\+\_\+pose\+\_\+constraint\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a50c7d970b399a5f512411849a5e1a911}\label{classtesseract__examples_1_1OnlinePlanningExample_a50c7d970b399a5f512411849a5e1a911}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!target\_pose\_delta\_@{target\_pose\_delta\_}}
+\index{target\_pose\_delta\_@{target\_pose\_delta\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{target\_pose\_delta\_}{target\_pose\_delta\_}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::target\+\_\+pose\+\_\+delta\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_af8f6a2dd6ebf8b739b66aabf02cbf796}\label{classtesseract__examples_1_1OnlinePlanningExample_af8f6a2dd6ebf8b739b66aabf02cbf796}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!update\_start\_state\_@{update\_start\_state\_}}
+\index{update\_start\_state\_@{update\_start\_state\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{update\_start\_state\_}{update\_start\_state\_}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::update\+\_\+start\+\_\+state\+\_\+ \{ false \}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1OnlinePlanningExample_a5e740142b5f8a90c9c903e94ea4c4c29}\label{classtesseract__examples_1_1OnlinePlanningExample_a5e740142b5f8a90c9c903e94ea4c4c29}} 
+\index{tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}!use\_continuous\_@{use\_continuous\_}}
+\index{use\_continuous\_@{use\_continuous\_}!tesseract\_examples::OnlinePlanningExample@{tesseract\_examples::OnlinePlanningExample}}
+\doxysubsubsection{\texorpdfstring{use\_continuous\_}{use\_continuous\_}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Online\+Planning\+Example\+::use\+\_\+continuous\+\_\+ \{ false \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+examples/include/tesseract\+\_\+examples/\mbox{\hyperlink{online__planning__example_8h}{online\+\_\+planning\+\_\+example.\+h}}\item 
+tesseract\+\_\+examples/src/\mbox{\hyperlink{online__planning__example_8cpp}{online\+\_\+planning\+\_\+example.\+cpp}}\end{DoxyCompactItemize}

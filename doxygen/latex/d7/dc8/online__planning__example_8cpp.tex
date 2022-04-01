@@ -1,0 +1,76 @@
+\hypertarget{online__planning__example_8cpp}{}\doxysection{tesseract\+\_\+examples/src/online\+\_\+planning\+\_\+example.cpp File Reference}
+\label{online__planning__example_8cpp}\index{tesseract\_examples/src/online\_planning\_example.cpp@{tesseract\_examples/src/online\_planning\_example.cpp}}
+
+
+This example demonstrates using trajopt to plan in an \char`\"{}online\char`\"{} manner. As the environment is changed (using the joint state publisher), the system will attempt to avoid collisions with the moving object and follow the moving target.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+sqp/ifopt\+\_\+qp\+\_\+problem.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+sqp/trajopt\+\_\+qp\+\_\+problem.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+sqp/trust\+\_\+region\+\_\+sqp\+\_\+solver.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+sqp/osqp\+\_\+eigen\+\_\+solver.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+sqp/types.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/constraints/cartesian\+\_\+position\+\_\+constraint.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/constraints/joint\+\_\+position\+\_\+constraint.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/constraints/joint\+\_\+velocity\+\_\+constraint.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/constraints/collision/discrete\+\_\+collision\+\_\+constraint.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/constraints/collision/continuous\+\_\+collision\+\_\+constraint.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/constraints/inverse\+\_\+kinematics\+\_\+constraint.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/variable\+\_\+sets/joint\+\_\+position\+\_\+variable.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/costs/squared\+\_\+cost.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/costs/absolute\+\_\+cost.\+h$>$}\newline
+{\ttfamily \#include $<$trajopt\+\_\+ifopt/utils/ifopt\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+examples/online\+\_\+planning\+\_\+example.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+visualization/markers/axis\+\_\+marker.\+h$>$}\newline
+Include dependency graph for online\+\_\+planning\+\_\+example.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d81/online__planning__example_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__examples}{tesseract\+\_\+examples}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+common\+::\+Joint\+Trajectory \mbox{\hyperlink{namespacetesseract__examples_a10414ee804a5d0d9e024a1a3af7deddf}{tesseract\+\_\+examples\+::get\+Joint\+Trajectory}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const tesseract\+\_\+common\+::\+Traj\+Array \&current\+\_\+trajectory)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This example demonstrates using trajopt to plan in an \char`\"{}online\char`\"{} manner. As the environment is changed (using the joint state publisher), the system will attempt to avoid collisions with the moving object and follow the moving target. 
+
+Note\+: If the target moves too quickly the solver can get stuck in an infeasible point. That is the nature of how the solver is working. Higher level intelligence, a larger step size, or changing the target to a cost can solve that problem.
+
+\begin{DoxyAuthor}{Author}
+Matthew Powelson 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 9, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000072}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

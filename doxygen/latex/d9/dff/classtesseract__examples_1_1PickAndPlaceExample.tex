@@ -1,0 +1,147 @@
+\hypertarget{classtesseract__examples_1_1PickAndPlaceExample}{}\doxysection{tesseract\+\_\+examples\+::Pick\+And\+Place\+Example Class Reference}
+\label{classtesseract__examples_1_1PickAndPlaceExample}\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+
+
+An example of a robot picking up a box and placing it on a shelf leveraging tesseract and trajopt to generate the motion trajectory.  
+
+
+
+
+{\ttfamily \#include $<$pick\+\_\+and\+\_\+place\+\_\+example.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+examples\+::Pick\+And\+Place\+Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{dc/d66/classtesseract__examples_1_1PickAndPlaceExample__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+examples\+::Pick\+And\+Place\+Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{d9/d00/classtesseract__examples_1_1PickAndPlaceExample__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_a417dbc8891a1a77cefa890c66b50bb2b}{Pick\+And\+Place\+Example}} (tesseract\+\_\+environment\+::\+Environment\+::\+Ptr env, tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr plotter=nullptr, double box\+\_\+size=0.\+2, std\+::array$<$ double, 2 $>$ box\+\_\+position=\{ 0.\+15, 0.\+4 \})
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_ac23aa8813eb41c51c0e6bed91edcbc0b}{$\sim$\+Pick\+And\+Place\+Example}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_a3a99a6431254698eda60fa0083602d6f}{Pick\+And\+Place\+Example}} (const \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_afcaf832c3df3366d22972c4b0469dd42}{operator=}} (const \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_a1f0e641d6c68e39aaeb10dadbfe8eeb4}{Pick\+And\+Place\+Example}} (\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_a82693608f74623f18c5e8270c982cd19}{operator=}} (\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \&\&)=default
+\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_a56be9f8349ddbdba805cb99cf5d5ced5}{run}} () override final
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static tesseract\+\_\+environment\+::\+Command\+::\+Ptr \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_aa6b4c23980597abc3f8326118d7f7196}{add\+Box}} (double box\+\_\+x, double box\+\_\+y, double box\+\_\+side)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_a707e9fa987324e01ad6d19e0858a06fd}{box\+\_\+size\+\_\+}}
+\item 
+std\+::array$<$ double, 2 $>$ \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_a73e5832abbe38ab922d4a471ce0f2fed}{box\+\_\+position\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+An example of a robot picking up a box and placing it on a shelf leveraging tesseract and trajopt to generate the motion trajectory. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_a417dbc8891a1a77cefa890c66b50bb2b}\label{classtesseract__examples_1_1PickAndPlaceExample_a417dbc8891a1a77cefa890c66b50bb2b}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!PickAndPlaceExample@{PickAndPlaceExample}}
+\index{PickAndPlaceExample@{PickAndPlaceExample}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{PickAndPlaceExample()}{PickAndPlaceExample()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::\+Pick\+And\+Place\+Example (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Ptr}]{env,  }\item[{tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr}]{plotter = {\ttfamily nullptr},  }\item[{double}]{box\+\_\+size = {\ttfamily 0.2},  }\item[{std\+::array$<$ double, 2 $>$}]{box\+\_\+position = {\ttfamily \{~0.15,~0.4~\}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_ac23aa8813eb41c51c0e6bed91edcbc0b}\label{classtesseract__examples_1_1PickAndPlaceExample_ac23aa8813eb41c51c0e6bed91edcbc0b}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!````~PickAndPlaceExample@{$\sim$PickAndPlaceExample}}
+\index{````~PickAndPlaceExample@{$\sim$PickAndPlaceExample}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{$\sim$PickAndPlaceExample()}{~PickAndPlaceExample()}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::$\sim$\+Pick\+And\+Place\+Example (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_a3a99a6431254698eda60fa0083602d6f}\label{classtesseract__examples_1_1PickAndPlaceExample_a3a99a6431254698eda60fa0083602d6f}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!PickAndPlaceExample@{PickAndPlaceExample}}
+\index{PickAndPlaceExample@{PickAndPlaceExample}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{PickAndPlaceExample()}{PickAndPlaceExample()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::\+Pick\+And\+Place\+Example (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_a1f0e641d6c68e39aaeb10dadbfe8eeb4}\label{classtesseract__examples_1_1PickAndPlaceExample_a1f0e641d6c68e39aaeb10dadbfe8eeb4}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!PickAndPlaceExample@{PickAndPlaceExample}}
+\index{PickAndPlaceExample@{PickAndPlaceExample}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{PickAndPlaceExample()}{PickAndPlaceExample()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::\+Pick\+And\+Place\+Example (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_aa6b4c23980597abc3f8326118d7f7196}\label{classtesseract__examples_1_1PickAndPlaceExample_aa6b4c23980597abc3f8326118d7f7196}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!addBox@{addBox}}
+\index{addBox@{addBox}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{addBox()}{addBox()}}
+{\footnotesize\ttfamily Command\+::\+Ptr tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::add\+Box (\begin{DoxyParamCaption}\item[{double}]{box\+\_\+x,  }\item[{double}]{box\+\_\+y,  }\item[{double}]{box\+\_\+side }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_afcaf832c3df3366d22972c4b0469dd42}\label{classtesseract__examples_1_1PickAndPlaceExample_afcaf832c3df3366d22972c4b0469dd42}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \& tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_a82693608f74623f18c5e8270c982cd19}\label{classtesseract__examples_1_1PickAndPlaceExample_a82693608f74623f18c5e8270c982cd19}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \& tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_a56be9f8349ddbdba805cb99cf5d5ced5}\label{classtesseract__examples_1_1PickAndPlaceExample_a56be9f8349ddbdba805cb99cf5d5ced5}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!run@{run}}
+\index{run@{run}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+SETUP ///
+
+PICK ///
+
+PLACE ///
+
+Implements \mbox{\hyperlink{classtesseract__examples_1_1Example_a740e02a0b018f07266b9101715430b2f}{tesseract\+\_\+examples\+::\+Example}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_a73e5832abbe38ab922d4a471ce0f2fed}\label{classtesseract__examples_1_1PickAndPlaceExample_a73e5832abbe38ab922d4a471ce0f2fed}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!box\_position\_@{box\_position\_}}
+\index{box\_position\_@{box\_position\_}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{box\_position\_}{box\_position\_}}
+{\footnotesize\ttfamily std\+::array$<$double, 2$>$ tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::box\+\_\+position\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PickAndPlaceExample_a707e9fa987324e01ad6d19e0858a06fd}\label{classtesseract__examples_1_1PickAndPlaceExample_a707e9fa987324e01ad6d19e0858a06fd}} 
+\index{tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}!box\_size\_@{box\_size\_}}
+\index{box\_size\_@{box\_size\_}!tesseract\_examples::PickAndPlaceExample@{tesseract\_examples::PickAndPlaceExample}}
+\doxysubsubsection{\texorpdfstring{box\_size\_}{box\_size\_}}
+{\footnotesize\ttfamily double tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example\+::box\+\_\+size\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+examples/include/tesseract\+\_\+examples/\mbox{\hyperlink{pick__and__place__example_8h}{pick\+\_\+and\+\_\+place\+\_\+example.\+h}}\item 
+tesseract\+\_\+examples/src/\mbox{\hyperlink{pick__and__place__example_8cpp}{pick\+\_\+and\+\_\+place\+\_\+example.\+cpp}}\end{DoxyCompactItemize}

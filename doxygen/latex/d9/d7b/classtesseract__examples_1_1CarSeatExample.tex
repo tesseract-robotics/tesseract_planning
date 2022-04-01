@@ -1,0 +1,151 @@
+\hypertarget{classtesseract__examples_1_1CarSeatExample}{}\doxysection{tesseract\+\_\+examples\+::Car\+Seat\+Example Class Reference}
+\label{classtesseract__examples_1_1CarSeatExample}\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+
+
+An example of a robot on a rail installing a seat in a car.  
+
+
+
+
+{\ttfamily \#include $<$car\+\_\+seat\+\_\+example.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+examples\+::Car\+Seat\+Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{d1/dce/classtesseract__examples_1_1CarSeatExample__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+examples\+::Car\+Seat\+Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/dbb/classtesseract__examples_1_1CarSeatExample__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_a0d6d11bc660dd36100fb4013393f4f23}{Car\+Seat\+Example}} (tesseract\+\_\+environment\+::\+Environment\+::\+Ptr env, tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr plotter=nullptr)
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_a43fa8d033e7765db0da5a4bb56f50042}{$\sim$\+Car\+Seat\+Example}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_a0ba6d12a8e99796c74c46329d446ae20}{Car\+Seat\+Example}} (const \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_ab2fc824394ba6562ae356c14709b9043}{operator=}} (const \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_aed34b0122c837570b4caea17480c94d1}{Car\+Seat\+Example}} (\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_a0475bf82409804870a96dd4239e05508}{operator=}} (\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \&\&)=default
+\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_ac184d33019a2209dceb8e1424cbdda2a}{run}} () override final
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+map$<$ std\+::string, double $>$ $>$ \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_aa658af804aee60be6a6955f98869723b}{get\+Predefined\+Position}} ()
+\item 
+static std\+::vector$<$ double $>$ \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_a11eeb2fdb6b9f5b296dbed249a566936}{get\+Position\+Vector}} (const tesseract\+\_\+kinematics\+::\+Joint\+Group \&joint\+\_\+group, const std\+::unordered\+\_\+map$<$ std\+::string, double $>$ \&pos)
+\item 
+static Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_aa34442c333472ad5c97c08c533f0c423}{get\+Position\+Vector\+Xd}} (const tesseract\+\_\+kinematics\+::\+Joint\+Group \&joint\+\_\+group, const std\+::unordered\+\_\+map$<$ std\+::string, double $>$ \&pos)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+map$<$ std\+::string, double $>$ $>$ \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_aeeac6bdb1e02898a9dc30e10ca80f734}{saved\+\_\+positions\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+An example of a robot on a rail installing a seat in a car. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_a0d6d11bc660dd36100fb4013393f4f23}\label{classtesseract__examples_1_1CarSeatExample_a0d6d11bc660dd36100fb4013393f4f23}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!CarSeatExample@{CarSeatExample}}
+\index{CarSeatExample@{CarSeatExample}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{CarSeatExample()}{CarSeatExample()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::\+Car\+Seat\+Example (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Ptr}]{env,  }\item[{tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr}]{plotter = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_a43fa8d033e7765db0da5a4bb56f50042}\label{classtesseract__examples_1_1CarSeatExample_a43fa8d033e7765db0da5a4bb56f50042}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!````~CarSeatExample@{$\sim$CarSeatExample}}
+\index{````~CarSeatExample@{$\sim$CarSeatExample}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{$\sim$CarSeatExample()}{~CarSeatExample()}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::$\sim$\+Car\+Seat\+Example (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_a0ba6d12a8e99796c74c46329d446ae20}\label{classtesseract__examples_1_1CarSeatExample_a0ba6d12a8e99796c74c46329d446ae20}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!CarSeatExample@{CarSeatExample}}
+\index{CarSeatExample@{CarSeatExample}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{CarSeatExample()}{CarSeatExample()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::\+Car\+Seat\+Example (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_aed34b0122c837570b4caea17480c94d1}\label{classtesseract__examples_1_1CarSeatExample_aed34b0122c837570b4caea17480c94d1}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!CarSeatExample@{CarSeatExample}}
+\index{CarSeatExample@{CarSeatExample}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{CarSeatExample()}{CarSeatExample()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::\+Car\+Seat\+Example (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_a11eeb2fdb6b9f5b296dbed249a566936}\label{classtesseract__examples_1_1CarSeatExample_a11eeb2fdb6b9f5b296dbed249a566936}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!getPositionVector@{getPositionVector}}
+\index{getPositionVector@{getPositionVector}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{getPositionVector()}{getPositionVector()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::get\+Position\+Vector (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+kinematics\+::\+Joint\+Group \&}]{joint\+\_\+group,  }\item[{const std\+::unordered\+\_\+map$<$ std\+::string, double $>$ \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_aa34442c333472ad5c97c08c533f0c423}\label{classtesseract__examples_1_1CarSeatExample_aa34442c333472ad5c97c08c533f0c423}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!getPositionVectorXd@{getPositionVectorXd}}
+\index{getPositionVectorXd@{getPositionVectorXd}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{getPositionVectorXd()}{getPositionVectorXd()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::get\+Position\+Vector\+Xd (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+kinematics\+::\+Joint\+Group \&}]{joint\+\_\+group,  }\item[{const std\+::unordered\+\_\+map$<$ std\+::string, double $>$ \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_aa658af804aee60be6a6955f98869723b}\label{classtesseract__examples_1_1CarSeatExample_aa658af804aee60be6a6955f98869723b}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!getPredefinedPosition@{getPredefinedPosition}}
+\index{getPredefinedPosition@{getPredefinedPosition}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{getPredefinedPosition()}{getPredefinedPosition()}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+map$<$ std\+::string, double $>$ $>$ tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::get\+Predefined\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_a0475bf82409804870a96dd4239e05508}\label{classtesseract__examples_1_1CarSeatExample_a0475bf82409804870a96dd4239e05508}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \& tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_ab2fc824394ba6562ae356c14709b9043}\label{classtesseract__examples_1_1CarSeatExample_ab2fc824394ba6562ae356c14709b9043}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \& tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_ac184d33019a2209dceb8e1424cbdda2a}\label{classtesseract__examples_1_1CarSeatExample_ac184d33019a2209dceb8e1424cbdda2a}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!run@{run}}
+\index{run@{run}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classtesseract__examples_1_1Example_a740e02a0b018f07266b9101715430b2f}{tesseract\+\_\+examples\+::\+Example}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1CarSeatExample_aeeac6bdb1e02898a9dc30e10ca80f734}\label{classtesseract__examples_1_1CarSeatExample_aeeac6bdb1e02898a9dc30e10ca80f734}} 
+\index{tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}!saved\_positions\_@{saved\_positions\_}}
+\index{saved\_positions\_@{saved\_positions\_}!tesseract\_examples::CarSeatExample@{tesseract\_examples::CarSeatExample}}
+\doxysubsubsection{\texorpdfstring{saved\_positions\_}{saved\_positions\_}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, std\+::unordered\+\_\+map$<$std\+::string, double$>$ $>$ tesseract\+\_\+examples\+::\+Car\+Seat\+Example\+::saved\+\_\+positions\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+examples/include/tesseract\+\_\+examples/\mbox{\hyperlink{car__seat__example_8h}{car\+\_\+seat\+\_\+example.\+h}}\item 
+tesseract\+\_\+examples/src/\mbox{\hyperlink{car__seat__example_8cpp}{car\+\_\+seat\+\_\+example.\+cpp}}\end{DoxyCompactItemize}

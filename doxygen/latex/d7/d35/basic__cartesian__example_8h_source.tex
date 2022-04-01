@@ -1,0 +1,44 @@
+\hypertarget{basic__cartesian__example_8h_source}{}\doxysection{basic\+\_\+cartesian\+\_\+example.\+h}
+\label{basic__cartesian__example_8h_source}\index{tesseract\_examples/include/tesseract\_examples/basic\_cartesian\_example.h@{tesseract\_examples/include/tesseract\_examples/basic\_cartesian\_example.h}}
+\mbox{\hyperlink{basic__cartesian__example_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_EXAMPLES\_BASIC\_CARTESIAN\_EXAMPLE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_EXAMPLES\_BASIC\_CARTESIAN\_EXAMPLE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{example_8h}{tesseract\_examples/example.h}}>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__examples}{tesseract\_examples}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample}{BasicCartesianExample}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_a71b0811a4c904052876dca71498340b3}{BasicCartesianExample}}(tesseract\_environment::Environment::Ptr env,}
+\DoxyCodeLine{45                         tesseract\_visualization::Visualization::Ptr plotter = \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{46                         \textcolor{keywordtype}{bool} ifopt = \textcolor{keyword}{false},}
+\DoxyCodeLine{47                         \textcolor{keywordtype}{bool} debug = \textcolor{keyword}{false});}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_a6529a2615faa3b370ed74ba66a01753b}{\string~BasicCartesianExample}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_a6fe4bbe28f704d02d55373f4d13c81d9}{BasicCartesianExample}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample}{BasicCartesianExample}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample}{BasicCartesianExample}}\& \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_a567f24b1034bcf265ad59307111e68c2}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample}{BasicCartesianExample}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_ad94fa5059dd29f76a6c2e937445f0518}{BasicCartesianExample}}(\mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample}{BasicCartesianExample}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample}{BasicCartesianExample}}\& \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_a526b12a40f8dc51a3a8a94710619ad4a}{operator=}}(\mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample}{BasicCartesianExample}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_af5b6eb04fcf64c8ed1103d05911225a2}{run}}() override final;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 private:}
+\DoxyCodeLine{58   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_a643265f1c46d191d824d59c57bd95b8f}{ifopt\_}};}
+\DoxyCodeLine{59   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_a30298b656d562b29b4255160e5ee833e}{debug\_}};}
+\DoxyCodeLine{60   static tesseract\_environment::Command::Ptr \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_afab2f1f18dc8a884e91438faebba9ed6}{addPointCloud}}();}
+\DoxyCodeLine{61 \};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \}  \textcolor{comment}{// namespace tesseract\_examples}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_ROS\_EXAMPLES\_BASIC\_CARTESIAN\_EXAMPLE\_H}}
+
+\end{DoxyCode}

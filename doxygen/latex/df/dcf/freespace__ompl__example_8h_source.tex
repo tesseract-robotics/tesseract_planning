@@ -1,0 +1,44 @@
+\hypertarget{freespace__ompl__example_8h_source}{}\doxysection{freespace\+\_\+ompl\+\_\+example.\+h}
+\label{freespace__ompl__example_8h_source}\index{tesseract\_examples/include/tesseract\_examples/freespace\_ompl\_example.h@{tesseract\_examples/include/tesseract\_examples/freespace\_ompl\_example.h}}
+\mbox{\hyperlink{freespace__ompl__example_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_EXAMPLES\_FREESPACE\_OMPL\_EXAMPLE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_EXAMPLES\_FREESPACE\_OMPL\_EXAMPLE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{example_8h}{tesseract\_examples/example.h}}>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__examples}{tesseract\_examples}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample}{FreespaceOMPLExample}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{public}:}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a7c0d473a097622e3d21a0cc916b4fb53}{FreespaceOMPLExample}}(tesseract\_environment::Environment::Ptr env,}
+\DoxyCodeLine{45                        tesseract\_visualization::Visualization::Ptr plotter = \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{46                        \textcolor{keywordtype}{double} range = 0.01,}
+\DoxyCodeLine{47                        \textcolor{keywordtype}{double} planning\_time = 60.0);}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a140e99092da689e73bdcdf7b194750d3}{\string~FreespaceOMPLExample}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_ae837d71d8e967f54399be2d348ea376e}{FreespaceOMPLExample}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample}{FreespaceOMPLExample}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample}{FreespaceOMPLExample}}\& \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a92eb4aa63ddeea2cf495e87e2d9da0bb}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample}{FreespaceOMPLExample}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a587e4efc61b7089e887b2ffe2d267044}{FreespaceOMPLExample}}(\mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample}{FreespaceOMPLExample}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample}{FreespaceOMPLExample}}\& \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a7ebd9be9355cbc0e27b6737c3717fa09}{operator=}}(\mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample}{FreespaceOMPLExample}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a51bf9cadd91d0d64f25b8836057df080}{run}}() override final;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 private:}
+\DoxyCodeLine{57   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a148260f4dbd231503d295b90ae0501b1}{range\_}};}
+\DoxyCodeLine{58   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a343fdeb3e06223a96aecbe0773bf404f}{planning\_time\_}};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   static tesseract\_environment::Command::Ptr \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a9df7475d1dcdd490bd446c0576ee9313}{addSphere}}();}
+\DoxyCodeLine{61 \};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \}  \textcolor{comment}{// namespace tesseract\_examples}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_EXAMPLES\_FREESPACE\_OMPL\_EXAMPLE\_H}}
+
+\end{DoxyCode}

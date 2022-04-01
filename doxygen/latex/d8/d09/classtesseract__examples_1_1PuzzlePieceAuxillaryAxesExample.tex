@@ -1,0 +1,127 @@
+\hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{}\doxysection{tesseract\+\_\+examples\+::Puzzle\+Piece\+Auxillary\+Axes\+Example Class Reference}
+\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+
+
+An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF to create an optimal motion trajectory for a complex cartesian path.  
+
+
+
+
+{\ttfamily \#include $<$puzzle\+\_\+piece\+\_\+auxillary\+\_\+axes\+\_\+example.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+examples\+::Puzzle\+Piece\+Auxillary\+Axes\+Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{df/d34/classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+examples\+::Puzzle\+Piece\+Auxillary\+Axes\+Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{df/d1a/classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a5ab28dae845373245216fd168ccccd85}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} (tesseract\+\_\+environment\+::\+Environment\+::\+Ptr env, tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr plotter=nullptr)
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_af6668224478ddc3f935ce0654849eeb7}{$\sim$\+Puzzle\+Piece\+Auxillary\+Axes\+Example}} () override=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_ac32a5d5a210356c3afdc0859e37fb590}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} (const \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a29d5ece7e2417d3c30635112cf45996d}{operator=}} (const \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a4ce1a49dbc91f1a3b93fd4769db318d1}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} (\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_aba9f00b5c19631e3fbd5f0c6ffac0d51}{operator=}} (\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \&\&)=default
+\item 
+bool \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a80bdddfe2d2d8a0f57f18351acd706fc}{run}} () override final
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static tesseract\+\_\+common\+::\+Vector\+Isometry3d \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a7d437ed72d6ef57f412a6f9b3502297d}{make\+Puzzle\+Tool\+Poses}} (const tesseract\+\_\+common\+::\+Resource\+Locator\+::\+Const\+Ptr \&locator)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF to create an optimal motion trajectory for a complex cartesian path. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a5ab28dae845373245216fd168ccccd85}\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a5ab28dae845373245216fd168ccccd85}} 
+\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}!PuzzlePieceAuxillaryAxesExample@{PuzzlePieceAuxillaryAxesExample}}
+\index{PuzzlePieceAuxillaryAxesExample@{PuzzlePieceAuxillaryAxesExample}!tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+\doxysubsubsection{\texorpdfstring{PuzzlePieceAuxillaryAxesExample()}{PuzzlePieceAuxillaryAxesExample()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Ptr}]{env,  }\item[{tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr}]{plotter = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_af6668224478ddc3f935ce0654849eeb7}\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_af6668224478ddc3f935ce0654849eeb7}} 
+\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}!````~PuzzlePieceAuxillaryAxesExample@{$\sim$PuzzlePieceAuxillaryAxesExample}}
+\index{````~PuzzlePieceAuxillaryAxesExample@{$\sim$PuzzlePieceAuxillaryAxesExample}!tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+\doxysubsubsection{\texorpdfstring{$\sim$PuzzlePieceAuxillaryAxesExample()}{~PuzzlePieceAuxillaryAxesExample()}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example\+::$\sim$\+Puzzle\+Piece\+Auxillary\+Axes\+Example (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_ac32a5d5a210356c3afdc0859e37fb590}\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_ac32a5d5a210356c3afdc0859e37fb590}} 
+\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}!PuzzlePieceAuxillaryAxesExample@{PuzzlePieceAuxillaryAxesExample}}
+\index{PuzzlePieceAuxillaryAxesExample@{PuzzlePieceAuxillaryAxesExample}!tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+\doxysubsubsection{\texorpdfstring{PuzzlePieceAuxillaryAxesExample()}{PuzzlePieceAuxillaryAxesExample()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a4ce1a49dbc91f1a3b93fd4769db318d1}\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a4ce1a49dbc91f1a3b93fd4769db318d1}} 
+\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}!PuzzlePieceAuxillaryAxesExample@{PuzzlePieceAuxillaryAxesExample}}
+\index{PuzzlePieceAuxillaryAxesExample@{PuzzlePieceAuxillaryAxesExample}!tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+\doxysubsubsection{\texorpdfstring{PuzzlePieceAuxillaryAxesExample()}{PuzzlePieceAuxillaryAxesExample()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a7d437ed72d6ef57f412a6f9b3502297d}\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a7d437ed72d6ef57f412a6f9b3502297d}} 
+\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}!makePuzzleToolPoses@{makePuzzleToolPoses}}
+\index{makePuzzleToolPoses@{makePuzzleToolPoses}!tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+\doxysubsubsection{\texorpdfstring{makePuzzleToolPoses()}{makePuzzleToolPoses()}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Vector\+Isometry3d tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example\+::make\+Puzzle\+Tool\+Poses (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::\+Resource\+Locator\+::\+Const\+Ptr \&}]{locator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a29d5ece7e2417d3c30635112cf45996d}\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a29d5ece7e2417d3c30635112cf45996d}} 
+\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \& tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_aba9f00b5c19631e3fbd5f0c6ffac0d51}\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_aba9f00b5c19631e3fbd5f0c6ffac0d51}} 
+\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \& tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a80bdddfe2d2d8a0f57f18351acd706fc}\label{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a80bdddfe2d2d8a0f57f18351acd706fc}} 
+\index{tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}!run@{run}}
+\index{run@{run}!tesseract\_examples::PuzzlePieceAuxillaryAxesExample@{tesseract\_examples::PuzzlePieceAuxillaryAxesExample}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]This matches the original example, but should update to include post collision check \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]Need to improve simple planners to support external tcp definitions \end{DoxyRefDesc}
+
+
+Implements \mbox{\hyperlink{classtesseract__examples_1_1Example_a740e02a0b018f07266b9101715430b2f}{tesseract\+\_\+examples\+::\+Example}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+examples/include/tesseract\+\_\+examples/\mbox{\hyperlink{puzzle__piece__auxillary__axes__example_8h}{puzzle\+\_\+piece\+\_\+auxillary\+\_\+axes\+\_\+example.\+h}}\item 
+tesseract\+\_\+examples/src/\mbox{\hyperlink{puzzle__piece__auxillary__axes__example_8cpp}{puzzle\+\_\+piece\+\_\+auxillary\+\_\+axes\+\_\+example.\+cpp}}\end{DoxyCompactItemize}

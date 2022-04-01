@@ -1,0 +1,138 @@
+\hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint}{}\doxysection{tesseract\+\_\+ros\+\_\+examples\+::Traj\+Opt\+Glass\+Upright\+Constraint Class Reference}
+\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint}\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+
+
+Inheritance diagram for tesseract\+\_\+ros\+\_\+examples\+::Traj\+Opt\+Glass\+Upright\+Constraint\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{d8/d0c/classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+ros\+\_\+examples\+::Traj\+Opt\+Glass\+Upright\+Constraint\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{da/d76/classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a51bc1e11eefa861157cd2b1d0b4dcd4a}{Traj\+Opt\+Glass\+Upright\+Constraint}} (tesseract\+::\+Tesseract\+::\+Ptr tesseract, tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr fwd\+\_\+kin, std\+::string manipulator, std\+::string tcp\+\_\+link, tesseract\+\_\+rosutils\+::\+ROSPlotting\+Ptr plotter)
+\item 
+\mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ab8aa178daf3be8dd0db322079532df3a}{$\sim$\+Traj\+Opt\+Glass\+Upright\+Constraint}} () override=default
+\item 
+void \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a14424aa9d577de3cc31d72b3758dacb9}{function}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&, Eigen\+::\+Ref$<$ Eigen\+::\+Vector\+Xd $>$) const override
+\item 
+virtual bool \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a6a2fffc46a42b2fbe11ed4072ef7eccd}{project}} (Eigen\+::\+Ref$<$ Eigen\+::\+Vector\+Xd $>$ x) const override
+\item 
+bool \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ae1b3148424894f3cabe874c6d38e56c9}{is\+Satisfied}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&) const override
+\item 
+double \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a958b82bb314d4ea9cd8785a170e64e5c}{distance}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&) const override
+\item 
+void \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_aef65fd0d86cacab23961f7287ada2669}{jacobian}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&, Eigen\+::\+Ref$<$ Eigen\+::\+Matrix\+Xd $>$) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+::\+Tesseract\+::\+Ptr \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_af05d211c57ed6251c22618d47cf473f9}{tesseract\+\_\+}}
+\item 
+tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a427f041a066a55c7aadc365f083237dc}{fwd\+\_\+kin\+\_\+}}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a9086920ada5dd8611e7d2b8f4cd02319}{manipulator\+\_\+}}
+\item 
+std\+::string \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a19be843e2c561a67572d0a12ada584dd}{tcp\+\_\+link\+\_\+}}
+\item 
+tesseract\+\_\+rosutils\+::\+ROSPlotting\+Ptr \mbox{\hyperlink{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ad36cb2e8e1ea89bd2b6d86dd8771e51b}{plotter\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a51bc1e11eefa861157cd2b1d0b4dcd4a}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a51bc1e11eefa861157cd2b1d0b4dcd4a}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!TrajOptGlassUprightConstraint@{TrajOptGlassUprightConstraint}}
+\index{TrajOptGlassUprightConstraint@{TrajOptGlassUprightConstraint}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{TrajOptGlassUprightConstraint()}{TrajOptGlassUprightConstraint()}}
+{\footnotesize\ttfamily tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::\+Traj\+Opt\+Glass\+Upright\+Constraint (\begin{DoxyParamCaption}\item[{tesseract\+::\+Tesseract\+::\+Ptr}]{tesseract,  }\item[{tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr}]{fwd\+\_\+kin,  }\item[{std\+::string}]{manipulator,  }\item[{std\+::string}]{tcp\+\_\+link,  }\item[{tesseract\+\_\+rosutils\+::\+ROSPlotting\+Ptr}]{plotter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ab8aa178daf3be8dd0db322079532df3a}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ab8aa178daf3be8dd0db322079532df3a}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!````~TrajOptGlassUprightConstraint@{$\sim$TrajOptGlassUprightConstraint}}
+\index{````~TrajOptGlassUprightConstraint@{$\sim$TrajOptGlassUprightConstraint}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{$\sim$TrajOptGlassUprightConstraint()}{~TrajOptGlassUprightConstraint()}}
+{\footnotesize\ttfamily tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::$\sim$\+Traj\+Opt\+Glass\+Upright\+Constraint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a958b82bb314d4ea9cd8785a170e64e5c}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a958b82bb314d4ea9cd8785a170e64e5c}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!distance@{distance}}
+\index{distance@{distance}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{distance()}{distance()}}
+{\footnotesize\ttfamily double tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::distance (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a14424aa9d577de3cc31d72b3758dacb9}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a14424aa9d577de3cc31d72b3758dacb9}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!function@{function}}
+\index{function@{function}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{function()}{function()}}
+{\footnotesize\ttfamily void tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::function (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Vector\+Xd $>$}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ae1b3148424894f3cabe874c6d38e56c9}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ae1b3148424894f3cabe874c6d38e56c9}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!isSatisfied@{isSatisfied}}
+\index{isSatisfied@{isSatisfied}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{isSatisfied()}{isSatisfied()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::is\+Satisfied (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_aef65fd0d86cacab23961f7287ada2669}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_aef65fd0d86cacab23961f7287ada2669}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!jacobian@{jacobian}}
+\index{jacobian@{jacobian}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{jacobian()}{jacobian()}}
+{\footnotesize\ttfamily void tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::jacobian (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{,  }\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Matrix\+Xd $>$}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a6a2fffc46a42b2fbe11ed4072ef7eccd}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a6a2fffc46a42b2fbe11ed4072ef7eccd}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!project@{project}}
+\index{project@{project}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{project()}{project()}}
+{\footnotesize\ttfamily virtual bool tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::project (\begin{DoxyParamCaption}\item[{Eigen\+::\+Ref$<$ Eigen\+::\+Vector\+Xd $>$}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a427f041a066a55c7aadc365f083237dc}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a427f041a066a55c7aadc365f083237dc}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!fwd\_kin\_@{fwd\_kin\_}}
+\index{fwd\_kin\_@{fwd\_kin\_}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{fwd\_kin\_}{fwd\_kin\_}}
+{\footnotesize\ttfamily tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Ptr tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::fwd\+\_\+kin\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a9086920ada5dd8611e7d2b8f4cd02319}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a9086920ada5dd8611e7d2b8f4cd02319}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!manipulator\_@{manipulator\_}}
+\index{manipulator\_@{manipulator\_}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{manipulator\_}{manipulator\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::manipulator\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ad36cb2e8e1ea89bd2b6d86dd8771e51b}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_ad36cb2e8e1ea89bd2b6d86dd8771e51b}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!plotter\_@{plotter\_}}
+\index{plotter\_@{plotter\_}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{plotter\_}{plotter\_}}
+{\footnotesize\ttfamily tesseract\+\_\+rosutils\+::\+ROSPlotting\+Ptr tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::plotter\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a19be843e2c561a67572d0a12ada584dd}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_a19be843e2c561a67572d0a12ada584dd}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!tcp\_link\_@{tcp\_link\_}}
+\index{tcp\_link\_@{tcp\_link\_}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{tcp\_link\_}{tcp\_link\_}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::tcp\+\_\+link\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_af05d211c57ed6251c22618d47cf473f9}\label{classtesseract__ros__examples_1_1TrajOptGlassUprightConstraint_af05d211c57ed6251c22618d47cf473f9}} 
+\index{tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}!tesseract\_@{tesseract\_}}
+\index{tesseract\_@{tesseract\_}!tesseract\_ros\_examples::TrajOptGlassUprightConstraint@{tesseract\_ros\_examples::TrajOptGlassUprightConstraint}}
+\doxysubsubsection{\texorpdfstring{tesseract\_}{tesseract\_}}
+{\footnotesize\ttfamily tesseract\+::\+Tesseract\+::\+Ptr tesseract\+\_\+ros\+\_\+examples\+::\+Traj\+Opt\+Glass\+Upright\+Constraint\+::tesseract\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+examples/src/\mbox{\hyperlink{glass__upright__ompl__example_8cpp}{glass\+\_\+upright\+\_\+ompl\+\_\+example.\+cpp}}\end{DoxyCompactItemize}

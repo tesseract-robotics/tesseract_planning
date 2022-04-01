@@ -1,0 +1,130 @@
+\hypertarget{classtesseract__examples_1_1Example}{}\doxysection{tesseract\+\_\+examples\+::Example Class Reference}
+\label{classtesseract__examples_1_1Example}\index{tesseract\_examples::Example@{tesseract\_examples::Example}}
+
+
+The \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} base class.  
+
+
+
+
+{\ttfamily \#include $<$example.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+examples\+::Example\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{d2/df0/classtesseract__examples_1_1Example__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1Example_a335ec2cc67e6b61f649bf7219b35ecf1}{Example}} (tesseract\+\_\+environment\+::\+Environment\+::\+Ptr env, tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr plotter=nullptr)
+\item 
+virtual \mbox{\hyperlink{classtesseract__examples_1_1Example_a049e7067d00b11ca53511d93a7d09011}{$\sim$\+Example}} ()=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1Example_abe367e8320c34566fe87ddf0c9269885}{Example}} (const \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1Example_a79513d11e83ca16e2cc5bfbd52046c62}{operator=}} (const \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1Example_a0dd5d675b14c7647dc4eb97e39ec3c34}{Example}} (\mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \&\&)=default
+\item 
+\mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \& \mbox{\hyperlink{classtesseract__examples_1_1Example_a72f48bae74579c269393b59b786f3cac}{operator=}} (\mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \&\&)=default
+\item 
+virtual bool \mbox{\hyperlink{classtesseract__examples_1_1Example_a740e02a0b018f07266b9101715430b2f}{run}} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+environment\+::\+Environment\+::\+Ptr \mbox{\hyperlink{classtesseract__examples_1_1Example_afd57cdb3c42fdba056b6a712d9cd404c}{env\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Tesseract Manager Class (Required) \end{DoxyCompactList}\item 
+tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr \mbox{\hyperlink{classtesseract__examples_1_1Example_a20408dc016ea932e2a2581a264002810}{plotter\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Tesseract Visualization Class (Optional) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} base class. 
+
+It provides a generic interface for all examples as a library which then can easily be integrated as unit tests so breaking changes are caught. Also it provides a few utility functions for checking rviz environment and updating the rviz environment. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_a335ec2cc67e6b61f649bf7219b35ecf1}\label{classtesseract__examples_1_1Example_a335ec2cc67e6b61f649bf7219b35ecf1}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!Example@{Example}}
+\index{Example@{Example}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{Example()}{Example()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Example\+::\+Example (\begin{DoxyParamCaption}\item[{tesseract\+\_\+environment\+::\+Environment\+::\+Ptr}]{env,  }\item[{tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr}]{plotter = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_a049e7067d00b11ca53511d93a7d09011}\label{classtesseract__examples_1_1Example_a049e7067d00b11ca53511d93a7d09011}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!````~Example@{$\sim$Example}}
+\index{````~Example@{$\sim$Example}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{$\sim$Example()}{~Example()}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+examples\+::\+Example\+::$\sim$\+Example (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_abe367e8320c34566fe87ddf0c9269885}\label{classtesseract__examples_1_1Example_abe367e8320c34566fe87ddf0c9269885}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!Example@{Example}}
+\index{Example@{Example}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{Example()}{Example()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Example\+::\+Example (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_a0dd5d675b14c7647dc4eb97e39ec3c34}\label{classtesseract__examples_1_1Example_a0dd5d675b14c7647dc4eb97e39ec3c34}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!Example@{Example}}
+\index{Example@{Example}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{Example()}{Example()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+examples\+::\+Example\+::\+Example (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_a79513d11e83ca16e2cc5bfbd52046c62}\label{classtesseract__examples_1_1Example_a79513d11e83ca16e2cc5bfbd52046c62}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \& tesseract\+\_\+examples\+::\+Example\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_a72f48bae74579c269393b59b786f3cac}\label{classtesseract__examples_1_1Example_a72f48bae74579c269393b59b786f3cac}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \& tesseract\+\_\+examples\+::\+Example\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_a740e02a0b018f07266b9101715430b2f}\label{classtesseract__examples_1_1Example_a740e02a0b018f07266b9101715430b2f}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!run@{run}}
+\index{run@{run}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily virtual bool tesseract\+\_\+examples\+::\+Example\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample_add98f9737f038fed650370120808574b}{tesseract\+\_\+examples\+::\+Online\+Planning\+Example}}, \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample_af5b6eb04fcf64c8ed1103d05911225a2}{tesseract\+\_\+examples\+::\+Basic\+Cartesian\+Example}}, \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample_ac184d33019a2209dceb8e1424cbdda2a}{tesseract\+\_\+examples\+::\+Car\+Seat\+Example}}, \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_a2af951ff9443ae6e3930c5c4219cf05a}{tesseract\+\_\+examples\+::\+Freespace\+Hybrid\+Example}}, \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample_a51bf9cadd91d0d64f25b8836057df080}{tesseract\+\_\+examples\+::\+Freespace\+OMPLExample}}, \mbox{\hyperlink{classtesseract__examples_1_1GlassUprightExample_a830c0efed149dedd1d03cb4a47ce2f3f}{tesseract\+\_\+examples\+::\+Glass\+Upright\+Example}}, \mbox{\hyperlink{classtesseract__examples_1_1GlassUprightOMPLExample_a545aaa15b4903a7741f8b04e5053be74}{tesseract\+\_\+examples\+::\+Glass\+Upright\+OMPLExample}}, \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample_a56be9f8349ddbdba805cb99cf5d5ced5}{tesseract\+\_\+examples\+::\+Pick\+And\+Place\+Example}}, \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample_a80bdddfe2d2d8a0f57f18351acd706fc}{tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Auxillary\+Axes\+Example}}, \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceExample_ae060f91174e938a20c6cca4962009c03}{tesseract\+\_\+examples\+::\+Puzzle\+Piece\+Example}}, and \mbox{\hyperlink{classtesseract__examples_1_1SceneGraphExample_a48f0c7c12fedb0e01d9b71c5c0c7bd30}{tesseract\+\_\+examples\+::\+Scene\+Graph\+Example}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_afd57cdb3c42fdba056b6a712d9cd404c}\label{classtesseract__examples_1_1Example_afd57cdb3c42fdba056b6a712d9cd404c}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!env\_@{env\_}}
+\index{env\_@{env\_}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{env\_}{env\_}}
+{\footnotesize\ttfamily tesseract\+\_\+environment\+::\+Environment\+::\+Ptr tesseract\+\_\+examples\+::\+Example\+::env\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Tesseract Manager Class (Required) 
+
+\mbox{\Hypertarget{classtesseract__examples_1_1Example_a20408dc016ea932e2a2581a264002810}\label{classtesseract__examples_1_1Example_a20408dc016ea932e2a2581a264002810}} 
+\index{tesseract\_examples::Example@{tesseract\_examples::Example}!plotter\_@{plotter\_}}
+\index{plotter\_@{plotter\_}!tesseract\_examples::Example@{tesseract\_examples::Example}}
+\doxysubsubsection{\texorpdfstring{plotter\_}{plotter\_}}
+{\footnotesize\ttfamily tesseract\+\_\+visualization\+::\+Visualization\+::\+Ptr tesseract\+\_\+examples\+::\+Example\+::plotter\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Tesseract Visualization Class (Optional) 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+examples/include/tesseract\+\_\+examples/\mbox{\hyperlink{example_8h}{example.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,52 @@
+<map id="tesseract_examples/src/puzzle_piece_auxillary_axes_example.cpp" name="tesseract_examples/src/puzzle_piece_auxillary_axes_example.cpp">
+<area shape="rect" id="node1" title="Puzzle piece auxillary axes implementation." alt="" coords="3103,5,3277,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="2435,682,2625,709"/>
+<area shape="rect" id="node3" title=" " alt="" coords="2247,206,2415,233"/>
+<area shape="rect" id="node4" title=" " alt="" coords="2055,117,2122,143"/>
+<area shape="rect" id="node5" href="$d1/d6f/puzzle__piece__auxillary__axes__example_8h.html" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="3733,392,3887,448"/>
+<area shape="rect" id="node11" title=" " alt="" coords="2439,199,2594,240"/>
+<area shape="rect" id="node12" href="$d5/d59/command__language_8h.html" title=" " alt="" coords="1601,295,1800,337"/>
+<area shape="rect" id="node13" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="469,585,668,627"/>
+<area shape="rect" id="node34" href="$da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="1679,199,1877,240"/>
+<area shape="rect" id="node39" href="$d9/da2/trajopt__default__plan__profile_8h.html" title=" " alt="" coords="3014,288,3193,344"/>
+<area shape="rect" id="node42" href="$d8/d8f/trajopt__default__composite__profile_8h.html" title=" " alt="" coords="3271,288,3458,344"/>
+<area shape="rect" id="node44" href="$d9/d4c/trajopt__default__solver__profile_8h.html" title=" " alt="" coords="3634,288,3813,344"/>
+<area shape="rect" id="node46" href="$d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2618,109,2797,151"/>
+<area shape="rect" id="node47" href="$df/d74/default__process__planners_8h.html" title="The default process planners provided by Tesseract." alt="" coords="3887,109,4101,151"/>
+<area shape="rect" id="node48" href="$d8/d22/default__task__namespaces_8h.html" title="The default namespaces for each of the task generators." alt="" coords="5,585,223,627"/>
+<area shape="rect" id="node49" href="$dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="3848,496,4057,537"/>
+<area shape="rect" id="node50" title=" " alt="" coords="4527,109,4707,151"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1532,682,1587,709"/>
+<area shape="rect" id="node7" title=" " alt="" coords="2330,503,2509,530"/>
+<area shape="rect" id="node8" href="$df/d24/example_8h.html" title=" " alt="" coords="3634,496,3773,537"/>
+<area shape="rect" id="node9" title=" " alt="" coords="3425,593,3493,619"/>
+<area shape="rect" id="node10" title=" " alt="" coords="3597,585,3751,627"/>
+<area shape="rect" id="node15" href="$dc/d2f/null__instruction_8h.html" title=" " alt="" coords="792,585,991,627"/>
+<area shape="rect" id="node16" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1732,585,1931,627"/>
+<area shape="rect" id="node17" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2735,496,2933,537"/>
+<area shape="rect" id="node20" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="2633,585,2832,627"/>
+<area shape="rect" id="node21" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="873,496,1072,537"/>
+<area shape="rect" id="node23" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1460,585,1659,627"/>
+<area shape="rect" id="node24" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="1015,585,1213,627"/>
+<area shape="rect" id="node25" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="3057,496,3256,537"/>
+<area shape="rect" id="node26" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="1415,399,1613,441"/>
+<area shape="rect" id="node27" href="$d0/d65/plan__instruction_8h.html" title=" " alt="" coords="1415,496,1613,537"/>
+<area shape="rect" id="node28" href="$d1/d10/state__waypoint_8h.html" title=" " alt="" coords="2447,399,2645,441"/>
+<area shape="rect" id="node30" href="$d2/d61/timer__instruction_8h.html" title=" " alt="" coords="2177,585,2376,627"/>
+<area shape="rect" id="node31" href="$d0/d25/wait__instruction_8h.html" title=" " alt="" coords="247,585,445,627"/>
+<area shape="rect" id="node32" href="$d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="1955,585,2153,627"/>
+<area shape="rect" id="node33" href="$d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="1237,585,1436,627"/>
+<area shape="rect" id="node14" title=" " alt="" coords="467,675,671,716"/>
+<area shape="rect" id="node18" title=" " alt="" coords="3046,593,3131,619"/>
+<area shape="rect" id="node19" title=" " alt="" coords="2857,593,2971,619"/>
+<area shape="rect" id="node22" title=" " alt="" coords="2501,593,2559,619"/>
+<area shape="rect" id="node29" title=" " alt="" coords="2144,496,2305,537"/>
+<area shape="rect" id="node35" title=" " alt="" coords="1525,303,1578,329"/>
+<area shape="rect" id="node36" href="$de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="687,399,885,441"/>
+<area shape="rect" id="node37" href="$d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="823,295,1021,337"/>
+<area shape="rect" id="node38" href="$d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="1228,295,1427,337"/>
+<area shape="rect" id="node40" title=" " alt="" coords="2923,399,3065,441"/>
+<area shape="rect" id="node41" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="3141,392,3319,448"/>
+<area shape="rect" id="node43" href="$d5/d5d/trajopt__collision__config_8h.html" title="TrajOpt collision configuration settings." alt="" coords="4022,392,4201,448"/>
+<area shape="rect" id="node45" title=" " alt="" coords="4275,399,4401,441"/>
+</map>

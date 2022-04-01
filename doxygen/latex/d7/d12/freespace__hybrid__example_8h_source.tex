@@ -1,0 +1,44 @@
+\hypertarget{freespace__hybrid__example_8h_source}{}\doxysection{freespace\+\_\+hybrid\+\_\+example.\+h}
+\label{freespace__hybrid__example_8h_source}\index{tesseract\_examples/include/tesseract\_examples/freespace\_hybrid\_example.h@{tesseract\_examples/include/tesseract\_examples/freespace\_hybrid\_example.h}}
+\mbox{\hyperlink{freespace__hybrid__example_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_EXAMPLES\_FREESPACE\_HYBRID\_EXAMPLE\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_EXAMPLES\_FREESPACE\_HYBRID\_EXAMPLE\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{example_8h}{tesseract\_examples/example.h}}>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__examples}{tesseract\_examples}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample}{FreespaceHybridExample}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{public}:}
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_aedb8ea43797dad58b60b4c6d9eb48ab9}{FreespaceHybridExample}}(tesseract\_environment::Environment::Ptr env,}
+\DoxyCodeLine{46                          tesseract\_visualization::Visualization::Ptr plotter = \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{47                          \textcolor{keywordtype}{double} range = 0.01,}
+\DoxyCodeLine{48                          \textcolor{keywordtype}{double} planning\_time = 60.0);}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_a6a2e6c309ce953b1c77d58984c4d545b}{\string~FreespaceHybridExample}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_a40f16b301252a51293cafd903c7bd562}{FreespaceHybridExample}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample}{FreespaceHybridExample}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample}{FreespaceHybridExample}}\& \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_a3a0fb1a7c2f95939b4d3c1f1a88ac6ca}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample}{FreespaceHybridExample}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_aa8a6ca5674de4250fa3408064404a9a5}{FreespaceHybridExample}}(\mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample}{FreespaceHybridExample}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample}{FreespaceHybridExample}}\& \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_a0048fa5fe5e63943786e50b7a412904b}{operator=}}(\mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample}{FreespaceHybridExample}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_a2af951ff9443ae6e3930c5c4219cf05a}{run}}() override final;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 private:}
+\DoxyCodeLine{58   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_ab1669e240cd7574adf5ebb59db9224ee}{range\_}};}
+\DoxyCodeLine{59   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_a31c0a07b359cbbec684f961b362a00c6}{planning\_time\_}};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61   static tesseract\_environment::Command::Ptr \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample_a1db50822f2414d07a90bc7fff2b7034b}{addSphere}}();}
+\DoxyCodeLine{62 \};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \}  \textcolor{comment}{// namespace tesseract\_examples}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_EXAMPLES\_FREESPACE\_HYBRID\_EXAMPLE\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,4 @@
+<map id="tesseract_examples::PuzzlePieceAuxillaryAxesExample" name="tesseract_examples::PuzzlePieceAuxillaryAxesExample">
+<area shape="rect" id="node1" title="An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF t..." alt="" coords="5,95,181,151"/>
+<area shape="rect" id="node2" href="$d3/d3b/classtesseract__examples_1_1Example.html" title="The Example base class." alt="" coords="24,5,163,47"/>
+</map>

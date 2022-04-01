@@ -1,16 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d3/dd8/classtesseract__planning_1_1TaskGenerator.html" title="This is a base class for generating instances of processes as tasks such that they may be executed in..." alt="" coords="5,411,136,453"/>
-<area shape="rect" id="node2" href="$d9/de1/classTestGenerator.html" title=" " alt="" coords="247,5,352,32"/>
-<area shape="rect" id="node3" href="$dc/d57/classtesseract__planning_1_1CheckInputTaskGenerator.html" title=" " alt="" coords="209,57,389,98"/>
-<area shape="rect" id="node4" href="$d0/d79/classtesseract__planning_1_1ContinuousContactCheckTaskGenerator.html" title=" " alt="" coords="197,121,401,177"/>
-<area shape="rect" id="node5" href="$d5/d9a/classtesseract__planning_1_1DiscreteContactCheckTaskGenerator.html" title=" " alt="" coords="206,201,393,257"/>
-<area shape="rect" id="node6" href="$d2/d0a/classtesseract__planning_1_1FixStateBoundsTaskGenerator.html" title="This generator modifies the const input instructions in order to push waypoints that are outside of t..." alt="" coords="196,281,403,322"/>
-<area shape="rect" id="node7" href="$df/d56/classtesseract__planning_1_1FixStateCollisionTaskGenerator.html" title="This generator modifies the const input instructions in order to push waypoints that are in collision..." alt="" coords="194,346,405,387"/>
-<area shape="rect" id="node8" href="$d2/d04/classtesseract__planning_1_1HasSeedTaskGenerator.html" title=" " alt="" coords="215,411,383,453"/>
-<area shape="rect" id="node9" href="$d0/d8f/classtesseract__planning_1_1IterativeSplineParameterizationTaskGenerator.html" title=" " alt="" coords="195,476,403,532"/>
-<area shape="rect" id="node10" href="$d2/d4c/classtesseract__planning_1_1MotionPlannerTaskGenerator.html" title=" " alt="" coords="201,555,398,597"/>
-<area shape="rect" id="node11" href="$d5/d10/classtesseract__planning_1_1ProfileSwitchTaskGenerator.html" title="This generator simply returns a value specified in the composite profile. This can be used to switch ..." alt="" coords="204,621,395,662"/>
-<area shape="rect" id="node12" href="$da/d1a/classtesseract__planning_1_1SeedMinLengthTaskGenerator.html" title=" " alt="" coords="197,686,402,727"/>
-<area shape="rect" id="node13" href="$df/dcd/classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator.html" title=" " alt="" coords="200,751,399,807"/>
-<area shape="rect" id="node14" href="$d2/d60/classtesseract__planning_1_1UpsampleTrajectoryTaskGenerator.html" title="This is used to upsample the results trajectory based on the longest valid segment length." alt="" coords="184,830,415,871"/>
+<area shape="rect" id="node1" href="$db/d95/classtesseract__planning_1_1TaskflowInterface.html" title="This is a thread safe class used for aborting a process along with checking if a process was successf..." alt="" coords="5,5,136,47"/>
 </map>

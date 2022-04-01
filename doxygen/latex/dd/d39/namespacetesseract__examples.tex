@@ -1,0 +1,51 @@
+\hypertarget{namespacetesseract__examples}{}\doxysection{tesseract\+\_\+examples Namespace Reference}
+\label{namespacetesseract__examples}\index{tesseract\_examples@{tesseract\_examples}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1BasicCartesianExample}{Basic\+Cartesian\+Example}}
+\begin{DoxyCompactList}\small\item\em Basic example leveraging trajopt and tesseract for cartesian planning. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1CarSeatExample}{Car\+Seat\+Example}}
+\begin{DoxyCompactList}\small\item\em An example of a robot on a rail installing a seat in a car. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}}
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classtesseract__examples_1_1Example}{Example}} base class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1FreespaceHybridExample}{Freespace\+Hybrid\+Example}}
+\begin{DoxyCompactList}\small\item\em An example of a robot leveraging OMPL RRTConnect to generate a freespace motion trajectory the Traj\+Opt to optimize. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1FreespaceOMPLExample}{Freespace\+OMPLExample}}
+\begin{DoxyCompactList}\small\item\em An example of a robot leveraging OMPL RRTConnect to generate a freespace motion trajectory. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1GlassUprightExample}{Glass\+Upright\+Example}}
+\begin{DoxyCompactList}\small\item\em An example of a robot with fixed orientation but free to move in cartesian space leveraging tesseract and trajopt to generate a motion trajectory. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1GlassUprightOMPLExample}{Glass\+Upright\+OMPLExample}}
+\begin{DoxyCompactList}\small\item\em An example of a robot with fixed orientation but free to move in cartesian space leveraging OMPL RRTConnect to generate a motion trajectory. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1OnlinePlanningExample}{Online\+Planning\+Example}}
+\begin{DoxyCompactList}\small\item\em This example demonstrates running the inner loop of Traj\+Opt in an \char`\"{}online\char`\"{} manner. As the environment changes, Traj\+Opt dynamically adjusts to avoid collisions and follow the given toolpath. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1PickAndPlaceExample}{Pick\+And\+Place\+Example}}
+\begin{DoxyCompactList}\small\item\em An example of a robot picking up a box and placing it on a shelf leveraging tesseract and trajopt to generate the motion trajectory. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceAuxillaryAxesExample}{Puzzle\+Piece\+Auxillary\+Axes\+Example}}
+\begin{DoxyCompactList}\small\item\em An example of a robot with a two axis position leveraging trajopt and tesseract to leverage all DOF to create an optimal motion trajectory for a complex cartesian path. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1PuzzlePieceExample}{Puzzle\+Piece\+Example}}
+\begin{DoxyCompactList}\small\item\em An example of a robot leveraging trajopt and tesseract to create an optimal motion trajectory for a complex cartesian path. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtesseract__examples_1_1SceneGraphExample}{Scene\+Graph\+Example}}
+\begin{DoxyCompactList}\small\item\em Basic example leveraging trajopt and tesseract for cartesian planning. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Commands \mbox{\hyperlink{namespacetesseract__examples_abb3c0cc2d1022ba74126d670f70cba13}{add\+Seats}} (const tesseract\+\_\+common\+::\+Resource\+Locator\+::\+Const\+Ptr \&locator)
+\item 
+tesseract\+\_\+common\+::\+Joint\+Trajectory \mbox{\hyperlink{namespacetesseract__examples_a10414ee804a5d0d9e024a1a3af7deddf}{get\+Joint\+Trajectory}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const tesseract\+\_\+common\+::\+Traj\+Array \&current\+\_\+trajectory)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacetesseract__examples_abb3c0cc2d1022ba74126d670f70cba13}\label{namespacetesseract__examples_abb3c0cc2d1022ba74126d670f70cba13}} 
+\index{tesseract\_examples@{tesseract\_examples}!addSeats@{addSeats}}
+\index{addSeats@{addSeats}!tesseract\_examples@{tesseract\_examples}}
+\doxysubsubsection{\texorpdfstring{addSeats()}{addSeats()}}
+{\footnotesize\ttfamily Commands tesseract\+\_\+examples\+::add\+Seats (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::\+Resource\+Locator\+::\+Const\+Ptr \&}]{locator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__examples_a10414ee804a5d0d9e024a1a3af7deddf}\label{namespacetesseract__examples_a10414ee804a5d0d9e024a1a3af7deddf}} 
+\index{tesseract\_examples@{tesseract\_examples}!getJointTrajectory@{getJointTrajectory}}
+\index{getJointTrajectory@{getJointTrajectory}!tesseract\_examples@{tesseract\_examples}}
+\doxysubsubsection{\texorpdfstring{getJointTrajectory()}{getJointTrajectory()}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Joint\+Trajectory tesseract\+\_\+examples\+::get\+Joint\+Trajectory (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{joint\+\_\+names,  }\item[{const tesseract\+\_\+common\+::\+Traj\+Array \&}]{current\+\_\+trajectory }\end{DoxyParamCaption})}
+
