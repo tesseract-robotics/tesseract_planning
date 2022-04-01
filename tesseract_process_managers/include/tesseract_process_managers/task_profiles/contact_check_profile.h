@@ -40,12 +40,7 @@ struct ContactCheckProfile
   using Ptr = std::shared_ptr<ContactCheckProfile>;
   using ConstPtr = std::shared_ptr<const ContactCheckProfile>;
 
-  ContactCheckProfile()
-  {
-    config.type = tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE;
-    config.longest_valid_segment_length = 0.05;
-    config.contact_manager_config.margin_data = tesseract_collision::CollisionMarginData(0);
-  }
+  ContactCheckProfile() : ContactCheckProfile(0.05, 0) {}
 
   ContactCheckProfile(double longest_valid_segment_length, double contact_distance)
   {
