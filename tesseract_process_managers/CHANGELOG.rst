@@ -2,8 +2,8 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.9.6 (2022-04-01)
+------------------
 * Fix issue in contact_check_profile not setting override type in default constructor
 * Contributors: Levi Armstrong
 
