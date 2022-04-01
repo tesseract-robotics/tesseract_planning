@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.9.5 (2022-03-31)
+------------------
 * Update to leverage TesseractSupportResourceLocator (`#181 <https://github.com/tesseract-robotics/tesseract_planning/issues/181>`_)
   * Update to leverage TesseractSupportResourceLocator
   * Update CI docker tag to 0.9
