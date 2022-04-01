@@ -83,61 +83,62 @@ $(function() {
 <code>#include &lt;tesseract_environment/environment.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../de/dd7/simple__motion__planner_8h_source.html">tesseract_motion_planners/simple/simple_motion_planner.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d6/d72/simple__planner__lvs__plan__profile_8h_source.html">tesseract_motion_planners/simple/profile/simple_planner_lvs_plan_profile.h</a>&gt;</code><br />
+<code>#include &lt;tesseract_support/tesseract_support_resource_locator.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for simple_planner_lvs_interpolation.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d77/simple__planner__lvs__interpolation_8cpp__incl.png" border="0" usemap="#atesseract__motion__planners_2test_2simple__planner__lvs__interpolation_8cpp" alt=""/></div>
 <map name="atesseract__motion__planners_2test_2simple__planner__lvs__interpolation_8cpp" id="atesseract__motion__planners_2test_2simple__planner__lvs__interpolation_8cpp">
-<area shape="rect" title=" " alt="" coords="4044,5,4223,61"/>
-<area shape="rect" title=" " alt="" coords="1638,861,1829,887"/>
-<area shape="rect" title=" " alt="" coords="4374,124,4469,151"/>
-<area shape="rect" title=" " alt="" coords="3917,682,4096,709"/>
-<area shape="rect" title=" " alt="" coords="2619,407,2773,448"/>
-<area shape="rect" href="../../de/dd7/simple__motion__planner_8h.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="2521,117,2732,158"/>
-<area shape="rect" href="../../d6/d72/simple__planner__lvs__plan__profile_8h.html" title=" " alt="" coords="3148,109,3327,165"/>
-<area shape="rect" title=" " alt="" coords="3623,861,3691,887"/>
-<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="2416,221,2621,262"/>
-<area shape="rect" href="../../d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="2213,221,2392,262"/>
-<area shape="rect" href="../../df/df0/simple__planner__profile_8h.html" title=" " alt="" coords="2645,213,2824,269"/>
-<area shape="rect" title=" " alt="" coords="2562,771,2673,798"/>
-<area shape="rect" title=" " alt="" coords="2320,407,2493,448"/>
-<area shape="rect" href="../../d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2421,317,2600,359"/>
-<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="1982,407,2181,448"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="3694,675,3893,716"/>
-<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1033,585,1231,627"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1558,675,1757,716"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2254,585,2453,627"/>
-<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="1982,675,2181,716"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1618,496,1817,537"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1286,675,1485,716"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="1355,585,1554,627"/>
-<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2999,585,3198,627"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="2305,496,2503,537"/>
-<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="1982,585,2181,627"/>
-<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="3222,585,3421,627"/>
-<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="93,585,291,627"/>
-<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="538,585,737,627"/>
-<area shape="rect" href="../../d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="761,585,959,627"/>
-<area shape="rect" href="../../d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="315,585,514,627"/>
-<area shape="rect" title=" " alt="" coords="3695,764,3899,805"/>
-<area shape="rect" title=" " alt="" coords="379,861,434,887"/>
-<area shape="rect" title=" " alt="" coords="1306,853,1433,895"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="811,675,1010,716"/>
-<area shape="rect" title=" " alt="" coords="1857,861,1933,887"/>
-<area shape="rect" title=" " alt="" coords="483,853,610,895"/>
-<area shape="rect" title=" " alt="" coords="746,853,873,895"/>
-<area shape="rect" title=" " alt="" coords="953,853,1079,895"/>
-<area shape="rect" title=" " alt="" coords="1112,853,1253,895"/>
-<area shape="rect" title=" " alt="" coords="3138,771,3353,798"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="1489,764,1687,805"/>
-<area shape="rect" title=" " alt="" coords="3247,682,3332,709"/>
-<area shape="rect" title=" " alt="" coords="2305,682,2420,709"/>
-<area shape="rect" title=" " alt="" coords="3052,682,3223,709"/>
-<area shape="rect" title=" " alt="" coords="2545,682,2604,709"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2729,675,2927,716"/>
-<area shape="rect" title=" " alt="" coords="3458,675,3619,716"/>
-<area shape="rect" href="../../d9/d2e/simple__planner__utils_8h.html" title="Provides interpolation utils for simple planner profiles." alt="" coords="3148,213,3327,269"/>
-<area shape="rect" title=" " alt="" coords="3969,325,4020,351"/>
+<area shape="rect" title=" " alt="" coords="3659,5,3837,61"/>
+<area shape="rect" title=" " alt="" coords="1122,861,1313,887"/>
+<area shape="rect" title=" " alt="" coords="3837,124,3931,151"/>
+<area shape="rect" title=" " alt="" coords="3875,682,4053,709"/>
+<area shape="rect" title=" " alt="" coords="3177,407,3332,448"/>
+<area shape="rect" href="../../de/dd7/simple__motion__planner_8h.html" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="1573,117,1784,158"/>
+<area shape="rect" href="../../d6/d72/simple__planner__lvs__plan__profile_8h.html" title=" " alt="" coords="3236,109,3415,165"/>
+<area shape="rect" title=" " alt="" coords="3955,117,4141,158"/>
+<area shape="rect" title=" " alt="" coords="3803,861,3871,887"/>
+<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="257,221,463,262"/>
+<area shape="rect" href="../../d7/d8c/planner_8h.html" title="Planner Interface Class." alt="" coords="487,221,665,262"/>
+<area shape="rect" href="../../df/df0/simple__planner__profile_8h.html" title=" " alt="" coords="2828,213,3007,269"/>
+<area shape="rect" title=" " alt="" coords="550,771,661,798"/>
+<area shape="rect" title=" " alt="" coords="1396,407,1569,448"/>
+<area shape="rect" href="../../d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2828,317,3007,359"/>
+<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="2174,407,2373,448"/>
+<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1566,675,1765,716"/>
+<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1709,585,1907,627"/>
+<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="2211,675,2410,716"/>
+<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2810,585,3009,627"/>
+<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="2623,675,2822,716"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1522,496,1721,537"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="970,675,1169,716"/>
+<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="1234,585,1433,627"/>
+<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="3033,585,3231,627"/>
+<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="2310,496,2509,537"/>
+<area shape="rect" href="../../d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2234,585,2433,627"/>
+<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="3457,585,3655,627"/>
+<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="245,585,443,627"/>
+<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="739,585,938,627"/>
+<area shape="rect" href="../../d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="962,585,1161,627"/>
+<area shape="rect" href="../../d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="467,585,666,627"/>
+<area shape="rect" title=" " alt="" coords="1501,764,1705,805"/>
+<area shape="rect" title=" " alt="" coords="1006,861,1061,887"/>
+<area shape="rect" title=" " alt="" coords="2603,853,2730,895"/>
+<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="1889,675,2087,716"/>
+<area shape="rect" title=" " alt="" coords="1958,861,2034,887"/>
+<area shape="rect" title=" " alt="" coords="2070,853,2197,895"/>
+<area shape="rect" title=" " alt="" coords="2227,853,2354,895"/>
+<area shape="rect" title=" " alt="" coords="2427,853,2554,895"/>
+<area shape="rect" title=" " alt="" coords="2934,771,3149,798"/>
+<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="2438,764,2637,805"/>
+<area shape="rect" title=" " alt="" coords="3243,682,3328,709"/>
+<area shape="rect" title=" " alt="" coords="2484,682,2599,709"/>
+<area shape="rect" title=" " alt="" coords="2947,682,3117,709"/>
+<area shape="rect" title=" " alt="" coords="3403,682,3461,709"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="1343,675,1542,716"/>
+<area shape="rect" title=" " alt="" coords="3638,675,3799,716"/>
+<area shape="rect" href="../../d9/d2e/simple__planner__utils_8h.html" title="Provides interpolation utils for simple planner profiles." alt="" coords="3236,213,3415,269"/>
+<area shape="rect" title=" " alt="" coords="3508,325,3559,351"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -148,8 +149,6 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad43b67aac2fb3de014c67c88f9dc4db9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/ddc/simple__planner__lvs__interpolation_8cpp.html#ad43b67aac2fb3de014c67c88f9dc4db9">locateResource</a> (const std::string &amp;url)</td></tr>
-<tr class="separator:ad43b67aac2fb3de014c67c88f9dc4db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6085d7d1e771e6ecea641442d51fed20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/ddc/simple__planner__lvs__interpolation_8cpp.html#a6085d7d1e771e6ecea641442d51fed20">TEST_F</a> (<a class="el" href="../../d5/df8/classTesseractPlanningSimplePlannerLVSInterpolationUnit.html">TesseractPlanningSimplePlannerLVSInterpolationUnit</a>, InterpolateStateWaypoint_JointJoint_Freespace)</td></tr>
 <tr class="separator:a6085d7d1e771e6ecea641442d51fed20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d07a291ba63335f81bbd570a001d746"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/ddc/simple__planner__lvs__interpolation_8cpp.html#a0d07a291ba63335f81bbd570a001d746">TEST_F</a> (<a class="el" href="../../d5/df8/classTesseractPlanningSimplePlannerLVSInterpolationUnit.html">TesseractPlanningSimplePlannerLVSInterpolationUnit</a>, InterpolateStateWaypoint_JointJoint_Linear)</td></tr>
@@ -175,24 +174,6 @@ Variables</h2></td></tr>
 <tr class="separator:a117352cc494cc62c6b2f1882786a332c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ad43b67aac2fb3de014c67c88f9dc4db9" name="ad43b67aac2fb3de014c67c88f9dc4db9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad43b67aac2fb3de014c67c88f9dc4db9">&#9670;&nbsp;</a></span>locateResource()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string locateResource </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>url</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&nbsp;</a></span>main()</h2>
 
@@ -463,7 +444,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 28 2022 05:54:01 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Fri Apr 1 2022 04:04:59 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>

@@ -17,6 +17,7 @@ This example it to evaluate the memory the usage of the planning server.
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/process\+\_\+planning\+\_\+server.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+visualization/visualization\+\_\+loader.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+support/tesseract\+\_\+support\+\_\+resource\+\_\+locator.\+h$>$}\newline
 Include dependency graph for memory\+\_\+usage\+\_\+example.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -27,8 +28,6 @@ Include dependency graph for memory\+\_\+usage\+\_\+example.\+cpp\+:
 \end{figure}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
-\item 
-std\+::string \mbox{\hyperlink{memory__usage__example_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}{locate\+Resource}} (const std\+::string \&url)
 \item 
 void \mbox{\hyperlink{memory__usage__example_8cpp_a53bf00b939fe0e94c0ffb23aacb97758}{process\+\_\+mem\+\_\+usage}} (double \&vm\+\_\+usage, double \&resident\+\_\+set)
 \begin{DoxyCompactList}\small\item\em Extract process memory usage. \end{DoxyCompactList}\item 
@@ -74,12 +73,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \index{getPlanningRequest@{getPlanningRequest}!memory\_usage\_example.cpp@{memory\_usage\_example.cpp}}
 \doxysubsubsection{\texorpdfstring{getPlanningRequest()}{getPlanningRequest()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}} get\+Planning\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{memory__usage__example_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}\label{memory__usage__example_8cpp_ad43b67aac2fb3de014c67c88f9dc4db9}} 
-\index{memory\_usage\_example.cpp@{memory\_usage\_example.cpp}!locateResource@{locateResource}}
-\index{locateResource@{locateResource}!memory\_usage\_example.cpp@{memory\_usage\_example.cpp}}
-\doxysubsubsection{\texorpdfstring{locateResource()}{locateResource()}}
-{\footnotesize\ttfamily std\+::string locate\+Resource (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{url }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{memory__usage__example_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{memory__usage__example_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
 \index{memory\_usage\_example.cpp@{memory\_usage\_example.cpp}!main@{main}}
