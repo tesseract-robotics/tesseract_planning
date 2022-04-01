@@ -2,6 +2,11 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add check for time increasing in TOTG (`#175 <https://github.com/tesseract-robotics/tesseract_planning/issues/175>`_)
+* Contributors: Levi Armstrong
+
 0.9.4 (2022-03-25)
 ------------------
 

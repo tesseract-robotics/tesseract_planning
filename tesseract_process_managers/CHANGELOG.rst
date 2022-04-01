@@ -2,6 +2,13 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to leverage TesseractSupportResourceLocator (`#181 <https://github.com/tesseract-robotics/tesseract_planning/issues/181>`_)
+  * Update to leverage TesseractSupportResourceLocator
+  * Update CI docker tag to 0.9
+* Contributors: Levi Armstrong
+
 0.9.4 (2022-03-25)
 ------------------
 * Add serialization for ProcessPlanningRequest (`#174 <https://github.com/tesseract-robotics/tesseract_planning/issues/174>`_)
