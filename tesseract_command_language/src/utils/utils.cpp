@@ -64,8 +64,8 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
   for (auto& i : flattened_program)
   {
     const auto& mi = i.get().as<tesseract_planning::MoveInstruction>();
-    const auto& swp = mi.getWaypoint().as<tesseract_planning::StateWaypoint>();
-    tesseract_common::JointState joint_state(swp);
+    const auto& js = mi.getWaypoint().as<tesseract_common::JointState>();
+    tesseract_common::JointState joint_state(js);
     current_time = joint_state.time;
 
     // It is possible for sub composites to start back from zero, this accounts for it

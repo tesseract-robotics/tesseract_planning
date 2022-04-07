@@ -42,7 +42,13 @@ void StateWaypoint::print(const std::string& prefix) const
   std::cout << prefix << "State WP: Pos=" << position.transpose() << std::endl;  // NOLINT
 }
 
-bool StateWaypoint::isValidCast(std::type_index id) const { return (id == std::type_index(typeid(StateWaypoint))); }
+bool StateWaypoint::isValidCast(std::type_index id) const
+{
+  if (id == std::type_index(typeid(StateWaypoint)))
+    return true;
+
+  return (id == std::type_index(typeid(tesseract_common::JointState)));
+}
 
 bool StateWaypoint::operator==(const StateWaypoint& rhs) const
 {
