@@ -72,7 +72,9 @@ class Waypoint;
 namespace detail_waypoint
 {
 CREATE_MEMBER_CHECK(print);
+CREATE_MEMBER_CHECK(isValidCast);
 CREATE_MEMBER_FUNC_SIGNATURE_CHECK(print, void, std::string);
+CREATE_MEMBER_FUNC_SIGNATURE_CHECK(isValidCast, bool, std::type_index);
 
 struct WaypointInnerBase
 {
@@ -85,6 +87,10 @@ struct WaypointInnerBase
 
   // User-defined methods
   virtual void print(const std::string& prefix) const = 0;
+
+  // This enable casting to derived types
+  virtual bool isValidCast(std::type_index id) const = 0;
+
   virtual bool operator==(const WaypointInnerBase& rhs) const = 0;
 
   // This is not required for user defined implementation
@@ -115,6 +121,10 @@ struct WaypointInner final : WaypointInnerBase
   {
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
+
+    static_assert(has_member_isValidCast<T>::value, "Class does not have member function 'isValidCast'");
+    static_assert(has_member_func_signature_isValidCast<T>::value,
+                  "Class 'isValidCast' function has incorrect signature");
   }
   ~WaypointInner() override = default;
   WaypointInner(const WaypointInner&) = delete;
@@ -127,11 +137,19 @@ struct WaypointInner final : WaypointInnerBase
   {
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
+
+    static_assert(has_member_isValidCast<T>::value, "Class does not have member function 'isValidCast'");
+    static_assert(has_member_func_signature_isValidCast<T>::value,
+                  "Class 'isValidCast' function has incorrect signature");
   }
   explicit WaypointInner(T&& waypoint) : waypoint_(std::move(waypoint))
   {
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
+
+    static_assert(has_member_isValidCast<T>::value, "Class does not have member function 'isValidCast'");
+    static_assert(has_member_func_signature_isValidCast<T>::value,
+                  "Class 'isValidCast' function has incorrect signature");
   }
 
   std::unique_ptr<WaypointInnerBase> clone() const final { return std::make_unique<WaypointInner>(waypoint_); }
@@ -139,6 +157,8 @@ struct WaypointInner final : WaypointInnerBase
   std::type_index getType() const final { return std::type_index(typeid(T)); }
 
   void print(const std::string& prefix) const final { waypoint_.print(prefix); }
+
+  bool isValidCast(std::type_index id) const final { return waypoint_.isValidCast(id); };
 
   void* recover() final { return &waypoint_; }
 
@@ -235,6 +255,8 @@ public:
 
   void print(const std::string& prefix = "") const;
 
+  bool isValidCast(std::type_index id) const;
+
   bool operator==(const Waypoint& rhs) const;
 
   bool operator!=(const Waypoint& rhs) const;
@@ -242,7 +264,7 @@ public:
   template <typename T>
   T& as()
   {
-    if (getType() != typeid(T))
+    if (!waypoint_->isValidCast(typeid(T)))
       throw std::runtime_error("Waypoint, tried to cast '" + std::string(getType().name()) + "' to '" +
                                std::string(typeid(T).name()) + "'!");
 
@@ -253,7 +275,7 @@ public:
   template <typename T>
   const T& as() const
   {
-    if (getType() != typeid(T))
+    if (!waypoint_->isValidCast(typeid(T)))
       throw std::runtime_error("Waypoint, tried to cast '" + std::string(getType().name()) + "' to '" +
                                std::string(typeid(T).name()) + "'!");
 

@@ -39,19 +39,13 @@ namespace tesseract_planning
 {
 bool isCartesianWaypoint(const Waypoint& waypoint)
 {
-  return (waypoint.getType() == std::type_index(typeid(CartesianWaypoint)));
+  return waypoint.isValidCast(std::type_index(typeid(CartesianWaypoint)));
 }
 
-bool isJointWaypoint(const Waypoint& waypoint)
-{
-  return (waypoint.getType() == std::type_index(typeid(JointWaypoint)));
-}
+bool isJointWaypoint(const Waypoint& waypoint) { return waypoint.isValidCast(std::type_index(typeid(JointWaypoint))); }
 
-bool isStateWaypoint(const Waypoint& waypoint)
-{
-  return (waypoint.getType() == std::type_index(typeid(StateWaypoint)));
-}
+bool isStateWaypoint(const Waypoint& waypoint) { return waypoint.isValidCast(std::type_index(typeid(StateWaypoint))); }
 
-bool isNullWaypoint(const Waypoint& waypoint) { return (waypoint.getType() == std::type_index(typeid(NullWaypoint))); }
+bool isNullWaypoint(const Waypoint& waypoint) { return waypoint.isValidCast(std::type_index(typeid(NullWaypoint))); }
 
 }  // namespace tesseract_planning

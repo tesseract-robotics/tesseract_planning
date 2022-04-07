@@ -35,6 +35,8 @@ namespace tesseract_planning
 {
 void NullWaypoint::print(const std::string& prefix) const { std::cout << prefix << "Null WP"; }  // NOLINT
 
+bool NullWaypoint::isValidCast(std::type_index id) const { return (id == std::type_index(typeid(NullWaypoint))); }
+
 bool NullWaypoint::operator==(const NullWaypoint& /*rhs*/) const { return true; }
 bool NullWaypoint::operator!=(const NullWaypoint& /*rhs*/) const { return false; }
 

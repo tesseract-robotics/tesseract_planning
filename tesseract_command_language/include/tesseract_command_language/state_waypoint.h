@@ -47,8 +47,11 @@ class StateWaypoint : public tesseract_common::JointState
 public:
   StateWaypoint() = default;
   StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position);
+  virtual ~StateWaypoint() = default;
 
   void print(const std::string& prefix = "") const;
+
+  virtual bool isValidCast(std::type_index id) const;
 
   bool operator==(const StateWaypoint& rhs) const;
   bool operator!=(const StateWaypoint& rhs) const;

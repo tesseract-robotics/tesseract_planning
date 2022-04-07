@@ -42,6 +42,8 @@ void StateWaypoint::print(const std::string& prefix) const
   std::cout << prefix << "State WP: Pos=" << position.transpose() << std::endl;  // NOLINT
 }
 
+bool StateWaypoint::isValidCast(std::type_index id) const { return (id == std::type_index(typeid(StateWaypoint))); }
+
 bool StateWaypoint::operator==(const StateWaypoint& rhs) const
 {
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());

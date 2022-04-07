@@ -17,6 +17,8 @@ void JointWaypoint::print(const std::string& prefix) const
   std::cout << prefix << "Joint WP: " << this->transpose() << std::endl;  // NOLINT
 }
 
+bool JointWaypoint::isValidCast(std::type_index id) const { return (id == std::type_index(typeid(JointWaypoint))); }
+
 bool JointWaypoint::isToleranced() const
 {
   // Check if they are empty

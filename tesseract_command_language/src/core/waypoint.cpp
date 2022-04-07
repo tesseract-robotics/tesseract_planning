@@ -37,6 +37,8 @@ std::type_index tesseract_planning::Waypoint::getType() const { return waypoint_
 
 void tesseract_planning::Waypoint::print(const std::string& prefix) const { waypoint_->print(prefix); }
 
+bool tesseract_planning::Waypoint::isValidCast(std::type_index id) const { return waypoint_->isValidCast(id); }
+
 bool tesseract_planning::Waypoint::operator==(const Waypoint& rhs) const
 {
   return waypoint_->operator==(*rhs.waypoint_);

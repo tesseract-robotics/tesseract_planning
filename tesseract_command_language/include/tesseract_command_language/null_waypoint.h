@@ -39,7 +39,11 @@ namespace tesseract_planning
 class NullWaypoint
 {
 public:
+  virtual ~NullWaypoint() = default;
+
   void print(const std::string& prefix = "") const;
+
+  virtual bool isValidCast(std::type_index id) const;
 
   bool operator==(const NullWaypoint& rhs) const;
   bool operator!=(const NullWaypoint& rhs) const;

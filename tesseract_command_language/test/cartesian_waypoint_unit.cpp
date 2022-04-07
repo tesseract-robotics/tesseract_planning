@@ -38,6 +38,31 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 using namespace tesseract_planning;
 
+class DerivedCartesianWaypoint : public CartesianWaypoint
+{
+public:
+  double user_data{ 0 };
+  using CartesianWaypoint::CartesianWaypoint;
+
+  bool isValidCast(std::type_index id) const override
+  {
+    if (id == std::type_index(typeid(DerivedCartesianWaypoint)))
+      return true;
+
+    return CartesianWaypoint::isValidCast(id);
+  }
+};
+
+TEST(TesseractCommandLanguageCartesianWaypointUnit, derived)  // NOLINT
+{
+  Waypoint wp = DerivedCartesianWaypoint(Eigen::Isometry3d::Identity());
+  EXPECT_TRUE(isCartesianWaypoint(wp));
+  auto& cwp = wp.as<CartesianWaypoint>();
+  EXPECT_TRUE(isCartesianWaypoint(cwp));
+  auto& dcwp = wp.as<DerivedCartesianWaypoint>();
+  EXPECT_TRUE(isCartesianWaypoint(dcwp));
+}
+
 TEST(TesseractCommandLanguageCartesianWaypointUnit, isToleranced)  // NOLINT
 {
   Eigen::Isometry3d pose = Eigen::Isometry3d::Identity();

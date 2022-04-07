@@ -45,6 +45,7 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
   CartesianWaypoint() = default;
+  virtual ~CartesianWaypoint() = default;
 
   void print(const std::string& prefix = "") const
   {
@@ -53,6 +54,8 @@ public:
               << this->translation().z() << std::endl;  // NOLINT
     // TODO: Add rotation
   }
+
+  virtual bool isValidCast(std::type_index id) const { return (id == std::type_index(typeid(CartesianWaypoint))); }
 
   /////////////////////
   // Eigen Container //
