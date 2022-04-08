@@ -147,13 +147,13 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
         return 1;
       }
 
-      bool outside_limits = false;
+      bool inside_limits = true;
       for (const auto& instruction : flattened)
       {
-        outside_limits |=
+        inside_limits &=
             isWithinJointLimits(instruction.get().as<PlanInstruction>().getWaypoint(), limits.joint_limits);
       }
-      if (!outside_limits)
+      if (inside_limits)
         break;
 
       CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");

@@ -340,6 +340,12 @@ TEST(TesseractCommandLanguageUtilsUnit, isWithinJointLimits)  // NOLINT
     Waypoint tmp(jp);
     EXPECT_FALSE(isWithinJointLimits(tmp, limits));
   }
+  // Cartesian Waypoint
+  {
+    CartesianWaypoint jp;
+    Waypoint tmp(jp);
+    EXPECT_TRUE(isWithinJointLimits(tmp, limits));
+  }
 }
 
 TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
