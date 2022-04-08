@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix logic in FixStateBounds for case ALL
+* Contributors: Matthew Powelson
+
 0.9.6 (2022-04-01)
 ------------------
 
