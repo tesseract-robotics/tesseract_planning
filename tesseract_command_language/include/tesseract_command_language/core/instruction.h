@@ -76,9 +76,11 @@ namespace detail_instruction
 CREATE_MEMBER_CHECK(getDescription);
 CREATE_MEMBER_CHECK(setDescription);
 CREATE_MEMBER_CHECK(print);
+// CREATE_MEMBER_CHECK(isValidCast);
 CREATE_MEMBER_FUNC_SIGNATURE_NOARGS_CHECK(getDescription, const std::string&);
 CREATE_MEMBER_FUNC_SIGNATURE_CHECK(setDescription, void, const std::string&);
 CREATE_MEMBER_FUNC_SIGNATURE_CHECK(print, void, std::string);
+// CREATE_MEMBER_FUNC_SIGNATURE_CHECK(isValidCast, bool, std::type_index);
 
 struct InstructionInnerBase
 {
@@ -95,6 +97,8 @@ struct InstructionInnerBase
   virtual void setDescription(const std::string& description) = 0;
 
   virtual void print(const std::string& prefix) const = 0;
+
+  //  virtual bool isValidCast(std::type_index id) const = 0;
 
   virtual bool operator==(const InstructionInnerBase& rhs) const = 0;
 
@@ -127,11 +131,13 @@ struct InstructionInner final : InstructionInnerBase
     static_assert(has_member_getDescription<T>::value, "Class does not have member function 'getDescription'");
     static_assert(has_member_setDescription<T>::value, "Class does not have member function 'setDescription'");
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
+    static_assert(has_member_isValidCast<T>::value, "Class does not have member function 'isValidCast'");
     static_assert(has_member_func_signature_getDescription<T>::value,
                   "Class 'getDescription' function has incorrect signature");
     static_assert(has_member_func_signature_setDescription<T>::value,
                   "Class 'setDescription' function has incorrect signature");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
+    static_assert(has_member_func_signature_isValidCast<T>::value, "Class 'isValidCast' function has incorrect signature");
   }
   ~InstructionInner() override = default;
   InstructionInner(const InstructionInner&) = delete;
@@ -145,11 +151,13 @@ struct InstructionInner final : InstructionInnerBase
     static_assert(has_member_getDescription<T>::value, "Class does not have member function 'getDescription'");
     static_assert(has_member_setDescription<T>::value, "Class does not have member function 'setDescription'");
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
+    static_assert(has_member_isValidCast<T>::value, "Class does not have member function 'isValidCast'");
     static_assert(has_member_func_signature_getDescription<T>::value,
                   "Class 'getDescription' function has incorrect signature");
     static_assert(has_member_func_signature_setDescription<T>::value,
                   "Class 'setDescription' function has incorrect signature");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
+    static_assert(has_member_func_signature_isValidCast<T>::value, "Class 'isValidCast' function has incorrect signature");
   }
 
   explicit InstructionInner(T&& instruction) : instruction_(std::move(instruction))
@@ -157,11 +165,13 @@ struct InstructionInner final : InstructionInnerBase
     static_assert(has_member_getDescription<T>::value, "Class does not have member function 'getDescription'");
     static_assert(has_member_setDescription<T>::value, "Class does not have member function 'setDescription'");
     static_assert(has_member_print<T>::value, "Class does not have member function 'print'");
+    static_assert(has_member_isValidCast<T>::value, "Class does not have member function 'isValidCast'");
     static_assert(has_member_func_signature_getDescription<T>::value,
                   "Class 'getDescription' function has incorrect signature");
     static_assert(has_member_func_signature_setDescription<T>::value,
                   "Class 'setDescription' function has incorrect signature");
     static_assert(has_member_func_signature_print<T>::value, "Class 'print' function has incorrect signature");
+    static_assert(has_member_func_signature_isValidCast<T>::value, "Class 'isValidCast' function has incorrect signature");
   }
 
   std::unique_ptr<InstructionInnerBase> clone() const final { return std::make_unique<InstructionInner>(instruction_); }
@@ -177,6 +187,8 @@ struct InstructionInner final : InstructionInnerBase
   void setDescription(const std::string& description) final { instruction_.setDescription(description); }
 
   void print(const std::string& prefix) const final { instruction_.print(prefix); }
+
+  bool isValidCast(std::type_index id) const final { instruction_.isValidCast(id); };
 
   bool operator==(const InstructionInnerBase& rhs) const final
   {
@@ -273,6 +285,8 @@ public:
   void setDescription(const std::string& description);
 
   void print(const std::string& prefix = "") const;
+
+  bool isValidCast(std::type_index id) const;
 
   bool operator==(const Instruction& rhs) const;
 

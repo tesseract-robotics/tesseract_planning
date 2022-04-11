@@ -47,6 +47,8 @@ void tesseract_planning::Instruction::setDescription(const std::string& descript
 
 void tesseract_planning::Instruction::print(const std::string& prefix) const { instruction_->print(prefix); }
 
+// bool tesseract_planning::Instruction::isValidCast(std::type_index id) const { return instruction_->isValidCast(id); }
+
 bool tesseract_planning::Instruction::operator==(const Instruction& rhs) const
 {
   return instruction_->operator==(*rhs.instruction_);
