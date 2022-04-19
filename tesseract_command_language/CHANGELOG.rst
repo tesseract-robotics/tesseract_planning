@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.9.8 (2022-04-19)
+------------------
 * Update/joint trajectory (`#186 <https://github.com/tesseract-robotics/tesseract_planning/issues/186>`_)
   * Store description when converting from composite to joint trajectory
   * Update windows rosinstall
