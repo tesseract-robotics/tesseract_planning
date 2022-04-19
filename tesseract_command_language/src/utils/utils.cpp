@@ -57,6 +57,7 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
   std::vector<std::reference_wrapper<const tesseract_planning::Instruction>> flattened_program =
       tesseract_planning::flatten(composite_instructions, toJointTrajectoryMoveFilter);
   trajectory.reserve(flattened_program.size());
+  trajectory.description = composite_instructions.getDescription();
 
   double last_time = 0;
   double current_time = 0;
