@@ -2,6 +2,14 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update/joint trajectory (`#186 <https://github.com/tesseract-robotics/tesseract_planning/issues/186>`_)
+  * Store description when converting from composite to joint trajectory
+  * Update windows rosinstall
+  * Update rosinstall files
+* Contributors: Levi Armstrong
+
 0.9.7 (2022-04-08)
 ------------------
 * Fix logic in FixStateBounds for case ALL

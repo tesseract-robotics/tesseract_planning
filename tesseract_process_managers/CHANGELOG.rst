@@ -2,6 +2,9 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.9.7 (2022-04-08)
 ------------------
 * Fix logic in FixStateBounds for case ALL
