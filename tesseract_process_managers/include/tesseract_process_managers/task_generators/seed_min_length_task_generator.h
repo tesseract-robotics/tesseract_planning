@@ -29,6 +29,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/access.hpp>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -67,10 +68,22 @@ public:
   using Ptr = std::shared_ptr<SeedMinLengthTaskInfo>;
   using ConstPtr = std::shared_ptr<const SeedMinLengthTaskInfo>;
 
+  SeedMinLengthTaskInfo() = default;
   SeedMinLengthTaskInfo(std::size_t unique_id, std::string name = profile_ns::SEED_MIN_LENGTH_DEFAULT_NAMESPACE);
 
   TaskInfo::UPtr clone() const override;
+
+  bool operator==(const SeedMinLengthTaskInfo& rhs) const;
+  bool operator!=(const SeedMinLengthTaskInfo& rhs) const;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::SeedMinLengthTaskInfo, "SeedMinLengthTaskInfo")
 #endif  // TESSERACT_PROCESS_MANAGERS_SEED_MIN_LENGTH_TASK_GENERATOR_H

@@ -122,4 +122,5 @@ private:
 };
 }  // namespace tesseract_planning
 
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskInfo, "TaskInfo")
 #endif  // TESSERACT_PROCESS_MANAGERS_task_info_H

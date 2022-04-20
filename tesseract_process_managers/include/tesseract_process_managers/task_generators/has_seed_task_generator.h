@@ -26,6 +26,11 @@
 #ifndef TESSERACT_PROCESS_MANAGERS_HAS_SEED_TASK_GENERATOR_H
 #define TESSERACT_PROCESS_MANAGERS_HAS_SEED_TASK_GENERATOR_H
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/access.hpp>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_process_managers/core/task_generator.h>
 #include <tesseract_process_managers/core/default_task_namespaces.h>
 
@@ -55,10 +60,22 @@ public:
   using Ptr = std::shared_ptr<HasSeedTaskInfo>;
   using ConstPtr = std::shared_ptr<const HasSeedTaskInfo>;
 
+  HasSeedTaskInfo() = default;
   HasSeedTaskInfo(std::size_t unique_id, std::string name = profile_ns::HAS_SEED_DEFAULT_NAMESPACE);
 
   TaskInfo::UPtr clone() const override;
+
+  bool operator==(const HasSeedTaskInfo& rhs) const;
+  bool operator!=(const HasSeedTaskInfo& rhs) const;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::HasSeedTaskInfo, "HasSeedTaskInfo")
 #endif  // TESSERACT_PROCESS_MANAGERS_HAS_SEED_TASK_GENERATOR_H

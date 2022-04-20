@@ -204,4 +204,22 @@ MotionPlannerTaskInfo::MotionPlannerTaskInfo(std::size_t unique_id, std::string 
 }
 
 TaskInfo::UPtr MotionPlannerTaskInfo::clone() const { return std::make_unique<MotionPlannerTaskInfo>(*this); }
+
+bool MotionPlannerTaskInfo::operator==(const MotionPlannerTaskInfo& rhs) const
+{
+  bool equal = true;
+  equal &= TaskInfo::operator==(rhs);
+  return equal;
+}
+bool MotionPlannerTaskInfo::operator!=(const MotionPlannerTaskInfo& rhs) const { return !operator==(rhs); }
+
+template <class Archive>
+void MotionPlannerTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskInfo);
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MotionPlannerTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MotionPlannerTaskInfo)

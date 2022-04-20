@@ -27,6 +27,7 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/access.hpp>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -71,11 +72,23 @@ public:
   using Ptr = std::shared_ptr<UpsampleTrajectoryTaskInfo>;
   using ConstPtr = std::shared_ptr<const UpsampleTrajectoryTaskInfo>;
 
+  UpsampleTrajectoryTaskInfo() = default;
   UpsampleTrajectoryTaskInfo(std::size_t unique_id,
                              std::string name = profile_ns::UPSAMPLE_TRAJECTORY_DEFAULT_NAMESPACE);
 
   TaskInfo::UPtr clone() const override;
+
+  bool operator==(const UpsampleTrajectoryTaskInfo& rhs) const;
+  bool operator!=(const UpsampleTrajectoryTaskInfo& rhs) const;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
 
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpsampleTrajectoryTaskInfo, "UpsampleTrajectoryTaskInfo")
 #endif  // TESSERACT_PROCESS_MANAGERS_UPSAMPLE_TRAJECTORY_TASK_GENERATOR_H

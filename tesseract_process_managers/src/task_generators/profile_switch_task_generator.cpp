@@ -91,4 +91,22 @@ ProfileSwitchTaskInfo::ProfileSwitchTaskInfo(std::size_t unique_id, std::string 
 }
 
 TaskInfo::UPtr ProfileSwitchTaskInfo::clone() const { return std::make_unique<ProfileSwitchTaskInfo>(*this); }
+
+bool ProfileSwitchTaskInfo::operator==(const ProfileSwitchTaskInfo& rhs) const
+{
+  bool equal = true;
+  equal &= TaskInfo::operator==(rhs);
+  return equal;
+}
+bool ProfileSwitchTaskInfo::operator!=(const ProfileSwitchTaskInfo& rhs) const { return !operator==(rhs); }
+
+template <class Archive>
+void ProfileSwitchTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskInfo);
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProfileSwitchTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ProfileSwitchTaskInfo)

@@ -600,4 +600,23 @@ FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(std::size_t unique_id, std:
 
 TaskInfo::UPtr FixStateCollisionTaskInfo::clone() const { return std::make_unique<FixStateCollisionTaskInfo>(*this); }
 
+bool FixStateCollisionTaskInfo::operator==(const FixStateCollisionTaskInfo& rhs) const
+{
+  bool equal = true;
+  equal &= TaskInfo::operator==(rhs);
+  //  equal &= contact_results == rhs.contact_results;
+  return equal;
+}
+bool FixStateCollisionTaskInfo::operator!=(const FixStateCollisionTaskInfo& rhs) const { return !operator==(rhs); }
+
+template <class Archive>
+void FixStateCollisionTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskInfo);
+  //  ar& BOOST_SERIALIZATION_NVP(contact_results);
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::FixStateCollisionTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::FixStateCollisionTaskInfo)

@@ -27,6 +27,7 @@
 #define TESSERACT_PROCESS_MANAGERS_DISCRETE_CONTACT_CHECK_TASK_GENERATOR_H
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/access.hpp>
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -59,14 +60,26 @@ public:
   using Ptr = std::shared_ptr<DiscreteContactCheckTaskInfo>;
   using ConstPtr = std::shared_ptr<const DiscreteContactCheckTaskInfo>;
 
+  DiscreteContactCheckTaskInfo() = default;
   DiscreteContactCheckTaskInfo(std::size_t unique_id,
                                std::string name = profile_ns::DISCRETE_CONTACT_CHECK_DEFAULT_NAMESPACE);
 
   std::vector<tesseract_collision::ContactResultMap> contact_results;
 
   TaskInfo::UPtr clone() const override;
+
+  bool operator==(const DiscreteContactCheckTaskInfo& rhs) const;
+  bool operator!=(const DiscreteContactCheckTaskInfo& rhs) const;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 }  // namespace tesseract_planning
 
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::DiscreteContactCheckTaskInfo, "DiscreteContactCheckTaskInfo")
 #endif  // TESSERACT_PROCESS_MANAGERS_DISCRETE_CONTACT_CHECK_TASK_GENERATOR_H
