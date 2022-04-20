@@ -144,5 +144,4 @@ private:
 
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ProcessPlanningFuture, "ProcessPlanningFuture")
-BOOST_CLASS_TRACKING(tesseract_planning::ProcessPlanningFuture, boost::serialization::track_never)
 #endif  // TESSERACT_PROCESS_MANAGERS_PROCESS_PLANNING_FUTURE_H
