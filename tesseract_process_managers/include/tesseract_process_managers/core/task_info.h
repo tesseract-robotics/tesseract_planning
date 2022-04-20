@@ -82,7 +82,7 @@ public:
   Instruction results_input{ NullInstruction() };
   /** @brief Seed/Results after running the task (optionally set)*/
   Instruction results_output{ NullInstruction() };
-  /** @brief This is a clone of the environment at the beginning of the task (optionally set)*/
+  /** @brief The environment at the beginning of the task (optionally set)*/
   tesseract_environment::Environment::ConstPtr environment{ nullptr };
 
   bool operator==(const TaskInfo& rhs) const;
