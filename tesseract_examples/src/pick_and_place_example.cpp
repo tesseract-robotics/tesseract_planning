@@ -227,7 +227,7 @@ bool PickAndPlaceExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    const auto& cp = pick_response.results->as<CompositeInstruction>();
+    const auto& cp = pick_response.problem->results->as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(cp, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(cp);
     auto state_solver = env_->getStateSolver();
@@ -260,7 +260,7 @@ bool PickAndPlaceExample::run()
   env_->applyCommands(cmds);
 
   // Get the last move instruction
-  const CompositeInstruction& pick_composite = pick_response.results->as<CompositeInstruction>();
+  const CompositeInstruction& pick_composite = pick_response.problem->results->as<CompositeInstruction>();
   const MoveInstruction* pick_final_state = getLastMoveInstruction(pick_composite);
 
   // Retreat to the approach pose
@@ -342,7 +342,7 @@ bool PickAndPlaceExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    const auto& ci = place_response.results->as<CompositeInstruction>();
+    const auto& ci = place_response.problem->results->as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();

@@ -171,7 +171,7 @@ bool FreespaceOMPLExample::run()
   if (plotter_ != nullptr && plotter_->isConnected())
   {
     plotter_->waitForInput();
-    const auto& ci = response.results->as<CompositeInstruction>();
+    const auto& ci = response.problem->results->as<CompositeInstruction>();
     tesseract_common::Toolpath toolpath = toToolpath(ci, *env_);
     tesseract_common::JointTrajectory trajectory = toJointTrajectory(ci);
     auto state_solver = env_->getStateSolver();

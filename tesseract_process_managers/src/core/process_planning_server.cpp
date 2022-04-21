@@ -113,24 +113,25 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
 {
   CONSOLE_BRIDGE_logInform("Tesseract Planning Server Received Request!");
   ProcessPlanningFuture response;
-  response.plan_profile_remapping = std::make_unique<const PlannerProfileRemapping>(request.plan_profile_remapping);
-  response.composite_profile_remapping =
+  response.problem->plan_profile_remapping =
+      std::make_unique<const PlannerProfileRemapping>(request.plan_profile_remapping);
+  response.problem->composite_profile_remapping =
       std::make_unique<const PlannerProfileRemapping>(request.composite_profile_remapping);
 
-  response.input = std::make_unique<Instruction>(request.instructions);
-  auto& composite_program = response.input->as<CompositeInstruction>();
+  response.problem->input = std::make_unique<Instruction>(request.instructions);
+  auto& composite_program = response.problem->input->as<CompositeInstruction>();
   ManipulatorInfo mi = composite_program.getManipulatorInfo();
-  response.global_manip_info = std::make_unique<const ManipulatorInfo>(mi);
+  response.problem->global_manip_info = std::make_unique<const ManipulatorInfo>(mi);
 
   bool has_seed{ false };
   if (!isNullInstruction(request.seed))
   {
     has_seed = true;
-    response.results = std::make_unique<Instruction>(request.seed);
+    response.problem->results = std::make_unique<Instruction>(request.seed);
   }
   else
   {
-    response.results = std::make_unique<Instruction>(generateSkeletonSeed(composite_program));
+    response.problem->results = std::make_unique<Instruction>(generateSkeletonSeed(composite_program));
   }
 
   auto it = process_planners_.find(request.name);
@@ -159,16 +160,16 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   }
 
   TaskInput task_input(tc,
-                       response.input.get(),
-                       *(response.global_manip_info),
-                       *(response.plan_profile_remapping),
-                       *(response.composite_profile_remapping),
-                       response.results.get(),
+                       response.problem->input.get(),
+                       *(response.problem->global_manip_info),
+                       *(response.problem->plan_profile_remapping),
+                       *(response.problem->composite_profile_remapping),
+                       response.problem->results.get(),
                        has_seed,
                        profiles_);
   task_input.save_io = request.save_io;
   response.interface = task_input.getTaskInterface();
-  response.taskflow_container = it->second->generateTaskflow(task_input, nullptr, nullptr);
+  response.problem->taskflow_container = it->second->generateTaskflow(task_input, nullptr, nullptr);
 
   // Dump taskflow graph before running
   if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
@@ -176,11 +177,12 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
     std::ofstream out_data;
     out_data.open(tesseract_common::getTempPath() + request.name + "-" + tesseract_common::getTimestampString() +
                   ".dot");
-    response.taskflow_container.taskflow->dump(out_data);
+    response.problem->taskflow_container.taskflow->dump(out_data);
     out_data.close();
   }
 
-  response.process_future = executor_->run(*(response.taskflow_container.taskflow));
+  tf::Future<void> fu = executor_->run(*(response.problem->taskflow_container.taskflow));
+  response.process_future = fu.share();
   return response;
 }
 
