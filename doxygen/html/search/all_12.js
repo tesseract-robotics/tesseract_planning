@@ -26,7 +26,7 @@ var searchData=
   ['task_5fname_23',['task_name',['../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a9b96aab3e6bcf8593fdafda89476a999',1,'tesseract_planning::TaskInfo::task_name()'],['../d8/dcc/structtesseract__planning_1_1TaskInfoStatistics.html#a56cbb2762da1577f277a32e83589803e',1,'tesseract_planning::TaskInfoStatistics::task_name()']]],
   ['taskdisplayinfo_24',['TaskDisplayInfo',['../d9/df2/structtesseract__planning_1_1TaskDisplayInfo.html',1,'tesseract_planning']]],
   ['taskflow_25',['taskflow',['../d5/d07/structtesseract__planning_1_1TaskflowContainer.html#a0e048e6b0dfe4507768445cdb7144ca7',1,'tesseract_planning::TaskflowContainer']]],
-  ['taskflow_5fcontainer_26',['taskflow_container',['../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html#a7a1bf130fec34c058ca2778442a50c80',1,'tesseract_planning::ProcessPlanningFuture']]],
+  ['taskflow_5fcontainer_26',['taskflow_container',['../d4/df4/structtesseract__planning_1_1ProcessPlanningProblem.html#a032814e8b99d8ed272ed4b73ce950e42',1,'tesseract_planning::ProcessPlanningProblem']]],
   ['taskflow_5fcontainer_2ecpp_27',['taskflow_container.cpp',['../db/db8/taskflow__container_8cpp.html',1,'']]],
   ['taskflow_5fcontainer_2eh_28',['taskflow_container.h',['../dd/d9d/taskflow__container_8h.html',1,'']]],
   ['taskflow_5fgenerator_2eh_29',['taskflow_generator.h',['../db/d75/taskflow__generator_8h.html',1,'']]],
