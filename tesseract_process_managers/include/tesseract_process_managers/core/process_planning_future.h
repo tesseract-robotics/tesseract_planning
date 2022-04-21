@@ -35,11 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/taskflow_interface.h>
 #include <tesseract_process_managers/core/taskflow_generator.h>
-
-#include <tesseract_motion_planners/core/types.h>
-
-#include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/types.h>
+#include <tesseract_process_managers/core/process_planning_problem.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::ProcessPlanningFuture)
@@ -48,53 +44,26 @@ namespace tesseract_planning
 {
 /**
  * @brief This contains the result for the process planning request
- * @details Must check the status before access the results to know if available.
+ * @details Must check the status before access the problem results to know if available.
+ * @note This stores a shared future and is copy-able to allow access from multiple threads
  * @note This must not go out of scope until the process has finished
  */
 struct ProcessPlanningFuture
 {
+  ProcessPlanningFuture();
+
 #ifdef SWIG
   %ignore process_future;
 #endif  // SWIG
   /** @brief This is the future return from taskflow executor.run, used to check if process has finished */
-  tf::Future<void> process_future;
+  std::shared_future<void> process_future;
 
   /** @brief This is used to abort the associated process and check if the process was successful */
   TaskflowInterface::Ptr interface;
 
-#ifndef SWIG
-  /** @brief The stored input to the process */
-  std::unique_ptr<Instruction> input;
-
-  /** @brief The results to the process */
-  std::unique_ptr<Instruction> results;
-
-  /** @brief The stored global manipulator info */
-  std::unique_ptr<const ManipulatorInfo> global_manip_info;
-
-  /** @brief The stored plan profile remapping */
-  std::unique_ptr<const PlannerProfileRemapping> plan_profile_remapping;
-
-  /** @brief The stored composite profile remapping */
-  std::unique_ptr<const PlannerProfileRemapping> composite_profile_remapping;
-
-#else
-  // clang-format off
-  %extend {
-  Instruction& getInput() { return *$self->input; }
-  Instruction& getResults() { return *$self->results; }
-  ManipulatorInfo getGlobalManipInfo() { return *$self->global_manip_info; }
-  PlannerProfileRemapping getPlanProfileRemapping() { return *$self->plan_profile_remapping; }
-  PlannerProfileRemapping getCompositeProfileRemapping() { return *$self->composite_profile_remapping; }  
-  }
-  // clang-format on
-#endif
-
-#ifdef SWIG
-  %ignore taskflow_container;
-#endif  // SWIG
-  /** @brief The taskflow container returned from the TaskflowGenerator that must remain during taskflow execution */
-  TaskflowContainer taskflow_container;
+  /** @brief This contains the problem for the process plan. Do not access until problem results until the future state
+   * is ready. */
+  ProcessPlanningProblem::Ptr problem;
 
   /** @brief Clear all content */
   void clear();

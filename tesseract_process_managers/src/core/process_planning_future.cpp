@@ -37,15 +37,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+ProcessPlanningFuture::ProcessPlanningFuture() { clear(); }
+
 void ProcessPlanningFuture::clear()
 {
   interface = nullptr;
-  input = nullptr;
-  results = nullptr;
-  global_manip_info = nullptr;
-  plan_profile_remapping = nullptr;
-  composite_profile_remapping = nullptr;
-  taskflow_container.clear();
+  problem = std::make_shared<ProcessPlanningProblem>();
 }
 
 bool ProcessPlanningFuture::ready() const
@@ -70,16 +67,7 @@ bool ProcessPlanningFuture::operator==(const tesseract_planning::ProcessPlanning
 {
   bool equal = true;
   equal &= process_future.valid() == rhs.process_future.valid();
-  equal &= (input && rhs.input && *input == *rhs.input) || (!input && !rhs.input);
-  equal &= (results && rhs.results && *results == *rhs.results) || (!results && !rhs.results);
-  equal &= (global_manip_info && rhs.global_manip_info && *global_manip_info == *rhs.global_manip_info) ||
-           (!global_manip_info && !rhs.global_manip_info);
-  equal &= (plan_profile_remapping && rhs.plan_profile_remapping &&
-            *plan_profile_remapping == *rhs.plan_profile_remapping) ||
-           (!plan_profile_remapping && !rhs.plan_profile_remapping);
-  equal &= (composite_profile_remapping && rhs.composite_profile_remapping &&
-            *composite_profile_remapping == *rhs.composite_profile_remapping) ||
-           (!composite_profile_remapping && !rhs.composite_profile_remapping);
+  equal &= (problem && rhs.problem && *problem == *rhs.problem) || (!problem && !rhs.problem);
   equal &= tesseract_common::pointersEqual(interface, rhs.interface);
 
   return equal;
@@ -93,15 +81,10 @@ bool ProcessPlanningFuture::operator!=(const tesseract_planning::ProcessPlanning
 template <class Archive>
 void ProcessPlanningFuture::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input);
-  ar& BOOST_SERIALIZATION_NVP(results);
-  ar& BOOST_SERIALIZATION_NVP(global_manip_info);
-  ar& BOOST_SERIALIZATION_NVP(plan_profile_remapping);
-  ar& BOOST_SERIALIZATION_NVP(composite_profile_remapping);
+  ar& BOOST_SERIALIZATION_NVP(problem);
   ar& BOOST_SERIALIZATION_NVP(interface);
   // These are not currently serializable
   //  ar& BOOST_SERIALIZATION_NVP(process_future);
-  //  ar& BOOST_SERIALIZATION_NVP(taskflow_container);
 }
 
 }  // namespace tesseract_planning

@@ -93,7 +93,8 @@ int main()
     if (plotter != nullptr && plotter->isConnected())
     {
       plotter->waitForInput();
-      plotter->plotTrajectory(toJointTrajectory(response.results->as<CompositeInstruction>()), *env->getStateSolver());
+      plotter->plotTrajectory(toJointTrajectory(response.problem->results->as<CompositeInstruction>()),
+                              *env->getStateSolver());
     }
 
     // Convert to an easily loggable vector
