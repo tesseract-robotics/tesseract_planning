@@ -63,13 +63,6 @@ struct ProcessPlanningProblem
   /** @brief The stored composite profile remapping */
   std::unique_ptr<const PlannerProfileRemapping> composite_profile_remapping;
 
-#ifdef SWIG
-  %ignore taskflow_container;
-#endif  // SWIG
-
-  /** @brief The taskflow container returned from the TaskflowGenerator that must remain during taskflow execution */
-  TaskflowContainer taskflow_container;
-
 #else
   // clang-format off
   %extend {
@@ -81,6 +74,13 @@ struct ProcessPlanningProblem
   }
   // clang-format on
 #endif
+
+#ifdef SWIG
+  %ignore taskflow_container;
+#endif  // SWIG
+
+  /** @brief The taskflow container returned from the TaskflowGenerator that must remain during taskflow execution */
+  TaskflowContainer taskflow_container;
 
   bool operator==(const ProcessPlanningProblem& rhs) const;
   bool operator!=(const ProcessPlanningProblem& rhs) const;
