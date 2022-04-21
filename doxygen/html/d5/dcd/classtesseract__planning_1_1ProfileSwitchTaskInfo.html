@@ -73,6 +73,8 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../d5/d63/classtesseract__planning_1_1ProfileSwitchTaskInfo-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">tesseract_planning::ProfileSwitchTaskInfo Class Reference</div></div>
 </div><!--header-->
@@ -121,10 +123,16 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3eb5ec6d428c96108b04191f06f12d62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html#a3eb5ec6d428c96108b04191f06f12d62">ProfileSwitchTaskInfo</a> ()=default</td></tr>
+<tr class="separator:a3eb5ec6d428c96108b04191f06f12d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c1c00e9dbb12590c4b46ff49247bc8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html#a3c1c00e9dbb12590c4b46ff49247bc8a">ProfileSwitchTaskInfo</a> (std::size_t <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a251f4620809e8e67bd97a182527892d7">unique_id</a>, std::string name=<a class="el" href="../../d9/d67/namespacetesseract__planning_1_1profile__ns.html#acd6ca96964c83a183e4aa91e2baf7780">profile_ns::PROFILE_SWITCH_DEFAULT_NAMESPACE</a>)</td></tr>
 <tr class="separator:a3c1c00e9dbb12590c4b46ff49247bc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47c92ac99b668f934c6d7d865486c4e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a308e99c56cb3450f29de0878bdb6577d">TaskInfo::UPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html#a47c92ac99b668f934c6d7d865486c4e9">clone</a> () const override</td></tr>
 <tr class="separator:a47c92ac99b668f934c6d7d865486c4e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0e2c8bad9091286c9c7b3036dd60d6d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html#ae0e2c8bad9091286c9c7b3036dd60d6d">operator==</a> (const <a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html">ProfileSwitchTaskInfo</a> &amp;rhs) const</td></tr>
+<tr class="separator:ae0e2c8bad9091286c9c7b3036dd60d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45697f3e19c8c8afee6f84deca8380b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html#a45697f3e19c8c8afee6f84deca8380b5">operator!=</a> (const <a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html">ProfileSwitchTaskInfo</a> &amp;rhs) const</td></tr>
+<tr class="separator:a45697f3e19c8c8afee6f84deca8380b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classtesseract__planning_1_1TaskInfo"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classtesseract__planning_1_1TaskInfo')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">tesseract_planning::TaskInfo</a></td></tr>
 <tr class="memitem:ad8e113122aae15a0c1241ce3c277fd75 inherit pub_methods_classtesseract__planning_1_1TaskInfo"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#ad8e113122aae15a0c1241ce3c277fd75">TaskInfo</a> ()=default</td></tr>
 <tr class="separator:ad8e113122aae15a0c1241ce3c277fd75 inherit pub_methods_classtesseract__planning_1_1TaskInfo"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,6 +154,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a570e486bd3838d1001b60578689334c9 inherit pub_methods_classtesseract__planning_1_1TaskInfo"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae626624b019017bb0607ef68f16df8bb inherit pub_methods_classtesseract__planning_1_1TaskInfo"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a308e99c56cb3450f29de0878bdb6577d">TaskInfo::UPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#ae626624b019017bb0607ef68f16df8bb">clone</a> () const</td></tr>
 <tr class="separator:ae626624b019017bb0607ef68f16df8bb inherit pub_methods_classtesseract__planning_1_1TaskInfo"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a132d5cffcf93ae90f3c8ce964d53d697"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:a132d5cffcf93ae90f3c8ce964d53d697"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html#a132d5cffcf93ae90f3c8ce964d53d697">serialize</a> (Archive &amp;ar, const unsigned int version)</td></tr>
+<tr class="separator:a132d5cffcf93ae90f3c8ce964d53d697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
+<tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -176,7 +195,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a82fc8d13c42c929dd8f10d714491256a inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seed/Results after running the task (optionally set)  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a82fc8d13c42c929dd8f10d714491256a">More...</a><br /></td></tr>
 <tr class="separator:a82fc8d13c42c929dd8f10d714491256a inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f357bbfe8948bbfbf4d373dfc162af0 inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="memItemLeft" align="right" valign="top">tesseract_environment::Environment::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2f357bbfe8948bbfbf4d373dfc162af0">environment</a> { nullptr }</td></tr>
-<tr class="memdesc:a2f357bbfe8948bbfbf4d373dfc162af0 inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a clone of the environment at the beginning of the task (optionally set)  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2f357bbfe8948bbfbf4d373dfc162af0">More...</a><br /></td></tr>
+<tr class="memdesc:a2f357bbfe8948bbfbf4d373dfc162af0 inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="mdescLeft">&#160;</td><td class="mdescRight">The environment at the beginning of the task (optionally set)  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2f357bbfe8948bbfbf4d373dfc162af0">More...</a><br /></td></tr>
 <tr class="separator:a2f357bbfe8948bbfbf4d373dfc162af0 inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
@@ -209,8 +228,33 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3eb5ec6d428c96108b04191f06f12d62" name="a3eb5ec6d428c96108b04191f06f12d62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eb5ec6d428c96108b04191f06f12d62">&#9670;&nbsp;</a></span>ProfileSwitchTaskInfo() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::ProfileSwitchTaskInfo::ProfileSwitchTaskInfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3c1c00e9dbb12590c4b46ff49247bc8a" name="a3c1c00e9dbb12590c4b46ff49247bc8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c1c00e9dbb12590c4b46ff49247bc8a">&#9670;&nbsp;</a></span>ProfileSwitchTaskInfo()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c1c00e9dbb12590c4b46ff49247bc8a">&#9670;&nbsp;</a></span>ProfileSwitchTaskInfo() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,6 +309,103 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a45697f3e19c8c8afee6f84deca8380b5" name="a45697f3e19c8c8afee6f84deca8380b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45697f3e19c8c8afee6f84deca8380b5">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::ProfileSwitchTaskInfo::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html">ProfileSwitchTaskInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae0e2c8bad9091286c9c7b3036dd60d6d" name="ae0e2c8bad9091286c9c7b3036dd60d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0e2c8bad9091286c9c7b3036dd60d6d">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::ProfileSwitchTaskInfo::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/dcd/classtesseract__planning_1_1ProfileSwitchTaskInfo.html">ProfileSwitchTaskInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a132d5cffcf93ae90f3c8ce964d53d697" name="a132d5cffcf93ae90f3c8ce964d53d697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a132d5cffcf93ae90f3c8ce964d53d697">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Archive &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::ProfileSwitchTaskInfo::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Archive &amp;&#160;</td>
+          <td class="paramname"><em>ar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>version</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac98d07dd8f7b70e16ccb9a01abf56b9c" name="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class boost::serialization::access</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract_process_managers/include/tesseract_process_managers/task_generators/<a class="el" href="../../db/de8/profile__switch__task__generator_8h_source.html">profile_switch_task_generator.h</a></li>
 <li>tesseract_process_managers/src/task_generators/<a class="el" href="../../db/d1d/profile__switch__task__generator_8cpp.html">profile_switch_task_generator.cpp</a></li>
@@ -272,7 +413,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 19 2022 14:55:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Thu Apr 21 2022 06:37:23 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>

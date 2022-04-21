@@ -8,45 +8,59 @@
 \DoxyCodeLine{28 }
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
 \DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
-\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <functional>}}
-\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a96a3ca70ee9bdda5405da3a5ca5120a7}{CheckInputFn}} = std::function<bool(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}}\&)>;}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{public}:}
-\DoxyCodeLine{44   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<CheckInputTaskGenerator>;}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_aa9b95e3ac03d1bc0126c978ad1165bed}{CheckInputTaskGenerator}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a22c11d0a3bc6b0a2b7528b79f9a4eba0}{profile\_ns::CHECK\_INPUT\_DEFAULT\_NAMESPACE}});}
-\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a4ee8c4d623cec4bf0cfc38f6496c63c0}{\string~CheckInputTaskGenerator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a529a39e02c5ad91cd306e0f79b2dffa6}{CheckInputTaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a813c5a557a51388cd8909c8bd9e550ac}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a4c062e60b1fa22dfe2f3c58443a0b80d}{CheckInputTaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ac0ee62b957ec585344d33e2d8efbc3e5}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a8d44231b7a6dd71dc9872324bf553535}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{55   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ada1ca6c3b94d9b4147814494f032a165}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
-\DoxyCodeLine{56 \};}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo}{CheckInputTaskInfo}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
-\DoxyCodeLine{59 \{}
-\DoxyCodeLine{60 \textcolor{keyword}{public}:}
-\DoxyCodeLine{61   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<CheckInputTaskInfo>;}
-\DoxyCodeLine{62   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const CheckInputTaskInfo>;}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_a5c626a33d6d0ea50ca6d63b0572db002}{CheckInputTaskInfo}}(std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}}, std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a22c11d0a3bc6b0a2b7528b79f9a4eba0}{profile\_ns::CHECK\_INPUT\_DEFAULT\_NAMESPACE}});}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_a92dc1d7c444b64256fcc7d352d759551}{clone}}() \textcolor{keyword}{const override};}
-\DoxyCodeLine{67 \};}
-\DoxyCodeLine{68 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <boost/serialization/access.hpp>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a96a3ca70ee9bdda5405da3a5ca5120a7}{CheckInputFn}} = std::function<bool(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}}\&)>;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{public}:}
+\DoxyCodeLine{45   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<CheckInputTaskGenerator>;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_aa9b95e3ac03d1bc0126c978ad1165bed}{CheckInputTaskGenerator}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a22c11d0a3bc6b0a2b7528b79f9a4eba0}{profile\_ns::CHECK\_INPUT\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a4ee8c4d623cec4bf0cfc38f6496c63c0}{\string~CheckInputTaskGenerator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a529a39e02c5ad91cd306e0f79b2dffa6}{CheckInputTaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a813c5a557a51388cd8909c8bd9e550ac}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a4c062e60b1fa22dfe2f3c58443a0b80d}{CheckInputTaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ac0ee62b957ec585344d33e2d8efbc3e5}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator}{CheckInputTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_a8d44231b7a6dd71dc9872324bf553535}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskGenerator_ada1ca6c3b94d9b4147814494f032a165}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo}{CheckInputTaskInfo}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61 \textcolor{keyword}{public}:}
+\DoxyCodeLine{62   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<CheckInputTaskInfo>;}
+\DoxyCodeLine{63   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const CheckInputTaskInfo>;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_a5177ccda634e6a58b413096713c00685}{CheckInputTaskInfo}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{66   \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_a5177ccda634e6a58b413096713c00685}{CheckInputTaskInfo}}(std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}}, std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a22c11d0a3bc6b0a2b7528b79f9a4eba0}{profile\_ns::CHECK\_INPUT\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_a92dc1d7c444b64256fcc7d352d759551}{clone}}() \textcolor{keyword}{const override};}
 \DoxyCodeLine{69 }
-\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_CHECK\_INPUT\_TASK\_GENERATOR\_H}}
+\DoxyCodeLine{70   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_aaec7b09210ec5476999e939ad27fb562}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo}{CheckInputTaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{71   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_a02422fc758f5ddc62751668e9e240470}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo}{CheckInputTaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{keyword}{private}:}
+\DoxyCodeLine{74   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{75   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{76   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo_a9098215d339932e1b58022a2d9e99645}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{77 \};}
+\DoxyCodeLine{78 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{82 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo}{tesseract\_planning::CheckInputTaskInfo}}, \textcolor{stringliteral}{"{}CheckInputTaskInfo"{}})}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_CHECK\_INPUT\_TASK\_GENERATOR\_H}}
 
 \end{DoxyCode}

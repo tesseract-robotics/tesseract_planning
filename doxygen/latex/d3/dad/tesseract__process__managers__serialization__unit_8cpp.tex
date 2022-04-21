@@ -1,0 +1,175 @@
+\hypertarget{tesseract__process__managers__serialization__unit_8cpp}{}\doxysection{tesseract\+\_\+process\+\_\+managers/test/tesseract\+\_\+process\+\_\+managers\+\_\+serialization\+\_\+unit.cpp File Reference}
+\label{tesseract__process__managers__serialization__unit_8cpp}\index{tesseract\_process\_managers/test/tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers/test/tesseract\_process\_managers\_serialization\_unit.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/unit\+\_\+test\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/commands/add\+\_\+allowed\+\_\+collision\+\_\+command.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/task\+\_\+info.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/process\+\_\+planning\+\_\+request.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/process\+\_\+planning\+\_\+future.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/check\+\_\+input\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/continuous\+\_\+contact\+\_\+check\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/discrete\+\_\+contact\+\_\+check\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/fix\+\_\+state\+\_\+collision\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/has\+\_\+seed\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/iterative\+\_\+spline\+\_\+parameterization\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/motion\+\_\+planner\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/profile\+\_\+switch\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/seed\+\_\+min\+\_\+length\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/time\+\_\+optimal\+\_\+parameterization\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/upsample\+\_\+trajectory\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}raster\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}raster\+\_\+dt\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}freespace\+\_\+example\+\_\+program.\+h\char`\"{}}\newline
+Include dependency graph for tesseract\+\_\+process\+\_\+managers\+\_\+serialization\+\_\+unit.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/dc4/tesseract__process__managers__serialization__unit_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a32023f1fd108ae29e17faec8036219ac}{set\+Task\+Info\+Data}} (const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Task\+Info\+::\+Ptr}} \&task\+\_\+info)
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_ad41dd121a99c43215efa518161ca6a85}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a130206d2ca0d284fd383088f7238783d}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo}{Check\+Input\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_abca6fccb3f70b0cef0121f63d6fd76b2}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{Continuous\+Contact\+Check\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a67dbfe3f66b1e70d7a554fdc7791ac69}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskInfo}{Fix\+State\+Bounds\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a0459331c64c9d34ec38fd77f486f27c3}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{Fix\+State\+Collision\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a074f5a83b2f6c1f281c522874bf990a1}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo}{Has\+Seed\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_aceee3686b22d8588fc598dd0799cf92b}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo}{Iterative\+Spline\+Parameterization\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a7f38444632f1cca51484f664cd59f2e9}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTaskInfo}{Motion\+Planner\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a91703be5fb62f51be54e5b6d1b73c9af}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskInfo}{Profile\+Switch\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a0746be6ceb313df8df6a335c5f698e7a}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskInfo}{Seed\+Min\+Length\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_aed3dd007cb446cf56d20abf41db924d1}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_afbee8212ad62854b27d5de3bb156cef9}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo}{Upsample\+Trajectory\+Task\+Info}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a8c1015ed44506b393186f8e84f9114fe}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_ae29787c60830ab0153fab31dfc8be769}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}})
+\item 
+\mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a0b851ab0d88df4d91d2291954fac4df9}{TEST}} (Tesseract\+Process\+Managers\+Serialize\+Unit, \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}})
+\item 
+int \mbox{\hyperlink{tesseract__process__managers__serialization__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{tesseract__process__managers__serialization__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!main@{main}}
+\index{main@{main}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a32023f1fd108ae29e17faec8036219ac}\label{tesseract__process__managers__serialization__unit_8cpp_a32023f1fd108ae29e17faec8036219ac}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!setTaskInfoData@{setTaskInfoData}}
+\index{setTaskInfoData@{setTaskInfoData}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{setTaskInfoData()}{setTaskInfoData()}}
+{\footnotesize\ttfamily void set\+Task\+Info\+Data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Task\+Info\+::\+Ptr}} \&}]{task\+\_\+info }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a130206d2ca0d284fd383088f7238783d}\label{tesseract__process__managers__serialization__unit_8cpp_a130206d2ca0d284fd383088f7238783d}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1CheckInputTaskInfo}{Check\+Input\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_abca6fccb3f70b0cef0121f63d6fd76b2}\label{tesseract__process__managers__serialization__unit_8cpp_abca6fccb3f70b0cef0121f63d6fd76b2}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{Continuous\+Contact\+Check\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a67dbfe3f66b1e70d7a554fdc7791ac69}\label{tesseract__process__managers__serialization__unit_8cpp_a67dbfe3f66b1e70d7a554fdc7791ac69}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateBoundsTaskInfo}{Fix\+State\+Bounds\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a0459331c64c9d34ec38fd77f486f27c3}\label{tesseract__process__managers__serialization__unit_8cpp_a0459331c64c9d34ec38fd77f486f27c3}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1FixStateCollisionTaskInfo}{Fix\+State\+Collision\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a074f5a83b2f6c1f281c522874bf990a1}\label{tesseract__process__managers__serialization__unit_8cpp_a074f5a83b2f6c1f281c522874bf990a1}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [5/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo}{Has\+Seed\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_aceee3686b22d8588fc598dd0799cf92b}\label{tesseract__process__managers__serialization__unit_8cpp_aceee3686b22d8588fc598dd0799cf92b}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [6/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo}{Iterative\+Spline\+Parameterization\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a7f38444632f1cca51484f664cd59f2e9}\label{tesseract__process__managers__serialization__unit_8cpp_a7f38444632f1cca51484f664cd59f2e9}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [7/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1MotionPlannerTaskInfo}{Motion\+Planner\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a0b851ab0d88df4d91d2291954fac4df9}\label{tesseract__process__managers__serialization__unit_8cpp_a0b851ab0d88df4d91d2291954fac4df9}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [8/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_ae29787c60830ab0153fab31dfc8be769}\label{tesseract__process__managers__serialization__unit_8cpp_ae29787c60830ab0153fab31dfc8be769}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [9/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a91703be5fb62f51be54e5b6d1b73c9af}\label{tesseract__process__managers__serialization__unit_8cpp_a91703be5fb62f51be54e5b6d1b73c9af}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [10/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileSwitchTaskInfo}{Profile\+Switch\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a0746be6ceb313df8df6a335c5f698e7a}\label{tesseract__process__managers__serialization__unit_8cpp_a0746be6ceb313df8df6a335c5f698e7a}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [11/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1SeedMinLengthTaskInfo}{Seed\+Min\+Length\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_a8c1015ed44506b393186f8e84f9114fe}\label{tesseract__process__managers__serialization__unit_8cpp_a8c1015ed44506b393186f8e84f9114fe}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [12/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{Taskflow\+Interface}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_ad41dd121a99c43215efa518161ca6a85}\label{tesseract__process__managers__serialization__unit_8cpp_ad41dd121a99c43215efa518161ca6a85}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [13/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_aed3dd007cb446cf56d20abf41db924d1}\label{tesseract__process__managers__serialization__unit_8cpp_aed3dd007cb446cf56d20abf41db924d1}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [14/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tesseract__process__managers__serialization__unit_8cpp_afbee8212ad62854b27d5de3bb156cef9}\label{tesseract__process__managers__serialization__unit_8cpp_afbee8212ad62854b27d5de3bb156cef9}} 
+\index{tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!tesseract\_process\_managers\_serialization\_unit.cpp@{tesseract\_process\_managers\_serialization\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [15/15]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Process\+Managers\+Serialize\+Unit}]{,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo}{Upsample\+Trajectory\+Task\+Info}}}]{ }\end{DoxyParamCaption})}
+

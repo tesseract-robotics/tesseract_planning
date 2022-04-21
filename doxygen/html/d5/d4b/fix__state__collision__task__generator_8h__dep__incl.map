@@ -1,5 +1,6 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/task_generators/fix_state_collision_task_generator.h" name="tesseract_process_managers/include/tesseract_process_managers/task_generators/fix_state_collision_task_generator.h">
-<area shape="rect" id="node1" title="Process generator for process that pushes plan instructions to be out of collision." alt="" coords="122,5,353,76"/>
+<area shape="rect" id="node1" title="Process generator for process that pushes plan instructions to be out of collision." alt="" coords="241,5,471,76"/>
 <area shape="rect" id="node2" href="$d2/d3f/fix__state__collision__task__generator_8cpp.html" title=" " alt="" coords="5,124,235,180"/>
 <area shape="rect" id="node3" href="$d0/de6/fix__state__collision__task__generator__unit_8cpp.html" title=" " alt="" coords="259,124,453,180"/>
+<area shape="rect" id="node4" href="$d3/dad/tesseract__process__managers__serialization__unit_8cpp.html" title=" " alt="" coords="477,124,691,180"/>
 </map>

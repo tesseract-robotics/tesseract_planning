@@ -6,54 +6,72 @@
 \DoxyCodeLine{27 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_TIME\_OPTIMAL\_TRAJECTORY\_GENERATION\_TASK\_GENERATOR\_H}}
 \DoxyCodeLine{28 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_TIME\_OPTIMAL\_TRAJECTORY\_GENERATION\_TASK\_GENERATOR\_H}}
 \DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
-\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{34 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{tesseract\_planning::TimeOptimalParameterizationTaskGenerator}})}
-\DoxyCodeLine{35 \%ignore TimeOptimalTrajectoryGenerationTaskGenerator;}
-\DoxyCodeLine{36 \%ignore TimeOptimalTrajectoryGenerationTaskInfo;}
-\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{40 \{}
-\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{public}:}
-\DoxyCodeLine{44   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<TimeOptimalParameterizationTaskGenerator>;}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a62e2c4c254fef524f5f106d5a018d3e9}{TimeOptimalParameterizationTaskGenerator}}(}
-\DoxyCodeLine{47       std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a091937a02b4e1306986b3b22c7dce945}{profile\_ns::TIME\_OPTIMAL\_PARAMETERIZATION\_DEFAULT\_NAMESPACE}});}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a87dca8f0f7fa469ddbeaa0287fbb438f}{\string~TimeOptimalParameterizationTaskGenerator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a2e9db04b76d959ee0137cb615c802eab}{TimeOptimalParameterizationTaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a36083b114c3819c64931b4c7ced249c8}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_aa6beac5e14f32ef1e3bc42f5eb9bbff9}{TimeOptimalParameterizationTaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a50e5771d583511de46c0ae9389bbaab1}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{55   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_ada1e972fdb44d94ebfc379cba4cb3ee5}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_aec90851b288c89e9207a152ebd91b7e8}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{71   \textcolor{keyword}{static} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_ad5b85fa80b78f01dc72d267cf5a523ae}{unflatten}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& flattened\_input,}
-\DoxyCodeLine{72                                         \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& pattern,}
-\DoxyCodeLine{73                                         \textcolor{keywordtype}{double} tolerance);}
-\DoxyCodeLine{74 \};}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{76 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{TimeOptimalTrajectoryGenerationTaskInfo}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
-\DoxyCodeLine{77 \{}
-\DoxyCodeLine{78 \textcolor{keyword}{public}:}
-\DoxyCodeLine{79   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<TimeOptimalTrajectoryGenerationTaskInfo>;}
-\DoxyCodeLine{80   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const TimeOptimalTrajectoryGenerationTaskInfo>;}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{82   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_acdc83f4cf231804fddc60f0626a74834}{TimeOptimalTrajectoryGenerationTaskInfo}}(}
-\DoxyCodeLine{83       std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}},}
-\DoxyCodeLine{84       std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a091937a02b4e1306986b3b22c7dce945}{profile\_ns::TIME\_OPTIMAL\_PARAMETERIZATION\_DEFAULT\_NAMESPACE}});}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_aafc0d8df4df9c282b3e9c83b2ba96e8e}{clone}}() \textcolor{keyword}{const override};}
-\DoxyCodeLine{87 \};}
-\DoxyCodeLine{88 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_ITERATIVE\_SPLINE\_PARAMETERIZATION\_TASK\_GENERATOR\_H}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{31 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <boost/serialization/access.hpp>}}
+\DoxyCodeLine{33 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{39 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{tesseract\_planning::TimeOptimalParameterizationTaskGenerator}})}
+\DoxyCodeLine{40 \%ignore TimeOptimalTrajectoryGenerationTaskGenerator;}
+\DoxyCodeLine{41 \%ignore TimeOptimalTrajectoryGenerationTaskInfo;}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{public}:}
+\DoxyCodeLine{49   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<TimeOptimalParameterizationTaskGenerator>;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a62e2c4c254fef524f5f106d5a018d3e9}{TimeOptimalParameterizationTaskGenerator}}(}
+\DoxyCodeLine{52       std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a091937a02b4e1306986b3b22c7dce945}{profile\_ns::TIME\_OPTIMAL\_PARAMETERIZATION\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a87dca8f0f7fa469ddbeaa0287fbb438f}{\string~TimeOptimalParameterizationTaskGenerator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a2e9db04b76d959ee0137cb615c802eab}{TimeOptimalParameterizationTaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a36083b114c3819c64931b4c7ced249c8}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_aa6beac5e14f32ef1e3bc42f5eb9bbff9}{TimeOptimalParameterizationTaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_a50e5771d583511de46c0ae9389bbaab1}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator}{TimeOptimalParameterizationTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_ada1e972fdb44d94ebfc379cba4cb3ee5}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_aec90851b288c89e9207a152ebd91b7e8}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{76   \textcolor{keyword}{static} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalParameterizationTaskGenerator_ad5b85fa80b78f01dc72d267cf5a523ae}{unflatten}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& flattened\_input,}
+\DoxyCodeLine{77                                         \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& pattern,}
+\DoxyCodeLine{78                                         \textcolor{keywordtype}{double} tolerance);}
+\DoxyCodeLine{79 \};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{TimeOptimalTrajectoryGenerationTaskInfo}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
+\DoxyCodeLine{82 \{}
+\DoxyCodeLine{83 \textcolor{keyword}{public}:}
+\DoxyCodeLine{84   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<TimeOptimalTrajectoryGenerationTaskInfo>;}
+\DoxyCodeLine{85   \textcolor{keyword}{using} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const TimeOptimalTrajectoryGenerationTaskInfo>;}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_afd7623fe5faf1257181bd3f5886a36e0}{TimeOptimalTrajectoryGenerationTaskInfo}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{88   \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_afd7623fe5faf1257181bd3f5886a36e0}{TimeOptimalTrajectoryGenerationTaskInfo}}(}
+\DoxyCodeLine{89       std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}},}
+\DoxyCodeLine{90       std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a091937a02b4e1306986b3b22c7dce945}{profile\_ns::TIME\_OPTIMAL\_PARAMETERIZATION\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_aafc0d8df4df9c282b3e9c83b2ba96e8e}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_a4bafd7b873f804b487c4a4060e1c0702}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{TimeOptimalTrajectoryGenerationTaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{95   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_ab5b24acc2c26c60a069f38f1e9031191}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{TimeOptimalTrajectoryGenerationTaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 \textcolor{keyword}{private}:}
+\DoxyCodeLine{98   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{99   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{100   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_aab14810fcd6ea5b709ba262a136e1b09}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{101 \};}
+\DoxyCodeLine{102 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{106 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}},}
+\DoxyCodeLine{107                         \textcolor{stringliteral}{"{}TimeOptimalTrajectoryGenerationTaskInfo"{}})}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_ITERATIVE\_SPLINE\_PARAMETERIZATION\_TASK\_GENERATOR\_H}}
 
 \end{DoxyCode}

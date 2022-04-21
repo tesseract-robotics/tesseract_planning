@@ -34,14 +34,30 @@ using \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInf
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_aac49261b5da7454713a8eb4ed8d8a6dd}{Continuous\+Contact\+Check\+Task\+Info}} ()=default
+\item 
 \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_af805f7f724385cee1d81449dcbf50913}{Continuous\+Contact\+Check\+Task\+Info}} (std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}}, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_afeac97c9b3f6a311b7e4603b55d0ea46}{profile\+\_\+ns\+::\+CONTINUOUS\+\_\+\+CONTACT\+\_\+\+CHECK\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a331e34d845ec033407efad39eebca4b7}{clone}} () const override
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_afe5cfb8bff59296e360219b530c5d05e}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{Continuous\+Contact\+Check\+Task\+Info}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_ade38394ea4a656b4362356ff202ad05a}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{Continuous\+Contact\+Check\+Task\+Info}} \&rhs) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_abeb1395aaaa3348a7149799553051f1c}{contact\+\_\+results}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a44a89d9a11d3d2273969a2e55817e107}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
 \end{DoxyCompactItemize}
 
 
@@ -61,10 +77,16 @@ std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \mbox{\h
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_aac49261b5da7454713a8eb4ed8d8a6dd}\label{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_aac49261b5da7454713a8eb4ed8d8a6dd}} 
+\index{tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}!ContinuousContactCheckTaskInfo@{ContinuousContactCheckTaskInfo}}
+\index{ContinuousContactCheckTaskInfo@{ContinuousContactCheckTaskInfo}!tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}}
+\doxysubsubsection{\texorpdfstring{ContinuousContactCheckTaskInfo()}{ContinuousContactCheckTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Info\+::\+Continuous\+Contact\+Check\+Task\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_af805f7f724385cee1d81449dcbf50913}\label{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_af805f7f724385cee1d81449dcbf50913}} 
 \index{tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}!ContinuousContactCheckTaskInfo@{ContinuousContactCheckTaskInfo}}
 \index{ContinuousContactCheckTaskInfo@{ContinuousContactCheckTaskInfo}!tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}}
-\doxysubsubsection{\texorpdfstring{ContinuousContactCheckTaskInfo()}{ContinuousContactCheckTaskInfo()}}
+\doxysubsubsection{\texorpdfstring{ContinuousContactCheckTaskInfo()}{ContinuousContactCheckTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Info\+::\+Continuous\+Contact\+Check\+Task\+Info (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{unique\+\_\+id,  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_afeac97c9b3f6a311b7e4603b55d0ea46}{profile\+\_\+ns\+::\+CONTINUOUS\+\_\+\+CONTACT\+\_\+\+CHECK\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
 
 
@@ -79,6 +101,34 @@ std\+::vector$<$ tesseract\+\_\+collision\+::\+Contact\+Result\+Map $>$ \mbox{\h
 
 
 Reimplemented from \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ae626624b019017bb0607ef68f16df8bb}{tesseract\+\_\+planning\+::\+Task\+Info}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_ade38394ea4a656b4362356ff202ad05a}\label{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_ade38394ea4a656b4362356ff202ad05a}} 
+\index{tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Info\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{Continuous\+Contact\+Check\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_afe5cfb8bff59296e360219b530c5d05e}\label{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_afe5cfb8bff59296e360219b530c5d05e}} 
+\index{tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Info\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ContinuousContactCheckTaskInfo}{Continuous\+Contact\+Check\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a44a89d9a11d3d2273969a2e55817e107}\label{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_a44a89d9a11d3d2273969a2e55817e107}} 
+\index{tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Continuous\+Contact\+Check\+Task\+Info\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1ContinuousContactCheckTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::ContinuousContactCheckTaskInfo@{tesseract\_planning::ContinuousContactCheckTaskInfo}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

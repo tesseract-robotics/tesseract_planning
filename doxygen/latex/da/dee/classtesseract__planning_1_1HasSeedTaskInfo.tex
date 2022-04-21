@@ -34,9 +34,25 @@ using \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_a9ffd3b17d861
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_ae0011605a1fa813bc810956630ff230a}{Has\+Seed\+Task\+Info}} ()=default
+\item 
 \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_ad6c20d41d2e870a07644a1f7aa5b8780}{Has\+Seed\+Task\+Info}} (std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}}, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_aff47d9858d74fac70e13172681a991e9}{profile\+\_\+ns\+::\+HAS\+\_\+\+SEED\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_a8268a9245d6018f83434af5db90721bc}{clone}} () const override
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_a0e5c68c9a23f51699961c86d5565c99d}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo}{Has\+Seed\+Task\+Info}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_a77759a6ed59d75bd183c824323456f12}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo}{Has\+Seed\+Task\+Info}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_a55d7b943becd84d3278c13037e2df971}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -57,10 +73,16 @@ using \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_a9ffd3b17d861
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1HasSeedTaskInfo_ae0011605a1fa813bc810956630ff230a}\label{classtesseract__planning_1_1HasSeedTaskInfo_ae0011605a1fa813bc810956630ff230a}} 
+\index{tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}!HasSeedTaskInfo@{HasSeedTaskInfo}}
+\index{HasSeedTaskInfo@{HasSeedTaskInfo}!tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}}
+\doxysubsubsection{\texorpdfstring{HasSeedTaskInfo()}{HasSeedTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Info\+::\+Has\+Seed\+Task\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1HasSeedTaskInfo_ad6c20d41d2e870a07644a1f7aa5b8780}\label{classtesseract__planning_1_1HasSeedTaskInfo_ad6c20d41d2e870a07644a1f7aa5b8780}} 
 \index{tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}!HasSeedTaskInfo@{HasSeedTaskInfo}}
 \index{HasSeedTaskInfo@{HasSeedTaskInfo}!tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}}
-\doxysubsubsection{\texorpdfstring{HasSeedTaskInfo()}{HasSeedTaskInfo()}}
+\doxysubsubsection{\texorpdfstring{HasSeedTaskInfo()}{HasSeedTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Info\+::\+Has\+Seed\+Task\+Info (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{unique\+\_\+id,  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_aff47d9858d74fac70e13172681a991e9}{profile\+\_\+ns\+::\+HAS\+\_\+\+SEED\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
 
 
@@ -75,6 +97,34 @@ using \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo_a9ffd3b17d861
 
 
 Reimplemented from \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ae626624b019017bb0607ef68f16df8bb}{tesseract\+\_\+planning\+::\+Task\+Info}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1HasSeedTaskInfo_a77759a6ed59d75bd183c824323456f12}\label{classtesseract__planning_1_1HasSeedTaskInfo_a77759a6ed59d75bd183c824323456f12}} 
+\index{tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Info\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo}{Has\+Seed\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1HasSeedTaskInfo_a0e5c68c9a23f51699961c86d5565c99d}\label{classtesseract__planning_1_1HasSeedTaskInfo_a0e5c68c9a23f51699961c86d5565c99d}} 
+\index{tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Info\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1HasSeedTaskInfo}{Has\+Seed\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1HasSeedTaskInfo_a55d7b943becd84d3278c13037e2df971}\label{classtesseract__planning_1_1HasSeedTaskInfo_a55d7b943becd84d3278c13037e2df971}} 
+\index{tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Has\+Seed\+Task\+Info\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1HasSeedTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1HasSeedTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::HasSeedTaskInfo@{tesseract\_planning::HasSeedTaskInfo}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

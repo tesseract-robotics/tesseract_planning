@@ -34,9 +34,25 @@ using \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a445ed04349ff8efffd467db8a113f4a3}{Upsample\+Trajectory\+Task\+Info}} ()=default
+\item 
 \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a490aeaca88197770bde4b4751ef20038}{Upsample\+Trajectory\+Task\+Info}} (std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}}, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a562e57536b7b7a61363ad37405b875bf}{profile\+\_\+ns\+::\+UPSAMPLE\+\_\+\+TRAJECTORY\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_ab74c8a6e992c4f619b95ee60c9491f99}{clone}} () const override
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_ac84c12471a4e50522f940563d20805f4}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo}{Upsample\+Trajectory\+Task\+Info}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a86dfd9c1b76b61051695ed0a483273c8}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo}{Upsample\+Trajectory\+Task\+Info}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_aab92e808ed37095604b6f2e3c8f49291}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -57,10 +73,16 @@ using \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a0
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a445ed04349ff8efffd467db8a113f4a3}\label{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a445ed04349ff8efffd467db8a113f4a3}} 
+\index{tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}!UpsampleTrajectoryTaskInfo@{UpsampleTrajectoryTaskInfo}}
+\index{UpsampleTrajectoryTaskInfo@{UpsampleTrajectoryTaskInfo}!tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}}
+\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTaskInfo()}{UpsampleTrajectoryTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+Info\+::\+Upsample\+Trajectory\+Task\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a490aeaca88197770bde4b4751ef20038}\label{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a490aeaca88197770bde4b4751ef20038}} 
 \index{tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}!UpsampleTrajectoryTaskInfo@{UpsampleTrajectoryTaskInfo}}
 \index{UpsampleTrajectoryTaskInfo@{UpsampleTrajectoryTaskInfo}!tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}}
-\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTaskInfo()}{UpsampleTrajectoryTaskInfo()}}
+\doxysubsubsection{\texorpdfstring{UpsampleTrajectoryTaskInfo()}{UpsampleTrajectoryTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+Info\+::\+Upsample\+Trajectory\+Task\+Info (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{unique\+\_\+id,  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a562e57536b7b7a61363ad37405b875bf}{profile\+\_\+ns\+::\+UPSAMPLE\+\_\+\+TRAJECTORY\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
 
 
@@ -75,6 +97,34 @@ using \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a0
 
 
 Reimplemented from \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ae626624b019017bb0607ef68f16df8bb}{tesseract\+\_\+planning\+::\+Task\+Info}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a86dfd9c1b76b61051695ed0a483273c8}\label{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_a86dfd9c1b76b61051695ed0a483273c8}} 
+\index{tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+Info\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo}{Upsample\+Trajectory\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_ac84c12471a4e50522f940563d20805f4}\label{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_ac84c12471a4e50522f940563d20805f4}} 
+\index{tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+Info\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo}{Upsample\+Trajectory\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_aab92e808ed37095604b6f2e3c8f49291}\label{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_aab92e808ed37095604b6f2e3c8f49291}} 
+\index{tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Upsample\+Trajectory\+Task\+Info\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1UpsampleTrajectoryTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::UpsampleTrajectoryTaskInfo@{tesseract\_planning::UpsampleTrajectoryTaskInfo}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

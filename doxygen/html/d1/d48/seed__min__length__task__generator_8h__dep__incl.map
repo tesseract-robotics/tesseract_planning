@@ -1,6 +1,7 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/task_generators/seed_min_length_task_generator.h" name="tesseract_process_managers/include/tesseract_process_managers/task_generators/seed_min_length_task_generator.h">
-<area shape="rect" id="node1" title=" " alt="" coords="214,5,441,76"/>
+<area shape="rect" id="node1" title=" " alt="" coords="331,5,558,76"/>
 <area shape="rect" id="node2" href="$d1/d5e/default__process__planners_8cpp.html" title=" " alt="" coords="5,124,199,180"/>
 <area shape="rect" id="node3" href="$d0/db0/seed__min__length__task__generator_8cpp.html" title=" " alt="" coords="223,124,432,180"/>
-<area shape="rect" id="node4" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="456,124,649,180"/>
+<area shape="rect" id="node4" href="$d3/dad/tesseract__process__managers__serialization__unit_8cpp.html" title=" " alt="" coords="457,124,670,180"/>
+<area shape="rect" id="node5" href="$db/d38/tesseract__process__managers__unit_8cpp.html" title=" " alt="" coords="695,124,888,180"/>
 </map>

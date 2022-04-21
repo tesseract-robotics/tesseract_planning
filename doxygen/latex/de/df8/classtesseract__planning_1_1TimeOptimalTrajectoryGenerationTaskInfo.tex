@@ -34,9 +34,25 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerati
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_afd7623fe5faf1257181bd3f5886a36e0}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}} ()=default
+\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_acdc83f4cf231804fddc60f0626a74834}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}} (std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}}, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a091937a02b4e1306986b3b22c7dce945}{profile\+\_\+ns\+::\+TIME\+\_\+\+OPTIMAL\+\_\+\+PARAMETERIZATION\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_aafc0d8df4df9c282b3e9c83b2ba96e8e}{clone}} () const override
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_a4bafd7b873f804b487c4a4060e1c0702}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_ab5b24acc2c26c60a069f38f1e9031191}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_aab14810fcd6ea5b709ba262a136e1b09}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -57,10 +73,16 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerati
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_afd7623fe5faf1257181bd3f5886a36e0}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_afd7623fe5faf1257181bd3f5886a36e0}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}!TimeOptimalTrajectoryGenerationTaskInfo@{TimeOptimalTrajectoryGenerationTaskInfo}}
+\index{TimeOptimalTrajectoryGenerationTaskInfo@{TimeOptimalTrajectoryGenerationTaskInfo}!tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalTrajectoryGenerationTaskInfo()}{TimeOptimalTrajectoryGenerationTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Info\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_acdc83f4cf231804fddc60f0626a74834}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_acdc83f4cf231804fddc60f0626a74834}} 
 \index{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}!TimeOptimalTrajectoryGenerationTaskInfo@{TimeOptimalTrajectoryGenerationTaskInfo}}
 \index{TimeOptimalTrajectoryGenerationTaskInfo@{TimeOptimalTrajectoryGenerationTaskInfo}!tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}}
-\doxysubsubsection{\texorpdfstring{TimeOptimalTrajectoryGenerationTaskInfo()}{TimeOptimalTrajectoryGenerationTaskInfo()}}
+\doxysubsubsection{\texorpdfstring{TimeOptimalTrajectoryGenerationTaskInfo()}{TimeOptimalTrajectoryGenerationTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Info\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Info (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{unique\+\_\+id,  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a091937a02b4e1306986b3b22c7dce945}{profile\+\_\+ns\+::\+TIME\+\_\+\+OPTIMAL\+\_\+\+PARAMETERIZATION\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
 
 
@@ -75,6 +97,34 @@ using \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerati
 
 
 Reimplemented from \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ae626624b019017bb0607ef68f16df8bb}{tesseract\+\_\+planning\+::\+Task\+Info}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_ab5b24acc2c26c60a069f38f1e9031191}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_ab5b24acc2c26c60a069f38f1e9031191}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Info\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_a4bafd7b873f804b487c4a4060e1c0702}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_a4bafd7b873f804b487c4a4060e1c0702}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Info\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo}{Time\+Optimal\+Trajectory\+Generation\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_aab14810fcd6ea5b709ba262a136e1b09}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_aab14810fcd6ea5b709ba262a136e1b09}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Time\+Optimal\+Trajectory\+Generation\+Task\+Info\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1TimeOptimalTrajectoryGenerationTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo@{tesseract\_planning::TimeOptimalTrajectoryGenerationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

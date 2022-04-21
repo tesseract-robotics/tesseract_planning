@@ -34,9 +34,25 @@ using \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizati
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a55e66db3e69c7d1aea47bd400107656a}{Iterative\+Spline\+Parameterization\+Task\+Info}} ()=default
+\item 
 \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a0108350e755ff5cae34eacb4741ddd04}{Iterative\+Spline\+Parameterization\+Task\+Info}} (std\+::size\+\_\+t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\+\_\+id}}, std\+::string name=\mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a30f22499dad401f16d57f498176c34a2}{profile\+\_\+ns\+::\+ITERATIVE\+\_\+\+SPLINE\+\_\+\+PARAMETERIZATION\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}})
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{Task\+Info\+::\+UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_aa3780ea73b0e3fbc49030792abf73d8b}{clone}} () const override
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a1873cb45fd350a7eb32f28ff831cb362}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo}{Iterative\+Spline\+Parameterization\+Task\+Info}} \&rhs) const
+\item 
+bool \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a1a6ad48a02bb0d11c8e3078d77dccf28}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo}{Iterative\+Spline\+Parameterization\+Task\+Info}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a0790fd5de5bf137945580b19f63c6bd0}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -57,10 +73,16 @@ using \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizati
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a55e66db3e69c7d1aea47bd400107656a}\label{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a55e66db3e69c7d1aea47bd400107656a}} 
+\index{tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}!IterativeSplineParameterizationTaskInfo@{IterativeSplineParameterizationTaskInfo}}
+\index{IterativeSplineParameterizationTaskInfo@{IterativeSplineParameterizationTaskInfo}!tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{IterativeSplineParameterizationTaskInfo()}{IterativeSplineParameterizationTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Info\+::\+Iterative\+Spline\+Parameterization\+Task\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a0108350e755ff5cae34eacb4741ddd04}\label{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a0108350e755ff5cae34eacb4741ddd04}} 
 \index{tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}!IterativeSplineParameterizationTaskInfo@{IterativeSplineParameterizationTaskInfo}}
 \index{IterativeSplineParameterizationTaskInfo@{IterativeSplineParameterizationTaskInfo}!tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}}
-\doxysubsubsection{\texorpdfstring{IterativeSplineParameterizationTaskInfo()}{IterativeSplineParameterizationTaskInfo()}}
+\doxysubsubsection{\texorpdfstring{IterativeSplineParameterizationTaskInfo()}{IterativeSplineParameterizationTaskInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Info\+::\+Iterative\+Spline\+Parameterization\+Task\+Info (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{unique\+\_\+id,  }\item[{std\+::string}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a30f22499dad401f16d57f498176c34a2}{profile\+\_\+ns\+::\+ITERATIVE\+\_\+\+SPLINE\+\_\+\+PARAMETERIZATION\+\_\+\+DEFAULT\+\_\+\+NAMESPACE}}} }\end{DoxyParamCaption})}
 
 
@@ -75,6 +97,34 @@ using \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizati
 
 
 Reimplemented from \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ae626624b019017bb0607ef68f16df8bb}{tesseract\+\_\+planning\+::\+Task\+Info}}.
+
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a1a6ad48a02bb0d11c8e3078d77dccf28}\label{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a1a6ad48a02bb0d11c8e3078d77dccf28}} 
+\index{tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Info\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo}{Iterative\+Spline\+Parameterization\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a1873cb45fd350a7eb32f28ff831cb362}\label{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a1873cb45fd350a7eb32f28ff831cb362}} 
+\index{tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}!operator==@{operator==}}
+\index{operator==@{operator==}!tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Info\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo}{Iterative\+Spline\+Parameterization\+Task\+Info}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a0790fd5de5bf137945580b19f63c6bd0}\label{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_a0790fd5de5bf137945580b19f63c6bd0}} 
+\index{tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Iterative\+Spline\+Parameterization\+Task\+Info\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{classtesseract__planning_1_1IterativeSplineParameterizationTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::IterativeSplineParameterizationTaskInfo@{tesseract\_planning::IterativeSplineParameterizationTaskInfo}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

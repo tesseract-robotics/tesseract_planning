@@ -74,6 +74,8 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../d6/d21/classtesseract__planning_1_1FixStateCollisionTaskInfo-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">tesseract_planning::FixStateCollisionTaskInfo Class Reference</div></div>
 </div><!--header-->
@@ -123,10 +125,16 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a36c12ea85148401676f73d4f4fea7bcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html#a36c12ea85148401676f73d4f4fea7bcb">FixStateCollisionTaskInfo</a> ()=default</td></tr>
+<tr class="separator:a36c12ea85148401676f73d4f4fea7bcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96bd4b767221681b5fadb544764c2765"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html#a96bd4b767221681b5fadb544764c2765">FixStateCollisionTaskInfo</a> (std::size_t <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a251f4620809e8e67bd97a182527892d7">unique_id</a>, std::string name=<a class="el" href="../../d9/d67/namespacetesseract__planning_1_1profile__ns.html#af8af3cd70136a1a3aae91f9a946e645f">profile_ns::FIX_STATE_COLLISION_DEFAULT_NAMESPACE</a>)</td></tr>
 <tr class="separator:a96bd4b767221681b5fadb544764c2765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab21448f2a4d5c45e818aa780295441b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a308e99c56cb3450f29de0878bdb6577d">TaskInfo::UPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html#ab21448f2a4d5c45e818aa780295441b1">clone</a> () const override</td></tr>
 <tr class="separator:ab21448f2a4d5c45e818aa780295441b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeece3514aa7d1e75a62fb2db9e928dd5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html#aeece3514aa7d1e75a62fb2db9e928dd5">operator==</a> (const <a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html">FixStateCollisionTaskInfo</a> &amp;rhs) const</td></tr>
+<tr class="separator:aeece3514aa7d1e75a62fb2db9e928dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a386093a98e789aa514e0870f4eb4627c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html#a386093a98e789aa514e0870f4eb4627c">operator!=</a> (const <a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html">FixStateCollisionTaskInfo</a> &amp;rhs) const</td></tr>
+<tr class="separator:a386093a98e789aa514e0870f4eb4627c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classtesseract__planning_1_1TaskInfo"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classtesseract__planning_1_1TaskInfo')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html">tesseract_planning::TaskInfo</a></td></tr>
 <tr class="memitem:ad8e113122aae15a0c1241ce3c277fd75 inherit pub_methods_classtesseract__planning_1_1TaskInfo"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#ad8e113122aae15a0c1241ce3c277fd75">TaskInfo</a> ()=default</td></tr>
 <tr class="separator:ad8e113122aae15a0c1241ce3c277fd75 inherit pub_methods_classtesseract__planning_1_1TaskInfo"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,8 +188,19 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a82fc8d13c42c929dd8f10d714491256a inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seed/Results after running the task (optionally set)  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a82fc8d13c42c929dd8f10d714491256a">More...</a><br /></td></tr>
 <tr class="separator:a82fc8d13c42c929dd8f10d714491256a inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f357bbfe8948bbfbf4d373dfc162af0 inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="memItemLeft" align="right" valign="top">tesseract_environment::Environment::ConstPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2f357bbfe8948bbfbf4d373dfc162af0">environment</a> { nullptr }</td></tr>
-<tr class="memdesc:a2f357bbfe8948bbfbf4d373dfc162af0 inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a clone of the environment at the beginning of the task (optionally set)  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2f357bbfe8948bbfbf4d373dfc162af0">More...</a><br /></td></tr>
+<tr class="memdesc:a2f357bbfe8948bbfbf4d373dfc162af0 inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="mdescLeft">&#160;</td><td class="mdescRight">The environment at the beginning of the task (optionally set)  <a href="../../d9/dbc/classtesseract__planning_1_1TaskInfo.html#a2f357bbfe8948bbfbf4d373dfc162af0">More...</a><br /></td></tr>
 <tr class="separator:a2f357bbfe8948bbfbf4d373dfc162af0 inherit pub_attribs_classtesseract__planning_1_1TaskInfo"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac684f7aef788ec9753178e63f1d1d43c"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
+<tr class="memitem:ac684f7aef788ec9753178e63f1d1d43c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html#ac684f7aef788ec9753178e63f1d1d43c">serialize</a> (Archive &amp;ar, const unsigned int version)</td></tr>
+<tr class="separator:ac684f7aef788ec9753178e63f1d1d43c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
+<tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ae05591fa4a7fef59385d3bf7373e3208" name="ae05591fa4a7fef59385d3bf7373e3208"></a>
@@ -213,8 +232,33 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a36c12ea85148401676f73d4f4fea7bcb" name="a36c12ea85148401676f73d4f4fea7bcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c12ea85148401676f73d4f4fea7bcb">&#9670;&nbsp;</a></span>FixStateCollisionTaskInfo() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::FixStateCollisionTaskInfo::FixStateCollisionTaskInfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a96bd4b767221681b5fadb544764c2765" name="a96bd4b767221681b5fadb544764c2765"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96bd4b767221681b5fadb544764c2765">&#9670;&nbsp;</a></span>FixStateCollisionTaskInfo()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a96bd4b767221681b5fadb544764c2765">&#9670;&nbsp;</a></span>FixStateCollisionTaskInfo() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,6 +313,103 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a386093a98e789aa514e0870f4eb4627c" name="a386093a98e789aa514e0870f4eb4627c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a386093a98e789aa514e0870f4eb4627c">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::FixStateCollisionTaskInfo::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html">FixStateCollisionTaskInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeece3514aa7d1e75a62fb2db9e928dd5" name="aeece3514aa7d1e75a62fb2db9e928dd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeece3514aa7d1e75a62fb2db9e928dd5">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tesseract_planning::FixStateCollisionTaskInfo::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/d75/classtesseract__planning_1_1FixStateCollisionTaskInfo.html">FixStateCollisionTaskInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac684f7aef788ec9753178e63f1d1d43c" name="ac684f7aef788ec9753178e63f1d1d43c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac684f7aef788ec9753178e63f1d1d43c">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Archive &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::FixStateCollisionTaskInfo::serialize </td>
+          <td>(</td>
+          <td class="paramtype">Archive &amp;&#160;</td>
+          <td class="paramname"><em>ar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>version</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac98d07dd8f7b70e16ccb9a01abf56b9c" name="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class boost::serialization::access</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="aa15f3ca76f3612599bf98f41f589caf2" name="aa15f3ca76f3612599bf98f41f589caf2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa15f3ca76f3612599bf98f41f589caf2">&#9670;&nbsp;</a></span>contact_results</h2>
@@ -291,7 +432,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 19 2022 14:55:00 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+Generated on Thu Apr 21 2022 06:37:23 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
 </small></address>
 </body>
 </html>
