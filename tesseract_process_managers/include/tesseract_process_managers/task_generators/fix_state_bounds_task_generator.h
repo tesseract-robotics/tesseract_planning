@@ -26,6 +26,11 @@
 #ifndef TESSERACT_PROCESS_MANAGERS_FIX_STATE_BOUNDS_TASK_GENERATOR_H
 #define TESSERACT_PROCESS_MANAGERS_FIX_STATE_BOUNDS_TASK_GENERATOR_H
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/access.hpp>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
 #include <tesseract_process_managers/core/task_generator.h>
 #include <tesseract_process_managers/core/default_task_namespaces.h>
 
@@ -59,11 +64,22 @@ public:
   using Ptr = std::shared_ptr<FixStateBoundsTaskInfo>;
   using ConstPtr = std::shared_ptr<const FixStateBoundsTaskInfo>;
 
+  FixStateBoundsTaskInfo() = default;
   FixStateBoundsTaskInfo(std::size_t unique_id, std::string name = profile_ns::FIX_STATE_BOUNDS_DEFAULT_NAMESPACE);
 
-  std::vector<tesseract_collision::ContactResultMap> contact_results;
-
   TaskInfo::UPtr clone() const override;
+
+  bool operator==(const FixStateBoundsTaskInfo& rhs) const;
+  bool operator!=(const FixStateBoundsTaskInfo& rhs) const;
+
+private:
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 }  // namespace tesseract_planning
+
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateBoundsTaskInfo, "FixStateBoundsTaskInfo")
 #endif  // TESSERACT_PROCESS_MANAGERS_FIX_STATE_BOUNDS_TASK_GENERATOR_H

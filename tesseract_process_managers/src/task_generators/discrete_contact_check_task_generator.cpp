@@ -124,4 +124,27 @@ TaskInfo::UPtr DiscreteContactCheckTaskInfo::clone() const
 {
   return std::make_unique<DiscreteContactCheckTaskInfo>(*this);
 }
+
+bool DiscreteContactCheckTaskInfo::operator==(const DiscreteContactCheckTaskInfo& rhs) const
+{
+  bool equal = true;
+  equal &= TaskInfo::operator==(rhs);
+  //  equal &= contact_results == rhs.contact_results;
+  return equal;
+}
+bool DiscreteContactCheckTaskInfo::operator!=(const DiscreteContactCheckTaskInfo& rhs) const
+{
+  return !operator==(rhs);
+}
+
+template <class Archive>
+void DiscreteContactCheckTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskInfo);
+  //  ar& BOOST_SERIALIZATION_NVP(contact_results);
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DiscreteContactCheckTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DiscreteContactCheckTaskInfo)

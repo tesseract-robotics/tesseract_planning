@@ -82,7 +82,7 @@ public:
   Instruction results_input{ NullInstruction() };
   /** @brief Seed/Results after running the task (optionally set)*/
   Instruction results_output{ NullInstruction() };
-  /** @brief This is a clone of the environment at the beginning of the task (optionally set)*/
+  /** @brief The environment at the beginning of the task (optionally set)*/
   tesseract_environment::Environment::ConstPtr environment{ nullptr };
 
   bool operator==(const TaskInfo& rhs) const;
@@ -122,4 +122,5 @@ private:
 };
 }  // namespace tesseract_planning
 
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskInfo, "TaskInfo")
 #endif  // TESSERACT_PROCESS_MANAGERS_task_info_H

@@ -93,7 +93,7 @@ void saveInputs(TaskInfo& info, TaskInput& input)
 {
   if (input.save_io)
   {
-    info.environment = input.env->clone();
+    info.environment = input.env;
     info.instructions_input = *input.getInstruction();
     info.results_input = *input.getResults();
   }

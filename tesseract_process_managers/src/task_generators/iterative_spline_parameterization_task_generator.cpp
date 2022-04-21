@@ -160,4 +160,25 @@ TaskInfo::UPtr IterativeSplineParameterizationTaskInfo::clone() const
 {
   return std::make_unique<IterativeSplineParameterizationTaskInfo>(*this);
 }
+
+bool IterativeSplineParameterizationTaskInfo::operator==(const IterativeSplineParameterizationTaskInfo& rhs) const
+{
+  bool equal = true;
+  equal &= TaskInfo::operator==(rhs);
+  return equal;
+}
+bool IterativeSplineParameterizationTaskInfo::operator!=(const IterativeSplineParameterizationTaskInfo& rhs) const
+{
+  return !operator==(rhs);
+}
+
+template <class Archive>
+void IterativeSplineParameterizationTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskInfo);
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationTaskInfo)

@@ -50,4 +50,22 @@ void HasSeedTaskGenerator::process(TaskInput input, std::size_t unique_id) const
 HasSeedTaskInfo::HasSeedTaskInfo(std::size_t unique_id, std::string name) : TaskInfo(unique_id, std::move(name)) {}
 
 TaskInfo::UPtr HasSeedTaskInfo::clone() const { return std::make_unique<HasSeedTaskInfo>(*this); }
+
+bool HasSeedTaskInfo::operator==(const HasSeedTaskInfo& rhs) const
+{
+  bool equal = true;
+  equal &= TaskInfo::operator==(rhs);
+  return equal;
+}
+bool HasSeedTaskInfo::operator!=(const HasSeedTaskInfo& rhs) const { return !operator==(rhs); }
+
+template <class Archive>
+void HasSeedTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+{
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskInfo);
+}
 }  // namespace tesseract_planning
+
+#include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::HasSeedTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::HasSeedTaskInfo)
