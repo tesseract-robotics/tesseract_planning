@@ -2,6 +2,13 @@
 Changelog for package tesseract_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update ProcessPlanningFuture to leverage shared future (`#188 <https://github.com/tesseract-robotics/tesseract_planning/issues/188>`_)
+  * Update ProcessPlanningFuture to leverage shared future
+  * fix problem swid def
+* Contributors: Levi Armstrong
+
 0.9.8 (2022-04-19)
 ------------------
 

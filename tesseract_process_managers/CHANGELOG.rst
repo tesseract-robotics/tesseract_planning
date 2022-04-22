@@ -2,6 +2,17 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update ProcessPlanningFuture to leverage shared future (`#188 <https://github.com/tesseract-robotics/tesseract_planning/issues/188>`_)
+  * Update ProcessPlanningFuture to leverage shared future
+  * fix problem swid def
+* Fix serialization for the ProcessPlanningFuture (`#187 <https://github.com/tesseract-robotics/tesseract_planning/issues/187>`_)
+  * Change boost serialization tracking for ProcessPlanningRequest/Future
+  * Add serialization for derived TaskInfos
+  * Store pointer to environment in TaskInfo instead of a clone
+* Contributors: Levi Armstrong, Matthew Powelson
+
 0.9.8 (2022-04-19)
 ------------------
 
