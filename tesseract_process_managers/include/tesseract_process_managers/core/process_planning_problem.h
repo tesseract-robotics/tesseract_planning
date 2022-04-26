@@ -38,6 +38,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/types.h>
 
+#ifdef SWIG
+%shared_ptr(tesseract_planning::ProcessPlanningProblem)
+#endif  // SWIG
+
 namespace tesseract_planning
 {
 struct ProcessPlanningProblem
