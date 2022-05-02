@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_environment/environment.h>
 #include <tesseract_process_managers/core/taskflow_container.h>
 #include <tesseract_motion_planners/core/types.h>
 
@@ -52,6 +53,9 @@ struct ProcessPlanningProblem
   using ConstUPtr = std::unique_ptr<const ProcessPlanningProblem>;
 
 #ifndef SWIG
+  /** @brief The problem's environment */
+  tesseract_environment::Environment::ConstPtr env;
+
   /** @brief The stored input to the process */
   std::unique_ptr<Instruction> input;
 
