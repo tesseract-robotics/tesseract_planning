@@ -40,6 +40,7 @@ namespace tesseract_planning
 bool ProcessPlanningProblem::operator==(const tesseract_planning::ProcessPlanningProblem& rhs) const
 {
   bool equal = true;
+  equal &= tesseract_common::pointersEqual(env, rhs.env);
   equal &= (input && rhs.input && *input == *rhs.input) || (!input && !rhs.input);
   equal &= (results && rhs.results && *results == *rhs.results) || (!results && !rhs.results);
   equal &= (global_manip_info && rhs.global_manip_info && *global_manip_info == *rhs.global_manip_info) ||
@@ -62,6 +63,7 @@ bool ProcessPlanningProblem::operator!=(const tesseract_planning::ProcessPlannin
 template <class Archive>
 void ProcessPlanningProblem::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& BOOST_SERIALIZATION_NVP(env);
   ar& BOOST_SERIALIZATION_NVP(input);
   ar& BOOST_SERIALIZATION_NVP(results);
   ar& BOOST_SERIALIZATION_NVP(global_manip_info);

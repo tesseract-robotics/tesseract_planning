@@ -141,25 +141,29 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
     return response;
   }
 
-  tesseract_environment::Environment::Ptr tc = cache_->getCachedEnvironment();
+  {  // Assign the problems environment
+    tesseract_environment::Environment::Ptr tc = cache_->getCachedEnvironment();
 
-  // Set the env state if provided
-  if (!request.env_state.joints.empty())
-    tc->setState(request.env_state.joints);
+    // Set the env state if provided
+    if (!request.env_state.joints.empty())
+      tc->setState(request.env_state.joints);
 
-  // This makes sure the Joint and State Waypoints match the same order as the kinematics
-  if (formatProgram(composite_program, *tc))
-  {
-    CONSOLE_BRIDGE_logInform("Tesseract Planning Server: Input program required formatting!");
+    // This makes sure the Joint and State Waypoints match the same order as the kinematics
+    if (formatProgram(composite_program, *tc))
+    {
+      CONSOLE_BRIDGE_logInform("Tesseract Planning Server: Input program required formatting!");
+    }
+
+    if (!request.commands.empty() && !tc->applyCommands(request.commands))
+    {
+      CONSOLE_BRIDGE_logInform("Tesseract Planning Server Finished Request!");
+      return response;
+    }
+    response.problem->env = tc;
   }
 
-  if (!request.commands.empty() && !tc->applyCommands(request.commands))
-  {
-    CONSOLE_BRIDGE_logInform("Tesseract Planning Server Finished Request!");
-    return response;
-  }
-
-  TaskInput task_input(tc,
+  // Create Task input
+  TaskInput task_input(response.problem->env,
                        response.problem->input.get(),
                        *(response.problem->global_manip_info),
                        *(response.problem->plan_profile_remapping),

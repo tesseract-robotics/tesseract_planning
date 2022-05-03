@@ -28,9 +28,9 @@ This include packages related to both motion and process planning for the Tesser
 Dependency                       | Version
 ---------------------------------|---------
 ROS Industrial CMake Boilerplate | [![version](https://img.shields.io/badge/version-0.2.15-brightgreen)](https://github.com/ros-industrial/ros_industrial_cmake_boilerplate/tree/0.2.15)  
-Tesseract                        | [![version](https://img.shields.io/badge/version-0.9.0-brightgreen)](https://github.com/tesseract-robotics/tesseract/tree/0.9.0)  
+Tesseract                        | [![version](https://img.shields.io/badge/version-0.9.6-brightgreen)](https://github.com/tesseract-robotics/tesseract/tree/0.9.6)  
 IFOPT                            | [![version](https://img.shields.io/badge/version-2.1.3-brightgreen)](https://github.com/ethz-adrl/ifopt/tree/2.1.3)  
-TrajOpt                          | [![version](https://img.shields.io/badge/version-0.2.3-brightgreen)](https://github.com/tesseract-robotics/trajopt/tree/0.2.3)  
+TrajOpt                          | [![version](https://img.shields.io/badge/version-0.2.4-brightgreen)](https://github.com/tesseract-robotics/trajopt/tree/0.2.4)  
 Descartes Light                  | [![version](https://img.shields.io/badge/version-0.3.0-brightgreen)](https://github.com/swri-robotics/descartes_light/tree/0.3.0)  
 
 ## Tesseract Setup Wizard and Visualization Tools
