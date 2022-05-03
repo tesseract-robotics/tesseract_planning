@@ -30,8 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/archive/xml_iarchive.hpp>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/serialization.h>
 #include <tesseract_command_language/core/waypoint.h>
-#include <tesseract_command_language/core/serialization.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
 using namespace tesseract_planning;
@@ -69,19 +69,22 @@ TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)  // NOLINT
   JointWaypoint jw(joint_names, joint_values);
 
   Waypoint wp = jw;
-  Serialization::toArchiveFileXML<Waypoint>(wp, "/tmp/joint_waypoint_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp, "/tmp/joint_waypoint_boost.xml");
 
-  auto nwp = Serialization::fromArchiveFileXML<Waypoint>("/tmp/joint_waypoint_boost.xml");
+  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<Waypoint>("/tmp/joint_waypoint_boost.xml");
 
   EXPECT_TRUE(jw == nwp.as<JointWaypoint>());
 }
 
 inline void SerializeDeserializeTest(const JointWaypoint& wp)
 {
-  Serialization::toArchiveFileXML<Waypoint>(wp, tesseract_common::getTempPath() + "joint_waypoint_unit.xml");
-  auto deserialized = Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "joint_"
-                                                                                                    "waypoint_unit."
-                                                                                                    "xml");
+  tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp,
+                                                              tesseract_common::getTempPath() + "joint_waypoint_unit."
+                                                                                                "xml");
+  auto deserialized =
+      tesseract_common::Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "joint_"
+                                                                                                      "waypoint_unit."
+                                                                                                      "xml");
   EXPECT_TRUE(wp == deserialized.as<JointWaypoint>());
 }
 

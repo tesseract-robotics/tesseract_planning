@@ -108,7 +108,7 @@ int main()
     std::string log_dir = tesseract_common::getTempPath() + "/task_infos/";
     boost::filesystem::create_directories(log_dir);
     std::string file_path = log_dir + "task_info_" + tesseract_common::getTimestampString() + ".xml";
-    Serialization::toArchiveFileXML<std::vector<TaskInfo>>(task_info_vec, file_path);
+    tesseract_common::Serialization::toArchiveFileXML<std::vector<TaskInfo>>(task_info_vec, file_path);
   }
 
   std::cout << "Execution Complete" << std::endl;

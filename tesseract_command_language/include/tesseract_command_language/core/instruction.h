@@ -40,7 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/serialization.h>
 #include <tesseract_command_language/core/waypoint.h>
-#include <tesseract_command_language/core/serialization.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_common/sfinae_utils.h>
 
 #ifdef SWIG
@@ -302,7 +302,7 @@ public:
 
 private:
   friend class boost::serialization::access;
-  friend struct tesseract_planning::Serialization;
+  friend struct tesseract_common::Serialization;
 
   Instruction();  // NOLINT
 
