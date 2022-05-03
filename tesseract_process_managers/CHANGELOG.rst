@@ -2,8 +2,8 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.10.0 (2022-05-03)
+-------------------
 * Remove duplicate serialization methods and use those in tesseract_common
 * Store environment in process planning problem (`#192 <https://github.com/tesseract-robotics/tesseract_planning/issues/192>`_)
   * Store environment in process planning problem
