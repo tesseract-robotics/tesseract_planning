@@ -26,7 +26,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/vector.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/serialization.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_process_managers/utils/task_info_statistics.h>
 
 using namespace tesseract_planning;
@@ -64,7 +64,7 @@ void TaskInfoProfiler::load(const tesseract_common::fs::path& directory)
     const std::string filepath = entry.path().string();
     try
     {
-      auto task_info = Serialization::fromArchiveFileXML<std::vector<TaskInfo>>(filepath);
+      auto task_info = tesseract_common::Serialization::fromArchiveFileXML<std::vector<TaskInfo>>(filepath);
       task_info_vecs.push_back(task_info);
     }
     catch (const std::exception& e)

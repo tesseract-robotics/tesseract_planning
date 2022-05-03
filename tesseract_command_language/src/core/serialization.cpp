@@ -28,38 +28,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <tesseract_command_language/core/serialization.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/composite_instruction.h>
 
-template std::string tesseract_planning::Serialization::toArchiveStringXML(const Instruction& archive_type,
-                                                                           const std::string& name);
-template std::string tesseract_planning::Serialization::toArchiveStringXML(const Waypoint& archive_type,
-                                                                           const std::string& name);
-template std::string tesseract_planning::Serialization::toArchiveStringXML(const CompositeInstruction& archive_type,
-                                                                           const std::string& name);
+template std::string
+tesseract_common::Serialization::toArchiveStringXML(const tesseract_planning::Instruction& archive_type,
+                                                    const std::string& name);
+template std::string
+tesseract_common::Serialization::toArchiveStringXML(const tesseract_planning::Waypoint& archive_type,
+                                                    const std::string& name);
+template std::string
+tesseract_common::Serialization::toArchiveStringXML(const tesseract_planning::CompositeInstruction& archive_type,
+                                                    const std::string& name);
 
-template bool tesseract_planning::Serialization::toArchiveFileXML(const Instruction& archive_type,
-                                                                  const std::string& file_path,
-                                                                  const std::string& name);
-template bool tesseract_planning::Serialization::toArchiveFileXML(const Waypoint& archive_type,
-                                                                  const std::string& file_path,
-                                                                  const std::string& name);
-template bool tesseract_planning::Serialization::toArchiveFileXML(const CompositeInstruction& archive_type,
-                                                                  const std::string& file_path,
-                                                                  const std::string& name);
+template bool tesseract_common::Serialization::toArchiveFileXML(const tesseract_planning::Instruction& archive_type,
+                                                                const std::string& file_path,
+                                                                const std::string& name);
+template bool tesseract_common::Serialization::toArchiveFileXML(const tesseract_planning::Waypoint& archive_type,
+                                                                const std::string& file_path,
+                                                                const std::string& name);
+template bool
+tesseract_common::Serialization::toArchiveFileXML(const tesseract_planning::CompositeInstruction& archive_type,
+                                                  const std::string& file_path,
+                                                  const std::string& name);
+
+template bool tesseract_common::Serialization::toArchiveFileBinary(const tesseract_planning::Instruction& archive_type,
+                                                                   const std::string& file_path,
+                                                                   const std::string& name);
+template bool tesseract_common::Serialization::toArchiveFileBinary(const tesseract_planning::Waypoint& archive_type,
+                                                                   const std::string& file_path,
+                                                                   const std::string& name);
+template bool
+tesseract_common::Serialization::toArchiveFileBinary(const tesseract_planning::CompositeInstruction& archive_type,
+                                                     const std::string& file_path,
+                                                     const std::string& name);
 
 template tesseract_planning::Instruction
-tesseract_planning::Serialization::fromArchiveStringXML(const std::string& archive_xml);
+tesseract_common::Serialization::fromArchiveStringXML(const std::string& archive_xml);
 template tesseract_planning::Waypoint
-tesseract_planning::Serialization::fromArchiveStringXML(const std::string& archive_xml);
+tesseract_common::Serialization::fromArchiveStringXML(const std::string& archive_xml);
 template tesseract_planning::CompositeInstruction
-tesseract_planning::Serialization::fromArchiveStringXML(const std::string& archive_xml);
+tesseract_common::Serialization::fromArchiveStringXML(const std::string& archive_xml);
 
 template tesseract_planning::Instruction
-tesseract_planning::Serialization::fromArchiveFileXML(const std::string& file_path);
-template tesseract_planning::Waypoint
-tesseract_planning::Serialization::fromArchiveFileXML(const std::string& file_path);
+tesseract_common::Serialization::fromArchiveFileXML(const std::string& file_path);
+template tesseract_planning::Waypoint tesseract_common::Serialization::fromArchiveFileXML(const std::string& file_path);
 template tesseract_planning::CompositeInstruction
-tesseract_planning::Serialization::fromArchiveFileXML(const std::string& file_path);
+tesseract_common::Serialization::fromArchiveFileXML(const std::string& file_path);
+
+template tesseract_planning::Instruction
+tesseract_common::Serialization::fromArchiveFileBinary(const std::string& file_path);
+template tesseract_planning::Waypoint
+tesseract_common::Serialization::fromArchiveFileBinary(const std::string& file_path);
+template tesseract_planning::CompositeInstruction
+tesseract_common::Serialization::fromArchiveFileBinary(const std::string& file_path);

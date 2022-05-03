@@ -30,8 +30,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/archive/xml_iarchive.hpp>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/serialization.h>
 #include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/core/serialization.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/null_instruction.h>
@@ -171,9 +171,10 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
   instr.setPathProfile("TEST_PATH_PROFILE");
   instr.setDescription("This is a test.");
 
-  Serialization::toArchiveFileXML<Instruction>(instr, "/tmp/move_instruction_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<Instruction>(instr, "/tmp/move_instruction_boost.xml");
 
-  auto ninstr = Serialization::fromArchiveFileXML<Instruction>("/tmp/move_instruction_boost.xml").as<MoveInstruction>();
+  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<Instruction>("/tmp/move_instruction_boost.xml")
+                    .as<MoveInstruction>();
 
   EXPECT_TRUE(instr == ninstr);
   EXPECT_EQ(ninstr.getWaypoint(), swp);

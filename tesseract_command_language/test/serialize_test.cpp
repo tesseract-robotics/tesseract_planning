@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/serialization.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_common/utils.h>
@@ -183,15 +183,15 @@ TEST(TesseractCommandLanguageSerializeUnit, serializationCompositeInstruction)  
   Instruction program = getProgram();
   {  // Archive program to file
     std::string file_path = tesseract_common::getTempPath() + "composite_instruction_boost.xml";
-    EXPECT_TRUE(Serialization::toArchiveFileXML<Instruction>(program, file_path));
-    auto nprogram = Serialization::fromArchiveFileXML<Instruction>(file_path);
+    EXPECT_TRUE(tesseract_common::Serialization::toArchiveFileXML<Instruction>(program, file_path));
+    auto nprogram = tesseract_common::Serialization::fromArchiveFileXML<Instruction>(file_path);
     EXPECT_TRUE(program == nprogram);
   }
 
   {  // Archive program to string
-    std::string program_string = Serialization::toArchiveStringXML<Instruction>(program, "program");
+    std::string program_string = tesseract_common::Serialization::toArchiveStringXML<Instruction>(program, "program");
     EXPECT_FALSE(program_string.empty());
-    auto nprogram = Serialization::fromArchiveStringXML<Instruction>(program_string);
+    auto nprogram = tesseract_common::Serialization::fromArchiveStringXML<Instruction>(program_string);
     EXPECT_TRUE(program == nprogram);
   }
 }

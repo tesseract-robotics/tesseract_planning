@@ -31,8 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/archive/xml_iarchive.hpp>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#include <tesseract_common/serialization.h>
 #include <tesseract_command_language/core/waypoint.h>
-#include <tesseract_command_language/core/serialization.h>
 #include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 
@@ -70,19 +70,22 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)  // NOLI
 
   Waypoint wp{ NullWaypoint() };
   wp = cw;
-  Serialization::toArchiveFileXML<Waypoint>(wp, "/tmp/cartesian_waypoint_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp, "/tmp/cartesian_waypoint_boost.xml");
 
-  auto nwp = Serialization::fromArchiveFileXML<Waypoint>("/tmp/cartesian_waypoint_boost.xml");
+  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<Waypoint>("/tmp/cartesian_waypoint_boost.xml");
 
   EXPECT_TRUE(cw == nwp.as<CartesianWaypoint>());
 }
 
 inline void SerializeDeserializeTest(const CartesianWaypoint& wp)
 {
-  Serialization::toArchiveFileXML<Waypoint>(wp, tesseract_common::getTempPath() + "cartesian_waypoint_unit.xml");
-  auto deserialized = Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "cartesian_"
-                                                                                                    "waypoint_unit."
-                                                                                                    "xml");
+  tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp,
+                                                              tesseract_common::getTempPath() + "cartesian_waypoint_"
+                                                                                                "unit.xml");
+  auto deserialized =
+      tesseract_common::Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "cartesian_"
+                                                                                                      "waypoint_unit."
+                                                                                                      "xml");
   EXPECT_TRUE(wp == deserialized.as<CartesianWaypoint>());
 }
 

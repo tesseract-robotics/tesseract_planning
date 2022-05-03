@@ -30,7 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/unit_test_utils.h>
-#include <tesseract_command_language/core/serialization.h>
+#include <tesseract_common/serialization.h>
 #include <tesseract_environment/commands/add_allowed_collision_command.h>
 #include <tesseract_process_managers/core/task_info.h>
 #include <tesseract_process_managers/core/process_planning_request.h>
