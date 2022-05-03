@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove duplicate serialization methods and use those in tesseract_common
+* Contributors: Levi Armstrong
+
 0.9.9 (2022-04-22)
 ------------------
 

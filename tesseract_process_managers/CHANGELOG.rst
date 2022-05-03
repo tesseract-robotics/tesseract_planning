@@ -2,6 +2,15 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove duplicate serialization methods and use those in tesseract_common
+* Store environment in process planning problem (`#192 <https://github.com/tesseract-robotics/tesseract_planning/issues/192>`_)
+  * Store environment in process planning problem
+  * Update readme dependency versions
+* Add SWIG %shared_ptr to ProcessPlanningProblem (`#189 <https://github.com/tesseract-robotics/tesseract_planning/issues/189>`_)
+* Contributors: John Wason, Levi Armstrong
+
 0.9.9 (2022-04-22)
 ------------------
 * Update ProcessPlanningFuture to leverage shared future (`#188 <https://github.com/tesseract-robotics/tesseract_planning/issues/188>`_)
