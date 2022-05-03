@@ -1,46 +1,41 @@
 <map id="tesseract_motion_planners/trajopt/src/profile/trajopt_default_plan_profile.cpp" name="tesseract_motion_planners/trajopt/src/profile/trajopt_default_plan_profile.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2207,5,2386,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1240,675,1431,701"/>
-<area shape="rect" id="node3" title=" " alt="" coords="3073,124,3243,151"/>
-<area shape="rect" id="node4" href="$db/d61/trajopt__utils_8h.html" title=" " alt="" coords="861,221,1039,262"/>
-<area shape="rect" id="node29" href="$d9/da2/trajopt__default__plan__profile_8h.html" title=" " alt="" coords="1299,109,1478,165"/>
-<area shape="rect" id="node36" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="2197,221,2396,262"/>
-<area shape="rect" id="node37" href="$d0/d65/plan__instruction_8h.html" title=" " alt="" coords="2061,317,2260,359"/>
-<area shape="rect" id="node44" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="3268,117,3467,158"/>
-<area shape="rect" id="node5" title=" " alt="" coords="637,325,839,351"/>
-<area shape="rect" id="node6" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1205,317,1404,359"/>
-<area shape="rect" id="node27" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="964,317,1163,359"/>
-<area shape="rect" id="node7" title=" " alt="" coords="890,414,975,441"/>
-<area shape="rect" id="node8" title=" " alt="" coords="1599,414,1714,441"/>
-<area shape="rect" id="node9" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="1640,496,1839,537"/>
-<area shape="rect" id="node24" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="1244,407,1443,448"/>
-<area shape="rect" id="node25" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="2061,407,2260,448"/>
-<area shape="rect" id="node26" title=" " alt="" coords="999,414,1170,441"/>
-<area shape="rect" id="node10" title=" " alt="" coords="820,593,888,619"/>
-<area shape="rect" id="node11" title=" " alt="" coords="2132,593,2187,619"/>
-<area shape="rect" id="node12" title=" " alt="" coords="2032,593,2108,619"/>
-<area shape="rect" id="node13" title=" " alt="" coords="1881,585,2008,627"/>
-<area shape="rect" id="node14" title=" " alt="" coords="1731,585,1857,627"/>
-<area shape="rect" id="node15" title=" " alt="" coords="1168,585,1295,627"/>
-<area shape="rect" id="node16" title=" " alt="" coords="1017,585,1144,627"/>
-<area shape="rect" id="node17" title=" " alt="" coords="1319,585,1461,627"/>
-<area shape="rect" id="node18" href="$dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="313,585,512,627"/>
-<area shape="rect" id="node23" title=" " alt="" coords="1485,585,1655,627"/>
-<area shape="rect" id="node19" title=" " alt="" coords="458,675,525,701"/>
-<area shape="rect" id="node20" title=" " alt="" coords="549,675,618,701"/>
-<area shape="rect" id="node21" title=" " alt="" coords="5,675,209,701"/>
-<area shape="rect" id="node22" title=" " alt="" coords="234,675,434,701"/>
-<area shape="rect" id="node28" title=" " alt="" coords="1517,414,1575,441"/>
-<area shape="rect" id="node30" title=" " alt="" coords="1317,221,1460,262"/>
-<area shape="rect" id="node31" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="1114,213,1293,269"/>
-<area shape="rect" id="node32" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="1739,407,1937,448"/>
-<area shape="rect" id="node34" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="2435,407,2633,448"/>
-<area shape="rect" id="node33" title=" " alt="" coords="1351,503,1565,530"/>
-<area shape="rect" id="node35" title=" " alt="" coords="2743,496,2947,537"/>
-<area shape="rect" id="node38" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2297,496,2496,537"/>
-<area shape="rect" id="node39" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2520,496,2719,537"/>
-<area shape="rect" id="node40" title=" " alt="" coords="2509,593,2551,619"/>
-<area shape="rect" id="node41" title=" " alt="" coords="2575,593,2647,619"/>
-<area shape="rect" id="node42" title=" " alt="" coords="2672,593,2783,619"/>
-<area shape="rect" id="node43" title=" " alt="" coords="2807,593,2909,619"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1064,5,1243,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="823,593,1014,619"/>
+<area shape="rect" id="node3" title=" " alt="" coords="1241,124,1412,151"/>
+<area shape="rect" id="node4" href="$db/d61/trajopt__utils_8h.html" title=" " alt="" coords="364,221,543,262"/>
+<area shape="rect" id="node25" href="$d9/da2/trajopt__default__plan__profile_8h.html" title=" " alt="" coords="744,109,923,165"/>
+<area shape="rect" id="node31" href="$da/d74/move__instruction_8h.html" title=" " alt="" coords="1513,221,1711,262"/>
+<area shape="rect" id="node32" href="$d0/d65/plan__instruction_8h.html" title=" " alt="" coords="1513,317,1711,359"/>
+<area shape="rect" id="node39" href="$d0/dd5/instruction__type_8h.html" title=" " alt="" coords="1437,117,1635,158"/>
+<area shape="rect" id="node5" title=" " alt="" coords="93,325,296,351"/>
+<area shape="rect" id="node6" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="733,317,931,359"/>
+<area shape="rect" id="node23" href="$d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="481,317,679,359"/>
+<area shape="rect" id="node7" title=" " alt="" coords="708,414,793,441"/>
+<area shape="rect" id="node8" title=" " alt="" coords="1273,414,1388,441"/>
+<area shape="rect" id="node9" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="1834,496,2033,537"/>
+<area shape="rect" id="node20" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="867,407,1066,448"/>
+<area shape="rect" id="node21" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1665,407,1863,448"/>
+<area shape="rect" id="node22" title=" " alt="" coords="513,414,684,441"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1038,593,1106,619"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1655,593,1710,619"/>
+<area shape="rect" id="node12" title=" " alt="" coords="1555,593,1631,619"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1734,585,1861,627"/>
+<area shape="rect" id="node14" title=" " alt="" coords="2787,585,2914,627"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1885,585,2011,627"/>
+<area shape="rect" id="node16" title=" " alt="" coords="2035,585,2162,627"/>
+<area shape="rect" id="node17" title=" " alt="" coords="2187,585,2328,627"/>
+<area shape="rect" id="node18" title=" " alt="" coords="2353,593,2567,619"/>
+<area shape="rect" id="node19" title=" " alt="" coords="2592,585,2763,627"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1191,414,1249,441"/>
+<area shape="rect" id="node26" title=" " alt="" coords="871,221,1014,262"/>
+<area shape="rect" id="node27" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="617,213,796,269"/>
+<area shape="rect" id="node28" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="2038,407,2237,448"/>
+<area shape="rect" id="node29" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="2261,407,2459,448"/>
+<area shape="rect" id="node30" title=" " alt="" coords="2462,496,2666,537"/>
+<area shape="rect" id="node33" href="$d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1461,496,1659,537"/>
+<area shape="rect" id="node34" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="1238,496,1437,537"/>
+<area shape="rect" id="node35" title=" " alt="" coords="1257,593,1300,619"/>
+<area shape="rect" id="node36" title=" " alt="" coords="1324,593,1396,619"/>
+<area shape="rect" id="node37" title=" " alt="" coords="1421,593,1531,619"/>
+<area shape="rect" id="node38" title=" " alt="" coords="1130,593,1233,619"/>
 </map>

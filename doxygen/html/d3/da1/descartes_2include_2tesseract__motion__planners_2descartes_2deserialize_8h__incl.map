@@ -1,45 +1,40 @@
 <map id="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/deserialize.h" name="tesseract_motion_planners/descartes/include/tesseract_motion_planners/descartes/deserialize.h">
-<area shape="rect" id="node1" title="Provide methods for deserialize descartes plans to xml." alt="" coords="1112,5,1299,76"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1631,704,1822,731"/>
-<area shape="rect" id="node3" title=" " alt="" coords="1166,139,1245,165"/>
-<area shape="rect" id="node4" href="$d5/d91/descartes__default__plan__profile_8h.html" title=" " alt="" coords="2075,124,2258,180"/>
-<area shape="rect" id="node5" title=" " alt="" coords="2737,533,2852,559"/>
-<area shape="rect" id="node6" title=" " alt="" coords="1999,228,2129,269"/>
-<area shape="rect" id="node7" href="$dd/db6/descartes__profile_8h.html" title=" " alt="" coords="1541,317,1723,373"/>
-<area shape="rect" id="node34" href="$d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="2205,228,2390,269"/>
-<area shape="rect" id="node41" href="$d7/d5d/tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="2756,325,2935,366"/>
-<area shape="rect" id="node8" title=" " alt="" coords="1607,533,1665,559"/>
-<area shape="rect" id="node9" title=" " alt="" coords="2645,622,2713,649"/>
-<area shape="rect" id="node10" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="817,429,1015,470"/>
-<area shape="rect" id="node26" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1134,429,1333,470"/>
-<area shape="rect" id="node28" href="$d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="1599,429,1806,470"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1483,622,1538,649"/>
-<area shape="rect" id="node12" title=" " alt="" coords="714,622,790,649"/>
-<area shape="rect" id="node13" title=" " alt="" coords="1562,615,1689,656"/>
-<area shape="rect" id="node14" title=" " alt="" coords="814,615,941,656"/>
-<area shape="rect" id="node15" title=" " alt="" coords="965,615,1091,656"/>
-<area shape="rect" id="node16" title=" " alt="" coords="1115,615,1242,656"/>
-<area shape="rect" id="node17" title=" " alt="" coords="1267,615,1408,656"/>
-<area shape="rect" id="node18" title=" " alt="" coords="511,533,726,559"/>
-<area shape="rect" id="node19" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="1283,525,1482,567"/>
-<area shape="rect" id="node20" href="$dd/d50/serialization_8h.html" title="Provides boost exports for waypoint and instruction implementation for serialization Also includes ut..." alt="" coords="111,615,310,656"/>
-<area shape="rect" id="node25" title=" " alt="" coords="519,615,689,656"/>
-<area shape="rect" id="node21" title=" " alt="" coords="5,704,72,731"/>
-<area shape="rect" id="node22" title=" " alt="" coords="96,704,165,731"/>
-<area shape="rect" id="node23" title=" " alt="" coords="190,704,394,731"/>
-<area shape="rect" id="node24" title=" " alt="" coords="419,704,619,731"/>
-<area shape="rect" id="node27" title=" " alt="" coords="1055,525,1259,567"/>
-<area shape="rect" id="node29" title=" " alt="" coords="2380,525,2519,567"/>
-<area shape="rect" id="node30" title=" " alt="" coords="1919,525,2057,567"/>
-<area shape="rect" id="node31" title=" " alt="" coords="2082,525,2222,567"/>
-<area shape="rect" id="node32" title=" " alt="" coords="2247,533,2305,559"/>
-<area shape="rect" id="node33" title=" " alt="" coords="1740,525,1895,567"/>
-<area shape="rect" id="node35" title=" " alt="" coords="2204,332,2383,359"/>
-<area shape="rect" id="node36" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2407,325,2606,366"/>
-<area shape="rect" id="node37" title=" " alt="" coords="2204,436,2289,463"/>
-<area shape="rect" id="node38" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="2313,429,2511,470"/>
-<area shape="rect" id="node39" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1830,429,2029,470"/>
-<area shape="rect" id="node40" title=" " alt="" coords="2536,436,2707,463"/>
-<area shape="rect" id="node42" title=" " alt="" coords="3145,436,3223,463"/>
-<area shape="rect" id="node43" href="$df/dfc/descartes__vertex__evaluator_8h.html" title="Tesseract Descartes Vertex Evaluator." alt="" coords="2883,421,3069,477"/>
+<area shape="rect" id="node1" title="Provide methods for deserialize descartes plans to xml." alt="" coords="2631,5,2818,76"/>
+<area shape="rect" id="node2" title=" " alt="" coords="2360,622,2551,649"/>
+<area shape="rect" id="node3" title=" " alt="" coords="2685,139,2764,165"/>
+<area shape="rect" id="node4" href="$d5/d91/descartes__default__plan__profile_8h.html" title=" " alt="" coords="2235,124,2417,180"/>
+<area shape="rect" id="node5" title=" " alt="" coords="2421,533,2535,559"/>
+<area shape="rect" id="node6" title=" " alt="" coords="2078,228,2209,269"/>
+<area shape="rect" id="node7" href="$dd/db6/descartes__profile_8h.html" title=" " alt="" coords="1432,317,1615,373"/>
+<area shape="rect" id="node29" href="$d3/d9c/descartes__utils_8h.html" title=" " alt="" coords="2233,228,2419,269"/>
+<area shape="rect" id="node36" href="$d7/d5d/tesseract__motion__planners_2descartes_2include_2tesseract__motion__planners_2descartes_2types_8h.html" title="Tesseract descartes types." alt="" coords="2471,325,2650,366"/>
+<area shape="rect" id="node8" title=" " alt="" coords="1535,533,1594,559"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1413,622,1481,649"/>
+<area shape="rect" id="node10" href="$d8/df4/instruction_8h.html" title=" " alt="" coords="560,429,759,470"/>
+<area shape="rect" id="node21" href="$d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="989,429,1188,470"/>
+<area shape="rect" id="node23" href="$d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="1587,429,1793,470"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1159,622,1213,649"/>
+<area shape="rect" id="node12" title=" " alt="" coords="5,622,81,649"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1237,615,1364,656"/>
+<area shape="rect" id="node14" title=" " alt="" coords="301,615,428,656"/>
+<area shape="rect" id="node15" title=" " alt="" coords="452,615,579,656"/>
+<area shape="rect" id="node16" title=" " alt="" coords="603,615,729,656"/>
+<area shape="rect" id="node17" title=" " alt="" coords="754,615,895,656"/>
+<area shape="rect" id="node18" title=" " alt="" coords="920,622,1135,649"/>
+<area shape="rect" id="node19" href="$d4/d08/waypoint_8h.html" title=" " alt="" coords="628,525,827,567"/>
+<area shape="rect" id="node20" title=" " alt="" coords="106,615,277,656"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1053,525,1257,567"/>
+<area shape="rect" id="node24" title=" " alt="" coords="2258,525,2397,567"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1879,525,2018,567"/>
+<area shape="rect" id="node26" title=" " alt="" coords="2043,525,2183,567"/>
+<area shape="rect" id="node27" title=" " alt="" coords="1618,533,1677,559"/>
+<area shape="rect" id="node28" title=" " alt="" coords="1701,525,1855,567"/>
+<area shape="rect" id="node30" title=" " alt="" coords="2237,332,2415,359"/>
+<area shape="rect" id="node31" href="$d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1951,325,2149,366"/>
+<area shape="rect" id="node32" title=" " alt="" coords="1970,436,2055,463"/>
+<area shape="rect" id="node33" href="$de/d3d/waypoint__type_8h.html" title=" " alt="" coords="2079,429,2277,470"/>
+<area shape="rect" id="node34" href="$d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1212,429,1411,470"/>
+<area shape="rect" id="node35" title=" " alt="" coords="2302,436,2473,463"/>
+<area shape="rect" id="node37" title=" " alt="" coords="2911,436,2989,463"/>
+<area shape="rect" id="node38" href="$df/dfc/descartes__vertex__evaluator_8h.html" title="Tesseract Descartes Vertex Evaluator." alt="" coords="2598,421,2785,477"/>
 </map>
