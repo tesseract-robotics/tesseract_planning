@@ -40,6 +40,7 @@ namespace tesseract_planning
 bool ProcessPlanningProblem::operator==(const tesseract_planning::ProcessPlanningProblem& rhs) const
 {
   bool equal = true;
+  equal &= (name == rhs.name);
   equal &= tesseract_common::pointersEqual(env, rhs.env);
   equal &= (input && rhs.input && *input == *rhs.input) || (!input && !rhs.input);
   equal &= (results && rhs.results && *results == *rhs.results) || (!results && !rhs.results);
@@ -61,8 +62,11 @@ bool ProcessPlanningProblem::operator!=(const tesseract_planning::ProcessPlannin
 }
 
 template <class Archive>
-void ProcessPlanningProblem::serialize(Archive& ar, const unsigned int /*version*/)
+void ProcessPlanningProblem::serialize(Archive& ar, const unsigned int version)
 {
+  if (version == 1)
+    ar& BOOST_SERIALIZATION_NVP(name);
+
   ar& BOOST_SERIALIZATION_NVP(env);
   ar& BOOST_SERIALIZATION_NVP(input);
   ar& BOOST_SERIALIZATION_NVP(results);
@@ -73,6 +77,7 @@ void ProcessPlanningProblem::serialize(Archive& ar, const unsigned int /*version
   //  ar& BOOST_SERIALIZATION_NVP(taskflow_container);
 }
 }  // namespace tesseract_planning
+BOOST_CLASS_VERSION(tesseract_planning::ProcessPlanningProblem, 1)  // Adding name
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProcessPlanningProblem)

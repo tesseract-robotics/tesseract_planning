@@ -113,6 +113,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
 {
   CONSOLE_BRIDGE_logInform("Tesseract Planning Server Received Request!");
   ProcessPlanningFuture response;
+  response.problem->name = request.name;
   response.problem->plan_profile_remapping =
       std::make_unique<const PlannerProfileRemapping>(request.plan_profile_remapping);
   response.problem->composite_profile_remapping =

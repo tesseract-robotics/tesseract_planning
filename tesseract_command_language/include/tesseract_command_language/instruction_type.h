@@ -34,9 +34,13 @@ bool isCommentInstruction(const Instruction& instruction);
 
 bool isVariableInstruction(const Instruction& instruction);
 
-bool isAnalogInstruction(const Instruction& instruction);
+bool isSetAnalogInstruction(const Instruction& instruction);
 
-bool isIOInstruction(const Instruction& instruction);
+bool isSetToolInstruction(const Instruction& instruction);
+
+bool isTimerInstruction(const Instruction& instruction);
+
+bool isWaitInstruction(const Instruction& instruction);
 
 bool isCompositeInstruction(const Instruction& instruction);
 
