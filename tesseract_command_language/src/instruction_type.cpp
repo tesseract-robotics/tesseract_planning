@@ -28,6 +28,10 @@
 #include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/set_analog_instruction.h>
+#include <tesseract_command_language/set_tool_instruction.h>
+#include <tesseract_command_language/timer_instruction.h>
+#include <tesseract_command_language/wait_instruction.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
@@ -46,18 +50,24 @@ bool isVariableInstruction(const Instruction& instruction)
   return false;
 }
 
-bool isAnalogInstruction(const Instruction& instruction)
+bool isSetAnalogInstruction(const Instruction& instruction)
 {
-  UNUSED(instruction);
-  // TODO: Implement AnalogInstruction
-  return false;
+  return (instruction.getType() == std::type_index(typeid(SetAnalogInstruction)));
 }
 
-bool isIOInstruction(const Instruction& instruction)
+bool isSetToolInstruction(const Instruction& instruction)
 {
-  UNUSED(instruction);
-  // TODO: Implement IOInstruction
-  return false;
+  return (instruction.getType() == std::type_index(typeid(SetToolInstruction)));
+}
+
+bool isTimerInstruction(const Instruction& instruction)
+{
+  return (instruction.getType() == std::type_index(typeid(TimerInstruction)));
+}
+
+bool isWaitInstruction(const Instruction& instruction)
+{
+  return (instruction.getType() == std::type_index(typeid(WaitInstruction)));
 }
 
 bool isCompositeInstruction(const Instruction& instruction)

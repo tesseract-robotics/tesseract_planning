@@ -53,6 +53,9 @@ struct ProcessPlanningProblem
   using ConstUPtr = std::unique_ptr<const ProcessPlanningProblem>;
 
 #ifndef SWIG
+  /** @brief The name of the Process Pipeline (aka. Taskflow) to use */
+  std::string name;
+
   /** @brief The problem's environment */
   tesseract_environment::Environment::ConstPtr env;
 
