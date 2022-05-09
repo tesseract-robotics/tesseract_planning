@@ -465,9 +465,13 @@ bool \mbox{\hyperlink{namespacetesseract__planning_a3f42a719816e6dea334fe383044b
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_a71a4541552162b88b58aaad64cdcbc3c}{is\+Variable\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ad3eae42cabf7ba6008e38e831e757efa}{is\+Analog\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
+bool \mbox{\hyperlink{namespacetesseract__planning_a287d1667d00db3e5e4fabcfb51664b75}{is\+Set\+Analog\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a36cbf35ae9d24574a6d2cfe0bacd35a9}{is\+IOInstruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
+bool \mbox{\hyperlink{namespacetesseract__planning_a2ae12448a0b7afd49cac310dc5ccb7db}{is\+Set\+Tool\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ae96120c1bde27a94fb70f1c5cd1a77d3}{is\+Timer\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a83b4a1168560f289c58b322386d1ab21}{is\+Wait\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_af48bb1d750c019e34337ed0a0f88ef76}{is\+Composite\+Instruction}} (const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&instruction)
 \item 
@@ -3203,12 +3207,6 @@ Interpolate between two waypoints return a vector of waypoints.
 \begin{DoxyReturn}{Returns}
 A vector of waypoints with a length = steps + 1 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespacetesseract__planning_ad3eae42cabf7ba6008e38e831e757efa}\label{namespacetesseract__planning_ad3eae42cabf7ba6008e38e831e757efa}} 
-\index{tesseract\_planning@{tesseract\_planning}!isAnalogInstruction@{isAnalogInstruction}}
-\index{isAnalogInstruction@{isAnalogInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{isAnalogInstruction()}{isAnalogInstruction()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Analog\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_aa1979ee1643c64f94a0fca7bc64dd455}\label{namespacetesseract__planning_aa1979ee1643c64f94a0fca7bc64dd455}} 
 \index{tesseract\_planning@{tesseract\_planning}!isCartesianWaypoint@{isCartesianWaypoint}}
 \index{isCartesianWaypoint@{isCartesianWaypoint}!tesseract\_planning@{tesseract\_planning}}
@@ -3245,12 +3243,6 @@ True if empty otherwise false
 \doxysubsubsection{\texorpdfstring{isCompositeInstruction()}{isCompositeInstruction()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Composite\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a36cbf35ae9d24574a6d2cfe0bacd35a9}\label{namespacetesseract__planning_a36cbf35ae9d24574a6d2cfe0bacd35a9}} 
-\index{tesseract\_planning@{tesseract\_planning}!isIOInstruction@{isIOInstruction}}
-\index{isIOInstruction@{isIOInstruction}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{isIOInstruction()}{isIOInstruction()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+IOInstruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespacetesseract__planning_ac2bb55bed2473cb51b560386fdc27f0d}\label{namespacetesseract__planning_ac2bb55bed2473cb51b560386fdc27f0d}} 
 \index{tesseract\_planning@{tesseract\_planning}!isJointWaypoint@{isJointWaypoint}}
 \index{isJointWaypoint@{isJointWaypoint}!tesseract\_planning@{tesseract\_planning}}
@@ -3281,11 +3273,29 @@ True if empty otherwise false
 \doxysubsubsection{\texorpdfstring{isPlanInstruction()}{isPlanInstruction()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Plan\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespacetesseract__planning_a287d1667d00db3e5e4fabcfb51664b75}\label{namespacetesseract__planning_a287d1667d00db3e5e4fabcfb51664b75}} 
+\index{tesseract\_planning@{tesseract\_planning}!isSetAnalogInstruction@{isSetAnalogInstruction}}
+\index{isSetAnalogInstruction@{isSetAnalogInstruction}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{isSetAnalogInstruction()}{isSetAnalogInstruction()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Set\+Analog\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a2ae12448a0b7afd49cac310dc5ccb7db}\label{namespacetesseract__planning_a2ae12448a0b7afd49cac310dc5ccb7db}} 
+\index{tesseract\_planning@{tesseract\_planning}!isSetToolInstruction@{isSetToolInstruction}}
+\index{isSetToolInstruction@{isSetToolInstruction}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{isSetToolInstruction()}{isSetToolInstruction()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Set\+Tool\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}\label{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}} 
 \index{tesseract\_planning@{tesseract\_planning}!isStateWaypoint@{isStateWaypoint}}
 \index{isStateWaypoint@{isStateWaypoint}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{isStateWaypoint()}{isStateWaypoint()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+State\+Waypoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{waypoint }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_ae96120c1bde27a94fb70f1c5cd1a77d3}\label{namespacetesseract__planning_ae96120c1bde27a94fb70f1c5cd1a77d3}} 
+\index{tesseract\_planning@{tesseract\_planning}!isTimerInstruction@{isTimerInstruction}}
+\index{isTimerInstruction@{isTimerInstruction}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{isTimerInstruction()}{isTimerInstruction()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Timer\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a40e1a43db1c6a2eec3a793887b17dca7}\label{namespacetesseract__planning_a40e1a43db1c6a2eec3a793887b17dca7}} 
 \index{tesseract\_planning@{tesseract\_planning}!isValidState@{isValidState}}
@@ -3315,6 +3325,12 @@ True if within limits otherwise false
 \index{isVariableInstruction@{isVariableInstruction}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{isVariableInstruction()}{isVariableInstruction()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Variable\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a83b4a1168560f289c58b322386d1ab21}\label{namespacetesseract__planning_a83b4a1168560f289c58b322386d1ab21}} 
+\index{tesseract\_planning@{tesseract\_planning}!isWaitInstruction@{isWaitInstruction}}
+\index{isWaitInstruction@{isWaitInstruction}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{isWaitInstruction()}{isWaitInstruction()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Wait\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a84a6b6ea6d6f4d4c1c510caa6dcf5449}\label{namespacetesseract__planning_a84a6b6ea6d6f4d4c1c510caa6dcf5449}} 
 \index{tesseract\_planning@{tesseract\_planning}!isWithinJointLimits@{isWithinJointLimits}}
