@@ -2,6 +2,11 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add name to process planning problem
+* Contributors: Levi Armstrong
+
 0.10.0 (2022-05-03)
 -------------------
 * Remove duplicate serialization methods and use those in tesseract_common
