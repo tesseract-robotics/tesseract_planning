@@ -84,15 +84,22 @@ public:
 
   virtual ~ProcessPlanningServer() = default;
 #ifndef SWIG
-  ProcessPlanningServer(const ProcessPlanningServer&) = default;
-  ProcessPlanningServer& operator=(const ProcessPlanningServer&) = default;
-  ProcessPlanningServer(ProcessPlanningServer&&) = default;
-  ProcessPlanningServer& operator=(ProcessPlanningServer&&) = default;
+  ProcessPlanningServer(const ProcessPlanningServer&) = delete;
+  ProcessPlanningServer& operator=(const ProcessPlanningServer&) = delete;
+  ProcessPlanningServer(ProcessPlanningServer&&) = delete;
+  ProcessPlanningServer& operator=(ProcessPlanningServer&&) = delete;
 #endif  // SWIG
 
   /**
    * @brief Add a executors (thread pool) under the provided name
-   * @brief This creates a taskflow executor with the provided number of threads
+   * @param name The name of the thread pool
+   * @param executor The executor to add
+   */
+  void addExecutor(const std::string& name, std::shared_ptr<tf::Executor> executor);
+
+  /**
+   * @brief Add a executors (thread pool) under the provided name
+   * @details This creates a taskflow executor with the provided number of threads
    * @param name The name of the thread pool
    * @param n The number of threads
    */

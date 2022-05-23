@@ -46,7 +46,7 @@ class ProcessPlanningRequest
 {
 public:
   /** @brief The name of the executor to use */
-  std::string executor{ PRIMARY_EXECUTOR_NAME };
+  std::string executor_name{ PRIMARY_EXECUTOR_NAME };
 
   /** @brief The name of the Process Pipeline (aka. Taskflow) to use */
   std::string name;

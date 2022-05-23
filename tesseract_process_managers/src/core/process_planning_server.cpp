@@ -58,6 +58,13 @@ ProcessPlanningServer::ProcessPlanningServer(tesseract_environment::Environment:
   addExecutor(PRIMARY_EXECUTOR_NAME, n);
 }
 
+void ProcessPlanningServer::addExecutor(const std::string& name, std::shared_ptr<tf::Executor> executor)
+{
+  std::unique_lock lock(mutex_);
+  executors_[name] = executor;
+  executor->make_observer<DebugObserver>("ProcessPlanningObserver");
+}
+
 void ProcessPlanningServer::addExecutor(const std::string& name, size_t n)
 {
   std::unique_lock lock(mutex_);
@@ -215,7 +222,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   std::shared_ptr<tf::Executor> executor;
   {
     std::shared_lock lock(mutex_);
-    executor = executors_.at(request.executor);
+    executor = executors_.at(request.executor_name);
   }
   tf::Future<void> fu = executor->run(*(response.problem->taskflow_container.taskflow));
   response.process_future = fu.share();
