@@ -45,25 +45,48 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-ProcessPlanningServer::ProcessPlanningServer(EnvironmentCache::ConstPtr cache, size_t n)
-  : cache_(std::move(cache)), executor_(std::make_shared<tf::Executor>(n))
+ProcessPlanningServer::ProcessPlanningServer(EnvironmentCache::ConstPtr cache, size_t n) : cache_(std::move(cache))
 {
-  /** @todo Need to figure out if these can associated with an individual run versus global */
-  executor_->make_observer<DebugObserver>("ProcessPlanningObserver");
+  addExecutor(PRIMARY_EXECUTOR_NAME, n);
 }
 
 ProcessPlanningServer::ProcessPlanningServer(tesseract_environment::Environment::ConstPtr environment,
                                              int cache_size,
                                              size_t n)
   : cache_(std::make_shared<ProcessEnvironmentCache>(std::move(environment), cache_size))
-  , executor_(std::make_shared<tf::Executor>(n))
 {
+  addExecutor(PRIMARY_EXECUTOR_NAME, n);
+}
+
+void ProcessPlanningServer::addExecutor(const std::string& name, size_t n)
+{
+  std::unique_lock lock(mutex_);
+  auto executor = std::make_shared<tf::Executor>(n);
+  executors_[name] = executor;
   /** @todo Need to figure out if these can associated with an individual run versus global */
-  executor_->make_observer<DebugObserver>("ProcessPlanningObserver");
+  executor->make_observer<DebugObserver>("ProcessPlanningObserver");
+}
+
+bool ProcessPlanningServer::hasExecutor(const std::string& name) const
+{
+  std::shared_lock lock(mutex_);
+  return (executors_.find(name) != executors_.end());
+}
+
+std::vector<std::string> ProcessPlanningServer::getAvailableExecutors() const
+{
+  std::shared_lock lock(mutex_);
+  std::vector<std::string> executors;
+  executors.reserve(process_planners_.size());
+  for (const auto& executor : executors_)
+    executors.push_back(executor.first);
+
+  return executors;
 }
 
 void ProcessPlanningServer::registerProcessPlanner(const std::string& name, TaskflowGenerator::UPtr generator)
 {
+  std::unique_lock lock(mutex_);
   if (process_planners_.find(name) != process_planners_.end())
     CONSOLE_BRIDGE_logDebug("Process planner %s already exist so replacing with new generator.", name.c_str());
 
@@ -72,6 +95,7 @@ void ProcessPlanningServer::registerProcessPlanner(const std::string& name, Task
 
 void ProcessPlanningServer::loadDefaultProcessPlanners()
 {
+  // This currently call registerProcessPlanner which takes a lock
   registerProcessPlanner(process_planner_names::TRAJOPT_PLANNER_NAME, createTrajOptGenerator());
   registerProcessPlanner(process_planner_names::TRAJOPT_IFOPT_PLANNER_NAME, createTrajOptIfoptGenerator());
   registerProcessPlanner(process_planner_names::OMPL_PLANNER_NAME, createOMPLGenerator());
@@ -96,11 +120,13 @@ void ProcessPlanningServer::loadDefaultProcessPlanners()
 
 bool ProcessPlanningServer::hasProcessPlanner(const std::string& name) const
 {
+  std::shared_lock lock(mutex_);
   return (process_planners_.find(name) != process_planners_.end());
 }
 
 std::vector<std::string> ProcessPlanningServer::getAvailableProcessPlanners() const
 {
+  std::shared_lock lock(mutex_);
   std::vector<std::string> planners;
   planners.reserve(process_planners_.size());
   for (const auto& planner : process_planners_)
@@ -186,32 +212,86 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
     out_data.close();
   }
 
-  tf::Future<void> fu = executor_->run(*(response.problem->taskflow_container.taskflow));
+  std::shared_ptr<tf::Executor> executor;
+  {
+    std::shared_lock lock(mutex_);
+    executor = executors_.at(request.executor);
+  }
+  tf::Future<void> fu = executor->run(*(response.problem->taskflow_container.taskflow));
   response.process_future = fu.share();
   return response;
 }
 
-tf::Future<void> ProcessPlanningServer::run(tf::Taskflow& taskflow) const { return executor_->run(taskflow); }
-
-void ProcessPlanningServer::waitForAll() { executor_->wait_for_all(); }
-
-void ProcessPlanningServer::enableTaskflowProfiling()
+tf::Future<void> ProcessPlanningServer::run(tf::Taskflow& taskflow, const std::string& name) const
 {
-  if (profile_observer_ == nullptr)
-    profile_observer_ = executor_->make_observer<tf::TFProfObserver>();
+  std::shared_ptr<tf::Executor> executor;
+  {
+    std::shared_lock lock(mutex_);
+    executor = executors_.at(name);
+  }
+  return executor->run(taskflow);
 }
 
-void ProcessPlanningServer::disableTaskflowProfiling()
+void ProcessPlanningServer::waitForAll(const std::string& name) const
 {
-  if (profile_observer_ != nullptr)
+  std::shared_ptr<tf::Executor> executor;
   {
-    executor_->remove_observer(profile_observer_);
-    profile_observer_ = nullptr;
+    std::shared_lock lock(mutex_);
+    executor = executors_.at(name);
+  }
+  executor->wait_for_all();
+}
+
+void ProcessPlanningServer::enableTaskflowProfiling(const std::string& name)
+{
+  std::unique_lock lock(mutex_);
+  auto it = profile_observers_.find(name);
+  if (it == profile_observers_.end())
+    profile_observers_[name] = executors_.at(name)->make_observer<tf::TFProfObserver>();
+}
+
+void ProcessPlanningServer::disableTaskflowProfiling(const std::string& name)
+{
+  std::unique_lock lock(mutex_);
+  auto it = profile_observers_.find(name);
+  if (it != profile_observers_.end())
+  {
+    executors_.at(name)->remove_observer(it->second);
+    profile_observers_.erase(name);
   }
 }
 
-ProfileDictionary::Ptr ProcessPlanningServer::getProfiles() { return profiles_; }
+ProfileDictionary::Ptr ProcessPlanningServer::getProfiles()
+{
+  std::shared_lock lock(mutex_);
+  return profiles_;
+}
 
-ProfileDictionary::ConstPtr ProcessPlanningServer::getProfiles() const { return profiles_; }
+ProfileDictionary::ConstPtr ProcessPlanningServer::getProfiles() const
+{
+  std::shared_lock lock(mutex_);
+  return profiles_;
+}
+
+long ProcessPlanningServer::getWorkerCount(const std::string& name) const
+{
+  std::shared_ptr<tf::Executor> executor;
+  {
+    std::shared_lock lock(mutex_);
+    executor = executors_.at(name);
+  }
+
+  return static_cast<long>(executor->num_workers());
+}
+
+long ProcessPlanningServer::getTaskCount(const std::string& name) const
+{
+  std::shared_ptr<tf::Executor> executor;
+  {
+    std::shared_lock lock(mutex_);
+    executor = executors_.at(name);
+  }
+  return static_cast<long>(executor->num_topologies());
+}
 
 }  // namespace tesseract_planning

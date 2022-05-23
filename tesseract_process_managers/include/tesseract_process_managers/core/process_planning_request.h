@@ -39,9 +39,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+/** @brief The name of the primary executor (thread pool) */
+static const std::string PRIMARY_EXECUTOR_NAME = "primary";
+
 class ProcessPlanningRequest
 {
 public:
+  /** @brief The name of the executor to use */
+  std::string executor{ PRIMARY_EXECUTOR_NAME };
+
   /** @brief The name of the Process Pipeline (aka. Taskflow) to use */
   std::string name;
 
