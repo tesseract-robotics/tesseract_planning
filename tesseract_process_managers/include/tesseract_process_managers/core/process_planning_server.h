@@ -95,7 +95,7 @@ public:
    * @param name The name of the thread pool
    * @param executor The executor to add
    */
-  void addExecutor(const std::string& name, std::shared_ptr<tf::Executor> executor);
+  void addExecutor(const std::string& name, const std::shared_ptr<tf::Executor>& executor);
 
   /**
    * @brief Add a executors (thread pool) under the provided name

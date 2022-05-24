@@ -58,7 +58,7 @@ ProcessPlanningServer::ProcessPlanningServer(tesseract_environment::Environment:
   addExecutor(PRIMARY_EXECUTOR_NAME, n);
 }
 
-void ProcessPlanningServer::addExecutor(const std::string& name, std::shared_ptr<tf::Executor> executor)
+void ProcessPlanningServer::addExecutor(const std::string& name, const std::shared_ptr<tf::Executor>& executor)
 {
   std::unique_lock lock(mutex_);
   executors_[name] = executor;
