@@ -2,8 +2,8 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.10.2 (2022-05-24)
+-------------------
 * Make process planning server threadsafe and support multiple executors (`#197 <https://github.com/tesseract-robotics/tesseract_planning/issues/197>`_)
 * Contributors: Levi Armstrong
 
