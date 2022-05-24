@@ -67,7 +67,7 @@ bool ProcessPlanningFuture::operator==(const tesseract_planning::ProcessPlanning
 {
   bool equal = true;
   equal &= process_future.valid() == rhs.process_future.valid();
-  equal &= (problem && rhs.problem && *problem == *rhs.problem) || (!problem && !rhs.problem);
+  equal &= tesseract_common::pointersEqual(problem, rhs.problem);
   equal &= tesseract_common::pointersEqual(interface, rhs.interface);
 
   return equal;

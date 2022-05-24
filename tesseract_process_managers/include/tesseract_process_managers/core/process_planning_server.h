@@ -30,6 +30,8 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 #include <string>
+#include <vector>
+#include <shared_mutex>
 #include <taskflow/taskflow.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
@@ -50,6 +52,7 @@ namespace tesseract_planning
 /**
  * @brief A process planning server that support asynchronous execution of process planning requests
  * @details It allows the developer to register Process pipelines (aka. Taskflow Generators) so they may be request
+ * @note This class is thread safe
  */
 class ProcessPlanningServer
 {
@@ -81,11 +84,39 @@ public:
 
   virtual ~ProcessPlanningServer() = default;
 #ifndef SWIG
-  ProcessPlanningServer(const ProcessPlanningServer&) = default;
-  ProcessPlanningServer& operator=(const ProcessPlanningServer&) = default;
-  ProcessPlanningServer(ProcessPlanningServer&&) = default;
-  ProcessPlanningServer& operator=(ProcessPlanningServer&&) = default;
+  ProcessPlanningServer(const ProcessPlanningServer&) = delete;
+  ProcessPlanningServer& operator=(const ProcessPlanningServer&) = delete;
+  ProcessPlanningServer(ProcessPlanningServer&&) = delete;
+  ProcessPlanningServer& operator=(ProcessPlanningServer&&) = delete;
 #endif  // SWIG
+
+  /**
+   * @brief Add a executors (thread pool) under the provided name
+   * @param name The name of the thread pool
+   * @param executor The executor to add
+   */
+  void addExecutor(const std::string& name, const std::shared_ptr<tf::Executor>& executor);
+
+  /**
+   * @brief Add a executors (thread pool) under the provided name
+   * @details This creates a taskflow executor with the provided number of threads
+   * @param name The name of the thread pool
+   * @param n The number of threads
+   */
+  void addExecutor(const std::string& name, size_t n);
+
+  /**
+   * @brief Check if executors (thread pool) exists with the provided name
+   * @param name The name to search
+   * @return True if it exists, otherwise false
+   */
+  bool hasExecutor(const std::string& name) const;
+
+  /**
+   * @brief Get the available executors (thread pool) names
+   * @return A vector of names
+   */
+  std::vector<std::string> getAvailableExecutors() const;
 
 #ifndef SWIG
   /**
@@ -126,10 +157,11 @@ public:
 
   /**
    * @brief This is a utility function to run arbitrary taskflows
-   * @param taskflow the taskflow to execute
+   * @param taskflow The taskflow to execute
+   * @param name The name of the executor to use
    * @return A future to monitor progress
    */
-  tf::Future<void> run(tf::Taskflow& taskflow) const;
+  tf::Future<void> run(tf::Taskflow& taskflow, const std::string& name = PRIMARY_EXECUTOR_NAME) const;
 #endif  // SWIG
 
 #ifdef SWIG
@@ -142,14 +174,23 @@ public:
   }
 #endif  // SWIG
 
-  /** @brief Wait for all process currently being executed to finish before returning */
-  void waitForAll();
+  /**
+   * @brief Wait for all process currently being executed to finish before returning
+   * @param name The name of the executor to wait on
+   */
+  void waitForAll(const std::string& name = PRIMARY_EXECUTOR_NAME) const;
 
-  /** @brief This add a Taskflow profiling observer to the executor */
-  void enableTaskflowProfiling();
+  /**
+   * @brief This add a Taskflow profiling observer to the executor
+   * @param name The name of the executor to enable profiling for
+   */
+  void enableTaskflowProfiling(const std::string& name = PRIMARY_EXECUTOR_NAME);
 
-  /** @brief This remove the Taskflow profiling observer from the executor if one exists */
-  void disableTaskflowProfiling();
+  /**
+   * @brief This remove the Taskflow profiling observer from the executor if one exists
+   * @param name The name of the executor to disable profiling for
+   */
+  void disableTaskflowProfiling(const std::string& name = PRIMARY_EXECUTOR_NAME);
 
   /**
    * @brief Get the profile dictionary associated with the planning server
@@ -163,12 +204,36 @@ public:
    */
   ProfileDictionary::ConstPtr getProfiles() const;
 
-protected:
-  EnvironmentCache::ConstPtr cache_;
-  mutable std::shared_ptr<tf::Executor> executor_;
-  std::shared_ptr<tf::TFProfObserver> profile_observer_;
+  /**
+   * @brief Queries the number of worker threads (can be zero)
+   * @param name The name of the executor to get worker count for
+   */
+  long getWorkerCount(const std::string& name = PRIMARY_EXECUTOR_NAME) const;
 
+  /**
+   * @brief Queries the number of running tasks at the time of this call
+   * When a taskflow is submitted to an executor, a topology is created to store
+   * runtime metadata of the running taskflow.
+   * @param name The name of the executor to get task count for
+   */
+  long getTaskCount(const std::string& name = PRIMARY_EXECUTOR_NAME) const;
+
+protected:
+  mutable std::shared_mutex mutex_;
+
+  /** @brief An environment cache which is thread safe */
+  EnvironmentCache::ConstPtr cache_;
+
+  /** @brief A map of executors which are thread safe */
+  std::unordered_map<std::string, std::shared_ptr<tf::Executor>> executors_;
+
+  /** @brief A map of profile observers */
+  std::unordered_map<std::string, std::shared_ptr<tf::TFProfObserver>> profile_observers_;
+
+  /** @brief A map of process planners */
   std::unordered_map<std::string, TaskflowGenerator::UPtr> process_planners_;
+
+  /** @brief The profile dictionary which is thread safe */
   ProfileDictionary::Ptr profiles_{ std::make_shared<ProfileDictionary>() };
 };
 
