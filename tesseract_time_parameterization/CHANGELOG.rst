@@ -2,6 +2,9 @@
 Changelog for package tesseract_time_parameterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.10.1 (2022-05-09)
 -------------------
 
