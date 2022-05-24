@@ -1,13 +1,7 @@
 <map id="tesseract_planning::CompositeInstruction" name="tesseract_planning::CompositeInstruction">
-<area shape="rect" id="node1" title=" " alt="" coords="1241,123,1392,165"/>
-<area shape="rect" id="node2" title=" " alt="" coords="941,93,1096,134"/>
-<area shape="rect" id="node3" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="705,93,836,134"/>
-<area shape="rect" id="node4" title=" " alt="" coords="411,73,581,143"/>
-<area shape="rect" id="node5" title=" " alt="" coords="213,40,292,67"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,33,129,74"/>
-<area shape="rect" id="node7" title=" " alt="" coords="433,168,559,195"/>
-<area shape="rect" id="node8" title=" " alt="" coords="941,222,1096,263"/>
-<area shape="rect" id="node9" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="705,222,836,263"/>
-<area shape="rect" id="node10" title=" " alt="" coords="405,219,587,275"/>
-<area shape="rect" id="node11" href="$d7/d3a/structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase.html" title=" " alt="" coords="179,219,327,275"/>
+<area shape="rect" id="node1" title=" " alt="" coords="149,215,299,256"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,96,160,137"/>
+<area shape="rect" id="node3" title=" " alt="" coords="185,103,263,130"/>
+<area shape="rect" id="node4" title=" " alt="" coords="162,5,286,47"/>
+<area shape="rect" id="node5" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="288,96,419,137"/>
 </map>

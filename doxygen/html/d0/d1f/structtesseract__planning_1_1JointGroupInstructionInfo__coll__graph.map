@@ -1,13 +1,8 @@
 <map id="tesseract_planning::JointGroupInstructionInfo" name="tesseract_planning::JointGroupInstructionInfo">
-<area shape="rect" id="node1" title="The Joint Group Instruction Information struct." alt="" coords="1460,54,1635,95"/>
-<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="1217,118,1348,159"/>
-<area shape="rect" id="node3" title=" " alt="" coords="917,157,1072,198"/>
-<area shape="rect" id="node4" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="633,169,763,210"/>
-<area shape="rect" id="node5" title=" " alt="" coords="339,154,509,225"/>
-<area shape="rect" id="node6" title=" " alt="" coords="179,103,257,129"/>
-<area shape="rect" id="node7" title=" " alt="" coords="5,95,129,137"/>
-<area shape="rect" id="node8" title=" " alt="" coords="361,249,487,276"/>
-<area shape="rect" id="node9" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="929,227,1060,269"/>
-<area shape="rect" id="node10" title=" " alt="" coords="612,267,784,323"/>
-<area shape="rect" id="node11" href="$dd/d8e/structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase.html" title=" " alt="" coords="336,300,512,356"/>
+<area shape="rect" id="node1" title="The Joint Group Instruction Information struct." alt="" coords="273,333,447,375"/>
+<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="220,229,351,271"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,96,160,137"/>
+<area shape="rect" id="node4" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="184,96,315,137"/>
+<area shape="rect" id="node5" title=" " alt="" coords="367,103,446,130"/>
+<area shape="rect" id="node6" title=" " alt="" coords="345,5,469,47"/>
 </map>

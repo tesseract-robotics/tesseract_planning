@@ -1,6 +1,4 @@
 <map id="tesseract_planning::CartesianWaypoint" name="tesseract_planning::CartesianWaypoint">
-<area shape="rect" id="node1" title=" " alt="" coords="25,347,161,388"/>
-<area shape="rect" id="node2" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="28,243,159,284"/>
-<area shape="rect" id="node3" title=" " alt="" coords="7,124,179,180"/>
-<area shape="rect" id="node4" href="$dd/d8e/structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase.html" title=" " alt="" coords="5,5,181,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,109,141,151"/>
+<area shape="rect" id="node2" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="8,5,139,47"/>
 </map>

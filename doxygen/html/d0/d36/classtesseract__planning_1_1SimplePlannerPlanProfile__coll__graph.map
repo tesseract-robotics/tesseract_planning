@@ -1,13 +1,8 @@
 <map id="tesseract_planning::SimplePlannerPlanProfile" name="tesseract_planning::SimplePlannerPlanProfile">
-<area shape="rect" id="node1" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="1408,125,1583,166"/>
-<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="1193,125,1324,166"/>
-<area shape="rect" id="node3" title=" " alt="" coords="893,125,1048,166"/>
-<area shape="rect" id="node4" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="633,125,763,166"/>
-<area shape="rect" id="node5" title=" " alt="" coords="339,87,509,158"/>
-<area shape="rect" id="node6" title=" " alt="" coords="179,72,257,99"/>
-<area shape="rect" id="node7" title=" " alt="" coords="5,65,129,106"/>
-<area shape="rect" id="node8" title=" " alt="" coords="361,183,487,209"/>
-<area shape="rect" id="node9" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="905,191,1036,233"/>
-<area shape="rect" id="node10" title=" " alt="" coords="612,223,784,279"/>
-<area shape="rect" id="node11" href="$dd/d8e/structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase.html" title=" " alt="" coords="336,233,512,289"/>
+<area shape="rect" id="node1" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="162,333,337,375"/>
+<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="184,229,315,271"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,96,160,137"/>
+<area shape="rect" id="node4" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="184,96,315,137"/>
+<area shape="rect" id="node5" title=" " alt="" coords="339,103,418,130"/>
+<area shape="rect" id="node6" title=" " alt="" coords="317,5,441,47"/>
 </map>

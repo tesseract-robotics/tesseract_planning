@@ -1,9 +1,7 @@
 <map id="tesseract_planning::ProcessPlanningRequest" name="tesseract_planning::ProcessPlanningRequest">
-<area shape="rect" id="node1" title=" " alt="" coords="923,68,1097,109"/>
-<area shape="rect" id="node2" title=" " alt="" coords="271,13,350,39"/>
-<area shape="rect" id="node7" title=" " alt="" coords="520,53,703,124"/>
-<area shape="rect" id="node3" title=" " alt="" coords="17,5,141,47"/>
-<area shape="rect" id="node4" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="546,148,677,189"/>
-<area shape="rect" id="node5" title=" " alt="" coords="220,141,401,197"/>
-<area shape="rect" id="node6" href="$d7/d3a/structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase.html" title=" " alt="" coords="5,141,153,197"/>
+<area shape="rect" id="node1" title=" " alt="" coords="739,69,913,110"/>
+<area shape="rect" id="node2" title=" " alt="" coords="179,33,257,60"/>
+<area shape="rect" id="node5" title=" " alt="" coords="336,54,519,125"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,26,129,67"/>
+<area shape="rect" id="node4" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="362,149,493,190"/>
 </map>

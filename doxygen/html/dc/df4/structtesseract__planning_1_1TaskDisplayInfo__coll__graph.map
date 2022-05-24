@@ -1,6 +1,5 @@
 <map id="tesseract_planning::TaskDisplayInfo" name="tesseract_planning::TaskDisplayInfo">
-<area shape="rect" id="node1" title="Contains additional information about a task to be displayed." alt="" coords="5,289,136,331"/>
+<area shape="rect" id="node1" title="Contains additional information about a task to be displayed." alt="" coords="5,185,136,227"/>
 <area shape="rect" id="node2" title=" " alt="" coords="31,96,110,123"/>
-<area shape="rect" id="node4" title=" " alt="" coords="131,185,253,227"/>
 <area shape="rect" id="node3" title=" " alt="" coords="9,5,133,47"/>
 </map>
