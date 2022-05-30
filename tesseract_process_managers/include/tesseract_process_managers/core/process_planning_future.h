@@ -68,6 +68,9 @@ struct ProcessPlanningFuture
   /** @brief Clear all content */
   void clear();
 
+  /** @brief Checks if the future has a shared state */
+  bool valid() const;
+
   /**
    * @brief This checks if the process has finished
    * @return True if the process finished, otherwise false
