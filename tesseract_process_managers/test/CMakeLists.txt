@@ -3,7 +3,7 @@ find_package(tesseract_support REQUIRED)
 find_package(tesseract_kinematics REQUIRED)
 
 if(NOT WIN32)
-  find_package(tcmalloc REQUIRED)
+  find_package(tcmalloc_minimal REQUIRED)
 endif()
 
 if(NOT TARGET GTest::GTest)
@@ -37,7 +37,7 @@ endif()
 include(GoogleTest)
 
 if(NOT WIN32)
-  set(TESSERACT_TCMALLOC_LIB tcmalloc::tcmalloc)
+  set(TESSERACT_TCMALLOC_LIB tcmalloc::tcmalloc_minimal)
 endif()
 
 add_executable(${PROJECT_NAME}_unit tesseract_process_managers_unit.cpp)
