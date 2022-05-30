@@ -45,6 +45,8 @@ void ProcessPlanningFuture::clear()
   problem = std::make_shared<ProcessPlanningProblem>();
 }
 
+bool ProcessPlanningFuture::valid() const { return process_future.valid(); }
+
 bool ProcessPlanningFuture::ready() const
 {
   return (process_future.wait_for(std::chrono::seconds(0)) == std::future_status::ready);
