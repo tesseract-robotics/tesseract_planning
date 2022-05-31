@@ -26,6 +26,8 @@ Collaboration diagram for tesseract\+\_\+planning\+::Process\+Planning\+Future\+
 \item 
 void \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a331e2eed932568b270198efbdb44a0a7}{clear}} ()
 \begin{DoxyCompactList}\small\item\em Clear all content. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_acf9f59a9defd26f6eea5be0507862ace}{valid}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the future has a shared state. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a5fc2dad07a0386329699e8960e48ba5d}{ready}} () const
 \begin{DoxyCompactList}\small\item\em This checks if the process has finished. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ae38bedb3507165a95eda17068397c9c1}{wait}} () const
@@ -120,6 +122,16 @@ True if the process finished, otherwise false
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
 void tesseract\+\_\+planning\+::\+Process\+Planning\+Future\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningFuture_acf9f59a9defd26f6eea5be0507862ace}\label{structtesseract__planning_1_1ProcessPlanningFuture_acf9f59a9defd26f6eea5be0507862ace}} 
+\index{tesseract\_planning::ProcessPlanningFuture@{tesseract\_planning::ProcessPlanningFuture}!valid@{valid}}
+\index{valid@{valid}!tesseract\_planning::ProcessPlanningFuture@{tesseract\_planning::ProcessPlanningFuture}}
+\doxysubsubsection{\texorpdfstring{valid()}{valid()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Process\+Planning\+Future\+::valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the future has a shared state. 
 
 \mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningFuture_ae38bedb3507165a95eda17068397c9c1}\label{structtesseract__planning_1_1ProcessPlanningFuture_ae38bedb3507165a95eda17068397c9c1}} 
 \index{tesseract\_planning::ProcessPlanningFuture@{tesseract\_planning::ProcessPlanningFuture}!wait@{wait}}
