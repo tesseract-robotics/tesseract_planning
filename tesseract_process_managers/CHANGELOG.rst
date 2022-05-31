@@ -2,6 +2,12 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Switch test to use tcmalloc_minimal
+* Add valid method to ProcessPlanningFuture
+* Contributors: Levi Armstrong
+
 0.10.2 (2022-05-24)
 -------------------
 * Make process planning server threadsafe and support multiple executors (`#197 <https://github.com/tesseract-robotics/tesseract_planning/issues/197>`_)
