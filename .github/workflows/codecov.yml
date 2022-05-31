@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI_NAME: CodeCov
-      ROS_DISTRO: melodic
+      ROS_DISTRO: noetic
       CCACHE_DIR: "/home/runner/work/tesseract_planning/tesseract_planning/CodeCov/.ccache"
       REGISTRY: ghcr.io
 
@@ -58,14 +58,14 @@ jobs:
         uses: 'ros-industrial/industrial_ci@master'
         env:
           OS_NAME: ubuntu
-          OS_CODE_NAME: bionic
+          OS_CODE_NAME: focal
           DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ env.ROS_DISTRO }}-0.9
           ROS_REPO: main
           UNDERLAY: /root//tesseract-robotics/tesseract_target_ws/install
           PREFIX: ${{ github.repository }}_
           UPSTREAM_WORKSPACE: 'dependencies.rosinstall'
           UPSTREAM_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Release"
-          ROSDEP_SKIP_KEYS: "bullet ros_industrial_cmake_boilerplate iwyu fcl taskflow"
+          ROSDEP_SKIP_KEYS: "bullet iwyu fcl"
           TARGET_CMAKE_ARGS: "-DCMAKE_BUILD_TYPE=Debug -DTESSERACT_ENABLE_CODE_COVERAGE=ON"
           PARALLEL_BUILDS: 1
           AFTER_SCRIPT: 'catkin build -w $target_ws --no-deps --verbose tesseract_command_language tesseract_motion_planners tesseract_process_managers tesseract_time_parameterization --make-args ccov-all
