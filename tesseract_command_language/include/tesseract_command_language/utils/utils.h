@@ -44,6 +44,8 @@ namespace tesseract_planning
 {
 /**
  * @brief Convert composite instruction to a joint trajectory
+ * @details This searches for both move and plan instruction to support converting both input and results to planning
+ * requests. If it contains a Cartesian waypoint it is skipped.
  * @param composite_instructions The composite instruction to convert
  * @return A joint trajectory
  */
