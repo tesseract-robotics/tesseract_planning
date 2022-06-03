@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update toJointTrajectory to support plan instructions
+* Contributors: Levi Armstrong
+
 0.10.3 (2022-05-31)
 -------------------
 
