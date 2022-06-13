@@ -62,7 +62,7 @@ private:
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(NullInstruction)
 #else
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::NullInstruction);
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, NullInstruction);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_NULL_INSTRUCTION_H

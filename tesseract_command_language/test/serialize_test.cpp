@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/serialization.h>
+#include <tesseract_common/any.h>
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
 #include <tesseract_common/utils.h>
@@ -194,6 +195,14 @@ TEST(TesseractCommandLanguageSerializeUnit, serializationCompositeInstruction)  
     auto nprogram = tesseract_common::Serialization::fromArchiveStringXML<Instruction>(program_string);
     EXPECT_TRUE(program == nprogram);
   }
+}
+
+TEST(TesseractCommandLanguageSerializeUnit, TypeErasureInTypeErasure)  // NOLINT
+{
+  tesseract_planning::Instruction instruction{ SetToolInstruction(5) };
+  tesseract_common::Any any_type;
+  any_type = instruction;
+  EXPECT_EQ(any_type.getType(), std::type_index(typeid(tesseract_planning::Instruction)));
 }
 
 int main(int argc, char** argv)
