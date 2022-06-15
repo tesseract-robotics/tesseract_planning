@@ -7,49 +7,26 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/waypoint.h>
 
 template <class Archive>
-void tesseract_planning::detail_waypoint::WaypointInnerBase::serialize(Archive& /*ar*/,
+void tesseract_planning::detail_waypoint::WaypointInterface::serialize(Archive& ar,
                                                                        const unsigned int /*version*/)  // NOLINT
 {
+  ar& boost::serialization::make_nvp("base",
+                                     boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
 }
 
-tesseract_planning::Waypoint::Waypoint()  // NOLINT
-  : waypoint_(nullptr)
-{
-}
-
-tesseract_planning::Waypoint::Waypoint(const Waypoint& other) { waypoint_ = other.waypoint_->clone(); }
-
-tesseract_planning::Waypoint::Waypoint(Waypoint&& other) noexcept { waypoint_.swap(other.waypoint_); }
-
-tesseract_planning::Waypoint& tesseract_planning::Waypoint::operator=(Waypoint&& other) noexcept
-{
-  waypoint_.swap(other.waypoint_);
-  return (*this);
-}
-
-tesseract_planning::Waypoint& tesseract_planning::Waypoint::operator=(const Waypoint& other)
-{
-  (*this) = Waypoint(other);
-  return (*this);
-}
-
-std::type_index tesseract_planning::Waypoint::getType() const { return waypoint_->getType(); }
-
-void tesseract_planning::Waypoint::print(const std::string& prefix) const { waypoint_->print(prefix); }
-
-bool tesseract_planning::Waypoint::operator==(const Waypoint& rhs) const
-{
-  return waypoint_->operator==(*rhs.waypoint_);
-}
-
-bool tesseract_planning::Waypoint::operator!=(const Waypoint& rhs) const { return !operator==(rhs); }
+void tesseract_planning::Waypoint::print(const std::string& prefix) const { interface().print(prefix); }
 
 template <class Archive>
 void tesseract_planning::Waypoint::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
 {
-  ar& boost::serialization::make_nvp("waypoint", waypoint_);
+  ar& boost::serialization::make_nvp("base", boost::serialization::base_object<WaypointBase>(*this));
 }
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_waypoint::WaypointInnerBase)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::detail_waypoint::WaypointInterface)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::WaypointBase)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::Waypoint)
+
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_waypoint::WaypointInterface)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::WaypointBase)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::Waypoint)

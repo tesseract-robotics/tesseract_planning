@@ -28,7 +28,7 @@
 
 namespace tesseract_planning
 {
-class Instruction;
+struct Instruction;
 
 bool isCommentInstruction(const Instruction& instruction);
 

@@ -63,7 +63,7 @@ private:
 #ifdef SWIG
 %tesseract_command_language_add_waypoint_type(StateWaypoint)
 #else
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning::StateWaypoint);
+TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypoint);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

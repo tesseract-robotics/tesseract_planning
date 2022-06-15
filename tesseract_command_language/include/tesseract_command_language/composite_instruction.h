@@ -286,7 +286,7 @@ private:
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(CompositeInstruction)
 #else
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::CompositeInstruction);
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, CompositeInstruction);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMPOSITE_INSTRUCTION_H
