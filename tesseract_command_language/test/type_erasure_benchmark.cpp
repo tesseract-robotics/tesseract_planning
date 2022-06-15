@@ -181,6 +181,33 @@ CompositeInstruction getProgram()
   return program;
 }
 
+std::vector<Waypoint> createVectorStateWaypointPoly()
+{
+  std::vector<Waypoint> results;
+  results.reserve(1000);
+  for (std::size_t i = 0; i < 1000; ++i)
+  {
+    Waypoint wp1 = JointWaypoint({ "j1", "j2", "j3", "j4", "j5", "j6" }, Eigen::VectorXd::Ones(6));
+
+    results.push_back(std::move(wp1));
+  }
+  return results;
+}
+
+std::vector<std::unique_ptr<StateWaypoint>> createVectorStateWaypointUPtr()
+{
+  std::vector<std::unique_ptr<StateWaypoint>> results;
+  results.reserve(1000);
+  for (std::size_t i = 0; i < 1000; ++i)
+  {
+    std::vector<std::string> joint_names = { "j1", "j2", "j3", "j4", "j5", "j6" };
+    auto wp1 = std::make_unique<StateWaypoint>(joint_names, Eigen::VectorXd::Ones(6));
+
+    results.push_back(std::move(wp1));
+  }
+  return results;
+}
+
 static void BM_InstructionPolyCreation(benchmark::State& state)
 {
   for (auto _ : state)
@@ -302,5 +329,44 @@ static void BM_WaypointPolyAccess(benchmark::State& state)
 }
 
 BENCHMARK(BM_WaypointPolyAccess);
+
+static void BM_VectorStateWaypointPolyCreation(benchmark::State& state)
+{
+  for (auto _ : state)
+    std::vector<Waypoint> w = createVectorStateWaypointPoly();
+}
+
+BENCHMARK(BM_VectorStateWaypointPolyCreation);
+
+static void BM_VectorStateWaypointUPtrCreation(benchmark::State& state)
+{
+  for (auto _ : state)
+    std::vector<std::unique_ptr<StateWaypoint>> w = createVectorStateWaypointUPtr();
+}
+
+BENCHMARK(BM_VectorStateWaypointUPtrCreation);
+
+static void BM_VectorStateWaypointPolyCopy(benchmark::State& state)
+{
+  std::vector<Waypoint> w = createVectorStateWaypointPoly();
+  for (auto _ : state)
+    std::vector<Waypoint> copy(w);
+}
+
+BENCHMARK(BM_VectorStateWaypointPolyCopy);
+
+static void BM_VectorStateWaypointUPtrCopy(benchmark::State& state)
+{
+  std::vector<std::unique_ptr<StateWaypoint>> w = createVectorStateWaypointUPtr();
+  for (auto _ : state)
+  {
+    std::vector<std::unique_ptr<StateWaypoint>> copy;
+    copy.reserve(w.size());
+    for (const auto& i : w)
+      copy.emplace_back(std::make_unique<StateWaypoint>(*i));
+  }
+}
+
+BENCHMARK(BM_VectorStateWaypointUPtrCopy);
 
 BENCHMARK_MAIN();
