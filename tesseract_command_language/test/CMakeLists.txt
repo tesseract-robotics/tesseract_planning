@@ -145,7 +145,6 @@ add_dependencies(${PROJECT_NAME}_utils_unit ${PROJECT_NAME})
 find_package(benchmark REQUIRED)
 add_executable(${PROJECT_NAME}_type_erasure_benchmark type_erasure_benchmark.cpp)
 target_link_libraries(${PROJECT_NAME}_type_erasure_benchmark PRIVATE benchmark::benchmark ${PROJECT_NAME})
-target_clang_tidy(${PROJECT_NAME}_type_erasure_benchmark ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(${PROJECT_NAME}_type_erasure_benchmark PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_type_erasure_benchmark
