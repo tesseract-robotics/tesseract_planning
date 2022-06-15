@@ -33,7 +33,7 @@
 \DoxyCodeLine{58         \textcolor{keyword}{auto}\& move = sub.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a42076f07a201bdee759baa5a37596ff3}{at}}(move\_idx).as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>();}
 \DoxyCodeLine{59         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}{isStateWaypoint}}(move.getWaypoint()))}
 \DoxyCodeLine{60         \{}
-\DoxyCodeLine{61           \textcolor{keyword}{auto}\& state = move.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_af9dd6ba043a2ae38129847a98d90a540}{getWaypoint}}().\mbox{\hyperlink{classtesseract__planning_1_1Waypoint_a8a921b53dc06875534de2d145fd738ae}{as}}<\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}>();}
+\DoxyCodeLine{61           \textcolor{keyword}{auto}\& state = move.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_af9dd6ba043a2ae38129847a98d90a540}{getWaypoint}}().as<\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}>();}
 \DoxyCodeLine{62 }
 \DoxyCodeLine{63           \textcolor{keywordtype}{double} scaling\_factor = scalings[sub\_composite\_idx];}
 \DoxyCodeLine{64           \textcolor{keywordflow}{if} (scaling\_factor < 1e-\/6)}

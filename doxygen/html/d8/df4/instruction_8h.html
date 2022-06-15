@@ -74,39 +74,35 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">instruction.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;tesseract_common/macros.h&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
-<code>#include &lt;typeindex&gt;</code><br />
 <code>#include &lt;boost/serialization/base_object.hpp&gt;</code><br />
 <code>#include &lt;boost/serialization/export.hpp&gt;</code><br />
-<code>#include &lt;boost/serialization/nvp.hpp&gt;</code><br />
-<code>#include &lt;boost/serialization/unique_ptr.hpp&gt;</code><br />
-<code>#include &lt;boost/type_traits/is_virtual_base_of.hpp&gt;</code><br />
-<code>#include &lt;tesseract_common/serialization.h&gt;</code><br />
+<code>#include &lt;boost/concept_check.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d4/d08/waypoint_8h_source.html">tesseract_command_language/core/waypoint.h</a>&gt;</code><br />
-<code>#include &lt;tesseract_common/sfinae_utils.h&gt;</code><br />
+<code>#include &lt;tesseract_common/serialization.h&gt;</code><br />
+<code>#include &lt;tesseract_common/type_erasure.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for instruction.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d6b/instruction_8h__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2core_2instruction_8h" alt=""/></div>
 <map name="atesseract__command__language_2include_2tesseract__command__language_2core_2instruction_8h" id="atesseract__command__language_2include_2tesseract__command__language_2core_2instruction_8h">
-<area shape="rect" title=" " alt="" coords="635,5,833,61"/>
+<area shape="rect" title=" " alt="" coords="476,5,675,61"/>
 <area shape="rect" title=" " alt="" coords="5,206,196,233"/>
 <area shape="rect" title=" " alt="" coords="220,206,275,233"/>
-<area shape="rect" title=" " alt="" coords="299,206,375,233"/>
-<area shape="rect" title=" " alt="" coords="399,199,525,240"/>
-<area shape="rect" title=" " alt="" coords="549,199,676,240"/>
-<area shape="rect" title=" " alt="" coords="792,199,919,240"/>
-<area shape="rect" title=" " alt="" coords="943,199,1069,240"/>
-<area shape="rect" title=" " alt="" coords="1094,199,1235,240"/>
-<area shape="rect" title=" " alt="" coords="1260,206,1475,233"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="635,109,833,151"/>
-<area shape="rect" title=" " alt="" coords="1499,199,1670,240"/>
+<area shape="rect" title=" " alt="" coords="299,199,425,240"/>
+<area shape="rect" title=" " alt="" coords="449,199,576,240"/>
+<area shape="rect" title=" " alt="" coords="793,206,963,233"/>
+<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="544,109,743,151"/>
+<area shape="rect" title=" " alt="" coords="988,206,1203,233"/>
+<area shape="rect" title=" " alt="" coords="1227,199,1388,240"/>
 <area shape="rect" title=" " alt="" coords="700,206,768,233"/>
+<area shape="rect" title=" " alt="" coords="600,206,676,233"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -171,13 +167,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d3a/structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase.html">tesseract_planning::detail_instruction::InstructionInnerBase</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d49/structtesseract__planning_1_1detail__instruction_1_1InstructionConcept.html">tesseract_planning::detail_instruction::InstructionConcept&lt; T &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner&lt; T &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4e/structtesseract__planning_1_1detail__instruction_1_1InstructionInterface.html">tesseract_planning::detail_instruction::InstructionInterface</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d5e/structboost_1_1is__virtual__base__of_3_01tesseract__planning_1_1detail__instruction_1_1Instructi4bac2ff43cf5ebc6e54bdec93ebc6d01.html">boost::is_virtual_base_of&lt; tesseract_planning::detail_instruction::InstructionInnerBase, tesseract_planning::detail_instruction::InstructionInner&lt; T &gt; &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3e/structtesseract__planning_1_1detail__instruction_1_1InstructionInstance.html">tesseract_planning::detail_instruction::InstructionInstance&lt; T &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -186,36 +182,27 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d7/d54/namespacetesseract__planning_1_1detail__instruction"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d54/namespacetesseract__planning_1_1detail__instruction.html">tesseract_planning::detail_instruction</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:d4/da9/namespaceboost"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da9/namespaceboost.html">boost</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6635650e56c113a9dbc55aaaf50de52e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df4/instruction_8h.html#a6635650e56c113a9dbc55aaaf50de52e">TESSERACT_INSTRUCTION_EXPORT_KEY</a>(inst)</td></tr>
-<tr class="memdesc:a6635650e56c113a9dbc55aaaf50de52e"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the header after the class definition.  <a href="../../d8/df4/instruction_8h.html#a6635650e56c113a9dbc55aaaf50de52e">More...</a><br /></td></tr>
-<tr class="separator:a6635650e56c113a9dbc55aaaf50de52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58072dc3216212ac63009dd8885776a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df4/instruction_8h.html#a58072dc3216212ac63009dd8885776a9">TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT</a>(inst)&#160;&#160;&#160;  BOOST_CLASS_EXPORT_IMPLEMENT(<a class="el" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner</a>&lt;inst&gt;)</td></tr>
+<tr class="memitem:a4dc28033f37b499d6d9e64b1d5767973"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df4/instruction_8h.html#a4dc28033f37b499d6d9e64b1d5767973">TESSERACT_INSTRUCTION_EXPORT_KEY</a>(N,  C)</td></tr>
+<tr class="memdesc:a4dc28033f37b499d6d9e64b1d5767973"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the header after the class definition.  <a href="../../d8/df4/instruction_8h.html#a4dc28033f37b499d6d9e64b1d5767973">More...</a><br /></td></tr>
+<tr class="separator:a4dc28033f37b499d6d9e64b1d5767973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58072dc3216212ac63009dd8885776a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df4/instruction_8h.html#a58072dc3216212ac63009dd8885776a9">TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT</a>(inst)</td></tr>
 <tr class="memdesc:a58072dc3216212ac63009dd8885776a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the cpp after the implicit instantiation of the serialize function.  <a href="../../d8/df4/instruction_8h.html#a58072dc3216212ac63009dd8885776a9">More...</a><br /></td></tr>
 <tr class="separator:a58072dc3216212ac63009dd8885776a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba30606adde75c1aa6c3f7e1e862cee9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df4/instruction_8h.html#aba30606adde75c1aa6c3f7e1e862cee9">TESSERACT_INSTRUCTION_EXPORT</a>(inst)</td></tr>
-<tr class="memdesc:aba30606adde75c1aa6c3f7e1e862cee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp.  <a href="../../d8/df4/instruction_8h.html#aba30606adde75c1aa6c3f7e1e862cee9">More...</a><br /></td></tr>
-<tr class="separator:aba30606adde75c1aa6c3f7e1e862cee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a160e351c1bac75f304fd5ec9958559ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df4/instruction_8h.html#a160e351c1bac75f304fd5ec9958559ed">TESSERACT_INSTRUCTION_EXPORT</a>(N,  C)</td></tr>
+<tr class="memdesc:a160e351c1bac75f304fd5ec9958559ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp.  <a href="../../d8/df4/instruction_8h.html#a160e351c1bac75f304fd5ec9958559ed">More...</a><br /></td></tr>
+<tr class="separator:a160e351c1bac75f304fd5ec9958559ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a4bb993355d5a35a8de385b7434e276e8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4bb993355d5a35a8de385b7434e276e8">tesseract_planning::InstructionBase</a> = tesseract_common::TypeErasureBase&lt; detail_instruction::InstructionInterface, detail_instruction::InstructionInstance &gt;</td></tr>
+<tr class="separator:a4bb993355d5a35a8de385b7434e276e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:afceec5580e93559507c5e12c8258b8a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d54/namespacetesseract__planning_1_1detail__instruction.html#afceec5580e93559507c5e12c8258b8a5">tesseract_planning::detail_instruction::CREATE_MEMBER_CHECK</a> (getDescription)</td></tr>
-<tr class="separator:afceec5580e93559507c5e12c8258b8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b74b144a2e9cbcffe5933d51bf4dc1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d54/namespacetesseract__planning_1_1detail__instruction.html#af3b74b144a2e9cbcffe5933d51bf4dc1">tesseract_planning::detail_instruction::CREATE_MEMBER_CHECK</a> (setDescription)</td></tr>
-<tr class="separator:af3b74b144a2e9cbcffe5933d51bf4dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aba0b135797c2a8c7c2c821dd14124d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d54/namespacetesseract__planning_1_1detail__instruction.html#a3aba0b135797c2a8c7c2c821dd14124d">tesseract_planning::detail_instruction::CREATE_MEMBER_CHECK</a> (print)</td></tr>
-<tr class="separator:a3aba0b135797c2a8c7c2c821dd14124d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a049efcc673b92df5148b2d736f21a4ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d54/namespacetesseract__planning_1_1detail__instruction.html#a049efcc673b92df5148b2d736f21a4ad">tesseract_planning::detail_instruction::CREATE_MEMBER_FUNC_SIGNATURE_NOARGS_CHECK</a> (getDescription, const std::string &amp;)</td></tr>
-<tr class="separator:a049efcc673b92df5148b2d736f21a4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af31acfaf3e0c678034c6fc63318ff6e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d54/namespacetesseract__planning_1_1detail__instruction.html#af31acfaf3e0c678034c6fc63318ff6e2">tesseract_planning::detail_instruction::CREATE_MEMBER_FUNC_SIGNATURE_CHECK</a> (setDescription, void, const std::string &amp;)</td></tr>
-<tr class="separator:af31acfaf3e0c678034c6fc63318ff6e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c51d252fea8f4ba001b4b47b3e53dc6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d54/namespacetesseract__planning_1_1detail__instruction.html#a4c51d252fea8f4ba001b4b47b3e53dc6">tesseract_planning::detail_instruction::CREATE_MEMBER_FUNC_SIGNATURE_CHECK</a> (print, void, std::string)</td></tr>
-<tr class="separator:a4c51d252fea8f4ba001b4b47b3e53dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a117374dd98af81801c0ccb8018e93215"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df4/instruction_8h.html#a117374dd98af81801c0ccb8018e93215">BOOST_CLASS_TRACKING</a> (<a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a>, boost::serialization::track_never)</td></tr>
+<tr class="memitem:a117374dd98af81801c0ccb8018e93215"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df4/instruction_8h.html#a117374dd98af81801c0ccb8018e93215">BOOST_CLASS_TRACKING</a> (<a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a>, boost::serialization::track_never)</td></tr>
 <tr class="separator:a117374dd98af81801c0ccb8018e93215"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -228,8 +215,8 @@ Functions</h2></td></tr>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
 <dl class="section user"><dt></dt><dd>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="aba30606adde75c1aa6c3f7e1e862cee9" name="aba30606adde75c1aa6c3f7e1e862cee9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba30606adde75c1aa6c3f7e1e862cee9">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT</h2>
+<a id="a160e351c1bac75f304fd5ec9958559ed" name="a160e351c1bac75f304fd5ec9958559ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a160e351c1bac75f304fd5ec9958559ed">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,14 +225,24 @@ Functions</h2></td></tr>
           <td class="memname">#define TESSERACT_INSTRUCTION_EXPORT</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">inst</td><td>)</td>
+          <td class="paramname">N, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">C&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="../../d8/df4/instruction_8h.html#a6635650e56c113a9dbc55aaaf50de52e">TESSERACT_INSTRUCTION_EXPORT_KEY</a>(inst)                                                                               \</div>
-<div class="line">  TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(inst)</div>
-<div class="ttc" id="ainstruction_8h_html_a6635650e56c113a9dbc55aaaf50de52e"><div class="ttname"><a href="../../d8/df4/instruction_8h.html#a6635650e56c113a9dbc55aaaf50de52e">TESSERACT_INSTRUCTION_EXPORT_KEY</a></div><div class="ttdeci">#define TESSERACT_INSTRUCTION_EXPORT_KEY(inst)</div><div class="ttdoc">If shared library, this must go in the header after the class definition.</div><div class="ttdef"><b>Definition:</b> instruction.h:54</div></div>
+<b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="../../d8/df4/instruction_8h.html#a4dc28033f37b499d6d9e64b1d5767973">TESSERACT_INSTRUCTION_EXPORT_KEY</a>(N, C)                                                                               \</div>
+<div class="line">  TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(N::C)</div>
+<div class="ttc" id="ainstruction_8h_html_a4dc28033f37b499d6d9e64b1d5767973"><div class="ttname"><a href="../../d8/df4/instruction_8h.html#a4dc28033f37b499d6d9e64b1d5767973">TESSERACT_INSTRUCTION_EXPORT_KEY</a></div><div class="ttdeci">#define TESSERACT_INSTRUCTION_EXPORT_KEY(N, C)</div><div class="ttdoc">If shared library, this must go in the header after the class definition.</div><div class="ttdef"><b>Definition:</b> instruction.h:49</div></div>
 </div><!-- fragment -->
 <p>This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. </p>
 
@@ -262,17 +259,20 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">inst</td><td>)</td>
-          <td>&#160;&#160;&#160;  BOOST_CLASS_EXPORT_IMPLEMENT(<a class="el" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner</a>&lt;inst&gt;)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \</div>
+<div class="line">  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)                                                                         \</div>
+<div class="line">  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceWrapper)</div>
+</div><!-- fragment -->
 <p>If shared library, this must go in the cpp after the implicit instantiation of the serialize function. </p>
 
 </div>
 </div>
-<a id="a6635650e56c113a9dbc55aaaf50de52e" name="a6635650e56c113a9dbc55aaaf50de52e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6635650e56c113a9dbc55aaaf50de52e">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT_KEY</h2>
+<a id="a4dc28033f37b499d6d9e64b1d5767973" name="a4dc28033f37b499d6d9e64b1d5767973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dc28033f37b499d6d9e64b1d5767973">&#9670;&nbsp;</a></span>TESSERACT_INSTRUCTION_EXPORT_KEY</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,15 +281,35 @@ Functions</h2></td></tr>
           <td class="memname">#define TESSERACT_INSTRUCTION_EXPORT_KEY</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">inst</td><td>)</td>
+          <td class="paramname">N, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">C&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  BOOST_CLASS_EXPORT_KEY2(<a class="code hl_struct" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner&lt;inst&gt;</a>, #inst)                       \</div>
-<div class="line">  BOOST_CLASS_TRACKING(<a class="code hl_struct" href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner&lt;inst&gt;</a>,                                 \</div>
-<div class="line">                       boost::serialization::track_never)</div>
-<div class="ttc" id="astructtesseract__planning_1_1detail__instruction_1_1InstructionInner_html"><div class="ttname"><a href="../../de/d2e/structtesseract__planning_1_1detail__instruction_1_1InstructionInner.html">tesseract_planning::detail_instruction::InstructionInner</a></div><div class="ttdef"><b>Definition:</b> instruction.h:124</div></div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keyword">namespace </span>N                                                                                                          \</div>
+<div class="line">  {                                                                                                                    \</div>
+<div class="line">  using C##InstanceBase =                                                                                              \</div>
+<div class="line">      tesseract_common::TypeErasureInstance&lt;C, tesseract_planning::detail_instruction::InstructionInterface&gt;;          \</div>
+<div class="line">  using C##Instance = <a class="code hl_struct" href="../../d2/d3e/structtesseract__planning_1_1detail__instruction_1_1InstructionInstance.html">tesseract_planning::detail_instruction::InstructionInstance&lt;C&gt;</a>;                                  \</div>
+<div class="line">  using C##InstanceWrapper = tesseract_common::TypeErasureInstanceWrapper&lt;C##Instance&gt;;                                \</div>
+<div class="line">  }                                                                                                                    \</div>
+<div class="line">  BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \</div>
+<div class="line">  BOOST_CLASS_EXPORT_KEY(N::C##Instance)                                                                               \</div>
+<div class="line">  BOOST_CLASS_EXPORT_KEY(N::C##InstanceWrapper)                                                                        \</div>
+<div class="line">  BOOST_CLASS_TRACKING(N::C##InstanceBase, boost::serialization::track_never)                                          \</div>
+<div class="line">  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)                                              \</div>
+<div class="line">  BOOST_CLASS_TRACKING(N::C##InstanceWrapper, boost::serialization::track_never)</div>
+<div class="ttc" id="astructtesseract__planning_1_1detail__instruction_1_1InstructionInstance_html"><div class="ttname"><a href="../../d2/d3e/structtesseract__planning_1_1detail__instruction_1_1InstructionInstance.html">tesseract_planning::detail_instruction::InstructionInstance</a></div><div class="ttdef"><b>Definition:</b> instruction.h:128</div></div>
 </div><!-- fragment -->
 <p>If shared library, this must go in the header after the class definition. </p>
 
@@ -305,7 +325,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">BOOST_CLASS_TRACKING </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../de/d58/classtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a>&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -327,7 +347,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 6 2022 06:06:09 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Jun 15 2022 23:10:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

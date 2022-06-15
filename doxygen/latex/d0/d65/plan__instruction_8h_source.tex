@@ -34,20 +34,20 @@
 \DoxyCodeLine{64 \textcolor{keyword}{public}:}
 \DoxyCodeLine{65   \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a3e7cac439878878b77a264d7129901f8}{PlanInstruction}}() = \textcolor{keywordflow}{default};  \textcolor{comment}{// Required for boost serialization do not use}}
 \DoxyCodeLine{66 }
-\DoxyCodeLine{77   \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a3e7cac439878878b77a264d7129901f8}{PlanInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} waypoint,}
+\DoxyCodeLine{77   \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a3e7cac439878878b77a264d7129901f8}{PlanInstruction}}(\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} waypoint,}
 \DoxyCodeLine{78                   \mbox{\hyperlink{namespacetesseract__planning_a6d6524747d083995553d1538d6e29610}{PlanInstructionType}} type,}
 \DoxyCodeLine{79                   std::string profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}},}
 \DoxyCodeLine{80                   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}} manipulator\_info = \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}());}
 \DoxyCodeLine{81 }
-\DoxyCodeLine{90   \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a3e7cac439878878b77a264d7129901f8}{PlanInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} waypoint,}
+\DoxyCodeLine{90   \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a3e7cac439878878b77a264d7129901f8}{PlanInstruction}}(\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} waypoint,}
 \DoxyCodeLine{91                   \mbox{\hyperlink{namespacetesseract__planning_a6d6524747d083995553d1538d6e29610}{PlanInstructionType}} type,}
 \DoxyCodeLine{92                   std::string profile,}
 \DoxyCodeLine{93                   std::string path\_profile,}
 \DoxyCodeLine{94                   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}} manipulator\_info = \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}());}
 \DoxyCodeLine{95 }
-\DoxyCodeLine{96   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_ac0df1dfe3204716bafb63a2d35e5961e}{setWaypoint}}(\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} waypoint);}
-\DoxyCodeLine{97   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a09fa1e4bcf8216c04f2ab260c7062b88}{getWaypoint}}();}
-\DoxyCodeLine{98   \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}}\& \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a09fa1e4bcf8216c04f2ab260c7062b88}{getWaypoint}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{96   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_ac0df1dfe3204716bafb63a2d35e5961e}{setWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} waypoint);}
+\DoxyCodeLine{97   \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}}\& \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a09fa1e4bcf8216c04f2ab260c7062b88}{getWaypoint}}();}
+\DoxyCodeLine{98   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}}\& \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a09fa1e4bcf8216c04f2ab260c7062b88}{getWaypoint}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{99 }
 \DoxyCodeLine{100   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a95594d6c408bb916533517cf60500563}{setManipulatorInfo}}(\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}} info);}
 \DoxyCodeLine{101   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a0a0b189f0728eaf945698f056e96e2bf}{getManipulatorInfo}}() \textcolor{keyword}{const};}
@@ -85,7 +85,7 @@
 \DoxyCodeLine{134 \textcolor{keyword}{private}:}
 \DoxyCodeLine{135   \mbox{\hyperlink{namespacetesseract__planning_a6d6524747d083995553d1538d6e29610}{PlanInstructionType}} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_afafd697b918e5de06d531df49ba84b1d}{plan\_type\_}}\{ \mbox{\hyperlink{namespacetesseract__planning_a6d6524747d083995553d1538d6e29610ab078ffd28db767c502ac367053f6e0ac}{PlanInstructionType::START}} \};}
 \DoxyCodeLine{136 }
-\DoxyCodeLine{138   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a817c7618ea1fe1c3799def378e05cca5}{waypoint\_}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{NullWaypoint}}() \};}
+\DoxyCodeLine{138   \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a817c7618ea1fe1c3799def378e05cca5}{waypoint\_}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{NullWaypoint}}() \};}
 \DoxyCodeLine{139 }
 \DoxyCodeLine{141   std::string \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction_a1825f2f91aee4324300e94d148a90fa1}{profile\_}}\{ \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}} \};}
 \DoxyCodeLine{142 }
@@ -105,7 +105,7 @@
 \DoxyCodeLine{159 \textcolor{preprocessor}{\#ifdef SWIG}}
 \DoxyCodeLine{160 \%tesseract\_command\_language\_add\_instruction\_type(PlanInstruction)}
 \DoxyCodeLine{161 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{162 \mbox{\hyperlink{plan__instruction_8h_a864ed7a9fd636ddd792168610926603a}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{tesseract\_planning::PlanInstruction}});}
+\DoxyCodeLine{162 \mbox{\hyperlink{plan__instruction_8h_a6e3b28bae10c8af46c4b2889febec66f}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, PlanInstruction);}
 \DoxyCodeLine{163 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
 \DoxyCodeLine{164 }
 \DoxyCodeLine{165 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_PLAN\_INSTRUCTION\_H}}

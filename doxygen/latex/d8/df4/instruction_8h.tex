@@ -2,15 +2,12 @@
 \label{instruction_8h}\index{tesseract\_command\_language/include/tesseract\_command\_language/core/instruction.h@{tesseract\_command\_language/include/tesseract\_command\_language/core/instruction.h}}
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
-{\ttfamily \#include $<$typeindex$>$}\newline
 {\ttfamily \#include $<$boost/serialization/base\+\_\+object.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/serialization/export.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/serialization/nvp.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/serialization/unique\+\_\+ptr.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/type\+\_\+traits/is\+\_\+virtual\+\_\+base\+\_\+of.\+hpp$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/waypoint.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+common/sfinae\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/type\+\_\+erasure.\+h$>$}\newline
 Include dependency graph for instruction.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -30,13 +27,13 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInnerBase}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner\+Base}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Concept$<$ T $>$}}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner$<$ T $>$}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Interface}}
 \item 
-struct \mbox{\hyperlink{structboost_1_1is__virtual__base__of_3_01tesseract__planning_1_1detail__instruction_1_1Instructi4bac2ff43cf5ebc6e54bdec93ebc6d01}{boost\+::is\+\_\+virtual\+\_\+base\+\_\+of$<$ tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner\+Base, tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner$<$ T $>$ $>$}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Instance$<$ T $>$}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
@@ -44,34 +41,25 @@ class \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+p
 namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
 \item 
 namespace \mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction}{tesseract\+\_\+planning\+::detail\+\_\+instruction}}
-\item 
-namespace \mbox{\hyperlink{namespaceboost}{boost}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{instruction_8h_a6635650e56c113a9dbc55aaaf50de52e}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}}(inst)
+\#define \mbox{\hyperlink{instruction_8h_a4dc28033f37b499d6d9e64b1d5767973}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}}(N,  C)
 \begin{DoxyCompactList}\small\item\em If shared library, this must go in the header after the class definition. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{instruction_8h_a58072dc3216212ac63009dd8885776a9}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT}}(inst)~  BOOST\+\_\+\+CLASS\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner}}$<$inst$>$)
+\#define \mbox{\hyperlink{instruction_8h_a58072dc3216212ac63009dd8885776a9}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT}}(inst)
 \begin{DoxyCompactList}\small\item\em If shared library, this must go in the cpp after the implicit instantiation of the serialize function. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{instruction_8h_aba30606adde75c1aa6c3f7e1e862cee9}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}}(inst)
+\#define \mbox{\hyperlink{instruction_8h_a160e351c1bac75f304fd5ec9958559ed}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}}(N,  C)
 \begin{DoxyCompactList}\small\item\em This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a4bb993355d5a35a8de385b7434e276e8}{tesseract\+\_\+planning\+::\+Instruction\+Base}} = tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$ detail\+\_\+instruction\+::\+Instruction\+Interface, detail\+\_\+instruction\+::\+Instruction\+Instance $>$
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction_afceec5580e93559507c5e12c8258b8a5}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+CHECK}} (get\+Description)
-\item 
-\mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction_af3b74b144a2e9cbcffe5933d51bf4dc1}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+CHECK}} (set\+Description)
-\item 
-\mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction_a3aba0b135797c2a8c7c2c821dd14124d}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+CHECK}} (print)
-\item 
-\mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction_a049efcc673b92df5148b2d736f21a4ad}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+FUNC\+\_\+\+SIGNATURE\+\_\+\+NOARGS\+\_\+\+CHECK}} (get\+Description, const std\+::string \&)
-\item 
-\mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction_af31acfaf3e0c678034c6fc63318ff6e2}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+FUNC\+\_\+\+SIGNATURE\+\_\+\+CHECK}} (set\+Description, void, const std\+::string \&)
-\item 
-\mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction_a4c51d252fea8f4ba001b4b47b3e53dc6}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+FUNC\+\_\+\+SIGNATURE\+\_\+\+CHECK}} (print, void, std\+::string)
-\item 
-\mbox{\hyperlink{instruction_8h_a117374dd98af81801c0ccb8018e93215}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}} (\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}, boost\+::serialization\+::track\+\_\+never)
+\mbox{\hyperlink{instruction_8h_a117374dd98af81801c0ccb8018e93215}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}} (\mbox{\hyperlink{structtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}, boost\+::serialization\+::track\+\_\+never)
 \end{DoxyCompactItemize}
 
 
@@ -104,16 +92,16 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{instruction_8h_aba30606adde75c1aa6c3f7e1e862cee9}\label{instruction_8h_aba30606adde75c1aa6c3f7e1e862cee9}} 
+\mbox{\Hypertarget{instruction_8h_a160e351c1bac75f304fd5ec9958559ed}\label{instruction_8h_a160e351c1bac75f304fd5ec9958559ed}} 
 \index{instruction.h@{instruction.h}!TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}}
 \index{TESSERACT\_INSTRUCTION\_EXPORT@{TESSERACT\_INSTRUCTION\_EXPORT}!instruction.h@{instruction.h}}
 \doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT}{TESSERACT\_INSTRUCTION\_EXPORT}}
-{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT(\begin{DoxyParamCaption}\item[{}]{inst }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{C }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \mbox{\hyperlink{instruction_8h_a6635650e56c113a9dbc55aaaf50de52e}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(inst)                                                                               \(\backslash\)}
-\DoxyCodeLine{  TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT(inst)}
+\DoxyCodeLine{  \mbox{\hyperlink{instruction_8h_a4dc28033f37b499d6d9e64b1d5767973}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(N, C)                                                                               \(\backslash\)}
+\DoxyCodeLine{  TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT(N::C)}
 
 \end{DoxyCode}
 
@@ -124,23 +112,40 @@ This should not be used within shared libraries use the two above. If not in a s
 \index{instruction.h@{instruction.h}!TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT@{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT}}
 \index{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT@{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT}!instruction.h@{instruction.h}}
 \doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT}{TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT}}
-{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\begin{DoxyParamCaption}\item[{}]{inst }\end{DoxyParamCaption})~  BOOST\+\_\+\+CLASS\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}{tesseract\+\_\+planning\+::detail\+\_\+instruction\+::\+Instruction\+Inner}}$<$inst$>$)}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\begin{DoxyParamCaption}\item[{}]{inst }\end{DoxyParamCaption})}
 
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceBase)                                                                     \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#Instance)                                                                         \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceWrapper)}
+
+\end{DoxyCode}
 
 
 If shared library, this must go in the cpp after the implicit instantiation of the serialize function. 
 
-\mbox{\Hypertarget{instruction_8h_a6635650e56c113a9dbc55aaaf50de52e}\label{instruction_8h_a6635650e56c113a9dbc55aaaf50de52e}} 
+\mbox{\Hypertarget{instruction_8h_a4dc28033f37b499d6d9e64b1d5767973}\label{instruction_8h_a4dc28033f37b499d6d9e64b1d5767973}} 
 \index{instruction.h@{instruction.h}!TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}
 \index{TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}!instruction.h@{instruction.h}}
 \doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}
-{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY(\begin{DoxyParamCaption}\item[{}]{inst }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{C }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}{tesseract\_planning::detail\_instruction::InstructionInner<inst>}}, \#inst)                       \(\backslash\)}
-\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInner}{tesseract\_planning::detail\_instruction::InstructionInner<inst>}},                                 \(\backslash\)}
-\DoxyCodeLine{                       boost::serialization::track\_never)}
+\DoxyCodeLine{  \textcolor{keyword}{namespace }N                                                                                                          \(\backslash\)}
+\DoxyCodeLine{  \{                                                                                                                    \(\backslash\)}
+\DoxyCodeLine{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}
+\DoxyCodeLine{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_instruction::InstructionInterface>;          \(\backslash\)}
+\DoxyCodeLine{  using C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{tesseract\_planning::detail\_instruction::InstructionInstance<C>}};                                  \(\backslash\)}
+\DoxyCodeLine{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
+\DoxyCodeLine{  \}                                                                                                                    \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceWrapper)                                                                        \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceBase, boost::serialization::track\_never)                                          \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#Instance, boost::serialization::track\_never)                                              \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceWrapper, boost::serialization::track\_never)}
 
 \end{DoxyCode}
 
@@ -154,5 +159,5 @@ If shared library, this must go in the header after the class definition.
 \index{instruction.h@{instruction.h}!BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}}
 \index{BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}!instruction.h@{instruction.h}}
 \doxysubsubsection{\texorpdfstring{BOOST\_CLASS\_TRACKING()}{BOOST\_CLASS\_TRACKING()}}
-{\footnotesize\ttfamily BOOST\+\_\+\+CLASS\+\_\+\+TRACKING (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}}]{,  }\item[{boost\+::serialization\+::track\+\_\+never}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily BOOST\+\_\+\+CLASS\+\_\+\+TRACKING (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1Instruction}{tesseract\+\_\+planning\+::\+Instruction}}}]{,  }\item[{boost\+::serialization\+::track\+\_\+never}]{ }\end{DoxyParamCaption})}
 

@@ -143,12 +143,12 @@
 \DoxyCodeLine{166 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
 \DoxyCodeLine{167 \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ae7160b6481f6fefea7d2ee9f60f2e359}{DescartesDefaultPlanProfile<FloatType>::apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\& prob,}
 \DoxyCodeLine{168                                                    \textcolor{keyword}{const} Eigen::Isometry3d\& cartesian\_waypoint,}
-\DoxyCodeLine{169                                                    \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
+\DoxyCodeLine{169                                                    \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
 \DoxyCodeLine{170                                                    \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
 \DoxyCodeLine{171                                                    \textcolor{keywordtype}{int} index)\textcolor{keyword}{ const}}
 \DoxyCodeLine{172 \textcolor{keyword}{}\{}
 \DoxyCodeLine{173   assert(\mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(parent\_instruction));}
-\DoxyCodeLine{174   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& base\_instruction = parent\_instruction.\mbox{\hyperlink{classtesseract__planning_1_1Instruction_a6e112bfd5d2d562d60f8abceb251a148}{as}}<\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}>();}
+\DoxyCodeLine{174   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& base\_instruction = parent\_instruction.as<\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}>();}
 \DoxyCodeLine{175   assert(!(manip\_info.empty() \&\& base\_instruction.getManipulatorInfo().empty()));}
 \DoxyCodeLine{176   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}} mi = manip\_info.getCombined(base\_instruction.getManipulatorInfo());}
 \DoxyCodeLine{177 }
@@ -249,7 +249,7 @@
 \DoxyCodeLine{272 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
 \DoxyCodeLine{273 \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile_ae7160b6481f6fefea7d2ee9f60f2e359}{DescartesDefaultPlanProfile<FloatType>::apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem<FloatType>}}\& prob,}
 \DoxyCodeLine{274                                                    \textcolor{keyword}{const} Eigen::VectorXd\& joint\_waypoint,}
-\DoxyCodeLine{275                                                    \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1Instruction}{Instruction}}\& \textcolor{comment}{/*parent\_instruction*/},}
+\DoxyCodeLine{275                                                    \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\& \textcolor{comment}{/*parent\_instruction*/},}
 \DoxyCodeLine{276                                                    \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& \textcolor{comment}{/*manip\_info*/},}
 \DoxyCodeLine{277                                                    \textcolor{keywordtype}{int} index)\textcolor{keyword}{ const}}
 \DoxyCodeLine{278 \textcolor{keyword}{}\{}

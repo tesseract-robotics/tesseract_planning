@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['waypointparserfn_2927',['WaypointParserFn',['../d9/dcd/namespacetesseract__planning.html#aac97aebdcb472da440b49833ec857d57',1,'tesseract_planning']]]
+  ['waypointbase_0',['WaypointBase',['../d9/dcd/namespacetesseract__planning.html#a3a642e2330050d20da2e0d736f719d99',1,'tesseract_planning']]]
 ];

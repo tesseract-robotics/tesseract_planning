@@ -1,7 +1,8 @@
 <map id="tesseract_planning::ProfileSwitchTaskInfo" name="tesseract_planning::ProfileSwitchTaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="55,335,210,376"/>
-<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="67,244,198,285"/>
-<area shape="rect" id="node3" title=" " alt="" coords="28,103,107,130"/>
+<area shape="rect" id="node1" title=" " alt="" coords="58,335,213,376"/>
+<area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="70,244,201,285"/>
+<area shape="rect" id="node3" title=" " alt="" coords="32,103,111,130"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,5,129,47"/>
-<area shape="rect" id="node5" href="$de/d58/classtesseract__planning_1_1Instruction.html" title=" " alt="" coords="131,96,262,137"/>
+<area shape="rect" id="node5" href="$db/dff/structtesseract__planning_1_1Instruction.html" title=" " alt="" coords="142,96,273,137"/>
+<area shape="rect" id="node6" title=" " alt="" coords="153,13,267,39"/>
 </map>

@@ -1,0 +1,375 @@
+\hypertarget{type__erasure__benchmark_8cpp}{}\doxysection{tesseract\+\_\+command\+\_\+language/test/type\+\_\+erasure\+\_\+benchmark.cpp File Reference}
+\label{type__erasure__benchmark_8cpp}\index{tesseract\_command\_language/test/type\_erasure\_benchmark.cpp@{tesseract\_command\_language/test/type\_erasure\_benchmark.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+oarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$benchmark/benchmark.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/any.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+Include dependency graph for type\+\_\+erasure\+\_\+benchmark.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d3e/type__erasure__benchmark_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{type__erasure__benchmark_8cpp_a0521c81eb85dd98338887525d5a1d9c9}{get\+Program}} ()
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} $>$ \mbox{\hyperlink{type__erasure__benchmark_8cpp_a162e9a2a25bbfc6b4fbc9d674bfec74c}{create\+Vector\+State\+Waypoint\+Poly}} ()
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} $>$ $>$ \mbox{\hyperlink{type__erasure__benchmark_8cpp_a504432a7ef3f3502b7ffb92b3fb6684d}{create\+Vector\+State\+Waypoint\+UPtr}} ()
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_ab2e4e59715a991f4878e939be8a18713}{BM\+\_\+\+Instruction\+Poly\+Creation}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a97f095a4346232f37adfeff71336d4b7}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_ab2e4e59715a991f4878e939be8a18713}{BM\+\_\+\+Instruction\+Poly\+Creation}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_ab9057c9889511f22dd144aa31c38660e}{BM\+\_\+\+Waypoint\+Poly\+Creation}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a47ff5828e115a8131cb41e79afb662c0}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_ab9057c9889511f22dd144aa31c38660e}{BM\+\_\+\+Waypoint\+Poly\+Creation}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a8c8de76b27246daf3c37feca12c9b1ae}{BM\+\_\+\+Composite\+Instruction\+Creation}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a9341421a409fe44c670bc474665990c3}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a8c8de76b27246daf3c37feca12c9b1ae}{BM\+\_\+\+Composite\+Instruction\+Creation}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_ab28813b469960afd6110c4e6e7ef72a8}{BM\+\_\+\+Program\+Creation}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a98dc20a70bf9e44be8af4f978fa0fadb}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_ab28813b469960afd6110c4e6e7ef72a8}{BM\+\_\+\+Program\+Creation}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_ac5dd787076c3bfba0078b23b63ea65d2}{BM\+\_\+\+Instruction\+Poly\+Copy}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a2f96e069cf14b6b34ca384565a142332}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_ac5dd787076c3bfba0078b23b63ea65d2}{BM\+\_\+\+Instruction\+Poly\+Copy}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a8515ac294c0fa08fc9a28993f6b5a48a}{BM\+\_\+\+Waypoint\+Poly\+Copy}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_aebb9c87c2020e010b0a49132563dceda}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a8515ac294c0fa08fc9a28993f6b5a48a}{BM\+\_\+\+Waypoint\+Poly\+Copy}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_ae00b7a70dccbbb614092c86832d91147}{BM\+\_\+\+Composite\+Instruction\+Copy}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_ab918c4c559baccca696e3c4d5ba3f9c0}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_ae00b7a70dccbbb614092c86832d91147}{BM\+\_\+\+Composite\+Instruction\+Copy}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a007409a5ec0e82fe1158a2163f673827}{BM\+\_\+\+Instruction\+Poly\+Assign}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a118d400c31268efaa0195c27894361c8}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a007409a5ec0e82fe1158a2163f673827}{BM\+\_\+\+Instruction\+Poly\+Assign}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a7d3e28bd9623bd0b4baa1c18e4ad1d90}{BM\+\_\+\+Waypoint\+Poly\+Assign}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_afdbdadee320a416c7e2ca36e3172cfb3}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a7d3e28bd9623bd0b4baa1c18e4ad1d90}{BM\+\_\+\+Waypoint\+Poly\+Assign}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a420659a989b4b8b780f0e896ad047a4c}{BM\+\_\+\+Composite\+Instruction\+Assign}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a68defccadf32d916b889d62027c9f3ad}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a420659a989b4b8b780f0e896ad047a4c}{BM\+\_\+\+Composite\+Instruction\+Assign}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a29243495836eaf3f955f4edb03b83fa5}{BM\+\_\+\+Instruction\+Poly\+Cast}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a7ba7a9112447c9f08ac30ac9d663583d}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a29243495836eaf3f955f4edb03b83fa5}{BM\+\_\+\+Instruction\+Poly\+Cast}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a0e8912fdf02a7e4868b3cc31c2516f05}{BM\+\_\+\+Waypoint\+Poly\+Cast}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a8a2550f16d3a8a4a058402b44bcffec3}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a0e8912fdf02a7e4868b3cc31c2516f05}{BM\+\_\+\+Waypoint\+Poly\+Cast}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a997d98a150fbf6a3500dbc79bcfcca91}{BM\+\_\+\+Instruction\+Poly\+Access}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a0d7ce586fdac71e1cd7eed3b46c1b577}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a997d98a150fbf6a3500dbc79bcfcca91}{BM\+\_\+\+Instruction\+Poly\+Access}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a9a43d9a145050a3d43d95786a596d13f}{BM\+\_\+\+Waypoint\+Poly\+Access}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a5a62598eca398ebee71535e198fb170a}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a9a43d9a145050a3d43d95786a596d13f}{BM\+\_\+\+Waypoint\+Poly\+Access}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_ae63c0e0a6bf6d7095c7d72235b29ffa8}{BM\+\_\+\+Vector\+State\+Waypoint\+Poly\+Creation}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a9f47745805e484af2f6c32b28fdb8c5e}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_ae63c0e0a6bf6d7095c7d72235b29ffa8}{BM\+\_\+\+Vector\+State\+Waypoint\+Poly\+Creation}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_ae25eb4a1cc79425775e5699208f233fb}{BM\+\_\+\+Vector\+State\+Waypoint\+UPtr\+Creation}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a2170678f6f764a3854a5c262e4953d68}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_ae25eb4a1cc79425775e5699208f233fb}{BM\+\_\+\+Vector\+State\+Waypoint\+UPtr\+Creation}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_a30f6ed495457d95315ed05017fc14a6d}{BM\+\_\+\+Vector\+State\+Waypoint\+Poly\+Copy}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a1633ebe62aeb65dc67c25b6bce743e9b}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_a30f6ed495457d95315ed05017fc14a6d}{BM\+\_\+\+Vector\+State\+Waypoint\+Poly\+Copy}})
+\item 
+static void \mbox{\hyperlink{type__erasure__benchmark_8cpp_ad7e7cc37dcde3ad9a5aeb0a3d0f76b8b}{BM\+\_\+\+Vector\+State\+Waypoint\+UPtr\+Copy}} (benchmark\+::\+State \&state)
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a0b3ce37018eb1f2ebb40cedf0c807db5}{BENCHMARK}} (\mbox{\hyperlink{type__erasure__benchmark_8cpp_ad7e7cc37dcde3ad9a5aeb0a3d0f76b8b}{BM\+\_\+\+Vector\+State\+Waypoint\+UPtr\+Copy}})
+\item 
+\mbox{\hyperlink{type__erasure__benchmark_8cpp_a5851750faa9cfec10f7cad1f3b89697e}{BENCHMARK\+\_\+\+MAIN}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+August 20, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000046}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a68defccadf32d916b889d62027c9f3ad}\label{type__erasure__benchmark_8cpp_a68defccadf32d916b889d62027c9f3ad}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [1/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a420659a989b4b8b780f0e896ad047a4c}{BM\+\_\+\+Composite\+Instruction\+Assign}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ab918c4c559baccca696e3c4d5ba3f9c0}\label{type__erasure__benchmark_8cpp_ab918c4c559baccca696e3c4d5ba3f9c0}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [2/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_ae00b7a70dccbbb614092c86832d91147}{BM\+\_\+\+Composite\+Instruction\+Copy}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a9341421a409fe44c670bc474665990c3}\label{type__erasure__benchmark_8cpp_a9341421a409fe44c670bc474665990c3}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [3/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a8c8de76b27246daf3c37feca12c9b1ae}{BM\+\_\+\+Composite\+Instruction\+Creation}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a0d7ce586fdac71e1cd7eed3b46c1b577}\label{type__erasure__benchmark_8cpp_a0d7ce586fdac71e1cd7eed3b46c1b577}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [4/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a997d98a150fbf6a3500dbc79bcfcca91}{BM\+\_\+\+Instruction\+Poly\+Access}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a118d400c31268efaa0195c27894361c8}\label{type__erasure__benchmark_8cpp_a118d400c31268efaa0195c27894361c8}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [5/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a007409a5ec0e82fe1158a2163f673827}{BM\+\_\+\+Instruction\+Poly\+Assign}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a7ba7a9112447c9f08ac30ac9d663583d}\label{type__erasure__benchmark_8cpp_a7ba7a9112447c9f08ac30ac9d663583d}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [6/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a29243495836eaf3f955f4edb03b83fa5}{BM\+\_\+\+Instruction\+Poly\+Cast}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a2f96e069cf14b6b34ca384565a142332}\label{type__erasure__benchmark_8cpp_a2f96e069cf14b6b34ca384565a142332}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [7/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_ac5dd787076c3bfba0078b23b63ea65d2}{BM\+\_\+\+Instruction\+Poly\+Copy}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a97f095a4346232f37adfeff71336d4b7}\label{type__erasure__benchmark_8cpp_a97f095a4346232f37adfeff71336d4b7}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [8/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_ab2e4e59715a991f4878e939be8a18713}{BM\+\_\+\+Instruction\+Poly\+Creation}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a98dc20a70bf9e44be8af4f978fa0fadb}\label{type__erasure__benchmark_8cpp_a98dc20a70bf9e44be8af4f978fa0fadb}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [9/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_ab28813b469960afd6110c4e6e7ef72a8}{BM\+\_\+\+Program\+Creation}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a1633ebe62aeb65dc67c25b6bce743e9b}\label{type__erasure__benchmark_8cpp_a1633ebe62aeb65dc67c25b6bce743e9b}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [10/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a30f6ed495457d95315ed05017fc14a6d}{BM\+\_\+\+Vector\+State\+Waypoint\+Poly\+Copy}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a9f47745805e484af2f6c32b28fdb8c5e}\label{type__erasure__benchmark_8cpp_a9f47745805e484af2f6c32b28fdb8c5e}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [11/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_ae63c0e0a6bf6d7095c7d72235b29ffa8}{BM\+\_\+\+Vector\+State\+Waypoint\+Poly\+Creation}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a0b3ce37018eb1f2ebb40cedf0c807db5}\label{type__erasure__benchmark_8cpp_a0b3ce37018eb1f2ebb40cedf0c807db5}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [12/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_ad7e7cc37dcde3ad9a5aeb0a3d0f76b8b}{BM\+\_\+\+Vector\+State\+Waypoint\+UPtr\+Copy}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a2170678f6f764a3854a5c262e4953d68}\label{type__erasure__benchmark_8cpp_a2170678f6f764a3854a5c262e4953d68}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [13/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_ae25eb4a1cc79425775e5699208f233fb}{BM\+\_\+\+Vector\+State\+Waypoint\+UPtr\+Creation}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a5a62598eca398ebee71535e198fb170a}\label{type__erasure__benchmark_8cpp_a5a62598eca398ebee71535e198fb170a}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [14/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a9a43d9a145050a3d43d95786a596d13f}{BM\+\_\+\+Waypoint\+Poly\+Access}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_afdbdadee320a416c7e2ca36e3172cfb3}\label{type__erasure__benchmark_8cpp_afdbdadee320a416c7e2ca36e3172cfb3}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [15/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a7d3e28bd9623bd0b4baa1c18e4ad1d90}{BM\+\_\+\+Waypoint\+Poly\+Assign}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a8a2550f16d3a8a4a058402b44bcffec3}\label{type__erasure__benchmark_8cpp_a8a2550f16d3a8a4a058402b44bcffec3}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [16/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a0e8912fdf02a7e4868b3cc31c2516f05}{BM\+\_\+\+Waypoint\+Poly\+Cast}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_aebb9c87c2020e010b0a49132563dceda}\label{type__erasure__benchmark_8cpp_aebb9c87c2020e010b0a49132563dceda}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [17/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_a8515ac294c0fa08fc9a28993f6b5a48a}{BM\+\_\+\+Waypoint\+Poly\+Copy}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a47ff5828e115a8131cb41e79afb662c0}\label{type__erasure__benchmark_8cpp_a47ff5828e115a8131cb41e79afb662c0}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK@{BENCHMARK}}
+\index{BENCHMARK@{BENCHMARK}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK()}{BENCHMARK()}\hspace{0.1cm}{\footnotesize\ttfamily [18/18]}}
+{\footnotesize\ttfamily BENCHMARK (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{type__erasure__benchmark_8cpp_ab9057c9889511f22dd144aa31c38660e}{BM\+\_\+\+Waypoint\+Poly\+Creation}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a5851750faa9cfec10f7cad1f3b89697e}\label{type__erasure__benchmark_8cpp_a5851750faa9cfec10f7cad1f3b89697e}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BENCHMARK\_MAIN@{BENCHMARK\_MAIN}}
+\index{BENCHMARK\_MAIN@{BENCHMARK\_MAIN}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BENCHMARK\_MAIN()}{BENCHMARK\_MAIN()}}
+{\footnotesize\ttfamily BENCHMARK\+\_\+\+MAIN (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a420659a989b4b8b780f0e896ad047a4c}\label{type__erasure__benchmark_8cpp_a420659a989b4b8b780f0e896ad047a4c}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_CompositeInstructionAssign@{BM\_CompositeInstructionAssign}}
+\index{BM\_CompositeInstructionAssign@{BM\_CompositeInstructionAssign}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_CompositeInstructionAssign()}{BM\_CompositeInstructionAssign()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Composite\+Instruction\+Assign (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ae00b7a70dccbbb614092c86832d91147}\label{type__erasure__benchmark_8cpp_ae00b7a70dccbbb614092c86832d91147}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_CompositeInstructionCopy@{BM\_CompositeInstructionCopy}}
+\index{BM\_CompositeInstructionCopy@{BM\_CompositeInstructionCopy}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_CompositeInstructionCopy()}{BM\_CompositeInstructionCopy()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Composite\+Instruction\+Copy (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a8c8de76b27246daf3c37feca12c9b1ae}\label{type__erasure__benchmark_8cpp_a8c8de76b27246daf3c37feca12c9b1ae}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_CompositeInstructionCreation@{BM\_CompositeInstructionCreation}}
+\index{BM\_CompositeInstructionCreation@{BM\_CompositeInstructionCreation}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_CompositeInstructionCreation()}{BM\_CompositeInstructionCreation()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Composite\+Instruction\+Creation (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a997d98a150fbf6a3500dbc79bcfcca91}\label{type__erasure__benchmark_8cpp_a997d98a150fbf6a3500dbc79bcfcca91}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_InstructionPolyAccess@{BM\_InstructionPolyAccess}}
+\index{BM\_InstructionPolyAccess@{BM\_InstructionPolyAccess}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_InstructionPolyAccess()}{BM\_InstructionPolyAccess()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Instruction\+Poly\+Access (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a007409a5ec0e82fe1158a2163f673827}\label{type__erasure__benchmark_8cpp_a007409a5ec0e82fe1158a2163f673827}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_InstructionPolyAssign@{BM\_InstructionPolyAssign}}
+\index{BM\_InstructionPolyAssign@{BM\_InstructionPolyAssign}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_InstructionPolyAssign()}{BM\_InstructionPolyAssign()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Instruction\+Poly\+Assign (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a29243495836eaf3f955f4edb03b83fa5}\label{type__erasure__benchmark_8cpp_a29243495836eaf3f955f4edb03b83fa5}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_InstructionPolyCast@{BM\_InstructionPolyCast}}
+\index{BM\_InstructionPolyCast@{BM\_InstructionPolyCast}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_InstructionPolyCast()}{BM\_InstructionPolyCast()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Instruction\+Poly\+Cast (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ac5dd787076c3bfba0078b23b63ea65d2}\label{type__erasure__benchmark_8cpp_ac5dd787076c3bfba0078b23b63ea65d2}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_InstructionPolyCopy@{BM\_InstructionPolyCopy}}
+\index{BM\_InstructionPolyCopy@{BM\_InstructionPolyCopy}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_InstructionPolyCopy()}{BM\_InstructionPolyCopy()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Instruction\+Poly\+Copy (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ab2e4e59715a991f4878e939be8a18713}\label{type__erasure__benchmark_8cpp_ab2e4e59715a991f4878e939be8a18713}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_InstructionPolyCreation@{BM\_InstructionPolyCreation}}
+\index{BM\_InstructionPolyCreation@{BM\_InstructionPolyCreation}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_InstructionPolyCreation()}{BM\_InstructionPolyCreation()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Instruction\+Poly\+Creation (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ab28813b469960afd6110c4e6e7ef72a8}\label{type__erasure__benchmark_8cpp_ab28813b469960afd6110c4e6e7ef72a8}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_ProgramCreation@{BM\_ProgramCreation}}
+\index{BM\_ProgramCreation@{BM\_ProgramCreation}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_ProgramCreation()}{BM\_ProgramCreation()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Program\+Creation (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a30f6ed495457d95315ed05017fc14a6d}\label{type__erasure__benchmark_8cpp_a30f6ed495457d95315ed05017fc14a6d}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_VectorStateWaypointPolyCopy@{BM\_VectorStateWaypointPolyCopy}}
+\index{BM\_VectorStateWaypointPolyCopy@{BM\_VectorStateWaypointPolyCopy}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_VectorStateWaypointPolyCopy()}{BM\_VectorStateWaypointPolyCopy()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Vector\+State\+Waypoint\+Poly\+Copy (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ae63c0e0a6bf6d7095c7d72235b29ffa8}\label{type__erasure__benchmark_8cpp_ae63c0e0a6bf6d7095c7d72235b29ffa8}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_VectorStateWaypointPolyCreation@{BM\_VectorStateWaypointPolyCreation}}
+\index{BM\_VectorStateWaypointPolyCreation@{BM\_VectorStateWaypointPolyCreation}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_VectorStateWaypointPolyCreation()}{BM\_VectorStateWaypointPolyCreation()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Vector\+State\+Waypoint\+Poly\+Creation (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ad7e7cc37dcde3ad9a5aeb0a3d0f76b8b}\label{type__erasure__benchmark_8cpp_ad7e7cc37dcde3ad9a5aeb0a3d0f76b8b}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_VectorStateWaypointUPtrCopy@{BM\_VectorStateWaypointUPtrCopy}}
+\index{BM\_VectorStateWaypointUPtrCopy@{BM\_VectorStateWaypointUPtrCopy}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_VectorStateWaypointUPtrCopy()}{BM\_VectorStateWaypointUPtrCopy()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Vector\+State\+Waypoint\+UPtr\+Copy (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ae25eb4a1cc79425775e5699208f233fb}\label{type__erasure__benchmark_8cpp_ae25eb4a1cc79425775e5699208f233fb}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_VectorStateWaypointUPtrCreation@{BM\_VectorStateWaypointUPtrCreation}}
+\index{BM\_VectorStateWaypointUPtrCreation@{BM\_VectorStateWaypointUPtrCreation}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_VectorStateWaypointUPtrCreation()}{BM\_VectorStateWaypointUPtrCreation()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Vector\+State\+Waypoint\+UPtr\+Creation (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a9a43d9a145050a3d43d95786a596d13f}\label{type__erasure__benchmark_8cpp_a9a43d9a145050a3d43d95786a596d13f}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_WaypointPolyAccess@{BM\_WaypointPolyAccess}}
+\index{BM\_WaypointPolyAccess@{BM\_WaypointPolyAccess}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_WaypointPolyAccess()}{BM\_WaypointPolyAccess()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Waypoint\+Poly\+Access (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a7d3e28bd9623bd0b4baa1c18e4ad1d90}\label{type__erasure__benchmark_8cpp_a7d3e28bd9623bd0b4baa1c18e4ad1d90}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_WaypointPolyAssign@{BM\_WaypointPolyAssign}}
+\index{BM\_WaypointPolyAssign@{BM\_WaypointPolyAssign}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_WaypointPolyAssign()}{BM\_WaypointPolyAssign()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Waypoint\+Poly\+Assign (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a0e8912fdf02a7e4868b3cc31c2516f05}\label{type__erasure__benchmark_8cpp_a0e8912fdf02a7e4868b3cc31c2516f05}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_WaypointPolyCast@{BM\_WaypointPolyCast}}
+\index{BM\_WaypointPolyCast@{BM\_WaypointPolyCast}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_WaypointPolyCast()}{BM\_WaypointPolyCast()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Waypoint\+Poly\+Cast (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a8515ac294c0fa08fc9a28993f6b5a48a}\label{type__erasure__benchmark_8cpp_a8515ac294c0fa08fc9a28993f6b5a48a}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_WaypointPolyCopy@{BM\_WaypointPolyCopy}}
+\index{BM\_WaypointPolyCopy@{BM\_WaypointPolyCopy}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_WaypointPolyCopy()}{BM\_WaypointPolyCopy()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Waypoint\+Poly\+Copy (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_ab9057c9889511f22dd144aa31c38660e}\label{type__erasure__benchmark_8cpp_ab9057c9889511f22dd144aa31c38660e}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!BM\_WaypointPolyCreation@{BM\_WaypointPolyCreation}}
+\index{BM\_WaypointPolyCreation@{BM\_WaypointPolyCreation}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{BM\_WaypointPolyCreation()}{BM\_WaypointPolyCreation()}}
+{\footnotesize\ttfamily static void BM\+\_\+\+Waypoint\+Poly\+Creation (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a162e9a2a25bbfc6b4fbc9d674bfec74c}\label{type__erasure__benchmark_8cpp_a162e9a2a25bbfc6b4fbc9d674bfec74c}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!createVectorStateWaypointPoly@{createVectorStateWaypointPoly}}
+\index{createVectorStateWaypointPoly@{createVectorStateWaypointPoly}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{createVectorStateWaypointPoly()}{createVectorStateWaypointPoly()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} $>$ create\+Vector\+State\+Waypoint\+Poly (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a504432a7ef3f3502b7ffb92b3fb6684d}\label{type__erasure__benchmark_8cpp_a504432a7ef3f3502b7ffb92b3fb6684d}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!createVectorStateWaypointUPtr@{createVectorStateWaypointUPtr}}
+\index{createVectorStateWaypointUPtr@{createVectorStateWaypointUPtr}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{createVectorStateWaypointUPtr()}{createVectorStateWaypointUPtr()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} $>$ $>$ create\+Vector\+State\+Waypoint\+UPtr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a0521c81eb85dd98338887525d5a1d9c9}\label{type__erasure__benchmark_8cpp_a0521c81eb85dd98338887525d5a1d9c9}} 
+\index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!getProgram@{getProgram}}
+\index{getProgram@{getProgram}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
+\doxysubsubsection{\texorpdfstring{getProgram()}{getProgram()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} get\+Program (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+

@@ -24,7 +24,7 @@
 \DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}} start\_instruction(swp1, \mbox{\hyperlink{namespacetesseract__planning_a6d6524747d083995553d1538d6e29610ab078ffd28db767c502ac367053f6e0ac}{PlanInstructionType::START}});}
 \DoxyCodeLine{46   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a76ad25493ed7e36de8b09f98a8b6cf86}{setStartInstruction}}(start\_instruction);}
 \DoxyCodeLine{47 }
-\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -\/0.3, 0.8) *}
+\DoxyCodeLine{48   \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -\/0.3, 0.8) *}
 \DoxyCodeLine{49                                    Eigen::Quaterniond(0, 0, -\/1.0, 0));}
 \DoxyCodeLine{50 }
 \DoxyCodeLine{51   \textcolor{comment}{// Define from start composite instruction}}
@@ -39,19 +39,19 @@
 \DoxyCodeLine{60   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
 \DoxyCodeLine{61   \{}
 \DoxyCodeLine{62     \textcolor{keywordtype}{double} x = 0.8 + (i * 0.1);}
-\DoxyCodeLine{63     \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.3, 0.8) *}
+\DoxyCodeLine{63     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.3, 0.8) *}
 \DoxyCodeLine{64                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{65     \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp2 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.2, 0.8) *}
+\DoxyCodeLine{65     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp2 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.2, 0.8) *}
 \DoxyCodeLine{66                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{67     \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp3 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.1, 0.8) *}
+\DoxyCodeLine{67     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp3 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.1, 0.8) *}
 \DoxyCodeLine{68                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{69     \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp4 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *}
+\DoxyCodeLine{69     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp4 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *}
 \DoxyCodeLine{70                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{71     \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp5 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *}
+\DoxyCodeLine{71     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp5 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *}
 \DoxyCodeLine{72                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{73     \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp6 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *}
+\DoxyCodeLine{73     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp6 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *}
 \DoxyCodeLine{74                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{75     \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp7 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *}
+\DoxyCodeLine{75     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp7 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *}
 \DoxyCodeLine{76                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
 \DoxyCodeLine{77 }
 \DoxyCodeLine{78     \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} raster\_segment(freespace\_profile);}
@@ -79,11 +79,11 @@
 \DoxyCodeLine{100     \textcolor{comment}{// Add transition}}
 \DoxyCodeLine{101     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
 \DoxyCodeLine{102     \{}
-\DoxyCodeLine{103       \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp7 =}
+\DoxyCodeLine{103       \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp7 =}
 \DoxyCodeLine{104           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *}
 \DoxyCodeLine{105                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
 \DoxyCodeLine{106 }
-\DoxyCodeLine{107       \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp7\_dt =}
+\DoxyCodeLine{107       \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp7\_dt =}
 \DoxyCodeLine{108           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + (i * 0.1), -\/0.3, 0.8) *}
 \DoxyCodeLine{109                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
 \DoxyCodeLine{110 }
@@ -108,11 +108,11 @@
 \DoxyCodeLine{129     \}}
 \DoxyCodeLine{130     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 1)}
 \DoxyCodeLine{131     \{}
-\DoxyCodeLine{132       \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp1 =}
+\DoxyCodeLine{132       \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 =}
 \DoxyCodeLine{133           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -\/0.3, 0.8) *}
 \DoxyCodeLine{134                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
 \DoxyCodeLine{135 }
-\DoxyCodeLine{136       \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{Waypoint}} wp1\_dt =}
+\DoxyCodeLine{136       \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1\_dt =}
 \DoxyCodeLine{137           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + (i * 0.1), 0.3, 0.8) *}
 \DoxyCodeLine{138                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
 \DoxyCodeLine{139 }

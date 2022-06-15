@@ -6,11 +6,9 @@
 {\ttfamily \#include $<$typeindex$>$}\newline
 {\ttfamily \#include $<$boost/serialization/base\+\_\+object.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/serialization/export.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/serialization/nvp.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/serialization/unique\+\_\+ptr.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/type\+\_\+traits/is\+\_\+virtual\+\_\+base\+\_\+of.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+common/sfinae\+\_\+utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/type\+\_\+erasure.\+h$>$}\newline
 Include dependency graph for waypoint.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -30,13 +28,13 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Concept$<$ T $>$}}
 \item 
-struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Interface}}
 \item 
-struct \mbox{\hyperlink{structboost_1_1is__virtual__base__of_3_01tesseract__planning_1_1detail__waypoint_1_1WaypointInne94baa73b7cde4ac8a2f17c799ea14dca}{boost\+::is\+\_\+virtual\+\_\+base\+\_\+of$<$ tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner\+Base, tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner$<$ T $>$ $>$}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Instance$<$ T $>$}}
 \item 
-class \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}
+struct \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
@@ -44,26 +42,25 @@ class \mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+plan
 namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
 \item 
 namespace \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint}{tesseract\+\_\+planning\+::detail\+\_\+waypoint}}
-\item 
-namespace \mbox{\hyperlink{namespaceboost}{boost}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{waypoint_8h_ae9e75f6be798136667d6c208b65d5070}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY}}(wp)
+\#define \mbox{\hyperlink{waypoint_8h_a0da884b648f0ad59d58613085d694a41}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY}}(N,  C)
 \begin{DoxyCompactList}\small\item\em If shared library, this must go in the header after the class definition. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{waypoint_8h_a35a715af33168ad6f80dad1679d02c0f}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+IMPLEMENT}}(wp)~  BOOST\+\_\+\+CLASS\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner}}$<$wp$>$)
+\#define \mbox{\hyperlink{waypoint_8h_a58125b44bed0fd40b9d476f146b49959}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+IMPLEMENT}}(inst)
 \begin{DoxyCompactList}\small\item\em If shared library, this must go in the cpp after the implicit instantiation of the serialize function. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{waypoint_8h_a9a2c84f5a463366339aaab71d2e54d9b}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT}}(wp)
+\#define \mbox{\hyperlink{waypoint_8h_a9e9eddae9e5a1f2bf5c27bc4db11c774}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT}}(N,  C)
 \begin{DoxyCompactList}\small\item\em This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a3a642e2330050d20da2e0d736f719d99}{tesseract\+\_\+planning\+::\+Waypoint\+Base}} = tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$ detail\+\_\+waypoint\+::\+Waypoint\+Interface, detail\+\_\+waypoint\+::\+Waypoint\+Instance $>$
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint_aeb4b2095e38318bdeb0b7f6f1464f2a0}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+CHECK}} (print)
-\item 
-\mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint_aee4cafa219303554570b0d3b13607d26}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+CREATE\+\_\+\+MEMBER\+\_\+\+FUNC\+\_\+\+SIGNATURE\+\_\+\+CHECK}} (print, void, std\+::string)
-\item 
-\mbox{\hyperlink{waypoint_8h_af7c56dbaa4ac7d73153dd5bb77359646}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}} (\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}, boost\+::serialization\+::track\+\_\+never)
+\mbox{\hyperlink{waypoint_8h_af7c56dbaa4ac7d73153dd5bb77359646}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}} (\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}, boost\+::serialization\+::track\+\_\+never)
 \end{DoxyCompactItemize}
 
 
@@ -96,42 +93,60 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{waypoint_8h_a9a2c84f5a463366339aaab71d2e54d9b}\label{waypoint_8h_a9a2c84f5a463366339aaab71d2e54d9b}} 
+\mbox{\Hypertarget{waypoint_8h_a9e9eddae9e5a1f2bf5c27bc4db11c774}\label{waypoint_8h_a9e9eddae9e5a1f2bf5c27bc4db11c774}} 
 \index{waypoint.h@{waypoint.h}!TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}}
 \index{TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}!waypoint.h@{waypoint.h}}
 \doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT}{TESSERACT\_WAYPOINT\_EXPORT}}
-{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT(\begin{DoxyParamCaption}\item[{}]{wp }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{C }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \mbox{\hyperlink{waypoint_8h_ae9e75f6be798136667d6c208b65d5070}{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}(wp)                                                                                    \(\backslash\)}
-\DoxyCodeLine{  TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT(wp)}
+\DoxyCodeLine{  \mbox{\hyperlink{waypoint_8h_a0da884b648f0ad59d58613085d694a41}{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}(N, C)                                                                                  \(\backslash\)}
+\DoxyCodeLine{  TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT(N::C)}
 
 \end{DoxyCode}
 
 
 This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. 
 
-\mbox{\Hypertarget{waypoint_8h_a35a715af33168ad6f80dad1679d02c0f}\label{waypoint_8h_a35a715af33168ad6f80dad1679d02c0f}} 
+\mbox{\Hypertarget{waypoint_8h_a58125b44bed0fd40b9d476f146b49959}\label{waypoint_8h_a58125b44bed0fd40b9d476f146b49959}} 
 \index{waypoint.h@{waypoint.h}!TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT@{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT}}
 \index{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT@{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT}!waypoint.h@{waypoint.h}}
 \doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT}{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT}}
-{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\begin{DoxyParamCaption}\item[{}]{wp }\end{DoxyParamCaption})~  BOOST\+\_\+\+CLASS\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Inner}}$<$wp$>$)}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\begin{DoxyParamCaption}\item[{}]{inst }\end{DoxyParamCaption})}
 
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceBase)                                                                     \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#Instance)                                                                         \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceWrapper)}
+
+\end{DoxyCode}
 
 
 If shared library, this must go in the cpp after the implicit instantiation of the serialize function. 
 
-\mbox{\Hypertarget{waypoint_8h_ae9e75f6be798136667d6c208b65d5070}\label{waypoint_8h_ae9e75f6be798136667d6c208b65d5070}} 
+\mbox{\Hypertarget{waypoint_8h_a0da884b648f0ad59d58613085d694a41}\label{waypoint_8h_a0da884b648f0ad59d58613085d694a41}} 
 \index{waypoint.h@{waypoint.h}!TESSERACT\_WAYPOINT\_EXPORT\_KEY@{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}
 \index{TESSERACT\_WAYPOINT\_EXPORT\_KEY@{TESSERACT\_WAYPOINT\_EXPORT\_KEY}!waypoint.h@{waypoint.h}}
 \doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT\_KEY}{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}
-{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY(\begin{DoxyParamCaption}\item[{}]{wp }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{C }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\_planning::detail\_waypoint::WaypointInner<wp>}}, \#wp)                                 \(\backslash\)}
-\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInner}{tesseract\_planning::detail\_waypoint::WaypointInner<wp>}}, boost::serialization::track\_never)}
+\DoxyCodeLine{  \textcolor{keyword}{namespace }N                                                                                                          \(\backslash\)}
+\DoxyCodeLine{  \{                                                                                                                    \(\backslash\)}
+\DoxyCodeLine{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}
+\DoxyCodeLine{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_waypoint::WaypointInterface>;                \(\backslash\)}
+\DoxyCodeLine{  using C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance}{tesseract\_planning::detail\_waypoint::WaypointInstance<C>}};                                        \(\backslash\)}
+\DoxyCodeLine{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
+\DoxyCodeLine{  \}                                                                                                                    \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceWrapper)                                                                        \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceBase, boost::serialization::track\_never)                                          \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#Instance, boost::serialization::track\_never)                                              \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceWrapper, boost::serialization::track\_never)}
 
 \end{DoxyCode}
 
@@ -145,5 +160,5 @@ If shared library, this must go in the header after the class definition.
 \index{waypoint.h@{waypoint.h}!BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}}
 \index{BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}!waypoint.h@{waypoint.h}}
 \doxysubsubsection{\texorpdfstring{BOOST\_CLASS\_TRACKING()}{BOOST\_CLASS\_TRACKING()}}
-{\footnotesize\ttfamily BOOST\+\_\+\+CLASS\+\_\+\+TRACKING (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}}]{,  }\item[{boost\+::serialization\+::track\+\_\+never}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily BOOST\+\_\+\+CLASS\+\_\+\+TRACKING (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{tesseract\+\_\+planning\+::\+Waypoint}}}]{,  }\item[{boost\+::serialization\+::track\+\_\+never}]{ }\end{DoxyParamCaption})}
 

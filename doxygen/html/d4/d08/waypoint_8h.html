@@ -74,6 +74,7 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">waypoint.h File Reference</div></div>
 </div><!--header-->
@@ -84,28 +85,24 @@ $(function() {
 <code>#include &lt;typeindex&gt;</code><br />
 <code>#include &lt;boost/serialization/base_object.hpp&gt;</code><br />
 <code>#include &lt;boost/serialization/export.hpp&gt;</code><br />
-<code>#include &lt;boost/serialization/nvp.hpp&gt;</code><br />
-<code>#include &lt;boost/serialization/unique_ptr.hpp&gt;</code><br />
-<code>#include &lt;boost/type_traits/is_virtual_base_of.hpp&gt;</code><br />
+<code>#include &lt;boost/concept_check.hpp&gt;</code><br />
 <code>#include &lt;tesseract_common/serialization.h&gt;</code><br />
-<code>#include &lt;tesseract_common/sfinae_utils.h&gt;</code><br />
+<code>#include &lt;tesseract_common/type_erasure.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for waypoint.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d0f/waypoint_8h__incl.png" border="0" usemap="#atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8h" alt=""/></div>
 <map name="atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8h" id="atesseract__command__language_2include_2tesseract__command__language_2core_2waypoint_8h">
-<area shape="rect" title=" " alt="" coords="605,5,804,61"/>
+<area shape="rect" title=" " alt="" coords="455,5,653,61"/>
 <area shape="rect" title=" " alt="" coords="5,117,196,143"/>
 <area shape="rect" title=" " alt="" coords="220,117,288,143"/>
 <area shape="rect" title=" " alt="" coords="312,117,367,143"/>
 <area shape="rect" title=" " alt="" coords="391,117,467,143"/>
 <area shape="rect" title=" " alt="" coords="491,109,617,151"/>
 <area shape="rect" title=" " alt="" coords="641,109,768,151"/>
-<area shape="rect" title=" " alt="" coords="792,109,919,151"/>
-<area shape="rect" title=" " alt="" coords="943,109,1069,151"/>
-<area shape="rect" title=" " alt="" coords="1094,109,1235,151"/>
-<area shape="rect" title=" " alt="" coords="1260,117,1475,143"/>
-<area shape="rect" title=" " alt="" coords="1499,109,1670,151"/>
+<area shape="rect" title=" " alt="" coords="793,117,963,143"/>
+<area shape="rect" title=" " alt="" coords="988,117,1203,143"/>
+<area shape="rect" title=" " alt="" coords="1227,109,1388,151"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -170,13 +167,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8e/structtesseract__planning_1_1detail__waypoint_1_1WaypointInnerBase.html">tesseract_planning::detail_waypoint::WaypointInnerBase</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc7/structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept.html">tesseract_planning::detail_waypoint::WaypointConcept&lt; T &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner&lt; T &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de3/structtesseract__planning_1_1detail__waypoint_1_1WaypointInterface.html">tesseract_planning::detail_waypoint::WaypointInterface</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d71/structboost_1_1is__virtual__base__of_3_01tesseract__planning_1_1detail__waypoint_1_1WaypointInne94baa73b7cde4ac8a2f17c799ea14dca.html">boost::is_virtual_base_of&lt; tesseract_planning::detail_waypoint::WaypointInnerBase, tesseract_planning::detail_waypoint::WaypointInner&lt; T &gt; &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/db4/structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance.html">tesseract_planning::detail_waypoint::WaypointInstance&lt; T &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">tesseract_planning::Waypoint</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">tesseract_planning::Waypoint</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -185,28 +182,27 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d2/d3b/namespacetesseract__planning_1_1detail__waypoint"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html">tesseract_planning::detail_waypoint</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:d4/da9/namespaceboost"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da9/namespaceboost.html">boost</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ae9e75f6be798136667d6c208b65d5070"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#ae9e75f6be798136667d6c208b65d5070">TESSERACT_WAYPOINT_EXPORT_KEY</a>(wp)</td></tr>
-<tr class="memdesc:ae9e75f6be798136667d6c208b65d5070"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the header after the class definition.  <a href="../../d4/d08/waypoint_8h.html#ae9e75f6be798136667d6c208b65d5070">More...</a><br /></td></tr>
-<tr class="separator:ae9e75f6be798136667d6c208b65d5070"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35a715af33168ad6f80dad1679d02c0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#a35a715af33168ad6f80dad1679d02c0f">TESSERACT_WAYPOINT_EXPORT_IMPLEMENT</a>(wp)&#160;&#160;&#160;  BOOST_CLASS_EXPORT_IMPLEMENT(<a class="el" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner</a>&lt;wp&gt;)</td></tr>
-<tr class="memdesc:a35a715af33168ad6f80dad1679d02c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the cpp after the implicit instantiation of the serialize function.  <a href="../../d4/d08/waypoint_8h.html#a35a715af33168ad6f80dad1679d02c0f">More...</a><br /></td></tr>
-<tr class="separator:a35a715af33168ad6f80dad1679d02c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a2c84f5a463366339aaab71d2e54d9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#a9a2c84f5a463366339aaab71d2e54d9b">TESSERACT_WAYPOINT_EXPORT</a>(wp)</td></tr>
-<tr class="memdesc:a9a2c84f5a463366339aaab71d2e54d9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp.  <a href="../../d4/d08/waypoint_8h.html#a9a2c84f5a463366339aaab71d2e54d9b">More...</a><br /></td></tr>
-<tr class="separator:a9a2c84f5a463366339aaab71d2e54d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da884b648f0ad59d58613085d694a41"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#a0da884b648f0ad59d58613085d694a41">TESSERACT_WAYPOINT_EXPORT_KEY</a>(N,  C)</td></tr>
+<tr class="memdesc:a0da884b648f0ad59d58613085d694a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the header after the class definition.  <a href="../../d4/d08/waypoint_8h.html#a0da884b648f0ad59d58613085d694a41">More...</a><br /></td></tr>
+<tr class="separator:a0da884b648f0ad59d58613085d694a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58125b44bed0fd40b9d476f146b49959"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#a58125b44bed0fd40b9d476f146b49959">TESSERACT_WAYPOINT_EXPORT_IMPLEMENT</a>(inst)</td></tr>
+<tr class="memdesc:a58125b44bed0fd40b9d476f146b49959"><td class="mdescLeft">&#160;</td><td class="mdescRight">If shared library, this must go in the cpp after the implicit instantiation of the serialize function.  <a href="../../d4/d08/waypoint_8h.html#a58125b44bed0fd40b9d476f146b49959">More...</a><br /></td></tr>
+<tr class="separator:a58125b44bed0fd40b9d476f146b49959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9eddae9e5a1f2bf5c27bc4db11c774"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#a9e9eddae9e5a1f2bf5c27bc4db11c774">TESSERACT_WAYPOINT_EXPORT</a>(N,  C)</td></tr>
+<tr class="memdesc:a9e9eddae9e5a1f2bf5c27bc4db11c774"><td class="mdescLeft">&#160;</td><td class="mdescRight">This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp.  <a href="../../d4/d08/waypoint_8h.html#a9e9eddae9e5a1f2bf5c27bc4db11c774">More...</a><br /></td></tr>
+<tr class="separator:a9e9eddae9e5a1f2bf5c27bc4db11c774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a3a642e2330050d20da2e0d736f719d99"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3a642e2330050d20da2e0d736f719d99">tesseract_planning::WaypointBase</a> = tesseract_common::TypeErasureBase&lt; detail_waypoint::WaypointInterface, detail_waypoint::WaypointInstance &gt;</td></tr>
+<tr class="separator:a3a642e2330050d20da2e0d736f719d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aeb4b2095e38318bdeb0b7f6f1464f2a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html#aeb4b2095e38318bdeb0b7f6f1464f2a0">tesseract_planning::detail_waypoint::CREATE_MEMBER_CHECK</a> (print)</td></tr>
-<tr class="separator:aeb4b2095e38318bdeb0b7f6f1464f2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee4cafa219303554570b0d3b13607d26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3b/namespacetesseract__planning_1_1detail__waypoint.html#aee4cafa219303554570b0d3b13607d26">tesseract_planning::detail_waypoint::CREATE_MEMBER_FUNC_SIGNATURE_CHECK</a> (print, void, std::string)</td></tr>
-<tr class="separator:aee4cafa219303554570b0d3b13607d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7c56dbaa4ac7d73153dd5bb77359646"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#af7c56dbaa4ac7d73153dd5bb77359646">BOOST_CLASS_TRACKING</a> (<a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">tesseract_planning::Waypoint</a>, boost::serialization::track_never)</td></tr>
+<tr class="memitem:af7c56dbaa4ac7d73153dd5bb77359646"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d08/waypoint_8h.html#af7c56dbaa4ac7d73153dd5bb77359646">BOOST_CLASS_TRACKING</a> (<a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">tesseract_planning::Waypoint</a>, boost::serialization::track_never)</td></tr>
 <tr class="separator:af7c56dbaa4ac7d73153dd5bb77359646"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -219,8 +215,8 @@ Functions</h2></td></tr>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
 <dl class="section user"><dt></dt><dd>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a9a2c84f5a463366339aaab71d2e54d9b" name="a9a2c84f5a463366339aaab71d2e54d9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a2c84f5a463366339aaab71d2e54d9b">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT</h2>
+<a id="a9e9eddae9e5a1f2bf5c27bc4db11c774" name="a9e9eddae9e5a1f2bf5c27bc4db11c774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e9eddae9e5a1f2bf5c27bc4db11c774">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,21 +225,31 @@ Functions</h2></td></tr>
           <td class="memname">#define TESSERACT_WAYPOINT_EXPORT</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">wp</td><td>)</td>
+          <td class="paramname">N, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">C&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="../../d4/d08/waypoint_8h.html#ae9e75f6be798136667d6c208b65d5070">TESSERACT_WAYPOINT_EXPORT_KEY</a>(wp)                                                                                    \</div>
-<div class="line">  TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(wp)</div>
-<div class="ttc" id="awaypoint_8h_html_ae9e75f6be798136667d6c208b65d5070"><div class="ttname"><a href="../../d4/d08/waypoint_8h.html#ae9e75f6be798136667d6c208b65d5070">TESSERACT_WAYPOINT_EXPORT_KEY</a></div><div class="ttdeci">#define TESSERACT_WAYPOINT_EXPORT_KEY(wp)</div><div class="ttdoc">If shared library, this must go in the header after the class definition.</div><div class="ttdef"><b>Definition:</b> waypoint.h:51</div></div>
+<b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="../../d4/d08/waypoint_8h.html#a0da884b648f0ad59d58613085d694a41">TESSERACT_WAYPOINT_EXPORT_KEY</a>(N, C)                                                                                  \</div>
+<div class="line">  TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(N::C)</div>
+<div class="ttc" id="awaypoint_8h_html_a0da884b648f0ad59d58613085d694a41"><div class="ttname"><a href="../../d4/d08/waypoint_8h.html#a0da884b648f0ad59d58613085d694a41">TESSERACT_WAYPOINT_EXPORT_KEY</a></div><div class="ttdeci">#define TESSERACT_WAYPOINT_EXPORT_KEY(N, C)</div><div class="ttdoc">If shared library, this must go in the header after the class definition.</div><div class="ttdef"><b>Definition:</b> waypoint.h:48</div></div>
 </div><!-- fragment -->
 <p>This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. </p>
 
 </div>
 </div>
-<a id="a35a715af33168ad6f80dad1679d02c0f" name="a35a715af33168ad6f80dad1679d02c0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35a715af33168ad6f80dad1679d02c0f">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT_IMPLEMENT</h2>
+<a id="a58125b44bed0fd40b9d476f146b49959" name="a58125b44bed0fd40b9d476f146b49959"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58125b44bed0fd40b9d476f146b49959">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT_IMPLEMENT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,18 +258,21 @@ Functions</h2></td></tr>
           <td class="memname">#define TESSERACT_WAYPOINT_EXPORT_IMPLEMENT</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">wp</td><td>)</td>
-          <td>&#160;&#160;&#160;  BOOST_CLASS_EXPORT_IMPLEMENT(<a class="el" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner</a>&lt;wp&gt;)</td>
+          <td class="paramname">inst</td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \</div>
+<div class="line">  BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)                                                                         \</div>
+<div class="line">  BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceWrapper)</div>
+</div><!-- fragment -->
 <p>If shared library, this must go in the cpp after the implicit instantiation of the serialize function. </p>
 
 </div>
 </div>
-<a id="ae9e75f6be798136667d6c208b65d5070" name="ae9e75f6be798136667d6c208b65d5070"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9e75f6be798136667d6c208b65d5070">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT_KEY</h2>
+<a id="a0da884b648f0ad59d58613085d694a41" name="a0da884b648f0ad59d58613085d694a41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0da884b648f0ad59d58613085d694a41">&#9670;&nbsp;</a></span>TESSERACT_WAYPOINT_EXPORT_KEY</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,14 +281,35 @@ Functions</h2></td></tr>
           <td class="memname">#define TESSERACT_WAYPOINT_EXPORT_KEY</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">wp</td><td>)</td>
+          <td class="paramname">N, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">C&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  BOOST_CLASS_EXPORT_KEY2(<a class="code hl_struct" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner&lt;wp&gt;</a>, #wp)                                 \</div>
-<div class="line">  BOOST_CLASS_TRACKING(<a class="code hl_struct" href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner&lt;wp&gt;</a>, boost::serialization::track_never)</div>
-<div class="ttc" id="astructtesseract__planning_1_1detail__waypoint_1_1WaypointInner_html"><div class="ttname"><a href="../../d7/df0/structtesseract__planning_1_1detail__waypoint_1_1WaypointInner.html">tesseract_planning::detail_waypoint::WaypointInner</a></div><div class="ttdef"><b>Definition:</b> waypoint.h:113</div></div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keyword">namespace </span>N                                                                                                          \</div>
+<div class="line">  {                                                                                                                    \</div>
+<div class="line">  using C##InstanceBase =                                                                                              \</div>
+<div class="line">      tesseract_common::TypeErasureInstance&lt;C, tesseract_planning::detail_waypoint::WaypointInterface&gt;;                \</div>
+<div class="line">  using C##Instance = <a class="code hl_struct" href="../../d6/db4/structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance.html">tesseract_planning::detail_waypoint::WaypointInstance&lt;C&gt;</a>;                                        \</div>
+<div class="line">  using C##InstanceWrapper = tesseract_common::TypeErasureInstanceWrapper&lt;C##Instance&gt;;                                \</div>
+<div class="line">  }                                                                                                                    \</div>
+<div class="line">  BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \</div>
+<div class="line">  BOOST_CLASS_EXPORT_KEY(N::C##Instance)                                                                               \</div>
+<div class="line">  BOOST_CLASS_EXPORT_KEY(N::C##InstanceWrapper)                                                                        \</div>
+<div class="line">  BOOST_CLASS_TRACKING(N::C##InstanceBase, boost::serialization::track_never)                                          \</div>
+<div class="line">  BOOST_CLASS_TRACKING(N::C##Instance, boost::serialization::track_never)                                              \</div>
+<div class="line">  BOOST_CLASS_TRACKING(N::C##InstanceWrapper, boost::serialization::track_never)</div>
+<div class="ttc" id="astructtesseract__planning_1_1detail__waypoint_1_1WaypointInstance_html"><div class="ttname"><a href="../../d6/db4/structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance.html">tesseract_planning::detail_waypoint::WaypointInstance</a></div><div class="ttdef"><b>Definition:</b> waypoint.h:118</div></div>
 </div><!-- fragment -->
 <p>If shared library, this must go in the header after the class definition. </p>
 
@@ -295,7 +325,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">BOOST_CLASS_TRACKING </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html">tesseract_planning::Waypoint</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">tesseract_planning::Waypoint</a>&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -317,7 +347,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 6 2022 06:06:09 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Jun 15 2022 23:10:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -104,7 +104,7 @@ $(function() {
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">auto</span>&amp; move = sub.<a class="code hl_function" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html#a42076f07a201bdee759baa5a37596ff3">at</a>(move_idx).as&lt;<a class="code hl_class" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a>&gt;();</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d9/dcd/namespacetesseract__planning.html#aa10501c754ee26532985c02677b4d12d">isStateWaypoint</a>(move.getWaypoint()))</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>          <span class="keyword">auto</span>&amp; state = move.<a class="code hl_function" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#af9dd6ba043a2ae38129847a98d90a540">getWaypoint</a>().<a class="code hl_function" href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a8a921b53dc06875534de2d145fd738ae">as</a>&lt;<a class="code hl_class" href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">StateWaypoint</a>&gt;();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>          <span class="keyword">auto</span>&amp; state = move.<a class="code hl_function" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#af9dd6ba043a2ae38129847a98d90a540">getWaypoint</a>().as&lt;<a class="code hl_class" href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">StateWaypoint</a>&gt;();</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>          <span class="keywordtype">double</span> scaling_factor = scalings[sub_composite_idx];</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>          <span class="keywordflow">if</span> (scaling_factor &lt; 1e-6)</div>
@@ -136,7 +136,6 @@ $(function() {
 <div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a></div><div class="ttdoc">The move instruction is used when defining the results of a motion planning request.</div><div class="ttdef"><b>Definition:</b> move_instruction.h:64</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html_af9dd6ba043a2ae38129847a98d90a540"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#af9dd6ba043a2ae38129847a98d90a540">tesseract_planning::MoveInstruction::getWaypoint</a></div><div class="ttdeci">Waypoint &amp; getWaypoint()</div><div class="ttdef"><b>Definition:</b> move_instruction.cpp:119</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1StateWaypoint_html"><div class="ttname"><a href="../../dd/d11/classtesseract__planning_1_1StateWaypoint.html">tesseract_planning::StateWaypoint</a></div><div class="ttdef"><b>Definition:</b> state_waypoint.h:46</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1Waypoint_html_a8a921b53dc06875534de2d145fd738ae"><div class="ttname"><a href="../../d0/d3a/classtesseract__planning_1_1Waypoint.html#a8a921b53dc06875534de2d145fd738ae">tesseract_planning::Waypoint::as</a></div><div class="ttdeci">T &amp; as()</div><div class="ttdef"><b>Definition:</b> waypoint.h:243</div></div>
 <div class="ttc" id="acommand__language_8h_html"><div class="ttname"><a href="../../d5/d59/command__language_8h.html">command_language.h</a></div></div>
 <div class="ttc" id="aget__instruction__utils_8h_html"><div class="ttname"><a href="../../d8/dcb/get__instruction__utils_8h.html">get_instruction_utils.h</a></div><div class="ttdoc">Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction.</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a></div><div class="ttdef"><b>Definition:</b> cartesian_waypoint.h:41</div></div>
@@ -146,7 +145,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 6 2022 06:06:09 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Wed Jun 15 2022 23:10:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

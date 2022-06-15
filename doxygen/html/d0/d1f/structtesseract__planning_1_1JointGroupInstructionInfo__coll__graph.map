@@ -1,8 +1,9 @@
 <map id="tesseract_planning::JointGroupInstructionInfo" name="tesseract_planning::JointGroupInstructionInfo">
-<area shape="rect" id="node1" title="The Joint Group Instruction Information struct." alt="" coords="273,333,447,375"/>
-<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="220,229,351,271"/>
+<area shape="rect" id="node1" title="The Joint Group Instruction Information struct." alt="" coords="253,333,427,375"/>
+<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="200,229,331,271"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,96,160,137"/>
-<area shape="rect" id="node4" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="184,96,315,137"/>
-<area shape="rect" id="node5" title=" " alt="" coords="367,103,446,130"/>
-<area shape="rect" id="node6" title=" " alt="" coords="345,5,469,47"/>
+<area shape="rect" id="node4" href="$d8/d45/structtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="184,96,315,137"/>
+<area shape="rect" id="node5" title=" " alt="" coords="197,13,302,39"/>
+<area shape="rect" id="node6" title=" " alt="" coords="362,103,441,130"/>
+<area shape="rect" id="node7" title=" " alt="" coords="339,5,463,47"/>
 </map>

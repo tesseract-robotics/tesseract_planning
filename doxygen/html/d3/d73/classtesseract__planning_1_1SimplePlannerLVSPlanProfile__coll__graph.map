@@ -3,7 +3,8 @@
 <area shape="rect" id="node2" href="$d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="162,333,337,375"/>
 <area shape="rect" id="node3" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="184,229,315,271"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,96,160,137"/>
-<area shape="rect" id="node5" href="$d0/d3a/classtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="184,96,315,137"/>
-<area shape="rect" id="node6" title=" " alt="" coords="339,103,418,130"/>
-<area shape="rect" id="node7" title=" " alt="" coords="317,5,441,47"/>
+<area shape="rect" id="node5" href="$d8/d45/structtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="184,96,315,137"/>
+<area shape="rect" id="node6" title=" " alt="" coords="194,13,299,39"/>
+<area shape="rect" id="node7" title=" " alt="" coords="342,103,421,130"/>
+<area shape="rect" id="node8" title=" " alt="" coords="323,5,447,47"/>
 </map>
