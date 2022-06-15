@@ -28,7 +28,7 @@
 
 namespace tesseract_planning
 {
-class Waypoint;
+struct Waypoint;
 
 bool isCartesianWaypoint(const Waypoint& waypoint);
 
