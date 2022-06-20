@@ -2,6 +2,14 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update to use new type erasure interface (`#203 <https://github.com/tesseract-robotics/tesseract_planning/issues/203>`_)
+  * Use new type erasure interface
+  * Update waypoint to new type erasure interface and add benchmark
+  * Add benchmark comparing type erasure to using unique_ptrs
+* Contributors: Levi Armstrong
+
 0.10.4 (2022-06-03)
 -------------------
 * Update toJointTrajectory to support plan instructions

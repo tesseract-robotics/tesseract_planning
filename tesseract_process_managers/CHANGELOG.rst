@@ -2,6 +2,9 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.10.4 (2022-06-03)
 -------------------
 
