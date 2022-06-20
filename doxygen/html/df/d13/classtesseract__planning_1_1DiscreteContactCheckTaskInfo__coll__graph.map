@@ -1,8 +1,9 @@
 <map id="tesseract_planning::DiscreteContactCheckTaskInfo" name="tesseract_planning::DiscreteContactCheckTaskInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="31,335,240,376"/>
+<area shape="rect" id="node1" title=" " alt="" coords="125,348,335,389"/>
 <area shape="rect" id="node2" href="$d9/dbc/classtesseract__planning_1_1TaskInfo.html" title=" " alt="" coords="70,244,201,285"/>
 <area shape="rect" id="node3" title=" " alt="" coords="32,103,111,130"/>
 <area shape="rect" id="node4" title=" " alt="" coords="5,5,129,47"/>
 <area shape="rect" id="node5" href="$db/dff/structtesseract__planning_1_1Instruction.html" title=" " alt="" coords="142,96,273,137"/>
 <area shape="rect" id="node6" title=" " alt="" coords="153,13,267,39"/>
+<area shape="rect" id="node7" title=" " alt="" coords="225,244,425,285"/>
 </map>

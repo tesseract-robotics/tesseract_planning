@@ -1,5 +1,10 @@
 <map id="tesseract_planning::DescartesCollisionEdgeEvaluator&lt; FloatType &gt;" name="tesseract_planning::DescartesCollisionEdgeEvaluator&lt; FloatType &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="77,109,295,165"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,204,47"/>
-<area shape="rect" id="node3" title=" " alt="" coords="228,13,309,39"/>
+<area shape="rect" id="node1" title=" " alt="" coords="780,107,999,163"/>
+<area shape="rect" id="node2" title=" " alt="" coords="363,5,561,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="382,71,542,98"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,71,257,98"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,64,129,105"/>
+<area shape="rect" id="node6" title=" " alt="" coords="421,122,503,149"/>
+<area shape="rect" id="node7" title=" " alt="" coords="366,173,558,244"/>
+<area shape="rect" id="node8" title=" " alt="" coords="375,268,549,339"/>
 </map>

@@ -1,6 +1,9 @@
 <map id="tesseract_planning::SimpleMotionPlanner" name="tesseract_planning::SimpleMotionPlanner">
-<area shape="rect" id="node1" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="17,200,167,241"/>
-<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="5,96,136,137"/>
-<area shape="rect" id="node3" title=" " alt="" coords="161,103,239,130"/>
-<area shape="rect" id="node4" title=" " alt="" coords="138,5,262,47"/>
+<area shape="rect" id="node1" title="The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops o..." alt="" coords="1096,77,1247,119"/>
+<area shape="rect" id="node2" href="$dd/d5f/classtesseract__planning_1_1MotionPlanner.html" title=" " alt="" coords="771,5,901,47"/>
+<area shape="rect" id="node3" title=" " alt="" coords="228,139,307,166"/>
+<area shape="rect" id="node6" href="$d4/d70/classtesseract__planning_1_1SimpleMotionPlannerStatusCategory.html" title=" " alt="" coords="447,70,636,126"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,132,129,173"/>
+<area shape="rect" id="node5" title=" " alt="" coords="727,70,945,126"/>
+<area shape="rect" id="node7" title=" " alt="" coords="179,64,356,105"/>
 </map>

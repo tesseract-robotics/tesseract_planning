@@ -100,7 +100,7 @@
 \DoxyCodeLine{126 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
 \DoxyCodeLine{127 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{InstructionInstance}} : tesseract\_common::TypeErasureInstance<T, InstructionInterface>  \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{128 \{}
-\DoxyCodeLine{129   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a7755f1dba1ad39226d3a8ff2b668c7f3}{BaseType}} = tesseract\_common::TypeErasureInstance<T, InstructionInterface>;}
+\DoxyCodeLine{129   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a7755f1dba1ad39226d3a8ff2b668c7f3}{BaseType}} = tesseract\_common::TypeErasureInstance<T, InstructionInterface>;}
 \DoxyCodeLine{130   \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_ad38f2378a75c4c07b8a2c1ac62d7ec03}{InstructionInstance}}() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{131   \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a19a48a99f90b016867e505247ec2faf8}{InstructionInstance}}(\textcolor{keyword}{const} T\& x) : \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a7755f1dba1ad39226d3a8ff2b668c7f3}{BaseType}}(x) \{\}}
 \DoxyCodeLine{132   \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a83f1864811f989451bc780e85847c0ec}{InstructionInstance}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{InstructionInstance}}\&\& x) noexcept : \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a7755f1dba1ad39226d3a8ff2b668c7f3}{BaseType}}(std::move(x)) \{\}}
@@ -129,11 +129,11 @@
 \DoxyCodeLine{155 }
 \DoxyCodeLine{156 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{157 \{}
-\DoxyCodeLine{158 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a4bb993355d5a35a8de385b7434e276e8}{InstructionBase}} = tesseract\_common::TypeErasureBase<\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{detail\_instruction::InstructionInterface}},}
+\DoxyCodeLine{158 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a4bb993355d5a35a8de385b7434e276e8}{InstructionBase}} = tesseract\_common::TypeErasureBase<\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{detail\_instruction::InstructionInterface}},}
 \DoxyCodeLine{159                                                           \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{detail\_instruction::InstructionInstance}}>;}
 \DoxyCodeLine{160 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} : \mbox{\hyperlink{namespacetesseract__planning_a4bb993355d5a35a8de385b7434e276e8}{InstructionBase}}}
 \DoxyCodeLine{161 \{}
-\DoxyCodeLine{162   \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a4bb993355d5a35a8de385b7434e276e8}{InstructionBase::InstructionBase}};}
+\DoxyCodeLine{162   \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a4bb993355d5a35a8de385b7434e276e8}{InstructionBase::InstructionBase}};}
 \DoxyCodeLine{163 }
 \DoxyCodeLine{164   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1Instruction_a4b46ec0518df396cfe01ea0768df1c17}{getDescription}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{165 }

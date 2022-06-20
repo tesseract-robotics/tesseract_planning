@@ -347,7 +347,7 @@ using \mbox{\hyperlink{namespacetesseract__planning_a204eccb187f6e542d5c48ebd855
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_abc2be5357377e9f284108b7fbbd416aa}{Descartes\+Default\+Plan\+ProfileD}} = \mbox{\hyperlink{classtesseract__planning_1_1DescartesDefaultPlanProfile}{Descartes\+Default\+Plan\+Profile}}$<$ double $>$
 \item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{Descartes\+Plan\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::Const\+Ptr $>$
+{\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{Descartes\+Plan\+Profile\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$ Float\+Type $>$\+::\+Const\+Ptr $>$
 \item 
 using \mbox{\hyperlink{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}{Descartes\+Plan\+Profile\+MapD}} = \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{Descartes\+Plan\+Profile\+Map}}$<$ double $>$
 \item 
@@ -355,9 +355,9 @@ using \mbox{\hyperlink{namespacetesseract__planning_ac277af397716f1c38a0435af91d
 \item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a7a8351e5785986a6e075296e3bfdb7fc}{Descartes\+Vertex\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ \mbox{\hyperlink{classtesseract__planning_1_1DescartesVertexEvaluator_af9323f7e0912986b89ba5a57ee6e3262}{Descartes\+Vertex\+Evaluator\+::\+Ptr}}(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&)$>$
 \begin{DoxyCompactList}\small\item\em This is used for tesseract descartes samplers that filters out invalid solutions. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}{Descartes\+Edge\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$ Float\+Type $>$\+::Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&)$>$
+{\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}{Descartes\+Edge\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$ Float\+Type $>$\+::\+Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&)$>$
 \begin{DoxyCompactList}\small\item\em This is used to create edge evaluator within tesseract, to allow thread safe creation of descartes edge evaluators. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{Descartes\+State\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ typename descartes\+\_\+light\+::\+State\+Evaluator$<$ Float\+Type $>$\+::Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&)$>$
+{\footnotesize template$<$typename Float\+Type $>$ }\\using \mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{Descartes\+State\+Evaluator\+Allocator\+Fn}} = std\+::function$<$ typename descartes\+\_\+light\+::\+State\+Evaluator$<$ Float\+Type $>$\+::\+Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$ Float\+Type $>$ \&)$>$
 \begin{DoxyCompactList}\small\item\em Creates a state evaluator. \end{DoxyCompactList}\item 
 using \mbox{\hyperlink{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}{State\+Sampler\+Allocator}} = std\+::function$<$ ompl\+::base\+::\+State\+Sampler\+Ptr(const ompl\+::base\+::\+State\+Space $\ast$, const \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}} \&)$>$
 \item 
@@ -952,7 +952,7 @@ static const \mbox{\hyperlink{namespacetesseract__planning_acdc2315021b909f3a215
 \index{DescartesEdgeEvaluatorAllocatorFn@{DescartesEdgeEvaluatorAllocatorFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{DescartesEdgeEvaluatorAllocatorFn}{DescartesEdgeEvaluatorAllocatorFn}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-using \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}{tesseract\+\_\+planning\+::\+Descartes\+Edge\+Evaluator\+Allocator\+Fn}} = typedef std\+::function$<$typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$Float\+Type$>$\+::Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$Float\+Type$>$\&)$>$}
+using \mbox{\hyperlink{namespacetesseract__planning_a13fa370562d132fa22c6d8faf4392b97}{tesseract\+\_\+planning\+::\+Descartes\+Edge\+Evaluator\+Allocator\+Fn}} = typedef std\+::function$<$typename descartes\+\_\+light\+::\+Edge\+Evaluator$<$Float\+Type$>$\+::\+Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$Float\+Type$>$\&)$>$}
 
 
 
@@ -975,7 +975,7 @@ This is used to create edge evaluator within tesseract, to allow thread safe cre
 \index{DescartesPlanProfileMap@{DescartesPlanProfileMap}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{DescartesPlanProfileMap}{DescartesPlanProfileMap}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-using \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$Float\+Type$>$\+::Const\+Ptr$>$}
+using \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{tesseract\+\_\+planning\+::\+Descartes\+Plan\+Profile\+Map}} = typedef std\+::unordered\+\_\+map$<$std\+::string, typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{Descartes\+Plan\+Profile}}$<$Float\+Type$>$\+::\+Const\+Ptr$>$}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}\label{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}} 
 \index{tesseract\_planning@{tesseract\_planning}!DescartesPlanProfileMapD@{DescartesPlanProfileMapD}}
@@ -1018,7 +1018,7 @@ using \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3
 \index{DescartesStateEvaluatorAllocatorFn@{DescartesStateEvaluatorAllocatorFn}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{DescartesStateEvaluatorAllocatorFn}{DescartesStateEvaluatorAllocatorFn}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-using \mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{tesseract\+\_\+planning\+::\+Descartes\+State\+Evaluator\+Allocator\+Fn}} = typedef std\+::function$<$typename descartes\+\_\+light\+::\+State\+Evaluator$<$Float\+Type$>$\+::Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$Float\+Type$>$\&)$>$}
+using \mbox{\hyperlink{namespacetesseract__planning_a0ad45c74384dd7deb9560676f29ef0f0}{tesseract\+\_\+planning\+::\+Descartes\+State\+Evaluator\+Allocator\+Fn}} = typedef std\+::function$<$typename descartes\+\_\+light\+::\+State\+Evaluator$<$Float\+Type$>$\+::\+Ptr(const \mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{Descartes\+Problem}}$<$Float\+Type$>$\&)$>$}
 
 
 
@@ -4135,10 +4135,10 @@ The name of the primary executor (thread pool)
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{=}
-\DoxyCodeLine{    [](\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\& i, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
+\DoxyCodeLine{    [](\textcolor{keyword}{const} Instruction\& i, \textcolor{keyword}{const} CompositeInstruction\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
 \DoxyCodeLine{      \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(i))}
 \DoxyCodeLine{      \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>().\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ad7ea2fb0fcfc4259ace79dafc6ac8179}{isStart}}())}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<MoveInstruction>().isStart())}
 \DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
 \DoxyCodeLine{}
 \DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
@@ -4157,10 +4157,10 @@ The name of the primary executor (thread pool)
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{=}
-\DoxyCodeLine{    [](\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\& i, \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
+\DoxyCodeLine{    [](\textcolor{keyword}{const} Instruction\& i, \textcolor{keyword}{const} CompositeInstruction\& , \textcolor{keywordtype}{bool} parent\_is\_first\_composite) \{}
 \DoxyCodeLine{      \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(i))}
 \DoxyCodeLine{      \{}
-\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>().\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ad7ea2fb0fcfc4259ace79dafc6ac8179}{isStart}}())}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (i.as<MoveInstruction>().isStart())}
 \DoxyCodeLine{          \textcolor{keywordflow}{return} (parent\_is\_first\_composite);}
 \DoxyCodeLine{}
 \DoxyCodeLine{        \textcolor{keywordflow}{return} \textcolor{keyword}{true};}

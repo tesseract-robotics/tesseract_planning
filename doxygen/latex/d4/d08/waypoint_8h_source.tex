@@ -90,7 +90,7 @@
 \DoxyCodeLine{116 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
 \DoxyCodeLine{117 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance}{WaypointInstance}} : tesseract\_common::TypeErasureInstance<T, WaypointInterface>  \textcolor{comment}{// NOLINT}}
 \DoxyCodeLine{118 \{}
-\DoxyCodeLine{119   \textcolor{keyword}{using} \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance_a5d1430b5ba69372169e1855c26c7854f}{BaseType}} = tesseract\_common::TypeErasureInstance<T, WaypointInterface>;}
+\DoxyCodeLine{119   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance_a5d1430b5ba69372169e1855c26c7854f}{BaseType}} = tesseract\_common::TypeErasureInstance<T, WaypointInterface>;}
 \DoxyCodeLine{120   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance_aafc70ae919c97903069b83fc14f8d15e}{WaypointInstance}}() = \textcolor{keywordflow}{default};}
 \DoxyCodeLine{121   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance_a1f1e166f1202c719c16b74c4d30d6b08}{WaypointInstance}}(\textcolor{keyword}{const} T\& x) : \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance_a5d1430b5ba69372169e1855c26c7854f}{BaseType}}(x) \{\}}
 \DoxyCodeLine{122   \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance_ae432d1fab40037d483493409e345f96e}{WaypointInstance}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance}{WaypointInstance}}\&\& x) noexcept : \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance_a5d1430b5ba69372169e1855c26c7854f}{BaseType}}(std::move(x)) \{\}}
@@ -114,11 +114,11 @@
 \DoxyCodeLine{140 }
 \DoxyCodeLine{141 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{142 \{}
-\DoxyCodeLine{143 \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a3a642e2330050d20da2e0d736f719d99}{WaypointBase}} =}
+\DoxyCodeLine{143 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a3a642e2330050d20da2e0d736f719d99}{WaypointBase}} =}
 \DoxyCodeLine{144     tesseract\_common::TypeErasureBase<detail\_waypoint::WaypointInterface, detail\_waypoint::WaypointInstance>;}
 \DoxyCodeLine{145 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} : \mbox{\hyperlink{namespacetesseract__planning_a3a642e2330050d20da2e0d736f719d99}{WaypointBase}}}
 \DoxyCodeLine{146 \{}
-\DoxyCodeLine{147   \textcolor{keyword}{using} \mbox{\hyperlink{namespacetesseract__planning_a3a642e2330050d20da2e0d736f719d99}{WaypointBase::WaypointBase}};}
+\DoxyCodeLine{147   \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a3a642e2330050d20da2e0d736f719d99}{WaypointBase::WaypointBase}};}
 \DoxyCodeLine{148 }
 \DoxyCodeLine{149   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1Waypoint_abde424e3ff48cd826a002cf287fb7f25}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
 \DoxyCodeLine{150 }

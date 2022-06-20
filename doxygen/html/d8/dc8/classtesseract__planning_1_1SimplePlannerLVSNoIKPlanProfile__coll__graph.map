@@ -1,10 +1,13 @@
 <map id="tesseract_planning::SimplePlannerLVSNoIKPlanProfile" name="tesseract_planning::SimplePlannerLVSNoIKPlanProfile">
-<area shape="rect" id="node1" title=" " alt="" coords="152,424,347,480"/>
-<area shape="rect" id="node2" href="$d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="162,333,337,375"/>
-<area shape="rect" id="node3" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="184,229,315,271"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,96,160,137"/>
-<area shape="rect" id="node5" href="$d8/d45/structtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="184,96,315,137"/>
-<area shape="rect" id="node6" title=" " alt="" coords="194,13,299,39"/>
-<area shape="rect" id="node7" title=" " alt="" coords="342,103,421,130"/>
-<area shape="rect" id="node8" title=" " alt="" coords="323,5,447,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1543,91,1737,147"/>
+<area shape="rect" id="node2" href="$d3/d4b/classtesseract__planning_1_1SimplePlannerPlanProfile.html" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="1319,98,1493,139"/>
+<area shape="rect" id="node3" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="1104,98,1235,139"/>
+<area shape="rect" id="node4" title=" " alt="" coords="804,98,959,139"/>
+<area shape="rect" id="node5" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="607,102,737,143"/>
+<area shape="rect" id="node6" title=" " alt="" coords="336,87,507,158"/>
+<area shape="rect" id="node7" title=" " alt="" coords="179,72,257,99"/>
+<area shape="rect" id="node8" title=" " alt="" coords="5,65,129,106"/>
+<area shape="rect" id="node9" title=" " alt="" coords="358,183,485,209"/>
+<area shape="rect" id="node10" href="$d8/d45/structtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="816,163,947,205"/>
+<area shape="rect" id="node11" title=" " alt="" coords="619,171,725,197"/>
 </map>

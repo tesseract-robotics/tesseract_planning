@@ -1,15 +1,12 @@
 <map id="tesseract_examples/src" name="tesseract_examples/src">
-<area shape="rect" id="node1" href="dir_bb24e368087ccf1e177724285ce8e577.html" title="include" alt="" coords="27,148,99,196"/>
+<area shape="rect" id="node1" href="dir_bb24e368087ccf1e177724285ce8e577.html" title="include" alt="" coords="69,148,141,196"/>
 <area shape="rect" id="node2" href="dir_1e7e13a6c6735e1d149e38f64f6f5856.html" title="src" alt="" coords="72,52,144,100"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000013_000011.html" title="22" alt="" coords="82,128,97,143"/>
-<area shape="rect" id="node3" href="dir_3ff10112983bc658ff05418c29e7146d.html" title="tesseract_process_managers" alt="" coords="174,148,367,196"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000013_000000.html" title="15" alt="" coords="212,124,226,139"/>
-<area shape="rect" id="node4" href="dir_ae3a79ad3cbc8e5dda6288dc4d617504.html" title="tesseract_motion_planners" alt="" coords="96,244,275,292"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000013_000015.html" title="37" alt="" coords="170,216,184,231"/>
-<area shape="rect" id="node5" href="dir_fa47c2fa9b13a12fc195f1b83854b816.html" title="tesseract_command_language" alt="" coords="213,340,411,388"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000013_000001.html" title="23" alt="" coords="342,323,357,338"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000000_000015.html" title="35" alt="" coords="217,229,232,244"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000000_000001.html" title="79" alt="" coords="304,313,319,328"/>
-<area shape="rect" id="edge7-headlabel" href="dir_000015_000001.html" title="78" alt="" coords="264,315,279,330"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000037_000013.html" title="22" alt="" coords="108,123,122,137"/>
+<area shape="rect" id="node3" href="dir_3ff10112983bc658ff05418c29e7146d.html" title="tesseract_process_managers" alt="" coords="166,148,359,196"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000037_000060.html" title="15" alt="" coords="207,124,221,139"/>
+<area shape="rect" id="node4" href="dir_ae3a79ad3cbc8e5dda6288dc4d617504.html" title="tesseract_motion_planners" alt="" coords="384,148,563,196"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000037_000054.html" title="37" alt="" coords="362,128,376,143"/>
+<area shape="rect" id="node5" href="dir_fa47c2fa9b13a12fc195f1b83854b816.html" title="tesseract_command_language" alt="" coords="587,148,786,196"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000037_000050.html" title="23" alt="" coords="563,131,578,146"/>
 <area shape="rect" id="clust1" href="dir_b0e5e182f299bf75d6c057bba55dcf01.html" title="tesseract_examples" alt="" coords="16,16,155,207"/>
 </map>
