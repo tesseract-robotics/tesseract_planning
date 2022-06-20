@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.11.0 (2022-06-20)
+-------------------
 * Update to use new type erasure interface (`#203 <https://github.com/tesseract-robotics/tesseract_planning/issues/203>`_)
   * Use new type erasure interface
   * Update waypoint to new type erasure interface and add benchmark

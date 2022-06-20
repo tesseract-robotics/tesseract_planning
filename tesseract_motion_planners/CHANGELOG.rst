@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.11.0 (2022-06-20)
+-------------------
 * Fix issue `#201 <https://github.com/tesseract-robotics/tesseract_planning/issues/201>`_ excess collision checking in contactCheckProgram with ContinuousContactManager
 * Contributors: Levi Armstrong
 
