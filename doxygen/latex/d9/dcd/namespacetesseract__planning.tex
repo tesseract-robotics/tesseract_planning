@@ -809,13 +809,13 @@ bool \mbox{\hyperlink{namespacetesseract__planning_aadb81bc948f8ba685cbbcdff2236
 \begin{DoxyCompactList}\small\item\em Create an example raster program with approach and departure along with dual transitions. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_abe65b6b7bdb9fd9cf5a28c4e44936c95}{raster\+WAADExample\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&approach\+\_\+profile=\char`\"{}APPROACH\char`\"{}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{}, const std\+::string \&departure\+\_\+profile=\char`\"{}DEPARTURE\char`\"{})
 \begin{DoxyCompactList}\small\item\em Create an example raster program with approach and departure. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_ab5081941b9a484b79bf3fc0a5e003947}{create\+Traj\+Opt\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collisin\+\_\+check=true)
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_ad2ef2cbf10c20d451ae06c295dbdf231}{create\+Traj\+Opt\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true)
 \begin{DoxyCompactList}\small\item\em Create Traj\+Opt Process Pipeline. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_ab7926380f20adaa821f3c87f19e50ded}{create\+Traj\+Opt\+Ifopt\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collisin\+\_\+check=true)
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a22ce7e88c189548899006d996166a51a}{create\+Traj\+Opt\+Ifopt\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true)
 \begin{DoxyCompactList}\small\item\em Create Traj\+Opt IFOPT Process Pipeline. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a1b6871580ad92536ee6532e80739afa3}{create\+OMPLGenerator}} (bool check\+\_\+input=true, bool post\+\_\+collisin\+\_\+check=true)
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a9cc614fc5981fda16277e69b18ca086f}{create\+OMPLGenerator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true)
 \begin{DoxyCompactList}\small\item\em Create OMPL Process Pipeline. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a8e999a76ce93932b3e7580263388c556}{create\+Descartes\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collisin\+\_\+check=true)
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a46564372b1854ece4fb7bd82fea39a96}{create\+Descartes\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true)
 \begin{DoxyCompactList}\small\item\em Create Descartes Process Pipeline. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_ab6299da3758d4581971338ef25a48048}{create\+Descartes\+Only\+Generator}} (bool check\+\_\+input=true)
 \begin{DoxyCompactList}\small\item\em Create Descartes Only Process Pipeline. \end{DoxyCompactList}\item 
@@ -1798,11 +1798,11 @@ Create Cartesian Process Pipeline.
 \doxysubsubsection{\texorpdfstring{createCollisionTermInfo()}{createCollisionTermInfo()}}
 {\footnotesize\ttfamily trajopt\+::\+Term\+Info\+::\+Ptr tesseract\+\_\+planning\+::create\+Collision\+Term\+Info (\begin{DoxyParamCaption}\item[{int}]{start\+\_\+index,  }\item[{int}]{end\+\_\+index,  }\item[{double}]{collision\+\_\+safety\+\_\+margin,  }\item[{double}]{collision\+\_\+safety\+\_\+margin\+\_\+buffer,  }\item[{trajopt\+::\+Collision\+Evaluator\+Type}]{evaluator\+\_\+type,  }\item[{bool}]{use\+\_\+weighted\+\_\+sum = {\ttfamily false},  }\item[{double}]{coeff = {\ttfamily 20.0},  }\item[{tesseract\+\_\+collision\+::\+Contact\+Test\+Type}]{contact\+\_\+test\+\_\+type = {\ttfamily tesseract\+\_\+collision\+:\+:ContactTestType\+:\+:ALL},  }\item[{double}]{longest\+\_\+valid\+\_\+segment\+\_\+length = {\ttfamily 0.5},  }\item[{trajopt\+::\+Term\+Type}]{type = {\ttfamily trajopt\+:\+:TermType\+:\+:TT\+\_\+COST} }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a8e999a76ce93932b3e7580263388c556}\label{namespacetesseract__planning_a8e999a76ce93932b3e7580263388c556}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a46564372b1854ece4fb7bd82fea39a96}\label{namespacetesseract__planning_a46564372b1854ece4fb7bd82fea39a96}} 
 \index{tesseract\_planning@{tesseract\_planning}!createDescartesGenerator@{createDescartesGenerator}}
 \index{createDescartesGenerator@{createDescartesGenerator}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{createDescartesGenerator()}{createDescartesGenerator()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Descartes\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collisin\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Descartes\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
 
@@ -1890,11 +1890,11 @@ This will try trajopt first before OMPL, but if trajopt fails it runs OMPL follo
 \doxysubsubsection{\texorpdfstring{createNearJointStateTermInfo()}{createNearJointStateTermInfo()}}
 {\footnotesize\ttfamily trajopt\+::\+Term\+Info\+::\+Ptr tesseract\+\_\+planning\+::create\+Near\+Joint\+State\+Term\+Info (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{target,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{joint\+\_\+names,  }\item[{int}]{index,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{coeffs,  }\item[{trajopt\+::\+Term\+Type}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a1b6871580ad92536ee6532e80739afa3}\label{namespacetesseract__planning_a1b6871580ad92536ee6532e80739afa3}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a9cc614fc5981fda16277e69b18ca086f}\label{namespacetesseract__planning_a9cc614fc5981fda16277e69b18ca086f}} 
 \index{tesseract\_planning@{tesseract\_planning}!createOMPLGenerator@{createOMPLGenerator}}
 \index{createOMPLGenerator@{createOMPLGenerator}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{createOMPLGenerator()}{createOMPLGenerator()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+OMPLGenerator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collisin\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+OMPLGenerator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
 
@@ -2088,21 +2088,21 @@ Create Raster with Approach and Departures Process Pipeline.
 \doxysubsubsection{\texorpdfstring{createTolerancedJointWaypointTermInfo()}{createTolerancedJointWaypointTermInfo()}}
 {\footnotesize\ttfamily trajopt\+::\+Term\+Info\+::\+Ptr tesseract\+\_\+planning\+::create\+Toleranced\+Joint\+Waypoint\+Term\+Info (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{j\+\_\+wp,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{lower\+\_\+tol,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{upper\+\_\+tol,  }\item[{int}]{index,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{coeffs,  }\item[{trajopt\+::\+Term\+Type}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_ab5081941b9a484b79bf3fc0a5e003947}\label{namespacetesseract__planning_ab5081941b9a484b79bf3fc0a5e003947}} 
+\mbox{\Hypertarget{namespacetesseract__planning_ad2ef2cbf10c20d451ae06c295dbdf231}\label{namespacetesseract__planning_ad2ef2cbf10c20d451ae06c295dbdf231}} 
 \index{tesseract\_planning@{tesseract\_planning}!createTrajOptGenerator@{createTrajOptGenerator}}
 \index{createTrajOptGenerator@{createTrajOptGenerator}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{createTrajOptGenerator()}{createTrajOptGenerator()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Traj\+Opt\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collisin\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Traj\+Opt\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
 
 Create Traj\+Opt Process Pipeline. 
 
-\mbox{\Hypertarget{namespacetesseract__planning_ab7926380f20adaa821f3c87f19e50ded}\label{namespacetesseract__planning_ab7926380f20adaa821f3c87f19e50ded}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a22ce7e88c189548899006d996166a51a}\label{namespacetesseract__planning_a22ce7e88c189548899006d996166a51a}} 
 \index{tesseract\_planning@{tesseract\_planning}!createTrajOptIfoptGenerator@{createTrajOptIfoptGenerator}}
 \index{createTrajOptIfoptGenerator@{createTrajOptIfoptGenerator}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{createTrajOptIfoptGenerator()}{createTrajOptIfoptGenerator()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Traj\+Opt\+Ifopt\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collisin\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Traj\+Opt\+Ifopt\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
 
