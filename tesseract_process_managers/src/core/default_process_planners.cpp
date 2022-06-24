@@ -49,7 +49,7 @@
 
 namespace tesseract_planning
 {
-TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_collisin_check)
+TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_collision_check)
 {
   auto tf = std::make_unique<GraphTaskflow>("TrajOptTaskflow");
 
@@ -75,7 +75,7 @@ TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_colli
 
   // Setup post collision check
   int contact_check_task{ std::numeric_limits<int>::min() };
-  if (post_collisin_check)
+  if (post_collision_check)
     contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
 
   // Setup time parameterization
@@ -88,7 +88,7 @@ TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_colli
   tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
   tf->addEdges(seed_min_length_task, { motion_planner_task });
 
-  if (post_collisin_check)
+  if (post_collision_check)
   {
     tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
     tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
@@ -103,7 +103,7 @@ TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_colli
   return tf;
 }
 
-TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_collisin_check)
+TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_collision_check)
 {
   auto tf = std::make_unique<GraphTaskflow>("TrajOptIfoptTaskflow");
 
@@ -129,7 +129,7 @@ TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_
 
   // Setup post collision check
   int contact_check_task{ std::numeric_limits<int>::min() };
-  if (post_collisin_check)
+  if (post_collision_check)
     contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
 
   // Setup time parameterization
@@ -142,7 +142,7 @@ TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_
   tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
   tf->addEdges(seed_min_length_task, { motion_planner_task });
 
-  if (post_collisin_check)
+  if (post_collision_check)
   {
     tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
     tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
@@ -157,7 +157,7 @@ TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_
   return tf;
 }
 
-TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collisin_check)
+TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collision_check)
 {
   auto tf = std::make_unique<GraphTaskflow>("OMPLTaskflow");
 
@@ -183,7 +183,7 @@ TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collisin
 
   // Setup post collision check
   int contact_check_task{ std::numeric_limits<int>::min() };
-  if (post_collisin_check)
+  if (post_collision_check)
     contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
 
   // Setup time parameterization
@@ -196,7 +196,7 @@ TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collisin
   tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
   tf->addEdges(seed_min_length_task, { motion_planner_task });
 
-  if (post_collisin_check)
+  if (post_collision_check)
   {
     tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
     tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
@@ -211,7 +211,7 @@ TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collisin
   return tf;
 }
 
-TaskflowGenerator::UPtr createDescartesGenerator(bool check_input, bool post_collisin_check)
+TaskflowGenerator::UPtr createDescartesGenerator(bool check_input, bool post_collision_check)
 {
   auto tf = std::make_unique<GraphTaskflow>("DescartesTaskflow");
 
@@ -237,7 +237,7 @@ TaskflowGenerator::UPtr createDescartesGenerator(bool check_input, bool post_col
 
   // Setup post collision check
   int contact_check_task{ std::numeric_limits<int>::min() };
-  if (post_collisin_check)
+  if (post_collision_check)
     contact_check_task = tf->addNode(std::make_unique<DiscreteContactCheckTaskGenerator>(), true);
 
   // Setup time parameterization
@@ -250,7 +250,7 @@ TaskflowGenerator::UPtr createDescartesGenerator(bool check_input, bool post_col
   tf->addEdges(interpolator_task, { GraphTaskflow::ERROR_NODE, seed_min_length_task });
   tf->addEdges(seed_min_length_task, { motion_planner_task });
 
-  if (post_collisin_check)
+  if (post_collision_check)
   {
     tf->addEdges(motion_planner_task, { GraphTaskflow::ERROR_NODE, contact_check_task });
     tf->addEdges(contact_check_task, { GraphTaskflow::ERROR_NODE, time_parameterization_task });
