@@ -139,13 +139,13 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   // Create optimizer
   sco::BasicTrustRegionSQP opt(problem);
   opt.setParameters(pci->opt_info);
-  opt.initialize(trajToDblVec(problem->GetInitTraj()));
 
   // Add all callbacks
-  for (const sco::Optimizer::Callback& callback : callbacks)
-  {
+  for (const sco::Optimizer::Callback& callback : pci->callbacks)
     opt.addCallback(callback);
-  }
+
+  // Initialize
+  opt.initialize(trajToDblVec(problem->GetInitTraj()));
 
   // Optimize
   opt.optimize();
