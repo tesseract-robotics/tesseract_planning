@@ -87,3 +87,69 @@ endif()
 
 # Package configuration
 configure_package(NAMESPACE tesseract)
+
+if(TESSERACT_PACKAGE)
+  set(LINUX_DEPENDS
+      "libconsole-bridge-dev"
+      "libeigen3-dev"
+      "libboost-dev"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-environment")
+  set(WINDOWS_DEPENDS
+      "console-bridge"
+      "Eigen3"
+      "boost"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-command-language"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-environment")
+  if(TESSERACT_BUILD_OMPL)
+    list(APPEND LINUX_DEPENDS "libompl-dev")
+    list(APPEND WINDOW_DEPENDS "ompl")
+  endif()
+  if(TESSERACT_BUILD_DESCARTES)
+    list(
+      APPEND
+      LINUX_DEPENDS
+      "descartes-light"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-collision")
+    list(
+      APPEND
+      WINDOW_DEPENDS
+      "descartes_light"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-collision")
+  endif()
+  if(TESSERACT_BUILD_TRAJOPT)
+    list(
+      APPEND
+      LINUX_DEPENDS
+      "trajopt"
+      "trajopt-sco")
+    list(
+      APPEND
+      WINDOW_DEPENDS
+      "trajopt"
+      "trajopt-sco")
+  endif()
+  if(TESSERACT_BUILD_TRAJOPT_IFOPT)
+    list(
+      APPEND
+      LINUX_DEPENDS
+      "trajopt-ifopt"
+      "trajopt-sqp")
+    list(
+      APPEND
+      WINDOW_DEPENDS
+      "trajopt-ifopt"
+      "trajopt-sqp")
+  endif()
+
+  tesseract_cpack(
+    VERSION ${pkg_extracted_version}
+    MAINTAINER <https://github.com/ros-industrial-consortium/tesseract>
+    DESCRIPTION ${pkg_extracted_description}
+    LICENSE_FILE ${CMAKE_CURRENT_LIST_DIR}/../LICENSE
+    README_FILE ${CMAKE_CURRENT_LIST_DIR}/../README.md
+    LINUX_DEPENDS ${LINUX_DEPENDS}
+    WINDOWS_DEPENDS ${WINDOWS_DEPENDS})
+endif()
