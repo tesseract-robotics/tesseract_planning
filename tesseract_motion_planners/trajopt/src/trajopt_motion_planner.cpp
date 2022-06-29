@@ -90,7 +90,7 @@ bool TrajOptMotionPlanner::terminate()
   return false;
 }
 
-void TrajOptMotionPlanner::clear() { callbacks.clear(); }
+void TrajOptMotionPlanner::clear() {}
 
 MotionPlanner::Ptr TrajOptMotionPlanner::clone() const { return std::make_shared<TrajOptMotionPlanner>(name_); }
 
