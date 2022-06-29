@@ -259,12 +259,7 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
   if (state_evaluator != nullptr)
     prob.state_evaluators.push_back(state_evaluator(prob));
   else
-  {
-    auto ref = std::make_shared<descartes_light::State<FloatType>>(
-        Eigen::Matrix<FloatType, Eigen::Dynamic, 1>::Zero(static_cast<Eigen::Index>(joint_names.size())));
-    prob.state_evaluators.push_back(
-        std::make_shared<const descartes_light::EuclideanDistanceStateEvaluator<FloatType>>(ref));
-  }
+    prob.state_evaluators.push_back(std::make_shared<const descartes_light::StateEvaluator<FloatType>>());
 
   prob.num_threads = num_threads;
 }
@@ -310,12 +305,7 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
   if (state_evaluator != nullptr)
     prob.state_evaluators.push_back(state_evaluator(prob));
   else
-  {
-    auto ref = std::make_shared<descartes_light::State<FloatType>>(
-        Eigen::Matrix<FloatType, Eigen::Dynamic, 1>::Zero(static_cast<Eigen::Index>(joint_names.size())));
-    prob.state_evaluators.push_back(
-        std::make_shared<const descartes_light::EuclideanDistanceStateEvaluator<FloatType>>(ref));
-  }
+    prob.state_evaluators.push_back(std::make_shared<const descartes_light::StateEvaluator<FloatType>>());
 
   prob.num_threads = num_threads;
 }
