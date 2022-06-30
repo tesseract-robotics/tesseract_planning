@@ -14,14 +14,14 @@ void tesseract_planning::detail_instruction::InstructionInterface::serialize(Arc
                                      boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
 }
 
-const std::string& tesseract_planning::Instruction::getDescription() const { return interface().getDescription(); }
+const std::string& tesseract_planning::Instruction::getDescription() const { return getInterface().getDescription(); }
 
 void tesseract_planning::Instruction::setDescription(const std::string& description)
 {
-  interface().setDescription(description);
+  getInterface().setDescription(description);
 }
 
-void tesseract_planning::Instruction::print(const std::string& prefix) const { interface().print(prefix); }
+void tesseract_planning::Instruction::print(const std::string& prefix) const { getInterface().print(prefix); }
 
 template <class Archive>
 void tesseract_planning::Instruction::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT

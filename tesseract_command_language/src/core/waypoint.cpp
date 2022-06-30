@@ -14,7 +14,7 @@ void tesseract_planning::detail_waypoint::WaypointInterface::serialize(Archive& 
                                      boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
 }
 
-void tesseract_planning::Waypoint::print(const std::string& prefix) const { interface().print(prefix); }
+void tesseract_planning::Waypoint::print(const std::string& prefix) const { getInterface().print(prefix); }
 
 template <class Archive>
 void tesseract_planning::Waypoint::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
