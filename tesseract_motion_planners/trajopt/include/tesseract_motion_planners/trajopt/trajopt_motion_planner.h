@@ -58,9 +58,6 @@ public:
 
   const std::string& getName() const override;
 
-  /** @brief Callback functions called on each iteration of the optimization (Optional) */
-  std::vector<sco::Optimizer::Callback> callbacks;
-
   /**
    * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
    * @param response The results of the optimization. Primary output is the optimized joint trajectory

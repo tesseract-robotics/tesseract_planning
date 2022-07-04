@@ -165,18 +165,24 @@ bool IterativeSplineParameterization::compute(
     for (Eigen::Index idx = 0; idx < max_velocity_scaling_factors.size(); idx++)
     {
       if (max_velocity_scaling_factors[idx] == 0.0)
+      {
+        // NOLINTNEXTLINE
         CONSOLE_BRIDGE_logDebug("iterative_spline_parameterization: A max_velocity_scaling_factor of 0.0 was "
                                 "specified at index %d, "
                                 "defaulting to %f instead.",
                                 idx,
                                 velocity_scaling_factor[idx]);
+      }
       else
+      {
+        // NOLINTNEXTLINE
         CONSOLE_BRIDGE_logWarn("iterative_spline_parameterization: Invalid max_velocity_scaling_factor %f specified at "
                                "index %d, "
                                "defaulting to %f instead.",
                                max_velocity_scaling_factors[idx],
                                idx,
                                velocity_scaling_factor[idx]);
+      }
     }
   }
   if ((max_acceleration_scaling_factors.array() > 0.0).all() && (max_acceleration_scaling_factors.array() <= 1.0).all())
@@ -186,11 +192,16 @@ bool IterativeSplineParameterization::compute(
     for (Eigen::Index idx = 0; idx < max_acceleration_scaling_factors.size(); idx++)
     {
       if (max_acceleration_scaling_factors[idx] == 0.0)
+      {
+        // NOLINTNEXTLINE
         CONSOLE_BRIDGE_logDebug("iterative_spline_parameterization: A max_acceleration_scaling_factor of 0.0 was "
                                 "specified at index %d, defaulting to %f instead.",
                                 idx,
                                 acceleration_scaling_factor[idx]);
+      }
       else
+      {
+        // NOLINTNEXTLINE
         CONSOLE_BRIDGE_logWarn("iterative_spline_parameterization: Invalid max_acceleration_scaling_factor %f "
                                "specified "
                                "at index %d, "
@@ -198,6 +209,7 @@ bool IterativeSplineParameterization::compute(
                                max_acceleration_scaling_factors[idx],
                                idx,
                                acceleration_scaling_factor[idx]);
+      }
     }
   }
 
