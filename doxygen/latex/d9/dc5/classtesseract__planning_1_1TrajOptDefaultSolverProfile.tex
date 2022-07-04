@@ -26,7 +26,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Traj\+Opt\+Default\+Solver\
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=219pt]{d8/d70/classtesseract__planning_1_1TrajOptDefaultSolverProfile__coll__graph}
+\includegraphics[width=338pt]{d8/d70/classtesseract__planning_1_1TrajOptDefaultSolverProfile__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
@@ -61,7 +61,9 @@ tinyxml2\+::\+XMLElement $\ast$ \mbox{\hyperlink{classtesseract__planning_1_1Tra
 sco\+::\+Model\+Type \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a68bc22f75793bef4d4665f168944926b}{convex\+\_\+solver}} \{ sco\+::\+Model\+Type\+::\+OSQP \}
 \begin{DoxyCompactList}\small\item\em The Convex solver to use. \end{DoxyCompactList}\item 
 sco\+::\+Basic\+Trust\+Region\+SQPParameters \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a67b241436e8f35c35012a2be860772e6}{opt\+\_\+info}}
-\begin{DoxyCompactList}\small\item\em Optimization paramters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Optimization paramters. \end{DoxyCompactList}\item 
+std\+::vector$<$ sco\+::\+Optimizer\+::\+Callback $>$ \mbox{\hyperlink{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a8b99377c7c52aac96685c0687665477e}{callbacks}}
+\begin{DoxyCompactList}\small\item\em Optimization callbacks. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -145,6 +147,16 @@ Implements \mbox{\hyperlink{classtesseract__planning_1_1TrajOptSolverProfile_a10
 
 
 \doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a8b99377c7c52aac96685c0687665477e}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a8b99377c7c52aac96685c0687665477e}} 
+\index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!callbacks@{callbacks}}
+\index{callbacks@{callbacks}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
+\doxysubsubsection{\texorpdfstring{callbacks}{callbacks}}
+{\footnotesize\ttfamily std\+::vector$<$sco\+::\+Optimizer\+::\+Callback$>$ tesseract\+\_\+planning\+::\+Traj\+Opt\+Default\+Solver\+Profile\+::callbacks}
+
+
+
+Optimization callbacks. 
+
 \mbox{\Hypertarget{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a68bc22f75793bef4d4665f168944926b}\label{classtesseract__planning_1_1TrajOptDefaultSolverProfile_a68bc22f75793bef4d4665f168944926b}} 
 \index{tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}!convex\_solver@{convex\_solver}}
 \index{convex\_solver@{convex\_solver}!tesseract\_planning::TrajOptDefaultSolverProfile@{tesseract\_planning::TrajOptDefaultSolverProfile}}
