@@ -39,6 +39,7 @@ target_clang_tidy(${PROJECT_NAME}_iterative_spline ENABLE ${TESSERACT_ENABLE_CLA
 target_cxx_version(${PROJECT_NAME}_iterative_spline PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_iterative_spline
+  PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -58,6 +59,7 @@ target_clang_tidy(${PROJECT_NAME}_time_optimal_trajectory_generation_tests ENABL
 target_cxx_version(${PROJECT_NAME}_time_optimal_trajectory_generation_tests PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_time_optimal_trajectory_generation_tests
+  PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
