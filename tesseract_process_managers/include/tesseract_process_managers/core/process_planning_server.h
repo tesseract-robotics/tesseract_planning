@@ -156,6 +156,19 @@ public:
   ProcessPlanningFuture run(const ProcessPlanningRequest& request) const;
 
   /**
+   * @brief Execute a process planning problem
+   * @details This does not block to allow for multiple requests, use future to wait if needed.
+   * @note This is primarily used for replanning cached plans
+   * @param problem The problem to solve
+   * @param name The name of the executor to use
+   * @param save_io Indicate if tasks should store input and output results in the task info
+   * @return A process planning future to get results and monitor the execution along with the ability to abort
+   */
+  ProcessPlanningFuture run(ProcessPlanningProblem::Ptr problem,
+                            const std::string& name = PRIMARY_EXECUTOR_NAME,
+                            bool save_io = false) const;
+
+  /**
    * @brief This is a utility function to run arbitrary taskflows
    * @param taskflow The taskflow to execute
    * @param name The name of the executor to use

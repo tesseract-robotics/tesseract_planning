@@ -52,6 +52,13 @@ struct ProcessPlanningProblem
   using UPtr = std::unique_ptr<ProcessPlanningProblem>;
   using ConstUPtr = std::unique_ptr<const ProcessPlanningProblem>;
 
+  ProcessPlanningProblem() = default;
+  ~ProcessPlanningProblem() = default;
+  ProcessPlanningProblem(const ProcessPlanningProblem& other);
+  ProcessPlanningProblem& operator=(const ProcessPlanningProblem& other);
+  ProcessPlanningProblem(ProcessPlanningProblem&&) = delete;
+  ProcessPlanningProblem& operator=(ProcessPlanningProblem&&) = delete;
+
 #ifndef SWIG
   /** @brief The name of the Process Pipeline (aka. Taskflow) to use */
   std::string name;
@@ -90,13 +97,18 @@ struct ProcessPlanningProblem
   %ignore taskflow_container;
 #endif  // SWIG
 
-  /** @brief The taskflow container returned from the TaskflowGenerator that must remain during taskflow execution */
+  /**
+   * @brief The taskflow container returned from the TaskflowGenerator that must remain during taskflow execution
+   * @details This is filled out by the planning server and user should not use this directly
+   */
   TaskflowContainer taskflow_container;
 
   bool operator==(const ProcessPlanningProblem& rhs) const;
   bool operator!=(const ProcessPlanningProblem& rhs) const;
 
 private:
+  void copy(const ProcessPlanningProblem& other);
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
