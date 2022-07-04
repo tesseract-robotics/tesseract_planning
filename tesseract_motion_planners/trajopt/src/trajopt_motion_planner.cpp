@@ -79,7 +79,7 @@ TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name)
   : name_(std::move(name)), status_category_(std::make_shared<const TrajOptMotionPlannerStatusCategory>(name_))
 {
   if (name_.empty())
-    throw std::runtime_error("OMPLMotionPlanner name is empty!");
+    throw std::runtime_error("TrajOptMotionPlanner name is empty!");
 }
 
 const std::string& TrajOptMotionPlanner::getName() const { return name_; }
@@ -90,7 +90,7 @@ bool TrajOptMotionPlanner::terminate()
   return false;
 }
 
-void TrajOptMotionPlanner::clear() { callbacks.clear(); }
+void TrajOptMotionPlanner::clear() {}
 
 MotionPlanner::Ptr TrajOptMotionPlanner::clone() const { return std::make_shared<TrajOptMotionPlanner>(name_); }
 
@@ -139,13 +139,13 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   // Create optimizer
   sco::BasicTrustRegionSQP opt(problem);
   opt.setParameters(pci->opt_info);
-  opt.initialize(trajToDblVec(problem->GetInitTraj()));
 
   // Add all callbacks
-  for (const sco::Optimizer::Callback& callback : callbacks)
-  {
+  for (const sco::Optimizer::Callback& callback : pci->callbacks)
     opt.addCallback(callback);
-  }
+
+  // Initialize
+  opt.initialize(trajToDblVec(problem->GetInitTraj()));
 
   // Optimize
   opt.optimize();

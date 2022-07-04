@@ -1,5 +1,5 @@
 /**
- * @file serialize_test.cpp
+ * @file type_erasure_benchmark.cpp
  * @brief
  *
  * @author Levi Armstrong
@@ -23,6 +23,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
@@ -31,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <benchmark/benchmark.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/any.h>
 #include <tesseract_command_language/command_language.h>
@@ -179,35 +181,192 @@ CompositeInstruction getProgram()
   return program;
 }
 
-TEST(TesseractCommandLanguageSerializeUnit, serializationCompositeInstruction)  // NOLINT
+std::vector<Waypoint> createVectorStateWaypointPoly()
 {
-  Instruction program = getProgram();
-  {  // Archive program to file
-    std::string file_path = tesseract_common::getTempPath() + "composite_instruction_boost.xml";
-    EXPECT_TRUE(tesseract_common::Serialization::toArchiveFileXML<Instruction>(program, file_path));
-    auto nprogram = tesseract_common::Serialization::fromArchiveFileXML<Instruction>(file_path);
-    EXPECT_TRUE(program == nprogram);
+  std::vector<Waypoint> results;
+  results.reserve(1000);
+  for (std::size_t i = 0; i < 1000; ++i)
+  {
+    Waypoint wp1 = JointWaypoint({ "j1", "j2", "j3", "j4", "j5", "j6" }, Eigen::VectorXd::Ones(6));
+
+    results.push_back(std::move(wp1));
   }
+  return results;
+}
 
-  {  // Archive program to string
-    std::string program_string = tesseract_common::Serialization::toArchiveStringXML<Instruction>(program, "program");
-    EXPECT_FALSE(program_string.empty());
-    auto nprogram = tesseract_common::Serialization::fromArchiveStringXML<Instruction>(program_string);
-    EXPECT_TRUE(program == nprogram);
+std::vector<std::unique_ptr<StateWaypoint>> createVectorStateWaypointUPtr()
+{
+  std::vector<std::unique_ptr<StateWaypoint>> results;
+  results.reserve(1000);
+  for (std::size_t i = 0; i < 1000; ++i)
+  {
+    std::vector<std::string> joint_names = { "j1", "j2", "j3", "j4", "j5", "j6" };
+    auto wp1 = std::make_unique<StateWaypoint>(joint_names, Eigen::VectorXd::Ones(6));
+
+    results.push_back(std::move(wp1));
+  }
+  return results;
+}
+
+static void BM_InstructionPolyCreation(benchmark::State& state)
+{
+  for (auto _ : state)
+    Instruction i{ NullInstruction() };
+}
+
+BENCHMARK(BM_InstructionPolyCreation);
+
+static void BM_WaypointPolyCreation(benchmark::State& state)
+{
+  for (auto _ : state)
+    Waypoint w{ NullWaypoint() };
+}
+
+BENCHMARK(BM_WaypointPolyCreation);
+
+static void BM_CompositeInstructionCreation(benchmark::State& state)
+{
+  for (auto _ : state)
+    CompositeInstruction ci;
+}
+
+BENCHMARK(BM_CompositeInstructionCreation);
+
+static void BM_ProgramCreation(benchmark::State& state)
+{
+  for (auto _ : state)
+    CompositeInstruction ci = getProgram();
+}
+
+BENCHMARK(BM_ProgramCreation);
+
+static void BM_InstructionPolyCopy(benchmark::State& state)
+{
+  Instruction i{ MoveInstruction() };
+  for (auto _ : state)
+    Instruction copy(i);
+}
+
+BENCHMARK(BM_InstructionPolyCopy);
+
+static void BM_WaypointPolyCopy(benchmark::State& state)
+{
+  Waypoint w{ StateWaypoint() };
+  for (auto _ : state)
+    Waypoint copy(w);
+}
+
+BENCHMARK(BM_WaypointPolyCopy);
+
+static void BM_CompositeInstructionCopy(benchmark::State& state)
+{
+  CompositeInstruction ci = getProgram();
+  for (auto _ : state)
+    CompositeInstruction copy(ci);
+}
+
+BENCHMARK(BM_CompositeInstructionCopy);
+
+static void BM_InstructionPolyAssign(benchmark::State& state)
+{
+  Instruction i{ MoveInstruction() };
+  for (auto _ : state)
+    Instruction copy = i;
+}
+
+BENCHMARK(BM_InstructionPolyAssign);
+
+static void BM_WaypointPolyAssign(benchmark::State& state)
+{
+  Waypoint w{ StateWaypoint() };
+  for (auto _ : state)
+    Waypoint copy = w;
+}
+
+BENCHMARK(BM_WaypointPolyAssign);
+
+static void BM_CompositeInstructionAssign(benchmark::State& state)
+{
+  CompositeInstruction ci = getProgram();
+  for (auto _ : state)
+    CompositeInstruction copy = ci;
+}
+
+BENCHMARK(BM_CompositeInstructionAssign);
+
+static void BM_InstructionPolyCast(benchmark::State& state)
+{
+  Instruction i{ MoveInstruction() };
+  for (auto _ : state)
+    auto& mi = i.as<MoveInstruction>();  // NOLINT
+}
+
+BENCHMARK(BM_InstructionPolyCast);
+
+static void BM_WaypointPolyCast(benchmark::State& state)
+{
+  Waypoint w{ StateWaypoint() };
+  for (auto _ : state)
+    auto& sw = w.as<StateWaypoint>();  // NOLINT
+}
+
+BENCHMARK(BM_WaypointPolyCast);
+
+static void BM_InstructionPolyAccess(benchmark::State& state)
+{
+  Instruction i{ MoveInstruction() };
+  for (auto _ : state)
+    const std::string& description = i.getDescription();  // NOLINT
+}
+
+BENCHMARK(BM_InstructionPolyAccess);
+
+static void BM_WaypointPolyAccess(benchmark::State& state)
+{
+  Waypoint w{ StateWaypoint() };
+  for (auto _ : state)
+    std::type_index type = w.getType();
+}
+
+BENCHMARK(BM_WaypointPolyAccess);
+
+static void BM_VectorStateWaypointPolyCreation(benchmark::State& state)
+{
+  for (auto _ : state)
+    std::vector<Waypoint> w = createVectorStateWaypointPoly();
+}
+
+BENCHMARK(BM_VectorStateWaypointPolyCreation);
+
+static void BM_VectorStateWaypointUPtrCreation(benchmark::State& state)
+{
+  for (auto _ : state)
+    std::vector<std::unique_ptr<StateWaypoint>> w = createVectorStateWaypointUPtr();
+}
+
+BENCHMARK(BM_VectorStateWaypointUPtrCreation);
+
+static void BM_VectorStateWaypointPolyCopy(benchmark::State& state)
+{
+  std::vector<Waypoint> w = createVectorStateWaypointPoly();
+  for (auto _ : state)
+    std::vector<Waypoint> copy(w);
+}
+
+BENCHMARK(BM_VectorStateWaypointPolyCopy);
+
+static void BM_VectorStateWaypointUPtrCopy(benchmark::State& state)
+{
+  std::vector<std::unique_ptr<StateWaypoint>> w = createVectorStateWaypointUPtr();
+  for (auto _ : state)
+  {
+    std::vector<std::unique_ptr<StateWaypoint>> copy;
+    copy.reserve(w.size());
+    for (const auto& i : w)
+      copy.emplace_back(std::make_unique<StateWaypoint>(*i));
   }
 }
 
-TEST(TesseractCommandLanguageSerializeUnit, TypeErasureInTypeErasure)  // NOLINT
-{
-  tesseract_planning::Instruction instruction{ SetToolInstruction(5) };
-  tesseract_common::Any any_type;
-  any_type = instruction;
-  EXPECT_EQ(any_type.getType(), std::type_index(typeid(tesseract_planning::Instruction)));
-}
+BENCHMARK(BM_VectorStateWaypointUPtrCopy);
 
-int main(int argc, char** argv)
-{
-  testing::InitGoogleTest(&argc, argv);
-
-  return RUN_ALL_TESTS();
-}
+BENCHMARK_MAIN();

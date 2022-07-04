@@ -125,7 +125,7 @@ private:
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(TimerInstruction)
 #else
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning::TimerInstruction);
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, TimerInstruction);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_TIMER_INSTRUCTION_H

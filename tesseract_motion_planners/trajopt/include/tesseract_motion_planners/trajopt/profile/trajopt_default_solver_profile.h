@@ -55,6 +55,9 @@ public:
   /** @brief Optimization paramters */
   sco::BasicTrustRegionSQPParameters opt_info;
 
+  /** @brief Optimization callbacks */
+  std::vector<sco::Optimizer::Callback> callbacks;
+
   void apply(trajopt::ProblemConstructionInfo& pci) const override;
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;
