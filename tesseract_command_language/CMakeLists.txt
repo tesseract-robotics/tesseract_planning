@@ -96,3 +96,22 @@ if(TESSERACT_ENABLE_TESTING)
   add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
   add_subdirectory(test)
 endif()
+
+if(TESSERACT_PACKAGE)
+  tesseract_cpack(
+    VERSION ${pkg_extracted_version}
+    MAINTAINER <https://github.com/ros-industrial-consortium/tesseract>
+    DESCRIPTION ${pkg_extracted_description}
+    LICENSE_FILE ${CMAKE_CURRENT_LIST_DIR}/../LICENSE
+    README_FILE ${CMAKE_CURRENT_LIST_DIR}/../README.md
+    LINUX_DEPENDS
+      "libconsole-bridge-dev"
+      "libeigen3-dev"
+      "libboost-serialization-dev"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common"
+    WINDOWS_DEPENDS
+      "console-bridge"
+      "Eigen3"
+      "boost-serialization"
+      "${TESSERACT_PACKAGE_PREFIX}tesseract-common")
+endif()
