@@ -146,13 +146,6 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
 {
   CONSOLE_BRIDGE_logDebug("Tesseract Planning Server Received Request!");
 
-  auto it = process_planners_.find(request.name);
-  if (it == process_planners_.end())
-  {
-    CONSOLE_BRIDGE_logError("Requested motion Process Pipeline (aka. Taskflow) is not supported!");
-    return ProcessPlanningFuture();
-  }
-
   auto problem = std::make_shared<ProcessPlanningProblem>();
   problem->name = request.name;
   problem->plan_profile_remapping = std::make_unique<const PlannerProfileRemapping>(request.plan_profile_remapping);
@@ -160,7 +153,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
       std::make_unique<const PlannerProfileRemapping>(request.composite_profile_remapping);
 
   problem->input = std::make_unique<Instruction>(request.instructions);
-  auto& composite_program = problem->input->as<CompositeInstruction>();
+  const auto& composite_program = problem->input->as<CompositeInstruction>();
   ManipulatorInfo mi = composite_program.getManipulatorInfo();
   problem->global_manip_info = std::make_unique<const ManipulatorInfo>(mi);
 
@@ -201,6 +194,19 @@ ProcessPlanningFuture ProcessPlanningServer::run(ProcessPlanningProblem::Ptr pro
     return response;
   }
 
+  std::shared_ptr<tf::Executor> executor;
+  {
+    std::shared_lock lock(mutex_);
+    auto it = executors_.find(name);
+    if (it == executors_.end())
+    {
+      CONSOLE_BRIDGE_logError("Requested executor '%s' does not exist!", name.c_str());
+      return response;
+    }
+
+    executor = it->second;
+  }
+
   // This makes sure the Joint and State Waypoints match the same order as the kinematics
   auto& composite_program = response.problem->input->as<CompositeInstruction>();
   if (formatProgram(composite_program, *response.problem->env))
@@ -238,11 +244,6 @@ ProcessPlanningFuture ProcessPlanningServer::run(ProcessPlanningProblem::Ptr pro
     out_data.close();
   }
 
-  std::shared_ptr<tf::Executor> executor;
-  {
-    std::shared_lock lock(mutex_);
-    executor = executors_.at(name);
-  }
   tf::Future<void> fu = executor->run(*(response.problem->taskflow_container.taskflow));
   response.process_future = fu.share();
   CONSOLE_BRIDGE_logDebug("Tesseract Planning Server Finished!");
