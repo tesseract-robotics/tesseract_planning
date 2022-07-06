@@ -156,4 +156,6 @@ static const std::string RASTER_O_G_CT_PLANNER_NAME = "RasterOGCTPlanner";
 
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ProcessPlanningRequest, "ProcessPlanningRequest")
+BOOST_CLASS_VERSION(tesseract_planning::ProcessPlanningRequest, 1)  // Adding executor
+
 #endif  // TESSERACT_PROCESS_MANAGERS_PROCESS_PLANNING_REQUEST_H
