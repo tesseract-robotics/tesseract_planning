@@ -118,5 +118,6 @@ private:
 
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ProcessPlanningProblem, "ProcessPlanningProblem")
+BOOST_CLASS_VERSION(tesseract_planning::ProcessPlanningProblem, 1)  // Adding name
 
 #endif  // TESSERACT_PROCESS_MANAGERS_PROCESS_PLANNING_RESULTS_H

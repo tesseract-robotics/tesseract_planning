@@ -61,7 +61,7 @@ bool tesseract_planning::ProcessPlanningRequest::operator!=(const tesseract_plan
 template <class Archive>
 void tesseract_planning::ProcessPlanningRequest::serialize(Archive& ar, const unsigned int version)
 {
-  if (version == 1)
+  if (version >= 1)
     ar& BOOST_SERIALIZATION_NVP(executor_name);
 
   ar& BOOST_SERIALIZATION_NVP(name);
@@ -74,8 +74,6 @@ void tesseract_planning::ProcessPlanningRequest::serialize(Archive& ar, const un
   ar& BOOST_SERIALIZATION_NVP(plan_profile_remapping);
   ar& BOOST_SERIALIZATION_NVP(composite_profile_remapping);
 }
-
-BOOST_CLASS_VERSION(tesseract_planning::ProcessPlanningRequest, 1)  // Adding executor
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ProcessPlanningRequest)
