@@ -37,6 +37,35 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+ProcessPlanningProblem::ProcessPlanningProblem(const ProcessPlanningProblem& other) { copy(other); }
+
+ProcessPlanningProblem& ProcessPlanningProblem::operator=(const ProcessPlanningProblem& other)
+{
+  if (&other != this)
+    copy(other);
+  return *this;
+}
+
+void ProcessPlanningProblem::copy(const ProcessPlanningProblem& other)
+{
+  name = other.name;
+  env = other.env;
+  if (other.input != nullptr)
+    input = std::make_unique<Instruction>(*other.input);
+
+  if (other.results != nullptr)
+    results = std::make_unique<Instruction>(*other.results);
+
+  if (other.global_manip_info != nullptr)
+    global_manip_info = std::make_unique<ManipulatorInfo>(*other.global_manip_info);
+
+  if (other.plan_profile_remapping != nullptr)
+    plan_profile_remapping = std::make_unique<PlannerProfileRemapping>(*other.plan_profile_remapping);
+
+  if (other.composite_profile_remapping != nullptr)
+    composite_profile_remapping = std::make_unique<PlannerProfileRemapping>(*other.composite_profile_remapping);
+}
+
 bool ProcessPlanningProblem::operator==(const tesseract_planning::ProcessPlanningProblem& rhs) const
 {
   bool equal = true;

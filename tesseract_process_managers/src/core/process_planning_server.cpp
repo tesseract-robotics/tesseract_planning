@@ -144,56 +144,81 @@ std::vector<std::string> ProcessPlanningServer::getAvailableProcessPlanners() co
 
 ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& request) const
 {
-  CONSOLE_BRIDGE_logInform("Tesseract Planning Server Received Request!");
-  ProcessPlanningFuture response;
-  response.problem->name = request.name;
-  response.problem->plan_profile_remapping =
-      std::make_unique<const PlannerProfileRemapping>(request.plan_profile_remapping);
-  response.problem->composite_profile_remapping =
+  CONSOLE_BRIDGE_logDebug("Tesseract Planning Server Received Request!");
+
+  auto problem = std::make_shared<ProcessPlanningProblem>();
+  problem->name = request.name;
+  problem->plan_profile_remapping = std::make_unique<const PlannerProfileRemapping>(request.plan_profile_remapping);
+  problem->composite_profile_remapping =
       std::make_unique<const PlannerProfileRemapping>(request.composite_profile_remapping);
 
-  response.problem->input = std::make_unique<Instruction>(request.instructions);
-  auto& composite_program = response.problem->input->as<CompositeInstruction>();
+  problem->input = std::make_unique<Instruction>(request.instructions);
+  const auto& composite_program = problem->input->as<CompositeInstruction>();
   ManipulatorInfo mi = composite_program.getManipulatorInfo();
-  response.problem->global_manip_info = std::make_unique<const ManipulatorInfo>(mi);
+  problem->global_manip_info = std::make_unique<const ManipulatorInfo>(mi);
 
-  bool has_seed{ false };
   if (!isNullInstruction(request.seed))
-  {
-    has_seed = true;
-    response.problem->results = std::make_unique<Instruction>(request.seed);
-  }
-  else
-  {
-    response.problem->results = std::make_unique<Instruction>(generateSkeletonSeed(composite_program));
-  }
+    problem->results = std::make_unique<Instruction>(request.seed);
 
-  auto it = process_planners_.find(request.name);
+  // Assign the problems environment
+  tesseract_environment::Environment::Ptr tc = cache_->getCachedEnvironment();
+
+  // Set the env state if provided
+  if (!request.env_state.joints.empty())
+    tc->setState(request.env_state.joints);
+
+  if (!request.commands.empty() && !tc->applyCommands(request.commands))
+  {
+    CONSOLE_BRIDGE_logError("Tesseract Planning Server failed to apply commands to environment!");
+    ProcessPlanningFuture response;
+    response.problem = problem;
+    return response;
+  }
+  problem->env = tc;
+
+  return run(problem, request.executor_name, request.save_io);
+}
+
+ProcessPlanningFuture ProcessPlanningServer::run(ProcessPlanningProblem::Ptr problem,
+                                                 const std::string& name,
+                                                 bool save_io) const
+{
+  CONSOLE_BRIDGE_logDebug("Tesseract Planning Server Received Problem!");
+  ProcessPlanningFuture response;
+  response.problem = std::move(problem);
+
+  auto it = process_planners_.find(response.problem->name);
   if (it == process_planners_.end())
   {
     CONSOLE_BRIDGE_logError("Requested motion Process Pipeline (aka. Taskflow) is not supported!");
     return response;
   }
 
-  {  // Assign the problems environment
-    tesseract_environment::Environment::Ptr tc = cache_->getCachedEnvironment();
-
-    // Set the env state if provided
-    if (!request.env_state.joints.empty())
-      tc->setState(request.env_state.joints);
-
-    // This makes sure the Joint and State Waypoints match the same order as the kinematics
-    if (formatProgram(composite_program, *tc))
+  std::shared_ptr<tf::Executor> executor;
+  {
+    std::shared_lock lock(mutex_);
+    auto it = executors_.find(name);
+    if (it == executors_.end())
     {
-      CONSOLE_BRIDGE_logInform("Tesseract Planning Server: Input program required formatting!");
-    }
-
-    if (!request.commands.empty() && !tc->applyCommands(request.commands))
-    {
-      CONSOLE_BRIDGE_logInform("Tesseract Planning Server Finished Request!");
+      CONSOLE_BRIDGE_logError("Requested executor '%s' does not exist!", name.c_str());
       return response;
     }
-    response.problem->env = tc;
+
+    executor = it->second;
+  }
+
+  // This makes sure the Joint and State Waypoints match the same order as the kinematics
+  auto& composite_program = response.problem->input->as<CompositeInstruction>();
+  if (formatProgram(composite_program, *response.problem->env))
+  {
+    CONSOLE_BRIDGE_logDebug("Tesseract Planning Server: Input program required formatting!");
+  }
+
+  bool has_seed{ true };
+  if (response.problem->results == nullptr || isNullInstruction(*response.problem->results))
+  {
+    has_seed = false;
+    response.problem->results = std::make_unique<Instruction>(generateSkeletonSeed(composite_program));
   }
 
   // Create Task input
@@ -205,7 +230,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
                        response.problem->results.get(),
                        has_seed,
                        profiles_);
-  task_input.save_io = request.save_io;
+  task_input.save_io = save_io;
   response.interface = task_input.getTaskInterface();
   response.problem->taskflow_container = it->second->generateTaskflow(task_input, nullptr, nullptr);
 
@@ -213,19 +238,15 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
   {
     std::ofstream out_data;
-    out_data.open(tesseract_common::getTempPath() + request.name + "-" + tesseract_common::getTimestampString() +
-                  ".dot");
+    out_data.open(tesseract_common::getTempPath() + response.problem->name + "-" +
+                  tesseract_common::getTimestampString() + ".dot");
     response.problem->taskflow_container.taskflow->dump(out_data);
     out_data.close();
   }
 
-  std::shared_ptr<tf::Executor> executor;
-  {
-    std::shared_lock lock(mutex_);
-    executor = executors_.at(request.executor_name);
-  }
   tf::Future<void> fu = executor->run(*(response.problem->taskflow_container.taskflow));
   response.process_future = fu.share();
+  CONSOLE_BRIDGE_logDebug("Tesseract Planning Server Finished!");
   return response;
 }
 
