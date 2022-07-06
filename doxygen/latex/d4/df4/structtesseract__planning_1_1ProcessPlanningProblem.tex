@@ -28,6 +28,18 @@ using \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ad833
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a6523f091522ce93029a36ae30af570f5}{Process\+Planning\+Problem}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a4a98df39d25d810fea3bbcb8addb31c4}{$\sim$\+Process\+Planning\+Problem}} ()=default
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a1b47ed583c097262943b51cd1d31f413}{Process\+Planning\+Problem}} (const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&other)
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \& \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a3576cd6ffc72bd5d18a24f916e344d7b}{operator=}} (const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&other)
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_adec6ba97d9b6a797c9a04d23c1f12b7c}{Process\+Planning\+Problem}} (\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&\&)=delete
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \& \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a11cfc050c80d954eef94cbb006459661}{operator=}} (\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&\&)=delete
+\item 
 bool \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a78d33947f042ed90399054468f697d4e}{operator==}} (const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&rhs) const
 \item 
 bool \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a1a6efa8b1609a887420114b081c09ca3}{operator!=}} (const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&rhs) const
@@ -53,6 +65,8 @@ std\+::unique\+\_\+ptr$<$ const \mbox{\hyperlink{namespacetesseract__planning_a9
 \begin{DoxyCompactList}\small\item\em The taskflow container returned from the \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} that must remain during taskflow execution. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a036ed7b95e2aef3abab410e9006f042e}{copy}} (const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&other)
 \item 
 {\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_af37077c7a9c1f180d4a12eb4d24b2ad5}{serialize}} (Archive \&ar, const unsigned int version)
 \end{DoxyCompactItemize}
@@ -90,12 +104,57 @@ class \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ac98d
 
 
 
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_a6523f091522ce93029a36ae30af570f5}\label{structtesseract__planning_1_1ProcessPlanningProblem_a6523f091522ce93029a36ae30af570f5}} 
+\index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!ProcessPlanningProblem@{ProcessPlanningProblem}}
+\index{ProcessPlanningProblem@{ProcessPlanningProblem}!tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}}
+\doxysubsubsection{\texorpdfstring{ProcessPlanningProblem()}{ProcessPlanningProblem()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Process\+Planning\+Problem\+::\+Process\+Planning\+Problem (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_a4a98df39d25d810fea3bbcb8addb31c4}\label{structtesseract__planning_1_1ProcessPlanningProblem_a4a98df39d25d810fea3bbcb8addb31c4}} 
+\index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!````~ProcessPlanningProblem@{$\sim$ProcessPlanningProblem}}
+\index{````~ProcessPlanningProblem@{$\sim$ProcessPlanningProblem}!tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}}
+\doxysubsubsection{\texorpdfstring{$\sim$ProcessPlanningProblem()}{~ProcessPlanningProblem()}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Process\+Planning\+Problem\+::$\sim$\+Process\+Planning\+Problem (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_a1b47ed583c097262943b51cd1d31f413}\label{structtesseract__planning_1_1ProcessPlanningProblem_a1b47ed583c097262943b51cd1d31f413}} 
+\index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!ProcessPlanningProblem@{ProcessPlanningProblem}}
+\index{ProcessPlanningProblem@{ProcessPlanningProblem}!tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}}
+\doxysubsubsection{\texorpdfstring{ProcessPlanningProblem()}{ProcessPlanningProblem()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Process\+Planning\+Problem\+::\+Process\+Planning\+Problem (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&}]{other }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_adec6ba97d9b6a797c9a04d23c1f12b7c}\label{structtesseract__planning_1_1ProcessPlanningProblem_adec6ba97d9b6a797c9a04d23c1f12b7c}} 
+\index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!ProcessPlanningProblem@{ProcessPlanningProblem}}
+\index{ProcessPlanningProblem@{ProcessPlanningProblem}!tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}}
+\doxysubsubsection{\texorpdfstring{ProcessPlanningProblem()}{ProcessPlanningProblem()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Process\+Planning\+Problem\+::\+Process\+Planning\+Problem (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_a036ed7b95e2aef3abab410e9006f042e}\label{structtesseract__planning_1_1ProcessPlanningProblem_a036ed7b95e2aef3abab410e9006f042e}} 
+\index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!copy@{copy}}
+\index{copy@{copy}!tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Process\+Planning\+Problem\+::copy (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
 \mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_a1a6efa8b1609a887420114b081c09ca3}\label{structtesseract__planning_1_1ProcessPlanningProblem_a1a6efa8b1609a887420114b081c09ca3}} 
 \index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}}
 \doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Process\+Planning\+Problem\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_a3576cd6ffc72bd5d18a24f916e344d7b}\label{structtesseract__planning_1_1ProcessPlanningProblem_a3576cd6ffc72bd5d18a24f916e344d7b}} 
+\index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \& tesseract\+\_\+planning\+::\+Process\+Planning\+Problem\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&}]{other }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_a11cfc050c80d954eef94cbb006459661}\label{structtesseract__planning_1_1ProcessPlanningProblem_a11cfc050c80d954eef94cbb006459661}} 
+\index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!operator=@{operator=}}
+\index{operator=@{operator=}!tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \& tesseract\+\_\+planning\+::\+Process\+Planning\+Problem\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{Process\+Planning\+Problem}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1ProcessPlanningProblem_a78d33947f042ed90399054468f697d4e}\label{structtesseract__planning_1_1ProcessPlanningProblem_a78d33947f042ed90399054468f697d4e}} 
 \index{tesseract\_planning::ProcessPlanningProblem@{tesseract\_planning::ProcessPlanningProblem}!operator==@{operator==}}
@@ -202,7 +261,7 @@ The results to the process.
 
 The taskflow container returned from the \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator}{Taskflow\+Generator}} that must remain during taskflow execution. 
 
-
+This is filled out by the planning server and user should not use this directly 
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

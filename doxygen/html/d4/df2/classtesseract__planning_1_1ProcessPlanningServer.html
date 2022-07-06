@@ -163,6 +163,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a29e4cc2f751143df71b119043c463fb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html">ProcessPlanningFuture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df2/classtesseract__planning_1_1ProcessPlanningServer.html#a29e4cc2f751143df71b119043c463fb6">run</a> (const <a class="el" href="../../d5/db4/classtesseract__planning_1_1ProcessPlanningRequest.html">ProcessPlanningRequest</a> &amp;request) const</td></tr>
 <tr class="memdesc:a29e4cc2f751143df71b119043c463fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a process planning request.  <a href="../../d4/df2/classtesseract__planning_1_1ProcessPlanningServer.html#a29e4cc2f751143df71b119043c463fb6">More...</a><br /></td></tr>
 <tr class="separator:a29e4cc2f751143df71b119043c463fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c197e25b9c16ab869ef0b3e8223d265"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html">ProcessPlanningFuture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df2/classtesseract__planning_1_1ProcessPlanningServer.html#a4c197e25b9c16ab869ef0b3e8223d265">run</a> (<a class="el" href="../../d4/df4/structtesseract__planning_1_1ProcessPlanningProblem.html#ab311d3678ee60f94f92abe11ab853137">ProcessPlanningProblem::Ptr</a> problem, const std::string &amp;name=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a142ce49e11911f3b89a60bb72e5b9cc4">PRIMARY_EXECUTOR_NAME</a>, bool save_io=false) const</td></tr>
+<tr class="memdesc:a4c197e25b9c16ab869ef0b3e8223d265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a process planning problem.  <a href="../../d4/df2/classtesseract__planning_1_1ProcessPlanningServer.html#a4c197e25b9c16ab869ef0b3e8223d265">More...</a><br /></td></tr>
+<tr class="separator:a4c197e25b9c16ab869ef0b3e8223d265"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8aaca1c2b5e1cc5b4c7bea73eb1fde0"><td class="memItemLeft" align="right" valign="top">tf::Future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df2/classtesseract__planning_1_1ProcessPlanningServer.html#af8aaca1c2b5e1cc5b4c7bea73eb1fde0">run</a> (tf::Taskflow &amp;taskflow, const std::string &amp;name=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a142ce49e11911f3b89a60bb72e5b9cc4">PRIMARY_EXECUTOR_NAME</a>) const</td></tr>
 <tr class="memdesc:af8aaca1c2b5e1cc5b4c7bea73eb1fde0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a utility function to run arbitrary taskflows.  <a href="../../d4/df2/classtesseract__planning_1_1ProcessPlanningServer.html#af8aaca1c2b5e1cc5b4c7bea73eb1fde0">More...</a><br /></td></tr>
 <tr class="separator:af8aaca1c2b5e1cc5b4c7bea73eb1fde0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -851,7 +854,7 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a id="a29e4cc2f751143df71b119043c463fb6" name="a29e4cc2f751143df71b119043c463fb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29e4cc2f751143df71b119043c463fb6">&#9670;&nbsp;</a></span>run() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a29e4cc2f751143df71b119043c463fb6">&#9670;&nbsp;</a></span>run() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -877,8 +880,54 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a4c197e25b9c16ab869ef0b3e8223d265" name="a4c197e25b9c16ab869ef0b3e8223d265"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c197e25b9c16ab869ef0b3e8223d265">&#9670;&nbsp;</a></span>run() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../df/dec/structtesseract__planning_1_1ProcessPlanningFuture.html">ProcessPlanningFuture</a> tesseract_planning::ProcessPlanningServer::run </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d4/df4/structtesseract__planning_1_1ProcessPlanningProblem.html#ab311d3678ee60f94f92abe11ab853137">ProcessPlanningProblem::Ptr</a>&#160;</td>
+          <td class="paramname"><em>problem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a142ce49e11911f3b89a60bb72e5b9cc4">PRIMARY_EXECUTOR_NAME</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>save_io</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Execute a process planning problem. </p>
+<p >This does not block to allow for multiple requests, use future to wait if needed. </p><dl class="section note"><dt>Note</dt><dd>This is primarily used for replanning cached plans </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">problem</td><td>The problem to solve </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the executor to use </td></tr>
+    <tr><td class="paramname">save_io</td><td>Indicate if tasks should store input and output results in the task info </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A process planning future to get results and monitor the execution along with the ability to abort </dd></dl>
+
+</div>
+</div>
 <a id="af8aaca1c2b5e1cc5b4c7bea73eb1fde0" name="af8aaca1c2b5e1cc5b4c7bea73eb1fde0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8aaca1c2b5e1cc5b4c7bea73eb1fde0">&#9670;&nbsp;</a></span>run() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af8aaca1c2b5e1cc5b4c7bea73eb1fde0">&#9670;&nbsp;</a></span>run() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1091,7 +1140,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 4 2022 19:06:16 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Jul 6 2022 20:31:55 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

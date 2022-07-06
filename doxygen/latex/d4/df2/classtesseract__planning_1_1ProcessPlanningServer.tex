@@ -65,6 +65,8 @@ std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1
 \begin{DoxyCompactList}\small\item\em Get a list of process planner registered with the planning server. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}{run}} (const \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}} \&request) const
 \begin{DoxyCompactList}\small\item\em Execute a process planning request. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}} \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_a4c197e25b9c16ab869ef0b3e8223d265}{run}} (\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ab311d3678ee60f94f92abe11ab853137}{Process\+Planning\+Problem\+::\+Ptr}} problem, const std\+::string \&name=\mbox{\hyperlink{namespacetesseract__planning_a142ce49e11911f3b89a60bb72e5b9cc4}{PRIMARY\+\_\+\+EXECUTOR\+\_\+\+NAME}}, bool save\+\_\+io=false) const
+\begin{DoxyCompactList}\small\item\em Execute a process planning problem. \end{DoxyCompactList}\item 
 tf\+::\+Future$<$ void $>$ \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_af8aaca1c2b5e1cc5b4c7bea73eb1fde0}{run}} (tf\+::\+Taskflow \&taskflow, const std\+::string \&name=\mbox{\hyperlink{namespacetesseract__planning_a142ce49e11911f3b89a60bb72e5b9cc4}{PRIMARY\+\_\+\+EXECUTOR\+\_\+\+NAME}}) const
 \begin{DoxyCompactList}\small\item\em This is a utility function to run arbitrary taskflows. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningServer_ae14580b6bb05a5135af5c72760732662}{wait\+For\+All}} (const std\+::string \&name=\mbox{\hyperlink{namespacetesseract__planning_a142ce49e11911f3b89a60bb72e5b9cc4}{PRIMARY\+\_\+\+EXECUTOR\+\_\+\+NAME}}) const
@@ -417,7 +419,7 @@ Register a process planner with the planning server.
 \mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}\label{classtesseract__planning_1_1ProcessPlanningServer_a29e4cc2f751143df71b119043c463fb6}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!run@{run}}
 \index{run@{run}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
-\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}} tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::run (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1ProcessPlanningRequest}{Process\+Planning\+Request}} \&}]{request }\end{DoxyParamCaption}) const}
 
 
@@ -432,10 +434,35 @@ This does not block to allow for multiple requests, use future to wait if needed
 \begin{DoxyReturn}{Returns}
 A process planning future to get results and monitor the execution along with the ability to abort 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_a4c197e25b9c16ab869ef0b3e8223d265}\label{classtesseract__planning_1_1ProcessPlanningServer_a4c197e25b9c16ab869ef0b3e8223d265}} 
+\index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!run@{run}}
+\index{run@{run}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{Process\+Planning\+Future}} tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ab311d3678ee60f94f92abe11ab853137}{Process\+Planning\+Problem\+::\+Ptr}}}]{problem,  }\item[{const std\+::string \&}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a142ce49e11911f3b89a60bb72e5b9cc4}{PRIMARY\+\_\+\+EXECUTOR\+\_\+\+NAME}}},  }\item[{bool}]{save\+\_\+io = {\ttfamily false} }\end{DoxyParamCaption}) const}
+
+
+
+Execute a process planning problem. 
+
+This does not block to allow for multiple requests, use future to wait if needed. \begin{DoxyNote}{Note}
+This is primarily used for replanning cached plans 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em problem} & The problem to solve \\
+\hline
+{\em name} & The name of the executor to use \\
+\hline
+{\em save\+\_\+io} & Indicate if tasks should store input and output results in the task info \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A process planning future to get results and monitor the execution along with the ability to abort 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classtesseract__planning_1_1ProcessPlanningServer_af8aaca1c2b5e1cc5b4c7bea73eb1fde0}\label{classtesseract__planning_1_1ProcessPlanningServer_af8aaca1c2b5e1cc5b4c7bea73eb1fde0}} 
 \index{tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}!run@{run}}
 \index{run@{run}!tesseract\_planning::ProcessPlanningServer@{tesseract\_planning::ProcessPlanningServer}}
-\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily tf\+::\+Future$<$ void $>$ tesseract\+\_\+planning\+::\+Process\+Planning\+Server\+::run (\begin{DoxyParamCaption}\item[{tf\+::\+Taskflow \&}]{taskflow,  }\item[{const std\+::string \&}]{name = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a142ce49e11911f3b89a60bb72e5b9cc4}{PRIMARY\+\_\+\+EXECUTOR\+\_\+\+NAME}}} }\end{DoxyParamCaption}) const}
 
 
