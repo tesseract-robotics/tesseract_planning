@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.12.0 (2022-07-07)
+-------------------
 * Update ros_industrial_cmake_boilerplate to 0.3.0 (`#214 <https://github.com/tesseract-robotics/tesseract_planning/issues/214>`_)
 * Set the default descartes behavior to treat all states equally (`#209 <https://github.com/tesseract-robotics/tesseract_planning/issues/209>`_)
 * Added CPack (`#208 <https://github.com/tesseract-robotics/tesseract_planning/issues/208>`_)

@@ -2,8 +2,8 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.12.0 (2022-07-07)
+-------------------
 * Update ros_industrial_cmake_boilerplate to 0.3.0 (`#214 <https://github.com/tesseract-robotics/tesseract_planning/issues/214>`_)
 * Move use of BOOST_CLASS_VERSION to header
 * Add ability to submit ProcessPlanningProblem to planning server (`#213 <https://github.com/tesseract-robotics/tesseract_planning/issues/213>`_)
