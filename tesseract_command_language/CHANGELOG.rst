@@ -2,6 +2,14 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update ros_industrial_cmake_boilerplate to 0.3.0 (`#214 <https://github.com/tesseract-robotics/tesseract_planning/issues/214>`_)
+* Added CPack (`#208 <https://github.com/tesseract-robotics/tesseract_planning/issues/208>`_)
+  Co-authored-by: Levi Armstrong <levi.armstrong@gmail.com>
+* Renames in type erasure to avoid WIN32 defines
+* Contributors: John Wason, Levi Armstrong, Michael Ripperger
+
 0.11.0 (2022-06-20)
 -------------------
 * Update to use new type erasure interface (`#203 <https://github.com/tesseract-robotics/tesseract_planning/issues/203>`_)
