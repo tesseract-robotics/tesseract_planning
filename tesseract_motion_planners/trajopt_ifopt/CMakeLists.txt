@@ -22,6 +22,7 @@ target_clang_tidy(${PROJECT_NAME}_trajopt_ifopt ENABLE ${TESSERACT_ENABLE_CLANG_
 target_cxx_version(${PROJECT_NAME}_trajopt_ifopt PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_trajopt_ifopt
+  PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_TESTING})

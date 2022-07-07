@@ -50,6 +50,7 @@ if(TESSERACT_BUILD_OMPL)
   target_cxx_version(${PROJECT_NAME}_ompl_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
   target_code_coverage(
     ${PROJECT_NAME}_ompl_unit
+    PRIVATE
     ALL
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -86,6 +87,7 @@ target_cxx_version(${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit 
                    VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_simple_planner_fixed_size_interpolation_unit
+  PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -110,6 +112,7 @@ target_cxx_version(${PROJECT_NAME}_simple_planner_fixed_size_assign_position_uni
                    VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_simple_planner_fixed_size_assign_position_unit
+  PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -132,6 +135,7 @@ target_clang_tidy(${PROJECT_NAME}_simple_planner_lvs_interpolation_unit ENABLE $
 target_cxx_version(${PROJECT_NAME}_simple_planner_lvs_interpolation_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_simple_planner_lvs_interpolation_unit
+  PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -156,6 +160,7 @@ if(TESSERACT_BUILD_TRAJOPT)
   target_cxx_version(${PROJECT_NAME}_trajopt_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
   target_code_coverage(
     ${PROJECT_NAME}_trajopt_unit
+    PRIVATE
     ALL
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -182,6 +187,7 @@ if(TESSERACT_BUILD_DESCARTES)
   target_cxx_version(${PROJECT_NAME}_descartes_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
   target_code_coverage(
     ${PROJECT_NAME}_descartes_unit
+    PRIVATE
     ALL
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -207,6 +213,7 @@ target_clang_tidy(${PROJECT_NAME}_utils_unit ENABLE ${TESSERACT_ENABLE_CLANG_TID
 target_cxx_version(${PROJECT_NAME}_utils_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_utils_unit
+  PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -231,6 +238,7 @@ if(TESSERACT_BUILD_OMPL AND TESSERACT_BUILD_TRAJOPT AND TESSERACT_BUILD_DESCARTE
   target_cxx_version(${PROJECT_NAME}_serialize_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
   target_code_coverage(
     ${PROJECT_NAME}_serialize_unit
+    PRIVATE
     ALL
     EXCLUDE ${COVERAGE_EXCLUDE}
     ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
@@ -253,6 +261,7 @@ target_clang_tidy(${PROJECT_NAME}_profile_dictionary_unit ENABLE ${TESSERACT_ENA
 target_cxx_version(${PROJECT_NAME}_profile_dictionary_unit PRIVATE VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
   ${PROJECT_NAME}_profile_dictionary_unit
+  PRIVATE
   ALL
   EXCLUDE ${COVERAGE_EXCLUDE}
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
