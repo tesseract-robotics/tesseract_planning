@@ -94,10 +94,10 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   {
     case FixStateBoundsProfile::Settings::START_ONLY:
     {
-      const PlanInstruction* instr_const_ptr = getFirstPlanInstruction(ci);
+      const MoveInstruction* instr_const_ptr = getFirstMoveInstruction(ci);
       if (instr_const_ptr != nullptr)
       {
-        auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
+        auto* mutable_instruction = const_cast<MoveInstruction*>(instr_const_ptr);  // NOLINT
         if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits.joint_limits))
         {
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
@@ -115,10 +115,10 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     break;
     case FixStateBoundsProfile::Settings::END_ONLY:
     {
-      const PlanInstruction* instr_const_ptr = getLastPlanInstruction(ci);
+      const MoveInstruction* instr_const_ptr = getLastMoveInstruction(ci);
       if (instr_const_ptr != nullptr)
       {
-        auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
+        auto* mutable_instruction = const_cast<MoveInstruction*>(instr_const_ptr);  // NOLINT
         if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits.joint_limits))
         {
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
@@ -136,10 +136,10 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     break;
     case FixStateBoundsProfile::Settings::ALL:
     {
-      auto flattened = flatten(ci, planFilter);
+      auto flattened = flatten(ci, moveFilter);
       if (flattened.empty())
       {
-        CONSOLE_BRIDGE_logWarn("FixStateBoundsTaskGenerator found no PlanInstructions to process");
+        CONSOLE_BRIDGE_logWarn("FixStateBoundsTaskGenerator found no MoveInstructions to process");
         info->return_value = 1;
         saveOutputs(*info, input);
         info->elapsed_time = timer.elapsedSeconds();
@@ -151,7 +151,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       for (const auto& instruction : flattened)
       {
         inside_limits &=
-            isWithinJointLimits(instruction.get().as<PlanInstruction>().getWaypoint(), limits.joint_limits);
+            isWithinJointLimits(instruction.get().as<MoveInstruction>().getWaypoint(), limits.joint_limits);
       }
       if (inside_limits)
         break;
@@ -161,7 +161,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       {
         const Instruction* instr_const_ptr = &instruction.get();
         auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
-        auto& plan = mutable_instruction->as<PlanInstruction>();
+        auto& plan = mutable_instruction->as<MoveInstruction>();
         if (!clampToJointLimits(plan.getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
         {
           saveOutputs(*info, input);

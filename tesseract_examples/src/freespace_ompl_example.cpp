@@ -128,11 +128,11 @@ bool FreespaceOMPLExample::run()
   Waypoint wp0 = StateWaypoint(joint_names, joint_start_pos);
   Waypoint wp1 = StateWaypoint(joint_names, joint_end_pos);
 
-  PlanInstruction start_instruction(wp0, PlanInstructionType::START);
+  MoveInstruction start_instruction(wp0, MoveInstructionType::START);
   program.setStartInstruction(start_instruction);
 
   // Plan freespace from start
-  PlanInstruction plan_f0(wp1, PlanInstructionType::FREESPACE, "FREESPACE");
+  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "FREESPACE");
   plan_f0.setDescription("freespace_plan");
 
   // Add Instructions to program

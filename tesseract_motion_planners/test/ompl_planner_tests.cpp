@@ -156,11 +156,11 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
                     Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())));
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
-  PlanInstruction plan_f2(wp1, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a program
   CompositeInstruction program;
@@ -225,7 +225,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   wp1 = Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size()));
   wp1.joint_names = joint_group->getJointNames();
 
-  start_instruction = PlanInstruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  start_instruction = MoveInstruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
   // Create a new program
   program = CompositeInstruction();
@@ -256,10 +256,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   wp2.joint_names = joint_group->getJointNames();
 
   // Define Start Instruction
-  start_instruction = PlanInstruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  start_instruction = MoveInstruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
   // Define Plan Instructions
-  plan_f1 = PlanInstruction(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  plan_f1 = MoveInstruction(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a new program
   program = CompositeInstruction();
@@ -315,10 +315,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   CartesianWaypoint wp2 = goal;
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a program
   CompositeInstruction program;
@@ -409,10 +409,10 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
                     Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())));
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a program
   CompositeInstruction program;

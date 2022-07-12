@@ -97,21 +97,21 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
       const auto* lmi = getLastMoveInstruction(ci);
       assert(lmi != nullptr);
       assert(isMoveInstruction(*lmi));
-      PlanInstruction si(lmi->getWaypoint(), PlanInstructionType::START, lmi->getProfile(), lmi->getManipulatorInfo());
+      MoveInstruction si(lmi->getWaypoint(), MoveInstructionType::START, lmi->getProfile(), lmi->getManipulatorInfo());
       instructions.setStartInstruction(si);
     }
     else
     {
-      assert(isPlanInstruction(start_instruction) || isMoveInstruction(start_instruction));
-      if (isPlanInstruction(start_instruction))
+      assert(isMoveInstruction(start_instruction) || isMoveInstruction(start_instruction));
+      if (isMoveInstruction(start_instruction))
       {
         instructions.setStartInstruction(start_instruction);
-        instructions.getStartInstruction().as<PlanInstruction>().setPlanType(PlanInstructionType::START);
+        instructions.getStartInstruction().as<MoveInstruction>().setMoveType(MoveInstructionType::START);
       }
       else if (isMoveInstruction(start_instruction))
       {
         auto& lmi = start_instruction.as<MoveInstruction>();
-        PlanInstruction si(lmi.getWaypoint(), PlanInstructionType::START, lmi.getProfile(), lmi.getManipulatorInfo());
+        MoveInstruction si(lmi.getWaypoint(), MoveInstructionType::START, lmi.getProfile(), lmi.getManipulatorInfo());
         instructions.setStartInstruction(si);
       }
     }
@@ -126,20 +126,14 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
       const auto* fmi = getFirstMoveInstruction(ci);
       assert(fmi != nullptr);
       assert(isMoveInstruction(*fmi));
-      getLastPlanInstruction(instructions)->setWaypoint(fmi->getWaypoint());
+      getLastMoveInstruction(instructions)->setWaypoint(fmi->getWaypoint());
     }
     else
     {
-      assert(isMoveInstruction(end_instruction) || isPlanInstruction(end_instruction));
-      auto* lpi = getLastPlanInstruction(instructions);
+      assert(isMoveInstruction(end_instruction));
+      auto* lpi = getLastMoveInstruction(instructions);
       if (isMoveInstruction(end_instruction))
-      {
         lpi->setWaypoint(end_instruction.as<MoveInstruction>().getWaypoint());
-      }
-      else if (isPlanInstruction(end_instruction))
-      {
-        lpi->setWaypoint(end_instruction.as<PlanInstruction>().getWaypoint());
-      }
     }
   }
 

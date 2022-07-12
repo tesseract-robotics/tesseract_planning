@@ -96,10 +96,10 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
       Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE", manip);
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip);
+  MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Create a program
   CompositeInstruction program;
@@ -212,10 +212,10 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
       Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE", manip);
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip);
+  MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Create a program
   CompositeInstruction program;
@@ -318,10 +318,10 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
       Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .10, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE", manip);
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip);
+  MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip);
 
   // Create a program
   CompositeInstruction program;

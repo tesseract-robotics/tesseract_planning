@@ -1,7 +1,7 @@
 /**
  * @file simple_motion_planner.h
  * @brief The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all
- * of the PlanInstructions and then calls the appropriate function from the profile. These functions do not depend on
+ * of the MoveInstructions and then calls the appropriate function from the profile. These functions do not depend on
  * the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.
  *
  * @author Matthew Powelson
@@ -48,7 +48,7 @@ class SimpleMotionPlannerStatusCategory;
 
 /**
  * @brief The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all
- * of the PlanInstructions and then calls the appropriate function from the profile. These functions do not depend on
+ * of the MoveInstructions and then calls the appropriate function from the profile. These functions do not depend on
  * the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.
  */
 class SimpleMotionPlanner : public MotionPlanner
@@ -91,12 +91,12 @@ protected:
   std::string name_;
   std::shared_ptr<const SimpleMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
 
-  static PlanInstruction getStartInstruction(const PlannerRequest& request,
+  static MoveInstruction getStartInstruction(const PlannerRequest& request,
                                              const tesseract_scene_graph::SceneState& current_state,
                                              const tesseract_kinematics::JointGroup& manip);
 
   CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,
-                                                   PlanInstruction& prev_instruction,
+                                                   MoveInstruction& prev_instruction,
                                                    MoveInstruction& prev_seed,
                                                    const PlannerRequest& request) const;
 };

@@ -41,11 +41,11 @@ namespace tesseract_planning
 /** @brief The Joint Group Instruction Information struct */
 struct JointGroupInstructionInfo
 {
-  JointGroupInstructionInfo(const PlanInstruction& plan_instruction,
+  JointGroupInstructionInfo(const MoveInstruction& plan_instruction,
                             const PlannerRequest& request,
                             const ManipulatorInfo& manip_info);
 
-  const PlanInstruction& instruction;
+  const MoveInstruction& instruction;
   tesseract_kinematics::JointGroup::UPtr manip;
   std::string working_frame;
   std::string tcp_frame;
@@ -77,11 +77,11 @@ struct JointGroupInstructionInfo
 /** @brief The Kinematic Group Instruction Information struct */
 struct KinematicGroupInstructionInfo
 {
-  KinematicGroupInstructionInfo(const PlanInstruction& plan_instruction,
+  KinematicGroupInstructionInfo(const MoveInstruction& plan_instruction,
                                 const PlannerRequest& request,
                                 const ManipulatorInfo& manip_info);
 
-  const PlanInstruction& instruction;
+  const MoveInstruction& instruction;
   tesseract_kinematics::KinematicGroup::UPtr manip;
   std::string working_frame;
   std::string tcp_frame;
@@ -119,7 +119,7 @@ struct KinematicGroupInstructionInfo
  */
 CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
                                               const Eigen::MatrixXd& states,
-                                              const PlanInstruction& base_instruction);
+                                              const MoveInstruction& base_instruction);
 
 /**
  * @brief Find the closest joint solution for p to the provided seed

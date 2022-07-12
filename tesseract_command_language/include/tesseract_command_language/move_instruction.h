@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/null_waypoint.h>
-#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_command_language/types.h>
@@ -93,13 +92,6 @@ public:
                   std::string profile,
                   std::string path_profile,
                   ManipulatorInfo manipulator_info = ManipulatorInfo());
-
-  /**
-   * @brief Create a move instruction using properties of the plan_instruction
-   * @param waypoint The waypoint associated with the instruction
-   * @param plan_instruction The plan instruction to copy data from
-   */
-  MoveInstruction(Waypoint waypoint, const PlanInstruction& plan_instruction);
 
   void setWaypoint(Waypoint waypoint);
   Waypoint& getWaypoint();

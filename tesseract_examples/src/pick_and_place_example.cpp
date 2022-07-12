@@ -144,7 +144,7 @@ bool PickAndPlaceExample::run()
                                     ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
   Waypoint pick_swp = StateWaypoint(joint_names, joint_pos);
-  PlanInstruction start_instruction(pick_swp, PlanInstructionType::START);
+  MoveInstruction start_instruction(pick_swp, MoveInstructionType::START);
   pick_program.setStartInstruction(start_instruction);
 
   // Define the final pose (on top of the box)
@@ -160,11 +160,11 @@ bool PickAndPlaceExample::run()
   Waypoint pick_wp0 = CartesianWaypoint(pick_approach_pose);
 
   // Plan freespace from start
-  PlanInstruction pick_plan_a0(pick_wp0, PlanInstructionType::FREESPACE, "FREESPACE");
+  MoveInstruction pick_plan_a0(pick_wp0, MoveInstructionType::FREESPACE, "FREESPACE");
   pick_plan_a0.setDescription("From start to pick Approach");
 
   // Plan cartesian approach
-  PlanInstruction pick_plan_a1(pick_wp1, PlanInstructionType::LINEAR, "CARTESIAN");
+  MoveInstruction pick_plan_a1(pick_wp1, MoveInstructionType::LINEAR, "CARTESIAN");
   pick_plan_a1.setDescription("Pick Approach");
 
   // Add Instructions to program
@@ -294,7 +294,7 @@ bool PickAndPlaceExample::run()
                                      CompositeInstructionOrder::ORDERED,
                                      ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
-  PlanInstruction place_start_instruction(pick_final_state->getWaypoint(), PlanInstructionType::START);
+  MoveInstruction place_start_instruction(pick_final_state->getWaypoint(), MoveInstructionType::START);
   place_program.setStartInstruction(place_start_instruction);
 
   // Define the approach pose
@@ -307,15 +307,15 @@ bool PickAndPlaceExample::run()
   Waypoint place_wp2 = CartesianWaypoint(place_pose);
 
   // Plan cartesian retraction from picking up the box
-  PlanInstruction place_plan_a0(place_wp0, PlanInstructionType::LINEAR, "CARTESIAN");
+  MoveInstruction place_plan_a0(place_wp0, MoveInstructionType::LINEAR, "CARTESIAN");
   place_plan_a0.setDescription("Place retraction");
 
   // Plan freespace to approach for box drop off
-  PlanInstruction place_plan_a1(place_wp1, PlanInstructionType::FREESPACE, "FREESPACE");
+  MoveInstruction place_plan_a1(place_wp1, MoveInstructionType::FREESPACE, "FREESPACE");
   place_plan_a1.setDescription("Place Freespace");
 
   // Plan cartesian approach to box drop location
-  PlanInstruction place_plan_a2(place_wp2, PlanInstructionType::LINEAR, "CARTESIAN");
+  MoveInstruction place_plan_a2(place_wp2, MoveInstructionType::LINEAR, "CARTESIAN");
   place_plan_a2.setDescription("Place approach");
 
   // Add Instructions to program

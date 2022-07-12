@@ -146,11 +146,11 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   for (std::size_t idx = 0; idx < instructions_flattened.size(); idx++)
   {
     // If idx is zero then this should be the start instruction
-    assert((idx == 0) ? isPlanInstruction(instructions_flattened.at(idx).get()) : true);
+    assert((idx == 0) ? isMoveInstruction(instructions_flattened.at(idx).get()) : true);
     assert((idx == 0) ? isMoveInstruction(results_flattened[idx].get()) : true);
-    if (isPlanInstruction(instructions_flattened.at(idx).get()))
+    if (isMoveInstruction(instructions_flattened.at(idx).get()))
     {
-      const auto& plan_instruction = instructions_flattened.at(idx).get().as<PlanInstruction>();
+      const auto& plan_instruction = instructions_flattened.at(idx).get().as<MoveInstruction>();
       if (plan_instruction.isStart())
       {
         assert(idx == 0);
@@ -298,11 +298,11 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
-    assert(isPlanInstruction(request.instructions.getStartInstruction()));
+    assert(isMoveInstruction(request.instructions.getStartInstruction()));
     start_instruction = &(request.instructions.getStartInstruction());
-    if (isPlanInstruction(*start_instruction))
+    if (isMoveInstruction(*start_instruction))
     {
-      const auto& temp = start_instruction->as<PlanInstruction>();
+      const auto& temp = start_instruction->as<MoveInstruction>();
       assert(temp.isStart());
       start_waypoint = temp.getWaypoint();
       profile = temp.getProfile();
@@ -355,10 +355,10 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   for (std::size_t i = start_index; i < instructions_flat.size(); ++i)
   {
     const auto& instruction = instructions_flat[i].get();
-    if (isPlanInstruction(instruction))
+    if (isMoveInstruction(instruction))
     {
-      assert(isPlanInstruction(instruction));
-      const auto& plan_instruction = instruction.template as<PlanInstruction>();
+      assert(isMoveInstruction(instruction));
+      const auto& plan_instruction = instruction.template as<MoveInstruction>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
       ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());

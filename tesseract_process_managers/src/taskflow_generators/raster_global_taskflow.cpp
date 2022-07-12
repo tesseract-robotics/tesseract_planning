@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/plan_instruction.h>
+#include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils/get_instruction_utils.h>
 
 #include <tesseract_common/utils.h>
@@ -93,8 +93,8 @@ TaskflowContainer RasterGlobalTaskflow::generateTaskflow(TaskInput input,
 
     // Set the start instruction
     const auto& pre_raster_composite = pre_raster_input.getInstruction()->as<CompositeInstruction>();
-    PlanInstruction lpi = *getLastPlanInstruction(pre_raster_composite);
-    lpi.setPlanType(PlanInstructionType::START);
+    MoveInstruction lpi = *getLastMoveInstruction(pre_raster_composite);
+    lpi.setMoveType(MoveInstructionType::START);
     raster_input.setStartInstruction(lpi);
 
     TaskflowContainer sub_container = raster_taskflow_generator_->generateTaskflow(

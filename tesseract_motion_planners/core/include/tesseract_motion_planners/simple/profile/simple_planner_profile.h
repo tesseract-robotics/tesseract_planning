@@ -69,8 +69,8 @@ public:
    * @return A composite instruction representing the seed for the base_instruction
    */
   virtual DEPRECATED("Use other generate method.") CompositeInstruction
-      generate(const PlanInstruction& /*prev_instruction*/,
-               const PlanInstruction& /*base_instruction*/,
+      generate(const MoveInstruction& /*prev_instruction*/,
+               const MoveInstruction& /*base_instruction*/,
                const PlannerRequest& /*request*/,
                const ManipulatorInfo& /*global_manip_info*/) const
   {
@@ -88,9 +88,9 @@ public:
    * @param global_manip_info The global manipulator information
    * @return A composite instruction representing the seed for the base_instruction
    */
-  virtual CompositeInstruction generate(const PlanInstruction& prev_instruction,
+  virtual CompositeInstruction generate(const MoveInstruction& prev_instruction,
                                         const MoveInstruction& prev_seed,
-                                        const PlanInstruction& base_instruction,
+                                        const MoveInstruction& base_instruction,
                                         const Instruction& next_instruction,
                                         const PlannerRequest& request,
                                         const ManipulatorInfo& global_manip_info) const

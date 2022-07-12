@@ -269,7 +269,7 @@ private:
   CompositeInstructionOrder order_{ CompositeInstructionOrder::ORDERED };
 
   /**
-   * @brief The start instruction to use for composite instruction. This should be of type PlanInstruction or
+   * @brief The start instruction to use for composite instruction. This should be of type
    * MoveInstruction but is stored as type Instruction because it is not required
    *
    * If not provided, the planner should use the current state of the robot is used and defined as fixed.

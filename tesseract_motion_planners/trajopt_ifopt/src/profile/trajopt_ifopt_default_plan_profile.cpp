@@ -28,7 +28,6 @@
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/instruction_type.h>
 
 #include <trajopt_ifopt/trajopt_ifopt.h>
@@ -43,8 +42,8 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                            const std::vector<std::string>& active_links,
                                            int index) const
 {
-  assert(isPlanInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<PlanInstruction>();
+  assert(isMoveInstruction(parent_instruction));
+  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 

@@ -89,7 +89,7 @@ int main(int /*argc*/, char** /*argv*/)
 
     // Start Joint Position for the program
     Waypoint wp0 = StateWaypoint(kin_group->getJointNames(), Eigen::VectorXd::Zero(6));
-    PlanInstruction start_instruction(wp0, PlanInstructionType::START);
+    MoveInstruction start_instruction(wp0, MoveInstructionType::START);
     program.setStartInstruction(start_instruction);
 
     // Define raster poses
@@ -109,14 +109,14 @@ int main(int /*argc*/, char** /*argv*/)
                                      Eigen::Quaterniond(0, 0, -1.0, 0));
 
     // Define raster move instruction
-    PlanInstruction plan_c0(wp2, PlanInstructionType::LINEAR, "RASTER");
-    PlanInstruction plan_c1(wp3, PlanInstructionType::LINEAR, "RASTER");
-    PlanInstruction plan_c2(wp4, PlanInstructionType::LINEAR, "RASTER");
-    PlanInstruction plan_c3(wp5, PlanInstructionType::LINEAR, "RASTER");
-    PlanInstruction plan_c4(wp6, PlanInstructionType::LINEAR, "RASTER");
-    PlanInstruction plan_c5(wp7, PlanInstructionType::LINEAR, "RASTER");
+    MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR, "RASTER");
+    MoveInstruction plan_c1(wp3, MoveInstructionType::LINEAR, "RASTER");
+    MoveInstruction plan_c2(wp4, MoveInstructionType::LINEAR, "RASTER");
+    MoveInstruction plan_c3(wp5, MoveInstructionType::LINEAR, "RASTER");
+    MoveInstruction plan_c4(wp6, MoveInstructionType::LINEAR, "RASTER");
+    MoveInstruction plan_c5(wp7, MoveInstructionType::LINEAR, "RASTER");
 
-    PlanInstruction plan_f0(wp1, PlanInstructionType::FREESPACE, "freespace_profile");
+    MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
     plan_f0.setDescription("from_start_plan");
     CompositeInstruction from_start;
     from_start.setDescription("from_start");
@@ -136,7 +136,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     {
-      PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, "freespace_profile");
+      MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
       plan_f1.setDescription("transition_from_end_plan");
       CompositeInstruction transition_from_end;
       transition_from_end.setDescription("transition_from_end");
@@ -165,7 +165,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     {
-      PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, "freespace_profile");
+      MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
       plan_f1.setDescription("transition_from_end_plan");
       CompositeInstruction transition_from_end;
       transition_from_end.setDescription("transition_from_end");
@@ -193,7 +193,7 @@ int main(int /*argc*/, char** /*argv*/)
       program.push_back(raster_segment);
     }
 
-    PlanInstruction plan_f2(wp1, PlanInstructionType::FREESPACE, "freespace_profile");
+    MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
     plan_f2.setDescription("to_end_plan");
     CompositeInstruction to_end;
     to_end.setDescription("to_end");

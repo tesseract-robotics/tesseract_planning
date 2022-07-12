@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/instruction_type.h>
 
 namespace tesseract_planning
@@ -110,8 +109,8 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
                                       const std::vector<std::string>& active_links,
                                       int index) const
 {
-  assert(isPlanInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<PlanInstruction>();
+  assert(isMoveInstruction(parent_instruction));
+  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 

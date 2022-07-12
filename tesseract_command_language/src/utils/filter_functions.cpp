@@ -24,7 +24,6 @@
  * limitations under the License.
  */
 
-#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/utils/filter_functions.h>
 
@@ -37,20 +36,6 @@ bool moveFilter(const Instruction& instruction,
   if (isMoveInstruction(instruction))
   {
     if (instruction.as<MoveInstruction>().isStart())
-      return (parent_is_first_composite);
-
-    return true;
-  }
-  return false;
-}
-
-bool planFilter(const Instruction& instruction,
-                const CompositeInstruction& /*composite*/,
-                bool parent_is_first_composite)
-{
-  if (isPlanInstruction(instruction))
-  {
-    if (instruction.as<PlanInstruction>().isStart())
       return (parent_is_first_composite);
 
     return true;

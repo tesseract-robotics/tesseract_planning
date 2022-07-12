@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
 
-#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
@@ -117,10 +116,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   wp2 << 0, 0, 0, 1.57, 0, 0, 0;
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -191,10 +190,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   JointWaypoint wp2(joint_names, { 0, 0, 0, 1.57, 0, 0, 0 });
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -271,10 +270,10 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
       Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) * Eigen::Quaterniond(0, 0, 1.0, 0);
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -354,11 +353,11 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   wp2 << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
   start_instruction.getManipulatorInfo().working_frame = "base_link";
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
 
   // Create a program
   CompositeInstruction program("TEST_PROFILE");
@@ -437,11 +436,11 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
       Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) * Eigen::Quaterniond(0, 0, 1.0, 0);
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
   start_instruction.getManipulatorInfo().working_frame = "base_link";
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE");
   plan_f1.getManipulatorInfo().working_frame = "base_link";
 
   // Create a program
@@ -521,11 +520,11 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
       Eigen::Isometry3d::Identity() * Eigen::Translation3d(.20, .4, 0.8) * Eigen::Quaterniond(0, 0, 1.0, 0);
 
   // Define Start Instruction
-  PlanInstruction start_instruction(wp1, PlanInstructionType::START, "TEST_PROFILE");
+  MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
   start_instruction.getManipulatorInfo().working_frame = "base_link";
 
   // Define Plan Instructions
-  PlanInstruction plan_f1(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE");
+  MoveInstruction plan_f1(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE");
   plan_f1.getManipulatorInfo().working_frame = "base_link";
 
   // Create a program
@@ -615,13 +614,13 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
     if (ind == 0)
     {
       // Define Start Instruction
-      PlanInstruction start_instruction(wp, PlanInstructionType::START, "TEST_PROFILE");
+      MoveInstruction start_instruction(wp, MoveInstructionType::START, "TEST_PROFILE");
       program.setStartInstruction(start_instruction);
     }
     else
     {
       wp.joint_names = joint_names;
-      PlanInstruction plan_f(wp, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+      MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
       program.push_back(plan_f);
     }
   }
@@ -685,12 +684,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
     if (ind == 0)
     {
       // Define Start Instruction
-      PlanInstruction start_instruction(wp, PlanInstructionType::START, "TEST_PROFILE");
+      MoveInstruction start_instruction(wp, MoveInstructionType::START, "TEST_PROFILE");
       program.setStartInstruction(start_instruction);
     }
     else
     {
-      PlanInstruction plan_f(wp, PlanInstructionType::FREESPACE, "TEST_PROFILE");
+      MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
       program.push_back(plan_f);
     }
   }

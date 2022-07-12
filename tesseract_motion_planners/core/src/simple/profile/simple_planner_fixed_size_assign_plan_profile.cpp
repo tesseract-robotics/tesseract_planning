@@ -34,9 +34,9 @@ SimplePlannerFixedSizeAssignPlanProfile::SimplePlannerFixedSizeAssignPlanProfile
 {
 }
 
-CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const PlanInstruction& prev_instruction,
+CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstruction& prev_instruction,
                                                                        const MoveInstruction& /*prev_seed*/,
-                                                                       const PlanInstruction& base_instruction,
+                                                                       const MoveInstruction& base_instruction,
                                                                        const Instruction& /*next_instruction*/,
                                                                        const PlannerRequest& request,
                                                                        const ManipulatorInfo& global_manip_info) const
@@ -48,44 +48,44 @@ CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const Pla
   if (!info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
   {
     const Eigen::VectorXd& jp = info2.extractJointPosition();
-    if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
+    if (info2.instruction.getMoveType() == MoveInstructionType::LINEAR)
       states = jp.replicate(1, linear_steps + 1);
-    else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
+    else if (info2.instruction.getMoveType() == MoveInstructionType::FREESPACE)
       states = jp.replicate(1, freespace_steps + 1);
     else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
+      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
   else if (!info1.has_cartesian_waypoint && info2.has_cartesian_waypoint)
   {
     const Eigen::VectorXd& jp = info1.extractJointPosition();
-    if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
+    if (info2.instruction.getMoveType() == MoveInstructionType::LINEAR)
       states = jp.replicate(1, linear_steps + 1);
-    else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
+    else if (info2.instruction.getMoveType() == MoveInstructionType::FREESPACE)
       states = jp.replicate(1, freespace_steps + 1);
     else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
+      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
   else if (info1.has_cartesian_waypoint && !info2.has_cartesian_waypoint)
   {
     const Eigen::VectorXd& jp = info2.extractJointPosition();
-    if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
+    if (info2.instruction.getMoveType() == MoveInstructionType::LINEAR)
       states = jp.replicate(1, linear_steps + 1);
-    else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
+    else if (info2.instruction.getMoveType() == MoveInstructionType::FREESPACE)
       states = jp.replicate(1, freespace_steps + 1);
     else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
+      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
   else
   {
     Eigen::VectorXd seed = request.env_state.getJointValues(info2.manip->getJointNames());
     tesseract_common::enforcePositionLimits<double>(seed, info2.manip->getLimits().joint_limits);
 
-    if (info2.instruction.getPlanType() == PlanInstructionType::LINEAR)
+    if (info2.instruction.getMoveType() == MoveInstructionType::LINEAR)
       states = seed.replicate(1, linear_steps + 1);
-    else if (info2.instruction.getPlanType() == PlanInstructionType::FREESPACE)
+    else if (info2.instruction.getMoveType() == MoveInstructionType::FREESPACE)
       states = seed.replicate(1, freespace_steps + 1);
     else
-      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported PlanInstructionType!");
+      throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
 
   return getInterpolatedComposite(info2.manip->getJointNames(), states, info2.instruction);
