@@ -75,7 +75,7 @@ std::string toXMLString(const TrajOptPlanProfile& plan_profile)
   std::shared_ptr<tinyxml2::XMLDocument> doc = toXMLDocument(plan_profile);
   tinyxml2::XMLPrinter printer;
   doc->Print(&printer);
-  return std::string(printer.CStr());
+  return std::string{ printer.CStr() };
 }
 
 std::shared_ptr<tinyxml2::XMLDocument> toXMLDocument(const TrajOptCompositeProfile& composite_profile)
@@ -112,7 +112,7 @@ std::string toXMLString(const TrajOptCompositeProfile& composite_profile)
   std::shared_ptr<tinyxml2::XMLDocument> doc = toXMLDocument(composite_profile);
   tinyxml2::XMLPrinter printer;
   doc->Print(&printer);
-  return std::string(printer.CStr());
+  return std::string{ printer.CStr() };
 }
 
 }  // namespace tesseract_planning

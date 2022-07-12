@@ -130,12 +130,12 @@ struct OMPLProblem
    *
    * This will create a new thread for each planner configurator provided. T
    */
-  std::vector<OMPLPlannerConfigurator::ConstPtr> planners;
+  std::vector<OMPLPlannerConfigurator::ConstPtr> planners{};
 
   /**
    * @brief This will extract an Eigen::VectorXd from the OMPL State ***REQUIRED***
    */
-  OMPLStateExtractor extractor;
+  OMPLStateExtractor extractor{};
 
   /**
    * @brief Convert the path stored in simple_setup to tesseract trajectory

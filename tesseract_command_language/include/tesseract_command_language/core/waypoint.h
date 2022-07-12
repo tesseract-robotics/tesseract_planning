@@ -74,10 +74,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   TESSERACT_WAYPOINT_EXPORT_KEY(N, C)                                                                                  \
   TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(N::C)
 
-namespace tesseract_planning
-{
 #ifndef SWIG
-namespace detail_waypoint
+namespace tesseract_planning::detail_waypoint
 {
 template <typename T>
 struct WaypointConcept  // NOLINT
@@ -134,9 +132,8 @@ private:
     ar& boost::serialization::make_nvp("base", boost::serialization::base_object<BaseType>(*this));
   }
 };
-}  // namespace detail_waypoint
+}  // namespace tesseract_planning::detail_waypoint
 #endif  // SWIG
-}  // namespace tesseract_planning
 
 namespace tesseract_planning
 {

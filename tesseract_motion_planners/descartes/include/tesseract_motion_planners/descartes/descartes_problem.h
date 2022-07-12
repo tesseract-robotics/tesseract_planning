@@ -55,9 +55,9 @@ struct DescartesProblem
   tesseract_kinematics::KinematicGroup::ConstPtr manip;
 
   // These are required for descartes
-  std::vector<typename descartes_light::EdgeEvaluator<FloatType>::ConstPtr> edge_evaluators;
-  std::vector<typename descartes_light::WaypointSampler<FloatType>::ConstPtr> samplers;
-  std::vector<typename descartes_light::StateEvaluator<FloatType>::ConstPtr> state_evaluators;
+  std::vector<typename descartes_light::EdgeEvaluator<FloatType>::ConstPtr> edge_evaluators{};
+  std::vector<typename descartes_light::WaypointSampler<FloatType>::ConstPtr> samplers{};
+  std::vector<typename descartes_light::StateEvaluator<FloatType>::ConstPtr> state_evaluators{};
   int num_threads = static_cast<int>(std::thread::hardware_concurrency());
 };
 using DescartesProblemF = DescartesProblem<float>;

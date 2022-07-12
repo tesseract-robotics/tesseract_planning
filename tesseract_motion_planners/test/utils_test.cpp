@@ -38,8 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract_planning;
 using namespace tesseract_environment;
 
-bool DEBUG = false;
-
 class TesseractPlanningUtilsUnit : public ::testing::Test
 {
 protected:

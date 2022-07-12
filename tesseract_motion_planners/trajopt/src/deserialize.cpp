@@ -42,7 +42,7 @@ namespace tesseract_planning
 TrajOptDefaultPlanProfile trajOptPlanParser(const tinyxml2::XMLElement& xml_element)
 {
   const tinyxml2::XMLElement* trajopt_plan_element = xml_element.FirstChildElement("TrajOptDefaultPlanProfile");
-  return TrajOptDefaultPlanProfile(*trajopt_plan_element);
+  return TrajOptDefaultPlanProfile{ *trajopt_plan_element };
 }
 
 TrajOptDefaultPlanProfile trajOptPlanFromXMLElement(const tinyxml2::XMLElement* profile_xml)
@@ -126,7 +126,7 @@ TrajOptDefaultPlanProfile trajOptPlanFromXMLFile(const std::string& file_path)
 TrajOptDefaultCompositeProfile trajOptCompositeParser(const tinyxml2::XMLElement& xml_element)
 {
   const tinyxml2::XMLElement* trajopt_composite_element = xml_element.FirstChildElement("TrajoptCompositeProfile");
-  return TrajOptDefaultCompositeProfile(*trajopt_composite_element);
+  return TrajOptDefaultCompositeProfile{ *trajopt_composite_element };
 }
 
 TrajOptDefaultCompositeProfile trajOptCompositeFromXMLElement(const tinyxml2::XMLElement* profile_xml)

@@ -126,7 +126,7 @@ public:
 
 private:
   PathSegment* getPathSegment(double& s) const;
-  double length_;
+  double length_{ 0 };
   std::list<std::pair<double, bool>> switching_points_;
   std::list<std::unique_ptr<PathSegment>> path_segments_;
 };
@@ -242,7 +242,7 @@ private:
   Eigen::VectorXd max_velocity_;
   Eigen::VectorXd max_acceleration_;
   Eigen::Index joint_num_;
-  bool valid_;
+  bool valid_{ true };
   std::list<TrajectoryStep> trajectory_;
   std::list<TrajectoryStep> end_trajectory_;  // non-empty only if the trajectory generation failed.
 

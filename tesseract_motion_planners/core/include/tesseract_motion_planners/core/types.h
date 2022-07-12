@@ -71,13 +71,13 @@ struct PlannerRequest
    * @brief This allows the remapping of the Plan Profile identified in the command language to a specific profile for a
    * given motion planner.
    */
-  PlannerProfileRemapping plan_profile_remapping;
+  PlannerProfileRemapping plan_profile_remapping{};
 
   /**
    * @brief This allows the remapping of the Composite Profile identified in the command language to a specific profile
    * for a given motion planner.
    */
-  PlannerProfileRemapping composite_profile_remapping;
+  PlannerProfileRemapping composite_profile_remapping{};
 
   /**
    * @brief data Planner specific data. For planners included in Tesseract_planning this is the planner problem that
@@ -89,14 +89,13 @@ struct PlannerRequest
 struct PlannerResponse
 {
   CompositeInstruction results;
-  tesseract_common::StatusCode status;                                     /**< @brief The status information */
-  std::vector<std::reference_wrapper<Instruction>> succeeded_instructions; /**< @brief Waypoints for which the planner
-                                                                        succeeded */
-  std::vector<std::reference_wrapper<Instruction>> failed_instructions;    /**< @brief Waypoints for which the planner
-                                                                              failed */
-  /**
-   * @brief data Planner specific data. For planners included in Tesseract_planning this is the planner problem that was
-   * solved
+  /** @brief The status information */
+  tesseract_common::StatusCode status;
+  /** @brief Waypoints for which the planner succeeded */
+  std::vector<std::reference_wrapper<Instruction>> succeeded_instructions{};
+  /** @brief Waypoints for which the planner failed */
+  std::vector<std::reference_wrapper<Instruction>> failed_instructions{};
+  /** @brief Planner specific data. Planners in Tesseract_planning use this to store the planner problem that was solved
    */
   std::shared_ptr<void> data;
 };

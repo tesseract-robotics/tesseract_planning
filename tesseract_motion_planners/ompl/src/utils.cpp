@@ -44,7 +44,7 @@ Eigen::Map<Eigen::VectorXd> RealVectorStateSpaceExtractor(const ompl::base::Stat
 {
   assert(dynamic_cast<const ompl::base::RealVectorStateSpace::StateType*>(s1) != nullptr);
   const auto* s = s1->template as<ompl::base::RealVectorStateSpace::StateType>();
-  return Eigen::Map<Eigen::VectorXd>(s->values, dimension);
+  return Eigen::Map<Eigen::VectorXd>{ s->values, dimension };
 }
 
 #ifndef OMPL_LESS_1_4_0

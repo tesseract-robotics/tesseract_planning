@@ -178,7 +178,7 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(co
 {
   // Get IK seed
   Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
-  tesseract_common::enforcePositionLimits(seed, base.manip->getLimits().joint_limits);
+  tesseract_common::enforcePositionLimits<double>(seed, base.manip->getLimits().joint_limits);
 
   // Calculate IK for start and end
   std::array<Eigen::VectorXd, 2> sol = getClosestJointSolution(prev, base, seed);

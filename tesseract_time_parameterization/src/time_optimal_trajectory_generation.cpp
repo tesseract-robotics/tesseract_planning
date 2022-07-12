@@ -368,7 +368,7 @@ public:
 
   Eigen::VectorXd getCurvature(double /* s */) const override { return Eigen::VectorXd::Zero(start_.size()); }
 
-  std::list<double> getSwitchingPoints() const override { return std::list<double>(); }
+  std::list<double> getSwitchingPoints() const override { return {}; }
 
   std::unique_ptr<PathSegment> clone() const override { return std::make_unique<LinearPathSegment>(*this); }
 
@@ -483,7 +483,7 @@ private:
   Eigen::VectorXd y;
 };
 
-Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation) : length_(0.0)
+Path::Path(const std::list<Eigen::VectorXd>& path, double max_deviation)
 {
   if (path.size() < 2)
     return;
@@ -606,7 +606,6 @@ Trajectory::Trajectory(const Path& path,
   , max_velocity_(max_velocity)
   , max_acceleration_(max_acceleration)
   , joint_num_(max_velocity.size())
-  , valid_(true)
   , time_step_(time_step)
   , cached_time_(std::numeric_limits<double>::max())
 {

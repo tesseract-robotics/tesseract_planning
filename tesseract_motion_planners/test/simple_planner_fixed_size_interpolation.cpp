@@ -37,8 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 using namespace tesseract_environment;
 using namespace tesseract_planning;
 
-bool DEBUG = false;
-
 class TesseractPlanningSimplePlannerFixedSizeInterpolationUnit : public ::testing::Test
 {
 protected:

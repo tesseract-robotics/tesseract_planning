@@ -164,9 +164,9 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
 
     EXPECT_TRUE(&status);
     EXPECT_EQ(official_results.size(), planner_response.results.size());
-    for (std::size_t j = 0; j < official_results.size(); ++j)
+    for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
-      if (isCompositeInstruction(official_results[j]))
+      if (isCompositeInstruction(official_results[j]))  //
       {
         const auto& sub_official = official_results[j].as<CompositeInstruction>();
         const auto& sub = planner_response.results[j].as<CompositeInstruction>();
@@ -270,7 +270,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
     auto status = descartes_planner.solve(request, planner_response);
     EXPECT_TRUE(&status);
     EXPECT_TRUE(official_results.size() == request.seed.size());
-    for (std::size_t j = 0; j < official_results.size(); ++j)
+    for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
       if (isCompositeInstruction(official_results[j]))
       {
@@ -378,7 +378,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
     auto status = descartes_planner.solve(request, planner_response);
     EXPECT_TRUE(&status);
     EXPECT_TRUE(official_results.size() == request.seed.size());
-    for (std::size_t j = 0; j < official_results.size(); ++j)
+    for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
       if (isCompositeInstruction(official_results[j]))
       {

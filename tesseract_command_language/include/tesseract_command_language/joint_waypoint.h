@@ -163,7 +163,7 @@ public:
 
   inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(const double& s)
   {
-    return Eigen::CommaInitializer<Eigen::VectorXd>(waypoint, s);
+    return Eigen::CommaInitializer<Eigen::VectorXd>{ waypoint, s };
   }
 
   inline double& operator[](Eigen::Index i) { return waypoint[i]; }
@@ -182,10 +182,10 @@ public:
   inline operator Eigen::VectorXd&() { return waypoint; }
 
   /** @return Implicit Conversions to read-only Eigen::VectorXd */
-  inline operator Eigen::Ref<const Eigen::VectorXd>() const { return Eigen::Ref<const Eigen::VectorXd>(waypoint); }
+  inline operator Eigen::Ref<const Eigen::VectorXd>() const { return Eigen::Ref<const Eigen::VectorXd>{ waypoint }; }
 
   /** @return Implicit Conversions to writable Eigen::VectorXd */
-  inline operator Eigen::Ref<Eigen::VectorXd>() { return Eigen::Ref<Eigen::VectorXd>(waypoint); }
+  inline operator Eigen::Ref<Eigen::VectorXd>() { return Eigen::Ref<Eigen::VectorXd>{ waypoint }; }
 
   //////////////////////////////////
   // Joint Waypoint Container //

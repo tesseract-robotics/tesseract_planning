@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/process_planning_request.h>
-#include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 
 bool tesseract_planning::ProcessPlanningRequest::operator==(const tesseract_planning::ProcessPlanningRequest& rhs) const

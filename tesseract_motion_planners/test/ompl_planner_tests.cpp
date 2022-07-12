@@ -101,7 +101,7 @@ template <typename Configurator>
 class OMPLTestFixture : public ::testing::Test
 {
 public:
-  OMPLTestFixture() { configurator = std::make_shared<Configurator>(); }
+  OMPLTestFixture() : configurator(std::make_shared<Configurator>()) {}
   using ::testing::Test::Test;
   std::shared_ptr<Configurator> configurator;
   OMPLMotionPlanner ompl_planner;
@@ -280,7 +280,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   EXPECT_FALSE(status);
 }
 
-TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
+TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 {
   EXPECT_EQ(ompl::RNG::getSeed(), SEED) << "Randomization seed does not match expected: " << ompl::RNG::getSeed()
                                         << " vs. " << SEED;
@@ -374,7 +374,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)
   EXPECT_TRUE(wp2.isApprox(check_goal, 1e-3));
 }
 
-TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)
+TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 {
   EXPECT_EQ(ompl::RNG::getSeed(), SEED) << "Randomization seed does not match expected: " << ompl::RNG::getSeed()
                                         << " vs. " << SEED;

@@ -125,14 +125,15 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   }
 
   // Enforce limits
-  std::vector<Eigen::VectorXd> solution;
+  std::vector<Eigen::VectorXd> solution{};
   solution.reserve(descartes_result.trajectory.size());
   for (const auto& js : descartes_result.trajectory)
   {
     solution.push_back(js->values.template cast<double>());
     // Using 1e-6 because when using floats with descartes epsilon does not seem to be enough
-    assert(tesseract_common::satisfiesPositionLimits(solution.back(), problem->manip->getLimits().joint_limits));
-    tesseract_common::enforcePositionLimits(solution.back(), problem->manip->getLimits().joint_limits);
+    assert(
+        tesseract_common::satisfiesPositionLimits<double>(solution.back(), problem->manip->getLimits().joint_limits));
+    tesseract_common::enforcePositionLimits<double>(solution.back(), problem->manip->getLimits().joint_limits);
   }
 
   // Flatten the results to make them easier to process
@@ -315,7 +316,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   }
   else
   {
-    Eigen::VectorXd current_jv = request.env_state.getJointValues(joint_names);
+    Eigen::VectorXd current_jv{ request.env_state.getJointValues(joint_names) };
     StateWaypoint swp(joint_names, current_jv);
 
     MoveInstruction temp_move(swp, MoveInstructionType::START);
