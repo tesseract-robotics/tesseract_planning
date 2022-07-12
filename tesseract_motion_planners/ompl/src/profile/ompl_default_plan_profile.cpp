@@ -396,9 +396,9 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
       Eigen::VectorXd& solution = joint_solutions[i];
 
       // Check limits
-      if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+      if (tesseract_common::satisfiesPositionLimits<double>(solution, limits.joint_limits))
       {
-        tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
+        tesseract_common::enforcePositionLimits<double>(solution, limits.joint_limits);
       }
       else
       {
@@ -458,9 +458,9 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
   {
     // Check limits
     Eigen::VectorXd solution = joint_waypoint;
-    if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+    if (tesseract_common::satisfiesPositionLimits<double>(solution, limits.joint_limits))
     {
-      tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
+      tesseract_common::enforcePositionLimits<double>(solution, limits.joint_limits);
     }
     else
     {
@@ -533,9 +533,9 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
       Eigen::VectorXd& solution = joint_solutions[i];
 
       // Check limits
-      if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+      if (tesseract_common::satisfiesPositionLimits<double>(solution, limits.joint_limits))
       {
-        tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
+        tesseract_common::enforcePositionLimits<double>(solution, limits.joint_limits);
       }
       else
       {
@@ -597,9 +597,9 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
   {
     Eigen::VectorXd solution = joint_waypoint;
 
-    if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+    if (tesseract_common::satisfiesPositionLimits<double>(solution, limits.joint_limits))
     {
-      tesseract_common::enforcePositionLimits(solution, limits.joint_limits);
+      tesseract_common::enforcePositionLimits<double>(solution, limits.joint_limits);
     }
     else
     {

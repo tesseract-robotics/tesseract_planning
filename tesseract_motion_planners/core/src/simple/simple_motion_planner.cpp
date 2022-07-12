@@ -143,8 +143,8 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   {
     auto& mi = inst.get().as<MoveInstruction>();
     Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
-    assert(tesseract_common::satisfiesPositionLimits(jp, manip->getLimits().joint_limits));
-    tesseract_common::enforcePositionLimits(jp, manip->getLimits().joint_limits);
+    assert(tesseract_common::satisfiesPositionLimits<double>(jp, manip->getLimits().joint_limits));
+    tesseract_common::enforcePositionLimits<double>(jp, manip->getLimits().joint_limits);
     setJointPosition(mi.getWaypoint(), jp);
   }
 
