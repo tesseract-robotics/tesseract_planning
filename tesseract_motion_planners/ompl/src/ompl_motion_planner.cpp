@@ -236,7 +236,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   std::size_t instructions_idx = 0;  // Index for each input instruction
 
   // Handle the start instruction
-  const auto& plan_instruction = instructions_flattened.at(0).get().as<PlanInstruction>();
+  const auto& plan_instruction = instructions_flattened.at(0).get().as<MoveInstruction>();
   if (plan_instruction.isStart())
   {
     const auto& p = problem[0];
@@ -263,7 +263,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   std::size_t prob_idx = 0;
   for (; instructions_idx < instructions_flattened.size(); instructions_idx++)
   {
-    if (isPlanInstruction(instructions_flattened.at(instructions_idx).get()))
+    if (isMoveInstruction(instructions_flattened.at(instructions_idx).get()))
     {
       const auto& p = problem[prob_idx];
 
@@ -384,11 +384,11 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
   const Instruction* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
-    assert(isPlanInstruction(request.instructions.getStartInstruction()));
+    assert(isMoveInstruction(request.instructions.getStartInstruction()));
     start_instruction = &(request.instructions.getStartInstruction());
-    if (isPlanInstruction(*start_instruction))
+    if (isMoveInstruction(*start_instruction))
     {
-      const auto& temp = start_instruction->as<PlanInstruction>();
+      const auto& temp = start_instruction->as<MoveInstruction>();
       assert(temp.isStart());
       start_waypoint = temp.getWaypoint();
     }
@@ -412,10 +412,10 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
   for (std::size_t i = 0; i < request.instructions.size(); ++i)
   {
     const auto& instruction = request.instructions[i];
-    if (isPlanInstruction(instruction))
+    if (isMoveInstruction(instruction))
     {
-      assert(isPlanInstruction(instruction));
-      const auto& plan_instruction = instruction.as<PlanInstruction>();
+      assert(isMoveInstruction(instruction));
+      const auto& plan_instruction = instruction.as<MoveInstruction>();
 
       assert(isCompositeInstruction(request.seed[i]));
       const auto& seed_composite = request.seed[i].as<tesseract_planning::CompositeInstruction>();

@@ -46,8 +46,6 @@ bool isCompositeInstruction(const Instruction& instruction);
 
 bool isMoveInstruction(const Instruction& instruction);
 
-bool isPlanInstruction(const Instruction& instruction);
-
 bool isNullInstruction(const Instruction& instruction);
 
 }  // namespace tesseract_planning

@@ -47,9 +47,6 @@ MoveInstruction::MoveInstruction(Waypoint waypoint,
 {
   if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
     path_profile_ = profile_;
-
-  if (!isStateWaypoint(waypoint_))
-    CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
 }
 
 MoveInstruction::MoveInstruction(Waypoint waypoint,
@@ -65,47 +62,6 @@ MoveInstruction::MoveInstruction(Waypoint waypoint,
 {
   if (!isStateWaypoint(waypoint_))
     CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
-}
-
-MoveInstruction::MoveInstruction(Waypoint waypoint, const PlanInstruction& plan_instruction)
-  : waypoint_(std::move(waypoint))
-{
-  if (!isStateWaypoint(waypoint_))
-    CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
-
-  switch (plan_instruction.getPlanType())
-  {
-    case PlanInstructionType::LINEAR:
-    {
-      move_type_ = MoveInstructionType::LINEAR;
-      break;
-    }
-    case PlanInstructionType::FREESPACE:
-    {
-      move_type_ = MoveInstructionType::FREESPACE;
-      break;
-    }
-    case PlanInstructionType::CIRCULAR:
-    {
-      move_type_ = MoveInstructionType::CIRCULAR;
-      break;
-    }
-    case PlanInstructionType::START:
-    {
-      move_type_ = MoveInstructionType::START;
-      break;
-    }
-    default:
-    {
-      throw std::runtime_error("MoveInstruction, unable to convert plan type to move type!");
-    }
-  }
-
-  profile_ = plan_instruction.getProfile();
-  path_profile_ = plan_instruction.getPathProfile();
-  manipulator_info_ = plan_instruction.getManipulatorInfo();
-  description_ = plan_instruction.getDescription();
-  profile_overrides = plan_instruction.profile_overrides;
 }
 
 void MoveInstruction::setWaypoint(Waypoint waypoint)

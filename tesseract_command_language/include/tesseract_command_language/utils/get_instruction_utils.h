@@ -26,7 +26,6 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_UTILS_GET_INSTRUCTION_UTILS_H
 #define TESSERACT_COMMAND_LANGUAGE_UTILS_GET_INSTRUCTION_UTILS_H
 
-#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/utils/filter_functions.h>
@@ -108,36 +107,6 @@ inline const MoveInstruction* getFirstMoveInstruction(const CompositeInstruction
 }
 
 /**
- * @brief Get the first Plan Instruction in a Composite Instruction
- * This does not consider the start instruction in child composite instruction
- * @param composite_instruction Composite Instruction to search
- * @return The first Plan Instruction (Non-Const)
- */
-inline PlanInstruction* getFirstPlanInstruction(CompositeInstruction& composite_instruction)
-{
-  Instruction* mi = getFirstInstruction(composite_instruction, planFilter);
-  if (mi != nullptr)
-    return &mi->as<PlanInstruction>();
-
-  return nullptr;
-}
-
-/**
- * @brief Get the first Plan Instruction in a Composite Instruction
- * This does not consider the start instruction in child composite instruction
- * @param composite_instruction Composite Instruction to search
- * @return The first Plan Instruction (Const)
- */
-inline const PlanInstruction* getFirstPlanInstruction(const CompositeInstruction& composite_instruction)
-{
-  const Instruction* mi = getFirstInstruction(composite_instruction, planFilter);
-  if (mi != nullptr)
-    return &mi->as<PlanInstruction>();
-
-  return nullptr;
-}
-
-/**
  * @brief Get the last Move Instruction in a Composite Instruction
  * This does not consider the start instruction in child composite instruction
  * @param composite_instruction Composite Instruction to search
@@ -168,36 +137,6 @@ inline const MoveInstruction* getLastMoveInstruction(const CompositeInstruction&
 }
 
 /**
- * @brief Get the last Plan Instruction in a Composite Instruction
- * This does not consider the start instruction in child composite instruction
- * @param composite_instruction Composite Instruction to search
- * @return The last Plan Instruction (Non-Const)
- */
-inline PlanInstruction* getLastPlanInstruction(CompositeInstruction& composite_instruction)
-{
-  Instruction* mi = getLastInstruction(composite_instruction, planFilter);
-  if (mi != nullptr)
-    return &mi->as<PlanInstruction>();
-
-  return nullptr;
-}
-
-/**
- * @brief Get the last Plan Instruction in a Composite Instruction
- * This does not consider the start instruction in child composite instruction
- * @param composite_instruction Composite Instruction to search
- * @return The last Plan Instruction (Const)
- */
-inline const PlanInstruction* getLastPlanInstruction(const CompositeInstruction& composite_instruction)
-{
-  const Instruction* mi = getLastInstruction(composite_instruction, planFilter);
-  if (mi != nullptr)
-    return &mi->as<PlanInstruction>();
-
-  return nullptr;
-}
-
-/**
  * @brief Get number of Instruction in a Composite Instruction
  * @param composite_instruction The Composite Instruction to process
  * @param locate_filter The filter to indicate if an instruction should be considered
@@ -219,16 +158,6 @@ inline long getMoveInstructionCount(const CompositeInstruction& composite_instru
   return getInstructionCount(composite_instruction, moveFilter);
 }
 
-/**
- * @brief Get number of Plan Instruction in a Composite Instruction
- * This does not consider the start instruction in the child composite instruction
- * @param composite_instruction The Composite Instruction to process
- * @return The number of Plan Instructions
- */
-inline long getPlanInstructionCount(const CompositeInstruction& composite_instruction)
-{
-  return getInstructionCount(composite_instruction, planFilter);
-}
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_UTILS_H

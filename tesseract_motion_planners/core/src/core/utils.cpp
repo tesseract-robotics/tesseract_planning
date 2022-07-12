@@ -93,23 +93,14 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tess
     assert(!ci.getManipulatorInfo().empty());
     const ManipulatorInfo& composite_mi = ci.getManipulatorInfo();
 
-    std::vector<std::reference_wrapper<const Instruction>> fi = tesseract_planning::flatten(ci, planFilter);
-    if (fi.empty())
-      fi = tesseract_planning::flatten(ci, moveFilter);
-
+    std::vector<std::reference_wrapper<const Instruction>> fi = tesseract_planning::flatten(ci, moveFilter);
     for (const auto& i : fi)
     {
       ManipulatorInfo manip_info;
 
       // Check for updated manipulator information and get waypoint
       Waypoint wp{ NullWaypoint() };
-      if (isPlanInstruction(i.get()))
-      {
-        const auto& pi = i.get().as<PlanInstruction>();
-        manip_info = composite_mi.getCombined(pi.getManipulatorInfo());
-        wp = pi.getWaypoint();
-      }
-      else if (isMoveInstruction(i.get()))
+      if (isMoveInstruction(i.get()))
       {
         const auto& mi = i.get().as<MoveInstruction>();
         manip_info = composite_mi.getCombined(mi.getManipulatorInfo());
@@ -127,10 +118,10 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tess
       poses.push_back(calcPose(wp, manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, *state_solver));
     }
   }
-  else if (isPlanInstruction(instruction))
+  else if (isMoveInstruction(instruction))
   {
-    assert(isPlanInstruction(instruction));
-    const auto& pi = instruction.as<PlanInstruction>();
+    assert(isMoveInstruction(instruction));
+    const auto& pi = instruction.as<MoveInstruction>();
 
     // Assume all the plan instructions have the same manipulator as the composite
     assert(!pi.getManipulatorInfo().empty());
@@ -246,11 +237,6 @@ bool programFlattenFilter(const Instruction& instruction,
   if (isMoveInstruction(instruction))
   {
     if (instruction.as<MoveInstruction>().isStart())
-      return (parent_is_first_composite);
-  }
-  else if (isPlanInstruction(instruction))
-  {
-    if (instruction.as<PlanInstruction>().isStart())
       return (parent_is_first_composite);
   }
   else if (isCompositeInstruction(instruction))
@@ -612,9 +598,9 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
     {
       generateNaiveSeedHelper(i.as<CompositeInstruction>(), env, state, manip_info, manip_joint_names);
     }
-    else if (isPlanInstruction(i))
+    else if (isMoveInstruction(i))
     {
-      auto& base_instruction = i.as<PlanInstruction>();
+      auto& base_instruction = i.as<MoveInstruction>();
       ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
       CompositeInstruction ci;
@@ -697,16 +683,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   std::string description;
   std::string profile;
   ProfileDictionary::Ptr profile_overrides;
-  if (isPlanInstruction(seed.getStartInstruction()))
-  {
-    const auto& pi = seed.getStartInstruction().as<PlanInstruction>();
-    wp = pi.getWaypoint();
-    base_mi = pi.getManipulatorInfo();
-    description = pi.getDescription();
-    profile = pi.getProfile();
-    profile_overrides = pi.profile_overrides;
-  }
-  else if (isMoveInstruction(seed.getStartInstruction()))
+  if (isMoveInstruction(seed.getStartInstruction()))
   {
     const auto& pi = seed.getStartInstruction().as<MoveInstruction>();
     wp = pi.getWaypoint();
@@ -771,31 +748,6 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
       if (formatProgramHelper(i.as<CompositeInstruction>(), env, manip_info, manip_joint_names))
         format_required = true;
     }
-    else if (isPlanInstruction(i))
-    {
-      auto& base_instruction = i.as<PlanInstruction>();
-      ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
-
-      ManipulatorInfo combined_mi = mi.getCombined(base_instruction.getManipulatorInfo());
-
-      std::vector<std::string> joint_names;
-      auto it = manip_joint_names.find(combined_mi.manipulator);
-      if (it == manip_joint_names.end())
-      {
-        joint_names = env.getGroupJointNames(combined_mi.manipulator);
-        manip_joint_names[combined_mi.manipulator] = joint_names;
-      }
-      else
-      {
-        joint_names = it->second;
-      }
-
-      if (isStateWaypoint(base_instruction.getWaypoint()) || isJointWaypoint(base_instruction.getWaypoint()))
-      {
-        if (formatJointPosition(joint_names, base_instruction.getWaypoint()))
-          format_required = true;
-      }
-    }
     else if (isMoveInstruction(i))
     {
       auto& base_instruction = i.as<MoveInstruction>();
@@ -836,31 +788,7 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
 
   std::unordered_map<std::string, tesseract_kinematics::JointGroup::UPtr> manipulators;
 
-  if (isPlanInstruction(composite_instructions.getStartInstruction()))
-  {
-    auto& pi = composite_instructions.getStartInstruction().as<PlanInstruction>();
-
-    ManipulatorInfo start_mi = mi.getCombined(pi.getManipulatorInfo());
-
-    std::vector<std::string> joint_names;
-    auto it = manip_joint_names.find(start_mi.manipulator);
-    if (it == manip_joint_names.end())
-    {
-      joint_names = env.getGroupJointNames(start_mi.manipulator);
-      manip_joint_names[start_mi.manipulator] = joint_names;
-    }
-    else
-    {
-      joint_names = it->second;
-    }
-
-    if (isStateWaypoint(pi.getWaypoint()) || isJointWaypoint(pi.getWaypoint()))
-    {
-      if (formatJointPosition(joint_names, pi.getWaypoint()))
-        format_required = true;
-    }
-  }
-  else if (isMoveInstruction(composite_instructions.getStartInstruction()))
+  if (isMoveInstruction(composite_instructions.getStartInstruction()))
   {
     auto& pi = composite_instructions.getStartInstruction().as<MoveInstruction>();
 

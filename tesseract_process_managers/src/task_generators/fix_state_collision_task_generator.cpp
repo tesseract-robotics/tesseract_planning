@@ -340,10 +340,10 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   {
     case FixStateCollisionProfile::Settings::START_ONLY:
     {
-      const PlanInstruction* instr_const_ptr = getFirstPlanInstruction(ci);
+      const MoveInstruction* instr_const_ptr = getFirstMoveInstruction(ci);
       if (instr_const_ptr != nullptr)
       {
-        auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
+        auto* mutable_instruction = const_cast<MoveInstruction*>(instr_const_ptr);  // NOLINT
         info->contact_results.resize(1);
         if (waypointInCollision(
                 mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
@@ -363,10 +363,10 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     break;
     case FixStateCollisionProfile::Settings::END_ONLY:
     {
-      const PlanInstruction* instr_const_ptr = getLastPlanInstruction(ci);
+      const MoveInstruction* instr_const_ptr = getLastMoveInstruction(ci);
       if (instr_const_ptr != nullptr)
       {
-        auto* mutable_instruction = const_cast<PlanInstruction*>(instr_const_ptr);  // NOLINT
+        auto* mutable_instruction = const_cast<MoveInstruction*>(instr_const_ptr);  // NOLINT
         info->contact_results.resize(1);
         if (waypointInCollision(
                 mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
@@ -386,11 +386,11 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     break;
     case FixStateCollisionProfile::Settings::INTERMEDIATE_ONLY:
     {
-      auto flattened = flatten(ci, planFilter);
+      auto flattened = flatten(ci, moveFilter);
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no PlanInstructions to process");
+        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no MoveInstructions to process");
         info->return_value = 1;
         input.addTaskInfo(std::move(info));
         return 1;
@@ -398,7 +398,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
 
       if (flattened.size() <= 2)
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found intermediate PlanInstructions to process");
+        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found intermediate MoveInstructions to process");
         info->return_value = 1;
         input.addTaskInfo(std::move(info));
         return 1;
@@ -408,7 +408,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 1; i < flattened.size() - 1; i++)
       {
-        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
+        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<MoveInstruction>().getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -424,7 +424,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
         {
           const Instruction* instr_const_ptr = &flattened[i].get();
           auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
-          auto& plan = mutable_instruction->as<PlanInstruction>();
+          auto& plan = mutable_instruction->as<MoveInstruction>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
@@ -439,11 +439,11 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     break;
     case FixStateCollisionProfile::Settings::ALL:
     {
-      auto flattened = flatten(ci, planFilter);
+      auto flattened = flatten(ci, moveFilter);
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no PlanInstructions to process");
+        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no MoveInstructions to process");
         info->return_value = 1;
         input.addTaskInfo(std::move(info));
         return 1;
@@ -453,7 +453,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 0; i < flattened.size(); i++)
       {
-        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
+        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<MoveInstruction>().getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -469,7 +469,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
         {
           const Instruction* instr_const_ptr = &flattened[i].get();
           auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
-          auto& plan = mutable_instruction->as<PlanInstruction>();
+          auto& plan = mutable_instruction->as<MoveInstruction>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
@@ -484,11 +484,11 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     break;
     case FixStateCollisionProfile::Settings::ALL_EXCEPT_START:
     {
-      auto flattened = flatten(ci, planFilter);
+      auto flattened = flatten(ci, moveFilter);
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no PlanInstructions to process");
+        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no MoveInstructions to process");
         info->return_value = 1;
         input.addTaskInfo(std::move(info));
         return 1;
@@ -498,7 +498,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 1; i < flattened.size(); i++)
       {
-        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
+        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<MoveInstruction>().getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -514,7 +514,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
         {
           const Instruction* instr_const_ptr = &flattened[i].get();
           auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
-          auto& plan = mutable_instruction->as<PlanInstruction>();
+          auto& plan = mutable_instruction->as<MoveInstruction>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
@@ -529,11 +529,11 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
     break;
     case FixStateCollisionProfile::Settings::ALL_EXCEPT_END:
     {
-      auto flattened = flatten(ci, planFilter);
+      auto flattened = flatten(ci, moveFilter);
       info->contact_results.resize(flattened.size());
       if (flattened.size() <= 1)
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no PlanInstructions to process");
+        CONSOLE_BRIDGE_logWarn("FixStateCollisionTaskGenerator found no MoveInstructions to process");
         info->return_value = 1;
         input.addTaskInfo(std::move(info));
         return 1;
@@ -543,7 +543,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       std::vector<bool> in_collision_vec(flattened.size());
       for (std::size_t i = 0; i < flattened.size() - 1; i++)
       {
-        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<PlanInstruction>().getWaypoint(),
+        in_collision_vec[i] = waypointInCollision(flattened[i].get().as<MoveInstruction>().getWaypoint(),
                                                   input,
                                                   *cur_composite_profile,
                                                   info->contact_results[i]);
@@ -559,7 +559,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
         {
           const Instruction* instr_const_ptr = &flattened[i].get();
           auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
-          auto& plan = mutable_instruction->as<PlanInstruction>();
+          auto& plan = mutable_instruction->as<MoveInstruction>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {

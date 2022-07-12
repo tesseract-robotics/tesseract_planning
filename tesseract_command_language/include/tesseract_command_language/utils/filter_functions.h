@@ -45,8 +45,6 @@ using locateFilterFn =
 
 bool moveFilter(const Instruction& instruction, const CompositeInstruction& composite, bool parent_is_first_composite);
 
-bool planFilter(const Instruction& instruction, const CompositeInstruction& composite, bool parent_is_first_composite);
-
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_COMMAND_LANGUAGE_UTILS_H

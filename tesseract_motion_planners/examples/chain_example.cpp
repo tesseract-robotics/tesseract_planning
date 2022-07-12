@@ -108,14 +108,14 @@ int main(int /*argc*/, char** /*argv*/)
         Eigen::Isometry3d::Identity() * Eigen::Translation3d(1.0, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
 
     // Define Plan Instructions
-    PlanInstruction start_instruction(wp0, PlanInstructionType::START);
-    PlanInstruction plan_f1(wp1, PlanInstructionType::FREESPACE, "DEFAULT");
-    PlanInstruction plan_c1(wp2, PlanInstructionType::LINEAR, "DEFAULT");
-    PlanInstruction plan_c2(wp3, PlanInstructionType::LINEAR, "DEFAULT");
-    PlanInstruction plan_c3(wp4, PlanInstructionType::LINEAR, "DEFAULT");
-    PlanInstruction plan_c4(wp5, PlanInstructionType::LINEAR, "DEFAULT");
-    PlanInstruction plan_c5(wp6, PlanInstructionType::LINEAR, "DEFAULT");
-    PlanInstruction plan_f3(wp0, PlanInstructionType::FREESPACE, "DEFAULT");
+    MoveInstruction start_instruction(wp0, MoveInstructionType::START);
+    MoveInstruction plan_f1(wp1, MoveInstructionType::FREESPACE, "DEFAULT");
+    MoveInstruction plan_c1(wp2, MoveInstructionType::LINEAR, "DEFAULT");
+    MoveInstruction plan_c2(wp3, MoveInstructionType::LINEAR, "DEFAULT");
+    MoveInstruction plan_c3(wp4, MoveInstructionType::LINEAR, "DEFAULT");
+    MoveInstruction plan_c4(wp5, MoveInstructionType::LINEAR, "DEFAULT");
+    MoveInstruction plan_c5(wp6, MoveInstructionType::LINEAR, "DEFAULT");
+    MoveInstruction plan_f3(wp0, MoveInstructionType::FREESPACE, "DEFAULT");
 
     // Create program
     CompositeInstruction program;

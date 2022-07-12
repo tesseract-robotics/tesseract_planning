@@ -147,7 +147,7 @@ bool BasicCartesianExample::run()
 
   // Start Joint Position for the program
   Waypoint wp0 = StateWaypoint(joint_names, joint_pos);
-  PlanInstruction start_instruction(wp0, PlanInstructionType::START);
+  MoveInstruction start_instruction(wp0, MoveInstructionType::START);
   program.setStartInstruction(start_instruction);
 
   // Create cartesian waypoint
@@ -158,14 +158,14 @@ bool BasicCartesianExample::run()
                                    Eigen::Quaterniond(0, 0, 1.0, 0));
 
   // Plan freespace from start
-  PlanInstruction plan_f0(wp1, PlanInstructionType::FREESPACE, "freespace_profile");
+  MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
   plan_f0.setDescription("from_start_plan");
 
   // Plan linear move
-  PlanInstruction plan_c0(wp2, PlanInstructionType::LINEAR, "RASTER");
+  MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR, "RASTER");
 
   // Plan freespace to end
-  PlanInstruction plan_f1(wp0, PlanInstructionType::FREESPACE, "freespace_profile");
+  MoveInstruction plan_f1(wp0, MoveInstructionType::FREESPACE, "freespace_profile");
   plan_f1.setDescription("to_end_plan");
 
   // Add Instructions to program

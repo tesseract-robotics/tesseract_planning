@@ -62,9 +62,9 @@ public:
                                   int min_steps = 1,
                                   int max_steps = std::numeric_limits<int>::max());
 
-  CompositeInstruction generate(const PlanInstruction& prev_instruction,
+  CompositeInstruction generate(const MoveInstruction& prev_instruction,
                                 const MoveInstruction& prev_seed,
-                                const PlanInstruction& base_instruction,
+                                const MoveInstruction& base_instruction,
                                 const Instruction& next_instruction,
                                 const PlannerRequest& request,
                                 const ManipulatorInfo& global_manip_info) const override;

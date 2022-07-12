@@ -1,7 +1,7 @@
 /**
  * @file simple_motion_planner.cpp
  * @brief The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all
- * of the PlanInstructions and then calls the appropriate function from the profile. These functions do not depend on
+ * of the MoveInstructions and then calls the appropriate function from the profile. These functions do not depend on
  * the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.
  *
  * @author Matthew Powelson
@@ -109,16 +109,16 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   CompositeInstruction seed;
 
   // Get the start waypoint/instruction
-  PlanInstruction start_instruction = getStartInstruction(request, request.env_state, *manip);
+  MoveInstruction start_instruction = getStartInstruction(request, request.env_state, *manip);
 
   // Set start instruction
-  MoveInstruction start_instruction_seed(start_instruction.getWaypoint(), start_instruction);
+  MoveInstruction start_instruction_seed = start_instruction;
   start_instruction_seed.setMoveType(MoveInstructionType::START);
 
   // Process the instructions into the seed
   try
   {
-    PlanInstruction start_instruction_copy = start_instruction;
+    MoveInstruction start_instruction_copy = start_instruction;
     MoveInstruction start_instruction_seed_copy = start_instruction_seed;
     seed =
         processCompositeInstruction(request.instructions, start_instruction_copy, start_instruction_seed_copy, request);
@@ -153,18 +153,18 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   return response.status;
 }
 
-PlanInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
+MoveInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
                                                          const tesseract_scene_graph::SceneState& current_state,
                                                          const tesseract_kinematics::JointGroup& manip)
 {
   // Create start instruction
   Waypoint start_waypoint{ NullWaypoint() };
-  PlanInstruction start_instruction_seed(start_waypoint, PlanInstructionType::START);
+  MoveInstruction start_instruction_seed(start_waypoint, MoveInstructionType::START);
 
   if (request.instructions.hasStartInstruction())
   {
-    assert(isPlanInstruction(request.instructions.getStartInstruction()));
-    const auto& start_instruction = request.instructions.getStartInstruction().as<PlanInstruction>();
+    assert(isMoveInstruction(request.instructions.getStartInstruction()));
+    const auto& start_instruction = request.instructions.getStartInstruction().as<MoveInstruction>();
     assert(start_instruction.isStart());
     start_waypoint = start_instruction.getWaypoint();
 
@@ -208,7 +208,7 @@ PlanInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& r
 }
 
 CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
-                                                                      PlanInstruction& prev_instruction,
+                                                                      MoveInstruction& prev_instruction,
                                                                       MoveInstruction& prev_seed,
                                                                       const PlannerRequest& request) const
 {
@@ -224,15 +224,15 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       seed.push_back(
           processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, prev_seed, request));
     }
-    else if (isPlanInstruction(instruction))
+    else if (isMoveInstruction(instruction))
     {
-      const auto& base_instruction = instruction.as<PlanInstruction>();
+      const auto& base_instruction = instruction.as<MoveInstruction>();
 
       // Get the next plan instruction if it exists
       Instruction next_instruction = NullInstruction();
       for (std::size_t n = i + 1; n < instructions.size(); ++n)
       {
-        if (isPlanInstruction(instructions[n]))
+        if (isMoveInstruction(instructions[n]))
         {
           next_instruction = instructions[n];
           break;
@@ -270,10 +270,6 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
 
       prev_instruction = base_instruction;
       prev_seed = instruction_seed.back().as<MoveInstruction>();
-    }
-    else if (isMoveInstruction(instruction))
-    {
-      throw std::runtime_error("SimpleMotionPlanner: The input program includes MoveInstructions!");
     }
     else
     {

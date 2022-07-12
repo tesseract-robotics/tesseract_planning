@@ -114,7 +114,6 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
 {
   for (const Instruction& i : current_composite)
   {
-    assert(!isPlanInstruction(i));
     if (isCompositeInstruction(i))
     {
       const auto& cc = i.as<CompositeInstruction>();
@@ -150,7 +149,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     }
     else
     {
-      assert(!isPlanInstruction(i));
+      assert(!isMoveInstruction(i));
       composite.push_back(i);
     }
   }

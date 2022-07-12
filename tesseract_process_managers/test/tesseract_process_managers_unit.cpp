@@ -140,7 +140,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlan
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
-  auto pcnt = getPlanInstructionCount(request.instructions);
+  auto pcnt = getMoveInstructionCount(request.instructions);
   auto mcnt = getMoveInstructionCount(response.results);
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
@@ -259,7 +259,7 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignP
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
-  auto pcnt = getPlanInstructionCount(request.instructions);
+  auto pcnt = getMoveInstructionCount(request.instructions);
   auto mcnt = getMoveInstructionCount(response.results);
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into

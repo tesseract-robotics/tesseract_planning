@@ -55,7 +55,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       for (std::size_t k = 0; k < k_max; k++)
       {
         Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
-        PlanInstruction instruction(wp, PlanInstructionType::LINEAR);
+        MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
         sub_sub_composite.push_back(instruction);
@@ -178,13 +178,13 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
       sub_sub_composite.setDescription("sub_sub_composite_" + std::to_string(j));
 
       Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
-      PlanInstruction pattern_instruction(wp, PlanInstructionType::LINEAR);
+      MoveInstruction pattern_instruction(wp, MoveInstructionType::LINEAR);
       pattern_instruction.setDescription("pattern_instruction_" + std::to_string(i) + "_" + std::to_string(j));
       sub_pattern.push_back(pattern_instruction);
       for (std::size_t k = 0; k < k_max; k++)
       {
         Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
-        PlanInstruction instruction(wp, PlanInstructionType::LINEAR);
+        MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
         sub_sub_composite.push_back(instruction);
@@ -410,8 +410,8 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
   for (std::size_t i = 0; i < i_max; i++)
   {
     Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
-    PlanInstruction instruction(wp, PlanInstructionType::LINEAR);
-    instruction.setDescription("PlanInstruction");
+    MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
+    instruction.setDescription("MoveInstruction");
     instruction.setProfile("CART_PROFILE");
     composite.push_back(instruction);
   }
@@ -426,23 +426,23 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
   EXPECT_EQ(skeleton.getManipulatorInfo(), composite.getManipulatorInfo());
   // TODO: Test startInstruction
 
-  // Check that each PlanInstruction has been turned into a CompositeInstruction
+  // Check that each MoveInstruction has been turned into a CompositeInstruction
   // Check that CompositeInstructions are recursively handled (TODO)
-  // Check that non-PlanInstructions are passed through (TODO)
+  // Check that non-MoveInstructions are passed through (TODO)
   ASSERT_EQ(skeleton.size(), composite.size());
   for (std::size_t i = 0; i < i_max; i++)
   {
     const auto& skeleton_i = skeleton[i];
     const auto& composite_i = composite[i];
-    if (isPlanInstruction(composite_i))
+    if (isMoveInstruction(composite_i))
     {
       ASSERT_TRUE(isCompositeInstruction(skeleton_i));
       const auto& cast = skeleton_i.as<CompositeInstruction>();
 
-      EXPECT_EQ(cast.getProfile(), composite_i.as<PlanInstruction>().getProfile());
+      EXPECT_EQ(cast.getProfile(), composite_i.as<MoveInstruction>().getProfile());
       EXPECT_EQ(cast.getOrder(), CompositeInstructionOrder::ORDERED);
-      EXPECT_EQ(cast.getDescription(), "PlanInstruction");
-      EXPECT_EQ(cast.getManipulatorInfo(), composite_i.as<PlanInstruction>().getManipulatorInfo());
+      EXPECT_EQ(cast.getDescription(), "MoveInstruction");
+      EXPECT_EQ(cast.getManipulatorInfo(), composite_i.as<MoveInstruction>().getManipulatorInfo());
     }
     else
     {

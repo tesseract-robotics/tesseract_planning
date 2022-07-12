@@ -67,12 +67,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   request.env_state = env_->getState();
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
-  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
-  MoveInstruction instr1_seed(wp1_seed, instr1);
+  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.setWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
-  PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   NullInstruction instr3;
 
@@ -115,12 +115,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
-  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
-  MoveInstruction instr1_seed(wp1_seed, instr1);
+  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.setWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
-  PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   NullInstruction instr3;
 
@@ -174,13 +174,13 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
 
-  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
-  MoveInstruction instr1_seed(wp1_seed, instr1);
+  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.setWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
   CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
-  PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   NullInstruction instr3;
 
@@ -222,12 +222,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = request.env->getJointGroup(manip_info_.manipulator);
 
   JointWaypoint wp1(joint_names_, Eigen::VectorXd::Zero(7));
-  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
-  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
-  MoveInstruction instr1_seed(wp1_seed, instr1);
+  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.setWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
   CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
-  PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   NullInstruction instr3;
 
@@ -283,12 +283,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
-  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
-  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
-  MoveInstruction instr1_seed(wp1_seed, instr1);
+  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.setWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
-  PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   NullInstruction instr3;
 
@@ -329,12 +329,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
-  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
-  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
-  MoveInstruction instr1_seed(wp1_seed, instr1);
+  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.setWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
   JointWaypoint wp2(joint_names_, Eigen::VectorXd::Ones(7));
-  PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   NullInstruction instr3;
 
@@ -388,12 +388,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
-  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
-  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
-  MoveInstruction instr1_seed(wp1_seed, instr1);
+  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.setWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
   CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
-  PlanInstruction instr2(wp2, PlanInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
   NullInstruction instr3;
 
@@ -436,12 +436,12 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   auto joint_group = env_->getJointGroup(manip_info_.manipulator);
 
   CartesianWaypoint wp1 = joint_group->calcFwdKin(Eigen::VectorXd::Zero(7)).at(manip_info_.tcp_frame);
-  JointWaypoint wp1_seed(joint_names_, request.env_state.getJointValues(joint_names_));
-  PlanInstruction instr1(wp1, PlanInstructionType::START, "TEST_PROFILE", manip_info_);
-  MoveInstruction instr1_seed(wp1_seed, instr1);
+  MoveInstruction instr1(wp1, MoveInstructionType::START, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr1_seed{ instr1 };
+  instr1_seed.setWaypoint(JointWaypoint(joint_names_, request.env_state.getJointValues(joint_names_)));
 
   CartesianWaypoint wp2 = joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame);
-  PlanInstruction instr2(wp2, PlanInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
+  MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
   NullInstruction instr3;
 

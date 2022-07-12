@@ -165,14 +165,14 @@ bool PuzzlePieceAuxillaryAxesExample::run()
 
   // Create cartesian waypoint
   Waypoint wp = CartesianWaypoint(tool_poses[0]);
-  PlanInstruction plan_instruction(wp, PlanInstructionType::START, "CARTESIAN");
+  MoveInstruction plan_instruction(wp, MoveInstructionType::START, "CARTESIAN");
   plan_instruction.setDescription("from_start_plan");
   program.setStartInstruction(plan_instruction);
 
   for (std::size_t i = 1; i < tool_poses.size(); ++i)
   {
     Waypoint wp = CartesianWaypoint(tool_poses[i]);
-    PlanInstruction plan_instruction(wp, PlanInstructionType::LINEAR, "CARTESIAN");
+    MoveInstruction plan_instruction(wp, MoveInstructionType::LINEAR, "CARTESIAN");
     plan_instruction.setDescription("waypoint_" + std::to_string(i));
     program.push_back(plan_instruction);
   }

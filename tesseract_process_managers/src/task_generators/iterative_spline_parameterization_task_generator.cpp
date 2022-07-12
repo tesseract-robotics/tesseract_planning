@@ -101,7 +101,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   Eigen::VectorXd acceleration_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
                                                  cur_composite_profile->max_acceleration_scaling_factor;
 
-  // Loop over all PlanInstructions
+  // Loop over all MoveInstructions
   for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
   {
     const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstruction>();

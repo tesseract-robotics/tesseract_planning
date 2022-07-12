@@ -26,7 +26,6 @@
 #ifndef TESSERACT_COMMAND_LANGUAGE_UTILS_FLATTEN_UTILS_H
 #define TESSERACT_COMMAND_LANGUAGE_UTILS_FLATTEN_UTILS_H
 
-#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/utils/filter_functions.h>

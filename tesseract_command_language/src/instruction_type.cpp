@@ -26,7 +26,6 @@
 
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/null_instruction.h>
-#include <tesseract_command_language/plan_instruction.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
@@ -78,11 +77,6 @@ bool isCompositeInstruction(const Instruction& instruction)
 bool isMoveInstruction(const Instruction& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(MoveInstruction)));
-}
-
-bool isPlanInstruction(const Instruction& instruction)
-{
-  return (instruction.getType() == std::type_index(typeid(PlanInstruction)));
 }
 
 bool isNullInstruction(const Instruction& instruction)
