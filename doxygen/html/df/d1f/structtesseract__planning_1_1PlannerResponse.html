@@ -106,14 +106,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a768f7be97302935b5223b00c37611efe"><td class="memItemLeft" align="right" valign="top">tesseract_common::StatusCode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#a768f7be97302935b5223b00c37611efe">status</a></td></tr>
 <tr class="memdesc:a768f7be97302935b5223b00c37611efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The status information.  <a href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#a768f7be97302935b5223b00c37611efe">More...</a><br /></td></tr>
 <tr class="separator:a768f7be97302935b5223b00c37611efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d76c7a5b1cfc4bc21bb3a6037fe4332"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#a6d76c7a5b1cfc4bc21bb3a6037fe4332">succeeded_instructions</a></td></tr>
+<tr class="memitem:a6d76c7a5b1cfc4bc21bb3a6037fe4332"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#a6d76c7a5b1cfc4bc21bb3a6037fe4332">succeeded_instructions</a> {}</td></tr>
 <tr class="memdesc:a6d76c7a5b1cfc4bc21bb3a6037fe4332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waypoints for which the planner succeeded.  <a href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#a6d76c7a5b1cfc4bc21bb3a6037fe4332">More...</a><br /></td></tr>
 <tr class="separator:a6d76c7a5b1cfc4bc21bb3a6037fe4332"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a516c58180eae07880a0b9da74077af6c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#a516c58180eae07880a0b9da74077af6c">failed_instructions</a></td></tr>
+<tr class="memitem:a516c58180eae07880a0b9da74077af6c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#a516c58180eae07880a0b9da74077af6c">failed_instructions</a> {}</td></tr>
 <tr class="memdesc:a516c58180eae07880a0b9da74077af6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waypoints for which the planner failed.  <a href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#a516c58180eae07880a0b9da74077af6c">More...</a><br /></td></tr>
 <tr class="separator:a516c58180eae07880a0b9da74077af6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab010e84ee5bd79ee47b0e45efb6419f6"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#ab010e84ee5bd79ee47b0e45efb6419f6">data</a></td></tr>
-<tr class="memdesc:ab010e84ee5bd79ee47b0e45efb6419f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">data Planner specific data. For planners included in Tesseract_planning this is the planner problem that was solved  <a href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#ab010e84ee5bd79ee47b0e45efb6419f6">More...</a><br /></td></tr>
+<tr class="memdesc:ab010e84ee5bd79ee47b0e45efb6419f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Planner specific data. Planners in Tesseract_planning use this to store the planner problem that was solved.  <a href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html#ab010e84ee5bd79ee47b0e45efb6419f6">More...</a><br /></td></tr>
 <tr class="separator:ab010e84ee5bd79ee47b0e45efb6419f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -129,7 +129,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>data Planner specific data. For planners included in Tesseract_planning this is the planner problem that was solved </p>
+<p>Planner specific data. Planners in Tesseract_planning use this to store the planner problem that was solved. </p>
 
 </div>
 </div>
@@ -140,7 +140,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::reference_wrapper&lt;<a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>&gt; &gt; tesseract_planning::PlannerResponse::failed_instructions</td>
+          <td class="memname">std::vector&lt;std::reference_wrapper&lt;<a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>&gt; &gt; tesseract_planning::PlannerResponse::failed_instructions {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -186,7 +186,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::reference_wrapper&lt;<a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>&gt; &gt; tesseract_planning::PlannerResponse::succeeded_instructions</td>
+          <td class="memname">std::vector&lt;std::reference_wrapper&lt;<a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>&gt; &gt; tesseract_planning::PlannerResponse::succeeded_instructions {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -201,7 +201,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 7 2022 15:40:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Jul 12 2022 16:04:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

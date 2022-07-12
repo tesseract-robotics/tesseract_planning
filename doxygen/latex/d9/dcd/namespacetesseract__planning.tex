@@ -609,8 +609,6 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ac25e52a76d6ada60b39ff9bb422d
 \begin{DoxyCompactList}\small\item\em This formats the joint and state waypoints to align with the kinematics object. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_a7cc42c6f98936d7b99258a4760d940f0}{generate\+Seed}} (const \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \&instructions, const tesseract\+\_\+scene\+\_\+graph\+::\+Scene\+State \&current\+\_\+state, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, double state\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=5 $\ast$M\+\_\+\+PI/180, double translation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=0.\+15, double rotation\+\_\+longest\+\_\+valid\+\_\+segment\+\_\+length=5 $\ast$M\+\_\+\+PI/180, int min\+\_\+steps=1)
 \begin{DoxyCompactList}\small\item\em Provided for backwards compatibility. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_a84a6b6ea6d6f4d4c1c510caa6dcf5449}{is\+Within\+Joint\+Limits}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
-\begin{DoxyCompactList}\small\item\em Check if a joint is within limits. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_a42d12aecef0129c505a6f91003c02603}{is\+Within\+Joint\+Limits}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits, const Eigen\+::\+Vector2d \&coupling\+\_\+limits)
 \begin{DoxyCompactList}\small\item\em Check if a joint is within limits This will allows you to provide joint 4 and joint 6 coupling limits. This will still work if the robot is on a position. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_a40e1a43db1c6a2eec3a793887b17dca7}{is\+Valid\+State}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
@@ -3350,31 +3348,10 @@ True if within limits otherwise false
 \doxysubsubsection{\texorpdfstring{isWaitInstruction()}{isWaitInstruction()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Wait\+Instruction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} \&}]{instruction }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a84a6b6ea6d6f4d4c1c510caa6dcf5449}\label{namespacetesseract__planning_a84a6b6ea6d6f4d4c1c510caa6dcf5449}} 
-\index{tesseract\_planning@{tesseract\_planning}!isWithinJointLimits@{isWithinJointLimits}}
-\index{isWithinJointLimits@{isWithinJointLimits}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{isWithinJointLimits()}{isWithinJointLimits()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
-bool tesseract\+\_\+planning\+::is\+Within\+Joint\+Limits (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&}]{joint\+\_\+values,  }\item[{const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&}]{limits }\end{DoxyParamCaption})}
-
-
-
-Check if a joint is within limits. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em joint\+\_\+values} & The joint values of the robot \\
-\hline
-{\em limits} & The robot joint limits \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-
-\end{DoxyReturn}
 \mbox{\Hypertarget{namespacetesseract__planning_a42d12aecef0129c505a6f91003c02603}\label{namespacetesseract__planning_a42d12aecef0129c505a6f91003c02603}} 
 \index{tesseract\_planning@{tesseract\_planning}!isWithinJointLimits@{isWithinJointLimits}}
 \index{isWithinJointLimits@{isWithinJointLimits}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{isWithinJointLimits()}{isWithinJointLimits()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\doxysubsubsection{\texorpdfstring{isWithinJointLimits()}{isWithinJointLimits()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$typename Float\+Type $>$ \\
 bool tesseract\+\_\+planning\+::is\+Within\+Joint\+Limits (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&}]{joint\+\_\+values,  }\item[{const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&}]{limits,  }\item[{const Eigen\+::\+Vector2d \&}]{coupling\+\_\+limits }\end{DoxyParamCaption})}
 
@@ -3397,7 +3374,7 @@ True if within limits otherwise false
 \mbox{\Hypertarget{namespacetesseract__planning_a006d576ff51dbc06d744c7655d75b94b}\label{namespacetesseract__planning_a006d576ff51dbc06d744c7655d75b94b}} 
 \index{tesseract\_planning@{tesseract\_planning}!isWithinJointLimits@{isWithinJointLimits}}
 \index{isWithinJointLimits@{isWithinJointLimits}!tesseract\_planning@{tesseract\_planning}}
-\doxysubsubsection{\texorpdfstring{isWithinJointLimits()}{isWithinJointLimits()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+\doxysubsubsection{\texorpdfstring{isWithinJointLimits()}{isWithinJointLimits()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::is\+Within\+Joint\+Limits (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} \&}]{wp,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&}]{limits }\end{DoxyParamCaption})}
 
 

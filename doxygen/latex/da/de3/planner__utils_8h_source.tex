@@ -14,122 +14,112 @@
 \DoxyCodeLine{34 }
 \DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{constants_8h}{tesseract\_command\_language/constants.h}}>}}
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <tesseract\_kinematics/core/forward\_kinematics.h>}}
-\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{robot__config_8h}{tesseract\_motion\_planners/robot\_config.h}}>}}
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h}{tesseract\_motion\_planners/core/types.h}}>}}
-\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{profile__dictionary_8h}{tesseract\_command\_language/profile\_dictionary.h}}>}}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{49 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{50 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a006d576ff51dbc06d744c7655d75b94b}{isWithinJointLimits}}(\textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
-\DoxyCodeLine{51                          \textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 2>\& limits)}
-\DoxyCodeLine{52 \{}
-\DoxyCodeLine{53   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < limits.rows(); ++i)}
-\DoxyCodeLine{54     \textcolor{keywordflow}{if} ((joint\_values(i) < limits(i, 0)) || (joint\_values(i) > limits(i, 1)))}
-\DoxyCodeLine{55       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{58 \}}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{69 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{70 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a006d576ff51dbc06d744c7655d75b94b}{isWithinJointLimits}}(\textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
-\DoxyCodeLine{71                          \textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 2>\& limits,}
-\DoxyCodeLine{72                          \textcolor{keyword}{const} Eigen::Vector2d\& coupling\_limits)}
-\DoxyCodeLine{73 \{}
-\DoxyCodeLine{74   \textcolor{keywordflow}{if} (isWithinJointLimits<FloatType>(joint\_values, limits))}
-\DoxyCodeLine{75   \{}
-\DoxyCodeLine{76     \textcolor{keywordflow}{if} (((joint\_values(joint\_values.size() -\/ 3) + joint\_values(joint\_values.size() -\/ 1)) < coupling\_limits(0)) ||}
-\DoxyCodeLine{77         ((joint\_values(joint\_values.size() -\/ 3) + joint\_values(joint\_values.size() -\/ 1)) > coupling\_limits(1)))}
-\DoxyCodeLine{78       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{79   \}}
-\DoxyCodeLine{80   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{81   \{}
-\DoxyCodeLine{82     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{83   \}}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{86 \}}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{95 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{96 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a40e1a43db1c6a2eec3a793887b17dca7}{isValidState}}(\textcolor{keyword}{const} tesseract\_kinematics::ForwardKinematics::ConstPtr\& robot\_kin,}
-\DoxyCodeLine{97                   \textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
-\DoxyCodeLine{98                   \textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 2>\& limits)}
-\DoxyCodeLine{99 \{}
-\DoxyCodeLine{100   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacetesseract__planning_a006d576ff51dbc06d744c7655d75b94b}{isWithinJointLimits}}(joint\_values, limits))}
-\DoxyCodeLine{101     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{103   Eigen::Vector2i sign\_correction = Eigen::Vector2i::Ones();}
-\DoxyCodeLine{104   sign\_correction(0) = -\/1;}
-\DoxyCodeLine{105   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{RobotConfig}} robot\_config =}
-\DoxyCodeLine{106       getRobotConfig<FloatType>(joint\_values.tail(robot\_kin-\/>numJoints()), robot\_kin, sign\_correction);}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108   \textcolor{keywordflow}{return} !(robot\_config != \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf}{RobotConfig::FUT}} \&\& robot\_config != \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0}{RobotConfig::NUT}});}
-\DoxyCodeLine{109 \}}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{119 \textcolor{keyword}{inline} std::string \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(\textcolor{keyword}{const} std::string\& ns,}
-\DoxyCodeLine{120                                     \textcolor{keyword}{const} std::string\& profile,}
-\DoxyCodeLine{121                                     \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}}\& profile\_remapping,}
-\DoxyCodeLine{122                                     std::string default\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}})}
-\DoxyCodeLine{123 \{}
-\DoxyCodeLine{124   std::string results = profile;}
-\DoxyCodeLine{125   \textcolor{keywordflow}{if} (profile.empty())}
-\DoxyCodeLine{126     results = std::move(default\_profile);}
-\DoxyCodeLine{127 }
-\DoxyCodeLine{128   \textcolor{comment}{// Check for remapping of profile}}
-\DoxyCodeLine{129   \textcolor{keyword}{auto} remap = profile\_remapping.find(ns);}
-\DoxyCodeLine{130   \textcolor{keywordflow}{if} (remap != profile\_remapping.end())}
-\DoxyCodeLine{131   \{}
-\DoxyCodeLine{132     \textcolor{keyword}{auto} p = remap-\/>second.find(profile);}
-\DoxyCodeLine{133     \textcolor{keywordflow}{if} (p != remap-\/>second.end())}
-\DoxyCodeLine{134       results = p-\/>second;}
-\DoxyCodeLine{135   \}}
-\DoxyCodeLine{136   \textcolor{keywordflow}{return} results;}
-\DoxyCodeLine{137 \}}
-\DoxyCodeLine{138 }
-\DoxyCodeLine{147 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{148 std::shared\_ptr<const ProfileType> \mbox{\hyperlink{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}{getProfile}}(\textcolor{keyword}{const} std::string\& ns,}
-\DoxyCodeLine{149                                               \textcolor{keyword}{const} std::string\& profile,}
-\DoxyCodeLine{150                                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{ProfileDictionary}}\& profile\_dictionary,}
-\DoxyCodeLine{151                                               std::shared\_ptr<const ProfileType> default\_profile = \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{152 \{}
-\DoxyCodeLine{153   \textcolor{keywordflow}{if} (profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aa72e7841d99a279c706c6cac7e73b2a2}{hasProfile}}<ProfileType>(ns, profile))}
-\DoxyCodeLine{154     \textcolor{keywordflow}{return} profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a76d882f0e611b3404718188d5da22a2c}{getProfile}}<ProfileType>(ns, profile);}
-\DoxyCodeLine{155 }
-\DoxyCodeLine{156   CONSOLE\_BRIDGE\_logDebug(\textcolor{stringliteral}{"{}Profile '\%s' was not found in namespace '\%s' for type '\%s'. Using default if available. "{}}}
-\DoxyCodeLine{157                           \textcolor{stringliteral}{"{}Available "{}}}
-\DoxyCodeLine{158                           \textcolor{stringliteral}{"{}profiles:"{}},}
-\DoxyCodeLine{159                           profile.c\_str(),}
-\DoxyCodeLine{160                           ns.c\_str(),}
-\DoxyCodeLine{161                           \textcolor{keyword}{typeid}(ProfileType).name());}
-\DoxyCodeLine{162 }
-\DoxyCodeLine{163   \textcolor{keywordflow}{if} (profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a027d12665c57e25d5bbdf62520d076ff}{hasProfileEntry}}<ProfileType>(ns))}
-\DoxyCodeLine{164   \{}
-\DoxyCodeLine{165     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& pair : profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a55a06d6b378a41a29b5fb776cb525f0f}{getProfileEntry}}<ProfileType>(ns))}
-\DoxyCodeLine{166     \{}
-\DoxyCodeLine{167       CONSOLE\_BRIDGE\_logDebug(\textcolor{stringliteral}{"{}\%s"{}}, pair.first.c\_str());}
-\DoxyCodeLine{168     \}}
-\DoxyCodeLine{169   \}}
-\DoxyCodeLine{170 }
-\DoxyCodeLine{171   \textcolor{keywordflow}{return} default\_profile;}
-\DoxyCodeLine{172 \}}
-\DoxyCodeLine{173 }
-\DoxyCodeLine{183 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
-\DoxyCodeLine{184 std::shared\_ptr<const ProfileType> \mbox{\hyperlink{namespacetesseract__planning_abc4e0abb003d616199f38f74bdad6421}{applyProfileOverrides}}(\textcolor{keyword}{const} std::string\& ns,}
-\DoxyCodeLine{185                                                          \textcolor{keyword}{const} std::string\& profile,}
-\DoxyCodeLine{186                                                          \textcolor{keyword}{const} std::shared\_ptr<ProfileType>\& nominal\_profile,}
-\DoxyCodeLine{187                                                          \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}}\& overrides = \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{188 \{}
-\DoxyCodeLine{189   \textcolor{keywordflow}{if} (!overrides)}
-\DoxyCodeLine{190     \textcolor{keywordflow}{return} nominal\_profile;}
-\DoxyCodeLine{191 }
-\DoxyCodeLine{192   \textcolor{keywordflow}{if} (overrides-\/>hasProfile<ProfileType>(ns, profile))}
-\DoxyCodeLine{193     \textcolor{keywordflow}{return} overrides-\/>getProfile<ProfileType>(ns, profile);}
-\DoxyCodeLine{194 }
-\DoxyCodeLine{195   \textcolor{keywordflow}{return} nominal\_profile;}
-\DoxyCodeLine{196 \}}
-\DoxyCodeLine{197 }
-\DoxyCodeLine{198 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{199 }
-\DoxyCodeLine{200 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_PLANNER\_UTILS\_H}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <tesseract\_common/kinematic\_limits.h>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{robot__config_8h}{tesseract\_motion\_planners/robot\_config.h}}>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h}{tesseract\_motion\_planners/core/types.h}}>}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{profile__dictionary_8h}{tesseract\_command\_language/profile\_dictionary.h}}>}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{53 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{54 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a006d576ff51dbc06d744c7655d75b94b}{isWithinJointLimits}}(\textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
+\DoxyCodeLine{55                          \textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 2>\& limits,}
+\DoxyCodeLine{56                          \textcolor{keyword}{const} Eigen::Vector2d\& coupling\_limits)}
+\DoxyCodeLine{57 \{}
+\DoxyCodeLine{58   \textcolor{keywordflow}{if} (tesseract\_common::isWithinPositionLimits<FloatType>(joint\_values, limits))}
+\DoxyCodeLine{59   \{}
+\DoxyCodeLine{60     \textcolor{keywordflow}{if} (((joint\_values(joint\_values.size() -\/ 3) + joint\_values(joint\_values.size() -\/ 1)) < coupling\_limits(0)) ||}
+\DoxyCodeLine{61         ((joint\_values(joint\_values.size() -\/ 3) + joint\_values(joint\_values.size() -\/ 1)) > coupling\_limits(1)))}
+\DoxyCodeLine{62       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{65   \{}
+\DoxyCodeLine{66     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{67   \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{70 \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{79 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{80 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a40e1a43db1c6a2eec3a793887b17dca7}{isValidState}}(\textcolor{keyword}{const} tesseract\_kinematics::ForwardKinematics::ConstPtr\& robot\_kin,}
+\DoxyCodeLine{81                   \textcolor{keyword}{const} Eigen::Ref<\textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>\& joint\_values,}
+\DoxyCodeLine{82                   \textcolor{keyword}{const} Eigen::Matrix<FloatType, Eigen::Dynamic, 2>\& limits)}
+\DoxyCodeLine{83 \{}
+\DoxyCodeLine{84   \textcolor{keywordflow}{if} (!tesseract\_common::isWithinPositionLimits(joint\_values, limits))}
+\DoxyCodeLine{85     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87   Eigen::Vector2i sign\_correction = Eigen::Vector2i::Ones();}
+\DoxyCodeLine{88   sign\_correction(0) = -\/1;}
+\DoxyCodeLine{89   \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579}{RobotConfig}} robot\_config =}
+\DoxyCodeLine{90       getRobotConfig<FloatType>(joint\_values.tail(robot\_kin-\/>numJoints()), robot\_kin, sign\_correction);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92   \textcolor{keywordflow}{return} !(robot\_config != \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579a77600c70a81708b4f616283cf3231ddf}{RobotConfig::FUT}} \&\& robot\_config != \mbox{\hyperlink{namespacetesseract__planning_adc15a5456ea446dfa3dc95852bc9d579aa57b0a6baa71b2c846c70646369e11a0}{RobotConfig::NUT}});}
+\DoxyCodeLine{93 \}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{103 \textcolor{keyword}{inline} std::string \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(\textcolor{keyword}{const} std::string\& ns,}
+\DoxyCodeLine{104                                     \textcolor{keyword}{const} std::string\& profile,}
+\DoxyCodeLine{105                                     \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}}\& profile\_remapping,}
+\DoxyCodeLine{106                                     std::string default\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}})}
+\DoxyCodeLine{107 \{}
+\DoxyCodeLine{108   std::string results = profile;}
+\DoxyCodeLine{109   \textcolor{keywordflow}{if} (profile.empty())}
+\DoxyCodeLine{110     results = std::move(default\_profile);}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112   \textcolor{comment}{// Check for remapping of profile}}
+\DoxyCodeLine{113   \textcolor{keyword}{auto} remap = profile\_remapping.find(ns);}
+\DoxyCodeLine{114   \textcolor{keywordflow}{if} (remap != profile\_remapping.end())}
+\DoxyCodeLine{115   \{}
+\DoxyCodeLine{116     \textcolor{keyword}{auto} p = remap-\/>second.find(profile);}
+\DoxyCodeLine{117     \textcolor{keywordflow}{if} (p != remap-\/>second.end())}
+\DoxyCodeLine{118       results = p-\/>second;}
+\DoxyCodeLine{119   \}}
+\DoxyCodeLine{120   \textcolor{keywordflow}{return} results;}
+\DoxyCodeLine{121 \}}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{131 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{132 std::shared\_ptr<const ProfileType> \mbox{\hyperlink{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}{getProfile}}(\textcolor{keyword}{const} std::string\& ns,}
+\DoxyCodeLine{133                                               \textcolor{keyword}{const} std::string\& profile,}
+\DoxyCodeLine{134                                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{ProfileDictionary}}\& profile\_dictionary,}
+\DoxyCodeLine{135                                               std::shared\_ptr<const ProfileType> default\_profile = \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{136 \{}
+\DoxyCodeLine{137   \textcolor{keywordflow}{if} (profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_aa72e7841d99a279c706c6cac7e73b2a2}{hasProfile}}<ProfileType>(ns, profile))}
+\DoxyCodeLine{138     \textcolor{keywordflow}{return} profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a76d882f0e611b3404718188d5da22a2c}{getProfile}}<ProfileType>(ns, profile);}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140   CONSOLE\_BRIDGE\_logDebug(\textcolor{stringliteral}{"{}Profile '\%s' was not found in namespace '\%s' for type '\%s'. Using default if available. "{}}}
+\DoxyCodeLine{141                           \textcolor{stringliteral}{"{}Available "{}}}
+\DoxyCodeLine{142                           \textcolor{stringliteral}{"{}profiles:"{}},}
+\DoxyCodeLine{143                           profile.c\_str(),}
+\DoxyCodeLine{144                           ns.c\_str(),}
+\DoxyCodeLine{145                           \textcolor{keyword}{typeid}(ProfileType).name());}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147   \textcolor{keywordflow}{if} (profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a027d12665c57e25d5bbdf62520d076ff}{hasProfileEntry}}<ProfileType>(ns))}
+\DoxyCodeLine{148   \{}
+\DoxyCodeLine{149     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& pair : profile\_dictionary.\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a55a06d6b378a41a29b5fb776cb525f0f}{getProfileEntry}}<ProfileType>(ns))}
+\DoxyCodeLine{150     \{}
+\DoxyCodeLine{151       CONSOLE\_BRIDGE\_logDebug(\textcolor{stringliteral}{"{}\%s"{}}, pair.first.c\_str());}
+\DoxyCodeLine{152     \}}
+\DoxyCodeLine{153   \}}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155   \textcolor{keywordflow}{return} default\_profile;}
+\DoxyCodeLine{156 \}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{167 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ProfileType>}
+\DoxyCodeLine{168 std::shared\_ptr<const ProfileType> \mbox{\hyperlink{namespacetesseract__planning_abc4e0abb003d616199f38f74bdad6421}{applyProfileOverrides}}(\textcolor{keyword}{const} std::string\& ns,}
+\DoxyCodeLine{169                                                          \textcolor{keyword}{const} std::string\& profile,}
+\DoxyCodeLine{170                                                          \textcolor{keyword}{const} std::shared\_ptr<ProfileType>\& nominal\_profile,}
+\DoxyCodeLine{171                                                          \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}}\& overrides = \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{172 \{}
+\DoxyCodeLine{173   \textcolor{keywordflow}{if} (!overrides)}
+\DoxyCodeLine{174     \textcolor{keywordflow}{return} nominal\_profile;}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176   \textcolor{keywordflow}{if} (overrides-\/>hasProfile<ProfileType>(ns, profile))}
+\DoxyCodeLine{177     \textcolor{keywordflow}{return} overrides-\/>getProfile<ProfileType>(ns, profile);}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179   \textcolor{keywordflow}{return} nominal\_profile;}
+\DoxyCodeLine{180 \}}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_PLANNER\_UTILS\_H}}
 
 \end{DoxyCode}

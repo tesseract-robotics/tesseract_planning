@@ -1,5 +1,6 @@
 <map id="tesseract_process_managers/include/tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h" name="tesseract_process_managers/include/tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h">
-<area shape="rect" id="node1" title="Process generator for process that pushes plan instructions back within joint limits." alt="" coords="125,5,352,76"/>
+<area shape="rect" id="node1" title="Process generator for process that pushes plan instructions back within joint limits." alt="" coords="237,5,464,76"/>
 <area shape="rect" id="node2" href="$d4/d46/fix__state__bounds__task__generator_8cpp.html" title="Process generator that changes the plan instructions to make push them back within joint limits." alt="" coords="5,124,229,180"/>
-<area shape="rect" id="node3" href="$d3/dad/tesseract__process__managers__serialization__unit_8cpp.html" title=" " alt="" coords="253,124,467,180"/>
+<area shape="rect" id="node3" href="$d6/d43/fix__state__bounds__task__generator__unit_8cpp.html" title=" " alt="" coords="254,124,447,180"/>
+<area shape="rect" id="node4" href="$d3/dad/tesseract__process__managers__serialization__unit_8cpp.html" title=" " alt="" coords="472,124,685,180"/>
 </map>

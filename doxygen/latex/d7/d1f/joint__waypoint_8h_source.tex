@@ -131,7 +131,7 @@
 \DoxyCodeLine{163 }
 \DoxyCodeLine{164   \textcolor{keyword}{inline} Eigen::CommaInitializer<Eigen::VectorXd> \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5ca47a784548ff6c88e26cc59c46b3ef}{operator<<}}(\textcolor{keyword}{const} \textcolor{keywordtype}{double}\& s)}
 \DoxyCodeLine{165   \{}
-\DoxyCodeLine{166     \textcolor{keywordflow}{return} Eigen::CommaInitializer<Eigen::VectorXd>(\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}}, s);}
+\DoxyCodeLine{166     \textcolor{keywordflow}{return} Eigen::CommaInitializer<Eigen::VectorXd>\{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}}, s \};}
 \DoxyCodeLine{167   \}}
 \DoxyCodeLine{168 }
 \DoxyCodeLine{169   \textcolor{keyword}{inline} \textcolor{keywordtype}{double}\& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5cf1d81a1d122a0fa3462df7be0049c2}{operator[]}}(Eigen::Index i) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}}[i]; \}}
@@ -145,9 +145,9 @@
 \DoxyCodeLine{180 }
 \DoxyCodeLine{182   \textcolor{keyword}{inline} \textcolor{keyword}{operator} Eigen::VectorXd\&() \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}}; \}}
 \DoxyCodeLine{183 }
-\DoxyCodeLine{185   \textcolor{keyword}{inline} \textcolor{keyword}{operator} Eigen::Ref<const Eigen::VectorXd>()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} Eigen::Ref<const Eigen::VectorXd>(\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}}); \}}
+\DoxyCodeLine{185   \textcolor{keyword}{inline} \textcolor{keyword}{operator} Eigen::Ref<const Eigen::VectorXd>()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} Eigen::Ref<const Eigen::VectorXd>\{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}} \}; \}}
 \DoxyCodeLine{186 }
-\DoxyCodeLine{188   \textcolor{keyword}{inline} \textcolor{keyword}{operator} Eigen::Ref<Eigen::VectorXd>() \{ \textcolor{keywordflow}{return} Eigen::Ref<Eigen::VectorXd>(\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}}); \}}
+\DoxyCodeLine{188   \textcolor{keyword}{inline} \textcolor{keyword}{operator} Eigen::Ref<Eigen::VectorXd>() \{ \textcolor{keywordflow}{return} Eigen::Ref<Eigen::VectorXd>\{ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}} \}; \}}
 \DoxyCodeLine{189 }
 \DoxyCodeLine{191   \textcolor{comment}{// Joint Waypoint Container //}}
 \DoxyCodeLine{193 \textcolor{comment}{}}

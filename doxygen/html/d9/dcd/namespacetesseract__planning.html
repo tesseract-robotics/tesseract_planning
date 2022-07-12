@@ -794,10 +794,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a7cc42c6f98936d7b99258a4760d940f0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7cc42c6f98936d7b99258a4760d940f0">generateSeed</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;instructions, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_environment::Environment::ConstPtr &amp;env, double state_longest_valid_segment_length=5 *M_PI/180, double translation_longest_valid_segment_length=0.15, double rotation_longest_valid_segment_length=5 *M_PI/180, int min_steps=1)</td></tr>
 <tr class="memdesc:a7cc42c6f98936d7b99258a4760d940f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provided for backwards compatibility.  <a href="../../d9/dcd/namespacetesseract__planning.html#a7cc42c6f98936d7b99258a4760d940f0">More...</a><br /></td></tr>
 <tr class="separator:a7cc42c6f98936d7b99258a4760d940f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84a6b6ea6d6f4d4c1c510caa6dcf5449"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
-<tr class="memitem:a84a6b6ea6d6f4d4c1c510caa6dcf5449"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a84a6b6ea6d6f4d4c1c510caa6dcf5449">isWithinJointLimits</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &gt; &amp;joint_values, const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 2 &gt; &amp;limits)</td></tr>
-<tr class="memdesc:a84a6b6ea6d6f4d4c1c510caa6dcf5449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a joint is within limits.  <a href="../../d9/dcd/namespacetesseract__planning.html#a84a6b6ea6d6f4d4c1c510caa6dcf5449">More...</a><br /></td></tr>
-<tr class="separator:a84a6b6ea6d6f4d4c1c510caa6dcf5449"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42d12aecef0129c505a6f91003c02603"><td class="memTemplParams" colspan="2">template&lt;typename FloatType &gt; </td></tr>
 <tr class="memitem:a42d12aecef0129c505a6f91003c02603"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a42d12aecef0129c505a6f91003c02603">isWithinJointLimits</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &gt; &amp;joint_values, const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 2 &gt; &amp;limits, const Eigen::Vector2d &amp;coupling_limits)</td></tr>
 <tr class="memdesc:a42d12aecef0129c505a6f91003c02603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a joint is within limits This will allows you to provide joint 4 and joint 6 coupling limits. This will still work if the robot is on a position.  <a href="../../d9/dcd/namespacetesseract__planning.html#a42d12aecef0129c505a6f91003c02603">More...</a><br /></td></tr>
@@ -7699,48 +7695,8 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a84a6b6ea6d6f4d4c1c510caa6dcf5449" name="a84a6b6ea6d6f4d4c1c510caa6dcf5449"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84a6b6ea6d6f4d4c1c510caa6dcf5449">&#9670;&nbsp;</a></span>isWithinJointLimits() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FloatType &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::isWithinJointLimits </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>joint_values</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 2 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>limits</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check if a joint is within limits. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">joint_values</td><td>The joint values of the robot </td></tr>
-    <tr><td class="paramname">limits</td><td>The robot joint limits </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
 <a id="a42d12aecef0129c505a6f91003c02603" name="a42d12aecef0129c505a6f91003c02603"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42d12aecef0129c505a6f91003c02603">&#9670;&nbsp;</a></span>isWithinJointLimits() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a42d12aecef0129c505a6f91003c02603">&#9670;&nbsp;</a></span>isWithinJointLimits() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7787,7 +7743,7 @@ template&lt;typename FloatType &gt; </div>
 </div>
 </div>
 <a id="a006d576ff51dbc06d744c7655d75b94b" name="a006d576ff51dbc06d744c7655d75b94b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a006d576ff51dbc06d744c7655d75b94b">&#9670;&nbsp;</a></span>isWithinJointLimits() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a006d576ff51dbc06d744c7655d75b94b">&#9670;&nbsp;</a></span>isWithinJointLimits() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9819,14 +9775,14 @@ template&lt;typename FloatType &gt; </div>
 <div class="ttc" id="aclasstesseract__planning_1_1PlanInstruction_html"><div class="ttname"><a href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">tesseract_planning::PlanInstruction</a></div><div class="ttdoc">The plan instruction is used when generating motion planning requests.</div><div class="ttdef"><b>Definition:</b> plan_instruction.h:63</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1PlanInstruction_html_a1d91722519a3a2fbb2d3dcad864ab0a1"><div class="ttname"><a href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html#a1d91722519a3a2fbb2d3dcad864ab0a1">tesseract_planning::PlanInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> plan_instruction.cpp:101</div></div>
 <div class="ttc" id="anamespacetesseract__planning_html_a7c15fced3d0a2819bef3c874d85b1f8f"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a7c15fced3d0a2819bef3c874d85b1f8f">tesseract_planning::isPlanInstruction</a></div><div class="ttdeci">bool isPlanInstruction(const Instruction &amp;instruction)</div><div class="ttdef"><b>Definition:</b> instruction_type.cpp:83</div></div>
-<div class="ttc" id="astructtesseract__planning_1_1Instruction_html"><div class="ttname"><a href="../../db/dff/structtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.h:161</div></div>
+<div class="ttc" id="astructtesseract__planning_1_1Instruction_html"><div class="ttname"><a href="../../db/dff/structtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.h:157</div></div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 7 2022 15:40:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Jul 12 2022 16:04:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

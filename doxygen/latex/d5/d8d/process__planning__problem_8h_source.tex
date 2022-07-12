@@ -44,21 +44,21 @@
 \DoxyCodeLine{65 }
 \DoxyCodeLine{67   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ad5511edbc1ea069472c4913ee1ef36c2}{env}};}
 \DoxyCodeLine{68 }
-\DoxyCodeLine{70   std::unique\_ptr<Instruction> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a84ef9a5f537d9620ba950df73a1b39df}{input}};}
+\DoxyCodeLine{70   std::unique\_ptr<Instruction> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a84ef9a5f537d9620ba950df73a1b39df}{input}}\{ \textcolor{keyword}{nullptr} \};}
 \DoxyCodeLine{71 }
-\DoxyCodeLine{73   std::unique\_ptr<Instruction> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_abcb0feeb1e80e11040ec9c3e1fcee8ce}{results}};}
+\DoxyCodeLine{73   std::unique\_ptr<Instruction> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_abcb0feeb1e80e11040ec9c3e1fcee8ce}{results}}\{ \textcolor{keyword}{nullptr} \};}
 \DoxyCodeLine{74 }
-\DoxyCodeLine{76   std::unique\_ptr<const ManipulatorInfo> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a5a058a0a046b6929e292941868fbdc17}{global\_manip\_info}};}
+\DoxyCodeLine{76   std::unique\_ptr<const ManipulatorInfo> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a5a058a0a046b6929e292941868fbdc17}{global\_manip\_info}}\{ \textcolor{keyword}{nullptr} \};}
 \DoxyCodeLine{77 }
-\DoxyCodeLine{79   std::unique\_ptr<const PlannerProfileRemapping> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_aea76cfeaa22f0c39446ef5e416e3daea}{plan\_profile\_remapping}};}
+\DoxyCodeLine{79   std::unique\_ptr<const PlannerProfileRemapping> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_aea76cfeaa22f0c39446ef5e416e3daea}{plan\_profile\_remapping}}\{ \textcolor{keyword}{nullptr} \};}
 \DoxyCodeLine{80 }
-\DoxyCodeLine{82   std::unique\_ptr<const PlannerProfileRemapping> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ae623c85b3a4ead9179308dc6248ccd9a}{composite\_profile\_remapping}};}
+\DoxyCodeLine{82   std::unique\_ptr<const PlannerProfileRemapping> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ae623c85b3a4ead9179308dc6248ccd9a}{composite\_profile\_remapping}}\{ \textcolor{keyword}{nullptr} \};}
 \DoxyCodeLine{83 }
 \DoxyCodeLine{84 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{85   \textcolor{comment}{// clang-\/format off}}
 \DoxyCodeLine{86   \%extend \{}
 \DoxyCodeLine{87   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\& getInput() \{ \textcolor{keywordflow}{return} *\$self-\/>input; \}}
-\DoxyCodeLine{88   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\& getResults() \{ \textcolor{keywordflow}{return} *\$self-\/>results; \}}
+\DoxyCodeLine{88   Instruction\& getResults() \{ \textcolor{keywordflow}{return} *\$self-\/>results; \}}
 \DoxyCodeLine{89   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}} getGlobalManipInfo() \{ \textcolor{keywordflow}{return} *\$self-\/>global\_manip\_info; \}}
 \DoxyCodeLine{90   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} getPlanProfileRemapping() \{ \textcolor{keywordflow}{return} *\$self-\/>plan\_profile\_remapping; \}}
 \DoxyCodeLine{91   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} getCompositeProfileRemapping() \{ \textcolor{keywordflow}{return} *\$self-\/>composite\_profile\_remapping; \}}

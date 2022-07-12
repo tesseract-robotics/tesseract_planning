@@ -5,6 +5,7 @@
 {\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/constants.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+kinematics/core/forward\+\_\+kinematics.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/kinematic\+\_\+limits.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/robot\+\_\+config.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/types.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/profile\+\_\+dictionary.\+h$>$}\newline
@@ -32,8 +33,6 @@ namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_a84a6b6ea6d6f4d4c1c510caa6dcf5449}{tesseract\+\_\+planning\+::is\+Within\+Joint\+Limits}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)
-\begin{DoxyCompactList}\small\item\em Check if a joint is within limits. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_a42d12aecef0129c505a6f91003c02603}{tesseract\+\_\+planning\+::is\+Within\+Joint\+Limits}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits, const Eigen\+::\+Vector2d \&coupling\+\_\+limits)
 \begin{DoxyCompactList}\small\item\em Check if a joint is within limits This will allows you to provide joint 4 and joint 6 coupling limits. This will still work if the robot is on a position. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Float\+Type $>$ }\\bool \mbox{\hyperlink{namespacetesseract__planning_a40e1a43db1c6a2eec3a793887b17dca7}{tesseract\+\_\+planning\+::is\+Valid\+State}} (const tesseract\+\_\+kinematics\+::\+Forward\+Kinematics\+::\+Const\+Ptr \&robot\+\_\+kin, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 1 $>$ $>$ \&joint\+\_\+values, const Eigen\+::\+Matrix$<$ Float\+Type, Eigen\+::\+Dynamic, 2 $>$ \&limits)

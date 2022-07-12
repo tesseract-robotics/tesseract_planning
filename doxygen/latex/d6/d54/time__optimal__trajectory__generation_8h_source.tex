@@ -130,7 +130,7 @@
 \DoxyCodeLine{126 }
 \DoxyCodeLine{127 \textcolor{keyword}{private}:}
 \DoxyCodeLine{128   \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1PathSegment}{PathSegment}}* \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a0d8f74ea1f4f0005adedc0e777476c57}{getPathSegment}}(\textcolor{keywordtype}{double}\& s) \textcolor{keyword}{const};}
-\DoxyCodeLine{129   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a74cf1fc1664eb074bd5d80f5f6b0dddc}{length\_}};}
+\DoxyCodeLine{129   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a74cf1fc1664eb074bd5d80f5f6b0dddc}{length\_}}\{ 0 \};}
 \DoxyCodeLine{130   std::list<std::pair<double, bool>> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_aeb698a4cc8682db0a5911d97f0d01db8}{switching\_points\_}};}
 \DoxyCodeLine{131   std::list<std::unique\_ptr<PathSegment>> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Path_a529591f51c2567fcfec42529d49cf13b}{path\_segments\_}};}
 \DoxyCodeLine{132 \};}
@@ -210,7 +210,7 @@
 \DoxyCodeLine{242   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a1f19c9e1c4e0e7f0e4658905fcc7d959}{max\_velocity\_}};}
 \DoxyCodeLine{243   Eigen::VectorXd \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a60b63597cc710e486899ee6d690555d2}{max\_acceleration\_}};}
 \DoxyCodeLine{244   Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ad6579d7d438d619b9893c4e33fbad6f7}{joint\_num\_}};}
-\DoxyCodeLine{245   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a39b8cf96eba362784fe54ac9b3e806ef}{valid\_}};}
+\DoxyCodeLine{245   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a39b8cf96eba362784fe54ac9b3e806ef}{valid\_}}\{ \textcolor{keyword}{true} \};}
 \DoxyCodeLine{246   std::list<TrajectoryStep> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_ae723b459dc992b85b96132947773c9f0}{trajectory\_}};}
 \DoxyCodeLine{247   std::list<TrajectoryStep> \mbox{\hyperlink{classtesseract__planning_1_1totg_1_1Trajectory_a80309de5bda8f3a685cc463b621e8414}{end\_trajectory\_}};  \textcolor{comment}{// non-\/empty only if the trajectory generation failed.}}
 \DoxyCodeLine{248 }

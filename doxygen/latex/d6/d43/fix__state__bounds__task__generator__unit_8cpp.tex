@@ -1,0 +1,64 @@
+\hypertarget{fix__state__bounds__task__generator__unit_8cpp}{}\doxysection{tesseract\+\_\+process\+\_\+managers/test/fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+generator\+\_\+unit.cpp File Reference}
+\label{fix__state__bounds__task__generator__unit_8cpp}\index{tesseract\_process\_managers/test/fix\_state\_bounds\_task\_generator\_unit.cpp@{tesseract\_process\_managers/test/fix\_state\_bounds\_task\_generator\_unit.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+environment/environment.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+profiles/fix\+\_\+state\+\_\+bounds\+\_\+profile.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/task\+\_\+generators/fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+generator.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+process\+\_\+managers/core/task\+\_\+input.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+support/tesseract\+\_\+support\+\_\+resource\+\_\+locator.\+h$>$}\newline
+Include dependency graph for fix\+\_\+state\+\_\+bounds\+\_\+task\+\_\+generator\+\_\+unit.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d9a/fix__state__bounds__task__generator__unit_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classFixStateBoundsTaskGeneratorUnit}{Fix\+State\+Bounds\+Task\+Generator\+Unit}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{fix__state__bounds__task__generator__unit_8cpp_aa6b2dcd5083b7702f534d5145bbed0e5}{create\+Program}} (const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{ompl__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, const Eigen\+::\+Vector\+Xd \&goal\+\_\+state, const std\+::string \&composite\+\_\+profile)
+\item 
+void \mbox{\hyperlink{fix__state__bounds__task__generator__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}{check\+Program}} (const Environment\+::\+Ptr \&env, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip, const Eigen\+::\+Vector\+Xd \&\mbox{\hyperlink{ompl__planner__tests_8cpp_a484547b7c0c0900a1491bad799bec8b2}{start\+\_\+state}}, const Eigen\+::\+Vector\+Xd \&goal\+\_\+state, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} $>$ \&profiles, \mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Fix\+State\+Bounds\+Profile\+::\+Settings}} setting, bool pre\+\_\+check\+\_\+return, int expected\+\_\+return)
+\item 
+\mbox{\hyperlink{fix__state__bounds__task__generator__unit_8cpp_a2a1c0dd36ec7134a9c2e0e0bd72ed9aa}{TEST\+\_\+F}} (\mbox{\hyperlink{classFixStateBoundsTaskGeneratorUnit}{Fix\+State\+Bounds\+Task\+Generator\+Unit}}, state\+In\+Bounds)
+\item 
+int \mbox{\hyperlink{fix__state__bounds__task__generator__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{fix__state__bounds__task__generator__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}\label{fix__state__bounds__task__generator__unit_8cpp_afc65e7a7ccc06bd107fabca1df74812e}} 
+\index{fix\_state\_bounds\_task\_generator\_unit.cpp@{fix\_state\_bounds\_task\_generator\_unit.cpp}!checkProgram@{checkProgram}}
+\index{checkProgram@{checkProgram}!fix\_state\_bounds\_task\_generator\_unit.cpp@{fix\_state\_bounds\_task\_generator\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{checkProgram()}{checkProgram()}}
+{\footnotesize\ttfamily void check\+Program (\begin{DoxyParamCaption}\item[{const Environment\+::\+Ptr \&}]{env,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{start\+\_\+state,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{goal\+\_\+state,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary}{Profile\+Dictionary}} $>$ \&}]{profiles,  }\item[{\mbox{\hyperlink{structtesseract__planning_1_1FixStateBoundsProfile_a5ca76ba80aa9d3a8fe819937ee1a0560}{Fix\+State\+Bounds\+Profile\+::\+Settings}}}]{setting,  }\item[{bool}]{pre\+\_\+check\+\_\+return,  }\item[{int}]{expected\+\_\+return }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__generator__unit_8cpp_aa6b2dcd5083b7702f534d5145bbed0e5}\label{fix__state__bounds__task__generator__unit_8cpp_aa6b2dcd5083b7702f534d5145bbed0e5}} 
+\index{fix\_state\_bounds\_task\_generator\_unit.cpp@{fix\_state\_bounds\_task\_generator\_unit.cpp}!createProgram@{createProgram}}
+\index{createProgram@{createProgram}!fix\_state\_bounds\_task\_generator\_unit.cpp@{fix\_state\_bounds\_task\_generator\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{createProgram()}{createProgram()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} create\+Program (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{start\+\_\+state,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{goal\+\_\+state,  }\item[{const std\+::string \&}]{composite\+\_\+profile }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__generator__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{fix__state__bounds__task__generator__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{fix\_state\_bounds\_task\_generator\_unit.cpp@{fix\_state\_bounds\_task\_generator\_unit.cpp}!main@{main}}
+\index{main@{main}!fix\_state\_bounds\_task\_generator\_unit.cpp@{fix\_state\_bounds\_task\_generator\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{fix__state__bounds__task__generator__unit_8cpp_a2a1c0dd36ec7134a9c2e0e0bd72ed9aa}\label{fix__state__bounds__task__generator__unit_8cpp_a2a1c0dd36ec7134a9c2e0e0bd72ed9aa}} 
+\index{fix\_state\_bounds\_task\_generator\_unit.cpp@{fix\_state\_bounds\_task\_generator\_unit.cpp}!TEST\_F@{TEST\_F}}
+\index{TEST\_F@{TEST\_F}!fix\_state\_bounds\_task\_generator\_unit.cpp@{fix\_state\_bounds\_task\_generator\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_F()}{TEST\_F()}}
+{\footnotesize\ttfamily TEST\+\_\+F (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classFixStateBoundsTaskGeneratorUnit}{Fix\+State\+Bounds\+Task\+Generator\+Unit}}}]{,  }\item[{state\+In\+Bounds}]{ }\end{DoxyParamCaption})}
+
