@@ -251,30 +251,8 @@ bool isWithinJointLimits(const Waypoint& wp, const Eigen::Ref<const Eigen::Matri
 {
   if (isJointWaypoint(wp) || isStateWaypoint(wp))
   {
-    Eigen::VectorXd cmd_pos;
-    try
-    {
-      cmd_pos = getJointPosition(wp);
-    }
-    catch (std::exception& e)
-    {
-      CONSOLE_BRIDGE_logWarn("getJointPosition threw %s", e.what());
-      return false;
-    }
-
-    // Check input validity
-    if (limits.rows() != cmd_pos.size())
-    {
-      CONSOLE_BRIDGE_logWarn(
-          "Invalid limits when clamping Waypoint. Waypoint size: %d, Limits size: %d", cmd_pos.size(), limits.rows());
-      return false;
-    }
-
-    // Is it within the limits?
-    if ((limits.col(0).array() > cmd_pos.array()).any())
-      return false;
-    if ((limits.col(1).array() < cmd_pos.array()).any())
-      return false;
+    const Eigen::VectorXd& cmd_pos = getJointPosition(wp);
+    return tesseract_common::isWithinPositionLimits<double>(cmd_pos, limits);
   }
 
   return true;
@@ -282,7 +260,7 @@ bool isWithinJointLimits(const Waypoint& wp, const Eigen::Ref<const Eigen::Matri
 
 bool clampToJointLimits(Waypoint& wp, const Eigen::Ref<const Eigen::MatrixX2d>& limits, double max_deviation)
 {
-  Eigen::VectorXd deviation_vec = Eigen::VectorXd::Ones(limits.rows()) * max_deviation;
+  const Eigen::VectorXd deviation_vec = Eigen::VectorXd::Constant(limits.rows(), max_deviation);
   return clampToJointLimits(wp, limits, deviation_vec);
 }
 
@@ -292,43 +270,16 @@ bool clampToJointLimits(Waypoint& wp,
 {
   if (isJointWaypoint(wp) || isStateWaypoint(wp))
   {
-    Eigen::VectorXd cmd_pos;
-    try
-    {
-      cmd_pos = getJointPosition(wp);
-    }
-    catch (std::exception& e)
-    {
-      CONSOLE_BRIDGE_logWarn("getJointPosition threw %s", e.what());
-      return false;
-    }
+    Eigen::VectorXd cmd_pos = getJointPosition(wp);
 
-    // Check input validity
-    if (limits.rows() != cmd_pos.size())
-    {
-      CONSOLE_BRIDGE_logWarn(
-          "Invalid limits when clamping Waypoint. Waypoint size: %d, Limits size: %d", limits.rows(), cmd_pos.size());
-      return false;
-    }
-    if (limits.rows() != max_deviation.size())
-    {
-      CONSOLE_BRIDGE_logWarn("Invalid max deviation given when clamping Waypoint. Waypoint size: %d, max deviation "
-                             "size: %d",
-                             limits.rows(),
-                             max_deviation.size());
-      return false;
-    }
-
-    if (((cmd_pos.array() - limits.col(1).array()) > max_deviation.array()).any())
-      return false;
-    if ((-(cmd_pos.array() - limits.col(0).array()) > max_deviation.array()).any())
+    const Eigen::VectorXd max_rel_diff =
+        Eigen::VectorXd::Constant(cmd_pos.size(), std::numeric_limits<double>::epsilon());
+    if (!tesseract_common::satisfiesPositionLimits<double>(cmd_pos, limits, max_deviation, max_rel_diff))
       return false;
 
     CONSOLE_BRIDGE_logDebug("Clamping Waypoint to joint limits");
-    Eigen::VectorXd new_position = cmd_pos;
-    new_position = new_position.cwiseMax(limits.col(0));
-    new_position = new_position.cwiseMin(limits.col(1));
-    return setJointPosition(wp, new_position);
+    tesseract_common::enforcePositionLimits<double>(cmd_pos, limits);
+    return setJointPosition(wp, cmd_pos);
   }
 
   return true;
