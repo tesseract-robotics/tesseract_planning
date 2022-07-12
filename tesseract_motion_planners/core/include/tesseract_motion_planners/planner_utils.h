@@ -34,29 +34,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/constants.h>
 #include <tesseract_kinematics/core/forward_kinematics.h>
+#include <tesseract_common/kinematic_limits.h>
 #include <tesseract_motion_planners/robot_config.h>
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_command_language/profile_dictionary.h>
 
 namespace tesseract_planning
 {
-/**
- * @brief Check if a joint is within limits
- * @param joint_values The joint values of the robot
- * @param limits The robot joint limits
- * @return
- */
-template <typename FloatType>
-bool isWithinJointLimits(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
-                         const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits)
-{
-  for (int i = 0; i < limits.rows(); ++i)
-    if ((joint_values(i) < limits(i, 0)) || (joint_values(i) > limits(i, 1)))
-      return false;
-
-  return true;
-}
-
 /**
  * @brief Check if a joint is within limits
  * This will allows you to provide joint 4 and joint 6 coupling limits. This will still work if the robot is on a
@@ -71,7 +55,7 @@ bool isWithinJointLimits(const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::
                          const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits,
                          const Eigen::Vector2d& coupling_limits)
 {
-  if (isWithinJointLimits<FloatType>(joint_values, limits))
+  if (tesseract_common::isWithinPositionLimits<FloatType>(joint_values, limits))
   {
     if (((joint_values(joint_values.size() - 3) + joint_values(joint_values.size() - 1)) < coupling_limits(0)) ||
         ((joint_values(joint_values.size() - 3) + joint_values(joint_values.size() - 1)) > coupling_limits(1)))
@@ -97,7 +81,7 @@ bool isValidState(const tesseract_kinematics::ForwardKinematics::ConstPtr& robot
                   const Eigen::Ref<const Eigen::Matrix<FloatType, Eigen::Dynamic, 1>>& joint_values,
                   const Eigen::Matrix<FloatType, Eigen::Dynamic, 2>& limits)
 {
-  if (!isWithinJointLimits(joint_values, limits))
+  if (!tesseract_common::isWithinPositionLimits(joint_values, limits))
     return false;
 
   Eigen::Vector2i sign_correction = Eigen::Vector2i::Ones();
