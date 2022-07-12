@@ -84,7 +84,7 @@ jobs:
         env:
           OS_NAME: ubuntu
           OS_CODE_NAME: bionic
-          DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ env.ROS_DISTRO }}-0.10
+          DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ env.ROS_DISTRO }}-0.13
           CCACHE_DIR: ${{ github.workspace }}/${{ env.CI_NAME }}/.ccache
           ROS_REPO: main
           UNDERLAY: /root//tesseract-robotics/tesseract_target_ws/install
