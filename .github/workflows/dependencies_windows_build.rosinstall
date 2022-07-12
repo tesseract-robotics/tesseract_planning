@@ -9,7 +9,7 @@
 - git:
     local-name: tesseract
     uri: https://github.com/ros-industrial-consortium/tesseract.git
-    version: 0.9.11
+    version: 0.13.0
 - git:
     local-name: trajopt
     uri: https://github.com/ros-industrial-consortium/trajopt_ros.git
@@ -21,7 +21,7 @@
 - git:
     local-name: opw_kinematics
     uri: https://github.com/Jmeyer1292/opw_kinematics.git
-    version: 0.4.5
+    version: 0.4.6
 - git:
     local-name: ifopt
     uri: https://github.com/ethz-adrl/ifopt.git
