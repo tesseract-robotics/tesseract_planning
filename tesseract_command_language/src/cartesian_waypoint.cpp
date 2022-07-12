@@ -4,7 +4,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/eigen_serialization.h>
-#include <tesseract_common/serialization.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 
 template <class Archive>

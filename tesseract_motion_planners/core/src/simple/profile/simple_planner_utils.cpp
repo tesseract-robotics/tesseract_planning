@@ -189,7 +189,7 @@ Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& inf
     double dist = std::numeric_limits<double>::max();
     for (const auto& solution : jp)
     {
-      if (tesseract_common::satisfiesPositionLimits(solution, limits.joint_limits))
+      if (tesseract_common::satisfiesPositionLimits<double>(solution, limits.joint_limits))
       {
         if (jp_final.rows() == 0)
         {
@@ -238,8 +238,8 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
   j1_solutions.erase(std::remove_if(j1_solutions.begin(),
                                     j1_solutions.end(),
                                     [&manip1_limits](const Eigen::VectorXd& solution) {
-                                      return !tesseract_common::satisfiesPositionLimits(solution,
-                                                                                        manip1_limits.joint_limits);
+                                      return !tesseract_common::satisfiesPositionLimits<double>(
+                                          solution, manip1_limits.joint_limits);
                                     }),
                      j1_solutions.end());
 
@@ -259,8 +259,9 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
   j2_solutions.erase(std::remove_if(j2_solutions.begin(),
                                     j2_solutions.end(),
                                     [&manip2_limits](const Eigen::VectorXd& solution) {
-                                      return !tesseract_common::satisfiesPositionLimits(solution,
-                                                                                        manip2_limits.joint_limits);
+                                      // NOLINTNEXTLINE(clang-analyzer-core.uninitialized.UndefReturn)
+                                      return !tesseract_common::satisfiesPositionLimits<double>(
+                                          solution, manip2_limits.joint_limits);
                                     }),
                      j2_solutions.end());
 

@@ -405,10 +405,10 @@ bool IterativeSplineParameterization::compute(
   std::vector<double> time_diff(static_cast<std::size_t>(num_points - 1), std::numeric_limits<double>::epsilon());
   for (unsigned int j = 0; j < trajectory.dof(); j++)
     init_times(static_cast<long>(num_points),
-               &time_diff[0],
-               &t2[j].positions_[0],
-               &t2[j].max_velocity_[0],
-               &t2[j].min_velocity_[0]);
+               time_diff.data(),
+               t2[j].positions_.data(),
+               t2[j].max_velocity_.data(),
+               t2[j].min_velocity_.data());
 
   // Stretch intervals until close to the bounds
   while (true)
@@ -423,19 +423,19 @@ bool IterativeSplineParameterization::compute(
       if (add_points)
       {
         adjust_two_positions(static_cast<int>(num_points),
-                             &time_diff[0],
-                             &t2[j].positions_[0],
-                             &t2[j].velocities_[0],
-                             &t2[j].accelerations_[0],
+                             time_diff.data(),
+                             t2[j].positions_.data(),
+                             t2[j].velocities_.data(),
+                             t2[j].accelerations_.data(),
                              t2[j].initial_acceleration_,
                              t2[j].final_acceleration_);
       }
 
       fit_cubic_spline(static_cast<int>(num_points),
-                       &time_diff[0],
-                       &t2[j].positions_[0],
-                       &t2[j].velocities_[0],
-                       &t2[j].accelerations_[0]);
+                       time_diff.data(),
+                       t2[j].positions_.data(),
+                       t2[j].velocities_.data(),
+                       t2[j].accelerations_.data());
       for (unsigned i = 0; i < num_points; i++)
       {
         const double acc = t2[j].accelerations_[i];
@@ -747,14 +747,14 @@ void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
   for (std::size_t j = 0; j < static_cast<std::size_t>(num_joints); j++)
   {
     double tfactor = global_adjustment_factor(num_points,
-                                              &time_diff[0],
-                                              &t2[j].positions_[0],
-                                              &t2[j].velocities_[0],
-                                              &t2[j].accelerations_[0],
-                                              &t2[j].max_velocity_[0],
-                                              &t2[j].min_velocity_[0],
-                                              &t2[j].max_acceleration_[0],
-                                              &t2[j].min_acceleration_[0]);
+                                              time_diff.data(),
+                                              t2[j].positions_.data(),
+                                              t2[j].velocities_.data(),
+                                              t2[j].accelerations_.data(),
+                                              t2[j].max_velocity_.data(),
+                                              t2[j].min_velocity_.data(),
+                                              t2[j].max_acceleration_.data(),
+                                              t2[j].min_acceleration_.data());
     if (tfactor > gtfactor)
       gtfactor = tfactor;
   }
@@ -765,7 +765,8 @@ void globalAdjustment(std::vector<SingleJointTrajectory>& t2,
 
   for (std::size_t j = 0; j < static_cast<std::size_t>(num_joints); j++)
   {
-    fit_cubic_spline(num_points, &time_diff[0], &t2[j].positions_[0], &t2[j].velocities_[0], &t2[j].accelerations_[0]);
+    fit_cubic_spline(
+        num_points, time_diff.data(), t2[j].positions_.data(), t2[j].velocities_.data(), t2[j].accelerations_.data());
   }
 }
 }  // namespace tesseract_planning

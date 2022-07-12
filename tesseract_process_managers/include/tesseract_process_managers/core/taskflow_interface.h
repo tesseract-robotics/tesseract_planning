@@ -61,7 +61,7 @@ public:
     task_infos_ = rhs.task_infos_;
     return *this;
   }
-  TaskflowInterface(TaskflowInterface&& rhs) noexcept { abort_ = rhs.abort_.load(); }
+  TaskflowInterface(TaskflowInterface&& rhs) noexcept : abort_(rhs.abort_.load()) {}
   TaskflowInterface& operator=(TaskflowInterface&& rhs) noexcept
   {
     abort_ = rhs.abort_.load();

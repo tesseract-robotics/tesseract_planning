@@ -67,19 +67,19 @@ struct ProcessPlanningProblem
   tesseract_environment::Environment::ConstPtr env;
 
   /** @brief The stored input to the process */
-  std::unique_ptr<Instruction> input;
+  std::unique_ptr<Instruction> input{ nullptr };
 
   /** @brief The results to the process */
-  std::unique_ptr<Instruction> results;
+  std::unique_ptr<Instruction> results{ nullptr };
 
   /** @brief The stored global manipulator info */
-  std::unique_ptr<const ManipulatorInfo> global_manip_info;
+  std::unique_ptr<const ManipulatorInfo> global_manip_info{ nullptr };
 
   /** @brief The stored plan profile remapping */
-  std::unique_ptr<const PlannerProfileRemapping> plan_profile_remapping;
+  std::unique_ptr<const PlannerProfileRemapping> plan_profile_remapping{ nullptr };
 
   /** @brief The stored composite profile remapping */
-  std::unique_ptr<const PlannerProfileRemapping> composite_profile_remapping;
+  std::unique_ptr<const PlannerProfileRemapping> composite_profile_remapping{ nullptr };
 
 #else
   // clang-format off

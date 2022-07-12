@@ -236,7 +236,7 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
   }
 
   CONSOLE_BRIDGE_logError("Interpolator for Waypoint type %d is currently not support!", start.getType().hash_code());
-  return std::vector<Waypoint>();
+  return {};
 }
 
 bool programFlattenFilter(const Instruction& instruction,
@@ -637,7 +637,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       Eigen::VectorXd jv = state.getJointValues(group_joint_names);
 
       // Get move type base on base instruction type
-      MoveInstructionType move_type;
+      MoveInstructionType move_type{};
       if (base_instruction.isLinear())
         move_type = MoveInstructionType::LINEAR;
       else if (base_instruction.isFreespace())

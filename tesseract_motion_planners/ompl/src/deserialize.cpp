@@ -42,7 +42,7 @@ namespace tesseract_planning
 OMPLDefaultPlanProfile omplPlanParser(const tinyxml2::XMLElement& xml_element)
 {
   const tinyxml2::XMLElement* ompl_plan_element = xml_element.FirstChildElement("OMPLPlanProfile");
-  return OMPLDefaultPlanProfile(*ompl_plan_element);
+  return OMPLDefaultPlanProfile{ *ompl_plan_element };
 }
 
 OMPLDefaultPlanProfile omplPlanFromXMLElement(const tinyxml2::XMLElement* profile_xml)
