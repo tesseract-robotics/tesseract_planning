@@ -303,22 +303,6 @@ TEST(TesseractCommandLanguageUtilsUnit, isWithinJointLimits)  // NOLINT
   std::vector<std::string> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values(3);
 
-  // Invalid waypoint
-  {
-    JointWaypoint jp;
-    Waypoint tmp(jp);
-    EXPECT_FALSE(isWithinJointLimits(tmp, limits));
-  }
-  // Invalid limits
-  {
-    values << 1, 1, 1;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
-
-    Eigen::MatrixX2d invalid_limits(2, 2);
-    invalid_limits << 0, 2, 0, 2;
-    EXPECT_FALSE(isWithinJointLimits(tmp, invalid_limits));
-  }
   // Within limits
   {
     values << 1, 1, 1;
@@ -355,22 +339,6 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   std::vector<std::string> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values(3);
 
-  // Invalid waypoint
-  {
-    JointWaypoint jp;
-    Waypoint tmp(jp);
-    EXPECT_FALSE(clampToJointLimits(tmp, limits));
-  }
-  // Invalid limits
-  {
-    values << 1, 1, 1;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
-
-    Eigen::MatrixX2d invalid_limits(2, 2);
-    invalid_limits << 0, 2, 0, 2;
-    EXPECT_FALSE(clampToJointLimits(tmp, invalid_limits));
-  }
   // Within limits
   {
     values << 1, 1, 1;
