@@ -104,7 +104,9 @@ void ProcessPlanningServer::loadDefaultProcessPlanners()
 {
   // This currently call registerProcessPlanner which takes a lock
   registerProcessPlanner(process_planner_names::TRAJOPT_PLANNER_NAME, createTrajOptGenerator());
+#ifdef TESSERACT_PROCESS_MANAGERS_HAS_TRAJOPT_IFOPT
   registerProcessPlanner(process_planner_names::TRAJOPT_IFOPT_PLANNER_NAME, createTrajOptIfoptGenerator());
+#endif
   registerProcessPlanner(process_planner_names::OMPL_PLANNER_NAME, createOMPLGenerator());
   registerProcessPlanner(process_planner_names::DESCARTES_PLANNER_NAME, createDescartesGenerator());
   registerProcessPlanner(process_planner_names::CARTESIAN_PLANNER_NAME, createCartesianGenerator());
