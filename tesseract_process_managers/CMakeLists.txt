@@ -109,12 +109,9 @@ target_code_coverage(
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                   "$<INSTALL_INTERFACE:include>")
 
-
 option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
 if(TESSERACT_BUILD_TRAJOPT_IFOPT)
-target_link_libraries(
-  ${PROJECT_NAME}
-  PUBLIC tesseract::tesseract_motion_planners_trajopt_ifopt)
+  target_link_libraries(${PROJECT_NAME} PUBLIC tesseract::tesseract_motion_planners_trajopt_ifopt)
   target_compile_definitions(${PROJECT_NAME} PUBLIC TESSERACT_PROCESS_MANAGERS_HAS_TRAJOPT_IFOPT=1)
 endif()
 
