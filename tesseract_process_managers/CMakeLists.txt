@@ -87,7 +87,6 @@ target_link_libraries(
          tesseract::tesseract_environment
          tesseract::tesseract_command_language
          tesseract::tesseract_motion_planners_simple
-         tesseract::tesseract_motion_planners_trajopt_ifopt
          tesseract::tesseract_motion_planners_trajopt
          tesseract::tesseract_motion_planners_descartes
          tesseract::tesseract_motion_planners_ompl
@@ -109,6 +108,16 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                   "$<INSTALL_INTERFACE:include>")
+
+
+option(TESSERACT_BUILD_TRAJOPT_IFOPT "Build the Trajopt IFOPT planner" ON)
+if(TESSERACT_BUILD_TRAJOPT_IFOPT)
+target_link_libraries(
+  ${PROJECT_NAME}
+  PUBLIC tesseract::tesseract_motion_planners_trajopt_ifopt)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC TESSERACT_PROCESS_MANAGERS_HAS_TRAJOPT_IFOPT=1)
+endif()
+
 list(APPEND Targets ${PROJECT_NAME})
 
 add_library(${PROJECT_NAME}_utils src/utils/task_info_statistics.cpp)

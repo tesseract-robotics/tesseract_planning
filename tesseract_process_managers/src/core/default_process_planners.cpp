@@ -43,7 +43,9 @@
 
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
+#ifdef TESSERACT_PROCESS_MANAGERS_HAS_TRAJOPT_IFOPT
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
+#endif
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 
@@ -103,6 +105,7 @@ TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_colli
   return tf;
 }
 
+#ifdef TESSERACT_PROCESS_MANAGERS_HAS_TRAJOPT_IFOPT
 TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_collision_check)
 {
   auto tf = std::make_unique<GraphTaskflow>("TrajOptIfoptTaskflow");
@@ -156,6 +159,7 @@ TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_
 
   return tf;
 }
+#endif
 
 TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collision_check)
 {

@@ -95,8 +95,10 @@ namespace process_planner_names
 /** @brief TrajOpt Planner */
 static const std::string TRAJOPT_PLANNER_NAME = "TrajOptPlanner";
 
+#ifdef TESSERACT_PROCESS_MANAGERS_HAS_TRAJOPT_IFOPT
 /** @brief TrajOpt IFOPT Planner */
 static const std::string TRAJOPT_IFOPT_PLANNER_NAME = "TrajOptIfoptPlanner";
+#endif
 
 /** @brief OMPL Planner */
 static const std::string OMPL_PLANNER_NAME = "OMPLPlanner";
