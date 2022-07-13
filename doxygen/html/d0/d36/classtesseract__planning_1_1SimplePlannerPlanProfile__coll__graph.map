@@ -1,6 +1,6 @@
 <map id="tesseract_planning::SimplePlannerPlanProfile" name="tesseract_planning::SimplePlannerPlanProfile">
 <area shape="rect" id="node1" title="Plan Profile for the simple planner. It defines some functions that handle each of the waypoint cases..." alt="" coords="1319,98,1493,139"/>
-<area shape="rect" id="node2" href="$d4/dd6/classtesseract__planning_1_1PlanInstruction.html" title="The plan instruction is used when generating motion planning requests." alt="" coords="1104,98,1235,139"/>
+<area shape="rect" id="node2" href="$da/db5/classtesseract__planning_1_1MoveInstruction.html" title="The move instruction is used when defining the results of a motion planning request." alt="" coords="1104,98,1235,139"/>
 <area shape="rect" id="node3" title=" " alt="" coords="804,98,959,139"/>
 <area shape="rect" id="node4" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="607,102,737,143"/>
 <area shape="rect" id="node5" title=" " alt="" coords="336,87,507,158"/>

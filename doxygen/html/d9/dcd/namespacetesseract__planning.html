@@ -237,9 +237,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1a/structtesseract__planning_1_1OMPLProblem.html">OMPLProblem</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The plan instruction is used when generating motion planning requests.  <a href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d1f/structtesseract__planning_1_1PlannerResponse.html">PlannerResponse</a></td></tr>
@@ -310,7 +307,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d65/classtesseract__planning_1_1SetToolInstruction.html">SetToolInstruction</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html">SimpleMotionPlanner</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the PlanInstructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the MoveInstructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d70/classtesseract__planning_1_1SimpleMotionPlannerStatusCategory.html">SimpleMotionPlannerStatusCategory</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -532,12 +529,6 @@ Enumerations</h2></td></tr>
 , <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac">START</a> = 3
  }</td></tr>
 <tr class="separator:acdeb2344747f1fe9d0825bf09e0da7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d6524747d083995553d1538d6e29610"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d6524747d083995553d1538d6e29610">PlanInstructionType</a> : int { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d6524747d083995553d1538d6e29610aaac544aacc3615aada24897a215f5046">LINEAR</a> = 0
-, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d6524747d083995553d1538d6e29610a7527bb744a3edda4e08b7323f4bb5ffd">FREESPACE</a> = 1
-, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d6524747d083995553d1538d6e29610a93c8d295bb538cdb3302604512828d68">CIRCULAR</a> = 2
-, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d6524747d083995553d1538d6e29610ab078ffd28db767c502ac367053f6e0ac">START</a> = 3
- }</td></tr>
-<tr class="separator:a6d6524747d083995553d1538d6e29610"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2">TimerInstructionType</a> : int { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2afd7449f3c0dae783bd8960c264eff1af">DIGITAL_OUTPUT_HIGH</a> = 0
 , <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3b7d1ebe0ca33829b8c6ca9e9e4c1ff2adc44bfe9b2ce1975d7312158278ac8df">DIGITAL_OUTPUT_LOW</a> = 1
  }</td></tr>
@@ -616,14 +607,10 @@ Functions</h2></td></tr>
 <tr class="separator:af48bb1d750c019e34337ed0a0f88ef76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a1d26a1924d6b53c23630143a579436"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2a1d26a1924d6b53c23630143a579436">isMoveInstruction</a> (const <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
 <tr class="separator:a2a1d26a1924d6b53c23630143a579436"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c15fced3d0a2819bef3c874d85b1f8f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7c15fced3d0a2819bef3c874d85b1f8f">isPlanInstruction</a> (const <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
-<tr class="separator:a7c15fced3d0a2819bef3c874d85b1f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a113ddfa3992fee8b8bdb1adcc6ee297e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a113ddfa3992fee8b8bdb1adcc6ee297e">isNullInstruction</a> (const <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction)</td></tr>
 <tr class="separator:a113ddfa3992fee8b8bdb1adcc6ee297e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a156eaa9e3dde1379bf9200c43c351d3f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a156eaa9e3dde1379bf9200c43c351d3f">moveFilter</a> (const <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, bool parent_is_first_composite)</td></tr>
 <tr class="separator:a156eaa9e3dde1379bf9200c43c351d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adeeccffb6d57f3e11925e31af40b13a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adeeccffb6d57f3e11925e31af40b13a4">planFilter</a> (const <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &amp;instruction, const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite, bool parent_is_first_composite)</td></tr>
-<tr class="separator:adeeccffb6d57f3e11925e31af40b13a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d5bdd11ad23e6f48bfa70264769706a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5d5bdd11ad23e6f48bfa70264769706a">flatten</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdc2315021b909f3a215f899b7d7c241">flattenFilterFn</a> &amp;filter=nullptr)</td></tr>
 <tr class="memdesc:a5d5bdd11ad23e6f48bfa70264769706a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#a5d5bdd11ad23e6f48bfa70264769706a">More...</a><br /></td></tr>
 <tr class="separator:a5d5bdd11ad23e6f48bfa70264769706a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -654,33 +641,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a5c87f95850c9a7c3b1d1258df9305d75"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a5c87f95850c9a7c3b1d1258df9305d75">getFirstMoveInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
 <tr class="memdesc:a5c87f95850c9a7c3b1d1258df9305d75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a5c87f95850c9a7c3b1d1258df9305d75">More...</a><br /></td></tr>
 <tr class="separator:a5c87f95850c9a7c3b1d1258df9305d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8a865e50b935ae0f13d05c0d4914599"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad8a865e50b935ae0f13d05c0d4914599">getFirstPlanInstruction</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
-<tr class="memdesc:ad8a865e50b935ae0f13d05c0d4914599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#ad8a865e50b935ae0f13d05c0d4914599">More...</a><br /></td></tr>
-<tr class="separator:ad8a865e50b935ae0f13d05c0d4914599"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eeb7d6190889e4f57b87ca63a070e49"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4eeb7d6190889e4f57b87ca63a070e49">getFirstPlanInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
-<tr class="memdesc:a4eeb7d6190889e4f57b87ca63a070e49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a4eeb7d6190889e4f57b87ca63a070e49">More...</a><br /></td></tr>
-<tr class="separator:a4eeb7d6190889e4f57b87ca63a070e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3773420b9d37cd1f98f827000e929415"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a3773420b9d37cd1f98f827000e929415">getLastMoveInstruction</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
 <tr class="memdesc:a3773420b9d37cd1f98f827000e929415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a3773420b9d37cd1f98f827000e929415">More...</a><br /></td></tr>
 <tr class="separator:a3773420b9d37cd1f98f827000e929415"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a69c0f47899527dd1c7d9f50b84a8d7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8a69c0f47899527dd1c7d9f50b84a8d7">getLastMoveInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
 <tr class="memdesc:a8a69c0f47899527dd1c7d9f50b84a8d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8a69c0f47899527dd1c7d9f50b84a8d7">More...</a><br /></td></tr>
 <tr class="separator:a8a69c0f47899527dd1c7d9f50b84a8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d8c7fe936b6b76eb16b47565ef05ecb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d8c7fe936b6b76eb16b47565ef05ecb">getLastPlanInstruction</a> (<a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
-<tr class="memdesc:a6d8c7fe936b6b76eb16b47565ef05ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a6d8c7fe936b6b76eb16b47565ef05ecb">More...</a><br /></td></tr>
-<tr class="separator:a6d8c7fe936b6b76eb16b47565ef05ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ea38100e459788db93f119c60d39e09"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2ea38100e459788db93f119c60d39e09">getLastPlanInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
-<tr class="memdesc:a2ea38100e459788db93f119c60d39e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2ea38100e459788db93f119c60d39e09">More...</a><br /></td></tr>
-<tr class="separator:a2ea38100e459788db93f119c60d39e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01458ec9671936e46c24e8346003cf4b"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a01458ec9671936e46c24e8346003cf4b">getInstructionCount</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction, const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac008e09ddce5c25c00e2c77ff18929e8">locateFilterFn</a> &amp;locate_filter=nullptr, bool process_child_composites=true)</td></tr>
 <tr class="memdesc:a01458ec9671936e46c24e8346003cf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>.  <a href="../../d9/dcd/namespacetesseract__planning.html#a01458ec9671936e46c24e8346003cf4b">More...</a><br /></td></tr>
 <tr class="separator:a01458ec9671936e46c24e8346003cf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfe8f834e3ef52d7a83e4d39d4d584d4"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adfe8f834e3ef52d7a83e4d39d4d584d4">getMoveInstructionCount</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
 <tr class="memdesc:adfe8f834e3ef52d7a83e4d39d4d584d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in the child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#adfe8f834e3ef52d7a83e4d39d4d584d4">More...</a><br /></td></tr>
 <tr class="separator:adfe8f834e3ef52d7a83e4d39d4d584d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2314582d78deda35f1533d63c9bd732"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ad2314582d78deda35f1533d63c9bd732">getPlanInstructionCount</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instruction)</td></tr>
-<tr class="memdesc:ad2314582d78deda35f1533d63c9bd732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in the child composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#ad2314582d78deda35f1533d63c9bd732">More...</a><br /></td></tr>
-<tr class="separator:ad2314582d78deda35f1533d63c9bd732"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4631f1616bd5577e3b1a049553ce557a"><td class="memItemLeft" align="right" valign="top">tesseract_common::JointTrajectory&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4631f1616bd5577e3b1a049553ce557a">toJointTrajectory</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;composite_instructions)</td></tr>
 <tr class="memdesc:a4631f1616bd5577e3b1a049553ce557a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert composite instruction to a joint trajectory.  <a href="../../d9/dcd/namespacetesseract__planning.html#a4631f1616bd5577e3b1a049553ce557a">More...</a><br /></td></tr>
 <tr class="separator:a4631f1616bd5577e3b1a049553ce557a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -821,9 +793,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8c543584d607b7345d6ad3e12178f48c"><td class="memTemplItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8c543584d607b7345d6ad3e12178f48c">getJointTurns</a> (const Eigen::Ref&lt; const Eigen::Matrix&lt; FloatType, Eigen::Dynamic, 1 &gt; &gt; &amp;joint_values)</td></tr>
 <tr class="memdesc:a8c543584d607b7345d6ad3e12178f48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of turns for joints that allow rotation beyond +- 180 degrees.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8c543584d607b7345d6ad3e12178f48c">More...</a><br /></td></tr>
 <tr class="separator:a8c543584d607b7345d6ad3e12178f48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;joint_names, const Eigen::MatrixXd &amp;states, const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;base_instruction)</td></tr>
-<tr class="memdesc:a279ab58cb9c7b07e9e678f077bb4d932"><td class="mdescLeft">&#160;</td><td class="mdescRight">This takes the provided seed state for the base_instruction and create a corresponding composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a279ab58cb9c7b07e9e678f077bb4d932">More...</a><br /></td></tr>
-<tr class="separator:a279ab58cb9c7b07e9e678f077bb4d932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfefb330b159d7102d3f9106438a8900"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#adfefb330b159d7102d3f9106438a8900">getInterpolatedComposite</a> (const std::vector&lt; std::string &gt; &amp;joint_names, const Eigen::MatrixXd &amp;states, const <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> &amp;base_instruction)</td></tr>
+<tr class="memdesc:adfefb330b159d7102d3f9106438a8900"><td class="mdescLeft">&#160;</td><td class="mdescRight">This takes the provided seed state for the base_instruction and create a corresponding composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#adfefb330b159d7102d3f9106438a8900">More...</a><br /></td></tr>
+<tr class="separator:adfefb330b159d7102d3f9106438a8900"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c73959c536f2f1f881910a889315465"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c73959c536f2f1f881910a889315465">getClosestJointSolution</a> (const <a class="el" href="../../d7/d68/structtesseract__planning_1_1KinematicGroupInstructionInfo.html">KinematicGroupInstructionInfo</a> &amp;info, const Eigen::VectorXd &amp;seed)</td></tr>
 <tr class="memdesc:a2c73959c536f2f1f881910a889315465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest joint solution for p to the provided seed.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2c73959c536f2f1f881910a889315465">More...</a><br /></td></tr>
 <tr class="separator:a2c73959c536f2f1f881910a889315465"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1852,34 +1824,6 @@ template&lt;typename FloatType &gt; </div>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe" name="ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe"></a>REAL_STATE_SPACE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ac337c63f13aba30328a8cd25f863be62a86b43f975a794464ccbca127da14aea0" name="ac337c63f13aba30328a8cd25f863be62a86b43f975a794464ccbca127da14aea0"></a>REAL_CONSTRAINTED_STATE_SPACE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ac337c63f13aba30328a8cd25f863be62a660ce4b7bd4b4a899f9a46c870ac4d2b" name="ac337c63f13aba30328a8cd25f863be62a660ce4b7bd4b4a899f9a46c870ac4d2b"></a>SE3_STATE_SPACE&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<a id="a6d6524747d083995553d1538d6e29610" name="a6d6524747d083995553d1538d6e29610"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d6524747d083995553d1538d6e29610">&#9670;&nbsp;</a></span>PlanInstructionType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a6d6524747d083995553d1538d6e29610">tesseract_planning::PlanInstructionType</a> : int</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6d6524747d083995553d1538d6e29610aaac544aacc3615aada24897a215f5046" name="a6d6524747d083995553d1538d6e29610aaac544aacc3615aada24897a215f5046"></a>LINEAR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6d6524747d083995553d1538d6e29610a7527bb744a3edda4e08b7323f4bb5ffd" name="a6d6524747d083995553d1538d6e29610a7527bb744a3edda4e08b7323f4bb5ffd"></a>FREESPACE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6d6524747d083995553d1538d6e29610a93c8d295bb538cdb3302604512828d68" name="a6d6524747d083995553d1538d6e29610a93c8d295bb538cdb3302604512828d68"></a>CIRCULAR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6d6524747d083995553d1538d6e29610ab078ffd28db767c502ac367053f6e0ac" name="a6d6524747d083995553d1538d6e29610ab078ffd28db767c502ac367053f6e0ac"></a>START&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -6140,76 +6084,6 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="ad8a865e50b935ae0f13d05c0d4914599" name="ad8a865e50b935ae0f13d05c0d4914599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8a865e50b935ae0f13d05c0d4914599">&#9670;&nbsp;</a></span>getFirstPlanInstruction() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> * tesseract_planning::getFirstPlanInstruction </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite_instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the first Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">composite_instruction</td><td>Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> to search </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The first Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> (Non-Const) </dd></dl>
-
-</div>
-</div>
-<a id="a4eeb7d6190889e4f57b87ca63a070e49" name="a4eeb7d6190889e4f57b87ca63a070e49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4eeb7d6190889e4f57b87ca63a070e49">&#9670;&nbsp;</a></span>getFirstPlanInstruction() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> * tesseract_planning::getFirstPlanInstruction </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite_instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the first Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">composite_instruction</td><td>Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> to search </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The first Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> (Const) </dd></dl>
-
-</div>
-</div>
 <a id="a01458ec9671936e46c24e8346003cf4b" name="a01458ec9671936e46c24e8346003cf4b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a01458ec9671936e46c24e8346003cf4b">&#9670;&nbsp;</a></span>getInstructionCount()</h2>
 
@@ -6295,8 +6169,8 @@ template&lt;typename ProfileType &gt; </div>
 
 </div>
 </div>
-<a id="a279ab58cb9c7b07e9e678f077bb4d932" name="a279ab58cb9c7b07e9e678f077bb4d932"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a279ab58cb9c7b07e9e678f077bb4d932">&#9670;&nbsp;</a></span>getInterpolatedComposite()</h2>
+<a id="adfefb330b159d7102d3f9106438a8900" name="adfefb330b159d7102d3f9106438a8900"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfefb330b159d7102d3f9106438a8900">&#9670;&nbsp;</a></span>getInterpolatedComposite()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6316,7 +6190,7 @@ template&lt;typename ProfileType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> &amp;&#160;</td>
           <td class="paramname"><em>base_instruction</em>&#160;</td>
         </tr>
         <tr>
@@ -6712,76 +6586,6 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a6d8c7fe936b6b76eb16b47565ef05ecb" name="a6d8c7fe936b6b76eb16b47565ef05ecb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d8c7fe936b6b76eb16b47565ef05ecb">&#9670;&nbsp;</a></span>getLastPlanInstruction() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> * tesseract_planning::getLastPlanInstruction </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite_instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the last Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">composite_instruction</td><td>Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> to search </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The last Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> (Non-Const) </dd></dl>
-
-</div>
-</div>
-<a id="a2ea38100e459788db93f119c60d39e09" name="a2ea38100e459788db93f119c60d39e09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ea38100e459788db93f119c60d39e09">&#9670;&nbsp;</a></span>getLastPlanInstruction() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> * tesseract_planning::getLastPlanInstruction </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite_instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the last Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in child composite instruction. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">composite_instruction</td><td>Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> to search </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The last Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> (Const) </dd></dl>
-
-</div>
-</div>
 <a id="adfe8f834e3ef52d7a83e4d39d4d584d4" name="adfe8f834e3ef52d7a83e4d39d4d584d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adfe8f834e3ef52d7a83e4d39d4d584d4">&#9670;&nbsp;</a></span>getMoveInstructionCount()</h2>
 
@@ -6814,41 +6618,6 @@ template&lt;typename FloatType &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of Move Instructions </dd></dl>
-
-</div>
-</div>
-<a id="ad2314582d78deda35f1533d63c9bd732" name="ad2314582d78deda35f1533d63c9bd732"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2314582d78deda35f1533d63c9bd732">&#9670;&nbsp;</a></span>getPlanInstructionCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">long tesseract_planning::getPlanInstructionCount </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite_instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get number of Plan <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> in a Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> This does not consider the start instruction in the child composite instruction. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">composite_instruction</td><td>The Composite <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> to process </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of Plan Instructions </dd></dl>
 
 </div>
 </div>
@@ -7522,24 +7291,6 @@ template&lt;typename FloatType &gt; </div>
 
 </div>
 </div>
-<a id="a7c15fced3d0a2819bef3c874d85b1f8f" name="a7c15fced3d0a2819bef3c874d85b1f8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c15fced3d0a2819bef3c874d85b1f8f">&#9670;&nbsp;</a></span>isPlanInstruction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::isPlanInstruction </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>instruction</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a287d1667d00db3e5e4fabcfb51664b75" name="a287d1667d00db3e5e4fabcfb51664b75"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a287d1667d00db3e5e4fabcfb51664b75">&#9670;&nbsp;</a></span>isSetAnalogInstruction()</h2>
 
@@ -7988,40 +7739,6 @@ template&lt;typename FloatType &gt; </div>
           <td class="paramtype">const tinyxml2::XMLElement &amp;&#160;</td>
           <td class="paramname"><em>xml_element</em></td><td>)</td>
           <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="adeeccffb6d57f3e11925e31af40b13a4" name="adeeccffb6d57f3e11925e31af40b13a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adeeccffb6d57f3e11925e31af40b13a4">&#9670;&nbsp;</a></span>planFilter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::planFilter </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>instruction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;&#160;</td>
-          <td class="paramname"><em>composite</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>parent_is_first_composite</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -9668,7 +9385,7 @@ template&lt;typename FloatType &gt; </div>
 <div class="line"> </div>
 <div class="line">      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line">    }</div>
-<div class="ttc" id="anamespacetesseract__planning_html_a2a1d26a1924d6b53c23630143a579436"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a2a1d26a1924d6b53c23630143a579436">tesseract_planning::isMoveInstruction</a></div><div class="ttdeci">bool isMoveInstruction(const Instruction &amp;instruction)</div><div class="ttdef"><b>Definition:</b> instruction_type.cpp:78</div></div>
+<div class="ttc" id="anamespacetesseract__planning_html_a2a1d26a1924d6b53c23630143a579436"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a2a1d26a1924d6b53c23630143a579436">tesseract_planning::isMoveInstruction</a></div><div class="ttdeci">bool isMoveInstruction(const Instruction &amp;instruction)</div><div class="ttdef"><b>Definition:</b> instruction_type.cpp:77</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -9759,22 +9476,11 @@ template&lt;typename FloatType &gt; </div>
 <div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">      }</div>
 <div class="line"> </div>
-<div class="line">      <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d9/dcd/namespacetesseract__planning.html#a7c15fced3d0a2819bef3c874d85b1f8f">tesseract_planning::isPlanInstruction</a>(i))</div>
-<div class="line">      {</div>
-<div class="line">        <span class="keywordflow">if</span> (i.as&lt;<a class="code hl_class" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">tesseract_planning::PlanInstruction</a>&gt;().<a class="code hl_function" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html#a1d91722519a3a2fbb2d3dcad864ab0a1">isStart</a>())</div>
-<div class="line">          <span class="keywordflow">return</span> (parent_is_first_composite);</div>
-<div class="line"> </div>
-<div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">      }</div>
-<div class="line"> </div>
 <div class="line">      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line">    }</div>
 <div class="ttc" id="aclasstesseract__planning_1_1CompositeInstruction_html"><div class="ttname"><a href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">tesseract_planning::CompositeInstruction</a></div><div class="ttdef"><b>Definition:</b> composite_instruction.h:52</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a></div><div class="ttdoc">The move instruction is used when defining the results of a motion planning request.</div><div class="ttdef"><b>Definition:</b> move_instruction.h:64</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html_ad7ea2fb0fcfc4259ace79dafc6ac8179"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad7ea2fb0fcfc4259ace79dafc6ac8179">tesseract_planning::MoveInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> move_instruction.cpp:153</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1PlanInstruction_html"><div class="ttname"><a href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">tesseract_planning::PlanInstruction</a></div><div class="ttdoc">The plan instruction is used when generating motion planning requests.</div><div class="ttdef"><b>Definition:</b> plan_instruction.h:63</div></div>
-<div class="ttc" id="aclasstesseract__planning_1_1PlanInstruction_html_a1d91722519a3a2fbb2d3dcad864ab0a1"><div class="ttname"><a href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html#a1d91722519a3a2fbb2d3dcad864ab0a1">tesseract_planning::PlanInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> plan_instruction.cpp:101</div></div>
-<div class="ttc" id="anamespacetesseract__planning_html_a7c15fced3d0a2819bef3c874d85b1f8f"><div class="ttname"><a href="../../d9/dcd/namespacetesseract__planning.html#a7c15fced3d0a2819bef3c874d85b1f8f">tesseract_planning::isPlanInstruction</a></div><div class="ttdeci">bool isPlanInstruction(const Instruction &amp;instruction)</div><div class="ttdef"><b>Definition:</b> instruction_type.cpp:83</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">tesseract_planning::MoveInstruction</a></div><div class="ttdoc">The move instruction is used when defining the results of a motion planning request.</div><div class="ttdef"><b>Definition:</b> move_instruction.h:63</div></div>
+<div class="ttc" id="aclasstesseract__planning_1_1MoveInstruction_html_ad7ea2fb0fcfc4259ace79dafc6ac8179"><div class="ttname"><a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad7ea2fb0fcfc4259ace79dafc6ac8179">tesseract_planning::MoveInstruction::isStart</a></div><div class="ttdeci">bool isStart() const</div><div class="ttdef"><b>Definition:</b> move_instruction.cpp:109</div></div>
 <div class="ttc" id="astructtesseract__planning_1_1Instruction_html"><div class="ttname"><a href="../../db/dff/structtesseract__planning_1_1Instruction.html">tesseract_planning::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.h:157</div></div>
 </div><!-- fragment -->
 </div>
@@ -9782,7 +9488,7 @@ template&lt;typename FloatType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 12 2022 16:04:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Jul 13 2022 00:46:46 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

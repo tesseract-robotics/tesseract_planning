@@ -22,7 +22,7 @@ Collaboration diagram for tesseract\+\_\+planning\+::Joint\+Group\+Instruction\+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_af53c8b9c7edb497f6bf334efacd2e960}{Joint\+Group\+Instruction\+Info}} (const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info)
+\mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac44daaad709333e5098988bd3603b1f4}{Joint\+Group\+Instruction\+Info}} (const \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \&plan\+\_\+instruction, const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&request, const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&manip\+\_\+info)
 \item 
 Eigen\+::\+Isometry3d \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac690d530dc64aceb9d78338c7c466d64}{calc\+Cartesian\+Pose}} (const Eigen\+::\+Vector\+Xd \&jp) const
 \begin{DoxyCompactList}\small\item\em Calculate the cartesian pose given the joint solution. \end{DoxyCompactList}\item 
@@ -33,7 +33,7 @@ const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1Joi
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \& \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_aab8662856b87b5c7689646b8aba1093e}{instruction}}
+const \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \& \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_adff0da245e840a9bfa83acc837516197}{instruction}}
 \item 
 tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+UPtr \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a131a12f7a15dee90161c802ebc363c6f}{manip}}
 \item 
@@ -51,11 +51,11 @@ bool \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a39
 The Joint Group \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Information struct. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_af53c8b9c7edb497f6bf334efacd2e960}\label{structtesseract__planning_1_1JointGroupInstructionInfo_af53c8b9c7edb497f6bf334efacd2e960}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_ac44daaad709333e5098988bd3603b1f4}\label{structtesseract__planning_1_1JointGroupInstructionInfo_ac44daaad709333e5098988bd3603b1f4}} 
 \index{tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}!JointGroupInstructionInfo@{JointGroupInstructionInfo}}
 \index{JointGroupInstructionInfo@{JointGroupInstructionInfo}!tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}}
 \doxysubsubsection{\texorpdfstring{JointGroupInstructionInfo()}{JointGroupInstructionInfo()}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::\+Joint\+Group\+Instruction\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}} \&}]{plan\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::\+Joint\+Group\+Instruction\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \&}]{plan\+\_\+instruction,  }\item[{const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{Planner\+Request}} \&}]{request,  }\item[{const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \&}]{manip\+\_\+info }\end{DoxyParamCaption})}
 
 
 
@@ -113,11 +113,11 @@ Joint Position
 \doxysubsubsection{\texorpdfstring{has\_cartesian\_waypoint}{has\_cartesian\_waypoint}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::has\+\_\+cartesian\+\_\+waypoint \{ false \}}
 
-\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_aab8662856b87b5c7689646b8aba1093e}\label{structtesseract__planning_1_1JointGroupInstructionInfo_aab8662856b87b5c7689646b8aba1093e}} 
+\mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_adff0da245e840a9bfa83acc837516197}\label{structtesseract__planning_1_1JointGroupInstructionInfo_adff0da245e840a9bfa83acc837516197}} 
 \index{tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}!instruction@{instruction}}
 \index{instruction@{instruction}!tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}}
 \doxysubsubsection{\texorpdfstring{instruction}{instruction}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{Plan\+Instruction}}\& tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::instruction}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}}\& tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info\+::instruction}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1JointGroupInstructionInfo_a131a12f7a15dee90161c802ebc363c6f}\label{structtesseract__planning_1_1JointGroupInstructionInfo_a131a12f7a15dee90161c802ebc363c6f}} 
 \index{tesseract\_planning::JointGroupInstructionInfo@{tesseract\_planning::JointGroupInstructionInfo}!manip@{manip}}

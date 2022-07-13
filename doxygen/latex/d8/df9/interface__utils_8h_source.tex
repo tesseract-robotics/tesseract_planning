@@ -47,9 +47,9 @@
 \DoxyCodeLine{68   profiles-\/>addProfile<\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}>(planner.\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a592c0a96be9938a36801ad6d0fa18eb8}{getName}}(), instructions.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a1f648ba485add98e6de2366c01d1fd4c}{getProfile}}(), profile);}
 \DoxyCodeLine{69   \textcolor{keyword}{auto} flat = \mbox{\hyperlink{namespacetesseract__planning_a1172c93ff97196d2037dc67a853c0625}{flattenProgram}}(instructions);}
 \DoxyCodeLine{70   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& i : flat)}
-\DoxyCodeLine{71     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(i.get()))}
+\DoxyCodeLine{71     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(i.get()))}
 \DoxyCodeLine{72       profiles-\/>addProfile<\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}>(}
-\DoxyCodeLine{73           planner.\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a592c0a96be9938a36801ad6d0fa18eb8}{getName}}(), i.get().as<\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}>().\mbox{\hyperlink{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}{getProfile}}(), profile);}
+\DoxyCodeLine{73           planner.\mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a592c0a96be9938a36801ad6d0fa18eb8}{getName}}(), i.get().as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>().\mbox{\hyperlink{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}{getProfile}}(), profile);}
 \DoxyCodeLine{74 }
 \DoxyCodeLine{75   \textcolor{comment}{// Assign profile dictionary}}
 \DoxyCodeLine{76   request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}} = profiles;}

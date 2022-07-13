@@ -82,7 +82,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the PlanInstructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.  
+<p>The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the MoveInstructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation.  
  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../de/dd7/simple__motion__planner_8h_source.html">simple_motion_planner.h</a>&gt;</code></p>
@@ -189,14 +189,14 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a326864bcaedf6f7d220e96211cff9e17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a326864bcaedf6f7d220e96211cff9e17">processCompositeInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;instructions, <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;prev_instruction, <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> &amp;prev_seed, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</td></tr>
-<tr class="separator:a326864bcaedf6f7d220e96211cff9e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b6c440c0df824dce1961fa37a75cf45"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#a6b6c440c0df824dce1961fa37a75cf45">processCompositeInstruction</a> (const <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> &amp;instructions, <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> &amp;prev_instruction, <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> &amp;prev_seed, const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request) const</td></tr>
+<tr class="separator:a6b6c440c0df824dce1961fa37a75cf45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:ab03e0226acdf31923ccb49f1a8d6f2ca"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ab03e0226acdf31923ccb49f1a8d6f2ca">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_kinematics::JointGroup &amp;manip)</td></tr>
-<tr class="memdesc:ab03e0226acdf31923ccb49f1a8d6f2ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planners status codes.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#ab03e0226acdf31923ccb49f1a8d6f2ca">More...</a><br /></td></tr>
-<tr class="separator:ab03e0226acdf31923ccb49f1a8d6f2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf80160ee06f71208b7258f79d2a57c7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#abf80160ee06f71208b7258f79d2a57c7">getStartInstruction</a> (const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;request, const tesseract_scene_graph::SceneState &amp;current_state, const tesseract_kinematics::JointGroup &amp;manip)</td></tr>
+<tr class="memdesc:abf80160ee06f71208b7258f79d2a57c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planners status codes.  <a href="../../d1/d5b/classtesseract__planning_1_1SimpleMotionPlanner.html#abf80160ee06f71208b7258f79d2a57c7">More...</a><br /></td></tr>
+<tr class="separator:abf80160ee06f71208b7258f79d2a57c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -206,7 +206,7 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ac7474b5c7478761fdc6c07d4208c4999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the PlanInstructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation. </p>
+<div class="textblock"><p >The simple planner is meant to be a tool for assigning values to the seed. The planner simply loops over all of the MoveInstructions and then calls the appropriate function from the profile. These functions do not depend on the seed, so this may be used to initialize the seed appropriately using e.g. linear interpolation. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a82aaf5bc5f664b0841e8aeb169c1394e" name="a82aaf5bc5f664b0841e8aeb169c1394e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82aaf5bc5f664b0841e8aeb169c1394e">&#9670;&nbsp;</a></span>ConstPtr</h2>
@@ -449,8 +449,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab03e0226acdf31923ccb49f1a8d6f2ca" name="ab03e0226acdf31923ccb49f1a8d6f2ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab03e0226acdf31923ccb49f1a8d6f2ca">&#9670;&nbsp;</a></span>getStartInstruction()</h2>
+<a id="abf80160ee06f71208b7258f79d2a57c7" name="abf80160ee06f71208b7258f79d2a57c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf80160ee06f71208b7258f79d2a57c7">&#9670;&nbsp;</a></span>getStartInstruction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -459,7 +459,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> tesseract_planning::SimpleMotionPlanner::getStartInstruction </td>
+          <td class="memname"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> tesseract_planning::SimpleMotionPlanner::getStartInstruction </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d5/dbf/structtesseract__planning_1_1PlannerRequest.html">PlannerRequest</a> &amp;&#160;</td>
           <td class="paramname"><em>request</em>, </td>
@@ -546,8 +546,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a326864bcaedf6f7d220e96211cff9e17" name="a326864bcaedf6f7d220e96211cff9e17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a326864bcaedf6f7d220e96211cff9e17">&#9670;&nbsp;</a></span>processCompositeInstruction()</h2>
+<a id="a6b6c440c0df824dce1961fa37a75cf45" name="a6b6c440c0df824dce1961fa37a75cf45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b6c440c0df824dce1961fa37a75cf45">&#9670;&nbsp;</a></span>processCompositeInstruction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -564,7 +564,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d4/dd6/classtesseract__planning_1_1PlanInstruction.html">PlanInstruction</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> &amp;&#160;</td>
           <td class="paramname"><em>prev_instruction</em>, </td>
         </tr>
         <tr>
@@ -730,7 +730,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 12 2022 16:04:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Jul 13 2022 00:46:47 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

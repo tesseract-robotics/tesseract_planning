@@ -5,7 +5,6 @@
 Utilities such as get\texorpdfstring{$<$}{<}First/\+Last\texorpdfstring{$>$}{>}$<$\+Type$>$Instruction.  
 
 
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/plan\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/composite\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/filter\+\_\+functions.\+h$>$}\newline
@@ -45,24 +44,14 @@ Move\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_af1d8911e
 \begin{DoxyCompactList}\small\item\em Get the first Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
 const Move\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a5c87f95850c9a7c3b1d1258df9305d75}{tesseract\+\_\+planning\+::get\+First\+Move\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em Get the first Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
-Plan\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_ad8a865e50b935ae0f13d05c0d4914599}{tesseract\+\_\+planning\+::get\+First\+Plan\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Get the first Plan \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
-const Plan\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a4eeb7d6190889e4f57b87ca63a070e49}{tesseract\+\_\+planning\+::get\+First\+Plan\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Get the first Plan \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
 Move\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a3773420b9d37cd1f98f827000e929415}{tesseract\+\_\+planning\+::get\+Last\+Move\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em Get the last Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
 const Move\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a8a69c0f47899527dd1c7d9f50b84a8d7}{tesseract\+\_\+planning\+::get\+Last\+Move\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em Get the last Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
-Plan\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a6d8c7fe936b6b76eb16b47565ef05ecb}{tesseract\+\_\+planning\+::get\+Last\+Plan\+Instruction}} (Composite\+Instruction \&composite\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Get the last Plan \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
-const Plan\+Instruction $\ast$ \mbox{\hyperlink{namespacetesseract__planning_a2ea38100e459788db93f119c60d39e09}{tesseract\+\_\+planning\+::get\+Last\+Plan\+Instruction}} (const Composite\+Instruction \&composite\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Get the last Plan \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in child composite instruction. \end{DoxyCompactList}\item 
 long \mbox{\hyperlink{namespacetesseract__planning_a01458ec9671936e46c24e8346003cf4b}{tesseract\+\_\+planning\+::get\+Instruction\+Count}} (const Composite\+Instruction \&composite\+\_\+instruction, const locate\+Filter\+Fn \&locate\+\_\+filter=nullptr, bool process\+\_\+child\+\_\+composites=true)
 \begin{DoxyCompactList}\small\item\em Get number of \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}. \end{DoxyCompactList}\item 
 long \mbox{\hyperlink{namespacetesseract__planning_adfe8f834e3ef52d7a83e4d39d4d584d4}{tesseract\+\_\+planning\+::get\+Move\+Instruction\+Count}} (const Composite\+Instruction \&composite\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Get number of Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in the child composite instruction. \end{DoxyCompactList}\item 
-long \mbox{\hyperlink{namespacetesseract__planning_ad2314582d78deda35f1533d63c9bd732}{tesseract\+\_\+planning\+::get\+Plan\+Instruction\+Count}} (const Composite\+Instruction \&composite\+\_\+instruction)
-\begin{DoxyCompactList}\small\item\em Get number of Plan \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in the child composite instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get number of Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} in a Composite \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} This does not consider the start instruction in the child composite instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -78,7 +67,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000020}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000019}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

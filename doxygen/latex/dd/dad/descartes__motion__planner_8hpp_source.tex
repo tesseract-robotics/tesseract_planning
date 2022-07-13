@@ -126,11 +126,11 @@
 \DoxyCodeLine{146   \textcolor{keywordflow}{for} (std::size\_t idx = 0; idx < instructions\_flattened.size(); idx++)}
 \DoxyCodeLine{147   \{}
 \DoxyCodeLine{148     \textcolor{comment}{// If idx is zero then this should be the start instruction}}
-\DoxyCodeLine{149     assert((idx == 0) ? \mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(instructions\_flattened.at(idx).get()) : \textcolor{keyword}{true});}
+\DoxyCodeLine{149     assert((idx == 0) ? \mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(instructions\_flattened.at(idx).get()) : \textcolor{keyword}{true});}
 \DoxyCodeLine{150     assert((idx == 0) ? \mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(results\_flattened[idx].get()) : \textcolor{keyword}{true});}
-\DoxyCodeLine{151     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(instructions\_flattened.at(idx).get()))}
+\DoxyCodeLine{151     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(instructions\_flattened.at(idx).get()))}
 \DoxyCodeLine{152     \{}
-\DoxyCodeLine{153       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& plan\_instruction = instructions\_flattened.at(idx).get().as<\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}>();}
+\DoxyCodeLine{153       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& plan\_instruction = instructions\_flattened.at(idx).get().as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>();}
 \DoxyCodeLine{154       \textcolor{keywordflow}{if} (plan\_instruction.isStart())}
 \DoxyCodeLine{155       \{}
 \DoxyCodeLine{156         assert(idx == 0);}
@@ -278,11 +278,11 @@
 \DoxyCodeLine{298   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* start\_instruction = \textcolor{keyword}{nullptr};}
 \DoxyCodeLine{299   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ae2160219a45049b04b5fdf68bd27e882}{hasStartInstruction}}())}
 \DoxyCodeLine{300   \{}
-\DoxyCodeLine{301     assert(\mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abf2e38f4f1b149032ddfa260165b24c2}{getStartInstruction}}()));}
+\DoxyCodeLine{301     assert(\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abf2e38f4f1b149032ddfa260165b24c2}{getStartInstruction}}()));}
 \DoxyCodeLine{302     start\_instruction = \&(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abf2e38f4f1b149032ddfa260165b24c2}{getStartInstruction}}());}
-\DoxyCodeLine{303     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(*start\_instruction))}
+\DoxyCodeLine{303     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(*start\_instruction))}
 \DoxyCodeLine{304     \{}
-\DoxyCodeLine{305       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& temp = start\_instruction-\/>as<\mbox{\hyperlink{classtesseract__planning_1_1PlanInstruction}{PlanInstruction}}>();}
+\DoxyCodeLine{305       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& temp = start\_instruction-\/>as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>();}
 \DoxyCodeLine{306       assert(temp.isStart());}
 \DoxyCodeLine{307       start\_waypoint = temp.getWaypoint();}
 \DoxyCodeLine{308       profile = temp.getProfile();}
@@ -335,10 +335,10 @@
 \DoxyCodeLine{355   \textcolor{keywordflow}{for} (std::size\_t i = start\_index; i < instructions\_flat.size(); ++i)}
 \DoxyCodeLine{356   \{}
 \DoxyCodeLine{357     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& instruction = instructions\_flat[i].get();}
-\DoxyCodeLine{358     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(instruction))}
+\DoxyCodeLine{358     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(instruction))}
 \DoxyCodeLine{359     \{}
-\DoxyCodeLine{360       assert(\mbox{\hyperlink{namespacetesseract__planning_a7c15fced3d0a2819bef3c874d85b1f8f}{isPlanInstruction}}(instruction));}
-\DoxyCodeLine{361       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& plan\_instruction = instruction.template as<PlanInstruction>();}
+\DoxyCodeLine{360       assert(\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(instruction));}
+\DoxyCodeLine{361       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& plan\_instruction = instruction.template as<MoveInstruction>();}
 \DoxyCodeLine{362 }
 \DoxyCodeLine{363       \textcolor{comment}{// If plan instruction has manipulator information then use it over the one provided by the composite.}}
 \DoxyCodeLine{364       \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}} mi = composite\_mi.getCombined(plan\_instruction.getManipulatorInfo());}
