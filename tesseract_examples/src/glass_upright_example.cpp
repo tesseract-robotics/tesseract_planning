@@ -150,7 +150,7 @@ bool GlassUprightExample::run()
   plan_f0.setDescription("freespace_plan");
 
   // Add Instructions to program
-  program.push_back(plan_f0);
+  program.appendMoveInstruction(plan_f0);
 
   // Create Process Planning Server
   ProcessPlanningServer planning_server(std::make_shared<ProcessEnvironmentCache>(env_), 5);

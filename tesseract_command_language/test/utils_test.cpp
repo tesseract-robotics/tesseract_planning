@@ -58,7 +58,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
         MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
-        sub_sub_composite.push_back(instruction);
+        sub_sub_composite.appendMoveInstruction(instruction);
       }
       sub_composite.push_back(sub_sub_composite);
     }
@@ -71,7 +71,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       composite.print();
 
     // flatten the composite
-    std::vector<std::reference_wrapper<Instruction>> flattened = flatten(composite);
+    std::vector<std::reference_wrapper<Instruction>> flattened = composite.flatten();
     EXPECT_EQ(flattened.size(), i_max * j_max * k_max);
 
     // Now change something in the flattened composite
@@ -110,7 +110,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
 
     // flatten the composite keeping the composite instructions
     flattenFilterFn filter = [](const Instruction&, const CompositeInstruction&, bool) { return true; };
-    std::vector<std::reference_wrapper<Instruction>> flattened = flatten(composite, filter);
+    std::vector<std::reference_wrapper<Instruction>> flattened = composite.flatten(filter);
     EXPECT_EQ(flattened.size(), i_max * j_max * k_max + 16);  // Add 16 for the composite instructions
 
     // Now change something in the flattened composite
@@ -180,14 +180,14 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
       Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
       MoveInstruction pattern_instruction(wp, MoveInstructionType::LINEAR);
       pattern_instruction.setDescription("pattern_instruction_" + std::to_string(i) + "_" + std::to_string(j));
-      sub_pattern.push_back(pattern_instruction);
+      sub_pattern.appendMoveInstruction(pattern_instruction);
       for (std::size_t k = 0; k < k_max; k++)
       {
         Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
         MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
-        sub_sub_composite.push_back(instruction);
+        sub_sub_composite.appendMoveInstruction(instruction);
       }
       sub_composite.push_back(sub_sub_composite);
     }
@@ -205,7 +205,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
       pattern.print();
     }
     // flatten the composite
-    std::vector<std::reference_wrapper<Instruction>> flattened = flattenToPattern(composite, pattern);
+    std::vector<std::reference_wrapper<Instruction>> flattened = composite.flattenToPattern(pattern);
     EXPECT_EQ(flattened.size(), i_max * j_max);
 
     // Now change something in the flattened composite
@@ -254,7 +254,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
     }
     // flatten the composite
     flattenFilterFn filter = [](const Instruction&, const CompositeInstruction&, bool) { return true; };
-    std::vector<std::reference_wrapper<Instruction>> flattened = flattenToPattern(composite, pattern, filter);
+    std::vector<std::reference_wrapper<Instruction>> flattened = composite.flattenToPattern(pattern, filter);
     EXPECT_EQ(flattened.size(),
               i_max * j_max + 4);  // Add 4 for the extra composite instructions that would be flattened
 
@@ -413,7 +413,7 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
     MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
     instruction.setDescription("MoveInstruction");
     instruction.setProfile("CART_PROFILE");
-    composite.push_back(instruction);
+    composite.appendMoveInstruction(instruction);
   }
 
   // generateSkeletonSeed
@@ -439,10 +439,10 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
       ASSERT_TRUE(isCompositeInstruction(skeleton_i));
       const auto& cast = skeleton_i.as<CompositeInstruction>();
 
-      EXPECT_EQ(cast.getProfile(), composite_i.as<MoveInstruction>().getProfile());
+      EXPECT_EQ(cast.getProfile(), composite_i.as<MoveInstructionPoly>().getProfile());
       EXPECT_EQ(cast.getOrder(), CompositeInstructionOrder::ORDERED);
       EXPECT_EQ(cast.getDescription(), "MoveInstruction");
-      EXPECT_EQ(cast.getManipulatorInfo(), composite_i.as<MoveInstruction>().getManipulatorInfo());
+      EXPECT_EQ(cast.getManipulatorInfo(), composite_i.as<MoveInstructionPoly>().getManipulatorInfo());
     }
     else
     {
@@ -458,11 +458,11 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
 
   std::vector<std::string> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values = Eigen::VectorXd::Constant(3, 5);
-  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  composite.appendMoveInstruction(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
   values = Eigen::VectorXd::Constant(3, 10);
-  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  composite.appendMoveInstruction(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
   values = Eigen::VectorXd::Constant(3, 15);
-  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  composite.appendMoveInstruction(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
 
   std::string path = tesseract_common::getTempPath() + "to_delimited_file.csv";
   EXPECT_TRUE(toDelimitedFile(composite, path));

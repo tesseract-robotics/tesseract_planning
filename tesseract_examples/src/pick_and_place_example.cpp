@@ -37,7 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_command_language/utils/utils.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
 #include <tesseract_process_managers/task_profiles/contact_check_profile.h>
 #include <tesseract_process_managers/core/default_task_namespaces.h>
@@ -168,8 +167,8 @@ bool PickAndPlaceExample::run()
   pick_plan_a1.setDescription("Pick Approach");
 
   // Add Instructions to program
-  pick_program.push_back(pick_plan_a0);
-  pick_program.push_back(pick_plan_a1);
+  pick_program.appendMoveInstruction(pick_plan_a0);
+  pick_program.appendMoveInstruction(pick_plan_a1);
 
   // Create Process Planning Server
   ProcessPlanningServer planning_server(std::make_shared<ProcessEnvironmentCache>(env_), 5);
@@ -261,7 +260,7 @@ bool PickAndPlaceExample::run()
 
   // Get the last move instruction
   const CompositeInstruction& pick_composite = pick_response.problem->results->as<CompositeInstruction>();
-  const MoveInstruction* pick_final_state = getLastMoveInstruction(pick_composite);
+  const MoveInstructionPoly* pick_final_state = pick_composite.getLastMoveInstruction();
 
   // Retreat to the approach pose
   Eigen::Isometry3d retreat_pose = pick_approach_pose;
@@ -319,9 +318,9 @@ bool PickAndPlaceExample::run()
   place_plan_a2.setDescription("Place approach");
 
   // Add Instructions to program
-  place_program.push_back(place_plan_a0);
-  place_program.push_back(place_plan_a1);
-  place_program.push_back(place_plan_a2);
+  place_program.appendMoveInstruction(place_plan_a0);
+  place_program.appendMoveInstruction(place_plan_a1);
+  place_program.appendMoveInstruction(place_plan_a2);
 
   // Create Process Planning Request
   ProcessPlanningRequest place_request;

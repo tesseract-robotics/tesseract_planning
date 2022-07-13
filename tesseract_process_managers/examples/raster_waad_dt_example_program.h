@@ -56,7 +56,7 @@ inline CompositeInstruction rasterWAADDTExampleProgram(const std::string& freesp
   plan_f0.setDescription("from_start_plan");
   CompositeInstruction from_start(freespace_profile);
   from_start.setDescription("from_start");
-  from_start.push_back(plan_f0);
+  from_start.appendMoveInstruction(plan_f0);
   program.push_back(from_start);
 
   //
@@ -93,33 +93,33 @@ inline CompositeInstruction rasterWAADDTExampleProgram(const std::string& freesp
     if (i == 0 || i == 2)
     {
       // Approach
-      approach_segment.push_back(MoveInstruction(wp1, MoveInstructionType::LINEAR, approach_profile));
+      approach_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, approach_profile));
 
       // Process
-      process_segment.push_back(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp7, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp7, MoveInstructionType::LINEAR, process_profile));
 
       // Departure
-      departure_segment.push_back(MoveInstruction(wpd, MoveInstructionType::LINEAR, departure_profile));
+      departure_segment.appendMoveInstruction(MoveInstruction(wpd, MoveInstructionType::LINEAR, departure_profile));
     }
     else
     {
       // Approach
-      approach_segment.push_back(MoveInstruction(wp7, MoveInstructionType::LINEAR, approach_profile));
+      approach_segment.appendMoveInstruction(MoveInstruction(wp7, MoveInstructionType::LINEAR, approach_profile));
 
-      process_segment.push_back(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
 
       // Departure
-      departure_segment.push_back(MoveInstruction(wpa, MoveInstructionType::LINEAR, departure_profile));
+      departure_segment.appendMoveInstruction(MoveInstruction(wpa, MoveInstructionType::LINEAR, departure_profile));
     }
 
     CompositeInstruction raster_segment;
@@ -147,11 +147,11 @@ inline CompositeInstruction rasterWAADDTExampleProgram(const std::string& freesp
 
       CompositeInstruction transition_from_end(freespace_profile);
       transition_from_end.setDescription("transition_from_end");
-      transition_from_end.push_back(plan_f1);
+      transition_from_end.appendMoveInstruction(plan_f1);
 
       CompositeInstruction transition_to_start(freespace_profile);
       transition_to_start.setDescription("transition_to_start");
-      transition_to_start.push_back(plan_f1_dt);
+      transition_to_start.appendMoveInstruction(plan_f1_dt);
 
       CompositeInstruction transition("transition dual", CompositeInstructionOrder::UNORDERED);
       transition.push_back(transition_from_end);
@@ -176,11 +176,11 @@ inline CompositeInstruction rasterWAADDTExampleProgram(const std::string& freesp
 
       CompositeInstruction transition_from_end(freespace_profile);
       transition_from_end.setDescription("transition_from_end");
-      transition_from_end.push_back(plan_f1);
+      transition_from_end.appendMoveInstruction(plan_f1);
 
       CompositeInstruction transition_to_start(freespace_profile);
       transition_to_start.setDescription("transition_to_start");
-      transition_to_start.push_back(plan_f1_dt);
+      transition_to_start.appendMoveInstruction(plan_f1_dt);
 
       CompositeInstruction transition("transition dual", CompositeInstructionOrder::UNORDERED);
       transition.push_back(transition_from_end);
@@ -193,7 +193,7 @@ inline CompositeInstruction rasterWAADDTExampleProgram(const std::string& freesp
   plan_f2.setDescription("to_end_plan");
   CompositeInstruction to_end(freespace_profile);
   to_end.setDescription("to_end");
-  to_end.push_back(plan_f2);
+  to_end.appendMoveInstruction(plan_f2);
   program.push_back(to_end);
 
   return program;

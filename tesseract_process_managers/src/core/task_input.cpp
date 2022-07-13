@@ -220,7 +220,7 @@ Instruction TaskInput::getStartInstruction() const
   }
 
   if (isCompositeInstruction(*ci))
-    return *getLastMoveInstruction(ci->as<CompositeInstruction>());
+    return *ci->as<CompositeInstruction>().getLastMoveInstruction();
 
   return *ci;
 }
@@ -261,8 +261,12 @@ Instruction TaskInput::getEndInstruction() const
 
   if (isCompositeInstruction(*ci))
   {
+    /** @todo Should this get the first move instruction? */
     auto& composite = ci->as<CompositeInstruction>();
-    return composite.getStartInstruction();
+    if (composite.hasStartInstruction())
+      return composite.getStartInstruction();
+
+    return NullInstruction();
   }
 
   return *ci;

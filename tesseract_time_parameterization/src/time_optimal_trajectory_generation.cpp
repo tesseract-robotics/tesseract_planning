@@ -57,7 +57,7 @@ static const flattenFilterFn programFlattenMoveInstructionFilter =
     [](const Instruction& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
       if (isMoveInstruction(i))
       {
-        if (i.as<MoveInstruction>().isStart())
+        if (i.as<MoveInstructionPoly>().isStart())
           return (parent_is_first_composite);
 
         return true;
@@ -125,7 +125,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   }
 
   // Flatten program
-  std::vector<std::reference_wrapper<Instruction>> trajectory = flatten(program, programFlattenMoveInstructionFilter);
+  std::vector<std::reference_wrapper<Instruction>> trajectory = program.flatten(programFlattenMoveInstructionFilter);
   const Eigen::Index num_joints = max_velocity.rows();
   const std::size_t num_points = trajectory.size();
 
@@ -137,7 +137,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   std::list<Eigen::VectorXd> points;
   for (size_t p = 0; p < num_points; ++p)
   {
-    auto& waypoint = trajectory[p].get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+    auto& waypoint = trajectory[p].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>();
     bool diverse_point = (p == 0);
 
     for (Eigen::Index j = 0; j < num_joints; j++)
@@ -157,7 +157,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
                             "waypoint.");
     for (auto& t : trajectory)
     {
-      auto waypoint = t.get().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+      auto waypoint = t.get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>();
       waypoint.velocity = Eigen::VectorXd::Zero(num_joints);
       waypoint.acceleration = Eigen::VectorXd::Zero(num_joints);
     }
@@ -193,15 +193,15 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   auto sample_count = static_cast<std::size_t>(std::ceil(parameterized.getDuration() / resample_dt_));
 
   // Resample and fill in trajectory
-  auto input_instruction = trajectory.back().get().as<MoveInstruction>();
+  auto input_instruction = trajectory.back().get().as<MoveInstructionPoly>();
   CompositeInstruction new_program(program);
   new_program.clear();
 
   if (new_program.hasStartInstruction())
   {
-    if (isStateWaypoint(new_program.getStartInstruction().as<MoveInstruction>().getWaypoint()))
+    if (isStateWaypoint(new_program.getStartInstruction().getWaypoint()))
     {
-      auto& waypoint = new_program.getStartInstruction().as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+      auto& waypoint = new_program.getStartInstruction().getWaypoint().as<StateWaypoint>();
       waypoint.velocity = Eigen::VectorXd::Zero(num_joints);
       waypoint.acceleration = Eigen::VectorXd::Zero(num_joints);
     }
@@ -220,10 +220,10 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
 
     // Note that meta information like MoveInstructionType, profile, and ManipulatorInfo will be set to that of the last
     // instruction (last used since first will usually be MoveInstructionType::START)
-    MoveInstruction output_instruction(input_instruction);
+    MoveInstructionPoly output_instruction(input_instruction);
     output_instruction.setWaypoint(wp);
 
-    new_program.push_back(output_instruction);
+    new_program.appendMoveInstruction(output_instruction);
   }
   program = new_program;
 

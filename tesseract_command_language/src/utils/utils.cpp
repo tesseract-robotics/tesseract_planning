@@ -41,9 +41,9 @@ static const tesseract_planning::locateFilterFn toJointTrajectoryInstructionFilt
     [](const tesseract_planning::Instruction& i,
        const tesseract_planning::CompositeInstruction& /*composite*/,
        bool parent_is_first_composite) {
-      if (tesseract_planning::isMoveInstruction(i))
+      if (isMoveInstruction(i))
       {
-        if (i.as<tesseract_planning::MoveInstruction>().isStart())
+        if (i.as<MoveInstructionPoly>().isStart())
           return (parent_is_first_composite);
 
         return true;
@@ -55,8 +55,8 @@ static const tesseract_planning::locateFilterFn toJointTrajectoryInstructionFilt
 tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& composite_instructions)
 {
   tesseract_common::JointTrajectory trajectory;
-  std::vector<std::reference_wrapper<const tesseract_planning::Instruction>> flattened_program =
-      tesseract_planning::flatten(composite_instructions, toJointTrajectoryInstructionFilter);
+  std::vector<std::reference_wrapper<const Instruction>> flattened_program =
+      composite_instructions.flatten(toJointTrajectoryInstructionFilter);
   trajectory.reserve(flattened_program.size());
   trajectory.description = composite_instructions.getDescription();
 
@@ -65,14 +65,14 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
   double total_time = 0;
   for (auto& i : flattened_program)
   {
-    if (tesseract_planning::isMoveInstruction(i))
+    if (isMoveInstruction(i))
     {
-      const auto& pi = i.get().as<tesseract_planning::MoveInstruction>();
+      const auto& pi = i.get().as<MoveInstructionPoly>();
       if (tesseract_planning::isJointWaypoint(pi.getWaypoint()))
       {
         tesseract_common::JointState joint_state;
-        joint_state.joint_names = tesseract_planning::getJointNames(pi.getWaypoint());
-        joint_state.position = tesseract_planning::getJointPosition(pi.getWaypoint());
+        joint_state.joint_names = getJointNames(pi.getWaypoint());
+        joint_state.position = getJointPosition(pi.getWaypoint());
 
         double dt = 1;
         current_time = current_time + dt;
@@ -81,10 +81,10 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
         last_time = current_time;
         trajectory.push_back(joint_state);
       }
-      else if (tesseract_planning::isStateWaypoint(pi.getWaypoint()))
+      else if (isStateWaypoint(pi.getWaypoint()))
       {
-        const auto& mi = i.get().as<tesseract_planning::MoveInstruction>();
-        const auto& swp = mi.getWaypoint().as<tesseract_planning::StateWaypoint>();
+        const auto& mi = i.get().as<MoveInstructionPoly>();
+        const auto& swp = mi.getWaypoint().as<StateWaypoint>();
         tesseract_common::JointState joint_state(swp);
         current_time = joint_state.time;
 
@@ -288,11 +288,11 @@ void generateSkeletonSeedHelper(CompositeInstruction& composite_instructions)
     else if (isMoveInstruction(i))
     {
       CompositeInstruction ci;
-      const auto& pi = i.as<MoveInstruction>();
+      const auto& pi = i.as<MoveInstructionPoly>();
       ci.setProfile(pi.getProfile());
       ci.setDescription(pi.getDescription());
       ci.setManipulatorInfo(pi.getManipulatorInfo());
-      ci.profile_overrides = pi.profile_overrides;
+      //      ci.profile_overrides = pi.profile_overrides;
 
       i = ci;
     }
@@ -306,10 +306,10 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   std::ofstream myfile;
   myfile.open(file_path);
 
-  std::vector<std::reference_wrapper<const Instruction>> mi = flatten(composite_instructions, &moveFilter);
+  std::vector<std::reference_wrapper<const Instruction>> mi = composite_instructions.flatten(&moveFilter);
 
   // Write Joint names as header
-  std::vector<std::string> joint_names = getJointNames(mi.front().get().as<MoveInstruction>().getWaypoint());
+  std::vector<std::string> joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
 
   for (std::size_t i = 0; i < joint_names.size() - 1; ++i)
     myfile << joint_names[i] << separator;
@@ -319,7 +319,7 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   // Write Positions
   for (const auto& i : mi)
   {
-    const Eigen::VectorXd& p = getJointPosition(i.get().as<MoveInstruction>().getWaypoint());
+    const Eigen::VectorXd& p = getJointPosition(i.get().as<MoveInstructionPoly>().getWaypoint());
     myfile << p.format(eigen_format) << std::endl;
   }
 

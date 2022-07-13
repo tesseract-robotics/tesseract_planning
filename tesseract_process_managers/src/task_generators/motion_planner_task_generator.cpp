@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/motion_planner_task_generator.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
 #include <tesseract_motion_planners/core/planner.h>
 
 namespace tesseract_planning
@@ -94,25 +93,18 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     {
       // if provided a composite instruction as the start instruction it will extract the last move instruction
       const auto& ci = start_instruction.as<CompositeInstruction>();
-      const auto* lmi = getLastMoveInstruction(ci);
+      const auto* lmi = ci.getLastMoveInstruction();
       assert(lmi != nullptr);
-      assert(isMoveInstruction(*lmi));
-      MoveInstruction si(lmi->getWaypoint(), MoveInstructionType::START, lmi->getProfile(), lmi->getManipulatorInfo());
-      instructions.setStartInstruction(si);
+      instructions.setStartInstruction(*lmi);
+      instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
     }
     else
     {
       assert(isMoveInstruction(start_instruction) || isMoveInstruction(start_instruction));
       if (isMoveInstruction(start_instruction))
       {
-        instructions.setStartInstruction(start_instruction);
-        instructions.getStartInstruction().as<MoveInstruction>().setMoveType(MoveInstructionType::START);
-      }
-      else if (isMoveInstruction(start_instruction))
-      {
-        auto& lmi = start_instruction.as<MoveInstruction>();
-        MoveInstruction si(lmi.getWaypoint(), MoveInstructionType::START, lmi.getProfile(), lmi.getManipulatorInfo());
-        instructions.setStartInstruction(si);
+        instructions.setStartInstruction(start_instruction.as<MoveInstructionPoly>());
+        instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
       }
     }
   }
@@ -123,17 +115,16 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     {
       // if provided a composite instruction as the end instruction it will extract the first move instruction
       const auto& ci = end_instruction.as<CompositeInstruction>();
-      const auto* fmi = getFirstMoveInstruction(ci);
+      const auto* fmi = ci.getFirstMoveInstruction();
       assert(fmi != nullptr);
-      assert(isMoveInstruction(*fmi));
-      getLastMoveInstruction(instructions)->setWaypoint(fmi->getWaypoint());
+      instructions.getLastMoveInstruction()->setWaypoint(fmi->getWaypoint());
     }
     else
     {
       assert(isMoveInstruction(end_instruction));
-      auto* lpi = getLastMoveInstruction(instructions);
+      auto* lpi = instructions.getLastMoveInstruction();
       if (isMoveInstruction(end_instruction))
-        lpi->setWaypoint(end_instruction.as<MoveInstruction>().getWaypoint());
+        lpi->setWaypoint(end_instruction.as<MoveInstructionPoly>().getWaypoint());
     }
   }
 

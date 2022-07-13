@@ -51,11 +51,11 @@ CompositeInstruction createProgram(const Eigen::VectorXd& start_state,
 
   Waypoint wp2 = JointWaypoint(joint_names, start_state + ((goal_state - start_state) / 2));
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE);
-  program.push_back(plan_f0);
+  program.appendMoveInstruction(plan_f0);
 
   Waypoint wp3 = JointWaypoint(joint_names, goal_state);
   MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   return program;
 }
@@ -78,10 +78,10 @@ void checkProgram(const Environment::Ptr& env,
   FixStateBoundsTaskGenerator generator;
 
   // Manual Check of program
-  auto flattened = flatten(program, moveFilter);
+  auto flattened = program.flatten(moveFilter);
   bool inside_limits = true;
   for (const auto& instruction : flattened)
-    inside_limits &= isWithinJointLimits(instruction.get().as<MoveInstruction>().getWaypoint(), joint_limits);
+    inside_limits &= isWithinJointLimits(instruction.get().as<MoveInstructionPoly>().getWaypoint(), joint_limits);
   EXPECT_EQ(inside_limits, pre_check_return);
 
   EXPECT_EQ(generator.conditionalProcess(input, 1), expected_return);
@@ -89,26 +89,27 @@ void checkProgram(const Environment::Ptr& env,
   if (expected_return == 1)
   {
     const auto& task_program = input.getInstruction()->as<CompositeInstruction>();
-    auto task_flattened = flatten(task_program, moveFilter);
+    auto task_flattened = task_program.flatten(moveFilter);
 
     switch (setting)
     {
       case FixStateBoundsProfile::Settings::START_ONLY:
       {
         EXPECT_TRUE(
-            isWithinJointLimits(task_flattened.front().get().as<MoveInstruction>().getWaypoint(), joint_limits));
+            isWithinJointLimits(task_flattened.front().get().as<MoveInstructionPoly>().getWaypoint(), joint_limits));
         break;
       }
       case FixStateBoundsProfile::Settings::END_ONLY:
       {
-        EXPECT_TRUE(isWithinJointLimits(task_flattened.back().get().as<MoveInstruction>().getWaypoint(), joint_limits));
+        EXPECT_TRUE(
+            isWithinJointLimits(task_flattened.back().get().as<MoveInstructionPoly>().getWaypoint(), joint_limits));
         break;
       }
       case FixStateBoundsProfile::Settings::ALL:
       {
         bool inside_limits = true;
         for (const auto& instruction : task_flattened)
-          inside_limits &= isWithinJointLimits(instruction.get().as<MoveInstruction>().getWaypoint(), joint_limits);
+          inside_limits &= isWithinJointLimits(instruction.get().as<MoveInstructionPoly>().getWaypoint(), joint_limits);
         EXPECT_TRUE(inside_limits);
         break;
       }

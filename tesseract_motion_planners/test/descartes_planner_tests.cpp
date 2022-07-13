@@ -105,7 +105,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
@@ -178,16 +178,16 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
           }
           else if (isMoveInstruction(sub_official[k]))
           {
-            const auto& mv_official = sub_official[k].as<MoveInstruction>();
-            const auto& mv = sub[k].as<MoveInstruction>();
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
             EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto& mv_official = official_results[j].as<MoveInstruction>();
-        const auto& mv = request.seed[j].as<MoveInstruction>();
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = request.seed[j].as<MoveInstructionPoly>();
         EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }
@@ -221,7 +221,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
@@ -284,16 +284,16 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
           }
           else if (isMoveInstruction(sub_official[k]))
           {
-            const auto& mv_official = sub_official[k].as<MoveInstruction>();
-            const auto& mv = sub[k].as<MoveInstruction>();
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
             EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto& mv_official = official_results[j].as<MoveInstruction>();
-        const auto& mv = request.seed[j].as<MoveInstruction>();
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = request.seed[j].as<MoveInstructionPoly>();
         EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }
@@ -327,7 +327,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 2);
@@ -392,16 +392,16 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
           }
           else if (isMoveInstruction(sub_official[k]))
           {
-            const auto& mv_official = sub_official[k].as<MoveInstruction>();
-            const auto& mv = sub[k].as<MoveInstruction>();
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
             EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
       else if (isMoveInstruction(official_results[j]))
       {
-        const auto& mv_official = official_results[j].as<MoveInstruction>();
-        const auto& mv = request.seed[j].as<MoveInstruction>();
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = request.seed[j].as<MoveInstructionPoly>();
         EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }

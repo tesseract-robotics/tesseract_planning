@@ -82,14 +82,14 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
   {
     const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
 
-    const auto& mi = c.as<MoveInstruction>();
+    const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(wp1.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
     EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
     EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   }
-  const auto& mi = composite.back().as<MoveInstruction>();
+  const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_TRUE(wp1.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
@@ -117,14 +117,14 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
   {
     const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
 
-    const auto& mi = c.as<MoveInstruction>();
+    const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
     EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
     EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   }
-  const auto& mi = composite.back().as<MoveInstruction>();
+  const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
@@ -154,14 +154,14 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
   {
     const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
 
-    const auto& mi = c.as<MoveInstruction>();
+    const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
     EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
     EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   }
-  const auto& mi = composite.back().as<MoveInstruction>();
+  const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());

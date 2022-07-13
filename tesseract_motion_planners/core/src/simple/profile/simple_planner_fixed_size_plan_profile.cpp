@@ -34,9 +34,9 @@ SimplePlannerFixedSizePlanProfile::SimplePlannerFixedSizePlanProfile(int freespa
 {
 }
 
-CompositeInstruction SimplePlannerFixedSizePlanProfile::generate(const MoveInstruction& prev_instruction,
-                                                                 const MoveInstruction& /*prev_seed*/,
-                                                                 const MoveInstruction& base_instruction,
+CompositeInstruction SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+                                                                 const MoveInstructionPoly& /*prev_seed*/,
+                                                                 const MoveInstructionPoly& base_instruction,
                                                                  const Instruction& /*next_instruction*/,
                                                                  const PlannerRequest& request,
                                                                  const ManipulatorInfo& global_manip_info) const
@@ -65,14 +65,14 @@ SimplePlannerFixedSizePlanProfile::stateJointJointWaypoint(const KinematicGroupI
   const Eigen::VectorXd& j2 = base.extractJointPosition();
 
   Eigen::MatrixXd states;
-  if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+  if (base.instruction.isLinear())
   {
     if (linear_steps > 1)
       states = interpolate(j1, j2, linear_steps);
     else
       states = j2.replicate(1, 2);
   }
-  else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+  else if (base.instruction.isFreespace())
   {
     if (freespace_steps > 1)
       states = interpolate(j1, j2, freespace_steps);
@@ -98,23 +98,23 @@ SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(const KinematicGroupIn
   Eigen::MatrixXd states;
   if (j2.size() == 0)
   {
-    if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+    if (base.instruction.isLinear())
       states = j1.replicate(1, linear_steps + 1);
-    else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+    else if (base.instruction.isFreespace())
       states = j1.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointCartWaypointFixedSize: Unsupported MoveInstructionType!");
   }
   else
   {
-    if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+    if (base.instruction.isLinear())
     {
       if (linear_steps > 1)
         states = interpolate(j1, j2, linear_steps);
       else
         states = j2.replicate(1, 2);
     }
-    else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+    else if (base.instruction.isFreespace())
     {
       if (freespace_steps > 1)
         states = interpolate(j1, j2, freespace_steps);
@@ -140,23 +140,23 @@ SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(const KinematicGroupIn
   Eigen::MatrixXd states;
   if (j1.size() == 0)
   {
-    if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+    if (base.instruction.isLinear())
       states = j2.replicate(1, linear_steps + 1);
-    else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+    else if (base.instruction.isFreespace())
       states = j2.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("stateJointCartWaypointFixedSize: Unsupported MoveInstructionType!");
   }
   else
   {
-    if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+    if (base.instruction.isLinear())
     {
       if (linear_steps > 1)
         states = interpolate(j1, j2, linear_steps);
       else
         states = j2.replicate(1, 2);
     }
-    else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+    else if (base.instruction.isFreespace())
     {
       if (freespace_steps > 1)
         states = interpolate(j1, j2, freespace_steps);
@@ -186,14 +186,14 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(co
   Eigen::MatrixXd states;
   if (sol[0].size() != 0 && sol[1].size() != 0)
   {
-    if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+    if (base.instruction.isLinear())
     {
       if (linear_steps > 1)
         states = interpolate(sol[0], sol[1], linear_steps);
       else
         states = sol[1].replicate(1, 2);
     }
-    else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+    else if (base.instruction.isFreespace())
     {
       if (freespace_steps > 1)
         states = interpolate(sol[0], sol[1], freespace_steps);
@@ -207,27 +207,27 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(co
   }
   else if (sol[0].size() != 0)
   {
-    if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+    if (base.instruction.isLinear())
       states = sol[0].replicate(1, linear_steps + 1);
-    else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+    else if (base.instruction.isFreespace())
       states = sol[0].replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
   }
   else if (sol[1].size() != 0)
   {
-    if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+    if (base.instruction.isLinear())
       states = sol[1].replicate(1, linear_steps + 1);
-    else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+    else if (base.instruction.isFreespace())
       states = sol[1].replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
   }
   else
   {
-    if (base.instruction.getMoveType() == MoveInstructionType::LINEAR)
+    if (base.instruction.isLinear())
       states = seed.replicate(1, linear_steps + 1);
-    else if (base.instruction.getMoveType() == MoveInstructionType::FREESPACE)
+    else if (base.instruction.isFreespace())
       states = seed.replicate(1, freespace_steps + 1);
     else
       throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");

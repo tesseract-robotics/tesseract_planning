@@ -34,8 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
+#include <tesseract_command_language/core/move_instruction_poly.h>
 
 #include <tesseract_common/utils.h>
 
@@ -78,7 +77,7 @@ TaskflowContainer RasterDTTaskflow::generateTaskflow(TaskInput input, TaskflowVo
     {
       assert(isCompositeInstruction(*(input[0].getInstruction())));
       const auto& ci = input[0].getInstruction()->as<CompositeInstruction>();
-      const auto* li = getLastMoveInstruction(ci);
+      const auto* li = ci.getLastMoveInstruction();
       assert(li != nullptr);
       start_instruction = *li;
     }
@@ -88,12 +87,12 @@ TaskflowContainer RasterDTTaskflow::generateTaskflow(TaskInput input, TaskflowVo
       const auto& tci = input[idx - 1].getInstruction()->as<CompositeInstruction>();
       assert(isCompositeInstruction(tci[0]));
       const auto& ci = tci[0].as<CompositeInstruction>();
-      const auto* li = getLastMoveInstruction(ci);
+      const auto* li = ci.getLastMoveInstruction();
       assert(li != nullptr);
       start_instruction = *li;
     }
 
-    start_instruction.as<MoveInstruction>().setMoveType(MoveInstructionType::START);
+    start_instruction.as<MoveInstructionPoly>().setMoveType(MoveInstructionType::START);
     TaskInput raster_input = input[idx];
     raster_input.setStartInstruction(start_instruction);
     TaskflowContainer sub_container = raster_taskflow_generator_->generateTaskflow(

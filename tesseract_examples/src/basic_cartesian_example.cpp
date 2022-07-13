@@ -169,9 +169,9 @@ bool BasicCartesianExample::run()
   plan_f1.setDescription("to_end_plan");
 
   // Add Instructions to program
-  program.push_back(plan_f0);
-  program.push_back(plan_c0);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f0);
+  program.appendMoveInstruction(plan_c0);
+  program.appendMoveInstruction(plan_f1);
 
   CONSOLE_BRIDGE_logInform("basic cartesian plan example");
 

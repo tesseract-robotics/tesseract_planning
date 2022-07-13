@@ -34,8 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
+#include <tesseract_command_language/core/move_instruction_poly.h>
 
 #include <tesseract_common/utils.h>
 
@@ -77,7 +76,7 @@ TaskflowContainer RasterWAADDTTaskflow::generateTaskflow(TaskInput input,
     // Get the last plan instruction of the approach
     assert(isCompositeInstruction(*(input[idx][0].getInstruction())));
     const auto& aci = input[idx][0].getInstruction()->as<CompositeInstruction>();
-    const auto* ali = getLastMoveInstruction(aci);
+    const auto* ali = aci.getLastMoveInstruction();
     assert(ali != nullptr);
 
     // Create the process taskflow
@@ -110,7 +109,7 @@ TaskflowContainer RasterWAADDTTaskflow::generateTaskflow(TaskInput input,
     {
       assert(isCompositeInstruction(*(input[0].getInstruction())));
       const auto& ci = input[0].getInstruction()->as<CompositeInstruction>();
-      const auto* li = getLastMoveInstruction(ci);
+      const auto* li = ci.getLastMoveInstruction();
       assert(li != nullptr);
       start_instruction = *li;
     }
@@ -118,13 +117,13 @@ TaskflowContainer RasterWAADDTTaskflow::generateTaskflow(TaskInput input,
     {
       assert(isCompositeInstruction(*(input[idx - 1].getInstruction())));
       const auto& tci = input[idx - 1].getInstruction()->as<CompositeInstruction>();
-      const auto* li = getLastMoveInstruction(tci);
+      const auto* li = tci.getLastMoveInstruction();
       assert(li != nullptr);
       start_instruction = *li;
     }
 
     // Create the departure taskflow
-    start_instruction.as<MoveInstruction>().setMoveType(MoveInstructionType::START);
+    start_instruction.as<MoveInstructionPoly>().setMoveType(MoveInstructionType::START);
     TaskInput approach_input = input[idx][0];
     approach_input.setStartInstruction(start_instruction);
     approach_input.setEndInstruction(std::vector<std::size_t>({ idx, 1 }));
@@ -164,7 +163,7 @@ TaskflowContainer RasterWAADDTTaskflow::generateTaskflow(TaskInput input,
         [=]() { failureTask(input, name_, transition_from_end_input.getInstruction()->getDescription(), error_cb); });
 
     auto transition_from_end_step = container.taskflow->composed_of(*(sub_container1.taskflow))
-                                        .name("transition_" + std::to_string(transition_idx + 1));
+                                        .name("transition_fwd_" + std::to_string(transition_idx + 1));
     container.containers.push_back(std::move(sub_container1));
 
     // Each transition is independent and thus depends only on the adjacent rasters approach and departure
@@ -180,7 +179,7 @@ TaskflowContainer RasterWAADDTTaskflow::generateTaskflow(TaskInput input,
         [=]() { failureTask(input, name_, transition_to_start_input.getInstruction()->getDescription(), error_cb); });
 
     auto transition_to_start_step = container.taskflow->composed_of(*(sub_container2.taskflow))
-                                        .name("transition_" + std::to_string(transition_idx + 1));
+                                        .name("transition_bwd_" + std::to_string(transition_idx + 1));
 
     // Each transition is independent and thus depends only on the adjacent rasters approach and departure
     transition_to_start_step.succeed(raster_tasks[transition_idx][2]);

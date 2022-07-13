@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/core/move_instruction_poly.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 

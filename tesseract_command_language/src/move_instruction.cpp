@@ -60,17 +60,9 @@ MoveInstruction::MoveInstruction(Waypoint waypoint,
   , waypoint_(std::move(waypoint))
   , manipulator_info_(std::move(manipulator_info))
 {
-  if (!isStateWaypoint(waypoint_))
-    CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
 }
 
-void MoveInstruction::setWaypoint(Waypoint waypoint)
-{
-  if (!isStateWaypoint(waypoint))
-    CONSOLE_BRIDGE_logWarn("MoveInstruction usually expects to be provided a State Waypoint!");
-
-  waypoint_ = std::move(waypoint);
-}
+void MoveInstruction::setWaypoint(Waypoint waypoint) { waypoint_ = std::move(waypoint); }
 
 Waypoint& MoveInstruction::getWaypoint() { return waypoint_; }
 const Waypoint& MoveInstruction::getWaypoint() const { return waypoint_; }
@@ -136,4 +128,4 @@ void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstruction)
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstruction);
+TESSERACT_MOVE_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstruction);

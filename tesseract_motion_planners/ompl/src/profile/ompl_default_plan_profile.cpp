@@ -33,8 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/core/move_instruction_poly.h>
 #include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/move_instruction.h>
 
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
 #include <tesseract_motion_planners/ompl/utils.h>
@@ -362,7 +362,7 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
   tesseract_common::KinematicLimits limits = prob.manip->getLimits();
 
   assert(isMoveInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
+  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
@@ -499,7 +499,7 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
   tesseract_common::KinematicLimits limits = prob.manip->getLimits();
 
   assert(isMoveInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
+  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 

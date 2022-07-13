@@ -98,7 +98,7 @@ int main(int /*argc*/, char** /*argv*/)
     CompositeInstruction program;
     program.setStartInstruction(start_instruction);
     program.setManipulatorInfo(manip);
-    program.push_back(plan_f1);
+    program.appendMoveInstruction(plan_f1);
 
     // Plot Program
     if (plotter)

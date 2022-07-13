@@ -182,19 +182,20 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
     if (isMoveInstruction(instructions_flattened.at(idx).get()))
     {
       // This instruction corresponds to a composite. Set all results in that composite to the results
-      const auto& plan_instruction = instructions_flattened.at(idx).get().as<MoveInstruction>();
+      const auto& plan_instruction = instructions_flattened.at(idx).get().as<MoveInstructionPoly>();
       if (plan_instruction.isStart())
       {
         assert(idx == 0);
         assert(isMoveInstruction(results_flattened[idx].get()));
-        auto& move_instruction = results_flattened[idx].get().as<MoveInstruction>();
+        auto& move_instruction = results_flattened[idx].get().as<MoveInstructionPoly>();
         move_instruction.getWaypoint().as<StateWaypoint>().position = trajectory.row(result_index++);
       }
       else
       {
         auto& move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
         for (auto& instruction : move_instructions)
-          instruction.as<MoveInstruction>().getWaypoint().as<StateWaypoint>().position = trajectory.row(result_index++);
+          instruction.as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>().position =
+              trajectory.row(result_index++);
       }
     }
   }
@@ -300,33 +301,24 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   std::vector<Eigen::VectorXd> seed_states;
   seed_states.reserve(seed_flat.size());
   for (auto& i : seed_flat)
-    seed_states.push_back(getJointPosition(joint_names, i.get().as<MoveInstruction>().getWaypoint()));
+    seed_states.push_back(getJointPosition(joint_names, i.get().as<MoveInstructionPoly>().getWaypoint()));
 
   // Setup start waypoint
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
   Waypoint start_waypoint{ NullWaypoint() };
   ManipulatorInfo start_mi{ composite_mi };
-  Instruction placeholder_instruction{ NullInstruction() };
-  const Instruction* start_instruction = nullptr;
+  MoveInstructionPoly placeholder_instruction;
+  const MoveInstructionPoly* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
-    assert(isMoveInstruction(request.instructions.getStartInstruction()));
     start_instruction = &(request.instructions.getStartInstruction());
-    if (isMoveInstruction(*start_instruction))
-    {
-      const auto& temp = start_instruction->as<MoveInstruction>();
-      assert(temp.isStart());
+    assert(start_instruction->isStart());
+    start_mi = composite_mi.getCombined(start_instruction->getManipulatorInfo());
+    start_waypoint = start_instruction->getWaypoint();
+    profile = start_instruction->getProfile();
+    //    profile_overrides = start_instruction->profile_overrides;
 
-      start_mi = composite_mi.getCombined(temp.getManipulatorInfo());
-      start_waypoint = temp.getWaypoint();
-      profile = temp.getProfile();
-      profile_overrides = temp.profile_overrides;
-    }
-    else
-    {
-      throw std::runtime_error("TrajOpt DefaultProblemGenerator: Unsupported start instruction type!");
-    }
     ++start_index;
   }
   else  // If not start instruction is given, take the current state
@@ -334,7 +326,10 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
     Eigen::VectorXd current_jv = request.env_state.getJointValues(joint_names);
     StateWaypoint swp(joint_names, current_jv);
 
-    MoveInstruction temp_move(swp, MoveInstructionType::START);
+    MoveInstructionPoly temp_move(*request.instructions.getFirstMoveInstruction());
+    temp_move.setWaypoint(swp);
+    temp_move.setMoveType(MoveInstructionType::START);
+
     placeholder_instruction = temp_move;
     start_instruction = &placeholder_instruction;
     start_waypoint = swp;
@@ -393,7 +388,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
     if (isMoveInstruction(instruction))
     {
       assert(isMoveInstruction(instruction));
-      const auto& plan_instruction = instruction.as<MoveInstruction>();
+      const auto& plan_instruction = instruction.as<MoveInstructionPoly>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
       ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
@@ -417,7 +412,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       std::string profile = getProfileString(name_, plan_instruction.getProfile(), request.plan_profile_remapping);
       TrajOptPlanProfile::ConstPtr cur_plan_profile = getProfile<TrajOptPlanProfile>(
           name_, profile, *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
-      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, plan_instruction.profile_overrides);
+      //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
+      //      plan_instruction.profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("TrajOptPlannerUniversalConfig: Invalid profile");
 
@@ -429,8 +425,9 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       {
         auto cur_path_plan_profile = getProfile<TrajOptPlanProfile>(
             name_, path_profile, *request.profiles, std::make_shared<TrajOptDefaultPlanProfile>());
-        cur_path_plan_profile =
-            applyProfileOverrides(name_, path_profile, cur_path_plan_profile, plan_instruction.profile_overrides);
+        //        cur_path_plan_profile =
+        //            applyProfileOverrides(name_, path_profile, cur_path_plan_profile,
+        //            plan_instruction.profile_overrides);
         if (!cur_path_plan_profile)
           throw std::runtime_error("TrajOptPlannerUniversalConfig: Invalid path profile");
 
