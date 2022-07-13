@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_profiles/upsample_trajectory_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
 
 namespace tesseract_planning
 {
@@ -111,8 +110,8 @@ void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
     else if (isMoveInstruction(i))
     {
       assert(isMoveInstruction(start_instruction));
-      const auto& mi0 = start_instruction.as<MoveInstruction>();
-      const auto& mi1 = i.as<MoveInstruction>();
+      const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
+      const auto& mi1 = i.as<MoveInstructionPoly>();
 
       assert(isStateWaypoint(mi0.getWaypoint()));
       assert(isStateWaypoint(mi1.getWaypoint()));
@@ -131,7 +130,7 @@ void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
         // instruction it is excluded when populated the composite instruction.
         for (long i = 1; i < states.cols(); ++i)
         {
-          MoveInstruction move_instruction(mi1);
+          MoveInstructionPoly move_instruction(mi1);
           move_instruction.getWaypoint().as<StateWaypoint>().position = states.col(i);
           composite.push_back(move_instruction);
         }

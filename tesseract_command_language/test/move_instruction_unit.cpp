@@ -171,12 +171,38 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
   instr.setPathProfile("TEST_PATH_PROFILE");
   instr.setDescription("This is a test.");
 
-  tesseract_common::Serialization::toArchiveFileXML<Instruction>(instr, "/tmp/move_instruction_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<MoveInstruction>(instr, "/tmp/move_instruction_boost.xml");
 
-  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<Instruction>("/tmp/move_instruction_boost.xml")
-                    .as<MoveInstruction>();
+  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstruction>("/tmp/move_instruction_boost.xml");
 
-  EXPECT_TRUE(instr == ninstr);
+  EXPECT_TRUE(ninstr == instr);
+  EXPECT_EQ(ninstr.getWaypoint(), swp);
+  EXPECT_EQ(ninstr.getMoveType(), MoveInstructionType::LINEAR);
+  EXPECT_EQ(ninstr.getProfile(), "TEST_PROFILE");
+  EXPECT_EQ(ninstr.getPathProfile(), "TEST_PATH_PROFILE");
+  EXPECT_EQ(ninstr.getDescription(), "This is a test.");
+}
+
+TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NOLINT
+{
+  Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
+  std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  StateWaypoint swp(jn, jv);
+
+  MoveInstruction instr(swp, MoveInstructionType::START);
+  instr.setMoveType(MoveInstructionType::LINEAR);
+  instr.setProfile("TEST_PROFILE");
+  instr.setPathProfile("TEST_PATH_PROFILE");
+  instr.setDescription("This is a test.");
+
+  MoveInstructionPoly instr_poly(instr);
+
+  tesseract_common::Serialization::toArchiveFileXML<MoveInstructionPoly>(instr_poly, "/tmp/move_instruction_boost.xml");
+
+  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstructionPoly>("/tmp/"
+                                                                                         "move_instruction_boost.xml");
+
+  EXPECT_TRUE(ninstr == instr_poly);
   EXPECT_EQ(ninstr.getWaypoint(), swp);
   EXPECT_EQ(ninstr.getMoveType(), MoveInstructionType::LINEAR);
   EXPECT_EQ(ninstr.getProfile(), "TEST_PROFILE");

@@ -77,14 +77,14 @@ TEST_F(TesseractProcessManagerUnit, SeedMinLengthTaskGeneratorTest)  // NOLINT
   Instruction seed_instruction = seed;
 
   auto profiles = std::make_shared<ProfileDictionary>();
-  long current_length = getMoveInstructionCount(seed);
+  long current_length = seed.getMoveInstructionCount();
   TaskInput input(env_, &program_instruction, program.getManipulatorInfo(), &seed_instruction, true, profiles);
 
   profiles->addProfile<SeedMinLengthProfile>(
       SEED_MIN_LENGTH_DEFAULT_NAMESPACE, program.getProfile(), std::make_shared<SeedMinLengthProfile>(current_length));
   SeedMinLengthTaskGenerator smlpg;
   EXPECT_TRUE(smlpg.conditionalProcess(input, 1) == 1);
-  long final_length = getMoveInstructionCount(input.getResults()->as<CompositeInstruction>());
+  long final_length = input.getResults()->as<CompositeInstruction>().getMoveInstructionCount();
   EXPECT_TRUE(final_length == current_length);
 
   profiles->addProfile<SeedMinLengthProfile>(SEED_MIN_LENGTH_DEFAULT_NAMESPACE,
@@ -92,7 +92,7 @@ TEST_F(TesseractProcessManagerUnit, SeedMinLengthTaskGeneratorTest)  // NOLINT
                                              std::make_shared<SeedMinLengthProfile>(2 * current_length));
   SeedMinLengthTaskGenerator smlpg2;
   EXPECT_TRUE(smlpg2.conditionalProcess(input, 2) == 1);
-  long final_length2 = getMoveInstructionCount(input.getResults()->as<CompositeInstruction>());
+  long final_length2 = input.getResults()->as<CompositeInstruction>().getMoveInstructionCount();
   EXPECT_TRUE(final_length2 >= (2 * current_length));
 
   seed_instruction = seed;
@@ -103,7 +103,7 @@ TEST_F(TesseractProcessManagerUnit, SeedMinLengthTaskGeneratorTest)  // NOLINT
                                              std::make_shared<SeedMinLengthProfile>(3 * current_length));
   SeedMinLengthTaskGenerator smlpg3;
   EXPECT_TRUE(smlpg3.conditionalProcess(input, 3) == 1);
-  long final_length3 = getMoveInstructionCount(input2.getResults()->as<CompositeInstruction>());
+  long final_length3 = input2.getResults()->as<CompositeInstruction>().getMoveInstructionCount();
   EXPECT_TRUE(final_length3 >= (3 * current_length));
 }
 
@@ -140,8 +140,8 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlan
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
-  auto pcnt = getMoveInstructionCount(request.instructions);
-  auto mcnt = getMoveInstructionCount(response.results);
+  auto pcnt = request.instructions.getMoveInstructionCount();
+  auto mcnt = response.results.getMoveInstructionCount();
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
@@ -182,7 +182,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
-  auto mcnt = getMoveInstructionCount(response.results);
+  auto mcnt = response.results.getMoveInstructionCount();
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
@@ -223,7 +223,7 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanP
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
-  auto mcnt = getMoveInstructionCount(response.results);
+  auto mcnt = response.results.getMoveInstructionCount();
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
@@ -259,8 +259,8 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignP
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
-  auto pcnt = getMoveInstructionCount(request.instructions);
-  auto mcnt = getMoveInstructionCount(response.results);
+  auto pcnt = request.instructions.getMoveInstructionCount();
+  auto mcnt = response.results.getMoveInstructionCount();
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // ten move instruction.
@@ -296,7 +296,7 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanPr
   auto status = interpolator->solve(request, response);
   EXPECT_TRUE(status);
 
-  auto mcnt = getMoveInstructionCount(response.results);
+  auto mcnt = response.results.getMoveInstructionCount();
 
   // The first plan instruction is the start instruction and every other plan instruction should be converted into
   // 32 move instruction.

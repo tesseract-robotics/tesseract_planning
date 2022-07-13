@@ -150,12 +150,12 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
     assert((idx == 0) ? isMoveInstruction(results_flattened[idx].get()) : true);
     if (isMoveInstruction(instructions_flattened.at(idx).get()))
     {
-      const auto& plan_instruction = instructions_flattened.at(idx).get().as<MoveInstruction>();
+      const auto& plan_instruction = instructions_flattened.at(idx).get().as<MoveInstructionPoly>();
       if (plan_instruction.isStart())
       {
         assert(idx == 0);
         assert(isMoveInstruction(results_flattened[idx].get()));
-        auto& move_instruction = results_flattened[idx].get().as<MoveInstruction>();
+        auto& move_instruction = results_flattened[idx].get().as<MoveInstructionPoly>();
 
         auto& swp = move_instruction.getWaypoint().as<StateWaypoint>();
         swp.position = solution[result_index++];
@@ -168,7 +168,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         auto& move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
         for (auto& instruction : move_instructions)
         {
-          auto& swp = instruction.as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+          auto& swp = instruction.as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>();
           swp.position = solution[result_index++];
           assert(swp.joint_names == problem->manip->getJointNames());
         }
@@ -190,7 +190,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         assert(temp.cols() == static_cast<long>(move_instructions.size()) + 1);
         for (std::size_t i = 0; i < move_instructions.size(); ++i)
         {
-          auto& swp = move_instructions[i].as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
+          auto& swp = move_instructions[i].as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>();
           swp.position = temp.col(static_cast<long>(i) + 1);
           assert(swp.joint_names == problem->manip->getJointNames());
         }
@@ -294,24 +294,15 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   std::string profile;
   ProfileDictionary::ConstPtr profile_overrides;
   Waypoint start_waypoint{ NullWaypoint() };
-  Instruction placeholder_instruction{ NullInstruction() };
-  const Instruction* start_instruction = nullptr;
+  MoveInstructionPoly placeholder_instruction;
+  const MoveInstructionPoly* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
-    assert(isMoveInstruction(request.instructions.getStartInstruction()));
     start_instruction = &(request.instructions.getStartInstruction());
-    if (isMoveInstruction(*start_instruction))
-    {
-      const auto& temp = start_instruction->as<MoveInstruction>();
-      assert(temp.isStart());
-      start_waypoint = temp.getWaypoint();
-      profile = temp.getProfile();
-      profile_overrides = temp.profile_overrides;
-    }
-    else
-    {
-      throw std::runtime_error("Descartes DefaultProblemGenerator: Unsupported start instruction type!");
-    }
+    assert(start_instruction->isStart());
+    start_waypoint = start_instruction->getWaypoint();
+    profile = start_instruction->getProfile();
+    //  profile_overrides = start_instruction.profile_overrides;
     ++start_index;
   }
   else
@@ -319,7 +310,10 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
     Eigen::VectorXd current_jv{ request.env_state.getJointValues(joint_names) };
     StateWaypoint swp(joint_names, current_jv);
 
-    MoveInstruction temp_move(swp, MoveInstructionType::START);
+    MoveInstructionPoly temp_move(*request.instructions.getFirstMoveInstruction());
+    temp_move.setWaypoint(swp);
+    temp_move.setMoveType(MoveInstructionType::START);
+
     placeholder_instruction = temp_move;
     start_instruction = &placeholder_instruction;
     start_waypoint = swp;
@@ -358,7 +352,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
     if (isMoveInstruction(instruction))
     {
       assert(isMoveInstruction(instruction));
-      const auto& plan_instruction = instruction.template as<MoveInstruction>();
+      const auto& plan_instruction = instruction.template as<MoveInstructionPoly>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
       ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
@@ -386,7 +380,8 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       profile = getProfileString(name_, profile, request.plan_profile_remapping);
       auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
           name_, profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
-      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, plan_instruction.profile_overrides);
+      //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
+      //      plan_instruction.profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
 
@@ -398,8 +393,9 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       {
         auto cur_path_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
             name_, path_profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
-        cur_path_plan_profile =
-            applyProfileOverrides(name_, path_profile, cur_path_plan_profile, plan_instruction.profile_overrides);
+        //        cur_path_plan_profile =
+        //            applyProfileOverrides(name_, path_profile, cur_path_plan_profile,
+        //            plan_instruction.profile_overrides);
         if (!cur_path_plan_profile)
           throw std::runtime_error("DescartesMotionPlannerConfig: Invalid transition profile");
 
@@ -520,7 +516,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       }
 
       start_waypoint = plan_instruction.getWaypoint();
-      start_instruction = &instruction;
+      start_instruction = &plan_instruction;
     }
   }
 

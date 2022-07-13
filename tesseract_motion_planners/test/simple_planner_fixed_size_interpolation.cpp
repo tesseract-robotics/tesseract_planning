@@ -82,11 +82,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointJoint_Join
   {
     const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
-  const auto& mi = composite.back().as<MoveInstruction>();
+  const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
@@ -115,11 +115,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, JointCart_Joint
   {
     const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
-  const auto& mi = composite.back().as<MoveInstruction>();
+  const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 
@@ -152,11 +152,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartJoint_Joint
   {
     const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
-  const auto& mi = composite.back().as<MoveInstruction>();
+  const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   EXPECT_TRUE(wp2.isApprox(mi.getWaypoint().as<StateWaypoint>().position, 1e-5));
@@ -186,11 +186,11 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeInterpolationUnit, CartCart_JointI
   {
     const auto& c = composite.at(i);
     EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstruction>().getWaypoint()));
-    EXPECT_EQ(c.as<MoveInstruction>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstruction>().getPathProfile(), instr2.getPathProfile());
+    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
-  const auto& mi = composite.back().as<MoveInstruction>();
+  const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
   const Eigen::VectorXd& last_position = mi.getWaypoint().as<StateWaypoint>().position;

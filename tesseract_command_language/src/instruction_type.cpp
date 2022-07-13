@@ -24,9 +24,9 @@
  * limitations under the License.
  */
 
+#include <tesseract_command_language/core/move_instruction_poly.h>
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/null_instruction.h>
-#include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
@@ -76,7 +76,7 @@ bool isCompositeInstruction(const Instruction& instruction)
 
 bool isMoveInstruction(const Instruction& instruction)
 {
-  return (instruction.getType() == std::type_index(typeid(MoveInstruction)));
+  return (instruction.getType() == std::type_index(typeid(MoveInstructionPoly)));
 }
 
 bool isNullInstruction(const Instruction& instruction)

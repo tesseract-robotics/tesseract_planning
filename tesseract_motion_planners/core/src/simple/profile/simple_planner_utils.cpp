@@ -30,7 +30,7 @@
 
 namespace tesseract_planning
 {
-JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstruction& plan_instruction,
+JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                      const PlannerRequest& request,
                                                      const ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
@@ -83,7 +83,7 @@ const Eigen::VectorXd& JointGroupInstructionInfo::extractJointPosition() const
   return getJointPosition(instruction.getWaypoint());
 }
 
-KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstruction& plan_instruction,
+KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                              const PlannerRequest& request,
                                                              const ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
@@ -138,25 +138,25 @@ const Eigen::VectorXd& KinematicGroupInstructionInfo::extractJointPosition() con
 
 CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
                                               const Eigen::MatrixXd& states,
-                                              const MoveInstruction& base_instruction)
+                                              const MoveInstructionPoly& base_instruction)
 {
   CompositeInstruction composite;
   composite.setManipulatorInfo(base_instruction.getManipulatorInfo());
   composite.setDescription(base_instruction.getDescription());
   composite.setProfile(base_instruction.getProfile());
-  composite.profile_overrides = base_instruction.profile_overrides;
+  //  composite.profile_overrides = base_instruction.profile_overrides;
 
   // Convert to MoveInstructions
   for (long i = 1; i < states.cols() - 1; ++i)
   {
-    MoveInstruction move_instruction{ base_instruction };
+    MoveInstructionPoly move_instruction{ base_instruction };
     move_instruction.setWaypoint(StateWaypoint(joint_names, states.col(i)));
     move_instruction.setProfile(base_instruction.getPathProfile());
     move_instruction.setPathProfile(base_instruction.getPathProfile());
     composite.push_back(move_instruction);
   }
 
-  MoveInstruction move_instruction{ base_instruction };
+  MoveInstructionPoly move_instruction{ base_instruction };
   move_instruction.setWaypoint(StateWaypoint(joint_names, states.col(states.cols() - 1)));
   composite.push_back(move_instruction);
 

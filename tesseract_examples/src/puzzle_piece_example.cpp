@@ -170,7 +170,7 @@ bool PuzzlePieceExample::run()
     Waypoint wp = CartesianWaypoint(tool_poses[i]);
     MoveInstruction plan_instruction(wp, MoveInstructionType::LINEAR, "CARTESIAN");
     plan_instruction.setDescription("waypoint_" + std::to_string(i));
-    program.push_back(plan_instruction);
+    program.appendMoveInstruction(plan_instruction);
   }
 
   // Create Process Planning Server

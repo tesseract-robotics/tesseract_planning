@@ -166,8 +166,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
-  program.push_back(plan_f2);
+  program.appendMoveInstruction(plan_f1);
+  program.appendMoveInstruction(plan_f2);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
@@ -209,14 +209,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   EXPECT_TRUE(&status);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_EQ(getMoveInstructionCount(planner_response.results), 21);  // 10 per segment + start a instruction
+  EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 21);  // 10 per segment + start a instruction
   EXPECT_EQ(planner_response.results.size(), 2);
-  EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
+  EXPECT_TRUE(wp1.isApprox(getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
   EXPECT_TRUE(wp2.isApprox(
       getJointPosition(
-          getLastMoveInstruction(planner_response.results.front().as<CompositeInstruction>())->getWaypoint()),
+          planner_response.results.front().as<CompositeInstruction>().getLastMoveInstruction()->getWaypoint()),
       1e-5));
-  EXPECT_TRUE(wp1.isApprox(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
+  EXPECT_TRUE(wp1.isApprox(getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()), 1e-5));
 
   // Check for start state in collision error
   std::vector<double> swp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
@@ -231,7 +231,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program = CompositeInstruction();
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a new seed
   seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
@@ -265,7 +265,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program = CompositeInstruction();
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a new seed
   seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
@@ -324,7 +324,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
@@ -365,11 +365,11 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   }
   EXPECT_TRUE(&status);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_EQ(getMoveInstructionCount(planner_response.results), 11);
-  EXPECT_TRUE(wp1.isApprox(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
+  EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
+  EXPECT_TRUE(wp1.isApprox(getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
 
   Eigen::Isometry3d check_goal =
-      kin_group->calcFwdKin(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()))
+      kin_group->calcFwdKin(getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()))
           .at(manip.tcp_frame);
   EXPECT_TRUE(wp2.isApprox(check_goal, 1e-3));
 }
@@ -418,7 +418,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
@@ -460,11 +460,11 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   EXPECT_TRUE(&status);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
-  EXPECT_EQ(getMoveInstructionCount(planner_response.results), 11);
-  EXPECT_TRUE(wp2.isApprox(getJointPosition(getLastMoveInstruction(planner_response.results)->getWaypoint()), 1e-5));
+  EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
+  EXPECT_TRUE(wp2.isApprox(getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()), 1e-5));
 
   Eigen::Isometry3d check_start =
-      kin_group->calcFwdKin(getJointPosition(getFirstMoveInstruction(planner_response.results)->getWaypoint()))
+      kin_group->calcFwdKin(getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()))
           .at(manip.tcp_frame);
   EXPECT_TRUE(wp1.isApprox(check_start, 1e-3));
 }

@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h>
 #include <tesseract_process_managers/task_profiles/fix_state_bounds_profile.h>
 #include <tesseract_command_language/utils/utils.h>
-#include <tesseract_command_language/utils/filter_functions.h>
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h>
 
@@ -94,10 +93,10 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   {
     case FixStateBoundsProfile::Settings::START_ONLY:
     {
-      const MoveInstruction* instr_const_ptr = getFirstMoveInstruction(ci);
+      const MoveInstructionPoly* instr_const_ptr = ci.getFirstMoveInstruction();
       if (instr_const_ptr != nullptr)
       {
-        auto* mutable_instruction = const_cast<MoveInstruction*>(instr_const_ptr);  // NOLINT
+        auto* mutable_instruction = const_cast<MoveInstructionPoly*>(instr_const_ptr);  // NOLINT
         if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits.joint_limits))
         {
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
@@ -115,10 +114,10 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     break;
     case FixStateBoundsProfile::Settings::END_ONLY:
     {
-      const MoveInstruction* instr_const_ptr = getLastMoveInstruction(ci);
+      const MoveInstructionPoly* instr_const_ptr = ci.getLastMoveInstruction();
       if (instr_const_ptr != nullptr)
       {
-        auto* mutable_instruction = const_cast<MoveInstruction*>(instr_const_ptr);  // NOLINT
+        auto* mutable_instruction = const_cast<MoveInstructionPoly*>(instr_const_ptr);  // NOLINT
         if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits.joint_limits))
         {
           CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
@@ -136,7 +135,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
     break;
     case FixStateBoundsProfile::Settings::ALL:
     {
-      auto flattened = flatten(ci, moveFilter);
+      auto flattened = ci.flatten(moveFilter);
       if (flattened.empty())
       {
         CONSOLE_BRIDGE_logWarn("FixStateBoundsTaskGenerator found no MoveInstructions to process");
@@ -151,7 +150,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       for (const auto& instruction : flattened)
       {
         inside_limits &=
-            isWithinJointLimits(instruction.get().as<MoveInstruction>().getWaypoint(), limits.joint_limits);
+            isWithinJointLimits(instruction.get().as<MoveInstructionPoly>().getWaypoint(), limits.joint_limits);
       }
       if (inside_limits)
         break;
@@ -161,7 +160,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       {
         const Instruction* instr_const_ptr = &instruction.get();
         auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
-        auto& plan = mutable_instruction->as<MoveInstruction>();
+        auto& plan = mutable_instruction->as<MoveInstructionPoly>();
         if (!clampToJointLimits(plan.getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
         {
           saveOutputs(*info, input);

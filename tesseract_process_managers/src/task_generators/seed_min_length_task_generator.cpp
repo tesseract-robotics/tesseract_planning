@@ -36,7 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_profiles/seed_min_length_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
 
 namespace tesseract_planning
 {
@@ -73,7 +72,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   auto& results = input_results->as<CompositeInstruction>();
-  long cnt = getMoveInstructionCount(results);
+  long cnt = results.getMoveInstructionCount();
   if (cnt >= cur_composite_profile->min_length)
   {
     info->return_value = 1;
@@ -126,8 +125,8 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     else if (isMoveInstruction(i))
     {
       assert(isMoveInstruction(start_instruction));
-      const auto& mi0 = start_instruction.as<MoveInstruction>();
-      const auto& mi1 = i.as<MoveInstruction>();
+      const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
+      const auto& mi1 = i.as<MoveInstructionPoly>();
 
       assert(isStateWaypoint(mi0.getWaypoint()));
       assert(isStateWaypoint(mi1.getWaypoint()));
@@ -140,7 +139,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
       // Convert to MoveInstructions
       for (long i = 1; i < states.cols(); ++i)
       {
-        MoveInstruction move_instruction(mi1);
+        MoveInstructionPoly move_instruction(mi1);
         move_instruction.getWaypoint().as<StateWaypoint>().position = states.col(i);
         composite.push_back(move_instruction);
       }

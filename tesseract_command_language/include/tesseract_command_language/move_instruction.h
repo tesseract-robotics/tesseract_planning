@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/move_instruction_poly.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/constants.h>
@@ -41,14 +41,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-enum class MoveInstructionType : int
-{
-  LINEAR = 0,
-  FREESPACE = 1,
-  CIRCULAR = 2,
-  START = 3 /**< This indicates it is a start instruction. */
-};
-
 /**
  * @brief The move instruction is used when defining the results of a motion planning request
  * @details
@@ -157,7 +149,7 @@ private:
 #ifdef SWIG
 %tesseract_command_language_add_instruction_type(MoveInstruction)
 #else
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstruction);
+TESSERACT_MOVE_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstruction);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_H

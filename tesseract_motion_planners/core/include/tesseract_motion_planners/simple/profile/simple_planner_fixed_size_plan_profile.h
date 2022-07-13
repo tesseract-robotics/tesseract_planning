@@ -53,9 +53,9 @@ public:
    */
   SimplePlannerFixedSizePlanProfile(int freespace_steps = 10, int linear_steps = 10);
 
-  CompositeInstruction generate(const MoveInstruction& prev_instruction,
-                                const MoveInstruction& prev_seed,
-                                const MoveInstruction& base_instruction,
+  CompositeInstruction generate(const MoveInstructionPoly& prev_instruction,
+                                const MoveInstructionPoly& prev_seed,
+                                const MoveInstructionPoly& base_instruction,
                                 const Instruction& next_instruction,
                                 const PlannerRequest& request,
                                 const ManipulatorInfo& global_manip_info) const override;

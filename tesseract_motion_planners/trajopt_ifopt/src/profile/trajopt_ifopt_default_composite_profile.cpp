@@ -27,7 +27,7 @@
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
 #include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/core/move_instruction_poly.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 

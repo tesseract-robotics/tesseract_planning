@@ -136,7 +136,7 @@ bool FreespaceOMPLExample::run()
   plan_f0.setDescription("freespace_plan");
 
   // Add Instructions to program
-  program.push_back(plan_f0);
+  program.appendMoveInstruction(plan_f0);
 
   CONSOLE_BRIDGE_logInform("freespace OMPL plan example");
 

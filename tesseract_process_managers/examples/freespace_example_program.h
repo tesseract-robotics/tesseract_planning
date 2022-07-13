@@ -28,11 +28,11 @@ inline CompositeInstruction freespaceExampleProgramIIWA(
   Waypoint wp2 = CartesianWaypoint(goal);
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE, freespace_profile);
   plan_f0.setDescription("freespace_motion");
-  program.push_back(plan_f0);
+  program.appendMoveInstruction(plan_f0);
 
   Waypoint wp3 = JointWaypoint(joint_names, Eigen::VectorXd::Zero(7));
   MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   return program;
 }
@@ -55,11 +55,11 @@ inline CompositeInstruction freespaceExampleProgramABB(
   Waypoint wp2 = CartesianWaypoint(goal);
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE, freespace_profile);
   plan_f0.setDescription("freespace_motion");
-  program.push_back(plan_f0);
+  program.appendMoveInstruction(plan_f0);
 
   Waypoint wp3 = JointWaypoint(joint_names, Eigen::VectorXd::Zero(6));
   MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   return program;
 }

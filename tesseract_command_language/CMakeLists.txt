@@ -41,6 +41,7 @@ tesseract_variables()
 add_library(
   ${PROJECT_NAME}
   src/core/instruction.cpp
+  src/core/move_instruction_poly.cpp
   src/core/serialization.cpp
   src/core/waypoint.cpp
   src/null_instruction.cpp
@@ -56,9 +57,6 @@ add_library(
   src/state_waypoint.cpp
   src/cartesian_waypoint.cpp
   src/joint_waypoint.cpp
-  src/utils/flatten_utils.cpp
-  src/utils/filter_functions.cpp
-  src/utils/get_instruction_utils.cpp
   src/utils/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
