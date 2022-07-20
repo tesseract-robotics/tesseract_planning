@@ -32,8 +32,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/upsample_trajectory_task_generator.h>
 #include <tesseract_process_managers/task_profiles/upsample_trajectory_profile.h>
+
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
+
+#include <tesseract_command_language/waypoint_type.h>
 
 namespace tesseract_planning
 {
@@ -115,23 +118,23 @@ void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
 
       assert(isStateWaypoint(mi0.getWaypoint()));
       assert(isStateWaypoint(mi1.getWaypoint()));
-      const auto& swp0 = mi0.getWaypoint().as<StateWaypoint>();
-      const auto& swp1 = mi1.getWaypoint().as<StateWaypoint>();
+      const auto& swp0 = mi0.getWaypoint().as<StateWaypointPoly>();
+      const auto& swp1 = mi1.getWaypoint().as<StateWaypointPoly>();
 
-      double dist = (swp1.position - swp0.position).norm();
+      double dist = (swp1.getPosition() - swp0.getPosition()).norm();
       if (dist > longest_valid_segment_length)
       {
         long cnt = static_cast<long>(std::ceil(dist / longest_valid_segment_length)) + 1;
 
         // Linearly interpolate in joint space
-        Eigen::MatrixXd states = interpolate(swp0.position, swp1.position, cnt);
+        Eigen::MatrixXd states = interpolate(swp0.getPosition(), swp1.getPosition(), cnt);
 
         // Since this is filling out a new composite instruction and the start is the previous
         // instruction it is excluded when populated the composite instruction.
         for (long i = 1; i < states.cols(); ++i)
         {
           MoveInstructionPoly move_instruction(mi1);
-          move_instruction.getWaypoint().as<StateWaypoint>().position = states.col(i);
+          move_instruction.getWaypoint().as<StateWaypointPoly>().setPosition(states.col(i));
           composite.push_back(move_instruction);
         }
       }

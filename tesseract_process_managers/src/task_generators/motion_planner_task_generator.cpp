@@ -33,6 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/motion_planner_task_generator.h>
 #include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_motion_planners/core/planner.h>
 
 namespace tesseract_planning
@@ -117,14 +118,31 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
       const auto& ci = end_instruction.as<CompositeInstruction>();
       const auto* fmi = ci.getFirstMoveInstruction();
       assert(fmi != nullptr);
-      instructions.getLastMoveInstruction()->setWaypoint(fmi->getWaypoint());
+      if (isCartesianWaypoint(fmi->getWaypoint()))
+        instructions.getLastMoveInstruction()->assignCartesianWaypoint(fmi->getWaypoint().as<CartesianWaypointPoly>());
+      else if (isJointWaypoint(fmi->getWaypoint()))
+        instructions.getLastMoveInstruction()->assignJointWaypoint(fmi->getWaypoint().as<JointWaypointPoly>());
+      else if (isStateWaypoint(fmi->getWaypoint()))
+        instructions.getLastMoveInstruction()->assignStateWaypoint(fmi->getWaypoint().as<StateWaypointPoly>());
+      else
+        throw std::runtime_error("Invalid waypoint type");
     }
     else
     {
       assert(isMoveInstruction(end_instruction));
       auto* lpi = instructions.getLastMoveInstruction();
       if (isMoveInstruction(end_instruction))
-        lpi->setWaypoint(end_instruction.as<MoveInstructionPoly>().getWaypoint());
+      {
+        const auto& wp = end_instruction.as<MoveInstructionPoly>().getWaypoint();
+        if (isCartesianWaypoint(wp))
+          lpi->assignCartesianWaypoint(wp.as<CartesianWaypointPoly>());
+        else if (isJointWaypoint(wp))
+          lpi->assignJointWaypoint(wp.as<JointWaypointPoly>());
+        else if (isStateWaypoint(wp))
+          lpi->assignStateWaypoint(wp.as<StateWaypointPoly>());
+        else
+          throw std::runtime_error("Invalid waypoint type");
+      }
     }
   }
 

@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 
 namespace tesseract_planning
 {
@@ -156,8 +156,8 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
 
   problem->input = std::make_unique<Instruction>(request.instructions);
   const auto& composite_program = problem->input->as<CompositeInstruction>();
-  ManipulatorInfo mi = composite_program.getManipulatorInfo();
-  problem->global_manip_info = std::make_unique<const ManipulatorInfo>(mi);
+  tesseract_common::ManipulatorInfo mi = composite_program.getManipulatorInfo();
+  problem->global_manip_info = std::make_unique<const tesseract_common::ManipulatorInfo>(mi);
 
   if (!isNullInstruction(request.seed))
     problem->results = std::make_unique<Instruction>(request.seed);

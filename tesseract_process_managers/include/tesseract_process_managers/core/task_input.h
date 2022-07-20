@@ -40,7 +40,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/types.h>
 
 #include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/types.h>
+#include <tesseract_common/manipulator_info.h>
 
 #include <tesseract_environment/environment.h>
 
@@ -59,14 +59,14 @@ struct TaskInput
 
   TaskInput(tesseract_environment::Environment::ConstPtr env,
             const Instruction* instruction,
-            const ManipulatorInfo& manip_info,
+            const tesseract_common::ManipulatorInfo& manip_info,
             Instruction* seed,
             bool has_seed,
             ProfileDictionary::ConstPtr profiles);
 
   TaskInput(tesseract_environment::Environment::ConstPtr env,
             const Instruction* instruction,
-            const ManipulatorInfo& manip_info,
+            const tesseract_common::ManipulatorInfo& manip_info,
             const PlannerProfileRemapping& plan_profile_remapping,
             const PlannerProfileRemapping& composite_profile_remapping,
             Instruction* seed,
@@ -91,7 +91,7 @@ struct TaskInput
   const tesseract_environment::Environment::ConstPtr env;
 
   /** @brief Global Manipulator Information */
-  const ManipulatorInfo& manip_info;
+  const tesseract_common::ManipulatorInfo& manip_info;
 
   /**
    * @brief This allows the remapping of the Plan Profile identified in the command language to a specific profile for a

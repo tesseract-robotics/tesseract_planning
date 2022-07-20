@@ -35,11 +35,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <benchmark/benchmark.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/any.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/wait_instruction.h>
+#include <tesseract_command_language/timer_instruction.h>
+#include <tesseract_command_language/set_analog_instruction.h>
+#include <tesseract_command_language/set_tool_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_common/utils.h>
 
 using namespace tesseract_planning;
+using tesseract_common::ManipulatorInfo;
 
 CompositeInstruction getProgram()
 {
@@ -48,24 +56,24 @@ CompositeInstruction getProgram()
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  Waypoint wp0 = StateWaypoint(joint_names, Eigen::VectorXd::Zero(6));
+  StateWaypointPoly wp0{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::START);
   program.setStartInstruction(start_instruction);
 
   // Define raster poses
-  Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
-  Waypoint wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
-  Waypoint wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
-  Waypoint wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
-  Waypoint wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
-  Waypoint wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
-  Waypoint wp7 = JointWaypoint(joint_names, Eigen::VectorXd::Ones(6));
+  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
+                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
+                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
+                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
+                                                Eigen::Quaterniond(0, 0, -1.0, 0));
+  JointWaypointPoly wp7 = JointWaypoint(joint_names, Eigen::VectorXd::Ones(6));
 
   // Define raster move instruction
   MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR, "RASTER");

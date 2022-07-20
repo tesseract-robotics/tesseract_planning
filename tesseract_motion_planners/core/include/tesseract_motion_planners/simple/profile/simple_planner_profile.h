@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/core/move_instruction_poly.h>
 #include <tesseract_motion_planners/core/types.h>
 
 #ifdef SWIG
@@ -74,7 +74,7 @@ public:
                                         const MoveInstructionPoly& base_instruction,
                                         const Instruction& next_instruction,
                                         const PlannerRequest& request,
-                                        const ManipulatorInfo& global_manip_info) const = 0;
+                                        const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
 };
 
 class SimplePlannerCompositeProfile

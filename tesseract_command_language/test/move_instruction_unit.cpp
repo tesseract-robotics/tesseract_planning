@@ -42,7 +42,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
-  StateWaypoint swp(jn, jv);
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
 
   // Minimum arguments
   {
@@ -133,7 +133,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, setters)  // NOLINT
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
-  StateWaypoint swp(jn, jv);
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
 
   MoveInstruction instr(swp, MoveInstructionType::START);
   EXPECT_EQ(instr.getWaypoint(), swp);
@@ -143,7 +143,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, setters)  // NOLINT
   EXPECT_FALSE(instr.getDescription().empty());
 
   StateWaypoint test_swp(jn, 5 * jv);
-  instr.setWaypoint(test_swp);
+  instr.assignStateWaypoint(test_swp);
   EXPECT_EQ(instr.getWaypoint(), test_swp);
 
   instr.setMoveType(MoveInstructionType::LINEAR);
@@ -163,7 +163,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
-  StateWaypoint swp(jn, jv);
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
 
   MoveInstruction instr(swp, MoveInstructionType::START);
   instr.setMoveType(MoveInstructionType::LINEAR);
@@ -187,7 +187,7 @@ TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NO
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
-  StateWaypoint swp(jn, jv);
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
 
   MoveInstruction instr(swp, MoveInstructionType::START);
   instr.setMoveType(MoveInstructionType::LINEAR);

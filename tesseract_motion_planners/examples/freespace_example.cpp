@@ -46,7 +46,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/interface_utils.h>
 
 #include <tesseract_visualization/visualization_loader.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_planning;
@@ -73,7 +76,7 @@ int main(int /*argc*/, char** /*argv*/)
       plotter->plotEnvironment(*env);
     }
 
-    ManipulatorInfo manip;
+    tesseract_common::ManipulatorInfo manip;
     manip.tcp_frame = "tool0";
     manip.working_frame = "base_link";
     manip.manipulator = "manipulator";
@@ -84,11 +87,11 @@ int main(int /*argc*/, char** /*argv*/)
     auto cur_state = env->getState();
 
     // Specify start location
-    StateWaypoint wp0(kin_group->getJointNames(), Eigen::VectorXd::Zero(6));
+    StateWaypointPoly wp0{ StateWaypoint(kin_group->getJointNames(), Eigen::VectorXd::Zero(6)) };
 
     // Specify freespace start waypoint
-    CartesianWaypoint wp1 =
-        Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+    CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                                                 Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
     // Define Plan Instructions
     MoveInstruction start_instruction(wp0, MoveInstructionType::START);

@@ -32,10 +32,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_command_language/null_waypoint.h>
-#include <tesseract_common/utils.h>
+#include <tesseract_common/joint_state.h>
 
 namespace tesseract_planning
 {
@@ -45,174 +45,51 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
   CartesianWaypoint() = default;
+  CartesianWaypoint(const Eigen::Isometry3d& transform);
+  CartesianWaypoint(const Eigen::Isometry3d& transform,
+                    const Eigen::VectorXd& lower_tol,
+                    const Eigen::VectorXd& upper_tol);
 
-  void print(const std::string& prefix = "") const
-  {
-    std::cout << prefix << "Cart WP: xyz=" << this->translation().x() << ", " << this->translation().y()
-              << ", "                                   // NOLINT
-              << this->translation().z() << std::endl;  // NOLINT
-    // TODO: Add rotation
-  }
+  void setTransform(const Eigen::Isometry3d& transform);
+  Eigen::Isometry3d& getTransform();
+  const Eigen::Isometry3d& getTransform() const;
 
-  /////////////////////
-  // Eigen Container //
-  /////////////////////
+  void setUpperTolerance(const Eigen::VectorXd& upper_tol);
+  Eigen::VectorXd& getUpperTolerance();
+  const Eigen::VectorXd& getUpperTolerance() const;
 
-  using ConstLinearPart = Eigen::Isometry3d::ConstLinearPart;
-  using LinearPart = Eigen::Isometry3d::LinearPart;
-  using ConstTranslationPart = Eigen::Isometry3d::ConstTranslationPart;
-  using TranslationPart = Eigen::Isometry3d::TranslationPart;
+  void setLowerTolerance(const Eigen::VectorXd& lower_tol);
+  Eigen::VectorXd& getLowerTolerance();
+  const Eigen::VectorXd& getLowerTolerance() const;
 
-  ////////////////////////
-  // Eigen Constructors //
-  ////////////////////////
+  void setSeed(const tesseract_common::JointState& seed);
+  tesseract_common::JointState& getSeed();
+  const tesseract_common::JointState& getSeed() const;
 
-  // This constructor allows you to construct from Eigen expressions
-  template <typename OtherDerived>
-  CartesianWaypoint(const Eigen::MatrixBase<OtherDerived>& other) : waypoint(other)
-  {
-  }
+  void print(const std::string& prefix = "") const;
 
-  CartesianWaypoint(const Eigen::Isometry3d& other) : waypoint(other) {}
+  bool operator==(const CartesianWaypoint& rhs) const;
+  bool operator!=(const CartesianWaypoint& rhs) const;
 
-  ///////////////////
-  // Eigen Methods //
-  ///////////////////
-
-#ifndef SWIG
-  /** @returns a read-only expression of the linear part of the transformation */
-  inline ConstLinearPart linear() const { return waypoint.linear(); }  // NOLINT
-
-  /** @returns a writable expression of the linear part of the transformation */
-  inline LinearPart linear() { return waypoint.linear(); }
-
-  /** @returns a read-only expression of the translation vector of the transformation */
-  inline ConstTranslationPart translation() const { return waypoint.translation(); }  // NOLINT
-
-  /** @returns a writable expression of the translation vector of the transformation */
-  inline TranslationPart translation() { return waypoint.translation(); }
-#else   // SWIG
-  Eigen::Matrix3d linear() const;
-  Eigen::Matrix3d linear();
-  Eigen::Vector3d translation() const;
-  Eigen::Vector3d translation();
-#endif  // SWIG
-
-  /** @returns true if two are approximate */
-  inline bool isApprox(const Eigen::Isometry3d& other, double prec = 1e-12) const
-  {
-    return waypoint.isApprox(other, prec);
-  }  // NOLINT
-
-  /////////////////////
-  // Eigen Operators //
-  /////////////////////
-
-  // This method allows you to assign Eigen expressions to MyVectorType
-  template <typename OtherDerived>
-  inline CartesianWaypoint& operator=(const Eigen::MatrixBase<OtherDerived>& other)
-  {
-    waypoint = other;
-    return *this;
-  }
-
-  template <typename OtherDerived>
-  inline CartesianWaypoint& operator*=(const Eigen::MatrixBase<OtherDerived>& other)
-  {
-    waypoint = waypoint * other;
-    return *this;
-  }
-
-  template <typename OtherDerived>
-  inline CartesianWaypoint operator*(const Eigen::MatrixBase<OtherDerived>& other) const
-  {
-    CartesianWaypoint cwp = *this;
-    cwp.waypoint = cwp.waypoint * other;
-    return cwp;
-  }
-
-  inline CartesianWaypoint& operator=(const Eigen::Isometry3d& other)
-  {
-    waypoint = other;
-    return *this;
-  }
-
-  inline CartesianWaypoint& operator*=(const Eigen::Isometry3d& other) { return *this = waypoint * other; }
-
-  inline CartesianWaypoint operator*(const Eigen::Isometry3d& other) const
-  {
-    CartesianWaypoint cwp = *this;
-    cwp.waypoint = cwp.waypoint * other;
-    return cwp;
-  }
-
-  //////////////////////////
-  // Implicit Conversions //
-  //////////////////////////
-
-  /** @return Implicit Conversions to read-only Eigen::Isometry3d */
-  inline operator const Eigen::Isometry3d&() const { return waypoint; }
-
-  /** @return Implicit Conversions to writable Eigen::Isometry3d */
-  inline operator Eigen::Isometry3d&() { return waypoint; }
-
-  //////////////////////////////////
-  // Cartesian Waypoint Container //
-  //////////////////////////////////
-
+protected:
   /** @brief The Cartesian Waypoint */
-  Eigen::Isometry3d waypoint{ Eigen::Isometry3d::Identity() };
+  Eigen::Isometry3d transform_{ Eigen::Isometry3d::Identity() };
   /** @brief Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3
    * elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle()) */
-  Eigen::VectorXd lower_tolerance;
+  Eigen::VectorXd lower_tolerance_;
   /** @brief Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3
    * elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle())*/
-  Eigen::VectorXd upper_tolerance;
+  Eigen::VectorXd upper_tolerance_;
 
   /**
-   * @brief Waypoint seed associated with this Cartesian waypoint
+   * @brief Seed associated with this Cartesian waypoint
    * @details The waypoint seed can be used for purposes like:
    *   - providing a joint state seed to an IK solver
    *   - providing a seed to the IK solver with modified limits using the tolerances
    *   - providing a joint state to be used by a motion planner for interpolation to avoid performing IK
    */
-  Waypoint seed{ NullWaypoint() };
+  tesseract_common::JointState seed_;
 
-  /**
-   * @brief Returns true if waypoint has tolerances
-   * @return True if waypoint has tolerances
-   */
-  bool isToleranced() const
-  {
-    // Check if they are empty
-    if (lower_tolerance.size() == 0 || upper_tolerance.size() == 0)
-      return false;
-
-    // Check if they are the same
-    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
-
-    if ((lower_tolerance.array() > max_diff).any())
-      throw std::runtime_error("CartesianWaypoint: lower tolerance was provided but must be <= 0,");
-
-    if ((upper_tolerance.array() < -max_diff).any())
-      throw std::runtime_error("CartesianWaypoint: upper tolerance was provided but must be >= 0,");
-
-    return !tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, upper_tolerance, max_diff);
-  }
-  bool operator==(const CartesianWaypoint& rhs) const
-  {
-    static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
-
-    bool equal = true;
-    equal &= waypoint.isApprox(rhs.waypoint);
-    equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance, rhs.lower_tolerance, max_diff);
-    equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance, rhs.upper_tolerance, max_diff);
-    equal &= (seed == rhs.seed);
-    return equal;
-  }
-  bool operator!=(const CartesianWaypoint& rhs) const { return !operator==(rhs); }
-
-private:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -221,9 +98,9 @@ private:
 }  // namespace tesseract_planning
 
 #ifdef SWIG
-%tesseract_command_language_add_waypoint_type(CartesianWaypoint)
+%tesseract_command_language_add_cartesian_waypoint_type(CartesianWaypoint)
 #else
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, CartesianWaypoint);
+TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(tesseract_planning, CartesianWaypoint);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H

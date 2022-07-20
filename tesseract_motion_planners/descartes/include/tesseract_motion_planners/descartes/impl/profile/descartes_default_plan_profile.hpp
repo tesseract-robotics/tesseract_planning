@@ -166,13 +166,13 @@ template <typename FloatType>
 void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& prob,
                                                    const Eigen::Isometry3d& cartesian_waypoint,
                                                    const Instruction& parent_instruction,
-                                                   const ManipulatorInfo& manip_info,
+                                                   const tesseract_common::ManipulatorInfo& manip_info,
                                                    int index) const
 {
   assert(isMoveInstruction(parent_instruction));
   const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
   if (mi.manipulator.empty())
     throw std::runtime_error("Descartes, manipulator is empty!");
@@ -267,7 +267,7 @@ template <typename FloatType>
 void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& prob,
                                                    const Eigen::VectorXd& joint_waypoint,
                                                    const Instruction& /*parent_instruction*/,
-                                                   const ManipulatorInfo& /*manip_info*/,
+                                                   const tesseract_common::ManipulatorInfo& /*manip_info*/,
                                                    int index) const
 {
   auto state = std::make_shared<descartes_light::State<FloatType>>(joint_waypoint.cast<FloatType>());

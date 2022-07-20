@@ -34,12 +34,13 @@ SimplePlannerFixedSizeAssignPlanProfile::SimplePlannerFixedSizeAssignPlanProfile
 {
 }
 
-CompositeInstruction SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                                                       const MoveInstructionPoly& /*prev_seed*/,
-                                                                       const MoveInstructionPoly& base_instruction,
-                                                                       const Instruction& /*next_instruction*/,
-                                                                       const PlannerRequest& request,
-                                                                       const ManipulatorInfo& global_manip_info) const
+CompositeInstruction
+SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+                                                  const MoveInstructionPoly& /*prev_seed*/,
+                                                  const MoveInstructionPoly& base_instruction,
+                                                  const Instruction& /*next_instruction*/,
+                                                  const PlannerRequest& request,
+                                                  const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
   KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
   KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);

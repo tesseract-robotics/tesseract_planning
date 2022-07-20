@@ -6,7 +6,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
@@ -94,21 +94,21 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, WaypointInCollisionTest)  // NOLINT
   EXPECT_TRUE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_FALSE(contacts.empty());
 
-  waypoint[0] = 1.5;
+  waypoint.getPosition()[0] = 1.5;
   contacts.clear();
   EXPECT_FALSE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 
-  waypoint[0] = 0.0;
-  waypoint[1] = 1.5;
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.5;
   contacts.clear();
   EXPECT_FALSE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 
   // Check that the safety margin is obeyed
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
-  waypoint[0] = 0.0;
-  waypoint[1] = 1.05;
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.05;
   contacts.clear();
   EXPECT_TRUE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_FALSE(contacts.empty());
@@ -140,8 +140,8 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionRandomSample
   // Check that the safety margin is obeyed
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
   profile.jiggle_factor = 1.0;
-  waypoint[0] = 0.0;
-  waypoint[1] = 1.09;
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.09;
   Waypoint wp(waypoint);
   tesseract_collision::ContactResultMap contacts;
 
@@ -172,8 +172,8 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionTrajoptTest)
   // Check that the safety margin is obeyed
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
   profile.jiggle_factor = 1.0;
-  waypoint[0] = 0.0;
-  waypoint[1] = 1.09;
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.09;
   Waypoint wp(waypoint);
   tesseract_collision::ContactResultMap contacts;
 

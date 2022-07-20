@@ -28,11 +28,16 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+using tesseract_common::ManipulatorInfo;
 inline CompositeInstruction rasterExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                  const std::string& process_profile = "PROCESS")
 {
@@ -41,12 +46,12 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypoint swp1 = StateWaypoint(joint_names, Eigen::VectorXd::Zero(6));
+  StateWaypointPoly swp1{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
   MoveInstruction start_instruction(swp1, MoveInstructionType::START);
   program.setStartInstruction(start_instruction);
 
-  Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define from start composite instruction
   MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, freespace_profile);
@@ -60,20 +65,20 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
   for (int i = 0; i < 4; ++i)
   {
     double x = 0.8 + (i * 0.1);
-    Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
 
     CompositeInstruction raster_segment(process_profile);
     raster_segment.setDescription("Raster #" + std::to_string(i + 1));
@@ -100,7 +105,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
     // Add transition
     if (i == 0 || i == 2)
     {
-      Waypoint wp7 =
+      CartesianWaypointPoly wp7 =
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
@@ -114,7 +119,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
     }
     else if (i == 1)
     {
-      Waypoint wp1 =
+      CartesianWaypointPoly wp1 =
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
@@ -144,8 +149,8 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
   CompositeInstruction program(
       DEFAULT_PROFILE_KEY, CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
-  Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                                                Eigen::Quaterniond(0, 0, -1.0, 0));
 
   // Define start instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START);
@@ -155,20 +160,20 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
   for (int i = 0; i < 4; ++i)
   {
     double x = 0.8 + (i * 0.1);
-    Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
 
     CompositeInstruction raster_segment(process_profile);
     raster_segment.setDescription("Raster #" + std::to_string(i + 1));
@@ -195,7 +200,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
     // Add transition
     if (i == 0 || i == 2)
     {
-      Waypoint wp7 =
+      CartesianWaypointPoly wp7 =
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
@@ -209,7 +214,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
     }
     else if (i == 1)
     {
-      Waypoint wp1 =
+      CartesianWaypointPoly wp1 =
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.8) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 

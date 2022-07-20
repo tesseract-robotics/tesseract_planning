@@ -71,7 +71,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   }
 
   auto& ci = input_results->as<CompositeInstruction>();
-  const ManipulatorInfo& manip_info = ci.getManipulatorInfo();
+  const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   auto joint_group = input.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 

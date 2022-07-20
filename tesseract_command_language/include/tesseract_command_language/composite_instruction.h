@@ -38,7 +38,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/profile_dictionary.h>
-#include <tesseract_command_language/types.h>
+#include <tesseract_common/manipulator_info.h>
 
 namespace tesseract_planning
 {
@@ -73,7 +73,7 @@ public:
 
   CompositeInstruction(std::string profile = DEFAULT_PROFILE_KEY,
                        CompositeInstructionOrder order = CompositeInstructionOrder::ORDERED,
-                       ManipulatorInfo manipulator_info = ManipulatorInfo());
+                       tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
   CompositeInstructionOrder getOrder() const;
 
@@ -88,9 +88,9 @@ public:
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
   ProfileDictionary::Ptr profile_overrides;
 
-  void setManipulatorInfo(ManipulatorInfo info);
-  const ManipulatorInfo& getManipulatorInfo() const;
-  ManipulatorInfo& getManipulatorInfo();
+  void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
+  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
+  tesseract_common::ManipulatorInfo& getManipulatorInfo();
 
   void setStartInstruction(MoveInstructionPoly instruction);
 
@@ -403,7 +403,7 @@ private:
   std::string description_{ "Tesseract Composite Instruction" };
 
   /** @brief Contains information about the manipulator associated with this instruction*/
-  ManipulatorInfo manipulator_info_;
+  tesseract_common::ManipulatorInfo manipulator_info_;
 
   /**
    * @brief The profile applied its child plan instructions

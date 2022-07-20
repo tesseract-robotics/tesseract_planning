@@ -36,7 +36,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_environment/environment.h>
 
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
@@ -60,7 +64,7 @@ class TesseractPlanningDescartesUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
-  ManipulatorInfo manip;
+  tesseract_common::ManipulatorInfo manip;
 
   void SetUp() override
   {
@@ -88,12 +92,12 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   auto cur_state = env_->getState();
 
   // Specify a start waypoint
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Specify a end waypoint
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
@@ -204,12 +208,12 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   auto cur_state = env_->getState();
 
   // Specify a start waypoint
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Specify a end waypoint
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
@@ -310,12 +314,12 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   auto cur_state = env_->getState();
 
   // Specify a start waypoint
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.10, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.10, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Specify a end waypoint
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .10, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .10, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);

@@ -32,7 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_common/utils.h>
+#include <tesseract_command_language/core/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 
@@ -42,23 +43,23 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, isToleranced)  // NOLINT
 {
   Eigen::Isometry3d pose = Eigen::Isometry3d::Identity();
 
-  CartesianWaypoint cw(pose);
+  CartesianWaypointPoly cw{ CartesianWaypoint(pose) };
   EXPECT_FALSE(cw.isToleranced());
 
-  cw.upper_tolerance = Eigen::VectorXd::Constant(3, 5);
-  cw.lower_tolerance = Eigen::VectorXd::Constant(3, -5);
+  cw.setUpperTolerance(Eigen::VectorXd::Constant(3, 5));
+  cw.setLowerTolerance(Eigen::VectorXd::Constant(3, -5));
   EXPECT_TRUE(cw.isToleranced());
 
-  cw.upper_tolerance = Eigen::VectorXd::Constant(3, -5);
-  cw.lower_tolerance = Eigen::VectorXd::Constant(3, -5);
+  cw.setUpperTolerance(Eigen::VectorXd::Constant(3, -5));
+  cw.setLowerTolerance(Eigen::VectorXd::Constant(3, -5));
   EXPECT_ANY_THROW(cw.isToleranced());  // NOLINT
 
-  cw.upper_tolerance = Eigen::VectorXd::Constant(3, 5);
-  cw.lower_tolerance = Eigen::VectorXd::Constant(3, 5);
+  cw.setUpperTolerance(Eigen::VectorXd::Constant(3, 5));
+  cw.setLowerTolerance(Eigen::VectorXd::Constant(3, 5));
   EXPECT_ANY_THROW(cw.isToleranced());  // NOLINT
 
-  cw.upper_tolerance = Eigen::VectorXd::Constant(3, 0);
-  cw.lower_tolerance = Eigen::VectorXd::Constant(3, 0);
+  cw.setUpperTolerance(Eigen::VectorXd::Constant(3, 0));
+  cw.setLowerTolerance(Eigen::VectorXd::Constant(3, 0));
   EXPECT_FALSE(cw.isToleranced());
 }
 
@@ -77,7 +78,7 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)  // NOLI
   EXPECT_TRUE(cw == nwp.as<CartesianWaypoint>());
 }
 
-inline void SerializeDeserializeTest(const CartesianWaypoint& wp)
+inline void SerializeDeserializeTest(const CartesianWaypointPoly& wp)
 {
   tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp,
                                                               tesseract_common::getTempPath() + "cartesian_waypoint_"
@@ -86,36 +87,36 @@ inline void SerializeDeserializeTest(const CartesianWaypoint& wp)
       tesseract_common::Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "cartesian_"
                                                                                                       "waypoint_unit."
                                                                                                       "xml");
-  EXPECT_TRUE(wp == deserialized.as<CartesianWaypoint>());
+  EXPECT_TRUE(wp == deserialized.as<CartesianWaypointPoly>());
 }
 
 TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperatorAndSerialization)  // NOLINT
 {
   // Equal
   {
-    CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
-    CartesianWaypoint wp2(wp1);  // NOLINT
+    CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+    CartesianWaypointPoly wp2(wp1);  // NOLINT
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
     SerializeDeserializeTest(wp1);
   }
   {
-    CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
-    wp1.waypoint.translate(Eigen::Vector3d(1e6, 0, 0));
-    CartesianWaypoint wp2(wp1);
+    CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+    wp1.getTransform().translate(Eigen::Vector3d(1e6, 0, 0));
+    CartesianWaypointPoly wp2(wp1);
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
     SerializeDeserializeTest(wp1);
   }
   {
-    CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
-    wp1.upper_tolerance.resize(3);
-    wp1.upper_tolerance << 1, 2, 3;
-    wp1.lower_tolerance.resize(3);
-    wp1.lower_tolerance << -4, -5, -6;
-    CartesianWaypoint wp2(wp1);
+    CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+    wp1.getUpperTolerance().resize(3);
+    wp1.getUpperTolerance() << 1, 2, 3;
+    wp1.getLowerTolerance().resize(3);
+    wp1.getLowerTolerance() << -4, -5, -6;
+    CartesianWaypointPoly wp2(wp1);
     EXPECT_TRUE(wp1 == wp2);
     EXPECT_TRUE(wp2 == wp1);
     EXPECT_FALSE(wp2 != wp1);
@@ -123,30 +124,30 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperatorAndSerializa
   }
   // Not equal
   {
-    CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
-    CartesianWaypoint wp2(Eigen::Isometry3d::Identity());
-    wp2.waypoint.rotate(Eigen::AngleAxisd(M_PI, Eigen::Vector3d(0, 0, 1)));
+    CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+    CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+    wp2.getTransform().rotate(Eigen::AngleAxisd(M_PI, Eigen::Vector3d(0, 0, 1)));
     EXPECT_FALSE(wp1 == wp2);
     EXPECT_FALSE(wp2 == wp1);
     EXPECT_TRUE(wp2 != wp1);
     SerializeDeserializeTest(wp2);
   }
   {
-    CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
-    CartesianWaypoint wp2(Eigen::Isometry3d::Identity());
-    wp2.waypoint.translate(Eigen::Vector3d(1e6, 0, 0));
+    CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+    CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+    wp2.getTransform().translate(Eigen::Vector3d(1e6, 0, 0));
     EXPECT_FALSE(wp1 == wp2);
     EXPECT_FALSE(wp2 == wp1);
     EXPECT_TRUE(wp2 != wp1);
     SerializeDeserializeTest(wp2);
   }
   {
-    CartesianWaypoint wp1(Eigen::Isometry3d::Identity());
-    CartesianWaypoint wp2(wp1);
-    wp2.upper_tolerance.resize(3);
-    wp2.upper_tolerance << 1, 2, 3;
-    wp2.lower_tolerance.resize(3);
-    wp2.lower_tolerance << -4, -5, -6;
+    CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+    CartesianWaypointPoly wp2(wp1);
+    wp2.getUpperTolerance().resize(3);
+    wp2.getUpperTolerance() << 1, 2, 3;
+    wp2.getLowerTolerance().resize(3);
+    wp2.getLowerTolerance() << -4, -5, -6;
     EXPECT_FALSE(wp1 == wp2);
     EXPECT_FALSE(wp2 == wp1);
     EXPECT_TRUE(wp2 != wp1);

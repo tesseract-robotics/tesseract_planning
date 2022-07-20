@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_generators/profile_switch_task_generator.h>
 #include <tesseract_process_managers/task_profiles/profile_switch_profile.h>
 #include <tesseract_command_language/constants.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning

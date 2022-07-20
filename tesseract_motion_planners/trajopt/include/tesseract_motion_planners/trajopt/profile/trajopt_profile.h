@@ -34,9 +34,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/joint_waypoint.h>
-#include <tesseract_command_language/cartesian_waypoint.h>
-#include <tesseract_command_language/types.h>
+#include <tesseract_command_language/core/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/core/joint_waypoint_poly.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::TrajOptPlanProfile)
@@ -60,16 +59,16 @@ public:
   TrajOptPlanProfile& operator=(TrajOptPlanProfile&&) = default;
 
   virtual void apply(trajopt::ProblemConstructionInfo& pci,
-                     const CartesianWaypoint& cartesian_waypoint,
+                     const CartesianWaypointPoly& cartesian_waypoint,
                      const Instruction& parent_instruction,
-                     const ManipulatorInfo& manip_info,
+                     const tesseract_common::ManipulatorInfo& manip_info,
                      const std::vector<std::string>& active_links,
                      int index) const = 0;
 
   virtual void apply(trajopt::ProblemConstructionInfo& pci,
-                     const JointWaypoint& joint_waypoint,
+                     const JointWaypointPoly& joint_waypoint,
                      const Instruction& parent_instruction,
-                     const ManipulatorInfo& manip_info,
+                     const tesseract_common::ManipulatorInfo& manip_info,
                      const std::vector<std::string>& active_links,
                      int index) const = 0;
 
@@ -92,7 +91,7 @@ public:
   virtual void apply(trajopt::ProblemConstructionInfo& pci,
                      int start_index,
                      int end_index,
-                     const ManipulatorInfo& manip_info,
+                     const tesseract_common::ManipulatorInfo& manip_info,
                      const std::vector<std::string>& active_links,
                      const std::vector<int>& fixed_indices) const = 0;
 
