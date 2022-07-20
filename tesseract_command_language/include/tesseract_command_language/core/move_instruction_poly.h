@@ -35,6 +35,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/core/joint_waypoint_poly.h>
+#include <tesseract_command_language/core/state_waypoint_poly.h>
 #include <tesseract_command_language/core/waypoint.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/serialization.h>
@@ -129,6 +132,15 @@ struct MoveInstructionConcept  // NOLINT
     const std::string& desc = c.getDescription();
     UNUSED(desc);
 
+    auto cwp = c.createCartesianWaypoint();
+    UNUSED(cwp);
+
+    auto jwp = c.createJointWaypoint();
+    UNUSED(jwp);
+
+    auto swp = c.createStateWaypoint();
+    UNUSED(swp);
+
     c.setDescription("test");
     c.print();
     c.print("prefix_");
@@ -140,7 +152,9 @@ private:
 
 struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
 {
-  virtual void setWaypoint(Waypoint waypoint) = 0;
+  virtual void assignCartesianWaypoint(CartesianWaypointPoly waypoint) = 0;
+  virtual void assignJointWaypoint(JointWaypointPoly waypoint) = 0;
+  virtual void assignStateWaypoint(StateWaypointPoly waypoint) = 0;
   virtual Waypoint& getWaypoint() = 0;
   virtual const Waypoint& getWaypoint() const = 0;
 
@@ -162,6 +176,10 @@ struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
 
   virtual void print(const std::string& prefix) const = 0;
 
+  virtual CartesianWaypointPoly createCartesianWaypoint() const = 0;
+  virtual JointWaypointPoly createJointWaypoint() const = 0;
+  virtual StateWaypointPoly createStateWaypoint() const = 0;
+
 private:
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;
@@ -179,7 +197,12 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
 
   BOOST_CONCEPT_ASSERT((MoveInstructionConcept<T>));
 
-  void setWaypoint(Waypoint waypoint) final { this->get().setWaypoint(std::move(waypoint)); }
+  void assignCartesianWaypoint(CartesianWaypointPoly waypoint) final
+  {
+    this->get().assignCartesianWaypoint(std::move(waypoint));
+  }
+  void assignJointWaypoint(JointWaypointPoly waypoint) final { this->get().assignJointWaypoint(std::move(waypoint)); }
+  void assignStateWaypoint(StateWaypointPoly waypoint) final { this->get().assignStateWaypoint(std::move(waypoint)); }
   Waypoint& getWaypoint() final { return this->get().getWaypoint(); }
   const Waypoint& getWaypoint() const final { return this->get().getWaypoint(); };
 
@@ -204,6 +227,10 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
 
   void print(const std::string& prefix) const final { this->get().print(prefix); }
 
+  CartesianWaypointPoly createCartesianWaypoint() const final { return this->get().createCartesianWaypoint(); }
+  JointWaypointPoly createJointWaypoint() const final { return this->get().createJointWaypoint(); }
+  StateWaypointPoly createStateWaypoint() const final { return this->get().createStateWaypoint(); }
+
 private:
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;
@@ -224,7 +251,9 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
 {
   using MoveInstructionPolyBase::MoveInstructionPolyBase;
 
-  void setWaypoint(Waypoint waypoint);
+  void assignCartesianWaypoint(CartesianWaypointPoly waypoint);
+  void assignJointWaypoint(JointWaypointPoly waypoint);
+  void assignStateWaypoint(StateWaypointPoly waypoint);
   Waypoint& getWaypoint();
   const Waypoint& getWaypoint() const;
 
@@ -245,6 +274,10 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   void setDescription(const std::string& description);
 
   void print(const std::string& prefix = "") const;
+
+  CartesianWaypointPoly createCartesianWaypoint() const;
+  JointWaypointPoly createJointWaypoint() const;
+  StateWaypointPoly createStateWaypoint() const;
 
   bool isLinear() const;
 
@@ -268,7 +301,6 @@ private:
 %template(Instructions) std::vector<tesseract_planning::MoveInstructionPoly>;
 %tesseract_command_language_add_instruction_type(MoveInstructionPoly)
 #else
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::detail_instruction::InstructionInterface)
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_move_instruction::MoveInstructionInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::detail_move_instruction::MoveInstructionInterface,
                      boost::serialization::track_never)

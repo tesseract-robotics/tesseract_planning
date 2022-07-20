@@ -31,9 +31,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_examples/puzzle_piece_example.h>
 #include <tesseract_environment/utils.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/types.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
@@ -49,6 +52,7 @@ using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
+using tesseract_common::ManipulatorInfo;
 
 namespace tesseract_examples
 {
@@ -151,7 +155,7 @@ bool PuzzlePieceExample::run()
   tesseract_common::VectorIsometry3d tool_poses = makePuzzleToolPoses(env_->getResourceLocator());
 
   // Create manipulator information for program
-  ManipulatorInfo mi;
+  tesseract_common::ManipulatorInfo mi;
   mi.manipulator = "manipulator";
   mi.working_frame = "part";
   mi.tcp_frame = "grinder_frame";
@@ -160,14 +164,14 @@ bool PuzzlePieceExample::run()
   CompositeInstruction program("DEFAULT", CompositeInstructionOrder::ORDERED, mi);
 
   // Create cartesian waypoint
-  Waypoint wp = CartesianWaypoint(tool_poses[0]);
+  CartesianWaypointPoly wp{ CartesianWaypoint(tool_poses[0]) };
   MoveInstruction plan_instruction(wp, MoveInstructionType::START, "CARTESIAN");
   plan_instruction.setDescription("from_start_plan");
   program.setStartInstruction(plan_instruction);
 
   for (std::size_t i = 1; i < tool_poses.size(); ++i)
   {
-    Waypoint wp = CartesianWaypoint(tool_poses[i]);
+    CartesianWaypointPoly wp{ CartesianWaypoint(tool_poses[i]) };
     MoveInstruction plan_instruction(wp, MoveInstructionType::LINEAR, "CARTESIAN");
     plan_instruction.setDescription("waypoint_" + std::to_string(i));
     program.appendMoveInstruction(plan_instruction);

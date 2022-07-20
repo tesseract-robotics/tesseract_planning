@@ -67,7 +67,7 @@ public:
                                 const MoveInstructionPoly& base_instruction,
                                 const Instruction& next_instruction,
                                 const PlannerRequest& request,
-                                const ManipulatorInfo& global_manip_info) const override;
+                                const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The maximum joint distance, the norm of changes to all joint positions between successive steps. */
   double state_longest_valid_segment_length;

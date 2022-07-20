@@ -33,13 +33,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/state_waypoint.h>
 
 namespace tesseract_planning
 {
-MoveInstruction::MoveInstruction(Waypoint waypoint,
+MoveInstruction::MoveInstruction(CartesianWaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
-                                 ManipulatorInfo manipulator_info)
+                                 tesseract_common::ManipulatorInfo manipulator_info)
   : move_type_(type)
   , profile_(std::move(profile))
   , waypoint_(std::move(waypoint))
@@ -49,11 +52,37 @@ MoveInstruction::MoveInstruction(Waypoint waypoint,
     path_profile_ = profile_;
 }
 
-MoveInstruction::MoveInstruction(Waypoint waypoint,
+MoveInstruction::MoveInstruction(JointWaypointPoly waypoint,
+                                 MoveInstructionType type,
+                                 std::string profile,
+                                 tesseract_common::ManipulatorInfo manipulator_info)
+  : move_type_(type)
+  , profile_(std::move(profile))
+  , waypoint_(std::move(waypoint))
+  , manipulator_info_(std::move(manipulator_info))
+{
+  if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
+    path_profile_ = profile_;
+}
+
+MoveInstruction::MoveInstruction(StateWaypointPoly waypoint,
+                                 MoveInstructionType type,
+                                 std::string profile,
+                                 tesseract_common::ManipulatorInfo manipulator_info)
+  : move_type_(type)
+  , profile_(std::move(profile))
+  , waypoint_(std::move(waypoint))
+  , manipulator_info_(std::move(manipulator_info))
+{
+  if (move_type_ == MoveInstructionType::LINEAR || move_type_ == MoveInstructionType::CIRCULAR)
+    path_profile_ = profile_;
+}
+
+MoveInstruction::MoveInstruction(CartesianWaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
                                  std::string path_profile,
-                                 ManipulatorInfo manipulator_info)
+                                 tesseract_common::ManipulatorInfo manipulator_info)
   : move_type_(type)
   , profile_(std::move(profile))
   , path_profile_(std::move(path_profile))
@@ -62,14 +91,48 @@ MoveInstruction::MoveInstruction(Waypoint waypoint,
 {
 }
 
-void MoveInstruction::setWaypoint(Waypoint waypoint) { waypoint_ = std::move(waypoint); }
+MoveInstruction::MoveInstruction(JointWaypointPoly waypoint,
+                                 MoveInstructionType type,
+                                 std::string profile,
+                                 std::string path_profile,
+                                 tesseract_common::ManipulatorInfo manipulator_info)
+  : move_type_(type)
+  , profile_(std::move(profile))
+  , path_profile_(std::move(path_profile))
+  , waypoint_(std::move(waypoint))
+  , manipulator_info_(std::move(manipulator_info))
+{
+}
 
+MoveInstruction::MoveInstruction(StateWaypointPoly waypoint,
+                                 MoveInstructionType type,
+                                 std::string profile,
+                                 std::string path_profile,
+                                 tesseract_common::ManipulatorInfo manipulator_info)
+  : move_type_(type)
+  , profile_(std::move(profile))
+  , path_profile_(std::move(path_profile))
+  , waypoint_(std::move(waypoint))
+  , manipulator_info_(std::move(manipulator_info))
+{
+}
+
+void MoveInstruction::setMoveType(MoveInstructionType move_type) { move_type_ = move_type; }
+
+MoveInstructionType MoveInstruction::getMoveType() const { return move_type_; }
+
+void MoveInstruction::assignCartesianWaypoint(CartesianWaypointPoly waypoint) { waypoint_ = waypoint; }
+void MoveInstruction::assignJointWaypoint(JointWaypointPoly waypoint) { waypoint_ = waypoint; }
+void MoveInstruction::assignStateWaypoint(StateWaypointPoly waypoint) { waypoint_ = waypoint; }
 Waypoint& MoveInstruction::getWaypoint() { return waypoint_; }
 const Waypoint& MoveInstruction::getWaypoint() const { return waypoint_; }
 
-void MoveInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_info_ = std::move(info); }
-const ManipulatorInfo& MoveInstruction::getManipulatorInfo() const { return manipulator_info_; }
-ManipulatorInfo& MoveInstruction::getManipulatorInfo() { return manipulator_info_; }
+void MoveInstruction::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
+{
+  manipulator_info_ = std::move(info);
+}
+const tesseract_common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() const { return manipulator_info_; }
+tesseract_common::ManipulatorInfo& MoveInstruction::getManipulatorInfo() { return manipulator_info_; }
 
 void MoveInstruction::setProfile(const std::string& profile) { profile_ = profile; }
 const std::string& MoveInstruction::getProfile() const { return profile_; }
@@ -88,17 +151,9 @@ void MoveInstruction::print(const std::string& prefix) const
   std::cout << ", Description: " << getDescription() << std::endl;
 }
 
-void MoveInstruction::setMoveType(MoveInstructionType move_type) { move_type_ = move_type; }
-
-MoveInstructionType MoveInstruction::getMoveType() const { return move_type_; }
-
-bool MoveInstruction::isLinear() const { return (move_type_ == MoveInstructionType::LINEAR); }
-
-bool MoveInstruction::isFreespace() const { return (move_type_ == MoveInstructionType::FREESPACE); }
-
-bool MoveInstruction::isCircular() const { return (move_type_ == MoveInstructionType::CIRCULAR); }
-
-bool MoveInstruction::isStart() const { return (move_type_ == MoveInstructionType::START); }
+CartesianWaypointPoly MoveInstruction::createCartesianWaypoint() const { return CartesianWaypoint(); }
+JointWaypointPoly MoveInstruction::createJointWaypoint() const { return JointWaypoint(); }
+StateWaypointPoly MoveInstruction::createStateWaypoint() const { return StateWaypoint(); }
 
 bool MoveInstruction::operator==(const MoveInstruction& rhs) const
 {

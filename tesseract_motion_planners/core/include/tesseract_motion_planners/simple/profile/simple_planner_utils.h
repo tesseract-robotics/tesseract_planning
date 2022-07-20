@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <array>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/core/move_instruction_poly.h>
 #include <tesseract_motion_planners/core/types.h>
 
 namespace tesseract_planning
@@ -43,7 +43,7 @@ struct JointGroupInstructionInfo
 {
   JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                             const PlannerRequest& request,
-                            const ManipulatorInfo& manip_info);
+                            const tesseract_common::ManipulatorInfo& manip_info);
 
   const MoveInstructionPoly& instruction;
   tesseract_kinematics::JointGroup::UPtr manip;
@@ -79,7 +79,7 @@ struct KinematicGroupInstructionInfo
 {
   KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                 const PlannerRequest& request,
-                                const ManipulatorInfo& manip_info);
+                                const tesseract_common::ManipulatorInfo& manip_info);
 
   const MoveInstructionPoly& instruction;
   tesseract_kinematics::KinematicGroup::UPtr manip;

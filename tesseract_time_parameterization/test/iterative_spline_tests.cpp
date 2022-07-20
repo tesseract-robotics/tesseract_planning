@@ -40,7 +40,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_time_parameterization/iterative_spline_parameterization.h>
 #include <tesseract_time_parameterization/instructions_trajectory.h>
 
@@ -55,8 +56,8 @@ CompositeInstruction createRepeatedPointTrajectory()
   CompositeInstruction program;
   for (int i = 0; i < num; i++)
   {
-    StateWaypoint swp(joint_names, Eigen::VectorXd::Zero(6));
-    swp.position[0] = 1;
+    StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+    swp.getPosition()[0] = 1;
     if (i == 0)
       program.setStartInstruction(MoveInstruction(swp, MoveInstructionType::START));
     else
@@ -77,8 +78,8 @@ CompositeInstruction createStraightTrajectory()
   CompositeInstruction program;
   for (int i = 0; i < num; i++)
   {
-    StateWaypoint swp(joint_names, Eigen::VectorXd::Zero(6));
-    swp.position[0] = i * max / num;
+    StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+    swp.getPosition()[0] = i * max / num;
     if (i == 0)
       program.setStartInstruction(MoveInstruction(swp, MoveInstructionType::START));
     else
@@ -86,8 +87,8 @@ CompositeInstruction createStraightTrajectory()
   }
 
   // leave final velocity/acceleration unset
-  StateWaypoint swp(joint_names, Eigen::VectorXd::Zero(6));
-  swp.position[0] = max;
+  StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  swp.getPosition()[0] = max;
   program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
 
   return program;
@@ -106,7 +107,7 @@ TEST(TestTimeParameterization, TestIterativeSpline)  // NOLINT
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>().time, 5.0);
+  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
 TEST(TestTimeParameterization, TestIterativeSplineAddPoints)  // NOLINT
@@ -117,7 +118,7 @@ TEST(TestTimeParameterization, TestIterativeSplineAddPoints)  // NOLINT
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>().time, 5.0);
+  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 }
 
 TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)  // NOLINT
@@ -137,7 +138,7 @@ TEST(TestTimeParameterization, TestIterativeSplineDynamicParams)  // NOLINT
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(
       *trajectory, max_velocity, max_acceleration, max_velocity_scaling_factors, max_acceleration_scaling_factors));
-  EXPECT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>().time, 5.0);
+  EXPECT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 5.0);
 
   program = createStraightTrajectory();
   max_velocity_scaling_factors[0] = 0.5;
@@ -155,7 +156,7 @@ TEST(TestTimeParameterization, TestRepeatedPoint)  // NOLINT
   std::vector<double> max_acceleration = { 1, 1, 1, 1, 1, 1 };
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(time_parameterization.compute(*trajectory, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>().time, 0.001);
+  ASSERT_LT(program.back().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(), 0.001);
 }
 
 int main(int argc, char** argv)

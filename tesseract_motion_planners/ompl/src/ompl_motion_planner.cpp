@@ -44,8 +44,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
 #include <tesseract_motion_planners/core/utils.h>
 
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/null_waypoint.h>
+#include <tesseract_command_language/utils.h>
 
 namespace tesseract_planning
 {
@@ -255,7 +256,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     assert(instructions_idx == 0);
     assert(isMoveInstruction(results_flattened[0].get()));
     auto& move_instruction = results_flattened[0].get().as<MoveInstructionPoly>();
-    move_instruction.getWaypoint().as<StateWaypoint>().position = trajectory.row(0);
+    move_instruction.getWaypoint().as<StateWaypointPoly>().setPosition(trajectory.row(0));
     instructions_idx++;
   }
 
@@ -279,8 +280,8 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
       // Adjust result index to align final point since start instruction is already handled
       Eigen::Index result_index = trajectory.rows() - static_cast<Eigen::Index>(move_instructions.size());
       for (auto& instruction : move_instructions)
-        instruction.as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>().position =
-            trajectory.row(result_index++);
+        instruction.as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().setPosition(
+            trajectory.row(result_index++));
 
       // Increment the problem
       prob_idx++;
@@ -334,7 +335,7 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
 
-  const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
+  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
   if (composite_mi.manipulator.empty())
     throw std::runtime_error("OMPL, manipulator is empty!");
@@ -391,11 +392,12 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
   }
   else
   {
-    Eigen::VectorXd current_jv = request.env_state.getJointValues(joint_names);
-    StateWaypoint swp(joint_names, current_jv);
-
     MoveInstructionPoly temp_move(*request.instructions.getFirstMoveInstruction());
-    temp_move.setWaypoint(swp);
+    StateWaypointPoly swp = temp_move.createStateWaypoint();
+    swp.setNames(joint_names);
+    swp.setPosition(request.env_state.getJointValues(joint_names));
+
+    temp_move.assignStateWaypoint(swp);
     temp_move.setMoveType(MoveInstructionType::START);
 
     placeholder_instruction = temp_move;
@@ -464,9 +466,9 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
           }
           else if (isCartesianWaypoint(start_waypoint))
           {
-            const auto& prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
+            const auto& prev_wp = start_waypoint.as<CartesianWaypointPoly>();
             cur_plan_profile->applyStartStates(
-                *sub_prob, prev_wp, *start_instruction, composite_mi, active_link_names, index);
+                *sub_prob, prev_wp.getTransform(), *start_instruction, composite_mi, active_link_names, index);
           }
           else
           {
@@ -478,9 +480,9 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
         }
         else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
-          const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().as<CartesianWaypointPoly>();
           cur_plan_profile->applyGoalStates(
-              *sub_prob, cur_wp, plan_instruction, composite_mi, active_link_names, index);
+              *sub_prob, cur_wp.getTransform(), plan_instruction, composite_mi, active_link_names, index);
 
           if (index == 0)
           {
@@ -494,9 +496,9 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
             }
             else if (isCartesianWaypoint(start_waypoint))
             {
-              const auto& prev_wp = start_waypoint.as<tesseract_planning::CartesianWaypoint>();
+              const auto& prev_wp = start_waypoint.as<CartesianWaypointPoly>();
               cur_plan_profile->applyStartStates(
-                  *sub_prob, prev_wp, *start_instruction, composite_mi, active_link_names, index);
+                  *sub_prob, prev_wp.getTransform(), *start_instruction, composite_mi, active_link_names, index);
             }
             else
             {

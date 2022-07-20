@@ -57,7 +57,7 @@ void ProcessPlanningProblem::copy(const ProcessPlanningProblem& other)
     results = std::make_unique<Instruction>(*other.results);
 
   if (other.global_manip_info != nullptr)
-    global_manip_info = std::make_unique<ManipulatorInfo>(*other.global_manip_info);
+    global_manip_info = std::make_unique<tesseract_common::ManipulatorInfo>(*other.global_manip_info);
 
   if (other.plan_profile_remapping != nullptr)
     plan_profile_remapping = std::make_unique<PlannerProfileRemapping>(*other.plan_profile_remapping);

@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/joint_waypoint_poly.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -44,172 +44,48 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
   JointWaypoint() = default;
+  JointWaypoint(const std::vector<std::string>& names, const Eigen::VectorXd& position);
+  JointWaypoint(const std::vector<std::string>& names,
+                const Eigen::VectorXd& position,
+                const Eigen::VectorXd& lower_tol,
+                const Eigen::VectorXd& upper_tol);
+  JointWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position);
+  JointWaypoint(std::initializer_list<std::string> names,
+                std::initializer_list<double> position,
+                std::initializer_list<double> lower_tol,
+                std::initializer_list<double> upper_tol);
+
+  void setNames(const std::vector<std::string>& names);
+  std::vector<std::string>& getNames();
+  const std::vector<std::string>& getNames() const;
+
+  void setPosition(const Eigen::VectorXd& position);
+  Eigen::VectorXd& getPosition();
+  const Eigen::VectorXd& getPosition() const;
+
+  void setUpperTolerance(const Eigen::VectorXd& upper_tol);
+  Eigen::VectorXd& getUpperTolerance();
+  const Eigen::VectorXd& getUpperTolerance() const;
+
+  void setLowerTolerance(const Eigen::VectorXd& lower_tol);
+  Eigen::VectorXd& getLowerTolerance();
+  const Eigen::VectorXd& getLowerTolerance() const;
 
   void print(const std::string& prefix = "") const;
-
-#ifndef SWIG
-
-  /////////////////////
-  // Eigen Container //
-  /////////////////////
-
-  using ConstTransposeReturnType = Eigen::VectorXd::ConstTransposeReturnType;
-
-  ////////////////////////
-  // Eigen Constructors //
-  ////////////////////////
-
-  // This constructor allows you to construct MyVectorType from Eigen expressions
-  template <typename OtherDerived>
-  JointWaypoint(std::vector<std::string> joint_names, const Eigen::MatrixBase<OtherDerived>& other)
-    : waypoint(other), joint_names(std::move(joint_names))
-  {
-    if (static_cast<Eigen::Index>(this->joint_names.size()) != this->waypoint.rows())
-      throw std::runtime_error("JointWaypoint: joint_names is not the same size as position!");
-  }
-
-  JointWaypoint(std::vector<std::string> joint_names, std::initializer_list<double> l)
-    : joint_names(std::move(joint_names))
-  {
-    waypoint.resize(static_cast<Eigen::Index>(l.size()));
-    Eigen::Index i = 0;
-    for (const auto& v : l)
-      waypoint(i++) = v;
-
-    if (static_cast<Eigen::Index>(this->joint_names.size()) != this->waypoint.rows())
-      throw std::runtime_error("JointWaypoint: joint_names is not the same size as position!");
-  }
-
-  ///////////////////
-  // Eigen Methods //
-  ///////////////////
-
-  /** @returns true if two are approximate */
-  inline Eigen::Index size() const { return waypoint.size(); }
-  /** @returns norm of vector */
-  inline double norm() const { return waypoint.norm(); }
-  /** @returns true if two are approximate */
-  inline bool isApprox(const Eigen::VectorXd& other, double prec = 1e-12) { return waypoint.isApprox(other, prec); }
-  /** @returns the transpose of the joint positions */
-  inline ConstTransposeReturnType transpose() const { return waypoint.transpose(); }  // NOLINT
-
-  /////////////////////
-  // Eigen Operators //
-  /////////////////////
-
-  // This method allows you to assign Eigen expressions to MyVectorType
-  template <typename OtherDerived>
-  inline JointWaypoint& operator=(const Eigen::MatrixBase<OtherDerived>& other)
-  {
-    waypoint = other;
-    return *this;
-  }
-
-  template <typename OtherDerived>
-  inline JointWaypoint& operator*=(const Eigen::MatrixBase<OtherDerived>& other)
-  {
-    waypoint = waypoint * other;
-    return *this;
-  }
-
-  inline JointWaypoint& operator=(std::initializer_list<double> l)
-  {
-    waypoint.resize(static_cast<Eigen::Index>(l.size()));
-    Eigen::Index i = 0;
-    for (const auto& v : l)
-      waypoint(i++) = v;
-
-    return *this;
-  }
-
-  template <typename OtherDerived>
-  inline JointWaypoint operator*(const Eigen::MatrixBase<OtherDerived>& other) const
-  {
-    JointWaypoint jwp = *this;
-    jwp.waypoint = jwp.waypoint * other;
-    return jwp;
-  }
-
-  template <typename OtherDerived>
-  inline JointWaypoint operator-(const Eigen::MatrixBase<OtherDerived>& other) const
-  {
-    JointWaypoint jwp = *this;
-    jwp.waypoint = jwp.waypoint - other;
-    return jwp;
-  }
-
-  template <typename OtherDerived>
-  inline JointWaypoint operator+(const Eigen::MatrixBase<OtherDerived>& other) const
-  {
-    JointWaypoint jwp = *this;
-    jwp.waypoint = jwp.waypoint + other;
-    return jwp;
-  }
-
-  inline JointWaypoint operator-(const JointWaypoint& other) const
-  {
-    JointWaypoint jwp = *this;
-    jwp.waypoint = jwp.waypoint - other.waypoint;
-    return jwp;
-  }
-
-  template <typename OtherDerived>
-  inline JointWaypoint operator+(const JointWaypoint& other) const
-  {
-    JointWaypoint jwp = *this;
-    jwp.waypoint = jwp.waypoint + other.waypoint;
-    return jwp;
-  }
-
-  inline Eigen::CommaInitializer<Eigen::VectorXd> operator<<(const double& s)
-  {
-    return Eigen::CommaInitializer<Eigen::VectorXd>{ waypoint, s };
-  }
-
-  inline double& operator[](Eigen::Index i) { return waypoint[i]; }
-  inline double operator[](Eigen::Index i) const { return waypoint[i]; }
-  inline double& operator()(Eigen::Index i) { return waypoint(i); }
-  inline double operator()(Eigen::Index i) const { return waypoint(i); }
-
-  //////////////////////////
-  // Implicit Conversions //
-  //////////////////////////
-
-  /** @return Implicit Conversions to read-only Eigen::VectorXd */
-  inline operator const Eigen::VectorXd&() const { return waypoint; }
-
-  /** @return Implicit Conversions to writable Eigen::VectorXd */
-  inline operator Eigen::VectorXd&() { return waypoint; }
-
-  /** @return Implicit Conversions to read-only Eigen::VectorXd */
-  inline operator Eigen::Ref<const Eigen::VectorXd>() const { return Eigen::Ref<const Eigen::VectorXd>{ waypoint }; }
-
-  /** @return Implicit Conversions to writable Eigen::VectorXd */
-  inline operator Eigen::Ref<Eigen::VectorXd>() { return Eigen::Ref<Eigen::VectorXd>{ waypoint }; }
-
-  //////////////////////////////////
-  // Joint Waypoint Container //
-  //////////////////////////////////
-
-#endif  // SWIG
-
-  Eigen::VectorXd waypoint;
-  std::vector<std::string> joint_names;
-  /** @brief Joint distance below waypoint that is allowed. Each element should be <= 0 */
-  Eigen::VectorXd lower_tolerance;
-  /** @brief Joint distance above waypoint that is allowed. Each element should be >= 0 */
-  Eigen::VectorXd upper_tolerance;
-
-  /**
-   * @brief Returns true if waypoint is toleranced
-   * @return True if waypoint is toleranced
-   */
-  bool isToleranced() const;
 
   bool operator==(const JointWaypoint& rhs) const;
   bool operator!=(const JointWaypoint& rhs) const;
 
-private:
+protected:
+  /** @brief The names of the joints */
+  std::vector<std::string> names_;
+  /** @brief The position of the joints */
+  Eigen::VectorXd position_;
+  /** @brief Joint distance below position that is allowed. Each element should be <= 0 */
+  Eigen::VectorXd lower_tolerance_;
+  /** @brief Joint distance above position that is allowed. Each element should be >= 0 */
+  Eigen::VectorXd upper_tolerance_;
+
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -224,9 +100,9 @@ private:
   }
 }
 
-%tesseract_command_language_add_waypoint_type(JointWaypoint)
+%tesseract_command_language_add_joint_waypoint_type(JointWaypoint)
 #else
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, JointWaypoint);
+TESSERACT_JOINT_WAYPOINT_EXPORT_KEY(tesseract_planning, JointWaypoint);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

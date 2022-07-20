@@ -25,18 +25,19 @@
  */
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_kinematics/core/utils.h>
 
 namespace tesseract_planning
 {
 JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                      const PlannerRequest& request,
-                                                     const ManipulatorInfo& manip_info)
+                                                     const tesseract_common::ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
 {
   assert(!(manip_info.empty() && plan_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(plan_instruction.getManipulatorInfo());
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(plan_instruction.getManipulatorInfo());
 
   // Check required manipulator information
   if (mi.manipulator.empty())
@@ -75,7 +76,7 @@ Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose() const
   if (!isCartesianWaypoint(instruction.getWaypoint()))
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
 
-  return instruction.getWaypoint().as<CartesianWaypoint>();
+  return instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
 }
 
 const Eigen::VectorXd& JointGroupInstructionInfo::extractJointPosition() const
@@ -85,11 +86,11 @@ const Eigen::VectorXd& JointGroupInstructionInfo::extractJointPosition() const
 
 KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructionPoly& plan_instruction,
                                                              const PlannerRequest& request,
-                                                             const ManipulatorInfo& manip_info)
+                                                             const tesseract_common::ManipulatorInfo& manip_info)
   : instruction(plan_instruction)
 {
   assert(!(manip_info.empty() && plan_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(plan_instruction.getManipulatorInfo());
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(plan_instruction.getManipulatorInfo());
 
   // Check required manipulator information
   if (mi.manipulator.empty())
@@ -128,7 +129,7 @@ Eigen::Isometry3d KinematicGroupInstructionInfo::extractCartesianPose() const
   if (!isCartesianWaypoint(instruction.getWaypoint()))
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
 
-  return instruction.getWaypoint().as<CartesianWaypoint>();
+  return instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
 }
 
 const Eigen::VectorXd& KinematicGroupInstructionInfo::extractJointPosition() const
@@ -150,14 +151,20 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
   for (long i = 1; i < states.cols() - 1; ++i)
   {
     MoveInstructionPoly move_instruction{ base_instruction };
-    move_instruction.setWaypoint(StateWaypoint(joint_names, states.col(i)));
+    StateWaypointPoly swp = move_instruction.createStateWaypoint();
+    swp.setNames(joint_names);
+    swp.setPosition(states.col(i));
+    move_instruction.assignStateWaypoint(swp);
     move_instruction.setProfile(base_instruction.getPathProfile());
     move_instruction.setPathProfile(base_instruction.getPathProfile());
     composite.push_back(move_instruction);
   }
 
   MoveInstructionPoly move_instruction{ base_instruction };
-  move_instruction.setWaypoint(StateWaypoint(joint_names, states.col(states.cols() - 1)));
+  StateWaypointPoly swp = move_instruction.createStateWaypoint();
+  swp.setNames(joint_names);
+  swp.setPosition(states.col(states.cols() - 1));
+  move_instruction.assignStateWaypoint(swp);
   composite.push_back(move_instruction);
 
   return composite;
@@ -171,7 +178,8 @@ Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& inf
   if (!info.has_cartesian_waypoint)
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
 
-  Eigen::Isometry3d cwp = info.instruction.getWaypoint().as<CartesianWaypoint>() * info.tcp_offset.inverse();
+  Eigen::Isometry3d cwp =
+      info.instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform() * info.tcp_offset.inverse();
 
   Eigen::VectorXd jp_final;
   tesseract_kinematics::IKSolutions jp;
@@ -227,8 +235,10 @@ std::array<Eigen::VectorXd, 2> getClosestJointSolution(const KinematicGroupInstr
   if (!info1.has_cartesian_waypoint || !info2.has_cartesian_waypoint)
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
 
-  Eigen::Isometry3d cwp1 = info1.instruction.getWaypoint().as<CartesianWaypoint>() * info1.tcp_offset.inverse();
-  Eigen::Isometry3d cwp2 = info2.instruction.getWaypoint().as<CartesianWaypoint>() * info2.tcp_offset.inverse();
+  Eigen::Isometry3d cwp1 =
+      info1.instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform() * info1.tcp_offset.inverse();
+  Eigen::Isometry3d cwp2 =
+      info2.instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform() * info2.tcp_offset.inverse();
 
   std::array<Eigen::VectorXd, 2> results;
 

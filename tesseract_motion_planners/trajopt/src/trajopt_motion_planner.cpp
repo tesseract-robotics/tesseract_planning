@@ -42,8 +42,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/null_waypoint.h>
+#include <tesseract_command_language/utils.h>
 
 using namespace trajopt;
 
@@ -188,14 +189,14 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
         assert(idx == 0);
         assert(isMoveInstruction(results_flattened[idx].get()));
         auto& move_instruction = results_flattened[idx].get().as<MoveInstructionPoly>();
-        move_instruction.getWaypoint().as<StateWaypoint>().position = trajectory.row(result_index++);
+        move_instruction.getWaypoint().as<StateWaypointPoly>().setPosition(trajectory.row(result_index++));
       }
       else
       {
         auto& move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
         for (auto& instruction : move_instructions)
-          instruction.as<MoveInstructionPoly>().getWaypoint().as<StateWaypoint>().position =
-              trajectory.row(result_index++);
+          instruction.as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().setPosition(
+              trajectory.row(result_index++));
       }
     }
   }
@@ -233,7 +234,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
 
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
-  const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
+  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
   // Assign Kinematics object
   try
@@ -307,7 +308,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
   Waypoint start_waypoint{ NullWaypoint() };
-  ManipulatorInfo start_mi{ composite_mi };
+  tesseract_common::ManipulatorInfo start_mi{ composite_mi };
   MoveInstructionPoly placeholder_instruction;
   const MoveInstructionPoly* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
@@ -323,11 +324,12 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   }
   else  // If not start instruction is given, take the current state
   {
-    Eigen::VectorXd current_jv = request.env_state.getJointValues(joint_names);
-    StateWaypoint swp(joint_names, current_jv);
-
     MoveInstructionPoly temp_move(*request.instructions.getFirstMoveInstruction());
-    temp_move.setWaypoint(swp);
+    StateWaypointPoly swp = temp_move.createStateWaypoint();
+    swp.setNames(joint_names);
+    swp.setPosition(request.env_state.getJointValues(joint_names));
+
+    temp_move.assignStateWaypoint(swp);
     temp_move.setMoveType(MoveInstructionType::START);
 
     placeholder_instruction = temp_move;
@@ -345,8 +347,8 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   // Add start waypoint
   if (isCartesianWaypoint(start_waypoint))
   {
-    const auto& cwp = start_waypoint.as<CartesianWaypoint>();
-    start_plan_profile->apply(*pci, cwp.waypoint, *start_instruction, composite_mi, active_links, index);
+    const auto& cwp = start_waypoint.as<CartesianWaypointPoly>();
+    start_plan_profile->apply(*pci, cwp, *start_instruction, composite_mi, active_links, index);
   }
   else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
   {
@@ -355,13 +357,16 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
 
     if (isJointWaypoint(start_waypoint))
     {
-      toleranced = start_waypoint.as<JointWaypoint>().isToleranced();
-      start_plan_profile->apply(
-          *pci, start_waypoint.as<JointWaypoint>(), *start_instruction, composite_mi, active_links, index);
+      const auto& jwp = start_waypoint.as<JointWaypointPoly>();
+      toleranced = jwp.isToleranced();
+      start_plan_profile->apply(*pci, jwp, *start_instruction, composite_mi, active_links, index);
     }
     else if (isStateWaypoint(start_waypoint))
     {
-      JointWaypoint jwp(start_waypoint.as<StateWaypoint>().joint_names, start_waypoint.as<StateWaypoint>().position);
+      const auto& swp = start_waypoint.as<StateWaypointPoly>();
+      JointWaypointPoly jwp = start_instruction->createJointWaypoint();
+      jwp.setNames(swp.getNames());
+      jwp.setPosition(swp.getPosition());
       start_plan_profile->apply(*pci, jwp, *start_instruction, composite_mi, active_links, index);
     }
     else
@@ -391,7 +396,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
       const auto& plan_instruction = instruction.as<MoveInstructionPoly>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
-      ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
+      tesseract_common::ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
 
       if (mi.manipulator.empty())
         throw std::runtime_error("TrajOpt, manipulator is empty!");
@@ -433,7 +438,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
 
         if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
-          const auto& cur_wp = plan_instruction.getWaypoint().as<tesseract_planning::CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().as<CartesianWaypointPoly>();
           Eigen::Isometry3d cur_working_frame = request.env_state.link_transforms.at(mi.working_frame);
 
           Eigen::Isometry3d start_pose = Eigen::Isometry3d::Identity();
@@ -441,7 +446,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
           if (isCartesianWaypoint(start_waypoint))
           {
             // Convert to world coordinates
-            start_pose = start_working_frame * start_waypoint.as<CartesianWaypoint>().waypoint;
+            start_pose = start_working_frame * start_waypoint.as<CartesianWaypointPoly>().getTransform();
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -457,14 +462,15 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
           }
 
           tesseract_common::VectorIsometry3d poses =
-              interpolate(start_pose, cur_working_frame * cur_wp, interpolate_cnt);
+              interpolate(start_pose, cur_working_frame * cur_wp.getTransform(), interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
             /** @todo Write a path constraint for this*/
             // The pose is also converted back into the working frame coordinates
-            cur_path_plan_profile->apply(
-                *pci, cur_working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
+            CartesianWaypointPoly interp_cwp = plan_instruction.createCartesianWaypoint();
+            interp_cwp.setTransform(cur_working_frame.inverse() * poses[p]);
+            cur_path_plan_profile->apply(*pci, interp_cwp, plan_instruction, composite_mi, active_links, index);
             ++index;
           }
 
@@ -477,21 +483,24 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
           assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           bool toleranced = false;
 
-          JointWaypoint cur_position;
+          JointWaypointPoly cur_position;
           if (isJointWaypoint(plan_instruction.getWaypoint()))
           {
-            toleranced = plan_instruction.getWaypoint().as<JointWaypoint>().isToleranced();
-            cur_position = plan_instruction.getWaypoint().as<JointWaypoint>();
+            cur_position = plan_instruction.getWaypoint().as<JointWaypointPoly>();
+            toleranced = cur_position.isToleranced();
           }
           else if (isStateWaypoint(plan_instruction.getWaypoint()))
           {
-            const auto& state_waypoint = plan_instruction.getWaypoint().as<StateWaypoint>();
-            cur_position = JointWaypoint(state_waypoint.joint_names, state_waypoint.position);
+            const auto& swp = plan_instruction.getWaypoint().as<StateWaypointPoly>();
+            JointWaypointPoly jwp = plan_instruction.createJointWaypoint();
+            jwp.setNames(swp.getNames());
+            jwp.setPosition(swp.getPosition());
+            cur_position = jwp;
           }
           else
             throw std::runtime_error("Unsupported waypoint type.");
 
-          Eigen::Isometry3d cur_pose = pci->kin->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offset;
+          Eigen::Isometry3d cur_pose = pci->kin->calcFwdKin(cur_position.getPosition())[mi.tcp_frame] * tcp_offset;
           Eigen::Isometry3d cur_working_frame = request.env_state.link_transforms.at(mi.working_frame);
 
           Eigen::Isometry3d start_pose = Eigen::Isometry3d::Identity();
@@ -499,7 +508,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
           if (isCartesianWaypoint(start_waypoint))
           {
             // Convert to world coordinates
-            start_pose = start_working_frame * start_waypoint.as<CartesianWaypoint>().waypoint;
+            start_pose = start_working_frame * start_waypoint.as<CartesianWaypointPoly>().getTransform();
           }
           else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
           {
@@ -519,8 +528,9 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
             /** @todo Add path constraint for this */
-            cur_path_plan_profile->apply(
-                *pci, cur_working_frame.inverse() * poses[p], plan_instruction, composite_mi, active_links, index);
+            CartesianWaypointPoly interp_cwp = plan_instruction.createCartesianWaypoint();
+            interp_cwp.setTransform(cur_working_frame.inverse() * poses[p]);
+            cur_path_plan_profile->apply(*pci, interp_cwp, plan_instruction, composite_mi, active_links, index);
             ++index;
           }
 
@@ -551,16 +561,19 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
           bool toleranced = false;
 
           // Add final point with waypoint costs and constraints
-          JointWaypoint cur_position;
+          JointWaypointPoly cur_position;
           if (isJointWaypoint(plan_instruction.getWaypoint()))
           {
-            cur_position = plan_instruction.getWaypoint().as<JointWaypoint>();
+            cur_position = plan_instruction.getWaypoint().as<JointWaypointPoly>();
             toleranced = cur_position.isToleranced();
           }
           else if (isStateWaypoint(plan_instruction.getWaypoint()))
           {
-            const auto& state_waypoint = plan_instruction.getWaypoint().as<StateWaypoint>();
-            cur_position = JointWaypoint(state_waypoint.joint_names, state_waypoint.position);
+            const auto& swp = plan_instruction.getWaypoint().as<StateWaypointPoly>();
+            JointWaypointPoly jwp = plan_instruction.createJointWaypoint();
+            jwp.setNames(swp.getNames());
+            jwp.setPosition(swp.getPosition());
+            cur_position = jwp;
           }
           else
             throw std::runtime_error("Unsupported start_waypoint type.");
@@ -574,7 +587,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
         }
         else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
-          const auto& cur_wp = plan_instruction.getWaypoint().as<CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().as<CartesianWaypointPoly>();
 
           // Add intermediate points with path costs and constraints
           for (std::size_t s = 0; s < seed_composite.size() - 1; ++s)

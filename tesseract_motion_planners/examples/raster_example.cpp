@@ -49,7 +49,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/interface_utils.h>
 
 #include <tesseract_visualization/visualization_loader.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_planning;
@@ -76,7 +79,7 @@ int main(int /*argc*/, char** /*argv*/)
       plotter->plotEnvironment(*env);
     }
 
-    ManipulatorInfo manip;
+    tesseract_common::ManipulatorInfo manip;
     manip.tcp_frame = "tool0";
     manip.working_frame = "base_link";
     manip.manipulator = "manipulator";
@@ -88,25 +91,25 @@ int main(int /*argc*/, char** /*argv*/)
     CompositeInstruction program("raster_program", CompositeInstructionOrder::ORDERED, manip);
 
     // Start Joint Position for the program
-    Waypoint wp0 = StateWaypoint(kin_group->getJointNames(), Eigen::VectorXd::Zero(6));
+    StateWaypointPoly wp0{ StateWaypoint(kin_group->getJointNames(), Eigen::VectorXd::Zero(6)) };
     MoveInstruction start_instruction(wp0, MoveInstructionType::START);
     program.setStartInstruction(start_instruction);
 
     // Define raster poses
-    Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.3, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.2, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.1, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.0, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.1, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.2, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, 0.3, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
 
     // Define raster move instruction
     MoveInstruction plan_c0(wp2, MoveInstructionType::LINEAR, "RASTER");

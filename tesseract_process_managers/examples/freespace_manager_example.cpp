@@ -8,8 +8,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include "freespace_example_program.h"
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
 #include <tesseract_process_managers/utils/task_info_statistics.h>
 #include <tesseract_visualization/visualization_loader.h>

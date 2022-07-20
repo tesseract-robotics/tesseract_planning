@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <trajopt_ifopt/constraints/collision/continuous_collision_evaluators.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/types.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
@@ -77,28 +76,28 @@ bool addCartesianPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
                                       const Eigen::Isometry3d& target_frame_offset = Eigen::Isometry3d::Identity(),
                                       const Eigen::Ref<const Eigen::VectorXd>& coeffs = Eigen::VectorXd::Ones(6));
 
-ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypoint& joint_waypoint,
+ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
                                                         const trajopt_ifopt::JointPosition::ConstPtr& var,
                                                         const Eigen::VectorXd& /*coeffs*/);
 
 std::vector<ifopt::ConstraintSet::Ptr>
 createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                            const tesseract_environment::Environment::ConstPtr& env,
-                           const ManipulatorInfo& manip_info,
+                           const tesseract_common::ManipulatorInfo& manip_info,
                            const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
                            const std::vector<int>& fixed_indices);
 
 bool addCollisionConstraint(trajopt_sqp::QPProblem& nlp,
                             const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                             const tesseract_environment::Environment::ConstPtr& env,
-                            const ManipulatorInfo& manip_info,
+                            const tesseract_common::ManipulatorInfo& manip_info,
                             const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
                             const std::vector<int>& fixed_indices);
 
 bool addCollisionCost(trajopt_sqp::QPProblem& nlp,
                       const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                       const tesseract_environment::Environment::ConstPtr& env,
-                      const ManipulatorInfo& manip_info,
+                      const tesseract_common::ManipulatorInfo& manip_info,
                       const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
                       const std::vector<int>& fixed_indices);
 

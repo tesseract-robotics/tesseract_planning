@@ -33,16 +33,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/task_input.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 
 namespace tesseract_planning
 {
-static const ManipulatorInfo EMPTY_MANIPULATOR_INFO;
+static const tesseract_common::ManipulatorInfo EMPTY_MANIPULATOR_INFO;
 static const PlannerProfileRemapping EMPTY_PROFILE_MAPPING;
 
 TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
                      const Instruction* instruction,
-                     const ManipulatorInfo& manip_info,
+                     const tesseract_common::ManipulatorInfo& manip_info,
                      Instruction* seed,
                      bool has_seed,
                      ProfileDictionary::ConstPtr profiles)
@@ -59,7 +59,7 @@ TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
 
 TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
                      const Instruction* instruction,
-                     const ManipulatorInfo& manip_info,
+                     const tesseract_common::ManipulatorInfo& manip_info,
                      const PlannerProfileRemapping& plan_profile_remapping,
                      const PlannerProfileRemapping& composite_profile_remapping,
                      Instruction* seed,

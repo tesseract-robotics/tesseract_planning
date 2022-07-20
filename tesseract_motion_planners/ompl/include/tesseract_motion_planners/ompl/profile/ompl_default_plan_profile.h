@@ -36,7 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/utils.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_profile.h>
-#include <tesseract_motion_planners/ompl/types.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::OMPLDefaultPlanProfile)
@@ -124,28 +123,28 @@ public:
   void applyGoalStates(OMPLProblem& prob,
                        const Eigen::Isometry3d& cartesian_waypoint,
                        const Instruction& parent_instruction,
-                       const ManipulatorInfo& manip_info,
+                       const tesseract_common::ManipulatorInfo& manip_info,
                        const std::vector<std::string>& active_links,
                        int index) const override;
 
   void applyGoalStates(OMPLProblem& prob,
                        const Eigen::VectorXd& joint_waypoint,
                        const Instruction& parent_instruction,
-                       const ManipulatorInfo& manip_info,
+                       const tesseract_common::ManipulatorInfo& manip_info,
                        const std::vector<std::string>& active_links,
                        int index) const override;
 
   void applyStartStates(OMPLProblem& prob,
                         const Eigen::Isometry3d& cartesian_waypoint,
                         const Instruction& parent_instruction,
-                        const ManipulatorInfo& manip_info,
+                        const tesseract_common::ManipulatorInfo& manip_info,
                         const std::vector<std::string>& active_links,
                         int index) const override;
 
   void applyStartStates(OMPLProblem& prob,
                         const Eigen::VectorXd& joint_waypoint,
                         const Instruction& parent_instruction,
-                        const ManipulatorInfo& manip_info,
+                        const tesseract_common::ManipulatorInfo& manip_info,
                         const std::vector<std::string>& active_links,
                         int index) const override;
 

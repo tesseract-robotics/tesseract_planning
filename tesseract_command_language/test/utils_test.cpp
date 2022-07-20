@@ -28,8 +28,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/utils.h>
 
 using namespace tesseract_planning;
 
@@ -54,7 +57,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       sub_sub_composite.setDescription("sub_sub_composite_" + std::to_string(j));
       for (std::size_t k = 0; k < k_max; k++)
       {
-        Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
+        CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
         MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
@@ -177,13 +180,13 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
       CompositeInstruction sub_sub_composite;
       sub_sub_composite.setDescription("sub_sub_composite_" + std::to_string(j));
 
-      Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
+      CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
       MoveInstruction pattern_instruction(wp, MoveInstructionType::LINEAR);
       pattern_instruction.setDescription("pattern_instruction_" + std::to_string(i) + "_" + std::to_string(j));
       sub_pattern.appendMoveInstruction(pattern_instruction);
       for (std::size_t k = 0; k < k_max; k++)
       {
-        Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
+        CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
         MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
@@ -345,7 +348,7 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
     JointWaypoint jp(joint_names, values);
     Waypoint tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_TRUE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypoint>().getPosition().isApprox(values, 1e-5));
   }
   // Above limits
   {
@@ -353,8 +356,8 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
     JointWaypoint jp(joint_names, values);
     Waypoint tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_FALSE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(2, tmp.as<JointWaypoint>()[2]);
+    EXPECT_FALSE(tmp.as<JointWaypoint>().getPosition().isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(2, tmp.as<JointWaypoint>().getPosition()[2]);
   }
   // Below limits
   {
@@ -362,8 +365,8 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
     JointWaypoint jp(joint_names, values);
     Waypoint tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_FALSE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(0, tmp.as<JointWaypoint>()[1]);
+    EXPECT_FALSE(tmp.as<JointWaypoint>().getPosition().isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(0, tmp.as<JointWaypoint>().getPosition()[1]);
   }
   // Above limits with max deviation
   {
@@ -372,11 +375,11 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
     Waypoint tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
-    EXPECT_TRUE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypoint>().getPosition().isApprox(values, 1e-5));
     // Inside max deviation
     EXPECT_TRUE(clampToJointLimits(tmp, limits, 0.1));
-    EXPECT_FALSE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(2, tmp.as<JointWaypoint>()[2]);
+    EXPECT_FALSE(tmp.as<JointWaypoint>().getPosition().isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(2, tmp.as<JointWaypoint>().getPosition()[2]);
   }
   // Below limits with max deviation
   {
@@ -385,11 +388,11 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
     Waypoint tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
-    EXPECT_TRUE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypoint>().getPosition().isApprox(values, 1e-5));
     // Inside max deviation
     EXPECT_TRUE(clampToJointLimits(tmp, limits, 0.1));
-    EXPECT_FALSE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(0, tmp.as<JointWaypoint>()[1]);
+    EXPECT_FALSE(tmp.as<JointWaypoint>().getPosition().isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(0, tmp.as<JointWaypoint>().getPosition()[1]);
   }
   // Type with no joint values
   {
@@ -409,7 +412,7 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
 
   for (std::size_t i = 0; i < i_max; i++)
   {
-    Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
+    CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
     MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
     instruction.setDescription("MoveInstruction");
     instruction.setProfile("CART_PROFILE");
@@ -458,11 +461,12 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
 
   std::vector<std::string> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values = Eigen::VectorXd::Constant(3, 5);
-  composite.appendMoveInstruction(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  JointWaypointPoly jwp{ JointWaypoint(joint_names, values) };
+  composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   values = Eigen::VectorXd::Constant(3, 10);
-  composite.appendMoveInstruction(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
   values = Eigen::VectorXd::Constant(3, 15);
-  composite.appendMoveInstruction(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
 
   std::string path = tesseract_common::getTempPath() + "to_delimited_file.csv";
   EXPECT_TRUE(toDelimitedFile(composite, path));

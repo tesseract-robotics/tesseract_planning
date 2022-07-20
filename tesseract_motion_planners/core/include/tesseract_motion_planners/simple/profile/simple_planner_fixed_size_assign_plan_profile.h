@@ -59,7 +59,7 @@ public:
                                 const MoveInstructionPoly& base_instruction,
                                 const Instruction& next_instruction,
                                 const PlannerRequest& request,
-                                const ManipulatorInfo& global_manip_info) const override;
+                                const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The number of steps to use for freespace instruction */
   int freespace_steps;

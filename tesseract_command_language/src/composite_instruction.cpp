@@ -55,7 +55,7 @@ bool moveFilter(const Instruction& instruction,
 
 CompositeInstruction::CompositeInstruction(std::string profile,
                                            CompositeInstructionOrder order,
-                                           ManipulatorInfo manipulator_info)
+                                           tesseract_common::ManipulatorInfo manipulator_info)
   : manipulator_info_(std::move(manipulator_info)), profile_(std::move(profile)), order_(order)
 {
 }
@@ -72,9 +72,12 @@ void CompositeInstruction::setProfile(const std::string& profile)
 }
 const std::string& CompositeInstruction::getProfile() const { return profile_; }
 
-void CompositeInstruction::setManipulatorInfo(ManipulatorInfo info) { manipulator_info_ = std::move(info); }
-const ManipulatorInfo& CompositeInstruction::getManipulatorInfo() const { return manipulator_info_; }
-ManipulatorInfo& CompositeInstruction::getManipulatorInfo() { return manipulator_info_; }
+void CompositeInstruction::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
+{
+  manipulator_info_ = std::move(info);
+}
+const tesseract_common::ManipulatorInfo& CompositeInstruction::getManipulatorInfo() const { return manipulator_info_; }
+tesseract_common::ManipulatorInfo& CompositeInstruction::getManipulatorInfo() { return manipulator_info_; }
 
 void CompositeInstruction::setStartInstruction(MoveInstructionPoly instruction)
 {

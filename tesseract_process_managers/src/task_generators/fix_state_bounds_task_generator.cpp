@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h>
 #include <tesseract_process_managers/task_profiles/fix_state_bounds_profile.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h>
 
@@ -67,7 +67,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   }
 
   const auto& ci = input_instruction->as<CompositeInstruction>();
-  const ManipulatorInfo& manip_info = input.manip_info;
+  const tesseract_common::ManipulatorInfo& manip_info = input.manip_info;
   auto joint_group = input.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 

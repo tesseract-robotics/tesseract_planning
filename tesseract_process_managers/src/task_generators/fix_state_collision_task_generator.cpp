@@ -35,7 +35,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
 

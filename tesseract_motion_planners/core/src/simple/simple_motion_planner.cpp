@@ -34,9 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
-#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/null_waypoint.h>
+#include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -168,16 +170,21 @@ MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerReques
     if (isJointWaypoint(start_waypoint))
     {
       assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
-      const auto& jwp = start_waypoint.as<JointWaypoint>();
-      start_instruction_seed.setWaypoint(StateWaypoint(jwp.joint_names, jwp.waypoint));
+      const auto& jwp = start_waypoint.as<JointWaypointPoly>();
+      StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
+      swp.setNames(jwp.getNames());
+      swp.setPosition(jwp.getPosition());
+      start_instruction_seed.assignStateWaypoint(swp);
       return start_instruction_seed;
     }
 
     if (isCartesianWaypoint(start_waypoint))
     {
       /** @todo Update to run IK to find solution closest to start */
-      StateWaypoint temp(manip.getJointNames(), current_state.getJointValues(manip.getJointNames()));
-      start_instruction_seed.setWaypoint(temp);
+      StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
+      swp.setNames(manip.getJointNames());
+      swp.setPosition(current_state.getJointValues(manip.getJointNames()));
+      start_instruction_seed.assignStateWaypoint(swp);
       return start_instruction_seed;
     }
 
@@ -192,8 +199,10 @@ MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerReques
 
   MoveInstructionPoly start_instruction_seed(*request.instructions.getFirstMoveInstruction());
   start_instruction_seed.setMoveType(MoveInstructionType::START);
-  start_instruction_seed.setWaypoint(
-      StateWaypoint(manip.getJointNames(), current_state.getJointValues(manip.getJointNames())));
+  StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
+  swp.setNames(manip.getJointNames());
+  swp.setPosition(current_state.getJointValues(manip.getJointNames()));
+  start_instruction_seed.assignStateWaypoint(swp);
 
   return start_instruction_seed;
 }

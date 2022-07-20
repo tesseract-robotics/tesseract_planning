@@ -37,7 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/types.h>
 
 #include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/types.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::ProcessPlanningProblem)
@@ -73,7 +72,7 @@ struct ProcessPlanningProblem
   std::unique_ptr<Instruction> results{ nullptr };
 
   /** @brief The stored global manipulator info */
-  std::unique_ptr<const ManipulatorInfo> global_manip_info{ nullptr };
+  std::unique_ptr<const tesseract_common::ManipulatorInfo> global_manip_info{ nullptr };
 
   /** @brief The stored plan profile remapping */
   std::unique_ptr<const PlannerProfileRemapping> plan_profile_remapping{ nullptr };
@@ -86,7 +85,7 @@ struct ProcessPlanningProblem
   %extend {
   Instruction& getInput() { return *$self->input; }
   Instruction& getResults() { return *$self->results; }
-  ManipulatorInfo getGlobalManipInfo() { return *$self->global_manip_info; }
+  tesseract_common::ManipulatorInfo getGlobalManipInfo() { return *$self->global_manip_info; }
   PlannerProfileRemapping getPlanProfileRemapping() { return *$self->plan_profile_remapping; }
   PlannerProfileRemapping getCompositeProfileRemapping() { return *$self->composite_profile_remapping; }
   }

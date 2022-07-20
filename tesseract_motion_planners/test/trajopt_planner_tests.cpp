@@ -35,6 +35,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/waypoint_type.h>
 
 #include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
@@ -56,7 +58,7 @@ class TesseractPlanningTrajoptUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
-  ManipulatorInfo manip;
+  tesseract_common::ManipulatorInfo manip;
 
   void SetUp() override
   {
@@ -108,12 +110,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
-  JointWaypoint wp1(joint_names, Eigen::VectorXd::Zero(7));
-  wp1 << 0, 0, 0, -1.57, 0, 0, 0;
+  JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a Joint Waypoint as the finish
-  JointWaypoint wp2(joint_names, Eigen::VectorXd::Zero(7));
-  wp2 << 0, 0, 0, 1.57, 0, 0, 0;
+  JointWaypointPoly wp2{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  wp2.getPosition() << 0, 0, 0, 1.57, 0, 0, 0;
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -183,11 +185,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
-  JointWaypoint wp1(joint_names, Eigen::VectorXd::Zero(7));
-  wp1 = { 0, 0, 0, -1.57, 0, 0, 0 };
+  JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a Joint Waypoint as the finish
-  JointWaypoint wp2(joint_names, { 0, 0, 0, 1.57, 0, 0, 0 });
+  JointWaypointPoly wp2{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  wp2.getPosition() << 0, 0, 0, 1.57, 0, 0, 0;
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -262,12 +265,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
-  JointWaypoint wp1(joint_names, Eigen::VectorXd::Zero(7));
-  wp1 << 0, 0, 0, -1.57, 0, 0, 0;
+  JointWaypointPoly wp1{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  wp1.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Specify a CartesianWaypoint as the finish
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) * Eigen::Quaterniond(0, 0, 1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
+                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -345,12 +348,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) * Eigen::Quaterniond(0, 0, 1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
+                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
 
   // Specify a Joint Waypoint as the finish
-  JointWaypoint wp2(joint_names, Eigen::VectorXd::Zero(7));
-  wp2 << 0, 0, 0, -1.57, 0, 0, 0;
+  JointWaypointPoly wp2{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+  wp2.getPosition() << 0, 0, 0, -1.57, 0, 0, 0;
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -428,12 +431,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   auto cur_state = env_->getState();
 
   // Specify a CartesianWaypoint as the start
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) * Eigen::Quaterniond(0, 0, 1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
+                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
 
   // Specify a CartesianWaypoint as the finish
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) * Eigen::Quaterniond(0, 0, 1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.2) *
+                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -512,12 +515,12 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   auto cur_state = env_->getState();
 
   // Specify a JointWaypoint as the start
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.8) * Eigen::Quaterniond(0, 0, 1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(-.20, .4, 0.8) *
+                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
 
   // Specify a Joint Waypoint as the finish
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(.20, .4, 0.8) * Eigen::Quaterniond(0, 0, 1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(.20, .4, 0.8) *
+                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -609,8 +612,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   for (int ind = 0; ind < NUM_STEPS; ind++)
   {
     // Specify a Joint Waypoint as the finish
-    JointWaypoint wp(joint_names, Eigen::VectorXd::Zero(7));
-    wp << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
+    JointWaypointPoly wp{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+    wp.getPosition() << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
     if (ind == 0)
     {
       // Define Start Instruction
@@ -619,7 +622,7 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
     }
     else
     {
-      wp.joint_names = joint_names;
+      wp.setNames(joint_names);
       MoveInstruction plan_f(wp, MoveInstructionType::FREESPACE, "TEST_PROFILE");
       program.appendMoveInstruction(plan_f);
     }
@@ -679,8 +682,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   for (int ind = 0; ind < NUM_STEPS; ind++)
   {
     // Specify a Joint Waypoint as the finish
-    JointWaypoint wp(joint_names, Eigen::VectorXd::Zero(7));
-    wp << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
+    JointWaypointPoly wp{ JointWaypoint(joint_names, Eigen::VectorXd::Zero(7)) };
+    wp.getPosition() << 0, 0, 0, -1.57 + ind * 0.1, 0, 0, 0;
     if (ind == 0)
     {
       // Define Start Instruction

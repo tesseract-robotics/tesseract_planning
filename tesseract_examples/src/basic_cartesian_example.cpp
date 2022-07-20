@@ -33,8 +33,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_examples/basic_cartesian_example.h>
 #include <tesseract_environment/utils.h>
 #include <tesseract_common/timer.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
 #include <tesseract_process_managers/core/default_process_planners.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -51,6 +55,7 @@ using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
+using tesseract_common::ManipulatorInfo;
 
 namespace tesseract_examples
 {
@@ -146,16 +151,16 @@ bool BasicCartesianExample::run()
       "cartesian_program", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start Joint Position for the program
-  Waypoint wp0 = StateWaypoint(joint_names, joint_pos);
+  StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_pos) };
   MoveInstruction start_instruction(wp0, MoveInstructionType::START);
   program.setStartInstruction(start_instruction);
 
   // Create cartesian waypoint
-  Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, -0.2, 0.62) *
-                                   Eigen::Quaterniond(0, 0, 1.0, 0));
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, -0.2, 0.62) *
+                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
 
-  Waypoint wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, 0.3, 0.62) *
-                                   Eigen::Quaterniond(0, 0, 1.0, 0));
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.5, 0.3, 0.62) *
+                                               Eigen::Quaterniond(0, 0, 1.0, 0)) };
 
   // Plan freespace from start
   MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, "freespace_profile");

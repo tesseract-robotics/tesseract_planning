@@ -35,8 +35,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_solver_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
 #include <tesseract_process_managers/task_profiles/contact_check_profile.h>
 #include <tesseract_process_managers/core/default_task_namespaces.h>
@@ -48,6 +52,7 @@ using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
+using tesseract_common::ManipulatorInfo;
 
 const double OFFSET = 0.005;
 
@@ -142,7 +147,7 @@ bool PickAndPlaceExample::run()
                                     CompositeInstructionOrder::ORDERED,
                                     ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
-  Waypoint pick_swp = StateWaypoint(joint_names, joint_pos);
+  StateWaypointPoly pick_swp{ StateWaypoint(joint_names, joint_pos) };
   MoveInstruction start_instruction(pick_swp, MoveInstructionType::START);
   pick_program.setStartInstruction(start_instruction);
 
@@ -151,12 +156,12 @@ bool PickAndPlaceExample::run()
   pick_final_pose.linear() = Eigen::Quaterniond(0.0, 0.0, 1.0, 0.0).matrix();
   pick_final_pose.translation() =
       Eigen::Vector3d(box_position_[0], box_position_[1], box_size_ + 0.772 + OFFSET);  // Offset for the table
-  Waypoint pick_wp1 = CartesianWaypoint(pick_final_pose);
+  CartesianWaypointPoly pick_wp1{ CartesianWaypoint(pick_final_pose) };
 
   // Define the approach pose
   Eigen::Isometry3d pick_approach_pose = pick_final_pose;
   pick_approach_pose.translation() += Eigen::Vector3d(0.0, 0.0, 0.15);
-  Waypoint pick_wp0 = CartesianWaypoint(pick_approach_pose);
+  CartesianWaypointPoly pick_wp0{ CartesianWaypoint(pick_approach_pose) };
 
   // Plan freespace from start
   MoveInstruction pick_plan_a0(pick_wp0, MoveInstructionType::FREESPACE, "FREESPACE");
@@ -293,17 +298,18 @@ bool PickAndPlaceExample::run()
                                      CompositeInstructionOrder::ORDERED,
                                      ManipulatorInfo("manipulator", LINK_BASE_NAME, LINK_END_EFFECTOR_NAME));
 
-  MoveInstruction place_start_instruction(pick_final_state->getWaypoint(), MoveInstructionType::START);
+  MoveInstructionPoly place_start_instruction(*pick_final_state);
+  place_start_instruction.setMoveType(MoveInstructionType::START);
   place_program.setStartInstruction(place_start_instruction);
 
   // Define the approach pose
-  Waypoint place_wp0 = CartesianWaypoint(retreat_pose);
+  CartesianWaypointPoly place_wp0{ CartesianWaypoint(retreat_pose) };
 
   // Define the final pose approach
-  Waypoint place_wp1 = CartesianWaypoint(place_approach_pose);
+  CartesianWaypointPoly place_wp1{ CartesianWaypoint(place_approach_pose) };
 
   // Define the final pose
-  Waypoint place_wp2 = CartesianWaypoint(place_pose);
+  CartesianWaypointPoly place_wp2{ CartesianWaypoint(place_pose) };
 
   // Plan cartesian retraction from picking up the box
   MoveInstruction place_plan_a0(place_wp0, MoveInstructionType::LINEAR, "CARTESIAN");

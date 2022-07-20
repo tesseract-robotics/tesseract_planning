@@ -34,8 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/seed_min_length_task_generator.h>
 #include <tesseract_process_managers/task_profiles/seed_min_length_profile.h>
+
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
+
+#include <tesseract_command_language/waypoint_type.h>
 
 namespace tesseract_planning
 {
@@ -130,17 +133,17 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
 
       assert(isStateWaypoint(mi0.getWaypoint()));
       assert(isStateWaypoint(mi1.getWaypoint()));
-      const auto& swp0 = mi0.getWaypoint().as<StateWaypoint>();
-      const auto& swp1 = mi1.getWaypoint().as<StateWaypoint>();
+      const auto& swp0 = mi0.getWaypoint().as<StateWaypointPoly>();
+      const auto& swp1 = mi1.getWaypoint().as<StateWaypointPoly>();
 
       // Linearly interpolate in joint space
-      Eigen::MatrixXd states = interpolate(swp0.position, swp1.position, subdivisions);
+      Eigen::MatrixXd states = interpolate(swp0.getPosition(), swp1.getPosition(), subdivisions);
 
       // Convert to MoveInstructions
       for (long i = 1; i < states.cols(); ++i)
       {
         MoveInstructionPoly move_instruction(mi1);
-        move_instruction.getWaypoint().as<StateWaypoint>().position = states.col(i);
+        move_instruction.getWaypoint().as<StateWaypointPoly>().getPosition() = states.col(i);
         composite.push_back(move_instruction);
       }
 

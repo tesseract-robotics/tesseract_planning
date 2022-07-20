@@ -57,9 +57,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/core/utils.h>
-
-#include <tesseract_command_language/utils/utils.h>
 #include <tesseract_motion_planners/interface_utils.h>
+
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_scene_graph;
@@ -135,7 +139,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   tesseract_common::fs::path srdf_path(std::string(TESSERACT_SUPPORT_DIR) + "/urdf/lbr_iiwa_14_r820.srdf");
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
-  ManipulatorInfo manip;
+  tesseract_common::ManipulatorInfo manip;
   manip.manipulator = "manipulator";
   manip.working_frame = "base_link";
   manip.tcp_frame = "tool0";
@@ -148,12 +152,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   auto cur_state = env->getState();
 
   // Specify a start waypoint
-  JointWaypoint wp1(joint_group->getJointNames(),
-                    Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())));
+  JointWaypointPoly wp1{ JointWaypoint(
+      joint_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size()))) };
 
   // Specify a end waypoint
-  JointWaypoint wp2(joint_group->getJointNames(),
-                    Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())));
+  JointWaypointPoly wp2{ JointWaypoint(
+      joint_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size()))) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -211,19 +217,21 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
   EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 21);  // 10 per segment + start a instruction
   EXPECT_EQ(planner_response.results.size(), 2);
-  EXPECT_TRUE(wp1.isApprox(getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
-  EXPECT_TRUE(wp2.isApprox(
+  EXPECT_TRUE(wp1.getPosition().isApprox(
+      getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
+  EXPECT_TRUE(wp2.getPosition().isApprox(
       getJointPosition(
           planner_response.results.front().as<CompositeInstruction>().getLastMoveInstruction()->getWaypoint()),
       1e-5));
-  EXPECT_TRUE(wp1.isApprox(getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()), 1e-5));
+  EXPECT_TRUE(wp1.getPosition().isApprox(
+      getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()), 1e-5));
 
   // Check for start state in collision error
   std::vector<double> swp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
 
   // Define New Start Instruction
-  wp1 = Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size()));
-  wp1.joint_names = joint_group->getJointNames();
+  wp1.setPosition(Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size())));
+  wp1.setNames(joint_group->getJointNames());
 
   start_instruction = MoveInstruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
 
@@ -249,11 +257,11 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   swp = start_state;
   std::vector<double> ewp = { 0, 0.7, 0.0, 0, 0.0, 0, 0.0 };
 
-  wp1 = Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size()));
-  wp1.joint_names = joint_group->getJointNames();
+  wp1.setPosition(Eigen::Map<const Eigen::VectorXd>(swp.data(), static_cast<long>(swp.size())));
+  wp1.setNames(joint_group->getJointNames());
 
-  wp2 = Eigen::Map<const Eigen::VectorXd>(ewp.data(), static_cast<long>(ewp.size()));
-  wp2.joint_names = joint_group->getJointNames();
+  wp2.setPosition(Eigen::Map<const Eigen::VectorXd>(ewp.data(), static_cast<long>(ewp.size())));
+  wp2.setNames(joint_group->getJointNames());
 
   // Define Start Instruction
   start_instruction = MoveInstruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -293,7 +301,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
   // Set manipulator
-  ManipulatorInfo manip;
+  tesseract_common::ManipulatorInfo manip;
   manip.tcp_frame = "tool0";
   manip.manipulator = "manipulator";
   manip.working_frame = "base_link";
@@ -306,13 +314,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   auto cur_state = env->getState();
 
   // Specify a start waypoint
-  JointWaypoint wp1(kin_group->getJointNames(),
-                    Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size())));
+  JointWaypointPoly wp1{ JointWaypoint(
+      kin_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size()))) };
 
   // Specify a end waypoint
   auto goal_jv = Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size()));
   Eigen::Isometry3d goal = kin_group->calcFwdKin(goal_jv).at(manip.tcp_frame);
-  CartesianWaypoint wp2 = goal;
+  CartesianWaypointPoly wp2{ CartesianWaypoint(goal) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -366,12 +375,13 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   EXPECT_TRUE(&status);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
   EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
-  EXPECT_TRUE(wp1.isApprox(getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
+  EXPECT_TRUE(wp1.getPosition().isApprox(
+      getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()), 1e-5));
 
   Eigen::Isometry3d check_goal =
       kin_group->calcFwdKin(getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()))
           .at(manip.tcp_frame);
-  EXPECT_TRUE(wp2.isApprox(check_goal, 1e-3));
+  EXPECT_TRUE(wp2.getTransform().isApprox(check_goal, 1e-3));
 }
 
 TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
@@ -387,7 +397,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   EXPECT_TRUE(env->init(urdf_path, srdf_path, locator));
 
   // Set manipulator
-  ManipulatorInfo manip;
+  tesseract_common::ManipulatorInfo manip;
   manip.tcp_frame = "tool0";
   manip.manipulator = "manipulator";
   manip.working_frame = "base_link";
@@ -402,11 +412,12 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   // Specify a start waypoint
   auto start_jv = Eigen::Map<const Eigen::VectorXd>(start_state.data(), static_cast<long>(start_state.size()));
   Eigen::Isometry3d start = kin_group->calcFwdKin(start_jv).at(manip.tcp_frame);
-  CartesianWaypoint wp1 = start;
+  CartesianWaypointPoly wp1{ CartesianWaypoint(start) };
 
   // Specify a end waypoint
-  JointWaypoint wp2(kin_group->getJointNames(),
-                    Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size())));
+  JointWaypointPoly wp2{ JointWaypoint(
+      kin_group->getJointNames(),
+      Eigen::Map<const Eigen::VectorXd>(end_state.data(), static_cast<long>(end_state.size()))) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE");
@@ -461,12 +472,13 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   EXPECT_TRUE(&status);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
   EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
-  EXPECT_TRUE(wp2.isApprox(getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()), 1e-5));
+  EXPECT_TRUE(wp2.getPosition().isApprox(
+      getJointPosition(planner_response.results.getLastMoveInstruction()->getWaypoint()), 1e-5));
 
   Eigen::Isometry3d check_start =
       kin_group->calcFwdKin(getJointPosition(planner_response.results.getFirstMoveInstruction()->getWaypoint()))
           .at(manip.tcp_frame);
-  EXPECT_TRUE(wp1.isApprox(check_start, 1e-3));
+  EXPECT_TRUE(wp1.getTransform().isApprox(check_start, 1e-3));
 }
 
 // TEST(OMPLMultiPlanner, OMPLMultiPlannerUnit)  // NOLINT

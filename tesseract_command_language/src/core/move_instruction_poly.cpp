@@ -14,9 +14,17 @@ void tesseract_planning::detail_move_instruction::MoveInstructionInterface::seri
                                      boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
 }
 
-void tesseract_planning::MoveInstructionPoly::setWaypoint(Waypoint waypoint)
+void tesseract_planning::MoveInstructionPoly::assignCartesianWaypoint(CartesianWaypointPoly waypoint)
 {
-  getInterface().setWaypoint(std::move(waypoint));
+  getInterface().assignCartesianWaypoint(std::move(waypoint));
+}
+void tesseract_planning::MoveInstructionPoly::assignJointWaypoint(JointWaypointPoly waypoint)
+{
+  getInterface().assignJointWaypoint(std::move(waypoint));
+}
+void tesseract_planning::MoveInstructionPoly::assignStateWaypoint(StateWaypointPoly waypoint)
+{
+  getInterface().assignStateWaypoint(std::move(waypoint));
 }
 tesseract_planning::Waypoint& tesseract_planning::MoveInstructionPoly::getWaypoint()
 {
@@ -75,6 +83,19 @@ void tesseract_planning::MoveInstructionPoly::setDescription(const std::string& 
 }
 
 void tesseract_planning::MoveInstructionPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
+
+tesseract_planning::CartesianWaypointPoly tesseract_planning::MoveInstructionPoly::createCartesianWaypoint() const
+{
+  return getInterface().createCartesianWaypoint();
+}
+tesseract_planning::JointWaypointPoly tesseract_planning::MoveInstructionPoly::createJointWaypoint() const
+{
+  return getInterface().createJointWaypoint();
+}
+tesseract_planning::StateWaypointPoly tesseract_planning::MoveInstructionPoly::createStateWaypoint() const
+{
+  return getInterface().createStateWaypoint();
+}
 
 bool tesseract_planning::MoveInstructionPoly::isLinear() const
 {

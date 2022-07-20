@@ -8,13 +8,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_profiles/fix_state_bounds_profile.h>
 #include <tesseract_process_managers/task_generators/fix_state_bounds_task_generator.h>
 #include <tesseract_process_managers/core/task_input.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_planning;
 using namespace tesseract_environment;
+using tesseract_common::ManipulatorInfo;
+
 class FixStateBoundsTaskGeneratorUnit : public ::testing::Test
 {
 protected:
@@ -45,15 +48,15 @@ CompositeInstruction createProgram(const Eigen::VectorXd& start_state,
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
 
-  Waypoint wp1 = JointWaypoint(joint_names, start_state);
+  JointWaypointPoly wp1{ JointWaypoint(joint_names, start_state) };
   MoveInstruction start_instruction(wp1, MoveInstructionType::START);
   program.setStartInstruction(start_instruction);
 
-  Waypoint wp2 = JointWaypoint(joint_names, start_state + ((goal_state - start_state) / 2));
+  JointWaypointPoly wp2{ JointWaypoint(joint_names, start_state + ((goal_state - start_state) / 2)) };
   MoveInstruction plan_f0(wp2, MoveInstructionType::FREESPACE);
   program.appendMoveInstruction(plan_f0);
 
-  Waypoint wp3 = JointWaypoint(joint_names, goal_state);
+  JointWaypointPoly wp3{ JointWaypoint(joint_names, goal_state) };
   MoveInstruction plan_f1(wp3, MoveInstructionType::FREESPACE);
   program.appendMoveInstruction(plan_f1);
 

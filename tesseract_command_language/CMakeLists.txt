@@ -40,9 +40,12 @@ tesseract_variables()
 
 add_library(
   ${PROJECT_NAME}
+  src/core/cartesian_waypoint_poly.cpp
   src/core/instruction.cpp
+  src/core/joint_waypoint_poly.cpp
   src/core/move_instruction_poly.cpp
   src/core/serialization.cpp
+  src/core/state_waypoint_poly.cpp
   src/core/waypoint.cpp
   src/null_instruction.cpp
   src/null_waypoint.cpp
@@ -57,7 +60,7 @@ add_library(
   src/state_waypoint.cpp
   src/cartesian_waypoint.cpp
   src/joint_waypoint.cpp
-  src/utils/utils.cpp)
+  src/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC Eigen3::Eigen
