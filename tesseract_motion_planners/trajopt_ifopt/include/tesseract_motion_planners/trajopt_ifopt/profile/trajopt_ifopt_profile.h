@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ifopt/problem.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction_poly.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
 #include <tesseract_command_language/joint_waypoint.h>

@@ -32,8 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/move_instruction_poly.h>
-#include <tesseract_command_language/core/waypoint_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/profile_dictionary.h>

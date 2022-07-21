@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
-#include <tesseract_command_language/core/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 

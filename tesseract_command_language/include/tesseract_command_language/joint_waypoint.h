@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning

@@ -38,8 +38,8 @@
 
 #include <gtest/gtest.h>
 #include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
-#include <tesseract_command_language/core/state_waypoint_poly.h>
-#include <tesseract_command_language/core/move_instruction_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_time_parameterization/instructions_trajectory.h>

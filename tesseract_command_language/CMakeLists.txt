@@ -40,13 +40,13 @@ tesseract_variables()
 
 add_library(
   ${PROJECT_NAME}
-  src/core/cartesian_waypoint_poly.cpp
-  src/core/instruction.cpp
-  src/core/joint_waypoint_poly.cpp
-  src/core/move_instruction_poly.cpp
-  src/core/serialization.cpp
-  src/core/state_waypoint_poly.cpp
-  src/core/waypoint.cpp
+  src/poly/cartesian_waypoint_poly.cpp
+  src/poly/instruction_poly.cpp
+  src/poly/joint_waypoint_poly.cpp
+  src/poly/move_instruction_poly.cpp
+  src/poly/serialization.cpp
+  src/poly/state_waypoint_poly.cpp
+  src/poly/waypoint_poly.cpp
   src/null_instruction.cpp
   src/null_waypoint.cpp
   src/move_instruction.cpp

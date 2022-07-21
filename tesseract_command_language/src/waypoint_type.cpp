@@ -31,9 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_command_language/null_waypoint.h>
-#include <tesseract_command_language/core/cartesian_waypoint_poly.h>
-#include <tesseract_command_language/core/joint_waypoint_poly.h>
-#include <tesseract_command_language/core/state_waypoint_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
 
 namespace tesseract_planning
 {

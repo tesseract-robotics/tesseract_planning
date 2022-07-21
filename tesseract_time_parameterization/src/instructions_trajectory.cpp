@@ -26,7 +26,7 @@
 
 #include <tesseract_time_parameterization/instructions_trajectory.h>
 #include <tesseract_command_language/utils.h>
-#include <tesseract_command_language/core/state_waypoint_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/waypoint_type.h>
 
 namespace tesseract_planning
