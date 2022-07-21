@@ -55,7 +55,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   // --------------------
   // Check that inputs are valid
   // --------------------
-  const Instruction* input_instruction = input.getInstruction();
+  const InstructionPoly* input_instruction = input.getInstruction();
   if (!isCompositeInstruction(*input_instruction))
   {
     info->message = "Input instruction to FixStateBounds must be a composite instruction";
@@ -158,8 +158,8 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
       CONSOLE_BRIDGE_logInform("FixStateBoundsTaskGenerator is modifying the const input instructions");
       for (const auto& instruction : flattened)
       {
-        const Instruction* instr_const_ptr = &instruction.get();
-        auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
+        const InstructionPoly* instr_const_ptr = &instruction.get();
+        auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
         auto& plan = mutable_instruction->as<MoveInstructionPoly>();
         if (!clampToJointLimits(plan.getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
         {

@@ -56,7 +56,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   // --------------------
   // Check that inputs are valid
   // --------------------
-  const Instruction* input_instruction = input.getInstruction();
+  const InstructionPoly* input_instruction = input.getInstruction();
   if (!isCompositeInstruction(*input_instruction))
   {
     info->message = "Input instructions to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
@@ -67,7 +67,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 0;
   }
 
-  Instruction* input_results = input.getResults();
+  InstructionPoly* input_results = input.getResults();
   if (!isCompositeInstruction(*input_results))
   {
     info->message = "Input seed to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
@@ -84,8 +84,8 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
 
   // If the start and end waypoints need to be updated prior to planning
-  Instruction start_instruction = input.getStartInstruction();
-  Instruction end_instruction = input.getEndInstruction();
+  InstructionPoly start_instruction = input.getStartInstruction();
+  InstructionPoly end_instruction = input.getEndInstruction();
 
   if (!isNullInstruction(start_instruction))
   {

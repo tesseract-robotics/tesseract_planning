@@ -220,7 +220,7 @@ bool PuzzlePieceAuxillaryAxesExample::run()
   // Create Process Planning Request
   ProcessPlanningRequest request;
   request.name = new_planner_name;
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Create Naive Seed
   /** @todo Need to improve simple planners to support external tcp definitions */
@@ -229,7 +229,7 @@ bool PuzzlePieceAuxillaryAxesExample::run()
     auto lock = env_->lockRead();
     naive_seed = tesseract_planning::generateNaiveSeed(program, *env_);
   }
-  request.seed = Instruction(naive_seed);
+  request.seed = InstructionPoly(naive_seed);
 
   // Print Diagnostics
   request.instructions.print("Program: ");

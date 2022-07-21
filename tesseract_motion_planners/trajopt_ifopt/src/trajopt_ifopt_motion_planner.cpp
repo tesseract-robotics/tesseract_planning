@@ -318,7 +318,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
   // Setup start waypoint
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
-  Waypoint start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint{ NullWaypoint() };
   tesseract_common::ManipulatorInfo start_mi{ composite_mi };
   MoveInstructionPoly placeholder_instruction;
   const MoveInstructionPoly* start_instruction = nullptr;
@@ -526,7 +526,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
           JointWaypointPoly cur_position;
           if (isJointWaypoint(plan_instruction.getWaypoint()))
           {
-            const JointWaypointPoly& jwp = plan_instruction.getWaypoint().as<JointWaypointPoly>();
+            const auto& jwp = plan_instruction.getWaypoint().as<JointWaypointPoly>();
             toleranced = jwp.isToleranced();
             cur_position = jwp;
           }

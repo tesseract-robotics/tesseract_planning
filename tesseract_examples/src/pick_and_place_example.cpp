@@ -215,7 +215,7 @@ bool PickAndPlaceExample::run()
   // Create Process Planning Request
   ProcessPlanningRequest pick_request;
   pick_request.name = process_planner_names::TRAJOPT_PLANNER_NAME;
-  pick_request.instructions = Instruction(pick_program);
+  pick_request.instructions = InstructionPoly(pick_program);
 
   // Print Diagnostics
   pick_request.instructions.print("Program: ");
@@ -331,7 +331,7 @@ bool PickAndPlaceExample::run()
   // Create Process Planning Request
   ProcessPlanningRequest place_request;
   place_request.name = process_planner_names::TRAJOPT_PLANNER_NAME;
-  place_request.instructions = Instruction(place_program);
+  place_request.instructions = InstructionPoly(place_program);
 
   // Print Diagnostics
   place_request.instructions.print("Program: ");

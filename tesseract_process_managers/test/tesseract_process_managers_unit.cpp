@@ -73,8 +73,8 @@ TEST_F(TesseractProcessManagerUnit, SeedMinLengthTaskGeneratorTest)  // NOLINT
   auto cur_state = env_->getState();
   CompositeInstruction seed = generateSeed(program, cur_state, env_);
 
-  Instruction program_instruction = program;
-  Instruction seed_instruction = seed;
+  InstructionPoly program_instruction = program;
+  InstructionPoly seed_instruction = seed;
 
   auto profiles = std::make_shared<ProfileDictionary>();
   long current_length = seed.getMoveInstructionCount();
@@ -320,7 +320,7 @@ TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultPlanProfileTest) 
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
@@ -356,7 +356,7 @@ TEST_F(TesseractProcessManagerUnit, RasterProcessManagerDefaultLVSPlanProfileTes
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
@@ -406,7 +406,7 @@ TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultPlanProfile
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
@@ -442,7 +442,7 @@ TEST_F(TesseractProcessManagerUnit, RasterGlobalProcessManagerDefaultLVSPlanProf
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
@@ -478,7 +478,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultPlanProfileTe
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
@@ -514,7 +514,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyProcessManagerDefaultLVSPlanProfil
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
@@ -550,7 +550,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultPlanPro
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
@@ -586,7 +586,7 @@ TEST_F(TesseractProcessManagerUnit, RasterOnlyGlobalProcessManagerDefaultLVSPlan
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterOnlyExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
@@ -622,7 +622,7 @@ TEST_F(TesseractProcessManagerUnit, RasterDTProcessManagerDefaultPlanProfileTest
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterDTExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
@@ -658,7 +658,7 @@ TEST_F(TesseractProcessManagerUnit, RasterDTProcessManagerDefaultLVSPlanProfileT
   std::string process_profile = "PROCESS";
 
   CompositeInstruction program = rasterDTExampleProgram(freespace_profile, process_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
@@ -697,7 +697,7 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADProcessManagerDefaultPlanProfileTe
 
   CompositeInstruction program =
       rasterWAADExampleProgram(freespace_profile, approach_profile, process_profile, departure_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
@@ -740,7 +740,7 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADProcessManagerDefaultLVSPlanProfil
 
   CompositeInstruction program =
       rasterWAADExampleProgram(freespace_profile, approach_profile, process_profile, departure_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();
@@ -783,7 +783,7 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADDTProcessManagerDefaultPlanProfile
 
   CompositeInstruction program =
       rasterWAADDTExampleProgram(freespace_profile, approach_profile, process_profile, departure_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerFixedSizeAssignPlanProfile>();
@@ -826,7 +826,7 @@ TEST_F(TesseractProcessManagerUnit, RasterWAADDTProcessManagerDefaultLVSPlanProf
 
   CompositeInstruction program =
       rasterWAADDTExampleProgram(freespace_profile, approach_profile, process_profile, departure_profile);
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Add profiles to planning server
   auto default_simple_plan_profile = std::make_shared<SimplePlannerLVSPlanProfile>();

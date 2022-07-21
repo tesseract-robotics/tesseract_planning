@@ -189,28 +189,29 @@ CompositeInstruction getProgram()
 
 TEST(TesseractCommandLanguageSerializeUnit, serializationCompositeInstruction)  // NOLINT
 {
-  Instruction program = getProgram();
+  InstructionPoly program = getProgram();
   {  // Archive program to file
     std::string file_path = tesseract_common::getTempPath() + "composite_instruction_boost.xml";
-    EXPECT_TRUE(tesseract_common::Serialization::toArchiveFileXML<Instruction>(program, file_path));
-    auto nprogram = tesseract_common::Serialization::fromArchiveFileXML<Instruction>(file_path);
+    EXPECT_TRUE(tesseract_common::Serialization::toArchiveFileXML<InstructionPoly>(program, file_path));
+    auto nprogram = tesseract_common::Serialization::fromArchiveFileXML<InstructionPoly>(file_path);
     EXPECT_TRUE(program == nprogram);
   }
 
   {  // Archive program to string
-    std::string program_string = tesseract_common::Serialization::toArchiveStringXML<Instruction>(program, "program");
+    std::string program_string =
+        tesseract_common::Serialization::toArchiveStringXML<InstructionPoly>(program, "program");
     EXPECT_FALSE(program_string.empty());
-    auto nprogram = tesseract_common::Serialization::fromArchiveStringXML<Instruction>(program_string);
+    auto nprogram = tesseract_common::Serialization::fromArchiveStringXML<InstructionPoly>(program_string);
     EXPECT_TRUE(program == nprogram);
   }
 }
 
 TEST(TesseractCommandLanguageSerializeUnit, TypeErasureInTypeErasure)  // NOLINT
 {
-  tesseract_planning::Instruction instruction{ SetToolInstruction(5) };
+  tesseract_planning::InstructionPoly instruction{ SetToolInstruction(5) };
   tesseract_common::Any any_type;
   any_type = instruction;
-  EXPECT_EQ(any_type.getType(), std::type_index(typeid(tesseract_planning::Instruction)));
+  EXPECT_EQ(any_type.getType(), std::type_index(typeid(tesseract_planning::InstructionPoly)));
 }
 
 int main(int argc, char** argv)

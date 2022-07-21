@@ -41,9 +41,9 @@ static const tesseract_common::ManipulatorInfo EMPTY_MANIPULATOR_INFO;
 static const PlannerProfileRemapping EMPTY_PROFILE_MAPPING;
 
 TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
-                     const Instruction* instruction,
+                     const InstructionPoly* instruction,
                      const tesseract_common::ManipulatorInfo& manip_info,
-                     Instruction* seed,
+                     InstructionPoly* seed,
                      bool has_seed,
                      ProfileDictionary::ConstPtr profiles)
   : env(std::move(env))
@@ -58,11 +58,11 @@ TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
 }
 
 TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
-                     const Instruction* instruction,
+                     const InstructionPoly* instruction,
                      const tesseract_common::ManipulatorInfo& manip_info,
                      const PlannerProfileRemapping& plan_profile_remapping,
                      const PlannerProfileRemapping& composite_profile_remapping,
-                     Instruction* seed,
+                     InstructionPoly* seed,
                      bool has_seed,
                      ProfileDictionary::ConstPtr profiles)
   : env(std::move(env))
@@ -77,10 +77,10 @@ TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
 }
 
 TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
-                     const Instruction* instruction,
+                     const InstructionPoly* instruction,
                      const PlannerProfileRemapping& plan_profile_remapping,
                      const PlannerProfileRemapping& composite_profile_remapping,
-                     Instruction* seed,
+                     InstructionPoly* seed,
                      bool has_seed,
                      ProfileDictionary::ConstPtr profiles)
   : env(std::move(env))
@@ -95,8 +95,8 @@ TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
 }
 
 TaskInput::TaskInput(tesseract_environment::Environment::ConstPtr env,
-                     const Instruction* instruction,
-                     Instruction* seed,
+                     const InstructionPoly* instruction,
+                     InstructionPoly* seed,
                      bool has_seed,
                      ProfileDictionary::ConstPtr profiles)
   : env(std::move(env))
@@ -120,7 +120,7 @@ TaskInput TaskInput::operator[](std::size_t index)
 
 std::size_t TaskInput::size()
 {
-  const Instruction* ci = instruction_;
+  const InstructionPoly* ci = instruction_;
   for (const auto& i : instruction_indice_)
   {
     if (isCompositeInstruction(*ci))
@@ -143,9 +143,9 @@ std::size_t TaskInput::size()
   return 0;
 }
 
-const Instruction* TaskInput::getInstruction() const
+const InstructionPoly* TaskInput::getInstruction() const
 {
-  const Instruction* ci = instruction_;
+  const InstructionPoly* ci = instruction_;
   for (const auto& i : instruction_indice_)
   {
     if (isCompositeInstruction(*ci))
@@ -161,9 +161,9 @@ const Instruction* TaskInput::getInstruction() const
   return ci;
 }
 
-Instruction* TaskInput::getResults()
+InstructionPoly* TaskInput::getResults()
 {
-  Instruction* ci = results_;
+  InstructionPoly* ci = results_;
   for (const auto& i : instruction_indice_)
   {
     if (isCompositeInstruction(*ci))
@@ -185,7 +185,7 @@ bool TaskInput::isAborted() const { return interface_->isAborted(); }
 
 void TaskInput::abort() { interface_->abort(); }
 
-void TaskInput::setStartInstruction(Instruction start)
+void TaskInput::setStartInstruction(InstructionPoly start)
 {
   start_instruction_ = std::move(start);
   start_instruction_indice_.clear();
@@ -197,7 +197,7 @@ void TaskInput::setStartInstruction(std::vector<std::size_t> start)
   start_instruction_ = NullInstruction();
 }
 
-Instruction TaskInput::getStartInstruction() const
+InstructionPoly TaskInput::getStartInstruction() const
 {
   if (!isNullInstruction(start_instruction_))
     return start_instruction_;
@@ -205,7 +205,7 @@ Instruction TaskInput::getStartInstruction() const
   if (start_instruction_indice_.empty())
     return NullInstruction();
 
-  Instruction* ci = results_;
+  InstructionPoly* ci = results_;
   for (const auto& i : start_instruction_indice_)
   {
     if (isCompositeInstruction(*ci))
@@ -225,7 +225,7 @@ Instruction TaskInput::getStartInstruction() const
   return *ci;
 }
 
-void TaskInput::setEndInstruction(Instruction end)
+void TaskInput::setEndInstruction(InstructionPoly end)
 {
   end_instruction_ = std::move(end);
   end_instruction_indice_.clear();
@@ -237,7 +237,7 @@ void TaskInput::setEndInstruction(std::vector<std::size_t> end)
   end_instruction_ = NullInstruction();
 }
 
-Instruction TaskInput::getEndInstruction() const
+InstructionPoly TaskInput::getEndInstruction() const
 {
   if (!isNullInstruction(end_instruction_))
     return end_instruction_;
@@ -245,7 +245,7 @@ Instruction TaskInput::getEndInstruction() const
   if (end_instruction_indice_.empty())
     return NullInstruction();
 
-  Instruction* ci = results_;
+  InstructionPoly* ci = results_;
   for (const auto& i : end_instruction_indice_)
   {
     if (isCompositeInstruction(*ci))

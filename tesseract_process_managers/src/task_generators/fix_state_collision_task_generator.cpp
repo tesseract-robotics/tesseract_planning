@@ -79,7 +79,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
   return true;
 }
 
-bool waypointInCollision(const Waypoint& waypoint,
+bool waypointInCollision(const WaypointPoly& waypoint,
                          const TaskInput& input,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts)
@@ -105,7 +105,7 @@ bool waypointInCollision(const Waypoint& waypoint,
   return stateInCollision(start_pos, input, profile, contacts);
 }
 
-bool moveWaypointFromCollisionTrajopt(Waypoint& waypoint,
+bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
                                       const TaskInput& input,
                                       const FixStateCollisionProfile& profile)
 {
@@ -227,7 +227,7 @@ bool moveWaypointFromCollisionTrajopt(Waypoint& waypoint,
   return setJointPosition(waypoint, results);
 }
 
-bool moveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
+bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
                                             const TaskInput& input,
                                             const FixStateCollisionProfile& profile)
 {
@@ -274,7 +274,7 @@ bool moveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
   return false;
 }
 
-bool applyCorrectionWorkflow(Waypoint& waypoint,
+bool applyCorrectionWorkflow(WaypointPoly& waypoint,
                              const TaskInput& input,
                              const FixStateCollisionProfile& profile,
                              tesseract_collision::ContactResultMap& contacts)
@@ -316,7 +316,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   // --------------------
   // Check that inputs are valid
   // --------------------
-  const Instruction* input_intruction = input.getInstruction();
+  const InstructionPoly* input_intruction = input.getInstruction();
   if (!isCompositeInstruction(*(input_intruction)))
   {
     info->message = "Input seed to FixStateCollision must be a composite instruction";
@@ -422,8 +422,8 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         if (in_collision_vec[i])
         {
-          const Instruction* instr_const_ptr = &flattened[i].get();
-          auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
+          const InstructionPoly* instr_const_ptr = &flattened[i].get();
+          auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
           auto& plan = mutable_instruction->as<MoveInstructionPoly>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
@@ -467,8 +467,8 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         if (in_collision_vec[i])
         {
-          const Instruction* instr_const_ptr = &flattened[i].get();
-          auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
+          const InstructionPoly* instr_const_ptr = &flattened[i].get();
+          auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
           auto& plan = mutable_instruction->as<MoveInstructionPoly>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
@@ -512,8 +512,8 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         if (in_collision_vec[i])
         {
-          const Instruction* instr_const_ptr = &flattened[i].get();
-          auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
+          const InstructionPoly* instr_const_ptr = &flattened[i].get();
+          auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
           auto& plan = mutable_instruction->as<MoveInstructionPoly>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
@@ -557,8 +557,8 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
       {
         if (in_collision_vec[i])
         {
-          const Instruction* instr_const_ptr = &flattened[i].get();
-          auto* mutable_instruction = const_cast<Instruction*>(instr_const_ptr);  // NOLINT
+          const InstructionPoly* instr_const_ptr = &flattened[i].get();
+          auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
           auto& plan = mutable_instruction->as<MoveInstructionPoly>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))

@@ -307,7 +307,7 @@ TrajOptMotionPlanner::createProblem(const PlannerRequest& request) const
   // Setup start waypoint
   std::size_t start_index = 0;  // If it has a start instruction then skip first instruction in instructions_flat
   int index = 0;
-  Waypoint start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint{ NullWaypoint() };
   tesseract_common::ManipulatorInfo start_mi{ composite_mi };
   MoveInstructionPoly placeholder_instruction;
   const MoveInstructionPoly* start_instruction = nullptr;

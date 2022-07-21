@@ -28,25 +28,25 @@
 
 namespace tesseract_planning
 {
-struct Instruction;
+struct InstructionPoly;
 
-bool isCommentInstruction(const Instruction& instruction);
+bool isCommentInstruction(const InstructionPoly& instruction);
 
-bool isVariableInstruction(const Instruction& instruction);
+bool isVariableInstruction(const InstructionPoly& instruction);
 
-bool isSetAnalogInstruction(const Instruction& instruction);
+bool isSetAnalogInstruction(const InstructionPoly& instruction);
 
-bool isSetToolInstruction(const Instruction& instruction);
+bool isSetToolInstruction(const InstructionPoly& instruction);
 
-bool isTimerInstruction(const Instruction& instruction);
+bool isTimerInstruction(const InstructionPoly& instruction);
 
-bool isWaitInstruction(const Instruction& instruction);
+bool isWaitInstruction(const InstructionPoly& instruction);
 
-bool isCompositeInstruction(const Instruction& instruction);
+bool isCompositeInstruction(const InstructionPoly& instruction);
 
-bool isMoveInstruction(const Instruction& instruction);
+bool isMoveInstruction(const InstructionPoly& instruction);
 
-bool isNullInstruction(const Instruction& instruction);
+bool isNullInstruction(const InstructionPoly& instruction);
 
 }  // namespace tesseract_planning
 

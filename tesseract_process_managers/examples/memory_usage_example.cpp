@@ -104,7 +104,7 @@ ProcessPlanningRequest getPlanningRequest()
 
   // Define the program
   CompositeInstruction program = freespaceExampleProgramIIWA();
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   return request;
 }

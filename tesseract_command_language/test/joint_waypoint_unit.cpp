@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/waypoint_poly.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
 using namespace tesseract_planning;
@@ -68,23 +68,25 @@ TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)  // NOLINT
 
   JointWaypointPoly jw{ JointWaypoint(joint_names, joint_values) };
 
-  Waypoint wp = jw;
-  tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp, "/tmp/joint_waypoint_boost.xml");
+  WaypointPoly wp = jw;
+  tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(wp, "/tmp/joint_waypoint_boost.xml");
 
-  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<Waypoint>("/tmp/joint_waypoint_boost.xml");
+  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>("/tmp/joint_waypoint_boost.xml");
 
   EXPECT_TRUE(jw == nwp.as<JointWaypointPoly>());
 }
 
 inline void SerializeDeserializeTest(const JointWaypointPoly& wp)
 {
-  tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp,
-                                                              tesseract_common::getTempPath() + "joint_waypoint_unit."
-                                                                                                "xml");
+  tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(wp,
+                                                                  tesseract_common::getTempPath() + "joint_waypoint_"
+                                                                                                    "unit."
+                                                                                                    "xml");
   auto deserialized =
-      tesseract_common::Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "joint_"
-                                                                                                      "waypoint_unit."
-                                                                                                      "xml");
+      tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>(tesseract_common::getTempPath() + "joint_"
+                                                                                                          "waypoint_"
+                                                                                                          "unit."
+                                                                                                          "xml");
   EXPECT_TRUE(wp == deserialized.as<JointWaypointPoly>());
 }
 

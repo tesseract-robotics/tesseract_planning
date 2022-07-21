@@ -101,7 +101,7 @@ bool stateInCollision(const Eigen::Ref<const Eigen::VectorXd>& start_pos,
  * @param input Process Input associated with waypoint. Needed for kinematics, etc.
  * @return True if in collision
  */
-bool waypointInCollision(const Waypoint& waypoint,
+bool waypointInCollision(const WaypointPoly& waypoint,
                          const TaskInput& input,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts);
@@ -113,7 +113,7 @@ bool waypointInCollision(const Waypoint& waypoint,
  * @param profile Profile containing needed params
  * @return True if successful
  */
-bool moveWaypointFromCollisionTrajopt(Waypoint& waypoint,
+bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
                                       const TaskInput& input,
                                       const FixStateCollisionProfile& profile);
 
@@ -124,11 +124,11 @@ bool moveWaypointFromCollisionTrajopt(Waypoint& waypoint,
  * @param profile Profile containing needed params
  * @return True if successful
  */
-bool moveWaypointFromCollisionRandomSampler(Waypoint& waypoint,
+bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
                                             const TaskInput& input,
                                             const FixStateCollisionProfile& profile);
 
-bool applyCorrectionWorkflow(Waypoint& waypoint, const TaskInput& input, const FixStateCollisionProfile& profile);
+bool applyCorrectionWorkflow(WaypointPoly& waypoint, const TaskInput& input, const FixStateCollisionProfile& profile);
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>

@@ -230,9 +230,10 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
   // Flatten the results to make them easier to process
   response.results = request.seed;
-  std::vector<std::reference_wrapper<Instruction>> results_flattened =
+  std::vector<std::reference_wrapper<InstructionPoly>> results_flattened =
       flattenProgramToPattern(response.results, request.instructions);
-  std::vector<std::reference_wrapper<const Instruction>> instructions_flattened = flattenProgram(request.instructions);
+  std::vector<std::reference_wrapper<const InstructionPoly>> instructions_flattened =
+      flattenProgram(request.instructions);
 
   std::size_t instructions_idx = 0;  // Index for each input instruction
 
@@ -381,7 +382,7 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
       throw std::runtime_error("OMPL planner does not support child composite instructions.");
 
   int index = 0;
-  Waypoint start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint{ NullWaypoint() };
   MoveInstructionPoly placeholder_instruction;
   const MoveInstructionPoly* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())

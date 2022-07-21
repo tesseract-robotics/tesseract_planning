@@ -53,14 +53,14 @@ public:
 
   void apply(TrajOptIfoptProblem& problem,
              const CartesianWaypointPoly& cartesian_waypoint,
-             const Instruction& parent_instruction,
+             const InstructionPoly& parent_instruction,
              const tesseract_common::ManipulatorInfo& manip_info,
              const std::vector<std::string>& active_links,
              int index) const override;
 
   void apply(TrajOptIfoptProblem& problem,
              const JointWaypointPoly& joint_waypoint,
-             const Instruction& parent_instruction,
+             const InstructionPoly& parent_instruction,
              const tesseract_common::ManipulatorInfo& manip_info,
              const std::vector<std::string>& active_links,
              int index) const override;

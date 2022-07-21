@@ -56,7 +56,7 @@ constexpr double EPS = 0.000001;
 namespace tesseract_planning
 {
 static const flattenFilterFn programFlattenMoveInstructionFilter =
-    [](const Instruction& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
+    [](const InstructionPoly& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
       if (isMoveInstruction(i))
       {
         if (i.as<MoveInstructionPoly>().isStart())
@@ -127,7 +127,8 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
   }
 
   // Flatten program
-  std::vector<std::reference_wrapper<Instruction>> trajectory = program.flatten(programFlattenMoveInstructionFilter);
+  std::vector<std::reference_wrapper<InstructionPoly>> trajectory =
+      program.flatten(programFlattenMoveInstructionFilter);
   const Eigen::Index num_joints = max_velocity.rows();
   const std::size_t num_points = trajectory.size();
 

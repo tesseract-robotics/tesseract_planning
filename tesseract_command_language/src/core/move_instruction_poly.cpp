@@ -26,11 +26,11 @@ void tesseract_planning::MoveInstructionPoly::assignStateWaypoint(StateWaypointP
 {
   getInterface().assignStateWaypoint(std::move(waypoint));
 }
-tesseract_planning::Waypoint& tesseract_planning::MoveInstructionPoly::getWaypoint()
+tesseract_planning::WaypointPoly& tesseract_planning::MoveInstructionPoly::getWaypoint()
 {
   return getInterface().getWaypoint();
 }
-const tesseract_planning::Waypoint& tesseract_planning::MoveInstructionPoly::getWaypoint() const
+const tesseract_planning::WaypointPoly& tesseract_planning::MoveInstructionPoly::getWaypoint() const
 {
   return getInterface().getWaypoint();
 }

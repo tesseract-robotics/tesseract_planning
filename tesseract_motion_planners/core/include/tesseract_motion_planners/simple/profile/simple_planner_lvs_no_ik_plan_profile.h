@@ -65,7 +65,7 @@ public:
   CompositeInstruction generate(const MoveInstructionPoly& prev_instruction,
                                 const MoveInstructionPoly& prev_seed,
                                 const MoveInstructionPoly& base_instruction,
-                                const Instruction& next_instruction,
+                                const InstructionPoly& next_instruction,
                                 const PlannerRequest& request,
                                 const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 

@@ -48,7 +48,7 @@ int main()
 
   // Define the program
   CompositeInstruction program = freespaceExampleProgramIIWA();
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Print Diagnostics
   request.instructions.print("Program: ");

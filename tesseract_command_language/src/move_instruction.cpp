@@ -124,8 +124,8 @@ MoveInstructionType MoveInstruction::getMoveType() const { return move_type_; }
 void MoveInstruction::assignCartesianWaypoint(CartesianWaypointPoly waypoint) { waypoint_ = waypoint; }
 void MoveInstruction::assignJointWaypoint(JointWaypointPoly waypoint) { waypoint_ = waypoint; }
 void MoveInstruction::assignStateWaypoint(StateWaypointPoly waypoint) { waypoint_ = waypoint; }
-Waypoint& MoveInstruction::getWaypoint() { return waypoint_; }
-const Waypoint& MoveInstruction::getWaypoint() const { return waypoint_; }
+WaypointPoly& MoveInstruction::getWaypoint() { return waypoint_; }
+const WaypointPoly& MoveInstruction::getWaypoint() const { return waypoint_; }
 
 void MoveInstruction::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
 {

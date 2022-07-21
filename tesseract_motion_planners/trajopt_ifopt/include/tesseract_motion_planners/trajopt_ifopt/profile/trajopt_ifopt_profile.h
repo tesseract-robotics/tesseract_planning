@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ifopt/problem.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/instruction_poly.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
 #include <tesseract_command_language/joint_waypoint.h>
@@ -56,14 +56,14 @@ public:
 
   virtual void apply(TrajOptIfoptProblem& problem,
                      const CartesianWaypointPoly& cartesian_waypoint,
-                     const Instruction& parent_instruction,
+                     const InstructionPoly& parent_instruction,
                      const tesseract_common::ManipulatorInfo& manip_info,
                      const std::vector<std::string>& active_links,
                      int index) const = 0;
 
   virtual void apply(TrajOptIfoptProblem& problem,
                      const JointWaypointPoly& joint_waypoint,
-                     const Instruction& parent_instruction,
+                     const InstructionPoly& parent_instruction,
                      const tesseract_common::ManipulatorInfo& manip_info,
                      const std::vector<std::string>& active_links,
                      int index) const = 0;

@@ -154,13 +154,13 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   problem->composite_profile_remapping =
       std::make_unique<const PlannerProfileRemapping>(request.composite_profile_remapping);
 
-  problem->input = std::make_unique<Instruction>(request.instructions);
+  problem->input = std::make_unique<InstructionPoly>(request.instructions);
   const auto& composite_program = problem->input->as<CompositeInstruction>();
   tesseract_common::ManipulatorInfo mi = composite_program.getManipulatorInfo();
   problem->global_manip_info = std::make_unique<const tesseract_common::ManipulatorInfo>(mi);
 
   if (!isNullInstruction(request.seed))
-    problem->results = std::make_unique<Instruction>(request.seed);
+    problem->results = std::make_unique<InstructionPoly>(request.seed);
 
   // Assign the problems environment
   tesseract_environment::Environment::Ptr tc = cache_->getCachedEnvironment();
@@ -220,7 +220,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(ProcessPlanningProblem::Ptr pro
   if (response.problem->results == nullptr || isNullInstruction(*response.problem->results))
   {
     has_seed = false;
-    response.problem->results = std::make_unique<Instruction>(generateSkeletonSeed(composite_program));
+    response.problem->results = std::make_unique<InstructionPoly>(generateSkeletonSeed(composite_program));
   }
 
   // Create Task input

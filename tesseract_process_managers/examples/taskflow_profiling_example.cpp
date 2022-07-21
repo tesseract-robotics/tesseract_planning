@@ -81,7 +81,7 @@ int main()
     // Define the program
     CompositeInstruction program = freespaceExampleProgramIIWA(
         Eigen::Isometry3d::Identity() * Eigen::Translation3d(static_cast<double>(idx) / 10., 0.2, 1.0));
-    request.instructions = Instruction(program);
+    request.instructions = InstructionPoly(program);
 
     // Solve process plan
     ProcessPlanningFuture response = planning_server.run(request);

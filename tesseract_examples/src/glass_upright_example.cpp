@@ -223,7 +223,7 @@ bool GlassUprightExample::run()
 
     request.name = tesseract_planning::process_planner_names::TRAJOPT_PLANNER_NAME;
   }
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Print Diagnostics
   request.instructions.print("Program: ");

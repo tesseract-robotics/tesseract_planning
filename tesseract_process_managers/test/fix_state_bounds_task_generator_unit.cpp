@@ -75,8 +75,8 @@ void checkProgram(const Environment::Ptr& env,
   auto joint_limits = env->getJointGroup(manip.manipulator)->getLimits().joint_limits;
 
   CompositeInstruction program = createProgram(start_state, goal_state, DEFAULT_PROFILE_KEY);
-  const Instruction program_instruction{ program };
-  Instruction seed = generateSkeletonSeed(program);
+  const InstructionPoly program_instruction{ program };
+  InstructionPoly seed = generateSkeletonSeed(program);
   TaskInput input(env, &program_instruction, manip, &seed, false, profiles);
   FixStateBoundsTaskGenerator generator;
 

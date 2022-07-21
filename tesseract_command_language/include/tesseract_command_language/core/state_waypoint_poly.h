@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/waypoint_poly.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
 
@@ -138,7 +138,7 @@ struct StateWaypointConcept  // NOLINT
     const Eigen::VectorXd& effort_const_ref = c.getEffort();
     UNUSED(effort_const_ref);
 
-    double time;
+    double time{ 0 };
     c.setTime(time);
 
     double time_copy = c.getTime();

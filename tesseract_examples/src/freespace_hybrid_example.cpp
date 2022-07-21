@@ -163,7 +163,7 @@ bool FreespaceHybridExample::run()
   // Create Process Planning Request
   ProcessPlanningRequest request;
   request.name = process_planner_names::FREESPACE_PLANNER_NAME;
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Print Diagnostics
   request.instructions.print("Program: ");

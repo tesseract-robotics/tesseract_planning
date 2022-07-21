@@ -28,15 +28,15 @@
 
 namespace tesseract_planning
 {
-struct Waypoint;
+struct WaypointPoly;
 
-bool isCartesianWaypoint(const Waypoint& waypoint);
+bool isCartesianWaypoint(const WaypointPoly& waypoint);
 
-bool isJointWaypoint(const Waypoint& waypoint);
+bool isJointWaypoint(const WaypointPoly& waypoint);
 
-bool isStateWaypoint(const Waypoint& waypoint);
+bool isStateWaypoint(const WaypointPoly& waypoint);
 
-bool isNullWaypoint(const Waypoint& waypoint);
+bool isNullWaypoint(const WaypointPoly& waypoint);
 
 }  // namespace tesseract_planning
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAYPOINT_TYPE_H

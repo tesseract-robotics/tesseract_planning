@@ -210,7 +210,7 @@ bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
   }
 
   // Check the overall input
-  const Instruction* input_instruction = input.getInstruction();
+  const InstructionPoly* input_instruction = input.getInstruction();
   if (!isCompositeInstruction(*input_instruction))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");

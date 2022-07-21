@@ -62,7 +62,7 @@ public:
 private:
   void upsample(CompositeInstruction& composite,
                 const CompositeInstruction& current_composite,
-                Instruction& start_instruction,
+                InstructionPoly& start_instruction,
                 double longest_valid_segment_length) const;
 };
 

@@ -292,7 +292,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   int index = 0;
   std::string profile;
   ProfileDictionary::ConstPtr profile_overrides;
-  Waypoint start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint{ NullWaypoint() };
   MoveInstructionPoly placeholder_instruction;
   const MoveInstructionPoly* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
@@ -493,7 +493,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
         }
         else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
         {
-          const auto& cur_wp = plan_instruction.getWaypoint().template as<tesseract_planning::CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().template as<CartesianWaypointPoly>();
 
           // Descartes does not support freespace so it will only include the plan instruction state, then in
           // post processing function will perform interpolation to fill out the seed, but may be in collision.
