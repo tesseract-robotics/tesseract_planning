@@ -29,8 +29,8 @@
  * limitations under the License.
  */
 #include <tesseract_common/serialization.h>
-#include <tesseract_command_language/core/instruction_poly.h>
-#include <tesseract_command_language/core/waypoint_poly.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 template std::string

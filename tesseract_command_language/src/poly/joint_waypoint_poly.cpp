@@ -29,7 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/utils.h>
-#include <tesseract_command_language/core/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
 template <class Archive>
 void tesseract_planning::detail_joint_waypoint::JointWaypointInterface::serialize(

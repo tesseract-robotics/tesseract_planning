@@ -24,7 +24,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_command_language/core/move_instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>

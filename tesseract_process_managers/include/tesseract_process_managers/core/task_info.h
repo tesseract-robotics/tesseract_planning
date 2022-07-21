@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction_poly.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/null_instruction.h>
 #include <tesseract_environment/environment.h>
 

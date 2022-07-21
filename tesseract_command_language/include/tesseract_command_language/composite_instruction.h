@@ -32,8 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction_poly.h>
-#include <tesseract_command_language/core/move_instruction_poly.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/instruction_type.h>

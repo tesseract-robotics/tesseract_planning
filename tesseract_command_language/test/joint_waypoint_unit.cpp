@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
-#include <tesseract_command_language/core/waypoint_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
 using namespace tesseract_planning;

@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/base_object.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
 
 namespace tesseract_planning
 {

@@ -3,7 +3,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/nvp.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/move_instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 template <class Archive>
 void tesseract_planning::detail_move_instruction::MoveInstructionInterface::serialize(

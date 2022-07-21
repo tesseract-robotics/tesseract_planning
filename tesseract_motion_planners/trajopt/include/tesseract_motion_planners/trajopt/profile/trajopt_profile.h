@@ -33,9 +33,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction_poly.h>
-#include <tesseract_command_language/core/cartesian_waypoint_poly.h>
-#include <tesseract_command_language/core/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::TrajOptPlanProfile)

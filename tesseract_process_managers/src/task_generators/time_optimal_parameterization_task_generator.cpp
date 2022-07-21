@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_generators/time_optimal_parameterization_task_generator.h>
 #include <tesseract_process_managers/task_profiles/time_optimal_parameterization_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/core/move_instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
 #include <tesseract_time_parameterization/utils.h>

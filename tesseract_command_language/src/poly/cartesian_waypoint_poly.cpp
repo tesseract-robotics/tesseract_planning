@@ -29,7 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/utils.h>
-#include <tesseract_command_language/core/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 
 template <class Archive>
 void tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface::serialize(

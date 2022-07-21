@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_generators/iterative_spline_parameterization_task_generator.h>
 #include <tesseract_process_managers/task_profiles/interative_spline_parameterization_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/core/move_instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_time_parameterization/instructions_trajectory.h>
 
 namespace tesseract_planning
