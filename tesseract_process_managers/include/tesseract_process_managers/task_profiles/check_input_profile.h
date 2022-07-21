@@ -52,7 +52,7 @@ struct CheckInputProfile
     }
 
     // Check the overall input
-    const Instruction* input_instruction = task_input.getInstruction();
+    const InstructionPoly* input_instruction = task_input.getInstruction();
     if (!isCompositeInstruction(*input_instruction))
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");

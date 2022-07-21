@@ -29,7 +29,7 @@
 #include <tesseract_environment/environment.h>
 #include <tesseract_common/status_code.h>
 #include <tesseract_common/types.h>
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
@@ -93,9 +93,9 @@ struct PlannerResponse
   /** @brief The status information */
   tesseract_common::StatusCode status;
   /** @brief Waypoints for which the planner succeeded */
-  std::vector<std::reference_wrapper<Instruction>> succeeded_instructions{};
+  std::vector<std::reference_wrapper<InstructionPoly>> succeeded_instructions{};
   /** @brief Waypoints for which the planner failed */
-  std::vector<std::reference_wrapper<Instruction>> failed_instructions{};
+  std::vector<std::reference_wrapper<InstructionPoly>> failed_instructions{};
   /** @brief Planner specific data. Planners in Tesseract_planning use this to store the planner problem that was solved
    */
   std::shared_ptr<void> data;

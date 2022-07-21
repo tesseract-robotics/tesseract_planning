@@ -37,21 +37,24 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-bool isCartesianWaypoint(const Waypoint& waypoint)
+bool isCartesianWaypoint(const WaypointPoly& waypoint)
 {
   return (waypoint.getType() == std::type_index(typeid(CartesianWaypointPoly)));
 }
 
-bool isJointWaypoint(const Waypoint& waypoint)
+bool isJointWaypoint(const WaypointPoly& waypoint)
 {
   return (waypoint.getType() == std::type_index(typeid(JointWaypointPoly)));
 }
 
-bool isStateWaypoint(const Waypoint& waypoint)
+bool isStateWaypoint(const WaypointPoly& waypoint)
 {
   return (waypoint.getType() == std::type_index(typeid(StateWaypointPoly)));
 }
 
-bool isNullWaypoint(const Waypoint& waypoint) { return (waypoint.getType() == std::type_index(typeid(NullWaypoint))); }
+bool isNullWaypoint(const WaypointPoly& waypoint)
+{
+  return (waypoint.getType() == std::type_index(typeid(NullWaypoint)));
+}
 
 }  // namespace tesseract_planning

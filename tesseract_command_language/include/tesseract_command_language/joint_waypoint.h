@@ -44,8 +44,8 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
   JointWaypoint() = default;
-  JointWaypoint(const std::vector<std::string>& names, const Eigen::VectorXd& position);
-  JointWaypoint(const std::vector<std::string>& names,
+  JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position);
+  JointWaypoint(std::vector<std::string> names,
                 const Eigen::VectorXd& position,
                 const Eigen::VectorXd& lower_tol,
                 const Eigen::VectorXd& upper_tol);

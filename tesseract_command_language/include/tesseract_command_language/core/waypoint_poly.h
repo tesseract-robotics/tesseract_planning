@@ -137,11 +137,11 @@ private:
 
 namespace tesseract_planning
 {
-using WaypointBase =
+using WaypointPolyBase =
     tesseract_common::TypeErasureBase<detail_waypoint::WaypointInterface, detail_waypoint::WaypointInstance>;
-struct Waypoint : WaypointBase
+struct WaypointPoly : WaypointPolyBase
 {
-  using WaypointBase::WaypointBase;
+  using WaypointPolyBase::WaypointPolyBase;
 
   void print(const std::string& prefix = "") const;
 
@@ -160,11 +160,11 @@ BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::detail_waypoint::Waypoin
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_waypoint::WaypointInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::detail_waypoint::WaypointInterface, boost::serialization::track_never)
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaypointBase)
-BOOST_CLASS_TRACKING(tesseract_planning::WaypointBase, boost::serialization::track_never)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaypointPolyBase)
+BOOST_CLASS_TRACKING(tesseract_planning::WaypointPolyBase, boost::serialization::track_never)
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::Waypoint)
-BOOST_CLASS_TRACKING(tesseract_planning::Waypoint, boost::serialization::track_never);
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaypointPoly)
+BOOST_CLASS_TRACKING(tesseract_planning::WaypointPoly, boost::serialization::track_never);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAYPOINT_H

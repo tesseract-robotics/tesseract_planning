@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/move_instruction.h> /** @todo Remove after refactor is complete */
 namespace tesseract_planning
 {
-bool moveFilter(const Instruction& instruction,
+bool moveFilter(const InstructionPoly& instruction,
                 const CompositeInstruction& /*composite*/,
                 bool parent_is_first_composite)
 {
@@ -98,12 +98,15 @@ MoveInstructionPoly& CompositeInstruction::getStartInstruction()
 
 bool CompositeInstruction::hasStartInstruction() const { return (!isNullInstruction(start_instruction_)); }
 
-void CompositeInstruction::setInstructions(std::vector<tesseract_planning::Instruction> instructions)
+void CompositeInstruction::setInstructions(std::vector<tesseract_planning::InstructionPoly> instructions)
 {
   container_.swap(instructions);
 }
-std::vector<tesseract_planning::Instruction>& CompositeInstruction::getInstructions() { return container_; }
-const std::vector<tesseract_planning::Instruction>& CompositeInstruction::getInstructions() const { return container_; }
+std::vector<tesseract_planning::InstructionPoly>& CompositeInstruction::getInstructions() { return container_; }
+const std::vector<tesseract_planning::InstructionPoly>& CompositeInstruction::getInstructions() const
+{
+  return container_;
+}
 
 void CompositeInstruction::appendMoveInstruction(const MoveInstructionPoly& mi) { push_back(mi); }
 
@@ -111,7 +114,7 @@ void CompositeInstruction::appendMoveInstruction(const MoveInstructionPoly&& mi)
 
 MoveInstructionPoly* CompositeInstruction::getFirstMoveInstruction()
 {
-  Instruction* mi = getFirstInstruction(moveFilter);
+  InstructionPoly* mi = getFirstInstruction(moveFilter);
   if (mi != nullptr)
     return &mi->as<MoveInstructionPoly>();
 
@@ -120,7 +123,7 @@ MoveInstructionPoly* CompositeInstruction::getFirstMoveInstruction()
 
 const MoveInstructionPoly* CompositeInstruction::getFirstMoveInstruction() const
 {
-  const Instruction* mi = getFirstInstruction(moveFilter);
+  const InstructionPoly* mi = getFirstInstruction(moveFilter);
   if (mi != nullptr)
     return &mi->as<MoveInstructionPoly>();
 
@@ -129,7 +132,7 @@ const MoveInstructionPoly* CompositeInstruction::getFirstMoveInstruction() const
 
 MoveInstructionPoly* CompositeInstruction::getLastMoveInstruction()
 {
-  Instruction* mi = getLastInstruction(moveFilter);
+  InstructionPoly* mi = getLastInstruction(moveFilter);
   if (mi != nullptr)
     return &mi->as<MoveInstructionPoly>();
 
@@ -138,7 +141,7 @@ MoveInstructionPoly* CompositeInstruction::getLastMoveInstruction()
 
 const MoveInstructionPoly* CompositeInstruction::getLastMoveInstruction() const
 {
-  const Instruction* mi = getLastInstruction(moveFilter);
+  const InstructionPoly* mi = getLastInstruction(moveFilter);
   if (mi != nullptr)
     return &mi->as<MoveInstructionPoly>();
 
@@ -147,26 +150,26 @@ const MoveInstructionPoly* CompositeInstruction::getLastMoveInstruction() const
 
 long CompositeInstruction::getMoveInstructionCount() const { return getInstructionCount(moveFilter); }
 
-const Instruction* CompositeInstruction::getFirstInstruction(const locateFilterFn& locate_filter,
-                                                             bool process_child_composites) const
+const InstructionPoly* CompositeInstruction::getFirstInstruction(const locateFilterFn& locate_filter,
+                                                                 bool process_child_composites) const
 {
   return getFirstInstructionHelper(*this, locate_filter, process_child_composites, true);
 }
 
-Instruction* CompositeInstruction::getFirstInstruction(const locateFilterFn& locate_filter,
-                                                       bool process_child_composites)
+InstructionPoly* CompositeInstruction::getFirstInstruction(const locateFilterFn& locate_filter,
+                                                           bool process_child_composites)
 {
   return getFirstInstructionHelper(*this, locate_filter, process_child_composites, true);
 }
 
-const Instruction* CompositeInstruction::getLastInstruction(const locateFilterFn& locate_filter,
-                                                            bool process_child_composites) const
+const InstructionPoly* CompositeInstruction::getLastInstruction(const locateFilterFn& locate_filter,
+                                                                bool process_child_composites) const
 {
   return getLastInstructionHelper(*this, locate_filter, process_child_composites, true);
 }
 
-Instruction* CompositeInstruction::getLastInstruction(const locateFilterFn& locate_filter,
-                                                      bool process_child_composites)
+InstructionPoly* CompositeInstruction::getLastInstruction(const locateFilterFn& locate_filter,
+                                                          bool process_child_composites)
 {
   return getLastInstructionHelper(*this, locate_filter, process_child_composites, true);
 }
@@ -176,33 +179,33 @@ long CompositeInstruction::getInstructionCount(const locateFilterFn& locate_filt
   return getInstructionCountHelper(*this, locate_filter, process_child_composites, true);
 }
 
-std::vector<std::reference_wrapper<Instruction>> CompositeInstruction::flatten(const flattenFilterFn& filter)
+std::vector<std::reference_wrapper<InstructionPoly>> CompositeInstruction::flatten(const flattenFilterFn& filter)
 {
-  std::vector<std::reference_wrapper<Instruction>> flattened;
+  std::vector<std::reference_wrapper<InstructionPoly>> flattened;
   flattenHelper(flattened, *this, filter, true);
   return flattened;
 }
 
-std::vector<std::reference_wrapper<const Instruction>>
+std::vector<std::reference_wrapper<const InstructionPoly>>
 CompositeInstruction::flatten(const flattenFilterFn& filter) const
 {
-  std::vector<std::reference_wrapper<const Instruction>> flattened;
+  std::vector<std::reference_wrapper<const InstructionPoly>> flattened;
   flattenHelper(flattened, *this, filter, true);
   return flattened;
 }
 
-std::vector<std::reference_wrapper<Instruction>>
+std::vector<std::reference_wrapper<InstructionPoly>>
 CompositeInstruction::flattenToPattern(const CompositeInstruction& pattern, const flattenFilterFn& filter)
 {
-  std::vector<std::reference_wrapper<Instruction>> flattened;
+  std::vector<std::reference_wrapper<InstructionPoly>> flattened;
   flattenToPatternHelper(flattened, *this, pattern, filter, true);
   return flattened;
 }
 
-std::vector<std::reference_wrapper<const Instruction>>
+std::vector<std::reference_wrapper<const InstructionPoly>>
 CompositeInstruction::flattenToPattern(const CompositeInstruction& pattern, const flattenFilterFn& filter) const
 {
-  std::vector<std::reference_wrapper<const Instruction>> flattened;
+  std::vector<std::reference_wrapper<const InstructionPoly>> flattened;
   flattenToPatternHelper(flattened, *this, pattern, filter, true);
   return flattened;
 }
@@ -339,10 +342,11 @@ void CompositeInstruction::swap(std::vector<value_type>& other) { container_.swa
 /// Helper functions
 //////////////////////////////////
 
-const Instruction* CompositeInstruction::getFirstInstructionHelper(const CompositeInstruction& composite_instruction,
-                                                                   const locateFilterFn& locate_filter,
-                                                                   bool process_child_composites,
-                                                                   bool first_composite) const
+const InstructionPoly*
+CompositeInstruction::getFirstInstructionHelper(const CompositeInstruction& composite_instruction,
+                                                const locateFilterFn& locate_filter,
+                                                bool process_child_composites,
+                                                bool first_composite) const
 {
   if (composite_instruction.hasStartInstruction())
     if (!locate_filter ||
@@ -358,7 +362,7 @@ const Instruction* CompositeInstruction::getFirstInstructionHelper(const Composi
 
       if (isCompositeInstruction(instruction))
       {
-        const Instruction* result = getFirstInstructionHelper(
+        const InstructionPoly* result = getFirstInstructionHelper(
             instruction.as<CompositeInstruction>(), locate_filter, process_child_composites, false);
         if (result != nullptr)
           return result;
@@ -375,10 +379,10 @@ const Instruction* CompositeInstruction::getFirstInstructionHelper(const Composi
   return nullptr;
 }
 
-Instruction* CompositeInstruction::getFirstInstructionHelper(CompositeInstruction& composite_instruction,
-                                                             const locateFilterFn& locate_filter,
-                                                             bool process_child_composites,
-                                                             bool first_composite)
+InstructionPoly* CompositeInstruction::getFirstInstructionHelper(CompositeInstruction& composite_instruction,
+                                                                 const locateFilterFn& locate_filter,
+                                                                 bool process_child_composites,
+                                                                 bool first_composite)
 {
   if (composite_instruction.hasStartInstruction())
     if (!locate_filter ||
@@ -394,7 +398,7 @@ Instruction* CompositeInstruction::getFirstInstructionHelper(CompositeInstructio
 
       if (isCompositeInstruction(instruction))
       {
-        Instruction* result = getFirstInstructionHelper(
+        InstructionPoly* result = getFirstInstructionHelper(
             instruction.as<CompositeInstruction>(), locate_filter, process_child_composites, false);
         if (result != nullptr)
           return result;
@@ -411,10 +415,10 @@ Instruction* CompositeInstruction::getFirstInstructionHelper(CompositeInstructio
   return nullptr;
 }
 
-const Instruction* CompositeInstruction::getLastInstructionHelper(const CompositeInstruction& composite_instruction,
-                                                                  const locateFilterFn& locate_filter,
-                                                                  bool process_child_composites,
-                                                                  bool first_composite) const
+const InstructionPoly* CompositeInstruction::getLastInstructionHelper(const CompositeInstruction& composite_instruction,
+                                                                      const locateFilterFn& locate_filter,
+                                                                      bool process_child_composites,
+                                                                      bool first_composite) const
 {
   if (process_child_composites)
   {
@@ -425,7 +429,7 @@ const Instruction* CompositeInstruction::getLastInstructionHelper(const Composit
 
       if (isCompositeInstruction(*it))
       {
-        const Instruction* result =
+        const InstructionPoly* result =
             getLastInstructionHelper(it->as<CompositeInstruction>(), locate_filter, process_child_composites, false);
         if (result != nullptr)
           return result;
@@ -452,10 +456,10 @@ const Instruction* CompositeInstruction::getLastInstructionHelper(const Composit
   return nullptr;
 }
 
-Instruction* CompositeInstruction::getLastInstructionHelper(CompositeInstruction& composite_instruction,
-                                                            const locateFilterFn& locate_filter,
-                                                            bool process_child_composites,
-                                                            bool first_composite)
+InstructionPoly* CompositeInstruction::getLastInstructionHelper(CompositeInstruction& composite_instruction,
+                                                                const locateFilterFn& locate_filter,
+                                                                bool process_child_composites,
+                                                                bool first_composite)
 {
   if (process_child_composites)
   {
@@ -466,7 +470,7 @@ Instruction* CompositeInstruction::getLastInstructionHelper(CompositeInstruction
 
       if (isCompositeInstruction(*it))
       {
-        Instruction* result =
+        InstructionPoly* result =
             getLastInstructionHelper(it->as<CompositeInstruction>(), locate_filter, process_child_composites, false);
         if (result != nullptr)
           return result;
@@ -525,7 +529,7 @@ long CompositeInstruction::getInstructionCountHelper(const CompositeInstruction&
   return cnt;
 }
 
-void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<Instruction>>& flattened,
+void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<InstructionPoly>>& flattened,
                                          CompositeInstruction& composite,
                                          const flattenFilterFn& filter,
                                          bool first_composite)
@@ -553,7 +557,7 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<Inst
   }
 }
 
-void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<const Instruction>>& flattened,
+void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<const InstructionPoly>>& flattened,
                                          const CompositeInstruction& composite,
                                          const flattenFilterFn& filter,
                                          bool first_composite) const
@@ -581,7 +585,7 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<cons
   }
 }
 
-void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wrapper<Instruction>>& flattened,
+void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wrapper<InstructionPoly>>& flattened,
                                                   CompositeInstruction& composite,
                                                   const CompositeInstruction& pattern,
                                                   const flattenFilterFn& filter,
@@ -617,7 +621,7 @@ void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wra
   }
 }
 
-void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wrapper<const Instruction>>& flattened,
+void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wrapper<const InstructionPoly>>& flattened,
                                                   const CompositeInstruction& composite,
                                                   const CompositeInstruction& pattern,
                                                   const flattenFilterFn& filter,

@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/taskflow_container.h>
 #include <tesseract_motion_planners/core/types.h>
 
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/instruction_poly.h>
 
 #ifdef SWIG
 %shared_ptr(tesseract_planning::ProcessPlanningProblem)
@@ -66,10 +66,10 @@ struct ProcessPlanningProblem
   tesseract_environment::Environment::ConstPtr env;
 
   /** @brief The stored input to the process */
-  std::unique_ptr<Instruction> input{ nullptr };
+  std::unique_ptr<InstructionPoly> input{ nullptr };
 
   /** @brief The results to the process */
-  std::unique_ptr<Instruction> results{ nullptr };
+  std::unique_ptr<InstructionPoly> results{ nullptr };
 
   /** @brief The stored global manipulator info */
   std::unique_ptr<const tesseract_common::ManipulatorInfo> global_manip_info{ nullptr };

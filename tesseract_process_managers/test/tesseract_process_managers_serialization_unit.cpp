@@ -217,8 +217,8 @@ TEST(TesseractProcessManagersSerializeUnit, ProcessPlanningFuture)  // NOLINT
 {
   // Create the test case
   ProcessPlanningFuture request;
-  request.problem->input = std::make_unique<Instruction>(rasterExampleProgram());
-  request.problem->results = std::make_unique<Instruction>(freespaceExampleProgramIIWA());
+  request.problem->input = std::make_unique<InstructionPoly>(rasterExampleProgram());
+  request.problem->results = std::make_unique<InstructionPoly>(freespaceExampleProgramIIWA());
 
   tesseract_common::testSerialization<ProcessPlanningFuture>(request, "ProcessPlanningFuture");
 }

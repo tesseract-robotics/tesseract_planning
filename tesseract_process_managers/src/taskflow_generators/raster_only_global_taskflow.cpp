@@ -68,7 +68,7 @@ TaskflowContainer RasterOnlyGlobalTaskflow::generateTaskflow(TaskInput input,
   container.taskflow = std::make_unique<tf::Taskflow>(name_);
   std::vector<tf::Task> tasks;
 
-  const Instruction* input_instruction = input.getInstruction();
+  const InstructionPoly* input_instruction = input.getInstruction();
   TaskflowContainer sub_container = global_taskflow_generator_->generateTaskflow(
       input,
       [=]() { successTask(input, name_, input_instruction->getDescription(), done_cb); },
@@ -178,7 +178,7 @@ bool RasterOnlyGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInpu
   }
 
   // Check the overall input
-  const Instruction* input_instruction = input.getInstruction();
+  const InstructionPoly* input_instruction = input.getInstruction();
   if (!isCompositeInstruction(*input_instruction))
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");

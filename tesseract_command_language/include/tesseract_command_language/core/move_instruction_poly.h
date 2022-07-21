@@ -34,11 +34,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/instruction_poly.h>
 #include <tesseract_command_language/core/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/core/joint_waypoint_poly.h>
 #include <tesseract_command_language/core/state_waypoint_poly.h>
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/waypoint_poly.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
@@ -155,8 +155,8 @@ struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
   virtual void assignCartesianWaypoint(CartesianWaypointPoly waypoint) = 0;
   virtual void assignJointWaypoint(JointWaypointPoly waypoint) = 0;
   virtual void assignStateWaypoint(StateWaypointPoly waypoint) = 0;
-  virtual Waypoint& getWaypoint() = 0;
-  virtual const Waypoint& getWaypoint() const = 0;
+  virtual WaypointPoly& getWaypoint() = 0;
+  virtual const WaypointPoly& getWaypoint() const = 0;
 
   virtual void setManipulatorInfo(tesseract_common::ManipulatorInfo info) = 0;
   virtual const tesseract_common::ManipulatorInfo& getManipulatorInfo() const = 0;
@@ -203,8 +203,8 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
   }
   void assignJointWaypoint(JointWaypointPoly waypoint) final { this->get().assignJointWaypoint(std::move(waypoint)); }
   void assignStateWaypoint(StateWaypointPoly waypoint) final { this->get().assignStateWaypoint(std::move(waypoint)); }
-  Waypoint& getWaypoint() final { return this->get().getWaypoint(); }
-  const Waypoint& getWaypoint() const final { return this->get().getWaypoint(); };
+  WaypointPoly& getWaypoint() final { return this->get().getWaypoint(); }
+  const WaypointPoly& getWaypoint() const final { return this->get().getWaypoint(); };
 
   void setManipulatorInfo(tesseract_common::ManipulatorInfo info) final
   {
@@ -254,8 +254,8 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   void assignCartesianWaypoint(CartesianWaypointPoly waypoint);
   void assignJointWaypoint(JointWaypointPoly waypoint);
   void assignStateWaypoint(StateWaypointPoly waypoint);
-  Waypoint& getWaypoint();
-  const Waypoint& getWaypoint() const;
+  WaypointPoly& getWaypoint();
+  const WaypointPoly& getWaypoint() const;
 
   void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
   const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;

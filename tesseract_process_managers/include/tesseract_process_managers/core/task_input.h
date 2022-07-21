@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_motion_planners/core/types.h>
 
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/instruction_poly.h>
 #include <tesseract_common/manipulator_info.h>
 
 #include <tesseract_environment/environment.h>
@@ -58,32 +58,32 @@ struct TaskInput
   using ConstPtr = std::shared_ptr<const TaskInput>;
 
   TaskInput(tesseract_environment::Environment::ConstPtr env,
-            const Instruction* instruction,
+            const InstructionPoly* instruction,
             const tesseract_common::ManipulatorInfo& manip_info,
-            Instruction* seed,
+            InstructionPoly* seed,
             bool has_seed,
             ProfileDictionary::ConstPtr profiles);
 
   TaskInput(tesseract_environment::Environment::ConstPtr env,
-            const Instruction* instruction,
+            const InstructionPoly* instruction,
             const tesseract_common::ManipulatorInfo& manip_info,
             const PlannerProfileRemapping& plan_profile_remapping,
             const PlannerProfileRemapping& composite_profile_remapping,
-            Instruction* seed,
+            InstructionPoly* seed,
             bool has_seed,
             ProfileDictionary::ConstPtr profiles);
 
   TaskInput(tesseract_environment::Environment::ConstPtr env,
-            const Instruction* instruction,
+            const InstructionPoly* instruction,
             const PlannerProfileRemapping& plan_profile_remapping,
             const PlannerProfileRemapping& composite_profile_remapping,
-            Instruction* seed,
+            InstructionPoly* seed,
             bool has_seed,
             ProfileDictionary::ConstPtr profiles);
 
   TaskInput(tesseract_environment::Environment::ConstPtr env,
-            const Instruction* instruction,
-            Instruction* seed,
+            const InstructionPoly* instruction,
+            InstructionPoly* seed,
             bool has_seed,
             ProfileDictionary::ConstPtr profiles);
 
@@ -133,13 +133,13 @@ struct TaskInput
    * @brief Get the process inputs instructions
    * @return A const pointer to the instruction
    */
-  const Instruction* getInstruction() const;
+  const InstructionPoly* getInstruction() const;
 
   /**
    * @brief Get the process inputs results instruction
    * @return A pointer to the results instruction
    */
-  Instruction* getResults();
+  InstructionPoly* getResults();
 
   /**
    * @brief Gets the task interface for checking success and aborting active process
@@ -160,13 +160,13 @@ struct TaskInput
    */
   void abort();
 
-  void setStartInstruction(Instruction start);
+  void setStartInstruction(InstructionPoly start);
   void setStartInstruction(std::vector<std::size_t> start);
-  Instruction getStartInstruction() const;
+  InstructionPoly getStartInstruction() const;
 
-  void setEndInstruction(Instruction end);
+  void setEndInstruction(InstructionPoly end);
   void setEndInstruction(std::vector<std::size_t> end);
-  Instruction getEndInstruction() const;
+  InstructionPoly getEndInstruction() const;
 
   void addTaskInfo(TaskInfo::UPtr task_info);
   TaskInfo::UPtr getTaskInfo(const std::size_t& index) const;
@@ -177,22 +177,22 @@ struct TaskInput
 
 protected:
   /** @brief Instructions to be carried out by process */
-  const Instruction* instruction_;
+  const InstructionPoly* instruction_;
 
   /** @brief Results/Seed for this process */
-  Instruction* results_;
+  InstructionPoly* results_;
 
   /** @brief The indices used to access this process inputs instructions and results */
   std::vector<std::size_t> instruction_indice_;
 
   /** @brief This process inputs start instruction */
-  Instruction start_instruction_{ NullInstruction() };
+  InstructionPoly start_instruction_{ NullInstruction() };
 
   /** @brief Indices to the start instruction in the results data structure */
   std::vector<std::size_t> start_instruction_indice_;
 
   /** @brief This process inputs end instruction */
-  Instruction end_instruction_{ NullInstruction() };
+  InstructionPoly end_instruction_{ NullInstruction() };
 
   /** @brief Indices to the end instruction in the results data structure */
   std::vector<std::size_t> end_instruction_indice_;

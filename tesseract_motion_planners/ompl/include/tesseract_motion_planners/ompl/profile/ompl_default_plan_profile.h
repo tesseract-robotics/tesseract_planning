@@ -122,28 +122,28 @@ public:
 
   void applyGoalStates(OMPLProblem& prob,
                        const Eigen::Isometry3d& cartesian_waypoint,
-                       const Instruction& parent_instruction,
+                       const InstructionPoly& parent_instruction,
                        const tesseract_common::ManipulatorInfo& manip_info,
                        const std::vector<std::string>& active_links,
                        int index) const override;
 
   void applyGoalStates(OMPLProblem& prob,
                        const Eigen::VectorXd& joint_waypoint,
-                       const Instruction& parent_instruction,
+                       const InstructionPoly& parent_instruction,
                        const tesseract_common::ManipulatorInfo& manip_info,
                        const std::vector<std::string>& active_links,
                        int index) const override;
 
   void applyStartStates(OMPLProblem& prob,
                         const Eigen::Isometry3d& cartesian_waypoint,
-                        const Instruction& parent_instruction,
+                        const InstructionPoly& parent_instruction,
                         const tesseract_common::ManipulatorInfo& manip_info,
                         const std::vector<std::string>& active_links,
                         int index) const override;
 
   void applyStartStates(OMPLProblem& prob,
                         const Eigen::VectorXd& joint_waypoint,
-                        const Instruction& parent_instruction,
+                        const InstructionPoly& parent_instruction,
                         const tesseract_common::ManipulatorInfo& manip_info,
                         const std::vector<std::string>& active_links,
                         int index) const override;

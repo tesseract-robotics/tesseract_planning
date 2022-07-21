@@ -54,7 +54,7 @@ int UpsampleTrajectoryTaskGenerator::conditionalProcess(TaskInput input, std::si
   saveInputs(*info, input);
 
   // Check that inputs are valid
-  Instruction* input_results = input.getResults();
+  InstructionPoly* input_results = input.getResults();
   if (!isCompositeInstruction(*input_results))
   {
     CONSOLE_BRIDGE_logError("Input seed to UpsampleTrajectoryTaskGenerator must be a composite instruction");
@@ -74,7 +74,7 @@ int UpsampleTrajectoryTaskGenerator::conditionalProcess(TaskInput input, std::si
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
   auto& results = input_results->as<CompositeInstruction>();
-  Instruction start_instruction = results.getStartInstruction();
+  InstructionPoly start_instruction = results.getStartInstruction();
   CompositeInstruction new_results(results);
   new_results.clear();
 
@@ -95,10 +95,10 @@ void UpsampleTrajectoryTaskGenerator::process(TaskInput input, std::size_t uniqu
 
 void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
                                                const CompositeInstruction& current_composite,
-                                               Instruction& start_instruction,
+                                               InstructionPoly& start_instruction,
                                                double longest_valid_segment_length) const
 {
-  for (const Instruction& i : current_composite)
+  for (const InstructionPoly& i : current_composite)
   {
     assert(!isMoveInstruction(i));
     if (isCompositeInstruction(i))

@@ -53,7 +53,7 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
  * @param waypoint The waypoint to try and extract the joint position from
  * @return The joint values
  */
-const Eigen::VectorXd& getJointPosition(const Waypoint& waypoint);
+const Eigen::VectorXd& getJointPosition(const WaypointPoly& waypoint);
 
 /**
  * @brief Gets joint names from waypoints that contain that information.
@@ -63,7 +63,7 @@ const Eigen::VectorXd& getJointPosition(const Waypoint& waypoint);
  * @param waypoint The waypoint to try and extract the joint position from
  * @return The joint names
  */
-const std::vector<std::string>& getJointNames(const Waypoint& waypoint);
+const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint);
 
 /**
  * @brief Get the joint positions ordered by the provided joint names
@@ -77,7 +77,7 @@ const std::vector<std::string>& getJointNames(const Waypoint& waypoint);
  * @param waypoint The waypoint to
  * @return The joint values ordered by the provided joint_names
  */
-Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const Waypoint& waypoint);
+Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint);
 
 /**
  * @brief Format the waypoints joint ordered by the provided joint names
@@ -91,7 +91,7 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
  * @param waypoint The waypoint to format
  * @return True if formatting was required, otherwise false.
  */
-bool formatJointPosition(const std::vector<std::string>& joint_names, Waypoint& waypoint);
+bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint);
 
 /**
  * @brief Check the waypoints joint order against the provided joint names
@@ -105,7 +105,7 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, Waypoint& 
  * @param waypoint The waypoint to check format
  * @return True if waypoint format is correct, otherwise false.
  */
-bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const Waypoint& waypoint);
+bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint);
 
 /**
  * @brief Set the joint position for waypoints that contain that information
@@ -113,7 +113,7 @@ bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const
  * @param position Joint position
  * @return true if successful (if the waypoint is a supported type)
  */
-bool setJointPosition(Waypoint& waypoint, const Eigen::Ref<const Eigen::VectorXd>& position);
+bool setJointPosition(WaypointPoly& waypoint, const Eigen::Ref<const Eigen::VectorXd>& position);
 
 /**
  * @brief Checks if a waypoint is
@@ -121,7 +121,7 @@ bool setJointPosition(Waypoint& waypoint, const Eigen::Ref<const Eigen::VectorXd
  * @param limits Matrix2d of limits with first column being lower limits and second column being upper limits
  * @return True if the waypoit falls within the joint limits
  */
-bool isWithinJointLimits(const Waypoint& wp, const Eigen::Ref<const Eigen::MatrixX2d>& limits);
+bool isWithinJointLimits(const WaypointPoly& wp, const Eigen::Ref<const Eigen::MatrixX2d>& limits);
 
 /**
  * @brief Clamps a waypoint to be within joint limits
@@ -131,7 +131,7 @@ bool isWithinJointLimits(const Waypoint& wp, const Eigen::Ref<const Eigen::Matri
  * @return True if successful or if the waypoint doesn't contain that information.
  */
 #ifndef SWIG
-bool clampToJointLimits(Waypoint& wp,
+bool clampToJointLimits(WaypointPoly& wp,
                         const Eigen::Ref<const Eigen::MatrixX2d>& limits,
                         double max_deviation = (std::numeric_limits<double>::max)());
 #else
@@ -147,7 +147,7 @@ bool clampToJointLimits(Waypoint& wp,
  * @param max_deviation. Max deviation that will be clamped
  * @return True if successful or if the waypoint doesn't contain that information.
  */
-bool clampToJointLimits(Waypoint& wp,
+bool clampToJointLimits(WaypointPoly& wp,
                         const Eigen::Ref<const Eigen::MatrixX2d>& limits,
                         const Eigen::Ref<const Eigen::VectorXd>& max_deviation);
 

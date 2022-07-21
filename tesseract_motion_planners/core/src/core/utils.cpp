@@ -45,7 +45,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-Eigen::Isometry3d calcPose(const Waypoint& wp,
+Eigen::Isometry3d calcPose(const WaypointPoly& wp,
                            const std::string& working_frame,
                            const std::string& tip_link,
                            const Eigen::Isometry3d& tcp,
@@ -80,7 +80,7 @@ Eigen::Isometry3d calcPose(const Waypoint& wp,
   throw std::runtime_error("toToolpath: Unsupported Waypoint Type!");
 }
 
-tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tesseract_environment::Environment& env)
+tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction, const tesseract_environment::Environment& env)
 {
   using namespace tesseract_planning;
 
@@ -97,13 +97,13 @@ tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tess
     assert(!ci.getManipulatorInfo().empty());
     const tesseract_common::ManipulatorInfo& composite_mi = ci.getManipulatorInfo();
 
-    std::vector<std::reference_wrapper<const Instruction>> fi = ci.flatten(moveFilter);
+    std::vector<std::reference_wrapper<const InstructionPoly>> fi = ci.flatten(moveFilter);
     for (const auto& i : fi)
     {
       tesseract_common::ManipulatorInfo manip_info;
 
       // Check for updated manipulator information and get waypoint
-      Waypoint wp{ NullWaypoint() };
+      WaypointPoly wp{ NullWaypoint() };
       if (isMoveInstruction(i.get()))
       {
         const auto& mi = i.get().as<MoveInstructionPoly>();
@@ -195,7 +195,7 @@ Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
   return result;
 }
 
-std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint& stop, long steps)
+std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const WaypointPoly& stop, long steps)
 {
   if (isCartesianWaypoint(start))
   {
@@ -203,7 +203,7 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
     const auto& cwp2 = stop.as<CartesianWaypointPoly>();
     tesseract_common::VectorIsometry3d eigen_poses = interpolate(cwp1.getTransform(), cwp2.getTransform(), steps);
 
-    std::vector<Waypoint> result;
+    std::vector<WaypointPoly> result;
     result.reserve(eigen_poses.size());
     for (auto& eigen_pose : eigen_poses)
     {
@@ -223,7 +223,7 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
     // TODO: Should check joint names are in the same order
     Eigen::MatrixXd joint_poses = interpolate(jwp1.getPosition(), jwp2.getPosition(), steps);
 
-    std::vector<Waypoint> result;
+    std::vector<WaypointPoly> result;
     result.reserve(static_cast<std::size_t>(joint_poses.cols()));
     for (int i = 0; i < joint_poses.cols(); ++i)
     {
@@ -239,7 +239,7 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
   return {};
 }
 
-bool programFlattenFilter(const Instruction& instruction,
+bool programFlattenFilter(const InstructionPoly& instruction,
                           const CompositeInstruction& /*composite*/,
                           bool parent_is_first_composite)
 {
@@ -256,23 +256,24 @@ bool programFlattenFilter(const Instruction& instruction,
   return true;
 };
 
-std::vector<std::reference_wrapper<Instruction>> flattenProgram(CompositeInstruction& composite_instruction)
+std::vector<std::reference_wrapper<InstructionPoly>> flattenProgram(CompositeInstruction& composite_instruction)
 {
   return composite_instruction.flatten(programFlattenFilter);
 }
 
-std::vector<std::reference_wrapper<const Instruction>> flattenProgram(const CompositeInstruction& composite_instruction)
+std::vector<std::reference_wrapper<const InstructionPoly>>
+flattenProgram(const CompositeInstruction& composite_instruction)
 {
   return composite_instruction.flatten(programFlattenFilter);
 }
 
-std::vector<std::reference_wrapper<Instruction>> flattenProgramToPattern(CompositeInstruction& composite_instruction,
-                                                                         const CompositeInstruction& pattern)
+std::vector<std::reference_wrapper<InstructionPoly>>
+flattenProgramToPattern(CompositeInstruction& composite_instruction, const CompositeInstruction& pattern)
 {
   return composite_instruction.flattenToPattern(pattern, programFlattenFilter);
 }
 
-std::vector<std::reference_wrapper<const Instruction>>
+std::vector<std::reference_wrapper<const InstructionPoly>>
 flattenProgramToPattern(const CompositeInstruction& composite_instruction, const CompositeInstruction& pattern)
 {
   return composite_instruction.flattenToPattern(pattern, programFlattenFilter);
@@ -296,7 +297,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     assert(config.longest_valid_segment_length > 0);
 
     // Flatten results
-    std::vector<std::reference_wrapper<const Instruction>> mi = program.flatten(moveFilter);
+    std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
 
     contacts.resize(mi.size() - 1);
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
@@ -398,7 +399,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     bool found = false;
 
     // Flatten results
-    std::vector<std::reference_wrapper<const Instruction>> mi = program.flatten(moveFilter);
+    std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
 
     contacts.resize(mi.size() - 1);
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
@@ -458,7 +459,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     assert(config.longest_valid_segment_length > 0);
 
     // Flatten results
-    std::vector<std::reference_wrapper<const Instruction>> mi = program.flatten(moveFilter);
+    std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
 
     contacts.resize(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size(); ++iStep)
@@ -554,7 +555,7 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   else
   {
     // Flatten results
-    std::vector<std::reference_wrapper<const Instruction>> mi = program.flatten(moveFilter);
+    std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
 
     contacts.resize(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)

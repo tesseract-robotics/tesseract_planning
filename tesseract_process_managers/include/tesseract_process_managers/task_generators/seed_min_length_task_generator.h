@@ -58,7 +58,7 @@ public:
 private:
   void subdivide(CompositeInstruction& composite,
                  const CompositeInstruction& current_composite,
-                 Instruction& start_instruction,
+                 InstructionPoly& start_instruction,
                  int subdivisions) const;
 };
 

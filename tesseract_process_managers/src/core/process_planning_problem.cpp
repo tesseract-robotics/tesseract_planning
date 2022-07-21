@@ -51,10 +51,10 @@ void ProcessPlanningProblem::copy(const ProcessPlanningProblem& other)
   name = other.name;
   env = other.env;
   if (other.input != nullptr)
-    input = std::make_unique<Instruction>(*other.input);
+    input = std::make_unique<InstructionPoly>(*other.input);
 
   if (other.results != nullptr)
-    results = std::make_unique<Instruction>(*other.results);
+    results = std::make_unique<InstructionPoly>(*other.results);
 
   if (other.global_manip_info != nullptr)
     global_manip_info = std::make_unique<tesseract_common::ManipulatorInfo>(*other.global_manip_info);

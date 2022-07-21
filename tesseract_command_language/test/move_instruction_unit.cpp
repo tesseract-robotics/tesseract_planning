@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/core/instruction_poly.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
 #include <tesseract_command_language/null_instruction.h>
@@ -144,7 +144,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, setters)  // NOLINT
 
   StateWaypoint test_swp(jn, 5 * jv);
   instr.assignStateWaypoint(test_swp);
-  EXPECT_EQ(instr.getWaypoint(), test_swp);
+  EXPECT_EQ(instr.getWaypoint().as<StateWaypointPoly>().as<StateWaypoint>(), test_swp);
 
   instr.setMoveType(MoveInstructionType::LINEAR);
   EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);

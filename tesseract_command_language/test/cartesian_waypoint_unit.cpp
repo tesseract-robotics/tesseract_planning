@@ -69,25 +69,36 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)  // NOLI
 
   CartesianWaypoint cw(pose);
 
-  Waypoint wp{ NullWaypoint() };
-  wp = cw;
-  tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp, "/tmp/cartesian_waypoint_boost.xml");
+  CartesianWaypointPoly wp{ cw };
+  tesseract_common::Serialization::toArchiveFileXML<CartesianWaypointPoly>(wp, "/tmp/cartesian_waypoint_boost.xml");
 
-  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<Waypoint>("/tmp/cartesian_waypoint_boost.xml");
+  auto nwp = tesseract_common::Serialization::fromArchiveFileXML<CartesianWaypointPoly>("/tmp/"
+                                                                                        "cartesian_waypoint_boost.xml");
 
   EXPECT_TRUE(cw == nwp.as<CartesianWaypoint>());
 }
 
 inline void SerializeDeserializeTest(const CartesianWaypointPoly& wp)
 {
-  tesseract_common::Serialization::toArchiveFileXML<Waypoint>(wp,
-                                                              tesseract_common::getTempPath() + "cartesian_waypoint_"
-                                                                                                "unit.xml");
+  tesseract_common::Serialization::toArchiveFileXML<CartesianWaypointPoly>(wp,
+                                                                           tesseract_common::getTempPath() + "cartesian"
+                                                                                                             "_"
+                                                                                                             "waypoint_"
+                                                                                                             "unit."
+                                                                                                             "xml");
   auto deserialized =
-      tesseract_common::Serialization::fromArchiveFileXML<Waypoint>(tesseract_common::getTempPath() + "cartesian_"
-                                                                                                      "waypoint_unit."
-                                                                                                      "xml");
-  EXPECT_TRUE(wp == deserialized.as<CartesianWaypointPoly>());
+      tesseract_common::Serialization::fromArchiveFileXML<CartesianWaypointPoly>(tesseract_common::getTempPath() + "car"
+                                                                                                                   "tes"
+                                                                                                                   "ian"
+                                                                                                                   "_"
+                                                                                                                   "way"
+                                                                                                                   "poi"
+                                                                                                                   "nt_"
+                                                                                                                   "uni"
+                                                                                                                   "t."
+                                                                                                                   "xm"
+                                                                                                                   "l");
+  EXPECT_TRUE(wp == deserialized);
 }
 
 TEST(TesseractCommandLanguageCartesianWaypointUnit, equalityOperatorAndSerialization)  // NOLINT

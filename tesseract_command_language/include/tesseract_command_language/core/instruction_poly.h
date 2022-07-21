@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/waypoint_poly.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
 
@@ -151,11 +151,11 @@ private:
 
 namespace tesseract_planning
 {
-using InstructionBase = tesseract_common::TypeErasureBase<detail_instruction::InstructionInterface,
-                                                          detail_instruction::InstructionInstance>;
-struct Instruction : InstructionBase
+using InstructionPolyBase = tesseract_common::TypeErasureBase<detail_instruction::InstructionInterface,
+                                                              detail_instruction::InstructionInstance>;
+struct InstructionPoly : InstructionPolyBase
 {
-  using InstructionBase::InstructionBase;
+  using InstructionPolyBase::InstructionPolyBase;
 
   const std::string& getDescription() const;
 
@@ -180,11 +180,11 @@ BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::detail_instruction::Inst
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_instruction::InstructionInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::detail_instruction::InstructionInterface, boost::serialization::track_never)
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionBase)
-BOOST_CLASS_TRACKING(tesseract_planning::InstructionBase, boost::serialization::track_never)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionPolyBase)
+BOOST_CLASS_TRACKING(tesseract_planning::InstructionPolyBase, boost::serialization::track_never)
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::Instruction)
-BOOST_CLASS_TRACKING(tesseract_planning::Instruction, boost::serialization::track_never);
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionPoly)
+BOOST_CLASS_TRACKING(tesseract_planning::InstructionPoly, boost::serialization::track_never);
 #endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H

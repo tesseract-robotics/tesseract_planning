@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/waypoint_poly.h>
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>

@@ -59,7 +59,7 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
   // --------------------
   // Check that inputs are valid
   // --------------------
-  Instruction* input_results = input.getResults();
+  InstructionPoly* input_results = input.getResults();
   if (!isCompositeInstruction(*input_results))
   {
     info->message = "Input seed to ContinuousContactCheckTaskGenerator must be a composite instruction";

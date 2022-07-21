@@ -11,18 +11,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-JointWaypoint::JointWaypoint(const std::vector<std::string>& names, const Eigen::VectorXd& position)
-  : names_(names), position_(position)
+// NOLINTNEXTLINE(modernize-pass-by-value)
+JointWaypoint::JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position)
+  : names_(std::move(names)), position_(position)
 {
   if (static_cast<Eigen::Index>(names_.size()) != position_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
 
-JointWaypoint::JointWaypoint(const std::vector<std::string>& names,
-                             const Eigen::VectorXd& position,
-                             const Eigen::VectorXd& lower_tol,
-                             const Eigen::VectorXd& upper_tol)
-  : names_(names), position_(position), lower_tolerance_(lower_tol), upper_tolerance_(upper_tol)
+JointWaypoint::JointWaypoint(std::vector<std::string> names,
+                             const Eigen::VectorXd& position,   // NOLINT(modernize-pass-by-value)
+                             const Eigen::VectorXd& lower_tol,  // NOLINT(modernize-pass-by-value)
+                             const Eigen::VectorXd& upper_tol)  // NOLINT(modernize-pass-by-value)
+  : names_(std::move(names)), position_(position), lower_tolerance_(lower_tol), upper_tolerance_(upper_tol)
 {
   if (static_cast<Eigen::Index>(names_.size()) != position_.size() || position_.size() != lower_tolerance_.size() ||
       position_.size() != upper_tolerance_.size())

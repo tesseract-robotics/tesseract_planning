@@ -189,13 +189,13 @@ CompositeInstruction getProgram()
   return program;
 }
 
-std::vector<Waypoint> createVectorStateWaypointPoly()
+std::vector<WaypointPoly> createVectorStateWaypointPoly()
 {
-  std::vector<Waypoint> results;
+  std::vector<WaypointPoly> results;
   results.reserve(1000);
   for (std::size_t i = 0; i < 1000; ++i)
   {
-    Waypoint wp1 = JointWaypoint({ "j1", "j2", "j3", "j4", "j5", "j6" }, Eigen::VectorXd::Ones(6));
+    WaypointPoly wp1 = JointWaypoint({ "j1", "j2", "j3", "j4", "j5", "j6" }, Eigen::VectorXd::Ones(6));
 
     results.push_back(std::move(wp1));
   }
@@ -219,7 +219,7 @@ std::vector<std::unique_ptr<StateWaypoint>> createVectorStateWaypointUPtr()
 static void BM_InstructionPolyCreation(benchmark::State& state)
 {
   for (auto _ : state)
-    Instruction i{ NullInstruction() };
+    InstructionPoly i{ NullInstruction() };
 }
 
 BENCHMARK(BM_InstructionPolyCreation);
@@ -227,7 +227,7 @@ BENCHMARK(BM_InstructionPolyCreation);
 static void BM_WaypointPolyCreation(benchmark::State& state)
 {
   for (auto _ : state)
-    Waypoint w{ NullWaypoint() };
+    WaypointPoly w{ NullWaypoint() };
 }
 
 BENCHMARK(BM_WaypointPolyCreation);
@@ -250,18 +250,18 @@ BENCHMARK(BM_ProgramCreation);
 
 static void BM_InstructionPolyCopy(benchmark::State& state)
 {
-  Instruction i{ MoveInstruction() };
+  InstructionPoly i{ MoveInstruction() };
   for (auto _ : state)
-    Instruction copy(i);
+    InstructionPoly copy(i);
 }
 
 BENCHMARK(BM_InstructionPolyCopy);
 
 static void BM_WaypointPolyCopy(benchmark::State& state)
 {
-  Waypoint w{ StateWaypoint() };
+  WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
-    Waypoint copy(w);
+    WaypointPoly copy(w);
 }
 
 BENCHMARK(BM_WaypointPolyCopy);
@@ -277,18 +277,18 @@ BENCHMARK(BM_CompositeInstructionCopy);
 
 static void BM_InstructionPolyAssign(benchmark::State& state)
 {
-  Instruction i{ MoveInstruction() };
+  InstructionPoly i{ MoveInstruction() };
   for (auto _ : state)
-    Instruction copy = i;
+    InstructionPoly copy = i;
 }
 
 BENCHMARK(BM_InstructionPolyAssign);
 
 static void BM_WaypointPolyAssign(benchmark::State& state)
 {
-  Waypoint w{ StateWaypoint() };
+  WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
-    Waypoint copy = w;
+    WaypointPoly copy = w;
 }
 
 BENCHMARK(BM_WaypointPolyAssign);
@@ -304,7 +304,7 @@ BENCHMARK(BM_CompositeInstructionAssign);
 
 static void BM_InstructionPolyCast(benchmark::State& state)
 {
-  Instruction i{ MoveInstruction() };
+  InstructionPoly i{ MoveInstruction() };
   for (auto _ : state)
     auto& mi = i.as<MoveInstruction>();  // NOLINT
 }
@@ -313,7 +313,7 @@ BENCHMARK(BM_InstructionPolyCast);
 
 static void BM_WaypointPolyCast(benchmark::State& state)
 {
-  Waypoint w{ StateWaypoint() };
+  WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
     auto& sw = w.as<StateWaypoint>();  // NOLINT
 }
@@ -322,7 +322,7 @@ BENCHMARK(BM_WaypointPolyCast);
 
 static void BM_InstructionPolyAccess(benchmark::State& state)
 {
-  Instruction i{ MoveInstruction() };
+  InstructionPoly i{ MoveInstruction() };
   for (auto _ : state)
     const std::string& description = i.getDescription();  // NOLINT
 }
@@ -331,7 +331,7 @@ BENCHMARK(BM_InstructionPolyAccess);
 
 static void BM_WaypointPolyAccess(benchmark::State& state)
 {
-  Waypoint w{ StateWaypoint() };
+  WaypointPoly w{ StateWaypoint() };
   for (auto _ : state)
     std::type_index type = w.getType();
 }
@@ -341,7 +341,7 @@ BENCHMARK(BM_WaypointPolyAccess);
 static void BM_VectorStateWaypointPolyCreation(benchmark::State& state)
 {
   for (auto _ : state)
-    std::vector<Waypoint> w = createVectorStateWaypointPoly();
+    std::vector<WaypointPoly> w = createVectorStateWaypointPoly();
 }
 
 BENCHMARK(BM_VectorStateWaypointPolyCreation);
@@ -356,9 +356,9 @@ BENCHMARK(BM_VectorStateWaypointUPtrCreation);
 
 static void BM_VectorStateWaypointPolyCopy(benchmark::State& state)
 {
-  std::vector<Waypoint> w = createVectorStateWaypointPoly();
+  std::vector<WaypointPoly> w = createVectorStateWaypointPoly();
   for (auto _ : state)
-    std::vector<Waypoint> copy(w);
+    std::vector<WaypointPoly> copy(w);
 }
 
 BENCHMARK(BM_VectorStateWaypointPolyCopy);

@@ -56,7 +56,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   saveInputs(*info, input);
 
   // Check that inputs are valid
-  Instruction* input_results = input.getResults();
+  InstructionPoly* input_results = input.getResults();
   if (!isCompositeInstruction(*input_results))
   {
     CONSOLE_BRIDGE_logError("Input seed to SeedMinLengthTaskGenerator must be a composite instruction");
@@ -85,7 +85,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 1;
   }
 
-  Instruction start_instruction = results.getStartInstruction();
+  InstructionPoly start_instruction = results.getStartInstruction();
   auto subdivisions =
       static_cast<int>(std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt))) +
       1;
@@ -111,10 +111,10 @@ void SeedMinLengthTaskGenerator::process(TaskInput input, std::size_t unique_id)
 
 void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
                                            const CompositeInstruction& current_composite,
-                                           Instruction& start_instruction,
+                                           InstructionPoly& start_instruction,
                                            int subdivisions) const
 {
-  for (const Instruction& i : current_composite)
+  for (const InstructionPoly& i : current_composite)
   {
     if (isCompositeInstruction(i))
     {

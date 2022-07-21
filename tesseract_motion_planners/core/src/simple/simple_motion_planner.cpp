@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/core/waypoint_poly.h>
 #include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -105,7 +105,7 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
 
   // Initialize
   tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
-  Waypoint start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint{ NullWaypoint() };
 
   // Create seed
   CompositeInstruction seed;
@@ -229,7 +229,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       const auto& base_instruction = instruction.as<MoveInstructionPoly>();
 
       // Get the next plan instruction if it exists
-      Instruction next_instruction = NullInstruction();
+      InstructionPoly next_instruction = NullInstruction();
       for (std::size_t n = i + 1; n < instructions.size(); ++n)
       {
         if (isMoveInstruction(instructions[n]))
