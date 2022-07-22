@@ -14,86 +14,65 @@ Collaboration diagram for tesseract\+\_\+planning\+::Joint\+Waypoint\+:
 \includegraphics[width=200pt]{dc/d0e/classtesseract__planning_1_1JointWaypoint__coll__graph}
 \end{center}
 \end{figure}
-\doxysubsection*{Public Types}
-\begin{DoxyCompactItemize}
-\item 
-using \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a7be5bac313b8a5b357c5b6e52a0844e6}{Const\+Transpose\+Return\+Type}} = Eigen\+::\+Vector\+Xd\+::\+Const\+Transpose\+Return\+Type
-\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 EIGEN\+\_\+\+MAKE\+\_\+\+ALIGNED\+\_\+\+OPERATOR\+\_\+\+NEW \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a18f43d3b65b93369e0531dd50d006b93}{Joint\+Waypoint}} ()=default
 \item 
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a090b67f80dad1ebe118cfad8fadbb4ef}{Joint\+Waypoint}} (std\+::vector$<$ std\+::string $>$ names, const Eigen\+::\+Vector\+Xd \&position)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ae6a6eb9dadf33ef106213bdb10efa3df}{Joint\+Waypoint}} (std\+::vector$<$ std\+::string $>$ names, const Eigen\+::\+Vector\+Xd \&position, const Eigen\+::\+Vector\+Xd \&lower\+\_\+tol, const Eigen\+::\+Vector\+Xd \&upper\+\_\+tol)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_aa60a73359dfeb8d7c06e63c8e8e55aea}{Joint\+Waypoint}} (std\+::initializer\+\_\+list$<$ std\+::string $>$ names, std\+::initializer\+\_\+list$<$ double $>$ position)
+\item 
+\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a7fc11a325dac1bc5732ed12f9e019591}{Joint\+Waypoint}} (std\+::initializer\+\_\+list$<$ std\+::string $>$ names, std\+::initializer\+\_\+list$<$ double $>$ position, std\+::initializer\+\_\+list$<$ double $>$ lower\+\_\+tol, std\+::initializer\+\_\+list$<$ double $>$ upper\+\_\+tol)
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ad6d91c02aabc8a584f3fa248c3129ff2}{set\+Names}} (const std\+::vector$<$ std\+::string $>$ \&names)
+\item 
+std\+::vector$<$ std\+::string $>$ \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_aa51bccaad5691cf315b48a36d7adf3db}{get\+Names}} ()
+\item 
+const std\+::vector$<$ std\+::string $>$ \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a764370cea129185350d894ba6b6ea667}{get\+Names}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a90d8143f76082ee540f986554393ff6e}{set\+Position}} (const Eigen\+::\+Vector\+Xd \&position)
+\item 
+Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a38a87b12e325174dce5b821e76f82bf7}{get\+Position}} ()
+\item 
+const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a9b324732a297d46e249ec23277cb879a}{get\+Position}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ae3d2de8bd57febeb8acf28650db9bd53}{set\+Upper\+Tolerance}} (const Eigen\+::\+Vector\+Xd \&upper\+\_\+tol)
+\item 
+Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a1e5f0351238b4e6d8fe106fb76738f77}{get\+Upper\+Tolerance}} ()
+\item 
+const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ad3a8893384aa2e2468cb6efef99b4ddc}{get\+Upper\+Tolerance}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_aab7460ec1ba0e80491156a8acf9882b8}{set\+Lower\+Tolerance}} (const Eigen\+::\+Vector\+Xd \&lower\+\_\+tol)
+\item 
+Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a6506502692ad83ccea2b92678ddcbacf}{get\+Lower\+Tolerance}} ()
+\item 
+const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a8fce8d031239e29665cd09c4818c8c06}{get\+Lower\+Tolerance}} () const
+\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a3eb945ed7a65bcad5725ee6a014e73c4}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
 \item 
-{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_abb48c6942b551fc5846c40da1f952f29}{Joint\+Waypoint}} (std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a9924c18bddc6f7d393ab25de245a4eb9}{joint\+\_\+names}}, const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_af6e82e274ebe8b50dd6b7cf1d2914cd2}{Joint\+Waypoint}} (std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a9924c18bddc6f7d393ab25de245a4eb9}{joint\+\_\+names}}, std\+::initializer\+\_\+list$<$ double $>$ l)
-\item 
-Eigen\+::\+Index \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a6dc4ac21db865d41851190726bf80fb3}{size}} () const
-\item 
-double \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ab5a984c7c4ed90227568f37c25439370}{norm}} () const
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a8822ad720ff03c68be6abeaf60a5239a}{is\+Approx}} (const Eigen\+::\+Vector\+Xd \&other, double prec=1e-\/12)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a7be5bac313b8a5b357c5b6e52a0844e6}{Const\+Transpose\+Return\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_aa15423d3d30152df241659b125564158}{transpose}} () const
-\item 
-{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ac7a2d24eb37ec2151b55a332fa0cacb1}{operator=}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other)
-\item 
-{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ae81f8fed39288d2fb3cb1d4914908ce3}{operator$\ast$=}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other)
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a468ea5e32a93c20f46c6cb2797b1dfbe}{operator=}} (std\+::initializer\+\_\+list$<$ double $>$ l)
-\item 
-{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_af840cac7b417cd396ad97a1493f347fb}{operator$\ast$}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other) const
-\item 
-{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a9b537ef32e2f6b9cb6834b1dc2bee27d}{operator-\/}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other) const
-\item 
-{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_acef6dde4121f0def1cb9603833e37e9f}{operator+}} (const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&other) const
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a86d502300c0ca92ccf208084ef5371a1}{operator-\/}} (const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&other) const
-\item 
-{\footnotesize template$<$typename Other\+Derived $>$ }\\\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a4044f3f92a2d2cdfbf98608e393a8008}{operator+}} (const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&other) const
-\item 
-Eigen\+::\+Comma\+Initializer$<$ Eigen\+::\+Vector\+Xd $>$ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5ca47a784548ff6c88e26cc59c46b3ef}{operator$<$$<$}} (const double \&s)
-\item 
-double \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5cf1d81a1d122a0fa3462df7be0049c2}{operator\mbox{[}$\,$\mbox{]}}} (Eigen\+::\+Index i)
-\item 
-double \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a0cf419185eaf6e54e674533c5ca32788}{operator\mbox{[}$\,$\mbox{]}}} (Eigen\+::\+Index i) const
-\item 
-double \& \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a708fa243a50c185c7a50ad1fc368a6ff}{operator()}} (Eigen\+::\+Index i)
-\item 
-double \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a094405e4d78d2c474c801c3e98a4d54b}{operator()}} (Eigen\+::\+Index i) const
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_aecdd49d9474ca59f8a9d356bebccdcf9}{operator const Eigen\+::\+Vector\+Xd \&}} () const
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ae3c01340bb4b416ce2723118ee308185}{operator Eigen\+::\+Vector\+Xd \&}} ()
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_aaf0982b980a91f37f2d9af315d3ab9fb}{operator Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$}} () const
-\item 
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a29ca000c300d2e73523534f124dbb658}{operator Eigen\+::\+Ref$<$ Eigen\+::\+Vector\+Xd $>$}} ()
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a6270ec59caa862e325e3a75f3ec8caf1}{is\+Toleranced}} () const
-\begin{DoxyCompactList}\small\item\em Returns true if waypoint is toleranced. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a2180aa1ac798934993d7855ea344388e}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&rhs) const
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a17c2c799d8f7fc0c31f35e149e0c371d}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&rhs) const
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}{waypoint}}
-\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a9924c18bddc6f7d393ab25de245a4eb9}{joint\+\_\+names}}
-\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_aeaded3eb09bc692617a5a8fcde0767fe}{lower\+\_\+tolerance}}
-\begin{DoxyCompactList}\small\item\em Joint distance below waypoint that is allowed. Each element should be \texorpdfstring{$<$}{<}= 0. \end{DoxyCompactList}\item 
-Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_afae1cdc8b5a952c209b98f5523421ca7}{upper\+\_\+tolerance}}
-\begin{DoxyCompactList}\small\item\em Joint distance above waypoint that is allowed. Each element should be \texorpdfstring{$>$}{>}= 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Private Member Functions}
+\doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ad922d23596612be6fc494701448d4897}{serialize}} (Archive \&ar, const unsigned int version)
 \end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a28183557f1776d2fc878a651e22ab188}{names\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The names of the joints. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a1e74faea725931a5d6eaa55ef05e8be4}{position\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The position of the joints. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a52dc3634462f04d0fe306d61be7050ba}{lower\+\_\+tolerance\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Joint distance below position that is allowed. Each element should be \texorpdfstring{$<$}{<}= 0. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a66da0f8405d1e8859b64dfe517ce7e23}{upper\+\_\+tolerance\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Joint distance above position that is allowed. Each element should be \texorpdfstring{$>$}{>}= 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -101,200 +80,99 @@ class \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_ac98d07dd8f7b70
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a7be5bac313b8a5b357c5b6e52a0844e6}\label{classtesseract__planning_1_1JointWaypoint_a7be5bac313b8a5b357c5b6e52a0844e6}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!ConstTransposeReturnType@{ConstTransposeReturnType}}
-\index{ConstTransposeReturnType@{ConstTransposeReturnType}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{ConstTransposeReturnType}{ConstTransposeReturnType}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a7be5bac313b8a5b357c5b6e52a0844e6}{tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::\+Const\+Transpose\+Return\+Type}} =  Eigen\+::\+Vector\+Xd\+::\+Const\+Transpose\+Return\+Type}
-
-
-
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a18f43d3b65b93369e0531dd50d006b93}\label{classtesseract__planning_1_1JointWaypoint_a18f43d3b65b93369e0531dd50d006b93}} 
 \index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!JointWaypoint@{JointWaypoint}}
 \index{JointWaypoint@{JointWaypoint}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{JointWaypoint()}{JointWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{JointWaypoint()}{JointWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
 {\footnotesize\ttfamily EIGEN\+\_\+\+MAKE\+\_\+\+ALIGNED\+\_\+\+OPERATOR\+\_\+\+NEW tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::\+Joint\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_abb48c6942b551fc5846c40da1f952f29}\label{classtesseract__planning_1_1JointWaypoint_abb48c6942b551fc5846c40da1f952f29}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a090b67f80dad1ebe118cfad8fadbb4ef}\label{classtesseract__planning_1_1JointWaypoint_a090b67f80dad1ebe118cfad8fadbb4ef}} 
 \index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!JointWaypoint@{JointWaypoint}}
 \index{JointWaypoint@{JointWaypoint}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{JointWaypoint()}{JointWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
-tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{joint\+\_\+names,  }\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\doxysubsubsection{\texorpdfstring{JointWaypoint()}{JointWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{names,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{position }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_af6e82e274ebe8b50dd6b7cf1d2914cd2}\label{classtesseract__planning_1_1JointWaypoint_af6e82e274ebe8b50dd6b7cf1d2914cd2}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_ae6a6eb9dadf33ef106213bdb10efa3df}\label{classtesseract__planning_1_1JointWaypoint_ae6a6eb9dadf33ef106213bdb10efa3df}} 
 \index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!JointWaypoint@{JointWaypoint}}
 \index{JointWaypoint@{JointWaypoint}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{JointWaypoint()}{JointWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{joint\+\_\+names,  }\item[{std\+::initializer\+\_\+list$<$ double $>$}]{l }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\doxysubsubsection{\texorpdfstring{JointWaypoint()}{JointWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{names,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{position,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{lower\+\_\+tol,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{upper\+\_\+tol }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_aa60a73359dfeb8d7c06e63c8e8e55aea}\label{classtesseract__planning_1_1JointWaypoint_aa60a73359dfeb8d7c06e63c8e8e55aea}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!JointWaypoint@{JointWaypoint}}
+\index{JointWaypoint@{JointWaypoint}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{JointWaypoint()}{JointWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ std\+::string $>$}]{names,  }\item[{std\+::initializer\+\_\+list$<$ double $>$}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a7fc11a325dac1bc5732ed12f9e019591}\label{classtesseract__planning_1_1JointWaypoint_a7fc11a325dac1bc5732ed12f9e019591}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!JointWaypoint@{JointWaypoint}}
+\index{JointWaypoint@{JointWaypoint}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{JointWaypoint()}{JointWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ std\+::string $>$}]{names,  }\item[{std\+::initializer\+\_\+list$<$ double $>$}]{position,  }\item[{std\+::initializer\+\_\+list$<$ double $>$}]{lower\+\_\+tol,  }\item[{std\+::initializer\+\_\+list$<$ double $>$}]{upper\+\_\+tol }\end{DoxyParamCaption})}
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a8822ad720ff03c68be6abeaf60a5239a}\label{classtesseract__planning_1_1JointWaypoint_a8822ad720ff03c68be6abeaf60a5239a}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!isApprox@{isApprox}}
-\index{isApprox@{isApprox}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{isApprox()}{isApprox()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::is\+Approx (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{other,  }\item[{double}]{prec = {\ttfamily 1e-\/12} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a6506502692ad83ccea2b92678ddcbacf}\label{classtesseract__planning_1_1JointWaypoint_a6506502692ad83ccea2b92678ddcbacf}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!getLowerTolerance@{getLowerTolerance}}
+\index{getLowerTolerance@{getLowerTolerance}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{getLowerTolerance()}{getLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::get\+Lower\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\begin{DoxyReturn}{Returns}
-true if two are approximate 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a6270ec59caa862e325e3a75f3ec8caf1}\label{classtesseract__planning_1_1JointWaypoint_a6270ec59caa862e325e3a75f3ec8caf1}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!isToleranced@{isToleranced}}
-\index{isToleranced@{isToleranced}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{isToleranced()}{isToleranced()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::is\+Toleranced (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a8fce8d031239e29665cd09c4818c8c06}\label{classtesseract__planning_1_1JointWaypoint_a8fce8d031239e29665cd09c4818c8c06}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!getLowerTolerance@{getLowerTolerance}}
+\index{getLowerTolerance@{getLowerTolerance}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{getLowerTolerance()}{getLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::get\+Lower\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_aa51bccaad5691cf315b48a36d7adf3db}\label{classtesseract__planning_1_1JointWaypoint_aa51bccaad5691cf315b48a36d7adf3db}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!getNames@{getNames}}
+\index{getNames@{getNames}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{getNames()}{getNames()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::get\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a764370cea129185350d894ba6b6ea667}\label{classtesseract__planning_1_1JointWaypoint_a764370cea129185350d894ba6b6ea667}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!getNames@{getNames}}
+\index{getNames@{getNames}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{getNames()}{getNames()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const std\+::vector$<$ std\+::string $>$ \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::get\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-Returns true if waypoint is toleranced. 
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a38a87b12e325174dce5b821e76f82bf7}\label{classtesseract__planning_1_1JointWaypoint_a38a87b12e325174dce5b821e76f82bf7}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\begin{DoxyReturn}{Returns}
-True if waypoint is toleranced 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_ab5a984c7c4ed90227568f37c25439370}\label{classtesseract__planning_1_1JointWaypoint_ab5a984c7c4ed90227568f37c25439370}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!norm@{norm}}
-\index{norm@{norm}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{norm()}{norm()}}
-{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::norm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a9b324732a297d46e249ec23277cb879a}\label{classtesseract__planning_1_1JointWaypoint_a9b324732a297d46e249ec23277cb879a}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-\begin{DoxyReturn}{Returns}
-norm of vector 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_aecdd49d9474ca59f8a9d356bebccdcf9}\label{classtesseract__planning_1_1JointWaypoint_aecdd49d9474ca59f8a9d356bebccdcf9}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator const Eigen::VectorXd \&@{operator const Eigen::VectorXd \&}}
-\index{operator const Eigen::VectorXd \&@{operator const Eigen::VectorXd \&}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator const Eigen::VectorXd \&()}{operator const Eigen::VectorXd \&()}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator const Eigen\+::\+Vector\+Xd \& (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a1e5f0351238b4e6d8fe106fb76738f77}\label{classtesseract__planning_1_1JointWaypoint_a1e5f0351238b4e6d8fe106fb76738f77}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!getUpperTolerance@{getUpperTolerance}}
+\index{getUpperTolerance@{getUpperTolerance}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{getUpperTolerance()}{getUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\begin{DoxyReturn}{Returns}
-Implicit Conversions to read-\/only Eigen\+::\+Vector\+Xd 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_aaf0982b980a91f37f2d9af315d3ab9fb}\label{classtesseract__planning_1_1JointWaypoint_aaf0982b980a91f37f2d9af315d3ab9fb}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator Eigen::Ref$<$ const Eigen::VectorXd $>$@{operator Eigen::Ref$<$ const Eigen::VectorXd $>$}}
-\index{operator Eigen::Ref$<$ const Eigen::VectorXd $>$@{operator Eigen::Ref$<$ const Eigen::VectorXd $>$}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator Eigen::Ref$<$ const Eigen::VectorXd $>$()}{operator Eigen::Ref< const Eigen::VectorXd >()}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_ad3a8893384aa2e2468cb6efef99b4ddc}\label{classtesseract__planning_1_1JointWaypoint_ad3a8893384aa2e2468cb6efef99b4ddc}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!getUpperTolerance@{getUpperTolerance}}
+\index{getUpperTolerance@{getUpperTolerance}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{getUpperTolerance()}{getUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-\begin{DoxyReturn}{Returns}
-Implicit Conversions to read-\/only Eigen\+::\+Vector\+Xd 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a29ca000c300d2e73523534f124dbb658}\label{classtesseract__planning_1_1JointWaypoint_a29ca000c300d2e73523534f124dbb658}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator Eigen::Ref$<$ Eigen::VectorXd $>$@{operator Eigen::Ref$<$ Eigen::VectorXd $>$}}
-\index{operator Eigen::Ref$<$ Eigen::VectorXd $>$@{operator Eigen::Ref$<$ Eigen::VectorXd $>$}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator Eigen::Ref$<$ Eigen::VectorXd $>$()}{operator Eigen::Ref< Eigen::VectorXd >()}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator Eigen\+::\+Ref$<$ Eigen\+::\+Vector\+Xd $>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\begin{DoxyReturn}{Returns}
-Implicit Conversions to writable Eigen\+::\+Vector\+Xd 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_ae3c01340bb4b416ce2723118ee308185}\label{classtesseract__planning_1_1JointWaypoint_ae3c01340bb4b416ce2723118ee308185}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator Eigen::VectorXd \&@{operator Eigen::VectorXd \&}}
-\index{operator Eigen::VectorXd \&@{operator Eigen::VectorXd \&}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator Eigen::VectorXd \&()}{operator Eigen::VectorXd \&()}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator Eigen\+::\+Vector\+Xd \& (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\begin{DoxyReturn}{Returns}
-Implicit Conversions to writable Eigen\+::\+Vector\+Xd 
-\end{DoxyReturn}
 \mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a17c2c799d8f7fc0c31f35e149e0c371d}\label{classtesseract__planning_1_1JointWaypoint_a17c2c799d8f7fc0c31f35e149e0c371d}} 
 \index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
 \doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&}]{rhs }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a708fa243a50c185c7a50ad1fc368a6ff}\label{classtesseract__planning_1_1JointWaypoint_a708fa243a50c185c7a50ad1fc368a6ff}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator()@{operator()}}
-\index{operator()@{operator()}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily double \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator() (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a094405e4d78d2c474c801c3e98a4d54b}\label{classtesseract__planning_1_1JointWaypoint_a094405e4d78d2c474c801c3e98a4d54b}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator()@{operator()}}
-\index{operator()@{operator()}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator() (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_af840cac7b417cd396ad97a1493f347fb}\label{classtesseract__planning_1_1JointWaypoint_af840cac7b417cd396ad97a1493f347fb}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator$\ast$@{operator$\ast$}}
-\index{operator$\ast$@{operator$\ast$}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
-{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_ae81f8fed39288d2fb3cb1d4914908ce3}\label{classtesseract__planning_1_1JointWaypoint_ae81f8fed39288d2fb3cb1d4914908ce3}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator$\ast$=@{operator$\ast$=}}
-\index{operator$\ast$=@{operator$\ast$=}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}}
-{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_acef6dde4121f0def1cb9603833e37e9f}\label{classtesseract__planning_1_1JointWaypoint_acef6dde4121f0def1cb9603833e37e9f}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator+@{operator+}}
-\index{operator+@{operator+}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator+ (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a4044f3f92a2d2cdfbf98608e393a8008}\label{classtesseract__planning_1_1JointWaypoint_a4044f3f92a2d2cdfbf98608e393a8008}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator+@{operator+}}
-\index{operator+@{operator+}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a9b537ef32e2f6b9cb6834b1dc2bee27d}\label{classtesseract__planning_1_1JointWaypoint_a9b537ef32e2f6b9cb6834b1dc2bee27d}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator-\/@{operator-\/}}
-\index{operator-\/@{operator-\/}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator-\/ (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a86d502300c0ca92ccf208084ef5371a1}\label{classtesseract__planning_1_1JointWaypoint_a86d502300c0ca92ccf208084ef5371a1}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator-\/@{operator-\/}}
-\index{operator-\/@{operator-\/}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a5ca47a784548ff6c88e26cc59c46b3ef}\label{classtesseract__planning_1_1JointWaypoint_a5ca47a784548ff6c88e26cc59c46b3ef}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator$<$$<$@{operator$<$$<$}}
-\index{operator$<$$<$@{operator$<$$<$}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
-{\footnotesize\ttfamily Eigen\+::\+Comma\+Initializer$<$ Eigen\+::\+Vector\+Xd $>$ tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{const double \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_ac7a2d24eb37ec2151b55a332fa0cacb1}\label{classtesseract__planning_1_1JointWaypoint_ac7a2d24eb37ec2151b55a332fa0cacb1}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator=@{operator=}}
-\index{operator=@{operator=}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename Other\+Derived $>$ \\
-\mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator= (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Other\+Derived $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a468ea5e32a93c20f46c6cb2797b1dfbe}\label{classtesseract__planning_1_1JointWaypoint_a468ea5e32a93c20f46c6cb2797b1dfbe}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator=@{operator=}}
-\index{operator=@{operator=}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator= (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ double $>$}]{l }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
 \mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a2180aa1ac798934993d7855ea344388e}\label{classtesseract__planning_1_1JointWaypoint_a2180aa1ac798934993d7855ea344388e}} 
 \index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator==@{operator==}}
 \index{operator==@{operator==}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
 {\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&}]{rhs }\end{DoxyParamCaption}) const}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a5cf1d81a1d122a0fa3462df7be0049c2}\label{classtesseract__planning_1_1JointWaypoint_a5cf1d81a1d122a0fa3462df7be0049c2}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator\mbox{[}\mbox{]}@{operator[]}}
-\index{operator\mbox{[}\mbox{]}@{operator[]}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily double \& tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a0cf419185eaf6e54e674533c5ca32788}\label{classtesseract__planning_1_1JointWaypoint_a0cf419185eaf6e54e674533c5ca32788}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!operator\mbox{[}\mbox{]}@{operator[]}}
-\index{operator\mbox{[}\mbox{]}@{operator[]}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily double tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{Eigen\+::\+Index}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a3eb945ed7a65bcad5725ee6a014e73c4}\label{classtesseract__planning_1_1JointWaypoint_a3eb945ed7a65bcad5725ee6a014e73c4}} 
 \index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!print@{print}}
@@ -307,26 +185,32 @@ Implicit Conversions to writable Eigen\+::\+Vector\+Xd
 \index{serialize@{serialize}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
 {\footnotesize\ttfamily template$<$class Archive $>$ \\
-void tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+void tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a6dc4ac21db865d41851190726bf80fb3}\label{classtesseract__planning_1_1JointWaypoint_a6dc4ac21db865d41851190726bf80fb3}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!size@{size}}
-\index{size@{size}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{size()}{size()}}
-{\footnotesize\ttfamily Eigen\+::\+Index tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_aab7460ec1ba0e80491156a8acf9882b8}\label{classtesseract__planning_1_1JointWaypoint_aab7460ec1ba0e80491156a8acf9882b8}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!setLowerTolerance@{setLowerTolerance}}
+\index{setLowerTolerance@{setLowerTolerance}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{setLowerTolerance()}{setLowerTolerance()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::set\+Lower\+Tolerance (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{lower\+\_\+tol }\end{DoxyParamCaption})}
 
-\begin{DoxyReturn}{Returns}
-true if two are approximate 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_aa15423d3d30152df241659b125564158}\label{classtesseract__planning_1_1JointWaypoint_aa15423d3d30152df241659b125564158}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!transpose@{transpose}}
-\index{transpose@{transpose}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{transpose()}{transpose()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint_a7be5bac313b8a5b357c5b6e52a0844e6}{Const\+Transpose\+Return\+Type}} tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::transpose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_ad6d91c02aabc8a584f3fa248c3129ff2}\label{classtesseract__planning_1_1JointWaypoint_ad6d91c02aabc8a584f3fa248c3129ff2}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!setNames@{setNames}}
+\index{setNames@{setNames}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{setNames()}{setNames()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::set\+Names (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{names }\end{DoxyParamCaption})}
 
-\begin{DoxyReturn}{Returns}
-the transpose of the joint positions 
-\end{DoxyReturn}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a90d8143f76082ee540f986554393ff6e}\label{classtesseract__planning_1_1JointWaypoint_a90d8143f76082ee540f986554393ff6e}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::set\+Position (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_ae3d2de8bd57febeb8acf28650db9bd53}\label{classtesseract__planning_1_1JointWaypoint_ae3d2de8bd57febeb8acf28650db9bd53}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!setUpperTolerance@{setUpperTolerance}}
+\index{setUpperTolerance@{setUpperTolerance}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{setUpperTolerance()}{setUpperTolerance()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::set\+Upper\+Tolerance (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{upper\+\_\+tol }\end{DoxyParamCaption})}
+
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -339,37 +223,45 @@ the transpose of the joint positions
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a9924c18bddc6f7d393ab25de245a4eb9}\label{classtesseract__planning_1_1JointWaypoint_a9924c18bddc6f7d393ab25de245a4eb9}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!joint\_names@{joint\_names}}
-\index{joint\_names@{joint\_names}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{joint\_names}{joint\_names}}
-{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::joint\+\_\+names}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_aeaded3eb09bc692617a5a8fcde0767fe}\label{classtesseract__planning_1_1JointWaypoint_aeaded3eb09bc692617a5a8fcde0767fe}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!lower\_tolerance@{lower\_tolerance}}
-\index{lower\_tolerance@{lower\_tolerance}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{lower\_tolerance}{lower\_tolerance}}
-{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::lower\+\_\+tolerance}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a52dc3634462f04d0fe306d61be7050ba}\label{classtesseract__planning_1_1JointWaypoint_a52dc3634462f04d0fe306d61be7050ba}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!lower\_tolerance\_@{lower\_tolerance\_}}
+\index{lower\_tolerance\_@{lower\_tolerance\_}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{lower\_tolerance\_}{lower\_tolerance\_}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::lower\+\_\+tolerance\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Joint distance below waypoint that is allowed. Each element should be \texorpdfstring{$<$}{<}= 0. 
+Joint distance below position that is allowed. Each element should be \texorpdfstring{$<$}{<}= 0. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_afae1cdc8b5a952c209b98f5523421ca7}\label{classtesseract__planning_1_1JointWaypoint_afae1cdc8b5a952c209b98f5523421ca7}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!upper\_tolerance@{upper\_tolerance}}
-\index{upper\_tolerance@{upper\_tolerance}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{upper\_tolerance}{upper\_tolerance}}
-{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::upper\+\_\+tolerance}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a28183557f1776d2fc878a651e22ab188}\label{classtesseract__planning_1_1JointWaypoint_a28183557f1776d2fc878a651e22ab188}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!names\_@{names\_}}
+\index{names\_@{names\_}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{names\_}{names\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::names\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Joint distance above waypoint that is allowed. Each element should be \texorpdfstring{$>$}{>}= 0. 
+The names of the joints. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}\label{classtesseract__planning_1_1JointWaypoint_a5c68db2a587e0863d6668de170e88587}} 
-\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!waypoint@{waypoint}}
-\index{waypoint@{waypoint}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
-\doxysubsubsection{\texorpdfstring{waypoint}{waypoint}}
-{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::waypoint}
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a1e74faea725931a5d6eaa55ef05e8be4}\label{classtesseract__planning_1_1JointWaypoint_a1e74faea725931a5d6eaa55ef05e8be4}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!position\_@{position\_}}
+\index{position\_@{position\_}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{position\_}{position\_}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::position\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The position of the joints. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1JointWaypoint_a66da0f8405d1e8859b64dfe517ce7e23}\label{classtesseract__planning_1_1JointWaypoint_a66da0f8405d1e8859b64dfe517ce7e23}} 
+\index{tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}!upper\_tolerance\_@{upper\_tolerance\_}}
+\index{upper\_tolerance\_@{upper\_tolerance\_}!tesseract\_planning::JointWaypoint@{tesseract\_planning::JointWaypoint}}
+\doxysubsubsection{\texorpdfstring{upper\_tolerance\_}{upper\_tolerance\_}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd tesseract\+\_\+planning\+::\+Joint\+Waypoint\+::upper\+\_\+tolerance\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Joint distance above position that is allowed. Each element should be \texorpdfstring{$>$}{>}= 0. 
 
 
 

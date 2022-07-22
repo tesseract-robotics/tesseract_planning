@@ -1,0 +1,136 @@
+\hypertarget{waypoint__poly_8h}{}\doxysection{tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/poly/waypoint\+\_\+poly.h File Reference}
+\label{waypoint__poly_8h}\index{tesseract\_command\_language/include/tesseract\_command\_language/poly/waypoint\_poly.h@{tesseract\_command\_language/include/tesseract\_command\_language/poly/waypoint\_poly.h}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$typeindex$>$}\newline
+{\ttfamily \#include $<$boost/serialization/base\+\_\+object.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/serialization/export.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/type\+\_\+erasure.\+h$>$}\newline
+Include dependency graph for waypoint\+\_\+poly.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d61/waypoint__poly_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/deb/waypoint__poly_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Concept$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInterface}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Interface}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance}{tesseract\+\_\+planning\+::detail\+\_\+waypoint\+::\+Waypoint\+Instance$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{tesseract\+\_\+planning\+::\+Waypoint\+Poly}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning_1_1detail__waypoint}{tesseract\+\_\+planning\+::detail\+\_\+waypoint}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{waypoint__poly_8h_a0da884b648f0ad59d58613085d694a41}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY}}(N,  C)
+\begin{DoxyCompactList}\small\item\em If shared library, this must go in the header after the class definition. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{waypoint__poly_8h_a58125b44bed0fd40b9d476f146b49959}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+IMPLEMENT}}(inst)
+\begin{DoxyCompactList}\small\item\em If shared library, this must go in the cpp after the implicit instantiation of the serialize function. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{waypoint__poly_8h_a9e9eddae9e5a1f2bf5c27bc4db11c774}{TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT}}(N,  C)
+\begin{DoxyCompactList}\small\item\em This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_abedb1dd50c00d7cc68eb78a77edb249e}{tesseract\+\_\+planning\+::\+Waypoint\+Poly\+Base}} = tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$ detail\+\_\+waypoint\+::\+Waypoint\+Interface, detail\+\_\+waypoint\+::\+Waypoint\+Instance $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}} (\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{tesseract\+\_\+planning\+::\+Waypoint\+Poly}}, boost\+::serialization\+::track\+\_\+never)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{waypoint__poly_8h_a9e9eddae9e5a1f2bf5c27bc4db11c774}\label{waypoint__poly_8h_a9e9eddae9e5a1f2bf5c27bc4db11c774}} 
+\index{waypoint\_poly.h@{waypoint\_poly.h}!TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}}
+\index{TESSERACT\_WAYPOINT\_EXPORT@{TESSERACT\_WAYPOINT\_EXPORT}!waypoint\_poly.h@{waypoint\_poly.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT}{TESSERACT\_WAYPOINT\_EXPORT}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{C }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{waypoint__poly_8h_a0da884b648f0ad59d58613085d694a41}{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}(N, C)                                                                                  \(\backslash\)}
+\DoxyCodeLine{  TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT(N::C)}
+
+\end{DoxyCode}
+
+
+This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. 
+
+\mbox{\Hypertarget{waypoint__poly_8h_a58125b44bed0fd40b9d476f146b49959}\label{waypoint__poly_8h_a58125b44bed0fd40b9d476f146b49959}} 
+\index{waypoint\_poly.h@{waypoint\_poly.h}!TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT@{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT}}
+\index{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT@{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT}!waypoint\_poly.h@{waypoint\_poly.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT}{TESSERACT\_WAYPOINT\_EXPORT\_IMPLEMENT}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\begin{DoxyParamCaption}\item[{}]{inst }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceBase)                                                                     \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#Instance)                                                                         \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceWrapper)}
+
+\end{DoxyCode}
+
+
+If shared library, this must go in the cpp after the implicit instantiation of the serialize function. 
+
+\mbox{\Hypertarget{waypoint__poly_8h_a0da884b648f0ad59d58613085d694a41}\label{waypoint__poly_8h_a0da884b648f0ad59d58613085d694a41}} 
+\index{waypoint\_poly.h@{waypoint\_poly.h}!TESSERACT\_WAYPOINT\_EXPORT\_KEY@{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}
+\index{TESSERACT\_WAYPOINT\_EXPORT\_KEY@{TESSERACT\_WAYPOINT\_EXPORT\_KEY}!waypoint\_poly.h@{waypoint\_poly.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_WAYPOINT\_EXPORT\_KEY}{TESSERACT\_WAYPOINT\_EXPORT\_KEY}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+WAYPOINT\+\_\+\+EXPORT\+\_\+\+KEY(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{C }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{namespace }N                                                                                                          \(\backslash\)}
+\DoxyCodeLine{  \{                                                                                                                    \(\backslash\)}
+\DoxyCodeLine{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}
+\DoxyCodeLine{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_waypoint::WaypointInterface>;                \(\backslash\)}
+\DoxyCodeLine{  using C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__waypoint_1_1WaypointInstance}{tesseract\_planning::detail\_waypoint::WaypointInstance<C>}};                                        \(\backslash\)}
+\DoxyCodeLine{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
+\DoxyCodeLine{  \}                                                                                                                    \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceWrapper)                                                                        \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceBase, boost::serialization::track\_never)                                          \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#Instance, boost::serialization::track\_never)                                              \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceWrapper, boost::serialization::track\_never)}
+
+\end{DoxyCode}
+
+
+If shared library, this must go in the header after the class definition. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}\label{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}} 
+\index{waypoint\_poly.h@{waypoint\_poly.h}!BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}}
+\index{BOOST\_CLASS\_TRACKING@{BOOST\_CLASS\_TRACKING}!waypoint\_poly.h@{waypoint\_poly.h}}
+\doxysubsubsection{\texorpdfstring{BOOST\_CLASS\_TRACKING()}{BOOST\_CLASS\_TRACKING()}}
+{\footnotesize\ttfamily BOOST\+\_\+\+CLASS\+\_\+\+TRACKING (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{tesseract\+\_\+planning\+::\+Waypoint\+Poly}}}]{,  }\item[{boost\+::serialization\+::track\+\_\+never}]{ }\end{DoxyParamCaption})}
+

@@ -2,7 +2,6 @@
 \label{trajopt__ifopt__utils_8cpp}\index{tesseract\_motion\_planners/trajopt\_ifopt/src/trajopt\_ifopt\_utils.cpp@{tesseract\_motion\_planners/trajopt\_ifopt/src/trajopt\_ifopt\_utils.cpp}}
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt\+\_\+ifopt/trajopt\+\_\+ifopt\+\_\+utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/trajopt\+\_\+ifopt/trajopt\+\_\+ifopt\+\_\+problem.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/types.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+collision/core/common.\+h$>$}\newline
 {\ttfamily \#include $<$trajopt\+\_\+ifopt/trajopt\+\_\+ifopt.\+h$>$}\newline
@@ -31,13 +30,13 @@ bool \mbox{\hyperlink{namespacetesseract__planning_ae98255bb1c15bc3373c2bdaa4165
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_aa70ead0956b13c6cadd4c9f0f78210f1}{tesseract\+\_\+planning\+::add\+Cartesian\+Position\+Absolute\+Cost}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr \&var, const tesseract\+\_\+kinematics\+::\+Joint\+Group\+::\+Const\+Ptr \&manip, const std\+::string \&source\+\_\+frame, const std\+::string \&target\+\_\+frame, const Eigen\+::\+Isometry3d \&source\+\_\+frame\+\_\+offset=Eigen\+::\+Isometry3d\+::\+Identity(), const Eigen\+::\+Isometry3d \&target\+\_\+frame\+\_\+offset=Eigen\+::\+Isometry3d\+::\+Identity(), const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&coeffs=Eigen\+::\+Vector\+Xd\+::\+Ones(6))
 \item 
-ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a0ffaf9223773224cc11dfdb59285feed}{tesseract\+\_\+planning\+::create\+Joint\+Position\+Constraint}} (const Joint\+Waypoint \&joint\+\_\+waypoint, const trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr \&var, const Eigen\+::\+Vector\+Xd \&)
+ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a6953f4e7102c1de58aac8f529eb040a6}{tesseract\+\_\+planning\+::create\+Joint\+Position\+Constraint}} (const Joint\+Waypoint\+Poly \&joint\+\_\+waypoint, const trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr \&var, const Eigen\+::\+Vector\+Xd \&)
 \item 
-std\+::vector$<$ ifopt\+::\+Constraint\+Set\+::\+Ptr $>$ \mbox{\hyperlink{namespacetesseract__planning_a2aa911592142af3f76da18b590c5e689}{tesseract\+\_\+planning\+::create\+Collision\+Constraints}} (const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const Manipulator\+Info \&manip\+\_\+info, const trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices)
+std\+::vector$<$ ifopt\+::\+Constraint\+Set\+::\+Ptr $>$ \mbox{\hyperlink{namespacetesseract__planning_a1d14497fee699c7359a467772f931f33}{tesseract\+\_\+planning\+::create\+Collision\+Constraints}} (const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_aea0acfda2d541adc2eea63cca9f65b64}{tesseract\+\_\+planning\+::add\+Collision\+Constraint}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const Manipulator\+Info \&manip\+\_\+info, const trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices)
+bool \mbox{\hyperlink{namespacetesseract__planning_ac6ab589a71a19b4051f8f98e7c74c581}{tesseract\+\_\+planning\+::add\+Collision\+Constraint}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a5583cb5d78e1752c81bd14ad5869393e}{tesseract\+\_\+planning\+::add\+Collision\+Cost}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const Manipulator\+Info \&manip\+\_\+info, const trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices)
+bool \mbox{\hyperlink{namespacetesseract__planning_aab5c5a5cbe62b264e21b05c50e8dd194}{tesseract\+\_\+planning\+::add\+Collision\+Cost}} (trajopt\+\_\+sqp\+::\+QPProblem \&nlp, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const tesseract\+\_\+environment\+::\+Environment\+::\+Const\+Ptr \&env, const tesseract\+\_\+common\+::\+Manipulator\+Info \&manip\+\_\+info, const trajopt\+\_\+ifopt\+::\+Traj\+Opt\+Collision\+Config\+::\+Const\+Ptr \&config, const std\+::vector$<$ int $>$ \&fixed\+\_\+indices)
 \item 
 ifopt\+::\+Constraint\+Set\+::\+Ptr \mbox{\hyperlink{namespacetesseract__planning_a80b38fe22cbfcec32fa79f689abf5fec}{tesseract\+\_\+planning\+::create\+Joint\+Velocity\+Constraint}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&target, const std\+::vector$<$ trajopt\+\_\+ifopt\+::\+Joint\+Position\+::\+Const\+Ptr $>$ \&vars, const Eigen\+::\+Vector\+Xd \&coeffs)
 \item 
@@ -70,7 +69,7 @@ June 18, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000191}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000187}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

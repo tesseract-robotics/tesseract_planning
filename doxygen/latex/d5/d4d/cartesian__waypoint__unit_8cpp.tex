@@ -11,8 +11,8 @@ Contains unit tests for Cartesian\+Waypoint.
 {\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/waypoint.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/cartesian\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
 Include dependency graph for cartesian\+\_\+waypoint\+\_\+unit.\+cpp\+:
 \nopagebreak
@@ -29,7 +29,7 @@ Include dependency graph for cartesian\+\_\+waypoint\+\_\+unit.\+cpp\+:
 \item 
 \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a16411082e4509447894415507001918f}{TEST}} (Tesseract\+Command\+Language\+Cartesian\+Waypoint\+Unit, boost\+Serialization)
 \item 
-void \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a8c52d3aa297068204c8d6e65d2b528ef}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \&wp)
+void \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a45523800e5e8eb5fafc23e825a493642}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \&wp)
 \item 
 \mbox{\hyperlink{cartesian__waypoint__unit_8cpp_a9ee1eda71a2cdabb6a5ef0479c22618f}{TEST}} (Tesseract\+Command\+Language\+Cartesian\+Waypoint\+Unit, equality\+Operator\+And\+Serialization)
 \item 
@@ -52,7 +52,34 @@ February 15, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000039}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000033}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+\end{DoxyParagraph}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+
+Matthew Powelson 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 15, 2021 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000041}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -76,11 +103,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a8c52d3aa297068204c8d6e65d2b528ef}\label{cartesian__waypoint__unit_8cpp_a8c52d3aa297068204c8d6e65d2b528ef}} 
+\mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a45523800e5e8eb5fafc23e825a493642}\label{cartesian__waypoint__unit_8cpp_a45523800e5e8eb5fafc23e825a493642}} 
 \index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!SerializeDeserializeTest@{SerializeDeserializeTest}}
 \index{SerializeDeserializeTest@{SerializeDeserializeTest}!cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{SerializeDeserializeTest()}{SerializeDeserializeTest()}}
-{\footnotesize\ttfamily void Serialize\+Deserialize\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{Cartesian\+Waypoint}} \&}]{wp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void Serialize\+Deserialize\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \&}]{wp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{cartesian__waypoint__unit_8cpp_a16411082e4509447894415507001918f}\label{cartesian__waypoint__unit_8cpp_a16411082e4509447894415507001918f}} 
 \index{cartesian\_waypoint\_unit.cpp@{cartesian\_waypoint\_unit.cpp}!TEST@{TEST}}

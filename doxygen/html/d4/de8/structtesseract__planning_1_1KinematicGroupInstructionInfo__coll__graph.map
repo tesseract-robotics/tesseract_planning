@@ -1,12 +1,7 @@
 <map id="tesseract_planning::KinematicGroupInstructionInfo" name="tesseract_planning::KinematicGroupInstructionInfo">
-<area shape="rect" id="node1" title="The Kinematic Group Instruction Information struct." alt="" coords="1413,54,1617,95"/>
-<area shape="rect" id="node2" href="$da/db5/classtesseract__planning_1_1MoveInstruction.html" title="The move instruction is used when defining the results of a motion planning request." alt="" coords="1171,118,1301,159"/>
-<area shape="rect" id="node3" title=" " alt="" coords="871,155,1025,197"/>
-<area shape="rect" id="node4" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="607,167,737,209"/>
-<area shape="rect" id="node5" title=" " alt="" coords="336,154,507,225"/>
-<area shape="rect" id="node6" title=" " alt="" coords="179,103,257,129"/>
-<area shape="rect" id="node7" title=" " alt="" coords="5,95,129,137"/>
-<area shape="rect" id="node8" title=" " alt="" coords="358,249,485,276"/>
-<area shape="rect" id="node9" href="$d8/d45/structtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="883,225,1013,266"/>
-<area shape="rect" id="node10" title=" " alt="" coords="619,233,725,260"/>
+<area shape="rect" id="node1" title="The Kinematic Group Instruction Information struct." alt="" coords="66,215,270,256"/>
+<area shape="rect" id="node2" href="$d6/df2/structtesseract__planning_1_1MoveInstructionPoly.html" title=" " alt="" coords="27,96,173,137"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,13,176,39"/>
+<area shape="rect" id="node4" title=" " alt="" coords="215,103,294,130"/>
+<area shape="rect" id="node5" title=" " alt="" coords="201,5,325,47"/>
 </map>

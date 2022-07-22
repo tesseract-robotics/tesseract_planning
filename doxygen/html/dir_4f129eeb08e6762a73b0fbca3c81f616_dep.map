@@ -1,9 +1,9 @@
 <map id="tesseract_motion_planners/core/include/tesseract_motion_planners/simple" name="tesseract_motion_planners/core/include/tesseract_motion_planners/simple">
 <area shape="rect" id="node1" href="dir_476cc28bd7381e5e8f3959d958a81953.html" title="core" alt="" coords="71,255,143,303"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000034_000003.html" title="3" alt="" coords="96,227,104,242"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000034_000001.html" title="3" alt="" coords="96,227,104,242"/>
 <area shape="rect" id="node3" href="dir_0f25548acecd5ada8b6ea5c7664145c1.html" title="profile" alt="" coords="101,159,173,207"/>
 <area shape="rect" id="edge1-headlabel" href="dir_000034_000023.html" title="1" alt="" coords="142,133,150,148"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000023_000003.html" title="2" alt="" coords="124,233,132,247"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000023_000001.html" title="2" alt="" coords="124,233,132,247"/>
 <area shape="rect" id="node4" href="dir_fa47c2fa9b13a12fc195f1b83854b816.html" title="tesseract_command_language" alt="" coords="205,255,403,303"/>
 <area shape="rect" id="edge4-headlabel" href="dir_000023_000050.html" title="2" alt="" coords="248,231,256,246"/>
 <area shape="rect" id="clust2" href="dir_4f129eeb08e6762a73b0fbca3c81f616.html" alt="" coords="91,52,184,217"/>

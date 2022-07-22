@@ -84,8 +84,12 @@ $(function() {
 <code>#include &lt;<a class="el" href="../../d7/d74/glass__upright__example_8h_source.html">tesseract_examples/glass_upright_example.h</a>&gt;</code><br />
 <code>#include &lt;tesseract_environment/utils.h&gt;</code><br />
 <code>#include &lt;tesseract_common/timer.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d5/d59/command__language_8h_source.html">tesseract_command_language/command_language.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h_source.html">tesseract_command_language/utils/utils.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d5/df7/composite__instruction_8h_source.html">tesseract_command_language/composite_instruction.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d1/d10/state__waypoint_8h_source.html">tesseract_command_language/state_waypoint.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d3/d18/cartesian__waypoint_8h_source.html">tesseract_command_language/cartesian_waypoint.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d7/d1f/joint__waypoint_8h_source.html">tesseract_command_language/joint_waypoint.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../da/d74/move__instruction_8h_source.html">tesseract_command_language/move_instruction.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h_source.html">tesseract_command_language/utils.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../dc/dd9/process__planning__server_8h_source.html">tesseract_process_managers/core/process_planning_server.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h_source.html">tesseract_motion_planners/core/utils.h</a>&gt;</code><br />
 <code>#include &lt;tesseract_visualization/markers/toolpath_marker.h&gt;</code><br />
@@ -99,56 +103,56 @@ Include dependency graph for glass_upright_example.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d96/glass__upright__example_8cpp__incl.png" border="0" usemap="#atesseract__examples_2src_2glass__upright__example_8cpp" alt=""/></div>
 <map name="atesseract__examples_2src_2glass__upright__example_8cpp" id="atesseract__examples_2src_2glass__upright__example_8cpp">
-<area shape="rect" title="Glass upright example implementation." alt="" coords="2945,5,3149,47"/>
-<area shape="rect" title=" " alt="" coords="1989,711,2179,738"/>
-<area shape="rect" title=" " alt="" coords="3459,102,3592,129"/>
-<area shape="rect" title=" " alt="" coords="3371,191,3539,218"/>
-<area shape="rect" href="../../d7/d74/glass__upright__example_8h.html" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="987,496,1155,537"/>
-<area shape="rect" title=" " alt="" coords="3563,184,3717,225"/>
-<area shape="rect" title=" " alt="" coords="3616,102,3792,129"/>
-<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="3115,377,3314,419"/>
-<area shape="rect" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="2547,184,2746,225"/>
-<area shape="rect" href="../../dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="610,496,819,537"/>
-<area shape="rect" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="3104,95,3283,136"/>
-<area shape="rect" title=" " alt="" coords="3817,95,3997,136"/>
-<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="4021,95,4227,136"/>
-<area shape="rect" href="../../dd/da4/trajopt__ifopt__default__composite__profile_8h.html" title=" " alt="" coords="1603,481,1810,552"/>
-<area shape="rect" href="../../d8/d8f/trajopt__default__composite__profile_8h.html" title=" " alt="" coords="1885,489,2072,545"/>
-<area shape="rect" href="../../dd/d35/trajopt__ifopt__default__plan__profile_8h.html" title=" " alt="" coords="1509,363,1688,433"/>
-<area shape="rect" href="../../d9/da2/trajopt__default__plan__profile_8h.html" title=" " alt="" coords="1307,370,1485,426"/>
-<area shape="rect" title=" " alt="" coords="3205,711,3259,738"/>
-<area shape="rect" href="../../df/d24/example_8h.html" title=" " alt="" coords="743,607,881,649"/>
-<area shape="rect" title=" " alt="" coords="778,711,846,738"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="2742,607,2941,649"/>
-<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="3846,607,4045,649"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="2470,607,2669,649"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2097,496,2295,537"/>
-<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="2247,607,2446,649"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2742,496,2941,537"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="3065,607,3263,649"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="3337,607,3535,649"/>
-<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="1330,496,1529,537"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="2419,496,2618,537"/>
-<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="3387,496,3586,537"/>
-<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="4514,607,4713,649"/>
-<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="4737,607,4935,649"/>
-<area shape="rect" href="../../d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="4069,607,4267,649"/>
-<area shape="rect" href="../../d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="4291,607,4490,649"/>
-<area shape="rect" title=" " alt="" coords="1551,615,1665,641"/>
-<area shape="rect" title=" " alt="" coords="1912,615,1971,641"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="1690,607,1889,649"/>
-<area shape="rect" title=" " alt="" coords="519,711,622,738"/>
-<area shape="rect" title=" " alt="" coords="3559,607,3721,649"/>
-<area shape="rect" title=" " alt="" coords="4960,615,5139,641"/>
-<area shape="rect" title=" " alt="" coords="2420,281,2473,307"/>
-<area shape="rect" href="../../de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="2689,377,2887,419"/>
-<area shape="rect" href="../../d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="2870,273,3069,315"/>
-<area shape="rect" href="../../d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="2547,273,2746,315"/>
-<area shape="rect" title=" " alt="" coords="5,711,152,738"/>
-<area shape="rect" href="../../d5/d51/process__environment__cache_8h.html" title="A process environment cache." alt="" coords="474,600,667,656"/>
-<area shape="rect" href="../../db/d75/taskflow__generator_8h.html" title="Taskflow generator." alt="" coords="226,704,419,745"/>
-<area shape="rect" href="../../dd/ddd/process__planning__request_8h.html" title="A process planning request and default planner names." alt="" coords="956,607,1172,649"/>
-<area shape="rect" href="../../d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="243,607,450,649"/>
+<area shape="rect" title="Glass upright example implementation." alt="" coords="2799,5,3003,47"/>
+<area shape="rect" title=" " alt="" coords="2515,697,2706,723"/>
+<area shape="rect" title=" " alt="" coords="3753,102,3887,129"/>
+<area shape="rect" title=" " alt="" coords="3180,191,3348,218"/>
+<area shape="rect" href="../../d7/d74/glass__upright__example_8h.html" title="An example of a robot with fixed orientation but free to move in cartesian space." alt="" coords="2927,511,3095,552"/>
+<area shape="rect" title=" " alt="" coords="3372,184,3527,225"/>
+<area shape="rect" title=" " alt="" coords="3911,102,4087,129"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="3702,288,3901,329"/>
+<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="2062,407,2261,448"/>
+<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2385,407,2583,448"/>
+<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="1091,407,1290,448"/>
+<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="3479,288,3678,329"/>
+<area shape="rect" href="../../d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="2350,184,2549,225"/>
+<area shape="rect" href="../../dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="551,288,761,329"/>
+<area shape="rect" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2749,95,2928,136"/>
+<area shape="rect" title=" " alt="" coords="4111,95,4291,136"/>
+<area shape="rect" href="../../de/d3a/default__planner__namespaces_8h.html" title="A collection of motion planner profile namespaces." alt="" coords="4316,95,4521,136"/>
+<area shape="rect" href="../../dd/da4/trajopt__ifopt__default__composite__profile_8h.html" title=" " alt="" coords="1619,392,1826,463"/>
+<area shape="rect" href="../../d8/d8f/trajopt__default__composite__profile_8h.html" title=" " alt="" coords="1851,399,2037,455"/>
+<area shape="rect" href="../../dd/d35/trajopt__ifopt__default__plan__profile_8h.html" title=" " alt="" coords="1945,273,2124,344"/>
+<area shape="rect" href="../../d9/da2/trajopt__default__plan__profile_8h.html" title=" " alt="" coords="1315,399,1493,455"/>
+<area shape="rect" title=" " alt="" coords="4245,697,4299,723"/>
+<area shape="rect" href="../../df/d24/example_8h.html" title=" " alt="" coords="972,600,1111,641"/>
+<area shape="rect" title=" " alt="" coords="723,697,791,723"/>
+<area shape="rect" title=" " alt="" coords="857,689,1012,731"/>
+<area shape="rect" title=" " alt="" coords="1489,518,1548,545"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="4095,511,4294,552"/>
+<area shape="rect" href="../../dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="3822,407,4021,448"/>
+<area shape="rect" title=" " alt="" coords="4571,511,4775,552"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="4519,600,4718,641"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="718,407,917,448"/>
+<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="3686,600,3885,641"/>
+<area shape="rect" title=" " alt="" coords="3678,697,3893,723"/>
+<area shape="rect" href="../../d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="3322,511,3526,552"/>
+<area shape="rect" href="../../d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="3550,511,3749,552"/>
+<area shape="rect" href="../../d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="3873,511,4071,552"/>
+<area shape="rect" title=" " alt="" coords="2335,600,2497,641"/>
+<area shape="rect" title=" " alt="" coords="711,518,814,545"/>
+<area shape="rect" title=" " alt="" coords="1817,518,1903,545"/>
+<area shape="rect" title=" " alt="" coords="1623,518,1793,545"/>
+<area shape="rect" title=" " alt="" coords="2572,518,2751,545"/>
+<area shape="rect" title=" " alt="" coords="2180,518,2295,545"/>
+<area shape="rect" title=" " alt="" coords="2423,295,2476,322"/>
+<area shape="rect" title=" " alt="" coords="67,518,213,545"/>
+<area shape="rect" href="../../d5/d51/process__environment__cache_8h.html" title="A process environment cache." alt="" coords="399,399,593,455"/>
+<area shape="rect" href="../../db/d75/taskflow__generator_8h.html" title="Taskflow generator." alt="" coords="238,511,431,552"/>
+<area shape="rect" href="../../dd/ddd/process__planning__request_8h.html" title="A process planning request and default planner names." alt="" coords="2927,407,3143,448"/>
+<area shape="rect" href="../../d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="169,407,375,448"/>
+<area shape="rect" title=" " alt="" coords="2623,184,2801,225"/>
+<area shape="rect" title=" " alt="" coords="2877,184,3054,225"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -162,7 +166,7 @@ Namespaces</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Levi Armstrong </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>July 22, 2019 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000066">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000062">Bug:</a></b></dt><dd>No known bugs</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2017, Southwest Research Institute</dd></dl>
 <dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
@@ -170,7 +174,7 @@ Namespaces</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 23:00:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 22 2022 19:56:15 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

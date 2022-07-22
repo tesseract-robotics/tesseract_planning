@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['omplplanprofilemap_0',['OMPLPlanProfileMap',['../d9/dcd/namespacetesseract__planning.html#a0baf978812f03229209b3f8fe481788a',1,'tesseract_planning']]],
-  ['omplstateextractor_1',['OMPLStateExtractor',['../d9/dcd/namespacetesseract__planning.html#abb4bcd86c07988cf075625fde644e497',1,'tesseract_planning']]],
-  ['optimizationobjectiveallocator_2',['OptimizationObjectiveAllocator',['../d9/dcd/namespacetesseract__planning.html#a7bd709d31d5445aafb082d85b1dced53',1,'tesseract_planning']]]
+  ['manipulatorinfo_0',['ManipulatorInfo',['../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4',1,'tesseract_planning']]],
+  ['motionvalidatorallocator_1',['MotionValidatorAllocator',['../d9/dcd/namespacetesseract__planning.html#a49e2e11b198d0aa7480130b9f18021d5',1,'tesseract_planning']]],
+  ['moveinstructionpolybase_2',['MoveInstructionPolyBase',['../d9/dcd/namespacetesseract__planning.html#a5f936ba77043575a1c18ccbf50f20b18',1,'tesseract_planning']]]
 ];

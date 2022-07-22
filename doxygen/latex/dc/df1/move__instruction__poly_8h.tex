@@ -1,0 +1,184 @@
+\hypertarget{move__instruction__poly_8h}{}\doxysection{tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/poly/move\+\_\+instruction\+\_\+poly.h File Reference}
+\label{move__instruction__poly_8h}\index{tesseract\_command\_language/include/tesseract\_command\_language/poly/move\_instruction\_poly.h@{tesseract\_command\_language/include/tesseract\_command\_language/poly/move\_instruction\_poly.h}}
+
+
+The move instruction interface.  
+
+
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$boost/serialization/base\+\_\+object.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/serialization/export.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/instruction\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/cartesian\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/joint\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/state\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/waypoint\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/manipulator\+\_\+info.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/type\+\_\+erasure.\+h$>$}\newline
+Include dependency graph for move\+\_\+instruction\+\_\+poly.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/db3/move__instruction__poly_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/da8/move__instruction__poly_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept}{tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Concept$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Instance$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{tesseract\+\_\+planning\+::\+Move\+Instruction\+Poly}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning_1_1detail__move__instruction}{tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{move__instruction__poly_8h_a52a6c61b79172607abe926a725d8f47c}{TESSERACT\+\_\+\+MOVE\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}}(N,  C)
+\begin{DoxyCompactList}\small\item\em If shared library, this must go in the header after the class definition. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{move__instruction__poly_8h_a799c20ffbf45f0dfa3bb2482a0bcfba2}{TESSERACT\+\_\+\+MOVE\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT}}(inst)
+\begin{DoxyCompactList}\small\item\em If shared library, this must go in the cpp after the implicit instantiation of the serialize function. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{move__instruction__poly_8h_ac21b2561eae9e61cb0335409342a0bd8}{TESSERACT\+\_\+\+MOVE\+\_\+\+INSTRUCTION\+\_\+\+EXPORT}}(N,  C)
+\begin{DoxyCompactList}\small\item\em This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{tesseract\+\_\+planning\+::\+Move\+Instruction\+Poly\+Base}} = tesseract\+\_\+common\+::\+Type\+Erasure\+Base$<$ detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface, detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Instance $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{tesseract\+\_\+planning\+::\+Move\+Instruction\+Type}} \+: int \{ \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{tesseract\+\_\+planning\+::\+LINEAR}} = 0
+, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{tesseract\+\_\+planning\+::\+FREESPACE}} = 1
+, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68}{tesseract\+\_\+planning\+::\+CIRCULAR}} = 2
+, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{tesseract\+\_\+planning\+::\+START}} = 3
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning \mbox{\hyperlink{move__instruction__poly_8h_aacdf778ed64cb0a5ef4d2b476853c377}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}} (tesseract\+\_\+planning, Move\+Instruction\+Poly)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The move instruction interface. 
+
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 15, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000009}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{move__instruction__poly_8h_ac21b2561eae9e61cb0335409342a0bd8}\label{move__instruction__poly_8h_ac21b2561eae9e61cb0335409342a0bd8}} 
+\index{move\_instruction\_poly.h@{move\_instruction\_poly.h}!TESSERACT\_MOVE\_INSTRUCTION\_EXPORT@{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT}}
+\index{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT@{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT}!move\_instruction\_poly.h@{move\_instruction\_poly.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT}{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+MOVE\+\_\+\+INSTRUCTION\+\_\+\+EXPORT(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{C }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{move__instruction__poly_8h_a52a6c61b79172607abe926a725d8f47c}{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY}}(N, C)                                                                          \(\backslash\)}
+\DoxyCodeLine{  TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT(N::C)}
+
+\end{DoxyCode}
+
+
+This should not be used within shared libraries use the two above. If not in a shared library it can go in header or cpp. 
+
+\mbox{\Hypertarget{move__instruction__poly_8h_a799c20ffbf45f0dfa3bb2482a0bcfba2}\label{move__instruction__poly_8h_a799c20ffbf45f0dfa3bb2482a0bcfba2}} 
+\index{move\_instruction\_poly.h@{move\_instruction\_poly.h}!TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT@{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT}}
+\index{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT@{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT}!move\_instruction\_poly.h@{move\_instruction\_poly.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT}{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+MOVE\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT(\begin{DoxyParamCaption}\item[{}]{inst }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceBase)                                                                     \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#Instance)                                                                         \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceWrapper)}
+
+\end{DoxyCode}
+
+
+If shared library, this must go in the cpp after the implicit instantiation of the serialize function. 
+
+\mbox{\Hypertarget{move__instruction__poly_8h_a52a6c61b79172607abe926a725d8f47c}\label{move__instruction__poly_8h_a52a6c61b79172607abe926a725d8f47c}} 
+\index{move\_instruction\_poly.h@{move\_instruction\_poly.h}!TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY}}
+\index{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY}!move\_instruction\_poly.h@{move\_instruction\_poly.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY}{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY}}
+{\footnotesize\ttfamily \#define TESSERACT\+\_\+\+MOVE\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{C }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{namespace }N                                                                                                          \(\backslash\)}
+\DoxyCodeLine{  \{                                                                                                                    \(\backslash\)}
+\DoxyCodeLine{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}
+\DoxyCodeLine{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface>; \(\backslash\)}
+\DoxyCodeLine{  using C\#\#Instance = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{tesseract\_planning::detail\_move\_instruction::MoveInstructionInstance<C>}};                         \(\backslash\)}
+\DoxyCodeLine{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}
+\DoxyCodeLine{  \}                                                                                                                    \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceWrapper)                                                                        \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceBase, boost::serialization::track\_never)                                          \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#Instance, boost::serialization::track\_never)                                              \(\backslash\)}
+\DoxyCodeLine{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceWrapper, boost::serialization::track\_never)}
+
+\end{DoxyCode}
+
+
+If shared library, this must go in the header after the class definition. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{move__instruction__poly_8h_aacdf778ed64cb0a5ef4d2b476853c377}\label{move__instruction__poly_8h_aacdf778ed64cb0a5ef4d2b476853c377}} 
+\index{move\_instruction\_poly.h@{move\_instruction\_poly.h}!TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}
+\index{TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}!move\_instruction\_poly.h@{move\_instruction\_poly.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT\_KEY()}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface}}, boost\+::serialization\+::track\+\_\+never) \mbox{\hyperlink{waypoint__poly_8h_a15afb507b12b41211f0c2388c8419409}{BOOST\+\_\+\+CLASS\+\_\+\+TRACKING}}(tesseract\+\_\+planning TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{tesseract\+\_\+planning}]{,  }\item[{Move\+Instruction\+Poly}]{ }\end{DoxyParamCaption})}
+

@@ -1,0 +1,185 @@
+\hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface}{}\doxysection{tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::Cartesian\+Waypoint\+Interface Struct Reference}
+\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface}\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+
+
+{\ttfamily \#include $<$cartesian\+\_\+waypoint\+\_\+poly.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::Cartesian\+Waypoint\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{dc/d66/structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::Cartesian\+Waypoint\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{d4/dad/structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a19f14784d54b7904704f9235ea471f15}{set\+Transform}} (const Eigen\+::\+Isometry3d \&transform)=0
+\item 
+virtual Eigen\+::\+Isometry3d \& \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a1347ebd1b86de4fb4233eb19b33b1edd}{get\+Transform}} ()=0
+\item 
+virtual const Eigen\+::\+Isometry3d \& \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a74577d0eeb90bb1308c2a192b65a976d}{get\+Transform}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aa9694c4e92c4b8fca9f74c24c0088834}{set\+Upper\+Tolerance}} (const Eigen\+::\+Vector\+Xd \&upper\+\_\+tol)=0
+\item 
+virtual Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ab477133048d80bb9fd0d5a1fc2ea1166}{get\+Upper\+Tolerance}} ()=0
+\item 
+virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a11de77782b48b19264304f323f9c6876}{get\+Upper\+Tolerance}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a130b3aa16af27e2b9a3625d459333d45}{set\+Lower\+Tolerance}} (const Eigen\+::\+Vector\+Xd \&lower\+\_\+tol)=0
+\item 
+virtual Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a10c2f7587ab87e0caf39d6947d02fd65}{get\+Lower\+Tolerance}} ()=0
+\item 
+virtual const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aa22c83b4250c76c0cc07c1ea02020460}{get\+Lower\+Tolerance}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aff8fef24c6bd700370452622479e77d4}{set\+Seed}} (const tesseract\+\_\+common\+::\+Joint\+State \&seed)=0
+\item 
+virtual tesseract\+\_\+common\+::\+Joint\+State \& \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a109a4fff0f3acf6bd412afc6ebdf2cc0}{get\+Seed}} ()=0
+\item 
+virtual const tesseract\+\_\+common\+::\+Joint\+State \& \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_adbf93a3dddd6ba786c66e5834b38df64}{get\+Seed}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a387b829499bca4ecb2f0e7b8e001b9ce}{print}} (const std\+::string \&prefix) const =0
+\item 
+{\footnotesize template$<$class Archive $>$ }\\TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP void \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ab9bc5f6226ea5a19883f178575d4749c}{serialize}} (Archive \&ar, const unsigned int)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_af2dc62e57ac2795cac01af77e45b9d1e}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\+\_\+common\+::\+Serialization}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aa22c83b4250c76c0cc07c1ea02020460}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aa22c83b4250c76c0cc07c1ea02020460}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!getLowerTolerance@{getLowerTolerance}}
+\index{getLowerTolerance@{getLowerTolerance}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{getLowerTolerance()}{getLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::get\+Lower\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a10c2f7587ab87e0caf39d6947d02fd65}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a10c2f7587ab87e0caf39d6947d02fd65}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!getLowerTolerance@{getLowerTolerance}}
+\index{getLowerTolerance@{getLowerTolerance}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{getLowerTolerance()}{getLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::get\+Lower\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_adbf93a3dddd6ba786c66e5834b38df64}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_adbf93a3dddd6ba786c66e5834b38df64}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!getSeed@{getSeed}}
+\index{getSeed@{getSeed}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{getSeed()}{getSeed()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual const tesseract\+\_\+common\+::\+Joint\+State \& tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::get\+Seed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a109a4fff0f3acf6bd412afc6ebdf2cc0}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a109a4fff0f3acf6bd412afc6ebdf2cc0}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!getSeed@{getSeed}}
+\index{getSeed@{getSeed}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{getSeed()}{getSeed()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+common\+::\+Joint\+State \& tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::get\+Seed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a74577d0eeb90bb1308c2a192b65a976d}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a74577d0eeb90bb1308c2a192b65a976d}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!getTransform@{getTransform}}
+\index{getTransform@{getTransform}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{getTransform()}{getTransform()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Isometry3d \& tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a1347ebd1b86de4fb4233eb19b33b1edd}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a1347ebd1b86de4fb4233eb19b33b1edd}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!getTransform@{getTransform}}
+\index{getTransform@{getTransform}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{getTransform()}{getTransform()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual Eigen\+::\+Isometry3d \& tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a11de77782b48b19264304f323f9c6876}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a11de77782b48b19264304f323f9c6876}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!getUpperTolerance@{getUpperTolerance}}
+\index{getUpperTolerance@{getUpperTolerance}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{getUpperTolerance()}{getUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ab477133048d80bb9fd0d5a1fc2ea1166}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ab477133048d80bb9fd0d5a1fc2ea1166}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!getUpperTolerance@{getUpperTolerance}}
+\index{getUpperTolerance@{getUpperTolerance}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{getUpperTolerance()}{getUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a387b829499bca4ecb2f0e7b8e001b9ce}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a387b829499bca4ecb2f0e7b8e001b9ce}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!print@{print}}
+\index{print@{print}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_af2dc62e57ac2795cac01af77e45b9d1e}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_af2dc62e57ac2795cac01af77e45b9d1e}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ab9bc5f6226ea5a19883f178575d4749c}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ab9bc5f6226ea5a19883f178575d4749c}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP void tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a130b3aa16af27e2b9a3625d459333d45}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a130b3aa16af27e2b9a3625d459333d45}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!setLowerTolerance@{setLowerTolerance}}
+\index{setLowerTolerance@{setLowerTolerance}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{setLowerTolerance()}{setLowerTolerance()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::set\+Lower\+Tolerance (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{lower\+\_\+tol }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aff8fef24c6bd700370452622479e77d4}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aff8fef24c6bd700370452622479e77d4}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!setSeed@{setSeed}}
+\index{setSeed@{setSeed}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{setSeed()}{setSeed()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::set\+Seed (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::\+Joint\+State \&}]{seed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a19f14784d54b7904704f9235ea471f15}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a19f14784d54b7904704f9235ea471f15}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!setTransform@{setTransform}}
+\index{setTransform@{setTransform}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{setTransform()}{setTransform()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::set\+Transform (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{transform }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aa9694c4e92c4b8fca9f74c24c0088834}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_aa9694c4e92c4b8fca9f74c24c0088834}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!setUpperTolerance@{setUpperTolerance}}
+\index{setUpperTolerance@{setUpperTolerance}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{setUpperTolerance()}{setUpperTolerance()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+cartesian\+\_\+waypoint\+::\+Cartesian\+Waypoint\+Interface\+::set\+Upper\+Tolerance (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{upper\+\_\+tol }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}\label{structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}} 
+\index{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
+\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface@{tesseract\_planning::detail\_cartesian\_waypoint::CartesianWaypointInterface}}
+\doxysubsubsection{\texorpdfstring{tesseract\_common::Serialization}{tesseract\_common::Serialization}}
+{\footnotesize\ttfamily friend struct tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/poly/\mbox{\hyperlink{cartesian__waypoint__poly_8h}{cartesian\+\_\+waypoint\+\_\+poly.\+h}}\item 
+tesseract\+\_\+command\+\_\+language/src/poly/\mbox{\hyperlink{cartesian__waypoint__poly_8cpp}{cartesian\+\_\+waypoint\+\_\+poly.\+cpp}}\end{DoxyCompactItemize}

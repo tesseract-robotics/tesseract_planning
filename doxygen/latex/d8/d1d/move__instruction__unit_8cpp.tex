@@ -11,10 +11,9 @@ Contains unit tests for Move\+Instruction.
 {\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/instruction\+\_\+poly.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/state\+\_\+waypoint.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+instruction.\+h$>$}\newline
 Include dependency graph for move\+\_\+instruction\+\_\+unit.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -31,6 +30,8 @@ Include dependency graph for move\+\_\+instruction\+\_\+unit.\+cpp\+:
 \mbox{\hyperlink{move__instruction__unit_8cpp_a747a610a0ab41c97ab1c372e6281af59}{TEST}} (Tesseract\+Command\+Language\+Move\+Instruction\+Unit, setters)
 \item 
 \mbox{\hyperlink{move__instruction__unit_8cpp_af64345350bfaaca143e2cb5c6283f96a}{TEST}} (Tesseract\+Command\+Language\+Move\+Instruction\+Unit, boost\+Serialization)
+\item 
+\mbox{\hyperlink{move__instruction__unit_8cpp_a63decf72f83b31436156961fd0772c93}{TEST}} (Tesseract\+Command\+Language\+Move\+Instruction\+Poly\+Unit, boost\+Serialization)
 \item 
 int \mbox{\hyperlink{move__instruction__unit_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
@@ -49,7 +50,7 @@ February 15, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000041}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000035}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -73,21 +74,27 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{move__instruction__unit_8cpp_a63decf72f83b31436156961fd0772c93}\label{move__instruction__unit_8cpp_a63decf72f83b31436156961fd0772c93}} 
+\index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!TEST@{TEST}}
+\index{TEST@{TEST}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Move\+Instruction\+Poly\+Unit}]{,  }\item[{boost\+Serialization}]{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{move__instruction__unit_8cpp_af64345350bfaaca143e2cb5c6283f96a}\label{move__instruction__unit_8cpp_af64345350bfaaca143e2cb5c6283f96a}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!TEST@{TEST}}
 \index{TEST@{TEST}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
 {\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Move\+Instruction\+Unit}]{,  }\item[{boost\+Serialization}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_acd8d70d9278aa3782ace0979b6467cf1}\label{move__instruction__unit_8cpp_acd8d70d9278aa3782ace0979b6467cf1}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!TEST@{TEST}}
 \index{TEST@{TEST}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Move\+Instruction\+Unit}]{,  }\item[{constructor}]{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{move__instruction__unit_8cpp_a747a610a0ab41c97ab1c372e6281af59}\label{move__instruction__unit_8cpp_a747a610a0ab41c97ab1c372e6281af59}} 
 \index{move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}!TEST@{TEST}}
 \index{TEST@{TEST}!move\_instruction\_unit.cpp@{move\_instruction\_unit.cpp}}
-\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+\doxysubsubsection{\texorpdfstring{TEST()}{TEST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily TEST (\begin{DoxyParamCaption}\item[{Tesseract\+Command\+Language\+Move\+Instruction\+Unit}]{,  }\item[{setters}]{ }\end{DoxyParamCaption})}
 

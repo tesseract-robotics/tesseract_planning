@@ -1,7 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="31,9,155,36"/>
-<area shape="rect" id="node2" href="$d9/d49/structtesseract__planning_1_1detail__instruction_1_1InstructionConcept.html" title=" " alt="" coords="233,5,399,61"/>
-<area shape="rect" id="node3" href="$d2/dc7/structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept.html" title=" " alt="" coords="228,85,404,141"/>
-<area shape="rect" id="node4" title=" " alt="" coords="10,60,175,87"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,111,180,137"/>
+<area shape="rect" id="node1" title=" " alt="" coords="31,169,155,196"/>
+<area shape="rect" id="node2" href="$dc/d3c/structtesseract__planning_1_1detail__cartesian__waypoint_1_1CartesianWaypointConcept.html" title=" " alt="" coords="228,5,443,61"/>
+<area shape="rect" id="node3" href="$d9/d49/structtesseract__planning_1_1detail__instruction_1_1InstructionConcept.html" title=" " alt="" coords="252,85,419,141"/>
+<area shape="rect" id="node4" href="$d2/d1c/structtesseract__planning_1_1detail__joint__waypoint_1_1JointWaypointConcept.html" title=" " alt="" coords="242,165,429,221"/>
+<area shape="rect" id="node5" href="$dc/d22/structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept.html" title=" " alt="" coords="236,245,435,301"/>
+<area shape="rect" id="node6" href="$d6/d9e/structtesseract__planning_1_1detail__state__waypoint_1_1StateWaypointConcept.html" title=" " alt="" coords="240,325,431,381"/>
+<area shape="rect" id="node7" href="$d2/dc7/structtesseract__planning_1_1detail__waypoint_1_1WaypointConcept.html" title=" " alt="" coords="247,405,423,461"/>
+<area shape="rect" id="node8" title=" " alt="" coords="10,220,175,247"/>
+<area shape="rect" id="node9" title=" " alt="" coords="5,271,180,297"/>
 </map>

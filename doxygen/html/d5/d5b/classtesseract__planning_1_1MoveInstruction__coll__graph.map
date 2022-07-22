@@ -1,11 +1,12 @@
 <map id="tesseract_planning::MoveInstruction" name="tesseract_planning::MoveInstruction">
-<area shape="rect" id="node1" title="The move instruction is used when defining the results of a motion planning request." alt="" coords="1104,98,1235,139"/>
+<area shape="rect" id="node1" title="The move instruction is used when defining the results of a motion planning request." alt="" coords="1112,126,1243,167"/>
 <area shape="rect" id="node2" title=" " alt="" coords="804,98,959,139"/>
 <area shape="rect" id="node3" href="$d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="607,102,737,143"/>
 <area shape="rect" id="node4" title=" " alt="" coords="336,87,507,158"/>
 <area shape="rect" id="node5" title=" " alt="" coords="179,72,257,99"/>
 <area shape="rect" id="node6" title=" " alt="" coords="5,65,129,106"/>
 <area shape="rect" id="node7" title=" " alt="" coords="358,183,485,209"/>
-<area shape="rect" id="node8" href="$d8/d45/structtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="816,163,947,205"/>
-<area shape="rect" id="node9" title=" " alt="" coords="619,171,725,197"/>
+<area shape="rect" id="node8" href="$df/d14/structtesseract__planning_1_1WaypointPoly.html" title=" " alt="" coords="816,163,947,205"/>
+<area shape="rect" id="node9" title=" " alt="" coords="607,171,737,197"/>
+<area shape="rect" id="node10" title=" " alt="" coords="826,229,937,256"/>
 </map>

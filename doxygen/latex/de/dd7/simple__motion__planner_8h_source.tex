@@ -54,13 +54,13 @@
 \DoxyCodeLine{90 \textcolor{keyword}{protected}:}
 \DoxyCodeLine{91   std::string \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a04d7d2166e6a5712b6e09fdec45d2227}{name\_}};}
 \DoxyCodeLine{92   std::shared\_ptr<const SimpleMotionPlannerStatusCategory> \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ac7474b5c7478761fdc6c07d4208c4999}{status\_category\_}}; }
-\DoxyCodeLine{94   \textcolor{keyword}{static} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_abf80160ee06f71208b7258f79d2a57c7}{getStartInstruction}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{95                                              \textcolor{keyword}{const} tesseract\_scene\_graph::SceneState\& current\_state,}
-\DoxyCodeLine{96                                              \textcolor{keyword}{const} tesseract\_kinematics::JointGroup\& manip);}
+\DoxyCodeLine{94   \textcolor{keyword}{static} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_acf61134a85d9ed814435d2736ad23115}{getStartInstruction}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{95                                                  \textcolor{keyword}{const} tesseract\_scene\_graph::SceneState\& current\_state,}
+\DoxyCodeLine{96                                                  \textcolor{keyword}{const} tesseract\_kinematics::JointGroup\& manip);}
 \DoxyCodeLine{97 }
-\DoxyCodeLine{98   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_a6b6c440c0df824dce1961fa37a75cf45}{processCompositeInstruction}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& instructions,}
-\DoxyCodeLine{99                                                    \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}\& prev\_instruction,}
-\DoxyCodeLine{100                                                    \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}\& prev\_seed,}
+\DoxyCodeLine{98   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimpleMotionPlanner_ad5aa3b8331fcb4504367dd32d31d9854}{processCompositeInstruction}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& instructions,}
+\DoxyCodeLine{99                                                    \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_instruction,}
+\DoxyCodeLine{100                                                    \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_seed,}
 \DoxyCodeLine{101                                                    \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
 \DoxyCodeLine{102 \};}
 \DoxyCodeLine{103 }

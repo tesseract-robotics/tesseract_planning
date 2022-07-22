@@ -1,0 +1,67 @@
+\hypertarget{tesseract__command__language_2include_2tesseract__command__language_2utils_8h_source}{}\doxysection{utils.\+h}
+\label{tesseract__command__language_2include_2tesseract__command__language_2utils_8h_source}\index{tesseract\_command\_language/include/tesseract\_command\_language/utils.h@{tesseract\_command\_language/include/tesseract\_command\_language/utils.h}}
+\mbox{\hyperlink{tesseract__command__language_2include_2tesseract__command__language_2utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_COMMAND\_LANGUAGE\_UTILS\_UTILS\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_COMMAND\_LANGUAGE\_UTILS\_UTILS\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <limits>}}
+\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <tesseract\_common/joint\_state.h>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <tesseract\_common/types.h>}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{47 tesseract\_common::JointTrajectory \mbox{\hyperlink{namespacetesseract__planning_a4631f1616bd5577e3b1a049553ce557a}{toJointTrajectory}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instructions);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{56 \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{getJointPosition}}(\textcolor{keyword}{const} WaypointPoly\& waypoint);}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{66 \textcolor{keyword}{const} std::vector<std::string>\& \mbox{\hyperlink{namespacetesseract__planning_a63b2d0a750e672adad83b1ba2c73988f}{getJointNames}}(\textcolor{keyword}{const} WaypointPoly\& waypoint);}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{80 Eigen::VectorXd \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{getJointPosition}}(\textcolor{keyword}{const} std::vector<std::string>\& joint\_names, \textcolor{keyword}{const} WaypointPoly\& waypoint);}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{94 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a110418756c66b9f486da2b882f0a0f1a}{formatJointPosition}}(\textcolor{keyword}{const} std::vector<std::string>\& joint\_names, WaypointPoly\& waypoint);}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{108 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a000daf954599df6eb5aa5ffa51ccdeff}{checkJointPositionFormat}}(\textcolor{keyword}{const} std::vector<std::string>\& joint\_names, \textcolor{keyword}{const} WaypointPoly\& waypoint);}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{116 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a8d0eba5e8d5500ec2010d1d4d8c4e6fc}{setJointPosition}}(WaypointPoly\& waypoint, \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& position);}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{124 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_af0a6a646d66932568a74534b67fb709b}{isWithinJointLimits}}(\textcolor{keyword}{const} WaypointPoly\& wp, \textcolor{keyword}{const} Eigen::Ref<const Eigen::MatrixX2d>\& limits);}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{133 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{134 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a0533b87642d9f569988dccb0b8d6bf5f}{clampToJointLimits}}(WaypointPoly\& wp,}
+\DoxyCodeLine{135                         \textcolor{keyword}{const} Eigen::Ref<const Eigen::MatrixX2d>\& limits,}
+\DoxyCodeLine{136                         \textcolor{keywordtype}{double} max\_deviation = (std::numeric\_limits<double>::max)());}
+\DoxyCodeLine{137 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{138 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a0533b87642d9f569988dccb0b8d6bf5f}{clampToJointLimits}}(Waypoint\& wp,}
+\DoxyCodeLine{139                         \textcolor{keyword}{const} Eigen::Ref<const Eigen::MatrixX2d>\& limits,}
+\DoxyCodeLine{140                         \textcolor{keywordtype}{double} max\_deviation = (std::numeric\_limits<double>::max()));}
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{150 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a0533b87642d9f569988dccb0b8d6bf5f}{clampToJointLimits}}(WaypointPoly\& wp,}
+\DoxyCodeLine{151                         \textcolor{keyword}{const} Eigen::Ref<const Eigen::MatrixX2d>\& limits,}
+\DoxyCodeLine{152                         \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& max\_deviation);}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{159 CompositeInstruction \mbox{\hyperlink{namespacetesseract__planning_af96ba7a9b3db3684f21122e62032c0e3}{generateSkeletonSeed}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instructions);}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{168 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_a2b65f19a72bd238c13d1cf24ffaec7c1}{toDelimitedFile}}(\textcolor{keyword}{const} CompositeInstruction\& composite\_instructions,}
+\DoxyCodeLine{169                      \textcolor{keyword}{const} std::string\& file\_path,}
+\DoxyCodeLine{170                      \textcolor{keywordtype}{char} separator = \textcolor{charliteral}{','});}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172 \textcolor{comment}{// TODO: implement validateSeedStructure}}
+\DoxyCodeLine{173 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{183 \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacetesseract__planning_afcaff79ee52a09033c310489053ec2ee}{validateSeedStructure}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instructions,}
+\DoxyCodeLine{184                            \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_seed);}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{186 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{188 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_COMMAND\_LANGUAGE\_UTILS\_H}}
+
+\end{DoxyCode}

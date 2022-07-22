@@ -1,7 +1,8 @@
 <map id="TesseractPlanningSimplePlannerFixedSizeInterpolationUnit" name="TesseractPlanningSimplePlannerFixedSizeInterpolationUnit">
-<area shape="rect" id="node1" title=" " alt="" coords="5,275,220,316"/>
-<area shape="rect" id="node2" title=" " alt="" coords="18,185,111,212"/>
-<area shape="rect" id="node3" title=" " alt="" coords="135,185,295,212"/>
-<area shape="rect" id="node4" title=" " alt="" coords="176,96,255,123"/>
-<area shape="rect" id="node5" title=" " alt="" coords="153,5,277,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="71,275,286,316"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,185,99,212"/>
+<area shape="rect" id="node3" title=" " alt="" coords="123,185,234,212"/>
+<area shape="rect" id="node4" title=" " alt="" coords="259,185,419,212"/>
+<area shape="rect" id="node5" title=" " alt="" coords="299,96,378,123"/>
+<area shape="rect" id="node6" title=" " alt="" coords="277,5,401,47"/>
 </map>

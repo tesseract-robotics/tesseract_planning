@@ -13,18 +13,18 @@
 \DoxyCodeLine{33 \textcolor{preprocessor}{\#include <array>}}
 \DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{command__language_8h}{tesseract\_command\_language/command\_language.h}}>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{move__instruction__poly_8h}{tesseract\_command\_language/poly/move\_instruction\_poly.h}}>}}
 \DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h}{tesseract\_motion\_planners/core/types.h}}>}}
 \DoxyCodeLine{38 }
 \DoxyCodeLine{39 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
 \DoxyCodeLine{40 \{}
 \DoxyCodeLine{42 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{JointGroupInstructionInfo}}}
 \DoxyCodeLine{43 \{}
-\DoxyCodeLine{44   \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ac44daaad709333e5098988bd3603b1f4}{JointGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}\& plan\_instruction,}
+\DoxyCodeLine{44   \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ab46d5e1b8aae95b6f0d3426ab117134b}{JointGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& plan\_instruction,}
 \DoxyCodeLine{45                             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{46                             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info);}
+\DoxyCodeLine{46                             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& manip\_info);}
 \DoxyCodeLine{47 }
-\DoxyCodeLine{48   \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}\& \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_adff0da245e840a9bfa83acc837516197}{instruction}};}
+\DoxyCodeLine{48   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_ae63daf07346ec6b72ae961ee56fe2788}{instruction}};}
 \DoxyCodeLine{49   tesseract\_kinematics::JointGroup::UPtr \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a131a12f7a15dee90161c802ebc363c6f}{manip}};}
 \DoxyCodeLine{50   std::string \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a28b9536a0b150e7252039d7fc49189f3}{working\_frame}};}
 \DoxyCodeLine{51   std::string \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo_a9be5829f56e092d8f6e66fd6a1d34ff4}{tcp\_frame}};}
@@ -40,11 +40,11 @@
 \DoxyCodeLine{76 }
 \DoxyCodeLine{78 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}}
 \DoxyCodeLine{79 \{}
-\DoxyCodeLine{80   \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_af566fc19e39709507c9beb9956a72681}{KinematicGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}\& plan\_instruction,}
+\DoxyCodeLine{80   \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a83abfd60bd20168c337998626ac21791}{KinematicGroupInstructionInfo}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& plan\_instruction,}
 \DoxyCodeLine{81                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{82                                 \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info);}
+\DoxyCodeLine{82                                 \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& manip\_info);}
 \DoxyCodeLine{83 }
-\DoxyCodeLine{84   \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}\& \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_ae769ff4e43c97f14c36370d53b16b23d}{instruction}};}
+\DoxyCodeLine{84   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_ae48a8b5bfbfbace4d7367f28e4a7f1a9}{instruction}};}
 \DoxyCodeLine{85   tesseract\_kinematics::KinematicGroup::UPtr \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a86faee3de3c751f3b7dd90174aee9cbc}{manip}};}
 \DoxyCodeLine{86   std::string \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a6d4e59f4dbad3edf61f24921f0bab51d}{working\_frame}};}
 \DoxyCodeLine{87   std::string \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a8e019f911a0a76de8d56a6e8f17c7638}{tcp\_frame}};}
@@ -58,9 +58,9 @@
 \DoxyCodeLine{110   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo_a448fba85565b0588262fb146b9f1e581}{extractJointPosition}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{111 \};}
 \DoxyCodeLine{112 }
-\DoxyCodeLine{120 CompositeInstruction \mbox{\hyperlink{namespacetesseract__planning_adfefb330b159d7102d3f9106438a8900}{getInterpolatedComposite}}(\textcolor{keyword}{const} std::vector<std::string>\& joint\_names,}
+\DoxyCodeLine{120 CompositeInstruction \mbox{\hyperlink{namespacetesseract__planning_ae2abbbef588cecfc66d9cb43932dd1c8}{getInterpolatedComposite}}(\textcolor{keyword}{const} std::vector<std::string>\& joint\_names,}
 \DoxyCodeLine{121                                               \textcolor{keyword}{const} Eigen::MatrixXd\& states,}
-\DoxyCodeLine{122                                               \textcolor{keyword}{const} MoveInstruction\& base\_instruction);}
+\DoxyCodeLine{122                                               \textcolor{keyword}{const} MoveInstructionPoly\& base\_instruction);}
 \DoxyCodeLine{123 }
 \DoxyCodeLine{130 Eigen::VectorXd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{getClosestJointSolution}}(\textcolor{keyword}{const} KinematicGroupInstructionInfo\& info, \textcolor{keyword}{const} Eigen::VectorXd\& seed);}
 \DoxyCodeLine{131 }

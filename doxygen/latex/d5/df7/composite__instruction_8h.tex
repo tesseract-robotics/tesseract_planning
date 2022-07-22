@@ -3,12 +3,11 @@
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/instruction\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/move\+\_\+instruction\+\_\+poly.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/constants.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/instruction\+\_\+type.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/profile\+\_\+dictionary.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/manipulator\+\_\+info.\+h$>$}\newline
 Include dependency graph for composite\+\_\+instruction.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -35,6 +34,13 @@ class \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tessera
 \item 
 namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{tesseract\+\_\+planning\+::flatten\+Filter\+Fn}} = std\+::function$<$ bool(const Instruction\+Poly \&, const Composite\+Instruction \&, bool parent\+\_\+is\+\_\+first\+\_\+composite)$>$
+\begin{DoxyCompactList}\small\item\em This is used for filtering only what you want in the vector. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} = std\+::function$<$ bool(const Instruction\+Poly \&, const Composite\+Instruction \&, bool parent\+\_\+is\+\_\+first\+\_\+composite)$>$
+\end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -45,6 +51,8 @@ enum class \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}{tesseract\+\_\+planning\+::move\+Filter}} (const Instruction\+Poly \&instruction, const Composite\+Instruction \&composite, bool parent\+\_\+is\+\_\+first\+\_\+composite)
 \item 
 \mbox{\hyperlink{composite__instruction_8h_ad6faa5c5959e0ebd90aa6335ea95b859}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}} (tesseract\+\_\+planning, Composite\+Instruction)
 \end{DoxyCompactItemize}
@@ -61,7 +69,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000003}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000002}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

@@ -1,0 +1,170 @@
+\hypertarget{instruction__poly_8h_source}{}\doxysection{instruction\+\_\+poly.\+h}
+\label{instruction__poly_8h_source}\index{tesseract\_command\_language/include/tesseract\_command\_language/poly/instruction\_poly.h@{tesseract\_command\_language/include/tesseract\_command\_language/poly/instruction\_poly.h}}
+\mbox{\hyperlink{instruction__poly_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef TESSERACT\_COMMAND\_LANGUAGE\_INSTRUCTION\_H}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define TESSERACT\_COMMAND\_LANGUAGE\_INSTRUCTION\_H}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <boost/serialization/base\_object.hpp>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <boost/concept\_check.hpp>}}
+\DoxyCodeLine{35 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{waypoint__poly_8h}{tesseract\_command\_language/poly/waypoint\_poly.h}}>}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <tesseract\_common/serialization.h>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <tesseract\_common/type\_erasure.h>}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{42 \%ignore std::vector<tesseract\_planning::Instruction>::vector(size\_type);}
+\DoxyCodeLine{43 \%ignore std::vector<tesseract\_planning::Instruction>::resize(size\_type);}
+\DoxyCodeLine{44 \%ignore tesseract\_planning::Instruction::getType;}
+\DoxyCodeLine{45 \%pythondynamic tesseract\_planning::Instruction;}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#define TESSERACT\_INSTRUCTION\_EXPORT\_KEY(N, C)                                                                         \(\backslash\)}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{  namespace N                                                                                                          \(\backslash\)}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{  \{                                                                                                                    \(\backslash\)}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_instruction::InstructionInterface>;          \(\backslash\)}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{  using C\#\#Instance = tesseract\_planning::detail\_instruction::InstructionInstance<C>;                                  \(\backslash\)}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{  \}                                                                                                                    \(\backslash\)}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceWrapper)                                                                        \(\backslash\)}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceBase, boost::serialization::track\_never)                                          \(\backslash\)}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#Instance, boost::serialization::track\_never)                                              \(\backslash\)}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceWrapper, boost::serialization::track\_never)}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#define TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT(inst)                                                                   \(\backslash\)}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceBase)                                                                     \(\backslash\)}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#Instance)                                                                         \(\backslash\)}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceWrapper)}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#define TESSERACT\_INSTRUCTION\_EXPORT(N, C)                                                                             \(\backslash\)}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{  TESSERACT\_INSTRUCTION\_EXPORT\_KEY(N, C)                                                                               \(\backslash\)}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{  TESSERACT\_INSTRUCTION\_EXPORT\_IMPLEMENT(N::C)}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{79 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning_1_1detail__instruction}{tesseract\_planning::detail\_instruction}}}
+\DoxyCodeLine{80 \{}
+\DoxyCodeLine{81 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{82 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept}{InstructionConcept}}  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{83   : boost::Assignable<T>,}
+\DoxyCodeLine{84     boost::CopyConstructible<T>,}
+\DoxyCodeLine{85     boost::EqualityComparable<T>}
+\DoxyCodeLine{86 \{}
+\DoxyCodeLine{87   \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a94a6b6900f5a2b73b4b34680505d4cb5}{BOOST\_CONCEPT\_USAGE}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept}{InstructionConcept}})}
+\DoxyCodeLine{88   \{}
+\DoxyCodeLine{89     T cp(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}});}
+\DoxyCodeLine{90     T assign = \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}};}
+\DoxyCodeLine{91     \textcolor{keywordtype}{bool} eq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}} == cp);}
+\DoxyCodeLine{92     \textcolor{keywordtype}{bool} neq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}} != cp);}
+\DoxyCodeLine{93     UNUSED(assign);}
+\DoxyCodeLine{94     UNUSED(eq);}
+\DoxyCodeLine{95     UNUSED(neq);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     \textcolor{keyword}{const} std::string\& desc = \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}}.getDescription();}
+\DoxyCodeLine{98     UNUSED(desc);}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100     \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}}.setDescription(\textcolor{stringliteral}{"{}test"{}});}
+\DoxyCodeLine{101     \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}}.print();}
+\DoxyCodeLine{102     \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}}.print(\textcolor{stringliteral}{"{}prefix\_"{}});}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 \textcolor{keyword}{private}:}
+\DoxyCodeLine{106   T \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept_a822e067a2e1867ec151963343a011530}{c}};}
+\DoxyCodeLine{107 \};}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{InstructionInterface}} : tesseract\_common::TypeErasureInterface}
+\DoxyCodeLine{110 \{}
+\DoxyCodeLine{111   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface_ae6f35ff38442000e6a6141feb3529c94}{getDescription}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface_a9cc0b812d86087a3c280283425fd585b}{setDescription}}(\textcolor{keyword}{const} std::string\& description) = 0;}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface_a8c945e9ca783756f821c62d58cd0278d}{print}}(\textcolor{keyword}{const} std::string\& prefix) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \textcolor{keyword}{private}:}
+\DoxyCodeLine{118   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{119   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{120   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{121   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface_afbff5d9eb58a805dad0fda3949bf78bc}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{122 \};}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{125 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{InstructionInstance}} : tesseract\_common::TypeErasureInstance<T, InstructionInterface>  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{126 \{}
+\DoxyCodeLine{127   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a7755f1dba1ad39226d3a8ff2b668c7f3}{BaseType}} = tesseract\_common::TypeErasureInstance<T, InstructionInterface>;}
+\DoxyCodeLine{128   \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_ad38f2378a75c4c07b8a2c1ac62d7ec03}{InstructionInstance}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{129   \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a19a48a99f90b016867e505247ec2faf8}{InstructionInstance}}(\textcolor{keyword}{const} T\& x) : \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a7755f1dba1ad39226d3a8ff2b668c7f3}{BaseType}}(x) \{\}}
+\DoxyCodeLine{130   \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a83f1864811f989451bc780e85847c0ec}{InstructionInstance}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{InstructionInstance}}\&\& x) noexcept : \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a7755f1dba1ad39226d3a8ff2b668c7f3}{BaseType}}(std::move(x)) \{\}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132   \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a944df34967f985dba0198ebfdf245805}{BOOST\_CONCEPT\_ASSERT}}((\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionConcept}{InstructionConcept<T>}}));}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_afdc1864cd8fa97742b6052381ca65775}{getDescription}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getDescription(); \}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_add73dc656ff6637546b3208620a1a69e}{setDescription}}(\textcolor{keyword}{const} std::string\& description) \textcolor{keyword}{final} \{ this-\/>get().setDescription(description); \}}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_aff47d33ee6f5f4d4166e9da99e416200}{print}}(\textcolor{keyword}{const} std::string\& prefix) \textcolor{keyword}{const} \textcolor{keyword}{final} \{ this-\/>get().print(prefix); \}}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140 \textcolor{keyword}{private}:}
+\DoxyCodeLine{141   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{142   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{143   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{144   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance_a07e3df6642b8f474c79d6881b9846ca9}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/})  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{145   \{}
+\DoxyCodeLine{146     ar\& boost::serialization::make\_nvp(\textcolor{stringliteral}{"{}base"{}}, boost::serialization::base\_object<BaseType>(*\textcolor{keyword}{this}));}
+\DoxyCodeLine{147   \}}
+\DoxyCodeLine{148 \};}
+\DoxyCodeLine{149 \}  \textcolor{comment}{// namespace tesseract\_planning::detail\_instruction}}
+\DoxyCodeLine{150 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{153 \{}
+\DoxyCodeLine{154 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}{InstructionPolyBase}} = tesseract\_common::TypeErasureBase<\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{detail\_instruction::InstructionInterface}},}
+\DoxyCodeLine{155                                                               \mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInstance}{detail\_instruction::InstructionInstance}}>;}
+\DoxyCodeLine{156 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} : \mbox{\hyperlink{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}{InstructionPolyBase}}}
+\DoxyCodeLine{157 \{}
+\DoxyCodeLine{158   \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}{InstructionPolyBase::InstructionPolyBase}};}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_a99793ab7a9c16ae4eb93efe90acc3725}{getDescription}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_a6768e0558392b47e553e711a9a7a2544}{setDescription}}(\textcolor{keyword}{const} std::string\& description);}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_a271dff087a142f202f61454737479c3f}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_a82a89780a2183a6554433454ef217688}{isCompositeInstruction}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_add30aeec2a23a428e04474140daf640d}{isMoveInstruction}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170 \textcolor{keyword}{private}:}
+\DoxyCodeLine{171   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{172   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{175   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_aa7cb7ed0b2f84f9f34f44b8697a744b8}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/});  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{176 \};}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{181 \%\textcolor{keyword}{template}(Instructions) std::vector<tesseract\_planning::Instruction>;}
+\DoxyCodeLine{182 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{183 BOOST\_SERIALIZATION\_ASSUME\_ABSTRACT(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{tesseract\_planning::detail\_instruction::InstructionInterface}})}
+\DoxyCodeLine{184 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{tesseract\_planning::detail\_instruction::InstructionInterface}})}
+\DoxyCodeLine{185 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__instruction_1_1InstructionInterface}{tesseract\_planning::detail\_instruction::InstructionInterface}}, boost::serialization::track\_never)}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}{tesseract\_planning::InstructionPolyBase}})}
+\DoxyCodeLine{188 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{namespacetesseract__planning_a888a5b82fb1015c9de8d7388e1ef0bcb}{tesseract\_planning::InstructionPolyBase}}, boost::serialization::track\_never)}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{tesseract\_planning::InstructionPoly}})}
+\DoxyCodeLine{191 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::InstructionPoly, boost::serialization::track\_never);}
+\DoxyCodeLine{192 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_INSTRUCTION\_H}}
+
+\end{DoxyCode}

@@ -11,7 +11,8 @@ Contains unit tests for Joint\+Waypoint.
 {\ttfamily \#include $<$boost/archive/xml\+\_\+iarchive.\+hpp$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/waypoint\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/joint\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
 Include dependency graph for joint\+\_\+waypoint\+\_\+unit.\+cpp\+:
 \nopagebreak
@@ -28,7 +29,7 @@ Include dependency graph for joint\+\_\+waypoint\+\_\+unit.\+cpp\+:
 \item 
 \mbox{\hyperlink{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}{TEST}} (Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit, boost\+Serialization)
 \item 
-void \mbox{\hyperlink{joint__waypoint__unit_8cpp_a4c4ce853defd5cfbdf463c802a8d1fd6}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&wp)
+void \mbox{\hyperlink{joint__waypoint__unit_8cpp_ae85c45ef4569668d09ed61f9e5bed63d}{Serialize\+Deserialize\+Test}} (const \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \&wp)
 \item 
 \mbox{\hyperlink{joint__waypoint__unit_8cpp_a62023d30009b1e2c6e7128f4ed8cfa1f}{TEST}} (Tesseract\+Command\+Language\+Joint\+Waypoint\+Unit, equality\+Operator\+And\+Serialization)
 \item 
@@ -49,7 +50,7 @@ January 28, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000040}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000034}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -73,11 +74,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{joint__waypoint__unit_8cpp_a4c4ce853defd5cfbdf463c802a8d1fd6}\label{joint__waypoint__unit_8cpp_a4c4ce853defd5cfbdf463c802a8d1fd6}} 
+\mbox{\Hypertarget{joint__waypoint__unit_8cpp_ae85c45ef4569668d09ed61f9e5bed63d}\label{joint__waypoint__unit_8cpp_ae85c45ef4569668d09ed61f9e5bed63d}} 
 \index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!SerializeDeserializeTest@{SerializeDeserializeTest}}
 \index{SerializeDeserializeTest@{SerializeDeserializeTest}!joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}}
 \doxysubsubsection{\texorpdfstring{SerializeDeserializeTest()}{SerializeDeserializeTest()}}
-{\footnotesize\ttfamily void Serialize\+Deserialize\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{Joint\+Waypoint}} \&}]{wp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void Serialize\+Deserialize\+Test (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \&}]{wp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}\label{joint__waypoint__unit_8cpp_a7941dfa2d400acb05429823848ce0c37}} 
 \index{joint\_waypoint\_unit.cpp@{joint\_waypoint\_unit.cpp}!TEST@{TEST}}

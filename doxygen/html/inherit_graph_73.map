@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d5/dd3/structtesseract__planning_1_1totg_1_1Trajectory_1_1TrajectoryStep.html" title=" " alt="" coords="5,5,136,61"/>
+<area shape="rect" id="node1" href="$de/dc1/classtesseract__planning_1_1totg_1_1PathSegment.html" title=" " alt="" coords="5,39,140,80"/>
+<area shape="rect" id="node2" href="$d9/d17/classtesseract__planning_1_1totg_1_1CircularPathSegment.html" title=" " alt="" coords="188,5,367,47"/>
+<area shape="rect" id="node3" href="$d6/de6/classtesseract__planning_1_1totg_1_1LinearPathSegment.html" title=" " alt="" coords="192,71,363,112"/>
 </map>

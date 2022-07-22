@@ -82,57 +82,40 @@ $(function() {
 <div class="textblock"><code>#include &lt;tesseract_common/macros.h&gt;</code><br />
 <code>#include &lt;Eigen/Eigen&gt;</code><br />
 <code>#include &lt;console_bridge/console.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d5/d59/command__language_8h_source.html">tesseract_command_language/command_language.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d8/dcb/get__instruction__utils_8h_source.html">tesseract_command_language/utils/get_instruction_utils.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d5/df7/composite__instruction_8h_source.html">tesseract_command_language/composite_instruction.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for utils.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d75/tesseract__time__parameterization_2include_2tesseract__time__parameterization_2utils_8h__incl.png" border="0" usemap="#atesseract__time__parameterization_2include_2tesseract__time__parameterization_2utils_8h" alt=""/></div>
 <map name="atesseract__time__parameterization_2include_2tesseract__time__parameterization_2utils_8h" id="atesseract__time__parameterization_2include_2tesseract__time__parameterization_2utils_8h">
-<area shape="rect" title="Time parameterization utils." alt="" coords="2729,5,3026,47"/>
-<area shape="rect" title=" " alt="" coords="1225,638,1416,665"/>
-<area shape="rect" title=" " alt="" coords="2915,102,3006,129"/>
-<area shape="rect" title=" " alt="" coords="3030,102,3198,129"/>
-<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="1553,184,1752,225"/>
-<area shape="rect" href="../../d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="2177,95,2376,136"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="2642,452,2841,493"/>
-<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="1069,363,1268,404"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="958,452,1157,493"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1442,363,1641,404"/>
-<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="736,452,934,493"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2156,273,2354,315"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1624,452,1822,493"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="2037,363,2236,404"/>
-<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2218,452,2417,493"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="1714,363,1913,404"/>
-<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="1896,452,2094,493"/>
-<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="178,363,377,404"/>
-<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="846,363,1045,404"/>
-<area shape="rect" href="../../d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="624,363,822,404"/>
-<area shape="rect" href="../../d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="401,363,600,404"/>
-<area shape="rect" title=" " alt="" coords="2593,541,2797,583"/>
-<area shape="rect" title=" " alt="" coords="141,638,196,665"/>
-<area shape="rect" title=" " alt="" coords="757,631,884,672"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="413,452,612,493"/>
-<area shape="rect" title=" " alt="" coords="410,631,537,672"/>
-<area shape="rect" title=" " alt="" coords="562,638,732,665"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="908,541,1106,583"/>
-<area shape="rect" title=" " alt="" coords="908,638,1122,665"/>
-<area shape="rect" title=" " alt="" coords="225,631,386,672"/>
-<area shape="rect" title=" " alt="" coords="2166,638,2234,665"/>
-<area shape="rect" title=" " alt="" coords="2412,638,2488,665"/>
-<area shape="rect" title=" " alt="" coords="1434,549,1519,575"/>
-<area shape="rect" title=" " alt="" coords="1484,459,1599,486"/>
-<area shape="rect" title=" " alt="" coords="2084,549,2255,575"/>
-<area shape="rect" title=" " alt="" coords="2431,549,2490,575"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2872,541,3070,583"/>
-<area shape="rect" title=" " alt="" coords="3112,638,3155,665"/>
-<area shape="rect" title=" " alt="" coords="2754,638,2826,665"/>
-<area shape="rect" title=" " alt="" coords="2850,638,2961,665"/>
-<area shape="rect" title=" " alt="" coords="2985,638,3088,665"/>
-<area shape="rect" title=" " alt="" coords="1594,541,1756,583"/>
-<area shape="rect" title=" " alt="" coords="1780,549,1959,575"/>
-<area shape="rect" href="../../de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="2245,184,2444,225"/>
+<area shape="rect" title="Time parameterization utils." alt="" coords="2157,5,2454,47"/>
+<area shape="rect" title=" " alt="" coords="1841,459,2031,486"/>
+<area shape="rect" title=" " alt="" coords="2184,102,2275,129"/>
+<area shape="rect" title=" " alt="" coords="2299,102,2467,129"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1962,95,2161,136"/>
+<area shape="rect" title=" " alt="" coords="1965,191,2024,218"/>
+<area shape="rect" title=" " alt="" coords="1597,459,1651,486"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="1499,273,1698,315"/>
+<area shape="rect" href="../../dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1250,184,1449,225"/>
+<area shape="rect" title=" " alt="" coords="2046,273,2250,315"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2167,363,2366,404"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2490,363,2689,404"/>
+<area shape="rect" title=" " alt="" coords="1239,452,1366,493"/>
+<area shape="rect" title=" " alt="" coords="757,452,883,493"/>
+<area shape="rect" title=" " alt="" coords="937,459,1108,486"/>
+<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="1135,363,1334,404"/>
+<area shape="rect" title=" " alt="" coords="251,459,466,486"/>
+<area shape="rect" title=" " alt="" coords="501,452,662,493"/>
+<area shape="rect" title=" " alt="" coords="2263,459,2331,486"/>
+<area shape="rect" title=" " alt="" coords="2130,459,2206,486"/>
+<area shape="rect" href="../../d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="731,273,935,315"/>
+<area shape="rect" href="../../d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="1182,273,1381,315"/>
+<area shape="rect" href="../../d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="959,273,1158,315"/>
+<area shape="rect" title=" " alt="" coords="139,363,301,404"/>
+<area shape="rect" title=" " alt="" coords="2731,459,2773,486"/>
+<area shape="rect" title=" " alt="" coords="2372,459,2444,486"/>
+<area shape="rect" title=" " alt="" coords="2469,459,2579,486"/>
+<area shape="rect" title=" " alt="" coords="2603,459,2706,486"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -163,14 +146,14 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Matthew Powelson </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>January 26, 2021 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>TODO </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000284">Bug:</a></b></dt><dd>No known bugs</dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000280">Bug:</a></b></dt><dd>No known bugs</dd></dl>
 <dl class="section user"><dt>License</dt><dd>Software License Agreement (Apache License) </dd></dl>
 <dl class="section user"><dt></dt><dd>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </dd></dl>
 <dl class="section user"><dt></dt><dd>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 23:00:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 22 2022 19:56:16 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

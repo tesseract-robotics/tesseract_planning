@@ -8,206 +8,211 @@
 \DoxyCodeLine{28 }
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
 \DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
-\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{command__language_8h}{tesseract\_command\_language/command\_language.h}}>}}
-\DoxyCodeLine{32 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{34 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{35 \{}
-\DoxyCodeLine{36 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_a5b3204e476e1f1245ea6be76c94e7003}{rasterExampleProgram}}(\textcolor{keyword}{const} std::string\& freespace\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}},}
-\DoxyCodeLine{37                                                  \textcolor{keyword}{const} std::string\& process\_profile = \textcolor{stringliteral}{"{}PROCESS"{}})}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} program(}
-\DoxyCodeLine{40       \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}}, \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98daabc458a817b34b4750413b587f536ac0}{CompositeInstructionOrder::ORDERED}}, \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}(\textcolor{stringliteral}{"{}manipulator"{}}, \textcolor{stringliteral}{"{}base\_link"{}}, \textcolor{stringliteral}{"{}tool0"{}}));}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42   \textcolor{comment}{// Start Joint Position for the program}}
-\DoxyCodeLine{43   std::vector<std::string> joint\_names = \{ \textcolor{stringliteral}{"{}joint\_1"{}}, \textcolor{stringliteral}{"{}joint\_2"{}}, \textcolor{stringliteral}{"{}joint\_3"{}}, \textcolor{stringliteral}{"{}joint\_4"{}}, \textcolor{stringliteral}{"{}joint\_5"{}}, \textcolor{stringliteral}{"{}joint\_6"{}} \};}
-\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}} swp1 = \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}(joint\_names, Eigen::VectorXd::Zero(6));}
-\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} start\_instruction(swp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{MoveInstructionType::START}});}
-\DoxyCodeLine{46   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a76ad25493ed7e36de8b09f98a8b6cf86}{setStartInstruction}}(start\_instruction);}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{48   \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -\/0.3, 0.8) *}
-\DoxyCodeLine{49                                    Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{51   \textcolor{comment}{// Define from start composite instruction}}
-\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f0(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
-\DoxyCodeLine{53   plan\_f0.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}from\_start\_plan"{}});}
-\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} from\_start(freespace\_profile);}
-\DoxyCodeLine{55   from\_start.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}from\_start"{}});}
-\DoxyCodeLine{56   from\_start.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(plan\_f0);}
-\DoxyCodeLine{57   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(from\_start);}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59   \textcolor{comment}{//}}
-\DoxyCodeLine{60   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
-\DoxyCodeLine{61   \{}
-\DoxyCodeLine{62     \textcolor{keywordtype}{double} x = 0.8 + (i * 0.1);}
-\DoxyCodeLine{63     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.3, 0.8) *}
-\DoxyCodeLine{64                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{65     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp2 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.2, 0.8) *}
-\DoxyCodeLine{66                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{67     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp3 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.1, 0.8) *}
-\DoxyCodeLine{68                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{69     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp4 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *}
-\DoxyCodeLine{70                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{71     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp5 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *}
-\DoxyCodeLine{72                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{73     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp6 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *}
-\DoxyCodeLine{74                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{75     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp7 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *}
-\DoxyCodeLine{76                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78     \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} raster\_segment(process\_profile);}
-\DoxyCodeLine{79     raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}Raster \#"{}} + std::to\_string(i + 1));}
-\DoxyCodeLine{80     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
-\DoxyCodeLine{81     \{}
-\DoxyCodeLine{82       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{83       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{84       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp4, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{85       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp5, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{86       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp6, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{87       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp7, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{88     \}}
-\DoxyCodeLine{89     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{90     \{}
-\DoxyCodeLine{91       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp6, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{92       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp5, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{93       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp4, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{94       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{95       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{96       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{97     \}}
-\DoxyCodeLine{98     program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(raster\_segment);}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100     \textcolor{comment}{// Add transition}}
-\DoxyCodeLine{101     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
-\DoxyCodeLine{102     \{}
-\DoxyCodeLine{103       \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp7 =}
-\DoxyCodeLine{104           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *}
-\DoxyCodeLine{105                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107       \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp7, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
-\DoxyCodeLine{108       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
-\DoxyCodeLine{111       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
-\DoxyCodeLine{112       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(plan\_f1);}
-\DoxyCodeLine{113       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(transition);}
-\DoxyCodeLine{114     \}}
-\DoxyCodeLine{115     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 1)}
-\DoxyCodeLine{116     \{}
-\DoxyCodeLine{117       \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 =}
-\DoxyCodeLine{118           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -\/0.3, 0.8) *}
-\DoxyCodeLine{119                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{121       \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
-\DoxyCodeLine{122       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
-\DoxyCodeLine{123 }
-\DoxyCodeLine{124       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
-\DoxyCodeLine{125       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
-\DoxyCodeLine{126       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(plan\_f1);}
-\DoxyCodeLine{127       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(transition);}
-\DoxyCodeLine{128     \}}
-\DoxyCodeLine{129   \}}
-\DoxyCodeLine{130 }
-\DoxyCodeLine{131   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f2(swp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
-\DoxyCodeLine{132   plan\_f2.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}to\_end\_plan"{}});}
-\DoxyCodeLine{133   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} to\_end(freespace\_profile);}
-\DoxyCodeLine{134   to\_end.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}to\_end"{}});}
-\DoxyCodeLine{135   to\_end.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(plan\_f2);}
-\DoxyCodeLine{136   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(to\_end);}
-\DoxyCodeLine{137 }
-\DoxyCodeLine{138   \textcolor{keywordflow}{return} program;}
-\DoxyCodeLine{139 \}}
-\DoxyCodeLine{140 }
-\DoxyCodeLine{141 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_a855838c66468aa17b481ecddac791e5f}{rasterOnlyExampleProgram}}(\textcolor{keyword}{const} std::string\& freespace\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}},}
-\DoxyCodeLine{142                                                      \textcolor{keyword}{const} std::string\& process\_profile = \textcolor{stringliteral}{"{}PROCESS"{}})}
-\DoxyCodeLine{143 \{}
-\DoxyCodeLine{144   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} program(}
-\DoxyCodeLine{145       \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}}, \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98daabc458a817b34b4750413b587f536ac0}{CompositeInstructionOrder::ORDERED}}, \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}(\textcolor{stringliteral}{"{}manipulator"{}}, \textcolor{stringliteral}{"{}base\_link"{}}, \textcolor{stringliteral}{"{}tool0"{}}));}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{147   \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -\/0.3, 0.8) *}
-\DoxyCodeLine{148                                    Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{149 }
-\DoxyCodeLine{150   \textcolor{comment}{// Define start instruction}}
-\DoxyCodeLine{151   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} start\_instruction(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{MoveInstructionType::START}});}
-\DoxyCodeLine{152   start\_instruction.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}Start Instruction"{}});}
-\DoxyCodeLine{153   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a76ad25493ed7e36de8b09f98a8b6cf86}{setStartInstruction}}(start\_instruction);}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{state__waypoint_8h}{tesseract\_command\_language/state\_waypoint.h}}>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{cartesian__waypoint_8h}{tesseract\_command\_language/cartesian\_waypoint.h}}>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{joint__waypoint_8h}{tesseract\_command\_language/joint\_waypoint.h}}>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{move__instruction_8h}{tesseract\_command\_language/move\_instruction.h}}>}}
+\DoxyCodeLine{36 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}};}
+\DoxyCodeLine{41 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_a5b3204e476e1f1245ea6be76c94e7003}{rasterExampleProgram}}(\textcolor{keyword}{const} std::string\& freespace\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}},}
+\DoxyCodeLine{42                                                  \textcolor{keyword}{const} std::string\& process\_profile = \textcolor{stringliteral}{"{}PROCESS"{}})}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} program(}
+\DoxyCodeLine{45       \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}}, \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98daabc458a817b34b4750413b587f536ac0}{CompositeInstructionOrder::ORDERED}}, \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}(\textcolor{stringliteral}{"{}manipulator"{}}, \textcolor{stringliteral}{"{}base\_link"{}}, \textcolor{stringliteral}{"{}tool0"{}}));}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{comment}{// Start Joint Position for the program}}
+\DoxyCodeLine{48   std::vector<std::string> joint\_names = \{ \textcolor{stringliteral}{"{}joint\_1"{}}, \textcolor{stringliteral}{"{}joint\_2"{}}, \textcolor{stringliteral}{"{}joint\_3"{}}, \textcolor{stringliteral}{"{}joint\_4"{}}, \textcolor{stringliteral}{"{}joint\_5"{}}, \textcolor{stringliteral}{"{}joint\_6"{}} \};}
+\DoxyCodeLine{49   \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} swp1\{ \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}(joint\_names, Eigen::VectorXd::Zero(6)) \};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} start\_instruction(swp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{MoveInstructionType::START}});}
+\DoxyCodeLine{51   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_aac3511839302abc4b2aef30331cfc562}{setStartInstruction}}(start\_instruction);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53   \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp1\{ \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -\/0.3, 0.8) *}
+\DoxyCodeLine{54                                                Eigen::Quaterniond(0, 0, -\/1.0, 0)) \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{comment}{// Define from start composite instruction}}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f0(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
+\DoxyCodeLine{58   plan\_f0.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}from\_start\_plan"{}});}
+\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} from\_start(freespace\_profile);}
+\DoxyCodeLine{60   from\_start.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}from\_start"{}});}
+\DoxyCodeLine{61   from\_start.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f0);}
+\DoxyCodeLine{62   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(from\_start);}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{comment}{//}}
+\DoxyCodeLine{65   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
+\DoxyCodeLine{66   \{}
+\DoxyCodeLine{67     \textcolor{keywordtype}{double} x = 0.8 + (i * 0.1);}
+\DoxyCodeLine{68     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.3, 0.8) *}
+\DoxyCodeLine{69                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{70     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp2 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.2, 0.8) *}
+\DoxyCodeLine{71                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{72     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp3 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.1, 0.8) *}
+\DoxyCodeLine{73                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{74     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp4 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *}
+\DoxyCodeLine{75                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{76     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp5 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *}
+\DoxyCodeLine{77                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{78     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp6 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *}
+\DoxyCodeLine{79                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{80     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp7 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *}
+\DoxyCodeLine{81                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} raster\_segment(process\_profile);}
+\DoxyCodeLine{84     raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}Raster \#"{}} + std::to\_string(i + 1));}
+\DoxyCodeLine{85     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
+\DoxyCodeLine{86     \{}
+\DoxyCodeLine{87       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{88       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{89       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp4, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{90       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp5, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{91       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp6, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{92       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp7, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{95     \{}
+\DoxyCodeLine{96       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp6, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{97       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp5, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{98       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp4, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{99       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{100       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{101       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{102     \}}
+\DoxyCodeLine{103     program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(raster\_segment);}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105     \textcolor{comment}{// Add transition}}
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
+\DoxyCodeLine{107     \{}
+\DoxyCodeLine{108       \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp7 =}
+\DoxyCodeLine{109           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *}
+\DoxyCodeLine{110                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112       \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp7, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
+\DoxyCodeLine{113       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
+\DoxyCodeLine{116       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
+\DoxyCodeLine{117       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
+\DoxyCodeLine{118       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(transition);}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 1)}
+\DoxyCodeLine{121     \{}
+\DoxyCodeLine{122       \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp1 =}
+\DoxyCodeLine{123           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -\/0.3, 0.8) *}
+\DoxyCodeLine{124                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126       \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
+\DoxyCodeLine{127       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
+\DoxyCodeLine{130       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
+\DoxyCodeLine{131       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
+\DoxyCodeLine{132       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(transition);}
+\DoxyCodeLine{133     \}}
+\DoxyCodeLine{134   \}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f2(swp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
+\DoxyCodeLine{137   plan\_f2.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}to\_end\_plan"{}});}
+\DoxyCodeLine{138   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} to\_end(freespace\_profile);}
+\DoxyCodeLine{139   to\_end.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}to\_end"{}});}
+\DoxyCodeLine{140   to\_end.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f2);}
+\DoxyCodeLine{141   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(to\_end);}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143   \textcolor{keywordflow}{return} program;}
+\DoxyCodeLine{144 \}}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146 \textcolor{keyword}{inline} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{namespacetesseract__planning_a855838c66468aa17b481ecddac791e5f}{rasterOnlyExampleProgram}}(\textcolor{keyword}{const} std::string\& freespace\_profile = \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}},}
+\DoxyCodeLine{147                                                      \textcolor{keyword}{const} std::string\& process\_profile = \textcolor{stringliteral}{"{}PROCESS"{}})}
+\DoxyCodeLine{148 \{}
+\DoxyCodeLine{149   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} program(}
+\DoxyCodeLine{150       \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}}, \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98daabc458a817b34b4750413b587f536ac0}{CompositeInstructionOrder::ORDERED}}, \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}(\textcolor{stringliteral}{"{}manipulator"{}}, \textcolor{stringliteral}{"{}base\_link"{}}, \textcolor{stringliteral}{"{}tool0"{}}));}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152   \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -\/0.3, 0.8) *}
+\DoxyCodeLine{153                                                 Eigen::Quaterniond(0, 0, -\/1.0, 0));}
 \DoxyCodeLine{154 }
-\DoxyCodeLine{155   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
-\DoxyCodeLine{156   \{}
-\DoxyCodeLine{157     \textcolor{keywordtype}{double} x = 0.8 + (i * 0.1);}
-\DoxyCodeLine{158     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.3, 0.8) *}
-\DoxyCodeLine{159                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{160     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp2 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.2, 0.8) *}
-\DoxyCodeLine{161                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{162     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp3 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.1, 0.8) *}
-\DoxyCodeLine{163                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{164     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp4 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *}
-\DoxyCodeLine{165                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{166     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp5 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *}
-\DoxyCodeLine{167                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{168     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp6 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *}
-\DoxyCodeLine{169                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{170     \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp7 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *}
-\DoxyCodeLine{171                                      Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{172 }
-\DoxyCodeLine{173     \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} raster\_segment(process\_profile);}
-\DoxyCodeLine{174     raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}Raster \#"{}} + std::to\_string(i + 1));}
-\DoxyCodeLine{175     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
-\DoxyCodeLine{176     \{}
-\DoxyCodeLine{177       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{178       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{179       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp4, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{180       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp5, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{181       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp6, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{182       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp7, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{183     \}}
-\DoxyCodeLine{184     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{185     \{}
-\DoxyCodeLine{186       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp6, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{187       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp5, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{188       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp4, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{189       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{190       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{191       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
-\DoxyCodeLine{192     \}}
-\DoxyCodeLine{193     program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(raster\_segment);}
-\DoxyCodeLine{194 }
-\DoxyCodeLine{195     \textcolor{comment}{// Add transition}}
-\DoxyCodeLine{196     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
-\DoxyCodeLine{197     \{}
-\DoxyCodeLine{198       \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp7 =}
-\DoxyCodeLine{199           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *}
-\DoxyCodeLine{200                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{201 }
-\DoxyCodeLine{202       \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp7, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
-\DoxyCodeLine{203       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
-\DoxyCodeLine{204 }
-\DoxyCodeLine{205       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
-\DoxyCodeLine{206       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
-\DoxyCodeLine{207       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(plan\_f1);}
-\DoxyCodeLine{208       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(transition);}
-\DoxyCodeLine{209     \}}
-\DoxyCodeLine{210     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 1)}
-\DoxyCodeLine{211     \{}
-\DoxyCodeLine{212       \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} wp1 =}
-\DoxyCodeLine{213           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -\/0.3, 0.8) *}
-\DoxyCodeLine{214                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
-\DoxyCodeLine{215 }
-\DoxyCodeLine{216       \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
-\DoxyCodeLine{217       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
-\DoxyCodeLine{218 }
-\DoxyCodeLine{219       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
-\DoxyCodeLine{220       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
-\DoxyCodeLine{221       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(plan\_f1);}
-\DoxyCodeLine{222       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5107fc27f5532661f7016503fe19c50b}{push\_back}}(transition);}
-\DoxyCodeLine{223     \}}
-\DoxyCodeLine{224   \}}
-\DoxyCodeLine{225 }
-\DoxyCodeLine{226   \textcolor{keywordflow}{return} program;}
-\DoxyCodeLine{227 \}}
-\DoxyCodeLine{228 }
-\DoxyCodeLine{229 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{155   \textcolor{comment}{// Define start instruction}}
+\DoxyCodeLine{156   \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} start\_instruction(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{MoveInstructionType::START}});}
+\DoxyCodeLine{157   start\_instruction.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}Start Instruction"{}});}
+\DoxyCodeLine{158   program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_aac3511839302abc4b2aef30331cfc562}{setStartInstruction}}(start\_instruction);}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
+\DoxyCodeLine{161   \{}
+\DoxyCodeLine{162     \textcolor{keywordtype}{double} x = 0.8 + (i * 0.1);}
+\DoxyCodeLine{163     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp1 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.3, 0.8) *}
+\DoxyCodeLine{164                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{165     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp2 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.2, 0.8) *}
+\DoxyCodeLine{166                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{167     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp3 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -\/0.1, 0.8) *}
+\DoxyCodeLine{168                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{169     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp4 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *}
+\DoxyCodeLine{170                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{171     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp5 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *}
+\DoxyCodeLine{172                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{173     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp6 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *}
+\DoxyCodeLine{174                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{175     \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp7 = \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *}
+\DoxyCodeLine{176                                                   Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178     \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} raster\_segment(process\_profile);}
+\DoxyCodeLine{179     raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}Raster \#"{}} + std::to\_string(i + 1));}
+\DoxyCodeLine{180     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
+\DoxyCodeLine{181     \{}
+\DoxyCodeLine{182       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{183       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{184       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp4, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{185       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp5, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{186       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp6, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{187       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp7, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{188     \}}
+\DoxyCodeLine{189     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{190     \{}
+\DoxyCodeLine{191       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp6, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{192       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp5, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{193       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp4, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{194       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp3, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{195       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp2, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{196       raster\_segment.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{MoveInstructionType::LINEAR}}, process\_profile));}
+\DoxyCodeLine{197     \}}
+\DoxyCodeLine{198     program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(raster\_segment);}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200     \textcolor{comment}{// Add transition}}
+\DoxyCodeLine{201     \textcolor{keywordflow}{if} (i == 0 || i == 2)}
+\DoxyCodeLine{202     \{}
+\DoxyCodeLine{203       \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp7 =}
+\DoxyCodeLine{204           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.8) *}
+\DoxyCodeLine{205                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207       \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp7, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
+\DoxyCodeLine{208       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
+\DoxyCodeLine{211       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
+\DoxyCodeLine{212       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
+\DoxyCodeLine{213       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(transition);}
+\DoxyCodeLine{214     \}}
+\DoxyCodeLine{215     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 1)}
+\DoxyCodeLine{216     \{}
+\DoxyCodeLine{217       \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} wp1 =}
+\DoxyCodeLine{218           \mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -\/0.3, 0.8) *}
+\DoxyCodeLine{219                             Eigen::Quaterniond(0, 0, -\/1.0, 0));}
+\DoxyCodeLine{220 }
+\DoxyCodeLine{221       \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} plan\_f1(wp1, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}}, freespace\_profile);}
+\DoxyCodeLine{222       plan\_f1.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1e5a9f3d291c96cdd915}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end\_plan"{}});}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224       \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} transition(freespace\_profile);}
+\DoxyCodeLine{225       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abd2810afe8084f2db4b7ddf70c1fc88c}{setDescription}}(\textcolor{stringliteral}{"{}transition\_from\_end"{}});}
+\DoxyCodeLine{226       transition.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_af3d7102b1f5556f58f32c2f2c865cd87}{appendMoveInstruction}}(plan\_f1);}
+\DoxyCodeLine{227       program.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a5bdc97e314d770891ae12bcb75a30476}{appendInstruction}}(transition);}
+\DoxyCodeLine{228     \}}
+\DoxyCodeLine{229   \}}
 \DoxyCodeLine{230 }
-\DoxyCodeLine{231 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{231   \textcolor{keywordflow}{return} program;}
+\DoxyCodeLine{232 \}}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

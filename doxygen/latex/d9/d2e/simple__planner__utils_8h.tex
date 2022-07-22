@@ -9,7 +9,7 @@ Provides interpolation utils for simple planner profiles.
 {\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include $<$memory$>$}\newline
 {\ttfamily \#include $<$array$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/move\+\_\+instruction\+\_\+poly.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/core/types.\+h$>$}\newline
 Include dependency graph for simple\+\_\+planner\+\_\+utils.\+h\+:
 \nopagebreak
@@ -31,9 +31,9 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1JointGroupInstructionInfo}{tesseract\+\_\+planning\+::\+Joint\+Group\+Instruction\+Info}}
-\begin{DoxyCompactList}\small\item\em The Joint Group \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The Joint Group Instruction Information struct. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{tesseract\+\_\+planning\+::\+Kinematic\+Group\+Instruction\+Info}}
-\begin{DoxyCompactList}\small\item\em The Kinematic Group \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Information struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The Kinematic Group Instruction Information struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -42,7 +42,7 @@ namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_adfefb330b159d7102d3f9106438a8900}{tesseract\+\_\+planning\+::get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const Move\+Instruction \&base\+\_\+instruction)
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_ae2abbbef588cecfc66d9cb43932dd1c8}{tesseract\+\_\+planning\+::get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const Move\+Instruction\+Poly \&base\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
 Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Kinematic\+Group\+Instruction\+Info \&info, const Eigen\+::\+Vector\+Xd \&seed)
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for p to the provided seed. \end{DoxyCompactList}\item 
@@ -63,7 +63,7 @@ January 12, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000093}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000089}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

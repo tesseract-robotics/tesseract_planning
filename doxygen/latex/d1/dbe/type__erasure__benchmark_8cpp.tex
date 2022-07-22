@@ -8,8 +8,15 @@
 {\ttfamily \#include $<$benchmark/benchmark.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/any.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/command\+\_\+language.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/cartesian\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/state\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/joint\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/wait\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/timer\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/set\+\_\+analog\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/set\+\_\+tool\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/utils.\+h$>$}\newline
 Include dependency graph for type\+\_\+erasure\+\_\+benchmark.\+cpp\+:
 \nopagebreak
@@ -24,7 +31,7 @@ Include dependency graph for type\+\_\+erasure\+\_\+benchmark.\+cpp\+:
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{type__erasure__benchmark_8cpp_a0521c81eb85dd98338887525d5a1d9c9}{get\+Program}} ()
 \item 
-std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} $>$ \mbox{\hyperlink{type__erasure__benchmark_8cpp_a162e9a2a25bbfc6b4fbc9d674bfec74c}{create\+Vector\+State\+Waypoint\+Poly}} ()
+std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} $>$ \mbox{\hyperlink{type__erasure__benchmark_8cpp_a82bcd1418cad2530c0144528f3e9958e}{create\+Vector\+State\+Waypoint\+Poly}} ()
 \item 
 std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{State\+Waypoint}} $>$ $>$ \mbox{\hyperlink{type__erasure__benchmark_8cpp_a504432a7ef3f3502b7ffb92b3fb6684d}{create\+Vector\+State\+Waypoint\+UPtr}} ()
 \item 
@@ -115,7 +122,7 @@ August 20, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000044}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000039}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -355,11 +362,11 @@ Unless required by applicable law or agreed to in writing, software distributed 
 \doxysubsubsection{\texorpdfstring{BM\_WaypointPolyCreation()}{BM\_WaypointPolyCreation()}}
 {\footnotesize\ttfamily static void BM\+\_\+\+Waypoint\+Poly\+Creation (\begin{DoxyParamCaption}\item[{benchmark\+::\+State \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a162e9a2a25bbfc6b4fbc9d674bfec74c}\label{type__erasure__benchmark_8cpp_a162e9a2a25bbfc6b4fbc9d674bfec74c}} 
+\mbox{\Hypertarget{type__erasure__benchmark_8cpp_a82bcd1418cad2530c0144528f3e9958e}\label{type__erasure__benchmark_8cpp_a82bcd1418cad2530c0144528f3e9958e}} 
 \index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!createVectorStateWaypointPoly@{createVectorStateWaypointPoly}}
 \index{createVectorStateWaypointPoly@{createVectorStateWaypointPoly}!type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}}
 \doxysubsubsection{\texorpdfstring{createVectorStateWaypointPoly()}{createVectorStateWaypointPoly()}}
-{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} $>$ create\+Vector\+State\+Waypoint\+Poly (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} $>$ create\+Vector\+State\+Waypoint\+Poly (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{type__erasure__benchmark_8cpp_a504432a7ef3f3502b7ffb92b3fb6684d}\label{type__erasure__benchmark_8cpp_a504432a7ef3f3502b7ffb92b3fb6684d}} 
 \index{type\_erasure\_benchmark.cpp@{type\_erasure\_benchmark.cpp}!createVectorStateWaypointUPtr@{createVectorStateWaypointUPtr}}

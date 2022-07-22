@@ -27,8 +27,8 @@
 \DoxyCodeLine{52     \}}
 \DoxyCodeLine{53 }
 \DoxyCodeLine{54     \textcolor{comment}{// Check the overall input}}
-\DoxyCodeLine{55     \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* input\_instruction = task\_input.\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a026ae6e5c958cb320cea9eb3d4d81bb6}{getInstruction}}();}
-\DoxyCodeLine{56     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacetesseract__planning_af48bb1d750c019e34337ed0a0f88ef76}{isCompositeInstruction}}(*input\_instruction))}
+\DoxyCodeLine{55     \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* input\_instruction = task\_input.\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_addfb42493c943c6e4704f8fb46b6057c}{getInstruction}}();}
+\DoxyCodeLine{56     \textcolor{keywordflow}{if} (!input\_instruction-\/>\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly_a82a89780a2183a6554433454ef217688}{isCompositeInstruction}}())}
 \DoxyCodeLine{57     \{}
 \DoxyCodeLine{58       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}TaskInput Invalid: input.instructions should be a composite"{}});}
 \DoxyCodeLine{59       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}

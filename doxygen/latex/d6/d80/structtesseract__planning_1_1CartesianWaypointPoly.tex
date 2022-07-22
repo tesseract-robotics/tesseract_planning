@@ -1,0 +1,218 @@
+\hypertarget{structtesseract__planning_1_1CartesianWaypointPoly}{}\doxysection{tesseract\+\_\+planning\+::Cartesian\+Waypoint\+Poly Struct Reference}
+\label{structtesseract__planning_1_1CartesianWaypointPoly}\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+
+
+{\ttfamily \#include $<$cartesian\+\_\+waypoint\+\_\+poly.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::Cartesian\+Waypoint\+Poly\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{d4/dae/structtesseract__planning_1_1CartesianWaypointPoly__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::Cartesian\+Waypoint\+Poly\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{d4/da6/structtesseract__planning_1_1CartesianWaypointPoly__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_ad47b6b8a35d76b1a2cb3ac9af962738a}{set\+Transform}} (const Eigen\+::\+Isometry3d \&transform)
+\item 
+Eigen\+::\+Isometry3d \& \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_abba753ed1fba0bc1147807b9d48c607d}{get\+Transform}} ()
+\item 
+const Eigen\+::\+Isometry3d \& \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a035bfc910a53631d5c963791e96db112}{get\+Transform}} () const
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a694826b0deb41442dae3733e7f1d5117}{set\+Upper\+Tolerance}} (const Eigen\+::\+Vector\+Xd \&upper\+\_\+tol)
+\item 
+Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a188141a2f651a39075064ccfaddbb1da}{get\+Upper\+Tolerance}} ()
+\item 
+const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a17286c909a6422394913a3ec8678e173}{get\+Upper\+Tolerance}} () const
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a32dcae89fe3e4b4274f77f241bb587ee}{set\+Lower\+Tolerance}} (const Eigen\+::\+Vector\+Xd \&lower\+\_\+tol)
+\item 
+Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a1e15d5f11a9f00ac9d651b8b416f6952}{get\+Lower\+Tolerance}} ()
+\item 
+const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a77bd5db88555a84ce6f4827161fd316b}{get\+Lower\+Tolerance}} () const
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a9f61c029369b0d6470abb929c392f0ff}{set\+Seed}} (const tesseract\+\_\+common\+::\+Joint\+State \&seed)
+\item 
+tesseract\+\_\+common\+::\+Joint\+State \& \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a010beb7e2c3d3c8c0eef50ac0662b31d}{get\+Seed}} ()
+\item 
+const tesseract\+\_\+common\+::\+Joint\+State \& \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_acab5c5e921d2c981922f3bb47c4a065d}{get\+Seed}} () const
+\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a89c6a028c2fcf8c647e20a9f0b5710e2}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
+\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_ad74c61aeec645c57f92143cece2f248d}{has\+Seed}} () const
+\begin{DoxyCompactList}\small\item\em Check if it has a seed. If the position or joint names is empty this returns false. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a65ac5aa1bd038101f408527915176f0b}{clear\+Seed}} ()
+\begin{DoxyCompactList}\small\item\em Clear the seed to empty data structures. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_aa0b3e03950aecd3406eb2f2944d5ea24}{is\+Toleranced}} () const
+\begin{DoxyCompactList}\small\item\em Returns true if waypoint has tolerances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_af092ccb85ffd4134ca9c0653865e4923}{serialize}} (Archive \&ar, const unsigned int)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\+\_\+common\+::\+Serialization}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a65ac5aa1bd038101f408527915176f0b}\label{structtesseract__planning_1_1CartesianWaypointPoly_a65ac5aa1bd038101f408527915176f0b}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!clearSeed@{clearSeed}}
+\index{clearSeed@{clearSeed}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{clearSeed()}{clearSeed()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::clear\+Seed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clear the seed to empty data structures. 
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a1e15d5f11a9f00ac9d651b8b416f6952}\label{structtesseract__planning_1_1CartesianWaypointPoly_a1e15d5f11a9f00ac9d651b8b416f6952}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!getLowerTolerance@{getLowerTolerance}}
+\index{getLowerTolerance@{getLowerTolerance}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{getLowerTolerance()}{getLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::get\+Lower\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a77bd5db88555a84ce6f4827161fd316b}\label{structtesseract__planning_1_1CartesianWaypointPoly_a77bd5db88555a84ce6f4827161fd316b}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!getLowerTolerance@{getLowerTolerance}}
+\index{getLowerTolerance@{getLowerTolerance}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{getLowerTolerance()}{getLowerTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::get\+Lower\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a010beb7e2c3d3c8c0eef50ac0662b31d}\label{structtesseract__planning_1_1CartesianWaypointPoly_a010beb7e2c3d3c8c0eef50ac0662b31d}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!getSeed@{getSeed}}
+\index{getSeed@{getSeed}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{getSeed()}{getSeed()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Joint\+State \& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::get\+Seed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_acab5c5e921d2c981922f3bb47c4a065d}\label{structtesseract__planning_1_1CartesianWaypointPoly_acab5c5e921d2c981922f3bb47c4a065d}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!getSeed@{getSeed}}
+\index{getSeed@{getSeed}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{getSeed()}{getSeed()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const tesseract\+\_\+common\+::\+Joint\+State \& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::get\+Seed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_abba753ed1fba0bc1147807b9d48c607d}\label{structtesseract__planning_1_1CartesianWaypointPoly_abba753ed1fba0bc1147807b9d48c607d}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!getTransform@{getTransform}}
+\index{getTransform@{getTransform}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{getTransform()}{getTransform()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Isometry3d \& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a035bfc910a53631d5c963791e96db112}\label{structtesseract__planning_1_1CartesianWaypointPoly_a035bfc910a53631d5c963791e96db112}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!getTransform@{getTransform}}
+\index{getTransform@{getTransform}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{getTransform()}{getTransform()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Eigen\+::\+Isometry3d \& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a188141a2f651a39075064ccfaddbb1da}\label{structtesseract__planning_1_1CartesianWaypointPoly_a188141a2f651a39075064ccfaddbb1da}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!getUpperTolerance@{getUpperTolerance}}
+\index{getUpperTolerance@{getUpperTolerance}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{getUpperTolerance()}{getUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a17286c909a6422394913a3ec8678e173}\label{structtesseract__planning_1_1CartesianWaypointPoly_a17286c909a6422394913a3ec8678e173}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!getUpperTolerance@{getUpperTolerance}}
+\index{getUpperTolerance@{getUpperTolerance}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{getUpperTolerance()}{getUpperTolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Eigen\+::\+Vector\+Xd \& tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::get\+Upper\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_ad74c61aeec645c57f92143cece2f248d}\label{structtesseract__planning_1_1CartesianWaypointPoly_ad74c61aeec645c57f92143cece2f248d}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!hasSeed@{hasSeed}}
+\index{hasSeed@{hasSeed}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{hasSeed()}{hasSeed()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::has\+Seed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if it has a seed. If the position or joint names is empty this returns false. 
+
+\begin{DoxyReturn}{Returns}
+True if it has a seed, otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_aa0b3e03950aecd3406eb2f2944d5ea24}\label{structtesseract__planning_1_1CartesianWaypointPoly_aa0b3e03950aecd3406eb2f2944d5ea24}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!isToleranced@{isToleranced}}
+\index{isToleranced@{isToleranced}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{isToleranced()}{isToleranced()}}
+{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::is\+Toleranced (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns true if waypoint has tolerances. 
+
+\begin{DoxyReturn}{Returns}
+True if waypoint has tolerances 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a89c6a028c2fcf8c647e20a9f0b5710e2}\label{structtesseract__planning_1_1CartesianWaypointPoly_a89c6a028c2fcf8c647e20a9f0b5710e2}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!print@{print}}
+\index{print@{print}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_af092ccb85ffd4134ca9c0653865e4923}\label{structtesseract__planning_1_1CartesianWaypointPoly_af092ccb85ffd4134ca9c0653865e4923}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a32dcae89fe3e4b4274f77f241bb587ee}\label{structtesseract__planning_1_1CartesianWaypointPoly_a32dcae89fe3e4b4274f77f241bb587ee}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!setLowerTolerance@{setLowerTolerance}}
+\index{setLowerTolerance@{setLowerTolerance}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{setLowerTolerance()}{setLowerTolerance()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::set\+Lower\+Tolerance (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{lower\+\_\+tol }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a9f61c029369b0d6470abb929c392f0ff}\label{structtesseract__planning_1_1CartesianWaypointPoly_a9f61c029369b0d6470abb929c392f0ff}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!setSeed@{setSeed}}
+\index{setSeed@{setSeed}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{setSeed()}{setSeed()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::set\+Seed (\begin{DoxyParamCaption}\item[{const tesseract\+\_\+common\+::\+Joint\+State \&}]{seed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_ad47b6b8a35d76b1a2cb3ac9af962738a}\label{structtesseract__planning_1_1CartesianWaypointPoly_ad47b6b8a35d76b1a2cb3ac9af962738a}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!setTransform@{setTransform}}
+\index{setTransform@{setTransform}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{setTransform()}{setTransform()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::set\+Transform (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Isometry3d \&}]{transform }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a694826b0deb41442dae3733e7f1d5117}\label{structtesseract__planning_1_1CartesianWaypointPoly_a694826b0deb41442dae3733e7f1d5117}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!setUpperTolerance@{setUpperTolerance}}
+\index{setUpperTolerance@{setUpperTolerance}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{setUpperTolerance()}{setUpperTolerance()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Cartesian\+Waypoint\+Poly\+::set\+Upper\+Tolerance (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{upper\+\_\+tol }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{structtesseract__planning_1_1CartesianWaypointPoly_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1CartesianWaypointPoly_a9d42ad7bb40288a7ac1aad8d76809fe7}\label{structtesseract__planning_1_1CartesianWaypointPoly_a9d42ad7bb40288a7ac1aad8d76809fe7}} 
+\index{tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
+\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::CartesianWaypointPoly@{tesseract\_planning::CartesianWaypointPoly}}
+\doxysubsubsection{\texorpdfstring{tesseract\_common::Serialization}{tesseract\_common::Serialization}}
+{\footnotesize\ttfamily friend struct tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/poly/\mbox{\hyperlink{cartesian__waypoint__poly_8h}{cartesian\+\_\+waypoint\+\_\+poly.\+h}}\item 
+tesseract\+\_\+command\+\_\+language/src/poly/\mbox{\hyperlink{cartesian__waypoint__poly_8cpp}{cartesian\+\_\+waypoint\+\_\+poly.\+cpp}}\end{DoxyCompactItemize}

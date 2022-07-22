@@ -1,0 +1,84 @@
+\hypertarget{tesseract__command__language_2src_2utils_8cpp}{}\doxysection{tesseract\+\_\+command\+\_\+language/src/utils.cpp File Reference}
+\label{tesseract__command__language_2src_2utils_8cpp}\index{tesseract\_command\_language/src/utils.cpp@{tesseract\_command\_language/src/utils.cpp}}
+{\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/cartesian\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/joint\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/state\+\_\+waypoint\+\_\+poly.\+h$>$}\newline
+Include dependency graph for utils.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d7b/tesseract__command__language_2src_2utils_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+common\+::\+Joint\+Trajectory \mbox{\hyperlink{namespacetesseract__planning_a4631f1616bd5577e3b1a049553ce557a}{tesseract\+\_\+planning\+::to\+Joint\+Trajectory}} (const Composite\+Instruction \&composite\+\_\+instructions)
+\begin{DoxyCompactList}\small\item\em Convert composite instruction to a joint trajectory. \end{DoxyCompactList}\item 
+const Eigen\+::\+Vector\+Xd \& \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{tesseract\+\_\+planning\+::get\+Joint\+Position}} (const Waypoint\+Poly \&waypoint)
+\begin{DoxyCompactList}\small\item\em Gets joint position from waypoints that contain that information. \end{DoxyCompactList}\item 
+const std\+::vector$<$ std\+::string $>$ \& \mbox{\hyperlink{namespacetesseract__planning_a63b2d0a750e672adad83b1ba2c73988f}{tesseract\+\_\+planning\+::get\+Joint\+Names}} (const Waypoint\+Poly \&waypoint)
+\begin{DoxyCompactList}\small\item\em Gets joint names from waypoints that contain that information. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a0c6309ce5da89b1e6478b5dfb9600451}{tesseract\+\_\+planning\+::get\+Joint\+Position}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Waypoint\+Poly \&waypoint)
+\begin{DoxyCompactList}\small\item\em Get the joint positions ordered by the provided joint names. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a110418756c66b9f486da2b882f0a0f1a}{tesseract\+\_\+planning\+::format\+Joint\+Position}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, Waypoint\+Poly \&waypoint)
+\begin{DoxyCompactList}\small\item\em Format the waypoints joint ordered by the provided joint names. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a000daf954599df6eb5aa5ffa51ccdeff}{tesseract\+\_\+planning\+::check\+Joint\+Position\+Format}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Waypoint\+Poly \&waypoint)
+\begin{DoxyCompactList}\small\item\em Check the waypoints joint order against the provided joint names. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a8d0eba5e8d5500ec2010d1d4d8c4e6fc}{tesseract\+\_\+planning\+::set\+Joint\+Position}} (Waypoint\+Poly \&waypoint, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&position)
+\begin{DoxyCompactList}\small\item\em Set the joint position for waypoints that contain that information. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_af0a6a646d66932568a74534b67fb709b}{tesseract\+\_\+planning\+::is\+Within\+Joint\+Limits}} (const Waypoint\+Poly \&wp, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&limits)
+\begin{DoxyCompactList}\small\item\em Checks if a waypoint is. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a0533b87642d9f569988dccb0b8d6bf5f}{tesseract\+\_\+planning\+::clamp\+To\+Joint\+Limits}} (Waypoint\+Poly \&wp, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&limits, double max\+\_\+deviation=(std\+::numeric\+\_\+limits$<$ double $>$\+::max)())
+\begin{DoxyCompactList}\small\item\em Clamps a waypoint to be within joint limits. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a24da14aa8d63448d620d91bf1f3ecb17}{tesseract\+\_\+planning\+::clamp\+To\+Joint\+Limits}} (Waypoint\+Poly \&wp, const Eigen\+::\+Ref$<$ const Eigen\+::\+Matrix\+X2d $>$ \&limits, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+deviation)
+\begin{DoxyCompactList}\small\item\em Clamps a waypoint to be within joint limits. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacetesseract__planning_a63dfee6d2a2b430c8fb8d17ee2c1db4e}{tesseract\+\_\+planning\+::generate\+Skeleton\+Seed\+Helper}} (Composite\+Instruction \&composite\+\_\+instructions)
+\item 
+bool \mbox{\hyperlink{namespacetesseract__planning_a2b65f19a72bd238c13d1cf24ffaec7c1}{tesseract\+\_\+planning\+::to\+Delimited\+File}} (const Composite\+Instruction \&composite\+\_\+instructions, const std\+::string \&file\+\_\+path, char separator=\textquotesingle{},\textquotesingle{})
+\begin{DoxyCompactList}\small\item\em Convert a \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} to delimited formate file by extracting all Move\+Instructions. \end{DoxyCompactList}\item 
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_af96ba7a9b3db3684f21122e62032c0e3}{tesseract\+\_\+planning\+::generate\+Skeleton\+Seed}} (const Composite\+Instruction \&composite\+\_\+instructions)
+\begin{DoxyCompactList}\small\item\em This creates a seed by looping over and replacing every plan instruction with a composite instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{tesseract\+\_\+planning\+::locate\+Filter\+Fn}} \mbox{\hyperlink{namespacetesseract__planning_a683f78d4f45a6b027dc453d2566d39ca}{tesseract\+\_\+planning\+::to\+Joint\+Trajectory\+Instruction\+Filter}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Levi Armstrong 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 15, 2020 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+TODO 
+\end{DoxyVersion}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000031}{Bug}}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2020, Southwest Research Institute
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{License}
+Software License Agreement (Apache License) 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Licensed under the Apache License, Version 2.\+0 (the \char`\"{}\+License\char`\"{}); you may not use this file except in compliance with the License. You may obtain a copy of the License at \href{http://www.apache.org/licenses/LICENSE-2.0}{\texttt{ http\+://www.\+apache.\+org/licenses/\+LICENSE-\/2.\+0}} 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+AS IS\char`\"{} BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 
+\end{DoxyParagraph}

@@ -71,10 +71,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="../../dc/da3/classtesseract__planning_1_1JointWaypoint-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">tesseract_planning::JointWaypoint Class Reference</div></div>
@@ -94,120 +93,78 @@ Collaboration diagram for tesseract_planning::JointWaypoint:</div>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a7be5bac313b8a5b357c5b6e52a0844e6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a7be5bac313b8a5b357c5b6e52a0844e6">ConstTransposeReturnType</a> = Eigen::VectorXd::ConstTransposeReturnType</td></tr>
-<tr class="separator:a7be5bac313b8a5b357c5b6e52a0844e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a18f43d3b65b93369e0531dd50d006b93"><td class="memItemLeft" align="right" valign="top">EIGEN_MAKE_ALIGNED_OPERATOR_NEW&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a18f43d3b65b93369e0531dd50d006b93">JointWaypoint</a> ()=default</td></tr>
 <tr class="separator:a18f43d3b65b93369e0531dd50d006b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a090b67f80dad1ebe118cfad8fadbb4ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a090b67f80dad1ebe118cfad8fadbb4ef">JointWaypoint</a> (std::vector&lt; std::string &gt; names, const Eigen::VectorXd &amp;position)</td></tr>
+<tr class="separator:a090b67f80dad1ebe118cfad8fadbb4ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6a6eb9dadf33ef106213bdb10efa3df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ae6a6eb9dadf33ef106213bdb10efa3df">JointWaypoint</a> (std::vector&lt; std::string &gt; names, const Eigen::VectorXd &amp;position, const Eigen::VectorXd &amp;lower_tol, const Eigen::VectorXd &amp;upper_tol)</td></tr>
+<tr class="separator:ae6a6eb9dadf33ef106213bdb10efa3df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa60a73359dfeb8d7c06e63c8e8e55aea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#aa60a73359dfeb8d7c06e63c8e8e55aea">JointWaypoint</a> (std::initializer_list&lt; std::string &gt; names, std::initializer_list&lt; double &gt; position)</td></tr>
+<tr class="separator:aa60a73359dfeb8d7c06e63c8e8e55aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fc11a325dac1bc5732ed12f9e019591"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a7fc11a325dac1bc5732ed12f9e019591">JointWaypoint</a> (std::initializer_list&lt; std::string &gt; names, std::initializer_list&lt; double &gt; position, std::initializer_list&lt; double &gt; lower_tol, std::initializer_list&lt; double &gt; upper_tol)</td></tr>
+<tr class="separator:a7fc11a325dac1bc5732ed12f9e019591"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6d91c02aabc8a584f3fa248c3129ff2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ad6d91c02aabc8a584f3fa248c3129ff2">setNames</a> (const std::vector&lt; std::string &gt; &amp;names)</td></tr>
+<tr class="separator:ad6d91c02aabc8a584f3fa248c3129ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa51bccaad5691cf315b48a36d7adf3db"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#aa51bccaad5691cf315b48a36d7adf3db">getNames</a> ()</td></tr>
+<tr class="separator:aa51bccaad5691cf315b48a36d7adf3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a764370cea129185350d894ba6b6ea667"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a764370cea129185350d894ba6b6ea667">getNames</a> () const</td></tr>
+<tr class="separator:a764370cea129185350d894ba6b6ea667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90d8143f76082ee540f986554393ff6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a90d8143f76082ee540f986554393ff6e">setPosition</a> (const Eigen::VectorXd &amp;position)</td></tr>
+<tr class="separator:a90d8143f76082ee540f986554393ff6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38a87b12e325174dce5b821e76f82bf7"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a38a87b12e325174dce5b821e76f82bf7">getPosition</a> ()</td></tr>
+<tr class="separator:a38a87b12e325174dce5b821e76f82bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b324732a297d46e249ec23277cb879a"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a9b324732a297d46e249ec23277cb879a">getPosition</a> () const</td></tr>
+<tr class="separator:a9b324732a297d46e249ec23277cb879a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3d2de8bd57febeb8acf28650db9bd53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ae3d2de8bd57febeb8acf28650db9bd53">setUpperTolerance</a> (const Eigen::VectorXd &amp;upper_tol)</td></tr>
+<tr class="separator:ae3d2de8bd57febeb8acf28650db9bd53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e5f0351238b4e6d8fe106fb76738f77"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a1e5f0351238b4e6d8fe106fb76738f77">getUpperTolerance</a> ()</td></tr>
+<tr class="separator:a1e5f0351238b4e6d8fe106fb76738f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3a8893384aa2e2468cb6efef99b4ddc"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ad3a8893384aa2e2468cb6efef99b4ddc">getUpperTolerance</a> () const</td></tr>
+<tr class="separator:ad3a8893384aa2e2468cb6efef99b4ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab7460ec1ba0e80491156a8acf9882b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#aab7460ec1ba0e80491156a8acf9882b8">setLowerTolerance</a> (const Eigen::VectorXd &amp;lower_tol)</td></tr>
+<tr class="separator:aab7460ec1ba0e80491156a8acf9882b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6506502692ad83ccea2b92678ddcbacf"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a6506502692ad83ccea2b92678ddcbacf">getLowerTolerance</a> ()</td></tr>
+<tr class="separator:a6506502692ad83ccea2b92678ddcbacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fce8d031239e29665cd09c4818c8c06"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a8fce8d031239e29665cd09c4818c8c06">getLowerTolerance</a> () const</td></tr>
+<tr class="separator:a8fce8d031239e29665cd09c4818c8c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eb945ed7a65bcad5725ee6a014e73c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a3eb945ed7a65bcad5725ee6a014e73c4">print</a> (const std::string &amp;prefix=&quot;&quot;) const</td></tr>
 <tr class="separator:a3eb945ed7a65bcad5725ee6a014e73c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb48c6942b551fc5846c40da1f952f29"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:abb48c6942b551fc5846c40da1f952f29"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#abb48c6942b551fc5846c40da1f952f29">JointWaypoint</a> (std::vector&lt; std::string &gt; <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a9924c18bddc6f7d393ab25de245a4eb9">joint_names</a>, const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td></tr>
-<tr class="separator:abb48c6942b551fc5846c40da1f952f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6e82e274ebe8b50dd6b7cf1d2914cd2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#af6e82e274ebe8b50dd6b7cf1d2914cd2">JointWaypoint</a> (std::vector&lt; std::string &gt; <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a9924c18bddc6f7d393ab25de245a4eb9">joint_names</a>, std::initializer_list&lt; double &gt; l)</td></tr>
-<tr class="separator:af6e82e274ebe8b50dd6b7cf1d2914cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc4ac21db865d41851190726bf80fb3"><td class="memItemLeft" align="right" valign="top">Eigen::Index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a6dc4ac21db865d41851190726bf80fb3">size</a> () const</td></tr>
-<tr class="separator:a6dc4ac21db865d41851190726bf80fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5a984c7c4ed90227568f37c25439370"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ab5a984c7c4ed90227568f37c25439370">norm</a> () const</td></tr>
-<tr class="separator:ab5a984c7c4ed90227568f37c25439370"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8822ad720ff03c68be6abeaf60a5239a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a8822ad720ff03c68be6abeaf60a5239a">isApprox</a> (const Eigen::VectorXd &amp;other, double prec=1e-12)</td></tr>
-<tr class="separator:a8822ad720ff03c68be6abeaf60a5239a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa15423d3d30152df241659b125564158"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a7be5bac313b8a5b357c5b6e52a0844e6">ConstTransposeReturnType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#aa15423d3d30152df241659b125564158">transpose</a> () const</td></tr>
-<tr class="separator:aa15423d3d30152df241659b125564158"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7a2d24eb37ec2151b55a332fa0cacb1"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:ac7a2d24eb37ec2151b55a332fa0cacb1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ac7a2d24eb37ec2151b55a332fa0cacb1">operator=</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td></tr>
-<tr class="separator:ac7a2d24eb37ec2151b55a332fa0cacb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae81f8fed39288d2fb3cb1d4914908ce3"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:ae81f8fed39288d2fb3cb1d4914908ce3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ae81f8fed39288d2fb3cb1d4914908ce3">operator*=</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td></tr>
-<tr class="separator:ae81f8fed39288d2fb3cb1d4914908ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a468ea5e32a93c20f46c6cb2797b1dfbe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a468ea5e32a93c20f46c6cb2797b1dfbe">operator=</a> (std::initializer_list&lt; double &gt; l)</td></tr>
-<tr class="separator:a468ea5e32a93c20f46c6cb2797b1dfbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af840cac7b417cd396ad97a1493f347fb"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:af840cac7b417cd396ad97a1493f347fb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#af840cac7b417cd396ad97a1493f347fb">operator*</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other) const</td></tr>
-<tr class="separator:af840cac7b417cd396ad97a1493f347fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b537ef32e2f6b9cb6834b1dc2bee27d"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:a9b537ef32e2f6b9cb6834b1dc2bee27d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a9b537ef32e2f6b9cb6834b1dc2bee27d">operator-</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other) const</td></tr>
-<tr class="separator:a9b537ef32e2f6b9cb6834b1dc2bee27d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acef6dde4121f0def1cb9603833e37e9f"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:acef6dde4121f0def1cb9603833e37e9f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#acef6dde4121f0def1cb9603833e37e9f">operator+</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other) const</td></tr>
-<tr class="separator:acef6dde4121f0def1cb9603833e37e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86d502300c0ca92ccf208084ef5371a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a86d502300c0ca92ccf208084ef5371a1">operator-</a> (const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;other) const</td></tr>
-<tr class="separator:a86d502300c0ca92ccf208084ef5371a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4044f3f92a2d2cdfbf98608e393a8008"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:a4044f3f92a2d2cdfbf98608e393a8008"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a4044f3f92a2d2cdfbf98608e393a8008">operator+</a> (const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;other) const</td></tr>
-<tr class="separator:a4044f3f92a2d2cdfbf98608e393a8008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ca47a784548ff6c88e26cc59c46b3ef"><td class="memItemLeft" align="right" valign="top">Eigen::CommaInitializer&lt; Eigen::VectorXd &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a5ca47a784548ff6c88e26cc59c46b3ef">operator&lt;&lt;</a> (const double &amp;s)</td></tr>
-<tr class="separator:a5ca47a784548ff6c88e26cc59c46b3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cf1d81a1d122a0fa3462df7be0049c2"><td class="memItemLeft" align="right" valign="top">double &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a5cf1d81a1d122a0fa3462df7be0049c2">operator[]</a> (Eigen::Index i)</td></tr>
-<tr class="separator:a5cf1d81a1d122a0fa3462df7be0049c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cf419185eaf6e54e674533c5ca32788"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a0cf419185eaf6e54e674533c5ca32788">operator[]</a> (Eigen::Index i) const</td></tr>
-<tr class="separator:a0cf419185eaf6e54e674533c5ca32788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a708fa243a50c185c7a50ad1fc368a6ff"><td class="memItemLeft" align="right" valign="top">double &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a708fa243a50c185c7a50ad1fc368a6ff">operator()</a> (Eigen::Index i)</td></tr>
-<tr class="separator:a708fa243a50c185c7a50ad1fc368a6ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a094405e4d78d2c474c801c3e98a4d54b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a094405e4d78d2c474c801c3e98a4d54b">operator()</a> (Eigen::Index i) const</td></tr>
-<tr class="separator:a094405e4d78d2c474c801c3e98a4d54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecdd49d9474ca59f8a9d356bebccdcf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#aecdd49d9474ca59f8a9d356bebccdcf9">operator const Eigen::VectorXd &amp;</a> () const</td></tr>
-<tr class="separator:aecdd49d9474ca59f8a9d356bebccdcf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3c01340bb4b416ce2723118ee308185"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ae3c01340bb4b416ce2723118ee308185">operator Eigen::VectorXd &amp;</a> ()</td></tr>
-<tr class="separator:ae3c01340bb4b416ce2723118ee308185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf0982b980a91f37f2d9af315d3ab9fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#aaf0982b980a91f37f2d9af315d3ab9fb">operator Eigen::Ref&lt; const Eigen::VectorXd &gt;</a> () const</td></tr>
-<tr class="separator:aaf0982b980a91f37f2d9af315d3ab9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29ca000c300d2e73523534f124dbb658"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a29ca000c300d2e73523534f124dbb658">operator Eigen::Ref&lt; Eigen::VectorXd &gt;</a> ()</td></tr>
-<tr class="separator:a29ca000c300d2e73523534f124dbb658"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6270ec59caa862e325e3a75f3ec8caf1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a6270ec59caa862e325e3a75f3ec8caf1">isToleranced</a> () const</td></tr>
-<tr class="memdesc:a6270ec59caa862e325e3a75f3ec8caf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if waypoint is toleranced.  <a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a6270ec59caa862e325e3a75f3ec8caf1">More...</a><br /></td></tr>
-<tr class="separator:a6270ec59caa862e325e3a75f3ec8caf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2180aa1ac798934993d7855ea344388e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a2180aa1ac798934993d7855ea344388e">operator==</a> (const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;rhs) const</td></tr>
 <tr class="separator:a2180aa1ac798934993d7855ea344388e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17c2c799d8f7fc0c31f35e149e0c371d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a17c2c799d8f7fc0c31f35e149e0c371d">operator!=</a> (const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;rhs) const</td></tr>
 <tr class="separator:a17c2c799d8f7fc0c31f35e149e0c371d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a5c68db2a587e0863d6668de170e88587"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a5c68db2a587e0863d6668de170e88587">waypoint</a></td></tr>
-<tr class="separator:a5c68db2a587e0863d6668de170e88587"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9924c18bddc6f7d393ab25de245a4eb9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a9924c18bddc6f7d393ab25de245a4eb9">joint_names</a></td></tr>
-<tr class="separator:a9924c18bddc6f7d393ab25de245a4eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeaded3eb09bc692617a5a8fcde0767fe"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#aeaded3eb09bc692617a5a8fcde0767fe">lower_tolerance</a></td></tr>
-<tr class="memdesc:aeaded3eb09bc692617a5a8fcde0767fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joint distance below waypoint that is allowed. Each element should be &lt;= 0.  <a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#aeaded3eb09bc692617a5a8fcde0767fe">More...</a><br /></td></tr>
-<tr class="separator:aeaded3eb09bc692617a5a8fcde0767fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afae1cdc8b5a952c209b98f5523421ca7"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#afae1cdc8b5a952c209b98f5523421ca7">upper_tolerance</a></td></tr>
-<tr class="memdesc:afae1cdc8b5a952c209b98f5523421ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joint distance above waypoint that is allowed. Each element should be &gt;= 0.  <a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#afae1cdc8b5a952c209b98f5523421ca7">More...</a><br /></td></tr>
-<tr class="separator:afae1cdc8b5a952c209b98f5523421ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad922d23596612be6fc494701448d4897"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
 <tr class="memitem:ad922d23596612be6fc494701448d4897"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ad922d23596612be6fc494701448d4897">serialize</a> (Archive &amp;ar, const unsigned int version)</td></tr>
 <tr class="separator:ad922d23596612be6fc494701448d4897"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a28183557f1776d2fc878a651e22ab188"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a28183557f1776d2fc878a651e22ab188">names_</a></td></tr>
+<tr class="memdesc:a28183557f1776d2fc878a651e22ab188"><td class="mdescLeft">&#160;</td><td class="mdescRight">The names of the joints.  <a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a28183557f1776d2fc878a651e22ab188">More...</a><br /></td></tr>
+<tr class="separator:a28183557f1776d2fc878a651e22ab188"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e74faea725931a5d6eaa55ef05e8be4"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a1e74faea725931a5d6eaa55ef05e8be4">position_</a></td></tr>
+<tr class="memdesc:a1e74faea725931a5d6eaa55ef05e8be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The position of the joints.  <a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a1e74faea725931a5d6eaa55ef05e8be4">More...</a><br /></td></tr>
+<tr class="separator:a1e74faea725931a5d6eaa55ef05e8be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52dc3634462f04d0fe306d61be7050ba"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a52dc3634462f04d0fe306d61be7050ba">lower_tolerance_</a></td></tr>
+<tr class="memdesc:a52dc3634462f04d0fe306d61be7050ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joint distance below position that is allowed. Each element should be &lt;= 0.  <a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a52dc3634462f04d0fe306d61be7050ba">More...</a><br /></td></tr>
+<tr class="separator:a52dc3634462f04d0fe306d61be7050ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66da0f8405d1e8859b64dfe517ce7e23"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a66da0f8405d1e8859b64dfe517ce7e23">upper_tolerance_</a></td></tr>
+<tr class="memdesc:a66da0f8405d1e8859b64dfe517ce7e23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joint distance above position that is allowed. Each element should be &gt;= 0.  <a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a66da0f8405d1e8859b64dfe517ce7e23">More...</a><br /></td></tr>
+<tr class="separator:a66da0f8405d1e8859b64dfe517ce7e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
 <tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a7be5bac313b8a5b357c5b6e52a0844e6" name="a7be5bac313b8a5b357c5b6e52a0844e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7be5bac313b8a5b357c5b6e52a0844e6">&#9670;&nbsp;</a></span>ConstTransposeReturnType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a7be5bac313b8a5b357c5b6e52a0844e6">tesseract_planning::JointWaypoint::ConstTransposeReturnType</a> =  Eigen::VectorXd::ConstTransposeReturnType</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a18f43d3b65b93369e0531dd50d006b93" name="a18f43d3b65b93369e0531dd50d006b93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18f43d3b65b93369e0531dd50d006b93">&#9670;&nbsp;</a></span>JointWaypoint() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a18f43d3b65b93369e0531dd50d006b93">&#9670;&nbsp;</a></span>JointWaypoint() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,28 +188,23 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="abb48c6942b551fc5846c40da1f952f29" name="abb48c6942b551fc5846c40da1f952f29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb48c6942b551fc5846c40da1f952f29">&#9670;&nbsp;</a></span>JointWaypoint() <span class="overload">[2/3]</span></h2>
+<a id="a090b67f80dad1ebe118cfad8fadbb4ef" name="a090b67f80dad1ebe118cfad8fadbb4ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a090b67f80dad1ebe118cfad8fadbb4ef">&#9670;&nbsp;</a></span>JointWaypoint() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">tesseract_planning::JointWaypoint::JointWaypoint </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; std::string &gt;&#160;</td>
-          <td class="paramname"><em>joint_names</em>, </td>
+          <td class="paramname"><em>names</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em>&#160;</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -260,35 +212,67 @@ template&lt;typename OtherDerived &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af6e82e274ebe8b50dd6b7cf1d2914cd2" name="af6e82e274ebe8b50dd6b7cf1d2914cd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6e82e274ebe8b50dd6b7cf1d2914cd2">&#9670;&nbsp;</a></span>JointWaypoint() <span class="overload">[3/3]</span></h2>
+<a id="ae6a6eb9dadf33ef106213bdb10efa3df" name="ae6a6eb9dadf33ef106213bdb10efa3df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6a6eb9dadf33ef106213bdb10efa3df">&#9670;&nbsp;</a></span>JointWaypoint() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">tesseract_planning::JointWaypoint::JointWaypoint </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; std::string &gt;&#160;</td>
-          <td class="paramname"><em>joint_names</em>, </td>
+          <td class="paramname"><em>names</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>lower_tol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>upper_tol</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa60a73359dfeb8d7c06e63c8e8e55aea" name="aa60a73359dfeb8d7c06e63c8e8e55aea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa60a73359dfeb8d7c06e63c8e8e55aea">&#9670;&nbsp;</a></span>JointWaypoint() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::JointWaypoint::JointWaypoint </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; std::string &gt;&#160;</td>
+          <td class="paramname"><em>names</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::initializer_list&lt; double &gt;&#160;</td>
-          <td class="paramname"><em>l</em>&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -296,61 +280,76 @@ template&lt;typename OtherDerived &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7fc11a325dac1bc5732ed12f9e019591" name="a7fc11a325dac1bc5732ed12f9e019591"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fc11a325dac1bc5732ed12f9e019591">&#9670;&nbsp;</a></span>JointWaypoint() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::JointWaypoint::JointWaypoint </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; std::string &gt;&#160;</td>
+          <td class="paramname"><em>names</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>lower_tol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>upper_tol</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8822ad720ff03c68be6abeaf60a5239a" name="a8822ad720ff03c68be6abeaf60a5239a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8822ad720ff03c68be6abeaf60a5239a">&#9670;&nbsp;</a></span>isApprox()</h2>
+<a id="a6506502692ad83ccea2b92678ddcbacf" name="a6506502692ad83ccea2b92678ddcbacf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6506502692ad83ccea2b92678ddcbacf">&#9670;&nbsp;</a></span>getLowerTolerance() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::JointWaypoint::isApprox </td>
+          <td class="memname">Eigen::VectorXd &amp; tesseract_planning::JointWaypoint::getLowerTolerance </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>other</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>prec</em> = <code>1e-12</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if two are approximate </dd></dl>
 
 </div>
 </div>
-<a id="a6270ec59caa862e325e3a75f3ec8caf1" name="a6270ec59caa862e325e3a75f3ec8caf1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6270ec59caa862e325e3a75f3ec8caf1">&#9670;&nbsp;</a></span>isToleranced()</h2>
+<a id="a8fce8d031239e29665cd09c4818c8c06" name="a8fce8d031239e29665cd09c4818c8c06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fce8d031239e29665cd09c4818c8c06">&#9670;&nbsp;</a></span>getLowerTolerance() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::JointWaypoint::isToleranced </td>
+          <td class="memname">const Eigen::VectorXd &amp; tesseract_planning::JointWaypoint::getLowerTolerance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -358,138 +357,107 @@ template&lt;typename OtherDerived &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if waypoint is toleranced. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if waypoint is toleranced </dd></dl>
-
 </div>
 </div>
-<a id="ab5a984c7c4ed90227568f37c25439370" name="ab5a984c7c4ed90227568f37c25439370"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5a984c7c4ed90227568f37c25439370">&#9670;&nbsp;</a></span>norm()</h2>
+<a id="aa51bccaad5691cf315b48a36d7adf3db" name="aa51bccaad5691cf315b48a36d7adf3db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa51bccaad5691cf315b48a36d7adf3db">&#9670;&nbsp;</a></span>getNames() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double tesseract_planning::JointWaypoint::norm </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>norm of vector </dd></dl>
-
-</div>
-</div>
-<a id="aecdd49d9474ca59f8a9d356bebccdcf9" name="aecdd49d9474ca59f8a9d356bebccdcf9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecdd49d9474ca59f8a9d356bebccdcf9">&#9670;&nbsp;</a></span>operator const Eigen::VectorXd &amp;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_planning::JointWaypoint::operator const Eigen::VectorXd &amp; </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Implicit Conversions to read-only Eigen::VectorXd </dd></dl>
-
-</div>
-</div>
-<a id="aaf0982b980a91f37f2d9af315d3ab9fb" name="aaf0982b980a91f37f2d9af315d3ab9fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf0982b980a91f37f2d9af315d3ab9fb">&#9670;&nbsp;</a></span>operator Eigen::Ref&lt; const Eigen::VectorXd &gt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_planning::JointWaypoint::operator Eigen::Ref&lt; const Eigen::VectorXd &gt; </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Implicit Conversions to read-only Eigen::VectorXd </dd></dl>
-
-</div>
-</div>
-<a id="a29ca000c300d2e73523534f124dbb658" name="a29ca000c300d2e73523534f124dbb658"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29ca000c300d2e73523534f124dbb658">&#9670;&nbsp;</a></span>operator Eigen::Ref&lt; Eigen::VectorXd &gt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_planning::JointWaypoint::operator Eigen::Ref&lt; Eigen::VectorXd &gt; </td>
+          <td class="memname">std::vector&lt; std::string &gt; &amp; tesseract_planning::JointWaypoint::getNames </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Implicit Conversions to writable Eigen::VectorXd </dd></dl>
 
 </div>
 </div>
-<a id="ae3c01340bb4b416ce2723118ee308185" name="ae3c01340bb4b416ce2723118ee308185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3c01340bb4b416ce2723118ee308185">&#9670;&nbsp;</a></span>operator Eigen::VectorXd &amp;()</h2>
+<a id="a764370cea129185350d894ba6b6ea667" name="a764370cea129185350d894ba6b6ea667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a764370cea129185350d894ba6b6ea667">&#9670;&nbsp;</a></span>getNames() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_planning::JointWaypoint::operator Eigen::VectorXd &amp; </td>
+          <td class="memname">const std::vector&lt; std::string &gt; &amp; tesseract_planning::JointWaypoint::getNames </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38a87b12e325174dce5b821e76f82bf7" name="a38a87b12e325174dce5b821e76f82bf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38a87b12e325174dce5b821e76f82bf7">&#9670;&nbsp;</a></span>getPosition() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd &amp; tesseract_planning::JointWaypoint::getPosition </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Implicit Conversions to writable Eigen::VectorXd </dd></dl>
+
+</div>
+</div>
+<a id="a9b324732a297d46e249ec23277cb879a" name="a9b324732a297d46e249ec23277cb879a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b324732a297d46e249ec23277cb879a">&#9670;&nbsp;</a></span>getPosition() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Eigen::VectorXd &amp; tesseract_planning::JointWaypoint::getPosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e5f0351238b4e6d8fe106fb76738f77" name="a1e5f0351238b4e6d8fe106fb76738f77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e5f0351238b4e6d8fe106fb76738f77">&#9670;&nbsp;</a></span>getUpperTolerance() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd &amp; tesseract_planning::JointWaypoint::getUpperTolerance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3a8893384aa2e2468cb6efef99b4ddc" name="ad3a8893384aa2e2468cb6efef99b4ddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a8893384aa2e2468cb6efef99b4ddc">&#9670;&nbsp;</a></span>getUpperTolerance() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Eigen::VectorXd &amp; tesseract_planning::JointWaypoint::getUpperTolerance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -511,304 +479,6 @@ template&lt;typename OtherDerived &gt; </div>
 
 </div>
 </div>
-<a id="a708fa243a50c185c7a50ad1fc368a6ff" name="a708fa243a50c185c7a50ad1fc368a6ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a708fa243a50c185c7a50ad1fc368a6ff">&#9670;&nbsp;</a></span>operator()() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double &amp; tesseract_planning::JointWaypoint::operator() </td>
-          <td>(</td>
-          <td class="paramtype">Eigen::Index&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a094405e4d78d2c474c801c3e98a4d54b" name="a094405e4d78d2c474c801c3e98a4d54b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a094405e4d78d2c474c801c3e98a4d54b">&#9670;&nbsp;</a></span>operator()() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tesseract_planning::JointWaypoint::operator() </td>
-          <td>(</td>
-          <td class="paramtype">Eigen::Index&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af840cac7b417cd396ad97a1493f347fb" name="af840cac7b417cd396ad97a1493f347fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af840cac7b417cd396ad97a1493f347fb">&#9670;&nbsp;</a></span>operator*()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> tesseract_planning::JointWaypoint::operator* </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae81f8fed39288d2fb3cb1d4914908ce3" name="ae81f8fed39288d2fb3cb1d4914908ce3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae81f8fed39288d2fb3cb1d4914908ce3">&#9670;&nbsp;</a></span>operator*=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp; tesseract_planning::JointWaypoint::operator*= </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acef6dde4121f0def1cb9603833e37e9f" name="acef6dde4121f0def1cb9603833e37e9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acef6dde4121f0def1cb9603833e37e9f">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> tesseract_planning::JointWaypoint::operator+ </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4044f3f92a2d2cdfbf98608e393a8008" name="a4044f3f92a2d2cdfbf98608e393a8008"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4044f3f92a2d2cdfbf98608e393a8008">&#9670;&nbsp;</a></span>operator+() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> tesseract_planning::JointWaypoint::operator+ </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9b537ef32e2f6b9cb6834b1dc2bee27d" name="a9b537ef32e2f6b9cb6834b1dc2bee27d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b537ef32e2f6b9cb6834b1dc2bee27d">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> tesseract_planning::JointWaypoint::operator- </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a86d502300c0ca92ccf208084ef5371a1" name="a86d502300c0ca92ccf208084ef5371a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86d502300c0ca92ccf208084ef5371a1">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> tesseract_planning::JointWaypoint::operator- </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5ca47a784548ff6c88e26cc59c46b3ef" name="a5ca47a784548ff6c88e26cc59c46b3ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ca47a784548ff6c88e26cc59c46b3ef">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::CommaInitializer&lt; Eigen::VectorXd &gt; tesseract_planning::JointWaypoint::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">const double &amp;&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac7a2d24eb37ec2151b55a332fa0cacb1" name="ac7a2d24eb37ec2151b55a332fa0cacb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7a2d24eb37ec2151b55a332fa0cacb1">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp; tesseract_planning::JointWaypoint::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a468ea5e32a93c20f46c6cb2797b1dfbe" name="a468ea5e32a93c20f46c6cb2797b1dfbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a468ea5e32a93c20f46c6cb2797b1dfbe">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">JointWaypoint</a> &amp; tesseract_planning::JointWaypoint::operator= </td>
-          <td>(</td>
-          <td class="paramtype">std::initializer_list&lt; double &gt;&#160;</td>
-          <td class="paramname"><em>l</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2180aa1ac798934993d7855ea344388e" name="a2180aa1ac798934993d7855ea344388e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2180aa1ac798934993d7855ea344388e">&#9670;&nbsp;</a></span>operator==()</h2>
 
@@ -823,58 +493,6 @@ template&lt;typename OtherDerived &gt; </div>
           <td> const</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5cf1d81a1d122a0fa3462df7be0049c2" name="a5cf1d81a1d122a0fa3462df7be0049c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cf1d81a1d122a0fa3462df7be0049c2">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double &amp; tesseract_planning::JointWaypoint::operator[] </td>
-          <td>(</td>
-          <td class="paramtype">Eigen::Index&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0cf419185eaf6e54e674533c5ca32788" name="a0cf419185eaf6e54e674533c5ca32788"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cf419185eaf6e54e674533c5ca32788">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double tesseract_planning::JointWaypoint::operator[] </td>
-          <td>(</td>
-          <td class="paramtype">Eigen::Index&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -928,62 +546,82 @@ template&lt;class Archive &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6dc4ac21db865d41851190726bf80fb3" name="a6dc4ac21db865d41851190726bf80fb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dc4ac21db865d41851190726bf80fb3">&#9670;&nbsp;</a></span>size()</h2>
+<a id="aab7460ec1ba0e80491156a8acf9882b8" name="aab7460ec1ba0e80491156a8acf9882b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab7460ec1ba0e80491156a8acf9882b8">&#9670;&nbsp;</a></span>setLowerTolerance()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::Index tesseract_planning::JointWaypoint::size </td>
+          <td class="memname">void tesseract_planning::JointWaypoint::setLowerTolerance </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>lower_tol</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if two are approximate </dd></dl>
 
 </div>
 </div>
-<a id="aa15423d3d30152df241659b125564158" name="aa15423d3d30152df241659b125564158"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa15423d3d30152df241659b125564158">&#9670;&nbsp;</a></span>transpose()</h2>
+<a id="ad6d91c02aabc8a584f3fa248c3129ff2" name="ad6d91c02aabc8a584f3fa248c3129ff2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6d91c02aabc8a584f3fa248c3129ff2">&#9670;&nbsp;</a></span>setNames()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a7be5bac313b8a5b357c5b6e52a0844e6">ConstTransposeReturnType</a> tesseract_planning::JointWaypoint::transpose </td>
+          <td class="memname">void tesseract_planning::JointWaypoint::setNames </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>names</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the transpose of the joint positions </dd></dl>
+
+</div>
+</div>
+<a id="a90d8143f76082ee540f986554393ff6e" name="a90d8143f76082ee540f986554393ff6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90d8143f76082ee540f986554393ff6e">&#9670;&nbsp;</a></span>setPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::JointWaypoint::setPosition </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae3d2de8bd57febeb8acf28650db9bd53" name="ae3d2de8bd57febeb8acf28650db9bd53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3d2de8bd57febeb8acf28650db9bd53">&#9670;&nbsp;</a></span>setUpperTolerance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::JointWaypoint::setUpperTolerance </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>upper_tol</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1011,63 +649,99 @@ template&lt;class Archive &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a9924c18bddc6f7d393ab25de245a4eb9" name="a9924c18bddc6f7d393ab25de245a4eb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9924c18bddc6f7d393ab25de245a4eb9">&#9670;&nbsp;</a></span>joint_names</h2>
+<a id="a52dc3634462f04d0fe306d61be7050ba" name="a52dc3634462f04d0fe306d61be7050ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52dc3634462f04d0fe306d61be7050ba">&#9670;&nbsp;</a></span>lower_tolerance_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::string&gt; tesseract_planning::JointWaypoint::joint_names</td>
+          <td class="memname">Eigen::VectorXd tesseract_planning::JointWaypoint::lower_tolerance_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Joint distance below position that is allowed. Each element should be &lt;= 0. </p>
 
 </div>
 </div>
-<a id="aeaded3eb09bc692617a5a8fcde0767fe" name="aeaded3eb09bc692617a5a8fcde0767fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeaded3eb09bc692617a5a8fcde0767fe">&#9670;&nbsp;</a></span>lower_tolerance</h2>
+<a id="a28183557f1776d2fc878a651e22ab188" name="a28183557f1776d2fc878a651e22ab188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28183557f1776d2fc878a651e22ab188">&#9670;&nbsp;</a></span>names_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd tesseract_planning::JointWaypoint::lower_tolerance</td>
+          <td class="memname">std::vector&lt;std::string&gt; tesseract_planning::JointWaypoint::names_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Joint distance below waypoint that is allowed. Each element should be &lt;= 0. </p>
+<p>The names of the joints. </p>
 
 </div>
 </div>
-<a id="afae1cdc8b5a952c209b98f5523421ca7" name="afae1cdc8b5a952c209b98f5523421ca7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afae1cdc8b5a952c209b98f5523421ca7">&#9670;&nbsp;</a></span>upper_tolerance</h2>
+<a id="a1e74faea725931a5d6eaa55ef05e8be4" name="a1e74faea725931a5d6eaa55ef05e8be4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e74faea725931a5d6eaa55ef05e8be4">&#9670;&nbsp;</a></span>position_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd tesseract_planning::JointWaypoint::upper_tolerance</td>
+          <td class="memname">Eigen::VectorXd tesseract_planning::JointWaypoint::position_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Joint distance above waypoint that is allowed. Each element should be &gt;= 0. </p>
+<p>The position of the joints. </p>
 
 </div>
 </div>
-<a id="a5c68db2a587e0863d6668de170e88587" name="a5c68db2a587e0863d6668de170e88587"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c68db2a587e0863d6668de170e88587">&#9670;&nbsp;</a></span>waypoint</h2>
+<a id="a66da0f8405d1e8859b64dfe517ce7e23" name="a66da0f8405d1e8859b64dfe517ce7e23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66da0f8405d1e8859b64dfe517ce7e23">&#9670;&nbsp;</a></span>upper_tolerance_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd tesseract_planning::JointWaypoint::waypoint</td>
+          <td class="memname">Eigen::VectorXd tesseract_planning::JointWaypoint::upper_tolerance_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Joint distance above position that is allowed. Each element should be &gt;= 0. </p>
 
 </div>
 </div>
@@ -1078,7 +752,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 23:00:14 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 22 2022 19:56:17 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

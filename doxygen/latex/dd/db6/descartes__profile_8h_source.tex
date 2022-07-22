@@ -13,63 +13,62 @@
 \DoxyCodeLine{33 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
 \DoxyCodeLine{34 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction_8h}{tesseract\_command\_language/core/instruction.h}}>}}
-\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__command__language_2include_2tesseract__command__language_2types_8h}{tesseract\_command\_language/types.h}}>}}
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__problem_8h}{tesseract\_motion\_planners/descartes/descartes\_problem.h}}>}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{41 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\_planning::DescartesPlanProfile<double>}})}
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{44 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{45 \{}
-\DoxyCodeLine{46 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{47 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}}
-\DoxyCodeLine{48 \{}
-\DoxyCodeLine{49 \textcolor{keyword}{public}:}
-\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_ad78e94403b66cad018078421561c3c96}{Ptr}} = std::shared\_ptr<DescartesPlanProfile<FloatType>>;}
-\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_abe98e5195e9b401c4a06ce4e29399e5d}{ConstPtr}} = std::shared\_ptr<const DescartesPlanProfile<FloatType>>;}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a6fa99f0c44507c78a80513f045508a9e}{DescartesPlanProfile}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{54   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a459a2549c73d6f0d8e3ae4cae3ae1fcb}{\string~DescartesPlanProfile}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_afb79a293f24ddf9828d28e5579dfe2d4}{DescartesPlanProfile}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_aec51536c2f954d3c24adcda9408991b5}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a9818c9638292c1029e64782ffa3912bf}{DescartesPlanProfile}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\&\&) noexcept = default;}
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\&\&) noexcept = default;}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_afffc03e8204d77f8eff5e5b44ca8f884}{apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem}}<FloatType>\& prob,}
-\DoxyCodeLine{61                      const Eigen::Isometry3d\& cartesian\_waypoint,}
-\DoxyCodeLine{62                      const \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
-\DoxyCodeLine{63                      const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
-\DoxyCodeLine{64                      \textcolor{keywordtype}{int} index) const = 0;}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_afffc03e8204d77f8eff5e5b44ca8f884}{apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem}}<FloatType>\& prob,}
-\DoxyCodeLine{67                      const Eigen::VectorXd\& joint\_waypoint,}
-\DoxyCodeLine{68                      const \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\& parent\_instruction,}
-\DoxyCodeLine{69                      const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
-\DoxyCodeLine{70                      \textcolor{keywordtype}{int} index) const = 0;}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{72   virtual tinyxml2::XMLElement* \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a113a3bd9ccca662c6c7475e551ba12fd}{toXML}}(tinyxml2::XMLDocument\& doc) const = 0;}
-\DoxyCodeLine{73 \};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75 template <typename FloatType>}
-\DoxyCodeLine{76 using \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{DescartesPlanProfileMap}} = std::unordered\_map<std::\textcolor{keywordtype}{string}, typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}<FloatType>::\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_abe98e5195e9b401c4a06ce4e29399e5d}{ConstPtr}}>;}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78 \textcolor{preprocessor}{\#ifndef SWIG}}
-\DoxyCodeLine{79 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}{DescartesPlanProfileMapD}} = \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{DescartesPlanProfileMap<double>}};}
-\DoxyCodeLine{80 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_ac277af397716f1c38a0435af91de7673}{DescartesPlanProfileMapF}} = \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{DescartesPlanProfileMap<float>}};}
-\DoxyCodeLine{81 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{82 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}{DescartesPlanProfileMapD}} = std::unordered\_map<std::string, std::shared\_ptr<const DescartesPlanProfile<double>>>;}
-\DoxyCodeLine{83 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{86 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{89 \%\textcolor{keyword}{template}(DescartesPlanProfileD) std::shared\_ptr<\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\_planning::DescartesPlanProfile<double>}} >;}
-\DoxyCodeLine{90 \%\textcolor{keyword}{template}(\mbox{\hyperlink{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}{DescartesPlanProfileMapD}}) std::unordered\_map<std::string, std::shared\_ptr<\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\_planning::DescartesPlanProfile<double>}}>>;}
-\DoxyCodeLine{91 \%tesseract\_command\_language\_add\_profile\_type2(DescartesPlanProfileD,DescartesPlanProfile<double>);}
-\DoxyCodeLine{92 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_DESCARTES\_PROFILE\_H}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__poly_8h}{tesseract\_command\_language/poly/instruction\_poly.h}}>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{descartes__problem_8h}{tesseract\_motion\_planners/descartes/descartes\_problem.h}}>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{40 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\_planning::DescartesPlanProfile<double>}})}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{46 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{public}:}
+\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_ad78e94403b66cad018078421561c3c96}{Ptr}} = std::shared\_ptr<DescartesPlanProfile<FloatType>>;}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_abe98e5195e9b401c4a06ce4e29399e5d}{ConstPtr}} = std::shared\_ptr<const DescartesPlanProfile<FloatType>>;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a6fa99f0c44507c78a80513f045508a9e}{DescartesPlanProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a459a2549c73d6f0d8e3ae4cae3ae1fcb}{\string~DescartesPlanProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_afb79a293f24ddf9828d28e5579dfe2d4}{DescartesPlanProfile}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_aec51536c2f954d3c24adcda9408991b5}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a9818c9638292c1029e64782ffa3912bf}{DescartesPlanProfile}}(\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\&\&) noexcept = default;}
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}\&\&) noexcept = default;}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a0dc44ceee3b75c8f0999daf74a4fdd44}{apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem}}<FloatType>\& prob,}
+\DoxyCodeLine{60                      const Eigen::Isometry3d\& cartesian\_waypoint,}
+\DoxyCodeLine{61                      const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& parent\_instruction,}
+\DoxyCodeLine{62                      const tesseract\_common::\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{63                      \textcolor{keywordtype}{int} index) const = 0;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   virtual \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a0dc44ceee3b75c8f0999daf74a4fdd44}{apply}}(\mbox{\hyperlink{structtesseract__planning_1_1DescartesProblem}{DescartesProblem}}<FloatType>\& prob,}
+\DoxyCodeLine{66                      const Eigen::VectorXd\& joint\_waypoint,}
+\DoxyCodeLine{67                      const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& parent\_instruction,}
+\DoxyCodeLine{68                      const tesseract\_common::\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& manip\_info,}
+\DoxyCodeLine{69                      \textcolor{keywordtype}{int} index) const = 0;}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   virtual tinyxml2::XMLElement* \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_a113a3bd9ccca662c6c7475e551ba12fd}{toXML}}(tinyxml2::XMLDocument\& doc) const = 0;}
+\DoxyCodeLine{72 \};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 template <typename FloatType>}
+\DoxyCodeLine{75 using \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{DescartesPlanProfileMap}} = std::unordered\_map<std::\textcolor{keywordtype}{string}, typename \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{DescartesPlanProfile}}<FloatType>::\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile_abe98e5195e9b401c4a06ce4e29399e5d}{ConstPtr}}>;}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#ifndef SWIG}}
+\DoxyCodeLine{78 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}{DescartesPlanProfileMapD}} = \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{DescartesPlanProfileMap<double>}};}
+\DoxyCodeLine{79 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_ac277af397716f1c38a0435af91de7673}{DescartesPlanProfileMapF}} = \mbox{\hyperlink{namespacetesseract__planning_a62a6e1e450ce2f56cdf5255b5c3014e3}{DescartesPlanProfileMap<float>}};}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{81 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}{DescartesPlanProfileMapD}} = std::unordered\_map<std::string, std::shared\_ptr<const DescartesPlanProfile<double>>>;}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{85 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#ifdef SWIG}}
+\DoxyCodeLine{88 \%\textcolor{keyword}{template}(DescartesPlanProfileD) std::shared\_ptr<\mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\_planning::DescartesPlanProfile<double>}} >;}
+\DoxyCodeLine{89 \%\textcolor{keyword}{template}(\mbox{\hyperlink{namespacetesseract__planning_a431c943a2130b45d0b933eddffbecd4d}{DescartesPlanProfileMapD}}) std::unordered\_map<std::string, std::shared\_ptr<\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1DescartesPlanProfile}{tesseract\_planning::DescartesPlanProfile<double>}}>>;}
+\DoxyCodeLine{90 \%tesseract\_command\_language\_add\_profile\_type2(DescartesPlanProfileD,DescartesPlanProfile<double>);}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_DESCARTES\_PROFILE\_H}}
 
 \end{DoxyCode}

@@ -9,43 +9,44 @@
 \DoxyCodeLine{29 \textcolor{preprocessor}{\#include <tesseract\_environment/environment.h>}}
 \DoxyCodeLine{30 \textcolor{preprocessor}{\#include <tesseract\_common/status\_code.h>}}
 \DoxyCodeLine{31 \textcolor{preprocessor}{\#include <tesseract\_common/types.h>}}
-\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{command__language_8h}{tesseract\_command\_language/command\_language.h}}>}}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{34 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{35 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} = std::unordered\_map<std::string, std::unordered\_map<std::string, std::string>>;}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}}
-\DoxyCodeLine{46 \{}
-\DoxyCodeLine{48   std::string \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_afa12fe79c6dae69afc0e13d1cfd3c37d}{name}};}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{51   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{54   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}};}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}}\{ std::make\_shared<ProfileDictionary>() \};}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{63   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}};}
-\DoxyCodeLine{68   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}};}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{74   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\_profile\_remapping}}\{\};}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{80   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a57f97df33c6644837d93650818be4d67}{composite\_profile\_remapping}}\{\};}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{86   std::shared\_ptr<void> \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}{data}};}
-\DoxyCodeLine{87 \};}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}}
-\DoxyCodeLine{90 \{}
-\DoxyCodeLine{91   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}};}
-\DoxyCodeLine{93   tesseract\_common::StatusCode \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
-\DoxyCodeLine{95   std::vector<std::reference\_wrapper<Instruction>> \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a6d76c7a5b1cfc4bc21bb3a6037fe4332}{succeeded\_instructions}}\{\};}
-\DoxyCodeLine{97   std::vector<std::reference\_wrapper<Instruction>> \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a516c58180eae07880a0b9da74077af6c}{failed\_instructions}}\{\};}
-\DoxyCodeLine{100   std::shared\_ptr<void> \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}{data}};}
-\DoxyCodeLine{101 \};}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{103 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_PLANNER\_TYPES\_H}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__poly_8h}{tesseract\_command\_language/poly/instruction\_poly.h}}>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} = std::unordered\_map<std::string, std::unordered\_map<std::string, std::string>>;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{49   std::string \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_afa12fe79c6dae69afc0e13d1cfd3c37d}{name}};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{52   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{55   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}}\{ std::make\_shared<ProfileDictionary>() \};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{64   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}};}
+\DoxyCodeLine{69   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{75   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\_profile\_remapping}}\{\};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{81   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a57f97df33c6644837d93650818be4d67}{composite\_profile\_remapping}}\{\};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{87   std::shared\_ptr<void> \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}{data}};}
+\DoxyCodeLine{88 \};}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}}
+\DoxyCodeLine{91 \{}
+\DoxyCodeLine{92   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}};}
+\DoxyCodeLine{94   tesseract\_common::StatusCode \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
+\DoxyCodeLine{96   std::vector<std::reference\_wrapper<InstructionPoly>> \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_acc314532cad43e1227b197e536bf0e22}{succeeded\_instructions}}\{\};}
+\DoxyCodeLine{98   std::vector<std::reference\_wrapper<InstructionPoly>> \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a74bff70aee2676ca10e2545eca5028b0}{failed\_instructions}}\{\};}
+\DoxyCodeLine{101   std::shared\_ptr<void> \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}{data}};}
+\DoxyCodeLine{102 \};}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_PLANNER\_TYPES\_H}}
 
 \end{DoxyCode}

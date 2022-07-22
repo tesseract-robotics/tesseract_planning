@@ -5,8 +5,9 @@
 {\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$boost/serialization/nvp.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/serialization/vector.\+hpp$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$console\+\_\+bridge/console.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/composite\+\_\+instruction.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+common/serialization.\+h$>$}\newline
 Include dependency graph for composite\+\_\+instruction.\+cpp\+:
 \nopagebreak
@@ -24,6 +25,8 @@ namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+bool \mbox{\hyperlink{namespacetesseract__planning_ae41ec83784beef5d83186ff7dbafb216}{tesseract\+\_\+planning\+::move\+Filter}} (const Instruction\+Poly \&instruction, const Composite\+Instruction \&composite, bool parent\+\_\+is\+\_\+first\+\_\+composite)
+\item 
 \mbox{\hyperlink{composite__instruction_8cpp_a8fa07566b6c65b7384b953d55b7d3840}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+IMPLEMENT}} (\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{tesseract\+\_\+planning\+::\+Composite\+Instruction}})
 \end{DoxyCompactItemize}
 
@@ -39,7 +42,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000023}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000020}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

@@ -1,13 +1,9 @@
 \hypertarget{instruction__type_8cpp}{}\doxysection{tesseract\+\_\+command\+\_\+language/src/instruction\+\_\+type.cpp File Reference}
 \label{instruction__type_8cpp}\index{tesseract\_command\_language/src/instruction\_type.cpp@{tesseract\_command\_language/src/instruction\_type.cpp}}
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/instruction\+\_\+type.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+instruction.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/move\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/set\+\_\+analog\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/set\+\_\+tool\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/timer\+\_\+instruction.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/wait\+\_\+instruction.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/composite\+\_\+instruction.\+h$>$}\newline
 Include dependency graph for instruction\+\_\+type.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -24,23 +20,17 @@ namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a3f42a719816e6dea334fe383044b600e}{tesseract\+\_\+planning\+::is\+Comment\+Instruction}} (const Instruction \&instruction)
+bool \mbox{\hyperlink{namespacetesseract__planning_ab840989153160ef984b82b8cd40e39d8}{tesseract\+\_\+planning\+::is\+Comment\+Instruction}} (const Instruction\+Poly \&instruction)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a71a4541552162b88b58aaad64cdcbc3c}{tesseract\+\_\+planning\+::is\+Variable\+Instruction}} (const Instruction \&instruction)
+bool \mbox{\hyperlink{namespacetesseract__planning_ae90961c3b70dcad15a541ce2f7706599}{tesseract\+\_\+planning\+::is\+Variable\+Instruction}} (const Instruction\+Poly \&instruction)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a287d1667d00db3e5e4fabcfb51664b75}{tesseract\+\_\+planning\+::is\+Set\+Analog\+Instruction}} (const Instruction \&instruction)
+bool \mbox{\hyperlink{namespacetesseract__planning_a59c7f0f4938603044a0c33bc6830066a}{tesseract\+\_\+planning\+::is\+Set\+Analog\+Instruction}} (const Instruction\+Poly \&instruction)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a2ae12448a0b7afd49cac310dc5ccb7db}{tesseract\+\_\+planning\+::is\+Set\+Tool\+Instruction}} (const Instruction \&instruction)
+bool \mbox{\hyperlink{namespacetesseract__planning_a4640cfbe9f13ae3175cddbbe95d89867}{tesseract\+\_\+planning\+::is\+Set\+Tool\+Instruction}} (const Instruction\+Poly \&instruction)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ae96120c1bde27a94fb70f1c5cd1a77d3}{tesseract\+\_\+planning\+::is\+Timer\+Instruction}} (const Instruction \&instruction)
+bool \mbox{\hyperlink{namespacetesseract__planning_a3328003f95ef5bed103a3e742ca1c76a}{tesseract\+\_\+planning\+::is\+Timer\+Instruction}} (const Instruction\+Poly \&instruction)
 \item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a83b4a1168560f289c58b322386d1ab21}{tesseract\+\_\+planning\+::is\+Wait\+Instruction}} (const Instruction \&instruction)
-\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_af48bb1d750c019e34337ed0a0f88ef76}{tesseract\+\_\+planning\+::is\+Composite\+Instruction}} (const Instruction \&instruction)
-\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{tesseract\+\_\+planning\+::is\+Move\+Instruction}} (const Instruction \&instruction)
-\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a113ddfa3992fee8b8bdb1adcc6ee297e}{tesseract\+\_\+planning\+::is\+Null\+Instruction}} (const Instruction \&instruction)
+bool \mbox{\hyperlink{namespacetesseract__planning_a329603710c303499ba811aae4edd6f68}{tesseract\+\_\+planning\+::is\+Wait\+Instruction}} (const Instruction\+Poly \&instruction)
 \end{DoxyCompactItemize}
 
 
@@ -55,7 +45,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000025}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000021}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

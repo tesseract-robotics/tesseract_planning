@@ -24,21 +24,37 @@ Collaboration diagram for tesseract\+\_\+planning\+::Move\+Instruction\+:
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae19270849cf18385660539f792b77a6c}{Move\+Instruction}} ()=default
 \item 
-\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_aad1d3e1d752707a75c14bfd17443e55a}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} manipulator\+\_\+info=\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}}())
-\begin{DoxyCompactList}\small\item\em Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Constructor. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_aa482ebfdf216db0218335f5c56d12933}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile, std\+::string path\+\_\+profile, \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} manipulator\+\_\+info=\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}}())
-\begin{DoxyCompactList}\small\item\em Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Constructor. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a9235ecbaa9b9a19b9531bf7f967c17a9}{set\+Waypoint}} (\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} waypoint)
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a3af49369c21b2ff9c39f84af5c697e7e}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, tesseract\+\_\+common\+::\+Manipulator\+Info manipulator\+\_\+info=tesseract\+\_\+common\+::\+Manipulator\+Info())
+\begin{DoxyCompactList}\small\item\em Move Instruction Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_abbb774b369a8896444012c21ced69420}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, tesseract\+\_\+common\+::\+Manipulator\+Info manipulator\+\_\+info=tesseract\+\_\+common\+::\+Manipulator\+Info())
 \item 
-\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_af9dd6ba043a2ae38129847a98d90a540}{get\+Waypoint}} ()
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_af91ff8c6693d13f1a758e89497b3064b}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, tesseract\+\_\+common\+::\+Manipulator\+Info manipulator\+\_\+info=tesseract\+\_\+common\+::\+Manipulator\+Info())
 \item 
-const \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a3f933bdc4dcc73a9eb8204af8e02f7aa}{get\+Waypoint}} () const
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a501f8bac49db4ce5bd81511da41d3f17}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile, std\+::string path\+\_\+profile, tesseract\+\_\+common\+::\+Manipulator\+Info manipulator\+\_\+info=tesseract\+\_\+common\+::\+Manipulator\+Info())
+\begin{DoxyCompactList}\small\item\em Move Instruction Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_acd516a29c0b3d4e6ad33720d97f97d7f}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile, std\+::string path\+\_\+profile, tesseract\+\_\+common\+::\+Manipulator\+Info manipulator\+\_\+info=tesseract\+\_\+common\+::\+Manipulator\+Info())
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ab4d1ef2d3a5b99bcb4ade22f129c2f90}{set\+Manipulator\+Info}} (\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} info)
+\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ac0f673eeeb99876e40aecd24734782a1}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile, std\+::string path\+\_\+profile, tesseract\+\_\+common\+::\+Manipulator\+Info manipulator\+\_\+info=tesseract\+\_\+common\+::\+Manipulator\+Info())
 \item 
-const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a50e8559abe809b767bb0cdff6a24dedd}{get\+Manipulator\+Info}} () const
+void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a9de60baeb5f2fbaf1972c2eee9b9a427}{set\+Move\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} move\+\_\+type)
 \item 
-\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a9e65321acd0684b071a07f58e3f1eff4}{get\+Manipulator\+Info}} ()
+\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a00fdb7b4c3b9c0d990aea7bf9500157b}{get\+Move\+Type}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ad5b60938d7b3d2ef44e67a9a243c5373}{assign\+Cartesian\+Waypoint}} (\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} waypoint)
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a57b348d8996b52f6462843c7f368f583}{assign\+Joint\+Waypoint}} (\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} waypoint)
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a98bc0a38b24b8a9cd78bf32621477c4b}{assign\+State\+Waypoint}} (\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} waypoint)
+\item 
+\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ac33e3fc7464447b2b1c8249440ed7dd3}{get\+Waypoint}} ()
+\item 
+const \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_aed777debc48978cad800901146c9730d}{get\+Waypoint}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a44d8c2c99c525b1d46dcf67337021926}{set\+Manipulator\+Info}} (tesseract\+\_\+common\+::\+Manipulator\+Info info)
+\item 
+const tesseract\+\_\+common\+::\+Manipulator\+Info \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a3c2216bfa0b718e60e49b68d5f13231e}{get\+Manipulator\+Info}} () const
+\item 
+tesseract\+\_\+common\+::\+Manipulator\+Info \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ab7507f11b4289496bb2b1c8671b6679a}{get\+Manipulator\+Info}} ()
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a3521bb5ad102ea701dd2ee9722dbb6a4}{set\+Profile}} (const std\+::string \&profile)
 \item 
@@ -54,21 +70,18 @@ void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae9470b98e70d1
 \item 
 void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a8455ade5ce84d9e34aa037d5ba2703b6}{print}} (const std\+::string \&prefix=\char`\"{}\char`\"{}) const
 \item 
-void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a9de60baeb5f2fbaf1972c2eee9b9a427}{set\+Move\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} move\+\_\+type)
-\item 
-\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a00fdb7b4c3b9c0d990aea7bf9500157b}{get\+Move\+Type}} () const
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a014323d9ff77d6321e3f49ee827b0a02}{is\+Linear}} () const
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ab18a2d8efe4991633a478c2a78ee67b5}{is\+Freespace}} () const
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_abd2a3b55d8308ab11dbc737799704ac3}{is\+Circular}} () const
-\item 
-bool \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ad7ea2fb0fcfc4259ace79dafc6ac8179}{is\+Start}} () const
-\item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a0af9486d7b7cc6ca84589dbd2bacd579}{operator==}} (const \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \&rhs) const
 \item 
 bool \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a611233aae9b4fcad18e45a089f73d01f}{operator!=}} (const \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{Move\+Instruction}} \&rhs) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ab029779fb24fcb46e5b3421de2988e37}{create\+Cartesian\+Waypoint}} ()
+\item 
+static \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a6df62f1a3d879dee26f89b8ed6a4e4c7}{create\+Joint\+Waypoint}} ()
+\item 
+static \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a8d02a1e37c95e79376422df040970e8f}{create\+State\+Waypoint}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -85,15 +98,15 @@ bool \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a611233aae9b4f
 \item 
 \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a4a96d216ff84647198b71852a55ab700}{move\+\_\+type\+\_\+}} \{ \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{Move\+Instruction\+Type\+::\+START}} \}
 \item 
-std\+::string \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae18a702232c2ae42773c84ee5c69afb3}{description\+\_\+}} \{ \char`\"{}Tesseract Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\char`\"{} \}
+std\+::string \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae18a702232c2ae42773c84ee5c69afb3}{description\+\_\+}} \{ \char`\"{}Tesseract Move Instruction\char`\"{} \}
 \item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_aafc4ac7f47a6009473040533b9d7344d}{profile\+\_\+}} \{ \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}} \}
 \begin{DoxyCompactList}\small\item\em The profile used for this move instruction. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a594c867fadfc0941312325bf94916163}{path\+\_\+profile\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The profile used for the path to this move instruction. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ac369b20c997b938fce16254e8c83e9d7}{waypoint\+\_\+}} \{ \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{Null\+Waypoint}}() \}
+\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a319af76635221857e3c73df2fbdc3280}{waypoint\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The assigned waypoint (Cartesian or Joint) \end{DoxyCompactList}\item 
-\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a7be3aed15c3972ca9e0057a5e9199355}{manipulator\+\_\+info\+\_\+}}
+tesseract\+\_\+common\+::\+Manipulator\+Info \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a1feec2c0a18d8ac854eb6215a501c221}{manipulator\+\_\+info\+\_\+}}
 \begin{DoxyCompactList}\small\item\em Contains information about the manipulator associated with this instruction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -115,18 +128,18 @@ This instruction contains two profiles \textquotesingle{}profile\textquotesingle
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ae19270849cf18385660539f792b77a6c}\label{classtesseract__planning_1_1MoveInstruction_ae19270849cf18385660539f792b77a6c}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!MoveInstruction@{MoveInstruction}}
 \index{MoveInstruction@{MoveInstruction}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
-\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
 {\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_aad1d3e1d752707a75c14bfd17443e55a}\label{classtesseract__planning_1_1MoveInstruction_aad1d3e1d752707a75c14bfd17443e55a}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a3af49369c21b2ff9c39f84af5c697e7e}\label{classtesseract__planning_1_1MoveInstruction_a3af49369c21b2ff9c39f84af5c697e7e}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!MoveInstruction@{MoveInstruction}}
 \index{MoveInstruction@{MoveInstruction}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
-\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}}}]{waypoint,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{type,  }\item[{std\+::string}]{profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}}}]{manipulator\+\_\+info = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}}()} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}}}]{waypoint,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{type,  }\item[{std\+::string}]{profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{tesseract\+\_\+common\+::\+Manipulator\+Info}]{manipulator\+\_\+info = {\ttfamily tesseract\+\_\+common\+:\+:ManipulatorInfo()} }\end{DoxyParamCaption})}
 
 
 
-Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Constructor. 
+Move Instruction Constructor. 
 
 This constructor automatically assigns the path profile which is only associated to the path taken to the waypoint. If the motion is LINEAR/\+CIRCULAR it assigns the profile to the defined profile. If the motion is FREESPACE/\+START it is left empty. 
 \begin{DoxyParams}{Parameters}
@@ -139,15 +152,27 @@ This constructor automatically assigns the path profile which is only associated
 {\em manipulator\+\_\+info} & Then manipulator information \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_aa482ebfdf216db0218335f5c56d12933}\label{classtesseract__planning_1_1MoveInstruction_aa482ebfdf216db0218335f5c56d12933}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_abbb774b369a8896444012c21ced69420}\label{classtesseract__planning_1_1MoveInstruction_abbb774b369a8896444012c21ced69420}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!MoveInstruction@{MoveInstruction}}
 \index{MoveInstruction@{MoveInstruction}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
-\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}}}]{waypoint,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{type,  }\item[{std\+::string}]{profile,  }\item[{std\+::string}]{path\+\_\+profile,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}}}]{manipulator\+\_\+info = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}}()} }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}}}]{waypoint,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{type,  }\item[{std\+::string}]{profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{tesseract\+\_\+common\+::\+Manipulator\+Info}]{manipulator\+\_\+info = {\ttfamily tesseract\+\_\+common\+:\+:ManipulatorInfo()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_af91ff8c6693d13f1a758e89497b3064b}\label{classtesseract__planning_1_1MoveInstruction_af91ff8c6693d13f1a758e89497b3064b}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!MoveInstruction@{MoveInstruction}}
+\index{MoveInstruction@{MoveInstruction}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}}}]{waypoint,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{type,  }\item[{std\+::string}]{profile = {\ttfamily \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}},  }\item[{tesseract\+\_\+common\+::\+Manipulator\+Info}]{manipulator\+\_\+info = {\ttfamily tesseract\+\_\+common\+:\+:ManipulatorInfo()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a501f8bac49db4ce5bd81511da41d3f17}\label{classtesseract__planning_1_1MoveInstruction_a501f8bac49db4ce5bd81511da41d3f17}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!MoveInstruction@{MoveInstruction}}
+\index{MoveInstruction@{MoveInstruction}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}}}]{waypoint,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{type,  }\item[{std\+::string}]{profile,  }\item[{std\+::string}]{path\+\_\+profile,  }\item[{tesseract\+\_\+common\+::\+Manipulator\+Info}]{manipulator\+\_\+info = {\ttfamily tesseract\+\_\+common\+:\+:ManipulatorInfo()} }\end{DoxyParamCaption})}
 
 
 
-Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Constructor. 
+Move Instruction Constructor. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -162,26 +187,74 @@ Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Co
 {\em manipulator\+\_\+info} & Then manipulator information \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_acd516a29c0b3d4e6ad33720d97f97d7f}\label{classtesseract__planning_1_1MoveInstruction_acd516a29c0b3d4e6ad33720d97f97d7f}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!MoveInstruction@{MoveInstruction}}
+\index{MoveInstruction@{MoveInstruction}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}}}]{waypoint,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{type,  }\item[{std\+::string}]{profile,  }\item[{std\+::string}]{path\+\_\+profile,  }\item[{tesseract\+\_\+common\+::\+Manipulator\+Info}]{manipulator\+\_\+info = {\ttfamily tesseract\+\_\+common\+:\+:ManipulatorInfo()} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ac0f673eeeb99876e40aecd24734782a1}\label{classtesseract__planning_1_1MoveInstruction_ac0f673eeeb99876e40aecd24734782a1}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!MoveInstruction@{MoveInstruction}}
+\index{MoveInstruction@{MoveInstruction}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{MoveInstruction()}{MoveInstruction()}\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
+{\footnotesize\ttfamily tesseract\+\_\+planning\+::\+Move\+Instruction\+::\+Move\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}}}]{waypoint,  }\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{type,  }\item[{std\+::string}]{profile,  }\item[{std\+::string}]{path\+\_\+profile,  }\item[{tesseract\+\_\+common\+::\+Manipulator\+Info}]{manipulator\+\_\+info = {\ttfamily tesseract\+\_\+common\+:\+:ManipulatorInfo()} }\end{DoxyParamCaption})}
+
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ad5b60938d7b3d2ef44e67a9a243c5373}\label{classtesseract__planning_1_1MoveInstruction_ad5b60938d7b3d2ef44e67a9a243c5373}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!assignCartesianWaypoint@{assignCartesianWaypoint}}
+\index{assignCartesianWaypoint@{assignCartesianWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{assignCartesianWaypoint()}{assignCartesianWaypoint()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::assign\+Cartesian\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}}}]{waypoint }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a57b348d8996b52f6462843c7f368f583}\label{classtesseract__planning_1_1MoveInstruction_a57b348d8996b52f6462843c7f368f583}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!assignJointWaypoint@{assignJointWaypoint}}
+\index{assignJointWaypoint@{assignJointWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{assignJointWaypoint()}{assignJointWaypoint()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::assign\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}}}]{waypoint }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a98bc0a38b24b8a9cd78bf32621477c4b}\label{classtesseract__planning_1_1MoveInstruction_a98bc0a38b24b8a9cd78bf32621477c4b}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!assignStateWaypoint@{assignStateWaypoint}}
+\index{assignStateWaypoint@{assignStateWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{assignStateWaypoint()}{assignStateWaypoint()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::assign\+State\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}}}]{waypoint }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ab029779fb24fcb46e5b3421de2988e37}\label{classtesseract__planning_1_1MoveInstruction_ab029779fb24fcb46e5b3421de2988e37}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!createCartesianWaypoint@{createCartesianWaypoint}}
+\index{createCartesianWaypoint@{createCartesianWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{createCartesianWaypoint()}{createCartesianWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} tesseract\+\_\+planning\+::\+Move\+Instruction\+::create\+Cartesian\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a6df62f1a3d879dee26f89b8ed6a4e4c7}\label{classtesseract__planning_1_1MoveInstruction_a6df62f1a3d879dee26f89b8ed6a4e4c7}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!createJointWaypoint@{createJointWaypoint}}
+\index{createJointWaypoint@{createJointWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{createJointWaypoint()}{createJointWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} tesseract\+\_\+planning\+::\+Move\+Instruction\+::create\+Joint\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a8d02a1e37c95e79376422df040970e8f}\label{classtesseract__planning_1_1MoveInstruction_a8d02a1e37c95e79376422df040970e8f}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!createStateWaypoint@{createStateWaypoint}}
+\index{createStateWaypoint@{createStateWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{createStateWaypoint()}{createStateWaypoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} tesseract\+\_\+planning\+::\+Move\+Instruction\+::create\+State\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ae7515bcb48564803aac136901c5dcdda}\label{classtesseract__planning_1_1MoveInstruction_ae7515bcb48564803aac136901c5dcdda}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getDescription@{getDescription}}
 \index{getDescription@{getDescription}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
 {\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a9e65321acd0684b071a07f58e3f1eff4}\label{classtesseract__planning_1_1MoveInstruction_a9e65321acd0684b071a07f58e3f1eff4}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ab7507f11b4289496bb2b1c8671b6679a}\label{classtesseract__planning_1_1MoveInstruction_ab7507f11b4289496bb2b1c8671b6679a}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getManipulatorInfo@{getManipulatorInfo}}
 \index{getManipulatorInfo@{getManipulatorInfo}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{getManipulatorInfo()}{getManipulatorInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Manipulator\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Manipulator\+Info \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Manipulator\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a50e8559abe809b767bb0cdff6a24dedd}\label{classtesseract__planning_1_1MoveInstruction_a50e8559abe809b767bb0cdff6a24dedd}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a3c2216bfa0b718e60e49b68d5f13231e}\label{classtesseract__planning_1_1MoveInstruction_a3c2216bfa0b718e60e49b68d5f13231e}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getManipulatorInfo@{getManipulatorInfo}}
 \index{getManipulatorInfo@{getManipulatorInfo}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{getManipulatorInfo()}{getManipulatorInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Manipulator\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily const tesseract\+\_\+common\+::\+Manipulator\+Info \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Manipulator\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a00fdb7b4c3b9c0d990aea7bf9500157b}\label{classtesseract__planning_1_1MoveInstruction_a00fdb7b4c3b9c0d990aea7bf9500157b}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getMoveType@{getMoveType}}
@@ -201,41 +274,17 @@ Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} Co
 \doxysubsubsection{\texorpdfstring{getProfile()}{getProfile()}}
 {\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_af9dd6ba043a2ae38129847a98d90a540}\label{classtesseract__planning_1_1MoveInstruction_af9dd6ba043a2ae38129847a98d90a540}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ac33e3fc7464447b2b1c8249440ed7dd3}\label{classtesseract__planning_1_1MoveInstruction_ac33e3fc7464447b2b1c8249440ed7dd3}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getWaypoint@{getWaypoint}}
 \index{getWaypoint@{getWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{getWaypoint()}{getWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a3f933bdc4dcc73a9eb8204af8e02f7aa}\label{classtesseract__planning_1_1MoveInstruction_a3f933bdc4dcc73a9eb8204af8e02f7aa}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_aed777debc48978cad800901146c9730d}\label{classtesseract__planning_1_1MoveInstruction_aed777debc48978cad800901146c9730d}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getWaypoint@{getWaypoint}}
 \index{getWaypoint@{getWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{getWaypoint()}{getWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_abd2a3b55d8308ab11dbc737799704ac3}\label{classtesseract__planning_1_1MoveInstruction_abd2a3b55d8308ab11dbc737799704ac3}} 
-\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!isCircular@{isCircular}}
-\index{isCircular@{isCircular}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
-\doxysubsubsection{\texorpdfstring{isCircular()}{isCircular()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Move\+Instruction\+::is\+Circular (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ab18a2d8efe4991633a478c2a78ee67b5}\label{classtesseract__planning_1_1MoveInstruction_ab18a2d8efe4991633a478c2a78ee67b5}} 
-\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!isFreespace@{isFreespace}}
-\index{isFreespace@{isFreespace}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
-\doxysubsubsection{\texorpdfstring{isFreespace()}{isFreespace()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Move\+Instruction\+::is\+Freespace (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a014323d9ff77d6321e3f49ee827b0a02}\label{classtesseract__planning_1_1MoveInstruction_a014323d9ff77d6321e3f49ee827b0a02}} 
-\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!isLinear@{isLinear}}
-\index{isLinear@{isLinear}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
-\doxysubsubsection{\texorpdfstring{isLinear()}{isLinear()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Move\+Instruction\+::is\+Linear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
-
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ad7ea2fb0fcfc4259ace79dafc6ac8179}\label{classtesseract__planning_1_1MoveInstruction_ad7ea2fb0fcfc4259ace79dafc6ac8179}} 
-\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!isStart@{isStart}}
-\index{isStart@{isStart}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
-\doxysubsubsection{\texorpdfstring{isStart()}{isStart()}}
-{\footnotesize\ttfamily bool tesseract\+\_\+planning\+::\+Move\+Instruction\+::is\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a611233aae9b4fcad18e45a089f73d01f}\label{classtesseract__planning_1_1MoveInstruction_a611233aae9b4fcad18e45a089f73d01f}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!operator"!=@{operator"!=}}
@@ -268,11 +317,11 @@ void tesseract\+\_\+planning\+::\+Move\+Instruction\+::serialize (\begin{DoxyPar
 \doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ab4d1ef2d3a5b99bcb4ade22f129c2f90}\label{classtesseract__planning_1_1MoveInstruction_ab4d1ef2d3a5b99bcb4ade22f129c2f90}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a44d8c2c99c525b1d46dcf67337021926}\label{classtesseract__planning_1_1MoveInstruction_a44d8c2c99c525b1d46dcf67337021926}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!setManipulatorInfo@{setManipulatorInfo}}
 \index{setManipulatorInfo@{setManipulatorInfo}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{setManipulatorInfo()}{setManipulatorInfo()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::set\+Manipulator\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}}}]{info }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::set\+Manipulator\+Info (\begin{DoxyParamCaption}\item[{tesseract\+\_\+common\+::\+Manipulator\+Info}]{info }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a9de60baeb5f2fbaf1972c2eee9b9a427}\label{classtesseract__planning_1_1MoveInstruction_a9de60baeb5f2fbaf1972c2eee9b9a427}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!setMoveType@{setMoveType}}
@@ -292,12 +341,6 @@ void tesseract\+\_\+planning\+::\+Move\+Instruction\+::serialize (\begin{DoxyPar
 \doxysubsubsection{\texorpdfstring{setProfile()}{setProfile()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::set\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a9235ecbaa9b9a19b9531bf7f967c17a9}\label{classtesseract__planning_1_1MoveInstruction_a9235ecbaa9b9a19b9531bf7f967c17a9}} 
-\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!setWaypoint@{setWaypoint}}
-\index{setWaypoint@{setWaypoint}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
-\doxysubsubsection{\texorpdfstring{setWaypoint()}{setWaypoint()}}
-{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::set\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}}}]{waypoint }\end{DoxyParamCaption})}
-
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -314,13 +357,13 @@ void tesseract\+\_\+planning\+::\+Move\+Instruction\+::serialize (\begin{DoxyPar
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!description\_@{description\_}}
 \index{description\_@{description\_}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{description\_}{description\_}}
-{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Move\+Instruction\+::description\+\_\+ \{ \char`\"{}Tesseract Move \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}\char`\"{} \}\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Move\+Instruction\+::description\+\_\+ \{ \char`\"{}Tesseract Move Instruction\char`\"{} \}\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a7be3aed15c3972ca9e0057a5e9199355}\label{classtesseract__planning_1_1MoveInstruction_a7be3aed15c3972ca9e0057a5e9199355}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a1feec2c0a18d8ac854eb6215a501c221}\label{classtesseract__planning_1_1MoveInstruction_a1feec2c0a18d8ac854eb6215a501c221}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!manipulator\_info\_@{manipulator\_info\_}}
 \index{manipulator\_info\_@{manipulator\_info\_}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{manipulator\_info\_}{manipulator\_info\_}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{Manipulator\+Info}} tesseract\+\_\+planning\+::\+Move\+Instruction\+::manipulator\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily tesseract\+\_\+common\+::\+Manipulator\+Info tesseract\+\_\+planning\+::\+Move\+Instruction\+::manipulator\+\_\+info\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -362,11 +405,11 @@ The profile used for this move instruction.
 
 Dictionary of profiles that will override named profiles for a specific task. 
 
-\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ac369b20c997b938fce16254e8c83e9d7}\label{classtesseract__planning_1_1MoveInstruction_ac369b20c997b938fce16254e8c83e9d7}} 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a319af76635221857e3c73df2fbdc3280}\label{classtesseract__planning_1_1MoveInstruction_a319af76635221857e3c73df2fbdc3280}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!waypoint\_@{waypoint\_}}
 \index{waypoint\_@{waypoint\_}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{waypoint\_}{waypoint\_}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} tesseract\+\_\+planning\+::\+Move\+Instruction\+::waypoint\+\_\+ \{ \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{Null\+Waypoint}}() \}\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} tesseract\+\_\+planning\+::\+Move\+Instruction\+::waypoint\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

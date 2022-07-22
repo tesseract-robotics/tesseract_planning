@@ -71,10 +71,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="../../da/d1c/classtesseract__planning_1_1CartesianWaypoint-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">tesseract_planning::CartesianWaypoint Class Reference</div></div>
@@ -82,162 +81,72 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="../../d3/d18/cartesian__waypoint_8h_source.html">cartesian_waypoint.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for tesseract_planning::CartesianWaypoint:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../db/d9d/classtesseract__planning_1_1CartesianWaypoint__coll__graph.png" border="0" usemap="#atesseract__planning_1_1CartesianWaypoint_coll__map" alt="Collaboration graph"/></div>
-<map name="atesseract__planning_1_1CartesianWaypoint_coll__map" id="atesseract__planning_1_1CartesianWaypoint_coll__map">
-<area shape="rect" title=" " alt="" coords="5,185,141,227"/>
-<area shape="rect" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="8,81,139,123"/>
-<area shape="rect" title=" " alt="" coords="21,5,126,32"/>
-</map>
-<center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a0df055a110d6a265a3ca88668c818acf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a0df055a110d6a265a3ca88668c818acf">ConstLinearPart</a> = Eigen::Isometry3d::ConstLinearPart</td></tr>
-<tr class="separator:a0df055a110d6a265a3ca88668c818acf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea5ab89511e02e50821809ee86f9c9f1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#aea5ab89511e02e50821809ee86f9c9f1">LinearPart</a> = Eigen::Isometry3d::LinearPart</td></tr>
-<tr class="separator:aea5ab89511e02e50821809ee86f9c9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d616e0fa725e68f78540020b95cf32d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a3d616e0fa725e68f78540020b95cf32d">ConstTranslationPart</a> = Eigen::Isometry3d::ConstTranslationPart</td></tr>
-<tr class="separator:a3d616e0fa725e68f78540020b95cf32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7353c55b607c1de43d0538c07c7f6fc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#af7353c55b607c1de43d0538c07c7f6fc">TranslationPart</a> = Eigen::Isometry3d::TranslationPart</td></tr>
-<tr class="separator:af7353c55b607c1de43d0538c07c7f6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3f80f2efcea6d4500f79aadf3726324f"><td class="memItemLeft" align="right" valign="top">EIGEN_MAKE_ALIGNED_OPERATOR_NEW&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a3f80f2efcea6d4500f79aadf3726324f">CartesianWaypoint</a> ()=default</td></tr>
 <tr class="separator:a3f80f2efcea6d4500f79aadf3726324f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a866210cde5ff159f6599fa2408e7debf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a866210cde5ff159f6599fa2408e7debf">CartesianWaypoint</a> (const Eigen::Isometry3d &amp;transform)</td></tr>
+<tr class="separator:a866210cde5ff159f6599fa2408e7debf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e28431749cdb7624804cd1a87e5c9fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a4e28431749cdb7624804cd1a87e5c9fa">CartesianWaypoint</a> (const Eigen::Isometry3d &amp;transform, const Eigen::VectorXd &amp;lower_tol, const Eigen::VectorXd &amp;upper_tol)</td></tr>
+<tr class="separator:a4e28431749cdb7624804cd1a87e5c9fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae114252f07c1e075b5f99e2915f893ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#ae114252f07c1e075b5f99e2915f893ca">setTransform</a> (const Eigen::Isometry3d &amp;transform)</td></tr>
+<tr class="separator:ae114252f07c1e075b5f99e2915f893ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00f06608267713d0d4d5aed2165f1913"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a00f06608267713d0d4d5aed2165f1913">getTransform</a> ()</td></tr>
+<tr class="separator:a00f06608267713d0d4d5aed2165f1913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1c32f9a89c433197387a29cf4d0023"><td class="memItemLeft" align="right" valign="top">const Eigen::Isometry3d &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a2a1c32f9a89c433197387a29cf4d0023">getTransform</a> () const</td></tr>
+<tr class="separator:a2a1c32f9a89c433197387a29cf4d0023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a5c535c67ca1e9f309aabe317f97082"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a2a5c535c67ca1e9f309aabe317f97082">setUpperTolerance</a> (const Eigen::VectorXd &amp;upper_tol)</td></tr>
+<tr class="separator:a2a5c535c67ca1e9f309aabe317f97082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeea0f17c24146b1aada6054e19e4c10a"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#aeea0f17c24146b1aada6054e19e4c10a">getUpperTolerance</a> ()</td></tr>
+<tr class="separator:aeea0f17c24146b1aada6054e19e4c10a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15673ef9140e32dddfa3c42ee05eedda"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a15673ef9140e32dddfa3c42ee05eedda">getUpperTolerance</a> () const</td></tr>
+<tr class="separator:a15673ef9140e32dddfa3c42ee05eedda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a490d466c931b960713b21fa085bfdd60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a490d466c931b960713b21fa085bfdd60">setLowerTolerance</a> (const Eigen::VectorXd &amp;lower_tol)</td></tr>
+<tr class="separator:a490d466c931b960713b21fa085bfdd60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd0babac7d4e57df83fa86505b47293d"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#acd0babac7d4e57df83fa86505b47293d">getLowerTolerance</a> ()</td></tr>
+<tr class="separator:acd0babac7d4e57df83fa86505b47293d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea85770c8d057d60f2de6ef1d81d2021"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#aea85770c8d057d60f2de6ef1d81d2021">getLowerTolerance</a> () const</td></tr>
+<tr class="separator:aea85770c8d057d60f2de6ef1d81d2021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad73aa207ee212b813738e1915baafa93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#ad73aa207ee212b813738e1915baafa93">setSeed</a> (const tesseract_common::JointState &amp;seed)</td></tr>
+<tr class="separator:ad73aa207ee212b813738e1915baafa93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f28088bae5e3ba5fe6b2d78e45dc3c1"><td class="memItemLeft" align="right" valign="top">tesseract_common::JointState &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a5f28088bae5e3ba5fe6b2d78e45dc3c1">getSeed</a> ()</td></tr>
+<tr class="separator:a5f28088bae5e3ba5fe6b2d78e45dc3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acda0e0fe3a4ef6611246320f1206820c"><td class="memItemLeft" align="right" valign="top">const tesseract_common::JointState &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#acda0e0fe3a4ef6611246320f1206820c">getSeed</a> () const</td></tr>
+<tr class="separator:acda0e0fe3a4ef6611246320f1206820c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa44b78ad6498907631a0d10f304155a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#afa44b78ad6498907631a0d10f304155a">print</a> (const std::string &amp;prefix=&quot;&quot;) const</td></tr>
 <tr class="separator:afa44b78ad6498907631a0d10f304155a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a929597f1be7a8567fa97cc9ed8bd416e"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:a929597f1be7a8567fa97cc9ed8bd416e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a929597f1be7a8567fa97cc9ed8bd416e">CartesianWaypoint</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td></tr>
-<tr class="separator:a929597f1be7a8567fa97cc9ed8bd416e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ae263c7c940cfb57738e35d3f2a19a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a8ae263c7c940cfb57738e35d3f2a19a4">CartesianWaypoint</a> (const Eigen::Isometry3d &amp;other)</td></tr>
-<tr class="separator:a8ae263c7c940cfb57738e35d3f2a19a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c8167c78a7b72763cfdbcebfa1c25be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a0df055a110d6a265a3ca88668c818acf">ConstLinearPart</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a1c8167c78a7b72763cfdbcebfa1c25be">linear</a> () const</td></tr>
-<tr class="separator:a1c8167c78a7b72763cfdbcebfa1c25be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a6d6be6ec7829242b26a728909f5452"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#aea5ab89511e02e50821809ee86f9c9f1">LinearPart</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a8a6d6be6ec7829242b26a728909f5452">linear</a> ()</td></tr>
-<tr class="separator:a8a6d6be6ec7829242b26a728909f5452"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a962638718a6a1a7927bc6fefaad4a614"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a3d616e0fa725e68f78540020b95cf32d">ConstTranslationPart</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a962638718a6a1a7927bc6fefaad4a614">translation</a> () const</td></tr>
-<tr class="separator:a962638718a6a1a7927bc6fefaad4a614"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2879eca9d2ba40ae6c07f69f89bb1f9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#af7353c55b607c1de43d0538c07c7f6fc">TranslationPart</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a2879eca9d2ba40ae6c07f69f89bb1f9f">translation</a> ()</td></tr>
-<tr class="separator:a2879eca9d2ba40ae6c07f69f89bb1f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff9ff33469b4aaafcc51b442166a75c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#aff9ff33469b4aaafcc51b442166a75c1">isApprox</a> (const Eigen::Isometry3d &amp;other, double prec=1e-12) const</td></tr>
-<tr class="separator:aff9ff33469b4aaafcc51b442166a75c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abacbc5f258211e7c04e566fc7140579a"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:abacbc5f258211e7c04e566fc7140579a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#abacbc5f258211e7c04e566fc7140579a">operator=</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td></tr>
-<tr class="separator:abacbc5f258211e7c04e566fc7140579a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b6a36dae5a69c47d717a07e8f96a275"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:a6b6a36dae5a69c47d717a07e8f96a275"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a6b6a36dae5a69c47d717a07e8f96a275">operator*=</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other)</td></tr>
-<tr class="separator:a6b6a36dae5a69c47d717a07e8f96a275"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b6b5d7adefaee661b6fd1ea7a226bea"><td class="memTemplParams" colspan="2">template&lt;typename OtherDerived &gt; </td></tr>
-<tr class="memitem:a2b6b5d7adefaee661b6fd1ea7a226bea"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a2b6b5d7adefaee661b6fd1ea7a226bea">operator*</a> (const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;other) const</td></tr>
-<tr class="separator:a2b6b5d7adefaee661b6fd1ea7a226bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1dedfa3a56b3dedfa1d65fe61d07401d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a1dedfa3a56b3dedfa1d65fe61d07401d">operator=</a> (const Eigen::Isometry3d &amp;other)</td></tr>
-<tr class="separator:a1dedfa3a56b3dedfa1d65fe61d07401d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46a8cf3bdd7d9dd6f06e9f8877e7651d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a46a8cf3bdd7d9dd6f06e9f8877e7651d">operator*=</a> (const Eigen::Isometry3d &amp;other)</td></tr>
-<tr class="separator:a46a8cf3bdd7d9dd6f06e9f8877e7651d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a699d1cff52430dc11b7d9476b03637a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a699d1cff52430dc11b7d9476b03637a2">operator*</a> (const Eigen::Isometry3d &amp;other) const</td></tr>
-<tr class="separator:a699d1cff52430dc11b7d9476b03637a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb86b3fd996536dca76f037eb225eedc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#adb86b3fd996536dca76f037eb225eedc">operator const Eigen::Isometry3d &amp;</a> () const</td></tr>
-<tr class="separator:adb86b3fd996536dca76f037eb225eedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4d92c367361046248a0823430eb2427"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#aa4d92c367361046248a0823430eb2427">operator Eigen::Isometry3d &amp;</a> ()</td></tr>
-<tr class="separator:aa4d92c367361046248a0823430eb2427"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc9a862e008f530b644e331c0aba9c24"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#abc9a862e008f530b644e331c0aba9c24">isToleranced</a> () const</td></tr>
-<tr class="memdesc:abc9a862e008f530b644e331c0aba9c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if waypoint has tolerances.  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#abc9a862e008f530b644e331c0aba9c24">More...</a><br /></td></tr>
-<tr class="separator:abc9a862e008f530b644e331c0aba9c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af97621c785fd0f45905a407b06ba5d6b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#af97621c785fd0f45905a407b06ba5d6b">operator==</a> (const <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;rhs) const</td></tr>
 <tr class="separator:af97621c785fd0f45905a407b06ba5d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acec128e53f208e555f9a88763821adfc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#acec128e53f208e555f9a88763821adfc">operator!=</a> (const <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp;rhs) const</td></tr>
 <tr class="separator:acec128e53f208e555f9a88763821adfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4f0cf7342a790fd968dc1292294bcc2"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
-<tr class="memitem:ab4f0cf7342a790fd968dc1292294bcc2"><td class="memTemplItemLeft" align="right" valign="top">TESSERACT_COMMON_IGNORE_WARNINGS_PUSH TESSERACT_COMMON_IGNORE_WARNINGS_POP void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#ab4f0cf7342a790fd968dc1292294bcc2">serialize</a> (Archive &amp;ar, const unsigned int)</td></tr>
-<tr class="separator:ab4f0cf7342a790fd968dc1292294bcc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a19e6c09de8ae462827b67b9eeff3cdba"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a19e6c09de8ae462827b67b9eeff3cdba">waypoint</a> { Eigen::Isometry3d::Identity() }</td></tr>
-<tr class="memdesc:a19e6c09de8ae462827b67b9eeff3cdba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Cartesian <a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a>.  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a19e6c09de8ae462827b67b9eeff3cdba">More...</a><br /></td></tr>
-<tr class="separator:a19e6c09de8ae462827b67b9eeff3cdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1b7fe49f6f66274db17ee2bdd4894ea"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#ac1b7fe49f6f66274db17ee2bdd4894ea">lower_tolerance</a></td></tr>
-<tr class="memdesc:ac1b7fe49f6f66274db17ee2bdd4894ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle())  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#ac1b7fe49f6f66274db17ee2bdd4894ea">More...</a><br /></td></tr>
-<tr class="separator:ac1b7fe49f6f66274db17ee2bdd4894ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb2234c33b744233913fa43229100616"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#acb2234c33b744233913fa43229100616">upper_tolerance</a></td></tr>
-<tr class="memdesc:acb2234c33b744233913fa43229100616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle())  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#acb2234c33b744233913fa43229100616">More...</a><br /></td></tr>
-<tr class="separator:acb2234c33b744233913fa43229100616"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a346d0cf53486b584c4396e67fce3f6a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a346d0cf53486b584c4396e67fce3f6a6">seed</a> { <a class="el" href="../../dc/d18/classtesseract__planning_1_1NullWaypoint.html">NullWaypoint</a>() }</td></tr>
-<tr class="memdesc:a346d0cf53486b584c4396e67fce3f6a6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> seed associated with this Cartesian waypoint.  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a346d0cf53486b584c4396e67fce3f6a6">More...</a><br /></td></tr>
-<tr class="separator:a346d0cf53486b584c4396e67fce3f6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
 <tr class="memitem:a0bcd2c23e6510a221792559284bd7212"><td class="memTemplParams" colspan="2">template&lt;class Archive &gt; </td></tr>
 <tr class="memitem:a0bcd2c23e6510a221792559284bd7212"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a0bcd2c23e6510a221792559284bd7212">serialize</a> (Archive &amp;ar, const unsigned int version)</td></tr>
 <tr class="separator:a0bcd2c23e6510a221792559284bd7212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a86fe073b3685861b3569d945a838f7cd"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a86fe073b3685861b3569d945a838f7cd">transform_</a> { Eigen::Isometry3d::Identity() }</td></tr>
+<tr class="memdesc:a86fe073b3685861b3569d945a838f7cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Cartesian Waypoint.  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a86fe073b3685861b3569d945a838f7cd">More...</a><br /></td></tr>
+<tr class="separator:a86fe073b3685861b3569d945a838f7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1b2c1d33e046d21609e876a5613d64"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a2a1b2c1d33e046d21609e876a5613d64">lower_tolerance_</a></td></tr>
+<tr class="memdesc:a2a1b2c1d33e046d21609e876a5613d64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle())  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a2a1b2c1d33e046d21609e876a5613d64">More...</a><br /></td></tr>
+<tr class="separator:a2a1b2c1d33e046d21609e876a5613d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af66418f2d2226932bbf261acbbac23ef"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#af66418f2d2226932bbf261acbbac23ef">upper_tolerance_</a></td></tr>
+<tr class="memdesc:af66418f2d2226932bbf261acbbac23ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle())  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#af66418f2d2226932bbf261acbbac23ef">More...</a><br /></td></tr>
+<tr class="separator:af66418f2d2226932bbf261acbbac23ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a648136a781dbe30fcb2440a536894356"><td class="memItemLeft" align="right" valign="top">tesseract_common::JointState&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a648136a781dbe30fcb2440a536894356">seed_</a></td></tr>
+<tr class="memdesc:a648136a781dbe30fcb2440a536894356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seed associated with this Cartesian waypoint.  <a href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a648136a781dbe30fcb2440a536894356">More...</a><br /></td></tr>
+<tr class="separator:a648136a781dbe30fcb2440a536894356"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#ac98d07dd8f7b70e16ccb9a01abf56b9c">boost::serialization::access</a></td></tr>
 <tr class="separator:ac98d07dd8f7b70e16ccb9a01abf56b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a0df055a110d6a265a3ca88668c818acf" name="a0df055a110d6a265a3ca88668c818acf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0df055a110d6a265a3ca88668c818acf">&#9670;&nbsp;</a></span>ConstLinearPart</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a0df055a110d6a265a3ca88668c818acf">tesseract_planning::CartesianWaypoint::ConstLinearPart</a> =  Eigen::Isometry3d::ConstLinearPart</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3d616e0fa725e68f78540020b95cf32d" name="a3d616e0fa725e68f78540020b95cf32d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d616e0fa725e68f78540020b95cf32d">&#9670;&nbsp;</a></span>ConstTranslationPart</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a3d616e0fa725e68f78540020b95cf32d">tesseract_planning::CartesianWaypoint::ConstTranslationPart</a> =  Eigen::Isometry3d::ConstTranslationPart</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aea5ab89511e02e50821809ee86f9c9f1" name="aea5ab89511e02e50821809ee86f9c9f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea5ab89511e02e50821809ee86f9c9f1">&#9670;&nbsp;</a></span>LinearPart</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#aea5ab89511e02e50821809ee86f9c9f1">tesseract_planning::CartesianWaypoint::LinearPart</a> =  Eigen::Isometry3d::LinearPart</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af7353c55b607c1de43d0538c07c7f6fc" name="af7353c55b607c1de43d0538c07c7f6fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7353c55b607c1de43d0538c07c7f6fc">&#9670;&nbsp;</a></span>TranslationPart</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#af7353c55b607c1de43d0538c07c7f6fc">tesseract_planning::CartesianWaypoint::TranslationPart</a> =  Eigen::Isometry3d::TranslationPart</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3f80f2efcea6d4500f79aadf3726324f" name="a3f80f2efcea6d4500f79aadf3726324f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f80f2efcea6d4500f79aadf3726324f">&#9670;&nbsp;</a></span>CartesianWaypoint() <span class="overload">[1/3]</span></h2>
@@ -264,227 +173,192 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a929597f1be7a8567fa97cc9ed8bd416e" name="a929597f1be7a8567fa97cc9ed8bd416e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a929597f1be7a8567fa97cc9ed8bd416e">&#9670;&nbsp;</a></span>CartesianWaypoint() <span class="overload">[2/3]</span></h2>
+<a id="a866210cde5ff159f6599fa2408e7debf" name="a866210cde5ff159f6599fa2408e7debf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a866210cde5ff159f6599fa2408e7debf">&#9670;&nbsp;</a></span>CartesianWaypoint() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_planning::CartesianWaypoint::CartesianWaypoint </td>
+          <td class="memname">TESSERACT_COMMON_IGNORE_WARNINGS_PUSH TESSERACT_COMMON_IGNORE_WARNINGS_POP tesseract_planning::CartesianWaypoint::CartesianWaypoint </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>transform</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8ae263c7c940cfb57738e35d3f2a19a4" name="a8ae263c7c940cfb57738e35d3f2a19a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ae263c7c940cfb57738e35d3f2a19a4">&#9670;&nbsp;</a></span>CartesianWaypoint() <span class="overload">[3/3]</span></h2>
+<a id="a4e28431749cdb7624804cd1a87e5c9fa" name="a4e28431749cdb7624804cd1a87e5c9fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e28431749cdb7624804cd1a87e5c9fa">&#9670;&nbsp;</a></span>CartesianWaypoint() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">tesseract_planning::CartesianWaypoint::CartesianWaypoint </td>
           <td>(</td>
           <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramname"><em>transform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>lower_tol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>upper_tol</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aff9ff33469b4aaafcc51b442166a75c1" name="aff9ff33469b4aaafcc51b442166a75c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff9ff33469b4aaafcc51b442166a75c1">&#9670;&nbsp;</a></span>isApprox()</h2>
+<a id="acd0babac7d4e57df83fa86505b47293d" name="acd0babac7d4e57df83fa86505b47293d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd0babac7d4e57df83fa86505b47293d">&#9670;&nbsp;</a></span>getLowerTolerance() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::CartesianWaypoint::isApprox </td>
+          <td class="memname">Eigen::VectorXd &amp; tesseract_planning::CartesianWaypoint::getLowerTolerance </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>other</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>prec</em> = <code>1e-12</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if two are approximate </dd></dl>
 
 </div>
 </div>
-<a id="abc9a862e008f530b644e331c0aba9c24" name="abc9a862e008f530b644e331c0aba9c24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc9a862e008f530b644e331c0aba9c24">&#9670;&nbsp;</a></span>isToleranced()</h2>
+<a id="aea85770c8d057d60f2de6ef1d81d2021" name="aea85770c8d057d60f2de6ef1d81d2021"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea85770c8d057d60f2de6ef1d81d2021">&#9670;&nbsp;</a></span>getLowerTolerance() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool tesseract_planning::CartesianWaypoint::isToleranced </td>
+          <td class="memname">const Eigen::VectorXd &amp; tesseract_planning::CartesianWaypoint::getLowerTolerance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns true if waypoint has tolerances. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if waypoint has tolerances </dd></dl>
-
 </div>
 </div>
-<a id="a8a6d6be6ec7829242b26a728909f5452" name="a8a6d6be6ec7829242b26a728909f5452"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a6d6be6ec7829242b26a728909f5452">&#9670;&nbsp;</a></span>linear() <span class="overload">[1/2]</span></h2>
+<a id="a5f28088bae5e3ba5fe6b2d78e45dc3c1" name="a5f28088bae5e3ba5fe6b2d78e45dc3c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f28088bae5e3ba5fe6b2d78e45dc3c1">&#9670;&nbsp;</a></span>getSeed() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#aea5ab89511e02e50821809ee86f9c9f1">LinearPart</a> tesseract_planning::CartesianWaypoint::linear </td>
+          <td class="memname">tesseract_common::JointState &amp; tesseract_planning::CartesianWaypoint::getSeed </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>a writable expression of the linear part of the transformation </dd></dl>
 
 </div>
 </div>
-<a id="a1c8167c78a7b72763cfdbcebfa1c25be" name="a1c8167c78a7b72763cfdbcebfa1c25be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c8167c78a7b72763cfdbcebfa1c25be">&#9670;&nbsp;</a></span>linear() <span class="overload">[2/2]</span></h2>
+<a id="acda0e0fe3a4ef6611246320f1206820c" name="acda0e0fe3a4ef6611246320f1206820c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acda0e0fe3a4ef6611246320f1206820c">&#9670;&nbsp;</a></span>getSeed() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a0df055a110d6a265a3ca88668c818acf">ConstLinearPart</a> tesseract_planning::CartesianWaypoint::linear </td>
+          <td class="memname">const tesseract_common::JointState &amp; tesseract_planning::CartesianWaypoint::getSeed </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>a read-only expression of the linear part of the transformation </dd></dl>
 
 </div>
 </div>
-<a id="adb86b3fd996536dca76f037eb225eedc" name="adb86b3fd996536dca76f037eb225eedc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb86b3fd996536dca76f037eb225eedc">&#9670;&nbsp;</a></span>operator const Eigen::Isometry3d &amp;()</h2>
+<a id="a00f06608267713d0d4d5aed2165f1913" name="a00f06608267713d0d4d5aed2165f1913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00f06608267713d0d4d5aed2165f1913">&#9670;&nbsp;</a></span>getTransform() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">tesseract_planning::CartesianWaypoint::operator const Eigen::Isometry3d &amp; </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Implicit Conversions to read-only Eigen::Isometry3d </dd></dl>
-
-</div>
-</div>
-<a id="aa4d92c367361046248a0823430eb2427" name="aa4d92c367361046248a0823430eb2427"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4d92c367361046248a0823430eb2427">&#9670;&nbsp;</a></span>operator Eigen::Isometry3d &amp;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tesseract_planning::CartesianWaypoint::operator Eigen::Isometry3d &amp; </td>
+          <td class="memname">Eigen::Isometry3d &amp; tesseract_planning::CartesianWaypoint::getTransform </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Implicit Conversions to writable Eigen::Isometry3d </dd></dl>
+
+</div>
+</div>
+<a id="a2a1c32f9a89c433197387a29cf4d0023" name="a2a1c32f9a89c433197387a29cf4d0023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a1c32f9a89c433197387a29cf4d0023">&#9670;&nbsp;</a></span>getTransform() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Eigen::Isometry3d &amp; tesseract_planning::CartesianWaypoint::getTransform </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeea0f17c24146b1aada6054e19e4c10a" name="aeea0f17c24146b1aada6054e19e4c10a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea0f17c24146b1aada6054e19e4c10a">&#9670;&nbsp;</a></span>getUpperTolerance() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd &amp; tesseract_planning::CartesianWaypoint::getUpperTolerance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15673ef9140e32dddfa3c42ee05eedda" name="a15673ef9140e32dddfa3c42ee05eedda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15673ef9140e32dddfa3c42ee05eedda">&#9670;&nbsp;</a></span>getUpperTolerance() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Eigen::VectorXd &amp; tesseract_planning::CartesianWaypoint::getUpperTolerance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -493,9 +367,6 @@ template&lt;typename OtherDerived &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool tesseract_planning::CartesianWaypoint::operator!= </td>
@@ -505,173 +376,6 @@ template&lt;typename OtherDerived &gt; </div>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a699d1cff52430dc11b7d9476b03637a2" name="a699d1cff52430dc11b7d9476b03637a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a699d1cff52430dc11b7d9476b03637a2">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> tesseract_planning::CartesianWaypoint::operator* </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2b6b5d7adefaee661b6fd1ea7a226bea" name="a2b6b5d7adefaee661b6fd1ea7a226bea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b6b5d7adefaee661b6fd1ea7a226bea">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> tesseract_planning::CartesianWaypoint::operator* </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a46a8cf3bdd7d9dd6f06e9f8877e7651d" name="a46a8cf3bdd7d9dd6f06e9f8877e7651d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46a8cf3bdd7d9dd6f06e9f8877e7651d">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp; tesseract_planning::CartesianWaypoint::operator*= </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6b6a36dae5a69c47d717a07e8f96a275" name="a6b6a36dae5a69c47d717a07e8f96a275"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b6a36dae5a69c47d717a07e8f96a275">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp; tesseract_planning::CartesianWaypoint::operator*= </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1dedfa3a56b3dedfa1d65fe61d07401d" name="a1dedfa3a56b3dedfa1d65fe61d07401d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dedfa3a56b3dedfa1d65fe61d07401d">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp; tesseract_planning::CartesianWaypoint::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abacbc5f258211e7c04e566fc7140579a" name="abacbc5f258211e7c04e566fc7140579a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abacbc5f258211e7c04e566fc7140579a">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename OtherDerived &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html">CartesianWaypoint</a> &amp; tesseract_planning::CartesianWaypoint::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::MatrixBase&lt; OtherDerived &gt; &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -681,9 +385,6 @@ template&lt;typename OtherDerived &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool tesseract_planning::CartesianWaypoint::operator== </td>
@@ -693,11 +394,6 @@ template&lt;typename OtherDerived &gt; </div>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -707,9 +403,6 @@ template&lt;typename OtherDerived &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void tesseract_planning::CartesianWaypoint::print </td>
@@ -719,17 +412,12 @@ template&lt;typename OtherDerived &gt; </div>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <a id="a0bcd2c23e6510a221792559284bd7212" name="a0bcd2c23e6510a221792559284bd7212"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bcd2c23e6510a221792559284bd7212">&#9670;&nbsp;</a></span>serialize() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bcd2c23e6510a221792559284bd7212">&#9670;&nbsp;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -759,92 +447,82 @@ template&lt;class Archive &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ab4f0cf7342a790fd968dc1292294bcc2" name="ab4f0cf7342a790fd968dc1292294bcc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4f0cf7342a790fd968dc1292294bcc2">&#9670;&nbsp;</a></span>serialize() <span class="overload">[2/2]</span></h2>
+<a id="a490d466c931b960713b21fa085bfdd60" name="a490d466c931b960713b21fa085bfdd60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a490d466c931b960713b21fa085bfdd60">&#9670;&nbsp;</a></span>setLowerTolerance()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class Archive &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">TESSERACT_COMMON_IGNORE_WARNINGS_PUSH TESSERACT_COMMON_IGNORE_WARNINGS_POP void tesseract_planning::CartesianWaypoint::serialize </td>
+          <td class="memname">void tesseract_planning::CartesianWaypoint::setLowerTolerance </td>
           <td>(</td>
-          <td class="paramtype">Archive &amp;&#160;</td>
-          <td class="paramname"><em>ar</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>lower_tol</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const unsigned int&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a2879eca9d2ba40ae6c07f69f89bb1f9f" name="a2879eca9d2ba40ae6c07f69f89bb1f9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2879eca9d2ba40ae6c07f69f89bb1f9f">&#9670;&nbsp;</a></span>translation() <span class="overload">[1/2]</span></h2>
+<a id="ad73aa207ee212b813738e1915baafa93" name="ad73aa207ee212b813738e1915baafa93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad73aa207ee212b813738e1915baafa93">&#9670;&nbsp;</a></span>setSeed()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#af7353c55b607c1de43d0538c07c7f6fc">TranslationPart</a> tesseract_planning::CartesianWaypoint::translation </td>
+          <td class="memname">void tesseract_planning::CartesianWaypoint::setSeed </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const tesseract_common::JointState &amp;&#160;</td>
+          <td class="paramname"><em>seed</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>a writable expression of the translation vector of the transformation </dd></dl>
 
 </div>
 </div>
-<a id="a962638718a6a1a7927bc6fefaad4a614" name="a962638718a6a1a7927bc6fefaad4a614"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a962638718a6a1a7927bc6fefaad4a614">&#9670;&nbsp;</a></span>translation() <span class="overload">[2/2]</span></h2>
+<a id="ae114252f07c1e075b5f99e2915f893ca" name="ae114252f07c1e075b5f99e2915f893ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae114252f07c1e075b5f99e2915f893ca">&#9670;&nbsp;</a></span>setTransform()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/dfb/classtesseract__planning_1_1CartesianWaypoint.html#a3d616e0fa725e68f78540020b95cf32d">ConstTranslationPart</a> tesseract_planning::CartesianWaypoint::translation </td>
+          <td class="memname">void tesseract_planning::CartesianWaypoint::setTransform </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const Eigen::Isometry3d &amp;&#160;</td>
+          <td class="paramname"><em>transform</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>a read-only expression of the translation vector of the transformation </dd></dl>
+
+</div>
+</div>
+<a id="a2a5c535c67ca1e9f309aabe317f97082" name="a2a5c535c67ca1e9f309aabe317f97082"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a5c535c67ca1e9f309aabe317f97082">&#9670;&nbsp;</a></span>setUpperTolerance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::CartesianWaypoint::setUpperTolerance </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>upper_tol</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -872,35 +550,51 @@ template&lt;class Archive &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ac1b7fe49f6f66274db17ee2bdd4894ea" name="ac1b7fe49f6f66274db17ee2bdd4894ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1b7fe49f6f66274db17ee2bdd4894ea">&#9670;&nbsp;</a></span>lower_tolerance</h2>
+<a id="a2a1b2c1d33e046d21609e876a5613d64" name="a2a1b2c1d33e046d21609e876a5613d64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a1b2c1d33e046d21609e876a5613d64">&#9670;&nbsp;</a></span>lower_tolerance_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd tesseract_planning::CartesianWaypoint::lower_tolerance</td>
+          <td class="memname">Eigen::VectorXd tesseract_planning::CartesianWaypoint::lower_tolerance_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Distance below waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle()) </p>
 
 </div>
 </div>
-<a id="a346d0cf53486b584c4396e67fce3f6a6" name="a346d0cf53486b584c4396e67fce3f6a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a346d0cf53486b584c4396e67fce3f6a6">&#9670;&nbsp;</a></span>seed</h2>
+<a id="a648136a781dbe30fcb2440a536894356" name="a648136a781dbe30fcb2440a536894356"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a648136a781dbe30fcb2440a536894356">&#9670;&nbsp;</a></span>seed_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> tesseract_planning::CartesianWaypoint::seed { <a class="el" href="../../dc/d18/classtesseract__planning_1_1NullWaypoint.html">NullWaypoint</a>() }</td>
+          <td class="memname">tesseract_common::JointState tesseract_planning::CartesianWaypoint::seed_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> seed associated with this Cartesian waypoint. </p>
+<p>Seed associated with this Cartesian waypoint. </p>
 <p >The waypoint seed can be used for purposes like:</p><ul>
 <li>providing a joint state seed to an IK solver</li>
 <li>providing a seed to the IK solver with modified limits using the tolerances</li>
@@ -909,35 +603,51 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
-<a id="acb2234c33b744233913fa43229100616" name="acb2234c33b744233913fa43229100616"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb2234c33b744233913fa43229100616">&#9670;&nbsp;</a></span>upper_tolerance</h2>
+<a id="a86fe073b3685861b3569d945a838f7cd" name="a86fe073b3685861b3569d945a838f7cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86fe073b3685861b3569d945a838f7cd">&#9670;&nbsp;</a></span>transform_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd tesseract_planning::CartesianWaypoint::upper_tolerance</td>
+          <td class="memname">Eigen::Isometry3d tesseract_planning::CartesianWaypoint::transform_ { Eigen::Isometry3d::Identity() }</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The Cartesian Waypoint. </p>
+
+</div>
+</div>
+<a id="af66418f2d2226932bbf261acbbac23ef" name="af66418f2d2226932bbf261acbbac23ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af66418f2d2226932bbf261acbbac23ef">&#9670;&nbsp;</a></span>upper_tolerance_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd tesseract_planning::CartesianWaypoint::upper_tolerance_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Distance above waypoint that is allowed. Should be size = 6. First 3 elements are dx, dy, dz. The last 3 elements are angle axis error allowed (Eigen::AngleAxisd.axis() * Eigen::AngleAxisd.angle()) </p>
-
-</div>
-</div>
-<a id="a19e6c09de8ae462827b67b9eeff3cdba" name="a19e6c09de8ae462827b67b9eeff3cdba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19e6c09de8ae462827b67b9eeff3cdba">&#9670;&nbsp;</a></span>waypoint</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Isometry3d tesseract_planning::CartesianWaypoint::waypoint { Eigen::Isometry3d::Identity() }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The Cartesian <a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a>. </p>
 
 </div>
 </div>
@@ -948,7 +658,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 23:00:14 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 22 2022 19:56:16 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

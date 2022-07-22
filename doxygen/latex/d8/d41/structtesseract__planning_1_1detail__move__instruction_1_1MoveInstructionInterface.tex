@@ -1,0 +1,241 @@
+\hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{}\doxysection{tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::Move\+Instruction\+Interface Struct Reference}
+\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+
+
+{\ttfamily \#include $<$move\+\_\+instruction\+\_\+poly.\+h$>$}
+
+
+
+Inheritance diagram for tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::Move\+Instruction\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{d0/d95/structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::Move\+Instruction\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{dd/dcd/structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a5bd5b84d777a1ed4e84c0eb5061a6b2c}{assign\+Cartesian\+Waypoint}} (\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} waypoint)=0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab520e61cf4848426abcd8428fb50eb00}{assign\+Joint\+Waypoint}} (\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} waypoint)=0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0ef9b8ac668e5b7288d2c527f75fb3e7}{assign\+State\+Waypoint}} (\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} waypoint)=0
+\item 
+virtual \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9a9225e816d89f7d5db56c1660940213}{get\+Waypoint}} ()=0
+\item 
+virtual const \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0c94a842d5f2cf9cc85266f7a3c1e2}{get\+Waypoint}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1cd98417983bc66e37fe6eb76e58bb0d}{set\+Manipulator\+Info}} (tesseract\+\_\+common\+::\+Manipulator\+Info info)=0
+\item 
+virtual const tesseract\+\_\+common\+::\+Manipulator\+Info \& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab26c4678d57d32fbb30cdb7db2c0c7f8}{get\+Manipulator\+Info}} () const =0
+\item 
+virtual tesseract\+\_\+common\+::\+Manipulator\+Info \& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a19979880b2f224464a456602ae89afdc}{get\+Manipulator\+Info}} ()=0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a741ddd569de1fbcf36f27d0ad42bc7af}{set\+Profile}} (const std\+::string \&profile)=0
+\item 
+virtual const std\+::string \& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0962935360433c929cd4ee8bccf2642f}{get\+Profile}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad18675c2417e2ae37423643bf7492395}{set\+Path\+Profile}} (const std\+::string \&profile)=0
+\item 
+virtual const std\+::string \& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_abca49142407e18492bac687883508d04}{get\+Path\+Profile}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_adfb7e4ecfba797cdd6b7749ddef9ccc3}{set\+Move\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} move\+\_\+type)=0
+\item 
+virtual \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ae3b36474f0be5a2074573be5d3ad4087}{get\+Move\+Type}} () const =0
+\item 
+virtual const std\+::string \& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_acdc72c35cbe3f76c81e129e8d886b7ed}{get\+Description}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1384f0119d7d02c9d4b306dd41cb8b00}{set\+Description}} (const std\+::string \&description)=0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a4a265407d153b840c5c666f4f9766872}{print}} (const std\+::string \&prefix) const =0
+\item 
+virtual \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0ff5bba2bc077a76294c692b4e4fd5}{create\+Cartesian\+Waypoint}} () const =0
+\item 
+virtual \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad0de992d8861162c64c3692150c4861e}{create\+Joint\+Waypoint}} () const =0
+\item 
+virtual \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a7e9be691cfc807ca5c166abf7137f583}{create\+State\+Waypoint}} () const =0
+\item 
+{\footnotesize template$<$class Archive $>$ }\\TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a93ddd1bb2ad0da00f5bc1640cc1b0675}{serialize}} (Archive \&ar, const unsigned int)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad74923e680742403260eb6ef36b4209e}{serialize}} (Archive \&ar, const unsigned int version)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost\+::serialization\+::access}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\+\_\+common\+::\+Serialization}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a5bd5b84d777a1ed4e84c0eb5061a6b2c}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a5bd5b84d777a1ed4e84c0eb5061a6b2c}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!assignCartesianWaypoint@{assignCartesianWaypoint}}
+\index{assignCartesianWaypoint@{assignCartesianWaypoint}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{assignCartesianWaypoint()}{assignCartesianWaypoint()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::assign\+Cartesian\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}}}]{waypoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab520e61cf4848426abcd8428fb50eb00}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab520e61cf4848426abcd8428fb50eb00}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!assignJointWaypoint@{assignJointWaypoint}}
+\index{assignJointWaypoint@{assignJointWaypoint}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{assignJointWaypoint()}{assignJointWaypoint()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::assign\+Joint\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}}}]{waypoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0ef9b8ac668e5b7288d2c527f75fb3e7}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0ef9b8ac668e5b7288d2c527f75fb3e7}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!assignStateWaypoint@{assignStateWaypoint}}
+\index{assignStateWaypoint@{assignStateWaypoint}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{assignStateWaypoint()}{assignStateWaypoint()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::assign\+State\+Waypoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}}}]{waypoint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0ff5bba2bc077a76294c692b4e4fd5}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0ff5bba2bc077a76294c692b4e4fd5}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!createCartesianWaypoint@{createCartesianWaypoint}}
+\index{createCartesianWaypoint@{createCartesianWaypoint}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{createCartesianWaypoint()}{createCartesianWaypoint()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{Cartesian\+Waypoint\+Poly}} tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::create\+Cartesian\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad0de992d8861162c64c3692150c4861e}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad0de992d8861162c64c3692150c4861e}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!createJointWaypoint@{createJointWaypoint}}
+\index{createJointWaypoint@{createJointWaypoint}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{createJointWaypoint()}{createJointWaypoint()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{Joint\+Waypoint\+Poly}} tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::create\+Joint\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a7e9be691cfc807ca5c166abf7137f583}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a7e9be691cfc807ca5c166abf7137f583}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!createStateWaypoint@{createStateWaypoint}}
+\index{createStateWaypoint@{createStateWaypoint}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{createStateWaypoint()}{createStateWaypoint()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::create\+State\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_acdc72c35cbe3f76c81e129e8d886b7ed}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_acdc72c35cbe3f76c81e129e8d886b7ed}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily virtual const std\+::string \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab26c4678d57d32fbb30cdb7db2c0c7f8}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab26c4678d57d32fbb30cdb7db2c0c7f8}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getManipulatorInfo@{getManipulatorInfo}}
+\index{getManipulatorInfo@{getManipulatorInfo}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getManipulatorInfo()}{getManipulatorInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual const tesseract\+\_\+common\+::\+Manipulator\+Info \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Manipulator\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a19979880b2f224464a456602ae89afdc}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a19979880b2f224464a456602ae89afdc}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getManipulatorInfo@{getManipulatorInfo}}
+\index{getManipulatorInfo@{getManipulatorInfo}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getManipulatorInfo()}{getManipulatorInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual tesseract\+\_\+common\+::\+Manipulator\+Info \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Manipulator\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ae3b36474f0be5a2074573be5d3ad4087}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ae3b36474f0be5a2074573be5d3ad4087}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getMoveType@{getMoveType}}
+\index{getMoveType@{getMoveType}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getMoveType()}{getMoveType()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Move\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_abca49142407e18492bac687883508d04}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_abca49142407e18492bac687883508d04}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getPathProfile@{getPathProfile}}
+\index{getPathProfile@{getPathProfile}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getPathProfile()}{getPathProfile()}}
+{\footnotesize\ttfamily virtual const std\+::string \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Path\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0962935360433c929cd4ee8bccf2642f}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0962935360433c929cd4ee8bccf2642f}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getProfile@{getProfile}}
+\index{getProfile@{getProfile}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getProfile()}{getProfile()}}
+{\footnotesize\ttfamily virtual const std\+::string \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0c94a842d5f2cf9cc85266f7a3c1e2}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0c94a842d5f2cf9cc85266f7a3c1e2}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getWaypoint@{getWaypoint}}
+\index{getWaypoint@{getWaypoint}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getWaypoint()}{getWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9a9225e816d89f7d5db56c1660940213}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9a9225e816d89f7d5db56c1660940213}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getWaypoint@{getWaypoint}}
+\index{getWaypoint@{getWaypoint}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getWaypoint()}{getWaypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{Waypoint\+Poly}} \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a4a265407d153b840c5c666f4f9766872}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a4a265407d153b840c5c666f4f9766872}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!print@{print}}
+\index{print@{print}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad74923e680742403260eb6ef36b4209e}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad74923e680742403260eb6ef36b4209e}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{version }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a93ddd1bb2ad0da00f5bc1640cc1b0675}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a93ddd1bb2ad0da00f5bc1640cc1b0675}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!serialize@{serialize}}
+\index{serialize@{serialize}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Archive $>$ \\
+TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+POP void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::serialize (\begin{DoxyParamCaption}\item[{Archive \&}]{ar,  }\item[{const unsigned int}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1384f0119d7d02c9d4b306dd41cb8b00}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1384f0119d7d02c9d4b306dd41cb8b00}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!setDescription@{setDescription}}
+\index{setDescription@{setDescription}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{setDescription()}{setDescription()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Description (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1cd98417983bc66e37fe6eb76e58bb0d}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1cd98417983bc66e37fe6eb76e58bb0d}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!setManipulatorInfo@{setManipulatorInfo}}
+\index{setManipulatorInfo@{setManipulatorInfo}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{setManipulatorInfo()}{setManipulatorInfo()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Manipulator\+Info (\begin{DoxyParamCaption}\item[{tesseract\+\_\+common\+::\+Manipulator\+Info}]{info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_adfb7e4ecfba797cdd6b7749ddef9ccc3}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_adfb7e4ecfba797cdd6b7749ddef9ccc3}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!setMoveType@{setMoveType}}
+\index{setMoveType@{setMoveType}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{setMoveType()}{setMoveType()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Move\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{move\+\_\+type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad18675c2417e2ae37423643bf7492395}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad18675c2417e2ae37423643bf7492395}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!setPathProfile@{setPathProfile}}
+\index{setPathProfile@{setPathProfile}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{setPathProfile()}{setPathProfile()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Path\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a741ddd569de1fbcf36f27d0ad42bc7af}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a741ddd569de1fbcf36f27d0ad42bc7af}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!setProfile@{setProfile}}
+\index{setProfile@{setProfile}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{setProfile()}{setProfile()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!boost::serialization::access@{boost::serialization::access}}
+\index{boost::serialization::access@{boost::serialization::access}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{boost::serialization::access}{boost::serialization::access}}
+{\footnotesize\ttfamily friend class boost\+::serialization\+::access\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!tesseract\_common::Serialization@{tesseract\_common::Serialization}}
+\index{tesseract\_common::Serialization@{tesseract\_common::Serialization}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{tesseract\_common::Serialization}{tesseract\_common::Serialization}}
+{\footnotesize\ttfamily friend struct tesseract\+\_\+common\+::\+Serialization\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+tesseract\+\_\+command\+\_\+language/include/tesseract\+\_\+command\+\_\+language/poly/\mbox{\hyperlink{move__instruction__poly_8h}{move\+\_\+instruction\+\_\+poly.\+h}}\item 
+tesseract\+\_\+command\+\_\+language/src/poly/\mbox{\hyperlink{move__instruction__poly_8cpp}{move\+\_\+instruction\+\_\+poly.\+cpp}}\end{DoxyCompactItemize}

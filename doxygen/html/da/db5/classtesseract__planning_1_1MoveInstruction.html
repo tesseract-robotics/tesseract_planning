@@ -72,6 +72,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
@@ -90,15 +91,16 @@ Collaboration diagram for tesseract_planning::MoveInstruction:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d5b/classtesseract__planning_1_1MoveInstruction__coll__graph.png" border="0" usemap="#atesseract__planning_1_1MoveInstruction_coll__map" alt="Collaboration graph"/></div>
 <map name="atesseract__planning_1_1MoveInstruction_coll__map" id="atesseract__planning_1_1MoveInstruction_coll__map">
-<area shape="rect" title="The move instruction is used when defining the results of a motion planning request." alt="" coords="1104,98,1235,139"/>
+<area shape="rect" title="The move instruction is used when defining the results of a motion planning request." alt="" coords="1112,126,1243,167"/>
 <area shape="rect" title=" " alt="" coords="804,98,959,139"/>
 <area shape="rect" href="../../d5/d9d/classtesseract__planning_1_1ProfileDictionary.html" title="This class is used to store profiles for motion planning and process planning." alt="" coords="607,102,737,143"/>
 <area shape="rect" title=" " alt="" coords="336,87,507,158"/>
 <area shape="rect" title=" " alt="" coords="179,72,257,99"/>
 <area shape="rect" title=" " alt="" coords="5,65,129,106"/>
 <area shape="rect" title=" " alt="" coords="358,183,485,209"/>
-<area shape="rect" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html" title=" " alt="" coords="816,163,947,205"/>
-<area shape="rect" title=" " alt="" coords="619,171,725,197"/>
+<area shape="rect" href="../../df/d14/structtesseract__planning_1_1WaypointPoly.html" title=" " alt="" coords="816,163,947,205"/>
+<area shape="rect" title=" " alt="" coords="607,171,737,197"/>
+<area shape="rect" title=" " alt="" coords="826,229,937,256"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -106,24 +108,40 @@ Collaboration diagram for tesseract_planning::MoveInstruction:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae19270849cf18385660539f792b77a6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ae19270849cf18385660539f792b77a6c">MoveInstruction</a> ()=default</td></tr>
 <tr class="separator:ae19270849cf18385660539f792b77a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad1d3e1d752707a75c14bfd17443e55a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aad1d3e1d752707a75c14bfd17443e55a">MoveInstruction</a> (<a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> manipulator_info=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>())</td></tr>
-<tr class="memdesc:aad1d3e1d752707a75c14bfd17443e55a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> Constructor.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aad1d3e1d752707a75c14bfd17443e55a">More...</a><br /></td></tr>
-<tr class="separator:aad1d3e1d752707a75c14bfd17443e55a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa482ebfdf216db0218335f5c56d12933"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aa482ebfdf216db0218335f5c56d12933">MoveInstruction</a> (<a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile, std::string path_profile, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> manipulator_info=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>())</td></tr>
-<tr class="memdesc:aa482ebfdf216db0218335f5c56d12933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> Constructor.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aa482ebfdf216db0218335f5c56d12933">More...</a><br /></td></tr>
-<tr class="separator:aa482ebfdf216db0218335f5c56d12933"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9235ecbaa9b9a19b9531bf7f967c17a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a9235ecbaa9b9a19b9531bf7f967c17a9">setWaypoint</a> (<a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> waypoint)</td></tr>
-<tr class="separator:a9235ecbaa9b9a19b9531bf7f967c17a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9dd6ba043a2ae38129847a98d90a540"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#af9dd6ba043a2ae38129847a98d90a540">getWaypoint</a> ()</td></tr>
-<tr class="separator:af9dd6ba043a2ae38129847a98d90a540"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f933bdc4dcc73a9eb8204af8e02f7aa"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a3f933bdc4dcc73a9eb8204af8e02f7aa">getWaypoint</a> () const</td></tr>
-<tr class="separator:a3f933bdc4dcc73a9eb8204af8e02f7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4d1ef2d3a5b99bcb4ade22f129c2f90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ab4d1ef2d3a5b99bcb4ade22f129c2f90">setManipulatorInfo</a> (<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> info)</td></tr>
-<tr class="separator:ab4d1ef2d3a5b99bcb4ade22f129c2f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50e8559abe809b767bb0cdff6a24dedd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a50e8559abe809b767bb0cdff6a24dedd">getManipulatorInfo</a> () const</td></tr>
-<tr class="separator:a50e8559abe809b767bb0cdff6a24dedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e65321acd0684b071a07f58e3f1eff4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a9e65321acd0684b071a07f58e3f1eff4">getManipulatorInfo</a> ()</td></tr>
-<tr class="separator:a9e65321acd0684b071a07f58e3f1eff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af49369c21b2ff9c39f84af5c697e7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a3af49369c21b2ff9c39f84af5c697e7e">MoveInstruction</a> (<a class="el" href="../../d6/d80/structtesseract__planning_1_1CartesianWaypointPoly.html">CartesianWaypointPoly</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>, tesseract_common::ManipulatorInfo manipulator_info=tesseract_common::ManipulatorInfo())</td></tr>
+<tr class="memdesc:a3af49369c21b2ff9c39f84af5c697e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move Instruction Constructor.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a3af49369c21b2ff9c39f84af5c697e7e">More...</a><br /></td></tr>
+<tr class="separator:a3af49369c21b2ff9c39f84af5c697e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbb774b369a8896444012c21ced69420"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#abbb774b369a8896444012c21ced69420">MoveInstruction</a> (<a class="el" href="../../dc/d56/structtesseract__planning_1_1JointWaypointPoly.html">JointWaypointPoly</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>, tesseract_common::ManipulatorInfo manipulator_info=tesseract_common::ManipulatorInfo())</td></tr>
+<tr class="separator:abbb774b369a8896444012c21ced69420"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af91ff8c6693d13f1a758e89497b3064b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#af91ff8c6693d13f1a758e89497b3064b">MoveInstruction</a> (<a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile=<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a>, tesseract_common::ManipulatorInfo manipulator_info=tesseract_common::ManipulatorInfo())</td></tr>
+<tr class="separator:af91ff8c6693d13f1a758e89497b3064b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a501f8bac49db4ce5bd81511da41d3f17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a501f8bac49db4ce5bd81511da41d3f17">MoveInstruction</a> (<a class="el" href="../../d6/d80/structtesseract__planning_1_1CartesianWaypointPoly.html">CartesianWaypointPoly</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile, std::string path_profile, tesseract_common::ManipulatorInfo manipulator_info=tesseract_common::ManipulatorInfo())</td></tr>
+<tr class="memdesc:a501f8bac49db4ce5bd81511da41d3f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move Instruction Constructor.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a501f8bac49db4ce5bd81511da41d3f17">More...</a><br /></td></tr>
+<tr class="separator:a501f8bac49db4ce5bd81511da41d3f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd516a29c0b3d4e6ad33720d97f97d7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#acd516a29c0b3d4e6ad33720d97f97d7f">MoveInstruction</a> (<a class="el" href="../../dc/d56/structtesseract__planning_1_1JointWaypointPoly.html">JointWaypointPoly</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile, std::string path_profile, tesseract_common::ManipulatorInfo manipulator_info=tesseract_common::ManipulatorInfo())</td></tr>
+<tr class="separator:acd516a29c0b3d4e6ad33720d97f97d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0f673eeeb99876e40aecd24734782a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ac0f673eeeb99876e40aecd24734782a1">MoveInstruction</a> (<a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile, std::string path_profile, tesseract_common::ManipulatorInfo manipulator_info=tesseract_common::ManipulatorInfo())</td></tr>
+<tr class="separator:ac0f673eeeb99876e40aecd24734782a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9de60baeb5f2fbaf1972c2eee9b9a427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a9de60baeb5f2fbaf1972c2eee9b9a427">setMoveType</a> (<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> move_type)</td></tr>
+<tr class="separator:a9de60baeb5f2fbaf1972c2eee9b9a427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00fdb7b4c3b9c0d990aea7bf9500157b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a00fdb7b4c3b9c0d990aea7bf9500157b">getMoveType</a> () const</td></tr>
+<tr class="separator:a00fdb7b4c3b9c0d990aea7bf9500157b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b60938d7b3d2ef44e67a9a243c5373"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad5b60938d7b3d2ef44e67a9a243c5373">assignCartesianWaypoint</a> (<a class="el" href="../../d6/d80/structtesseract__planning_1_1CartesianWaypointPoly.html">CartesianWaypointPoly</a> waypoint)</td></tr>
+<tr class="separator:ad5b60938d7b3d2ef44e67a9a243c5373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57b348d8996b52f6462843c7f368f583"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a57b348d8996b52f6462843c7f368f583">assignJointWaypoint</a> (<a class="el" href="../../dc/d56/structtesseract__planning_1_1JointWaypointPoly.html">JointWaypointPoly</a> waypoint)</td></tr>
+<tr class="separator:a57b348d8996b52f6462843c7f368f583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98bc0a38b24b8a9cd78bf32621477c4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a98bc0a38b24b8a9cd78bf32621477c4b">assignStateWaypoint</a> (<a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a> waypoint)</td></tr>
+<tr class="separator:a98bc0a38b24b8a9cd78bf32621477c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac33e3fc7464447b2b1c8249440ed7dd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d14/structtesseract__planning_1_1WaypointPoly.html">WaypointPoly</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ac33e3fc7464447b2b1c8249440ed7dd3">getWaypoint</a> ()</td></tr>
+<tr class="separator:ac33e3fc7464447b2b1c8249440ed7dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed777debc48978cad800901146c9730d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../df/d14/structtesseract__planning_1_1WaypointPoly.html">WaypointPoly</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aed777debc48978cad800901146c9730d">getWaypoint</a> () const</td></tr>
+<tr class="separator:aed777debc48978cad800901146c9730d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d8c2c99c525b1d46dcf67337021926"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a44d8c2c99c525b1d46dcf67337021926">setManipulatorInfo</a> (tesseract_common::ManipulatorInfo info)</td></tr>
+<tr class="separator:a44d8c2c99c525b1d46dcf67337021926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c2216bfa0b718e60e49b68d5f13231e"><td class="memItemLeft" align="right" valign="top">const tesseract_common::ManipulatorInfo &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a3c2216bfa0b718e60e49b68d5f13231e">getManipulatorInfo</a> () const</td></tr>
+<tr class="separator:a3c2216bfa0b718e60e49b68d5f13231e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7507f11b4289496bb2b1c8671b6679a"><td class="memItemLeft" align="right" valign="top">tesseract_common::ManipulatorInfo &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ab7507f11b4289496bb2b1c8671b6679a">getManipulatorInfo</a> ()</td></tr>
+<tr class="separator:ab7507f11b4289496bb2b1c8671b6679a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3521bb5ad102ea701dd2ee9722dbb6a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a3521bb5ad102ea701dd2ee9722dbb6a4">setProfile</a> (const std::string &amp;profile)</td></tr>
 <tr class="separator:a3521bb5ad102ea701dd2ee9722dbb6a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84c02b2780f5cbf3ec14bf7af3599e6d"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a84c02b2780f5cbf3ec14bf7af3599e6d">getProfile</a> () const</td></tr>
@@ -138,22 +156,19 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae9470b98e70d1e5a9f3d291c96cdd915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8455ade5ce84d9e34aa037d5ba2703b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a8455ade5ce84d9e34aa037d5ba2703b6">print</a> (const std::string &amp;prefix=&quot;&quot;) const</td></tr>
 <tr class="separator:a8455ade5ce84d9e34aa037d5ba2703b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9de60baeb5f2fbaf1972c2eee9b9a427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a9de60baeb5f2fbaf1972c2eee9b9a427">setMoveType</a> (<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> move_type)</td></tr>
-<tr class="separator:a9de60baeb5f2fbaf1972c2eee9b9a427"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00fdb7b4c3b9c0d990aea7bf9500157b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a00fdb7b4c3b9c0d990aea7bf9500157b">getMoveType</a> () const</td></tr>
-<tr class="separator:a00fdb7b4c3b9c0d990aea7bf9500157b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a014323d9ff77d6321e3f49ee827b0a02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a014323d9ff77d6321e3f49ee827b0a02">isLinear</a> () const</td></tr>
-<tr class="separator:a014323d9ff77d6321e3f49ee827b0a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab18a2d8efe4991633a478c2a78ee67b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ab18a2d8efe4991633a478c2a78ee67b5">isFreespace</a> () const</td></tr>
-<tr class="separator:ab18a2d8efe4991633a478c2a78ee67b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd2a3b55d8308ab11dbc737799704ac3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#abd2a3b55d8308ab11dbc737799704ac3">isCircular</a> () const</td></tr>
-<tr class="separator:abd2a3b55d8308ab11dbc737799704ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7ea2fb0fcfc4259ace79dafc6ac8179"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ad7ea2fb0fcfc4259ace79dafc6ac8179">isStart</a> () const</td></tr>
-<tr class="separator:ad7ea2fb0fcfc4259ace79dafc6ac8179"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0af9486d7b7cc6ca84589dbd2bacd579"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a0af9486d7b7cc6ca84589dbd2bacd579">operator==</a> (const <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> &amp;rhs) const</td></tr>
 <tr class="separator:a0af9486d7b7cc6ca84589dbd2bacd579"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a611233aae9b4fcad18e45a089f73d01f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a611233aae9b4fcad18e45a089f73d01f">operator!=</a> (const <a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html">MoveInstruction</a> &amp;rhs) const</td></tr>
 <tr class="separator:a611233aae9b4fcad18e45a089f73d01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ab029779fb24fcb46e5b3421de2988e37"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/d80/structtesseract__planning_1_1CartesianWaypointPoly.html">CartesianWaypointPoly</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ab029779fb24fcb46e5b3421de2988e37">createCartesianWaypoint</a> ()</td></tr>
+<tr class="separator:ab029779fb24fcb46e5b3421de2988e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6df62f1a3d879dee26f89b8ed6a4e4c7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dc/d56/structtesseract__planning_1_1JointWaypointPoly.html">JointWaypointPoly</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a6df62f1a3d879dee26f89b8ed6a4e4c7">createJointWaypoint</a> ()</td></tr>
+<tr class="separator:a6df62f1a3d879dee26f89b8ed6a4e4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d02a1e37c95e79376422df040970e8f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a8d02a1e37c95e79376422df040970e8f">createStateWaypoint</a> ()</td></tr>
+<tr class="separator:a8d02a1e37c95e79376422df040970e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -171,7 +186,7 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a4a96d216ff84647198b71852a55ab700"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a4a96d216ff84647198b71852a55ab700">move_type_</a> { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac">MoveInstructionType::START</a> }</td></tr>
 <tr class="separator:a4a96d216ff84647198b71852a55ab700"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae18a702232c2ae42773c84ee5c69afb3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ae18a702232c2ae42773c84ee5c69afb3">description_</a> { &quot;Tesseract Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>&quot; }</td></tr>
+<tr class="memitem:ae18a702232c2ae42773c84ee5c69afb3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ae18a702232c2ae42773c84ee5c69afb3">description_</a> { &quot;Tesseract Move Instruction&quot; }</td></tr>
 <tr class="separator:ae18a702232c2ae42773c84ee5c69afb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafc4ac7f47a6009473040533b9d7344d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aafc4ac7f47a6009473040533b9d7344d">profile_</a> { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a> }</td></tr>
 <tr class="memdesc:aafc4ac7f47a6009473040533b9d7344d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The profile used for this move instruction.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aafc4ac7f47a6009473040533b9d7344d">More...</a><br /></td></tr>
@@ -179,12 +194,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a594c867fadfc0941312325bf94916163"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a594c867fadfc0941312325bf94916163">path_profile_</a></td></tr>
 <tr class="memdesc:a594c867fadfc0941312325bf94916163"><td class="mdescLeft">&#160;</td><td class="mdescRight">The profile used for the path to this move instruction.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a594c867fadfc0941312325bf94916163">More...</a><br /></td></tr>
 <tr class="separator:a594c867fadfc0941312325bf94916163"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac369b20c997b938fce16254e8c83e9d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ac369b20c997b938fce16254e8c83e9d7">waypoint_</a> { <a class="el" href="../../dc/d18/classtesseract__planning_1_1NullWaypoint.html">NullWaypoint</a>() }</td></tr>
-<tr class="memdesc:ac369b20c997b938fce16254e8c83e9d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The assigned waypoint (Cartesian or Joint)  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ac369b20c997b938fce16254e8c83e9d7">More...</a><br /></td></tr>
-<tr class="separator:ac369b20c997b938fce16254e8c83e9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7be3aed15c3972ca9e0057a5e9199355"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a7be3aed15c3972ca9e0057a5e9199355">manipulator_info_</a></td></tr>
-<tr class="memdesc:a7be3aed15c3972ca9e0057a5e9199355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains information about the manipulator associated with this instruction.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a7be3aed15c3972ca9e0057a5e9199355">More...</a><br /></td></tr>
-<tr class="separator:a7be3aed15c3972ca9e0057a5e9199355"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a319af76635221857e3c73df2fbdc3280"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d14/structtesseract__planning_1_1WaypointPoly.html">WaypointPoly</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a319af76635221857e3c73df2fbdc3280">waypoint_</a></td></tr>
+<tr class="memdesc:a319af76635221857e3c73df2fbdc3280"><td class="mdescLeft">&#160;</td><td class="mdescRight">The assigned waypoint (Cartesian or Joint)  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a319af76635221857e3c73df2fbdc3280">More...</a><br /></td></tr>
+<tr class="separator:a319af76635221857e3c73df2fbdc3280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1feec2c0a18d8ac854eb6215a501c221"><td class="memItemLeft" align="right" valign="top">tesseract_common::ManipulatorInfo&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a1feec2c0a18d8ac854eb6215a501c221">manipulator_info_</a></td></tr>
+<tr class="memdesc:a1feec2c0a18d8ac854eb6215a501c221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains information about the manipulator associated with this instruction.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a1feec2c0a18d8ac854eb6215a501c221">More...</a><br /></td></tr>
+<tr class="separator:a1feec2c0a18d8ac854eb6215a501c221"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -199,7 +214,7 @@ Friends</h2></td></tr>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae19270849cf18385660539f792b77a6c" name="ae19270849cf18385660539f792b77a6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae19270849cf18385660539f792b77a6c">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae19270849cf18385660539f792b77a6c">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,8 +238,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="aad1d3e1d752707a75c14bfd17443e55a" name="aad1d3e1d752707a75c14bfd17443e55a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad1d3e1d752707a75c14bfd17443e55a">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[2/3]</span></h2>
+<a id="a3af49369c21b2ff9c39f84af5c697e7e" name="a3af49369c21b2ff9c39f84af5c697e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3af49369c21b2ff9c39f84af5c697e7e">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,7 +247,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">tesseract_planning::MoveInstruction::MoveInstruction </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d80/structtesseract__planning_1_1CartesianWaypointPoly.html">CartesianWaypointPoly</a>&#160;</td>
           <td class="paramname"><em>waypoint</em>, </td>
         </tr>
         <tr>
@@ -250,8 +265,8 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>&#160;</td>
-          <td class="paramname"><em>manipulator_info</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>()</code>&#160;</td>
+          <td class="paramtype">tesseract_common::ManipulatorInfo&#160;</td>
+          <td class="paramname"><em>manipulator_info</em> = <code>tesseract_common::ManipulatorInfo()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -261,7 +276,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> Constructor. </p>
+<p>Move Instruction Constructor. </p>
 <p >This constructor automatically assigns the path profile which is only associated to the path taken to the waypoint. If the motion is LINEAR/CIRCULAR it assigns the profile to the defined profile. If the motion is FREESPACE/START it is left empty. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">waypoint</td><td>The waypoint associated with the instruction </td></tr>
@@ -274,8 +289,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="aa482ebfdf216db0218335f5c56d12933" name="aa482ebfdf216db0218335f5c56d12933"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa482ebfdf216db0218335f5c56d12933">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[3/3]</span></h2>
+<a id="abbb774b369a8896444012c21ced69420" name="abbb774b369a8896444012c21ced69420"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbb774b369a8896444012c21ced69420">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +298,87 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">tesseract_planning::MoveInstruction::MoveInstruction </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/d56/structtesseract__planning_1_1JointWaypointPoly.html">JointWaypointPoly</a>&#160;</td>
+          <td class="paramname"><em>waypoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>profile</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">tesseract_common::ManipulatorInfo&#160;</td>
+          <td class="paramname"><em>manipulator_info</em> = <code>tesseract_common::ManipulatorInfo()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af91ff8c6693d13f1a758e89497b3064b" name="af91ff8c6693d13f1a758e89497b3064b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af91ff8c6693d13f1a758e89497b3064b">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::MoveInstruction::MoveInstruction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a>&#160;</td>
+          <td class="paramname"><em>waypoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>profile</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">tesseract_common::ManipulatorInfo&#160;</td>
+          <td class="paramname"><em>manipulator_info</em> = <code>tesseract_common::ManipulatorInfo()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a501f8bac49db4ce5bd81511da41d3f17" name="a501f8bac49db4ce5bd81511da41d3f17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a501f8bac49db4ce5bd81511da41d3f17">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::MoveInstruction::MoveInstruction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d80/structtesseract__planning_1_1CartesianWaypointPoly.html">CartesianWaypointPoly</a>&#160;</td>
           <td class="paramname"><em>waypoint</em>, </td>
         </tr>
         <tr>
@@ -307,8 +402,8 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>&#160;</td>
-          <td class="paramname"><em>manipulator_info</em> = <code><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>()</code>&#160;</td>
+          <td class="paramtype">tesseract_common::ManipulatorInfo&#160;</td>
+          <td class="paramname"><em>manipulator_info</em> = <code>tesseract_common::ManipulatorInfo()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -318,7 +413,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a> Constructor. </p>
+<p>Move Instruction Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">waypoint</td><td>The waypoint associated with the instruction </td></tr>
@@ -332,7 +427,228 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="acd516a29c0b3d4e6ad33720d97f97d7f" name="acd516a29c0b3d4e6ad33720d97f97d7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd516a29c0b3d4e6ad33720d97f97d7f">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::MoveInstruction::MoveInstruction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d56/structtesseract__planning_1_1JointWaypointPoly.html">JointWaypointPoly</a>&#160;</td>
+          <td class="paramname"><em>waypoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>profile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path_profile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">tesseract_common::ManipulatorInfo&#160;</td>
+          <td class="paramname"><em>manipulator_info</em> = <code>tesseract_common::ManipulatorInfo()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0f673eeeb99876e40aecd24734782a1" name="ac0f673eeeb99876e40aecd24734782a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0f673eeeb99876e40aecd24734782a1">&#9670;&nbsp;</a></span>MoveInstruction() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tesseract_planning::MoveInstruction::MoveInstruction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a>&#160;</td>
+          <td class="paramname"><em>waypoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>profile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path_profile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">tesseract_common::ManipulatorInfo&#160;</td>
+          <td class="paramname"><em>manipulator_info</em> = <code>tesseract_common::ManipulatorInfo()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad5b60938d7b3d2ef44e67a9a243c5373" name="ad5b60938d7b3d2ef44e67a9a243c5373"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5b60938d7b3d2ef44e67a9a243c5373">&#9670;&nbsp;</a></span>assignCartesianWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::MoveInstruction::assignCartesianWaypoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d80/structtesseract__planning_1_1CartesianWaypointPoly.html">CartesianWaypointPoly</a>&#160;</td>
+          <td class="paramname"><em>waypoint</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a57b348d8996b52f6462843c7f368f583" name="a57b348d8996b52f6462843c7f368f583"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57b348d8996b52f6462843c7f368f583">&#9670;&nbsp;</a></span>assignJointWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::MoveInstruction::assignJointWaypoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d56/structtesseract__planning_1_1JointWaypointPoly.html">JointWaypointPoly</a>&#160;</td>
+          <td class="paramname"><em>waypoint</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98bc0a38b24b8a9cd78bf32621477c4b" name="a98bc0a38b24b8a9cd78bf32621477c4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98bc0a38b24b8a9cd78bf32621477c4b">&#9670;&nbsp;</a></span>assignStateWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::MoveInstruction::assignStateWaypoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a>&#160;</td>
+          <td class="paramname"><em>waypoint</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab029779fb24fcb46e5b3421de2988e37" name="ab029779fb24fcb46e5b3421de2988e37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab029779fb24fcb46e5b3421de2988e37">&#9670;&nbsp;</a></span>createCartesianWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d80/structtesseract__planning_1_1CartesianWaypointPoly.html">CartesianWaypointPoly</a> tesseract_planning::MoveInstruction::createCartesianWaypoint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6df62f1a3d879dee26f89b8ed6a4e4c7" name="a6df62f1a3d879dee26f89b8ed6a4e4c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6df62f1a3d879dee26f89b8ed6a4e4c7">&#9670;&nbsp;</a></span>createJointWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d56/structtesseract__planning_1_1JointWaypointPoly.html">JointWaypointPoly</a> tesseract_planning::MoveInstruction::createJointWaypoint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d02a1e37c95e79376422df040970e8f" name="a8d02a1e37c95e79376422df040970e8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d02a1e37c95e79376422df040970e8f">&#9670;&nbsp;</a></span>createStateWaypoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a> tesseract_planning::MoveInstruction::createStateWaypoint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae7515bcb48564803aac136901c5dcdda" name="ae7515bcb48564803aac136901c5dcdda"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae7515bcb48564803aac136901c5dcdda">&#9670;&nbsp;</a></span>getDescription()</h2>
 
@@ -350,14 +666,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a9e65321acd0684b071a07f58e3f1eff4" name="a9e65321acd0684b071a07f58e3f1eff4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e65321acd0684b071a07f58e3f1eff4">&#9670;&nbsp;</a></span>getManipulatorInfo() <span class="overload">[1/2]</span></h2>
+<a id="ab7507f11b4289496bb2b1c8671b6679a" name="ab7507f11b4289496bb2b1c8671b6679a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7507f11b4289496bb2b1c8671b6679a">&#9670;&nbsp;</a></span>getManipulatorInfo() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp; tesseract_planning::MoveInstruction::getManipulatorInfo </td>
+          <td class="memname">tesseract_common::ManipulatorInfo &amp; tesseract_planning::MoveInstruction::getManipulatorInfo </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -367,14 +683,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a50e8559abe809b767bb0cdff6a24dedd" name="a50e8559abe809b767bb0cdff6a24dedd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50e8559abe809b767bb0cdff6a24dedd">&#9670;&nbsp;</a></span>getManipulatorInfo() <span class="overload">[2/2]</span></h2>
+<a id="a3c2216bfa0b718e60e49b68d5f13231e" name="a3c2216bfa0b718e60e49b68d5f13231e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c2216bfa0b718e60e49b68d5f13231e">&#9670;&nbsp;</a></span>getManipulatorInfo() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> &amp; tesseract_planning::MoveInstruction::getManipulatorInfo </td>
+          <td class="memname">const tesseract_common::ManipulatorInfo &amp; tesseract_planning::MoveInstruction::getManipulatorInfo </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -435,14 +751,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="af9dd6ba043a2ae38129847a98d90a540" name="af9dd6ba043a2ae38129847a98d90a540"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9dd6ba043a2ae38129847a98d90a540">&#9670;&nbsp;</a></span>getWaypoint() <span class="overload">[1/2]</span></h2>
+<a id="ac33e3fc7464447b2b1c8249440ed7dd3" name="ac33e3fc7464447b2b1c8249440ed7dd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac33e3fc7464447b2b1c8249440ed7dd3">&#9670;&nbsp;</a></span>getWaypoint() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp; tesseract_planning::MoveInstruction::getWaypoint </td>
+          <td class="memname"><a class="el" href="../../df/d14/structtesseract__planning_1_1WaypointPoly.html">WaypointPoly</a> &amp; tesseract_planning::MoveInstruction::getWaypoint </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -452,82 +768,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a3f933bdc4dcc73a9eb8204af8e02f7aa" name="a3f933bdc4dcc73a9eb8204af8e02f7aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f933bdc4dcc73a9eb8204af8e02f7aa">&#9670;&nbsp;</a></span>getWaypoint() <span class="overload">[2/2]</span></h2>
+<a id="aed777debc48978cad800901146c9730d" name="aed777debc48978cad800901146c9730d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed777debc48978cad800901146c9730d">&#9670;&nbsp;</a></span>getWaypoint() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> &amp; tesseract_planning::MoveInstruction::getWaypoint </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abd2a3b55d8308ab11dbc737799704ac3" name="abd2a3b55d8308ab11dbc737799704ac3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd2a3b55d8308ab11dbc737799704ac3">&#9670;&nbsp;</a></span>isCircular()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::MoveInstruction::isCircular </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab18a2d8efe4991633a478c2a78ee67b5" name="ab18a2d8efe4991633a478c2a78ee67b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab18a2d8efe4991633a478c2a78ee67b5">&#9670;&nbsp;</a></span>isFreespace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::MoveInstruction::isFreespace </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a014323d9ff77d6321e3f49ee827b0a02" name="a014323d9ff77d6321e3f49ee827b0a02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a014323d9ff77d6321e3f49ee827b0a02">&#9670;&nbsp;</a></span>isLinear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::MoveInstruction::isLinear </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad7ea2fb0fcfc4259ace79dafc6ac8179" name="ad7ea2fb0fcfc4259ace79dafc6ac8179"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7ea2fb0fcfc4259ace79dafc6ac8179">&#9670;&nbsp;</a></span>isStart()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool tesseract_planning::MoveInstruction::isStart </td>
+          <td class="memname">const <a class="el" href="../../df/d14/structtesseract__planning_1_1WaypointPoly.html">WaypointPoly</a> &amp; tesseract_planning::MoveInstruction::getWaypoint </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -647,8 +895,8 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
-<a id="ab4d1ef2d3a5b99bcb4ade22f129c2f90" name="ab4d1ef2d3a5b99bcb4ade22f129c2f90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4d1ef2d3a5b99bcb4ade22f129c2f90">&#9670;&nbsp;</a></span>setManipulatorInfo()</h2>
+<a id="a44d8c2c99c525b1d46dcf67337021926" name="a44d8c2c99c525b1d46dcf67337021926"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d8c2c99c525b1d46dcf67337021926">&#9670;&nbsp;</a></span>setManipulatorInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -656,7 +904,7 @@ template&lt;class Archive &gt; </div>
         <tr>
           <td class="memname">void tesseract_planning::MoveInstruction::setManipulatorInfo </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a>&#160;</td>
+          <td class="paramtype">tesseract_common::ManipulatorInfo&#160;</td>
           <td class="paramname"><em>info</em></td><td>)</td>
           <td></td>
         </tr>
@@ -719,24 +967,6 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
-<a id="a9235ecbaa9b9a19b9531bf7f967c17a9" name="a9235ecbaa9b9a19b9531bf7f967c17a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9235ecbaa9b9a19b9531bf7f967c17a9">&#9670;&nbsp;</a></span>setWaypoint()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void tesseract_planning::MoveInstruction::setWaypoint </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a>&#160;</td>
-          <td class="paramname"><em>waypoint</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
 <a id="ac98d07dd8f7b70e16ccb9a01abf56b9c" name="ac98d07dd8f7b70e16ccb9a01abf56b9c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac98d07dd8f7b70e16ccb9a01abf56b9c">&#9670;&nbsp;</a></span>boost::serialization::access</h2>
@@ -771,7 +1001,7 @@ template&lt;class Archive &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string tesseract_planning::MoveInstruction::description_ { &quot;Tesseract Move <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>&quot; }</td>
+          <td class="memname">std::string tesseract_planning::MoveInstruction::description_ { &quot;Tesseract Move Instruction&quot; }</td>
         </tr>
       </table>
   </td>
@@ -783,8 +1013,8 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
-<a id="a7be3aed15c3972ca9e0057a5e9199355" name="a7be3aed15c3972ca9e0057a5e9199355"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7be3aed15c3972ca9e0057a5e9199355">&#9670;&nbsp;</a></span>manipulator_info_</h2>
+<a id="a1feec2c0a18d8ac854eb6215a501c221" name="a1feec2c0a18d8ac854eb6215a501c221"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1feec2c0a18d8ac854eb6215a501c221">&#9670;&nbsp;</a></span>manipulator_info_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -793,7 +1023,7 @@ template&lt;class Archive &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#aa96fe6a7234303baeef3b4a8afcedfc4">ManipulatorInfo</a> tesseract_planning::MoveInstruction::manipulator_info_</td>
+          <td class="memname">tesseract_common::ManipulatorInfo tesseract_planning::MoveInstruction::manipulator_info_</td>
         </tr>
       </table>
   </td>
@@ -893,8 +1123,8 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
-<a id="ac369b20c997b938fce16254e8c83e9d7" name="ac369b20c997b938fce16254e8c83e9d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac369b20c997b938fce16254e8c83e9d7">&#9670;&nbsp;</a></span>waypoint_</h2>
+<a id="a319af76635221857e3c73df2fbdc3280" name="a319af76635221857e3c73df2fbdc3280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a319af76635221857e3c73df2fbdc3280">&#9670;&nbsp;</a></span>waypoint_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -903,7 +1133,7 @@ template&lt;class Archive &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d8/d45/structtesseract__planning_1_1Waypoint.html">Waypoint</a> tesseract_planning::MoveInstruction::waypoint_ { <a class="el" href="../../dc/d18/classtesseract__planning_1_1NullWaypoint.html">NullWaypoint</a>() }</td>
+          <td class="memname"><a class="el" href="../../df/d14/structtesseract__planning_1_1WaypointPoly.html">WaypointPoly</a> tesseract_planning::MoveInstruction::waypoint_</td>
         </tr>
       </table>
   </td>
@@ -924,7 +1154,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 23:00:14 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 22 2022 19:56:17 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

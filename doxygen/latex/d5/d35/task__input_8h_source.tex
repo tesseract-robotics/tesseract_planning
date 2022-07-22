@@ -19,8 +19,8 @@
 \DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{profile__dictionary_8h}{tesseract\_command\_language/profile\_dictionary.h}}>}}
 \DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h}{tesseract\_motion\_planners/core/types.h}}>}}
 \DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction_8h}{tesseract\_command\_language/core/instruction.h}}>}}
-\DoxyCodeLine{43 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__command__language_2include_2tesseract__command__language_2types_8h}{tesseract\_command\_language/types.h}}>}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__poly_8h}{tesseract\_command\_language/poly/instruction\_poly.h}}>}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#include <tesseract\_common/manipulator\_info.h>}}
 \DoxyCodeLine{44 }
 \DoxyCodeLine{45 \textcolor{preprocessor}{\#include <tesseract\_environment/environment.h>}}
 \DoxyCodeLine{46 }
@@ -31,39 +31,39 @@
 \DoxyCodeLine{57   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a1f70b873de1a541036bf05e671f814c1}{Ptr}} = std::shared\_ptr<TaskInput>;}
 \DoxyCodeLine{58   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a86f0d692b3c09dab97a697d2947da93d}{ConstPtr}} = std::shared\_ptr<const TaskInput>;}
 \DoxyCodeLine{59 }
-\DoxyCodeLine{60   \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a4dc5ef4fee4f10cc2703dea1aa5e6892}{TaskInput}}(tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}},}
-\DoxyCodeLine{61             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* instruction,}
-\DoxyCodeLine{62             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac88fae26732697dc64374bf79d47bf31}{manip\_info}},}
-\DoxyCodeLine{63             \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* seed,}
+\DoxyCodeLine{60   \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a861123a3362ca09c5ce8e9ca4b37e17f}{TaskInput}}(tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}},}
+\DoxyCodeLine{61             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* instruction,}
+\DoxyCodeLine{62             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a44f89a15d114120d025fe86942b9afac}{manip\_info}},}
+\DoxyCodeLine{63             \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* seed,}
 \DoxyCodeLine{64             \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\_seed}},}
 \DoxyCodeLine{65             \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}});}
 \DoxyCodeLine{66 }
-\DoxyCodeLine{67   \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a4dc5ef4fee4f10cc2703dea1aa5e6892}{TaskInput}}(tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}},}
-\DoxyCodeLine{68             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* instruction,}
-\DoxyCodeLine{69             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac88fae26732697dc64374bf79d47bf31}{manip\_info}},}
+\DoxyCodeLine{67   \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a861123a3362ca09c5ce8e9ca4b37e17f}{TaskInput}}(tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}},}
+\DoxyCodeLine{68             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* instruction,}
+\DoxyCodeLine{69             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a44f89a15d114120d025fe86942b9afac}{manip\_info}},}
 \DoxyCodeLine{70             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aa49bed364cfc77d1ed0a6b47094fd3ae}{plan\_profile\_remapping}},}
 \DoxyCodeLine{71             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9deec6337b4aa783f63a03a0250d2b66}{composite\_profile\_remapping}},}
-\DoxyCodeLine{72             \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* seed,}
+\DoxyCodeLine{72             \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* seed,}
 \DoxyCodeLine{73             \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\_seed}},}
 \DoxyCodeLine{74             \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}});}
 \DoxyCodeLine{75 }
-\DoxyCodeLine{76   \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a4dc5ef4fee4f10cc2703dea1aa5e6892}{TaskInput}}(tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}},}
-\DoxyCodeLine{77             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* instruction,}
+\DoxyCodeLine{76   \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a861123a3362ca09c5ce8e9ca4b37e17f}{TaskInput}}(tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}},}
+\DoxyCodeLine{77             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* instruction,}
 \DoxyCodeLine{78             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aa49bed364cfc77d1ed0a6b47094fd3ae}{plan\_profile\_remapping}},}
 \DoxyCodeLine{79             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9deec6337b4aa783f63a03a0250d2b66}{composite\_profile\_remapping}},}
-\DoxyCodeLine{80             \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* seed,}
+\DoxyCodeLine{80             \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* seed,}
 \DoxyCodeLine{81             \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\_seed}},}
 \DoxyCodeLine{82             \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}});}
 \DoxyCodeLine{83 }
-\DoxyCodeLine{84   \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a4dc5ef4fee4f10cc2703dea1aa5e6892}{TaskInput}}(tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}},}
-\DoxyCodeLine{85             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* instruction,}
-\DoxyCodeLine{86             \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* seed,}
+\DoxyCodeLine{84   \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a861123a3362ca09c5ce8e9ca4b37e17f}{TaskInput}}(tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}},}
+\DoxyCodeLine{85             \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* instruction,}
+\DoxyCodeLine{86             \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* seed,}
 \DoxyCodeLine{87             \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a5d735d6410b13d62a7dc96554685e2ad}{has\_seed}},}
 \DoxyCodeLine{88             \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a9fb2b09142d73340d9cc01bbaab67bc7}{profiles}});}
 \DoxyCodeLine{89 }
 \DoxyCodeLine{91   \textcolor{keyword}{const} tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_acd0bde2ba897b87cf4949013a16e1750}{env}};}
 \DoxyCodeLine{92 }
-\DoxyCodeLine{94   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac88fae26732697dc64374bf79d47bf31}{manip\_info}};}
+\DoxyCodeLine{94   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a44f89a15d114120d025fe86942b9afac}{manip\_info}};}
 \DoxyCodeLine{95 }
 \DoxyCodeLine{100   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}}\& \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_aa49bed364cfc77d1ed0a6b47094fd3ae}{plan\_profile\_remapping}};}
 \DoxyCodeLine{101 }
@@ -77,9 +77,9 @@
 \DoxyCodeLine{124 }
 \DoxyCodeLine{130   std::size\_t \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a76282121b3d486b03a098cdc8124ad39}{size}}();}
 \DoxyCodeLine{131 }
-\DoxyCodeLine{136   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a026ae6e5c958cb320cea9eb3d4d81bb6}{getInstruction}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{136   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_addfb42493c943c6e4704f8fb46b6057c}{getInstruction}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{137 }
-\DoxyCodeLine{142   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a43982511f386b453034d237ce7e6f630}{getResults}}();}
+\DoxyCodeLine{142   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a25ea06415d6a66af766dbd5e30b995cf}{getResults}}();}
 \DoxyCodeLine{143 }
 \DoxyCodeLine{148   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{TaskflowInterface::Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a069e1079b41ce681b600bee95129b29f}{getTaskInterface}}();}
 \DoxyCodeLine{149 }
@@ -87,13 +87,13 @@
 \DoxyCodeLine{156 }
 \DoxyCodeLine{161   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac73314a8adf0eefa27d1cf87b04c2378}{abort}}();}
 \DoxyCodeLine{162 }
-\DoxyCodeLine{163   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a6cdd881d177b798ba50ad0b7fe20a5ed}{setStartInstruction}}(\mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} start);}
-\DoxyCodeLine{164   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a6cdd881d177b798ba50ad0b7fe20a5ed}{setStartInstruction}}(std::vector<std::size\_t> start);}
-\DoxyCodeLine{165   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a183b077af8e4c361ccb5b10026282cda}{getStartInstruction}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{163   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a0a1f2c6cd50de34713a1e00f48a13cdc}{setStartInstruction}}(\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} start);}
+\DoxyCodeLine{164   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a0a1f2c6cd50de34713a1e00f48a13cdc}{setStartInstruction}}(std::vector<std::size\_t> start);}
+\DoxyCodeLine{165   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a32a69c126789abc096f14baa67688262}{getStartInstruction}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{166 }
-\DoxyCodeLine{167   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ada56c385ece8b3af9f82e8d44c3e76fd}{setEndInstruction}}(\mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} end);}
-\DoxyCodeLine{168   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ada56c385ece8b3af9f82e8d44c3e76fd}{setEndInstruction}}(std::vector<std::size\_t> end);}
-\DoxyCodeLine{169   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a3585d1d5778d749269dbbf0d53c4af48}{getEndInstruction}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{167   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a09bf2fb1474daa72146dace9fbd4bc2c}{setEndInstruction}}(\mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} end);}
+\DoxyCodeLine{168   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a09bf2fb1474daa72146dace9fbd4bc2c}{setEndInstruction}}(std::vector<std::size\_t> end);}
+\DoxyCodeLine{169   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a31b7c7bcbc8168c2a17d6ce2910fd861}{getEndInstruction}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{170 }
 \DoxyCodeLine{171   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a3b24f402c763aaa8bb101e1c77016266}{addTaskInfo}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} task\_info);}
 \DoxyCodeLine{172   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a45183afbfdfa02b1d4eb1f997fc62b57}{getTaskInfo}}(\textcolor{keyword}{const} std::size\_t\& index) \textcolor{keyword}{const};}
@@ -102,17 +102,17 @@
 \DoxyCodeLine{176   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a395007d40104690a29ea2ccfe68b5203}{save\_io}}\{ \textcolor{keyword}{false} \};}
 \DoxyCodeLine{177 }
 \DoxyCodeLine{178 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{180   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ac0ae7d951978b405c399f1224da9c26d}{instruction\_}};}
+\DoxyCodeLine{180   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_af7e9e05c77deba06d05028ccf246a9a5}{instruction\_}};}
 \DoxyCodeLine{181 }
-\DoxyCodeLine{183   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_abbbf89b490693aa3fea9d8efa16ed4f8}{results\_}};}
+\DoxyCodeLine{183   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a60daaa65c8dd12901cb96a211ad3a553}{results\_}};}
 \DoxyCodeLine{184 }
 \DoxyCodeLine{186   std::vector<std::size\_t> \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a1963307f607b38990134de796b65e519}{instruction\_indice\_}};}
 \DoxyCodeLine{187 }
-\DoxyCodeLine{189   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_ab147783b0f2db81daf99b9f237622d51}{start\_instruction\_}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
+\DoxyCodeLine{189   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a7a377cfa099ac1a67a1596d79a24b459}{start\_instruction\_}};}
 \DoxyCodeLine{190 }
 \DoxyCodeLine{192   std::vector<std::size\_t> \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a60ae2d0e2229116539883ab4115f8562}{start\_instruction\_indice\_}};}
 \DoxyCodeLine{193 }
-\DoxyCodeLine{195   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a7dfbc3c0aedbfe9ab8b7cc6023b8cb9d}{end\_instruction\_}}\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
+\DoxyCodeLine{195   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_adb17fdac49026d160666c93cedfe3e21}{end\_instruction\_}};}
 \DoxyCodeLine{196 }
 \DoxyCodeLine{198   std::vector<std::size\_t> \mbox{\hyperlink{structtesseract__planning_1_1TaskInput_a8d5ff9ef9112a9c404f8a0114e55430e}{end\_instruction\_indice\_}};}
 \DoxyCodeLine{199 }

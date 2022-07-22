@@ -77,8 +77,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d8/d0f/trajopt__ifopt__utils_8h_source.html">tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../dd/d35/trajopt__ifopt__default__plan__profile_8h_source.html">tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../da/d74/move__instruction_8h_source.html">tesseract_command_language/move_instruction.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d0/dd5/instruction__type_8h_source.html">tesseract_command_language/instruction_type.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../dc/df1/move__instruction__poly_8h_source.html">tesseract_command_language/poly/move_instruction_poly.h</a>&gt;</code><br />
 <code>#include &lt;trajopt_ifopt/trajopt_ifopt.h&gt;</code><br />
 <code>#include &lt;trajopt_ifopt/utils/ifopt_utils.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -86,50 +85,44 @@ Include dependency graph for trajopt_ifopt_default_plan_profile.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d51/trajopt__ifopt__default__plan__profile_8cpp__incl.png" border="0" usemap="#atesseract__motion__planners_2trajopt__ifopt_2src_2profile_2trajopt__ifopt__default__plan__profile_8cpp" alt=""/></div>
 <map name="atesseract__motion__planners_2trajopt__ifopt_2src_2profile_2trajopt__ifopt__default__plan__profile_8cpp" id="atesseract__motion__planners_2trajopt__ifopt_2src_2profile_2trajopt__ifopt__default__plan__profile_8cpp">
-<area shape="rect" title=" " alt="" coords="2875,5,3053,76"/>
-<area shape="rect" href="../../d8/d0f/trajopt__ifopt__utils_8h.html" title=" " alt="" coords="2811,243,2989,299"/>
-<area shape="rect" title=" " alt="" coords="3584,354,3715,395"/>
-<area shape="rect" href="../../dd/d35/trajopt__ifopt__default__plan__profile_8h.html" title=" " alt="" coords="2157,124,2336,195"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="1195,354,1394,395"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="3063,139,3262,180"/>
-<area shape="rect" title=" " alt="" coords="3286,139,3405,180"/>
-<area shape="rect" title=" " alt="" coords="1773,637,1963,663"/>
-<area shape="rect" title=" " alt="" coords="2846,361,2989,388"/>
-<area shape="rect" title=" " alt="" coords="3013,354,3139,395"/>
-<area shape="rect" title=" " alt="" coords="3163,347,3341,403"/>
-<area shape="rect" title=" " alt="" coords="3365,347,3560,403"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1331,451,1530,492"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2258,354,2457,395"/>
-<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2035,354,2234,395"/>
-<area shape="rect" title=" " alt="" coords="1674,540,1878,581"/>
-<area shape="rect" title=" " alt="" coords="2167,458,2252,485"/>
-<area shape="rect" title=" " alt="" coords="1604,458,1719,485"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="977,540,1175,581"/>
-<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="2471,451,2670,492"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1843,451,2042,492"/>
-<area shape="rect" title=" " alt="" coords="2276,458,2447,485"/>
-<area shape="rect" title=" " alt="" coords="530,637,598,663"/>
-<area shape="rect" title=" " alt="" coords="1393,637,1447,663"/>
-<area shape="rect" title=" " alt="" coords="430,637,506,663"/>
-<area shape="rect" title=" " alt="" coords="1471,629,1598,671"/>
-<area shape="rect" title=" " alt="" coords="622,629,749,671"/>
-<area shape="rect" title=" " alt="" coords="773,637,944,663"/>
-<area shape="rect" title=" " alt="" coords="969,637,1183,663"/>
-<area shape="rect" title=" " alt="" coords="1207,629,1369,671"/>
-<area shape="rect" title=" " alt="" coords="724,458,783,485"/>
-<area shape="rect" href="../../d3/da7/trajopt__ifopt__profile_8h.html" title=" " alt="" coords="1341,243,1520,299"/>
-<area shape="rect" title=" " alt="" coords="1015,361,1121,388"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="907,451,1106,492"/>
-<area shape="rect" href="../../d1/d0e/trajopt__ifopt__problem_8h.html" title=" " alt="" coords="597,347,776,403"/>
-<area shape="rect" title=" " alt="" coords="262,458,429,485"/>
-<area shape="rect" title=" " alt="" coords="453,451,649,492"/>
-<area shape="rect" title=" " alt="" coords="83,451,237,492"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1350,540,1549,581"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="125,540,323,581"/>
-<area shape="rect" title=" " alt="" coords="5,637,48,663"/>
-<area shape="rect" title=" " alt="" coords="72,637,144,663"/>
-<area shape="rect" title=" " alt="" coords="169,637,279,663"/>
-<area shape="rect" title=" " alt="" coords="303,637,406,663"/>
+<area shape="rect" title=" " alt="" coords="1642,5,1821,76"/>
+<area shape="rect" href="../../d8/d0f/trajopt__ifopt__utils_8h.html" title=" " alt="" coords="721,243,899,299"/>
+<area shape="rect" title=" " alt="" coords="745,354,875,395"/>
+<area shape="rect" href="../../dd/d35/trajopt__ifopt__default__plan__profile_8h.html" title=" " alt="" coords="1642,124,1821,195"/>
+<area shape="rect" href="../../dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="2924,354,3123,395"/>
+<area shape="rect" title=" " alt="" coords="2092,139,2211,180"/>
+<area shape="rect" title=" " alt="" coords="1875,637,2065,663"/>
+<area shape="rect" title=" " alt="" coords="427,361,569,388"/>
+<area shape="rect" title=" " alt="" coords="593,354,720,395"/>
+<area shape="rect" title=" " alt="" coords="5,347,183,403"/>
+<area shape="rect" title=" " alt="" coords="207,347,402,403"/>
+<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="1768,354,1967,395"/>
+<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="1315,354,1513,395"/>
+<area shape="rect" title=" " alt="" coords="1633,458,1718,485"/>
+<area shape="rect" title=" " alt="" coords="1742,458,1857,485"/>
+<area shape="rect" href="../../d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="2769,451,2973,492"/>
+<area shape="rect" title=" " alt="" coords="2033,540,2195,581"/>
+<area shape="rect" title=" " alt="" coords="3773,637,3828,663"/>
+<area shape="rect" title=" " alt="" coords="3565,629,3692,671"/>
+<area shape="rect" title=" " alt="" coords="3881,629,4008,671"/>
+<area shape="rect" title=" " alt="" coords="2505,637,2675,663"/>
+<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="2827,540,3025,581"/>
+<area shape="rect" title=" " alt="" coords="2955,637,3169,663"/>
+<area shape="rect" title=" " alt="" coords="3289,629,3451,671"/>
+<area shape="rect" title=" " alt="" coords="735,637,803,663"/>
+<area shape="rect" title=" " alt="" coords="2855,637,2931,663"/>
+<area shape="rect" title=" " alt="" coords="1203,458,1262,485"/>
+<area shape="rect" href="../../d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="2547,451,2745,492"/>
+<area shape="rect" title=" " alt="" coords="1337,458,1507,485"/>
+<area shape="rect" href="../../d3/da7/trajopt__ifopt__profile_8h.html" title=" " alt="" coords="1499,243,1678,299"/>
+<area shape="rect" title=" " alt="" coords="1587,361,1694,388"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="3099,451,3297,492"/>
+<area shape="rect" title=" " alt="" coords="2033,451,2237,492"/>
+<area shape="rect" href="../../d1/d0e/trajopt__ifopt__problem_8h.html" title=" " alt="" coords="950,347,1129,403"/>
+<area shape="rect" title=" " alt="" coords="512,458,679,485"/>
+<area shape="rect" title=" " alt="" coords="703,451,899,492"/>
+<area shape="rect" title=" " alt="" coords="923,451,1078,492"/>
+<area shape="rect" href="../../d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="3321,451,3520,492"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -141,7 +134,7 @@ Namespaces</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 23:00:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 22 2022 19:56:16 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

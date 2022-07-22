@@ -45,13 +45,13 @@ namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning
 \item 
 bool \mbox{\hyperlink{namespacetesseract__planning_ab8de1e2ad1859b273e7309823a0e3169}{tesseract\+\_\+planning\+::state\+In\+Collision}} (const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&start\+\_\+pos, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
 \begin{DoxyCompactList}\small\item\em Checks if a joint state is in collision. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_ad363fafbebdbc798d27b67a1b77f2d02}{tesseract\+\_\+planning\+::waypoint\+In\+Collision}} (const Waypoint \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
+bool \mbox{\hyperlink{namespacetesseract__planning_a84fecbc213dce17991708349a7563ce4}{tesseract\+\_\+planning\+::waypoint\+In\+Collision}} (const Waypoint\+Poly \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile, tesseract\+\_\+collision\+::\+Contact\+Result\+Map \&contacts)
 \begin{DoxyCompactList}\small\item\em Checks if a waypoint is in collision. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a5dd63103a6135dde01a636744ee7fa50}{tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Trajopt}} (Waypoint \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
+bool \mbox{\hyperlink{namespacetesseract__planning_a4829ba5ca11fc62826b467f9cbf7dbfe}{tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Trajopt}} (Waypoint\+Poly \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
 \begin{DoxyCompactList}\small\item\em Takes a waypoint and uses a small trajopt problem to push it out of collision if necessary. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a93c0a45e4db2b2827bb6cdce50c33858}{tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Random\+Sampler}} (Waypoint \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
+bool \mbox{\hyperlink{namespacetesseract__planning_acd3a5b8b7833918abbdc9ff41fe8ac9d}{tesseract\+\_\+planning\+::move\+Waypoint\+From\+Collision\+Random\+Sampler}} (Waypoint\+Poly \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
 \begin{DoxyCompactList}\small\item\em Takes a waypoint and uses random sampling to find a position that is out of collision. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{namespacetesseract__planning_a832b46bc73c7f290a6ed036f00ca0b8e}{tesseract\+\_\+planning\+::apply\+Correction\+Workflow}} (Waypoint \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
+bool \mbox{\hyperlink{namespacetesseract__planning_a44ea85c02a7d3b41dd5a71f3965871b5}{tesseract\+\_\+planning\+::apply\+Correction\+Workflow}} (Waypoint\+Poly \&waypoint, const \mbox{\hyperlink{structTaskInput}{Task\+Input}} \&input, const Fix\+State\+Collision\+Profile \&profile)
 \end{DoxyCompactItemize}
 
 
@@ -68,7 +68,7 @@ August 31. 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000218}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000214}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

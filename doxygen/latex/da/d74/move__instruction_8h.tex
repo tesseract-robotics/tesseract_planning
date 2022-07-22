@@ -3,12 +3,11 @@
 {\ttfamily \#include $<$tesseract\+\_\+common/macros.\+h$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include $<$Eigen/\+Geometry$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/instruction.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/core/waypoint.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/null\+\_\+waypoint.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/move\+\_\+instruction\+\_\+poly.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/poly/waypoint\+\_\+poly.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/constants.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/profile\+\_\+dictionary.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/types.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+common/manipulator\+\_\+info.\+h$>$}\newline
 Include dependency graph for move\+\_\+instruction.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -35,19 +34,10 @@ class \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{tesseract\+\
 \item 
 namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Enumerations}
-\begin{DoxyCompactItemize}
-\item 
-enum class \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{tesseract\+\_\+planning\+::\+Move\+Instruction\+Type}} \+: int \{ \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{tesseract\+\_\+planning\+::\+LINEAR}} = 0
-, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{tesseract\+\_\+planning\+::\+FREESPACE}} = 1
-, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68}{tesseract\+\_\+planning\+::\+CIRCULAR}} = 2
-, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{tesseract\+\_\+planning\+::\+START}} = 3
- \}
-\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{move__instruction_8h_a5cb178e02dff4c9154757c95dcc59dcc}{TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}} (tesseract\+\_\+planning, Move\+Instruction)
+\mbox{\hyperlink{move__instruction_8h_a161d17e3ff3b42305260dff688b99e7d}{TESSERACT\+\_\+\+MOVE\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY}} (tesseract\+\_\+planning, Move\+Instruction)
 \end{DoxyCompactItemize}
 
 
@@ -62,7 +52,7 @@ June 15, 2020
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000008}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000005}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}
@@ -80,9 +70,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{move__instruction_8h_a5cb178e02dff4c9154757c95dcc59dcc}\label{move__instruction_8h_a5cb178e02dff4c9154757c95dcc59dcc}} 
-\index{move\_instruction.h@{move\_instruction.h}!TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}
-\index{TESSERACT\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}!move\_instruction.h@{move\_instruction.h}}
-\doxysubsubsection{\texorpdfstring{TESSERACT\_INSTRUCTION\_EXPORT\_KEY()}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY()}}
-{\footnotesize\ttfamily TESSERACT\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{tesseract\+\_\+planning}]{,  }\item[{Move\+Instruction}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{move__instruction_8h_a161d17e3ff3b42305260dff688b99e7d}\label{move__instruction_8h_a161d17e3ff3b42305260dff688b99e7d}} 
+\index{move\_instruction.h@{move\_instruction.h}!TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY}}
+\index{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY@{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY}!move\_instruction.h@{move\_instruction.h}}
+\doxysubsubsection{\texorpdfstring{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY()}{TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY()}}
+{\footnotesize\ttfamily TESSERACT\+\_\+\+MOVE\+\_\+\+INSTRUCTION\+\_\+\+EXPORT\+\_\+\+KEY (\begin{DoxyParamCaption}\item[{tesseract\+\_\+planning}]{,  }\item[{Move\+Instruction}]{ }\end{DoxyParamCaption})}
 

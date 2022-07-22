@@ -6,7 +6,7 @@ Provides interpolation utils structs.
 
 
 {\ttfamily \#include $<$tesseract\+\_\+motion\+\_\+planners/simple/profile/simple\+\_\+planner\+\_\+utils.\+h$>$}\newline
-{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils/utils.\+h$>$}\newline
+{\ttfamily \#include $<$tesseract\+\_\+command\+\_\+language/utils.\+h$>$}\newline
 {\ttfamily \#include $<$tesseract\+\_\+kinematics/core/utils.\+h$>$}\newline
 Include dependency graph for simple\+\_\+planner\+\_\+utils.\+cpp\+:
 \nopagebreak
@@ -24,7 +24,7 @@ namespace \mbox{\hyperlink{namespacetesseract__planning}{tesseract\+\_\+planning
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_adfefb330b159d7102d3f9106438a8900}{tesseract\+\_\+planning\+::get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const Move\+Instruction \&base\+\_\+instruction)
+Composite\+Instruction \mbox{\hyperlink{namespacetesseract__planning_ae2abbbef588cecfc66d9cb43932dd1c8}{tesseract\+\_\+planning\+::get\+Interpolated\+Composite}} (const std\+::vector$<$ std\+::string $>$ \&joint\+\_\+names, const Eigen\+::\+Matrix\+Xd \&states, const Move\+Instruction\+Poly \&base\+\_\+instruction)
 \begin{DoxyCompactList}\small\item\em This takes the provided seed state for the base\+\_\+instruction and create a corresponding composite instruction. \end{DoxyCompactList}\item 
 Eigen\+::\+Vector\+Xd \mbox{\hyperlink{namespacetesseract__planning_a2c73959c536f2f1f881910a889315465}{tesseract\+\_\+planning\+::get\+Closest\+Joint\+Solution}} (const Kinematic\+Group\+Instruction\+Info \&info, const Eigen\+::\+Vector\+Xd \&seed)
 \begin{DoxyCompactList}\small\item\em Find the closest joint solution for p to the provided seed. \end{DoxyCompactList}\item 
@@ -45,7 +45,7 @@ January 12, 2021
 TODO 
 \end{DoxyVersion}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000100}{Bug}}]No known bugs\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000096}{Bug}}]No known bugs\end{DoxyRefDesc}
 
 
 \begin{DoxyCopyright}{Copyright}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Tesseract Planning: tesseract_command_language/src/core/serialization.cpp File Reference</title>
+<title>Tesseract Planning: tesseract_command_language/src/poly/serialization.cpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="../../dir_fa47c2fa9b13a12fc195f1b83854b816.html">tesseract_command_language</a></li><li class="navelem"><a class="el" href="../../dir_e2b5be1fb9341c5de232bed5ba01e24f.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ec11d3c11427b46c058321401ea67abc.html">core</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../dir_fa47c2fa9b13a12fc195f1b83854b816.html">tesseract_command_language</a></li><li class="navelem"><a class="el" href="../../dir_e2b5be1fb9341c5de232bed5ba01e24f.html">src</a></li><li class="navelem"><a class="el" href="../../dir_105df8ca32e2fc14936be6e174bdfbaa.html">poly</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,44 +74,46 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;tesseract_common/serialization.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d8/df4/instruction_8h_source.html">tesseract_command_language/core/instruction.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d4/d08/waypoint_8h_source.html">tesseract_command_language/core/waypoint.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d1/db1/instruction__poly_8h_source.html">tesseract_command_language/poly/instruction_poly.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d3/dc4/waypoint__poly_8h_source.html">tesseract_command_language/poly/waypoint_poly.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d5/df7/composite__instruction_8h_source.html">tesseract_command_language/composite_instruction.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for serialization.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d53/serialization_8cpp__incl.png" border="0" usemap="#atesseract__command__language_2src_2core_2serialization_8cpp" alt=""/></div>
-<map name="atesseract__command__language_2src_2core_2serialization_8cpp" id="atesseract__command__language_2src_2core_2serialization_8cpp">
-<area shape="rect" title=" " alt="" coords="479,5,677,47"/>
-<area shape="rect" title=" " alt="" coords="5,459,220,486"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="589,273,788,315"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="589,363,788,404"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1089,95,1288,136"/>
-<area shape="rect" title=" " alt="" coords="1197,459,1388,486"/>
-<area shape="rect" title=" " alt="" coords="927,459,981,486"/>
-<area shape="rect" title=" " alt="" coords="776,452,903,493"/>
-<area shape="rect" title=" " alt="" coords="625,452,752,493"/>
-<area shape="rect" title=" " alt="" coords="245,459,415,486"/>
-<area shape="rect" title=" " alt="" coords="440,452,601,493"/>
-<area shape="rect" title=" " alt="" coords="1005,459,1073,486"/>
-<area shape="rect" title=" " alt="" coords="1097,459,1173,486"/>
-<area shape="rect" title=" " alt="" coords="717,191,775,218"/>
-<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="799,184,997,225"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1165,363,1364,404"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="1021,184,1220,225"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="1452,363,1651,404"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1419,184,1617,225"/>
-<area shape="rect" title=" " alt="" coords="1771,459,1814,486"/>
-<area shape="rect" title=" " alt="" coords="1413,459,1485,486"/>
-<area shape="rect" title=" " alt="" coords="1509,459,1620,486"/>
-<area shape="rect" title=" " alt="" coords="1644,459,1747,486"/>
-<area shape="rect" title=" " alt="" coords="1417,273,1621,315"/>
+<div class="center"><img src="../../dd/d53/serialization_8cpp__incl.png" border="0" usemap="#atesseract__command__language_2src_2poly_2serialization_8cpp" alt=""/></div>
+<map name="atesseract__command__language_2src_2poly_2serialization_8cpp" id="atesseract__command__language_2src_2poly_2serialization_8cpp">
+<area shape="rect" title=" " alt="" coords="1353,5,1552,47"/>
+<area shape="rect" title=" " alt="" coords="1041,459,1256,486"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="1514,273,1713,315"/>
+<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="1277,363,1476,404"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1909,95,2108,136"/>
+<area shape="rect" title=" " alt="" coords="1822,459,2013,486"/>
+<area shape="rect" title=" " alt="" coords="1612,459,1666,486"/>
+<area shape="rect" title=" " alt="" coords="312,452,438,493"/>
+<area shape="rect" title=" " alt="" coords="509,452,636,493"/>
+<area shape="rect" title=" " alt="" coords="660,459,831,486"/>
+<area shape="rect" title=" " alt="" coords="856,452,1017,493"/>
+<area shape="rect" title=" " alt="" coords="2060,459,2128,486"/>
+<area shape="rect" title=" " alt="" coords="2162,459,2238,486"/>
+<area shape="rect" title=" " alt="" coords="1912,191,1971,218"/>
+<area shape="rect" href="../../dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="905,184,1104,225"/>
+<area shape="rect" title=" " alt="" coords="1862,273,2066,315"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2056,363,2254,404"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2328,363,2526,404"/>
+<area shape="rect" href="../../d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="353,273,557,315"/>
+<area shape="rect" href="../../d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="614,273,813,315"/>
+<area shape="rect" href="../../d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="837,273,1036,315"/>
+<area shape="rect" title=" " alt="" coords="129,363,290,404"/>
+<area shape="rect" title=" " alt="" coords="2627,459,2670,486"/>
+<area shape="rect" title=" " alt="" coords="2268,459,2340,486"/>
+<area shape="rect" title=" " alt="" coords="2365,459,2476,486"/>
+<area shape="rect" title=" " alt="" coords="2500,459,2602,486"/>
 </map>
 </div>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 23:00:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 22 2022 19:56:15 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

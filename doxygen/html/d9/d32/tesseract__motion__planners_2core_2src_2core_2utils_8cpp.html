@@ -85,64 +85,52 @@ $(function() {
 <code>#include &lt;tesseract_environment/utils.h&gt;</code><br />
 <code>#include &lt;tesseract_kinematics/core/forward_kinematics.h&gt;</code><br />
 <code>#include &lt;tesseract_kinematics/core/inverse_kinematics.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d5/d59/command__language_8h_source.html">tesseract_command_language/command_language.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h_source.html">tesseract_command_language/utils/utils.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d7/d22/state__waypoint__poly_8h_source.html">tesseract_command_language/poly/state_waypoint_poly.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d1/d66/joint__waypoint__poly_8h_source.html">tesseract_command_language/poly/joint_waypoint_poly.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d7/df9/cartesian__waypoint__poly_8h_source.html">tesseract_command_language/poly/cartesian_waypoint_poly.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h_source.html">tesseract_command_language/utils.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h_source.html">tesseract_motion_planners/core/utils.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for utils.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/ddc/tesseract__motion__planners_2core_2src_2core_2utils_8cpp__incl.png" border="0" usemap="#atesseract__motion__planners_2core_2src_2core_2utils_8cpp" alt=""/></div>
 <map name="atesseract__motion__planners_2core_2src_2core_2utils_8cpp" id="atesseract__motion__planners_2core_2src_2core_2utils_8cpp">
-<area shape="rect" title=" " alt="" coords="3164,5,3343,47"/>
-<area shape="rect" title=" " alt="" coords="1670,817,1861,843"/>
-<area shape="rect" title=" " alt="" coords="2449,638,2564,665"/>
-<area shape="rect" title=" " alt="" coords="3414,817,3482,843"/>
-<area shape="rect" title=" " alt="" coords="501,817,577,843"/>
-<area shape="rect" title=" " alt="" coords="2713,191,2881,218"/>
-<area shape="rect" title=" " alt="" coords="2905,184,3060,225"/>
-<area shape="rect" title=" " alt="" coords="3084,184,3239,225"/>
-<area shape="rect" title=" " alt="" coords="3516,184,3695,225"/>
-<area shape="rect" title=" " alt="" coords="3719,184,3897,225"/>
-<area shape="rect" href="../../d5/d59/command__language_8h.html" title=" " alt="" coords="2141,363,2339,404"/>
-<area shape="rect" href="../../da/d3b/tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h.html" title="General utilities and all inclusive utility header." alt="" coords="2490,184,2689,225"/>
-<area shape="rect" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="3219,95,3397,136"/>
-<area shape="rect" href="../../d4/d1d/tesseract__command__language_2include_2tesseract__command__language_2types_8h.html" title="Contains common types used throughout command language." alt="" coords="1903,631,2102,672"/>
-<area shape="rect" href="../../dc/d2f/null__instruction_8h.html" title=" " alt="" coords="369,541,567,583"/>
-<area shape="rect" href="../../d5/dc2/null__waypoint_8h.html" title=" " alt="" coords="1378,631,1577,672"/>
-<area shape="rect" href="../../d3/d18/cartesian__waypoint_8h.html" title=" " alt="" coords="2378,541,2577,583"/>
-<area shape="rect" href="../../de/d3d/waypoint__type_8h.html" title=" " alt="" coords="2126,631,2325,672"/>
-<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="1178,452,1377,493"/>
-<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="1155,631,1354,672"/>
-<area shape="rect" href="../../d0/dd5/instruction__type_8h.html" title=" " alt="" coords="1014,541,1213,583"/>
-<area shape="rect" href="../../d7/d1f/joint__waypoint_8h.html" title=" " alt="" coords="2767,541,2966,583"/>
-<area shape="rect" href="../../da/d74/move__instruction_8h.html" title=" " alt="" coords="2005,541,2203,583"/>
-<area shape="rect" href="../../d1/d10/state__waypoint_8h.html" title=" " alt="" coords="2990,541,3189,583"/>
-<area shape="rect" href="../../d2/d61/timer__instruction_8h.html" title=" " alt="" coords="1682,541,1881,583"/>
-<area shape="rect" href="../../d0/d25/wait__instruction_8h.html" title=" " alt="" coords="691,541,890,583"/>
-<area shape="rect" href="../../d5/d2b/set__tool__instruction_8h.html" title="Set tool ID." alt="" coords="1237,541,1435,583"/>
-<area shape="rect" href="../../d7/d85/set__analog__instruction_8h.html" title="Set Analog Instruction." alt="" coords="1459,541,1658,583"/>
-<area shape="rect" title=" " alt="" coords="1905,720,2109,761"/>
-<area shape="rect" title=" " alt="" coords="271,817,326,843"/>
-<area shape="rect" title=" " alt="" coords="350,809,477,851"/>
-<area shape="rect" href="../../d8/df4/instruction_8h.html" title=" " alt="" coords="833,631,1031,672"/>
-<area shape="rect" title=" " alt="" coords="899,809,1026,851"/>
-<area shape="rect" title=" " alt="" coords="1051,817,1221,843"/>
-<area shape="rect" href="../../d4/d08/waypoint_8h.html" title=" " alt="" coords="1125,720,1323,761"/>
-<area shape="rect" title=" " alt="" coords="1431,817,1646,843"/>
-<area shape="rect" title=" " alt="" coords="1246,809,1407,851"/>
-<area shape="rect" title=" " alt="" coords="2721,638,2807,665"/>
-<area shape="rect" title=" " alt="" coords="2831,638,3001,665"/>
-<area shape="rect" title=" " alt="" coords="2588,638,2647,665"/>
-<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="701,720,899,761"/>
-<area shape="rect" title=" " alt="" coords="736,817,779,843"/>
-<area shape="rect" title=" " alt="" coords="803,817,875,843"/>
-<area shape="rect" title=" " alt="" coords="601,817,711,843"/>
-<area shape="rect" title=" " alt="" coords="3330,631,3491,672"/>
-<area shape="rect" title=" " alt="" coords="3567,638,3745,665"/>
-<area shape="rect" title=" " alt="" coords="2563,281,2616,307"/>
-<area shape="rect" href="../../de/db2/filter__functions_8h.html" title="Contains filter functions used for flattening and locating instructions in composites." alt="" coords="1869,363,2067,404"/>
-<area shape="rect" href="../../d2/d3a/flatten__utils_8h.html" title="Utilities for flattening composites." alt="" coords="2138,273,2337,315"/>
-<area shape="rect" href="../../d8/dcb/get__instruction__utils_8h.html" title="Utilities such as get&lt;First/Last&gt;&lt;Type&gt;Instruction." alt="" coords="1746,273,1945,315"/>
+<area shape="rect" title=" " alt="" coords="2654,5,2833,47"/>
+<area shape="rect" title=" " alt="" coords="2224,638,2415,665"/>
+<area shape="rect" title=" " alt="" coords="2382,191,2497,218"/>
+<area shape="rect" title=" " alt="" coords="3000,638,3068,665"/>
+<area shape="rect" title=" " alt="" coords="2473,638,2549,665"/>
+<area shape="rect" title=" " alt="" coords="2723,191,2891,218"/>
+<area shape="rect" title=" " alt="" coords="2915,184,3070,225"/>
+<area shape="rect" title=" " alt="" coords="3094,184,3249,225"/>
+<area shape="rect" title=" " alt="" coords="3273,184,3451,225"/>
+<area shape="rect" title=" " alt="" coords="3476,184,3653,225"/>
+<area shape="rect" href="../../d7/d22/state__waypoint__poly_8h.html" title="The state waypoint interface." alt="" coords="916,452,1115,493"/>
+<area shape="rect" href="../../d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="1139,452,1337,493"/>
+<area shape="rect" href="../../d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="688,452,892,493"/>
+<area shape="rect" href="../../d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="2109,184,2308,225"/>
+<area shape="rect" href="../../d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2591,95,2770,136"/>
+<area shape="rect" title=" " alt="" coords="1843,638,1897,665"/>
+<area shape="rect" title=" " alt="" coords="1045,631,1172,672"/>
+<area shape="rect" title=" " alt="" coords="1299,631,1425,672"/>
+<area shape="rect" title=" " alt="" coords="843,638,1014,665"/>
+<area shape="rect" href="../../d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="1356,541,1555,583"/>
+<area shape="rect" title=" " alt="" coords="568,638,783,665"/>
+<area shape="rect" title=" " alt="" coords="363,631,524,672"/>
+<area shape="rect" title=" " alt="" coords="5,541,167,583"/>
+<area shape="rect" title=" " alt="" coords="2019,281,2073,307"/>
+<area shape="rect" href="../../d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2096,273,2295,315"/>
+<area shape="rect" title=" " alt="" coords="2369,281,2547,307"/>
+<area shape="rect" title=" " alt="" coords="2285,370,2343,397"/>
+<area shape="rect" href="../../d1/db1/instruction__poly_8h.html" title=" " alt="" coords="1543,452,1741,493"/>
+<area shape="rect" href="../../dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="1307,363,1505,404"/>
+<area shape="rect" title=" " alt="" coords="2035,452,2239,493"/>
+<area shape="rect" href="../../d2/d6f/constants_8h.html" title="Containst Tesseract Command Language constants." alt="" coords="2185,541,2384,583"/>
+<area shape="rect" href="../../dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2757,541,2956,583"/>
+<area shape="rect" title=" " alt="" coords="2933,638,2975,665"/>
+<area shape="rect" title=" " alt="" coords="2574,638,2646,665"/>
+<area shape="rect" title=" " alt="" coords="2671,638,2781,665"/>
+<area shape="rect" title=" " alt="" coords="2805,638,2908,665"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -153,48 +141,48 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4244fdc5b54d25a4d77df5258e11af94"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4244fdc5b54d25a4d77df5258e11af94">tesseract_planning::calcPose</a> (const Waypoint &amp;wp, const std::string &amp;working_frame, const std::string &amp;tip_link, const Eigen::Isometry3d &amp;tcp, const tesseract_scene_graph::SceneState &amp;current_state, tesseract_scene_graph::StateSolver &amp;state_solver)</td></tr>
-<tr class="separator:a4244fdc5b54d25a4d77df5258e11af94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8785aa81a18f5f07d8e4d91bd5d565d4"><td class="memItemLeft" align="right" valign="top">tesseract_common::Toolpath&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a8785aa81a18f5f07d8e4d91bd5d565d4">tesseract_planning::toToolpath</a> (const Instruction &amp;instruction, const tesseract_environment::Environment &amp;env)</td></tr>
-<tr class="memdesc:a8785aa81a18f5f07d8e4d91bd5d565d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract toolpath from a composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a8785aa81a18f5f07d8e4d91bd5d565d4">More...</a><br /></td></tr>
-<tr class="separator:a8785aa81a18f5f07d8e4d91bd5d565d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89dc348cbd8945867618baaf9a1b4162"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a89dc348cbd8945867618baaf9a1b4162">tesseract_planning::calcPose</a> (const WaypointPoly &amp;wp, const std::string &amp;working_frame, const std::string &amp;tip_link, const Eigen::Isometry3d &amp;tcp, const tesseract_scene_graph::SceneState &amp;current_state, tesseract_scene_graph::StateSolver &amp;state_solver)</td></tr>
+<tr class="separator:a89dc348cbd8945867618baaf9a1b4162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d6940279a5076103de7a3e6a400c2e"><td class="memItemLeft" align="right" valign="top">tesseract_common::Toolpath&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a69d6940279a5076103de7a3e6a400c2e">tesseract_planning::toToolpath</a> (const InstructionPoly &amp;instruction, const tesseract_environment::Environment &amp;env)</td></tr>
+<tr class="memdesc:a69d6940279a5076103de7a3e6a400c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract toolpath from a composite instruction.  <a href="../../d9/dcd/namespacetesseract__planning.html#a69d6940279a5076103de7a3e6a400c2e">More...</a><br /></td></tr>
+<tr class="separator:a69d6940279a5076103de7a3e6a400c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71ea10c42f51ae6e4d014ad054c900f6"><td class="memItemLeft" align="right" valign="top">tesseract_common::VectorIsometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a71ea10c42f51ae6e4d014ad054c900f6">tesseract_planning::interpolate</a> (const Eigen::Isometry3d &amp;start, const Eigen::Isometry3d &amp;stop, long steps)</td></tr>
 <tr class="memdesc:a71ea10c42f51ae6e4d014ad054c900f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolate between two transforms return a vector of Eigen::Isometry transforms.  <a href="../../d9/dcd/namespacetesseract__planning.html#a71ea10c42f51ae6e4d014ad054c900f6">More...</a><br /></td></tr>
 <tr class="separator:a71ea10c42f51ae6e4d014ad054c900f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d235e9e8929e3538792a8226ba8b855"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a4d235e9e8929e3538792a8226ba8b855">tesseract_planning::interpolate</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;start, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;stop, long steps)</td></tr>
 <tr class="memdesc:a4d235e9e8929e3538792a8226ba8b855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolate between two Eigen::VectorXd and return a Matrix.  <a href="../../d9/dcd/namespacetesseract__planning.html#a4d235e9e8929e3538792a8226ba8b855">More...</a><br /></td></tr>
 <tr class="separator:a4d235e9e8929e3538792a8226ba8b855"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9334a5b78251b487976695f9cde7b5c3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Waypoint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a9334a5b78251b487976695f9cde7b5c3">tesseract_planning::interpolate_waypoint</a> (const Waypoint &amp;start, const Waypoint &amp;stop, long steps)</td></tr>
-<tr class="memdesc:a9334a5b78251b487976695f9cde7b5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolate between two waypoints return a vector of waypoints.  <a href="../../d9/dcd/namespacetesseract__planning.html#a9334a5b78251b487976695f9cde7b5c3">More...</a><br /></td></tr>
-<tr class="separator:a9334a5b78251b487976695f9cde7b5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbc53b114f2f31699dd120ac52866a04"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afbc53b114f2f31699dd120ac52866a04">tesseract_planning::programFlattenFilter</a> (const Instruction &amp;instruction, const CompositeInstruction &amp;composite, bool parent_is_first_composite)</td></tr>
-<tr class="memdesc:afbc53b114f2f31699dd120ac52866a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">A program flatten filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#afbc53b114f2f31699dd120ac52866a04">More...</a><br /></td></tr>
-<tr class="separator:afbc53b114f2f31699dd120ac52866a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1172c93ff97196d2037dc67a853c0625"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; Instruction &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a1172c93ff97196d2037dc67a853c0625">tesseract_planning::flattenProgram</a> (CompositeInstruction &amp;composite_instruction)</td></tr>
-<tr class="memdesc:a1172c93ff97196d2037dc67a853c0625"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>&amp;.  <a href="../../d9/dcd/namespacetesseract__planning.html#a1172c93ff97196d2037dc67a853c0625">More...</a><br /></td></tr>
-<tr class="separator:a1172c93ff97196d2037dc67a853c0625"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a1839f20041c926b5a327fae3fc6b44"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const Instruction &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2a1839f20041c926b5a327fae3fc6b44">tesseract_planning::flattenProgram</a> (const CompositeInstruction &amp;composite_instruction)</td></tr>
-<tr class="memdesc:a2a1839f20041c926b5a327fae3fc6b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of <a class="el" href="../../db/dff/structtesseract__planning_1_1Instruction.html">Instruction</a>&amp;.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2a1839f20041c926b5a327fae3fc6b44">More...</a><br /></td></tr>
-<tr class="separator:a2a1839f20041c926b5a327fae3fc6b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a376b0dd548ca385a3128afc20bdc1dca"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; Instruction &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a376b0dd548ca385a3128afc20bdc1dca">tesseract_planning::flattenProgramToPattern</a> (CompositeInstruction &amp;composite_instruction, const CompositeInstruction &amp;pattern)</td></tr>
-<tr class="memdesc:a376b0dd548ca385a3128afc20bdc1dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-able.  <a href="../../d9/dcd/namespacetesseract__planning.html#a376b0dd548ca385a3128afc20bdc1dca">More...</a><br /></td></tr>
-<tr class="separator:a376b0dd548ca385a3128afc20bdc1dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b0907a5ac19772e3987ff0b20deb33e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const Instruction &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a0b0907a5ac19772e3987ff0b20deb33e">tesseract_planning::flattenProgramToPattern</a> (const CompositeInstruction &amp;composite_instruction, const CompositeInstruction &amp;pattern)</td></tr>
-<tr class="memdesc:a0b0907a5ac19772e3987ff0b20deb33e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-able.  <a href="../../d9/dcd/namespacetesseract__planning.html#a0b0907a5ac19772e3987ff0b20deb33e">More...</a><br /></td></tr>
-<tr class="separator:a0b0907a5ac19772e3987ff0b20deb33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace3fb6e4566978aa9ae8c72ab20a939f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; WaypointPoly &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ace3fb6e4566978aa9ae8c72ab20a939f">tesseract_planning::interpolate_waypoint</a> (const WaypointPoly &amp;start, const WaypointPoly &amp;stop, long steps)</td></tr>
+<tr class="memdesc:ace3fb6e4566978aa9ae8c72ab20a939f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpolate between two waypoints return a vector of waypoints.  <a href="../../d9/dcd/namespacetesseract__planning.html#ace3fb6e4566978aa9ae8c72ab20a939f">More...</a><br /></td></tr>
+<tr class="separator:ace3fb6e4566978aa9ae8c72ab20a939f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ddeab6bce78051b1fad1f74bc742cbf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2ddeab6bce78051b1fad1f74bc742cbf">tesseract_planning::programFlattenFilter</a> (const InstructionPoly &amp;instruction, const CompositeInstruction &amp;composite, bool parent_is_first_composite)</td></tr>
+<tr class="memdesc:a2ddeab6bce78051b1fad1f74bc742cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">A program flatten filter.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2ddeab6bce78051b1fad1f74bc742cbf">More...</a><br /></td></tr>
+<tr class="separator:a2ddeab6bce78051b1fad1f74bc742cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d13ba4ba28d61cd8440e04fe696cd33"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; InstructionPoly &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2d13ba4ba28d61cd8440e04fe696cd33">tesseract_planning::flattenProgram</a> (CompositeInstruction &amp;composite_instruction)</td></tr>
+<tr class="memdesc:a2d13ba4ba28d61cd8440e04fe696cd33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of Instruction&amp;.  <a href="../../d9/dcd/namespacetesseract__planning.html#a2d13ba4ba28d61cd8440e04fe696cd33">More...</a><br /></td></tr>
+<tr class="separator:a2d13ba4ba28d61cd8440e04fe696cd33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63b0e80dba690558aba8bd9b8682df89"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const InstructionPoly &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a63b0e80dba690558aba8bd9b8682df89">tesseract_planning::flattenProgram</a> (const CompositeInstruction &amp;composite_instruction)</td></tr>
+<tr class="memdesc:a63b0e80dba690558aba8bd9b8682df89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a <a class="el" href="../../d0/d76/classtesseract__planning_1_1CompositeInstruction.html">CompositeInstruction</a> into a vector of Instruction&amp;.  <a href="../../d9/dcd/namespacetesseract__planning.html#a63b0e80dba690558aba8bd9b8682df89">More...</a><br /></td></tr>
+<tr class="separator:a63b0e80dba690558aba8bd9b8682df89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63ed4eb8623496c40ebfc74416c471fd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; InstructionPoly &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a63ed4eb8623496c40ebfc74416c471fd">tesseract_planning::flattenProgramToPattern</a> (CompositeInstruction &amp;composite_instruction, const CompositeInstruction &amp;pattern)</td></tr>
+<tr class="memdesc:a63ed4eb8623496c40ebfc74416c471fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-able.  <a href="../../d9/dcd/namespacetesseract__planning.html#a63ed4eb8623496c40ebfc74416c471fd">More...</a><br /></td></tr>
+<tr class="separator:a63ed4eb8623496c40ebfc74416c471fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a540c237b1c62532e6d482905c28cab3c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::reference_wrapper&lt; const InstructionPoly &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a540c237b1c62532e6d482905c28cab3c">tesseract_planning::flattenProgramToPattern</a> (const CompositeInstruction &amp;composite_instruction, const CompositeInstruction &amp;pattern)</td></tr>
+<tr class="memdesc:a540c237b1c62532e6d482905c28cab3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of instruction will only be flattened if the corresponding element in pattern is flatten-able.  <a href="../../d9/dcd/namespacetesseract__planning.html#a540c237b1c62532e6d482905c28cab3c">More...</a><br /></td></tr>
+<tr class="separator:a540c237b1c62532e6d482905c28cab3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82d7bc798089ef84c8c11d2806bbc9e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a82d7bc798089ef84c8c11d2806bbc9e7">tesseract_planning::contactCheckProgram</a> (std::vector&lt; tesseract_collision::ContactResultMap &gt; &amp;contacts, tesseract_collision::ContinuousContactManager &amp;manager, const tesseract_scene_graph::StateSolver &amp;state_solver, const CompositeInstruction &amp;program, const tesseract_collision::CollisionCheckConfig &amp;config)</td></tr>
 <tr class="memdesc:a82d7bc798089ef84c8c11d2806bbc9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should perform a continuous collision check over the trajectory.  <a href="../../d9/dcd/namespacetesseract__planning.html#a82d7bc798089ef84c8c11d2806bbc9e7">More...</a><br /></td></tr>
 <tr class="separator:a82d7bc798089ef84c8c11d2806bbc9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7da45a95ed6e668c0c8f9b1d81aea3a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7da45a95ed6e668c0c8f9b1d81aea3a8">tesseract_planning::contactCheckProgram</a> (std::vector&lt; tesseract_collision::ContactResultMap &gt; &amp;contacts, tesseract_collision::DiscreteContactManager &amp;manager, const tesseract_scene_graph::StateSolver &amp;state_solver, const CompositeInstruction &amp;program, const tesseract_collision::CollisionCheckConfig &amp;config)</td></tr>
 <tr class="memdesc:a7da45a95ed6e668c0c8f9b1d81aea3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should perform a discrete collision check over the trajectory.  <a href="../../d9/dcd/namespacetesseract__planning.html#a7da45a95ed6e668c0c8f9b1d81aea3a8">More...</a><br /></td></tr>
 <tr class="separator:a7da45a95ed6e668c0c8f9b1d81aea3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afeb4f7726a863f0ec5d27b4d9411b5aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#afeb4f7726a863f0ec5d27b4d9411b5aa">tesseract_planning::generateNaiveSeedHelper</a> (CompositeInstruction &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const tesseract_scene_graph::SceneState &amp;state, const ManipulatorInfo &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt; &gt; &amp;manip_joint_names)</td></tr>
-<tr class="separator:afeb4f7726a863f0ec5d27b4d9411b5aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada9a8c252b5fb44781b4361c144e9501"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ada9a8c252b5fb44781b4361c144e9501">tesseract_planning::generateNaiveSeedHelper</a> (CompositeInstruction &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const tesseract_scene_graph::SceneState &amp;state, const tesseract_common::ManipulatorInfo &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt; &gt; &amp;manip_joint_names)</td></tr>
+<tr class="separator:ada9a8c252b5fb44781b4361c144e9501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32251039111617f975deb5c3078bcdba"><td class="memItemLeft" align="right" valign="top">CompositeInstruction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a32251039111617f975deb5c3078bcdba">tesseract_planning::generateNaiveSeed</a> (const CompositeInstruction &amp;composite_instructions, const tesseract_environment::Environment &amp;env)</td></tr>
 <tr class="memdesc:a32251039111617f975deb5c3078bcdba"><td class="mdescLeft">&#160;</td><td class="mdescRight">This generates a naive seed for the provided program.  <a href="../../d9/dcd/namespacetesseract__planning.html#a32251039111617f975deb5c3078bcdba">More...</a><br /></td></tr>
 <tr class="separator:a32251039111617f975deb5c3078bcdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a547b16fecc12c0037ff7a58fafe85b5c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a547b16fecc12c0037ff7a58fafe85b5c">tesseract_planning::formatProgramHelper</a> (CompositeInstruction &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const ManipulatorInfo &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt; &gt; &amp;manip_joint_names)</td></tr>
-<tr class="separator:a547b16fecc12c0037ff7a58fafe85b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7de9f63151c4267c7bfd7b06145c1b75"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a7de9f63151c4267c7bfd7b06145c1b75">tesseract_planning::formatProgramHelper</a> (CompositeInstruction &amp;composite_instructions, const tesseract_environment::Environment &amp;env, const tesseract_common::ManipulatorInfo &amp;manip_info, std::unordered_map&lt; std::string, std::vector&lt; std::string &gt; &gt; &amp;manip_joint_names)</td></tr>
+<tr class="separator:a7de9f63151c4267c7bfd7b06145c1b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac25e52a76d6ada60b39ff9bb422dcb91"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#ac25e52a76d6ada60b39ff9bb422dcb91">tesseract_planning::formatProgram</a> (CompositeInstruction &amp;composite_instructions, const tesseract_environment::Environment &amp;env)</td></tr>
 <tr class="memdesc:ac25e52a76d6ada60b39ff9bb422dcb91"><td class="mdescLeft">&#160;</td><td class="mdescRight">This formats the joint and state waypoints to align with the kinematics object.  <a href="../../d9/dcd/namespacetesseract__planning.html#ac25e52a76d6ada60b39ff9bb422dcb91">More...</a><br /></td></tr>
 <tr class="separator:ac25e52a76d6ada60b39ff9bb422dcb91"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,7 +190,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 23:00:13 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 22 2022 19:56:15 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

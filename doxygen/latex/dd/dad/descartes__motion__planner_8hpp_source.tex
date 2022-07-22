@@ -24,489 +24,485 @@
 \DoxyCodeLine{44 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h}{tesseract\_motion\_planners/core/utils.h}}>}}
 \DoxyCodeLine{45 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{planner__utils_8h}{tesseract\_motion\_planners/planner\_utils.h}}>}}
 \DoxyCodeLine{46 }
-\DoxyCodeLine{47 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{command__language_8h}{tesseract\_command\_language/command\_language.h}}>}}
-\DoxyCodeLine{48 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__command__language_2include_2tesseract__command__language_2utils_2utils_8h}{tesseract\_command\_language/utils/utils.h}}>}}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{51 \{}
-\DoxyCodeLine{52 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{53 \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a0189e26eea69ff9160f717fab2414e22}{DescartesMotionPlanner<FloatType>::DescartesMotionPlanner}}(std::string name)}
-\DoxyCodeLine{54   : name\_(std::move(name)), status\_category\_(std::make\_shared<const \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory}{DescartesMotionPlannerStatusCategory}}>(name\_))}
-\DoxyCodeLine{55 \{}
-\DoxyCodeLine{56   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_ab0a92589aafb9c14410140c098c24e98}{name\_}}.empty())}
-\DoxyCodeLine{57     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlanner name is empty!"{}});}
-\DoxyCodeLine{58 \}}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{61 \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_ad424282e611add853a8fc23b9c98422a}{DescartesMotionPlanner<FloatType>::getName}}()\textcolor{keyword}{ const}}
-\DoxyCodeLine{62 \textcolor{keyword}{}\{}
-\DoxyCodeLine{63   \textcolor{keywordflow}{return} name\_;}
-\DoxyCodeLine{64 \}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{67 tesseract\_common::StatusCode \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_aa608f79fb4516b7ae901c78d4f77adcb}{DescartesMotionPlanner<FloatType>::solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{68                                                                       \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}\& response,}
-\DoxyCodeLine{69                                                                       \textcolor{keyword}{const} \textcolor{keywordtype}{bool} \textcolor{comment}{/*verbose*/})\textcolor{keyword}{ const}}
-\DoxyCodeLine{70 \textcolor{keyword}{}\{}
-\DoxyCodeLine{71   std::shared\_ptr<DescartesProblem<FloatType>> problem;}
-\DoxyCodeLine{72   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}{data}})}
-\DoxyCodeLine{73   \{}
-\DoxyCodeLine{74     problem = std::static\_pointer\_cast<DescartesProblem<FloatType>>(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}{data}});}
-\DoxyCodeLine{75   \}}
-\DoxyCodeLine{76   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{77   \{}
-\DoxyCodeLine{78     \textcolor{keywordflow}{try}}
-\DoxyCodeLine{79     \{}
-\DoxyCodeLine{80       problem = createProblem(request);}
-\DoxyCodeLine{81     \}}
-\DoxyCodeLine{82     \textcolor{keywordflow}{catch} (std::exception\& e)}
-\DoxyCodeLine{83     \{}
-\DoxyCodeLine{84       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}DescartesMotionPlanner failed to generate problem: \%s."{}}, e.what());}
-\DoxyCodeLine{85       response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}} =}
-\DoxyCodeLine{86           tesseract\_common::StatusCode(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a84ec64cf46681e21bcc3102f43dfbc07}{DescartesMotionPlannerStatusCategory::ErrorInvalidInput}}, status\_category\_);}
-\DoxyCodeLine{87       \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
-\DoxyCodeLine{88     \}}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{90     response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}{data}} = problem;}
-\DoxyCodeLine{91   \}}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   descartes\_light::SearchResult<FloatType> descartes\_result;}
-\DoxyCodeLine{94   \textcolor{keywordflow}{try}}
-\DoxyCodeLine{95   \{}
-\DoxyCodeLine{96     descartes\_light::LadderGraphSolver<FloatType> solver(problem-\/>num\_threads);}
-\DoxyCodeLine{97     solver.build(problem-\/>samplers, problem-\/>edge\_evaluators, problem-\/>state\_evaluators);}
-\DoxyCodeLine{98     descartes\_result = solver.search();}
-\DoxyCodeLine{99     \textcolor{keywordflow}{if} (descartes\_result.trajectory.empty())}
-\DoxyCodeLine{100     \{}
-\DoxyCodeLine{101       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}Search for graph completion failed"{}});}
-\DoxyCodeLine{102       response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}} = tesseract\_common::StatusCode(}
-\DoxyCodeLine{103           \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a48a5f40bd6d19e7ec907e1f00752a4d9}{DescartesMotionPlannerStatusCategory::ErrorFailedToFindValidSolution}}, status\_category\_);}
-\DoxyCodeLine{104       \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
-\DoxyCodeLine{105     \}}
-\DoxyCodeLine{106   \}}
-\DoxyCodeLine{107   \textcolor{keywordflow}{catch} (...)}
-\DoxyCodeLine{108   \{}
-\DoxyCodeLine{109     \textcolor{comment}{//    CONSOLE\_BRIDGE\_logError("{}Failed to build vertices"{});}}
-\DoxyCodeLine{110     \textcolor{comment}{//    for (const auto\& i : graph\_builder.getFailedVertices())}}
-\DoxyCodeLine{111     \textcolor{comment}{//      response.failed\_waypoints.push\_back(config\_-\/>waypoints[i]);}}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{113     \textcolor{comment}{//    // Copy the waypoint if it is not already in the failed waypoints list}}
-\DoxyCodeLine{114     \textcolor{comment}{//    std::copy\_if(config\_-\/>waypoints.begin(),}}
-\DoxyCodeLine{115     \textcolor{comment}{//                 config\_-\/>waypoints.end(),}}
-\DoxyCodeLine{116     \textcolor{comment}{//                 std::back\_inserter(response.succeeded\_waypoints),}}
-\DoxyCodeLine{117     \textcolor{comment}{//                 [\&response](const Waypoint::ConstPtr wp) \{}}
-\DoxyCodeLine{118     \textcolor{comment}{//                   return std::find(response.failed\_waypoints.begin(), response.failed\_waypoints.end(), wp) ==}}
-\DoxyCodeLine{119     \textcolor{comment}{//                          response.failed\_waypoints.end();}}
-\DoxyCodeLine{120     \textcolor{comment}{//                 \});}}
-\DoxyCodeLine{121 }
-\DoxyCodeLine{122     response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}} =}
-\DoxyCodeLine{123         tesseract\_common::StatusCode(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a8e7464917a6f10d6f455f64c28fef810}{DescartesMotionPlannerStatusCategory::ErrorFailedToBuildGraph}}, status\_category\_);}
-\DoxyCodeLine{124     \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
-\DoxyCodeLine{125   \}}
-\DoxyCodeLine{126 }
-\DoxyCodeLine{127   \textcolor{comment}{// Enforce limits}}
-\DoxyCodeLine{128   std::vector<Eigen::VectorXd> solution\{\};}
-\DoxyCodeLine{129   solution.reserve(descartes\_result.trajectory.size());}
-\DoxyCodeLine{130   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& js : descartes\_result.trajectory)}
-\DoxyCodeLine{131   \{}
-\DoxyCodeLine{132     solution.push\_back(js-\/>values.template cast<double>());}
-\DoxyCodeLine{133     \textcolor{comment}{// Using 1e-\/6 because when using floats with descartes epsilon does not seem to be enough}}
-\DoxyCodeLine{134     assert(}
-\DoxyCodeLine{135         tesseract\_common::satisfiesPositionLimits<double>(solution.back(), problem-\/>manip-\/>getLimits().joint\_limits));}
-\DoxyCodeLine{136     tesseract\_common::enforcePositionLimits<double>(solution.back(), problem-\/>manip-\/>getLimits().joint\_limits);}
-\DoxyCodeLine{137   \}}
-\DoxyCodeLine{138 }
-\DoxyCodeLine{139   \textcolor{comment}{// Flatten the results to make them easier to process}}
-\DoxyCodeLine{140   response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}} = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}};}
-\DoxyCodeLine{141   \textcolor{keyword}{auto} results\_flattened = \mbox{\hyperlink{namespacetesseract__planning_a376b0dd548ca385a3128afc20bdc1dca}{flattenProgramToPattern}}(response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}}, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}});}
-\DoxyCodeLine{142   \textcolor{keyword}{auto} instructions\_flattened = \mbox{\hyperlink{namespacetesseract__planning_a1172c93ff97196d2037dc67a853c0625}{flattenProgram}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}});}
-\DoxyCodeLine{143 }
-\DoxyCodeLine{144   \textcolor{comment}{// Loop over the flattened results and add them to response if the input was a plan instruction}}
-\DoxyCodeLine{145   std::size\_t result\_index = 0;}
-\DoxyCodeLine{146   \textcolor{keywordflow}{for} (std::size\_t idx = 0; idx < instructions\_flattened.size(); idx++)}
-\DoxyCodeLine{147   \{}
-\DoxyCodeLine{148     \textcolor{comment}{// If idx is zero then this should be the start instruction}}
-\DoxyCodeLine{149     assert((idx == 0) ? \mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(instructions\_flattened.at(idx).get()) : \textcolor{keyword}{true});}
-\DoxyCodeLine{150     assert((idx == 0) ? \mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(results\_flattened[idx].get()) : \textcolor{keyword}{true});}
-\DoxyCodeLine{151     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(instructions\_flattened.at(idx).get()))}
-\DoxyCodeLine{152     \{}
-\DoxyCodeLine{153       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& plan\_instruction = instructions\_flattened.at(idx).get().as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>();}
-\DoxyCodeLine{154       \textcolor{keywordflow}{if} (plan\_instruction.isStart())}
-\DoxyCodeLine{155       \{}
-\DoxyCodeLine{156         assert(idx == 0);}
-\DoxyCodeLine{157         assert(\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(results\_flattened[idx].get()));}
-\DoxyCodeLine{158         \textcolor{keyword}{auto}\& move\_instruction = results\_flattened[idx].get().as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>();}
-\DoxyCodeLine{159 }
-\DoxyCodeLine{160         \textcolor{keyword}{auto}\& swp = move\_instruction.\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_af9dd6ba043a2ae38129847a98d90a540}{getWaypoint}}().as<\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}>();}
-\DoxyCodeLine{161         swp.position = solution[result\_index++];}
-\DoxyCodeLine{162         assert(swp.joint\_names == problem-\/>manip-\/>getJointNames());}
-\DoxyCodeLine{163       \}}
-\DoxyCodeLine{164       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (plan\_instruction.isLinear())}
-\DoxyCodeLine{165       \{}
-\DoxyCodeLine{166         \textcolor{comment}{// This instruction corresponds to a composite. Set all results in that composite to the results}}
-\DoxyCodeLine{167         assert(\mbox{\hyperlink{namespacetesseract__planning_af48bb1d750c019e34337ed0a0f88ef76}{isCompositeInstruction}}(results\_flattened[idx].get()));}
-\DoxyCodeLine{168         \textcolor{keyword}{auto}\& move\_instructions = results\_flattened[idx].get().as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
-\DoxyCodeLine{169         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& instruction : move\_instructions)}
-\DoxyCodeLine{170         \{}
-\DoxyCodeLine{171           \textcolor{keyword}{auto}\& swp = instruction.as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>().getWaypoint().as<\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}>();}
-\DoxyCodeLine{172           swp.position = solution[result\_index++];}
-\DoxyCodeLine{173           assert(swp.joint\_names == problem-\/>manip-\/>getJointNames());}
-\DoxyCodeLine{174         \}}
-\DoxyCodeLine{175       \}}
-\DoxyCodeLine{176       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (plan\_instruction.isFreespace())}
-\DoxyCodeLine{177       \{}
-\DoxyCodeLine{178         assert(result\_index > 0);}
-\DoxyCodeLine{179         \textcolor{comment}{// Because descartes does not support freespace it just includes the plan instruction waypoint so we will}}
-\DoxyCodeLine{180         \textcolor{comment}{// fill out the results with a joint interpolated trajectory.}}
-\DoxyCodeLine{181         Eigen::VectorXd\& start = solution[result\_index -\/ 1];}
-\DoxyCodeLine{182         Eigen::VectorXd\& stop = solution[result\_index++];}
-\DoxyCodeLine{183 }
-\DoxyCodeLine{184         \textcolor{comment}{// This instruction corresponds to a composite. Set all results in that composite to the results}}
-\DoxyCodeLine{185         assert(\mbox{\hyperlink{namespacetesseract__planning_af48bb1d750c019e34337ed0a0f88ef76}{isCompositeInstruction}}(results\_flattened[idx].get()));}
-\DoxyCodeLine{186         \textcolor{keyword}{auto}\& move\_instructions = results\_flattened[idx].get().as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
-\DoxyCodeLine{187 }
-\DoxyCodeLine{188         Eigen::MatrixXd temp = \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(start, stop, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(move\_instructions.size()));}
-\DoxyCodeLine{189 }
-\DoxyCodeLine{190         assert(temp.cols() == \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{long}\textcolor{keyword}{>}(move\_instructions.size()) + 1);}
-\DoxyCodeLine{191         \textcolor{keywordflow}{for} (std::size\_t i = 0; i < move\_instructions.size(); ++i)}
-\DoxyCodeLine{192         \{}
-\DoxyCodeLine{193           \textcolor{keyword}{auto}\& swp = move\_instructions[i].as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>().getWaypoint().as<\mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}}>();}
-\DoxyCodeLine{194           swp.position = temp.col(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{long}\textcolor{keyword}{>}(i) + 1);}
-\DoxyCodeLine{195           assert(swp.joint\_names == problem-\/>manip-\/>getJointNames());}
-\DoxyCodeLine{196         \}}
-\DoxyCodeLine{197       \}}
-\DoxyCodeLine{198       \textcolor{keywordflow}{else}}
-\DoxyCodeLine{199       \{}
-\DoxyCodeLine{200         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported Plan Instruction Type!"{}});}
-\DoxyCodeLine{201       \}}
-\DoxyCodeLine{202     \}}
-\DoxyCodeLine{203   \}}
-\DoxyCodeLine{204 }
-\DoxyCodeLine{205   response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}} = tesseract\_common::StatusCode(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9ab162847308b3e8a171161cf6b9aeb95c}{DescartesMotionPlannerStatusCategory::SolutionFound}}, status\_category\_);}
-\DoxyCodeLine{206   \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
-\DoxyCodeLine{207 \}}
-\DoxyCodeLine{208 }
-\DoxyCodeLine{209 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{210 \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a2efeee49747eca2399ff5103e29924eb}{DescartesMotionPlanner<FloatType>::checkUserInput}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request)}
-\DoxyCodeLine{211 \{}
-\DoxyCodeLine{212   \textcolor{comment}{// Check that parameters are valid}}
-\DoxyCodeLine{213   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}} == \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{214   \{}
-\DoxyCodeLine{215     CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}In TrajOptPlannerUniversalConfig: env is a required parameter and has not been set"{}});}
-\DoxyCodeLine{216     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{217   \}}
-\DoxyCodeLine{218 }
-\DoxyCodeLine{219   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a4012a6e33463e22d7c1b6c838a07de08}{empty}}())}
-\DoxyCodeLine{220   \{}
-\DoxyCodeLine{221     CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}TrajOptPlannerUniversalConfig requires at least one instruction"{}});}
-\DoxyCodeLine{222     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{223   \}}
-\DoxyCodeLine{224 }
-\DoxyCodeLine{225   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{226 \}}
-\DoxyCodeLine{227 }
-\DoxyCodeLine{228 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{229 \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a0bb1f4ff5c88060f87c72dcdda8417c3}{DescartesMotionPlanner<FloatType>::terminate}}()}
-\DoxyCodeLine{230 \{}
-\DoxyCodeLine{231   CONSOLE\_BRIDGE\_logWarn(\textcolor{stringliteral}{"{}Termination of ongoing optimization is not implemented yet"{}});}
-\DoxyCodeLine{232   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{233 \}}
-\DoxyCodeLine{234 }
-\DoxyCodeLine{235 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{236 \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_afec3c9ed00949cb779dfa7ad78cd8bee}{DescartesMotionPlanner<FloatType>::clear}}()}
-\DoxyCodeLine{237 \{}
-\DoxyCodeLine{238 \}}
-\DoxyCodeLine{239 }
-\DoxyCodeLine{240 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{241 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a9ad1370efee697b369cf98ea6a3143ae}{DescartesMotionPlanner<FloatType>::clone}}()\textcolor{keyword}{ const}}
-\DoxyCodeLine{242 \textcolor{keyword}{}\{}
-\DoxyCodeLine{243   \textcolor{keywordflow}{return} std::make\_shared<DescartesMotionPlanner<FloatType>>(name\_);}
-\DoxyCodeLine{244 \}}
-\DoxyCodeLine{245 }
-\DoxyCodeLine{246 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
-\DoxyCodeLine{247 std::shared\_ptr<DescartesProblem<FloatType>>}
-\DoxyCodeLine{248 \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a7aa5051004a8c999fa46cbc087a09db2}{DescartesMotionPlanner<FloatType>::createProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request)\textcolor{keyword}{ const}}
-\DoxyCodeLine{249 \textcolor{keyword}{}\{}
-\DoxyCodeLine{250   \textcolor{keyword}{auto} prob = std::make\_shared<DescartesProblem<FloatType>>();}
-\DoxyCodeLine{251 }
-\DoxyCodeLine{252   \textcolor{comment}{// Clear descartes data}}
-\DoxyCodeLine{253   prob-\/>edge\_evaluators.clear();}
-\DoxyCodeLine{254   prob-\/>samplers.clear();}
-\DoxyCodeLine{255   prob-\/>state\_evaluators.clear();}
-\DoxyCodeLine{256 }
-\DoxyCodeLine{257   \textcolor{comment}{// Assume all the plan instructions have the same manipulator as the composite}}
-\DoxyCodeLine{258   assert(!request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a4e5a5164dba8c07ad50bfbdc0a6de6cd}{getManipulatorInfo}}().empty());}
-\DoxyCodeLine{259   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& composite\_mi = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a4e5a5164dba8c07ad50bfbdc0a6de6cd}{getManipulatorInfo}}();}
-\DoxyCodeLine{260 }
-\DoxyCodeLine{261   \textcolor{keywordflow}{if} (composite\_mi.manipulator.empty())}
-\DoxyCodeLine{262     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, manipulator is empty!"{}});}
-\DoxyCodeLine{263 }
-\DoxyCodeLine{264   \textcolor{comment}{// Get Manipulator Information}}
-\DoxyCodeLine{265   \textcolor{keywordflow}{try}}
-\DoxyCodeLine{266   \{}
-\DoxyCodeLine{267     \textcolor{keywordflow}{if} (composite\_mi.manipulator\_ik\_solver.empty())}
-\DoxyCodeLine{268       prob-\/>manip = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}}-\/>getKinematicGroup(composite\_mi.manipulator);}
-\DoxyCodeLine{269     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{270       prob-\/>manip = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}}-\/>getKinematicGroup(composite\_mi.manipulator, composite\_mi.manipulator\_ik\_solver);}
-\DoxyCodeLine{271   \}}
-\DoxyCodeLine{272   \textcolor{keywordflow}{catch} (...)}
-\DoxyCodeLine{273   \{}
-\DoxyCodeLine{274     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes problem generator failed to create kinematic group!"{}});}
-\DoxyCodeLine{275   \}}
-\DoxyCodeLine{276 }
-\DoxyCodeLine{277   \textcolor{keywordflow}{if} (!prob-\/>manip)}
-\DoxyCodeLine{278   \{}
-\DoxyCodeLine{279     CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}No Kinematics Group found"{}});}
-\DoxyCodeLine{280     \textcolor{keywordflow}{return} prob;}
-\DoxyCodeLine{281   \}}
-\DoxyCodeLine{282 }
-\DoxyCodeLine{283   prob-\/>env\_state = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}};}
-\DoxyCodeLine{284   prob-\/>env = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}};}
-\DoxyCodeLine{285 }
-\DoxyCodeLine{286   std::vector<std::string> joint\_names = prob-\/>manip-\/>getJointNames();}
-\DoxyCodeLine{287 }
-\DoxyCodeLine{288   \textcolor{comment}{// Flatten the input for planning}}
-\DoxyCodeLine{289   \textcolor{keyword}{auto} instructions\_flat = \mbox{\hyperlink{namespacetesseract__planning_a1172c93ff97196d2037dc67a853c0625}{flattenProgram}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}});}
-\DoxyCodeLine{290   \textcolor{keyword}{auto} seed\_flat = \mbox{\hyperlink{namespacetesseract__planning_a376b0dd548ca385a3128afc20bdc1dca}{flattenProgramToPattern}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}});}
-\DoxyCodeLine{291 }
-\DoxyCodeLine{292   std::size\_t start\_index = 0;  \textcolor{comment}{// If it has a start instruction then skip first instruction in instructions\_flat}}
-\DoxyCodeLine{293   \textcolor{keywordtype}{int} index = 0;}
-\DoxyCodeLine{294   std::string profile;}
-\DoxyCodeLine{295   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} profile\_overrides;}
-\DoxyCodeLine{296   \mbox{\hyperlink{structtesseract__planning_1_1Waypoint}{Waypoint}} start\_waypoint\{ \mbox{\hyperlink{classtesseract__planning_1_1NullWaypoint}{NullWaypoint}}() \};}
-\DoxyCodeLine{297   \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}} placeholder\_instruction\{ \mbox{\hyperlink{classtesseract__planning_1_1NullInstruction}{NullInstruction}}() \};}
-\DoxyCodeLine{298   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1Instruction}{Instruction}}* start\_instruction = \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{299   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ae2160219a45049b04b5fdf68bd27e882}{hasStartInstruction}}())}
-\DoxyCodeLine{300   \{}
-\DoxyCodeLine{301     assert(\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abf2e38f4f1b149032ddfa260165b24c2}{getStartInstruction}}()));}
-\DoxyCodeLine{302     start\_instruction = \&(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abf2e38f4f1b149032ddfa260165b24c2}{getStartInstruction}}());}
-\DoxyCodeLine{303     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(*start\_instruction))}
-\DoxyCodeLine{304     \{}
-\DoxyCodeLine{305       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& temp = start\_instruction-\/>as<\mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}}>();}
-\DoxyCodeLine{306       assert(temp.isStart());}
-\DoxyCodeLine{307       start\_waypoint = temp.getWaypoint();}
-\DoxyCodeLine{308       profile = temp.getProfile();}
-\DoxyCodeLine{309       profile\_overrides = temp.profile\_overrides;}
-\DoxyCodeLine{310     \}}
-\DoxyCodeLine{311     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{312     \{}
-\DoxyCodeLine{313       \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes DefaultProblemGenerator: Unsupported start instruction type!"{}});}
-\DoxyCodeLine{314     \}}
-\DoxyCodeLine{315     ++start\_index;}
-\DoxyCodeLine{316   \}}
-\DoxyCodeLine{317   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{318   \{}
-\DoxyCodeLine{319     Eigen::VectorXd current\_jv\{ request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}}.getJointValues(joint\_names) \};}
-\DoxyCodeLine{320     \mbox{\hyperlink{classtesseract__planning_1_1StateWaypoint}{StateWaypoint}} swp(joint\_names, current\_jv);}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__command__language_2include_2tesseract__command__language_2utils_8h}{tesseract\_command\_language/utils.h}}>}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{52 \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a0189e26eea69ff9160f717fab2414e22}{DescartesMotionPlanner<FloatType>::DescartesMotionPlanner}}(std::string name)}
+\DoxyCodeLine{53   : name\_(std::move(name)), status\_category\_(std::make\_shared<const \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory}{DescartesMotionPlannerStatusCategory}}>(name\_))}
+\DoxyCodeLine{54 \{}
+\DoxyCodeLine{55   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_ab0a92589aafb9c14410140c098c24e98}{name\_}}.empty())}
+\DoxyCodeLine{56     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlanner name is empty!"{}});}
+\DoxyCodeLine{57 \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{60 \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_ad424282e611add853a8fc23b9c98422a}{DescartesMotionPlanner<FloatType>::getName}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{61 \textcolor{keyword}{}\{}
+\DoxyCodeLine{62   \textcolor{keywordflow}{return} name\_;}
+\DoxyCodeLine{63 \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{66 tesseract\_common::StatusCode \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_aa608f79fb4516b7ae901c78d4f77adcb}{DescartesMotionPlanner<FloatType>::solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{67                                                                       \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}\& response,}
+\DoxyCodeLine{68                                                                       \textcolor{keyword}{const} \textcolor{keywordtype}{bool} \textcolor{comment}{/*verbose*/})\textcolor{keyword}{ const}}
+\DoxyCodeLine{69 \textcolor{keyword}{}\{}
+\DoxyCodeLine{70   std::shared\_ptr<DescartesProblem<FloatType>> problem;}
+\DoxyCodeLine{71   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}{data}})}
+\DoxyCodeLine{72   \{}
+\DoxyCodeLine{73     problem = std::static\_pointer\_cast<DescartesProblem<FloatType>>(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a74225e42fe18279b21af4a922fa80995}{data}});}
+\DoxyCodeLine{74   \}}
+\DoxyCodeLine{75   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{76   \{}
+\DoxyCodeLine{77     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{78     \{}
+\DoxyCodeLine{79       problem = createProblem(request);}
+\DoxyCodeLine{80     \}}
+\DoxyCodeLine{81     \textcolor{keywordflow}{catch} (std::exception\& e)}
+\DoxyCodeLine{82     \{}
+\DoxyCodeLine{83       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}DescartesMotionPlanner failed to generate problem: \%s."{}}, e.what());}
+\DoxyCodeLine{84       response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}} =}
+\DoxyCodeLine{85           tesseract\_common::StatusCode(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a84ec64cf46681e21bcc3102f43dfbc07}{DescartesMotionPlannerStatusCategory::ErrorInvalidInput}}, status\_category\_);}
+\DoxyCodeLine{86       \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
+\DoxyCodeLine{87     \}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89     response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_ab010e84ee5bd79ee47b0e45efb6419f6}{data}} = problem;}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92   descartes\_light::SearchResult<FloatType> descartes\_result;}
+\DoxyCodeLine{93   \textcolor{keywordflow}{try}}
+\DoxyCodeLine{94   \{}
+\DoxyCodeLine{95     descartes\_light::LadderGraphSolver<FloatType> solver(problem-\/>num\_threads);}
+\DoxyCodeLine{96     solver.build(problem-\/>samplers, problem-\/>edge\_evaluators, problem-\/>state\_evaluators);}
+\DoxyCodeLine{97     descartes\_result = solver.search();}
+\DoxyCodeLine{98     \textcolor{keywordflow}{if} (descartes\_result.trajectory.empty())}
+\DoxyCodeLine{99     \{}
+\DoxyCodeLine{100       CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}Search for graph completion failed"{}});}
+\DoxyCodeLine{101       response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}} = tesseract\_common::StatusCode(}
+\DoxyCodeLine{102           \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a48a5f40bd6d19e7ec907e1f00752a4d9}{DescartesMotionPlannerStatusCategory::ErrorFailedToFindValidSolution}}, status\_category\_);}
+\DoxyCodeLine{103       \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
+\DoxyCodeLine{104     \}}
+\DoxyCodeLine{105   \}}
+\DoxyCodeLine{106   \textcolor{keywordflow}{catch} (...)}
+\DoxyCodeLine{107   \{}
+\DoxyCodeLine{108     \textcolor{comment}{//    CONSOLE\_BRIDGE\_logError("{}Failed to build vertices"{});}}
+\DoxyCodeLine{109     \textcolor{comment}{//    for (const auto\& i : graph\_builder.getFailedVertices())}}
+\DoxyCodeLine{110     \textcolor{comment}{//      response.failed\_waypoints.push\_back(config\_-\/>waypoints[i]);}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112     \textcolor{comment}{//    // Copy the waypoint if it is not already in the failed waypoints list}}
+\DoxyCodeLine{113     \textcolor{comment}{//    std::copy\_if(config\_-\/>waypoints.begin(),}}
+\DoxyCodeLine{114     \textcolor{comment}{//                 config\_-\/>waypoints.end(),}}
+\DoxyCodeLine{115     \textcolor{comment}{//                 std::back\_inserter(response.succeeded\_waypoints),}}
+\DoxyCodeLine{116     \textcolor{comment}{//                 [\&response](const Waypoint::ConstPtr wp) \{}}
+\DoxyCodeLine{117     \textcolor{comment}{//                   return std::find(response.failed\_waypoints.begin(), response.failed\_waypoints.end(), wp) ==}}
+\DoxyCodeLine{118     \textcolor{comment}{//                          response.failed\_waypoints.end();}}
+\DoxyCodeLine{119     \textcolor{comment}{//                 \});}}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121     response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}} =}
+\DoxyCodeLine{122         tesseract\_common::StatusCode(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a8e7464917a6f10d6f455f64c28fef810}{DescartesMotionPlannerStatusCategory::ErrorFailedToBuildGraph}}, status\_category\_);}
+\DoxyCodeLine{123     \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
+\DoxyCodeLine{124   \}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126   \textcolor{comment}{// Enforce limits}}
+\DoxyCodeLine{127   std::vector<Eigen::VectorXd> solution\{\};}
+\DoxyCodeLine{128   solution.reserve(descartes\_result.trajectory.size());}
+\DoxyCodeLine{129   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& js : descartes\_result.trajectory)}
+\DoxyCodeLine{130   \{}
+\DoxyCodeLine{131     solution.push\_back(js-\/>values.template cast<double>());}
+\DoxyCodeLine{132     \textcolor{comment}{// Using 1e-\/6 because when using floats with descartes epsilon does not seem to be enough}}
+\DoxyCodeLine{133     assert(}
+\DoxyCodeLine{134         tesseract\_common::satisfiesPositionLimits<double>(solution.back(), problem-\/>manip-\/>getLimits().joint\_limits));}
+\DoxyCodeLine{135     tesseract\_common::enforcePositionLimits<double>(solution.back(), problem-\/>manip-\/>getLimits().joint\_limits);}
+\DoxyCodeLine{136   \}}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138   \textcolor{comment}{// Flatten the results to make them easier to process}}
+\DoxyCodeLine{139   response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}} = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}};}
+\DoxyCodeLine{140   \textcolor{keyword}{auto} results\_flattened = \mbox{\hyperlink{namespacetesseract__planning_a63ed4eb8623496c40ebfc74416c471fd}{flattenProgramToPattern}}(response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a45bcd81063b3001e3ca99cd6c03b3720}{results}}, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}});}
+\DoxyCodeLine{141   \textcolor{keyword}{auto} instructions\_flattened = \mbox{\hyperlink{namespacetesseract__planning_a2d13ba4ba28d61cd8440e04fe696cd33}{flattenProgram}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}});}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143   \textcolor{comment}{// Loop over the flattened results and add them to response if the input was a plan instruction}}
+\DoxyCodeLine{144   std::size\_t result\_index = 0;}
+\DoxyCodeLine{145   \textcolor{keywordflow}{for} (std::size\_t idx = 0; idx < instructions\_flattened.size(); idx++)}
+\DoxyCodeLine{146   \{}
+\DoxyCodeLine{147     \textcolor{comment}{// If idx is zero then this should be the start instruction}}
+\DoxyCodeLine{148     assert((idx == 0) ? instructions\_flattened.at(idx).get().isMoveInstruction() : \textcolor{keyword}{true});}
+\DoxyCodeLine{149     assert((idx == 0) ? results\_flattened[idx].get().isMoveInstruction() : \textcolor{keyword}{true});}
+\DoxyCodeLine{150     \textcolor{keywordflow}{if} (instructions\_flattened.at(idx).get().isMoveInstruction())}
+\DoxyCodeLine{151     \{}
+\DoxyCodeLine{152       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& plan\_instruction = instructions\_flattened.at(idx).get().as<\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}>();}
+\DoxyCodeLine{153       \textcolor{keywordflow}{if} (plan\_instruction.isStart())}
+\DoxyCodeLine{154       \{}
+\DoxyCodeLine{155         assert(idx == 0);}
+\DoxyCodeLine{156         assert(results\_flattened[idx].get().isMoveInstruction());}
+\DoxyCodeLine{157         \textcolor{keyword}{auto}\& move\_instruction = results\_flattened[idx].get().as<\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}>();}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159         \textcolor{keyword}{auto}\& swp = move\_instruction.\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a37f8f257d3921e718b072afd9d4e2fbb}{getWaypoint}}().as<\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}}>();}
+\DoxyCodeLine{160         swp.setPosition(solution[result\_index++]);}
+\DoxyCodeLine{161         assert(swp.getNames() == problem-\/>manip-\/>getJointNames());}
+\DoxyCodeLine{162       \}}
+\DoxyCodeLine{163       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (plan\_instruction.isLinear())}
+\DoxyCodeLine{164       \{}
+\DoxyCodeLine{165         \textcolor{comment}{// This instruction corresponds to a composite. Set all results in that composite to the results}}
+\DoxyCodeLine{166         assert(results\_flattened[idx].get().isCompositeInstruction());}
+\DoxyCodeLine{167         \textcolor{keyword}{auto}\& move\_instructions = results\_flattened[idx].get().as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
+\DoxyCodeLine{168         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& instruction : move\_instructions)}
+\DoxyCodeLine{169         \{}
+\DoxyCodeLine{170           \textcolor{keyword}{auto}\& swp = instruction.as<\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}>().getWaypoint().as<\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}}>();}
+\DoxyCodeLine{171           swp.\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly_a5657e7cd4d313ad7fdd33c2a2d3e6732}{setPosition}}(solution[result\_index++]);}
+\DoxyCodeLine{172           assert(swp.getNames() == problem-\/>manip-\/>getJointNames());}
+\DoxyCodeLine{173         \}}
+\DoxyCodeLine{174       \}}
+\DoxyCodeLine{175       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (plan\_instruction.isFreespace())}
+\DoxyCodeLine{176       \{}
+\DoxyCodeLine{177         assert(result\_index > 0);}
+\DoxyCodeLine{178         \textcolor{comment}{// Because descartes does not support freespace it just includes the plan instruction waypoint so we will}}
+\DoxyCodeLine{179         \textcolor{comment}{// fill out the results with a joint interpolated trajectory.}}
+\DoxyCodeLine{180         Eigen::VectorXd\& start = solution[result\_index -\/ 1];}
+\DoxyCodeLine{181         Eigen::VectorXd\& stop = solution[result\_index++];}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183         \textcolor{comment}{// This instruction corresponds to a composite. Set all results in that composite to the results}}
+\DoxyCodeLine{184         assert(results\_flattened[idx].get().isCompositeInstruction());}
+\DoxyCodeLine{185         \textcolor{keyword}{auto}\& move\_instructions = results\_flattened[idx].get().as<\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}>();}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187         Eigen::MatrixXd temp = \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(start, stop, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(move\_instructions.size()));}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189         assert(temp.cols() == \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{long}\textcolor{keyword}{>}(move\_instructions.size()) + 1);}
+\DoxyCodeLine{190         \textcolor{keywordflow}{for} (std::size\_t i = 0; i < move\_instructions.size(); ++i)}
+\DoxyCodeLine{191         \{}
+\DoxyCodeLine{192           \textcolor{keyword}{auto}\& swp = move\_instructions[i].as<\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}>().getWaypoint().as<\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}}>();}
+\DoxyCodeLine{193           swp.\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly_a5657e7cd4d313ad7fdd33c2a2d3e6732}{setPosition}}(temp.col(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{long}\textcolor{keyword}{>}(i) + 1));}
+\DoxyCodeLine{194           assert(swp.getNames() == problem-\/>manip-\/>getJointNames());}
+\DoxyCodeLine{195         \}}
+\DoxyCodeLine{196       \}}
+\DoxyCodeLine{197       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{198       \{}
+\DoxyCodeLine{199         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported Plan Instruction Type!"{}});}
+\DoxyCodeLine{200       \}}
+\DoxyCodeLine{201     \}}
+\DoxyCodeLine{202   \}}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204   response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}} = tesseract\_common::StatusCode(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9ab162847308b3e8a171161cf6b9aeb95c}{DescartesMotionPlannerStatusCategory::SolutionFound}}, status\_category\_);}
+\DoxyCodeLine{205   \textcolor{keywordflow}{return} response.\mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse_a768f7be97302935b5223b00c37611efe}{status}};}
+\DoxyCodeLine{206 \}}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{209 \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a2efeee49747eca2399ff5103e29924eb}{DescartesMotionPlanner<FloatType>::checkUserInput}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request)}
+\DoxyCodeLine{210 \{}
+\DoxyCodeLine{211   \textcolor{comment}{// Check that parameters are valid}}
+\DoxyCodeLine{212   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}} == \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{213   \{}
+\DoxyCodeLine{214     CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}In TrajOptPlannerUniversalConfig: env is a required parameter and has not been set"{}});}
+\DoxyCodeLine{215     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{216   \}}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a4012a6e33463e22d7c1b6c838a07de08}{empty}}())}
+\DoxyCodeLine{219   \{}
+\DoxyCodeLine{220     CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}TrajOptPlannerUniversalConfig requires at least one instruction"{}});}
+\DoxyCodeLine{221     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{222   \}}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{225 \}}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{228 \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a0bb1f4ff5c88060f87c72dcdda8417c3}{DescartesMotionPlanner<FloatType>::terminate}}()}
+\DoxyCodeLine{229 \{}
+\DoxyCodeLine{230   CONSOLE\_BRIDGE\_logWarn(\textcolor{stringliteral}{"{}Termination of ongoing optimization is not implemented yet"{}});}
+\DoxyCodeLine{231   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{232 \}}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{235 \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_afec3c9ed00949cb779dfa7ad78cd8bee}{DescartesMotionPlanner<FloatType>::clear}}()}
+\DoxyCodeLine{236 \{}
+\DoxyCodeLine{237 \}}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{240 \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a9ad1370efee697b369cf98ea6a3143ae}{DescartesMotionPlanner<FloatType>::clone}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{241 \textcolor{keyword}{}\{}
+\DoxyCodeLine{242   \textcolor{keywordflow}{return} std::make\_shared<DescartesMotionPlanner<FloatType>>(name\_);}
+\DoxyCodeLine{243 \}}
+\DoxyCodeLine{244 }
+\DoxyCodeLine{245 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FloatType>}
+\DoxyCodeLine{246 std::shared\_ptr<DescartesProblem<FloatType>>}
+\DoxyCodeLine{247 \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlanner_a7aa5051004a8c999fa46cbc087a09db2}{DescartesMotionPlanner<FloatType>::createProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request)\textcolor{keyword}{ const}}
+\DoxyCodeLine{248 \textcolor{keyword}{}\{}
+\DoxyCodeLine{249   \textcolor{keyword}{auto} prob = std::make\_shared<DescartesProblem<FloatType>>();}
+\DoxyCodeLine{250 }
+\DoxyCodeLine{251   \textcolor{comment}{// Clear descartes data}}
+\DoxyCodeLine{252   prob-\/>edge\_evaluators.clear();}
+\DoxyCodeLine{253   prob-\/>samplers.clear();}
+\DoxyCodeLine{254   prob-\/>state\_evaluators.clear();}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256   \textcolor{comment}{// Assume all the plan instructions have the same manipulator as the composite}}
+\DoxyCodeLine{257   assert(!request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a9d10759cea9e09ceea5030a61af54e70}{getManipulatorInfo}}().empty());}
+\DoxyCodeLine{258   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& composite\_mi = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a9d10759cea9e09ceea5030a61af54e70}{getManipulatorInfo}}();}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260   \textcolor{keywordflow}{if} (composite\_mi.manipulator.empty())}
+\DoxyCodeLine{261     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, manipulator is empty!"{}});}
+\DoxyCodeLine{262 }
+\DoxyCodeLine{263   \textcolor{comment}{// Get Manipulator Information}}
+\DoxyCodeLine{264   \textcolor{keywordflow}{try}}
+\DoxyCodeLine{265   \{}
+\DoxyCodeLine{266     \textcolor{keywordflow}{if} (composite\_mi.manipulator\_ik\_solver.empty())}
+\DoxyCodeLine{267       prob-\/>manip = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}}-\/>getKinematicGroup(composite\_mi.manipulator);}
+\DoxyCodeLine{268     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{269       prob-\/>manip = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}}-\/>getKinematicGroup(composite\_mi.manipulator, composite\_mi.manipulator\_ik\_solver);}
+\DoxyCodeLine{270   \}}
+\DoxyCodeLine{271   \textcolor{keywordflow}{catch} (...)}
+\DoxyCodeLine{272   \{}
+\DoxyCodeLine{273     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes problem generator failed to create kinematic group!"{}});}
+\DoxyCodeLine{274   \}}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276   \textcolor{keywordflow}{if} (!prob-\/>manip)}
+\DoxyCodeLine{277   \{}
+\DoxyCodeLine{278     CONSOLE\_BRIDGE\_logError(\textcolor{stringliteral}{"{}No Kinematics Group found"{}});}
+\DoxyCodeLine{279     \textcolor{keywordflow}{return} prob;}
+\DoxyCodeLine{280   \}}
+\DoxyCodeLine{281 }
+\DoxyCodeLine{282   prob-\/>env\_state = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}};}
+\DoxyCodeLine{283   prob-\/>env = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}};}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285   std::vector<std::string> joint\_names = prob-\/>manip-\/>getJointNames();}
+\DoxyCodeLine{286 }
+\DoxyCodeLine{287   \textcolor{comment}{// Flatten the input for planning}}
+\DoxyCodeLine{288   \textcolor{keyword}{auto} instructions\_flat = \mbox{\hyperlink{namespacetesseract__planning_a2d13ba4ba28d61cd8440e04fe696cd33}{flattenProgram}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}});}
+\DoxyCodeLine{289   \textcolor{keyword}{auto} seed\_flat = \mbox{\hyperlink{namespacetesseract__planning_a63ed4eb8623496c40ebfc74416c471fd}{flattenProgramToPattern}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}});}
+\DoxyCodeLine{290 }
+\DoxyCodeLine{291   std::size\_t start\_index = 0;  \textcolor{comment}{// If it has a start instruction then skip first instruction in instructions\_flat}}
+\DoxyCodeLine{292   \textcolor{keywordtype}{int} index = 0;}
+\DoxyCodeLine{293   std::string profile;}
+\DoxyCodeLine{294   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} profile\_overrides;}
+\DoxyCodeLine{295   \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}} start\_waypoint;}
+\DoxyCodeLine{296   \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}} placeholder\_instruction;}
+\DoxyCodeLine{297   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}* start\_instruction = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{298   \textcolor{keywordflow}{if} (request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ae2160219a45049b04b5fdf68bd27e882}{hasStartInstruction}}())}
+\DoxyCodeLine{299   \{}
+\DoxyCodeLine{300     start\_instruction = \&(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a46f957d0713f84b05582618ee632d196}{getStartInstruction}}());}
+\DoxyCodeLine{301     assert(start\_instruction-\/>\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a2544b4a27705ad6191eaa5ffec9f17b3}{isStart}}());}
+\DoxyCodeLine{302     start\_waypoint = start\_instruction-\/>\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a37f8f257d3921e718b072afd9d4e2fbb}{getWaypoint}}();}
+\DoxyCodeLine{303     profile = start\_instruction-\/>\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac2f2711904d9c9f1366059d4246153f1}{getProfile}}();}
+\DoxyCodeLine{304     \textcolor{comment}{//  profile\_overrides = start\_instruction.profile\_overrides;}}
+\DoxyCodeLine{305     ++start\_index;}
+\DoxyCodeLine{306   \}}
+\DoxyCodeLine{307   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{308   \{}
+\DoxyCodeLine{309     \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}} temp\_move(*request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a8c6a68b833fbe425b10ff295be07cff7}{instructions}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a189ac325aa1daab3438d2a0f2a740871}{getFirstMoveInstruction}}());}
+\DoxyCodeLine{310     \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} swp = temp\_move.\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a7753c8bf408dc7f6f87c93659c07763e}{createStateWaypoint}}();}
+\DoxyCodeLine{311     swp.\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly_a84b3685a9ffd3674811db50d9ad1470f}{setNames}}(joint\_names);}
+\DoxyCodeLine{312     swp.\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly_a5657e7cd4d313ad7fdd33c2a2d3e6732}{setPosition}}(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a15896a8c7bd1050d934da96ab05c27b2}{env\_state}}.getJointValues(joint\_names));}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{314     temp\_move.\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a94fd1b5ad0645b3abcd0c26e8bf7f7a3}{assignStateWaypoint}}(swp);}
+\DoxyCodeLine{315     temp\_move.\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a69372d4053f6957117152e01a7212f70}{setMoveType}}(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{MoveInstructionType::START}});}
+\DoxyCodeLine{316 }
+\DoxyCodeLine{317     placeholder\_instruction = temp\_move;}
+\DoxyCodeLine{318     start\_instruction = \&placeholder\_instruction;}
+\DoxyCodeLine{319     start\_waypoint = swp;}
+\DoxyCodeLine{320   \}}
 \DoxyCodeLine{321 }
-\DoxyCodeLine{322     \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction}{MoveInstruction}} temp\_move(swp, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{MoveInstructionType::START}});}
-\DoxyCodeLine{323     placeholder\_instruction = temp\_move;}
-\DoxyCodeLine{324     start\_instruction = \&placeholder\_instruction;}
-\DoxyCodeLine{325     start\_waypoint = swp;}
-\DoxyCodeLine{326   \}}
-\DoxyCodeLine{327 }
-\DoxyCodeLine{328   profile = \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(name\_, profile, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\_profile\_remapping}});}
-\DoxyCodeLine{329   \textcolor{keyword}{auto} cur\_plan\_profile = getProfile<DescartesPlanProfile<FloatType>>(}
-\DoxyCodeLine{330       name\_, profile, *request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}}, std::make\_shared<DescartesDefaultPlanProfile<FloatType>>());}
-\DoxyCodeLine{331   cur\_plan\_profile = \mbox{\hyperlink{namespacetesseract__planning_abc4e0abb003d616199f38f74bdad6421}{applyProfileOverrides}}(name\_, profile, cur\_plan\_profile, profile\_overrides);}
-\DoxyCodeLine{332   \textcolor{keywordflow}{if} (!cur\_plan\_profile)}
-\DoxyCodeLine{333     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: Invalid profile"{}});}
-\DoxyCodeLine{334 }
-\DoxyCodeLine{335   \textcolor{comment}{// Add start waypoint}}
-\DoxyCodeLine{336   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_aa1979ee1643c64f94a0fca7bc64dd455}{isCartesianWaypoint}}(start\_waypoint))}
-\DoxyCodeLine{337   \{}
-\DoxyCodeLine{338     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& cwp = start\_waypoint.as<\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}>();}
-\DoxyCodeLine{339     cur\_plan\_profile-\/>apply(*prob, cwp.waypoint, *start\_instruction, composite\_mi, index);}
+\DoxyCodeLine{322   profile = \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(name\_, profile, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\_profile\_remapping}});}
+\DoxyCodeLine{323   \textcolor{keyword}{auto} cur\_plan\_profile = getProfile<DescartesPlanProfile<FloatType>>(}
+\DoxyCodeLine{324       name\_, profile, *request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}}, std::make\_shared<DescartesDefaultPlanProfile<FloatType>>());}
+\DoxyCodeLine{325   cur\_plan\_profile = \mbox{\hyperlink{namespacetesseract__planning_abc4e0abb003d616199f38f74bdad6421}{applyProfileOverrides}}(name\_, profile, cur\_plan\_profile, profile\_overrides);}
+\DoxyCodeLine{326   \textcolor{keywordflow}{if} (!cur\_plan\_profile)}
+\DoxyCodeLine{327     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: Invalid profile"{}});}
+\DoxyCodeLine{328 }
+\DoxyCodeLine{329   \textcolor{comment}{// Add start waypoint}}
+\DoxyCodeLine{330   \textcolor{keywordflow}{if} (start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a5bdd55b987aed7b278dbe18d25d1d5df}{isCartesianWaypoint}}())}
+\DoxyCodeLine{331   \{}
+\DoxyCodeLine{332     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& cwp = start\_waypoint.as<\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}}>();}
+\DoxyCodeLine{333     cur\_plan\_profile-\/>apply(*prob, cwp.getTransform(), *start\_instruction, composite\_mi, index);}
+\DoxyCodeLine{334   \}}
+\DoxyCodeLine{335   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a1f3162cac3fcc5193945d491e8e8c857}{isJointWaypoint}}() || start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a9b17e1e86fa4e6ae5e1c5d75d1c4313c}{isStateWaypoint}}())}
+\DoxyCodeLine{336   \{}
+\DoxyCodeLine{337     assert(\mbox{\hyperlink{namespacetesseract__planning_a000daf954599df6eb5aa5ffa51ccdeff}{checkJointPositionFormat}}(joint\_names, start\_waypoint));}
+\DoxyCodeLine{338     \textcolor{keyword}{const} Eigen::VectorXd\& position = \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{getJointPosition}}(start\_waypoint);}
+\DoxyCodeLine{339     cur\_plan\_profile-\/>apply(*prob, position, *start\_instruction, composite\_mi, index);}
 \DoxyCodeLine{340   \}}
-\DoxyCodeLine{341   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_ac2bb55bed2473cb51b560386fdc27f0d}{isJointWaypoint}}(start\_waypoint) || \mbox{\hyperlink{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}{isStateWaypoint}}(start\_waypoint))}
+\DoxyCodeLine{341   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{342   \{}
-\DoxyCodeLine{343     assert(\mbox{\hyperlink{namespacetesseract__planning_aabbbd76f430add29f5caf0582fe6df6e}{checkJointPositionFormat}}(joint\_names, start\_waypoint));}
-\DoxyCodeLine{344     \textcolor{keyword}{const} Eigen::VectorXd\& position = \mbox{\hyperlink{namespacetesseract__planning_a48d0e84f52079854d947f2f7f058d7ad}{getJointPosition}}(start\_waypoint);}
-\DoxyCodeLine{345     cur\_plan\_profile-\/>apply(*prob, position, *start\_instruction, composite\_mi, index);}
-\DoxyCodeLine{346   \}}
-\DoxyCodeLine{347   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{348   \{}
-\DoxyCodeLine{349     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type."{}});}
-\DoxyCodeLine{350   \}}
-\DoxyCodeLine{351 }
-\DoxyCodeLine{352   ++index;}
-\DoxyCodeLine{353 }
-\DoxyCodeLine{354   \textcolor{comment}{// Transform plan instructions into descartes samplers}}
-\DoxyCodeLine{355   \textcolor{keywordflow}{for} (std::size\_t i = start\_index; i < instructions\_flat.size(); ++i)}
-\DoxyCodeLine{356   \{}
-\DoxyCodeLine{357     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& instruction = instructions\_flat[i].get();}
-\DoxyCodeLine{358     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(instruction))}
-\DoxyCodeLine{359     \{}
-\DoxyCodeLine{360       assert(\mbox{\hyperlink{namespacetesseract__planning_a2a1d26a1924d6b53c23630143a579436}{isMoveInstruction}}(instruction));}
-\DoxyCodeLine{361       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& plan\_instruction = instruction.template as<MoveInstruction>();}
+\DoxyCodeLine{343     \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type."{}});}
+\DoxyCodeLine{344   \}}
+\DoxyCodeLine{345 }
+\DoxyCodeLine{346   ++index;}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{348   \textcolor{comment}{// Transform plan instructions into descartes samplers}}
+\DoxyCodeLine{349   \textcolor{keywordflow}{for} (std::size\_t i = start\_index; i < instructions\_flat.size(); ++i)}
+\DoxyCodeLine{350   \{}
+\DoxyCodeLine{351     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& instruction = instructions\_flat[i].get();}
+\DoxyCodeLine{352     \textcolor{keywordflow}{if} (instruction.isMoveInstruction())}
+\DoxyCodeLine{353     \{}
+\DoxyCodeLine{354       assert(instruction.isMoveInstruction());}
+\DoxyCodeLine{355       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& plan\_instruction = instruction.template as<MoveInstructionPoly>();}
+\DoxyCodeLine{356 }
+\DoxyCodeLine{357       \textcolor{comment}{// If plan instruction has manipulator information then use it over the one provided by the composite.}}
+\DoxyCodeLine{358       \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} mi = composite\_mi.getCombined(plan\_instruction.getManipulatorInfo());}
+\DoxyCodeLine{359 }
+\DoxyCodeLine{360       \textcolor{keywordflow}{if} (mi.manipulator.empty())}
+\DoxyCodeLine{361         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, manipulator is empty!"{}});}
 \DoxyCodeLine{362 }
-\DoxyCodeLine{363       \textcolor{comment}{// If plan instruction has manipulator information then use it over the one provided by the composite.}}
-\DoxyCodeLine{364       \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}} mi = composite\_mi.getCombined(plan\_instruction.getManipulatorInfo());}
+\DoxyCodeLine{363       \textcolor{keywordflow}{if} (mi.tcp\_frame.empty())}
+\DoxyCodeLine{364         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, tcp\_frame is empty!"{}});}
 \DoxyCodeLine{365 }
-\DoxyCodeLine{366       \textcolor{keywordflow}{if} (mi.manipulator.empty())}
-\DoxyCodeLine{367         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, manipulator is empty!"{}});}
+\DoxyCodeLine{366       \textcolor{keywordflow}{if} (mi.working\_frame.empty())}
+\DoxyCodeLine{367         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, working\_frame is empty!"{}});}
 \DoxyCodeLine{368 }
-\DoxyCodeLine{369       \textcolor{keywordflow}{if} (mi.tcp\_frame.empty())}
-\DoxyCodeLine{370         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, tcp\_frame is empty!"{}});}
-\DoxyCodeLine{371 }
-\DoxyCodeLine{372       \textcolor{keywordflow}{if} (mi.working\_frame.empty())}
-\DoxyCodeLine{373         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}Descartes, working\_frame is empty!"{}});}
-\DoxyCodeLine{374 }
-\DoxyCodeLine{375       Eigen::Isometry3d tcp\_offset = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}}-\/>findTCPOffset(mi);}
-\DoxyCodeLine{376 }
-\DoxyCodeLine{377       \textcolor{comment}{// The seed should always have a start instruction}}
-\DoxyCodeLine{378       assert(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ae2160219a45049b04b5fdf68bd27e882}{hasStartInstruction}}());}
-\DoxyCodeLine{379       std::size\_t seed\_idx = (start\_index == 0) ? i + 1 : i;}
-\DoxyCodeLine{380       assert(\mbox{\hyperlink{namespacetesseract__planning_af48bb1d750c019e34337ed0a0f88ef76}{isCompositeInstruction}}(seed\_flat[seed\_idx].get()));}
-\DoxyCodeLine{381       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& seed\_composite = seed\_flat[seed\_idx].get().template as<tesseract\_planning::CompositeInstruction>();}
-\DoxyCodeLine{382       \textcolor{keyword}{auto} interpolate\_cnt = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(seed\_composite.size());}
-\DoxyCodeLine{383 }
-\DoxyCodeLine{384       \textcolor{comment}{// Get Plan Profile}}
-\DoxyCodeLine{385       std::string profile = plan\_instruction.getProfile();}
-\DoxyCodeLine{386       profile = \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(name\_, profile, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\_profile\_remapping}});}
-\DoxyCodeLine{387       \textcolor{keyword}{auto} cur\_plan\_profile = getProfile<DescartesPlanProfile<FloatType>>(}
-\DoxyCodeLine{388           name\_, profile, *request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}}, std::make\_shared<DescartesDefaultPlanProfile<FloatType>>());}
-\DoxyCodeLine{389       cur\_plan\_profile = \mbox{\hyperlink{namespacetesseract__planning_abc4e0abb003d616199f38f74bdad6421}{applyProfileOverrides}}(name\_, profile, cur\_plan\_profile, plan\_instruction.profile\_overrides);}
-\DoxyCodeLine{390       \textcolor{keywordflow}{if} (!cur\_plan\_profile)}
-\DoxyCodeLine{391         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: Invalid profile"{}});}
-\DoxyCodeLine{392 }
-\DoxyCodeLine{393       \textcolor{comment}{// Get Plan Path Profile: Default is an empty string}}
-\DoxyCodeLine{394       std::string path\_profile = plan\_instruction.getPathProfile();}
-\DoxyCodeLine{395       path\_profile = \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(name\_, path\_profile, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\_profile\_remapping}}, \textcolor{stringliteral}{"{}"{}});}
-\DoxyCodeLine{396 }
-\DoxyCodeLine{397       \textcolor{keywordflow}{if} (plan\_instruction.isLinear())}
-\DoxyCodeLine{398       \{}
-\DoxyCodeLine{399         \textcolor{keyword}{auto} cur\_path\_plan\_profile = getProfile<DescartesPlanProfile<FloatType>>(}
-\DoxyCodeLine{400             name\_, path\_profile, *request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}}, std::make\_shared<DescartesDefaultPlanProfile<FloatType>>());}
-\DoxyCodeLine{401         cur\_path\_plan\_profile =}
-\DoxyCodeLine{402             \mbox{\hyperlink{namespacetesseract__planning_abc4e0abb003d616199f38f74bdad6421}{applyProfileOverrides}}(name\_, path\_profile, cur\_path\_plan\_profile, plan\_instruction.profile\_overrides);}
-\DoxyCodeLine{403         \textcolor{keywordflow}{if} (!cur\_path\_plan\_profile)}
-\DoxyCodeLine{404           \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: Invalid transition profile"{}});}
+\DoxyCodeLine{369       Eigen::Isometry3d tcp\_offset = request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a2808ed97d04b1681ec4b5b7c5b3155f0}{env}}-\/>findTCPOffset(mi);}
+\DoxyCodeLine{370 }
+\DoxyCodeLine{371       \textcolor{comment}{// The seed should always have a start instruction}}
+\DoxyCodeLine{372       assert(request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a610e5a50fcb3b62f94b085072170669f}{seed}}.\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ae2160219a45049b04b5fdf68bd27e882}{hasStartInstruction}}());}
+\DoxyCodeLine{373       std::size\_t seed\_idx = (start\_index == 0) ? i + 1 : i;}
+\DoxyCodeLine{374       assert(seed\_flat[seed\_idx].get().isCompositeInstruction());}
+\DoxyCodeLine{375       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& seed\_composite = seed\_flat[seed\_idx].get().template as<tesseract\_planning::CompositeInstruction>();}
+\DoxyCodeLine{376       \textcolor{keyword}{auto} interpolate\_cnt = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(seed\_composite.size());}
+\DoxyCodeLine{377 }
+\DoxyCodeLine{378       \textcolor{comment}{// Get Plan Profile}}
+\DoxyCodeLine{379       std::string profile = plan\_instruction.getProfile();}
+\DoxyCodeLine{380       profile = \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(name\_, profile, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\_profile\_remapping}});}
+\DoxyCodeLine{381       \textcolor{keyword}{auto} cur\_plan\_profile = getProfile<DescartesPlanProfile<FloatType>>(}
+\DoxyCodeLine{382           name\_, profile, *request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}}, std::make\_shared<DescartesDefaultPlanProfile<FloatType>>());}
+\DoxyCodeLine{383       \textcolor{comment}{//      cur\_plan\_profile = applyProfileOverrides(name\_, profile, cur\_plan\_profile,}}
+\DoxyCodeLine{384       \textcolor{comment}{//      plan\_instruction.profile\_overrides);}}
+\DoxyCodeLine{385       \textcolor{keywordflow}{if} (!cur\_plan\_profile)}
+\DoxyCodeLine{386         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: Invalid profile"{}});}
+\DoxyCodeLine{387 }
+\DoxyCodeLine{388       \textcolor{comment}{// Get Plan Path Profile: Default is an empty string}}
+\DoxyCodeLine{389       std::string path\_profile = plan\_instruction.getPathProfile();}
+\DoxyCodeLine{390       path\_profile = \mbox{\hyperlink{namespacetesseract__planning_a4c2dd8bf456bf47e36e6777ac7f3e513}{getProfileString}}(name\_, path\_profile, request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_ae5b187f9c9a824bda4236bfe61b454af}{plan\_profile\_remapping}}, \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{391 }
+\DoxyCodeLine{392       \textcolor{keywordflow}{if} (plan\_instruction.isLinear())}
+\DoxyCodeLine{393       \{}
+\DoxyCodeLine{394         \textcolor{keyword}{auto} cur\_path\_plan\_profile = getProfile<DescartesPlanProfile<FloatType>>(}
+\DoxyCodeLine{395             name\_, path\_profile, *request.\mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest_a404ef354039b6f99003a026f71a4cbc1}{profiles}}, std::make\_shared<DescartesDefaultPlanProfile<FloatType>>());}
+\DoxyCodeLine{396         \textcolor{comment}{//        cur\_path\_plan\_profile =}}
+\DoxyCodeLine{397         \textcolor{comment}{//            applyProfileOverrides(name\_, path\_profile, cur\_path\_plan\_profile,}}
+\DoxyCodeLine{398         \textcolor{comment}{//            plan\_instruction.profile\_overrides);}}
+\DoxyCodeLine{399         \textcolor{keywordflow}{if} (!cur\_path\_plan\_profile)}
+\DoxyCodeLine{400           \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: Invalid transition profile"{}});}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{402         \textcolor{keywordflow}{if} (plan\_instruction.getWaypoint().isCartesianWaypoint())}
+\DoxyCodeLine{403         \{}
+\DoxyCodeLine{404           \textcolor{keyword}{const} \textcolor{keyword}{auto}\& cur\_wp = plan\_instruction.getWaypoint().template as<CartesianWaypointPoly>();}
 \DoxyCodeLine{405 }
-\DoxyCodeLine{406         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_aa1979ee1643c64f94a0fca7bc64dd455}{isCartesianWaypoint}}(plan\_instruction.getWaypoint()))}
-\DoxyCodeLine{407         \{}
-\DoxyCodeLine{408           \textcolor{keyword}{const} \textcolor{keyword}{auto}\& cur\_wp = plan\_instruction.getWaypoint().template as<tesseract\_planning::CartesianWaypoint>();}
-\DoxyCodeLine{409 }
-\DoxyCodeLine{410           Eigen::Isometry3d prev\_pose = Eigen::Isometry3d::Identity();}
-\DoxyCodeLine{411           \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_aa1979ee1643c64f94a0fca7bc64dd455}{isCartesianWaypoint}}(start\_waypoint))}
+\DoxyCodeLine{406           Eigen::Isometry3d prev\_pose = Eigen::Isometry3d::Identity();}
+\DoxyCodeLine{407           \textcolor{keywordflow}{if} (start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a5bdd55b987aed7b278dbe18d25d1d5df}{isCartesianWaypoint}}())}
+\DoxyCodeLine{408           \{}
+\DoxyCodeLine{409             prev\_pose = start\_waypoint.as<\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}}>().getTransform();}
+\DoxyCodeLine{410           \}}
+\DoxyCodeLine{411           \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a1f3162cac3fcc5193945d491e8e8c857}{isJointWaypoint}}() || start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a9b17e1e86fa4e6ae5e1c5d75d1c4313c}{isStateWaypoint}}())}
 \DoxyCodeLine{412           \{}
-\DoxyCodeLine{413             prev\_pose = start\_waypoint.as<\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}>().waypoint;}
-\DoxyCodeLine{414           \}}
-\DoxyCodeLine{415           \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_ac2bb55bed2473cb51b560386fdc27f0d}{isJointWaypoint}}(start\_waypoint) || \mbox{\hyperlink{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}{isStateWaypoint}}(start\_waypoint))}
-\DoxyCodeLine{416           \{}
-\DoxyCodeLine{417             assert(\mbox{\hyperlink{namespacetesseract__planning_aabbbd76f430add29f5caf0582fe6df6e}{checkJointPositionFormat}}(joint\_names, start\_waypoint));}
-\DoxyCodeLine{418             \textcolor{keyword}{const} Eigen::VectorXd\& position = \mbox{\hyperlink{namespacetesseract__planning_a48d0e84f52079854d947f2f7f058d7ad}{getJointPosition}}(start\_waypoint);}
-\DoxyCodeLine{419             prev\_pose = prob-\/>manip-\/>calcFwdKin(position)[mi.tcp\_frame] * tcp\_offset;}
+\DoxyCodeLine{413             assert(\mbox{\hyperlink{namespacetesseract__planning_a000daf954599df6eb5aa5ffa51ccdeff}{checkJointPositionFormat}}(joint\_names, start\_waypoint));}
+\DoxyCodeLine{414             \textcolor{keyword}{const} Eigen::VectorXd\& position = \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{getJointPosition}}(start\_waypoint);}
+\DoxyCodeLine{415             prev\_pose = prob-\/>manip-\/>calcFwdKin(position)[mi.tcp\_frame] * tcp\_offset;}
+\DoxyCodeLine{416           \}}
+\DoxyCodeLine{417           \textcolor{keywordflow}{else}}
+\DoxyCodeLine{418           \{}
+\DoxyCodeLine{419             \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type."{}});}
 \DoxyCodeLine{420           \}}
-\DoxyCodeLine{421           \textcolor{keywordflow}{else}}
-\DoxyCodeLine{422           \{}
-\DoxyCodeLine{423             \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type."{}});}
-\DoxyCodeLine{424           \}}
-\DoxyCodeLine{425 }
-\DoxyCodeLine{426           tesseract\_common::VectorIsometry3d poses = \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(prev\_pose, cur\_wp, interpolate\_cnt);}
-\DoxyCodeLine{427           \textcolor{comment}{// Add intermediate points with path costs and constraints}}
-\DoxyCodeLine{428           \textcolor{keywordflow}{for} (std::size\_t p = 1; p < poses.size() -\/ 1; ++p)}
-\DoxyCodeLine{429           \{}
-\DoxyCodeLine{430             cur\_path\_plan\_profile-\/>apply(*prob, poses[p], plan\_instruction, composite\_mi, index);}
-\DoxyCodeLine{431 }
-\DoxyCodeLine{432             ++index;}
-\DoxyCodeLine{433           \}}
-\DoxyCodeLine{434 }
-\DoxyCodeLine{435           \textcolor{comment}{// Add final point with waypoint}}
-\DoxyCodeLine{436           cur\_plan\_profile-\/>apply(*prob, cur\_wp, plan\_instruction, composite\_mi, index);}
-\DoxyCodeLine{437 }
-\DoxyCodeLine{438           ++index;}
-\DoxyCodeLine{439         \}}
-\DoxyCodeLine{440         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_ac2bb55bed2473cb51b560386fdc27f0d}{isJointWaypoint}}(plan\_instruction.getWaypoint()) || \mbox{\hyperlink{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}{isStateWaypoint}}(plan\_instruction.getWaypoint()))}
-\DoxyCodeLine{441         \{}
-\DoxyCodeLine{442           assert(\mbox{\hyperlink{namespacetesseract__planning_aabbbd76f430add29f5caf0582fe6df6e}{checkJointPositionFormat}}(joint\_names, plan\_instruction.getWaypoint()));}
-\DoxyCodeLine{443           \textcolor{keyword}{const} Eigen::VectorXd\& cur\_position = \mbox{\hyperlink{namespacetesseract__planning_a48d0e84f52079854d947f2f7f058d7ad}{getJointPosition}}(plan\_instruction.getWaypoint());}
-\DoxyCodeLine{444           Eigen::Isometry3d cur\_pose = prob-\/>manip-\/>calcFwdKin(cur\_position)[mi.tcp\_frame] * tcp\_offset;}
-\DoxyCodeLine{445 }
-\DoxyCodeLine{446           Eigen::Isometry3d prev\_pose = Eigen::Isometry3d::Identity();}
-\DoxyCodeLine{447           \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_aa1979ee1643c64f94a0fca7bc64dd455}{isCartesianWaypoint}}(start\_waypoint))}
+\DoxyCodeLine{421 }
+\DoxyCodeLine{422           tesseract\_common::VectorIsometry3d poses = \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(prev\_pose, cur\_wp.getTransform(), interpolate\_cnt);}
+\DoxyCodeLine{423           \textcolor{comment}{// Add intermediate points with path costs and constraints}}
+\DoxyCodeLine{424           \textcolor{keywordflow}{for} (std::size\_t p = 1; p < poses.size() -\/ 1; ++p)}
+\DoxyCodeLine{425           \{}
+\DoxyCodeLine{426             cur\_path\_plan\_profile-\/>apply(*prob, poses[p], plan\_instruction, composite\_mi, index);}
+\DoxyCodeLine{427 }
+\DoxyCodeLine{428             ++index;}
+\DoxyCodeLine{429           \}}
+\DoxyCodeLine{430 }
+\DoxyCodeLine{431           \textcolor{comment}{// Add final point with waypoint}}
+\DoxyCodeLine{432           cur\_plan\_profile-\/>apply(*prob, cur\_wp.getTransform(), plan\_instruction, composite\_mi, index);}
+\DoxyCodeLine{433 }
+\DoxyCodeLine{434           ++index;}
+\DoxyCodeLine{435         \}}
+\DoxyCodeLine{436         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (plan\_instruction.getWaypoint().isJointWaypoint() || plan\_instruction.getWaypoint().isStateWaypoint())}
+\DoxyCodeLine{437         \{}
+\DoxyCodeLine{438           assert(\mbox{\hyperlink{namespacetesseract__planning_a000daf954599df6eb5aa5ffa51ccdeff}{checkJointPositionFormat}}(joint\_names, plan\_instruction.getWaypoint()));}
+\DoxyCodeLine{439           \textcolor{keyword}{const} Eigen::VectorXd\& cur\_position = \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{getJointPosition}}(plan\_instruction.getWaypoint());}
+\DoxyCodeLine{440           Eigen::Isometry3d cur\_pose = prob-\/>manip-\/>calcFwdKin(cur\_position)[mi.tcp\_frame] * tcp\_offset;}
+\DoxyCodeLine{441 }
+\DoxyCodeLine{442           Eigen::Isometry3d prev\_pose = Eigen::Isometry3d::Identity();}
+\DoxyCodeLine{443           \textcolor{keywordflow}{if} (start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a5bdd55b987aed7b278dbe18d25d1d5df}{isCartesianWaypoint}}())}
+\DoxyCodeLine{444           \{}
+\DoxyCodeLine{445             prev\_pose = start\_waypoint.as<\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}}>().getTransform();}
+\DoxyCodeLine{446           \}}
+\DoxyCodeLine{447           \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a1f3162cac3fcc5193945d491e8e8c857}{isJointWaypoint}}() || start\_waypoint.\mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly_a9b17e1e86fa4e6ae5e1c5d75d1c4313c}{isStateWaypoint}}())}
 \DoxyCodeLine{448           \{}
-\DoxyCodeLine{449             prev\_pose = start\_waypoint.as<\mbox{\hyperlink{classtesseract__planning_1_1CartesianWaypoint}{CartesianWaypoint}}>().waypoint;}
-\DoxyCodeLine{450           \}}
-\DoxyCodeLine{451           \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_ac2bb55bed2473cb51b560386fdc27f0d}{isJointWaypoint}}(start\_waypoint) || \mbox{\hyperlink{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}{isStateWaypoint}}(start\_waypoint))}
-\DoxyCodeLine{452           \{}
-\DoxyCodeLine{453             assert(\mbox{\hyperlink{namespacetesseract__planning_aabbbd76f430add29f5caf0582fe6df6e}{checkJointPositionFormat}}(joint\_names, start\_waypoint));}
-\DoxyCodeLine{454             \textcolor{keyword}{const} Eigen::VectorXd\& position = \mbox{\hyperlink{namespacetesseract__planning_a48d0e84f52079854d947f2f7f058d7ad}{getJointPosition}}(start\_waypoint);}
-\DoxyCodeLine{455             prev\_pose = prob-\/>manip-\/>calcFwdKin(position)[mi.tcp\_frame] * tcp\_offset;}
+\DoxyCodeLine{449             assert(\mbox{\hyperlink{namespacetesseract__planning_a000daf954599df6eb5aa5ffa51ccdeff}{checkJointPositionFormat}}(joint\_names, start\_waypoint));}
+\DoxyCodeLine{450             \textcolor{keyword}{const} Eigen::VectorXd\& position = \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{getJointPosition}}(start\_waypoint);}
+\DoxyCodeLine{451             prev\_pose = prob-\/>manip-\/>calcFwdKin(position)[mi.tcp\_frame] * tcp\_offset;}
+\DoxyCodeLine{452           \}}
+\DoxyCodeLine{453           \textcolor{keywordflow}{else}}
+\DoxyCodeLine{454           \{}
+\DoxyCodeLine{455             \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type."{}});}
 \DoxyCodeLine{456           \}}
-\DoxyCodeLine{457           \textcolor{keywordflow}{else}}
-\DoxyCodeLine{458           \{}
-\DoxyCodeLine{459             \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type."{}});}
-\DoxyCodeLine{460           \}}
-\DoxyCodeLine{461 }
-\DoxyCodeLine{462           tesseract\_common::VectorIsometry3d poses = \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(prev\_pose, cur\_pose, interpolate\_cnt);}
-\DoxyCodeLine{463           \textcolor{comment}{// Add intermediate points with path costs and constraints}}
-\DoxyCodeLine{464           \textcolor{keywordflow}{for} (std::size\_t p = 1; p < poses.size() -\/ 1; ++p)}
-\DoxyCodeLine{465           \{}
-\DoxyCodeLine{466             cur\_path\_plan\_profile-\/>apply(*prob, poses[p], plan\_instruction, composite\_mi, index);}
-\DoxyCodeLine{467 }
-\DoxyCodeLine{468             ++index;}
-\DoxyCodeLine{469           \}}
-\DoxyCodeLine{470 }
-\DoxyCodeLine{471           \textcolor{comment}{// Add final point with waypoint}}
-\DoxyCodeLine{472           cur\_plan\_profile-\/>apply(*prob, cur\_position, plan\_instruction, composite\_mi, index);}
-\DoxyCodeLine{473 }
-\DoxyCodeLine{474           ++index;}
+\DoxyCodeLine{457 }
+\DoxyCodeLine{458           tesseract\_common::VectorIsometry3d poses = \mbox{\hyperlink{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}{interpolate}}(prev\_pose, cur\_pose, interpolate\_cnt);}
+\DoxyCodeLine{459           \textcolor{comment}{// Add intermediate points with path costs and constraints}}
+\DoxyCodeLine{460           \textcolor{keywordflow}{for} (std::size\_t p = 1; p < poses.size() -\/ 1; ++p)}
+\DoxyCodeLine{461           \{}
+\DoxyCodeLine{462             cur\_path\_plan\_profile-\/>apply(*prob, poses[p], plan\_instruction, composite\_mi, index);}
+\DoxyCodeLine{463 }
+\DoxyCodeLine{464             ++index;}
+\DoxyCodeLine{465           \}}
+\DoxyCodeLine{466 }
+\DoxyCodeLine{467           \textcolor{comment}{// Add final point with waypoint}}
+\DoxyCodeLine{468           cur\_plan\_profile-\/>apply(*prob, cur\_position, plan\_instruction, composite\_mi, index);}
+\DoxyCodeLine{469 }
+\DoxyCodeLine{470           ++index;}
+\DoxyCodeLine{471         \}}
+\DoxyCodeLine{472         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{473         \{}
+\DoxyCodeLine{474           \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type"{}});}
 \DoxyCodeLine{475         \}}
-\DoxyCodeLine{476         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{477         \{}
-\DoxyCodeLine{478           \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type"{}});}
-\DoxyCodeLine{479         \}}
-\DoxyCodeLine{480       \}}
-\DoxyCodeLine{481       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (plan\_instruction.isFreespace())}
-\DoxyCodeLine{482       \{}
-\DoxyCodeLine{483         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_ac2bb55bed2473cb51b560386fdc27f0d}{isJointWaypoint}}(plan\_instruction.getWaypoint()) || \mbox{\hyperlink{namespacetesseract__planning_aa10501c754ee26532985c02677b4d12d}{isStateWaypoint}}(plan\_instruction.getWaypoint()))}
-\DoxyCodeLine{484         \{}
-\DoxyCodeLine{485           assert(\mbox{\hyperlink{namespacetesseract__planning_aabbbd76f430add29f5caf0582fe6df6e}{checkJointPositionFormat}}(joint\_names, plan\_instruction.getWaypoint()));}
-\DoxyCodeLine{486           \textcolor{keyword}{const} Eigen::VectorXd\& cur\_position = \mbox{\hyperlink{namespacetesseract__planning_a48d0e84f52079854d947f2f7f058d7ad}{getJointPosition}}(plan\_instruction.getWaypoint());}
+\DoxyCodeLine{476       \}}
+\DoxyCodeLine{477       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (plan\_instruction.isFreespace())}
+\DoxyCodeLine{478       \{}
+\DoxyCodeLine{479         \textcolor{keywordflow}{if} (plan\_instruction.getWaypoint().isJointWaypoint() || plan\_instruction.getWaypoint().isStateWaypoint())}
+\DoxyCodeLine{480         \{}
+\DoxyCodeLine{481           assert(\mbox{\hyperlink{namespacetesseract__planning_a000daf954599df6eb5aa5ffa51ccdeff}{checkJointPositionFormat}}(joint\_names, plan\_instruction.getWaypoint()));}
+\DoxyCodeLine{482           \textcolor{keyword}{const} Eigen::VectorXd\& cur\_position = \mbox{\hyperlink{namespacetesseract__planning_a49306b610c951ca98df499be491a51c0}{getJointPosition}}(plan\_instruction.getWaypoint());}
+\DoxyCodeLine{483 }
+\DoxyCodeLine{484           \textcolor{comment}{// Descartes does not support freespace so it will only include the plan instruction state, then in}}
+\DoxyCodeLine{485           \textcolor{comment}{// post processing function will perform interpolation to fill out the seed, but may be in collision.}}
+\DoxyCodeLine{486           \textcolor{comment}{// Usually this is only requested when it is being provided as a seed to a planner like trajopt.}}
 \DoxyCodeLine{487 }
-\DoxyCodeLine{488           \textcolor{comment}{// Descartes does not support freespace so it will only include the plan instruction state, then in}}
-\DoxyCodeLine{489           \textcolor{comment}{// post processing function will perform interpolation to fill out the seed, but may be in collision.}}
-\DoxyCodeLine{490           \textcolor{comment}{// Usually this is only requested when it is being provided as a seed to a planner like trajopt.}}
+\DoxyCodeLine{488           \textcolor{comment}{// Add final point with waypoint costs and constraints}}
+\DoxyCodeLine{490 \textcolor{comment}{}          cur\_plan\_profile-\/>apply(*prob, cur\_position, plan\_instruction, composite\_mi, index);}
 \DoxyCodeLine{491 }
-\DoxyCodeLine{492           \textcolor{comment}{// Add final point with waypoint costs and constraints}}
-\DoxyCodeLine{494 \textcolor{comment}{}          cur\_plan\_profile-\/>apply(*prob, cur\_position, plan\_instruction, composite\_mi, index);}
-\DoxyCodeLine{495 }
-\DoxyCodeLine{496           ++index;}
-\DoxyCodeLine{497         \}}
-\DoxyCodeLine{498         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacetesseract__planning_aa1979ee1643c64f94a0fca7bc64dd455}{isCartesianWaypoint}}(plan\_instruction.getWaypoint()))}
-\DoxyCodeLine{499         \{}
-\DoxyCodeLine{500           \textcolor{keyword}{const} \textcolor{keyword}{auto}\& cur\_wp = plan\_instruction.getWaypoint().template as<tesseract\_planning::CartesianWaypoint>();}
+\DoxyCodeLine{492           ++index;}
+\DoxyCodeLine{493         \}}
+\DoxyCodeLine{494         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (plan\_instruction.getWaypoint().isCartesianWaypoint())}
+\DoxyCodeLine{495         \{}
+\DoxyCodeLine{496           \textcolor{keyword}{const} \textcolor{keyword}{auto}\& cur\_wp = plan\_instruction.getWaypoint().template as<CartesianWaypointPoly>();}
+\DoxyCodeLine{497 }
+\DoxyCodeLine{498           \textcolor{comment}{// Descartes does not support freespace so it will only include the plan instruction state, then in}}
+\DoxyCodeLine{499           \textcolor{comment}{// post processing function will perform interpolation to fill out the seed, but may be in collision.}}
+\DoxyCodeLine{500           \textcolor{comment}{// Usually this is only requested when it is being provided as a seed to a planner like trajopt.}}
 \DoxyCodeLine{501 }
-\DoxyCodeLine{502           \textcolor{comment}{// Descartes does not support freespace so it will only include the plan instruction state, then in}}
-\DoxyCodeLine{503           \textcolor{comment}{// post processing function will perform interpolation to fill out the seed, but may be in collision.}}
-\DoxyCodeLine{504           \textcolor{comment}{// Usually this is only requested when it is being provided as a seed to a planner like trajopt.}}
+\DoxyCodeLine{502           \textcolor{comment}{// Add final point with waypoint costs and constraints}}
+\DoxyCodeLine{504 \textcolor{comment}{}          cur\_plan\_profile-\/>apply(*prob, cur\_wp.getTransform(), plan\_instruction, composite\_mi, index);}
 \DoxyCodeLine{505 }
-\DoxyCodeLine{506           \textcolor{comment}{// Add final point with waypoint costs and constraints}}
-\DoxyCodeLine{508 \textcolor{comment}{}          cur\_plan\_profile-\/>apply(*prob, cur\_wp, plan\_instruction, composite\_mi, index);}
-\DoxyCodeLine{509 }
-\DoxyCodeLine{510           ++index;}
+\DoxyCodeLine{506           ++index;}
+\DoxyCodeLine{507         \}}
+\DoxyCodeLine{508         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{509         \{}
+\DoxyCodeLine{510           \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type"{}});}
 \DoxyCodeLine{511         \}}
-\DoxyCodeLine{512         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{513         \{}
-\DoxyCodeLine{514           \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: unknown waypoint type"{}});}
-\DoxyCodeLine{515         \}}
+\DoxyCodeLine{512       \}}
+\DoxyCodeLine{513       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{514       \{}
+\DoxyCodeLine{515         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: Unsupported!"{}});}
 \DoxyCodeLine{516       \}}
-\DoxyCodeLine{517       \textcolor{keywordflow}{else}}
-\DoxyCodeLine{518       \{}
-\DoxyCodeLine{519         \textcolor{keywordflow}{throw} std::runtime\_error(\textcolor{stringliteral}{"{}DescartesMotionPlannerConfig: Unsupported!"{}});}
-\DoxyCodeLine{520       \}}
-\DoxyCodeLine{521 }
-\DoxyCodeLine{522       start\_waypoint = plan\_instruction.getWaypoint();}
-\DoxyCodeLine{523       start\_instruction = \&instruction;}
-\DoxyCodeLine{524     \}}
-\DoxyCodeLine{525   \}}
+\DoxyCodeLine{517 }
+\DoxyCodeLine{518       start\_waypoint = plan\_instruction.getWaypoint();}
+\DoxyCodeLine{519       start\_instruction = \&plan\_instruction;}
+\DoxyCodeLine{520     \}}
+\DoxyCodeLine{521   \}}
+\DoxyCodeLine{522 }
+\DoxyCodeLine{523   \textcolor{comment}{// Call the base class generate which checks the problem to make sure everything is in order}}
+\DoxyCodeLine{524   \textcolor{keywordflow}{return} prob;}
+\DoxyCodeLine{525 \}}
 \DoxyCodeLine{526 }
-\DoxyCodeLine{527   \textcolor{comment}{// Call the base class generate which checks the problem to make sure everything is in order}}
-\DoxyCodeLine{528   \textcolor{keywordflow}{return} prob;}
-\DoxyCodeLine{529 \}}
-\DoxyCodeLine{530 }
-\DoxyCodeLine{531 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{532 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_IMPL\_DESCARTES\_DECARTES\_MOTION\_PLANNER\_HPP}}
+\DoxyCodeLine{527 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{528 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_IMPL\_DESCARTES\_DECARTES\_MOTION\_PLANNER\_HPP}}
 
 \end{DoxyCode}
