@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/taskflow_generators/raster_only_global_taskflow.h>
 
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
@@ -179,7 +178,7 @@ bool RasterOnlyGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInpu
 
   // Check the overall input
   const InstructionPoly* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
+  if (!input_instruction->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
@@ -197,7 +196,7 @@ bool RasterOnlyGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInpu
   for (const auto& c : composite)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(c))
+    if (!c.isCompositeInstruction())
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;

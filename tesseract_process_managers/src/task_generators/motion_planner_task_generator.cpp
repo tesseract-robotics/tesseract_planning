@@ -56,7 +56,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   // Check that inputs are valid
   // --------------------
   const InstructionPoly* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
+  if (!input_instruction->isCompositeInstruction())
   {
     info->message = "Input instructions to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
@@ -67,7 +67,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   }
 
   InstructionPoly* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  if (!input_results->isCompositeInstruction())
   {
     info->message = "Input seed to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
@@ -89,7 +89,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   if (!start_instruction.isNullInstruction())
   {
     // add start
-    if (isCompositeInstruction(start_instruction))
+    if (start_instruction.isCompositeInstruction())
     {
       // if provided a composite instruction as the start instruction it will extract the last move instruction
       const auto& ci = start_instruction.as<CompositeInstruction>();
@@ -111,7 +111,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   if (!end_instruction.isNullInstruction())
   {
     // add end
-    if (isCompositeInstruction(end_instruction))
+    if (end_instruction.isCompositeInstruction())
     {
       // if provided a composite instruction as the end instruction it will extract the first move instruction
       const auto& ci = end_instruction.as<CompositeInstruction>();

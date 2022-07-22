@@ -163,7 +163,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
       else if (plan_instruction.isLinear())
       {
         // This instruction corresponds to a composite. Set all results in that composite to the results
-        assert(isCompositeInstruction(results_flattened[idx].get()));
+        assert(results_flattened[idx].get().isCompositeInstruction());
         auto& move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
         for (auto& instruction : move_instructions)
         {
@@ -181,7 +181,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         Eigen::VectorXd& stop = solution[result_index++];
 
         // This instruction corresponds to a composite. Set all results in that composite to the results
-        assert(isCompositeInstruction(results_flattened[idx].get()));
+        assert(results_flattened[idx].get().isCompositeInstruction());
         auto& move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
 
         Eigen::MatrixXd temp = interpolate(start, stop, static_cast<int>(move_instructions.size()));
@@ -371,7 +371,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       // The seed should always have a start instruction
       assert(request.seed.hasStartInstruction());
       std::size_t seed_idx = (start_index == 0) ? i + 1 : i;
-      assert(isCompositeInstruction(seed_flat[seed_idx].get()));
+      assert(seed_flat[seed_idx].get().isCompositeInstruction());
       const auto& seed_composite = seed_flat[seed_idx].get().template as<tesseract_planning::CompositeInstruction>();
       auto interpolate_cnt = static_cast<int>(seed_composite.size());
 

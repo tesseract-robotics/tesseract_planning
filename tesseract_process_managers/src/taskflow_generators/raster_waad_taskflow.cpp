@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/taskflow_generators/raster_waad_taskflow.h>
 
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
@@ -72,7 +71,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
   for (std::size_t idx = 1; idx < input.size() - 1; idx += 2)
   {
     // Get the last plan instruction of the approach
-    assert(isCompositeInstruction(*(input[idx][0].getInstruction())));
+    assert(input[idx][0].getInstruction()->isCompositeInstruction());
     const auto& aci = input[idx][0].getInstruction()->as<CompositeInstruction>();
     const auto* ali = aci.getLastMoveInstruction();
     assert(ali != nullptr);
@@ -105,7 +104,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
     MoveInstructionPoly start_instruction;
     if (idx == 1)
     {
-      assert(isCompositeInstruction(*(input[0].getInstruction())));
+      assert(input[0].getInstruction()->isCompositeInstruction());
       const auto& ci = input[0].getInstruction()->as<CompositeInstruction>();
       const auto* li = ci.getLastMoveInstruction();
       assert(li != nullptr);
@@ -113,7 +112,7 @@ TaskflowContainer RasterWAADTaskflow::generateTaskflow(TaskInput input, Taskflow
     }
     else
     {
-      assert(isCompositeInstruction(*(input[idx - 1].getInstruction())));
+      assert(input[idx - 1].getInstruction()->isCompositeInstruction());
       const auto& tci = input[idx - 1].getInstruction()->as<CompositeInstruction>();
       const auto* li = tci.getLastMoveInstruction();
       assert(li != nullptr);
@@ -211,7 +210,7 @@ bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
 
   // Check the overall input
   const InstructionPoly* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
+  if (!input_instruction->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
@@ -226,7 +225,7 @@ bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
   }
 
   // Check from_start
-  if (!isCompositeInstruction(composite.at(0)))
+  if (!composite.at(0).isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: from_start should be a composite");
     return false;
@@ -236,7 +235,7 @@ bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
   for (std::size_t index = 1; index < composite.size() - 1; index++)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(composite.at(index)))
+    if (!composite.at(index).isCompositeInstruction())
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;
@@ -255,21 +254,21 @@ bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
         return false;
       }
       // The approach should be a composite
-      if (!isCompositeInstruction(step.at(0)))
+      if (!step.at(0).isCompositeInstruction())
       {
         CONSOLE_BRIDGE_logError("TaskInput Invalid: The raster approach should be a composite");
         return false;
       }
 
       // The process should be a composite
-      if (!isCompositeInstruction(step.at(1)))
+      if (!step.at(1).isCompositeInstruction())
       {
         CONSOLE_BRIDGE_logError("TaskInput Invalid: The process should be a composite");
         return false;
       }
 
       // The departure should be a composite
-      if (!isCompositeInstruction(step.at(2)))
+      if (!step.at(2).isCompositeInstruction())
       {
         CONSOLE_BRIDGE_logError("TaskInput Invalid: The departure should be a composite");
         return false;
@@ -278,7 +277,7 @@ bool RasterWAADTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
   }
 
   // Check to_end
-  if (!isCompositeInstruction(composite.back()))
+  if (!composite.back().isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: to_end should be a composite");
     return false;

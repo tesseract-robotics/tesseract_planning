@@ -28,7 +28,6 @@
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
-#include <tesseract_command_language/instruction_type.h>
 
 #include <trajopt_ifopt/trajopt_ifopt.h>
 #include <trajopt_ifopt/utils/ifopt_utils.h>

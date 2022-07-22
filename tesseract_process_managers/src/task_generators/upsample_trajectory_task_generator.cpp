@@ -53,7 +53,7 @@ int UpsampleTrajectoryTaskGenerator::conditionalProcess(TaskInput input, std::si
 
   // Check that inputs are valid
   InstructionPoly* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  if (!input_results->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("Input seed to UpsampleTrajectoryTaskGenerator must be a composite instruction");
     saveOutputs(*info, input);
@@ -99,7 +99,7 @@ void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
   for (const InstructionPoly& i : current_composite)
   {
     assert(!i.isMoveInstruction());
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       const auto& cc = i.as<CompositeInstruction>();
       CompositeInstruction new_cc(cc);

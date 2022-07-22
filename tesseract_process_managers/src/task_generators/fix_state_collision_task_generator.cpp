@@ -316,7 +316,7 @@ int FixStateCollisionTaskGenerator::conditionalProcess(TaskInput input, std::siz
   // Check that inputs are valid
   // --------------------
   const InstructionPoly* input_intruction = input.getInstruction();
-  if (!isCompositeInstruction(*(input_intruction)))
+  if (!input_intruction->isCompositeInstruction())
   {
     info->message = "Input seed to FixStateCollision must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());

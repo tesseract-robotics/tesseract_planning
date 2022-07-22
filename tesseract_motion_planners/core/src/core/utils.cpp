@@ -87,7 +87,7 @@ tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction, const 
 
   tesseract_scene_graph::StateSolver::UPtr state_solver = env.getStateSolver();
   tesseract_scene_graph::SceneState state = env.getState();
-  if (isCompositeInstruction(instruction))
+  if (instruction.isCompositeInstruction())
   {
     const auto& ci = instruction.as<CompositeInstruction>();
 
@@ -246,7 +246,7 @@ bool programFlattenFilter(const InstructionPoly& instruction,
     if (instruction.as<MoveInstructionPoly>().isStart())
       return (parent_is_first_composite);
   }
-  else if (isCompositeInstruction(instruction))
+  else if (instruction.isCompositeInstruction())
   {
     return false;
   }
@@ -602,7 +602,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
   std::vector<std::string> group_joint_names;
   for (auto& i : composite_instructions)
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       generateNaiveSeedHelper(i.as<CompositeInstruction>(), env, state, manip_info, manip_joint_names);
     }
@@ -741,7 +741,7 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
   bool format_required = false;
   for (auto& i : composite_instructions)
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       if (formatProgramHelper(i.as<CompositeInstruction>(), env, manip_info, manip_joint_names))
         format_required = true;

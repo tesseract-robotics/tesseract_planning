@@ -451,7 +451,7 @@ std::shared_ptr<TrajOptIfoptProblem> TrajOptIfoptMotionPlanner::createProblem(co
 
       Eigen::Isometry3d tcp_offset = request.env->findTCPOffset(mi);
 
-      assert(isCompositeInstruction(seed_flat_pattern[i].get()));
+      assert(seed_flat_pattern[i].get().isCompositeInstruction());
       const auto& seed_composite = seed_flat_pattern[i].get().as<tesseract_planning::CompositeInstruction>();
       auto interpolate_cnt = static_cast<int>(seed_composite.size());
 

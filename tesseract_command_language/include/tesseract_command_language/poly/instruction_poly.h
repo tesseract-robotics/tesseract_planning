@@ -163,6 +163,8 @@ struct InstructionPoly : InstructionPolyBase
 
   void print(const std::string& prefix = "") const;
 
+  bool isCompositeInstruction() const;
+
   bool isMoveInstruction() const;
 
   bool isNullInstruction() const;

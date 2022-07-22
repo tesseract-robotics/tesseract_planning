@@ -61,7 +61,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   // Check that inputs are valid
   // --------------------
   InstructionPoly* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  if (!input_results->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("Input results to iterative spline parameterization must be a composite instruction");
     saveOutputs(*info, input);

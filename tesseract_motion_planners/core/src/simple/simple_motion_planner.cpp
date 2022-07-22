@@ -217,7 +217,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
   {
     const auto& instruction = instructions[i];
 
-    if (isCompositeInstruction(instruction))
+    if (instruction.isCompositeInstruction())
     {
       seed.push_back(
           processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, prev_seed, request));
