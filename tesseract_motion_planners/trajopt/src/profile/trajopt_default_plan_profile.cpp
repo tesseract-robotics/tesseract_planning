@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
-#include <tesseract_command_language/instruction_type.h>
 
 namespace tesseract_planning
 {

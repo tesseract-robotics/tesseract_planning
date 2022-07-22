@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/taskflow_generators/raster_dt_taskflow.h>
 
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 
@@ -75,7 +74,7 @@ TaskflowContainer RasterDTTaskflow::generateTaskflow(TaskInput input, TaskflowVo
     InstructionPoly start_instruction;
     if (idx == 1)
     {
-      assert(isCompositeInstruction(*(input[0].getInstruction())));
+      assert(input[0].getInstruction()->isCompositeInstruction());
       const auto& ci = input[0].getInstruction()->as<CompositeInstruction>();
       const auto* li = ci.getLastMoveInstruction();
       assert(li != nullptr);
@@ -83,9 +82,9 @@ TaskflowContainer RasterDTTaskflow::generateTaskflow(TaskInput input, TaskflowVo
     }
     else
     {
-      assert(isCompositeInstruction(*(input[idx - 1].getInstruction())));
+      assert(input[idx - 1].getInstruction()->isCompositeInstruction());
       const auto& tci = input[idx - 1].getInstruction()->as<CompositeInstruction>();
-      assert(isCompositeInstruction(tci[0]));
+      assert(tci[0].isCompositeInstruction());
       const auto& ci = tci[0].as<CompositeInstruction>();
       const auto* li = ci.getLastMoveInstruction();
       assert(li != nullptr);
@@ -193,7 +192,7 @@ bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input
 
   // Check the overall input
   const InstructionPoly* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
+  if (!input_instruction->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
@@ -208,7 +207,7 @@ bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input
   }
 
   // Check from_start
-  if (!isCompositeInstruction(composite.at(0)))
+  if (!composite.at(0).isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: from_start should be a composite");
     return false;
@@ -218,7 +217,7 @@ bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input
   for (std::size_t index = 1; index < composite.size() - 1; index++)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(composite.at(index)))
+    if (!composite.at(index).isCompositeInstruction())
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;
@@ -243,13 +242,13 @@ bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input
           return false;
         }
 
-        if (!isCompositeInstruction(step.at(0)))
+        if (!step.at(0).isCompositeInstruction())
         {
           CONSOLE_BRIDGE_logError("TaskInput Invalid: transition from end should be a composite");
           return false;
         }
 
-        if (!isCompositeInstruction(step.at(1)))
+        if (!step.at(1).isCompositeInstruction())
         {
           CONSOLE_BRIDGE_logError("TaskInput Invalid: transition to start should be a composite");
           return false;
@@ -263,7 +262,7 @@ bool RasterDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input
     }
   }
   // Check to_end
-  if (!isCompositeInstruction(composite.back()))
+  if (!composite.back().isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: to_end should be a composite");
     return false;

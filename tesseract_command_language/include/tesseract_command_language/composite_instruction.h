@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/constants.h>
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_common/manipulator_info.h>
 

@@ -56,7 +56,7 @@ int FixStateBoundsTaskGenerator::conditionalProcess(TaskInput input, std::size_t
   // Check that inputs are valid
   // --------------------
   const InstructionPoly* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
+  if (!input_instruction->isCompositeInstruction())
   {
     info->message = "Input instruction to FixStateBounds must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());

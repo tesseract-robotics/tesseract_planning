@@ -30,7 +30,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/utils.h>
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
@@ -287,7 +286,7 @@ void generateSkeletonSeedHelper(CompositeInstruction& composite_instructions)
 {
   for (auto& i : composite_instructions)
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       generateSkeletonSeedHelper(i.as<CompositeInstruction>());
     }

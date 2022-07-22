@@ -54,7 +54,7 @@ int ProfileSwitchTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   // Check that inputs are valid
   // --------------------
   const InstructionPoly* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
+  if (!input_instruction->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("Input instruction to ProfileSwitch must be a composite instruction. Returning 0");
     saveOutputs(*info, input);

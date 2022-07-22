@@ -5,6 +5,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/composite_instruction.h>
 
 template <class Archive>
 void tesseract_planning::detail_instruction::InstructionInterface::serialize(Archive& ar,
@@ -25,6 +26,11 @@ void tesseract_planning::InstructionPoly::setDescription(const std::string& desc
 }
 
 void tesseract_planning::InstructionPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
+
+bool tesseract_planning::InstructionPoly::isCompositeInstruction() const
+{
+  return (isNullInstruction() ? false : (getInterface().getType() == std::type_index(typeid(CompositeInstruction))));
+}
 
 bool tesseract_planning::InstructionPoly::isMoveInstruction() const
 {

@@ -169,13 +169,13 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
     EXPECT_EQ(official_results.size(), planner_response.results.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
-      if (isCompositeInstruction(official_results[j]))  //
+      if (official_results[j].isCompositeInstruction())  //
       {
         const auto& sub_official = official_results[j].as<CompositeInstruction>();
         const auto& sub = planner_response.results[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction(sub_official[k]))
+          if (sub_official[k].isCompositeInstruction())
           {
             EXPECT_TRUE(false);
           }
@@ -275,13 +275,13 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
     EXPECT_TRUE(official_results.size() == request.seed.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
-      if (isCompositeInstruction(official_results[j]))
+      if (official_results[j].isCompositeInstruction())
       {
         const auto& sub_official = official_results[j].as<CompositeInstruction>();
         const auto& sub = request.seed[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction(sub_official[k]))
+          if (sub_official[k].isCompositeInstruction())
           {
             EXPECT_TRUE(false);
           }
@@ -383,13 +383,13 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
     EXPECT_TRUE(official_results.size() == request.seed.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
-      if (isCompositeInstruction(official_results[j]))
+      if (official_results[j].isCompositeInstruction())
       {
         const auto& sub_official = official_results[j].as<CompositeInstruction>();
         const auto& sub = request.seed[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction(sub_official[k]))
+          if (sub_official[k].isCompositeInstruction())
           {
             EXPECT_TRUE(false);
           }

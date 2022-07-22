@@ -376,7 +376,7 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
 
   // Check and make sure it does not contain any composite instruction
   for (const auto& instruction : request.instructions)
-    if (isCompositeInstruction(instruction))
+    if (instruction.isCompositeInstruction())
       throw std::runtime_error("OMPL planner does not support child composite instructions.");
 
   int index = 0;
@@ -413,7 +413,7 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
       assert(instruction.isMoveInstruction());
       const auto& plan_instruction = instruction.as<MoveInstructionPoly>();
 
-      assert(isCompositeInstruction(request.seed[i]));
+      assert(request.seed[i].isCompositeInstruction());
       const auto& seed_composite = request.seed[i].as<tesseract_planning::CompositeInstruction>();
 
       // Get Plan Profile

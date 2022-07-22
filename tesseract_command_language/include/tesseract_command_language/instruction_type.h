@@ -42,8 +42,6 @@ bool isTimerInstruction(const InstructionPoly& instruction);
 
 bool isWaitInstruction(const InstructionPoly& instruction);
 
-bool isCompositeInstruction(const InstructionPoly& instruction);
-
 }  // namespace tesseract_planning
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_TYPE_H

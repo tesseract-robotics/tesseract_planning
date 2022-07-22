@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/task_input.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/utils.h>
 
 namespace tesseract_planning
@@ -123,7 +122,7 @@ std::size_t TaskInput::size()
   const InstructionPoly* ci = instruction_;
   for (const auto& i : instruction_indice_)
   {
-    if (isCompositeInstruction(*ci))
+    if (ci->isCompositeInstruction())
     {
       const auto& composite = ci->as<CompositeInstruction>();
       ci = &(composite.at(i));
@@ -134,7 +133,7 @@ std::size_t TaskInput::size()
     }
   }
 
-  if (isCompositeInstruction(*ci))
+  if (ci->isCompositeInstruction())
   {
     const auto& composite = ci->as<CompositeInstruction>();
     return composite.size();
@@ -148,7 +147,7 @@ const InstructionPoly* TaskInput::getInstruction() const
   const InstructionPoly* ci = instruction_;
   for (const auto& i : instruction_indice_)
   {
-    if (isCompositeInstruction(*ci))
+    if (ci->isCompositeInstruction())
     {
       const auto& composite = ci->as<CompositeInstruction>();
       ci = &(composite.at(i));
@@ -166,7 +165,7 @@ InstructionPoly* TaskInput::getResults()
   InstructionPoly* ci = results_;
   for (const auto& i : instruction_indice_)
   {
-    if (isCompositeInstruction(*ci))
+    if (ci->isCompositeInstruction())
     {
       auto& composite = ci->as<CompositeInstruction>();
       ci = &(composite.at(i));
@@ -208,7 +207,7 @@ InstructionPoly TaskInput::getStartInstruction() const
   InstructionPoly* ci = results_;
   for (const auto& i : start_instruction_indice_)
   {
-    if (isCompositeInstruction(*ci))
+    if (ci->isCompositeInstruction())
     {
       auto& composite = ci->as<CompositeInstruction>();
       ci = &(composite.at(i));
@@ -219,7 +218,7 @@ InstructionPoly TaskInput::getStartInstruction() const
     }
   }
 
-  if (isCompositeInstruction(*ci))
+  if (ci->isCompositeInstruction())
     return *ci->as<CompositeInstruction>().getLastMoveInstruction();
 
   return *ci;
@@ -248,7 +247,7 @@ InstructionPoly TaskInput::getEndInstruction() const
   InstructionPoly* ci = results_;
   for (const auto& i : end_instruction_indice_)
   {
-    if (isCompositeInstruction(*ci))
+    if (ci->isCompositeInstruction())
     {
       auto& composite = ci->as<CompositeInstruction>();
       ci = &(composite.at(i));
@@ -259,7 +258,7 @@ InstructionPoly TaskInput::getEndInstruction() const
     }
   }
 
-  if (isCompositeInstruction(*ci))
+  if (ci->isCompositeInstruction())
   {
     /** @todo Should this get the first move instruction? */
     auto& composite = ci->as<CompositeInstruction>();

@@ -359,7 +359,7 @@ CompositeInstruction::getFirstInstructionHelper(const CompositeInstruction& comp
       if (!locate_filter || locate_filter(instruction, composite_instruction, first_composite))
         return &instruction;
 
-      if (isCompositeInstruction(instruction))
+      if (instruction.isCompositeInstruction())
       {
         const InstructionPoly* result = getFirstInstructionHelper(
             instruction.as<CompositeInstruction>(), locate_filter, process_child_composites, false);
@@ -395,7 +395,7 @@ InstructionPoly* CompositeInstruction::getFirstInstructionHelper(CompositeInstru
       if (!locate_filter || locate_filter(instruction, composite_instruction, first_composite))
         return &instruction;
 
-      if (isCompositeInstruction(instruction))
+      if (instruction.isCompositeInstruction())
       {
         InstructionPoly* result = getFirstInstructionHelper(
             instruction.as<CompositeInstruction>(), locate_filter, process_child_composites, false);
@@ -426,7 +426,7 @@ const InstructionPoly* CompositeInstruction::getLastInstructionHelper(const Comp
       if (!locate_filter || locate_filter(*it, composite_instruction, first_composite))
         return &(*it);
 
-      if (isCompositeInstruction(*it))
+      if (it->isCompositeInstruction())
       {
         const InstructionPoly* result =
             getLastInstructionHelper(it->as<CompositeInstruction>(), locate_filter, process_child_composites, false);
@@ -467,7 +467,7 @@ InstructionPoly* CompositeInstruction::getLastInstructionHelper(CompositeInstruc
       if (!locate_filter || locate_filter(*it, composite_instruction, first_composite))
         return &(*it);
 
-      if (isCompositeInstruction(*it))
+      if (it->isCompositeInstruction())
       {
         InstructionPoly* result =
             getLastInstructionHelper(it->as<CompositeInstruction>(), locate_filter, process_child_composites, false);
@@ -514,7 +514,7 @@ long CompositeInstruction::getInstructionCountHelper(const CompositeInstruction&
       if (!locate_filter || locate_filter(instruction, composite_instruction, first_composite))
         ++cnt;
 
-      if (isCompositeInstruction(instruction))
+      if (instruction.isCompositeInstruction())
         cnt += getInstructionCountHelper(
             instruction.as<CompositeInstruction>(), locate_filter, process_child_composites, false);
     }
@@ -539,7 +539,7 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<Inst
 
   for (auto& i : composite)
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       // By default composite instructions will not be stored just it children, but this allows for the filter to
       // indicate that they should be stored.
@@ -567,7 +567,7 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<cons
 
   for (const auto& i : composite)
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       // By default composite instructions will not be stored just it children, but this allows for the filter to
       // indicate that they should be stored.
@@ -602,7 +602,7 @@ void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wra
 
   for (std::size_t i = 0; i < pattern.size(); i++)
   {
-    if (isCompositeInstruction(pattern.at(i)) && isCompositeInstruction(composite[i]))
+    if (pattern.at(i).isCompositeInstruction() && composite[i].isCompositeInstruction())
     {
       // By default composite instructions will not be stored just it children, but this allows for the filter to
       // indicate that they should be stored.
@@ -638,7 +638,7 @@ void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wra
 
   for (std::size_t i = 0; i < pattern.size(); i++)
   {
-    if (isCompositeInstruction(pattern.at(i)) && isCompositeInstruction(composite[i]))
+    if (pattern.at(i).isCompositeInstruction() && composite[i].isCompositeInstruction())
     {
       // By default composite instructions will not be stored just it children, but this allows for the filter to
       // indicate that they should be stored.

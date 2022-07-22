@@ -1,7 +1,7 @@
 /**
  * @file seed_length_task_generator.cpp
  * @brief Process generator for processing the seed so it meets a minimum length. Planners like trajopt need
- * at least 10 states in the trajectory to perform velocity, accelleration and jerk smoothing.
+ * at least 10 states in the trajectory to perform velocity, acceleration and jerk smoothing.
  *
  * @author Levi Armstrong
  * @date November 2. 2020
@@ -55,7 +55,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
 
   // Check that inputs are valid
   InstructionPoly* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  if (!input_results->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("Input seed to SeedMinLengthTaskGenerator must be a composite instruction");
     saveOutputs(*info, input);
@@ -114,7 +114,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
 {
   for (const InstructionPoly& i : current_composite)
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       const auto& cc = i.as<CompositeInstruction>();
       CompositeInstruction new_cc(cc);

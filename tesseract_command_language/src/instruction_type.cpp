@@ -24,12 +24,10 @@
  * limitations under the License.
  */
 
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
-#include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
@@ -65,11 +63,6 @@ bool isTimerInstruction(const InstructionPoly& instruction)
 bool isWaitInstruction(const InstructionPoly& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(WaitInstruction)));
-}
-
-bool isCompositeInstruction(const InstructionPoly& instruction)
-{
-  return (instruction.getType() == std::type_index(typeid(CompositeInstruction)));
 }
 
 }  // namespace tesseract_planning

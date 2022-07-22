@@ -81,7 +81,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
     int num_composites = 0;
     for (std::size_t i = 0; i < flattened.size(); i++)
     {
-      if (isCompositeInstruction(flattened[i].get()))
+      if (flattened[i].get().isCompositeInstruction())
         num_composites++;
       flattened[i].get().setDescription("test_" + std::to_string(i));
     }
@@ -120,7 +120,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
     int num_composites = 0;
     for (std::size_t i = 0; i < flattened.size(); i++)
     {
-      if (isCompositeInstruction(flattened[i].get()))
+      if (flattened[i].get().isCompositeInstruction())
         num_composites++;
       flattened[i].get().setDescription("test_" + std::to_string(i));
     }
@@ -215,7 +215,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
     int num_composites = 0;
     for (std::size_t i = 0; i < flattened.size(); i++)
     {
-      if (isCompositeInstruction(flattened[i].get()))
+      if (flattened[i].get().isCompositeInstruction())
         num_composites++;
       flattened[i].get().setDescription("test_" + std::to_string(i));
     }
@@ -265,7 +265,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
     int num_composites = 0;
     for (std::size_t i = 0; i < flattened.size(); i++)
     {
-      if (isCompositeInstruction(flattened[i].get()))
+      if (flattened[i].get().isCompositeInstruction())
         num_composites++;
       flattened[i].get().setDescription("test_" + std::to_string(i));
     }
@@ -439,7 +439,7 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
     const auto& composite_i = composite[i];
     if (composite_i.isMoveInstruction())
     {
-      ASSERT_TRUE(isCompositeInstruction(skeleton_i));
+      ASSERT_TRUE(skeleton_i.isCompositeInstruction());
       const auto& cast = skeleton_i.as<CompositeInstruction>();
 
       EXPECT_EQ(cast.getProfile(), composite_i.as<MoveInstructionPoly>().getProfile());
