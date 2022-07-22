@@ -86,7 +86,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   InstructionPoly start_instruction = input.getStartInstruction();
   InstructionPoly end_instruction = input.getEndInstruction();
 
-  if (!start_instruction.isNullInstruction())
+  if (!start_instruction.isNull())
   {
     // add start
     if (start_instruction.isCompositeInstruction())
@@ -108,7 +108,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
       }
     }
   }
-  if (!end_instruction.isNullInstruction())
+  if (!end_instruction.isNull())
   {
     // add end
     if (end_instruction.isCompositeInstruction())

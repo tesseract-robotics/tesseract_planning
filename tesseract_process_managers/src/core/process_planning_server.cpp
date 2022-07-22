@@ -159,7 +159,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(const ProcessPlanningRequest& r
   tesseract_common::ManipulatorInfo mi = composite_program.getManipulatorInfo();
   problem->global_manip_info = std::make_unique<const tesseract_common::ManipulatorInfo>(mi);
 
-  if (!request.seed.isNullInstruction())
+  if (!request.seed.isNull())
     problem->results = std::make_unique<InstructionPoly>(request.seed);
 
   // Assign the problems environment
@@ -217,7 +217,7 @@ ProcessPlanningFuture ProcessPlanningServer::run(ProcessPlanningProblem::Ptr pro
   }
 
   bool has_seed{ true };
-  if (response.problem->results == nullptr || response.problem->results->isNullInstruction())
+  if (response.problem->results == nullptr || response.problem->results->isNull())
   {
     has_seed = false;
     response.problem->results = std::make_unique<InstructionPoly>(generateSkeletonSeed(composite_program));
