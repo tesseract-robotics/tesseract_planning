@@ -149,9 +149,9 @@ void MoveInstruction::print(const std::string& prefix) const
   std::cout << ", Description: " << getDescription() << std::endl;
 }
 
-CartesianWaypointPoly MoveInstruction::createCartesianWaypoint() const { return CartesianWaypoint(); }
-JointWaypointPoly MoveInstruction::createJointWaypoint() const { return JointWaypoint(); }
-StateWaypointPoly MoveInstruction::createStateWaypoint() const { return StateWaypoint(); }
+CartesianWaypointPoly MoveInstruction::createCartesianWaypoint() { return CartesianWaypoint(); }
+JointWaypointPoly MoveInstruction::createJointWaypoint() { return JointWaypoint(); }
+StateWaypointPoly MoveInstruction::createStateWaypoint() { return StateWaypoint(); }
 
 bool MoveInstruction::operator==(const MoveInstruction& rhs) const
 {

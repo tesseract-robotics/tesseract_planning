@@ -45,7 +45,7 @@ using namespace tesseract_planning;
 TEST(TesseractCommandLanguageWaypointUnit, boostSerialization)  // NOLINT
 {
   WaypointPoly null_wp;
-  EXPECT_TRUE(null_wp.isNullWaypoint());
+  EXPECT_TRUE(null_wp.isNull());
   EXPECT_FALSE(null_wp.isCartesianWaypoint());
   EXPECT_FALSE(null_wp.isJointWaypoint());
   EXPECT_FALSE(null_wp.isStateWaypoint());
@@ -53,7 +53,7 @@ TEST(TesseractCommandLanguageWaypointUnit, boostSerialization)  // NOLINT
   tesseract_common::Serialization::toArchiveFileXML<WaypointPoly>(null_wp, "/tmp/waypoint_null_boost.xml");
   auto nnull_wp = tesseract_common::Serialization::fromArchiveFileXML<WaypointPoly>("/tmp/waypoint_null_boost.xml");
 
-  EXPECT_TRUE(nnull_wp.isNullWaypoint());
+  EXPECT_TRUE(nnull_wp.isNull());
   EXPECT_FALSE(null_wp.isCartesianWaypoint());
   EXPECT_FALSE(null_wp.isJointWaypoint());
   EXPECT_FALSE(null_wp.isStateWaypoint());
@@ -75,13 +75,13 @@ TEST(TesseractCommandLanguageWaypointUnit, equalityOperatorAndSerialization)  //
   // Equal Null
   {
     WaypointPoly wp1;
-    EXPECT_TRUE(wp1.isNullWaypoint());
+    EXPECT_TRUE(wp1.isNull());
     EXPECT_FALSE(wp1.isCartesianWaypoint());
     EXPECT_FALSE(wp1.isJointWaypoint());
     EXPECT_FALSE(wp1.isStateWaypoint());
 
     WaypointPoly wp2(wp1);  // NOLINT
-    EXPECT_TRUE(wp2.isNullWaypoint());
+    EXPECT_TRUE(wp2.isNull());
     EXPECT_FALSE(wp2.isCartesianWaypoint());
     EXPECT_FALSE(wp2.isJointWaypoint());
     EXPECT_FALSE(wp2.isStateWaypoint());
@@ -95,13 +95,13 @@ TEST(TesseractCommandLanguageWaypointUnit, equalityOperatorAndSerialization)  //
   // Equal
   {
     WaypointPoly wp1{ CartesianWaypointPoly{ CartesianWaypoint(Eigen::Isometry3d::Identity()) } };
-    EXPECT_FALSE(wp1.isNullWaypoint());
+    EXPECT_FALSE(wp1.isNull());
     EXPECT_TRUE(wp1.isCartesianWaypoint());
     EXPECT_FALSE(wp1.isJointWaypoint());
     EXPECT_FALSE(wp1.isStateWaypoint());
 
     WaypointPoly wp2(wp1);  // NOLINT
-    EXPECT_FALSE(wp1.isNullWaypoint());
+    EXPECT_FALSE(wp1.isNull());
     EXPECT_TRUE(wp1.isCartesianWaypoint());
     EXPECT_FALSE(wp1.isJointWaypoint());
     EXPECT_FALSE(wp1.isStateWaypoint());
@@ -115,13 +115,13 @@ TEST(TesseractCommandLanguageWaypointUnit, equalityOperatorAndSerialization)  //
   // Equal
   {
     WaypointPoly wp1{ JointWaypointPoly{ JointWaypoint({ "a", "b" }, Eigen::VectorXd::Constant(2, 3)) } };
-    EXPECT_FALSE(wp1.isNullWaypoint());
+    EXPECT_FALSE(wp1.isNull());
     EXPECT_FALSE(wp1.isCartesianWaypoint());
     EXPECT_TRUE(wp1.isJointWaypoint());
     EXPECT_FALSE(wp1.isStateWaypoint());
 
     WaypointPoly wp2(wp1);  // NOLINT
-    EXPECT_FALSE(wp1.isNullWaypoint());
+    EXPECT_FALSE(wp1.isNull());
     EXPECT_FALSE(wp1.isCartesianWaypoint());
     EXPECT_TRUE(wp1.isJointWaypoint());
     EXPECT_FALSE(wp1.isStateWaypoint());
@@ -135,13 +135,13 @@ TEST(TesseractCommandLanguageWaypointUnit, equalityOperatorAndSerialization)  //
   // Equal
   {
     WaypointPoly wp1{ StateWaypointPoly{ StateWaypoint({ "a", "b" }, Eigen::VectorXd::Constant(2, 3)) } };
-    EXPECT_FALSE(wp1.isNullWaypoint());
+    EXPECT_FALSE(wp1.isNull());
     EXPECT_FALSE(wp1.isCartesianWaypoint());
     EXPECT_FALSE(wp1.isJointWaypoint());
     EXPECT_TRUE(wp1.isStateWaypoint());
 
     WaypointPoly wp2(wp1);  // NOLINT
-    EXPECT_FALSE(wp1.isNullWaypoint());
+    EXPECT_FALSE(wp1.isNull());
     EXPECT_FALSE(wp1.isCartesianWaypoint());
     EXPECT_FALSE(wp1.isJointWaypoint());
     EXPECT_TRUE(wp1.isStateWaypoint());

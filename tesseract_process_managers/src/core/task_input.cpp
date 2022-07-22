@@ -198,7 +198,7 @@ void TaskInput::setStartInstruction(std::vector<std::size_t> start)
 
 InstructionPoly TaskInput::getStartInstruction() const
 {
-  if (!start_instruction_.isNullInstruction())
+  if (!start_instruction_.isNull())
     return start_instruction_;
 
   if (start_instruction_indice_.empty())
@@ -238,7 +238,7 @@ void TaskInput::setEndInstruction(std::vector<std::size_t> end)
 
 InstructionPoly TaskInput::getEndInstruction() const
 {
-  if (!end_instruction_.isNullInstruction())
+  if (!end_instruction_.isNull())
     return end_instruction_;
 
   if (end_instruction_indice_.empty())

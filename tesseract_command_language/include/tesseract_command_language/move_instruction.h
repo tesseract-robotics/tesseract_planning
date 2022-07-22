@@ -135,9 +135,9 @@ public:
 
   void print(const std::string& prefix = "") const;
 
-  CartesianWaypointPoly createCartesianWaypoint() const;
-  JointWaypointPoly createJointWaypoint() const;
-  StateWaypointPoly createStateWaypoint() const;
+  static CartesianWaypointPoly createCartesianWaypoint();
+  static JointWaypointPoly createJointWaypoint();
+  static StateWaypointPoly createStateWaypoint();
 
   bool operator==(const MoveInstruction& rhs) const;
   bool operator!=(const MoveInstruction& rhs) const;

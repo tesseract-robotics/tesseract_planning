@@ -29,17 +29,12 @@ void tesseract_planning::InstructionPoly::print(const std::string& prefix) const
 
 bool tesseract_planning::InstructionPoly::isCompositeInstruction() const
 {
-  return (isNullInstruction() ? false : (getInterface().getType() == std::type_index(typeid(CompositeInstruction))));
+  return (isNull() ? false : (getInterface().getType() == std::type_index(typeid(CompositeInstruction))));
 }
 
 bool tesseract_planning::InstructionPoly::isMoveInstruction() const
 {
-  return (isNullInstruction() ? false : (getInterface().getType() == std::type_index(typeid(MoveInstructionPoly))));
-}
-
-bool tesseract_planning::InstructionPoly::isNullInstruction() const
-{
-  return (getType() == std::type_index(typeid(nullptr)));
+  return (isNull() ? false : (getInterface().getType() == std::type_index(typeid(MoveInstructionPoly))));
 }
 
 template <class Archive>

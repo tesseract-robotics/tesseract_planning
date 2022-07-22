@@ -20,22 +20,17 @@ void tesseract_planning::WaypointPoly::print(const std::string& prefix) const { 
 
 bool tesseract_planning::WaypointPoly::isCartesianWaypoint() const
 {
-  return (isNullWaypoint() ? false : (getInterface().getType() == std::type_index(typeid(CartesianWaypointPoly))));
+  return (isNull() ? false : (getInterface().getType() == std::type_index(typeid(CartesianWaypointPoly))));
 }
 
 bool tesseract_planning::WaypointPoly::isJointWaypoint() const
 {
-  return (isNullWaypoint() ? false : (getInterface().getType() == std::type_index(typeid(JointWaypointPoly))));
+  return (isNull() ? false : (getInterface().getType() == std::type_index(typeid(JointWaypointPoly))));
 }
 
 bool tesseract_planning::WaypointPoly::isStateWaypoint() const
 {
-  return (isNullWaypoint() ? false : (getInterface().getType() == std::type_index(typeid(StateWaypointPoly))));
-}
-
-bool tesseract_planning::WaypointPoly::isNullWaypoint() const
-{
-  return (getType() == std::type_index(typeid(nullptr)));
+  return (isNull() ? false : (getInterface().getType() == std::type_index(typeid(StateWaypointPoly))));
 }
 
 template <class Archive>

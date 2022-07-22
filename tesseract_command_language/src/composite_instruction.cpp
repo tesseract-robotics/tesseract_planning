@@ -95,7 +95,7 @@ MoveInstructionPoly& CompositeInstruction::getStartInstruction()
   return start_instruction_.as<MoveInstructionPoly>();
 }
 
-bool CompositeInstruction::hasStartInstruction() const { return (!start_instruction_.isNullInstruction()); }
+bool CompositeInstruction::hasStartInstruction() const { return (!start_instruction_.isNull()); }
 
 void CompositeInstruction::setInstructions(std::vector<InstructionPoly> instructions) { container_.swap(instructions); }
 
@@ -212,14 +212,14 @@ CompositeInstruction::flattenToPattern(const CompositeInstruction& pattern, cons
 void CompositeInstruction::print(const std::string& prefix) const
 {
   std::cout << prefix + "Composite Instruction, Description: " << getDescription() << std::endl;
-  if (!start_instruction_.isNullInstruction())
+  if (!start_instruction_.isNull())
     std::cout << prefix + "--- Start Instruction, Description: " << start_instruction_.getDescription() << std::endl;
   else
     std::cout << prefix + "--- Start Instruction, Description: Null Instruction" << std::endl;
   std::cout << prefix + "{" << std::endl;
   for (const auto& i : container_)
   {
-    if (i.isNullInstruction())
+    if (i.isNull())
       std::cout << prefix + "  Null Instruction" << std::endl;
     else
       i.print(prefix + "  ");
