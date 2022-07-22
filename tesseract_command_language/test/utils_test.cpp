@@ -63,9 +63,9 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
                                    std::to_string(k));
         sub_sub_composite.appendMoveInstruction(instruction);
       }
-      sub_composite.push_back(sub_sub_composite);
+      sub_composite.appendInstruction(sub_sub_composite);
     }
-    composite.push_back(sub_composite);
+    composite.appendInstruction(sub_composite);
   }
 
   // flatten(composite);
@@ -192,10 +192,10 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
                                    std::to_string(k));
         sub_sub_composite.appendMoveInstruction(instruction);
       }
-      sub_composite.push_back(sub_sub_composite);
+      sub_composite.appendInstruction(sub_sub_composite);
     }
-    composite.push_back(sub_composite);
-    pattern.push_back(sub_pattern);
+    composite.appendInstruction(sub_composite);
+    pattern.appendInstruction(sub_pattern);
   }
 
   // flattenToPattern(composite, pattern)

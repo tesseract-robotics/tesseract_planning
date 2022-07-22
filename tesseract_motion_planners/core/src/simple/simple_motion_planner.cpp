@@ -219,7 +219,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
 
     if (instruction.isCompositeInstruction())
     {
-      seed.push_back(
+      seed.appendInstruction(
           processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, prev_seed, request));
     }
     else if (instruction.isMoveInstruction())
@@ -266,14 +266,14 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
                                                                      next_instruction,
                                                                      request,
                                                                      request.instructions.getManipulatorInfo());
-      seed.push_back(instruction_seed);
+      seed.appendInstruction(instruction_seed);
 
       prev_instruction = base_instruction;
       prev_seed = instruction_seed.back().as<MoveInstructionPoly>();
     }
     else
     {
-      seed.push_back(instruction);
+      seed.appendInstruction(instruction);
     }
   }  // for (const auto& instruction : instructions)
   return seed;

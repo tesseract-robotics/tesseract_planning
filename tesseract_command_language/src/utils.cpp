@@ -284,7 +284,7 @@ bool clampToJointLimits(WaypointPoly& wp,
 
 void generateSkeletonSeedHelper(CompositeInstruction& composite_instructions)
 {
-  for (auto& i : composite_instructions)
+  for (auto& i : composite_instructions.getInstructions())
   {
     if (i.isCompositeInstruction())
     {

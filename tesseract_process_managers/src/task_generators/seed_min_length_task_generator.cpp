@@ -121,7 +121,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
       new_cc.clear();
 
       subdivide(new_cc, cc, start_instruction, subdivisions);
-      composite.push_back(new_cc);
+      composite.appendInstruction(new_cc);
     }
     else if (i.isMoveInstruction())
     {
@@ -142,7 +142,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
       {
         MoveInstructionPoly move_instruction(mi1);
         move_instruction.getWaypoint().as<StateWaypointPoly>().getPosition() = states.col(i);
-        composite.push_back(move_instruction);
+        composite.appendMoveInstruction(move_instruction);
       }
 
       start_instruction = i;
@@ -150,7 +150,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     else
     {
       assert(!i.isMoveInstruction());
-      composite.push_back(i);
+      composite.appendInstruction(i);
     }
   }
 }

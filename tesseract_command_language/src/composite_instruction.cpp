@@ -97,19 +97,19 @@ MoveInstructionPoly& CompositeInstruction::getStartInstruction()
 
 bool CompositeInstruction::hasStartInstruction() const { return (!start_instruction_.isNullInstruction()); }
 
-void CompositeInstruction::setInstructions(std::vector<tesseract_planning::InstructionPoly> instructions)
-{
-  container_.swap(instructions);
-}
-std::vector<tesseract_planning::InstructionPoly>& CompositeInstruction::getInstructions() { return container_; }
-const std::vector<tesseract_planning::InstructionPoly>& CompositeInstruction::getInstructions() const
-{
-  return container_;
-}
+void CompositeInstruction::setInstructions(std::vector<InstructionPoly> instructions) { container_.swap(instructions); }
 
-void CompositeInstruction::appendMoveInstruction(const MoveInstructionPoly& mi) { push_back(mi); }
+std::vector<InstructionPoly>& CompositeInstruction::getInstructions() { return container_; }
 
-void CompositeInstruction::appendMoveInstruction(const MoveInstructionPoly&& mi) { push_back(mi); }
+const std::vector<InstructionPoly>& CompositeInstruction::getInstructions() const { return container_; }
+
+void CompositeInstruction::appendMoveInstruction(const MoveInstructionPoly& mi) { container_.emplace_back(mi); }
+
+void CompositeInstruction::appendMoveInstruction(const MoveInstructionPoly&& mi) { container_.emplace_back(mi); }
+
+void CompositeInstruction::appendInstruction(const InstructionPoly& i) { container_.push_back(i); }
+
+void CompositeInstruction::appendInstruction(const InstructionPoly&& i) { container_.push_back(i); }
 
 MoveInstructionPoly* CompositeInstruction::getFirstMoveInstruction()
 {
@@ -212,10 +212,18 @@ CompositeInstruction::flattenToPattern(const CompositeInstruction& pattern, cons
 void CompositeInstruction::print(const std::string& prefix) const
 {
   std::cout << prefix + "Composite Instruction, Description: " << getDescription() << std::endl;
-  std::cout << prefix + "--- Start Instruction, Description: " << start_instruction_.getDescription() << std::endl;
+  if (!start_instruction_.isNullInstruction())
+    std::cout << prefix + "--- Start Instruction, Description: " << start_instruction_.getDescription() << std::endl;
+  else
+    std::cout << prefix + "--- Start Instruction, Description: Null Instruction" << std::endl;
   std::cout << prefix + "{" << std::endl;
-  for (const auto& i : *this)
-    i.print(prefix + "  ");
+  for (const auto& i : container_)
+  {
+    if (i.isNullInstruction())
+      std::cout << prefix + "  Null Instruction" << std::endl;
+    else
+      i.print(prefix + "  ");
+  }
   std::cout << prefix + "}" << std::endl;
 }
 
@@ -286,53 +294,12 @@ CompositeInstruction::const_reference CompositeInstruction::operator[](size_type
 // Modifiers //
 ///////////////
 void CompositeInstruction::clear() { container_.clear(); }
-CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, const value_type& x)
-{
-  return container_.insert(p, x);
-}
-CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, value_type&& x)
-{
-  return container_.insert(p, x);
-}
-CompositeInstruction::iterator CompositeInstruction::insert(const_iterator p, std::initializer_list<value_type> l)
-{
-  return container_.insert(p, l);
-}
-
-template <class... Args>
-CompositeInstruction::iterator CompositeInstruction::emplace(const_iterator pos, Args&&... args)
-{
-  return container_.emplace(pos, std::forward<Args>(args)...);
-}
 
 CompositeInstruction::iterator CompositeInstruction::erase(const_iterator p) { return container_.erase(p); }
 CompositeInstruction::iterator CompositeInstruction::erase(const_iterator first, const_iterator last)
 {
   return container_.erase(first, last);
 }
-void CompositeInstruction::push_back(const value_type& x)
-{
-  assert(x.getType() != std::type_index(typeid(tesseract_planning::MoveInstruction))); /** @todo Levi remove this  */
-  container_.push_back(x);
-}
-void CompositeInstruction::push_back(const value_type&& x)
-{
-  assert(x.getType() != std::type_index(typeid(tesseract_planning::MoveInstruction))); /** @todo Levi remove this  */
-  container_.push_back(x);
-}
-
-template <typename... Args>
-#if __cplusplus > 201402L
-CompositeInstruction::reference CompositeInstruction::emplace_back(Args&&... args)
-{
-  return container_.emplace_back(std::forward<Args>(args)...);
-}
-#else
-void CompositeInstruction::emplace_back(Args&&... args)
-{
-  container_.emplace_back(std::forward<Args>(args)...);
-}
-#endif
 
 void CompositeInstruction::pop_back() { container_.pop_back(); }
 void CompositeInstruction::swap(std::vector<value_type>& other) { container_.swap(other); }
@@ -354,7 +321,7 @@ CompositeInstruction::getFirstInstructionHelper(const CompositeInstruction& comp
 
   if (process_child_composites)
   {
-    for (const auto& instruction : composite_instruction)
+    for (const auto& instruction : composite_instruction.container_)
     {
       if (!locate_filter || locate_filter(instruction, composite_instruction, first_composite))
         return &instruction;
@@ -371,7 +338,7 @@ CompositeInstruction::getFirstInstructionHelper(const CompositeInstruction& comp
     return nullptr;
   }
 
-  for (const auto& instruction : composite_instruction)
+  for (const auto& instruction : composite_instruction.container_)
     if (!locate_filter || locate_filter(instruction, composite_instruction, first_composite))
       return &instruction;
 
@@ -390,7 +357,7 @@ InstructionPoly* CompositeInstruction::getFirstInstructionHelper(CompositeInstru
 
   if (process_child_composites)
   {
-    for (auto& instruction : composite_instruction)
+    for (auto& instruction : composite_instruction.container_)
     {
       if (!locate_filter || locate_filter(instruction, composite_instruction, first_composite))
         return &instruction;
@@ -407,7 +374,7 @@ InstructionPoly* CompositeInstruction::getFirstInstructionHelper(CompositeInstru
     return nullptr;
   }
 
-  for (auto& instruction : composite_instruction)
+  for (auto& instruction : composite_instruction.container_)
     if (!locate_filter || locate_filter(instruction, composite_instruction, first_composite))
       return &instruction;
 
@@ -421,7 +388,7 @@ const InstructionPoly* CompositeInstruction::getLastInstructionHelper(const Comp
 {
   if (process_child_composites)
   {
-    for (auto it = composite_instruction.rbegin(); it != composite_instruction.rend(); ++it)
+    for (auto it = composite_instruction.container_.rbegin(); it != composite_instruction.container_.rend(); ++it)
     {
       if (!locate_filter || locate_filter(*it, composite_instruction, first_composite))
         return &(*it);
@@ -443,7 +410,7 @@ const InstructionPoly* CompositeInstruction::getLastInstructionHelper(const Comp
     return nullptr;
   }
 
-  for (auto it = composite_instruction.rbegin(); it != composite_instruction.rend(); ++it)
+  for (auto it = composite_instruction.container_.rbegin(); it != composite_instruction.container_.rend(); ++it)
     if (!locate_filter || locate_filter(*it, composite_instruction, first_composite))
       return &(*it);
 
@@ -462,7 +429,7 @@ InstructionPoly* CompositeInstruction::getLastInstructionHelper(CompositeInstruc
 {
   if (process_child_composites)
   {
-    for (auto it = composite_instruction.rbegin(); it != composite_instruction.rend(); ++it)
+    for (auto it = composite_instruction.container_.rbegin(); it != composite_instruction.container_.rend(); ++it)
     {
       if (!locate_filter || locate_filter(*it, composite_instruction, first_composite))
         return &(*it);
@@ -484,7 +451,7 @@ InstructionPoly* CompositeInstruction::getLastInstructionHelper(CompositeInstruc
     return nullptr;
   }
 
-  for (auto it = composite_instruction.rbegin(); it != composite_instruction.rend(); ++it)
+  for (auto it = composite_instruction.container_.rbegin(); it != composite_instruction.container_.rend(); ++it)
     if (!locate_filter || locate_filter(*it, composite_instruction, first_composite))
       return &(*it);
 
@@ -509,7 +476,7 @@ long CompositeInstruction::getInstructionCountHelper(const CompositeInstruction&
 
   if (process_child_composites)
   {
-    for (const auto& instruction : composite_instruction)
+    for (const auto& instruction : composite_instruction.container_)
     {
       if (!locate_filter || locate_filter(instruction, composite_instruction, first_composite))
         ++cnt;
@@ -521,9 +488,10 @@ long CompositeInstruction::getInstructionCountHelper(const CompositeInstruction&
     return cnt;
   }
 
-  cnt += std::count_if(composite_instruction.begin(), composite_instruction.end(), [=](const auto& i) {
-    return (!locate_filter || locate_filter(i, composite_instruction, first_composite));
-  });
+  cnt += std::count_if(
+      composite_instruction.container_.begin(), composite_instruction.container_.end(), [=](const auto& i) {
+        return (!locate_filter || locate_filter(i, composite_instruction, first_composite));
+      });
 
   return cnt;
 }
@@ -537,7 +505,7 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<Inst
     if (!filter || filter(composite.start_instruction_, composite, first_composite))
       flattened.emplace_back(composite.start_instruction_);
 
-  for (auto& i : composite)
+  for (auto& i : composite.container_)
   {
     if (i.isCompositeInstruction())
     {
@@ -565,7 +533,7 @@ void CompositeInstruction::flattenHelper(std::vector<std::reference_wrapper<cons
     if (!filter || filter(composite.start_instruction_, composite, first_composite))
       flattened.emplace_back(composite.start_instruction_);
 
-  for (const auto& i : composite)
+  for (const auto& i : composite.container_)
   {
     if (i.isCompositeInstruction())
     {
@@ -590,7 +558,8 @@ void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wra
                                                   const flattenFilterFn& filter,
                                                   bool first_composite)
 {
-  if (composite.size() != pattern.size() || composite.hasStartInstruction() != pattern.hasStartInstruction())
+  if (composite.container_.size() != pattern.container_.size() ||
+      composite.hasStartInstruction() != pattern.hasStartInstruction())
   {
     CONSOLE_BRIDGE_logError("Instruction and pattern sizes are mismatched");
     return;
@@ -600,22 +569,25 @@ void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wra
     if (!filter || filter(composite.start_instruction_, composite, first_composite))
       flattened.emplace_back(composite.start_instruction_);
 
-  for (std::size_t i = 0; i < pattern.size(); i++)
+  for (std::size_t i = 0; i < pattern.container_.size(); i++)
   {
-    if (pattern.at(i).isCompositeInstruction() && composite[i].isCompositeInstruction())
+    if (pattern.container_.at(i).isCompositeInstruction() && composite.container_[i].isCompositeInstruction())
     {
       // By default composite instructions will not be stored just it children, but this allows for the filter to
       // indicate that they should be stored.
       if (filter)
-        if (filter(composite[i], composite, first_composite))
-          flattened.emplace_back(composite[i]);
+        if (filter(composite.container_[i], composite, first_composite))
+          flattened.emplace_back(composite.container_[i]);
 
-      flattenToPatternHelper(
-          flattened, composite[i].as<CompositeInstruction>(), pattern.at(i).as<CompositeInstruction>(), filter, false);
+      flattenToPatternHelper(flattened,
+                             composite.container_[i].as<CompositeInstruction>(),
+                             pattern.container_.at(i).as<CompositeInstruction>(),
+                             filter,
+                             false);
     }
     else
     {
-      flattened.emplace_back(composite[i]);
+      flattened.emplace_back(composite.container_[i]);
     }
   }
 }
@@ -626,7 +598,8 @@ void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wra
                                                   const flattenFilterFn& filter,
                                                   bool first_composite) const
 {
-  if (composite.size() != pattern.size() || composite.hasStartInstruction() != pattern.hasStartInstruction())
+  if (composite.container_.size() != pattern.container_.size() ||
+      composite.hasStartInstruction() != pattern.hasStartInstruction())
   {
     CONSOLE_BRIDGE_logError("Instruction and pattern sizes are mismatched");
     return;
@@ -636,22 +609,25 @@ void CompositeInstruction::flattenToPatternHelper(std::vector<std::reference_wra
     if (!filter || filter(composite.start_instruction_, composite, first_composite))
       flattened.emplace_back(composite.start_instruction_);
 
-  for (std::size_t i = 0; i < pattern.size(); i++)
+  for (std::size_t i = 0; i < pattern.container_.size(); i++)
   {
-    if (pattern.at(i).isCompositeInstruction() && composite[i].isCompositeInstruction())
+    if (pattern.container_.at(i).isCompositeInstruction() && composite.container_[i].isCompositeInstruction())
     {
       // By default composite instructions will not be stored just it children, but this allows for the filter to
       // indicate that they should be stored.
       if (filter)
-        if (filter(composite[i], composite, first_composite))
-          flattened.emplace_back(composite[i]);
+        if (filter(composite.container_[i], composite, first_composite))
+          flattened.emplace_back(composite.container_[i]);
 
-      flattenToPatternHelper(
-          flattened, composite[i].as<CompositeInstruction>(), pattern.at(i).as<CompositeInstruction>(), filter, false);
+      flattenToPatternHelper(flattened,
+                             composite.container_[i].as<CompositeInstruction>(),
+                             pattern.container_.at(i).as<CompositeInstruction>(),
+                             filter,
+                             false);
     }
     else
     {
-      flattened.emplace_back(composite[i]);
+      flattened.emplace_back(composite.container_[i]);
     }
   }
 }

@@ -106,7 +106,7 @@ void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
       new_cc.clear();
 
       upsample(new_cc, cc, start_instruction, longest_valid_segment_length);
-      composite.push_back(new_cc);
+      composite.appendInstruction(new_cc);
     }
     else if (i.isMoveInstruction())
     {
@@ -133,12 +133,12 @@ void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
         {
           MoveInstructionPoly move_instruction(mi1);
           move_instruction.getWaypoint().as<StateWaypointPoly>().setPosition(states.col(i));
-          composite.push_back(move_instruction);
+          composite.appendMoveInstruction(move_instruction);
         }
       }
       else
       {
-        composite.push_back(i);
+        composite.appendInstruction(i);
       }
 
       start_instruction = i;
@@ -146,7 +146,7 @@ void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
     else
     {
       assert(!i.isMoveInstruction());
-      composite.push_back(i);
+      composite.appendInstruction(i);
     }
   }
 }
