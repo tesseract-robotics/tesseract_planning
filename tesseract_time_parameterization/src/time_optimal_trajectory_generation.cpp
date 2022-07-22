@@ -48,7 +48,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
 #include <tesseract_common/utils.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_command_language/utils.h>
 
 constexpr double EPS = 0.000001;
@@ -57,7 +56,7 @@ namespace tesseract_planning
 {
 static const flattenFilterFn programFlattenMoveInstructionFilter =
     [](const InstructionPoly& i, const CompositeInstruction& /*composite*/, bool parent_is_first_composite) {
-      if (isMoveInstruction(i))
+      if (i.isMoveInstruction())
       {
         if (i.as<MoveInstructionPoly>().isStart())
           return (parent_is_first_composite);
@@ -202,7 +201,7 @@ bool TimeOptimalTrajectoryGeneration::computeTimeStamps(CompositeInstruction& pr
 
   if (new_program.hasStartInstruction())
   {
-    if (isStateWaypoint(new_program.getStartInstruction().getWaypoint()))
+    if (new_program.getStartInstruction().getWaypoint().isStateWaypoint())
     {
       auto& waypoint = new_program.getStartInstruction().getWaypoint().as<StateWaypointPoly>();
       waypoint.setVelocity(Eigen::VectorXd::Zero(num_joints));

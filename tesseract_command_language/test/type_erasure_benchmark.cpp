@@ -219,7 +219,7 @@ std::vector<std::unique_ptr<StateWaypoint>> createVectorStateWaypointUPtr()
 static void BM_InstructionPolyCreation(benchmark::State& state)
 {
   for (auto _ : state)
-    InstructionPoly i{ NullInstruction() };
+    InstructionPoly i;
 }
 
 BENCHMARK(BM_InstructionPolyCreation);
@@ -227,7 +227,7 @@ BENCHMARK(BM_InstructionPolyCreation);
 static void BM_WaypointPolyCreation(benchmark::State& state)
 {
   for (auto _ : state)
-    WaypointPoly w{ NullWaypoint() };
+    WaypointPoly w;
 }
 
 BENCHMARK(BM_WaypointPolyCreation);

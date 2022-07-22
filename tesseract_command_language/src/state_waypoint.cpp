@@ -25,7 +25,6 @@
  */
 
 #include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning

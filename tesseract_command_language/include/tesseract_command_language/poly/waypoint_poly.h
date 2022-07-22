@@ -145,6 +145,14 @@ struct WaypointPoly : WaypointPolyBase
 
   void print(const std::string& prefix = "") const;
 
+  bool isCartesianWaypoint() const;
+
+  bool isJointWaypoint() const;
+
+  bool isStateWaypoint() const;
+
+  bool isNullWaypoint() const;
+
 private:
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;

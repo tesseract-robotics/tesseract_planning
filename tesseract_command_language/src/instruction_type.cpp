@@ -24,9 +24,7 @@
  * limitations under the License.
  */
 
-#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
@@ -72,16 +70,6 @@ bool isWaitInstruction(const InstructionPoly& instruction)
 bool isCompositeInstruction(const InstructionPoly& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(CompositeInstruction)));
-}
-
-bool isMoveInstruction(const InstructionPoly& instruction)
-{
-  return (instruction.getType() == std::type_index(typeid(MoveInstructionPoly)));
-}
-
-bool isNullInstruction(const InstructionPoly& instruction)
-{
-  return (instruction.getType() == std::type_index(typeid(NullInstruction)));
 }
 
 }  // namespace tesseract_planning

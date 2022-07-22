@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
-#include <tesseract_command_language/null_instruction.h>
 #include <tesseract_environment/environment.h>
 
 #ifdef SWIG
@@ -75,13 +74,13 @@ public:
   double elapsed_time{ 0 };
 
   /** @brief Instructions passed to task (optionally set) */
-  InstructionPoly instructions_input{ NullInstruction() };
+  InstructionPoly instructions_input;
   /** @brief Instructions after running the task (optionally set)*/
-  InstructionPoly instructions_output{ NullInstruction() };
+  InstructionPoly instructions_output;
   /** @brief Seed/Results passed into the task (optionally set) */
-  InstructionPoly results_input{ NullInstruction() };
+  InstructionPoly results_input;
   /** @brief Seed/Results after running the task (optionally set)*/
-  InstructionPoly results_output{ NullInstruction() };
+  InstructionPoly results_output;
   /** @brief The environment at the beginning of the task (optionally set)*/
   tesseract_environment::Environment::ConstPtr environment{ nullptr };
 

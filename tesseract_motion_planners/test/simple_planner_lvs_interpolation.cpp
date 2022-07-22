@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_environment;
@@ -78,15 +77,15 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   JointWaypointPoly wp2{ JointWaypoint(joint_names_, Eigen::VectorXd::Ones(7)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
@@ -126,15 +125,15 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   JointWaypointPoly wp2{ JointWaypoint(joint_names_, Eigen::VectorXd::Ones(7)) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
@@ -187,15 +186,15 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
       joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
@@ -235,15 +234,15 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
       joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame)) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
@@ -297,15 +296,15 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   JointWaypointPoly wp2{ JointWaypoint(joint_names_, Eigen::VectorXd::Ones(7)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
@@ -344,15 +343,15 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   JointWaypointPoly wp2{ JointWaypoint(joint_names_, Eigen::VectorXd::Ones(7)) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
@@ -405,15 +404,15 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
       joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }
@@ -455,15 +454,15 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
       joint_group->calcFwdKin(Eigen::VectorXd::Ones(7)).at(manip_info_.tcp_frame)) };
   MoveInstruction instr2(wp2, MoveInstructionType::LINEAR, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerLVSPlanProfile profile(3.14, 0.5, 1.57, 5);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
     EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
   }

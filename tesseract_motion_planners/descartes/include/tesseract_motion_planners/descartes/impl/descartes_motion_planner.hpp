@@ -145,15 +145,15 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   for (std::size_t idx = 0; idx < instructions_flattened.size(); idx++)
   {
     // If idx is zero then this should be the start instruction
-    assert((idx == 0) ? isMoveInstruction(instructions_flattened.at(idx).get()) : true);
-    assert((idx == 0) ? isMoveInstruction(results_flattened[idx].get()) : true);
-    if (isMoveInstruction(instructions_flattened.at(idx).get()))
+    assert((idx == 0) ? instructions_flattened.at(idx).get().isMoveInstruction() : true);
+    assert((idx == 0) ? results_flattened[idx].get().isMoveInstruction() : true);
+    if (instructions_flattened.at(idx).get().isMoveInstruction())
     {
       const auto& plan_instruction = instructions_flattened.at(idx).get().as<MoveInstructionPoly>();
       if (plan_instruction.isStart())
       {
         assert(idx == 0);
-        assert(isMoveInstruction(results_flattened[idx].get()));
+        assert(results_flattened[idx].get().isMoveInstruction());
         auto& move_instruction = results_flattened[idx].get().as<MoveInstructionPoly>();
 
         auto& swp = move_instruction.getWaypoint().as<StateWaypointPoly>();
@@ -292,7 +292,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   int index = 0;
   std::string profile;
   ProfileDictionary::ConstPtr profile_overrides;
-  WaypointPoly start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint;
   MoveInstructionPoly placeholder_instruction;
   const MoveInstructionPoly* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
@@ -327,12 +327,12 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
     throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
 
   // Add start waypoint
-  if (isCartesianWaypoint(start_waypoint))
+  if (start_waypoint.isCartesianWaypoint())
   {
     const auto& cwp = start_waypoint.as<CartesianWaypointPoly>();
     cur_plan_profile->apply(*prob, cwp.getTransform(), *start_instruction, composite_mi, index);
   }
-  else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
+  else if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
   {
     assert(checkJointPositionFormat(joint_names, start_waypoint));
     const Eigen::VectorXd& position = getJointPosition(start_waypoint);
@@ -349,9 +349,9 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   for (std::size_t i = start_index; i < instructions_flat.size(); ++i)
   {
     const auto& instruction = instructions_flat[i].get();
-    if (isMoveInstruction(instruction))
+    if (instruction.isMoveInstruction())
     {
-      assert(isMoveInstruction(instruction));
+      assert(instruction.isMoveInstruction());
       const auto& plan_instruction = instruction.template as<MoveInstructionPoly>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
@@ -399,16 +399,16 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
         if (!cur_path_plan_profile)
           throw std::runtime_error("DescartesMotionPlannerConfig: Invalid transition profile");
 
-        if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+        if (plan_instruction.getWaypoint().isCartesianWaypoint())
         {
           const auto& cur_wp = plan_instruction.getWaypoint().template as<CartesianWaypointPoly>();
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
-          if (isCartesianWaypoint(start_waypoint))
+          if (start_waypoint.isCartesianWaypoint())
           {
             prev_pose = start_waypoint.as<CartesianWaypointPoly>().getTransform();
           }
-          else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
+          else if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
           {
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
@@ -433,18 +433,18 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
           ++index;
         }
-        else if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
+        else if (plan_instruction.getWaypoint().isJointWaypoint() || plan_instruction.getWaypoint().isStateWaypoint())
         {
           assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
           Eigen::Isometry3d cur_pose = prob->manip->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offset;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
-          if (isCartesianWaypoint(start_waypoint))
+          if (start_waypoint.isCartesianWaypoint())
           {
             prev_pose = start_waypoint.as<CartesianWaypointPoly>().getTransform();
           }
-          else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
+          else if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
           {
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
@@ -476,7 +476,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       }
       else if (plan_instruction.isFreespace())
       {
-        if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
+        if (plan_instruction.getWaypoint().isJointWaypoint() || plan_instruction.getWaypoint().isStateWaypoint())
         {
           assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
@@ -491,7 +491,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
           ++index;
         }
-        else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+        else if (plan_instruction.getWaypoint().isCartesianWaypoint())
         {
           const auto& cur_wp = plan_instruction.getWaypoint().template as<CartesianWaypointPoly>();
 

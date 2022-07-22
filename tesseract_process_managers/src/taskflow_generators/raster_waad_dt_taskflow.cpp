@@ -104,7 +104,7 @@ TaskflowContainer RasterWAADDTTaskflow::generateTaskflow(TaskInput input,
     container.containers.push_back(std::move(sub_container2));
 
     // Get Start Plan Instruction for approach
-    InstructionPoly start_instruction{ NullInstruction() };
+    InstructionPoly start_instruction;
     if (idx == 1)
     {
       assert(isCompositeInstruction(*(input[0].getInstruction())));
@@ -237,7 +237,7 @@ bool RasterWAADDTTaskflow::checkTaskInput(const tesseract_planning::TaskInput& i
   const auto& composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
-  if (!composite.hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
+  if (!composite.hasStartInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should have a start instruction");
     return false;

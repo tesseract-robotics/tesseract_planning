@@ -437,7 +437,7 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
   {
     const auto& skeleton_i = skeleton[i];
     const auto& composite_i = composite[i];
-    if (isMoveInstruction(composite_i))
+    if (composite_i.isMoveInstruction())
     {
       ASSERT_TRUE(isCompositeInstruction(skeleton_i));
       const auto& cast = skeleton_i.as<CompositeInstruction>();

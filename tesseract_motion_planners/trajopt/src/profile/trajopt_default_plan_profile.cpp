@@ -109,7 +109,7 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
                                       const std::vector<std::string>& active_links,
                                       int index) const
 {
-  assert(isMoveInstruction(parent_instruction));
+  assert(parent_instruction.isMoveInstruction());
   const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());

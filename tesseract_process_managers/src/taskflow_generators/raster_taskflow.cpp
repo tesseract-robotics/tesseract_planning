@@ -73,7 +73,7 @@ TaskflowContainer RasterTaskflow::generateTaskflow(TaskInput input, TaskflowVoid
   for (std::size_t idx = 1; idx < input.size() - 1; idx += 2)
   {
     // Get Start Plan Instruction
-    InstructionPoly start_instruction{ NullInstruction() };
+    InstructionPoly start_instruction;
     if (idx == 1)
     {
       TaskInput from_start_input = input[0];
@@ -192,7 +192,7 @@ bool RasterTaskflow::checkTaskInput(const tesseract_planning::TaskInput& input)
   const auto& composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
-  if (!composite.hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
+  if (!composite.hasStartInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should have a start instruction");
     return false;

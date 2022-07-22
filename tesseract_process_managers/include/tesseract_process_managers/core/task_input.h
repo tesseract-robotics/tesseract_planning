@@ -186,13 +186,13 @@ protected:
   std::vector<std::size_t> instruction_indice_;
 
   /** @brief This process inputs start instruction */
-  InstructionPoly start_instruction_{ NullInstruction() };
+  InstructionPoly start_instruction_;
 
   /** @brief Indices to the start instruction in the results data structure */
   std::vector<std::size_t> start_instruction_indice_;
 
   /** @brief This process inputs end instruction */
-  InstructionPoly end_instruction_{ NullInstruction() };
+  InstructionPoly end_instruction_;
 
   /** @brief Indices to the end instruction in the results data structure */
   std::vector<std::size_t> end_instruction_indice_;

@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
 using namespace tesseract_planning;
@@ -59,6 +60,9 @@ TEST(TesseractCommandLanguageJointWaypointUnit, isToleranced)  // NOLINT
   jw.getUpperTolerance() = Eigen::VectorXd::Constant(3, 0);
   jw.getLowerTolerance() = Eigen::VectorXd::Constant(3, 0);
   EXPECT_FALSE(jw.isToleranced());  // NOLINT
+
+  EXPECT_TRUE(jw.getType() == std::type_index(typeid(JointWaypoint)));
+  jw.print();
 }
 
 TEST(TesseractCommandLanguageJointWaypointUnit, boostSerialization)  // NOLINT

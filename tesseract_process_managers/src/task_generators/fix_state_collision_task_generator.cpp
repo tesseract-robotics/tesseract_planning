@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
@@ -84,7 +83,7 @@ bool waypointInCollision(const WaypointPoly& waypoint,
                          const FixStateCollisionProfile& profile,
                          tesseract_collision::ContactResultMap& contacts)
 {
-  if (isCartesianWaypoint(waypoint))
+  if (waypoint.isCartesianWaypoint())
   {
     CONSOLE_BRIDGE_logDebug("WaypointInCollision, skipping cartesian waypoint!");
     return false;
@@ -111,7 +110,7 @@ bool moveWaypointFromCollisionTrajopt(WaypointPoly& waypoint,
 {
   using namespace trajopt;
 
-  if (isCartesianWaypoint(waypoint))
+  if (waypoint.isCartesianWaypoint())
   {
     CONSOLE_BRIDGE_logDebug("MoveWaypointFromCollision, skipping cartesian waypoint!");
     return true;
@@ -231,7 +230,7 @@ bool moveWaypointFromCollisionRandomSampler(WaypointPoly& waypoint,
                                             const TaskInput& input,
                                             const FixStateCollisionProfile& profile)
 {
-  if (isCartesianWaypoint(waypoint))
+  if (waypoint.isCartesianWaypoint())
   {
     CONSOLE_BRIDGE_logDebug("MoveWaypointFromCollisionRandomSampler, skipping cartesian waypoint!");
     return true;
