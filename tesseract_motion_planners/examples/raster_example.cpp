@@ -124,7 +124,7 @@ int main(int /*argc*/, char** /*argv*/)
     CompositeInstruction from_start;
     from_start.setDescription("from_start");
     from_start.appendMoveInstruction(plan_f0);
-    program.push_back(from_start);
+    program.appendInstruction(from_start);
 
     {
       CompositeInstruction raster_segment;
@@ -135,7 +135,7 @@ int main(int /*argc*/, char** /*argv*/)
       raster_segment.appendMoveInstruction(plan_c3);
       raster_segment.appendMoveInstruction(plan_c4);
       raster_segment.appendMoveInstruction(plan_c5);
-      program.push_back(raster_segment);
+      program.appendInstruction(raster_segment);
     }
 
     {
@@ -150,9 +150,9 @@ int main(int /*argc*/, char** /*argv*/)
 
       CompositeInstruction transitions("DEFAULT", CompositeInstructionOrder::UNORDERED);
       transitions.setDescription("transitions");
-      transitions.push_back(transition_from_start);
-      transitions.push_back(transition_from_end);
-      program.push_back(transitions);
+      transitions.appendInstruction(transition_from_start);
+      transitions.appendInstruction(transition_from_end);
+      program.appendInstruction(transitions);
     }
 
     {
@@ -164,7 +164,7 @@ int main(int /*argc*/, char** /*argv*/)
       raster_segment.appendMoveInstruction(plan_c3);
       raster_segment.appendMoveInstruction(plan_c4);
       raster_segment.appendMoveInstruction(plan_c5);
-      program.push_back(raster_segment);
+      program.appendInstruction(raster_segment);
     }
 
     {
@@ -179,9 +179,9 @@ int main(int /*argc*/, char** /*argv*/)
 
       CompositeInstruction transitions("DEFAULT", CompositeInstructionOrder::UNORDERED);
       transitions.setDescription("transitions");
-      transitions.push_back(transition_from_start);
-      transitions.push_back(transition_from_end);
-      program.push_back(transitions);
+      transitions.appendInstruction(transition_from_start);
+      transitions.appendInstruction(transition_from_end);
+      program.appendInstruction(transitions);
     }
 
     {
@@ -193,7 +193,7 @@ int main(int /*argc*/, char** /*argv*/)
       raster_segment.appendMoveInstruction(plan_c3);
       raster_segment.appendMoveInstruction(plan_c4);
       raster_segment.appendMoveInstruction(plan_c5);
-      program.push_back(raster_segment);
+      program.appendInstruction(raster_segment);
     }
 
     MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
@@ -201,7 +201,7 @@ int main(int /*argc*/, char** /*argv*/)
     CompositeInstruction to_end;
     to_end.setDescription("to_end");
     to_end.appendMoveInstruction(plan_f2);
-    program.push_back(to_end);
+    program.appendInstruction(to_end);
 
     // Plot Program
     auto state_solver = env->getStateSolver();

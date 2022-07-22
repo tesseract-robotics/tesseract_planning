@@ -54,7 +54,6 @@ class MoveInstruction
 {
 public:
   MoveInstruction() = default;  // Required for boost serialization do not use
-  virtual ~MoveInstruction() = default;
 
   /**
    * @brief Move Instruction Constructor
@@ -136,9 +135,9 @@ public:
 
   void print(const std::string& prefix = "") const;
 
-  virtual CartesianWaypointPoly createCartesianWaypoint() const;
-  virtual JointWaypointPoly createJointWaypoint() const;
-  virtual StateWaypointPoly createStateWaypoint() const;
+  CartesianWaypointPoly createCartesianWaypoint() const;
+  JointWaypointPoly createJointWaypoint() const;
+  StateWaypointPoly createStateWaypoint() const;
 
   bool operator==(const MoveInstruction& rhs) const;
   bool operator!=(const MoveInstruction& rhs) const;

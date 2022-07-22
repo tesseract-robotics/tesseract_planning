@@ -643,7 +643,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       {
         assert(checkJointPositionFormat(group_joint_names, base_instruction.getWaypoint()));
         MoveInstructionPoly move_instruction(base_instruction);
-        ci.push_back(move_instruction);
+        ci.appendMoveInstruction(move_instruction);
       }
       else if (base_instruction.getWaypoint().isJointWaypoint())
       {
@@ -655,7 +655,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
         swp.setPosition(jwp.getPosition());
         move_instruction.assignStateWaypoint(swp);
         move_instruction.setMoveType(move_type);
-        ci.push_back(move_instruction);
+        ci.appendMoveInstruction(move_instruction);
       }
       else
       {
@@ -665,7 +665,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
         swp.setPosition(jv);
         move_instruction.assignStateWaypoint(swp);
         move_instruction.setMoveType(move_type);
-        ci.push_back(move_instruction);
+        ci.appendMoveInstruction(move_instruction);
       }
 
       i = ci;

@@ -156,7 +156,7 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
     move_instruction.assignStateWaypoint(swp);
     move_instruction.setProfile(base_instruction.getPathProfile());
     move_instruction.setPathProfile(base_instruction.getPathProfile());
-    composite.push_back(move_instruction);
+    composite.appendMoveInstruction(move_instruction);
   }
 
   MoveInstructionPoly move_instruction{ base_instruction };
@@ -164,7 +164,7 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
   swp.setNames(joint_names);
   swp.setPosition(states.col(states.cols() - 1));
   move_instruction.assignStateWaypoint(swp);
-  composite.push_back(move_instruction);
+  composite.appendMoveInstruction(move_instruction);
 
   return composite;
 }

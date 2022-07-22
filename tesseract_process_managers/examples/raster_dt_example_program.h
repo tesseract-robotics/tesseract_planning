@@ -59,7 +59,7 @@ inline CompositeInstruction rasterDTExampleProgram(const std::string& freespace_
   CompositeInstruction from_start(freespace_profile);
   from_start.setDescription("from_start");
   from_start.appendMoveInstruction(plan_f0);
-  program.push_back(from_start);
+  program.appendInstruction(from_start);
 
   //
   for (int i = 0; i < 4; ++i)
@@ -100,7 +100,7 @@ inline CompositeInstruction rasterDTExampleProgram(const std::string& freespace_
       raster_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
       raster_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
     }
-    program.push_back(raster_segment);
+    program.appendInstruction(raster_segment);
 
     // Add transition
     if (i == 0 || i == 2)
@@ -128,9 +128,9 @@ inline CompositeInstruction rasterDTExampleProgram(const std::string& freespace_
       transition_to_start.appendMoveInstruction(plan_f1_dt);
 
       CompositeInstruction transition("transition dual", CompositeInstructionOrder::UNORDERED);
-      transition.push_back(transition_from_end);
-      transition.push_back(transition_to_start);
-      program.push_back(transition);
+      transition.appendInstruction(transition_from_end);
+      transition.appendInstruction(transition_to_start);
+      program.appendInstruction(transition);
     }
     else if (i == 1)
     {
@@ -157,9 +157,9 @@ inline CompositeInstruction rasterDTExampleProgram(const std::string& freespace_
       transition_to_start.appendMoveInstruction(plan_f1_dt);
 
       CompositeInstruction transition("transition dual", CompositeInstructionOrder::UNORDERED);
-      transition.push_back(transition_from_end);
-      transition.push_back(transition_to_start);
-      program.push_back(transition);
+      transition.appendInstruction(transition_from_end);
+      transition.appendInstruction(transition_to_start);
+      program.appendInstruction(transition);
     }
   }
 
@@ -168,7 +168,7 @@ inline CompositeInstruction rasterDTExampleProgram(const std::string& freespace_
   CompositeInstruction to_end;
   to_end.setDescription("to_end");
   to_end.appendMoveInstruction(plan_f2);
-  program.push_back(to_end);
+  program.appendInstruction(to_end);
 
   return program;
 }

@@ -59,7 +59,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
   CompositeInstruction from_start(freespace_profile);
   from_start.setDescription("from_start");
   from_start.appendMoveInstruction(plan_f0);
-  program.push_back(from_start);
+  program.appendInstruction(from_start);
 
   //
   for (int i = 0; i < 4; ++i)
@@ -100,7 +100,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
       raster_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
       raster_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
     }
-    program.push_back(raster_segment);
+    program.appendInstruction(raster_segment);
 
     // Add transition
     if (i == 0 || i == 2)
@@ -115,7 +115,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("transition_from_end");
       transition.appendMoveInstruction(plan_f1);
-      program.push_back(transition);
+      program.appendInstruction(transition);
     }
     else if (i == 1)
     {
@@ -129,7 +129,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("transition_from_end");
       transition.appendMoveInstruction(plan_f1);
-      program.push_back(transition);
+      program.appendInstruction(transition);
     }
   }
 
@@ -138,7 +138,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
   CompositeInstruction to_end(freespace_profile);
   to_end.setDescription("to_end");
   to_end.appendMoveInstruction(plan_f2);
-  program.push_back(to_end);
+  program.appendInstruction(to_end);
 
   return program;
 }
@@ -195,7 +195,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       raster_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
       raster_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
     }
-    program.push_back(raster_segment);
+    program.appendInstruction(raster_segment);
 
     // Add transition
     if (i == 0 || i == 2)
@@ -210,7 +210,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("transition_from_end");
       transition.appendMoveInstruction(plan_f1);
-      program.push_back(transition);
+      program.appendInstruction(transition);
     }
     else if (i == 1)
     {
@@ -224,7 +224,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("transition_from_end");
       transition.appendMoveInstruction(plan_f1);
-      program.push_back(transition);
+      program.appendInstruction(transition);
     }
   }
 

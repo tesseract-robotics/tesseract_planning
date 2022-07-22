@@ -106,6 +106,9 @@ public:
   void appendMoveInstruction(const MoveInstructionPoly& mi);
   void appendMoveInstruction(const MoveInstructionPoly&& mi);
 
+  void appendInstruction(const InstructionPoly& i);
+  void appendInstruction(const InstructionPoly&& i);
+
   /**
    * @brief Get the first Move Instruction in a Composite Instruction
    * This does not consider the start instruction in child composite instruction
@@ -265,14 +268,14 @@ public:
   using const_reverse_iterator = typename std::vector<value_type>::const_reverse_iterator;
 #endif
 
-#ifndef SWIG
+  //#ifndef SWIG
 
-  template <class InputIt>
-  CompositeInstruction(InputIt first, InputIt last) : container_(first, last)
-  {
-  }
+  //  template <class InputIt>
+  //  CompositeInstruction(InputIt first, InputIt last) : container_(first, last)
+  //  {
+  //  }
 
-#endif  // SWIG
+  //#endif  // SWIG
 
 #ifndef SWIG
   ///////////////
@@ -348,37 +351,14 @@ public:
   ///////////////
   /** @brief clears the contents */
   void clear();
-  /** @brief inserts element */
-  iterator insert(const_iterator p, const value_type& x);
-  iterator insert(const_iterator p, value_type&& x);
-  iterator insert(const_iterator p, std::initializer_list<value_type> l);
-  template <class InputIt>
-  void insert(const_iterator pos, InputIt first, InputIt last)
-  {
-    container_.insert(pos, first, last);
-  }
-
-  /** @brief constructs element in-place */
-  template <class... Args>
-  iterator emplace(const_iterator pos, Args&&... args);
 
   /** @brief erases element */
   iterator erase(const_iterator p);
   iterator erase(const_iterator first, const_iterator last);
-  /** @brief adds an element to the end */
-  void push_back(const value_type& x);
-  void push_back(const value_type&& x);
-
-  /** @brief constructs an element in-place at the end  */
-  template <typename... Args>
-#if __cplusplus > 201402L
-  reference emplace_back(Args&&... args);
-#else
-  void emplace_back(Args&&... args);
-#endif
 
   /** @brief removes the last element */
   void pop_back();
+
   /** @brief swaps the contents  */
   void swap(std::vector<value_type>& other);
 
@@ -399,7 +379,7 @@ public:
 #endif  // SWIG
 
 private:
-  std::vector<value_type> container_;
+  std::vector<InstructionPoly> container_;
 
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Composite Instruction" };
@@ -423,7 +403,7 @@ private:
    *
    * If not provided, the planner should use the current state of the robot is used and defined as fixed.
    */
-  value_type start_instruction_;
+  InstructionPoly start_instruction_;
 
   const InstructionPoly* getFirstInstructionHelper(const CompositeInstruction& composite_instruction,
                                                    const locateFilterFn& locate_filter,

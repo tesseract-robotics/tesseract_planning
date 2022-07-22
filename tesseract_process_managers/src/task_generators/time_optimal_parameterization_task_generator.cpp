@@ -240,7 +240,7 @@ CompositeInstruction TimeOptimalParameterizationTaskGenerator::unflatten(const C
     }
 
     // Add flattened point to the subcomposite
-    unflattened[original_idx].as<CompositeInstruction>().push_back(flattened_input.at(resample_idx));
+    unflattened[original_idx].as<CompositeInstruction>().appendInstruction(flattened_input.at(resample_idx));
 
     // Correct the meta information, taking information from the last element of each composite in the original
     if (unflattened[original_idx].as<CompositeInstruction>().back().isMoveInstruction())

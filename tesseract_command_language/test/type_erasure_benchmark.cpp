@@ -88,7 +88,7 @@ CompositeInstruction getProgram()
   CompositeInstruction from_start;
   from_start.setDescription("from_start");
   from_start.appendMoveInstruction(plan_f0);
-  program.push_back(from_start);
+  program.appendInstruction(from_start);
 
   {
     CompositeInstruction raster_segment;
@@ -99,7 +99,7 @@ CompositeInstruction getProgram()
     raster_segment.appendMoveInstruction(plan_c3);
     raster_segment.appendMoveInstruction(plan_c4);
     raster_segment.appendMoveInstruction(plan_c5);
-    program.push_back(raster_segment);
+    program.appendInstruction(raster_segment);
   }
 
   {
@@ -114,9 +114,9 @@ CompositeInstruction getProgram()
 
     CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
-    transitions.push_back(transition_from_start);
-    transitions.push_back(transition_from_end);
-    program.push_back(transitions);
+    transitions.appendInstruction(transition_from_start);
+    transitions.appendInstruction(transition_from_end);
+    program.appendInstruction(transitions);
   }
 
   {
@@ -128,7 +128,7 @@ CompositeInstruction getProgram()
     raster_segment.appendMoveInstruction(plan_c3);
     raster_segment.appendMoveInstruction(plan_c4);
     raster_segment.appendMoveInstruction(plan_c5);
-    program.push_back(raster_segment);
+    program.appendInstruction(raster_segment);
   }
 
   {
@@ -143,9 +143,9 @@ CompositeInstruction getProgram()
 
     CompositeInstruction transitions(DEFAULT_PROFILE_KEY, CompositeInstructionOrder::UNORDERED);
     transitions.setDescription("transitions");
-    transitions.push_back(transition_from_start);
-    transitions.push_back(transition_from_end);
-    program.push_back(transitions);
+    transitions.appendInstruction(transition_from_start);
+    transitions.appendInstruction(transition_from_end);
+    program.appendInstruction(transitions);
   }
 
   {
@@ -157,7 +157,7 @@ CompositeInstruction getProgram()
     raster_segment.appendMoveInstruction(plan_c3);
     raster_segment.appendMoveInstruction(plan_c4);
     raster_segment.appendMoveInstruction(plan_c5);
-    program.push_back(raster_segment);
+    program.appendInstruction(raster_segment);
   }
 
   MoveInstruction plan_f2(wp1, MoveInstructionType::FREESPACE, "freespace_profile");
@@ -165,26 +165,26 @@ CompositeInstruction getProgram()
   CompositeInstruction to_end;
   to_end.setDescription("to_end");
   to_end.appendMoveInstruction(plan_f2);
-  program.push_back(to_end);
+  program.appendInstruction(to_end);
 
   // Add a wait instruction
   WaitInstruction wait_instruction_time(1.5);
-  program.push_back(wait_instruction_time);
+  program.appendInstruction(wait_instruction_time);
 
   WaitInstruction wait_instruction_io(WaitInstructionType::DIGITAL_INPUT_LOW, 10);
-  program.push_back(wait_instruction_io);
+  program.appendInstruction(wait_instruction_io);
 
   // Add a timer instruction
   TimerInstruction timer_instruction(TimerInstructionType::DIGITAL_OUTPUT_LOW, 3.1, 5);
-  program.push_back(timer_instruction);
+  program.appendInstruction(timer_instruction);
 
   // Add a set tool instruction
   SetToolInstruction set_tool_instruction(5);
-  program.push_back(set_tool_instruction);
+  program.appendInstruction(set_tool_instruction);
 
   // Add a set tool instruction
   SetAnalogInstruction set_analog_instruction("R", 0, 1.5);
-  program.push_back(set_analog_instruction);
+  program.appendInstruction(set_analog_instruction);
 
   return program;
 }
