@@ -47,8 +47,6 @@ add_library(
   src/poly/serialization.cpp
   src/poly/state_waypoint_poly.cpp
   src/poly/waypoint_poly.cpp
-  src/null_instruction.cpp
-  src/null_waypoint.cpp
   src/move_instruction.cpp
   src/set_analog_instruction.cpp
   src/set_tool_instruction.cpp
@@ -56,7 +54,6 @@ add_library(
   src/wait_instruction.cpp
   src/composite_instruction.cpp
   src/instruction_type.cpp
-  src/waypoint_type.cpp
   src/state_waypoint.cpp
   src/cartesian_waypoint.cpp
   src/joint_waypoint.cpp

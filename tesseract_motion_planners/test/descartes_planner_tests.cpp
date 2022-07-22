@@ -39,7 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
@@ -180,7 +179,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction(sub_official[k]))
+          else if (sub_official[k].isMoveInstruction())
           {
             const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
             const auto& mv = sub[k].as<MoveInstructionPoly>();
@@ -188,7 +187,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
           }
         }
       }
-      else if (isMoveInstruction(official_results[j]))
+      else if (official_results[j].isMoveInstruction())
       {
         const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
         const auto& mv = request.seed[j].as<MoveInstructionPoly>();
@@ -286,7 +285,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction(sub_official[k]))
+          else if (sub_official[k].isMoveInstruction())
           {
             const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
             const auto& mv = sub[k].as<MoveInstructionPoly>();
@@ -294,7 +293,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
           }
         }
       }
-      else if (isMoveInstruction(official_results[j]))
+      else if (official_results[j].isMoveInstruction())
       {
         const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
         const auto& mv = request.seed[j].as<MoveInstructionPoly>();
@@ -394,7 +393,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction(sub_official[k]))
+          else if (sub_official[k].isMoveInstruction())
           {
             const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
             const auto& mv = sub[k].as<MoveInstructionPoly>();
@@ -402,7 +401,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
           }
         }
       }
-      else if (isMoveInstruction(official_results[j]))
+      else if (official_results[j].isMoveInstruction())
       {
         const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
         const auto& mv = request.seed[j].as<MoveInstructionPoly>();

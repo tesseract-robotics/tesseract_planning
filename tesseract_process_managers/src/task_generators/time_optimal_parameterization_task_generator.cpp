@@ -208,7 +208,7 @@ CompositeInstruction TimeOptimalParameterizationTaskGenerator::unflatten(const C
   for (std::size_t resample_idx = 0, original_idx = 0; resample_idx < flattened_input.size(); resample_idx++)
   {
     // If all joints are within the tolerance, then this point hopefully corresponds
-    if (isMoveInstruction(flattened_input.at(resample_idx)))
+    if (flattened_input.at(resample_idx).isMoveInstruction())
     {
       // Get the current position to see if we should increment original_idx
       const Eigen::VectorXd& current_pt =
@@ -243,7 +243,7 @@ CompositeInstruction TimeOptimalParameterizationTaskGenerator::unflatten(const C
     unflattened[original_idx].as<CompositeInstruction>().push_back(flattened_input.at(resample_idx));
 
     // Correct the meta information, taking information from the last element of each composite in the original
-    if (isMoveInstruction(unflattened[original_idx].as<CompositeInstruction>().back()))
+    if (unflattened[original_idx].as<CompositeInstruction>().back().isMoveInstruction())
     {
       const auto& pattern_instr = pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstructionPoly>();
       unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstructionPoly>().setMoveType(

@@ -28,7 +28,6 @@
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/waypoint_type.h>
 
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
 #include <tesseract_motion_planners/descartes/descartes_robot_sampler.h>
@@ -169,7 +168,7 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
                                                    const tesseract_common::ManipulatorInfo& manip_info,
                                                    int index) const
 {
-  assert(isMoveInstruction(parent_instruction));
+  assert(parent_instruction.isMoveInstruction());
   const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());

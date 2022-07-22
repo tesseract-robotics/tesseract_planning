@@ -44,8 +44,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/ompl/weighted_real_vector_state_sampler.h>
 #include <tesseract_motion_planners/core/utils.h>
 
-#include <tesseract_command_language/waypoint_type.h>
-#include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/utils.h>
 
 namespace tesseract_planning
@@ -255,7 +253,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
     // Copy the start instruction
     assert(instructions_idx == 0);
-    assert(isMoveInstruction(results_flattened[0].get()));
+    assert(results_flattened[0].get().isMoveInstruction());
     auto& move_instruction = results_flattened[0].get().as<MoveInstructionPoly>();
     move_instruction.getWaypoint().as<StateWaypointPoly>().setPosition(trajectory.row(0));
     instructions_idx++;
@@ -265,7 +263,7 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
   std::size_t prob_idx = 0;
   for (; instructions_idx < instructions_flattened.size(); instructions_idx++)
   {
-    if (isMoveInstruction(instructions_flattened.at(instructions_idx).get()))
+    if (instructions_flattened.at(instructions_idx).get().isMoveInstruction())
     {
       const auto& p = problem[prob_idx];
 
@@ -382,7 +380,7 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
       throw std::runtime_error("OMPL planner does not support child composite instructions.");
 
   int index = 0;
-  WaypointPoly start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint;
   MoveInstructionPoly placeholder_instruction;
   const MoveInstructionPoly* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
@@ -410,9 +408,9 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
   for (std::size_t i = 0; i < request.instructions.size(); ++i)
   {
     const auto& instruction = request.instructions[i];
-    if (isMoveInstruction(instruction))
+    if (instruction.isMoveInstruction())
     {
-      assert(isMoveInstruction(instruction));
+      assert(instruction.isMoveInstruction());
       const auto& plan_instruction = instruction.as<MoveInstructionPoly>();
 
       assert(isCompositeInstruction(request.seed[i]));
@@ -436,8 +434,8 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
       if (plan_instruction.isLinear())
       {
         /** @todo Add support for linear motion to ompl planner */
-        if (isCartesianWaypoint(plan_instruction.getWaypoint()) || isJointWaypoint(plan_instruction.getWaypoint()) ||
-            isStateWaypoint(start_waypoint))
+        if (plan_instruction.getWaypoint().isCartesianWaypoint() || plan_instruction.getWaypoint().isJointWaypoint() ||
+            plan_instruction.getWaypoint().isStateWaypoint())
         {
           // TODO Currently skipping linear moves until SE3 motion planning is implemented.
           problem.push_back(nullptr);
@@ -450,7 +448,7 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
       }
       else if (plan_instruction.isFreespace())
       {
-        if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
+        if (plan_instruction.getWaypoint().isJointWaypoint() || plan_instruction.getWaypoint().isStateWaypoint())
         {
           assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
@@ -458,14 +456,14 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
               *sub_prob, cur_position, plan_instruction, composite_mi, active_link_names, index);
 
           ompl::base::ScopedState<> start_state(sub_prob->simple_setup->getStateSpace());
-          if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
+          if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
           {
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& prev_position = getJointPosition(start_waypoint);
             cur_plan_profile->applyStartStates(
                 *sub_prob, prev_position, *start_instruction, composite_mi, active_link_names, index);
           }
-          else if (isCartesianWaypoint(start_waypoint))
+          else if (start_waypoint.isCartesianWaypoint())
           {
             const auto& prev_wp = start_waypoint.as<CartesianWaypointPoly>();
             cur_plan_profile->applyStartStates(
@@ -479,7 +477,7 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
           problem.push_back(std::move(sub_prob));
           ++index;
         }
-        else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+        else if (plan_instruction.getWaypoint().isCartesianWaypoint())
         {
           const auto& cur_wp = plan_instruction.getWaypoint().as<CartesianWaypointPoly>();
           cur_plan_profile->applyGoalStates(
@@ -488,14 +486,14 @@ std::vector<OMPLProblem::Ptr> OMPLMotionPlanner::createProblems(const PlannerReq
           if (index == 0)
           {
             ompl::base::ScopedState<> start_state(sub_prob->simple_setup->getStateSpace());
-            if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
+            if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
             {
               assert(checkJointPositionFormat(joint_names, start_waypoint));
               const Eigen::VectorXd& prev_position = getJointPosition(start_waypoint);
               cur_plan_profile->applyStartStates(
                   *sub_prob, prev_position, *start_instruction, composite_mi, active_link_names, index);
             }
-            else if (isCartesianWaypoint(start_waypoint))
+            else if (start_waypoint.isCartesianWaypoint())
             {
               const auto& prev_wp = start_waypoint.as<CartesianWaypointPoly>();
               cur_plan_profile->applyStartStates(

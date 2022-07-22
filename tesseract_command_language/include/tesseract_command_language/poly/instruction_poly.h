@@ -163,6 +163,10 @@ struct InstructionPoly : InstructionPolyBase
 
   void print(const std::string& prefix = "") const;
 
+  bool isMoveInstruction() const;
+
+  bool isNullInstruction() const;
+
 private:
   friend class boost::serialization::access;
   friend struct tesseract_common::Serialization;

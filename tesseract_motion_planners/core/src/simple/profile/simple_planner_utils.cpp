@@ -25,7 +25,6 @@
  */
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_kinematics/core/utils.h>
 
@@ -58,9 +57,9 @@ JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& 
   tcp_offset = request.env->findTCPOffset(mi);
 
   // Get Previous Instruction Waypoint Info
-  if (isStateWaypoint(plan_instruction.getWaypoint()) || isJointWaypoint(plan_instruction.getWaypoint()))
+  if (plan_instruction.getWaypoint().isStateWaypoint() || plan_instruction.getWaypoint().isJointWaypoint())
     has_cartesian_waypoint = false;
-  else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+  else if (plan_instruction.getWaypoint().isCartesianWaypoint())
     has_cartesian_waypoint = true;
   else
     throw std::runtime_error("Simple planner currently only supports State, Joint and Cartesian Waypoint types!");
@@ -73,7 +72,7 @@ Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::Vect
 
 Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose() const
 {
-  if (!isCartesianWaypoint(instruction.getWaypoint()))
+  if (!instruction.getWaypoint().isCartesianWaypoint())
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
 
   return instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
@@ -111,9 +110,9 @@ KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructi
   tcp_offset = request.env->findTCPOffset(mi);
 
   // Get Previous Instruction Waypoint Info
-  if (isStateWaypoint(plan_instruction.getWaypoint()) || isJointWaypoint(plan_instruction.getWaypoint()))
+  if (plan_instruction.getWaypoint().isStateWaypoint() || plan_instruction.getWaypoint().isJointWaypoint())
     has_cartesian_waypoint = false;
-  else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+  else if (plan_instruction.getWaypoint().isCartesianWaypoint())
     has_cartesian_waypoint = true;
   else
     throw std::runtime_error("Simple planner currently only supports State, Joint and Cartesian Waypoint types!");
@@ -126,7 +125,7 @@ Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::
 
 Eigen::Isometry3d KinematicGroupInstructionInfo::extractCartesianPose() const
 {
-  if (!isCartesianWaypoint(instruction.getWaypoint()))
+  if (!instruction.getWaypoint().isCartesianWaypoint())
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
 
   return instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();

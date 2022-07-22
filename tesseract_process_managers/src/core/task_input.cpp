@@ -194,16 +194,16 @@ void TaskInput::setStartInstruction(InstructionPoly start)
 void TaskInput::setStartInstruction(std::vector<std::size_t> start)
 {
   start_instruction_indice_ = std::move(start);
-  start_instruction_ = NullInstruction();
+  start_instruction_ = InstructionPoly();
 }
 
 InstructionPoly TaskInput::getStartInstruction() const
 {
-  if (!isNullInstruction(start_instruction_))
+  if (!start_instruction_.isNullInstruction())
     return start_instruction_;
 
   if (start_instruction_indice_.empty())
-    return NullInstruction();
+    return InstructionPoly();
 
   InstructionPoly* ci = results_;
   for (const auto& i : start_instruction_indice_)
@@ -215,7 +215,7 @@ InstructionPoly TaskInput::getStartInstruction() const
     }
     else
     {
-      return NullInstruction();
+      return InstructionPoly();
     }
   }
 
@@ -234,16 +234,16 @@ void TaskInput::setEndInstruction(InstructionPoly end)
 void TaskInput::setEndInstruction(std::vector<std::size_t> end)
 {
   end_instruction_indice_ = std::move(end);
-  end_instruction_ = NullInstruction();
+  end_instruction_ = InstructionPoly();
 }
 
 InstructionPoly TaskInput::getEndInstruction() const
 {
-  if (!isNullInstruction(end_instruction_))
+  if (!end_instruction_.isNullInstruction())
     return end_instruction_;
 
   if (end_instruction_indice_.empty())
-    return NullInstruction();
+    return InstructionPoly();
 
   InstructionPoly* ci = results_;
   for (const auto& i : end_instruction_indice_)
@@ -255,7 +255,7 @@ InstructionPoly TaskInput::getEndInstruction() const
     }
     else
     {
-      return NullInstruction();
+      return InstructionPoly();
     }
   }
 
@@ -266,7 +266,7 @@ InstructionPoly TaskInput::getEndInstruction() const
     if (composite.hasStartInstruction())
       return composite.getStartInstruction();
 
-    return NullInstruction();
+    return InstructionPoly();
   }
 
   return *ci;

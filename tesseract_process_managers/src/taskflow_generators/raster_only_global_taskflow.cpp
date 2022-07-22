@@ -187,7 +187,7 @@ bool RasterOnlyGlobalTaskflow::checkTaskInput(const tesseract_planning::TaskInpu
   const auto& composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
-  if (!composite.hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
+  if (!composite.hasStartInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should have a start instruction");
     return false;

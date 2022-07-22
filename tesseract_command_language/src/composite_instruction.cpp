@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 #include <tesseract_command_language/move_instruction.h> /** @todo Remove after refactor is complete */
@@ -43,7 +42,7 @@ bool moveFilter(const InstructionPoly& instruction,
                 const CompositeInstruction& /*composite*/,
                 bool parent_is_first_composite)
 {
-  if (isMoveInstruction(instruction))
+  if (instruction.isMoveInstruction())
   {
     if (instruction.as<MoveInstructionPoly>().isStart())
       return (parent_is_first_composite);
@@ -84,7 +83,7 @@ void CompositeInstruction::setStartInstruction(MoveInstructionPoly instruction)
   start_instruction_ = std::move(instruction);
 }
 
-void CompositeInstruction::resetStartInstruction() { start_instruction_ = NullInstruction(); }
+void CompositeInstruction::resetStartInstruction() { start_instruction_ = InstructionPoly(); }
 
 const MoveInstructionPoly& CompositeInstruction::getStartInstruction() const
 {
@@ -96,7 +95,7 @@ MoveInstructionPoly& CompositeInstruction::getStartInstruction()
   return start_instruction_.as<MoveInstructionPoly>();
 }
 
-bool CompositeInstruction::hasStartInstruction() const { return (!isNullInstruction(start_instruction_)); }
+bool CompositeInstruction::hasStartInstruction() const { return (!start_instruction_.isNullInstruction()); }
 
 void CompositeInstruction::setInstructions(std::vector<tesseract_planning::InstructionPoly> instructions)
 {

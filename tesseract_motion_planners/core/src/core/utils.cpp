@@ -38,8 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_command_language/poly/joint_waypoint_poly.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
-#include <tesseract_command_language/waypoint_type.h>
-#include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/core/utils.h>
 
@@ -52,7 +50,7 @@ Eigen::Isometry3d calcPose(const WaypointPoly& wp,
                            const tesseract_scene_graph::SceneState& current_state,
                            tesseract_scene_graph::StateSolver& state_solver)
 {
-  if (isStateWaypoint(wp))
+  if (wp.isStateWaypoint())
   {
     const auto& swp = wp.as<StateWaypointPoly>();
     assert(static_cast<long>(swp.getNames().size()) == swp.getPosition().size());
@@ -60,7 +58,7 @@ Eigen::Isometry3d calcPose(const WaypointPoly& wp,
     return (state.link_transforms[tip_link] * tcp);
   }
 
-  if (isJointWaypoint(wp))
+  if (wp.isJointWaypoint())
   {
     const auto& jwp = wp.as<JointWaypointPoly>();
     assert(static_cast<long>(jwp.getNames().size()) == jwp.getPosition().size());
@@ -68,7 +66,7 @@ Eigen::Isometry3d calcPose(const WaypointPoly& wp,
     return (state.link_transforms[tip_link] * tcp);
   }
 
-  if (isCartesianWaypoint(wp))
+  if (wp.isCartesianWaypoint())
   {
     const auto& cwp = wp.as<CartesianWaypointPoly>();
     if (working_frame.empty())
@@ -103,8 +101,8 @@ tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction, const 
       tesseract_common::ManipulatorInfo manip_info;
 
       // Check for updated manipulator information and get waypoint
-      WaypointPoly wp{ NullWaypoint() };
-      if (isMoveInstruction(i.get()))
+      WaypointPoly wp;
+      if (i.get().isMoveInstruction())
       {
         const auto& mi = i.get().as<MoveInstructionPoly>();
         manip_info = composite_mi.getCombined(mi.getManipulatorInfo());
@@ -122,9 +120,9 @@ tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction, const 
       poses.push_back(calcPose(wp, manip_info.working_frame, manip_info.tcp_frame, tcp_offset, state, *state_solver));
     }
   }
-  else if (isMoveInstruction(instruction))
+  else if (instruction.isMoveInstruction())
   {
-    assert(isMoveInstruction(instruction));
+    assert(instruction.isMoveInstruction());
     const auto& pi = instruction.as<MoveInstructionPoly>();
 
     // Assume all the plan instructions have the same manipulator as the composite
@@ -197,7 +195,7 @@ Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
 
 std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const WaypointPoly& stop, long steps)
 {
-  if (isCartesianWaypoint(start))
+  if (start.isCartesianWaypoint())
   {
     const auto& cwp1 = start.as<CartesianWaypointPoly>();
     const auto& cwp2 = stop.as<CartesianWaypointPoly>();
@@ -215,7 +213,7 @@ std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const 
     return result;
   }
 
-  if (isJointWaypoint(start))
+  if (start.isJointWaypoint())
   {
     const auto& jwp1 = start.as<JointWaypointPoly>();
     const auto& jwp2 = stop.as<JointWaypointPoly>();
@@ -243,7 +241,7 @@ bool programFlattenFilter(const InstructionPoly& instruction,
                           const CompositeInstruction& /*composite*/,
                           bool parent_is_first_composite)
 {
-  if (isMoveInstruction(instruction))
+  if (instruction.isMoveInstruction())
   {
     if (instruction.as<MoveInstructionPoly>().isStart())
       return (parent_is_first_composite);
@@ -608,7 +606,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
     {
       generateNaiveSeedHelper(i.as<CompositeInstruction>(), env, state, manip_info, manip_joint_names);
     }
-    else if (isMoveInstruction(i))
+    else if (i.isMoveInstruction())
     {
       auto& base_instruction = i.as<MoveInstructionPoly>();
       tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
@@ -641,13 +639,13 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       else
         throw std::runtime_error("generateNaiveSeed: Unsupported Move Instruction Type!");
 
-      if (isStateWaypoint(base_instruction.getWaypoint()))
+      if (base_instruction.getWaypoint().isStateWaypoint())
       {
         assert(checkJointPositionFormat(group_joint_names, base_instruction.getWaypoint()));
         MoveInstructionPoly move_instruction(base_instruction);
         ci.push_back(move_instruction);
       }
-      else if (isJointWaypoint(base_instruction.getWaypoint()))
+      else if (base_instruction.getWaypoint().isJointWaypoint())
       {
         assert(checkJointPositionFormat(group_joint_names, base_instruction.getWaypoint()));
         const auto& jwp = base_instruction.getWaypoint().as<JointWaypointPoly>();
@@ -697,7 +695,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
   manip_joint_names[start_mi.manipulator] = joint_names;
   Eigen::VectorXd jv = state.getJointValues(joint_names);
 
-  if (isStateWaypoint(base_instruction.getWaypoint()))
+  if (base_instruction.getWaypoint().isStateWaypoint())
   {
     assert(checkJointPositionFormat(joint_names, base_instruction.getWaypoint()));
 
@@ -706,7 +704,7 @@ CompositeInstruction generateNaiveSeed(const CompositeInstruction& composite_ins
     move_instruction.setManipulatorInfo(base_mi);
     seed.setStartInstruction(move_instruction);
   }
-  else if (isJointWaypoint(base_instruction.getWaypoint()))
+  else if (base_instruction.getWaypoint().isJointWaypoint())
   {
     assert(checkJointPositionFormat(joint_names, base_instruction.getWaypoint()));
     const auto& jwp = base_instruction.getWaypoint().as<JointWaypointPoly>();
@@ -748,7 +746,7 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
       if (formatProgramHelper(i.as<CompositeInstruction>(), env, manip_info, manip_joint_names))
         format_required = true;
     }
-    else if (isMoveInstruction(i))
+    else if (i.isMoveInstruction())
     {
       auto& base_instruction = i.as<MoveInstructionPoly>();
       tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
@@ -767,7 +765,7 @@ bool formatProgramHelper(CompositeInstruction& composite_instructions,
         joint_names = it->second;
       }
 
-      if (isStateWaypoint(base_instruction.getWaypoint()) || isJointWaypoint(base_instruction.getWaypoint()))
+      if (base_instruction.getWaypoint().isStateWaypoint() || base_instruction.getWaypoint().isJointWaypoint())
       {
         if (formatJointPosition(joint_names, base_instruction.getWaypoint()))
           format_required = true;
@@ -788,7 +786,7 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
 
   std::unordered_map<std::string, tesseract_kinematics::JointGroup::UPtr> manipulators;
 
-  if (isMoveInstruction(composite_instructions.getStartInstruction()))
+  if (composite_instructions.hasStartInstruction())
   {
     auto& pi = composite_instructions.getStartInstruction();
 
@@ -806,7 +804,7 @@ bool formatProgram(CompositeInstruction& composite_instructions, const tesseract
       joint_names = it->second;
     }
 
-    if (isStateWaypoint(pi.getWaypoint()) || isJointWaypoint(pi.getWaypoint()))
+    if (pi.getWaypoint().isStateWaypoint() || pi.getWaypoint().isJointWaypoint())
     {
       if (formatJointPosition(joint_names, pi.getWaypoint()))
         format_required = true;

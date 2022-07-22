@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/waypoint_type.h>
 
 namespace tesseract_planning
 {
@@ -53,10 +52,10 @@ inline void RescaleTimings(CompositeInstruction& program, std::vector<double> sc
     CompositeInstruction& sub = program[sub_composite_idx].as<CompositeInstruction>();
     for (std::size_t move_idx = 0; move_idx < sub.size(); move_idx++)
     {
-      if (isMoveInstruction(sub.at(move_idx)))
+      if (sub.at(move_idx).isMoveInstruction())
       {
         auto& move = sub.at(move_idx).as<MoveInstructionPoly>();
-        if (isStateWaypoint(move.getWaypoint()))
+        if (move.getWaypoint().isStateWaypoint())
         {
           auto& state = move.getWaypoint().as<StateWaypointPoly>();
 

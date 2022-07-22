@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/profile_dictionary.h>
 #include <tesseract_common/manipulator_info.h>
@@ -155,7 +154,7 @@ private:
   std::string path_profile_;
 
   /** @brief The assigned waypoint (Cartesian or Joint) */
-  WaypointPoly waypoint_{ NullWaypoint() };
+  WaypointPoly waypoint_;
 
   /** @brief Contains information about the manipulator associated with this instruction*/
   tesseract_common::ManipulatorInfo manipulator_info_;

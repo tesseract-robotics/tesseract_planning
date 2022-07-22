@@ -4,6 +4,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/waypoint_poly.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
 
 template <class Archive>
 void tesseract_planning::detail_waypoint::WaypointInterface::serialize(Archive& ar,
@@ -14,6 +17,26 @@ void tesseract_planning::detail_waypoint::WaypointInterface::serialize(Archive& 
 }
 
 void tesseract_planning::WaypointPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
+
+bool tesseract_planning::WaypointPoly::isCartesianWaypoint() const
+{
+  return (isNullWaypoint() ? false : (getInterface().getType() == std::type_index(typeid(CartesianWaypointPoly))));
+}
+
+bool tesseract_planning::WaypointPoly::isJointWaypoint() const
+{
+  return (isNullWaypoint() ? false : (getInterface().getType() == std::type_index(typeid(JointWaypointPoly))));
+}
+
+bool tesseract_planning::WaypointPoly::isStateWaypoint() const
+{
+  return (isNullWaypoint() ? false : (getInterface().getType() == std::type_index(typeid(StateWaypointPoly))));
+}
+
+bool tesseract_planning::WaypointPoly::isNullWaypoint() const
+{
+  return (getType() == std::type_index(typeid(nullptr)));
+}
 
 template <class Archive>
 void tesseract_planning::WaypointPoly::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT

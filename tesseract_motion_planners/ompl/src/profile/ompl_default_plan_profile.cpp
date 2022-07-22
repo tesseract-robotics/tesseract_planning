@@ -361,7 +361,7 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
   const auto dof = prob.manip->numJoints();
   tesseract_common::KinematicLimits limits = prob.manip->getLimits();
 
-  assert(isMoveInstruction(parent_instruction));
+  assert(parent_instruction.isMoveInstruction());
   const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
@@ -498,7 +498,7 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
   const auto dof = prob.manip->numJoints();
   tesseract_common::KinematicLimits limits = prob.manip->getLimits();
 
-  assert(isMoveInstruction(parent_instruction));
+  assert(parent_instruction.isMoveInstruction());
   const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
   tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());

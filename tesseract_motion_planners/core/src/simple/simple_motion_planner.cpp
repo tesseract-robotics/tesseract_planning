@@ -35,8 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
-#include <tesseract_command_language/null_waypoint.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
@@ -105,7 +103,7 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
 
   // Initialize
   tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
-  WaypointPoly start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint;
 
   // Create seed
   CompositeInstruction seed;
@@ -167,7 +165,7 @@ MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerReques
     const auto& start_waypoint = start_instruction.getWaypoint();
 
     MoveInstructionPoly start_instruction_seed(start_instruction);
-    if (isJointWaypoint(start_waypoint))
+    if (start_waypoint.isJointWaypoint())
     {
       assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
       const auto& jwp = start_waypoint.as<JointWaypointPoly>();
@@ -178,7 +176,7 @@ MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerReques
       return start_instruction_seed;
     }
 
-    if (isCartesianWaypoint(start_waypoint))
+    if (start_waypoint.isCartesianWaypoint())
     {
       /** @todo Update to run IK to find solution closest to start */
       StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
@@ -188,7 +186,7 @@ MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerReques
       return start_instruction_seed;
     }
 
-    if (isStateWaypoint(start_waypoint))
+    if (start_waypoint.isStateWaypoint())
     {
       assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
       return start_instruction_seed;
@@ -224,15 +222,15 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       seed.push_back(
           processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, prev_seed, request));
     }
-    else if (isMoveInstruction(instruction))
+    else if (instruction.isMoveInstruction())
     {
       const auto& base_instruction = instruction.as<MoveInstructionPoly>();
 
       // Get the next plan instruction if it exists
-      InstructionPoly next_instruction = NullInstruction();
+      InstructionPoly next_instruction;
       for (std::size_t n = i + 1; n < instructions.size(); ++n)
       {
-        if (isMoveInstruction(instructions[n]))
+        if (instructions[n].isMoveInstruction())
         {
           next_instruction = instructions[n];
           break;

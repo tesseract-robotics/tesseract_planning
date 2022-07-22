@@ -38,8 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
-#include <tesseract_command_language/waypoint_type.h>
-
 namespace tesseract_planning
 {
 SeedMinLengthTaskGenerator::SeedMinLengthTaskGenerator(std::string name) : TaskGenerator(std::move(name)) {}
@@ -125,14 +123,14 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
       subdivide(new_cc, cc, start_instruction, subdivisions);
       composite.push_back(new_cc);
     }
-    else if (isMoveInstruction(i))
+    else if (i.isMoveInstruction())
     {
-      assert(isMoveInstruction(start_instruction));
+      assert(start_instruction.isMoveInstruction());
       const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
       const auto& mi1 = i.as<MoveInstructionPoly>();
 
-      assert(isStateWaypoint(mi0.getWaypoint()));
-      assert(isStateWaypoint(mi1.getWaypoint()));
+      assert(mi0.getWaypoint().isStateWaypoint());
+      assert(mi1.getWaypoint().isStateWaypoint());
       const auto& swp0 = mi0.getWaypoint().as<StateWaypointPoly>();
       const auto& swp1 = mi1.getWaypoint().as<StateWaypointPoly>();
 
@@ -151,7 +149,7 @@ void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
     }
     else
     {
-      assert(!isMoveInstruction(i));
+      assert(!i.isMoveInstruction());
       composite.push_back(i);
     }
   }

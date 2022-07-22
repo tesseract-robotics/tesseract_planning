@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
 
 using namespace tesseract_environment;
@@ -77,7 +76,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
   CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
@@ -85,8 +84,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
 
     const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(wp1.getPosition().isApprox(mi.getWaypoint().as<StateWaypointPoly>().getPosition(), 1e-5));
@@ -112,7 +111,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
   JointWaypointPoly wp2{ JointWaypoint(joint_names_, Eigen::VectorXd::Zero(7)) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
@@ -120,8 +119,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
 
     const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<StateWaypointPoly>().getPosition(), 1e-5));
@@ -147,7 +146,7 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
   CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
   MoveInstruction instr2(wp2, MoveInstructionType::FREESPACE, "TEST_PROFILE", manip_info_);
 
-  NullInstruction instr3;
+  InstructionPoly instr3;
 
   SimplePlannerFixedSizeAssignPlanProfile profile(10, 10);
   auto composite = profile.generate(instr1, instr1_seed, instr2, instr3, request, tesseract_common::ManipulatorInfo());
@@ -157,8 +156,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
   for (std::size_t i = 0; i < composite.size() - 1; ++i)
   {
     const auto& c = composite.at(i);
-    EXPECT_TRUE(isMoveInstruction(c));
-    EXPECT_TRUE(isStateWaypoint(c.as<MoveInstructionPoly>().getWaypoint()));
+    EXPECT_TRUE(c.isMoveInstruction());
+    EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
 
     const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<StateWaypointPoly>().getPosition(), 1e-5));

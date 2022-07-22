@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/motion_planner_task_generator.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_motion_planners/core/planner.h>
 
 namespace tesseract_planning
@@ -87,7 +86,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   InstructionPoly start_instruction = input.getStartInstruction();
   InstructionPoly end_instruction = input.getEndInstruction();
 
-  if (!isNullInstruction(start_instruction))
+  if (!start_instruction.isNullInstruction())
   {
     // add start
     if (isCompositeInstruction(start_instruction))
@@ -101,15 +100,15 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     }
     else
     {
-      assert(isMoveInstruction(start_instruction) || isMoveInstruction(start_instruction));
-      if (isMoveInstruction(start_instruction))
+      assert(start_instruction.isMoveInstruction());
+      if (start_instruction.isMoveInstruction())
       {
         instructions.setStartInstruction(start_instruction.as<MoveInstructionPoly>());
         instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
       }
     }
   }
-  if (!isNullInstruction(end_instruction))
+  if (!end_instruction.isNullInstruction())
   {
     // add end
     if (isCompositeInstruction(end_instruction))
@@ -118,27 +117,27 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
       const auto& ci = end_instruction.as<CompositeInstruction>();
       const auto* fmi = ci.getFirstMoveInstruction();
       assert(fmi != nullptr);
-      if (isCartesianWaypoint(fmi->getWaypoint()))
+      if (fmi->getWaypoint().isCartesianWaypoint())
         instructions.getLastMoveInstruction()->assignCartesianWaypoint(fmi->getWaypoint().as<CartesianWaypointPoly>());
-      else if (isJointWaypoint(fmi->getWaypoint()))
+      else if (fmi->getWaypoint().isJointWaypoint())
         instructions.getLastMoveInstruction()->assignJointWaypoint(fmi->getWaypoint().as<JointWaypointPoly>());
-      else if (isStateWaypoint(fmi->getWaypoint()))
+      else if (fmi->getWaypoint().isStateWaypoint())
         instructions.getLastMoveInstruction()->assignStateWaypoint(fmi->getWaypoint().as<StateWaypointPoly>());
       else
         throw std::runtime_error("Invalid waypoint type");
     }
     else
     {
-      assert(isMoveInstruction(end_instruction));
+      assert(end_instruction.isMoveInstruction());
       auto* lpi = instructions.getLastMoveInstruction();
-      if (isMoveInstruction(end_instruction))
+      if (end_instruction.isMoveInstruction())
       {
         const auto& wp = end_instruction.as<MoveInstructionPoly>().getWaypoint();
-        if (isCartesianWaypoint(wp))
+        if (wp.isCartesianWaypoint())
           lpi->assignCartesianWaypoint(wp.as<CartesianWaypointPoly>());
-        else if (isJointWaypoint(wp))
+        else if (wp.isJointWaypoint())
           lpi->assignJointWaypoint(wp.as<JointWaypointPoly>());
-        else if (isStateWaypoint(wp))
+        else if (wp.isStateWaypoint())
           lpi->assignStateWaypoint(wp.as<StateWaypointPoly>());
         else
           throw std::runtime_error("Invalid waypoint type");

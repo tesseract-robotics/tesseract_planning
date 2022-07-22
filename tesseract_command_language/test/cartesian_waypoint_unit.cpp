@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
-#include <tesseract_command_language/null_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 
 using namespace tesseract_planning;
@@ -61,6 +60,9 @@ TEST(TesseractCommandLanguageCartesianWaypointUnit, isToleranced)  // NOLINT
   cw.setUpperTolerance(Eigen::VectorXd::Constant(3, 0));
   cw.setLowerTolerance(Eigen::VectorXd::Constant(3, 0));
   EXPECT_FALSE(cw.isToleranced());
+
+  EXPECT_TRUE(cw.getType() == std::type_index(typeid(CartesianWaypoint)));
+  cw.print();
 }
 
 TEST(TesseractCommandLanguageCartesianWaypointUnit, boostSerialization)  // NOLINT

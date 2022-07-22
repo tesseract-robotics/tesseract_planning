@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
-#include <tesseract_command_language/null_instruction.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/profile_dictionary.h>
@@ -425,7 +424,7 @@ private:
    *
    * If not provided, the planner should use the current state of the robot is used and defined as fixed.
    */
-  value_type start_instruction_{ NullInstruction() };
+  value_type start_instruction_;
 
   const InstructionPoly* getFirstInstructionHelper(const CompositeInstruction& composite_instruction,
                                                    const locateFilterFn& locate_filter,

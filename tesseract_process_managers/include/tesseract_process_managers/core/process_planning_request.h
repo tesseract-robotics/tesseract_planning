@@ -52,10 +52,10 @@ public:
   std::string name;
 
   /** @brief  This should an xml string of the command language instructions */
-  InstructionPoly instructions{ NullInstruction() };
+  InstructionPoly instructions;
 
   /** @brief This should an xml string of the command language instructions (Optional) */
-  InstructionPoly seed{ NullInstruction() };
+  InstructionPoly seed;
 
   /** @brief Environment state to start planning with (Optional)  */
   tesseract_scene_graph::SceneState env_state;
