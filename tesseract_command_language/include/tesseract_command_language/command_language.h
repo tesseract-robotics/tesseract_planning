@@ -42,20 +42,4 @@
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>
 
-#ifdef SWIG
-%include "tesseract_command_language/instruction_type.h"
-%include "tesseract_command_language/null_instruction.h"
-%include "tesseract_command_language/null_waypoint.h"
-%include "tesseract_command_language/cartesian_waypoint.h"
-%include "tesseract_command_language/composite_instruction.h"
-%include "tesseract_command_language/joint_waypoint.h"
-%include "tesseract_command_language/move_instruction.h"
-%include "tesseract_command_language/state_waypoint.h"
-%include "tesseract_command_language/waypoint_type.h"
-%include "tesseract_command_language/timer_instruction.h"
-%include "tesseract_command_language/wait_instruction.h"
-%include "tesseract_command_language/set_tool_instruction.h"
-%include "tesseract_command_language/set_analog_instruction.h"
-#endif  // SWIG
-
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAYPOINT_TYPE_H

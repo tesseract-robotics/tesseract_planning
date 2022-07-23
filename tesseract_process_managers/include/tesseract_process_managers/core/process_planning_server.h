@@ -42,11 +42,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/process_planning_request.h>
 #include <tesseract_process_managers/core/process_planning_future.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::ProcessPlanningServer)
-%nodefaultctor tesseract_planning::ProcessPlanningServer;
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 /**
@@ -175,16 +170,6 @@ public:
    * @return A future to monitor progress
    */
   tf::Future<void> run(tf::Taskflow& taskflow, const std::string& name = PRIMARY_EXECUTOR_NAME) const;
-#endif  // SWIG
-
-#ifdef SWIG
-  %extend
-  {
-    std::shared_ptr<tesseract_planning::ProcessPlanningFuture> run(const ProcessPlanningRequest& request)
-    {
-      return std::make_shared<tesseract_planning::ProcessPlanningFuture>(std::move($self->run(request)));
-    }
-  }
 #endif  // SWIG
 
   /**

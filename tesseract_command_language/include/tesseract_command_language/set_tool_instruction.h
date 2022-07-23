@@ -78,10 +78,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%tesseract_command_language_add_instruction_type(SetToolInstruction)
-#else
 TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, SetToolInstruction);
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_SET_TOOL_INSTRUCTION_H

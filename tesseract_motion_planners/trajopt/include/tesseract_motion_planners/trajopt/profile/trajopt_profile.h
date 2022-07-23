@@ -38,12 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/types.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::TrajOptPlanProfile)
-%shared_ptr(tesseract_planning::TrajOptSolverProfile)
-%shared_ptr(tesseract_planning::TrajOptCompositeProfile)
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 class TrajOptPlanProfile
@@ -121,14 +115,5 @@ using TrajOptSolverProfileMap = std::unordered_map<std::string, TrajOptSolverPro
 using TrajOptCompositeProfileMap = std::unordered_map<std::string, TrajOptCompositeProfile::ConstPtr>;
 using TrajOptPlanProfileMap = std::unordered_map<std::string, TrajOptPlanProfile::ConstPtr>;
 }  // namespace tesseract_planning
-
-#ifdef SWIG
-%template(TrajOptSolverProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::TrajOptSolverProfile>>;
-%template(TrajOptCompositeProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::TrajOptCompositeProfile>>;
-%template(TrajOptPlanProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::TrajOptPlanProfile>>;
-%tesseract_command_language_add_profile_type(TrajOptSolverProfile);
-%tesseract_command_language_add_profile_type(TrajOptPlanProfile);
-%tesseract_command_language_add_profile_type(TrajOptCompositeProfile);
-#endif  // SWIG
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_PROFILE_H

@@ -32,10 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/task_generator.h>
 #include <tesseract_process_managers/core/default_task_namespaces.h>
 
-#ifdef SWIG
-%ignore ProfileSwitchTaskInfo;
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 /**

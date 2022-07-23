@@ -39,10 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/core/instruction.h>
 #include <tesseract_command_language/types.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::ProcessPlanningProblem)
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 struct ProcessPlanningProblem
@@ -81,21 +77,7 @@ struct ProcessPlanningProblem
   /** @brief The stored composite profile remapping */
   std::unique_ptr<const PlannerProfileRemapping> composite_profile_remapping{ nullptr };
 
-#else
-  // clang-format off
-  %extend {
-  Instruction& getInput() { return *$self->input; }
-  Instruction& getResults() { return *$self->results; }
-  ManipulatorInfo getGlobalManipInfo() { return *$self->global_manip_info; }
-  PlannerProfileRemapping getPlanProfileRemapping() { return *$self->plan_profile_remapping; }
-  PlannerProfileRemapping getCompositeProfileRemapping() { return *$self->composite_profile_remapping; }
-  }
-  // clang-format on
 #endif
-
-#ifdef SWIG
-  %ignore taskflow_container;
-#endif  // SWIG
 
   /**
    * @brief The taskflow container returned from the TaskflowGenerator that must remain during taskflow execution

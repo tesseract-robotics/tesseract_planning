@@ -37,11 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/null_instruction.h>
 #include <tesseract_environment/environment.h>
 
-#ifdef SWIG
-%wrap_unique_ptr(TaskInfoUPtr,tesseract_planning::TaskInfo)
-%shared_ptr(tesseract_planning::TaskInfoContainer)
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 /** Stores information about a Task */

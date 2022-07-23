@@ -48,10 +48,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/command_language.h>
 #include <tesseract_time_parameterization/trajectory_container.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::TimeOptimalTrajectoryGeneration)
-#endif
-
 namespace tesseract_planning
 {
 class TimeOptimalTrajectoryGeneration

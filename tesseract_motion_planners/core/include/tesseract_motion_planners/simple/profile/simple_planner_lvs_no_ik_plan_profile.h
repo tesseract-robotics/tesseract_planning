@@ -35,10 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::SimplePlannerLVSNoIKPlanProfile)
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 class SimplePlannerLVSNoIKPlanProfile : public SimplePlannerPlanProfile

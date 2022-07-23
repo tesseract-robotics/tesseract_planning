@@ -38,13 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
 
-#ifdef SWIG
-%ignore std::vector<tesseract_planning::Instruction>::vector(size_type);
-%ignore std::vector<tesseract_planning::Instruction>::resize(size_type);
-%ignore tesseract_planning::Instruction::getType;
-%pythondynamic tesseract_planning::Instruction;
-#endif  // SWIG
-
 /** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_INSTRUCTION_EXPORT_KEY(N, C)                                                                         \
   namespace N                                                                                                          \
@@ -173,9 +166,6 @@ private:
 
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%template(Instructions) std::vector<tesseract_planning::Instruction>;
-#else
 BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::detail_instruction::InstructionInterface)
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_instruction::InstructionInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::detail_instruction::InstructionInterface, boost::serialization::track_never)
@@ -185,6 +175,5 @@ BOOST_CLASS_TRACKING(tesseract_planning::InstructionBase, boost::serialization::
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::Instruction)
 BOOST_CLASS_TRACKING(tesseract_planning::Instruction, boost::serialization::track_never);
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H
