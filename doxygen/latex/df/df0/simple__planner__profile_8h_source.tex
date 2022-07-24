@@ -15,61 +15,49 @@
 \DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{move__instruction__poly_8h}{tesseract\_command\_language/poly/move\_instruction\_poly.h}}>}}
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h}{tesseract\_motion\_planners/core/types.h}}>}}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{39 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{tesseract\_planning::SimplePlannerPlanProfile}})}
-\DoxyCodeLine{40 \%shared\_ptr(tesseract\_planning::SimplePlannerPlanCompositeProfile)}
-\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{42 }
-\DoxyCodeLine{43 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{44 \{}
-\DoxyCodeLine{49 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}}
-\DoxyCodeLine{50 \{}
-\DoxyCodeLine{51 \textcolor{keyword}{public}:}
-\DoxyCodeLine{52   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a50c8067ba16c7427b0d4a0db9519d5ba}{Ptr}} = std::shared\_ptr<SimplePlannerPlanProfile>;}
-\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{ConstPtr}} = std::shared\_ptr<const SimplePlannerPlanProfile>;}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a863695ea69b2de668f3a7d46ed6a3046}{SimplePlannerPlanProfile}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{56   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a42896a1c7e2c28ab148e67ffe6421c62}{\string~SimplePlannerPlanProfile}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a43c88e19e9117567be301810ee7c6063}{SimplePlannerPlanProfile}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab4ba6974fc8504f0fec423e7f77d33cb}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a14f46167a0c8c86658a2ee52971ecbfd}{SimplePlannerPlanProfile}}(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\&\&) noexcept = default;}
-\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\&\&) noexcept = default;}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{72   virtual \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a71f70cb15d487d7407e66bfb7cc05e95}{generate}}(const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_instruction,}
-\DoxyCodeLine{73                                         const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_seed,}
-\DoxyCodeLine{74                                         const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& base\_instruction,}
-\DoxyCodeLine{75                                         const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& next\_instruction,}
-\DoxyCodeLine{76                                         const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{77                                         const tesseract\_common::\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& global\_manip\_info) const = 0;}
-\DoxyCodeLine{78 \};}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{80 class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}}
-\DoxyCodeLine{81 \{}
-\DoxyCodeLine{82 \textcolor{keyword}{public}:}
-\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a822df859d52c76b0a5a67a6c9151ed18}{Ptr}} = std::shared\_ptr<SimplePlannerCompositeProfile>;}
-\DoxyCodeLine{84   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a8b136def5dd54719765810af6136d4c7}{ConstPtr}} = std::shared\_ptr<const SimplePlannerCompositeProfile>;}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_aafbf505b766b72f1614b9d0a497e13b8}{SimplePlannerCompositeProfile}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{87   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a1cbb80a8e87306a1ba1a53a2b7b66ec9}{\string~SimplePlannerCompositeProfile}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{88   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_af97ceb44c014af3309c98e90ec27352e}{SimplePlannerCompositeProfile}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{89   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a6917b7cece6e428f4de1321ec1b9f5ab}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{90   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a8122f3786739699fc2198b6f3abc6f88}{SimplePlannerCompositeProfile}}(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\&\&) noexcept = default;}
-\DoxyCodeLine{91   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\&\&) noexcept = default;}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   \textcolor{comment}{// This contains functions for composite processing. Get start for example}}
-\DoxyCodeLine{94 \};}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{96 using \mbox{\hyperlink{namespacetesseract__planning_a44a3bd50194e415e51a5f2e2e5e1c5ec}{SimplePlannerPlanProfileMap}} = std::unordered\_map<std::\textcolor{keywordtype}{string}, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}::\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{ConstPtr}}>;}
-\DoxyCodeLine{97 using \mbox{\hyperlink{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}{SimplePlannerCompositeProfileMap}} = std::unordered\_map<std::\textcolor{keywordtype}{string}, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}::\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{ConstPtr}}>;}
-\DoxyCodeLine{98 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{101 \%\textcolor{keyword}{template}(\mbox{\hyperlink{namespacetesseract__planning_a44a3bd50194e415e51a5f2e2e5e1c5ec}{SimplePlannerPlanProfileMap}}) std::unordered\_map<std::string, tesseract\_planning::SimplePlannerPlanProfile::ConstPtr>;}
-\DoxyCodeLine{102 \%\textcolor{keyword}{template}(\mbox{\hyperlink{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}{SimplePlannerCompositeProfileMap}}) std::unordered\_map<std::string, tesseract\_planning::SimplePlannerCompositeProfile::ConstPtr>;}
-\DoxyCodeLine{103 \%tesseract\_command\_language\_add\_profile\_type(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}});}
-\DoxyCodeLine{104 \%tesseract\_command\_language\_add\_profile\_type(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}});}
-\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_PROFILE\_H}}
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a50c8067ba16c7427b0d4a0db9519d5ba}{Ptr}} = std::shared\_ptr<SimplePlannerPlanProfile>;}
+\DoxyCodeLine{48   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{ConstPtr}} = std::shared\_ptr<const SimplePlannerPlanProfile>;}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a863695ea69b2de668f3a7d46ed6a3046}{SimplePlannerPlanProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a42896a1c7e2c28ab148e67ffe6421c62}{\string~SimplePlannerPlanProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a43c88e19e9117567be301810ee7c6063}{SimplePlannerPlanProfile}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab4ba6974fc8504f0fec423e7f77d33cb}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a14f46167a0c8c86658a2ee52971ecbfd}{SimplePlannerPlanProfile}}(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\&\&) noexcept = default;}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}\&\&) noexcept = default;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{67   virtual \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_a71f70cb15d487d7407e66bfb7cc05e95}{generate}}(const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_instruction,}
+\DoxyCodeLine{68                                         const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_seed,}
+\DoxyCodeLine{69                                         const \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& base\_instruction,}
+\DoxyCodeLine{70                                         const \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& next\_instruction,}
+\DoxyCodeLine{71                                         const \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{72                                         const tesseract\_common::\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{ManipulatorInfo}}\& global\_manip\_info) const = 0;}
+\DoxyCodeLine{73 \};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 class \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}}
+\DoxyCodeLine{76 \{}
+\DoxyCodeLine{77 \textcolor{keyword}{public}:}
+\DoxyCodeLine{78   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a822df859d52c76b0a5a67a6c9151ed18}{Ptr}} = std::shared\_ptr<SimplePlannerCompositeProfile>;}
+\DoxyCodeLine{79   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a8b136def5dd54719765810af6136d4c7}{ConstPtr}} = std::shared\_ptr<const SimplePlannerCompositeProfile>;}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_aafbf505b766b72f1614b9d0a497e13b8}{SimplePlannerCompositeProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{82   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a1cbb80a8e87306a1ba1a53a2b7b66ec9}{\string~SimplePlannerCompositeProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{83   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_af97ceb44c014af3309c98e90ec27352e}{SimplePlannerCompositeProfile}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{84   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\& \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a6917b7cece6e428f4de1321ec1b9f5ab}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{85   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile_a8122f3786739699fc2198b6f3abc6f88}{SimplePlannerCompositeProfile}}(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\&\&) noexcept = default;}
+\DoxyCodeLine{86   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}\&\&) noexcept = default;}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   \textcolor{comment}{// This contains functions for composite processing. Get start for example}}
+\DoxyCodeLine{89 \};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 using \mbox{\hyperlink{namespacetesseract__planning_a44a3bd50194e415e51a5f2e2e5e1c5ec}{SimplePlannerPlanProfileMap}} = std::unordered\_map<std::\textcolor{keywordtype}{string}, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}::\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{ConstPtr}}>;}
+\DoxyCodeLine{92 using \mbox{\hyperlink{namespacetesseract__planning_ae2b7d23fdf0bef79f8646e6ae8bf2acf}{SimplePlannerCompositeProfileMap}} = std::unordered\_map<std::\textcolor{keywordtype}{string}, \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerCompositeProfile}{SimplePlannerCompositeProfile}}::\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile_ab3e9b839cfdea0466f7a4428502bd065}{ConstPtr}}>;}
+\DoxyCodeLine{93 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_PROFILE\_H}}
 
 \end{DoxyCode}

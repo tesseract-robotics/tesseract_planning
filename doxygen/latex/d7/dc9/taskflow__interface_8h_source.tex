@@ -15,66 +15,62 @@
 \DoxyCodeLine{35 }
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__info_8h}{tesseract\_process\_managers/core/task\_info.h}}>}}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{39 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{tesseract\_planning::TaskflowInterface}})}
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{48 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50 \textcolor{keyword}{public}:}
-\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Ptr}} = std::shared\_ptr<TaskflowInterface>;}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a04f2e845ac8ef24812988fd2208e708b}{TaskflowInterface}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ae42a9b43e1757a68bac5c3bd394ca00d}{\string~TaskflowInterface}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af51a3db609709ddd5bf5b86204c9ac26}{TaskflowInterface}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& rhs) \{ *\textcolor{keyword}{this} = rhs; \}}
-\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_aef3dee65854e7dcaf5e4194fe98b3cb2}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& rhs)}
-\DoxyCodeLine{57   \{}
-\DoxyCodeLine{58     \textcolor{keywordflow}{if} (\textcolor{keyword}{this} == \&rhs)}
-\DoxyCodeLine{59       \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{60     \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}} = rhs.\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}}.load();}
-\DoxyCodeLine{61     \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}} = rhs.\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}};}
-\DoxyCodeLine{62     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{63   \}}
-\DoxyCodeLine{64   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ad1377db0589d19ec75a1874955def1ca}{TaskflowInterface}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\&\& rhs) noexcept : \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}}(rhs.abort\_.load()) \{\}}
-\DoxyCodeLine{65   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af4d8be81e9b8aab51817cdf5370b688b}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\&\& rhs) \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{66   \{}
-\DoxyCodeLine{67     \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}} = rhs.abort\_.load();}
-\DoxyCodeLine{68     \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}} = rhs.task\_infos\_;}
-\DoxyCodeLine{69     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{70   \}}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{76   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a9faf63e6869fde4268637551ce1f0774}{isAborted}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{82   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_abf3ae2851bf6906c3dbfd33162cce011}{isSuccessful}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{85   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_aa52f465d4226ba1e9c68b3d556abb49d}{abort}}();}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{92   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a679debd90e35ed989bb3fbf43c5f8ec3}{getTaskInfo}}(\textcolor{keyword}{const} std::size\_t\& index) \textcolor{keyword}{const};}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{98   std::map<std::size\_t, TaskInfo::UPtr> \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a878065f953619496fe5711d4de5058f8}{getTaskInfoMap}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{104   \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{TaskInfoContainer::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a08e43b2328567c9d4b7ed3eb226f5996}{getTaskInfoContainer}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{105 }
-\DoxyCodeLine{106   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ac4ea6cc5fc87c643b899a6661359514b}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{107   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a96f983bb795754d5718cb38400030d96}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{108 }
-\DoxyCodeLine{109 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{110   std::atomic<bool> \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}}\{ \textcolor{keyword}{false} \};}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{113   \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{TaskInfoContainer::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}}\{ std::make\_shared<TaskInfoContainer>() \};}
-\DoxyCodeLine{114 }
-\DoxyCodeLine{115 \textcolor{keyword}{private}:}
-\DoxyCodeLine{116   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{117   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{118   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ac8fedd7d95ebdd5d04bab038fb9f3bcc}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{119 \};}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{121 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{122 }
-\DoxyCodeLine{123 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{124 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{tesseract\_planning::TaskflowInterface}}, \textcolor{stringliteral}{"{}TaskflowInterface"{}})}
-\DoxyCodeLine{125 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_taskflow\_interface\_H}}
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{Ptr}} = std::shared\_ptr<TaskflowInterface>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a04f2e845ac8ef24812988fd2208e708b}{TaskflowInterface}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ae42a9b43e1757a68bac5c3bd394ca00d}{\string~TaskflowInterface}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af51a3db609709ddd5bf5b86204c9ac26}{TaskflowInterface}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& rhs) \{ *\textcolor{keyword}{this} = rhs; \}}
+\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_aef3dee65854e7dcaf5e4194fe98b3cb2}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& rhs)}
+\DoxyCodeLine{53   \{}
+\DoxyCodeLine{54     \textcolor{keywordflow}{if} (\textcolor{keyword}{this} == \&rhs)}
+\DoxyCodeLine{55       \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{56     \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}} = rhs.\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}}.load();}
+\DoxyCodeLine{57     \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}} = rhs.\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}};}
+\DoxyCodeLine{58     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{59   \}}
+\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ad1377db0589d19ec75a1874955def1ca}{TaskflowInterface}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\&\& rhs) noexcept : \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}}(rhs.abort\_.load()) \{\}}
+\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af4d8be81e9b8aab51817cdf5370b688b}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\&\& rhs) \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{62   \{}
+\DoxyCodeLine{63     \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}} = rhs.abort\_.load();}
+\DoxyCodeLine{64     \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}} = rhs.task\_infos\_;}
+\DoxyCodeLine{65     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{66   \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{72   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a9faf63e6869fde4268637551ce1f0774}{isAborted}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{78   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_abf3ae2851bf6906c3dbfd33162cce011}{isSuccessful}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{81   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_aa52f465d4226ba1e9c68b3d556abb49d}{abort}}();}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{88   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a679debd90e35ed989bb3fbf43c5f8ec3}{getTaskInfo}}(\textcolor{keyword}{const} std::size\_t\& index) \textcolor{keyword}{const};}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{94   std::map<std::size\_t, TaskInfo::UPtr> \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a878065f953619496fe5711d4de5058f8}{getTaskInfoMap}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{100   \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{TaskInfoContainer::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a08e43b2328567c9d4b7ed3eb226f5996}{getTaskInfoContainer}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ac4ea6cc5fc87c643b899a6661359514b}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{103   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a96f983bb795754d5718cb38400030d96}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{TaskflowInterface}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{106   std::atomic<bool> \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_a426bee2dcb29adfaf492ab82e8fb52dd}{abort\_}}\{ \textcolor{keyword}{false} \};}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{109   \mbox{\hyperlink{structtesseract__planning_1_1TaskInfoContainer_a8578a2eff50e9e5540dd85627320de41}{TaskInfoContainer::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_af75a78552b9b42e1415cc7d99bdcbe0b}{task\_infos\_}}\{ std::make\_shared<TaskInfoContainer>() \};}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111 \textcolor{keyword}{private}:}
+\DoxyCodeLine{112   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{113   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{114   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_ac8fedd7d95ebdd5d04bab038fb9f3bcc}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{115 \};}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{120 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface}{tesseract\_planning::TaskflowInterface}}, \textcolor{stringliteral}{"{}TaskflowInterface"{}})}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_taskflow\_interface\_H}}
 
 \end{DoxyCode}

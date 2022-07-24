@@ -19,81 +19,72 @@
 \DoxyCodeLine{39 \textcolor{preprocessor}{\#include <tesseract\_kinematics/core/kinematic\_group.h>}}
 \DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2ompl_2include_2tesseract__motion__planners_2ompl_2types_8h}{tesseract\_motion\_planners/ompl/types.h}}>}}
 \DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{43 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{tesseract\_planning::OMPLProblem}})}
-\DoxyCodeLine{44 \%ignore \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a0f300ebd721cae520e029df0f1f18234}{tesseract\_planning::OMPLProblem::extractor}};}
-\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{48 \{}
-\DoxyCodeLine{49 \textcolor{keyword}{struct }OMPLProblem;}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{51 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}{StateSamplerAllocator}} =}
-\DoxyCodeLine{52     std::function<ompl::base::StateSamplerPtr(\textcolor{keyword}{const} ompl::base::StateSpace*, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\&)>;}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a7bd709d31d5445aafb082d85b1dced53}{OptimizationObjectiveAllocator}} =}
-\DoxyCodeLine{55     std::function<ompl::base::OptimizationObjectivePtr(\textcolor{keyword}{const} ompl::base::SpaceInformationPtr\&, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\&)>;}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a4998b57113ac39511185f381ce61a6fd}{StateValidityCheckerAllocator}} =}
-\DoxyCodeLine{58     std::function<ompl::base::StateValidityCheckerPtr(\textcolor{keyword}{const} ompl::base::SpaceInformationPtr\&, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\&)>;}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a49e2e11b198d0aa7480130b9f18021d5}{MotionValidatorAllocator}} =}
-\DoxyCodeLine{61     std::function<ompl::base::MotionValidatorPtr(\textcolor{keyword}{const} ompl::base::SpaceInformationPtr\&, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\&)>;}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63 \textcolor{keyword}{enum class} \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{OMPLProblemStateSpace}}}
-\DoxyCodeLine{64 \{}
-\DoxyCodeLine{65   \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{REAL\_STATE\_SPACE}},}
-\DoxyCodeLine{66 \textcolor{preprocessor}{\#ifndef OMPL\_LESS\_1\_4\_0}}
-\DoxyCodeLine{67   \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62a86b43f975a794464ccbca127da14aea0}{REAL\_CONSTRAINTED\_STATE\_SPACE}},}
-\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{69   \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62a660ce4b7bd4b4a899f9a46c870ac4d2b}{SE3\_STATE\_SPACE}},}
-\DoxyCodeLine{70 \};}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{72 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}}
-\DoxyCodeLine{73 \{}
-\DoxyCodeLine{74   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{Ptr}} = std::shared\_ptr<OMPLProblem>;}
-\DoxyCodeLine{75   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_afde9c91edc5399805e7cba38d32d998d}{ConstPtr}} = std::shared\_ptr<const OMPLProblem>;}
-\DoxyCodeLine{76   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aed58d94be3bbfd492aacfd28046fd2a9}{UPtr}} = std::unique\_ptr<OMPLProblem>;}
-\DoxyCodeLine{77   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a609a1f297d1dd74738eb99f8a22fca71}{ConstUPtr}} = std::unique\_ptr<const OMPLProblem>;}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{79   \textcolor{comment}{// These are required for Tesseract to configure ompl}}
-\DoxyCodeLine{80   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad5ac188e15baa1ba64f0b9887426faa2}{env}};}
-\DoxyCodeLine{81   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a796cc36d190f1efcde0ea436d5bdd90d}{env\_state}};}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{83   \textcolor{comment}{// This is used to verify that start and goal states are not in collision}}
-\DoxyCodeLine{84   tesseract\_collision::DiscreteContactManager::Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a7cf3d069c6ab887bc8affb95d84b3bb6}{contact\_checker}};}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86   \textcolor{comment}{// Problem Configuration}}
-\DoxyCodeLine{87   \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{OMPLProblemStateSpace}} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a4be2e36ea5f0d35abe0a1d9086d78927}{state\_space}}\{ \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{OMPLProblemStateSpace::REAL\_STATE\_SPACE}} \};}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89   \textcolor{comment}{// Kinematic Objects}}
-\DoxyCodeLine{90   tesseract\_kinematics::JointGroup::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a7cfbe3a0d955c00540496a070867bdbb}{manip}};}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{93   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a5b9b1991b3797c9d6fd9dd2fd822d4f6}{planning\_time}} = 5.0;}
-\DoxyCodeLine{94 }
-\DoxyCodeLine{96   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ab3d5e68d86aa548e545dc6d13591f150}{max\_solutions}} = 10;}
-\DoxyCodeLine{97 }
-\DoxyCodeLine{103   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_af6ff9802f34283621e069c9f6b06895e}{simplify}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{111   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad188305efe4b0781b4157765927c7103}{n\_output\_states}} = 20;}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{123   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a5b863d8c426fd824c9e021f3e94b8aeb}{optimize}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{124 }
-\DoxyCodeLine{126   ompl::geometric::SimpleSetupPtr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ac65bd9b7d78b61673baf1fdca28a3224}{simple\_setup}};}
-\DoxyCodeLine{127 }
-\DoxyCodeLine{133   std::vector<OMPLPlannerConfigurator::ConstPtr> \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad5efa2cec9c2dec7511908cb6e1b8987}{planners}}\{\};}
+\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{struct }OMPLProblem;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a907f97222f0b1a6e7b79f05b9e7d450c}{StateSamplerAllocator}} =}
+\DoxyCodeLine{47     std::function<ompl::base::StateSamplerPtr(\textcolor{keyword}{const} ompl::base::StateSpace*, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\&)>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a7bd709d31d5445aafb082d85b1dced53}{OptimizationObjectiveAllocator}} =}
+\DoxyCodeLine{50     std::function<ompl::base::OptimizationObjectivePtr(\textcolor{keyword}{const} ompl::base::SpaceInformationPtr\&, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\&)>;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a4998b57113ac39511185f381ce61a6fd}{StateValidityCheckerAllocator}} =}
+\DoxyCodeLine{53     std::function<ompl::base::StateValidityCheckerPtr(\textcolor{keyword}{const} ompl::base::SpaceInformationPtr\&, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\&)>;}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a49e2e11b198d0aa7480130b9f18021d5}{MotionValidatorAllocator}} =}
+\DoxyCodeLine{56     std::function<ompl::base::MotionValidatorPtr(\textcolor{keyword}{const} ompl::base::SpaceInformationPtr\&, \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}\&)>;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keyword}{enum class} \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{OMPLProblemStateSpace}}}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60   \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{REAL\_STATE\_SPACE}},}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifndef OMPL\_LESS\_1\_4\_0}}
+\DoxyCodeLine{62   \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62a86b43f975a794464ccbca127da14aea0}{REAL\_CONSTRAINTED\_STATE\_SPACE}},}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{64   \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62a660ce4b7bd4b4a899f9a46c870ac4d2b}{SE3\_STATE\_SPACE}},}
+\DoxyCodeLine{65 \};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem}{OMPLProblem}}}
+\DoxyCodeLine{68 \{}
+\DoxyCodeLine{69   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aea12893d0ff5db7190406bc2822d343c}{Ptr}} = std::shared\_ptr<OMPLProblem>;}
+\DoxyCodeLine{70   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_afde9c91edc5399805e7cba38d32d998d}{ConstPtr}} = std::shared\_ptr<const OMPLProblem>;}
+\DoxyCodeLine{71   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_aed58d94be3bbfd492aacfd28046fd2a9}{UPtr}} = std::unique\_ptr<OMPLProblem>;}
+\DoxyCodeLine{72   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a609a1f297d1dd74738eb99f8a22fca71}{ConstUPtr}} = std::unique\_ptr<const OMPLProblem>;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{comment}{// These are required for Tesseract to configure ompl}}
+\DoxyCodeLine{75   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad5ac188e15baa1ba64f0b9887426faa2}{env}};}
+\DoxyCodeLine{76   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a796cc36d190f1efcde0ea436d5bdd90d}{env\_state}};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78   \textcolor{comment}{// This is used to verify that start and goal states are not in collision}}
+\DoxyCodeLine{79   tesseract\_collision::DiscreteContactManager::Ptr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a7cf3d069c6ab887bc8affb95d84b3bb6}{contact\_checker}};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81   \textcolor{comment}{// Problem Configuration}}
+\DoxyCodeLine{82   \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62}{OMPLProblemStateSpace}} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a4be2e36ea5f0d35abe0a1d9086d78927}{state\_space}}\{ \mbox{\hyperlink{namespacetesseract__planning_ac337c63f13aba30328a8cd25f863be62ac700c3da1b6aaeb3269ba5529efb62fe}{OMPLProblemStateSpace::REAL\_STATE\_SPACE}} \};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84   \textcolor{comment}{// Kinematic Objects}}
+\DoxyCodeLine{85   tesseract\_kinematics::JointGroup::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a7cfbe3a0d955c00540496a070867bdbb}{manip}};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{88   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a5b9b1991b3797c9d6fd9dd2fd822d4f6}{planning\_time}} = 5.0;}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{91   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ab3d5e68d86aa548e545dc6d13591f150}{max\_solutions}} = 10;}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{98   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_af6ff9802f34283621e069c9f6b06895e}{simplify}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{106   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad188305efe4b0781b4157765927c7103}{n\_output\_states}} = 20;}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{118   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a5b863d8c426fd824c9e021f3e94b8aeb}{optimize}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{121   ompl::geometric::SimpleSetupPtr \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ac65bd9b7d78b61673baf1fdca28a3224}{simple\_setup}};}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{128   std::vector<OMPLPlannerConfigurator::ConstPtr> \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_ad5efa2cec9c2dec7511908cb6e1b8987}{planners}}\{\};}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{133   \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLStateExtractor}} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a0f300ebd721cae520e029df0f1f18234}{extractor}}\{\};}
 \DoxyCodeLine{134 }
-\DoxyCodeLine{138   \mbox{\hyperlink{namespacetesseract__planning_abb4bcd86c07988cf075625fde644e497}{OMPLStateExtractor}} \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a0f300ebd721cae520e029df0f1f18234}{extractor}}\{\};}
-\DoxyCodeLine{139 }
-\DoxyCodeLine{145   tesseract\_common::TrajArray \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a7fe01bba4cea672cec9939e70474484c}{getTrajectory}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{146 \};}
-\DoxyCodeLine{147 }
-\DoxyCodeLine{148 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{149 }
-\DoxyCodeLine{150 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{151 \%\textcolor{keyword}{template}(OMPLProblems) std::vector<std::shared\_ptr<tesseract\_planning::OMPLProblem>>;}
-\DoxyCodeLine{152 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{153 }
-\DoxyCodeLine{154 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_OMPL\_PROBLEM\_H}}
+\DoxyCodeLine{140   tesseract\_common::TrajArray \mbox{\hyperlink{structtesseract__planning_1_1OMPLProblem_a7fe01bba4cea672cec9939e70474484c}{getTrajectory}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{141 \};}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_OMPL\_PROBLEM\_H}}
 
 \end{DoxyCode}

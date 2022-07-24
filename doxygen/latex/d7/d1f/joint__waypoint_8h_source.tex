@@ -68,19 +68,8 @@
 \DoxyCodeLine{92 \};}
 \DoxyCodeLine{93 \}  \textcolor{comment}{// namespace tesseract\_planning}}
 \DoxyCodeLine{94 }
-\DoxyCodeLine{95 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{96 \%extend \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{tesseract\_planning::JointWaypoint}} \{}
-\DoxyCodeLine{97   JointWaypoint(std::vector<std::string> joint\_names, \textcolor{keyword}{const} Eigen::VectorXd\& other)}
-\DoxyCodeLine{98   \{}
-\DoxyCodeLine{99     \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classtesseract__planning_1_1JointWaypoint}{tesseract\_planning::JointWaypoint}}(joint\_names, other);}
-\DoxyCodeLine{100   \}}
-\DoxyCodeLine{101 \}}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{103 \%tesseract\_command\_language\_add\_joint\_waypoint\_type(JointWaypoint)}
-\DoxyCodeLine{104 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{105 \mbox{\hyperlink{joint__waypoint_8h_ab2f0d859850d18ae0aa9098c2eeb5888}{TESSERACT\_JOINT\_WAYPOINT\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, JointWaypoint);}
-\DoxyCodeLine{106 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_JOINT\_WAYPOINT\_H}}
+\DoxyCodeLine{95 \mbox{\hyperlink{joint__waypoint_8h_ab2f0d859850d18ae0aa9098c2eeb5888}{TESSERACT\_JOINT\_WAYPOINT\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, JointWaypoint);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_JOINT\_WAYPOINT\_H}}
 
 \end{DoxyCode}

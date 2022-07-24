@@ -14,37 +14,33 @@
 \DoxyCodeLine{34 \textcolor{preprocessor}{\#include <tesseract\_common/status\_code.h>}}
 \DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h}{tesseract\_motion\_planners/core/types.h}}>}}
 \DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{38 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{tesseract\_planning::MotionPlanner}})}
-\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{43 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
-\DoxyCodeLine{44 \{}
-\DoxyCodeLine{45 \textcolor{keyword}{public}:}
-\DoxyCodeLine{46   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Ptr}} = std::shared\_ptr<MotionPlanner>;}
-\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8b54d1293cf621f5eca532509328d50a}{ConstPtr}} = std::shared\_ptr<const MotionPlanner>;}
-\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ab6e2f55b62502723e0285132649555b0}{MotionPlanner}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{50   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_acd173ef2cf620a955303418b2a4bebfe}{\string~MotionPlanner}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a73f5bd3ff39f9eb31540deca90631018}{MotionPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{52   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a3f03ccb0d7d4eb7cc20722cb609a7fb4}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{53   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a3267df017a92564c2991c8285074e4c8}{MotionPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a6ed2cd78c246c7f7f4f38b3e5d7df5e8}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{60   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_acd704df50dc81b6a624fb34e640e777c}{getName}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{70   \textcolor{keyword}{virtual} tesseract\_common::StatusCode \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a1f19a1753347fd841e7c7320cd34cd02}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{71                                              \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}\& response,}
-\DoxyCodeLine{72                                              \textcolor{keywordtype}{bool} verbose = \textcolor{keyword}{false}) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{78   \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac05675a12abc7df47df8f495148}{terminate}}() = 0;}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{81   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ae4bed503b1e52732b3908858be1ccfcc}{clear}}() = 0;}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{84   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d77127016c7aa39afc4125e2744}{clone}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{85 \};}
-\DoxyCodeLine{86 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{87 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_PLANNER\_H}}
+\DoxyCodeLine{37 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{public}:}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{Ptr}} = std::shared\_ptr<MotionPlanner>;}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a8b54d1293cf621f5eca532509328d50a}{ConstPtr}} = std::shared\_ptr<const MotionPlanner>;}
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ab6e2f55b62502723e0285132649555b0}{MotionPlanner}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{46   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_acd173ef2cf620a955303418b2a4bebfe}{\string~MotionPlanner}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a73f5bd3ff39f9eb31540deca90631018}{MotionPlanner}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a3f03ccb0d7d4eb7cc20722cb609a7fb4}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a3267df017a92564c2991c8285074e4c8}{MotionPlanner}}(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\& \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a6ed2cd78c246c7f7f4f38b3e5d7df5e8}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{56   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_acd704df50dc81b6a624fb34e640e777c}{getName}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{66   \textcolor{keyword}{virtual} tesseract\_common::StatusCode \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a1f19a1753347fd841e7c7320cd34cd02}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{67                                              \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}\& response,}
+\DoxyCodeLine{68                                              \textcolor{keywordtype}{bool} verbose = \textcolor{keyword}{false}) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{74   \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a44afac05675a12abc7df47df8f495148}{terminate}}() = 0;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{77   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_ae4bed503b1e52732b3908858be1ccfcc}{clear}}() = 0;}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{80   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a9b0b2d77127016c7aa39afc4125e2744}{clone}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{81 \};}
+\DoxyCodeLine{82 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PLANNING\_PLANNER\_H}}
 
 \end{DoxyCode}

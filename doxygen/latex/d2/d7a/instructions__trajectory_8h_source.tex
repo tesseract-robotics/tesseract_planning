@@ -15,34 +15,30 @@
 \DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__poly_8h}{tesseract\_command\_language/poly/instruction\_poly.h}}>}}
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{composite__instruction_8h}{tesseract\_command\_language/composite\_instruction.h}}>}}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{39 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory}{tesseract\_planning::InstructionsTrajectory}})}
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory}{InstructionsTrajectory}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{TrajectoryContainer}}}
-\DoxyCodeLine{45 \{}
-\DoxyCodeLine{46 \textcolor{keyword}{public}:}
-\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a71a22851fd0fd64262518fd417ce8b25}{InstructionsTrajectory}}(std::vector<std::reference\_wrapper<InstructionPoly>> trajectory);}
-\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a71a22851fd0fd64262518fd417ce8b25}{InstructionsTrajectory}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& program);}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a6c638153b5418117bd0760039031510a}{getPosition}}(Eigen::Index i) \textcolor{keyword}{const} \textcolor{keyword}{final};}
-\DoxyCodeLine{51   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_af6dbbeb6519ca8a436fe5250d6d14ad4}{getVelocity}}(Eigen::Index i) \textcolor{keyword}{const} \textcolor{keyword}{final};}
-\DoxyCodeLine{52   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a58ccefc219b724dbb3817a62a3086c85}{getAcceleration}}(Eigen::Index i) \textcolor{keyword}{const} \textcolor{keyword}{final};}
-\DoxyCodeLine{53   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_aaa3cdddc45819a59fe2add3e099e2182}{getTimeFromStart}}(Eigen::Index i) \textcolor{keyword}{const} \textcolor{keyword}{final};}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{55   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a55ec99a13d28298b2e70cb00ab8b2567}{setData}}(Eigen::Index i, \textcolor{keyword}{const} Eigen::VectorXd\& velocity, \textcolor{keyword}{const} Eigen::VectorXd\& acceleration, \textcolor{keywordtype}{double} time) \textcolor{keyword}{final};}
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory}{InstructionsTrajectory}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{TrajectoryContainer}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{public}:}
+\DoxyCodeLine{43   \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a71a22851fd0fd64262518fd417ce8b25}{InstructionsTrajectory}}(std::vector<std::reference\_wrapper<InstructionPoly>> trajectory);}
+\DoxyCodeLine{44   \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a71a22851fd0fd64262518fd417ce8b25}{InstructionsTrajectory}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& program);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a6c638153b5418117bd0760039031510a}{getPosition}}(Eigen::Index i) \textcolor{keyword}{const} \textcolor{keyword}{final};}
+\DoxyCodeLine{47   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_af6dbbeb6519ca8a436fe5250d6d14ad4}{getVelocity}}(Eigen::Index i) \textcolor{keyword}{const} \textcolor{keyword}{final};}
+\DoxyCodeLine{48   \textcolor{keyword}{const} Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a58ccefc219b724dbb3817a62a3086c85}{getAcceleration}}(Eigen::Index i) \textcolor{keyword}{const} \textcolor{keyword}{final};}
+\DoxyCodeLine{49   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_aaa3cdddc45819a59fe2add3e099e2182}{getTimeFromStart}}(Eigen::Index i) \textcolor{keyword}{const} \textcolor{keyword}{final};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a55ec99a13d28298b2e70cb00ab8b2567}{setData}}(Eigen::Index i, \textcolor{keyword}{const} Eigen::VectorXd\& velocity, \textcolor{keyword}{const} Eigen::VectorXd\& acceleration, \textcolor{keywordtype}{double} time) \textcolor{keyword}{final};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53   Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_ac2aec373653272c376c0a59a9b7b33fa}{size}}() \textcolor{keyword}{const} \textcolor{keyword}{final};}
+\DoxyCodeLine{54   Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a114374b50070c7ebbf88c494771d856d}{dof}}() \textcolor{keyword}{const} \textcolor{keyword}{final};}
+\DoxyCodeLine{55   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_adf9404685a6a3b7e6f886b502ab366e6}{empty}}() \textcolor{keyword}{const} \textcolor{keyword}{final};}
 \DoxyCodeLine{56 }
-\DoxyCodeLine{57   Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_ac2aec373653272c376c0a59a9b7b33fa}{size}}() \textcolor{keyword}{const} \textcolor{keyword}{final};}
-\DoxyCodeLine{58   Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a114374b50070c7ebbf88c494771d856d}{dof}}() \textcolor{keyword}{const} \textcolor{keyword}{final};}
-\DoxyCodeLine{59   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_adf9404685a6a3b7e6f886b502ab366e6}{empty}}() \textcolor{keyword}{const} \textcolor{keyword}{final};}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 \textcolor{keyword}{private}:}
-\DoxyCodeLine{62   std::vector<std::reference\_wrapper<InstructionPoly>> \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a93a8501e28261389f0c34bd7a288a2a1}{trajectory\_}};}
-\DoxyCodeLine{63   Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a2ccac63454f3f05d245789c826119039}{dof\_}};}
-\DoxyCodeLine{64 \};}
-\DoxyCodeLine{65 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TIME\_PARAMETERIZATION\_INSTRUCTIONS\_TRAJECTORY\_H}}
+\DoxyCodeLine{57 \textcolor{keyword}{private}:}
+\DoxyCodeLine{58   std::vector<std::reference\_wrapper<InstructionPoly>> \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a93a8501e28261389f0c34bd7a288a2a1}{trajectory\_}};}
+\DoxyCodeLine{59   Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1InstructionsTrajectory_a2ccac63454f3f05d245789c826119039}{dof\_}};}
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TIME\_PARAMETERIZATION\_INSTRUCTIONS\_TRAJECTORY\_H}}
 
 \end{DoxyCode}

@@ -15,50 +15,46 @@
 \DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{planner_8h}{tesseract\_motion\_planners/core/planner.h}}>}}
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{ompl__profile_8h}{tesseract\_motion\_planners/ompl/profile/ompl\_profile.h}}>}}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{39 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{tesseract\_planning::OMPLMotionPlanner}})}
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespaceompl_1_1tools}{ompl::tools}}}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{44 \textcolor{keyword}{class }ParallelPlan;}
-\DoxyCodeLine{45 \}  \textcolor{comment}{// namespace ompl::tools}}
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespaceompl_1_1tools}{ompl::tools}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{class }ParallelPlan;}
+\DoxyCodeLine{41 \}  \textcolor{comment}{// namespace ompl::tools}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45 \textcolor{keyword}{class }OMPLMotionPlannerStatusCategory;}
 \DoxyCodeLine{46 }
-\DoxyCodeLine{47 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{48 \{}
-\DoxyCodeLine{49 \textcolor{keyword}{class }OMPLMotionPlannerStatusCategory;}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{55 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotionPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
-\DoxyCodeLine{56 \{}
-\DoxyCodeLine{57 \textcolor{keyword}{public}:}
-\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a352554812cb613cb02075c3ad662e068}{OMPLMotionPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a811e05491f894926eee1f76ec7d05f5d}{profile\_ns::OMPL\_DEFAULT\_NAMESPACE}});}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a8e3ee620e4faa02e5782f68ec10e7c23}{getName}}() \textcolor{keyword}{const override};}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{82   tesseract\_common::StatusCode \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a5e97b6b8cfb1f6e22ddac32cc6d4cbad}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{83                                      \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}\& response,}
-\DoxyCodeLine{84                                      \textcolor{keywordtype}{bool} verbose = \textcolor{keyword}{false}) \textcolor{keyword}{const override};}
+\DoxyCodeLine{51 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner}{OMPLMotionPlanner}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner}{MotionPlanner}}}
+\DoxyCodeLine{52 \{}
+\DoxyCodeLine{53 \textcolor{keyword}{public}:}
+\DoxyCodeLine{55   \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a352554812cb613cb02075c3ad662e068}{OMPLMotionPlanner}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_a811e05491f894926eee1f76ec7d05f5d}{profile\_ns::OMPL\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a8e3ee620e4faa02e5782f68ec10e7c23}{getName}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{78   tesseract\_common::StatusCode \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a5e97b6b8cfb1f6e22ddac32cc6d4cbad}{solve}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{79                                      \mbox{\hyperlink{structtesseract__planning_1_1PlannerResponse}{PlannerResponse}}\& response,}
+\DoxyCodeLine{80                                      \textcolor{keywordtype}{bool} verbose = \textcolor{keyword}{false}) \textcolor{keyword}{const override};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a4818d612aa8ae0e022c9ed120db0320d}{terminate}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a7852b146c5b737568fb2c3b1b0ee6292}{clear}}() \textcolor{keyword}{override};}
 \DoxyCodeLine{85 }
-\DoxyCodeLine{86   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a4818d612aa8ae0e022c9ed120db0320d}{terminate}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{86   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a468109943a10b09807c769bdb9f39d86}{clone}}() \textcolor{keyword}{const override};}
 \DoxyCodeLine{87 }
-\DoxyCodeLine{88   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a7852b146c5b737568fb2c3b1b0ee6292}{clear}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{88   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a03e40933df939429395d023c0707f206}{checkUserInput}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request);}
 \DoxyCodeLine{89 }
-\DoxyCodeLine{90   \mbox{\hyperlink{classtesseract__planning_1_1MotionPlanner_a5b4a8c1043a08c4dd022240333a5ee36}{MotionPlanner::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a468109943a10b09807c769bdb9f39d86}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{90   \textcolor{keyword}{virtual} std::vector<OMPLProblem::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a26896a1ffb6a331553b3e7dec2af8684}{createProblems}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
 \DoxyCodeLine{91 }
-\DoxyCodeLine{92   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a03e40933df939429395d023c0707f206}{checkUserInput}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request);}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{94   \textcolor{keyword}{virtual} std::vector<OMPLProblem::Ptr> \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a26896a1ffb6a331553b3e7dec2af8684}{createProblems}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
+\DoxyCodeLine{92 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{94   std::string \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_acb1c94df4db6576235448f5f6d5967c2}{name\_}};}
 \DoxyCodeLine{95 }
-\DoxyCodeLine{96 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{98   std::string \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_acb1c94df4db6576235448f5f6d5967c2}{name\_}};}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{101   std::shared\_ptr<const OMPLMotionPlannerStatusCategory> \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a48b2fc53369df7af8122d8a2df55b248}{status\_category\_}};}
+\DoxyCodeLine{97   std::shared\_ptr<const OMPLMotionPlannerStatusCategory> \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a48b2fc53369df7af8122d8a2df55b248}{status\_category\_}};}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{100   std::shared\_ptr<ompl::tools::ParallelPlan> \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a467bdfb1e058ce6a3bf3a3181fe392a3}{parallel\_plan\_}};}
+\DoxyCodeLine{101 \};}
 \DoxyCodeLine{102 }
-\DoxyCodeLine{104   std::shared\_ptr<ompl::tools::ParallelPlan> \mbox{\hyperlink{classtesseract__planning_1_1OMPLMotionPlanner_a467bdfb1e058ce6a3bf3a3181fe392a3}{parallel\_plan\_}};}
-\DoxyCodeLine{105 \};}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{108 }
-\DoxyCodeLine{109 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_MOTION\_PLANNER\_H}}
+\DoxyCodeLine{103 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_MOTION\_PLANNER\_H}}
 
 \end{DoxyCode}

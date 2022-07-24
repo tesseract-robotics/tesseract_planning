@@ -15,44 +15,40 @@
 \DoxyCodeLine{35 }
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__input_8h}{tesseract\_process\_managers/core/task\_input.h}}>}}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{39 \%wrap\_unique\_ptr(TaskGeneratorUPtr,\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{tesseract\_planning::TaskGenerator}})}
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{51 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
-\DoxyCodeLine{52 \{}
-\DoxyCodeLine{53 \textcolor{keyword}{public}:}
-\DoxyCodeLine{54   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<TaskGenerator>;}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_af575e2f6dbed505f3c0678e4f8163a46}{TaskGenerator}}(std::string name);}
-\DoxyCodeLine{62   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a18338e3eb9e438e41c819d587e413e06}{\string~TaskGenerator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{63   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_ae64558eb3904db994c3ba952c2bff66e}{TaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{64   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a001d60bb884aa9ebac42cd9f1c71f0d0}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{65   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a23f19d96d2e2699b5df778d1aabcdb5f}{TaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{66   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_ab29696fd57167c48ed675651cfb2e475}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{73   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a74fc22337a2befc1ac70066134283c92}{getName}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{81   \textcolor{keyword}{virtual} tf::Task \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_aacf6c44531ab979ee080f73d09ccf745}{generateTask}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, tf::Taskflow\& taskflow);}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{88   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a70f2f16a4c318e160a31d13da9e82b26}{assignTask}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, tf::Task\& task);}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{96   \textcolor{keyword}{virtual} tf::Task \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a7d409cc625a38c57cb55097085f18853}{generateConditionalTask}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, tf::Taskflow\& taskflow);}
-\DoxyCodeLine{97 }
-\DoxyCodeLine{103   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a619c6f9d74864925b4049134bcfa6dcf}{assignConditionalTask}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, tf::Task\& task);}
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{47 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
+\DoxyCodeLine{48 \{}
+\DoxyCodeLine{49 \textcolor{keyword}{public}:}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<TaskGenerator>;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{57   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_af575e2f6dbed505f3c0678e4f8163a46}{TaskGenerator}}(std::string name);}
+\DoxyCodeLine{58   \textcolor{keyword}{virtual} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a18338e3eb9e438e41c819d587e413e06}{\string~TaskGenerator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_ae64558eb3904db994c3ba952c2bff66e}{TaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{60   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a001d60bb884aa9ebac42cd9f1c71f0d0}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{61   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a23f19d96d2e2699b5df778d1aabcdb5f}{TaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_ab29696fd57167c48ed675651cfb2e475}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{69   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a74fc22337a2befc1ac70066134283c92}{getName}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{77   \textcolor{keyword}{virtual} tf::Task \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_aacf6c44531ab979ee080f73d09ccf745}{generateTask}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, tf::Taskflow\& taskflow);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{84   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a70f2f16a4c318e160a31d13da9e82b26}{assignTask}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, tf::Task\& task);}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{92   \textcolor{keyword}{virtual} tf::Task \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a7d409cc625a38c57cb55097085f18853}{generateConditionalTask}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, tf::Taskflow\& taskflow);}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{99   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a619c6f9d74864925b4049134bcfa6dcf}{assignConditionalTask}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, tf::Task\& task);}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{103   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a1007ccf0e726dae903c5652e4b7b7590}{name\_}};}
 \DoxyCodeLine{104 }
-\DoxyCodeLine{105 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{107   std::string \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a1007ccf0e726dae903c5652e4b7b7590}{name\_}};}
-\DoxyCodeLine{108 }
-\DoxyCodeLine{114   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c150554739834a1d467fc726baba8}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{121   \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e60805cfe9276ace7be827f2e}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{122 \};}
-\DoxyCodeLine{123 }
-\DoxyCodeLine{124 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{125 }
-\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{110   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a168c150554739834a1d467fc726baba8}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{117   \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_abaa5b91e60805cfe9276ace7be827f2e}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{118 \};}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

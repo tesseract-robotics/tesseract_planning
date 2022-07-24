@@ -14,55 +14,51 @@
 \DoxyCodeLine{35 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__profile_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_profile.h}}>}}
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{simple__planner__utils_8h}{tesseract\_motion\_planners/simple/profile/simple\_planner\_utils.h}}>}}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{39 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{tesseract\_planning::SimplePlannerLVSPlanProfile}})}
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{SimplePlannerLVSPlanProfile}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}}
-\DoxyCodeLine{45 \{}
-\DoxyCodeLine{46 \textcolor{keyword}{public}:}
-\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_ac2d38d37fcf377f9b5efe6c92f90aba3}{Ptr}} = std::shared\_ptr<SimplePlannerLVSPlanProfile>;}
-\DoxyCodeLine{48   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a57a1563f13ba10c59f34f2cff6934440}{ConstPtr}} = std::shared\_ptr<const SimplePlannerLVSPlanProfile>;}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{58   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a2a4477d13e4d7fbcf265671b38a94bea}{SimplePlannerLVSPlanProfile}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a58ee7a1921b88ff7137f2b120f7dfef1}{state\_longest\_valid\_segment\_length}} = 5 * M\_PI / 180,}
-\DoxyCodeLine{59                               \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a7f5a90a2b2503640fcdc511f600d6bdc}{translation\_longest\_valid\_segment\_length}} = 0.1,}
-\DoxyCodeLine{60                               \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a8ae5221cb38f1afe3c9a6a5fe2d69be4}{rotation\_longest\_valid\_segment\_length}} = 5 * M\_PI / 180,}
-\DoxyCodeLine{61                               \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a094adae734ad0ba03704b781b51b68a6}{min\_steps}} = 1);}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_ac6208b54c36da999449bb0a9754056c4}{generate}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_instruction,}
-\DoxyCodeLine{64                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_seed,}
-\DoxyCodeLine{65                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& base\_instruction,}
-\DoxyCodeLine{66                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& next\_instruction,}
-\DoxyCodeLine{67                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
-\DoxyCodeLine{68                                 \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& global\_manip\_info) \textcolor{keyword}{const override};}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{71   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a58ee7a1921b88ff7137f2b120f7dfef1}{state\_longest\_valid\_segment\_length}};}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{74   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a7f5a90a2b2503640fcdc511f600d6bdc}{translation\_longest\_valid\_segment\_length}};}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{77   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a8ae5221cb38f1afe3c9a6a5fe2d69be4}{rotation\_longest\_valid\_segment\_length}};}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{80   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a094adae734ad0ba03704b781b51b68a6}{min\_steps}};}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{82 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{98   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a1b5737bff8691c7dcff523603d552338}{stateJointJointWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
-\DoxyCodeLine{99                                                \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{118   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a17009f7bde6cbfd29bca31dbb963900a}{stateJointCartWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
-\DoxyCodeLine{119                                               \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{140   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a9a18d77df32ac988a3963aa085a470f8}{stateCartJointWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
-\DoxyCodeLine{141                                               \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
-\DoxyCodeLine{142 }
-\DoxyCodeLine{166   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_aae72baf5e6ae0efab67ad68140cdc785}{stateCartCartWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
-\DoxyCodeLine{167                                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base,}
-\DoxyCodeLine{168                                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
-\DoxyCodeLine{169 \};}
-\DoxyCodeLine{170 }
-\DoxyCodeLine{171 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{172 }
-\DoxyCodeLine{173 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_LVS\_PLAN\_PROFILE\_H}}
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile}{SimplePlannerLVSPlanProfile}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerPlanProfile}{SimplePlannerPlanProfile}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{public}:}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_ac2d38d37fcf377f9b5efe6c92f90aba3}{Ptr}} = std::shared\_ptr<SimplePlannerLVSPlanProfile>;}
+\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a57a1563f13ba10c59f34f2cff6934440}{ConstPtr}} = std::shared\_ptr<const SimplePlannerLVSPlanProfile>;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{54   \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a2a4477d13e4d7fbcf265671b38a94bea}{SimplePlannerLVSPlanProfile}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a58ee7a1921b88ff7137f2b120f7dfef1}{state\_longest\_valid\_segment\_length}} = 5 * M\_PI / 180,}
+\DoxyCodeLine{55                               \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a7f5a90a2b2503640fcdc511f600d6bdc}{translation\_longest\_valid\_segment\_length}} = 0.1,}
+\DoxyCodeLine{56                               \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a8ae5221cb38f1afe3c9a6a5fe2d69be4}{rotation\_longest\_valid\_segment\_length}} = 5 * M\_PI / 180,}
+\DoxyCodeLine{57                               \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a094adae734ad0ba03704b781b51b68a6}{min\_steps}} = 1);}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_ac6208b54c36da999449bb0a9754056c4}{generate}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_instruction,}
+\DoxyCodeLine{60                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& prev\_seed,}
+\DoxyCodeLine{61                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}}\& base\_instruction,}
+\DoxyCodeLine{62                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}\& next\_instruction,}
+\DoxyCodeLine{63                                 \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request,}
+\DoxyCodeLine{64                                 \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& global\_manip\_info) \textcolor{keyword}{const override};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a58ee7a1921b88ff7137f2b120f7dfef1}{state\_longest\_valid\_segment\_length}};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{70   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a7f5a90a2b2503640fcdc511f600d6bdc}{translation\_longest\_valid\_segment\_length}};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{73   \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a8ae5221cb38f1afe3c9a6a5fe2d69be4}{rotation\_longest\_valid\_segment\_length}};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{76   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a094adae734ad0ba03704b781b51b68a6}{min\_steps}};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{94   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a1b5737bff8691c7dcff523603d552338}{stateJointJointWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
+\DoxyCodeLine{95                                                \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{114   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a17009f7bde6cbfd29bca31dbb963900a}{stateJointCartWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
+\DoxyCodeLine{115                                               \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{136   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_a9a18d77df32ac988a3963aa085a470f8}{stateCartJointWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
+\DoxyCodeLine{137                                               \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base) \textcolor{keyword}{const};}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{162   \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}} \mbox{\hyperlink{classtesseract__planning_1_1SimplePlannerLVSPlanProfile_aae72baf5e6ae0efab67ad68140cdc785}{stateCartCartWaypoint}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& prev,}
+\DoxyCodeLine{163                                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KinematicGroupInstructionInfo}{KinematicGroupInstructionInfo}}\& base,}
+\DoxyCodeLine{164                                              \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PlannerRequest}{PlannerRequest}}\& request) \textcolor{keyword}{const};}
+\DoxyCodeLine{165 \};}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_SIMPLE\_LVS\_PLAN\_PROFILE\_H}}
 
 \end{DoxyCode}

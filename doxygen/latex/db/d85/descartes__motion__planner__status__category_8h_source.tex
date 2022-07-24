@@ -13,32 +13,28 @@
 \DoxyCodeLine{33 }
 \DoxyCodeLine{34 \textcolor{preprocessor}{\#include <tesseract\_common/status\_code.h>}}
 \DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{37 \%shared\_ptr(\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory}{tesseract\_planning::DescartesMotionPlannerStatusCategory}})}
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{41 \{}
-\DoxyCodeLine{48 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory}{DescartesMotionPlannerStatusCategory}} : \textcolor{keyword}{public} tesseract\_common::StatusCategory}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50 \textcolor{keyword}{public}:}
-\DoxyCodeLine{51   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_af61231223ba76cb496b0a298a428ec14}{DescartesMotionPlannerStatusCategory}}(std::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_a501f93dd91b34db6020ecf825110158f}{name}});}
-\DoxyCodeLine{52   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_a501f93dd91b34db6020ecf825110158f}{name}}() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \textcolor{keyword}{override};}
-\DoxyCodeLine{53   std::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ad55ac8ee4f8c4c98b93d6b50099291fb}{message}}(\textcolor{keywordtype}{int} code) \textcolor{keyword}{const override};}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{55   \textcolor{keyword}{enum}}
-\DoxyCodeLine{56   \{}
-\DoxyCodeLine{57     \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9ab162847308b3e8a171161cf6b9aeb95c}{SolutionFound}} = 0,}
-\DoxyCodeLine{58     \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a84ec64cf46681e21bcc3102f43dfbc07}{ErrorInvalidInput}} = -\/1,}
-\DoxyCodeLine{59     \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a8e7464917a6f10d6f455f64c28fef810}{ErrorFailedToBuildGraph}} = -\/3,}
-\DoxyCodeLine{60     \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a48a5f40bd6d19e7ec907e1f00752a4d9}{ErrorFailedToFindValidSolution}} = -\/4,}
-\DoxyCodeLine{61   \};}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63 \textcolor{keyword}{private}:}
-\DoxyCodeLine{64   std::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_a3b67227a3a9e8ba73253c524d9a6faea}{name\_}}; }
-\DoxyCodeLine{65 \};}
-\DoxyCodeLine{66 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_MOTION\_PLANNER\_STATUS\_CATEGORY\_H}}
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory}{DescartesMotionPlannerStatusCategory}} : \textcolor{keyword}{public} tesseract\_common::StatusCategory}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{public}:}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_af61231223ba76cb496b0a298a428ec14}{DescartesMotionPlannerStatusCategory}}(std::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_a501f93dd91b34db6020ecf825110158f}{name}});}
+\DoxyCodeLine{48   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_a501f93dd91b34db6020ecf825110158f}{name}}() \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \textcolor{keyword}{override};}
+\DoxyCodeLine{49   std::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ad55ac8ee4f8c4c98b93d6b50099291fb}{message}}(\textcolor{keywordtype}{int} code) \textcolor{keyword}{const override};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \textcolor{keyword}{enum}}
+\DoxyCodeLine{52   \{}
+\DoxyCodeLine{53     \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9ab162847308b3e8a171161cf6b9aeb95c}{SolutionFound}} = 0,}
+\DoxyCodeLine{54     \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a84ec64cf46681e21bcc3102f43dfbc07}{ErrorInvalidInput}} = -\/1,}
+\DoxyCodeLine{55     \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a8e7464917a6f10d6f455f64c28fef810}{ErrorFailedToBuildGraph}} = -\/3,}
+\DoxyCodeLine{56     \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_ab8899673e2e90cd1822f58276522bbb9a48a5f40bd6d19e7ec907e1f00752a4d9}{ErrorFailedToFindValidSolution}} = -\/4,}
+\DoxyCodeLine{57   \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{private}:}
+\DoxyCodeLine{60   std::string \mbox{\hyperlink{classtesseract__planning_1_1DescartesMotionPlannerStatusCategory_a3b67227a3a9e8ba73253c524d9a6faea}{name\_}}; }
+\DoxyCodeLine{61 \};}
+\DoxyCodeLine{62 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_MOTION\_PLANNER\_STATUS\_CATEGORY\_H}}
 
 \end{DoxyCode}

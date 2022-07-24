@@ -13,409 +13,364 @@
 \DoxyCodeLine{39 \textcolor{preprocessor}{\#include <tinyxml2.h>}}
 \DoxyCodeLine{40 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
 \DoxyCodeLine{41 }
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{43 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{tesseract\_planning::OMPLPlannerConfigurator}})}
-\DoxyCodeLine{44 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{tesseract\_planning::SBLConfigurator}})}
-\DoxyCodeLine{45 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{tesseract\_planning::ESTConfigurator}})}
-\DoxyCodeLine{46 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{tesseract\_planning::LBKPIECE1Configurator}})}
-\DoxyCodeLine{47 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{tesseract\_planning::BKPIECE1Configurator}})}
-\DoxyCodeLine{48 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{tesseract\_planning::KPIECE1Configurator}})}
-\DoxyCodeLine{49 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{tesseract\_planning::BiTRRTConfigurator}})}
-\DoxyCodeLine{50 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{tesseract\_planning::RRTConfigurator}})}
-\DoxyCodeLine{51 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{tesseract\_planning::RRTConnectConfigurator}})}
-\DoxyCodeLine{52 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{tesseract\_planning::RRTstarConfigurator}})}
-\DoxyCodeLine{53 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{tesseract\_planning::TRRTConfigurator}})}
-\DoxyCodeLine{54 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{tesseract\_planning::PRMConfigurator}})}
-\DoxyCodeLine{55 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{tesseract\_planning::PRMstarConfigurator}})}
-\DoxyCodeLine{56 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{tesseract\_planning::LazyPRMstarConfigurator}})}
-\DoxyCodeLine{57 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{tesseract\_planning::SPARSConfigurator}})}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59 \%ignore create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const};}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{64 \{}
-\DoxyCodeLine{65 \textcolor{keyword}{enum class} \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}}}
-\DoxyCodeLine{66 \{}
-\DoxyCodeLine{67   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a4fb76af6644df80663ac679b7fa308cd}{SBL}} = 0,}
-\DoxyCodeLine{68   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a33a61062aa4da2b795b7f9616c138b89}{EST}} = 1,}
-\DoxyCodeLine{69   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a7add8dcabb8ec7cd4b9df9f81e770b06}{LBKPIECE1}} = 2,}
-\DoxyCodeLine{70   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009aecc78a1ae26fb1cb1dbb606ea2d2ef8e}{BKPIECE1}} = 3,}
-\DoxyCodeLine{71   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab005fc528f1fbf89a4d478ec63e1ad6f}{KPIECE1}} = 4,}
-\DoxyCodeLine{72   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a15a8493631543a9f9926b07052e4af16}{BiTRRT}} = 5,}
-\DoxyCodeLine{73   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a6f7cce8fc2d350b13e6c346b5ac086fa}{RRT}} = 6,}
-\DoxyCodeLine{74   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a305e3d61a2d49bc862f34c7c65aa55ae}{RRTConnect}} = 7,}
-\DoxyCodeLine{75   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009aad869033ef49142115dfa3dfeaef82ff}{RRTstar}} = 8,}
-\DoxyCodeLine{76   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a0e7d873ffa5066604ead6d4e85cb535e}{TRRT}} = 9,}
-\DoxyCodeLine{77   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab8decd29b0a1f5e36ef8ec4e7c35e986}{PRM}} = 10,}
-\DoxyCodeLine{78   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a416610e2cda76d2153d65c4c57682ec4}{PRMstar}} = 11,}
-\DoxyCodeLine{79   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a047fad3f3eff568f580d6ef5796e1e8f}{LazyPRMstar}} = 12,}
-\DoxyCodeLine{80   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab48a99cb2f527e03dfbd95bc49c4fceb}{SPARS}} = 13}
-\DoxyCodeLine{81 \};}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{83 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{84 \{}
-\DoxyCodeLine{85   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a552112d20176ce2eaeb709436de72b56}{Ptr}} = std::shared\_ptr<OMPLPlannerConfigurator>;}
-\DoxyCodeLine{86   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aecd7bfc8d1a2b291435ed3a4bc8a65be}{ConstPtr}} = std::shared\_ptr<const OMPLPlannerConfigurator>;}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a5f25f6fbc233bfced955e89e5f6f9be8}{OMPLPlannerConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{89   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a4689eef37436e82dbca7f91d19ff512c}{\string~OMPLPlannerConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{90   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a53da50f4a56f0e204ec9d9ff297de640}{OMPLPlannerConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{91   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aaf7510867794627d0d65778599f2be17}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{92   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a3ef1a3be47c8aedaff054407cef72f8d}{OMPLPlannerConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{93   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a8f3602ba62a3f6e0ccbd59fcecc4928c}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{94 }
-\DoxyCodeLine{95   \textcolor{keyword}{virtual} ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a86ccc143e057c7e55355ac6c34b30753}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{42 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{keyword}{enum class} \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a4fb76af6644df80663ac679b7fa308cd}{SBL}} = 0,}
+\DoxyCodeLine{47   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a33a61062aa4da2b795b7f9616c138b89}{EST}} = 1,}
+\DoxyCodeLine{48   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a7add8dcabb8ec7cd4b9df9f81e770b06}{LBKPIECE1}} = 2,}
+\DoxyCodeLine{49   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009aecc78a1ae26fb1cb1dbb606ea2d2ef8e}{BKPIECE1}} = 3,}
+\DoxyCodeLine{50   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab005fc528f1fbf89a4d478ec63e1ad6f}{KPIECE1}} = 4,}
+\DoxyCodeLine{51   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a15a8493631543a9f9926b07052e4af16}{BiTRRT}} = 5,}
+\DoxyCodeLine{52   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a6f7cce8fc2d350b13e6c346b5ac086fa}{RRT}} = 6,}
+\DoxyCodeLine{53   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a305e3d61a2d49bc862f34c7c65aa55ae}{RRTConnect}} = 7,}
+\DoxyCodeLine{54   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009aad869033ef49142115dfa3dfeaef82ff}{RRTstar}} = 8,}
+\DoxyCodeLine{55   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a0e7d873ffa5066604ead6d4e85cb535e}{TRRT}} = 9,}
+\DoxyCodeLine{56   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab8decd29b0a1f5e36ef8ec4e7c35e986}{PRM}} = 10,}
+\DoxyCodeLine{57   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a416610e2cda76d2153d65c4c57682ec4}{PRMstar}} = 11,}
+\DoxyCodeLine{58   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009a047fad3f3eff568f580d6ef5796e1e8f}{LazyPRMstar}} = 12,}
+\DoxyCodeLine{59   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009ab48a99cb2f527e03dfbd95bc49c4fceb}{SPARS}} = 13}
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{63 \{}
+\DoxyCodeLine{64   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a552112d20176ce2eaeb709436de72b56}{Ptr}} = std::shared\_ptr<OMPLPlannerConfigurator>;}
+\DoxyCodeLine{65   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aecd7bfc8d1a2b291435ed3a4bc8a65be}{ConstPtr}} = std::shared\_ptr<const OMPLPlannerConfigurator>;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a5f25f6fbc233bfced955e89e5f6f9be8}{OMPLPlannerConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{68   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a4689eef37436e82dbca7f91d19ff512c}{\string~OMPLPlannerConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{69   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a53da50f4a56f0e204ec9d9ff297de640}{OMPLPlannerConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{70   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_aaf7510867794627d0d65778599f2be17}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{71   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a3ef1a3be47c8aedaff054407cef72f8d}{OMPLPlannerConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{72   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a8f3602ba62a3f6e0ccbd59fcecc4928c}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{keyword}{virtual} ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a86ccc143e057c7e55355ac6c34b30753}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   \textcolor{keyword}{virtual} \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a921d57d99e8045ae77ced935e9c8575f}{getType}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78   \textcolor{keyword}{virtual} tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a9825bf62d5d298d82b2825eb0821f2ab}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{79 \};}
+\DoxyCodeLine{80 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{83 \{}
+\DoxyCodeLine{84 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{85 \{}
+\DoxyCodeLine{86   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a70f51a87c336e29fbdaad369593b90de}{SBLConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{87   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a82199add1134245a7f43f612df55fa6e}{\string~SBLConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{88   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a0172b0a7559c24a3e7aa1d17d1f0334f}{SBLConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{89   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_aaa4ce6968537907a6e7995d2037da892}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{90   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a52352e0ed65c881f1ec9b74abe43f8e2}{SBLConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{91   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_aaf9ca84aaff3ee54402f272949e8823d}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{92   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a70f51a87c336e29fbdaad369593b90de}{SBLConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{95   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a2330c9fcaccd252e0a5e978998f76f17}{range}} = 0;}
 \DoxyCodeLine{96 }
-\DoxyCodeLine{97   \textcolor{keyword}{virtual} \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a921d57d99e8045ae77ced935e9c8575f}{getType}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{99   \textcolor{keyword}{virtual} tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator_a9825bf62d5d298d82b2825eb0821f2ab}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{100 \};}
-\DoxyCodeLine{101 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{103 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{104 \%\textcolor{keyword}{template}(OMPLPlanners) std::vector<tesseract\_planning::OMPLPlannerConfigurator::ConstPtr>;}
-\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{108 \{}
-\DoxyCodeLine{109 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{110 \{}
-\DoxyCodeLine{111   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a70f51a87c336e29fbdaad369593b90de}{SBLConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{112   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a82199add1134245a7f43f612df55fa6e}{\string~SBLConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{113   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a0172b0a7559c24a3e7aa1d17d1f0334f}{SBLConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{114   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_aaa4ce6968537907a6e7995d2037da892}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{115   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a52352e0ed65c881f1ec9b74abe43f8e2}{SBLConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{116   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_aaf9ca84aaff3ee54402f272949e8823d}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{117   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{98   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a0ad2363e306676f75182159b73b6bae4}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_ac668e64c9c97f4ce83433c33abce39f1}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{103   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator_a7b52b4a4a12670d84972acfce5b53bd7}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{104 \};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{107 \{}
+\DoxyCodeLine{108   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a1c91ef2115c47670e06caf3fef267710}{ESTConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{109   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a99dd1b7b5fb7ab2d2e5c028b75051373}{\string~ESTConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{110   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a049d427f76e16be4163c651a708b0ff7}{ESTConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{111   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a23f591f3e163361f9811a4e348c62c03}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{112   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_ad118fb2732cb929fb11d826e5b816389}{ESTConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{113   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a7c0c2b5f7968b7fc74c7eb438f511135}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{114   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a1c91ef2115c47670e06caf3fef267710}{ESTConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{117   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_aa86dd58a7b16def6a41e301615675a6d}{range}} = 0;}
 \DoxyCodeLine{118 }
-\DoxyCodeLine{120   \textcolor{keywordtype}{double} range = 0;}
+\DoxyCodeLine{120   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_aecb0861836fee6f9d1b97724a6451a44}{goal\_bias}} = 0.05;}
 \DoxyCodeLine{121 }
-\DoxyCodeLine{123   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{123   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_aa4092ae47c82ccea684ecf7deeb49895}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
 \DoxyCodeLine{124 }
-\DoxyCodeLine{125   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
+\DoxyCodeLine{125   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_afcb324ce368fbad4a50afd6dba0deb51}{getType}}() \textcolor{keyword}{const override};}
 \DoxyCodeLine{126 }
-\DoxyCodeLine{128   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{128   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_afe7df1a97f95a29c6da37f0cad067d6d}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
 \DoxyCodeLine{129 \};}
 \DoxyCodeLine{130 }
-\DoxyCodeLine{131 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{131 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
 \DoxyCodeLine{132 \{}
-\DoxyCodeLine{133   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a1c91ef2115c47670e06caf3fef267710}{ESTConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{134   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a99dd1b7b5fb7ab2d2e5c028b75051373}{\string~ESTConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{135   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a049d427f76e16be4163c651a708b0ff7}{ESTConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{136   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a23f591f3e163361f9811a4e348c62c03}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{137   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_ad118fb2732cb929fb11d826e5b816389}{ESTConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{138   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator_a7c0c2b5f7968b7fc74c7eb438f511135}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{139   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{ESTConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{133   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a9536774fc28f8c51d39590b65412b96c}{LBKPIECE1Configurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{134   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a8a995f7eb869bf82ac000c0ffecf6de9}{\string~LBKPIECE1Configurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{135   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a39928e9fdc53021fab50e63ad47c1852}{LBKPIECE1Configurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{136   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a7478a317ee3b3746d4e65193c8808b14}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{137   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a2ed15faf9c76f5b817b9bf3f6225e271}{LBKPIECE1Configurator}}(\mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{138   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a56c13640fb8952fff75c9a4a17f0e42d}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{139   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a9536774fc28f8c51d39590b65412b96c}{LBKPIECE1Configurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
 \DoxyCodeLine{140 }
-\DoxyCodeLine{142   \textcolor{keywordtype}{double} range = 0;}
+\DoxyCodeLine{142   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_aa1e99e44510b5ecf673dd32286c382b1}{range}} = 0;}
 \DoxyCodeLine{143 }
-\DoxyCodeLine{145   \textcolor{keywordtype}{double} goal\_bias = 0.05;}
+\DoxyCodeLine{145   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_adf3ded23971652f4b62b5b1a9d9837e9}{border\_fraction}} = 0.9;}
 \DoxyCodeLine{146 }
-\DoxyCodeLine{148   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{148   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a574efc11dd13c2540dc3b5dcbd3bd9a3}{min\_valid\_path\_fraction}} = 0.5;}
 \DoxyCodeLine{149 }
-\DoxyCodeLine{150   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{151 }
-\DoxyCodeLine{153   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{154 \};}
-\DoxyCodeLine{155 }
-\DoxyCodeLine{156 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{157 \{}
-\DoxyCodeLine{158   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a9536774fc28f8c51d39590b65412b96c}{LBKPIECE1Configurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{159   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a8a995f7eb869bf82ac000c0ffecf6de9}{\string~LBKPIECE1Configurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{160   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a39928e9fdc53021fab50e63ad47c1852}{LBKPIECE1Configurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{161   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a7478a317ee3b3746d4e65193c8808b14}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{162   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a2ed15faf9c76f5b817b9bf3f6225e271}{LBKPIECE1Configurator}}(\mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{163   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a56c13640fb8952fff75c9a4a17f0e42d}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{164   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{LBKPIECE1Configurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
-\DoxyCodeLine{165 }
-\DoxyCodeLine{167   \textcolor{keywordtype}{double} range = 0;}
+\DoxyCodeLine{151   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_aaed6f5b152db3fac31c664ee73d4e112}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_a2c0171cf3106a654dd9c605d3585a960}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{156   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator_ac61853cd780f00f47a9c339290e60d12}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{157 \};}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{160 \{}
+\DoxyCodeLine{161   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_afc4f57b3857fc75b3249928add467bd6}{BKPIECE1Configurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{162   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_adbaf2a82d183480ebf6da2f8ac3ba02e}{\string~BKPIECE1Configurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{163   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a335a263f823ca46dd4ee39f60b0a97ff}{BKPIECE1Configurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{164   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a70285553158880749dffb333e2c35ade}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{165   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a74af5607ea50c3f3241894fa68fd7359}{BKPIECE1Configurator}}(\mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{166   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a68742cc5493b41d33633de36b125bc0b}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{167   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_afc4f57b3857fc75b3249928add467bd6}{BKPIECE1Configurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
 \DoxyCodeLine{168 }
-\DoxyCodeLine{170   \textcolor{keywordtype}{double} border\_fraction = 0.9;}
+\DoxyCodeLine{170   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a5941b9b48084ea11a7df886c2695c620}{range}} = 0;}
 \DoxyCodeLine{171 }
-\DoxyCodeLine{173   \textcolor{keywordtype}{double} min\_valid\_path\_fraction = 0.5;}
+\DoxyCodeLine{173   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a8e1af5b0852bc5468c82e19829ea6dda}{border\_fraction}} = 0.9;}
 \DoxyCodeLine{174 }
-\DoxyCodeLine{176   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{176   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_ad58280803c2942c2357324065d487cc2}{failed\_expansion\_score\_factor}} = 0.5;}
 \DoxyCodeLine{177 }
-\DoxyCodeLine{178   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{179 }
-\DoxyCodeLine{181   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{182 \};}
+\DoxyCodeLine{179   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a21ddb409b5e27f292d370e7a563e00b4}{min\_valid\_path\_fraction}} = 0.5;}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{182   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_aba58680727c85f73e38ce233592cfb62}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
 \DoxyCodeLine{183 }
-\DoxyCodeLine{184 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{185 \{}
-\DoxyCodeLine{186   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_afc4f57b3857fc75b3249928add467bd6}{BKPIECE1Configurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{187   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_adbaf2a82d183480ebf6da2f8ac3ba02e}{\string~BKPIECE1Configurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{188   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a335a263f823ca46dd4ee39f60b0a97ff}{BKPIECE1Configurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{189   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a70285553158880749dffb333e2c35ade}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{190   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a74af5607ea50c3f3241894fa68fd7359}{BKPIECE1Configurator}}(\mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{191   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a68742cc5493b41d33633de36b125bc0b}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{192   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{BKPIECE1Configurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
-\DoxyCodeLine{193 }
-\DoxyCodeLine{195   \textcolor{keywordtype}{double} range = 0;}
-\DoxyCodeLine{196 }
-\DoxyCodeLine{198   \textcolor{keywordtype}{double} border\_fraction = 0.9;}
+\DoxyCodeLine{184   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a2998c07eae522183a4997d2553f5efb0}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{187   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator_a01a9f0f35b3dbcc5999b165842d81297}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{188 \};}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{191 \{}
+\DoxyCodeLine{192   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a6396f5150a3b8834eeb9773d7cbbe032}{KPIECE1Configurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{193   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a23ca2fadfbf4c993972dac1d7e77160e}{\string~KPIECE1Configurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{194   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_adda76a62c8a8d8f060db5e9021e04374}{KPIECE1Configurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{195   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a097a8d92c9c44f028730bc366df28edb}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{196   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ac8389f6dd3813a1002f0f06d147dc49e}{KPIECE1Configurator}}(\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{197   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ae6c286a54c84f52d8758760a8e33e964}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{198   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a6396f5150a3b8834eeb9773d7cbbe032}{KPIECE1Configurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
 \DoxyCodeLine{199 }
-\DoxyCodeLine{201   \textcolor{keywordtype}{double} failed\_expansion\_score\_factor = 0.5;}
+\DoxyCodeLine{201   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a5bbdad3cc9437fbe7495262a9a0c7b92}{range}} = 0;}
 \DoxyCodeLine{202 }
-\DoxyCodeLine{204   \textcolor{keywordtype}{double} min\_valid\_path\_fraction = 0.5;}
+\DoxyCodeLine{204   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a50e78f07cacac3d88fa69f52b6ecf5f0}{goal\_bias}} = 0.05;}
 \DoxyCodeLine{205 }
-\DoxyCodeLine{207   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{207   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ad7e6e49e28bebdc8705f0c91f20e5fbe}{border\_fraction}} = 0.9;}
 \DoxyCodeLine{208 }
-\DoxyCodeLine{209   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{210 }
-\DoxyCodeLine{212   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{213 \};}
+\DoxyCodeLine{210   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a9bc57d0ed3a03e9e52e63ee2e0b97b9a}{failed\_expansion\_score\_factor}} = 0.5;}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{213   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_aa655fa13699ff4b0259a53760d82096a}{min\_valid\_path\_fraction}} = 0.5;}
 \DoxyCodeLine{214 }
-\DoxyCodeLine{215 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{216 \{}
-\DoxyCodeLine{217   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a6396f5150a3b8834eeb9773d7cbbe032}{KPIECE1Configurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{218   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a23ca2fadfbf4c993972dac1d7e77160e}{\string~KPIECE1Configurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{219   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_adda76a62c8a8d8f060db5e9021e04374}{KPIECE1Configurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{220   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a097a8d92c9c44f028730bc366df28edb}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{221   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ac8389f6dd3813a1002f0f06d147dc49e}{KPIECE1Configurator}}(\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{222   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ae6c286a54c84f52d8758760a8e33e964}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{223   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{KPIECE1Configurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
-\DoxyCodeLine{224 }
-\DoxyCodeLine{226   \textcolor{keywordtype}{double} range = 0;}
-\DoxyCodeLine{227 }
-\DoxyCodeLine{229   \textcolor{keywordtype}{double} goal\_bias = 0.05;}
-\DoxyCodeLine{230 }
-\DoxyCodeLine{232   \textcolor{keywordtype}{double} border\_fraction = 0.9;}
+\DoxyCodeLine{216   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_a6415258e024f7b724bdb78197341e79f}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_ae4660b430dafe69e716cb716f4f3d50f}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{221   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator_abae8f2ff990ed9b1d036b30b3ab97c59}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{222 \};}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{225 \{}
+\DoxyCodeLine{226   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_acdee0e43e0d2360dc97afc11ab9abe2b}{BiTRRTConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{227   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_aa1eea57650149f424137af19fe635306}{\string~BiTRRTConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{228   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_aae37f67eb2e7d157137915d16de39d92}{BiTRRTConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{229   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a1868a9e1c81916931ffd8cf35d1fd332}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{230   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_ac608b400310d60aa1b3b270a79ab1386}{BiTRRTConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{231   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_acaa79efab044d6594f21542c66fa0a26}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{232   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_acdee0e43e0d2360dc97afc11ab9abe2b}{BiTRRTConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
 \DoxyCodeLine{233 }
-\DoxyCodeLine{235   \textcolor{keywordtype}{double} failed\_expansion\_score\_factor = 0.5;}
+\DoxyCodeLine{235   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_aa91a753ca236e8a13e49321655cf5a9e}{range}} = 0;}
 \DoxyCodeLine{236 }
-\DoxyCodeLine{238   \textcolor{keywordtype}{double} min\_valid\_path\_fraction = 0.5;}
+\DoxyCodeLine{238   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_af909539f58b134340a37ae6baf17f0d4}{temp\_change\_factor}} = 0.1;}
 \DoxyCodeLine{239 }
-\DoxyCodeLine{241   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
-\DoxyCodeLine{242 }
-\DoxyCodeLine{243   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{244 }
-\DoxyCodeLine{246   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{247 \};}
-\DoxyCodeLine{248 }
-\DoxyCodeLine{249 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{250 \{}
-\DoxyCodeLine{251   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_acdee0e43e0d2360dc97afc11ab9abe2b}{BiTRRTConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{252   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_aa1eea57650149f424137af19fe635306}{\string~BiTRRTConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{253   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_aae37f67eb2e7d157137915d16de39d92}{BiTRRTConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{254   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a1868a9e1c81916931ffd8cf35d1fd332}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{255   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_ac608b400310d60aa1b3b270a79ab1386}{BiTRRTConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{256   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_acaa79efab044d6594f21542c66fa0a26}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{257   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{BiTRRTConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
-\DoxyCodeLine{258 }
-\DoxyCodeLine{260   \textcolor{keywordtype}{double} range = 0;}
+\DoxyCodeLine{242   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a82d9cbdd8d0391cc267d524a17b2be1f}{cost\_threshold}} = std::numeric\_limits<double>::infinity();}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{245   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a451db68f891ae2f9d8b9be45868dc28c}{init\_temperature}} = 100.;}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{248   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a97a411e3f2af7bfb611623902fce2a5f}{frontier\_threshold}} = 0.0;}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{251   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a5f921216f493a6a7ff6a23bb2ae5b73a}{frontier\_node\_ratio}} = 0.1;}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{254   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a5ba5e97ef09ad4e447a98b6d094afd32}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a720ec51ea49fc24f6110d78c28c1faff}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{259   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator_a8c69004abfadb3e652e12b2c4d3c8f34}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{260 \};}
 \DoxyCodeLine{261 }
-\DoxyCodeLine{263   \textcolor{keywordtype}{double} temp\_change\_factor = 0.1;}
-\DoxyCodeLine{264 }
-\DoxyCodeLine{267   \textcolor{keywordtype}{double} cost\_threshold = std::numeric\_limits<double>::infinity();}
-\DoxyCodeLine{268 }
-\DoxyCodeLine{270   \textcolor{keywordtype}{double} init\_temperature = 100.;}
+\DoxyCodeLine{262 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{263 \{}
+\DoxyCodeLine{264   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_ac805223d8f7890d13b2e594f8007e359}{RRTConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{265   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a4dbb56498e2e7a15dd6558a993cbcbf2}{\string~RRTConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{266   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a2e750366c512b346726ff0037486b7ed}{RRTConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{267   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a71e2bb746d915db33c55d014138bdf8d}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{268   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_aa8a3eda6ef0ca039f3097a7f7f4574ea}{RRTConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{269   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a54f5597ea87e1f59dd3c196ff429354c}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{270   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_ac805223d8f7890d13b2e594f8007e359}{RRTConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
 \DoxyCodeLine{271 }
-\DoxyCodeLine{273   \textcolor{keywordtype}{double} frontier\_threshold = 0.0;}
+\DoxyCodeLine{273   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a0d5d7302228b1e48d9beade377c3ee72}{range}} = 0;}
 \DoxyCodeLine{274 }
-\DoxyCodeLine{276   \textcolor{keywordtype}{double} frontier\_node\_ratio = 0.1;}
+\DoxyCodeLine{276   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_ae7363e5ab5c8baad49a184b217d54ee0}{goal\_bias}} = 0.05;}
 \DoxyCodeLine{277 }
-\DoxyCodeLine{279   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{279   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a7b796b74017fe41b8289a9e7123be495}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
 \DoxyCodeLine{280 }
-\DoxyCodeLine{281   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
+\DoxyCodeLine{281   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a68e96188be0b41e98944b19a3cc9596a}{getType}}() \textcolor{keyword}{const override};}
 \DoxyCodeLine{282 }
-\DoxyCodeLine{284   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{284   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_ac6fff0e7877ed95b67b04153c4325992}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
 \DoxyCodeLine{285 \};}
 \DoxyCodeLine{286 }
-\DoxyCodeLine{287 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{287 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
 \DoxyCodeLine{288 \{}
-\DoxyCodeLine{289   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_ac805223d8f7890d13b2e594f8007e359}{RRTConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{290   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a4dbb56498e2e7a15dd6558a993cbcbf2}{\string~RRTConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{291   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a2e750366c512b346726ff0037486b7ed}{RRTConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{292   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a71e2bb746d915db33c55d014138bdf8d}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{293   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_aa8a3eda6ef0ca039f3097a7f7f4574ea}{RRTConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{294   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator_a54f5597ea87e1f59dd3c196ff429354c}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{295   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{RRTConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{289   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_af08f668adb2e2307bde114739d6f4a7c}{RRTConnectConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{290   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a3809f61330d54b9dc621930bf4c2ba69}{\string~RRTConnectConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{291   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a8813dac3323312103d17a589ca81130e}{RRTConnectConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{292   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a00621e85a1825f6f5566da4aa29ee2d5}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{293   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a235adc89022730a170762a7e15fbc377}{RRTConnectConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{294   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_ad64fcd54aa712b890f3d31fc4cc8ba08}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{295   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_af08f668adb2e2307bde114739d6f4a7c}{RRTConnectConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
 \DoxyCodeLine{296 }
-\DoxyCodeLine{298   \textcolor{keywordtype}{double} range = 0;}
+\DoxyCodeLine{298   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a13df22e761e4970967da334ba22b428c}{range}} = 0;}
 \DoxyCodeLine{299 }
-\DoxyCodeLine{301   \textcolor{keywordtype}{double} goal\_bias = 0.05;}
+\DoxyCodeLine{301   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_aa5911f7338efd9b7291ea3baf2e6e5de}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
 \DoxyCodeLine{302 }
-\DoxyCodeLine{304   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
-\DoxyCodeLine{305 }
-\DoxyCodeLine{306   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{307 }
-\DoxyCodeLine{309   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{310 \};}
-\DoxyCodeLine{311 }
-\DoxyCodeLine{312 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{313 \{}
-\DoxyCodeLine{314   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_af08f668adb2e2307bde114739d6f4a7c}{RRTConnectConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{315   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a3809f61330d54b9dc621930bf4c2ba69}{\string~RRTConnectConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{316   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a8813dac3323312103d17a589ca81130e}{RRTConnectConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{317   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a00621e85a1825f6f5566da4aa29ee2d5}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{318   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a235adc89022730a170762a7e15fbc377}{RRTConnectConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{319   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_ad64fcd54aa712b890f3d31fc4cc8ba08}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{320   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRTConnectConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{303   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_adef2b30373a364a665014d133dbd1b05}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{306   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator_a47cbe42257b9828219399f5edb340a60}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{307 \};}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{309 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{310 \{}
+\DoxyCodeLine{311   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ac9add0ff233f692f9287274098d94da5}{RRTstarConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{312   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ad7c418de340ea2916f7a80538643105f}{\string~RRTstarConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{313   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ad7b2644c66becba7c7e2a3953992a6d1}{RRTstarConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{314   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_acf646067ed07e4358faa73599536ff6b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{315   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a04cd9591fd63155d235524abd8c4bac3}{RRTstarConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{316   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_aad93bdfc8df4fadaa3aa9365ace502ae}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{317   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ac9add0ff233f692f9287274098d94da5}{RRTstarConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{318 }
+\DoxyCodeLine{320   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a28f3b7350792394bbd1b96509296aab7}{range}} = 0;}
 \DoxyCodeLine{321 }
-\DoxyCodeLine{323   \textcolor{keywordtype}{double} range = 0;}
+\DoxyCodeLine{323   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a77bd78f7c97d68748baca06457a51ae2}{goal\_bias}} = 0.05;}
 \DoxyCodeLine{324 }
-\DoxyCodeLine{326   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{326   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a3d97701e131375248cf67f9e29c602e4}{delay\_collision\_checking}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{327 }
-\DoxyCodeLine{328   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{329 }
-\DoxyCodeLine{331   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{332 \};}
-\DoxyCodeLine{333 }
-\DoxyCodeLine{334 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{335 \{}
-\DoxyCodeLine{336   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ac9add0ff233f692f9287274098d94da5}{RRTstarConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{337   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ad7c418de340ea2916f7a80538643105f}{\string~RRTstarConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{338   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ad7b2644c66becba7c7e2a3953992a6d1}{RRTstarConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{339   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_acf646067ed07e4358faa73599536ff6b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{340   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a04cd9591fd63155d235524abd8c4bac3}{RRTstarConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{341   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_aad93bdfc8df4fadaa3aa9365ace502ae}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{342   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstarConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
-\DoxyCodeLine{343 }
-\DoxyCodeLine{345   \textcolor{keywordtype}{double} range = 0;}
+\DoxyCodeLine{329   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_ac9daef3ca723632cae9116759b91d9a6}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{331   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_aa59d04e261e4caa95b79defc9f094979}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{332 }
+\DoxyCodeLine{334   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator_a0564464706f7b40a345ac6519994e161}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{335 \};}
+\DoxyCodeLine{336 }
+\DoxyCodeLine{337 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{338 \{}
+\DoxyCodeLine{339   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a29b6de388836333320859325aac42a28}{TRRTConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{340   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a1eb548bd29eff20d169bbef53efd34c5}{\string~TRRTConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{341   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a43184e2329941652e376b0c3aca01f37}{TRRTConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{342   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_aaac96d0a9bf9be70b5263531cfc8b118}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{343   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a45a3c82dab4add61f67fed558499d888}{TRRTConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{344   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_af905cf501c338a25d9c8e7bec0463994}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{345   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a29b6de388836333320859325aac42a28}{TRRTConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
 \DoxyCodeLine{346 }
-\DoxyCodeLine{348   \textcolor{keywordtype}{double} goal\_bias = 0.05;}
+\DoxyCodeLine{348   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_aa0f3392392439cf08054183fab493949}{range}} = 0;}
 \DoxyCodeLine{349 }
-\DoxyCodeLine{351   \textcolor{keywordtype}{bool} delay\_collision\_checking = \textcolor{keyword}{true};}
+\DoxyCodeLine{351   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a0021fb52f683eb1adde1ed18e185c019}{goal\_bias}} = 0.05;}
 \DoxyCodeLine{352 }
-\DoxyCodeLine{354   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{354   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_acd55d02b6b6fc388b2249efd410e267e}{temp\_change\_factor}} = 2.0;}
 \DoxyCodeLine{355 }
-\DoxyCodeLine{356   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{357 }
-\DoxyCodeLine{359   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{360 \};}
+\DoxyCodeLine{357   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_af1838c897b528592d9f062ddf17e4563}{init\_temperature}} = 10e-\/6;}
+\DoxyCodeLine{358 }
+\DoxyCodeLine{360   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a27c22c6bee564f5fd898af31bbe548a9}{frontier\_threshold}} = 0.0;}
 \DoxyCodeLine{361 }
-\DoxyCodeLine{362 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{363 \{}
-\DoxyCodeLine{364   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a29b6de388836333320859325aac42a28}{TRRTConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{365   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a1eb548bd29eff20d169bbef53efd34c5}{\string~TRRTConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{366   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a43184e2329941652e376b0c3aca01f37}{TRRTConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{367   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_aaac96d0a9bf9be70b5263531cfc8b118}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{368   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a45a3c82dab4add61f67fed558499d888}{TRRTConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{369   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_af905cf501c338a25d9c8e7bec0463994}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{370   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{TRRTConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
-\DoxyCodeLine{371 }
-\DoxyCodeLine{373   \textcolor{keywordtype}{double} range = 0;}
-\DoxyCodeLine{374 }
-\DoxyCodeLine{376   \textcolor{keywordtype}{double} goal\_bias = 0.05;}
-\DoxyCodeLine{377 }
-\DoxyCodeLine{379   \textcolor{keywordtype}{double} temp\_change\_factor = 2.0;}
-\DoxyCodeLine{380 }
-\DoxyCodeLine{382   \textcolor{keywordtype}{double} init\_temperature = 10e-\/6;}
+\DoxyCodeLine{363   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a314173e1a49a2fb77e92595a96ed456c}{frontier\_node\_ratio}} = 0.1;}
+\DoxyCodeLine{364 }
+\DoxyCodeLine{366   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_a49cb1fecd164c799a4377595a76c8661}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{367 }
+\DoxyCodeLine{368   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_ab5b934a6f7cbd6fdb5177b959a7bf56b}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{371   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator_ac24b162b20d2f72c8fcf886097724d22}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{372 \};}
+\DoxyCodeLine{373 }
+\DoxyCodeLine{374 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{375 \{}
+\DoxyCodeLine{376   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_ada2e0228cbe6b8eb518d6145570bc32c}{PRMConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{377   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_a63cfa182ede8a3643efc97232d50f1b3}{\string~PRMConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{378   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_aed574f281980cf46d55928b4c382e2fc}{PRMConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{379   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_a78942e3311f863bf02bb2bf66a6e043e}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{380   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_aeca8793bc4329ae9798d7060ba69ff47}{PRMConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{381   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_abe245d1d17d3f1edf1850b0283d70678}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{382   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_ada2e0228cbe6b8eb518d6145570bc32c}{PRMConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
 \DoxyCodeLine{383 }
-\DoxyCodeLine{385   \textcolor{keywordtype}{double} frontier\_threshold = 0.0;}
+\DoxyCodeLine{385   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_a68afe8fa797a9511893da33f7c5b3f2e}{max\_nearest\_neighbors}} = 10;}
 \DoxyCodeLine{386 }
-\DoxyCodeLine{388   \textcolor{keywordtype}{double} frontier\_node\_ratio = 0.1;}
+\DoxyCodeLine{388   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_a58fb3dca7d2e777b6bb904d5d08ae63e}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
 \DoxyCodeLine{389 }
-\DoxyCodeLine{391   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
-\DoxyCodeLine{392 }
-\DoxyCodeLine{393   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{394 }
-\DoxyCodeLine{396   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{397 \};}
-\DoxyCodeLine{398 }
-\DoxyCodeLine{399 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{400 \{}
-\DoxyCodeLine{401   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_ada2e0228cbe6b8eb518d6145570bc32c}{PRMConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{402   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_a63cfa182ede8a3643efc97232d50f1b3}{\string~PRMConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{403   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_aed574f281980cf46d55928b4c382e2fc}{PRMConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{404   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_a78942e3311f863bf02bb2bf66a6e043e}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{405   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_aeca8793bc4329ae9798d7060ba69ff47}{PRMConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{406   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_abe245d1d17d3f1edf1850b0283d70678}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{407   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{PRMConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{390   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_a40422c49f4e5b90601f49209e47cf0ca}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{391 }
+\DoxyCodeLine{393   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator_acb66ea24ecdd8cd4a58d9b3ab614ca44}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{394 \};}
+\DoxyCodeLine{395 }
+\DoxyCodeLine{396 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{397 \{}
+\DoxyCodeLine{398   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a73d2d85475fedc93baa8e84c7cf0cfa7}{PRMstarConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{399   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a7bf58d4570a495de7c43aa2ecb120790}{\string~PRMstarConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{400   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_ac629eab859b48faafb634da7237da3f6}{PRMstarConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{401   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_ab24c7d88a4731e33796ede94ab2cea25}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{402   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_aff8764104b61a0cdf544bca21669c2ae}{PRMstarConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{403   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a410bda7f29e3c619c225fd8cf239ed88}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{404   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a73d2d85475fedc93baa8e84c7cf0cfa7}{PRMstarConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{405 }
+\DoxyCodeLine{407   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_ab0f8d32489466e2e8e361cc29f83a809}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
 \DoxyCodeLine{408 }
-\DoxyCodeLine{410   \textcolor{keywordtype}{int} max\_nearest\_neighbors = 10;}
-\DoxyCodeLine{411 }
-\DoxyCodeLine{413   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{409   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a5438bad53c93e4b191d860e0f1391b07}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{410 }
+\DoxyCodeLine{412   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a6797df3ec1af1c31bd1d1f34105b6f06}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{413 \};}
 \DoxyCodeLine{414 }
-\DoxyCodeLine{415   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{416 }
-\DoxyCodeLine{418   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{419 \};}
-\DoxyCodeLine{420 }
-\DoxyCodeLine{421 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{422 \{}
-\DoxyCodeLine{423   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a73d2d85475fedc93baa8e84c7cf0cfa7}{PRMstarConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{424   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a7bf58d4570a495de7c43aa2ecb120790}{\string~PRMstarConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{425   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_ac629eab859b48faafb634da7237da3f6}{PRMstarConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{426   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_ab24c7d88a4731e33796ede94ab2cea25}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{427   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_aff8764104b61a0cdf544bca21669c2ae}{PRMstarConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{428   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator_a410bda7f29e3c619c225fd8cf239ed88}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{429   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{PRMstarConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
-\DoxyCodeLine{430 }
-\DoxyCodeLine{432   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{415 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{416 \{}
+\DoxyCodeLine{417   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_ab2725093b72859144fd4339fdd224098}{LazyPRMstarConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{418   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a16cc1813761038ca68db2421ce9bf3c8}{\string~LazyPRMstarConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{419   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a91ab00e9f9a552b63418b0e1c5f81e4f}{LazyPRMstarConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{420   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a445de74e443c659dfd7a8c7081ef1e8b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{421   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_ad7e2993225779ad063ffcae4cb5d44f8}{LazyPRMstarConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{422   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a86a63256b7fdab9c0c567956e3e61c73}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{423   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_ab2725093b72859144fd4339fdd224098}{LazyPRMstarConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{424 }
+\DoxyCodeLine{426   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_ab5d0347e0946179ac50fbf6a025f6925}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{427 }
+\DoxyCodeLine{428   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a5a1d6dab6661ee1635a67c8455d1ac07}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{429 }
+\DoxyCodeLine{431   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a5b83865bd9529dac5f517d5aeb503222}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{432 \};}
 \DoxyCodeLine{433 }
-\DoxyCodeLine{434   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{435 }
-\DoxyCodeLine{437   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{438 \};}
-\DoxyCodeLine{439 }
-\DoxyCodeLine{440 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{441 \{}
-\DoxyCodeLine{442   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_ab2725093b72859144fd4339fdd224098}{LazyPRMstarConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{443   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a16cc1813761038ca68db2421ce9bf3c8}{\string~LazyPRMstarConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{444   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a91ab00e9f9a552b63418b0e1c5f81e4f}{LazyPRMstarConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{445   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a445de74e443c659dfd7a8c7081ef1e8b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{446   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_ad7e2993225779ad063ffcae4cb5d44f8}{LazyPRMstarConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{447   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator_a86a63256b7fdab9c0c567956e3e61c73}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{448   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{LazyPRMstarConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{434 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
+\DoxyCodeLine{435 \{}
+\DoxyCodeLine{436   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a4928e2298834c1fd0cc414c560ac33ee}{SPARSConfigurator}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{437   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a3b99a44de7d34e64c39010bec7a62be9}{\string~SPARSConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{438   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a31f0a3630a04e68dd105cf4aeabc3f36}{SPARSConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{439   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_add9181e575dfd37335f4d109c7f8d816}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{440   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a737b0d02e9825913fb0f217caea9c40a}{SPARSConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{441   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_ab1e1324388a65fda738ebede28ee5753}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{442   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a4928e2298834c1fd0cc414c560ac33ee}{SPARSConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
+\DoxyCodeLine{443 }
+\DoxyCodeLine{445   \textcolor{keywordtype}{int} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_aebdd3c784ba9e931e1db9b03811e1c96}{max\_failures}} = 1000;}
+\DoxyCodeLine{446 }
+\DoxyCodeLine{448   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_ae027c0e53f88d2c341de99ba0ef72734}{dense\_delta\_fraction}} = 0.001;}
 \DoxyCodeLine{449 }
-\DoxyCodeLine{451   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
+\DoxyCodeLine{451   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a808c338ad4f042f2c3490a71aa15bc99}{sparse\_delta\_fraction}} = 0.25;}
 \DoxyCodeLine{452 }
-\DoxyCodeLine{453   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{454 }
-\DoxyCodeLine{456   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{457 \};}
+\DoxyCodeLine{454   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a2b4e90040a964212b041bdf758cfd9c9}{stretch\_factor}} = 3;}
+\DoxyCodeLine{455 }
+\DoxyCodeLine{457   ompl::base::PlannerPtr \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_aae0e993af5465bb7f2710814845b5e53}{create}}(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
 \DoxyCodeLine{458 }
-\DoxyCodeLine{459 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{OMPLPlannerConfigurator}}}
-\DoxyCodeLine{460 \{}
-\DoxyCodeLine{461   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a4928e2298834c1fd0cc414c560ac33ee}{SPARSConfigurator}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{462   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a3b99a44de7d34e64c39010bec7a62be9}{\string~SPARSConfigurator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{463   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a31f0a3630a04e68dd105cf4aeabc3f36}{SPARSConfigurator}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{464   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_add9181e575dfd37335f4d109c7f8d816}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{465   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a737b0d02e9825913fb0f217caea9c40a}{SPARSConfigurator}}(\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{466   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\& \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_ab1e1324388a65fda738ebede28ee5753}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}\&\&) = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{467   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{SPARSConfigurator}}(\textcolor{keyword}{const} tinyxml2::XMLElement\& xml\_element);}
-\DoxyCodeLine{468 }
-\DoxyCodeLine{470   \textcolor{keywordtype}{int} max\_failures = 1000;}
-\DoxyCodeLine{471 }
-\DoxyCodeLine{473   \textcolor{keywordtype}{double} dense\_delta\_fraction = 0.001;}
-\DoxyCodeLine{474 }
-\DoxyCodeLine{476   \textcolor{keywordtype}{double} sparse\_delta\_fraction = 0.25;}
-\DoxyCodeLine{477 }
-\DoxyCodeLine{479   \textcolor{keywordtype}{double} stretch\_factor = 3;}
-\DoxyCodeLine{480 }
-\DoxyCodeLine{482   ompl::base::PlannerPtr create(ompl::base::SpaceInformationPtr si) \textcolor{keyword}{const override};}
-\DoxyCodeLine{483 }
-\DoxyCodeLine{484   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} getType() \textcolor{keyword}{const override};}
-\DoxyCodeLine{485 }
-\DoxyCodeLine{487   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
-\DoxyCodeLine{488 \};}
-\DoxyCodeLine{489 }
-\DoxyCodeLine{490 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{491 }
-\DoxyCodeLine{492 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{493 \%shared\_factory(}
-\DoxyCodeLine{494   \mbox{\hyperlink{structtesseract__planning_1_1OMPLPlannerConfigurator}{tesseract\_planning::OMPLPlannerConfigurator}},}
-\DoxyCodeLine{495   \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{tesseract\_planning::SBLConfigurator}},}
-\DoxyCodeLine{496   \mbox{\hyperlink{structtesseract__planning_1_1ESTConfigurator}{tesseract\_planning::ESTConfigurator}},}
-\DoxyCodeLine{497   \mbox{\hyperlink{structtesseract__planning_1_1LBKPIECE1Configurator}{tesseract\_planning::LBKPIECE1Configurator}},}
-\DoxyCodeLine{498   \mbox{\hyperlink{structtesseract__planning_1_1BKPIECE1Configurator}{tesseract\_planning::BKPIECE1Configurator}},}
-\DoxyCodeLine{499   \mbox{\hyperlink{structtesseract__planning_1_1KPIECE1Configurator}{tesseract\_planning::KPIECE1Configurator}},}
-\DoxyCodeLine{500   \mbox{\hyperlink{structtesseract__planning_1_1BiTRRTConfigurator}{tesseract\_planning::BiTRRTConfigurator}},}
-\DoxyCodeLine{501   \mbox{\hyperlink{structtesseract__planning_1_1RRTConfigurator}{tesseract\_planning::RRTConfigurator}},}
-\DoxyCodeLine{502   \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{tesseract\_planning::RRTConnectConfigurator}},}
-\DoxyCodeLine{503   \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{tesseract\_planning::RRTstarConfigurator}},}
-\DoxyCodeLine{504   \mbox{\hyperlink{structtesseract__planning_1_1TRRTConfigurator}{tesseract\_planning::TRRTConfigurator}},}
-\DoxyCodeLine{505   \mbox{\hyperlink{structtesseract__planning_1_1PRMConfigurator}{tesseract\_planning::PRMConfigurator}},}
-\DoxyCodeLine{506   \mbox{\hyperlink{structtesseract__planning_1_1PRMstarConfigurator}{tesseract\_planning::PRMstarConfigurator}},}
-\DoxyCodeLine{507   \mbox{\hyperlink{structtesseract__planning_1_1LazyPRMstarConfigurator}{tesseract\_planning::LazyPRMstarConfigurator}},}
-\DoxyCodeLine{508   \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator}{tesseract\_planning::SPARSConfigurator}}}
-\DoxyCodeLine{509 )}
-\DoxyCodeLine{510 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{511 }
-\DoxyCodeLine{512 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_PLANNER\_CONFIGURATOR\_H}}
+\DoxyCodeLine{459   \mbox{\hyperlink{namespacetesseract__planning_aaced124f80faedf64173b4b9ae5bf009}{OMPLPlannerType}} \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a65d2a40186d09db4c40699903a19895f}{getType}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{460 }
+\DoxyCodeLine{462   tinyxml2::XMLElement* \mbox{\hyperlink{structtesseract__planning_1_1SPARSConfigurator_a27940eec82006d93e04c6fc81f4ac7f8}{toXML}}(tinyxml2::XMLDocument\& doc) \textcolor{keyword}{const override};}
+\DoxyCodeLine{463 \};}
+\DoxyCodeLine{464 }
+\DoxyCodeLine{465 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{466 }
+\DoxyCodeLine{467 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_OMPL\_PLANNER\_CONFIGURATOR\_H}}
 
 \end{DoxyCode}

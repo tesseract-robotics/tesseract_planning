@@ -18,76 +18,55 @@
 \DoxyCodeLine{38 }
 \DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__poly_8h}{tesseract\_command\_language/poly/instruction\_poly.h}}>}}
 \DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{42 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{tesseract\_planning::ProcessPlanningProblem}})}
-\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{46 \{}
-\DoxyCodeLine{47 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}}
-\DoxyCodeLine{48 \{}
-\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ab311d3678ee60f94f92abe11ab853137}{Ptr}} = std::shared\_ptr<ProcessPlanningProblem>;}
-\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a97f37c1a0eac6fa3514346103f0ac9aa}{ConstPtr}} = std::shared\_ptr<const ProcessPlanningProblem>;}
-\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ab0ee7d8de7b9de00beb234ae7d601082}{UPtr}} = std::unique\_ptr<ProcessPlanningProblem>;}
-\DoxyCodeLine{52   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ad833a36cc7c6c24e39453dad071c22a2}{ConstUPtr}} = std::unique\_ptr<const ProcessPlanningProblem>;}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a6523f091522ce93029a36ae30af570f5}{ProcessPlanningProblem}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{55   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a4a98df39d25d810fea3bbcb8addb31c4}{\string~ProcessPlanningProblem}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{56   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a6523f091522ce93029a36ae30af570f5}{ProcessPlanningProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& other);}
-\DoxyCodeLine{57   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a3576cd6ffc72bd5d18a24f916e344d7b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& other);}
-\DoxyCodeLine{58   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_adec6ba97d9b6a797c9a04d23c1f12b7c}{ProcessPlanningProblem}}(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{59   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a11cfc050c80d954eef94cbb006459661}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\&\&) = \textcolor{keyword}{delete};}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifndef SWIG}}
-\DoxyCodeLine{63   std::string \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a54da3a5e9de5c48d96651febc3e17424}{name}};}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{66   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ad5511edbc1ea069472c4913ee1ef36c2}{env}};}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{69   std::unique\_ptr<InstructionPoly> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a057db65379ac8acded7c9dbae7aecba4}{input}}\{ \textcolor{keyword}{nullptr} \};}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{72   std::unique\_ptr<InstructionPoly> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a7c5e8c267556a3e0c941ab14ea7f0a43}{results}}\{ \textcolor{keyword}{nullptr} \};}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{75   std::unique\_ptr<const tesseract\_common::ManipulatorInfo> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ae1c4ff273d194f07ec3b332f146c5bd0}{global\_manip\_info}}\{ \textcolor{keyword}{nullptr} \};}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{78   std::unique\_ptr<const PlannerProfileRemapping> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_aea76cfeaa22f0c39446ef5e416e3daea}{plan\_profile\_remapping}}\{ \textcolor{keyword}{nullptr} \};}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{81   std::unique\_ptr<const PlannerProfileRemapping> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ae623c85b3a4ead9179308dc6248ccd9a}{composite\_profile\_remapping}}\{ \textcolor{keyword}{nullptr} \};}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{83 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{84   \textcolor{comment}{// clang-\/format off}}
-\DoxyCodeLine{85   \%extend \{}
-\DoxyCodeLine{86   Instruction\& getInput() \{ \textcolor{keywordflow}{return} *\$self-\/>input; \}}
-\DoxyCodeLine{87   Instruction\& getResults() \{ \textcolor{keywordflow}{return} *\$self-\/>results; \}}
-\DoxyCodeLine{88   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} getGlobalManipInfo() \{ \textcolor{keywordflow}{return} *\$self-\/>global\_manip\_info; \}}
-\DoxyCodeLine{89   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} getPlanProfileRemapping() \{ \textcolor{keywordflow}{return} *\$self-\/>plan\_profile\_remapping; \}}
-\DoxyCodeLine{90   \mbox{\hyperlink{namespacetesseract__planning_a97a7a198edf46fea10c33898f4b1e2c5}{PlannerProfileRemapping}} getCompositeProfileRemapping() \{ \textcolor{keywordflow}{return} *\$self-\/>composite\_profile\_remapping; \}}
-\DoxyCodeLine{91   \}}
-\DoxyCodeLine{92   \textcolor{comment}{// clang-\/format on}}
-\DoxyCodeLine{93 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ab311d3678ee60f94f92abe11ab853137}{Ptr}} = std::shared\_ptr<ProcessPlanningProblem>;}
+\DoxyCodeLine{46   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a97f37c1a0eac6fa3514346103f0ac9aa}{ConstPtr}} = std::shared\_ptr<const ProcessPlanningProblem>;}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ab0ee7d8de7b9de00beb234ae7d601082}{UPtr}} = std::unique\_ptr<ProcessPlanningProblem>;}
+\DoxyCodeLine{48   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ad833a36cc7c6c24e39453dad071c22a2}{ConstUPtr}} = std::unique\_ptr<const ProcessPlanningProblem>;}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a6523f091522ce93029a36ae30af570f5}{ProcessPlanningProblem}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{51   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a4a98df39d25d810fea3bbcb8addb31c4}{\string~ProcessPlanningProblem}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{52   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a6523f091522ce93029a36ae30af570f5}{ProcessPlanningProblem}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& other);}
+\DoxyCodeLine{53   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a3576cd6ffc72bd5d18a24f916e344d7b}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& other);}
+\DoxyCodeLine{54   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_adec6ba97d9b6a797c9a04d23c1f12b7c}{ProcessPlanningProblem}}(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a11cfc050c80d954eef94cbb006459661}{operator=}}(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{58   std::string \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a54da3a5e9de5c48d96651febc3e17424}{name}};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{61   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ad5511edbc1ea069472c4913ee1ef36c2}{env}};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{64   std::unique\_ptr<InstructionPoly> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a057db65379ac8acded7c9dbae7aecba4}{input}}\{ \textcolor{keyword}{nullptr} \};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{67   std::unique\_ptr<InstructionPoly> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a7c5e8c267556a3e0c941ab14ea7f0a43}{results}}\{ \textcolor{keyword}{nullptr} \};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{70   std::unique\_ptr<const tesseract\_common::ManipulatorInfo> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ae1c4ff273d194f07ec3b332f146c5bd0}{global\_manip\_info}}\{ \textcolor{keyword}{nullptr} \};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{73   std::unique\_ptr<const PlannerProfileRemapping> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_aea76cfeaa22f0c39446ef5e416e3daea}{plan\_profile\_remapping}}\{ \textcolor{keyword}{nullptr} \};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{76   std::unique\_ptr<const PlannerProfileRemapping> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ae623c85b3a4ead9179308dc6248ccd9a}{composite\_profile\_remapping}}\{ \textcolor{keyword}{nullptr} \};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{82   \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{TaskflowContainer}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a032814e8b99d8ed272ed4b73ce950e42}{taskflow\_container}};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a78d33947f042ed90399054468f697d4e}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{85   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a1a6efa8b1609a887420114b081c09ca3}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \textcolor{keyword}{private}:}
+\DoxyCodeLine{88   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a036ed7b95e2aef3abab410e9006f042e}{copy}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& other);}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{91   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{92   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_af37077c7a9c1f180d4a12eb4d24b2ad5}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{93 \};}
 \DoxyCodeLine{94 }
-\DoxyCodeLine{95 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{96   \%ignore \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a032814e8b99d8ed272ed4b73ce950e42}{taskflow\_container}};}
-\DoxyCodeLine{97 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{103   \mbox{\hyperlink{structtesseract__planning_1_1TaskflowContainer}{TaskflowContainer}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a032814e8b99d8ed272ed4b73ce950e42}{taskflow\_container}};}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{105   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a78d33947f042ed90399054468f697d4e}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{106   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a1a6efa8b1609a887420114b081c09ca3}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108 \textcolor{keyword}{private}:}
-\DoxyCodeLine{109   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_a036ed7b95e2aef3abab410e9006f042e}{copy}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{ProcessPlanningProblem}}\& other);}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{111   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{112   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{113   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_af37077c7a9c1f180d4a12eb4d24b2ad5}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{114 \};}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{116 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{117 }
-\DoxyCodeLine{118 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{119 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{tesseract\_planning::ProcessPlanningProblem}}, \textcolor{stringliteral}{"{}ProcessPlanningProblem"{}})}
-\DoxyCodeLine{120 BOOST\_CLASS\_VERSION(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::ProcessPlanningProblem, 1)  \textcolor{comment}{// Adding name}}
-\DoxyCodeLine{121 }
-\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_RESULTS\_H}}
+\DoxyCodeLine{95 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{98 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem}{tesseract\_planning::ProcessPlanningProblem}}, \textcolor{stringliteral}{"{}ProcessPlanningProblem"{}})}
+\DoxyCodeLine{99 BOOST\_CLASS\_VERSION(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}::ProcessPlanningProblem, 1)  \textcolor{comment}{// Adding name}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_RESULTS\_H}}
 
 \end{DoxyCode}

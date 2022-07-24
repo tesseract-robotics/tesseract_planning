@@ -139,20 +139,9 @@ $(function() {
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}  <span class="comment">// namespace tesseract_planning</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#ifdef SWIG</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>%extend <a class="code hl_class" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">tesseract_planning::JointWaypoint</a> {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  JointWaypoint(std::vector&lt;std::string&gt; joint_names, <span class="keyword">const</span> Eigen::VectorXd&amp; other)</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">tesseract_planning::JointWaypoint</a>(joint_names, other);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  }</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>%tesseract_command_language_add_joint_waypoint_type(JointWaypoint)</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="../../d7/d1f/joint__waypoint_8h.html#ab2f0d859850d18ae0aa9098c2eeb5888">  105</a></span><a class="code hl_function" href="../../d7/d1f/joint__waypoint_8h.html#ab2f0d859850d18ae0aa9098c2eeb5888">TESSERACT_JOINT_WAYPOINT_EXPORT_KEY</a>(<a class="code hl_namespace" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a>, JointWaypoint);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#endif  </span><span class="comment">// SWIG</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="../../d7/d1f/joint__waypoint_8h.html#ab2f0d859850d18ae0aa9098c2eeb5888">   95</a></span><a class="code hl_function" href="../../d7/d1f/joint__waypoint_8h.html#ab2f0d859850d18ae0aa9098c2eeb5888">TESSERACT_JOINT_WAYPOINT_EXPORT_KEY</a>(<a class="code hl_namespace" href="../../d9/dcd/namespacetesseract__planning.html">tesseract_planning</a>, JointWaypoint);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#endif  </span><span class="comment">// TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H</span></div>
 <div class="ttc" id="aclasstesseract__planning_1_1JointWaypoint_html"><div class="ttname"><a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html">tesseract_planning::JointWaypoint</a></div><div class="ttdef"><b>Definition:</b> joint_waypoint.h:42</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1JointWaypoint_html_a17c2c799d8f7fc0c31f35e149e0c371d"><div class="ttname"><a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a17c2c799d8f7fc0c31f35e149e0c371d">tesseract_planning::JointWaypoint::operator!=</a></div><div class="ttdeci">bool operator!=(const JointWaypoint &amp;rhs) const</div><div class="ttdef"><b>Definition:</b> joint_waypoint.cpp:82</div></div>
 <div class="ttc" id="aclasstesseract__planning_1_1JointWaypoint_html_a18f43d3b65b93369e0531dd50d006b93"><div class="ttname"><a href="../../d7/d93/classtesseract__planning_1_1JointWaypoint.html#a18f43d3b65b93369e0531dd50d006b93">tesseract_planning::JointWaypoint::JointWaypoint</a></div><div class="ttdeci">EIGEN_MAKE_ALIGNED_OPERATOR_NEW JointWaypoint()=default</div></div>
@@ -178,7 +167,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jul 22 2022 19:56:15 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sun Jul 24 2022 23:37:51 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

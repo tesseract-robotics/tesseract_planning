@@ -17,60 +17,42 @@
 \DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{taskflow__generator_8h}{tesseract\_process\_managers/core/taskflow\_generator.h}}>}}
 \DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{process__planning__problem_8h}{tesseract\_process\_managers/core/process\_planning\_problem.h}}>}}
 \DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{41 \%shared\_ptr(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{tesseract\_planning::ProcessPlanningFuture}})}
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{43 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{44 \{}
-\DoxyCodeLine{51 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{ProcessPlanningFuture}}}
-\DoxyCodeLine{52 \{}
-\DoxyCodeLine{53   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a32cec967bd5be86f4849a08ea000a365}{ProcessPlanningFuture}}();}
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{ProcessPlanningFuture}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a32cec967bd5be86f4849a08ea000a365}{ProcessPlanningFuture}}();}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{53   std::shared\_future<void> \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a2bbb19ed8da8ed105194b5b8288c0d30}{process\_future}};}
 \DoxyCodeLine{54 }
-\DoxyCodeLine{55 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{56   \%ignore \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a2bbb19ed8da8ed105194b5b8288c0d30}{process\_future}};}
-\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{59 \textcolor{comment}{}  std::shared\_future<void> process\_future;}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{TaskflowInterface::Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ab731224c9347d812ec443c5e7da7c14a}{interface}};}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{66   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ab311d3678ee60f94f92abe11ab853137}{ProcessPlanningProblem::Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_adf0a42391654f9bfcdc8f640dd7a7828}{problem}};}
+\DoxyCodeLine{56   \mbox{\hyperlink{classtesseract__planning_1_1TaskflowInterface_acb988b453380a91a5ee44bcaa1715251}{TaskflowInterface::Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ab731224c9347d812ec443c5e7da7c14a}{interface}};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{60   \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningProblem_ab311d3678ee60f94f92abe11ab853137}{ProcessPlanningProblem::Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_adf0a42391654f9bfcdc8f640dd7a7828}{problem}};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{63   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a331e2eed932568b270198efbdb44a0a7}{clear}}();}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{66   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_acf9f59a9defd26f6eea5be0507862ace}{valid}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{67 }
-\DoxyCodeLine{69   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a331e2eed932568b270198efbdb44a0a7}{clear}}();}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{72   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_acf9f59a9defd26f6eea5be0507862ace}{valid}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{72   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a5fc2dad07a0386329699e8960e48ba5d}{ready}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{73 }
-\DoxyCodeLine{78   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a5fc2dad07a0386329699e8960e48ba5d}{ready}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{81   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ae38bedb3507165a95eda17068397c9c1}{wait}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{75   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ae38bedb3507165a95eda17068397c9c1}{wait}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{81   std::future\_status \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a9f27a50883fc0fb9e0ac265cbd7dd67c}{waitFor}}(\textcolor{keyword}{const} std::chrono::duration<double>\& duration) \textcolor{keyword}{const};}
 \DoxyCodeLine{82 }
-\DoxyCodeLine{87   std::future\_status \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a9f27a50883fc0fb9e0ac265cbd7dd67c}{waitFor}}(\textcolor{keyword}{const} std::chrono::duration<double>\& duration) \textcolor{keyword}{const};}
+\DoxyCodeLine{87   std::future\_status \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_aa24eea317ac39d160ba12a3c18df497c}{waitUntil}}(\textcolor{keyword}{const} std::chrono::time\_point<std::chrono::high\_resolution\_clock>\& abs) \textcolor{keyword}{const};}
 \DoxyCodeLine{88 }
-\DoxyCodeLine{89 \textcolor{preprocessor}{\#ifdef SWIG}}
-\DoxyCodeLine{90   \textcolor{comment}{// clang-\/format off}}
-\DoxyCodeLine{91   \%extend \{}
-\DoxyCodeLine{92     \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a9f27a50883fc0fb9e0ac265cbd7dd67c}{waitFor}}(\textcolor{keywordtype}{double} seconds)}
-\DoxyCodeLine{93     \{}
-\DoxyCodeLine{94       \textcolor{keyword}{auto} res = \$self-\/>waitFor(std::chrono::duration<double>(seconds));}
-\DoxyCodeLine{95       \textcolor{keywordflow}{return} res == std::future\_status::ready;}
-\DoxyCodeLine{96     \}}
-\DoxyCodeLine{97   \}}
-\DoxyCodeLine{98   \textcolor{comment}{// clang-\/format on}}
-\DoxyCodeLine{99 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// SWIG}}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{105   std::future\_status \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_aa24eea317ac39d160ba12a3c18df497c}{waitUntil}}(\textcolor{keyword}{const} std::chrono::time\_point<std::chrono::high\_resolution\_clock>\& abs) \textcolor{keyword}{const};}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a8c7278b005f24272e688d23973329ac7}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a32cec967bd5be86f4849a08ea000a365}{ProcessPlanningFuture}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{108   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_aa1c52a67caf471895b8a9c5c8e4f3098}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a32cec967bd5be86f4849a08ea000a365}{ProcessPlanningFuture}}\& rhs) \textcolor{keyword}{const};}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110 \textcolor{keyword}{private}:}
-\DoxyCodeLine{111   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{112   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{113   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ad3a6352d523e28f4e16c7b47482075bb}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{114 \};}
-\DoxyCodeLine{115 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{117 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
-\DoxyCodeLine{118 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{tesseract\_planning::ProcessPlanningFuture}}, \textcolor{stringliteral}{"{}ProcessPlanningFuture"{}})}
-\DoxyCodeLine{119 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_FUTURE\_H}}
+\DoxyCodeLine{89   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_a8c7278b005f24272e688d23973329ac7}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{ProcessPlanningFuture}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{90   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_aa1c52a67caf471895b8a9c5c8e4f3098}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{ProcessPlanningFuture}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{keyword}{private}:}
+\DoxyCodeLine{93   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{94   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{95   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture_ad3a6352d523e28f4e16c7b47482075bb}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{96 \};}
+\DoxyCodeLine{97 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{100 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{structtesseract__planning_1_1ProcessPlanningFuture}{tesseract\_planning::ProcessPlanningFuture}}, \textcolor{stringliteral}{"{}ProcessPlanningFuture"{}})}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_PROCESS\_PLANNING\_FUTURE\_H}}
 
 \end{DoxyCode}
