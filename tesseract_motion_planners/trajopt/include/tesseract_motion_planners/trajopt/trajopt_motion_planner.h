@@ -78,7 +78,7 @@ public:
 protected:
   std::string name_;
   /** @brief The planners status codes */
-  std::shared_ptr<const TrajOptMotionPlannerStatusCategory> status_category_; 
+  std::shared_ptr<const TrajOptMotionPlannerStatusCategory> status_category_;
 };
 
 class TrajOptMotionPlannerStatusCategory : public tesseract_common::StatusCategory
