@@ -105,7 +105,6 @@ public:
   using size_type = typename std::vector<value_type>::size_type;
   /** difference_type */
   using difference_type = typename std::vector<value_type>::difference_type;
-#ifndef SWIG
   /** iterator */
   using iterator = typename std::vector<value_type>::iterator;
   /** const_iterator */
@@ -114,18 +113,12 @@ public:
   using reverse_iterator = typename std::vector<value_type>::reverse_iterator;
   /** const_reverse_iterator */
   using const_reverse_iterator = typename std::vector<value_type>::const_reverse_iterator;
-#endif
-
-#ifndef SWIG
 
   template <class InputIt>
   CompositeInstruction(InputIt first, InputIt last) : container_(first, last)
   {
   }
 
-#endif  // SWIG
-
-#ifndef SWIG
   ///////////////
   // Iterators //
   ///////////////
@@ -232,22 +225,6 @@ public:
   void pop_back();
   /** @brief swaps the contents  */
   void swap(std::vector<value_type>& other);
-
-#endif  // SWIG
-
-#ifdef SWIG
-  %ignore get_allocator;
-  %ignore resize;
-  %ignore assign;
-  %ignore swap;
-  %ignore insert;
-  %ignore CompositeInstruction();
-  %ignore CompositeInstruction(const CompositeInstruction&);
-  %ignore CompositeInstruction(size_type);
-  %ignore CompositeInstruction(size_type, value_type const &); 
-  %swig_vector_methods(tesseract_planning::CompositeInstruction)
-  %std_vector_methods(CompositeInstruction)
-#endif  // SWIG
 
 private:
   std::vector<value_type> container_;

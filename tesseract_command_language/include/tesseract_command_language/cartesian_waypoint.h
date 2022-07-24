@@ -79,7 +79,6 @@ public:
   // Eigen Methods //
   ///////////////////
 
-#ifndef SWIG
   /** @returns a read-only expression of the linear part of the transformation */
   inline ConstLinearPart linear() const { return waypoint.linear(); }  // NOLINT
 
@@ -91,12 +90,6 @@ public:
 
   /** @returns a writable expression of the translation vector of the transformation */
   inline TranslationPart translation() { return waypoint.translation(); }
-#else   // SWIG
-  Eigen::Matrix3d linear() const;
-  Eigen::Matrix3d linear();
-  Eigen::Vector3d translation() const;
-  Eigen::Vector3d translation();
-#endif  // SWIG
 
   /** @returns true if two are approximate */
   inline bool isApprox(const Eigen::Isometry3d& other, double prec = 1e-12) const

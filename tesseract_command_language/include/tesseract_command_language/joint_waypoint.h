@@ -47,8 +47,6 @@ public:
 
   void print(const std::string& prefix = "") const;
 
-#ifndef SWIG
-
   /////////////////////
   // Eigen Container //
   /////////////////////
@@ -190,8 +188,6 @@ public:
   //////////////////////////////////
   // Joint Waypoint Container //
   //////////////////////////////////
-
-#endif  // SWIG
 
   Eigen::VectorXd waypoint;
   std::vector<std::string> joint_names;

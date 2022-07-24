@@ -139,10 +139,6 @@ bool isWithinJointLimits(const Waypoint& wp, const Eigen::Ref<const Eigen::Matri
 bool clampToJointLimits(Waypoint& wp,
                         const Eigen::Ref<const Eigen::MatrixX2d>& limits,
                         double max_deviation = (std::numeric_limits<double>::max)());
-#else
-bool clampToJointLimits(Waypoint& wp,
-                        const Eigen::Ref<const Eigen::MatrixX2d>& limits,
-                        double max_deviation = (std::numeric_limits<double>::max()));
 #endif
 
 /**
@@ -174,8 +170,6 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions,
                      const std::string& file_path,
                      char separator = ',');
 
-// TODO: implement validateSeedStructure
-#ifndef SWIG
 /**
  * @brief This loops over the instructions validates the structure
  *
@@ -187,8 +181,6 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions,
  */
 bool validateSeedStructure(const CompositeInstruction& composite_instructions,
                            const CompositeInstruction& composite_seed);
-
-#endif  // SWIG
 
 }  // namespace tesseract_planning
 

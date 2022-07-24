@@ -69,7 +69,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   TESSERACT_WAYPOINT_EXPORT_KEY(N, C)                                                                                  \
   TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(N::C)
 
-#ifndef SWIG
 namespace tesseract_planning::detail_waypoint
 {
 template <typename T>
@@ -128,7 +127,6 @@ private:
   }
 };
 }  // namespace tesseract_planning::detail_waypoint
-#endif  // SWIG
 
 namespace tesseract_planning
 {

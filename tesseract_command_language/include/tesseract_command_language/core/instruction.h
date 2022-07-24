@@ -68,7 +68,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   TESSERACT_INSTRUCTION_EXPORT_KEY(N, C)                                                                               \
   TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(N::C)
 
-#ifndef SWIG
 namespace tesseract_planning::detail_instruction
 {
 template <typename T>
@@ -140,7 +139,6 @@ private:
   }
 };
 }  // namespace tesseract_planning::detail_instruction
-#endif  // SWIG
 
 namespace tesseract_planning
 {

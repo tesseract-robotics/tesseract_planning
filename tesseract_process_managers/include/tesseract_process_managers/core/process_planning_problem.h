@@ -55,7 +55,6 @@ struct ProcessPlanningProblem
   ProcessPlanningProblem(ProcessPlanningProblem&&) = delete;
   ProcessPlanningProblem& operator=(ProcessPlanningProblem&&) = delete;
 
-#ifndef SWIG
   /** @brief The name of the Process Pipeline (aka. Taskflow) to use */
   std::string name;
 
@@ -76,8 +75,6 @@ struct ProcessPlanningProblem
 
   /** @brief The stored composite profile remapping */
   std::unique_ptr<const PlannerProfileRemapping> composite_profile_remapping{ nullptr };
-
-#endif
 
   /**
    * @brief The taskflow container returned from the TaskflowGenerator that must remain during taskflow execution

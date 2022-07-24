@@ -55,13 +55,11 @@ public:
 
   PoseSamplerFn target_pose_sampler = sampleFixed;
 
-#ifndef SWIG
   DescartesEdgeEvaluatorAllocatorFn<FloatType> edge_evaluator{ nullptr };
   DescartesStateEvaluatorAllocatorFn<FloatType> state_evaluator{ nullptr };
 
   // If not provided it adds a joint limit is valid function
   DescartesVertexEvaluatorAllocatorFn<FloatType> vertex_evaluator{ nullptr };
-#endif
 
   /**
    * @brief Flag to indicate that collisions should not cause failures during state/edge evaluation

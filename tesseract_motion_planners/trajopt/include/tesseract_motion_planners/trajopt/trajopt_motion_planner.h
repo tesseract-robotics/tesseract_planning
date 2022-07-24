@@ -76,10 +76,9 @@ public:
   static bool checkUserInput(const PlannerRequest& request);
 
 protected:
-#ifndef SWIG
   std::string name_;
-  std::shared_ptr<const TrajOptMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
-#endif
+  /** @brief The planners status codes */
+  std::shared_ptr<const TrajOptMotionPlannerStatusCategory> status_category_; 
 };
 
 class TrajOptMotionPlannerStatusCategory : public tesseract_common::StatusCategory
