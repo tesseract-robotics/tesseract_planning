@@ -39,13 +39,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
 
-#ifdef SWIG
-%ignore std::vector<tesseract_planning::CartesianWaypointPoly>::vector(size_type);
-%ignore std::vector<tesseract_planning::CartesianWaypointPoly>::resize(size_type);
-%ignore tesseract_planning::CartesianWaypointPoly::getType;
-%pythondynamic tesseract_planning::CartesianWaypointPoly;
-#endif  // SWIG
-
 /** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(N, C)                                                                  \
   namespace N                                                                                                          \
@@ -75,8 +68,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #define TESSERACT_CARTESIAN_WAYPOINT_EXPORT(N, C)                                                                      \
   TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(N, C)                                                                        \
   TESSERACT_CARTESIAN_WAYPOINT_EXPORT_IMPLEMENT(N::C)
-
-#ifndef SWIG
 namespace tesseract_planning::detail_cartesian_waypoint
 {
 template <typename T>
@@ -204,8 +195,6 @@ private:
   }
 };
 }  // namespace tesseract_planning::detail_cartesian_waypoint
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 using CartesianWaypointPolyBase =
@@ -258,10 +247,6 @@ private:
 
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%template(Instructions) std::vector<tesseract_planning::CartesianWaypointPoly>;
-%tesseract_command_language_add_waypoint_type(CartesianWaypointPoly)
-#else
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::detail_cartesian_waypoint::CartesianWaypointInterface,
                      boost::serialization::track_never)
@@ -273,7 +258,5 @@ BOOST_CLASS_EXPORT_KEY(tesseract_planning::CartesianWaypointPoly)
 BOOST_CLASS_TRACKING(tesseract_planning::CartesianWaypointPoly, boost::serialization::track_never);
 
 TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, CartesianWaypointPoly);
-
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_POLY_H

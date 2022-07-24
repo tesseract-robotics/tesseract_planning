@@ -43,13 +43,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
 
-#ifdef SWIG
-%ignore std::vector<tesseract_planning::MoveInstructionPoly>::vector(size_type);
-%ignore std::vector<tesseract_planning::MoveInstructionPoly>::resize(size_type);
-%ignore tesseract_planning::MoveInstructionPoly::getType;
-%pythondynamic tesseract_planning::MoveInstructionPoly;
-#endif  // SWIG
-
 /** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_MOVE_INSTRUCTION_EXPORT_KEY(N, C)                                                                    \
   namespace N                                                                                                          \
@@ -91,7 +84,6 @@ enum class MoveInstructionType : int
 };
 }
 
-#ifndef SWIG
 namespace tesseract_planning::detail_move_instruction
 {
 template <typename T>
@@ -241,7 +233,6 @@ private:
   }
 };
 }  // namespace tesseract_planning::detail_move_instruction
-#endif  // SWIG
 
 namespace tesseract_planning
 {
@@ -297,10 +288,6 @@ private:
 
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%template(Instructions) std::vector<tesseract_planning::MoveInstructionPoly>;
-%tesseract_command_language_add_instruction_type(MoveInstructionPoly)
-#else
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_move_instruction::MoveInstructionInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::detail_move_instruction::MoveInstructionInterface,
                      boost::serialization::track_never)
@@ -312,7 +299,5 @@ BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstructionPoly)
 BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionPoly, boost::serialization::track_never);
 
 TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstructionPoly);
-
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_POLY_H

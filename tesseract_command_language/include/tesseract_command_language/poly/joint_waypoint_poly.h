@@ -38,13 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
 
-#ifdef SWIG
-%ignore std::vector<tesseract_planning::JointWaypointPoly>::vector(size_type);
-%ignore std::vector<tesseract_planning::JointWaypointPoly>::resize(size_type);
-%ignore tesseract_planning::JointWaypointPoly::getType;
-%pythondynamic tesseract_planning::JointWaypointPoly;
-#endif  // SWIG
-
 /** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_JOINT_WAYPOINT_EXPORT_KEY(N, C)                                                                      \
   namespace N                                                                                                          \
@@ -75,7 +68,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   TESSERACT_JOINT_WAYPOINT_EXPORT_KEY(N, C)                                                                            \
   TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(N::C)
 
-#ifndef SWIG
 namespace tesseract_planning::detail_joint_waypoint
 {
 template <typename T>
@@ -203,7 +195,6 @@ private:
   }
 };
 }  // namespace tesseract_planning::detail_joint_waypoint
-#endif  // SWIG
 
 namespace tesseract_planning
 {
@@ -247,10 +238,6 @@ private:
 
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%template(Instructions) std::vector<tesseract_planning::JointWaypointPoly>;
-%tesseract_command_language_add_waypoint_type(JointWaypointPoly)
-#else
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_joint_waypoint::JointWaypointInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::detail_joint_waypoint::JointWaypointInterface,
                      boost::serialization::track_never)
@@ -262,7 +249,5 @@ BOOST_CLASS_EXPORT_KEY(tesseract_planning::JointWaypointPoly)
 BOOST_CLASS_TRACKING(tesseract_planning::JointWaypointPoly, boost::serialization::track_never);
 
 TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, JointWaypointPoly);
-
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_POLY_H

@@ -37,11 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_environment/environment.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::DescartesProblem<double>)
-%shared_ptr(DescartesProblemD)
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 template <typename FloatType>
@@ -64,9 +59,5 @@ using DescartesProblemF = DescartesProblem<float>;
 using DescartesProblemD = DescartesProblem<double>;
 
 }  // namespace tesseract_planning
-
-#ifdef SWIG
-%template(DescartesProblemD) tesseract_planning::DescartesProblem<double>;
-#endif  // SWIG
 
 #endif  // TESSERACT_MOTION_PLANNERS_DESCARTES_PROBLEM_H

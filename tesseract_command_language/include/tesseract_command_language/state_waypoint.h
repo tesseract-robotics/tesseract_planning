@@ -94,10 +94,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%tesseract_command_language_add_state_waypoint_type(StateWaypoint)
-#else
 TESSERACT_STATE_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypoint);
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

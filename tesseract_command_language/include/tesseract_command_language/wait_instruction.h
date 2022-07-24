@@ -129,10 +129,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%tesseract_command_language_add_instruction_type(WaitInstruction)
-#else
 TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, WaitInstruction);
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_WAIT_INSTRUCTION_H

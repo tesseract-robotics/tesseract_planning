@@ -35,12 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/task_generator.h>
 #include <tesseract_process_managers/core/default_task_namespaces.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::TimeOptimalParameterizationTaskGenerator)
-%ignore TimeOptimalTrajectoryGenerationTaskGenerator;
-%ignore TimeOptimalTrajectoryGenerationTaskInfo;
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 class TimeOptimalParameterizationTaskGenerator : public TaskGenerator

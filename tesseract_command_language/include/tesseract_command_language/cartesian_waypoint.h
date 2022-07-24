@@ -95,10 +95,6 @@ protected:
 
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%tesseract_command_language_add_cartesian_waypoint_type(CartesianWaypoint)
-#else
 TESSERACT_CARTESIAN_WAYPOINT_EXPORT_KEY(tesseract_planning, CartesianWaypoint);
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_CARTESIAN_WAYPOINT_H

@@ -98,9 +98,5 @@ using TrajOptIfoptCompositeProfileMap = std::unordered_map<std::string, TrajOptI
 using TrajOptIfoptPlanProfileMap = std::unordered_map<std::string, TrajOptIfoptPlanProfile::ConstPtr>;
 
 }  // namespace tesseract_planning
-#ifdef SWIG
-%template(TrajOptIfoptCompositeProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::TrajOptIfoptCompositeProfile>>;
-%template(TrajOptIfoptPlanProfileMap) std::unordered_map<std::string, std::shared_ptr<const tesseract_planning::TrajOptIfoptPlanProfile>>;
-#endif  // SWIG
 
 #endif  // TESSERACT_MOTION_PLANNERS_TRAJOPT_IFOPT_PROFILE_H

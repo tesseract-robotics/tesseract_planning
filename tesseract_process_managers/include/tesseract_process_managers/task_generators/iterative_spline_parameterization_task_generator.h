@@ -35,12 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_time_parameterization/iterative_spline_parameterization.h>
 #include <tesseract_process_managers/core/default_task_namespaces.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::IterativeSplineParameterizationProfile)
-%ignore IterativeSplineParameterizationTaskGenerator;
-%ignore IterativeSplineParameterizationTaskInfo;
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 class IterativeSplineParameterizationTaskGenerator : public TaskGenerator

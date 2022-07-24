@@ -14,11 +14,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_problem.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_profile.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::DescartesMotionPlannerD);
-%shared_ptr(tesseract_planning::DescartesMotionPlanner<double>);
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 template <typename FloatType>
@@ -67,9 +62,5 @@ using DescartesMotionPlannerD = DescartesMotionPlanner<double>;
 using DescartesMotionPlannerF = DescartesMotionPlanner<float>;
 
 }  // namespace tesseract_planning
-
-#ifdef SWIG
-%template(DescartesMotionPlannerD) tesseract_planning::DescartesMotionPlanner<double>;
-#endif  // SWIG
 
 #endif  // TESSERACT_MOTION_PLANNERS_DECARTES_MOTION_PLANNER_H

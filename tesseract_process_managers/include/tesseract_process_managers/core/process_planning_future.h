@@ -37,9 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/taskflow_generator.h>
 #include <tesseract_process_managers/core/process_planning_problem.h>
 
-#ifdef SWIG
-%shared_ptr(tesseract_planning::ProcessPlanningFuture)
-#endif  // SWIG
 namespace tesseract_planning
 {
 /**
@@ -52,9 +49,6 @@ struct ProcessPlanningFuture
 {
   ProcessPlanningFuture();
 
-#ifdef SWIG
-  %ignore process_future;
-#endif  // SWIG
   /** @brief This is the future return from taskflow executor.run, used to check if process has finished */
   std::shared_future<void> process_future;
 
@@ -85,18 +79,6 @@ struct ProcessPlanningFuture
    * @return The future status
    */
   std::future_status waitFor(const std::chrono::duration<double>& duration) const;
-
-#ifdef SWIG
-  // clang-format off
-  %extend {
-    bool waitFor(double seconds)
-    {
-      auto res = $self->waitFor(std::chrono::duration<double>(seconds));
-      return res == std::future_status::ready;
-    }
-  }
-  // clang-format on
-#endif  // SWIG
 
   /**
    * @brief Check if a process has finished up to a given time point

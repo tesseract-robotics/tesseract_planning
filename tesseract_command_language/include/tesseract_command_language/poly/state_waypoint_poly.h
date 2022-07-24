@@ -37,13 +37,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
 
-#ifdef SWIG
-%ignore std::vector<tesseract_planning::StateWaypointPoly>::vector(size_type);
-%ignore std::vector<tesseract_planning::StateWaypointPoly>::resize(size_type);
-%ignore tesseract_planning::StateWaypointPoly::getType;
-%pythondynamic tesseract_planning::StateWaypointPoly;
-#endif  // SWIG
-
 /** @brief If shared library, this must go in the header after the class definition */
 #define TESSERACT_STATE_WAYPOINT_EXPORT_KEY(N, C)                                                                      \
   namespace N                                                                                                          \
@@ -74,7 +67,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   TESSERACT_JOINT_WAYPOINT_EXPORT_KEY(N, C)                                                                            \
   TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(N::C)
 
-#ifndef SWIG
 namespace tesseract_planning::detail_state_waypoint
 {
 template <typename T>
@@ -231,8 +223,6 @@ private:
   }
 };
 }  // namespace tesseract_planning::detail_state_waypoint
-#endif  // SWIG
-
 namespace tesseract_planning
 {
 using StateWaypointPolyBase = tesseract_common::TypeErasureBase<detail_state_waypoint::StateWaypointInterface,
@@ -276,10 +266,6 @@ private:
 
 }  // namespace tesseract_planning
 
-#ifdef SWIG
-%template(Instructions) std::vector<tesseract_planning::StateWaypointPoly>;
-%tesseract_command_language_add_waypoint_type(StateWaypointPoly)
-#else
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_state_waypoint::StateWaypointInterface)
 BOOST_CLASS_TRACKING(tesseract_planning::detail_state_waypoint::StateWaypointInterface,
                      boost::serialization::track_never)
@@ -291,7 +277,5 @@ BOOST_CLASS_EXPORT_KEY(tesseract_planning::StateWaypointPoly)
 BOOST_CLASS_TRACKING(tesseract_planning::StateWaypointPoly, boost::serialization::track_never);
 
 TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypointPoly);
-
-#endif  // SWIG
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_STATE_WAYPOINT_POLY_H
