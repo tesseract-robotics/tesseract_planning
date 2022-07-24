@@ -36,7 +36,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_environment/environment.h>
 
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/utils.h>
 
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/descartes_utils.h>
@@ -60,7 +63,7 @@ class TesseractPlanningDescartesUnit : public ::testing::Test
 {
 protected:
   Environment::Ptr env_;
-  ManipulatorInfo manip;
+  tesseract_common::ManipulatorInfo manip;
 
   void SetUp() override
   {
@@ -88,12 +91,12 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   auto cur_state = env_->getState();
 
   // Specify a start waypoint
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Specify a end waypoint
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
@@ -105,7 +108,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
@@ -166,28 +169,28 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
     EXPECT_EQ(official_results.size(), planner_response.results.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
-      if (isCompositeInstruction(official_results[j]))  //
+      if (official_results[j].isCompositeInstruction())  //
       {
         const auto& sub_official = official_results[j].as<CompositeInstruction>();
         const auto& sub = planner_response.results[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction(sub_official[k]))
+          if (sub_official[k].isCompositeInstruction())
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction(sub_official[k]))
+          else if (sub_official[k].isMoveInstruction())
           {
-            const auto& mv_official = sub_official[k].as<MoveInstruction>();
-            const auto& mv = sub[k].as<MoveInstruction>();
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
             EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
-      else if (isMoveInstruction(official_results[j]))
+      else if (official_results[j].isMoveInstruction())
       {
-        const auto& mv_official = official_results[j].as<MoveInstruction>();
-        const auto& mv = request.seed[j].as<MoveInstruction>();
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = request.seed[j].as<MoveInstructionPoly>();
         EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }
@@ -204,12 +207,12 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   auto cur_state = env_->getState();
 
   // Specify a start waypoint
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.20, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Specify a end waypoint
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .20, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
@@ -221,7 +224,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
@@ -272,28 +275,28 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
     EXPECT_TRUE(official_results.size() == request.seed.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
-      if (isCompositeInstruction(official_results[j]))
+      if (official_results[j].isCompositeInstruction())
       {
         const auto& sub_official = official_results[j].as<CompositeInstruction>();
         const auto& sub = request.seed[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction(sub_official[k]))
+          if (sub_official[k].isCompositeInstruction())
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction(sub_official[k]))
+          else if (sub_official[k].isMoveInstruction())
           {
-            const auto& mv_official = sub_official[k].as<MoveInstruction>();
-            const auto& mv = sub[k].as<MoveInstruction>();
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
             EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
-      else if (isMoveInstruction(official_results[j]))
+      else if (official_results[j].isMoveInstruction())
       {
-        const auto& mv_official = official_results[j].as<MoveInstruction>();
-        const auto& mv = request.seed[j].as<MoveInstruction>();
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = request.seed[j].as<MoveInstructionPoly>();
         EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }
@@ -310,12 +313,12 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   auto cur_state = env_->getState();
 
   // Specify a start waypoint
-  CartesianWaypoint wp1 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.10, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -.10, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Specify a end waypoint
-  CartesianWaypoint wp2 =
-      Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .10, 0.8) * Eigen::Quaterniond(0, 0, -1.0, 0);
+  CartesianWaypointPoly wp2{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, .10, 0.8) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define Start Instruction
   MoveInstruction start_instruction(wp1, MoveInstructionType::START, "TEST_PROFILE", manip);
@@ -327,7 +330,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   CompositeInstruction program;
   program.setStartInstruction(start_instruction);
   program.setManipulatorInfo(manip);
-  program.push_back(plan_f1);
+  program.appendMoveInstruction(plan_f1);
 
   // Create a seed
   CompositeInstruction seed = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 2);
@@ -380,28 +383,28 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
     EXPECT_TRUE(official_results.size() == request.seed.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
-      if (isCompositeInstruction(official_results[j]))
+      if (official_results[j].isCompositeInstruction())
       {
         const auto& sub_official = official_results[j].as<CompositeInstruction>();
         const auto& sub = request.seed[j].as<CompositeInstruction>();
         for (std::size_t k = 0; k < sub.size(); ++k)
         {
-          if (isCompositeInstruction(sub_official[k]))
+          if (sub_official[k].isCompositeInstruction())
           {
             EXPECT_TRUE(false);
           }
-          else if (isMoveInstruction(sub_official[k]))
+          else if (sub_official[k].isMoveInstruction())
           {
-            const auto& mv_official = sub_official[k].as<MoveInstruction>();
-            const auto& mv = sub[k].as<MoveInstruction>();
+            const auto& mv_official = sub_official[k].as<MoveInstructionPoly>();
+            const auto& mv = sub[k].as<MoveInstructionPoly>();
             EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
           }
         }
       }
-      else if (isMoveInstruction(official_results[j]))
+      else if (official_results[j].isMoveInstruction())
       {
-        const auto& mv_official = official_results[j].as<MoveInstruction>();
-        const auto& mv = request.seed[j].as<MoveInstruction>();
+        const auto& mv_official = official_results[j].as<MoveInstructionPoly>();
+        const auto& mv = request.seed[j].as<MoveInstructionPoly>();
         EXPECT_TRUE(getJointPosition(mv_official.getWaypoint()).isApprox(getJointPosition(mv.getWaypoint()), 1e-5));
       }
     }

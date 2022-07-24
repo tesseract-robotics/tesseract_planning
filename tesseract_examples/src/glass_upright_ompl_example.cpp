@@ -47,6 +47,7 @@ using namespace tesseract_environment;
 using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_visualization;
+using tesseract_common::ManipulatorInfo;
 
 namespace tesseract_ros_examples
 {

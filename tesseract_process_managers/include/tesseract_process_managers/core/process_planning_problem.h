@@ -36,8 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/taskflow_container.h>
 #include <tesseract_motion_planners/core/types.h>
 
-#include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/types.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 
 namespace tesseract_planning
 {
@@ -62,13 +61,13 @@ struct ProcessPlanningProblem
   tesseract_environment::Environment::ConstPtr env;
 
   /** @brief The stored input to the process */
-  std::unique_ptr<Instruction> input{ nullptr };
+  std::unique_ptr<InstructionPoly> input{ nullptr };
 
   /** @brief The results to the process */
-  std::unique_ptr<Instruction> results{ nullptr };
+  std::unique_ptr<InstructionPoly> results{ nullptr };
 
   /** @brief The stored global manipulator info */
-  std::unique_ptr<const ManipulatorInfo> global_manip_info{ nullptr };
+  std::unique_ptr<const tesseract_common::ManipulatorInfo> global_manip_info{ nullptr };
 
   /** @brief The stored plan profile remapping */
   std::unique_ptr<const PlannerProfileRemapping> plan_profile_remapping{ nullptr };

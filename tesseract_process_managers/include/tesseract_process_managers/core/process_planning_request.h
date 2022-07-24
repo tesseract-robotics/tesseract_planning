@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/types.h>
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_environment/commands.h>
 
 namespace tesseract_planning
@@ -52,10 +52,10 @@ public:
   std::string name;
 
   /** @brief  This should an xml string of the command language instructions */
-  Instruction instructions{ NullInstruction() };
+  InstructionPoly instructions;
 
   /** @brief This should an xml string of the command language instructions (Optional) */
-  Instruction seed{ NullInstruction() };
+  InstructionPoly seed;
 
   /** @brief Environment state to start planning with (Optional)  */
   tesseract_scene_graph::SceneState env_state;

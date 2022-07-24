@@ -37,8 +37,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/utils.h>
 #include <tesseract_kinematics/core/forward_kinematics.h>
 #include <tesseract_kinematics/core/inverse_kinematics.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_common/types.h>
 
 namespace tesseract_planning
@@ -49,7 +50,8 @@ namespace tesseract_planning
  * @param env The environment object used for getting kinematics and tcp information
  * @return A toolpath in world coordinate system
  */
-tesseract_common::Toolpath toToolpath(const Instruction& instruction, const tesseract_environment::Environment& env);
+tesseract_common::Toolpath toToolpath(const InstructionPoly& instruction,
+                                      const tesseract_environment::Environment& env);
 
 /**
  * @brief Interpolate between two transforms return a vector of Eigen::Isometry transforms.
@@ -80,7 +82,7 @@ Eigen::MatrixXd interpolate(const Eigen::Ref<const Eigen::VectorXd>& start,
  * @param steps The number of step
  * @return A vector of waypoints with a length = steps + 1
  */
-std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint& stop, long steps);
+std::vector<WaypointPoly> interpolate_waypoint(const WaypointPoly& start, const WaypointPoly& stop, long steps);
 
 /**
  * @brief A program flatten filter
@@ -89,7 +91,7 @@ std::vector<Waypoint> interpolate_waypoint(const Waypoint& start, const Waypoint
  * @param parent_is_first_composite Indicate if this is the top most composite
  * @return True if successful, otherwise false
  */
-bool programFlattenFilter(const Instruction& instruction,
+bool programFlattenFilter(const InstructionPoly& instruction,
                           const CompositeInstruction& composite,
                           bool parent_is_first_composite);
 
@@ -102,7 +104,7 @@ bool programFlattenFilter(const Instruction& instruction,
  * @param composite_instruction Input composite instruction to be flattened
  * @return A new flattened vector referencing the original instruction elements
  */
-std::vector<std::reference_wrapper<Instruction>> flattenProgram(CompositeInstruction& composite_instruction);
+std::vector<std::reference_wrapper<InstructionPoly>> flattenProgram(CompositeInstruction& composite_instruction);
 
 /**
  * @brief Flattens a CompositeInstruction into a vector of Instruction&
@@ -113,7 +115,7 @@ std::vector<std::reference_wrapper<Instruction>> flattenProgram(CompositeInstruc
  * @param composite_instruction Input composite instruction to be flattened
  * @return A new flattened vector (const) referencing the original instruction elements
  */
-std::vector<std::reference_wrapper<const Instruction>>
+std::vector<std::reference_wrapper<const InstructionPoly>>
 flattenProgram(const CompositeInstruction& composite_instruction);
 
 /**
@@ -130,8 +132,8 @@ flattenProgram(const CompositeInstruction& composite_instruction);
  * @param pattern CompositeInstruction used to determine if instruction will be flattened
  * @return A new flattened vector referencing the original instruction elements
  */
-std::vector<std::reference_wrapper<Instruction>> flattenProgramToPattern(CompositeInstruction& composite_instruction,
-                                                                         const CompositeInstruction& pattern);
+std::vector<std::reference_wrapper<InstructionPoly>>
+flattenProgramToPattern(CompositeInstruction& composite_instruction, const CompositeInstruction& pattern);
 
 /**
  * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
@@ -147,7 +149,7 @@ std::vector<std::reference_wrapper<Instruction>> flattenProgramToPattern(Composi
  * @param pattern CompositeInstruction used to determine if instruction will be flattened
  * @return A new flattened vector (const) referencing the original instruction elements
  */
-std::vector<std::reference_wrapper<const Instruction>>
+std::vector<std::reference_wrapper<const InstructionPoly>>
 flattenProgramToPattern(const CompositeInstruction& composite_instruction, const CompositeInstruction& pattern);
 
 /**

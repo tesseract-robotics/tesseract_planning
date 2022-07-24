@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/motion_planner_task_generator.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
 #include <tesseract_motion_planners/core/planner.h>
 
 namespace tesseract_planning
@@ -56,8 +55,8 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   // --------------------
   // Check that inputs are valid
   // --------------------
-  const Instruction* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
+  const InstructionPoly* input_instruction = input.getInstruction();
+  if (!input_instruction->isCompositeInstruction())
   {
     info->message = "Input instructions to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
@@ -67,8 +66,8 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 0;
   }
 
-  Instruction* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  InstructionPoly* input_results = input.getResults();
+  if (!input_results->isCompositeInstruction())
   {
     info->message = "Input seed to MotionPlannerTaskGenerator: " + name_ + " must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
@@ -84,56 +83,65 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
 
   // If the start and end waypoints need to be updated prior to planning
-  Instruction start_instruction = input.getStartInstruction();
-  Instruction end_instruction = input.getEndInstruction();
+  InstructionPoly start_instruction = input.getStartInstruction();
+  InstructionPoly end_instruction = input.getEndInstruction();
 
-  if (!isNullInstruction(start_instruction))
+  if (!start_instruction.isNull())
   {
     // add start
-    if (isCompositeInstruction(start_instruction))
+    if (start_instruction.isCompositeInstruction())
     {
       // if provided a composite instruction as the start instruction it will extract the last move instruction
       const auto& ci = start_instruction.as<CompositeInstruction>();
-      const auto* lmi = getLastMoveInstruction(ci);
+      const auto* lmi = ci.getLastMoveInstruction();
       assert(lmi != nullptr);
-      assert(isMoveInstruction(*lmi));
-      MoveInstruction si(lmi->getWaypoint(), MoveInstructionType::START, lmi->getProfile(), lmi->getManipulatorInfo());
-      instructions.setStartInstruction(si);
+      instructions.setStartInstruction(*lmi);
+      instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
     }
     else
     {
-      assert(isMoveInstruction(start_instruction) || isMoveInstruction(start_instruction));
-      if (isMoveInstruction(start_instruction))
+      assert(start_instruction.isMoveInstruction());
+      if (start_instruction.isMoveInstruction())
       {
-        instructions.setStartInstruction(start_instruction);
-        instructions.getStartInstruction().as<MoveInstruction>().setMoveType(MoveInstructionType::START);
-      }
-      else if (isMoveInstruction(start_instruction))
-      {
-        auto& lmi = start_instruction.as<MoveInstruction>();
-        MoveInstruction si(lmi.getWaypoint(), MoveInstructionType::START, lmi.getProfile(), lmi.getManipulatorInfo());
-        instructions.setStartInstruction(si);
+        instructions.setStartInstruction(start_instruction.as<MoveInstructionPoly>());
+        instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
       }
     }
   }
-  if (!isNullInstruction(end_instruction))
+  if (!end_instruction.isNull())
   {
     // add end
-    if (isCompositeInstruction(end_instruction))
+    if (end_instruction.isCompositeInstruction())
     {
       // if provided a composite instruction as the end instruction it will extract the first move instruction
       const auto& ci = end_instruction.as<CompositeInstruction>();
-      const auto* fmi = getFirstMoveInstruction(ci);
+      const auto* fmi = ci.getFirstMoveInstruction();
       assert(fmi != nullptr);
-      assert(isMoveInstruction(*fmi));
-      getLastMoveInstruction(instructions)->setWaypoint(fmi->getWaypoint());
+      if (fmi->getWaypoint().isCartesianWaypoint())
+        instructions.getLastMoveInstruction()->assignCartesianWaypoint(fmi->getWaypoint().as<CartesianWaypointPoly>());
+      else if (fmi->getWaypoint().isJointWaypoint())
+        instructions.getLastMoveInstruction()->assignJointWaypoint(fmi->getWaypoint().as<JointWaypointPoly>());
+      else if (fmi->getWaypoint().isStateWaypoint())
+        instructions.getLastMoveInstruction()->assignStateWaypoint(fmi->getWaypoint().as<StateWaypointPoly>());
+      else
+        throw std::runtime_error("Invalid waypoint type");
     }
     else
     {
-      assert(isMoveInstruction(end_instruction));
-      auto* lpi = getLastMoveInstruction(instructions);
-      if (isMoveInstruction(end_instruction))
-        lpi->setWaypoint(end_instruction.as<MoveInstruction>().getWaypoint());
+      assert(end_instruction.isMoveInstruction());
+      auto* lpi = instructions.getLastMoveInstruction();
+      if (end_instruction.isMoveInstruction())
+      {
+        const auto& wp = end_instruction.as<MoveInstructionPoly>().getWaypoint();
+        if (wp.isCartesianWaypoint())
+          lpi->assignCartesianWaypoint(wp.as<CartesianWaypointPoly>());
+        else if (wp.isJointWaypoint())
+          lpi->assignJointWaypoint(wp.as<JointWaypointPoly>());
+        else if (wp.isStateWaypoint())
+          lpi->assignStateWaypoint(wp.as<StateWaypointPoly>());
+        else
+          throw std::runtime_error("Invalid waypoint type");
+      }
     }
   }
 

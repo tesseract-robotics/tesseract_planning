@@ -29,21 +29,20 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/utils/utils.h>
-#include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/joint_waypoint.h>
-#include <tesseract_command_language/cartesian_waypoint.h>
-#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/utils.h>
+#include <tesseract_command_language/poly/cartesian_waypoint_poly.h>
+#include <tesseract_command_language/poly/joint_waypoint_poly.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
 
 namespace tesseract_planning
 {
 static const tesseract_planning::locateFilterFn toJointTrajectoryInstructionFilter =
-    [](const tesseract_planning::Instruction& i,
+    [](const tesseract_planning::InstructionPoly& i,
        const tesseract_planning::CompositeInstruction& /*composite*/,
        bool parent_is_first_composite) {
-      if (tesseract_planning::isMoveInstruction(i))
+      if (i.isMoveInstruction())
       {
-        if (i.as<tesseract_planning::MoveInstruction>().isStart())
+        if (i.as<MoveInstructionPoly>().isStart())
           return (parent_is_first_composite);
 
         return true;
@@ -55,8 +54,8 @@ static const tesseract_planning::locateFilterFn toJointTrajectoryInstructionFilt
 tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& composite_instructions)
 {
   tesseract_common::JointTrajectory trajectory;
-  std::vector<std::reference_wrapper<const tesseract_planning::Instruction>> flattened_program =
-      tesseract_planning::flatten(composite_instructions, toJointTrajectoryInstructionFilter);
+  std::vector<std::reference_wrapper<const InstructionPoly>> flattened_program =
+      composite_instructions.flatten(toJointTrajectoryInstructionFilter);
   trajectory.reserve(flattened_program.size());
   trajectory.description = composite_instructions.getDescription();
 
@@ -65,14 +64,15 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
   double total_time = 0;
   for (auto& i : flattened_program)
   {
-    if (tesseract_planning::isMoveInstruction(i))
+    if (i.get().isMoveInstruction())
     {
-      const auto& pi = i.get().as<tesseract_planning::MoveInstruction>();
-      if (tesseract_planning::isJointWaypoint(pi.getWaypoint()))
+      const auto& pi = i.get().as<MoveInstructionPoly>();
+      if (pi.getWaypoint().isJointWaypoint())
       {
+        const auto& jwp = pi.getWaypoint().as<JointWaypointPoly>();
         tesseract_common::JointState joint_state;
-        joint_state.joint_names = tesseract_planning::getJointNames(pi.getWaypoint());
-        joint_state.position = tesseract_planning::getJointPosition(pi.getWaypoint());
+        joint_state.joint_names = jwp.getNames();
+        joint_state.position = jwp.getPosition();
 
         double dt = 1;
         current_time = current_time + dt;
@@ -81,14 +81,19 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
         last_time = current_time;
         trajectory.push_back(joint_state);
       }
-      else if (tesseract_planning::isStateWaypoint(pi.getWaypoint()))
+      else if (pi.getWaypoint().isStateWaypoint())
       {
-        const auto& mi = i.get().as<tesseract_planning::MoveInstruction>();
-        const auto& swp = mi.getWaypoint().as<tesseract_planning::StateWaypoint>();
-        tesseract_common::JointState joint_state(swp);
-        current_time = joint_state.time;
+        const auto& swp = pi.getWaypoint().as<StateWaypointPoly>();
+
+        tesseract_common::JointState joint_state;
+        joint_state.joint_names = swp.getNames();
+        joint_state.position = swp.getPosition();
+        joint_state.velocity = swp.getVelocity();
+        joint_state.acceleration = swp.getAcceleration();
+        joint_state.time = swp.getTime();
 
         // It is possible for sub composites to start back from zero, this accounts for it
+        current_time = joint_state.time;
         if (current_time < last_time)
           last_time = 0;
 
@@ -103,43 +108,43 @@ tesseract_common::JointTrajectory toJointTrajectory(const CompositeInstruction& 
   return trajectory;
 }
 
-const Eigen::VectorXd& getJointPosition(const Waypoint& waypoint)
+const Eigen::VectorXd& getJointPosition(const WaypointPoly& waypoint)
 {
-  if (isJointWaypoint(waypoint))
-    return waypoint.as<JointWaypoint>().waypoint;
+  if (waypoint.isJointWaypoint())
+    return waypoint.as<JointWaypointPoly>().getPosition();
 
-  if (isStateWaypoint(waypoint))
-    return waypoint.as<StateWaypoint>().position;
+  if (waypoint.isStateWaypoint())
+    return waypoint.as<StateWaypointPoly>().getPosition();
 
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-const std::vector<std::string>& getJointNames(const Waypoint& waypoint)
+const std::vector<std::string>& getJointNames(const WaypointPoly& waypoint)
 {
-  if (isJointWaypoint(waypoint))
-    return waypoint.as<JointWaypoint>().joint_names;
+  if (waypoint.isJointWaypoint())
+    return waypoint.as<JointWaypointPoly>().getNames();
 
-  if (isStateWaypoint(waypoint))
-    return waypoint.as<StateWaypoint>().joint_names;
+  if (waypoint.isStateWaypoint())
+    return waypoint.as<StateWaypointPoly>().getNames();
 
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const Waypoint& waypoint)
+Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)
 {
   Eigen::VectorXd jv;
   std::vector<std::string> jn;
-  if (isJointWaypoint(waypoint))
+  if (waypoint.isJointWaypoint())
   {
-    const auto& jwp = waypoint.as<JointWaypoint>();
-    jv = jwp.waypoint;
-    jn = jwp.joint_names;
+    const auto& jwp = waypoint.as<JointWaypointPoly>();
+    jv = jwp.getPosition();
+    jn = jwp.getNames();
   }
-  else if (isStateWaypoint(waypoint))
+  else if (waypoint.isStateWaypoint())
   {
-    const auto& swp = waypoint.as<StateWaypoint>();
-    jv = swp.position;
-    jn = swp.joint_names;
+    const auto& swp = waypoint.as<StateWaypointPoly>();
+    jv = swp.getPosition();
+    jn = swp.getNames();
   }
   else
   {
@@ -169,21 +174,21 @@ Eigen::VectorXd getJointPosition(const std::vector<std::string>& joint_names, co
   return output;
 }
 
-bool formatJointPosition(const std::vector<std::string>& joint_names, Waypoint& waypoint)
+bool formatJointPosition(const std::vector<std::string>& joint_names, WaypointPoly& waypoint)
 {
   Eigen::VectorXd* jv{ nullptr };
   std::vector<std::string>* jn{ nullptr };
-  if (isJointWaypoint(waypoint))
+  if (waypoint.isJointWaypoint())
   {
-    auto& jwp = waypoint.as<JointWaypoint>();
-    jv = &(jwp.waypoint);
-    jn = &(jwp.joint_names);
+    auto& jwp = waypoint.as<JointWaypointPoly>();
+    jv = &(jwp.getPosition());
+    jn = &(jwp.getNames());
   }
-  else if (isStateWaypoint(waypoint))
+  else if (waypoint.isStateWaypoint())
   {
-    auto& swp = waypoint.as<StateWaypoint>();
-    jv = &(swp.position);
-    jn = &(swp.joint_names);
+    auto& swp = waypoint.as<StateWaypointPoly>();
+    jv = &(swp.getPosition());
+    jn = &(swp.getNames());
   }
   else
   {
@@ -216,51 +221,51 @@ bool formatJointPosition(const std::vector<std::string>& joint_names, Waypoint& 
   return true;
 }
 
-bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const Waypoint& waypoint)
+bool checkJointPositionFormat(const std::vector<std::string>& joint_names, const WaypointPoly& waypoint)
 {
-  if (isJointWaypoint(waypoint))
-    return (joint_names == waypoint.as<JointWaypoint>().joint_names);
+  if (waypoint.isJointWaypoint())
+    return (joint_names == waypoint.as<JointWaypointPoly>().getNames());
 
-  if (isStateWaypoint(waypoint))
-    return (joint_names == waypoint.as<StateWaypoint>().joint_names);
+  if (waypoint.isStateWaypoint())
+    return (joint_names == waypoint.as<StateWaypointPoly>().getNames());
 
   throw std::runtime_error("Unsupported waypoint type.");
 }
 
-bool setJointPosition(Waypoint& waypoint, const Eigen::Ref<const Eigen::VectorXd>& position)
+bool setJointPosition(WaypointPoly& waypoint, const Eigen::Ref<const Eigen::VectorXd>& position)
 {
-  if (isJointWaypoint(waypoint))
-    waypoint.as<JointWaypoint>().waypoint = position;
-  else if (isStateWaypoint(waypoint))
-    waypoint.as<StateWaypoint>().position = position;
+  if (waypoint.isJointWaypoint())
+    waypoint.as<JointWaypointPoly>().setPosition(position);
+  else if (waypoint.isStateWaypoint())
+    waypoint.as<StateWaypointPoly>().setPosition(position);
   else
     return false;
 
   return true;
 }
 
-bool isWithinJointLimits(const Waypoint& wp, const Eigen::Ref<const Eigen::MatrixX2d>& limits)
+bool isWithinJointLimits(const WaypointPoly& wp, const Eigen::Ref<const Eigen::MatrixX2d>& limits)
 {
-  if (isJointWaypoint(wp) || isStateWaypoint(wp))
+  if (wp.isJointWaypoint() || wp.isStateWaypoint())
   {
     const Eigen::VectorXd& cmd_pos = getJointPosition(wp);
     return tesseract_common::isWithinPositionLimits<double>(cmd_pos, limits);
   }
 
-  return true;
+  throw std::runtime_error("isWithinJointLimits, invalid waypoint type!");
 }
 
-bool clampToJointLimits(Waypoint& wp, const Eigen::Ref<const Eigen::MatrixX2d>& limits, double max_deviation)
+bool clampToJointLimits(WaypointPoly& wp, const Eigen::Ref<const Eigen::MatrixX2d>& limits, double max_deviation)
 {
   const Eigen::VectorXd deviation_vec = Eigen::VectorXd::Constant(limits.rows(), max_deviation);
   return clampToJointLimits(wp, limits, deviation_vec);
 }
 
-bool clampToJointLimits(Waypoint& wp,
+bool clampToJointLimits(WaypointPoly& wp,
                         const Eigen::Ref<const Eigen::MatrixX2d>& limits,
                         const Eigen::Ref<const Eigen::VectorXd>& max_deviation)
 {
-  if (isJointWaypoint(wp) || isStateWaypoint(wp))
+  if (wp.isJointWaypoint() || wp.isStateWaypoint())
   {
     Eigen::VectorXd cmd_pos = getJointPosition(wp);
 
@@ -274,25 +279,25 @@ bool clampToJointLimits(Waypoint& wp,
     return setJointPosition(wp, cmd_pos);
   }
 
-  return true;
+  throw std::runtime_error("clampToJointLimits, invalid waypoint type!");
 }
 
 void generateSkeletonSeedHelper(CompositeInstruction& composite_instructions)
 {
-  for (auto& i : composite_instructions)
+  for (auto& i : composite_instructions.getInstructions())
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       generateSkeletonSeedHelper(i.as<CompositeInstruction>());
     }
-    else if (isMoveInstruction(i))
+    else if (i.isMoveInstruction())
     {
       CompositeInstruction ci;
-      const auto& pi = i.as<MoveInstruction>();
+      const auto& pi = i.as<MoveInstructionPoly>();
       ci.setProfile(pi.getProfile());
       ci.setDescription(pi.getDescription());
       ci.setManipulatorInfo(pi.getManipulatorInfo());
-      ci.profile_overrides = pi.profile_overrides;
+      //      ci.profile_overrides = pi.profile_overrides;
 
       i = ci;
     }
@@ -306,10 +311,10 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   std::ofstream myfile;
   myfile.open(file_path);
 
-  std::vector<std::reference_wrapper<const Instruction>> mi = flatten(composite_instructions, &moveFilter);
+  std::vector<std::reference_wrapper<const InstructionPoly>> mi = composite_instructions.flatten(&moveFilter);
 
   // Write Joint names as header
-  std::vector<std::string> joint_names = getJointNames(mi.front().get().as<MoveInstruction>().getWaypoint());
+  std::vector<std::string> joint_names = getJointNames(mi.front().get().as<MoveInstructionPoly>().getWaypoint());
 
   for (std::size_t i = 0; i < joint_names.size() - 1; ++i)
     myfile << joint_names[i] << separator;
@@ -319,7 +324,7 @@ bool toDelimitedFile(const CompositeInstruction& composite_instructions, const s
   // Write Positions
   for (const auto& i : mi)
   {
-    const Eigen::VectorXd& p = getJointPosition(i.get().as<MoveInstruction>().getWaypoint());
+    const Eigen::VectorXd& p = getJointPosition(i.get().as<MoveInstructionPoly>().getWaypoint());
     myfile << p.format(eigen_format) << std::endl;
   }
 

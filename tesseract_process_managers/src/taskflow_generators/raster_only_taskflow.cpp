@@ -32,10 +32,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/taskflow_generators/raster_only_taskflow.h>
 
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 #include <tesseract_common/utils.h>
 
@@ -68,28 +66,28 @@ TaskflowContainer RasterOnlyTaskflow::generateTaskflow(TaskInput input, Taskflow
 
   // Generate all of the raster tasks. They don't depend on anything
   std::size_t raster_idx = 0;
-  const Instruction* input_instruction = input.getInstruction();
+  const InstructionPoly* input_instruction = input.getInstruction();
   for (std::size_t idx = 0; idx < input.size(); idx += 2)
   {
     // Get Start Plan Instruction
-    Instruction start_instruction{ NullInstruction() };
+    InstructionPoly start_instruction;
     if (idx == 0)
     {
-      assert(isCompositeInstruction(*input_instruction));
+      assert(input_instruction->isCompositeInstruction());
       start_instruction = input_instruction->as<CompositeInstruction>().getStartInstruction();
     }
     else
     {
       TaskInput pre_input = input[idx - 1];
-      const Instruction* pre_input_instruction = pre_input.getInstruction();
-      assert(isCompositeInstruction(*pre_input_instruction));
+      const InstructionPoly* pre_input_instruction = pre_input.getInstruction();
+      assert(pre_input_instruction->isCompositeInstruction());
       const auto& tci = pre_input_instruction->as<CompositeInstruction>();
-      const auto* li = getLastMoveInstruction(tci);
+      const auto* li = tci.getLastMoveInstruction();
       assert(li != nullptr);
       start_instruction = *li;
     }
 
-    start_instruction.as<MoveInstruction>().setMoveType(MoveInstructionType::START);
+    start_instruction.as<MoveInstructionPoly>().setMoveType(MoveInstructionType::START);
     TaskInput raster_input = input[idx];
     raster_input.setStartInstruction(start_instruction);
     TaskflowContainer sub_container = raster_taskflow_generator_->generateTaskflow(
@@ -150,8 +148,8 @@ bool RasterOnlyTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
   }
 
   // Check the overall input
-  const Instruction* input_instruction = input.getInstruction();
-  if (!isCompositeInstruction(*input_instruction))
+  const InstructionPoly* input_instruction = input.getInstruction();
+  if (!input_instruction->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should be a composite");
     return false;
@@ -159,7 +157,7 @@ bool RasterOnlyTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
   const auto& composite = input_instruction->as<CompositeInstruction>();
 
   // Check that it has a start instruction
-  if (!composite.hasStartInstruction() && isNullInstruction(input.getStartInstruction()))
+  if (!composite.hasStartInstruction())
   {
     CONSOLE_BRIDGE_logError("TaskInput Invalid: input.instructions should have a start instruction");
     return false;
@@ -169,7 +167,7 @@ bool RasterOnlyTaskflow::checkTaskInput(const tesseract_planning::TaskInput& inp
   for (const auto& c : composite)
   {
     // Both rasters and transitions should be a composite
-    if (!isCompositeInstruction(c))
+    if (!c.isCompositeInstruction())
     {
       CONSOLE_BRIDGE_logError("TaskInput Invalid: Both rasters and transitions should be a composite");
       return false;

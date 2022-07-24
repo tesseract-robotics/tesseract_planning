@@ -32,15 +32,33 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <string>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/null_instruction.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/constants.h>
-#include <tesseract_command_language/instruction_type.h>
 #include <tesseract_command_language/profile_dictionary.h>
-#include <tesseract_command_language/types.h>
+#include <tesseract_common/manipulator_info.h>
 
 namespace tesseract_planning
 {
+class CompositeInstruction;
+
+/**
+ * @brief This is used for filtering only what you want in the vector
+ *
+ * The first parameter is the instruction consider, the second is it's parent composite instruction, and the third
+ * indicates if the parent composite is the top most composite
+ *
+ * The filter should return true when the instruction passed should be included not throw.
+ */
+using flattenFilterFn =
+    std::function<bool(const InstructionPoly&, const CompositeInstruction&, bool parent_is_first_composite)>;
+using locateFilterFn =
+    std::function<bool(const InstructionPoly&, const CompositeInstruction&, bool parent_is_first_composite)>;
+
+bool moveFilter(const InstructionPoly& instruction,
+                const CompositeInstruction& composite,
+                bool parent_is_first_composite);
+
 enum class CompositeInstructionOrder
 {
   ORDERED,               // Must go in forward
@@ -55,12 +73,14 @@ public:
 
   CompositeInstruction(std::string profile = DEFAULT_PROFILE_KEY,
                        CompositeInstructionOrder order = CompositeInstructionOrder::ORDERED,
-                       ManipulatorInfo manipulator_info = ManipulatorInfo());
+                       tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
   CompositeInstructionOrder getOrder() const;
 
   void setDescription(const std::string& description);
   const std::string& getDescription() const;
+
+  void print(const std::string& prefix = "") const;
 
   void setProfile(const std::string& profile);
   const std::string& getProfile() const;
@@ -68,22 +88,154 @@ public:
   /** @brief Dictionary of profiles that will override named profiles for a specific task*/
   ProfileDictionary::Ptr profile_overrides;
 
-  void setManipulatorInfo(ManipulatorInfo info);
-  const ManipulatorInfo& getManipulatorInfo() const;
-  ManipulatorInfo& getManipulatorInfo();
+  void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
+  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
+  tesseract_common::ManipulatorInfo& getManipulatorInfo();
 
-  void setStartInstruction(Instruction instruction);
+  void setStartInstruction(MoveInstructionPoly instruction);
 
   void resetStartInstruction();
-  const Instruction& getStartInstruction() const;
-  Instruction& getStartInstruction();
+  const MoveInstructionPoly& getStartInstruction() const;
+  MoveInstructionPoly& getStartInstruction();
   bool hasStartInstruction() const;
 
-  void setInstructions(std::vector<tesseract_planning::Instruction> instructions);
-  std::vector<tesseract_planning::Instruction>& getInstructions();
-  const std::vector<tesseract_planning::Instruction>& getInstructions() const;
+  void setInstructions(std::vector<tesseract_planning::InstructionPoly> instructions);
+  std::vector<tesseract_planning::InstructionPoly>& getInstructions();
+  const std::vector<tesseract_planning::InstructionPoly>& getInstructions() const;
 
-  void print(const std::string& prefix = "") const;
+  void appendMoveInstruction(const MoveInstructionPoly& mi);
+  void appendMoveInstruction(const MoveInstructionPoly&& mi);
+
+  void appendInstruction(const InstructionPoly& i);
+  void appendInstruction(const InstructionPoly&& i);
+
+  /**
+   * @brief Get the first Move Instruction in a Composite Instruction
+   * This does not consider the start instruction in child composite instruction
+   * @param composite_instruction Composite Instruction to search
+   * @return The first Move Instruction (Non-Const)
+   */
+  MoveInstructionPoly* getFirstMoveInstruction();
+
+  /**
+   * @brief Get the first Move Instruction in a Composite Instruction
+   * This does not consider the start instruction in child composite instruction
+   * @param composite_instruction Composite Instruction to search
+   * @return The first Move Instruction (Const)
+   */
+  const MoveInstructionPoly* getFirstMoveInstruction() const;
+
+  /**
+   * @brief Get the last Move Instruction in a Composite Instruction
+   * This does not consider the start instruction in child composite instruction
+   * @param composite_instruction Composite Instruction to search
+   * @return The last Move Instruction (Non-Const)
+   */
+  MoveInstructionPoly* getLastMoveInstruction();
+
+  /**
+   * @brief Get the last Move Instruction in a Composite Instruction
+   * This does not consider the start instruction in child composite instruction
+   * @param composite_instruction Composite Instruction to search
+   * @return The last Move Instruction (Const)
+   */
+  const MoveInstructionPoly* getLastMoveInstruction() const;
+
+  /**
+   * @brief Get number of Move Instruction in a Composite Instruction
+   * This does not consider the start instruction in the child composite instruction
+   * @param composite_instruction The Composite Instruction to process
+   * @return The number of Move Instructions
+   */
+  long getMoveInstructionCount() const;
+
+  /**
+   * @brief Get the first Instruction in a Composite Instruction that is identified by the filter
+   * @param composite_instruction Composite Instruction to search
+   * @param locate_filter The filter to indicate if an instruction should be considered
+   * @param process_child_composites Indicate if child Composite Instructions should be searched
+   * @return The first Instruction (Const)
+   */
+  const InstructionPoly* getFirstInstruction(const locateFilterFn& locate_filter = nullptr,
+                                             bool process_child_composites = true) const;
+
+  /**
+   * @brief Get the first Instruction in a Composite Instruction that is identified by the filter
+   * @param composite_instruction Composite Instruction to search
+   * @param locate_filter The filter to indicate if an instruction should be considered
+   * @param process_child_composites Indicate if child Composite Instructions should be searched
+   * @return The first Instruction (Non-Const)
+   */
+  InstructionPoly* getFirstInstruction(const locateFilterFn& locate_filter = nullptr,
+                                       bool process_child_composites = true);
+
+  /**
+   * @brief Get the last Instruction in a Composite Instruction that is identified by the filter
+   * @param composite_instruction Composite Instruction to search
+   * @param locate_filter The filter to indicate if an instruction should be considered
+   * @param process_child_composites Indicate if child Composite Instructions should be searched
+   * @return The Last Instruction (Const)
+   */
+  const InstructionPoly* getLastInstruction(const locateFilterFn& locate_filter = nullptr,
+                                            bool process_child_composites = true) const;
+
+  /**
+   * @brief Get the last Instruction in a Composite Instruction that is identified by the filter
+   * @param composite_instruction Composite Instruction to search
+   * @param locate_filter The filter to indicate if an instruction should be considered
+   * @param process_child_composites Indicate if child Composite Instructions should be searched
+   * @return The Last Instruction (Non-Const)
+   */
+  InstructionPoly* getLastInstruction(const locateFilterFn& locate_filter = nullptr,
+                                      bool process_child_composites = true);
+
+  /**
+   * @brief Get number of Instruction in a Composite Instruction
+   * @param composite_instruction The Composite Instruction to process
+   * @param locate_filter The filter to indicate if an instruction should be considered
+   * @param process_child_composites Indicate if child Composite Instructions should be searched
+   * @return The number of Instructions
+   */
+  long getInstructionCount(const locateFilterFn& locate_filter = nullptr, bool process_child_composites = true) const;
+
+  /**
+   * @brief Flattens a CompositeInstruction into a vector of Instruction
+   * @param composite_instruction Input composite instruction to be flattened
+   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
+   * @return A new flattened vector referencing the original instruction elements
+   */
+  std::vector<std::reference_wrapper<InstructionPoly>> flatten(const flattenFilterFn& filter = nullptr);
+
+  /**
+   * @brief Flattens a CompositeInstruction into a vector of Instruction&
+   * @param instruction Input composite instruction to be flattened
+   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
+   * @return A new flattened vector referencing the original instruction elements
+   */
+  std::vector<std::reference_wrapper<const InstructionPoly>> flatten(const flattenFilterFn& filter = nullptr) const;
+
+  /**
+   * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
+   * instruction will only be flattened if the corresponding element in pattern is flattenable.
+   * The motivation for this utility is a case where you flatten only the elements in a seed that correspond to
+   * composites in the parent instruction
+   * @param instruction CompositeInstruction that will be flattened
+   * @param pattern CompositeInstruction used to determine if instruction will be flattened
+   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
+   * @return A new flattened vector referencing the original instruction elements
+   */
+  std::vector<std::reference_wrapper<InstructionPoly>> flattenToPattern(const CompositeInstruction& pattern,
+                                                                        const flattenFilterFn& filter = nullptr);
+  /**
+   * @brief Flattens a composite instruction to the same pattern as the pattern composite instruction. ie, an element of
+   * instruction will only be flattened if the corresponding element in pattern is flattenable.
+   * @param instruction CompositeInstruction that will be flattened
+   * @param pattern CompositeInstruction used to determine if instruction will be flattened
+   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
+   * @return A new flattened vector referencing the original instruction elements
+   */
+  std::vector<std::reference_wrapper<const InstructionPoly>>
+  flattenToPattern(const CompositeInstruction& pattern, const flattenFilterFn& filter = nullptr) const;
 
   bool operator==(const CompositeInstruction& rhs) const;
 
@@ -92,7 +244,7 @@ public:
   // C++ container support
 
   /** value_type */
-  using value_type = Instruction;
+  using value_type = InstructionPoly;
   /** pointer */
   using pointer = typename std::vector<value_type>::pointer;
   /** const_pointer */
@@ -114,10 +266,10 @@ public:
   /** const_reverse_iterator */
   using const_reverse_iterator = typename std::vector<value_type>::const_reverse_iterator;
 
-  template <class InputIt>
-  CompositeInstruction(InputIt first, InputIt last) : container_(first, last)
-  {
-  }
+  //  template <class InputIt>
+  //  CompositeInstruction(InputIt first, InputIt last) : container_(first, last)
+  //  {
+  //  }
 
   ///////////////
   // Iterators //
@@ -192,48 +344,25 @@ public:
   ///////////////
   /** @brief clears the contents */
   void clear();
-  /** @brief inserts element */
-  iterator insert(const_iterator p, const value_type& x);
-  iterator insert(const_iterator p, value_type&& x);
-  iterator insert(const_iterator p, std::initializer_list<value_type> l);
-  template <class InputIt>
-  void insert(const_iterator pos, InputIt first, InputIt last)
-  {
-    container_.insert(pos, first, last);
-  }
-
-  /** @brief constructs element in-place */
-  template <class... Args>
-  iterator emplace(const_iterator pos, Args&&... args);
 
   /** @brief erases element */
   iterator erase(const_iterator p);
   iterator erase(const_iterator first, const_iterator last);
-  /** @brief adds an element to the end */
-  void push_back(const value_type& x);
-  void push_back(const value_type&& x);
-
-  /** @brief constructs an element in-place at the end  */
-  template <typename... Args>
-#if __cplusplus > 201402L
-  reference emplace_back(Args&&... args);
-#else
-  void emplace_back(Args&&... args);
-#endif
 
   /** @brief removes the last element */
   void pop_back();
+
   /** @brief swaps the contents  */
   void swap(std::vector<value_type>& other);
 
 private:
-  std::vector<value_type> container_;
+  std::vector<InstructionPoly> container_;
 
   /** @brief The description of the instruction */
   std::string description_{ "Tesseract Composite Instruction" };
 
   /** @brief Contains information about the manipulator associated with this instruction*/
-  ManipulatorInfo manipulator_info_;
+  tesseract_common::ManipulatorInfo manipulator_info_;
 
   /**
    * @brief The profile applied its child plan instructions
@@ -251,7 +380,84 @@ private:
    *
    * If not provided, the planner should use the current state of the robot is used and defined as fixed.
    */
-  value_type start_instruction_{ NullInstruction() };
+  InstructionPoly start_instruction_;
+
+  const InstructionPoly* getFirstInstructionHelper(const CompositeInstruction& composite_instruction,
+                                                   const locateFilterFn& locate_filter,
+                                                   bool process_child_composites,
+                                                   bool first_composite) const;
+
+  InstructionPoly* getFirstInstructionHelper(CompositeInstruction& composite_instruction,
+                                             const locateFilterFn& locate_filter,
+                                             bool process_child_composites,
+                                             bool first_composite);
+
+  const InstructionPoly* getLastInstructionHelper(const CompositeInstruction& composite_instruction,
+                                                  const locateFilterFn& locate_filter,
+                                                  bool process_child_composites,
+                                                  bool first_composite) const;
+
+  InstructionPoly* getLastInstructionHelper(CompositeInstruction& composite_instruction,
+                                            const locateFilterFn& locate_filter,
+                                            bool process_child_composites,
+                                            bool first_composite);
+
+  long getInstructionCountHelper(const CompositeInstruction& composite_instruction,
+                                 const locateFilterFn& locate_filter,
+                                 bool process_child_composites,
+                                 bool first_composite) const;
+
+  /**
+   * @brief Helper function used by Flatten. Not intended for direct use
+   * @param flattened Vector of instructions representing the full flattened composite
+   * @param composite Composite instruction to be flattened
+   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
+   * @param first_composite Indicates if the composite being processed is the top most composite
+   */
+  void flattenHelper(std::vector<std::reference_wrapper<InstructionPoly>>& flattened,
+                     CompositeInstruction& composite,
+                     const flattenFilterFn& filter,
+                     bool first_composite);
+
+  /**
+   * @brief Helper function used by Flatten. Not intended for direct use
+   * @param flattened Vector of instructions representing the full flattened composite
+   * @param composite Composite instruction to be flattened
+   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
+   * @param first_composite Indicates if the composite being processed is the top most composite
+   */
+  void flattenHelper(std::vector<std::reference_wrapper<const InstructionPoly>>& flattened,
+                     const CompositeInstruction& composite,
+                     const flattenFilterFn& filter,
+                     bool first_composite) const;
+
+  /**
+   * @brief Helper function used by FlattenToPattern. Not intended for direct use
+   * @param flattened Vector of instructions representing the full flattened composite
+   * @param composite Composite instruction to be flattened
+   * @param pattern CompositeInstruction used to determine if instruction will be flattened
+   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
+   * @param first_composite Indicates if the composite being processed is the top most composite
+   */
+  void flattenToPatternHelper(std::vector<std::reference_wrapper<InstructionPoly>>& flattened,
+                              CompositeInstruction& composite,
+                              const CompositeInstruction& pattern,
+                              const flattenFilterFn& filter,
+                              bool first_composite);
+
+  /**
+   * @brief Helper function used by FlattenToPattern. Not intended for direct use
+   * @param flattened Vector of instructions representing the full flattened composite
+   * @param composite Composite instruction to be flattened
+   * @param pattern CompositeInstruction used to determine if instruction will be flattened
+   * @param filter Used to filter only what should be considered. Should return true to include otherwise false
+   * @param first_composite Indicates if the composite being processed is the top most composite
+   */
+  void flattenToPatternHelper(std::vector<std::reference_wrapper<const InstructionPoly>>& flattened,
+                              const CompositeInstruction& composite,
+                              const CompositeInstruction& pattern,
+                              const flattenFilterFn& filter,
+                              bool first_composite) const;
 
   friend class boost::serialization::access;
   template <class Archive>

@@ -31,9 +31,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_examples/freespace_hybrid_example.h>
 #include <tesseract_environment/utils.h>
 #include <tesseract_environment/commands.h>
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/profile_dictionary.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
@@ -45,6 +49,7 @@ using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
+using tesseract_common::ManipulatorInfo;
 
 namespace tesseract_examples
 {
@@ -125,8 +130,8 @@ bool FreespaceHybridExample::run()
       "FREESPACE", CompositeInstructionOrder::ORDERED, ManipulatorInfo("manipulator", "base_link", "tool0"));
 
   // Start and End Joint Position for the program
-  Waypoint wp0 = StateWaypoint(joint_names, joint_start_pos);
-  Waypoint wp1 = StateWaypoint(joint_names, joint_end_pos);
+  StateWaypointPoly wp0{ StateWaypoint(joint_names, joint_start_pos) };
+  StateWaypointPoly wp1{ StateWaypoint(joint_names, joint_end_pos) };
 
   MoveInstruction start_instruction(wp0, MoveInstructionType::START);
   program.setStartInstruction(start_instruction);
@@ -136,7 +141,7 @@ bool FreespaceHybridExample::run()
   plan_f0.setDescription("freespace_plan");
 
   // Add Instructions to program
-  program.push_back(plan_f0);
+  program.appendMoveInstruction(plan_f0);
 
   CONSOLE_BRIDGE_logInform("freespace hybrid plan example");
 
@@ -158,7 +163,7 @@ bool FreespaceHybridExample::run()
   // Create Process Planning Request
   ProcessPlanningRequest request;
   request.name = process_planner_names::FREESPACE_PLANNER_NAME;
-  request.instructions = Instruction(program);
+  request.instructions = InstructionPoly(program);
 
   // Print Diagnostics
   request.instructions.print("Program: ");

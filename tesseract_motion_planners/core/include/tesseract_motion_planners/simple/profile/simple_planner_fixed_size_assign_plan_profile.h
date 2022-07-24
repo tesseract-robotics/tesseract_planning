@@ -50,12 +50,12 @@ public:
    */
   SimplePlannerFixedSizeAssignPlanProfile(int freespace_steps = 10, int linear_steps = 10);
 
-  CompositeInstruction generate(const MoveInstruction& prev_instruction,
-                                const MoveInstruction& prev_seed,
-                                const MoveInstruction& base_instruction,
-                                const Instruction& next_instruction,
+  CompositeInstruction generate(const MoveInstructionPoly& prev_instruction,
+                                const MoveInstructionPoly& prev_seed,
+                                const MoveInstructionPoly& base_instruction,
+                                const InstructionPoly& next_instruction,
                                 const PlannerRequest& request,
-                                const ManipulatorInfo& global_manip_info) const override;
+                                const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The number of steps to use for freespace instruction */
   int freespace_steps;

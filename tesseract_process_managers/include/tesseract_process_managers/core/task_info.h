@@ -33,8 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <map>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/null_instruction.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_environment/environment.h>
 
 namespace tesseract_planning
@@ -70,13 +69,13 @@ public:
   double elapsed_time{ 0 };
 
   /** @brief Instructions passed to task (optionally set) */
-  Instruction instructions_input{ NullInstruction() };
+  InstructionPoly instructions_input;
   /** @brief Instructions after running the task (optionally set)*/
-  Instruction instructions_output{ NullInstruction() };
+  InstructionPoly instructions_output;
   /** @brief Seed/Results passed into the task (optionally set) */
-  Instruction results_input{ NullInstruction() };
+  InstructionPoly results_input;
   /** @brief Seed/Results after running the task (optionally set)*/
-  Instruction results_output{ NullInstruction() };
+  InstructionPoly results_output;
   /** @brief The environment at the beginning of the task (optionally set)*/
   tesseract_environment::Environment::ConstPtr environment{ nullptr };
 

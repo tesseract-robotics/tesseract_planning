@@ -32,23 +32,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <Eigen/Geometry>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/core/waypoint.h>
-#include <tesseract_command_language/null_waypoint.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/constants.h>
 #include <tesseract_command_language/profile_dictionary.h>
-#include <tesseract_command_language/types.h>
+#include <tesseract_common/manipulator_info.h>
 
 namespace tesseract_planning
 {
-enum class MoveInstructionType : int
-{
-  LINEAR = 0,
-  FREESPACE = 1,
-  CIRCULAR = 2,
-  START = 3 /**< This indicates it is a start instruction. */
-};
-
 /**
  * @brief The move instruction is used when defining the results of a motion planning request
  * @details
@@ -74,10 +65,20 @@ public:
    * @param profile The waypoint profile, which is only associated to the waypoint and not the path taken.
    * @param manipulator_info Then manipulator information
    */
-  MoveInstruction(Waypoint waypoint,
+  MoveInstruction(CartesianWaypointPoly waypoint,
                   MoveInstructionType type,
                   std::string profile = DEFAULT_PROFILE_KEY,
-                  ManipulatorInfo manipulator_info = ManipulatorInfo());
+                  tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
+
+  MoveInstruction(JointWaypointPoly waypoint,
+                  MoveInstructionType type,
+                  std::string profile = DEFAULT_PROFILE_KEY,
+                  tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
+
+  MoveInstruction(StateWaypointPoly waypoint,
+                  MoveInstructionType type,
+                  std::string profile = DEFAULT_PROFILE_KEY,
+                  tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
   /**
    * @brief Move Instruction Constructor
@@ -87,19 +88,37 @@ public:
    * @param path_profile The waypoint path profile which is only associated to the path taken to the waypoint.
    * @param manipulator_info Then manipulator information
    */
-  MoveInstruction(Waypoint waypoint,
+  MoveInstruction(CartesianWaypointPoly waypoint,
                   MoveInstructionType type,
                   std::string profile,
                   std::string path_profile,
-                  ManipulatorInfo manipulator_info = ManipulatorInfo());
+                  tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
-  void setWaypoint(Waypoint waypoint);
-  Waypoint& getWaypoint();
-  const Waypoint& getWaypoint() const;
+  MoveInstruction(JointWaypointPoly waypoint,
+                  MoveInstructionType type,
+                  std::string profile,
+                  std::string path_profile,
+                  tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
-  void setManipulatorInfo(ManipulatorInfo info);
-  const ManipulatorInfo& getManipulatorInfo() const;
-  ManipulatorInfo& getManipulatorInfo();
+  MoveInstruction(StateWaypointPoly waypoint,
+                  MoveInstructionType type,
+                  std::string profile,
+                  std::string path_profile,
+                  tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
+
+  void setMoveType(MoveInstructionType move_type);
+
+  MoveInstructionType getMoveType() const;
+
+  void assignCartesianWaypoint(CartesianWaypointPoly waypoint);
+  void assignJointWaypoint(JointWaypointPoly waypoint);
+  void assignStateWaypoint(StateWaypointPoly waypoint);
+  WaypointPoly& getWaypoint();
+  const WaypointPoly& getWaypoint() const;
+
+  void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
+  const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
+  tesseract_common::ManipulatorInfo& getManipulatorInfo();
 
   void setProfile(const std::string& profile);
   const std::string& getProfile() const;
@@ -116,17 +135,9 @@ public:
 
   void print(const std::string& prefix = "") const;
 
-  void setMoveType(MoveInstructionType move_type);
-
-  MoveInstructionType getMoveType() const;
-
-  bool isLinear() const;
-
-  bool isFreespace() const;
-
-  bool isCircular() const;
-
-  bool isStart() const;
+  static CartesianWaypointPoly createCartesianWaypoint();
+  static JointWaypointPoly createJointWaypoint();
+  static StateWaypointPoly createStateWaypoint();
 
   bool operator==(const MoveInstruction& rhs) const;
   bool operator!=(const MoveInstruction& rhs) const;
@@ -142,10 +153,10 @@ private:
   std::string path_profile_;
 
   /** @brief The assigned waypoint (Cartesian or Joint) */
-  Waypoint waypoint_{ NullWaypoint() };
+  WaypointPoly waypoint_;
 
   /** @brief Contains information about the manipulator associated with this instruction*/
-  ManipulatorInfo manipulator_info_;
+  tesseract_common::ManipulatorInfo manipulator_info_;
 
   friend class boost::serialization::access;
   template <class Archive>
@@ -154,6 +165,6 @@ private:
 
 }  // namespace tesseract_planning
 
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstruction);
+TESSERACT_MOVE_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstruction);
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_H

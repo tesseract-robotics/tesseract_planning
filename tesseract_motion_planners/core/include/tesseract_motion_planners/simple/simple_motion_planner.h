@@ -86,13 +86,13 @@ protected:
   std::string name_;
   std::shared_ptr<const SimpleMotionPlannerStatusCategory> status_category_; /** @brief The planners status codes */
 
-  static MoveInstruction getStartInstruction(const PlannerRequest& request,
-                                             const tesseract_scene_graph::SceneState& current_state,
-                                             const tesseract_kinematics::JointGroup& manip);
+  static MoveInstructionPoly getStartInstruction(const PlannerRequest& request,
+                                                 const tesseract_scene_graph::SceneState& current_state,
+                                                 const tesseract_kinematics::JointGroup& manip);
 
   CompositeInstruction processCompositeInstruction(const CompositeInstruction& instructions,
-                                                   MoveInstruction& prev_instruction,
-                                                   MoveInstruction& prev_seed,
+                                                   MoveInstructionPoly& prev_instruction,
+                                                   MoveInstructionPoly& prev_seed,
                                                    const PlannerRequest& request) const;
 };
 

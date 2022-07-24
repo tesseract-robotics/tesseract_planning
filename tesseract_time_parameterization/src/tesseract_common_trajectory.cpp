@@ -25,9 +25,6 @@
  */
 
 #include <tesseract_time_parameterization/tesseract_common_trajectory.h>
-#include <tesseract_command_language/utils/utils.h>
-#include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_command_language/waypoint_type.h>
 
 namespace tesseract_planning
 {

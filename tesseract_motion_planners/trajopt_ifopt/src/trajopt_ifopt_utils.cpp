@@ -25,7 +25,6 @@
  */
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
-#include <tesseract_command_language/types.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_collision/core/common.h>
 #include <trajopt_ifopt/trajopt_ifopt.h>
@@ -153,7 +152,7 @@ bool addCartesianPositionAbsoluteCost(trajopt_sqp::QPProblem& nlp,
   return true;
 }
 
-ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypoint& joint_waypoint,
+ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypointPoly& joint_waypoint,
                                                         const trajopt_ifopt::JointPosition::ConstPtr& var,
                                                         const Eigen::VectorXd& coeffs)
 {
@@ -164,12 +163,12 @@ ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypoint& joi
   if (!joint_waypoint.isToleranced())
   {
     constraint = std::make_shared<trajopt_ifopt::JointPosConstraint>(
-        joint_waypoint.waypoint, vars, coeffs, "JointPos_" + var->GetName());
+        joint_waypoint.getPosition(), vars, coeffs, "JointPos_" + var->GetName());
   }
   else
   {
-    Eigen::VectorXd lower_limit = joint_waypoint.waypoint + joint_waypoint.lower_tolerance;
-    Eigen::VectorXd upper_limit = joint_waypoint.waypoint + joint_waypoint.upper_tolerance;
+    Eigen::VectorXd lower_limit = joint_waypoint.getPosition() + joint_waypoint.getLowerTolerance();
+    Eigen::VectorXd upper_limit = joint_waypoint.getPosition() + joint_waypoint.getUpperTolerance();
     auto bounds = trajopt_ifopt::toBounds(lower_limit, upper_limit);
     constraint =
         std::make_shared<trajopt_ifopt::JointPosConstraint>(bounds, vars, coeffs, "JointPos_" + var->GetName());
@@ -181,7 +180,7 @@ ifopt::ConstraintSet::Ptr createJointPositionConstraint(const JointWaypoint& joi
 std::vector<ifopt::ConstraintSet::Ptr>
 createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                            const tesseract_environment::Environment::ConstPtr& env,
-                           const ManipulatorInfo& manip_info,
+                           const tesseract_common::ManipulatorInfo& manip_info,
                            const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
                            const std::vector<int>& fixed_indices)
 {
@@ -311,7 +310,7 @@ createCollisionConstraints(const std::vector<trajopt_ifopt::JointPosition::Const
 bool addCollisionConstraint(trajopt_sqp::QPProblem& nlp,
                             const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                             const tesseract_environment::Environment::ConstPtr& env,
-                            const ManipulatorInfo& manip_info,
+                            const tesseract_common::ManipulatorInfo& manip_info,
                             const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
                             const std::vector<int>& fixed_indices)
 {
@@ -324,7 +323,7 @@ bool addCollisionConstraint(trajopt_sqp::QPProblem& nlp,
 bool addCollisionCost(trajopt_sqp::QPProblem& nlp,
                       const std::vector<trajopt_ifopt::JointPosition::ConstPtr>& vars,
                       const tesseract_environment::Environment::ConstPtr& env,
-                      const ManipulatorInfo& manip_info,
+                      const tesseract_common::ManipulatorInfo& manip_info,
                       const trajopt_ifopt::TrajOptCollisionConfig::ConstPtr& config,
                       const std::vector<int>& fixed_indices)
 {

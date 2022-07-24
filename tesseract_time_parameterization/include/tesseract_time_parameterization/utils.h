@@ -30,8 +30,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
+#include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
@@ -53,12 +52,12 @@ inline void RescaleTimings(CompositeInstruction& program, std::vector<double> sc
     CompositeInstruction& sub = program[sub_composite_idx].as<CompositeInstruction>();
     for (std::size_t move_idx = 0; move_idx < sub.size(); move_idx++)
     {
-      if (isMoveInstruction(sub.at(move_idx)))
+      if (sub.at(move_idx).isMoveInstruction())
       {
-        auto& move = sub.at(move_idx).as<MoveInstruction>();
-        if (isStateWaypoint(move.getWaypoint()))
+        auto& move = sub.at(move_idx).as<MoveInstructionPoly>();
+        if (move.getWaypoint().isStateWaypoint())
         {
-          auto& state = move.getWaypoint().as<StateWaypoint>();
+          auto& state = move.getWaypoint().as<StateWaypointPoly>();
 
           double scaling_factor = scalings[sub_composite_idx];
           if (scaling_factor < 1e-6)
@@ -67,14 +66,14 @@ inline void RescaleTimings(CompositeInstruction& program, std::vector<double> sc
             scaling_factor = 1.0;
           }
 
-          state.velocity = state.velocity * scaling_factor;
-          state.acceleration = state.acceleration * scaling_factor * scaling_factor;
-          state.effort = state.effort * scaling_factor * scaling_factor;
+          state.setVelocity(state.getVelocity() * scaling_factor);
+          state.setAcceleration(state.getAcceleration() * scaling_factor * scaling_factor);
+          state.setEffort(state.getEffort() * scaling_factor * scaling_factor);
 
-          double temp = state.time;
-          state.time = prev_time_scaled +
-                       (state.time - prev_time_original) / scaling_factor;  // scale dt and add to previous time
-          prev_time_scaled = state.time;
+          double temp = state.getTime();
+          // scale dt and add to previous time
+          state.setTime(prev_time_scaled + (temp - prev_time_original) / scaling_factor);
+          prev_time_scaled = state.getTime();
           prev_time_original = temp;
         }
       }

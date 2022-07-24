@@ -42,12 +42,13 @@ SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_lo
 {
 }
 
-CompositeInstruction SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstruction& prev_instruction,
-                                                               const MoveInstruction& /*prev_seed*/,
-                                                               const MoveInstruction& base_instruction,
-                                                               const Instruction& /*next_instruction*/,
-                                                               const PlannerRequest& request,
-                                                               const ManipulatorInfo& global_manip_info) const
+CompositeInstruction
+SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+                                          const MoveInstructionPoly& /*prev_seed*/,
+                                          const MoveInstructionPoly& base_instruction,
+                                          const InstructionPoly& /*next_instruction*/,
+                                          const PlannerRequest& request,
+                                          const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
   JointGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
   JointGroupInstructionInfo info2(base_instruction, request, global_manip_info);

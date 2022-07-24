@@ -36,9 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
-
+#include <tesseract_command_language/utils.h>
 #include <tesseract_process_managers/utils/task_info_statistics.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
 #include <tesseract_process_managers/utils/task_info_statistics.h>
@@ -83,7 +81,7 @@ int main()
     // Define the program
     CompositeInstruction program = freespaceExampleProgramIIWA(
         Eigen::Isometry3d::Identity() * Eigen::Translation3d(static_cast<double>(idx) / 10., 0.2, 1.0));
-    request.instructions = Instruction(program);
+    request.instructions = InstructionPoly(program);
 
     // Solve process plan
     ProcessPlanningFuture response = planning_server.run(request);

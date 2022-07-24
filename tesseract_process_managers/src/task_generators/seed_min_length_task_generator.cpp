@@ -1,7 +1,7 @@
 /**
  * @file seed_length_task_generator.cpp
  * @brief Process generator for processing the seed so it meets a minimum length. Planners like trajopt need
- * at least 10 states in the trajectory to perform velocity, accelleration and jerk smoothing.
+ * at least 10 states in the trajectory to perform velocity, acceleration and jerk smoothing.
  *
  * @author Levi Armstrong
  * @date November 2. 2020
@@ -34,9 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/seed_min_length_task_generator.h>
 #include <tesseract_process_managers/task_profiles/seed_min_length_profile.h>
+
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
 
 namespace tesseract_planning
 {
@@ -54,8 +54,8 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   saveInputs(*info, input);
 
   // Check that inputs are valid
-  Instruction* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  InstructionPoly* input_results = input.getResults();
+  if (!input_results->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("Input seed to SeedMinLengthTaskGenerator must be a composite instruction");
     saveOutputs(*info, input);
@@ -73,7 +73,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   auto& results = input_results->as<CompositeInstruction>();
-  long cnt = getMoveInstructionCount(results);
+  long cnt = results.getMoveInstructionCount();
   if (cnt >= cur_composite_profile->min_length)
   {
     info->return_value = 1;
@@ -83,7 +83,7 @@ int SeedMinLengthTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
     return 1;
   }
 
-  Instruction start_instruction = results.getStartInstruction();
+  InstructionPoly start_instruction = results.getStartInstruction();
   auto subdivisions =
       static_cast<int>(std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt))) +
       1;
@@ -109,48 +109,48 @@ void SeedMinLengthTaskGenerator::process(TaskInput input, std::size_t unique_id)
 
 void SeedMinLengthTaskGenerator::subdivide(CompositeInstruction& composite,
                                            const CompositeInstruction& current_composite,
-                                           Instruction& start_instruction,
+                                           InstructionPoly& start_instruction,
                                            int subdivisions) const
 {
-  for (const Instruction& i : current_composite)
+  for (const InstructionPoly& i : current_composite)
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       const auto& cc = i.as<CompositeInstruction>();
       CompositeInstruction new_cc(cc);
       new_cc.clear();
 
       subdivide(new_cc, cc, start_instruction, subdivisions);
-      composite.push_back(new_cc);
+      composite.appendInstruction(new_cc);
     }
-    else if (isMoveInstruction(i))
+    else if (i.isMoveInstruction())
     {
-      assert(isMoveInstruction(start_instruction));
-      const auto& mi0 = start_instruction.as<MoveInstruction>();
-      const auto& mi1 = i.as<MoveInstruction>();
+      assert(start_instruction.isMoveInstruction());
+      const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
+      const auto& mi1 = i.as<MoveInstructionPoly>();
 
-      assert(isStateWaypoint(mi0.getWaypoint()));
-      assert(isStateWaypoint(mi1.getWaypoint()));
-      const auto& swp0 = mi0.getWaypoint().as<StateWaypoint>();
-      const auto& swp1 = mi1.getWaypoint().as<StateWaypoint>();
+      assert(mi0.getWaypoint().isStateWaypoint());
+      assert(mi1.getWaypoint().isStateWaypoint());
+      const auto& swp0 = mi0.getWaypoint().as<StateWaypointPoly>();
+      const auto& swp1 = mi1.getWaypoint().as<StateWaypointPoly>();
 
       // Linearly interpolate in joint space
-      Eigen::MatrixXd states = interpolate(swp0.position, swp1.position, subdivisions);
+      Eigen::MatrixXd states = interpolate(swp0.getPosition(), swp1.getPosition(), subdivisions);
 
       // Convert to MoveInstructions
       for (long i = 1; i < states.cols(); ++i)
       {
-        MoveInstruction move_instruction(mi1);
-        move_instruction.getWaypoint().as<StateWaypoint>().position = states.col(i);
-        composite.push_back(move_instruction);
+        MoveInstructionPoly move_instruction(mi1);
+        move_instruction.getWaypoint().as<StateWaypointPoly>().getPosition() = states.col(i);
+        composite.appendMoveInstruction(move_instruction);
       }
 
       start_instruction = i;
     }
     else
     {
-      assert(!isMoveInstruction(i));
-      composite.push_back(i);
+      assert(!i.isMoveInstruction());
+      composite.appendInstruction(i);
     }
   }
 }

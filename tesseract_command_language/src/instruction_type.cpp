@@ -24,64 +24,45 @@
  * limitations under the License.
  */
 
-#include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/null_instruction.h>
-#include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/set_analog_instruction.h>
 #include <tesseract_command_language/set_tool_instruction.h>
 #include <tesseract_command_language/timer_instruction.h>
 #include <tesseract_command_language/wait_instruction.h>
-#include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
-bool isCommentInstruction(const Instruction& instruction)
+bool isCommentInstruction(const InstructionPoly& instruction)
 {
   UNUSED(instruction);
   // TODO: Implement CommentInstruction
   return false;
 }
 
-bool isVariableInstruction(const Instruction& instruction)
+bool isVariableInstruction(const InstructionPoly& instruction)
 {
   UNUSED(instruction);
   // TODO: Implement VariableInstruction
   return false;
 }
 
-bool isSetAnalogInstruction(const Instruction& instruction)
+bool isSetAnalogInstruction(const InstructionPoly& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(SetAnalogInstruction)));
 }
 
-bool isSetToolInstruction(const Instruction& instruction)
+bool isSetToolInstruction(const InstructionPoly& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(SetToolInstruction)));
 }
 
-bool isTimerInstruction(const Instruction& instruction)
+bool isTimerInstruction(const InstructionPoly& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(TimerInstruction)));
 }
 
-bool isWaitInstruction(const Instruction& instruction)
+bool isWaitInstruction(const InstructionPoly& instruction)
 {
   return (instruction.getType() == std::type_index(typeid(WaitInstruction)));
-}
-
-bool isCompositeInstruction(const Instruction& instruction)
-{
-  return (instruction.getType() == std::type_index(typeid(CompositeInstruction)));
-}
-
-bool isMoveInstruction(const Instruction& instruction)
-{
-  return (instruction.getType() == std::type_index(typeid(MoveInstruction)));
-}
-
-bool isNullInstruction(const Instruction& instruction)
-{
-  return (instruction.getType() == std::type_index(typeid(NullInstruction)));
 }
 
 }  // namespace tesseract_planning

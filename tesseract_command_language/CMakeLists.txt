@@ -40,11 +40,13 @@ tesseract_variables()
 
 add_library(
   ${PROJECT_NAME}
-  src/core/instruction.cpp
-  src/core/serialization.cpp
-  src/core/waypoint.cpp
-  src/null_instruction.cpp
-  src/null_waypoint.cpp
+  src/poly/cartesian_waypoint_poly.cpp
+  src/poly/instruction_poly.cpp
+  src/poly/joint_waypoint_poly.cpp
+  src/poly/move_instruction_poly.cpp
+  src/poly/serialization.cpp
+  src/poly/state_waypoint_poly.cpp
+  src/poly/waypoint_poly.cpp
   src/move_instruction.cpp
   src/set_analog_instruction.cpp
   src/set_tool_instruction.cpp
@@ -52,14 +54,10 @@ add_library(
   src/wait_instruction.cpp
   src/composite_instruction.cpp
   src/instruction_type.cpp
-  src/waypoint_type.cpp
   src/state_waypoint.cpp
   src/cartesian_waypoint.cpp
   src/joint_waypoint.cpp
-  src/utils/flatten_utils.cpp
-  src/utils/filter_functions.cpp
-  src/utils/get_instruction_utils.cpp
-  src/utils/utils.cpp)
+  src/utils.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC Eigen3::Eigen

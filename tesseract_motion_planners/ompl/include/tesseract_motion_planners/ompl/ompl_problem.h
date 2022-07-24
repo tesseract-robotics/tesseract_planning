@@ -34,10 +34,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ompl/base/objectives/PathLengthOptimizationObjective.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/ompl/types.h>
 #include <tesseract_motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_kinematics/core/kinematic_group.h>
+#include <tesseract_motion_planners/ompl/types.h>
 
 namespace tesseract_planning
 {

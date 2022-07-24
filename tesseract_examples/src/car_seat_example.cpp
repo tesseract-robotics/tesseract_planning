@@ -34,9 +34,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_environment/utils.h>
 #include <tesseract_environment/commands.h>
 #include <tesseract_geometry/mesh_parser.h>
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/profile_dictionary.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_process_managers/core/process_planning_server.h>
 #include <tesseract_process_managers/core/default_process_planners.h>
 #include <tesseract_motion_planners/default_planner_namespaces.h>
@@ -51,6 +55,7 @@ using namespace tesseract_scene_graph;
 using namespace tesseract_collision;
 using namespace tesseract_visualization;
 using namespace tesseract_planning;
+using tesseract_common::ManipulatorInfo;
 
 namespace tesseract_examples
 {
@@ -266,8 +271,8 @@ bool CarSeatExample::run()
     // Start and End Joint Position for the program
     Eigen::VectorXd start_pos = getPositionVectorXd(*joint_group, saved_positions_["Home"]);
     Eigen::VectorXd pick_pose = getPositionVectorXd(*joint_group, saved_positions_["Pick1"]);
-    Waypoint wp0 = StateWaypoint(joint_group->getJointNames(), start_pos);
-    Waypoint wp1 = StateWaypoint(joint_group->getJointNames(), pick_pose);
+    StateWaypointPoly wp0{ StateWaypoint(joint_group->getJointNames(), start_pos) };
+    StateWaypointPoly wp1{ StateWaypoint(joint_group->getJointNames(), pick_pose) };
 
     // Start Joint Position for the program
     MoveInstruction start_instruction(wp0, MoveInstructionType::START);
@@ -278,14 +283,14 @@ bool CarSeatExample::run()
     plan_f0.setDescription("Freespace pick seat 1");
 
     // Add Instructions to program
-    program.push_back(plan_f0);
+    program.appendMoveInstruction(plan_f0);
 
     CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
 
     // Create Process Planning Request
     ProcessPlanningRequest request;
     request.name = process_planner_names::TRAJOPT_PLANNER_NAME;
-    request.instructions = Instruction(program);
+    request.instructions = InstructionPoly(program);
 
     // Print Diagnostics
     request.instructions.print("Program: ");
@@ -342,8 +347,8 @@ bool CarSeatExample::run()
     // Start and End Joint Position for the program
     Eigen::VectorXd start_pos = getPositionVectorXd(*joint_group, saved_positions_["Pick1"]);
     Eigen::VectorXd pick_pose = getPositionVectorXd(*joint_group, saved_positions_["Place1"]);
-    Waypoint wp0 = StateWaypoint(joint_group->getJointNames(), start_pos);
-    Waypoint wp1 = StateWaypoint(joint_group->getJointNames(), pick_pose);
+    StateWaypointPoly wp0{ StateWaypoint(joint_group->getJointNames(), start_pos) };
+    StateWaypointPoly wp1{ StateWaypoint(joint_group->getJointNames(), pick_pose) };
 
     // Start Joint Position for the program
     MoveInstruction start_instruction(wp0, MoveInstructionType::START);
@@ -354,14 +359,14 @@ bool CarSeatExample::run()
     plan_f0.setDescription("Freespace pick seat 1");
 
     // Add Instructions to program
-    program.push_back(plan_f0);
+    program.appendMoveInstruction(plan_f0);
 
     CONSOLE_BRIDGE_logInform("Freespace plan to pick seat 1 example");
 
     // Create Process Planning Request
     ProcessPlanningRequest request;
     request.name = process_planner_names::TRAJOPT_PLANNER_NAME;
-    request.instructions = Instruction(program);
+    request.instructions = InstructionPoly(program);
 
     // Print Diagnostics
     request.instructions.print("Program: ");

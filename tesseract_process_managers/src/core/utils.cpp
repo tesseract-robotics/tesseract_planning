@@ -60,7 +60,7 @@ bool isCompositeEmpty(const CompositeInstruction& composite)
 
   for (const auto& i : composite)
   {
-    if (isCompositeInstruction(i))
+    if (i.isCompositeInstruction())
     {
       const auto& sub_composite = i.as<CompositeInstruction>();
       if (isCompositeEmpty(sub_composite))
@@ -76,8 +76,8 @@ int hasSeedTask(TaskInput input)
   if (input.has_seed)
     return 1;
 
-  assert(isCompositeInstruction(*(input.getResults())));
-  if (isCompositeInstruction(*(input.getResults())))
+  assert(input.getResults()->isCompositeInstruction());
+  if (input.getResults()->isCompositeInstruction())
   {
     const auto& composite = input.getResults()->as<CompositeInstruction>();
     if (isCompositeEmpty(composite))

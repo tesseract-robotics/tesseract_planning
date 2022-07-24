@@ -59,8 +59,8 @@ int ContinuousContactCheckTaskGenerator::conditionalProcess(TaskInput input, std
   // --------------------
   // Check that inputs are valid
   // --------------------
-  Instruction* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  InstructionPoly* input_results = input.getResults();
+  if (!input_results->isCompositeInstruction())
   {
     info->message = "Input seed to ContinuousContactCheckTaskGenerator must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());

@@ -33,8 +33,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
 #include <tesseract_motion_planners/core/utils.h>
 
-#include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
@@ -190,7 +190,7 @@ void TrajOptDefaultCompositeProfile::smoothMotionTerms(const tinyxml2::XMLElemen
 void TrajOptDefaultCompositeProfile::apply(trajopt::ProblemConstructionInfo& pci,
                                            int start_index,
                                            int end_index,
-                                           const ManipulatorInfo& manip_info,
+                                           const tesseract_common::ManipulatorInfo& manip_info,
                                            const std::vector<std::string>& /*active_links*/,
                                            const std::vector<int>& fixed_indices) const
 {

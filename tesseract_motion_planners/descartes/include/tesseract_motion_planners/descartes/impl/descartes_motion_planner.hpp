@@ -44,8 +44,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 
 namespace tesseract_planning
 {
@@ -146,31 +145,31 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
   for (std::size_t idx = 0; idx < instructions_flattened.size(); idx++)
   {
     // If idx is zero then this should be the start instruction
-    assert((idx == 0) ? isMoveInstruction(instructions_flattened.at(idx).get()) : true);
-    assert((idx == 0) ? isMoveInstruction(results_flattened[idx].get()) : true);
-    if (isMoveInstruction(instructions_flattened.at(idx).get()))
+    assert((idx == 0) ? instructions_flattened.at(idx).get().isMoveInstruction() : true);
+    assert((idx == 0) ? results_flattened[idx].get().isMoveInstruction() : true);
+    if (instructions_flattened.at(idx).get().isMoveInstruction())
     {
-      const auto& plan_instruction = instructions_flattened.at(idx).get().as<MoveInstruction>();
+      const auto& plan_instruction = instructions_flattened.at(idx).get().as<MoveInstructionPoly>();
       if (plan_instruction.isStart())
       {
         assert(idx == 0);
-        assert(isMoveInstruction(results_flattened[idx].get()));
-        auto& move_instruction = results_flattened[idx].get().as<MoveInstruction>();
+        assert(results_flattened[idx].get().isMoveInstruction());
+        auto& move_instruction = results_flattened[idx].get().as<MoveInstructionPoly>();
 
-        auto& swp = move_instruction.getWaypoint().as<StateWaypoint>();
-        swp.position = solution[result_index++];
-        assert(swp.joint_names == problem->manip->getJointNames());
+        auto& swp = move_instruction.getWaypoint().as<StateWaypointPoly>();
+        swp.setPosition(solution[result_index++]);
+        assert(swp.getNames() == problem->manip->getJointNames());
       }
       else if (plan_instruction.isLinear())
       {
         // This instruction corresponds to a composite. Set all results in that composite to the results
-        assert(isCompositeInstruction(results_flattened[idx].get()));
+        assert(results_flattened[idx].get().isCompositeInstruction());
         auto& move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
         for (auto& instruction : move_instructions)
         {
-          auto& swp = instruction.as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-          swp.position = solution[result_index++];
-          assert(swp.joint_names == problem->manip->getJointNames());
+          auto& swp = instruction.as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+          swp.setPosition(solution[result_index++]);
+          assert(swp.getNames() == problem->manip->getJointNames());
         }
       }
       else if (plan_instruction.isFreespace())
@@ -182,7 +181,7 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         Eigen::VectorXd& stop = solution[result_index++];
 
         // This instruction corresponds to a composite. Set all results in that composite to the results
-        assert(isCompositeInstruction(results_flattened[idx].get()));
+        assert(results_flattened[idx].get().isCompositeInstruction());
         auto& move_instructions = results_flattened[idx].get().as<CompositeInstruction>();
 
         Eigen::MatrixXd temp = interpolate(start, stop, static_cast<int>(move_instructions.size()));
@@ -190,9 +189,9 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
         assert(temp.cols() == static_cast<long>(move_instructions.size()) + 1);
         for (std::size_t i = 0; i < move_instructions.size(); ++i)
         {
-          auto& swp = move_instructions[i].as<MoveInstruction>().getWaypoint().as<StateWaypoint>();
-          swp.position = temp.col(static_cast<long>(i) + 1);
-          assert(swp.joint_names == problem->manip->getJointNames());
+          auto& swp = move_instructions[i].as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+          swp.setPosition(temp.col(static_cast<long>(i) + 1));
+          assert(swp.getNames() == problem->manip->getJointNames());
         }
       }
       else
@@ -256,7 +255,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
   // Assume all the plan instructions have the same manipulator as the composite
   assert(!request.instructions.getManipulatorInfo().empty());
-  const ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
+  const tesseract_common::ManipulatorInfo& composite_mi = request.instructions.getManipulatorInfo();
 
   if (composite_mi.manipulator.empty())
     throw std::runtime_error("Descartes, manipulator is empty!");
@@ -293,33 +292,28 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   int index = 0;
   std::string profile;
   ProfileDictionary::ConstPtr profile_overrides;
-  Waypoint start_waypoint{ NullWaypoint() };
-  Instruction placeholder_instruction{ NullInstruction() };
-  const Instruction* start_instruction = nullptr;
+  WaypointPoly start_waypoint;
+  MoveInstructionPoly placeholder_instruction;
+  const MoveInstructionPoly* start_instruction = nullptr;
   if (request.instructions.hasStartInstruction())
   {
-    assert(isMoveInstruction(request.instructions.getStartInstruction()));
     start_instruction = &(request.instructions.getStartInstruction());
-    if (isMoveInstruction(*start_instruction))
-    {
-      const auto& temp = start_instruction->as<MoveInstruction>();
-      assert(temp.isStart());
-      start_waypoint = temp.getWaypoint();
-      profile = temp.getProfile();
-      profile_overrides = temp.profile_overrides;
-    }
-    else
-    {
-      throw std::runtime_error("Descartes DefaultProblemGenerator: Unsupported start instruction type!");
-    }
+    assert(start_instruction->isStart());
+    start_waypoint = start_instruction->getWaypoint();
+    profile = start_instruction->getProfile();
+    //  profile_overrides = start_instruction.profile_overrides;
     ++start_index;
   }
   else
   {
-    Eigen::VectorXd current_jv{ request.env_state.getJointValues(joint_names) };
-    StateWaypoint swp(joint_names, current_jv);
+    MoveInstructionPoly temp_move(*request.instructions.getFirstMoveInstruction());
+    StateWaypointPoly swp = temp_move.createStateWaypoint();
+    swp.setNames(joint_names);
+    swp.setPosition(request.env_state.getJointValues(joint_names));
 
-    MoveInstruction temp_move(swp, MoveInstructionType::START);
+    temp_move.assignStateWaypoint(swp);
+    temp_move.setMoveType(MoveInstructionType::START);
+
     placeholder_instruction = temp_move;
     start_instruction = &placeholder_instruction;
     start_waypoint = swp;
@@ -333,12 +327,12 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
     throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
 
   // Add start waypoint
-  if (isCartesianWaypoint(start_waypoint))
+  if (start_waypoint.isCartesianWaypoint())
   {
-    const auto& cwp = start_waypoint.as<CartesianWaypoint>();
-    cur_plan_profile->apply(*prob, cwp.waypoint, *start_instruction, composite_mi, index);
+    const auto& cwp = start_waypoint.as<CartesianWaypointPoly>();
+    cur_plan_profile->apply(*prob, cwp.getTransform(), *start_instruction, composite_mi, index);
   }
-  else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
+  else if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
   {
     assert(checkJointPositionFormat(joint_names, start_waypoint));
     const Eigen::VectorXd& position = getJointPosition(start_waypoint);
@@ -355,13 +349,13 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   for (std::size_t i = start_index; i < instructions_flat.size(); ++i)
   {
     const auto& instruction = instructions_flat[i].get();
-    if (isMoveInstruction(instruction))
+    if (instruction.isMoveInstruction())
     {
-      assert(isMoveInstruction(instruction));
-      const auto& plan_instruction = instruction.template as<MoveInstruction>();
+      assert(instruction.isMoveInstruction());
+      const auto& plan_instruction = instruction.template as<MoveInstructionPoly>();
 
       // If plan instruction has manipulator information then use it over the one provided by the composite.
-      ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
+      tesseract_common::ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
 
       if (mi.manipulator.empty())
         throw std::runtime_error("Descartes, manipulator is empty!");
@@ -377,7 +371,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       // The seed should always have a start instruction
       assert(request.seed.hasStartInstruction());
       std::size_t seed_idx = (start_index == 0) ? i + 1 : i;
-      assert(isCompositeInstruction(seed_flat[seed_idx].get()));
+      assert(seed_flat[seed_idx].get().isCompositeInstruction());
       const auto& seed_composite = seed_flat[seed_idx].get().template as<tesseract_planning::CompositeInstruction>();
       auto interpolate_cnt = static_cast<int>(seed_composite.size());
 
@@ -386,7 +380,8 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       profile = getProfileString(name_, profile, request.plan_profile_remapping);
       auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
           name_, profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
-      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, plan_instruction.profile_overrides);
+      //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
+      //      plan_instruction.profile_overrides);
       if (!cur_plan_profile)
         throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
 
@@ -398,21 +393,22 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       {
         auto cur_path_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
             name_, path_profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
-        cur_path_plan_profile =
-            applyProfileOverrides(name_, path_profile, cur_path_plan_profile, plan_instruction.profile_overrides);
+        //        cur_path_plan_profile =
+        //            applyProfileOverrides(name_, path_profile, cur_path_plan_profile,
+        //            plan_instruction.profile_overrides);
         if (!cur_path_plan_profile)
           throw std::runtime_error("DescartesMotionPlannerConfig: Invalid transition profile");
 
-        if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+        if (plan_instruction.getWaypoint().isCartesianWaypoint())
         {
-          const auto& cur_wp = plan_instruction.getWaypoint().template as<tesseract_planning::CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().template as<CartesianWaypointPoly>();
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
-          if (isCartesianWaypoint(start_waypoint))
+          if (start_waypoint.isCartesianWaypoint())
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
+            prev_pose = start_waypoint.as<CartesianWaypointPoly>().getTransform();
           }
-          else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
+          else if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
           {
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
@@ -423,7 +419,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
             throw std::runtime_error("DescartesMotionPlannerConfig: unknown waypoint type.");
           }
 
-          tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_wp, interpolate_cnt);
+          tesseract_common::VectorIsometry3d poses = interpolate(prev_pose, cur_wp.getTransform(), interpolate_cnt);
           // Add intermediate points with path costs and constraints
           for (std::size_t p = 1; p < poses.size() - 1; ++p)
           {
@@ -433,22 +429,22 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
           }
 
           // Add final point with waypoint
-          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, index);
+          cur_plan_profile->apply(*prob, cur_wp.getTransform(), plan_instruction, composite_mi, index);
 
           ++index;
         }
-        else if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
+        else if (plan_instruction.getWaypoint().isJointWaypoint() || plan_instruction.getWaypoint().isStateWaypoint())
         {
           assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
           Eigen::Isometry3d cur_pose = prob->manip->calcFwdKin(cur_position)[mi.tcp_frame] * tcp_offset;
 
           Eigen::Isometry3d prev_pose = Eigen::Isometry3d::Identity();
-          if (isCartesianWaypoint(start_waypoint))
+          if (start_waypoint.isCartesianWaypoint())
           {
-            prev_pose = start_waypoint.as<CartesianWaypoint>().waypoint;
+            prev_pose = start_waypoint.as<CartesianWaypointPoly>().getTransform();
           }
-          else if (isJointWaypoint(start_waypoint) || isStateWaypoint(start_waypoint))
+          else if (start_waypoint.isJointWaypoint() || start_waypoint.isStateWaypoint())
           {
             assert(checkJointPositionFormat(joint_names, start_waypoint));
             const Eigen::VectorXd& position = getJointPosition(start_waypoint);
@@ -480,7 +476,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       }
       else if (plan_instruction.isFreespace())
       {
-        if (isJointWaypoint(plan_instruction.getWaypoint()) || isStateWaypoint(plan_instruction.getWaypoint()))
+        if (plan_instruction.getWaypoint().isJointWaypoint() || plan_instruction.getWaypoint().isStateWaypoint())
         {
           assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
           const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
@@ -495,9 +491,9 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
           ++index;
         }
-        else if (isCartesianWaypoint(plan_instruction.getWaypoint()))
+        else if (plan_instruction.getWaypoint().isCartesianWaypoint())
         {
-          const auto& cur_wp = plan_instruction.getWaypoint().template as<tesseract_planning::CartesianWaypoint>();
+          const auto& cur_wp = plan_instruction.getWaypoint().template as<CartesianWaypointPoly>();
 
           // Descartes does not support freespace so it will only include the plan instruction state, then in
           // post processing function will perform interpolation to fill out the seed, but may be in collision.
@@ -505,7 +501,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
           // Add final point with waypoint costs and constraints
           /** @todo Should check that the joint names match the order of the manipulator */
-          cur_plan_profile->apply(*prob, cur_wp, plan_instruction, composite_mi, index);
+          cur_plan_profile->apply(*prob, cur_wp.getTransform(), plan_instruction, composite_mi, index);
 
           ++index;
         }
@@ -520,7 +516,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
       }
 
       start_waypoint = plan_instruction.getWaypoint();
-      start_instruction = &instruction;
+      start_instruction = &plan_instruction;
     }
   }
 

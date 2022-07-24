@@ -28,8 +28,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <gtest/gtest.h>
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/utils.h>
 
 using namespace tesseract_planning;
 
@@ -54,15 +57,15 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       sub_sub_composite.setDescription("sub_sub_composite_" + std::to_string(j));
       for (std::size_t k = 0; k < k_max; k++)
       {
-        Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
+        CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
         MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
-        sub_sub_composite.push_back(instruction);
+        sub_sub_composite.appendMoveInstruction(instruction);
       }
-      sub_composite.push_back(sub_sub_composite);
+      sub_composite.appendInstruction(sub_sub_composite);
     }
-    composite.push_back(sub_composite);
+    composite.appendInstruction(sub_composite);
   }
 
   // flatten(composite);
@@ -71,14 +74,14 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       composite.print();
 
     // flatten the composite
-    std::vector<std::reference_wrapper<Instruction>> flattened = flatten(composite);
+    std::vector<std::reference_wrapper<InstructionPoly>> flattened = composite.flatten();
     EXPECT_EQ(flattened.size(), i_max * j_max * k_max);
 
     // Now change something in the flattened composite
     int num_composites = 0;
     for (std::size_t i = 0; i < flattened.size(); i++)
     {
-      if (isCompositeInstruction(flattened[i].get()))
+      if (flattened[i].get().isCompositeInstruction())
         num_composites++;
       flattened[i].get().setDescription("test_" + std::to_string(i));
     }
@@ -109,15 +112,15 @@ TEST(TesseractCommandLanguageUtilsUnit, flatten)  // NOLINT
       composite.print();
 
     // flatten the composite keeping the composite instructions
-    flattenFilterFn filter = [](const Instruction&, const CompositeInstruction&, bool) { return true; };
-    std::vector<std::reference_wrapper<Instruction>> flattened = flatten(composite, filter);
+    flattenFilterFn filter = [](const InstructionPoly&, const CompositeInstruction&, bool) { return true; };
+    std::vector<std::reference_wrapper<InstructionPoly>> flattened = composite.flatten(filter);
     EXPECT_EQ(flattened.size(), i_max * j_max * k_max + 16);  // Add 16 for the composite instructions
 
     // Now change something in the flattened composite
     int num_composites = 0;
     for (std::size_t i = 0; i < flattened.size(); i++)
     {
-      if (isCompositeInstruction(flattened[i].get()))
+      if (flattened[i].get().isCompositeInstruction())
         num_composites++;
       flattened[i].get().setDescription("test_" + std::to_string(i));
     }
@@ -177,22 +180,22 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
       CompositeInstruction sub_sub_composite;
       sub_sub_composite.setDescription("sub_sub_composite_" + std::to_string(j));
 
-      Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
+      CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
       MoveInstruction pattern_instruction(wp, MoveInstructionType::LINEAR);
       pattern_instruction.setDescription("pattern_instruction_" + std::to_string(i) + "_" + std::to_string(j));
-      sub_pattern.push_back(pattern_instruction);
+      sub_pattern.appendMoveInstruction(pattern_instruction);
       for (std::size_t k = 0; k < k_max; k++)
       {
-        Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
+        CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
         MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
         instruction.setDescription("instruction_" + std::to_string(i) + "_" + std::to_string(j) + "_" +
                                    std::to_string(k));
-        sub_sub_composite.push_back(instruction);
+        sub_sub_composite.appendMoveInstruction(instruction);
       }
-      sub_composite.push_back(sub_sub_composite);
+      sub_composite.appendInstruction(sub_sub_composite);
     }
-    composite.push_back(sub_composite);
-    pattern.push_back(sub_pattern);
+    composite.appendInstruction(sub_composite);
+    pattern.appendInstruction(sub_pattern);
   }
 
   // flattenToPattern(composite, pattern)
@@ -205,14 +208,14 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
       pattern.print();
     }
     // flatten the composite
-    std::vector<std::reference_wrapper<Instruction>> flattened = flattenToPattern(composite, pattern);
+    std::vector<std::reference_wrapper<InstructionPoly>> flattened = composite.flattenToPattern(pattern);
     EXPECT_EQ(flattened.size(), i_max * j_max);
 
     // Now change something in the flattened composite
     int num_composites = 0;
     for (std::size_t i = 0; i < flattened.size(); i++)
     {
-      if (isCompositeInstruction(flattened[i].get()))
+      if (flattened[i].get().isCompositeInstruction())
         num_composites++;
       flattened[i].get().setDescription("test_" + std::to_string(i));
     }
@@ -253,8 +256,8 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
       pattern.print();
     }
     // flatten the composite
-    flattenFilterFn filter = [](const Instruction&, const CompositeInstruction&, bool) { return true; };
-    std::vector<std::reference_wrapper<Instruction>> flattened = flattenToPattern(composite, pattern, filter);
+    flattenFilterFn filter = [](const InstructionPoly&, const CompositeInstruction&, bool) { return true; };
+    std::vector<std::reference_wrapper<InstructionPoly>> flattened = composite.flattenToPattern(pattern, filter);
     EXPECT_EQ(flattened.size(),
               i_max * j_max + 4);  // Add 4 for the extra composite instructions that would be flattened
 
@@ -262,7 +265,7 @@ TEST(TesseractCommandLanguageUtilsUnit, flattenToPattern)  // NOLINT
     int num_composites = 0;
     for (std::size_t i = 0; i < flattened.size(); i++)
     {
-      if (isCompositeInstruction(flattened[i].get()))
+      if (flattened[i].get().isCompositeInstruction())
         num_composites++;
       flattened[i].get().setDescription("test_" + std::to_string(i));
     }
@@ -306,29 +309,29 @@ TEST(TesseractCommandLanguageUtilsUnit, isWithinJointLimits)  // NOLINT
   // Within limits
   {
     values << 1, 1, 1;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
+    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    WaypointPoly tmp(jp);
     EXPECT_TRUE(isWithinJointLimits(tmp, limits));
   }
   // Above limits
   {
     values << 1, 1, 3;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
+    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    WaypointPoly tmp(jp);
     EXPECT_FALSE(isWithinJointLimits(tmp, limits));
   }
   // Below limits
   {
     values << 1, -1, 1;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
+    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    WaypointPoly tmp(jp);
     EXPECT_FALSE(isWithinJointLimits(tmp, limits));
   }
   // Cartesian Waypoint
   {
-    CartesianWaypoint jp;
-    Waypoint tmp(jp);
-    EXPECT_TRUE(isWithinJointLimits(tmp, limits));
+    CartesianWaypointPoly jp{ CartesianWaypoint() };
+    WaypointPoly tmp(jp);
+    EXPECT_ANY_THROW(isWithinJointLimits(tmp, limits));  // NOLINT
   }
 }
 
@@ -342,60 +345,60 @@ TEST(TesseractCommandLanguageUtilsUnit, clampToJointLimits)  // NOLINT
   // Within limits
   {
     values << 1, 1, 1;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
+    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_TRUE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
   }
   // Above limits
   {
     values << 1, 1, 3;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
+    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_FALSE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(2, tmp.as<JointWaypoint>()[2]);
+    EXPECT_FALSE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(2, tmp.as<JointWaypointPoly>().getPosition()[2]);
   }
   // Below limits
   {
     values << 1, -1, 1;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
+    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    WaypointPoly tmp(jp);
     EXPECT_TRUE(clampToJointLimits(tmp, limits));
-    EXPECT_FALSE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(0, tmp.as<JointWaypoint>()[1]);
+    EXPECT_FALSE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(0, tmp.as<JointWaypointPoly>().getPosition()[1]);
   }
   // Above limits with max deviation
   {
     values << 1, 1, 2.05;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
+    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    WaypointPoly tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
-    EXPECT_TRUE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
     // Inside max deviation
     EXPECT_TRUE(clampToJointLimits(tmp, limits, 0.1));
-    EXPECT_FALSE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(2, tmp.as<JointWaypoint>()[2]);
+    EXPECT_FALSE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(2, tmp.as<JointWaypointPoly>().getPosition()[2]);
   }
   // Below limits with max deviation
   {
     values << 1, -0.05, 1;
-    JointWaypoint jp(joint_names, values);
-    Waypoint tmp(jp);
+    JointWaypointPoly jp{ JointWaypoint(joint_names, values) };
+    WaypointPoly tmp(jp);
     // Outside max deviation
     EXPECT_FALSE(clampToJointLimits(tmp, limits, 0.01));
-    EXPECT_TRUE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
+    EXPECT_TRUE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
     // Inside max deviation
     EXPECT_TRUE(clampToJointLimits(tmp, limits, 0.1));
-    EXPECT_FALSE(tmp.as<JointWaypoint>().isApprox(values, 1e-5));
-    EXPECT_DOUBLE_EQ(0, tmp.as<JointWaypoint>()[1]);
+    EXPECT_FALSE(tmp.as<JointWaypointPoly>().getPosition().isApprox(values, 1e-5));
+    EXPECT_DOUBLE_EQ(0, tmp.as<JointWaypointPoly>().getPosition()[1]);
   }
   // Type with no joint values
   {
-    CartesianWaypoint jp;
-    Waypoint tmp(jp);
-    EXPECT_TRUE(clampToJointLimits(tmp, limits));
+    CartesianWaypointPoly jp{ CartesianWaypoint() };
+    WaypointPoly tmp(jp);
+    EXPECT_ANY_THROW(clampToJointLimits(tmp, limits));  // NOLINT
   }
 }
 
@@ -409,11 +412,11 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
 
   for (std::size_t i = 0; i < i_max; i++)
   {
-    Waypoint wp = CartesianWaypoint(Eigen::Isometry3d::Identity());
+    CartesianWaypointPoly wp{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
     MoveInstruction instruction(wp, MoveInstructionType::LINEAR);
     instruction.setDescription("MoveInstruction");
     instruction.setProfile("CART_PROFILE");
-    composite.push_back(instruction);
+    composite.appendMoveInstruction(instruction);
   }
 
   // generateSkeletonSeed
@@ -434,15 +437,15 @@ TEST(TesseractCommandLanguageUtilsUnit, generateSkeletonSeed)  // NOLINT
   {
     const auto& skeleton_i = skeleton[i];
     const auto& composite_i = composite[i];
-    if (isMoveInstruction(composite_i))
+    if (composite_i.isMoveInstruction())
     {
-      ASSERT_TRUE(isCompositeInstruction(skeleton_i));
+      ASSERT_TRUE(skeleton_i.isCompositeInstruction());
       const auto& cast = skeleton_i.as<CompositeInstruction>();
 
-      EXPECT_EQ(cast.getProfile(), composite_i.as<MoveInstruction>().getProfile());
+      EXPECT_EQ(cast.getProfile(), composite_i.as<MoveInstructionPoly>().getProfile());
       EXPECT_EQ(cast.getOrder(), CompositeInstructionOrder::ORDERED);
       EXPECT_EQ(cast.getDescription(), "MoveInstruction");
-      EXPECT_EQ(cast.getManipulatorInfo(), composite_i.as<MoveInstruction>().getManipulatorInfo());
+      EXPECT_EQ(cast.getManipulatorInfo(), composite_i.as<MoveInstructionPoly>().getManipulatorInfo());
     }
     else
     {
@@ -458,11 +461,20 @@ TEST(TesseractCommandLanguageUtilsUnit, toDelimitedFile)  // NOLINT
 
   std::vector<std::string> joint_names = { "1", "2", "3" };
   Eigen::VectorXd values = Eigen::VectorXd::Constant(3, 5);
-  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
-  values = Eigen::VectorXd::Constant(3, 10);
-  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
-  values = Eigen::VectorXd::Constant(3, 15);
-  composite.push_back(MoveInstruction(JointWaypoint(joint_names, values), MoveInstructionType::FREESPACE));
+  {
+    JointWaypointPoly jwp{ JointWaypoint(joint_names, values) };
+    composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
+  }
+  {
+    values = Eigen::VectorXd::Constant(3, 10);
+    JointWaypointPoly jwp{ JointWaypoint(joint_names, values) };
+    composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
+  }
+  {
+    values = Eigen::VectorXd::Constant(3, 15);
+    JointWaypointPoly jwp{ JointWaypoint(joint_names, values) };
+    composite.appendMoveInstruction(MoveInstruction(jwp, MoveInstructionType::FREESPACE));
+  }
 
   std::string path = tesseract_common::getTempPath() + "to_delimited_file.csv";
   EXPECT_TRUE(toDelimitedFile(composite, path));

@@ -25,7 +25,6 @@
  */
 
 #include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_command_language/waypoint_type.h>
 #include <tesseract_common/utils.h>
 
 namespace tesseract_planning
@@ -34,8 +33,67 @@ StateWaypoint::StateWaypoint(std::vector<std::string> joint_names, const Eigen::
   : tesseract_common::JointState(std::move(joint_names), position)
 {
   if (static_cast<Eigen::Index>(this->joint_names.size()) != this->position.size())
-    throw std::runtime_error("StateWaypoint: joint_names is not the same size as position!");
+    throw std::runtime_error("StateWaypoint: parameters are not the same size!");
 }
+StateWaypoint::StateWaypoint(const std::vector<std::string>& names,
+                             const Eigen::VectorXd& position,
+                             const Eigen::VectorXd& velocity,
+                             const Eigen::VectorXd& acceleration,
+                             double time)
+{
+  this->joint_names = names;
+  this->position = position;
+  this->velocity = velocity;
+  this->acceleration = acceleration;
+  this->time = time;
+
+  if (static_cast<Eigen::Index>(joint_names.size()) != this->position.size() ||
+      this->position.size() != this->velocity.size() || this->position.size() != this->acceleration.size())
+    throw std::runtime_error("StateWaypoint: parameters are not the same size!");
+}
+
+StateWaypoint::StateWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position)
+  : StateWaypoint(names,
+                  Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())))
+{
+}
+
+StateWaypoint::StateWaypoint(std::initializer_list<std::string> names,
+                             std::initializer_list<double> position,
+                             std::initializer_list<double> velocity,
+                             std::initializer_list<double> acceleration,
+                             double time)
+  : StateWaypoint(
+        names,
+        Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
+        Eigen::Map<const Eigen::VectorXd>(velocity.begin(), static_cast<Eigen::Index>(velocity.size())),
+        Eigen::Map<const Eigen::VectorXd>(acceleration.begin(), static_cast<Eigen::Index>(acceleration.size())),
+        time)
+{
+}
+
+void StateWaypoint::setNames(const std::vector<std::string>& names) { joint_names = names; }
+std::vector<std::string>& StateWaypoint::getNames() { return joint_names; }
+const std::vector<std::string>& StateWaypoint::getNames() const { return joint_names; }
+
+void StateWaypoint::setPosition(const Eigen::VectorXd& position) { this->position = position; }
+Eigen::VectorXd& StateWaypoint::getPosition() { return position; }
+const Eigen::VectorXd& StateWaypoint::getPosition() const { return position; }
+
+void StateWaypoint::setVelocity(const Eigen::VectorXd& velocity) { this->velocity = velocity; }
+Eigen::VectorXd& StateWaypoint::getVelocity() { return velocity; }
+const Eigen::VectorXd& StateWaypoint::getVelocity() const { return velocity; }
+
+void StateWaypoint::setAcceleration(const Eigen::VectorXd& acceleration) { this->acceleration = acceleration; }
+Eigen::VectorXd& StateWaypoint::getAcceleration() { return acceleration; }
+const Eigen::VectorXd& StateWaypoint::getAcceleration() const { return acceleration; }
+
+void StateWaypoint::setEffort(const Eigen::VectorXd& effort) { this->effort = effort; }
+Eigen::VectorXd& StateWaypoint::getEffort() { return effort; }
+const Eigen::VectorXd& StateWaypoint::getEffort() const { return effort; }
+
+void StateWaypoint::setTime(double time) { this->time = time; }
+double StateWaypoint::getTime() const { return time; }
 
 void StateWaypoint::print(const std::string& prefix) const
 {
@@ -63,4 +121,4 @@ void StateWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StateWaypoint)
-TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint);
+TESSERACT_STATE_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::StateWaypoint);

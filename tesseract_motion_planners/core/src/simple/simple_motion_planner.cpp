@@ -34,9 +34,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
-#include <tesseract_command_language/command_language.h>
-#include <tesseract_command_language/utils/utils.h>
-#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/poly/waypoint_poly.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -103,23 +103,23 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
 
   // Initialize
   tesseract_kinematics::JointGroup::UPtr manip = request.env->getJointGroup(manipulator);
-  Waypoint start_waypoint{ NullWaypoint() };
+  WaypointPoly start_waypoint;
 
   // Create seed
   CompositeInstruction seed;
 
   // Get the start waypoint/instruction
-  MoveInstruction start_instruction = getStartInstruction(request, request.env_state, *manip);
+  MoveInstructionPoly start_instruction = getStartInstruction(request, request.env_state, *manip);
 
   // Set start instruction
-  MoveInstruction start_instruction_seed = start_instruction;
+  MoveInstructionPoly start_instruction_seed = start_instruction;
   start_instruction_seed.setMoveType(MoveInstructionType::START);
 
   // Process the instructions into the seed
   try
   {
-    MoveInstruction start_instruction_copy = start_instruction;
-    MoveInstruction start_instruction_seed_copy = start_instruction_seed;
+    MoveInstructionPoly start_instruction_copy = start_instruction;
+    MoveInstructionPoly start_instruction_seed_copy = start_instruction_seed;
     seed =
         processCompositeInstruction(request.instructions, start_instruction_copy, start_instruction_seed_copy, request);
   }
@@ -138,10 +138,10 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   response.results = seed;
 
   // Enforce limits
-  auto results_flattened = flatten(response.results, &moveFilter);
+  auto results_flattened = response.results.flatten(&moveFilter);
   for (auto& inst : results_flattened)
   {
-    auto& mi = inst.get().as<MoveInstruction>();
+    auto& mi = inst.get().as<MoveInstructionPoly>();
     Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
     assert(tesseract_common::satisfiesPositionLimits<double>(jp, manip->getLimits().joint_limits));
     tesseract_common::enforcePositionLimits<double>(jp, manip->getLimits().joint_limits);
@@ -153,63 +153,61 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   return response.status;
 }
 
-MoveInstruction SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
-                                                         const tesseract_scene_graph::SceneState& current_state,
-                                                         const tesseract_kinematics::JointGroup& manip)
+MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
+                                                             const tesseract_scene_graph::SceneState& current_state,
+                                                             const tesseract_kinematics::JointGroup& manip)
 {
   // Create start instruction
-  Waypoint start_waypoint{ NullWaypoint() };
-  MoveInstruction start_instruction_seed(start_waypoint, MoveInstructionType::START);
-
   if (request.instructions.hasStartInstruction())
   {
-    assert(isMoveInstruction(request.instructions.getStartInstruction()));
-    const auto& start_instruction = request.instructions.getStartInstruction().as<MoveInstruction>();
+    const auto& start_instruction = request.instructions.getStartInstruction();
     assert(start_instruction.isStart());
-    start_waypoint = start_instruction.getWaypoint();
+    const auto& start_waypoint = start_instruction.getWaypoint();
 
-    if (isJointWaypoint(start_waypoint))
+    MoveInstructionPoly start_instruction_seed(start_instruction);
+    if (start_waypoint.isJointWaypoint())
     {
       assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
-      const auto& jwp = start_waypoint.as<JointWaypoint>();
-      start_instruction_seed.setWaypoint(StateWaypoint(jwp.joint_names, jwp.waypoint));
+      const auto& jwp = start_waypoint.as<JointWaypointPoly>();
+      StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
+      swp.setNames(jwp.getNames());
+      swp.setPosition(jwp.getPosition());
+      start_instruction_seed.assignStateWaypoint(swp);
+      return start_instruction_seed;
     }
-    else if (isCartesianWaypoint(start_waypoint))
+
+    if (start_waypoint.isCartesianWaypoint())
     {
       /** @todo Update to run IK to find solution closest to start */
-      StateWaypoint temp(manip.getJointNames(), current_state.getJointValues(manip.getJointNames()));
-      start_waypoint = temp;
-
-      start_instruction_seed.setWaypoint(start_waypoint);
+      StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
+      swp.setNames(manip.getJointNames());
+      swp.setPosition(current_state.getJointValues(manip.getJointNames()));
+      start_instruction_seed.assignStateWaypoint(swp);
+      return start_instruction_seed;
     }
-    else if (isStateWaypoint(start_waypoint))
+
+    if (start_waypoint.isStateWaypoint())
     {
       assert(checkJointPositionFormat(manip.getJointNames(), start_waypoint));
-      start_instruction_seed.setWaypoint(start_waypoint);
+      return start_instruction_seed;
     }
-    else
-    {
-      throw std::runtime_error("Unsupported waypoint type!");
-    }
-    start_instruction_seed.setDescription(start_instruction.getDescription());
-    start_instruction_seed.setProfile(start_instruction.getProfile());
-    start_instruction_seed.profile_overrides = start_instruction.profile_overrides;
-    start_instruction_seed.setManipulatorInfo(start_instruction.getManipulatorInfo());
-  }
-  else
-  {
-    StateWaypoint temp(manip.getJointNames(), current_state.getJointValues(manip.getJointNames()));
-    start_waypoint = temp;
 
-    start_instruction_seed.setWaypoint(start_waypoint);
+    throw std::runtime_error("Unsupported waypoint type!");
   }
+
+  MoveInstructionPoly start_instruction_seed(*request.instructions.getFirstMoveInstruction());
+  start_instruction_seed.setMoveType(MoveInstructionType::START);
+  StateWaypointPoly swp = start_instruction_seed.createStateWaypoint();
+  swp.setNames(manip.getJointNames());
+  swp.setPosition(current_state.getJointValues(manip.getJointNames()));
+  start_instruction_seed.assignStateWaypoint(swp);
 
   return start_instruction_seed;
 }
 
 CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
-                                                                      MoveInstruction& prev_instruction,
-                                                                      MoveInstruction& prev_seed,
+                                                                      MoveInstructionPoly& prev_instruction,
+                                                                      MoveInstructionPoly& prev_seed,
                                                                       const PlannerRequest& request) const
 {
   CompositeInstruction seed(instructions);
@@ -219,20 +217,20 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
   {
     const auto& instruction = instructions[i];
 
-    if (isCompositeInstruction(instruction))
+    if (instruction.isCompositeInstruction())
     {
-      seed.push_back(
+      seed.appendInstruction(
           processCompositeInstruction(instruction.as<CompositeInstruction>(), prev_instruction, prev_seed, request));
     }
-    else if (isMoveInstruction(instruction))
+    else if (instruction.isMoveInstruction())
     {
-      const auto& base_instruction = instruction.as<MoveInstruction>();
+      const auto& base_instruction = instruction.as<MoveInstructionPoly>();
 
       // Get the next plan instruction if it exists
-      Instruction next_instruction = NullInstruction();
+      InstructionPoly next_instruction;
       for (std::size_t n = i + 1; n < instructions.size(); ++n)
       {
-        if (isMoveInstruction(instructions[n]))
+        if (instructions[n].isMoveInstruction())
         {
           next_instruction = instructions[n];
           break;
@@ -246,7 +244,8 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
         std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerPlanProfile>(
             name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.profile_overrides);
+        //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
+        //        base_instruction.profile_overrides);
       }
       else
       {
@@ -254,7 +253,8 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
             getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerPlanProfile>(
             name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.profile_overrides);
+        //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
+        //        base_instruction.profile_overrides);
       }
 
       if (!plan_profile)
@@ -266,14 +266,14 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
                                                                      next_instruction,
                                                                      request,
                                                                      request.instructions.getManipulatorInfo());
-      seed.push_back(instruction_seed);
+      seed.appendInstruction(instruction_seed);
 
       prev_instruction = base_instruction;
-      prev_seed = instruction_seed.back().as<MoveInstruction>();
+      prev_seed = instruction_seed.back().as<MoveInstructionPoly>();
     }
     else
     {
-      seed.push_back(instruction);
+      seed.appendInstruction(instruction);
     }
   }  // for (const auto& instruction : instructions)
   return seed;

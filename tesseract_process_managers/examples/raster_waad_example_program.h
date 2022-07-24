@@ -28,11 +28,16 @@
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/composite_instruction.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/cartesian_waypoint.h>
+#include <tesseract_command_language/joint_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+using tesseract_common::ManipulatorInfo;
 /** @brief Create an example raster program with approach and departure */
 inline CompositeInstruction rasterWAADExampleProgram(const std::string& freespace_profile = DEFAULT_PROFILE_KEY,
                                                      const std::string& approach_profile = "APPROACH",
@@ -44,45 +49,45 @@ inline CompositeInstruction rasterWAADExampleProgram(const std::string& freespac
 
   // Start Joint Position for the program
   std::vector<std::string> joint_names = { "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6" };
-  StateWaypoint swp1 = StateWaypoint(joint_names, Eigen::VectorXd::Zero(6));
+  StateWaypointPoly swp1{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
   MoveInstruction start_instruction(swp1, MoveInstructionType::START);
   program.setStartInstruction(start_instruction);
 
-  Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.85) *
-                                   Eigen::Quaterniond(0, 0, -1.0, 0));
+  CartesianWaypointPoly wp1{ CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8, -0.3, 0.85) *
+                                               Eigen::Quaterniond(0, 0, -1.0, 0)) };
 
   // Define from start composite instruction
   MoveInstruction plan_f0(wp1, MoveInstructionType::FREESPACE, freespace_profile);
   plan_f0.setDescription("from_start_plan");
   CompositeInstruction from_start(freespace_profile);
   from_start.setDescription("from_start");
-  from_start.push_back(plan_f0);
-  program.push_back(from_start);
+  from_start.appendMoveInstruction(plan_f0);
+  program.appendInstruction(from_start);
 
   //
   for (int i = 0; i < 4; ++i)
   {
     double x = 0.8 + (i * 0.1);
-    Waypoint wpa = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.85) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wpa = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.85) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
 
-    Waypoint wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
-    Waypoint wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp1 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.3, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp2 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.2, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp3 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, -0.1, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp4 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.0, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp5 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.1, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp6 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.2, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wp7 = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.8) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
 
-    Waypoint wpd = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.85) *
-                                     Eigen::Quaterniond(0, 0, -1.0, 0));
+    CartesianWaypointPoly wpd = CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(x, 0.3, 0.85) *
+                                                  Eigen::Quaterniond(0, 0, -1.0, 0));
 
     CompositeInstruction approach_segment(approach_profile);
     CompositeInstruction process_segment(process_profile);
@@ -93,45 +98,45 @@ inline CompositeInstruction rasterWAADExampleProgram(const std::string& freespac
     if (i == 0 || i == 2)
     {
       // Approach
-      approach_segment.push_back(MoveInstruction(wp1, MoveInstructionType::LINEAR, approach_profile));
+      approach_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, approach_profile));
 
       // Process
-      process_segment.push_back(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp7, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp7, MoveInstructionType::LINEAR, process_profile));
 
       // Departure
-      departure_segment.push_back(MoveInstruction(wpd, MoveInstructionType::LINEAR, departure_profile));
+      departure_segment.appendMoveInstruction(MoveInstruction(wpd, MoveInstructionType::LINEAR, departure_profile));
     }
     else
     {
       // Approach
-      approach_segment.push_back(MoveInstruction(wp7, MoveInstructionType::LINEAR, approach_profile));
+      approach_segment.appendMoveInstruction(MoveInstruction(wp7, MoveInstructionType::LINEAR, approach_profile));
 
-      process_segment.push_back(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
-      process_segment.push_back(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp6, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp5, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp4, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp3, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp2, MoveInstructionType::LINEAR, process_profile));
+      process_segment.appendMoveInstruction(MoveInstruction(wp1, MoveInstructionType::LINEAR, process_profile));
 
       // Departure
-      departure_segment.push_back(MoveInstruction(wpa, MoveInstructionType::LINEAR, departure_profile));
+      departure_segment.appendMoveInstruction(MoveInstruction(wpa, MoveInstructionType::LINEAR, departure_profile));
     }
 
     CompositeInstruction raster_segment;
-    raster_segment.push_back(approach_segment);
-    raster_segment.push_back(process_segment);
-    raster_segment.push_back(departure_segment);
-    program.push_back(raster_segment);
+    raster_segment.appendInstruction(approach_segment);
+    raster_segment.appendInstruction(process_segment);
+    raster_segment.appendInstruction(departure_segment);
+    program.appendInstruction(raster_segment);
 
     // Add transition
     if (i == 0 || i == 2)
     {
-      Waypoint wp7 =
+      CartesianWaypointPoly wp7 =
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), 0.3, 0.85) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
@@ -140,12 +145,12 @@ inline CompositeInstruction rasterWAADExampleProgram(const std::string& freespac
 
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("transition_from_end");
-      transition.push_back(plan_f1);
-      program.push_back(transition);
+      transition.appendMoveInstruction(plan_f1);
+      program.appendInstruction(transition);
     }
     else if (i == 1)
     {
-      Waypoint wp1 =
+      CartesianWaypointPoly wp1 =
           CartesianWaypoint(Eigen::Isometry3d::Identity() * Eigen::Translation3d(0.8 + ((i + 1) * 0.1), -0.3, 0.85) *
                             Eigen::Quaterniond(0, 0, -1.0, 0));
 
@@ -154,8 +159,8 @@ inline CompositeInstruction rasterWAADExampleProgram(const std::string& freespac
 
       CompositeInstruction transition(freespace_profile);
       transition.setDescription("transition_from_end");
-      transition.push_back(plan_f1);
-      program.push_back(transition);
+      transition.appendMoveInstruction(plan_f1);
+      program.appendInstruction(transition);
     }
   }
 
@@ -163,8 +168,8 @@ inline CompositeInstruction rasterWAADExampleProgram(const std::string& freespac
   plan_f2.setDescription("to_end_plan");
   CompositeInstruction to_end(freespace_profile);
   to_end.setDescription("to_end");
-  to_end.push_back(plan_f2);
-  program.push_back(to_end);
+  to_end.appendMoveInstruction(plan_f2);
+  program.appendInstruction(to_end);
 
   return program;
 }

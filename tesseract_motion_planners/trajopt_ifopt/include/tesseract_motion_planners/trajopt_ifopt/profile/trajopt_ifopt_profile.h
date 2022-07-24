@@ -33,12 +33,11 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <ifopt/problem.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_common/manipulator_info.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_problem.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
-#include <tesseract_command_language/types.h>
 
 namespace tesseract_planning
 {
@@ -56,16 +55,16 @@ public:
   TrajOptIfoptPlanProfile& operator=(TrajOptIfoptPlanProfile&&) = default;
 
   virtual void apply(TrajOptIfoptProblem& problem,
-                     const CartesianWaypoint& cartesian_waypoint,
-                     const Instruction& parent_instruction,
-                     const ManipulatorInfo& manip_info,
+                     const CartesianWaypointPoly& cartesian_waypoint,
+                     const InstructionPoly& parent_instruction,
+                     const tesseract_common::ManipulatorInfo& manip_info,
                      const std::vector<std::string>& active_links,
                      int index) const = 0;
 
   virtual void apply(TrajOptIfoptProblem& problem,
-                     const JointWaypoint& joint_waypoint,
-                     const Instruction& parent_instruction,
-                     const ManipulatorInfo& manip_info,
+                     const JointWaypointPoly& joint_waypoint,
+                     const InstructionPoly& parent_instruction,
+                     const tesseract_common::ManipulatorInfo& manip_info,
                      const std::vector<std::string>& active_links,
                      int index) const = 0;
 
@@ -88,7 +87,7 @@ public:
   virtual void apply(TrajOptIfoptProblem& problem,
                      int start_index,
                      int end_index,
-                     const ManipulatorInfo& manip_info,
+                     const tesseract_common::ManipulatorInfo& manip_info,
                      const std::vector<std::string>& active_links,
                      const std::vector<int>& fixed_indices) const = 0;
 

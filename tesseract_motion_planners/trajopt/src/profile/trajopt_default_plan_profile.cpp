@@ -32,8 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/trajopt/trajopt_utils.h>
 #include <tesseract_motion_planners/trajopt/profile/trajopt_default_plan_profile.h>
 
-#include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/instruction_type.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 namespace tesseract_planning
 {
@@ -103,16 +102,16 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
   }
 }
 void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
-                                      const CartesianWaypoint& cartesian_waypoint,
-                                      const Instruction& parent_instruction,
-                                      const ManipulatorInfo& manip_info,
+                                      const CartesianWaypointPoly& cartesian_waypoint,
+                                      const InstructionPoly& parent_instruction,
+                                      const tesseract_common::ManipulatorInfo& manip_info,
                                       const std::vector<std::string>& active_links,
                                       int index) const
 {
-  assert(isMoveInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
+  assert(parent_instruction.isMoveInstruction());
+  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
   if (mi.manipulator.empty())
     throw std::runtime_error("TrajOptPlanProfile, manipulator is empty!");
@@ -139,13 +138,23 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
 
   if ((is_static_working_frame && is_active_tcp_frame) || (!is_active_tcp_frame && !is_static_working_frame))
   {
-    ti = createCartesianWaypointTermInfo(
-        index, mi.working_frame, cartesian_waypoint, mi.tcp_frame, tcp_offset, cartesian_coeff, term_type);
+    ti = createCartesianWaypointTermInfo(index,
+                                         mi.working_frame,
+                                         cartesian_waypoint.getTransform(),
+                                         mi.tcp_frame,
+                                         tcp_offset,
+                                         cartesian_coeff,
+                                         term_type);
   }
   else if (!is_static_working_frame && is_active_tcp_frame)
   {
-    ti = createDynamicCartesianWaypointTermInfo(
-        index, mi.working_frame, cartesian_waypoint, mi.tcp_frame, tcp_offset, cartesian_coeff, term_type);
+    ti = createDynamicCartesianWaypointTermInfo(index,
+                                                mi.working_frame,
+                                                cartesian_waypoint.getTransform(),
+                                                mi.tcp_frame,
+                                                tcp_offset,
+                                                cartesian_coeff,
+                                                term_type);
   }
   else
   {
@@ -162,18 +171,22 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
 }
 
 void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
-                                      const JointWaypoint& joint_waypoint,
-                                      const Instruction& /*parent_instruction*/,
-                                      const ManipulatorInfo& /*manip_info*/,
+                                      const JointWaypointPoly& joint_waypoint,
+                                      const InstructionPoly& /*parent_instruction*/,
+                                      const tesseract_common::ManipulatorInfo& /*manip_info*/,
                                       const std::vector<std::string>& /*active_links*/,
                                       int index) const
 {
   trajopt::TermInfo::Ptr ti;
   if (joint_waypoint.isToleranced())
-    ti = createTolerancedJointWaypointTermInfo(
-        joint_waypoint, joint_waypoint.lower_tolerance, joint_waypoint.upper_tolerance, index, joint_coeff, term_type);
+    ti = createTolerancedJointWaypointTermInfo(joint_waypoint.getPosition(),
+                                               joint_waypoint.getLowerTolerance(),
+                                               joint_waypoint.getUpperTolerance(),
+                                               index,
+                                               joint_coeff,
+                                               term_type);
   else
-    ti = createJointWaypointTermInfo(joint_waypoint, index, joint_coeff, term_type);
+    ti = createJointWaypointTermInfo(joint_waypoint.getPosition(), index, joint_coeff, term_type);
 
   if (term_type == trajopt::TermType::TT_CNT)
     pci.cnt_infos.push_back(ti);

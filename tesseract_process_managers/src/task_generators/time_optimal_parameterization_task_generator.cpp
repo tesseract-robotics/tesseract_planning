@@ -36,10 +36,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_generators/time_optimal_parameterization_task_generator.h>
 #include <tesseract_process_managers/task_profiles/time_optimal_parameterization_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
-#include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/utils/filter_functions.h>
-#include <tesseract_command_language/utils/flatten_utils.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
 #include <tesseract_time_parameterization/utils.h>
 
@@ -64,8 +62,8 @@ int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input
   // --------------------
   // Check that inputs are valid
   // --------------------
-  Instruction* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  InstructionPoly* input_results = input.getResults();
+  if (!input_results->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("Input results to TOTG must be a composite instruction");
     saveOutputs(*info, input);
@@ -75,7 +73,7 @@ int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input
   }
 
   auto& ci = input_results->as<CompositeInstruction>();
-  const ManipulatorInfo& manip_info = ci.getManipulatorInfo();
+  const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   auto joint_group = input.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
 
@@ -87,7 +85,7 @@ int TimeOptimalParameterizationTaskGenerator::conditionalProcess(TaskInput input
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   // Create data structures for checking for plan profile overrides
-  auto flattened = flatten(ci, moveFilter);
+  auto flattened = ci.flatten(moveFilter);
   if (flattened.empty())
   {
     CONSOLE_BRIDGE_logWarn("TOTG found no MoveInstructions to process");
@@ -199,7 +197,7 @@ CompositeInstruction TimeOptimalParameterizationTaskGenerator::unflatten(const C
     instr.as<CompositeInstruction>().clear();
 
   Eigen::VectorXd last_pt_in_input =
-      getJointPosition(pattern.at(0).as<CompositeInstruction>().back().as<MoveInstruction>().getWaypoint());
+      getJointPosition(pattern.at(0).as<CompositeInstruction>().back().as<MoveInstructionPoly>().getWaypoint());
 
   double error = 0;
   double prev_error = 1;
@@ -210,11 +208,11 @@ CompositeInstruction TimeOptimalParameterizationTaskGenerator::unflatten(const C
   for (std::size_t resample_idx = 0, original_idx = 0; resample_idx < flattened_input.size(); resample_idx++)
   {
     // If all joints are within the tolerance, then this point hopefully corresponds
-    if (isMoveInstruction(flattened_input.at(resample_idx)))
+    if (flattened_input.at(resample_idx).isMoveInstruction())
     {
       // Get the current position to see if we should increment original_idx
       const Eigen::VectorXd& current_pt =
-          getJointPosition(flattened_input.at(resample_idx).as<MoveInstruction>().getWaypoint());
+          getJointPosition(flattened_input.at(resample_idx).as<MoveInstructionPoly>().getWaypoint());
       error = (last_pt_in_input - current_pt).cwiseAbs().maxCoeff();
 
       // Check if we've hit the tolerance and if the error is still decreasing
@@ -234,7 +232,7 @@ CompositeInstruction TimeOptimalParameterizationTaskGenerator::unflatten(const C
         if (original_idx < pattern.size() - 1)  // Keep from incrementing too far at the end of the last composite
           original_idx++;
         last_pt_in_input = getJointPosition(
-            pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstruction>().getWaypoint());
+            pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstructionPoly>().getWaypoint());
 
         hit_tolerance = false;
         error_increasing = false;
@@ -242,15 +240,15 @@ CompositeInstruction TimeOptimalParameterizationTaskGenerator::unflatten(const C
     }
 
     // Add flattened point to the subcomposite
-    unflattened[original_idx].as<CompositeInstruction>().push_back(flattened_input.at(resample_idx));
+    unflattened[original_idx].as<CompositeInstruction>().appendInstruction(flattened_input.at(resample_idx));
 
     // Correct the meta information, taking information from the last element of each composite in the original
-    if (isMoveInstruction(unflattened[original_idx].as<CompositeInstruction>().back()))
+    if (unflattened[original_idx].as<CompositeInstruction>().back().isMoveInstruction())
     {
-      const auto& pattern_instr = pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstruction>();
-      unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstruction>().setMoveType(
+      const auto& pattern_instr = pattern.at(original_idx).as<CompositeInstruction>().back().as<MoveInstructionPoly>();
+      unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstructionPoly>().setMoveType(
           static_cast<MoveInstructionType>(pattern_instr.getMoveType()));
-      unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstruction>().setProfile(
+      unflattened[original_idx].as<CompositeInstruction>().back().as<MoveInstructionPoly>().setProfile(
           pattern_instr.getProfile());
     }
   }

@@ -57,8 +57,8 @@ int DiscreteContactCheckTaskGenerator::conditionalProcess(TaskInput input, std::
   // --------------------
   // Check that inputs are valid
   // --------------------
-  Instruction* input_result = input.getResults();
-  if (!isCompositeInstruction(*input_result))
+  InstructionPoly* input_result = input.getResults();
+  if (!input_result->isCompositeInstruction())
   {
     info->message = "Input seed to DiscreteContactCheckTaskGenerator must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());

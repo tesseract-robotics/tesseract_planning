@@ -32,9 +32,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/core/utils.h>
 #include <tesseract_process_managers/task_generators/upsample_trajectory_task_generator.h>
 #include <tesseract_process_managers/task_profiles/upsample_trajectory_profile.h>
+
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
-#include <tesseract_command_language/utils/get_instruction_utils.h>
 
 namespace tesseract_planning
 {
@@ -52,8 +52,8 @@ int UpsampleTrajectoryTaskGenerator::conditionalProcess(TaskInput input, std::si
   saveInputs(*info, input);
 
   // Check that inputs are valid
-  Instruction* input_results = input.getResults();
-  if (!isCompositeInstruction(*input_results))
+  InstructionPoly* input_results = input.getResults();
+  if (!input_results->isCompositeInstruction())
   {
     CONSOLE_BRIDGE_logError("Input seed to UpsampleTrajectoryTaskGenerator must be a composite instruction");
     saveOutputs(*info, input);
@@ -72,7 +72,7 @@ int UpsampleTrajectoryTaskGenerator::conditionalProcess(TaskInput input, std::si
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
   auto& results = input_results->as<CompositeInstruction>();
-  Instruction start_instruction = results.getStartInstruction();
+  InstructionPoly start_instruction = results.getStartInstruction();
   CompositeInstruction new_results(results);
   new_results.clear();
 
@@ -93,60 +93,60 @@ void UpsampleTrajectoryTaskGenerator::process(TaskInput input, std::size_t uniqu
 
 void UpsampleTrajectoryTaskGenerator::upsample(CompositeInstruction& composite,
                                                const CompositeInstruction& current_composite,
-                                               Instruction& start_instruction,
+                                               InstructionPoly& start_instruction,
                                                double longest_valid_segment_length) const
 {
-  for (const Instruction& i : current_composite)
+  for (const InstructionPoly& i : current_composite)
   {
-    assert(!isMoveInstruction(i));
-    if (isCompositeInstruction(i))
+    assert(!i.isMoveInstruction());
+    if (i.isCompositeInstruction())
     {
       const auto& cc = i.as<CompositeInstruction>();
       CompositeInstruction new_cc(cc);
       new_cc.clear();
 
       upsample(new_cc, cc, start_instruction, longest_valid_segment_length);
-      composite.push_back(new_cc);
+      composite.appendInstruction(new_cc);
     }
-    else if (isMoveInstruction(i))
+    else if (i.isMoveInstruction())
     {
-      assert(isMoveInstruction(start_instruction));
-      const auto& mi0 = start_instruction.as<MoveInstruction>();
-      const auto& mi1 = i.as<MoveInstruction>();
+      assert(start_instruction.isMoveInstruction());
+      const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
+      const auto& mi1 = i.as<MoveInstructionPoly>();
 
-      assert(isStateWaypoint(mi0.getWaypoint()));
-      assert(isStateWaypoint(mi1.getWaypoint()));
-      const auto& swp0 = mi0.getWaypoint().as<StateWaypoint>();
-      const auto& swp1 = mi1.getWaypoint().as<StateWaypoint>();
+      assert(mi0.getWaypoint().isStateWaypoint());
+      assert(mi1.getWaypoint().isStateWaypoint());
+      const auto& swp0 = mi0.getWaypoint().as<StateWaypointPoly>();
+      const auto& swp1 = mi1.getWaypoint().as<StateWaypointPoly>();
 
-      double dist = (swp1.position - swp0.position).norm();
+      double dist = (swp1.getPosition() - swp0.getPosition()).norm();
       if (dist > longest_valid_segment_length)
       {
         long cnt = static_cast<long>(std::ceil(dist / longest_valid_segment_length)) + 1;
 
         // Linearly interpolate in joint space
-        Eigen::MatrixXd states = interpolate(swp0.position, swp1.position, cnt);
+        Eigen::MatrixXd states = interpolate(swp0.getPosition(), swp1.getPosition(), cnt);
 
         // Since this is filling out a new composite instruction and the start is the previous
         // instruction it is excluded when populated the composite instruction.
         for (long i = 1; i < states.cols(); ++i)
         {
-          MoveInstruction move_instruction(mi1);
-          move_instruction.getWaypoint().as<StateWaypoint>().position = states.col(i);
-          composite.push_back(move_instruction);
+          MoveInstructionPoly move_instruction(mi1);
+          move_instruction.getWaypoint().as<StateWaypointPoly>().setPosition(states.col(i));
+          composite.appendMoveInstruction(move_instruction);
         }
       }
       else
       {
-        composite.push_back(i);
+        composite.appendInstruction(i);
       }
 
       start_instruction = i;
     }
     else
     {
-      assert(!isMoveInstruction(i));
-      composite.push_back(i);
+      assert(!i.isMoveInstruction());
+      composite.appendInstruction(i);
     }
   }
 }

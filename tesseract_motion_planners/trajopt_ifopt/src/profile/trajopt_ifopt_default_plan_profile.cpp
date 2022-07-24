@@ -27,8 +27,7 @@
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_plan_profile.h>
 
-#include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/instruction_type.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 #include <trajopt_ifopt/trajopt_ifopt.h>
 #include <trajopt_ifopt/utils/ifopt_utils.h>
@@ -36,16 +35,16 @@
 namespace tesseract_planning
 {
 void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
-                                           const CartesianWaypoint& cartesian_waypoint,
-                                           const Instruction& parent_instruction,
-                                           const ManipulatorInfo& manip_info,
+                                           const CartesianWaypointPoly& cartesian_waypoint,
+                                           const InstructionPoly& parent_instruction,
+                                           const tesseract_common::ManipulatorInfo& manip_info,
                                            const std::vector<std::string>& active_links,
                                            int index) const
 {
-  assert(isMoveInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
+  assert(parent_instruction.isMoveInstruction());
+  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
   if (manip_info.manipulator.empty())
     throw std::runtime_error("TrajOptIfoptDefaultPlanProfile, manipulator is empty!");
@@ -81,7 +80,7 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                        mi.tcp_frame,
                                        mi.working_frame,
                                        tcp_offset,
-                                       cartesian_waypoint,
+                                       cartesian_waypoint.getTransform(),
                                        cartesian_coeff);
         break;
       case TrajOptIfoptTermType::SQUARED_COST:
@@ -91,7 +90,7 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                         mi.tcp_frame,
                                         mi.working_frame,
                                         tcp_offset,
-                                        cartesian_waypoint,
+                                        cartesian_waypoint.getTransform(),
                                         cartesian_coeff);
         break;
       case TrajOptIfoptTermType::ABSOLUTE_COST:
@@ -101,7 +100,7 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
                                          mi.tcp_frame,
                                          mi.working_frame,
                                          tcp_offset,
-                                         cartesian_waypoint,
+                                         cartesian_waypoint.getTransform(),
                                          cartesian_coeff);
         break;
     }
@@ -117,9 +116,9 @@ void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
 }
 
 void TrajOptIfoptDefaultPlanProfile::apply(TrajOptIfoptProblem& problem,
-                                           const JointWaypoint& joint_waypoint,
-                                           const Instruction& /*parent_instruction*/,
-                                           const ManipulatorInfo& /*manip_info*/,
+                                           const JointWaypointPoly& joint_waypoint,
+                                           const InstructionPoly& /*parent_instruction*/,
+                                           const tesseract_common::ManipulatorInfo& /*manip_info*/,
                                            const std::vector<std::string>& /*active_links*/,
                                            int index) const
 {

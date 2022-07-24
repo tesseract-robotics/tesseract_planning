@@ -6,7 +6,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
 #include <tesseract_process_managers/task_generators/fix_state_collision_task_generator.h>
-#include <tesseract_command_language/utils/utils.h>
+#include <tesseract_command_language/utils.h>
 #include <tesseract_command_language/joint_waypoint.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_support/tesseract_support_resource_locator.h>
@@ -42,8 +42,8 @@ protected:
 TEST_F(FixStateCollisionTaskGeneratorUnit, StateInCollisionTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
-  const Instruction program_instruction{ program };
-  Instruction seed = generateSkeletonSeed(program);
+  const InstructionPoly program_instruction{ program };
+  InstructionPoly seed = generateSkeletonSeed(program);
   TaskInput input(env_, &program_instruction, manip_, &seed, false, nullptr);
 
   FixStateCollisionProfile profile;
@@ -81,34 +81,34 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, StateInCollisionTest)  // NOLINT
 TEST_F(FixStateCollisionTaskGeneratorUnit, WaypointInCollisionTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
-  const Instruction program_instruction{ program };
-  Instruction seed = generateSkeletonSeed(program);
+  const InstructionPoly program_instruction{ program };
+  InstructionPoly seed = generateSkeletonSeed(program);
   TaskInput input(env_, &program_instruction, manip_, &seed, false, nullptr);
 
   FixStateCollisionProfile profile;
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
-  JointWaypoint waypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state);
+  JointWaypointPoly waypoint{ JointWaypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state) };
   tesseract_collision::ContactResultMap contacts;
 
   EXPECT_TRUE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_FALSE(contacts.empty());
 
-  waypoint[0] = 1.5;
+  waypoint.getPosition()[0] = 1.5;
   contacts.clear();
   EXPECT_FALSE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 
-  waypoint[0] = 0.0;
-  waypoint[1] = 1.5;
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.5;
   contacts.clear();
   EXPECT_FALSE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_TRUE(contacts.empty());
 
   // Check that the safety margin is obeyed
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
-  waypoint[0] = 0.0;
-  waypoint[1] = 1.05;
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.05;
   contacts.clear();
   EXPECT_TRUE(waypointInCollision(waypoint, input, profile, contacts));
   EXPECT_FALSE(contacts.empty());
@@ -128,21 +128,21 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, WaypointInCollisionTest)  // NOLINT
 TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionRandomSamplerTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
-  const Instruction program_instruction{ program };
-  Instruction seed = generateSkeletonSeed(program);
+  const InstructionPoly program_instruction{ program };
+  InstructionPoly seed = generateSkeletonSeed(program);
   TaskInput input(env_, &program_instruction, manip_, &seed, false, nullptr);
 
   FixStateCollisionProfile profile;
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
-  JointWaypoint waypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state);
+  JointWaypointPoly waypoint{ JointWaypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state) };
 
   // Check that the safety margin is obeyed
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
   profile.jiggle_factor = 1.0;
-  waypoint[0] = 0.0;
-  waypoint[1] = 1.09;
-  Waypoint wp(waypoint);
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.09;
+  WaypointPoly wp(waypoint);
   tesseract_collision::ContactResultMap contacts;
 
   // Attempts are 0, so it should still be in collision
@@ -160,21 +160,21 @@ TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionRandomSample
 TEST_F(FixStateCollisionTaskGeneratorUnit, MoveWaypointFromCollisionTrajoptTest)  // NOLINT
 {
   CompositeInstruction program = freespaceExampleProgramABB();
-  const Instruction program_instruction{ program };
-  Instruction seed = generateSkeletonSeed(program);
+  const InstructionPoly program_instruction{ program };
+  InstructionPoly seed = generateSkeletonSeed(program);
   TaskInput input(env_, &program_instruction, manip_, &seed, false, nullptr);
 
   FixStateCollisionProfile profile;
 
   Eigen::VectorXd state = Eigen::VectorXd::Zero(2);
-  JointWaypoint waypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state);
+  JointWaypointPoly waypoint{ JointWaypoint({ "boxbot_x_joint", "boxbot_y_joint" }, state) };
 
   // Check that the safety margin is obeyed
   profile.collision_check_config.contact_manager_config = tesseract_collision::ContactManagerConfig(0.1);
   profile.jiggle_factor = 1.0;
-  waypoint[0] = 0.0;
-  waypoint[1] = 1.09;
-  Waypoint wp(waypoint);
+  waypoint.getPosition()[0] = 0.0;
+  waypoint.getPosition()[1] = 1.09;
+  WaypointPoly wp(waypoint);
   tesseract_collision::ContactResultMap contacts;
 
   EXPECT_TRUE(waypointInCollision(wp, input, profile, contacts));

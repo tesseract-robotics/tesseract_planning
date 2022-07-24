@@ -26,9 +26,7 @@
 #ifndef TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_PLAN_PROFILE_HPP
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_IMPL_DESCARTES_DEFAULT_PLAN_PROFILE_HPP
 
-#include <tesseract_command_language/move_instruction.h>
-#include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/waypoint_type.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
 #include <tesseract_motion_planners/descartes/descartes_robot_sampler.h>
@@ -165,14 +163,14 @@ DescartesDefaultPlanProfile<FloatType>::DescartesDefaultPlanProfile(const tinyxm
 template <typename FloatType>
 void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& prob,
                                                    const Eigen::Isometry3d& cartesian_waypoint,
-                                                   const Instruction& parent_instruction,
-                                                   const ManipulatorInfo& manip_info,
+                                                   const InstructionPoly& parent_instruction,
+                                                   const tesseract_common::ManipulatorInfo& manip_info,
                                                    int index) const
 {
-  assert(isMoveInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
+  assert(parent_instruction.isMoveInstruction());
+  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
   if (mi.manipulator.empty())
     throw std::runtime_error("Descartes, manipulator is empty!");
@@ -266,8 +264,8 @@ void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& 
 template <typename FloatType>
 void DescartesDefaultPlanProfile<FloatType>::apply(DescartesProblem<FloatType>& prob,
                                                    const Eigen::VectorXd& joint_waypoint,
-                                                   const Instruction& /*parent_instruction*/,
-                                                   const ManipulatorInfo& /*manip_info*/,
+                                                   const InstructionPoly& /*parent_instruction*/,
+                                                   const tesseract_common::ManipulatorInfo& /*manip_info*/,
                                                    int index) const
 {
   auto state = std::make_shared<descartes_light::State<FloatType>>(joint_waypoint.cast<FloatType>());

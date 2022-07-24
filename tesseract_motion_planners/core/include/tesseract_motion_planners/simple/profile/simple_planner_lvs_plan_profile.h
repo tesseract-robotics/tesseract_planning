@@ -56,12 +56,12 @@ public:
                               double rotation_longest_valid_segment_length = 5 * M_PI / 180,
                               int min_steps = 1);
 
-  CompositeInstruction generate(const MoveInstruction& prev_instruction,
-                                const MoveInstruction& prev_seed,
-                                const MoveInstruction& base_instruction,
-                                const Instruction& next_instruction,
+  CompositeInstruction generate(const MoveInstructionPoly& prev_instruction,
+                                const MoveInstructionPoly& prev_seed,
+                                const MoveInstructionPoly& base_instruction,
+                                const InstructionPoly& next_instruction,
                                 const PlannerRequest& request,
-                                const ManipulatorInfo& global_manip_info) const override;
+                                const tesseract_common::ManipulatorInfo& global_manip_info) const override;
 
   /** @brief The maximum joint distance, the norm of changes to all joint positions between successive steps. */
   double state_longest_valid_segment_length;

@@ -1,5 +1,5 @@
 /**
- * @file waypoint.h
+ * @file instruction.h
  * @brief
  *
  * @author Levi Armstrong
@@ -23,29 +23,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_COMMAND_LANGUAGE_WAYPOINT_H
-#define TESSERACT_COMMAND_LANGUAGE_WAYPOINT_H
+#ifndef TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H
+#define TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-#include <memory>
 #include <string>
-#include <typeindex>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/concept_check.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
+#include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_common/serialization.h>
 #include <tesseract_common/type_erasure.h>
 
 /** @brief If shared library, this must go in the header after the class definition */
-#define TESSERACT_WAYPOINT_EXPORT_KEY(N, C)                                                                            \
+#define TESSERACT_INSTRUCTION_EXPORT_KEY(N, C)                                                                         \
   namespace N                                                                                                          \
   {                                                                                                                    \
   using C##InstanceBase =                                                                                              \
-      tesseract_common::TypeErasureInstance<C, tesseract_planning::detail_waypoint::WaypointInterface>;                \
-  using C##Instance = tesseract_planning::detail_waypoint::WaypointInstance<C>;                                        \
+      tesseract_common::TypeErasureInstance<C, tesseract_planning::detail_instruction::InstructionInterface>;          \
+  using C##Instance = tesseract_planning::detail_instruction::InstructionInstance<C>;                                  \
   using C##InstanceWrapper = tesseract_common::TypeErasureInstanceWrapper<C##Instance>;                                \
   }                                                                                                                    \
   BOOST_CLASS_EXPORT_KEY(N::C##InstanceBase)                                                                           \
@@ -56,7 +55,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
   BOOST_CLASS_TRACKING(N::C##InstanceWrapper, boost::serialization::track_never)
 
 /** @brief If shared library, this must go in the cpp after the implicit instantiation of the serialize function */
-#define TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(inst)                                                                      \
+#define TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(inst)                                                                   \
   BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceBase)                                                                     \
   BOOST_CLASS_EXPORT_IMPLEMENT(inst##Instance)                                                                         \
   BOOST_CLASS_EXPORT_IMPLEMENT(inst##InstanceWrapper)
@@ -65,19 +64,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
  * @brief This should not be used within shared libraries use the two above.
  * If not in a shared library it can go in header or cpp
  */
-#define TESSERACT_WAYPOINT_EXPORT(N, C)                                                                                \
-  TESSERACT_WAYPOINT_EXPORT_KEY(N, C)                                                                                  \
-  TESSERACT_WAYPOINT_EXPORT_IMPLEMENT(N::C)
+#define TESSERACT_INSTRUCTION_EXPORT(N, C)                                                                             \
+  TESSERACT_INSTRUCTION_EXPORT_KEY(N, C)                                                                               \
+  TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(N::C)
 
-namespace tesseract_planning::detail_waypoint
+namespace tesseract_planning::detail_instruction
 {
 template <typename T>
-struct WaypointConcept  // NOLINT
+struct InstructionConcept  // NOLINT
   : boost::Assignable<T>,
     boost::CopyConstructible<T>,
     boost::EqualityComparable<T>
 {
-  BOOST_CONCEPT_USAGE(WaypointConcept)
+  BOOST_CONCEPT_USAGE(InstructionConcept)
   {
     T cp(c);
     T assign = c;
@@ -87,6 +86,10 @@ struct WaypointConcept  // NOLINT
     UNUSED(eq);
     UNUSED(neq);
 
+    const std::string& desc = c.getDescription();
+    UNUSED(desc);
+
+    c.setDescription("test");
     c.print();
     c.print("prefix_");
   }
@@ -95,25 +98,34 @@ private:
   T c;
 };
 
-struct WaypointInterface : tesseract_common::TypeErasureInterface
+struct InstructionInterface : tesseract_common::TypeErasureInterface
 {
+  virtual const std::string& getDescription() const = 0;
+
+  virtual void setDescription(const std::string& description) = 0;
+
   virtual void print(const std::string& prefix) const = 0;
 
 private:
   friend class boost::serialization::access;
+  friend struct tesseract_common::Serialization;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 };
 
 template <typename T>
-struct WaypointInstance : tesseract_common::TypeErasureInstance<T, WaypointInterface>  // NOLINT
+struct InstructionInstance : tesseract_common::TypeErasureInstance<T, InstructionInterface>  // NOLINT
 {
-  using BaseType = tesseract_common::TypeErasureInstance<T, WaypointInterface>;
-  WaypointInstance() = default;
-  WaypointInstance(const T& x) : BaseType(x) {}
-  WaypointInstance(WaypointInstance&& x) noexcept : BaseType(std::move(x)) {}
+  using BaseType = tesseract_common::TypeErasureInstance<T, InstructionInterface>;
+  InstructionInstance() = default;
+  InstructionInstance(const T& x) : BaseType(x) {}
+  InstructionInstance(InstructionInstance&& x) noexcept : BaseType(std::move(x)) {}
 
-  BOOST_CONCEPT_ASSERT((WaypointConcept<T>));
+  BOOST_CONCEPT_ASSERT((InstructionConcept<T>));
+
+  const std::string& getDescription() const final { return this->get().getDescription(); }
+
+  void setDescription(const std::string& description) final { this->get().setDescription(description); }
 
   void print(const std::string& prefix) const final { this->get().print(prefix); }
 
@@ -126,17 +138,25 @@ private:
     ar& boost::serialization::make_nvp("base", boost::serialization::base_object<BaseType>(*this));
   }
 };
-}  // namespace tesseract_planning::detail_waypoint
+}  // namespace tesseract_planning::detail_instruction
 
 namespace tesseract_planning
 {
-using WaypointBase =
-    tesseract_common::TypeErasureBase<detail_waypoint::WaypointInterface, detail_waypoint::WaypointInstance>;
-struct Waypoint : WaypointBase
+using InstructionPolyBase = tesseract_common::TypeErasureBase<detail_instruction::InstructionInterface,
+                                                              detail_instruction::InstructionInstance>;
+struct InstructionPoly : InstructionPolyBase
 {
-  using WaypointBase::WaypointBase;
+  using InstructionPolyBase::InstructionPolyBase;
+
+  const std::string& getDescription() const;
+
+  void setDescription(const std::string& description);
 
   void print(const std::string& prefix = "") const;
+
+  bool isCompositeInstruction() const;
+
+  bool isMoveInstruction() const;
 
 private:
   friend class boost::serialization::access;
@@ -148,14 +168,14 @@ private:
 
 }  // namespace tesseract_planning
 
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::detail_waypoint::WaypointInterface)
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_waypoint::WaypointInterface)
-BOOST_CLASS_TRACKING(tesseract_planning::detail_waypoint::WaypointInterface, boost::serialization::track_never)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(tesseract_planning::detail_instruction::InstructionInterface)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::detail_instruction::InstructionInterface)
+BOOST_CLASS_TRACKING(tesseract_planning::detail_instruction::InstructionInterface, boost::serialization::track_never)
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::WaypointBase)
-BOOST_CLASS_TRACKING(tesseract_planning::WaypointBase, boost::serialization::track_never)
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionPolyBase)
+BOOST_CLASS_TRACKING(tesseract_planning::InstructionPolyBase, boost::serialization::track_never)
 
-BOOST_CLASS_EXPORT_KEY(tesseract_planning::Waypoint)
-BOOST_CLASS_TRACKING(tesseract_planning::Waypoint, boost::serialization::track_never);
+BOOST_CLASS_EXPORT_KEY(tesseract_planning::InstructionPoly)
+BOOST_CLASS_TRACKING(tesseract_planning::InstructionPoly, boost::serialization::track_never);
 
-#endif  // TESSERACT_COMMAND_LANGUAGE_WAYPOINT_H
+#endif  // TESSERACT_COMMAND_LANGUAGE_INSTRUCTION_H

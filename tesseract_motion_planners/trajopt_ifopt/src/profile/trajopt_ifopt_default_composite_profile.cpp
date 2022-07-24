@@ -26,8 +26,8 @@
 #include <tesseract_motion_planners/trajopt_ifopt/profile/trajopt_ifopt_default_composite_profile.h>
 #include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_utils.h>
 
-#include <tesseract_command_language/core/instruction.h>
-#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_command_language/cartesian_waypoint.h>
 #include <tesseract_command_language/joint_waypoint.h>
 
@@ -36,7 +36,7 @@ namespace tesseract_planning
 void TrajOptIfoptDefaultCompositeProfile::apply(TrajOptIfoptProblem& problem,
                                                 int start_index,
                                                 int end_index,
-                                                const ManipulatorInfo& manip_info,
+                                                const tesseract_common::ManipulatorInfo& manip_info,
                                                 const std::vector<std::string>& /*active_links*/,
                                                 const std::vector<int>& fixed_indices) const
 {

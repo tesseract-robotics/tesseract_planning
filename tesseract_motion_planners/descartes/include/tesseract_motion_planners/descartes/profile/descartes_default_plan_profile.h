@@ -91,14 +91,14 @@ public:
 
   void apply(DescartesProblem<FloatType>& prob,
              const Eigen::Isometry3d& cartesian_waypoint,
-             const Instruction& parent_instruction,
-             const ManipulatorInfo& manip_info,
+             const InstructionPoly& parent_instruction,
+             const tesseract_common::ManipulatorInfo& manip_info,
              int index) const override;
 
   void apply(DescartesProblem<FloatType>& prob,
              const Eigen::VectorXd& joint_waypoint,
-             const Instruction& parent_instruction,
-             const ManipulatorInfo& manip_info,
+             const InstructionPoly& parent_instruction,
+             const tesseract_common::ManipulatorInfo& manip_info,
              int index) const override;
 
   tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc) const override;

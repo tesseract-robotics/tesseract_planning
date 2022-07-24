@@ -68,9 +68,9 @@ static CompositeInstruction generateSeed(const CompositeInstruction& instruction
   profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), instructions.getProfile(), profile);
   auto flat = flattenProgram(instructions);
   for (const auto& i : flat)
-    if (isMoveInstruction(i.get()))
+    if (i.get().isMoveInstruction())
       profiles->addProfile<SimplePlannerPlanProfile>(
-          planner.getName(), i.get().as<MoveInstruction>().getProfile(), profile);
+          planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
 
   // Assign profile dictionary
   request.profiles = profiles;

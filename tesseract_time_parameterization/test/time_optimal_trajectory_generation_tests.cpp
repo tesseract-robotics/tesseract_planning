@@ -38,14 +38,19 @@
 
 #include <gtest/gtest.h>
 #include <tesseract_time_parameterization/time_optimal_trajectory_generation.h>
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
+#include <tesseract_command_language/state_waypoint.h>
+#include <tesseract_command_language/move_instruction.h>
 #include <tesseract_time_parameterization/instructions_trajectory.h>
 
 using tesseract_planning::CompositeInstruction;
 using tesseract_planning::InstructionsTrajectory;
 using tesseract_planning::MoveInstruction;
+using tesseract_planning::MoveInstructionPoly;
 using tesseract_planning::MoveInstructionType;
 using tesseract_planning::StateWaypoint;
+using tesseract_planning::StateWaypointPoly;
 using tesseract_planning::TimeOptimalTrajectoryGeneration;
 using tesseract_planning::TrajectoryContainer;
 using tesseract_planning::totg::Path;
@@ -272,31 +277,31 @@ TEST(time_optimal_trajectory_generation, testCommandLanguageInterface)  // NOLIN
 
   {
     waypoint << 0, 0.7, -2.1, 0, -0.25, 0;
-    tesseract_planning::StateWaypoint wp(joint_names, waypoint);
-    tesseract_planning::MoveInstruction plan_f0(wp, tesseract_planning::MoveInstructionType::FREESPACE, "profile_name");
+    StateWaypointPoly wp{ StateWaypoint(joint_names, waypoint) };
+    MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
-    program.push_back(plan_f0);
+    program.appendMoveInstruction(plan_f0);
   }
   {
     waypoint << 0, 0, 0, 0, 0, 0;
-    tesseract_planning::StateWaypoint wp(joint_names, waypoint);
-    tesseract_planning::MoveInstruction plan_f0(wp, tesseract_planning::MoveInstructionType::FREESPACE, "profile_name");
+    StateWaypointPoly wp{ StateWaypoint(joint_names, waypoint) };
+    MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
-    program.push_back(plan_f0);
+    program.appendMoveInstruction(plan_f0);
   }
   {
     waypoint << 0, 0.70001, -2.1, 0, -0.25, 0;
-    tesseract_planning::StateWaypoint wp(joint_names, waypoint);
-    tesseract_planning::MoveInstruction plan_f0(wp, tesseract_planning::MoveInstructionType::FREESPACE, "profile_name");
+    StateWaypointPoly wp{ StateWaypoint(joint_names, waypoint) };
+    MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
-    program.push_back(plan_f0);
+    program.appendMoveInstruction(plan_f0);
   }
   {
     waypoint << 0, 0, 0, 0, 0, 0.1;
-    tesseract_planning::StateWaypoint wp(joint_names, waypoint);
-    tesseract_planning::MoveInstruction plan_f0(wp, tesseract_planning::MoveInstructionType::FREESPACE, "profile_name");
+    StateWaypointPoly wp{ StateWaypoint(joint_names, waypoint) };
+    MoveInstruction plan_f0(wp, MoveInstructionType::FREESPACE, "profile_name");
     plan_f0.setDescription("freespace_motion");
-    program.push_back(plan_f0);
+    program.appendMoveInstruction(plan_f0);
   }
 
   Eigen::VectorXd max_velocities(6);
@@ -320,18 +325,18 @@ CompositeInstruction createStraightTrajectory()
   CompositeInstruction program;
   for (int i = 0; i < num; i++)
   {
-    StateWaypoint swp(joint_names, Eigen::VectorXd::Zero(6));
-    swp.position[0] = i * max / num;
+    StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+    swp.getPosition()[0] = i * max / num;
     if (i == 0)
       program.setStartInstruction(MoveInstruction(swp, MoveInstructionType::START));
     else
-      program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+      program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
   }
 
   // leave final velocity/acceleration unset
-  StateWaypoint swp(joint_names, Eigen::VectorXd::Zero(6));
-  swp.position[0] = max;
-  program.push_back(MoveInstruction(swp, MoveInstructionType::FREESPACE));
+  StateWaypointPoly swp{ StateWaypoint(joint_names, Eigen::VectorXd::Zero(6)) };
+  swp.getPosition()[0] = max;
+  program.appendMoveInstruction(MoveInstruction(swp, MoveInstructionType::FREESPACE));
 
   return program;
 }
@@ -346,7 +351,9 @@ void runTrajectoryContainerInterfaceTest(double path_tolerance)
   max_acceleration << 1, 1, 1, 1, 1, 1;
   TrajectoryContainer::Ptr trajectory = std::make_shared<InstructionsTrajectory>(program);
   EXPECT_TRUE(solver.computeTimeStamps(*trajectory, max_velocity, max_acceleration));
-  ASSERT_LT(program.back().as<MoveInstruction>().getWaypoint().as<StateWaypoint>().time, 5.0);
+  ASSERT_LT(
+      program.back().as<tesseract_planning::MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>().getTime(),
+      5.0);
 }
 
 TEST(time_optimal_trajectory_generation, testTrajectoryContainerInterface)  // NOLINT

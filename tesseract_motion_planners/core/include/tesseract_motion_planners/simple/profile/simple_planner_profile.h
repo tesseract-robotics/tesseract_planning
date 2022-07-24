@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/command_language.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_motion_planners/core/types.h>
 
 namespace tesseract_planning
@@ -54,25 +54,6 @@ public:
   SimplePlannerPlanProfile(SimplePlannerPlanProfile&&) noexcept = default;
   SimplePlannerPlanProfile& operator=(SimplePlannerPlanProfile&&) noexcept = default;
 
-#ifndef SWIG
-  /**
-   * @brief Generate a seed for the provided base_instruction
-   * @param prev_instruction The previous instruction
-   * @param base_instruction The base/current instruction to generate the seed for
-   * @param request The planning request
-   * @param global_manip_info The global manipulator information
-   * @return A composite instruction representing the seed for the base_instruction
-   */
-  virtual DEPRECATED("Use other generate method.") CompositeInstruction
-      generate(const MoveInstruction& /*prev_instruction*/,
-               const MoveInstruction& /*base_instruction*/,
-               const PlannerRequest& /*request*/,
-               const ManipulatorInfo& /*global_manip_info*/) const
-  {
-    throw std::runtime_error("SimplePlannerPlanProfile, this must be implemented in the derived class");
-  }
-#endif  // SWIG
-
   /**
    * @brief Generate a seed for the provided base_instruction
    * @param prev_instruction The previous instruction
@@ -83,20 +64,12 @@ public:
    * @param global_manip_info The global manipulator information
    * @return A composite instruction representing the seed for the base_instruction
    */
-  virtual CompositeInstruction generate(const MoveInstruction& prev_instruction,
-                                        const MoveInstruction& prev_seed,
-                                        const MoveInstruction& base_instruction,
-                                        const Instruction& next_instruction,
+  virtual CompositeInstruction generate(const MoveInstructionPoly& prev_instruction,
+                                        const MoveInstructionPoly& prev_seed,
+                                        const MoveInstructionPoly& base_instruction,
+                                        const InstructionPoly& next_instruction,
                                         const PlannerRequest& request,
-                                        const ManipulatorInfo& global_manip_info) const
-  {
-    // SWIG segfaults if parameters are not named. Use UNUSED() if parameter unused.
-    UNUSED(prev_seed);
-    UNUSED(next_instruction);
-    TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
-    return generate(prev_instruction, base_instruction, request, global_manip_info);
-    TESSERACT_COMMON_IGNORE_WARNINGS_POP
-  }
+                                        const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
 };
 
 class SimplePlannerCompositeProfile

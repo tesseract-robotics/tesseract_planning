@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <vector>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/core/waypoint.h>
+#include <tesseract_command_language/poly/state_waypoint_poly.h>
 #include <tesseract_common/joint_state.h>
 #include <tesseract_common/utils.h>
 #include <tesseract_common/types.h>
@@ -41,11 +41,46 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class StateWaypoint : public tesseract_common::JointState
+class StateWaypoint : private tesseract_common::JointState
 {
 public:
   StateWaypoint() = default;
   StateWaypoint(std::vector<std::string> joint_names, const Eigen::Ref<const Eigen::VectorXd>& position);
+  StateWaypoint(const std::vector<std::string>& names,
+                const Eigen::VectorXd& position,
+                const Eigen::VectorXd& velocity,
+                const Eigen::VectorXd& acceleration,
+                double time);
+
+  StateWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position);
+  StateWaypoint(std::initializer_list<std::string> names,
+                std::initializer_list<double> position,
+                std::initializer_list<double> velocity,
+                std::initializer_list<double> acceleration,
+                double time);
+
+  void setNames(const std::vector<std::string>& names);
+  std::vector<std::string>& getNames();
+  const std::vector<std::string>& getNames() const;
+
+  void setPosition(const Eigen::VectorXd& position);
+  Eigen::VectorXd& getPosition();
+  const Eigen::VectorXd& getPosition() const;
+
+  void setVelocity(const Eigen::VectorXd& velocity);
+  Eigen::VectorXd& getVelocity();
+  const Eigen::VectorXd& getVelocity() const;
+
+  void setAcceleration(const Eigen::VectorXd& acceleration);
+  Eigen::VectorXd& getAcceleration();
+  const Eigen::VectorXd& getAcceleration() const;
+
+  void setEffort(const Eigen::VectorXd& effort);
+  Eigen::VectorXd& getEffort();
+  const Eigen::VectorXd& getEffort() const;
+
+  void setTime(double time);
+  double getTime() const;
 
   void print(const std::string& prefix = "") const;
 
@@ -59,6 +94,6 @@ private:
 };
 }  // namespace tesseract_planning
 
-TESSERACT_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypoint);
+TESSERACT_STATE_WAYPOINT_EXPORT_KEY(tesseract_planning, StateWaypoint);
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H

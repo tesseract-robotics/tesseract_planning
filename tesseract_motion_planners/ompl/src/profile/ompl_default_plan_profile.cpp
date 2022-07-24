@@ -33,8 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/algorithm/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/instruction_type.h>
-#include <tesseract_command_language/move_instruction.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 
 #include <tesseract_motion_planners/ompl/profile/ompl_default_plan_profile.h>
 #include <tesseract_motion_planners/ompl/utils.h>
@@ -353,18 +352,18 @@ void OMPLDefaultPlanProfile::setup(OMPLProblem& prob) const
 
 void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
                                              const Eigen::Isometry3d& cartesian_waypoint,
-                                             const Instruction& parent_instruction,
-                                             const ManipulatorInfo& manip_info,
+                                             const InstructionPoly& parent_instruction,
+                                             const tesseract_common::ManipulatorInfo& manip_info,
                                              const std::vector<std::string>& /*active_links*/,
                                              int /*index*/) const
 {
   const auto dof = prob.manip->numJoints();
   tesseract_common::KinematicLimits limits = prob.manip->getLimits();
 
-  assert(isMoveInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
+  assert(parent_instruction.isMoveInstruction());
+  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
   if (mi.manipulator.empty())
     throw std::runtime_error("OMPL, manipulator is empty!");
@@ -446,8 +445,8 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
 
 void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
                                              const Eigen::VectorXd& joint_waypoint,
-                                             const Instruction& /*parent_instruction*/,
-                                             const ManipulatorInfo& /*manip_info*/,
+                                             const InstructionPoly& /*parent_instruction*/,
+                                             const tesseract_common::ManipulatorInfo& /*manip_info*/,
                                              const std::vector<std::string>& /*active_links*/,
                                              int /*index*/) const
 {
@@ -490,18 +489,18 @@ void OMPLDefaultPlanProfile::applyGoalStates(OMPLProblem& prob,
 
 void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
                                               const Eigen::Isometry3d& cartesian_waypoint,
-                                              const Instruction& parent_instruction,
-                                              const ManipulatorInfo& manip_info,
+                                              const InstructionPoly& parent_instruction,
+                                              const tesseract_common::ManipulatorInfo& manip_info,
                                               const std::vector<std::string>& /*active_links*/,
                                               int /*index*/) const
 {
   const auto dof = prob.manip->numJoints();
   tesseract_common::KinematicLimits limits = prob.manip->getLimits();
 
-  assert(isMoveInstruction(parent_instruction));
-  const auto& base_instruction = parent_instruction.as<MoveInstruction>();
+  assert(parent_instruction.isMoveInstruction());
+  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
   assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
 
   if (mi.manipulator.empty())
     throw std::runtime_error("OMPL, manipulator is empty!");
@@ -584,8 +583,8 @@ void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
 
 void OMPLDefaultPlanProfile::applyStartStates(OMPLProblem& prob,
                                               const Eigen::VectorXd& joint_waypoint,
-                                              const Instruction& /*parent_instruction*/,
-                                              const ManipulatorInfo& /*manip_info*/,
+                                              const InstructionPoly& /*parent_instruction*/,
+                                              const tesseract_common::ManipulatorInfo& /*manip_info*/,
                                               const std::vector<std::string>& /*active_links*/,
                                               int /*index*/) const
 {

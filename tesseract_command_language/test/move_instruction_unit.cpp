@@ -31,10 +31,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <fstream>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/serialization.h>
-#include <tesseract_command_language/core/instruction.h>
+#include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/move_instruction.h>
 #include <tesseract_command_language/state_waypoint.h>
-#include <tesseract_command_language/null_instruction.h>
 
 using namespace tesseract_planning;
 
@@ -42,7 +41,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
-  StateWaypoint swp(jn, jv);
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
 
   // Minimum arguments
   {
@@ -133,7 +132,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, setters)  // NOLINT
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
-  StateWaypoint swp(jn, jv);
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
 
   MoveInstruction instr(swp, MoveInstructionType::START);
   EXPECT_EQ(instr.getWaypoint(), swp);
@@ -143,8 +142,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, setters)  // NOLINT
   EXPECT_FALSE(instr.getDescription().empty());
 
   StateWaypoint test_swp(jn, 5 * jv);
-  instr.setWaypoint(test_swp);
-  EXPECT_EQ(instr.getWaypoint(), test_swp);
+  instr.assignStateWaypoint(test_swp);
+  EXPECT_EQ(instr.getWaypoint().as<StateWaypointPoly>().as<StateWaypoint>(), test_swp);
 
   instr.setMoveType(MoveInstructionType::LINEAR);
   EXPECT_EQ(instr.getMoveType(), MoveInstructionType::LINEAR);
@@ -163,7 +162,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
 {
   Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
   std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
-  StateWaypoint swp(jn, jv);
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
 
   MoveInstruction instr(swp, MoveInstructionType::START);
   instr.setMoveType(MoveInstructionType::LINEAR);
@@ -171,12 +170,38 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
   instr.setPathProfile("TEST_PATH_PROFILE");
   instr.setDescription("This is a test.");
 
-  tesseract_common::Serialization::toArchiveFileXML<Instruction>(instr, "/tmp/move_instruction_boost.xml");
+  tesseract_common::Serialization::toArchiveFileXML<MoveInstruction>(instr, "/tmp/move_instruction_boost.xml");
 
-  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<Instruction>("/tmp/move_instruction_boost.xml")
-                    .as<MoveInstruction>();
+  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstruction>("/tmp/move_instruction_boost.xml");
 
-  EXPECT_TRUE(instr == ninstr);
+  EXPECT_TRUE(ninstr == instr);
+  EXPECT_EQ(ninstr.getWaypoint(), swp);
+  EXPECT_EQ(ninstr.getMoveType(), MoveInstructionType::LINEAR);
+  EXPECT_EQ(ninstr.getProfile(), "TEST_PROFILE");
+  EXPECT_EQ(ninstr.getPathProfile(), "TEST_PATH_PROFILE");
+  EXPECT_EQ(ninstr.getDescription(), "This is a test.");
+}
+
+TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NOLINT
+{
+  Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
+  std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
+
+  MoveInstruction instr(swp, MoveInstructionType::START);
+  instr.setMoveType(MoveInstructionType::LINEAR);
+  instr.setProfile("TEST_PROFILE");
+  instr.setPathProfile("TEST_PATH_PROFILE");
+  instr.setDescription("This is a test.");
+
+  MoveInstructionPoly instr_poly(instr);
+
+  tesseract_common::Serialization::toArchiveFileXML<MoveInstructionPoly>(instr_poly, "/tmp/move_instruction_boost.xml");
+
+  auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstructionPoly>("/tmp/"
+                                                                                         "move_instruction_boost.xml");
+
+  EXPECT_TRUE(ninstr == instr_poly);
   EXPECT_EQ(ninstr.getWaypoint(), swp);
   EXPECT_EQ(ninstr.getMoveType(), MoveInstructionType::LINEAR);
   EXPECT_EQ(ninstr.getProfile(), "TEST_PROFILE");

@@ -41,7 +41,7 @@ CheckInputTaskGenerator::CheckInputTaskGenerator(std::string name) : TaskGenerat
 int CheckInputTaskGenerator::conditionalProcess(TaskInput input, std::size_t /*unique_id*/) const
 {
   // Get Composite Profile
-  const Instruction* input_instruction = input.getInstruction();
+  const InstructionPoly* input_instruction = input.getInstruction();
   const auto& ci = input_instruction->as<CompositeInstruction>();
   std::string profile = ci.getProfile();
   profile = getProfileString(name_, profile, input.composite_profile_remapping);
