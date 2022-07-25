@@ -28,6 +28,9 @@
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <iostream>
 #include <console_bridge/console.h>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_serialize.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/move_instruction.h>
@@ -41,7 +44,8 @@ MoveInstruction::MoveInstruction(CartesianWaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
                                  tesseract_common::ManipulatorInfo manipulator_info)
-  : move_type_(type)
+  : uuid_(boost::uuids::random_generator()())
+  , move_type_(type)
   , profile_(std::move(profile))
   , waypoint_(std::move(waypoint))
   , manipulator_info_(std::move(manipulator_info))
@@ -54,7 +58,8 @@ MoveInstruction::MoveInstruction(JointWaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
                                  tesseract_common::ManipulatorInfo manipulator_info)
-  : move_type_(type)
+  : uuid_(boost::uuids::random_generator()())
+  , move_type_(type)
   , profile_(std::move(profile))
   , waypoint_(std::move(waypoint))
   , manipulator_info_(std::move(manipulator_info))
@@ -67,7 +72,8 @@ MoveInstruction::MoveInstruction(StateWaypointPoly waypoint,
                                  MoveInstructionType type,
                                  std::string profile,
                                  tesseract_common::ManipulatorInfo manipulator_info)
-  : move_type_(type)
+  : uuid_(boost::uuids::random_generator()())
+  , move_type_(type)
   , profile_(std::move(profile))
   , waypoint_(std::move(waypoint))
   , manipulator_info_(std::move(manipulator_info))
@@ -81,7 +87,8 @@ MoveInstruction::MoveInstruction(CartesianWaypointPoly waypoint,
                                  std::string profile,
                                  std::string path_profile,
                                  tesseract_common::ManipulatorInfo manipulator_info)
-  : move_type_(type)
+  : uuid_(boost::uuids::random_generator()())
+  , move_type_(type)
   , profile_(std::move(profile))
   , path_profile_(std::move(path_profile))
   , waypoint_(std::move(waypoint))
@@ -94,7 +101,8 @@ MoveInstruction::MoveInstruction(JointWaypointPoly waypoint,
                                  std::string profile,
                                  std::string path_profile,
                                  tesseract_common::ManipulatorInfo manipulator_info)
-  : move_type_(type)
+  : uuid_(boost::uuids::random_generator()())
+  , move_type_(type)
   , profile_(std::move(profile))
   , path_profile_(std::move(path_profile))
   , waypoint_(std::move(waypoint))
@@ -107,13 +115,20 @@ MoveInstruction::MoveInstruction(StateWaypointPoly waypoint,
                                  std::string profile,
                                  std::string path_profile,
                                  tesseract_common::ManipulatorInfo manipulator_info)
-  : move_type_(type)
+  : uuid_(boost::uuids::random_generator()())
+  , move_type_(type)
   , profile_(std::move(profile))
   , path_profile_(std::move(path_profile))
   , waypoint_(std::move(waypoint))
   , manipulator_info_(std::move(manipulator_info))
 {
 }
+
+const boost::uuids::uuid& MoveInstruction::getUUID() const { return uuid_; }
+void MoveInstruction::regenerateUUID() { uuid_ = boost::uuids::random_generator()(); }
+
+const boost::uuids::uuid& MoveInstruction::getParentUUID() const { return parent_uuid_; }
+void MoveInstruction::setParentUUID(const boost::uuids::uuid& uuid) { parent_uuid_ = uuid; }
 
 void MoveInstruction::setMoveType(MoveInstructionType move_type) { move_type_ = move_type; }
 
@@ -169,6 +184,8 @@ bool MoveInstruction::operator!=(const MoveInstruction& rhs) const { return !ope
 template <class Archive>
 void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 {
+  ar& boost::serialization::make_nvp("uuid", uuid_);
+  ar& boost::serialization::make_nvp("parent_uuid", parent_uuid_);
   ar& boost::serialization::make_nvp("move_type", move_type_);
   ar& boost::serialization::make_nvp("description", description_);
   ar& boost::serialization::make_nvp("profile", profile_);
@@ -181,4 +198,4 @@ void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MoveInstruction)
-TESSERACT_MOVE_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstruction);
+TESSERACT_MOVE_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstruction)

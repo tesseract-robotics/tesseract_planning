@@ -14,6 +14,20 @@ void tesseract_planning::detail_move_instruction::MoveInstructionInterface::seri
                                      boost::serialization::base_object<tesseract_common::TypeErasureInterface>(*this));
 }
 
+const boost::uuids::uuid& tesseract_planning::MoveInstructionPoly::getUUID() const { return getInterface().getUUID(); }
+
+void tesseract_planning::MoveInstructionPoly::regenerateUUID() { getInterface().regenerateUUID(); }
+
+const boost::uuids::uuid& tesseract_planning::MoveInstructionPoly::getParentUUID() const
+{
+  return getInterface().getParentUUID();
+}
+
+void tesseract_planning::MoveInstructionPoly::setParentUUID(const boost::uuids::uuid& uuid)
+{
+  getInterface().setParentUUID(uuid);
+}
+
 void tesseract_planning::MoveInstructionPoly::assignCartesianWaypoint(CartesianWaypointPoly waypoint)
 {
   getInterface().assignCartesianWaypoint(std::move(waypoint));
@@ -97,6 +111,14 @@ tesseract_planning::StateWaypointPoly tesseract_planning::MoveInstructionPoly::c
   return getInterface().createStateWaypoint();
 }
 
+tesseract_planning::MoveInstructionPoly tesseract_planning::MoveInstructionPoly::createChild() const
+{
+  MoveInstructionPoly child(*this);
+  child.setParentUUID(getUUID());
+  child.regenerateUUID();
+  return child;
+}
+
 bool tesseract_planning::MoveInstructionPoly::isLinear() const
 {
   return (getInterface().getMoveType() == MoveInstructionType::LINEAR);
@@ -117,6 +139,8 @@ bool tesseract_planning::MoveInstructionPoly::isStart() const
   return (getInterface().getMoveType() == MoveInstructionType::START);
 }
 
+bool tesseract_planning::MoveInstructionPoly::isChild() const { return (!getInterface().getParentUUID().is_nil()); }
+
 template <class Archive>
 void tesseract_planning::MoveInstructionPoly::serialize(Archive& ar, const unsigned int /*version*/)  // NOLINT
 {
@@ -132,4 +156,4 @@ BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::detail_move_instruction::MoveIn
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPolyBase)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly)
 
-TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly);
+TESSERACT_INSTRUCTION_EXPORT_IMPLEMENT(tesseract_planning::MoveInstructionPoly)

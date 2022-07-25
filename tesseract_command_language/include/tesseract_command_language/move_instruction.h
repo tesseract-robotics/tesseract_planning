@@ -106,6 +106,12 @@ public:
                   std::string path_profile,
                   tesseract_common::ManipulatorInfo manipulator_info = tesseract_common::ManipulatorInfo());
 
+  const boost::uuids::uuid& getUUID() const;
+  void regenerateUUID();
+
+  const boost::uuids::uuid& getParentUUID() const;
+  void setParentUUID(const boost::uuids::uuid& uuid);
+
   void setMoveType(MoveInstructionType move_type);
 
   MoveInstructionType getMoveType() const;
@@ -143,7 +149,16 @@ public:
   bool operator!=(const MoveInstruction& rhs) const;
 
 private:
+  /** @brief The instructions UUID */
+  boost::uuids::uuid uuid_{};
+
+  /** @brief The parent UUID if created from createChild */
+  boost::uuids::uuid parent_uuid_{};
+
+  /** @brief The move instruction type */
   MoveInstructionType move_type_{ MoveInstructionType::START };
+
+  /** @brief The description of the instruction */
   std::string description_{ "Tesseract Move Instruction" };
 
   /** @brief The profile used for this move instruction */

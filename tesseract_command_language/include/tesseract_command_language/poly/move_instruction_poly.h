@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/concept_check.hpp>
+#include <boost/uuid/uuid.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/poly/instruction_poly.h>
@@ -75,6 +76,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+struct MoveInstructionPoly;
+
 enum class MoveInstructionType : int
 {
   LINEAR = 0,
@@ -82,7 +85,7 @@ enum class MoveInstructionType : int
   CIRCULAR = 2,
   START = 3 /**< This indicates it is a start instruction. */
 };
-}
+}  // namespace tesseract_planning
 
 namespace tesseract_planning::detail_move_instruction
 {
@@ -101,6 +104,15 @@ struct MoveInstructionConcept  // NOLINT
     UNUSED(assign);
     UNUSED(eq);
     UNUSED(neq);
+
+    const auto& uuid = c.getUUID();
+    UNUSED(uuid);
+
+    c.regenerateUUID();
+    c.setParentUUID(uuid);
+
+    const auto& parent_uuid = c.getParentUUID();
+    UNUSED(parent_uuid);
 
     tesseract_common::ManipulatorInfo info;
     c.setManipulatorInfo(info);
@@ -144,6 +156,12 @@ private:
 
 struct MoveInstructionInterface : tesseract_common::TypeErasureInterface
 {
+  virtual const boost::uuids::uuid& getUUID() const = 0;
+  virtual void regenerateUUID() = 0;
+
+  virtual const boost::uuids::uuid& getParentUUID() const = 0;
+  virtual void setParentUUID(const boost::uuids::uuid& uuid) = 0;
+
   virtual void assignCartesianWaypoint(CartesianWaypointPoly waypoint) = 0;
   virtual void assignJointWaypoint(JointWaypointPoly waypoint) = 0;
   virtual void assignStateWaypoint(StateWaypointPoly waypoint) = 0;
@@ -189,6 +207,12 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
 
   BOOST_CONCEPT_ASSERT((MoveInstructionConcept<T>));
 
+  const boost::uuids::uuid& getUUID() const final { return this->get().getUUID(); }
+  void regenerateUUID() final { this->get().regenerateUUID(); }
+
+  const boost::uuids::uuid& getParentUUID() const final { return this->get().getParentUUID(); }
+  void setParentUUID(const boost::uuids::uuid& uuid) final { this->get().setParentUUID(uuid); }
+
   void assignCartesianWaypoint(CartesianWaypointPoly waypoint) final
   {
     this->get().assignCartesianWaypoint(std::move(waypoint));
@@ -196,7 +220,7 @@ struct MoveInstructionInstance : tesseract_common::TypeErasureInstance<T, MoveIn
   void assignJointWaypoint(JointWaypointPoly waypoint) final { this->get().assignJointWaypoint(std::move(waypoint)); }
   void assignStateWaypoint(StateWaypointPoly waypoint) final { this->get().assignStateWaypoint(std::move(waypoint)); }
   WaypointPoly& getWaypoint() final { return this->get().getWaypoint(); }
-  const WaypointPoly& getWaypoint() const final { return this->get().getWaypoint(); };
+  const WaypointPoly& getWaypoint() const final { return this->get().getWaypoint(); }
 
   void setManipulatorInfo(tesseract_common::ManipulatorInfo info) final
   {
@@ -242,6 +266,12 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
 {
   using MoveInstructionPolyBase::MoveInstructionPolyBase;
 
+  const boost::uuids::uuid& getUUID() const;
+  void regenerateUUID();
+
+  const boost::uuids::uuid& getParentUUID() const;
+  void setParentUUID(const boost::uuids::uuid& uuid);
+
   void assignCartesianWaypoint(CartesianWaypointPoly waypoint);
   void assignJointWaypoint(JointWaypointPoly waypoint);
   void assignStateWaypoint(StateWaypointPoly waypoint);
@@ -270,6 +300,10 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   JointWaypointPoly createJointWaypoint() const;
   StateWaypointPoly createStateWaypoint() const;
 
+  // MoveInstructionPoly methods
+
+  MoveInstructionPoly createChild() const;
+
   bool isLinear() const;
 
   bool isFreespace() const;
@@ -277,6 +311,8 @@ struct MoveInstructionPoly : MoveInstructionPolyBase
   bool isCircular() const;
 
   bool isStart() const;
+
+  bool isChild() const;
 
 private:
   friend class boost::serialization::access;
@@ -296,8 +332,8 @@ BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstructionPolyBase)
 BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionPolyBase, boost::serialization::track_never)
 
 BOOST_CLASS_EXPORT_KEY(tesseract_planning::MoveInstructionPoly)
-BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionPoly, boost::serialization::track_never);
+BOOST_CLASS_TRACKING(tesseract_planning::MoveInstructionPoly, boost::serialization::track_never)
 
-TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstructionPoly);
+TESSERACT_INSTRUCTION_EXPORT_KEY(tesseract_planning, MoveInstructionPoly)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_MOVE_INSTRUCTION_POLY_H
