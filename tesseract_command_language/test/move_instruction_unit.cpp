@@ -51,6 +51,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_TRUE(instr.getPathProfile().empty());
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 
   {
@@ -60,6 +62,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_TRUE(instr.getPathProfile().empty());
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 
   {
@@ -69,6 +73,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_EQ(instr.getPathProfile(), DEFAULT_PROFILE_KEY);
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 
   // With plan profile
@@ -79,6 +85,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_TRUE(instr.getPathProfile().empty());
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 
   {
@@ -88,6 +96,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_TRUE(instr.getPathProfile().empty());
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 
   {
@@ -97,6 +107,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PROFILE");
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 
   // With plan and path profile
@@ -107,6 +119,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 
   {
@@ -116,6 +130,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 
   {
@@ -125,6 +141,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, constructor)  // NOLINT
     EXPECT_EQ(instr.getProfile(), "TEST_PROFILE");
     EXPECT_EQ(instr.getPathProfile(), "TEST_PATH_PROFILE");
     EXPECT_FALSE(instr.getDescription().empty());
+    EXPECT_FALSE(instr.getUUID().is_nil());
+    EXPECT_TRUE(instr.getParentUUID().is_nil());
   }
 }
 
@@ -140,6 +158,8 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, setters)  // NOLINT
   EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
   EXPECT_TRUE(instr.getPathProfile().empty());
   EXPECT_FALSE(instr.getDescription().empty());
+  EXPECT_FALSE(instr.getUUID().is_nil());
+  EXPECT_TRUE(instr.getParentUUID().is_nil());
 
   StateWaypoint test_swp(jn, 5 * jv);
   instr.assignStateWaypoint(test_swp);
@@ -156,6 +176,41 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, setters)  // NOLINT
 
   instr.setDescription("This is a test.");
   EXPECT_EQ(instr.getDescription(), "This is a test.");
+
+  boost::uuids::uuid uuid = instr.getUUID();
+  instr.regenerateUUID();
+  EXPECT_FALSE(uuid == instr.getUUID());
+
+  instr.setParentUUID(uuid);
+  EXPECT_FALSE(instr.getParentUUID().is_nil());
+  EXPECT_TRUE(uuid == instr.getParentUUID());
+}
+
+TEST(TesseractCommandLanguageMoveInstructionUnit, UUID)  // NOLINT
+{
+  Eigen::VectorXd jv = Eigen::VectorXd::Ones(6);
+  std::vector<std::string> jn = { "j1", "j2", "j3", "j4", "j5", "j6" };
+  StateWaypointPoly swp(StateWaypoint(jn, jv));
+
+  MoveInstruction instr(swp, MoveInstructionType::START);
+  EXPECT_EQ(instr.getWaypoint(), swp);
+  EXPECT_EQ(instr.getMoveType(), MoveInstructionType::START);
+  EXPECT_EQ(instr.getProfile(), DEFAULT_PROFILE_KEY);
+  EXPECT_TRUE(instr.getPathProfile().empty());
+  EXPECT_FALSE(instr.getDescription().empty());
+  EXPECT_FALSE(instr.getUUID().is_nil());
+
+  MoveInstruction assign = instr;
+  EXPECT_TRUE(assign == instr);
+  EXPECT_TRUE(assign.getUUID() == instr.getUUID());
+
+  MoveInstruction copy(instr);
+  EXPECT_TRUE(copy == instr);
+  EXPECT_TRUE(assign.getUUID() == instr.getUUID());
+
+  boost::uuids::uuid uuid = instr.getUUID();
+  instr.regenerateUUID();
+  EXPECT_FALSE(uuid == instr.getUUID());
 }
 
 TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
@@ -169,6 +224,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
   instr.setProfile("TEST_PROFILE");
   instr.setPathProfile("TEST_PATH_PROFILE");
   instr.setDescription("This is a test.");
+  boost::uuids::uuid uuid = instr.getUUID();
 
   tesseract_common::Serialization::toArchiveFileXML<MoveInstruction>(instr, "/tmp/move_instruction_boost.xml");
 
@@ -180,6 +236,7 @@ TEST(TesseractCommandLanguageMoveInstructionUnit, boostSerialization)  // NOLINT
   EXPECT_EQ(ninstr.getProfile(), "TEST_PROFILE");
   EXPECT_EQ(ninstr.getPathProfile(), "TEST_PATH_PROFILE");
   EXPECT_EQ(ninstr.getDescription(), "This is a test.");
+  EXPECT_EQ(ninstr.getUUID(), uuid);
 }
 
 TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NOLINT
@@ -193,6 +250,7 @@ TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NO
   instr.setProfile("TEST_PROFILE");
   instr.setPathProfile("TEST_PATH_PROFILE");
   instr.setDescription("This is a test.");
+  boost::uuids::uuid uuid = instr.getUUID();
 
   MoveInstructionPoly instr_poly(instr);
 
@@ -200,13 +258,36 @@ TEST(TesseractCommandLanguageMoveInstructionPolyUnit, boostSerialization)  // NO
 
   auto ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstructionPoly>("/tmp/"
                                                                                          "move_instruction_boost.xml");
-
   EXPECT_TRUE(ninstr == instr_poly);
   EXPECT_EQ(ninstr.getWaypoint(), swp);
   EXPECT_EQ(ninstr.getMoveType(), MoveInstructionType::LINEAR);
   EXPECT_EQ(ninstr.getProfile(), "TEST_PROFILE");
   EXPECT_EQ(ninstr.getPathProfile(), "TEST_PATH_PROFILE");
   EXPECT_EQ(ninstr.getDescription(), "This is a test.");
+  EXPECT_EQ(ninstr.getUUID(), uuid);
+  EXPECT_FALSE(ninstr.getUUID().is_nil());
+  EXPECT_TRUE(ninstr.getParentUUID().is_nil());
+
+  MoveInstructionPoly child_instr_poly = instr_poly.createChild();
+  boost::uuids::uuid child_uuid = child_instr_poly.getUUID();
+
+  tesseract_common::Serialization::toArchiveFileXML<MoveInstructionPoly>(child_instr_poly,
+                                                                         "/tmp/child_move_instruction_boost.xml");
+
+  auto child_ninstr = tesseract_common::Serialization::fromArchiveFileXML<MoveInstructionPoly>("/tmp/"
+                                                                                               "child_move_instruction_"
+                                                                                               "boost.xml");
+  EXPECT_TRUE(child_ninstr == instr_poly);
+  EXPECT_EQ(child_ninstr.getWaypoint(), swp);
+  EXPECT_EQ(child_ninstr.getMoveType(), MoveInstructionType::LINEAR);
+  EXPECT_EQ(child_ninstr.getProfile(), "TEST_PROFILE");
+  EXPECT_EQ(child_ninstr.getPathProfile(), "TEST_PATH_PROFILE");
+  EXPECT_EQ(child_ninstr.getDescription(), "This is a test.");
+  EXPECT_EQ(child_ninstr.getUUID(), child_uuid);
+  EXPECT_EQ(child_ninstr.getParentUUID(), uuid);
+  EXPECT_NE(child_ninstr.getParentUUID(), child_ninstr.getUUID());
+  EXPECT_FALSE(child_ninstr.getUUID().is_nil());
+  EXPECT_FALSE(child_ninstr.getParentUUID().is_nil());
 }
 
 int main(int argc, char** argv)
