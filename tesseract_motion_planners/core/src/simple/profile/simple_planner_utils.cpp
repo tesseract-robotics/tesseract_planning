@@ -149,7 +149,7 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
   // Convert to MoveInstructions
   for (long i = 1; i < states.cols() - 1; ++i)
   {
-    MoveInstructionPoly move_instruction{ base_instruction };
+    MoveInstructionPoly move_instruction = base_instruction.createChild();
     StateWaypointPoly swp = move_instruction.createStateWaypoint();
     swp.setNames(joint_names);
     swp.setPosition(states.col(i));
@@ -159,7 +159,7 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
     composite.appendMoveInstruction(move_instruction);
   }
 
-  MoveInstructionPoly move_instruction{ base_instruction };
+  MoveInstructionPoly move_instruction = base_instruction.createChild();
   StateWaypointPoly swp = move_instruction.createStateWaypoint();
   swp.setNames(joint_names);
   swp.setPosition(states.col(states.cols() - 1));
