@@ -232,6 +232,44 @@ static void BM_WaypointPolyCreation(benchmark::State& state)
 
 BENCHMARK(BM_WaypointPolyCreation);
 
+static void BM_MoveInstructionCreation(benchmark::State& state)
+{
+  CartesianWaypointPoly w{ CartesianWaypoint(Eigen::Isometry3d::Identity()) };
+  for (auto _ : state)
+    MoveInstruction i(w, MoveInstructionType::START);
+}
+
+BENCHMARK(BM_MoveInstructionCreation);
+
+static void BM_StateWaypointCreation(benchmark::State& state)
+{
+  std::vector<std::string> joint_names{ "a1", "a2", "a3", "a4", "a5", "a6" };
+  Eigen::VectorXd joint_values = Eigen::VectorXd::Zero(6);
+  for (auto _ : state)
+    StateWaypoint w(joint_names, joint_values);
+}
+
+BENCHMARK(BM_StateWaypointCreation);
+
+static void BM_JointWaypointCreation(benchmark::State& state)
+{
+  std::vector<std::string> joint_names{ "a1", "a2", "a3", "a4", "a5", "a6" };
+  Eigen::VectorXd joint_values = Eigen::VectorXd::Zero(6);
+  for (auto _ : state)
+    JointWaypoint w(joint_names, joint_values);
+}
+
+BENCHMARK(BM_JointWaypointCreation);
+
+static void BM_CartesianWaypointCreation(benchmark::State& state)
+{
+  Eigen::Isometry3d pose{ Eigen::Isometry3d::Identity() };
+  for (auto _ : state)
+    CartesianWaypoint w(pose);
+}
+
+BENCHMARK(BM_CartesianWaypointCreation);
+
 static void BM_CompositeInstructionCreation(benchmark::State& state)
 {
   for (auto _ : state)
