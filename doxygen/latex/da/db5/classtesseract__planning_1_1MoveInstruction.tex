@@ -36,6 +36,14 @@ Collaboration diagram for tesseract\+\_\+planning\+::Move\+Instruction\+:
 \item 
 \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ac0f673eeeb99876e40aecd24734782a1}{Move\+Instruction}} (\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+Waypoint\+Poly}} waypoint, \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} type, std\+::string profile, std\+::string path\+\_\+profile, tesseract\+\_\+common\+::\+Manipulator\+Info manipulator\+\_\+info=tesseract\+\_\+common\+::\+Manipulator\+Info())
 \item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_aa2236bbd0f157805e220d41d5cc0c113}{get\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_afdc5c88a69e03dd3b0e0fb977d9c835b}{regenerate\+UUID}} ()
+\item 
+const boost\+::uuids\+::uuid \& \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ac2f69544a4ea237957a7dbf04b128cad}{get\+Parent\+UUID}} () const
+\item 
+void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a9f5617e5748faf55183363c7bf486636}{set\+Parent\+UUID}} (const boost\+::uuids\+::uuid \&uuid)
+\item 
 void \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a9de60baeb5f2fbaf1972c2eee9b9a427}{set\+Move\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} move\+\_\+type)
 \item 
 \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a00fdb7b4c3b9c0d990aea7bf9500157b}{get\+Move\+Type}} () const
@@ -96,10 +104,14 @@ static \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{State\+W
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a9788f86afe20763100c9da7844f2f175}{uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The instructions UUID. \end{DoxyCompactList}\item 
+boost\+::uuids\+::uuid \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a8b79bb18c7c5207c6e6d30f9b44d9e73}{parent\+\_\+uuid\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em The parent UUID if created from create\+Child. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a4a96d216ff84647198b71852a55ab700}{move\+\_\+type\+\_\+}} \{ \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{Move\+Instruction\+Type\+::\+START}} \}
-\item 
+\begin{DoxyCompactList}\small\item\em The move instruction type. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_ae18a702232c2ae42773c84ee5c69afb3}{description\+\_\+}} \{ \char`\"{}Tesseract Move Instruction\char`\"{} \}
-\item 
+\begin{DoxyCompactList}\small\item\em The description of the instruction. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_aafc4ac7f47a6009473040533b9d7344d}{profile\+\_\+}} \{ \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}} \}
 \begin{DoxyCompactList}\small\item\em The profile used for this move instruction. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classtesseract__planning_1_1MoveInstruction_a594c867fadfc0941312325bf94916163}{path\+\_\+profile\+\_\+}}
@@ -262,6 +274,12 @@ Move Instruction Constructor.
 \doxysubsubsection{\texorpdfstring{getMoveType()}{getMoveType()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Move\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ac2f69544a4ea237957a7dbf04b128cad}\label{classtesseract__planning_1_1MoveInstruction_ac2f69544a4ea237957a7dbf04b128cad}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getParentUUID@{getParentUUID}}
+\index{getParentUUID@{getParentUUID}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{getParentUUID()}{getParentUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Parent\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_acb84a5bd35dd178a3625e48e267083a2}\label{classtesseract__planning_1_1MoveInstruction_acb84a5bd35dd178a3625e48e267083a2}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getPathProfile@{getPathProfile}}
 \index{getPathProfile@{getPathProfile}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
@@ -273,6 +291,12 @@ Move Instruction Constructor.
 \index{getProfile@{getProfile}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{getProfile()}{getProfile()}}
 {\footnotesize\ttfamily const std\+::string \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_aa2236bbd0f157805e220d41d5cc0c113}\label{classtesseract__planning_1_1MoveInstruction_aa2236bbd0f157805e220d41d5cc0c113}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getUUID@{getUUID}}
+\index{getUUID@{getUUID}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{getUUID()}{getUUID()}}
+{\footnotesize\ttfamily const boost\+::uuids\+::uuid \& tesseract\+\_\+planning\+::\+Move\+Instruction\+::get\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_ac33e3fc7464447b2b1c8249440ed7dd3}\label{classtesseract__planning_1_1MoveInstruction_ac33e3fc7464447b2b1c8249440ed7dd3}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!getWaypoint@{getWaypoint}}
@@ -304,6 +328,12 @@ Move Instruction Constructor.
 \doxysubsubsection{\texorpdfstring{print()}{print()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::print (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prefix = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption}) const}
 
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_afdc5c88a69e03dd3b0e0fb977d9c835b}\label{classtesseract__planning_1_1MoveInstruction_afdc5c88a69e03dd3b0e0fb977d9c835b}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!regenerateUUID@{regenerateUUID}}
+\index{regenerateUUID@{regenerateUUID}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{regenerateUUID()}{regenerateUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::regenerate\+UUID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a3e0aefd8a904268b62c0ef28d994d808}\label{classtesseract__planning_1_1MoveInstruction_a3e0aefd8a904268b62c0ef28d994d808}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!serialize@{serialize}}
 \index{serialize@{serialize}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
@@ -328,6 +358,12 @@ void tesseract\+\_\+planning\+::\+Move\+Instruction\+::serialize (\begin{DoxyPar
 \index{setMoveType@{setMoveType}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{setMoveType()}{setMoveType()}}
 {\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::set\+Move\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}}}]{move\+\_\+type }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a9f5617e5748faf55183363c7bf486636}\label{classtesseract__planning_1_1MoveInstruction_a9f5617e5748faf55183363c7bf486636}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!setParentUUID@{setParentUUID}}
+\index{setParentUUID@{setParentUUID}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{setParentUUID()}{setParentUUID()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::\+Move\+Instruction\+::set\+Parent\+UUID (\begin{DoxyParamCaption}\item[{const boost\+::uuids\+::uuid \&}]{uuid }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a156cb896b738ed54f1695d71bfc96c61}\label{classtesseract__planning_1_1MoveInstruction_a156cb896b738ed54f1695d71bfc96c61}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!setPathProfile@{setPathProfile}}
@@ -359,6 +395,10 @@ void tesseract\+\_\+planning\+::\+Move\+Instruction\+::serialize (\begin{DoxyPar
 \doxysubsubsection{\texorpdfstring{description\_}{description\_}}
 {\footnotesize\ttfamily std\+::string tesseract\+\_\+planning\+::\+Move\+Instruction\+::description\+\_\+ \{ \char`\"{}Tesseract Move Instruction\char`\"{} \}\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+The description of the instruction. 
+
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a1feec2c0a18d8ac854eb6215a501c221}\label{classtesseract__planning_1_1MoveInstruction_a1feec2c0a18d8ac854eb6215a501c221}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!manipulator\_info\_@{manipulator\_info\_}}
 \index{manipulator\_info\_@{manipulator\_info\_}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
@@ -374,6 +414,20 @@ Contains information about the manipulator associated with this instruction.
 \index{move\_type\_@{move\_type\_}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
 \doxysubsubsection{\texorpdfstring{move\_type\_}{move\_type\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} tesseract\+\_\+planning\+::\+Move\+Instruction\+::move\+\_\+type\+\_\+ \{ \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{Move\+Instruction\+Type\+::\+START}} \}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The move instruction type. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a8b79bb18c7c5207c6e6d30f9b44d9e73}\label{classtesseract__planning_1_1MoveInstruction_a8b79bb18c7c5207c6e6d30f9b44d9e73}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!parent\_uuid\_@{parent\_uuid\_}}
+\index{parent\_uuid\_@{parent\_uuid\_}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{parent\_uuid\_}{parent\_uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Move\+Instruction\+::parent\+\_\+uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The parent UUID if created from create\+Child. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a594c867fadfc0941312325bf94916163}\label{classtesseract__planning_1_1MoveInstruction_a594c867fadfc0941312325bf94916163}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!path\_profile\_@{path\_profile\_}}
@@ -404,6 +458,16 @@ The profile used for this move instruction.
 
 
 Dictionary of profiles that will override named profiles for a specific task. 
+
+\mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a9788f86afe20763100c9da7844f2f175}\label{classtesseract__planning_1_1MoveInstruction_a9788f86afe20763100c9da7844f2f175}} 
+\index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!uuid\_@{uuid\_}}
+\index{uuid\_@{uuid\_}!tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}}
+\doxysubsubsection{\texorpdfstring{uuid\_}{uuid\_}}
+{\footnotesize\ttfamily boost\+::uuids\+::uuid tesseract\+\_\+planning\+::\+Move\+Instruction\+::uuid\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The instructions UUID. 
 
 \mbox{\Hypertarget{classtesseract__planning_1_1MoveInstruction_a319af76635221857e3c73df2fbdc3280}\label{classtesseract__planning_1_1MoveInstruction_a319af76635221857e3c73df2fbdc3280}} 
 \index{tesseract\_planning::MoveInstruction@{tesseract\_planning::MoveInstruction}!waypoint\_@{waypoint\_}}

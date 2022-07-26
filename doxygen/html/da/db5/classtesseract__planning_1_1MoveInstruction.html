@@ -122,6 +122,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acd516a29c0b3d4e6ad33720d97f97d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0f673eeeb99876e40aecd24734782a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ac0f673eeeb99876e40aecd24734782a1">MoveInstruction</a> (<a class="el" href="../../dd/d4d/structtesseract__planning_1_1StateWaypointPoly.html">StateWaypointPoly</a> waypoint, <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> type, std::string profile, std::string path_profile, tesseract_common::ManipulatorInfo manipulator_info=tesseract_common::ManipulatorInfo())</td></tr>
 <tr class="separator:ac0f673eeeb99876e40aecd24734782a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2236bbd0f157805e220d41d5cc0c113"><td class="memItemLeft" align="right" valign="top">const boost::uuids::uuid &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aa2236bbd0f157805e220d41d5cc0c113">getUUID</a> () const</td></tr>
+<tr class="separator:aa2236bbd0f157805e220d41d5cc0c113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdc5c88a69e03dd3b0e0fb977d9c835b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#afdc5c88a69e03dd3b0e0fb977d9c835b">regenerateUUID</a> ()</td></tr>
+<tr class="separator:afdc5c88a69e03dd3b0e0fb977d9c835b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2f69544a4ea237957a7dbf04b128cad"><td class="memItemLeft" align="right" valign="top">const boost::uuids::uuid &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ac2f69544a4ea237957a7dbf04b128cad">getParentUUID</a> () const</td></tr>
+<tr class="separator:ac2f69544a4ea237957a7dbf04b128cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f5617e5748faf55183363c7bf486636"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a9f5617e5748faf55183363c7bf486636">setParentUUID</a> (const boost::uuids::uuid &amp;uuid)</td></tr>
+<tr class="separator:a9f5617e5748faf55183363c7bf486636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9de60baeb5f2fbaf1972c2eee9b9a427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a9de60baeb5f2fbaf1972c2eee9b9a427">setMoveType</a> (<a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a> move_type)</td></tr>
 <tr class="separator:a9de60baeb5f2fbaf1972c2eee9b9a427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00fdb7b4c3b9c0d990aea7bf9500157b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a00fdb7b4c3b9c0d990aea7bf9500157b">getMoveType</a> () const</td></tr>
@@ -184,9 +192,17 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a9788f86afe20763100c9da7844f2f175"><td class="memItemLeft" align="right" valign="top">boost::uuids::uuid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a9788f86afe20763100c9da7844f2f175">uuid_</a> {}</td></tr>
+<tr class="memdesc:a9788f86afe20763100c9da7844f2f175"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instructions UUID.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a9788f86afe20763100c9da7844f2f175">More...</a><br /></td></tr>
+<tr class="separator:a9788f86afe20763100c9da7844f2f175"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b79bb18c7c5207c6e6d30f9b44d9e73"><td class="memItemLeft" align="right" valign="top">boost::uuids::uuid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a8b79bb18c7c5207c6e6d30f9b44d9e73">parent_uuid_</a> {}</td></tr>
+<tr class="memdesc:a8b79bb18c7c5207c6e6d30f9b44d9e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent UUID if created from createChild.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a8b79bb18c7c5207c6e6d30f9b44d9e73">More...</a><br /></td></tr>
+<tr class="separator:a8b79bb18c7c5207c6e6d30f9b44d9e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a96d216ff84647198b71852a55ab700"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7ac">MoveInstructionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a4a96d216ff84647198b71852a55ab700">move_type_</a> { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac">MoveInstructionType::START</a> }</td></tr>
+<tr class="memdesc:a4a96d216ff84647198b71852a55ab700"><td class="mdescLeft">&#160;</td><td class="mdescRight">The move instruction type.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#a4a96d216ff84647198b71852a55ab700">More...</a><br /></td></tr>
 <tr class="separator:a4a96d216ff84647198b71852a55ab700"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae18a702232c2ae42773c84ee5c69afb3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ae18a702232c2ae42773c84ee5c69afb3">description_</a> { &quot;Tesseract Move Instruction&quot; }</td></tr>
+<tr class="memdesc:ae18a702232c2ae42773c84ee5c69afb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The description of the instruction.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#ae18a702232c2ae42773c84ee5c69afb3">More...</a><br /></td></tr>
 <tr class="separator:ae18a702232c2ae42773c84ee5c69afb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafc4ac7f47a6009473040533b9d7344d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aafc4ac7f47a6009473040533b9d7344d">profile_</a> { <a class="el" href="../../d9/dcd/namespacetesseract__planning.html#a2c7f691c616d8edb55709be6ced8d565">DEFAULT_PROFILE_KEY</a> }</td></tr>
 <tr class="memdesc:aafc4ac7f47a6009473040533b9d7344d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The profile used for this move instruction.  <a href="../../da/db5/classtesseract__planning_1_1MoveInstruction.html#aafc4ac7f47a6009473040533b9d7344d">More...</a><br /></td></tr>
@@ -717,6 +733,23 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="ac2f69544a4ea237957a7dbf04b128cad" name="ac2f69544a4ea237957a7dbf04b128cad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2f69544a4ea237957a7dbf04b128cad">&#9670;&nbsp;</a></span>getParentUUID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const boost::uuids::uuid &amp; tesseract_planning::MoveInstruction::getParentUUID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="acb84a5bd35dd178a3625e48e267083a2" name="acb84a5bd35dd178a3625e48e267083a2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb84a5bd35dd178a3625e48e267083a2">&#9670;&nbsp;</a></span>getPathProfile()</h2>
 
@@ -742,6 +775,23 @@ Friends</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const std::string &amp; tesseract_planning::MoveInstruction::getProfile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa2236bbd0f157805e220d41d5cc0c113" name="aa2236bbd0f157805e220d41d5cc0c113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2236bbd0f157805e220d41d5cc0c113">&#9670;&nbsp;</a></span>getUUID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const boost::uuids::uuid &amp; tesseract_planning::MoveInstruction::getUUID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -833,6 +883,23 @@ Friends</h2></td></tr>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>prefix</em> = <code>&quot;&quot;</code></td><td>)</td>
           <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdc5c88a69e03dd3b0e0fb977d9c835b" name="afdc5c88a69e03dd3b0e0fb977d9c835b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc5c88a69e03dd3b0e0fb977d9c835b">&#9670;&nbsp;</a></span>regenerateUUID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::MoveInstruction::regenerateUUID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -931,6 +998,24 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
+<a id="a9f5617e5748faf55183363c7bf486636" name="a9f5617e5748faf55183363c7bf486636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f5617e5748faf55183363c7bf486636">&#9670;&nbsp;</a></span>setParentUUID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tesseract_planning::MoveInstruction::setParentUUID </td>
+          <td>(</td>
+          <td class="paramtype">const boost::uuids::uuid &amp;&#160;</td>
+          <td class="paramname"><em>uuid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a156cb896b738ed54f1695d71bfc96c61" name="a156cb896b738ed54f1695d71bfc96c61"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a156cb896b738ed54f1695d71bfc96c61">&#9670;&nbsp;</a></span>setPathProfile()</h2>
 
@@ -1011,6 +1096,8 @@ template&lt;class Archive &gt; </div>
 </table>
 </div><div class="memdoc">
 
+<p>The description of the instruction. </p>
+
 </div>
 </div>
 <a id="a1feec2c0a18d8ac854eb6215a501c221" name="a1feec2c0a18d8ac854eb6215a501c221"></a>
@@ -1056,6 +1143,32 @@ template&lt;class Archive &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The move instruction type. </p>
+
+</div>
+</div>
+<a id="a8b79bb18c7c5207c6e6d30f9b44d9e73" name="a8b79bb18c7c5207c6e6d30f9b44d9e73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b79bb18c7c5207c6e6d30f9b44d9e73">&#9670;&nbsp;</a></span>parent_uuid_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::uuids::uuid tesseract_planning::MoveInstruction::parent_uuid_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The parent UUID if created from createChild. </p>
 
 </div>
 </div>
@@ -1123,6 +1236,30 @@ template&lt;class Archive &gt; </div>
 
 </div>
 </div>
+<a id="a9788f86afe20763100c9da7844f2f175" name="a9788f86afe20763100c9da7844f2f175"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9788f86afe20763100c9da7844f2f175">&#9670;&nbsp;</a></span>uuid_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::uuids::uuid tesseract_planning::MoveInstruction::uuid_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The instructions UUID. </p>
+
+</div>
+</div>
 <a id="a319af76635221857e3c73df2fbdc3280" name="a319af76635221857e3c73df2fbdc3280"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a319af76635221857e3c73df2fbdc3280">&#9670;&nbsp;</a></span>waypoint_</h2>
 
@@ -1154,7 +1291,7 @@ template&lt;class Archive &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 24 2022 23:37:53 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Jul 26 2022 14:28:35 for Tesseract Planning by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -12,268 +12,304 @@
 \DoxyCodeLine{32 \textcolor{preprocessor}{\#include <boost/serialization/base\_object.hpp>}}
 \DoxyCodeLine{33 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
 \DoxyCodeLine{34 \textcolor{preprocessor}{\#include <boost/concept\_check.hpp>}}
-\DoxyCodeLine{35 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__poly_8h}{tesseract\_command\_language/poly/instruction\_poly.h}}>}}
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{cartesian__waypoint__poly_8h}{tesseract\_command\_language/poly/cartesian\_waypoint\_poly.h}}>}}
-\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{joint__waypoint__poly_8h}{tesseract\_command\_language/poly/joint\_waypoint\_poly.h}}>}}
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{state__waypoint__poly_8h}{tesseract\_command\_language/poly/state\_waypoint\_poly.h}}>}}
-\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{waypoint__poly_8h}{tesseract\_command\_language/poly/waypoint\_poly.h}}>}}
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <tesseract\_common/manipulator\_info.h>}}
-\DoxyCodeLine{43 \textcolor{preprocessor}{\#include <tesseract\_common/serialization.h>}}
-\DoxyCodeLine{44 \textcolor{preprocessor}{\#include <tesseract\_common/type\_erasure.h>}}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{47 \textcolor{preprocessor}{\#define TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY(N, C)                                                                    \(\backslash\)}}
-\DoxyCodeLine{48 \textcolor{preprocessor}{  namespace N                                                                                                          \(\backslash\)}}
-\DoxyCodeLine{49 \textcolor{preprocessor}{  \{                                                                                                                    \(\backslash\)}}
-\DoxyCodeLine{50 \textcolor{preprocessor}{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}}
-\DoxyCodeLine{51 \textcolor{preprocessor}{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface>; \(\backslash\)}}
-\DoxyCodeLine{52 \textcolor{preprocessor}{  using C\#\#Instance = tesseract\_planning::detail\_move\_instruction::MoveInstructionInstance<C>;                         \(\backslash\)}}
-\DoxyCodeLine{53 \textcolor{preprocessor}{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}}
-\DoxyCodeLine{54 \textcolor{preprocessor}{  \}                                                                                                                    \(\backslash\)}}
-\DoxyCodeLine{55 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}}
-\DoxyCodeLine{56 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}}
-\DoxyCodeLine{57 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceWrapper)                                                                        \(\backslash\)}}
-\DoxyCodeLine{58 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceBase, boost::serialization::track\_never)                                          \(\backslash\)}}
-\DoxyCodeLine{59 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#Instance, boost::serialization::track\_never)                                              \(\backslash\)}}
-\DoxyCodeLine{60 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceWrapper, boost::serialization::track\_never)}}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{63 \textcolor{preprocessor}{\#define TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT(inst)                                                              \(\backslash\)}}
-\DoxyCodeLine{64 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceBase)                                                                     \(\backslash\)}}
-\DoxyCodeLine{65 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#Instance)                                                                         \(\backslash\)}}
-\DoxyCodeLine{66 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceWrapper)}}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{72 \textcolor{preprocessor}{\#define TESSERACT\_MOVE\_INSTRUCTION\_EXPORT(N, C)                                                                        \(\backslash\)}}
-\DoxyCodeLine{73 \textcolor{preprocessor}{  TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY(N, C)                                                                          \(\backslash\)}}
-\DoxyCodeLine{74 \textcolor{preprocessor}{  TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT(N::C)}}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{76 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{77 \{}
-\DoxyCodeLine{78 \textcolor{keyword}{enum class} \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} : \textcolor{keywordtype}{int}}
-\DoxyCodeLine{79 \{}
-\DoxyCodeLine{80   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{LINEAR}} = 0,}
-\DoxyCodeLine{81   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{FREESPACE}} = 1,}
-\DoxyCodeLine{82   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68}{CIRCULAR}} = 2,}
-\DoxyCodeLine{83   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{START}} = 3 }
-\DoxyCodeLine{84 \};}
-\DoxyCodeLine{85 \}}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{87 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning_1_1detail__move__instruction}{tesseract\_planning::detail\_move\_instruction}}}
-\DoxyCodeLine{88 \{}
-\DoxyCodeLine{89 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{90 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept}{MoveInstructionConcept}}  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{91   : boost::Assignable<T>,}
-\DoxyCodeLine{92     boost::CopyConstructible<T>,}
-\DoxyCodeLine{93     boost::EqualityComparable<T>}
-\DoxyCodeLine{94 \{}
-\DoxyCodeLine{95   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_ad85f856e8b21d163bb21bfbf3ee0ceab}{BOOST\_CONCEPT\_USAGE}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept}{MoveInstructionConcept}})}
-\DoxyCodeLine{96   \{}
-\DoxyCodeLine{97     T cp(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}});}
-\DoxyCodeLine{98     T assign = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}};}
-\DoxyCodeLine{99     \textcolor{keywordtype}{bool} eq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}} == cp);}
-\DoxyCodeLine{100     \textcolor{keywordtype}{bool} neq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}} != cp);}
-\DoxyCodeLine{101     UNUSED(assign);}
-\DoxyCodeLine{102     UNUSED(eq);}
-\DoxyCodeLine{103     UNUSED(neq);}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{105     \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info;}
-\DoxyCodeLine{106     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.setManipulatorInfo(info);}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <boost/uuid/uuid.hpp>}}
+\DoxyCodeLine{36 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{instruction__poly_8h}{tesseract\_command\_language/poly/instruction\_poly.h}}>}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{cartesian__waypoint__poly_8h}{tesseract\_command\_language/poly/cartesian\_waypoint\_poly.h}}>}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{joint__waypoint__poly_8h}{tesseract\_command\_language/poly/joint\_waypoint\_poly.h}}>}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{state__waypoint__poly_8h}{tesseract\_command\_language/poly/state\_waypoint\_poly.h}}>}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{waypoint__poly_8h}{tesseract\_command\_language/poly/waypoint\_poly.h}}>}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#include <tesseract\_common/manipulator\_info.h>}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include <tesseract\_common/serialization.h>}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#include <tesseract\_common/type\_erasure.h>}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#define TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY(N, C)                                                                    \(\backslash\)}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{  namespace N                                                                                                          \(\backslash\)}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{  \{                                                                                                                    \(\backslash\)}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{  using C\#\#InstanceBase =                                                                                              \(\backslash\)}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{      tesseract\_common::TypeErasureInstance<C, tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface>; \(\backslash\)}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{  using C\#\#Instance = tesseract\_planning::detail\_move\_instruction::MoveInstructionInstance<C>;                         \(\backslash\)}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{  using C\#\#InstanceWrapper = tesseract\_common::TypeErasureInstanceWrapper<C\#\#Instance>;                                \(\backslash\)}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{  \}                                                                                                                    \(\backslash\)}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceBase)                                                                           \(\backslash\)}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#Instance)                                                                               \(\backslash\)}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_KEY(N::C\#\#InstanceWrapper)                                                                        \(\backslash\)}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceBase, boost::serialization::track\_never)                                          \(\backslash\)}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#Instance, boost::serialization::track\_never)                                              \(\backslash\)}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{  BOOST\_CLASS\_TRACKING(N::C\#\#InstanceWrapper, boost::serialization::track\_never)}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#define TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT(inst)                                                              \(\backslash\)}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceBase)                                                                     \(\backslash\)}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#Instance)                                                                         \(\backslash\)}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{  BOOST\_CLASS\_EXPORT\_IMPLEMENT(inst\#\#InstanceWrapper)}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#define TESSERACT\_MOVE\_INSTRUCTION\_EXPORT(N, C)                                                                        \(\backslash\)}}
+\DoxyCodeLine{74 \textcolor{preprocessor}{  TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_KEY(N, C)                                                                          \(\backslash\)}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{  TESSERACT\_MOVE\_INSTRUCTION\_EXPORT\_IMPLEMENT(N::C)}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{78 \{}
+\DoxyCodeLine{79 \textcolor{keyword}{struct }MoveInstructionPoly;}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{keyword}{enum class} \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} : \textcolor{keywordtype}{int}}
+\DoxyCodeLine{82 \{}
+\DoxyCodeLine{83   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acaaac544aacc3615aada24897a215f5046}{LINEAR}} = 0,}
+\DoxyCodeLine{84   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{FREESPACE}} = 1,}
+\DoxyCodeLine{85   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca93c8d295bb538cdb3302604512828d68}{CIRCULAR}} = 2,}
+\DoxyCodeLine{86   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7acab078ffd28db767c502ac367053f6e0ac}{START}} = 3 }
+\DoxyCodeLine{87 \};}
+\DoxyCodeLine{88 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning_1_1detail__move__instruction}{tesseract\_planning::detail\_move\_instruction}}}
+\DoxyCodeLine{91 \{}
+\DoxyCodeLine{92 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{93 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept}{MoveInstructionConcept}}  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{94   : boost::Assignable<T>,}
+\DoxyCodeLine{95     boost::CopyConstructible<T>,}
+\DoxyCodeLine{96     boost::EqualityComparable<T>}
+\DoxyCodeLine{97 \{}
+\DoxyCodeLine{98   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_ad85f856e8b21d163bb21bfbf3ee0ceab}{BOOST\_CONCEPT\_USAGE}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept}{MoveInstructionConcept}})}
+\DoxyCodeLine{99   \{}
+\DoxyCodeLine{100     T cp(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}});}
+\DoxyCodeLine{101     T assign = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}};}
+\DoxyCodeLine{102     \textcolor{keywordtype}{bool} eq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}} == cp);}
+\DoxyCodeLine{103     \textcolor{keywordtype}{bool} neq = (\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}} != cp);}
+\DoxyCodeLine{104     UNUSED(assign);}
+\DoxyCodeLine{105     UNUSED(eq);}
+\DoxyCodeLine{106     UNUSED(neq);}
 \DoxyCodeLine{107 }
-\DoxyCodeLine{108     \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& info\_ref = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getManipulatorInfo();}
-\DoxyCodeLine{109     UNUSED(info\_ref);}
+\DoxyCodeLine{108     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uuid = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getUUID();}
+\DoxyCodeLine{109     UNUSED(uuid);}
 \DoxyCodeLine{110 }
-\DoxyCodeLine{111     \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& info\_const\_ref = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getManipulatorInfo();}
-\DoxyCodeLine{112     UNUSED(info\_const\_ref);}
+\DoxyCodeLine{111     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.regenerateUUID();}
+\DoxyCodeLine{112     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.setParentUUID(uuid);}
 \DoxyCodeLine{113 }
-\DoxyCodeLine{114     \textcolor{keyword}{const} std::string\& profile\_const = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getProfile();}
-\DoxyCodeLine{115     UNUSED(profile\_const);}
+\DoxyCodeLine{114     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& parent\_uuid = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getParentUUID();}
+\DoxyCodeLine{115     UNUSED(parent\_uuid);}
 \DoxyCodeLine{116 }
-\DoxyCodeLine{117     \textcolor{keyword}{const} std::string\& path\_profile\_const = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getPathProfile();}
-\DoxyCodeLine{118     UNUSED(path\_profile\_const);}
+\DoxyCodeLine{117     \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info;}
+\DoxyCodeLine{118     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.setManipulatorInfo(info);}
 \DoxyCodeLine{119 }
-\DoxyCodeLine{120     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.setMoveType(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}});}
-\DoxyCodeLine{121     \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} type = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getMoveType();}
-\DoxyCodeLine{122     UNUSED(type);}
-\DoxyCodeLine{123 }
-\DoxyCodeLine{124     \textcolor{keyword}{const} std::string\& desc = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getDescription();}
-\DoxyCodeLine{125     UNUSED(desc);}
-\DoxyCodeLine{126 }
-\DoxyCodeLine{127     \textcolor{keyword}{auto} cwp = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.createCartesianWaypoint();}
-\DoxyCodeLine{128     UNUSED(cwp);}
-\DoxyCodeLine{129 }
-\DoxyCodeLine{130     \textcolor{keyword}{auto} jwp = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.createJointWaypoint();}
-\DoxyCodeLine{131     UNUSED(jwp);}
-\DoxyCodeLine{132 }
-\DoxyCodeLine{133     \textcolor{keyword}{auto} swp = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.createStateWaypoint();}
-\DoxyCodeLine{134     UNUSED(swp);}
+\DoxyCodeLine{120     \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& info\_ref = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getManipulatorInfo();}
+\DoxyCodeLine{121     UNUSED(info\_ref);}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123     \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& info\_const\_ref = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getManipulatorInfo();}
+\DoxyCodeLine{124     UNUSED(info\_const\_ref);}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126     \textcolor{keyword}{const} std::string\& profile\_const = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getProfile();}
+\DoxyCodeLine{127     UNUSED(profile\_const);}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129     \textcolor{keyword}{const} std::string\& path\_profile\_const = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getPathProfile();}
+\DoxyCodeLine{130     UNUSED(path\_profile\_const);}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.setMoveType(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7aca7527bb744a3edda4e08b7323f4bb5ffd}{MoveInstructionType::FREESPACE}});}
+\DoxyCodeLine{133     \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} type = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getMoveType();}
+\DoxyCodeLine{134     UNUSED(type);}
 \DoxyCodeLine{135 }
-\DoxyCodeLine{136     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.setDescription(\textcolor{stringliteral}{"{}test"{}});}
-\DoxyCodeLine{137     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.print();}
-\DoxyCodeLine{138     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.print(\textcolor{stringliteral}{"{}prefix\_"{}});}
-\DoxyCodeLine{139   \}}
-\DoxyCodeLine{140 }
-\DoxyCodeLine{141 \textcolor{keyword}{private}:}
-\DoxyCodeLine{142   T \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}};}
-\DoxyCodeLine{143 \};}
+\DoxyCodeLine{136     \textcolor{keyword}{const} std::string\& desc = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.getDescription();}
+\DoxyCodeLine{137     UNUSED(desc);}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139     \textcolor{keyword}{auto} cwp = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.createCartesianWaypoint();}
+\DoxyCodeLine{140     UNUSED(cwp);}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142     \textcolor{keyword}{auto} jwp = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.createJointWaypoint();}
+\DoxyCodeLine{143     UNUSED(jwp);}
 \DoxyCodeLine{144 }
-\DoxyCodeLine{145 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{MoveInstructionInterface}} : tesseract\_common::TypeErasureInterface}
-\DoxyCodeLine{146 \{}
-\DoxyCodeLine{147   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a5bd5b84d777a1ed4e84c0eb5061a6b2c}{assignCartesianWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} waypoint) = 0;}
-\DoxyCodeLine{148   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab520e61cf4848426abcd8428fb50eb00}{assignJointWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} waypoint) = 0;}
-\DoxyCodeLine{149   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0ef9b8ac668e5b7288d2c527f75fb3e7}{assignStateWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} waypoint) = 0;}
-\DoxyCodeLine{150   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9a9225e816d89f7d5db56c1660940213}{getWaypoint}}() = 0;}
-\DoxyCodeLine{151   \textcolor{keyword}{virtual} \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0c94a842d5f2cf9cc85266f7a3c1e2}{getWaypoint}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{145     \textcolor{keyword}{auto} swp = \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.createStateWaypoint();}
+\DoxyCodeLine{146     UNUSED(swp);}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.setDescription(\textcolor{stringliteral}{"{}test"{}});}
+\DoxyCodeLine{149     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.print();}
+\DoxyCodeLine{150     \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}}.print(\textcolor{stringliteral}{"{}prefix\_"{}});}
+\DoxyCodeLine{151   \}}
 \DoxyCodeLine{152 }
-\DoxyCodeLine{153   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1cd98417983bc66e37fe6eb76e58bb0d}{setManipulatorInfo}}(\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info) = 0;}
-\DoxyCodeLine{154   \textcolor{keyword}{virtual} \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab26c4678d57d32fbb30cdb7db2c0c7f8}{getManipulatorInfo}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{155   \textcolor{keyword}{virtual} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a19979880b2f224464a456602ae89afdc}{getManipulatorInfo}}() = 0;}
+\DoxyCodeLine{153 \textcolor{keyword}{private}:}
+\DoxyCodeLine{154   T \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept_a93de46fabc7cca9b4ba70aa0b3a19c4a}{c}};}
+\DoxyCodeLine{155 \};}
 \DoxyCodeLine{156 }
-\DoxyCodeLine{157   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a741ddd569de1fbcf36f27d0ad42bc7af}{setProfile}}(\textcolor{keyword}{const} std::string\& profile) = 0;}
-\DoxyCodeLine{158   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0962935360433c929cd4ee8bccf2642f}{getProfile}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{159 }
-\DoxyCodeLine{160   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad18675c2417e2ae37423643bf7492395}{setPathProfile}}(\textcolor{keyword}{const} std::string\& profile) = 0;}
-\DoxyCodeLine{161   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_abca49142407e18492bac687883508d04}{getPathProfile}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{162 }
-\DoxyCodeLine{163   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_adfb7e4ecfba797cdd6b7749ddef9ccc3}{setMoveType}}(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} move\_type) = 0;}
-\DoxyCodeLine{164   \textcolor{keyword}{virtual} \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ae3b36474f0be5a2074573be5d3ad4087}{getMoveType}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{165 }
-\DoxyCodeLine{166   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_acdc72c35cbe3f76c81e129e8d886b7ed}{getDescription}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{167   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1384f0119d7d02c9d4b306dd41cb8b00}{setDescription}}(\textcolor{keyword}{const} std::string\& description) = 0;}
-\DoxyCodeLine{168 }
-\DoxyCodeLine{169   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a4a265407d153b840c5c666f4f9766872}{print}}(\textcolor{keyword}{const} std::string\& prefix) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{157 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{MoveInstructionInterface}} : tesseract\_common::TypeErasureInterface}
+\DoxyCodeLine{158 \{}
+\DoxyCodeLine{159   \textcolor{keyword}{virtual} \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ac8d3a8c809efc089a65141ef510ab98e}{getUUID}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{160   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a02788604c1d66b2d36e3b674849bf9f3}{regenerateUUID}}() = 0;}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162   \textcolor{keyword}{virtual} \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a5a11c561a4fb7de237529937081c44a9}{getParentUUID}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{163   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a8691c49b8b693c8b34c7af7622837f91}{setParentUUID}}(\textcolor{keyword}{const} boost::uuids::uuid\& uuid) = 0;}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{165   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a5bd5b84d777a1ed4e84c0eb5061a6b2c}{assignCartesianWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} waypoint) = 0;}
+\DoxyCodeLine{166   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab520e61cf4848426abcd8428fb50eb00}{assignJointWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} waypoint) = 0;}
+\DoxyCodeLine{167   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0ef9b8ac668e5b7288d2c527f75fb3e7}{assignStateWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} waypoint) = 0;}
+\DoxyCodeLine{168   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9a9225e816d89f7d5db56c1660940213}{getWaypoint}}() = 0;}
+\DoxyCodeLine{169   \textcolor{keyword}{virtual} \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0c94a842d5f2cf9cc85266f7a3c1e2}{getWaypoint}}() \textcolor{keyword}{const} = 0;}
 \DoxyCodeLine{170 }
-\DoxyCodeLine{171   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0ff5bba2bc077a76294c692b4e4fd5}{createCartesianWaypoint}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{172   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad0de992d8861162c64c3692150c4861e}{createJointWaypoint}}() \textcolor{keyword}{const} = 0;}
-\DoxyCodeLine{173   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a7e9be691cfc807ca5c166abf7137f583}{createStateWaypoint}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{171   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1cd98417983bc66e37fe6eb76e58bb0d}{setManipulatorInfo}}(\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info) = 0;}
+\DoxyCodeLine{172   \textcolor{keyword}{virtual} \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab26c4678d57d32fbb30cdb7db2c0c7f8}{getManipulatorInfo}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{173   \textcolor{keyword}{virtual} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a19979880b2f224464a456602ae89afdc}{getManipulatorInfo}}() = 0;}
 \DoxyCodeLine{174 }
-\DoxyCodeLine{175 \textcolor{keyword}{private}:}
-\DoxyCodeLine{176   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{177   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{178   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{179   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad74923e680742403260eb6ef36b4209e}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{180 \};}
-\DoxyCodeLine{181 }
-\DoxyCodeLine{182 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{183 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{MoveInstructionInstance}} : tesseract\_common::TypeErasureInstance<T, MoveInstructionInterface>  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{184 \{}
-\DoxyCodeLine{185   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a1c01c800d7d23145552ef16964af6b28}{BaseType}} = tesseract\_common::TypeErasureInstance<T, MoveInstructionInterface>;}
-\DoxyCodeLine{186   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a11663feb9b1d232719788522dd013406}{MoveInstructionInstance}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{187   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a5520ff5f662ebb2fb99d21d34c125123}{MoveInstructionInstance}}(\textcolor{keyword}{const} T\& x) : \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a1c01c800d7d23145552ef16964af6b28}{BaseType}}(x) \{\}}
-\DoxyCodeLine{188   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_af6e8736384d958c6ccee74bd19f69c1b}{MoveInstructionInstance}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{MoveInstructionInstance}}\&\& x) noexcept : \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a1c01c800d7d23145552ef16964af6b28}{BaseType}}(std::move(x)) \{\}}
-\DoxyCodeLine{189 }
-\DoxyCodeLine{190   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a4193393127e9915f935d297da22c07b4}{BOOST\_CONCEPT\_ASSERT}}((\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept}{MoveInstructionConcept<T>}}));}
-\DoxyCodeLine{191 }
-\DoxyCodeLine{192   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a73c01c1e37b94c91171f1b000dbe7cd5}{assignCartesianWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} waypoint) \textcolor{keyword}{final}}
-\DoxyCodeLine{193   \{}
-\DoxyCodeLine{194     this-\/>get().assignCartesianWaypoint(std::move(waypoint));}
-\DoxyCodeLine{195   \}}
-\DoxyCodeLine{196   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a993cc4b4017124dd14d2168a72216918}{assignJointWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} waypoint) \textcolor{keyword}{final} \{ this-\/>get().assignJointWaypoint(std::move(waypoint)); \}}
-\DoxyCodeLine{197   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a0fe2461b762948e70f98439e96f82760}{assignStateWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} waypoint) \textcolor{keyword}{final} \{ this-\/>get().assignStateWaypoint(std::move(waypoint)); \}}
-\DoxyCodeLine{198   \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_ab609814a0495d690d245a3a5826fa5f4}{getWaypoint}}() final \{ \textcolor{keywordflow}{return} this-\/>get().getWaypoint(); \}}
-\DoxyCodeLine{199   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a0ea1878c8f49d3e382e33814607f1bdf}{getWaypoint}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getWaypoint(); \};}
-\DoxyCodeLine{200 }
-\DoxyCodeLine{201   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a509ee3176d2a4e9d86a55d982845c296}{setManipulatorInfo}}(\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info) \textcolor{keyword}{final}}
-\DoxyCodeLine{202   \{}
-\DoxyCodeLine{203     this-\/>get().setManipulatorInfo(std::move(info));}
-\DoxyCodeLine{204   \}}
-\DoxyCodeLine{205   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_ad0f5b728877487c85d417c5369e9aa64}{getManipulatorInfo}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getManipulatorInfo(); \}}
-\DoxyCodeLine{206   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_aa9c7132e274f81c6d84cabbafeb70002}{getManipulatorInfo}}() final \{ \textcolor{keywordflow}{return} this-\/>get().getManipulatorInfo(); \}}
+\DoxyCodeLine{175   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a741ddd569de1fbcf36f27d0ad42bc7af}{setProfile}}(\textcolor{keyword}{const} std::string\& profile) = 0;}
+\DoxyCodeLine{176   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0962935360433c929cd4ee8bccf2642f}{getProfile}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad18675c2417e2ae37423643bf7492395}{setPathProfile}}(\textcolor{keyword}{const} std::string\& profile) = 0;}
+\DoxyCodeLine{179   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_abca49142407e18492bac687883508d04}{getPathProfile}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_adfb7e4ecfba797cdd6b7749ddef9ccc3}{setMoveType}}(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} move\_type) = 0;}
+\DoxyCodeLine{182   \textcolor{keyword}{virtual} \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ae3b36474f0be5a2074573be5d3ad4087}{getMoveType}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184   \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_acdc72c35cbe3f76c81e129e8d886b7ed}{getDescription}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{185   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a1384f0119d7d02c9d4b306dd41cb8b00}{setDescription}}(\textcolor{keyword}{const} std::string\& description) = 0;}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a4a265407d153b840c5c666f4f9766872}{print}}(\textcolor{keyword}{const} std::string\& prefix) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0c0ff5bba2bc077a76294c692b4e4fd5}{createCartesianWaypoint}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{190   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad0de992d8861162c64c3692150c4861e}{createJointWaypoint}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{191   \textcolor{keyword}{virtual} \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a7e9be691cfc807ca5c166abf7137f583}{createStateWaypoint}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193 \textcolor{keyword}{private}:}
+\DoxyCodeLine{194   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{195   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{196   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{197   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ad74923e680742403260eb6ef36b4209e}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{198 \};}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{201 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{MoveInstructionInstance}} : tesseract\_common::TypeErasureInstance<T, MoveInstructionInterface>  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{202 \{}
+\DoxyCodeLine{203   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a1c01c800d7d23145552ef16964af6b28}{BaseType}} = tesseract\_common::TypeErasureInstance<T, MoveInstructionInterface>;}
+\DoxyCodeLine{204   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a11663feb9b1d232719788522dd013406}{MoveInstructionInstance}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{205   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a5520ff5f662ebb2fb99d21d34c125123}{MoveInstructionInstance}}(\textcolor{keyword}{const} T\& x) : \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a1c01c800d7d23145552ef16964af6b28}{BaseType}}(x) \{\}}
+\DoxyCodeLine{206   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_af6e8736384d958c6ccee74bd19f69c1b}{MoveInstructionInstance}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{MoveInstructionInstance}}\&\& x) noexcept : \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a1c01c800d7d23145552ef16964af6b28}{BaseType}}(std::move(x)) \{\}}
 \DoxyCodeLine{207 }
-\DoxyCodeLine{208   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a573c98a6e338e8071bf2dcb265923f55}{setProfile}}(\textcolor{keyword}{const} std::string\& profile) \textcolor{keyword}{final} \{ this-\/>get().setProfile(profile); \}}
-\DoxyCodeLine{209   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_abc219060cc401feef225e417b1ce93b6}{getProfile}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getProfile(); \}}
-\DoxyCodeLine{210 }
-\DoxyCodeLine{211   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a0ca7949bd6ce9f084a484f302b3166e6}{setPathProfile}}(\textcolor{keyword}{const} std::string\& profile) \textcolor{keyword}{final} \{ this-\/>get().setPathProfile(profile); \}}
-\DoxyCodeLine{212   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_aea90e2080dff64b37cc44fa5ed150e81}{getPathProfile}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getPathProfile(); \}}
-\DoxyCodeLine{213 }
-\DoxyCodeLine{214   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_afbcb461c8d2df205dd7bf30502e9130e}{setMoveType}}(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} move\_type) \textcolor{keyword}{final} \{ this-\/>get().setMoveType(move\_type); \}}
-\DoxyCodeLine{215   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_aca3012ee26cb2b48c32c290b2605df8b}{getMoveType}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getMoveType(); \}}
-\DoxyCodeLine{216 }
-\DoxyCodeLine{217   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a93aeeaade8622120288ab7a0b031580d}{getDescription}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getDescription(); \}}
-\DoxyCodeLine{218   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_acc42c43c7ffb1897a652309415555536}{setDescription}}(\textcolor{keyword}{const} std::string\& description) \textcolor{keyword}{final} \{ this-\/>get().setDescription(description); \}}
-\DoxyCodeLine{219 }
-\DoxyCodeLine{220   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a21285de0076009c4da83c88e322defde}{print}}(\textcolor{keyword}{const} std::string\& prefix) \textcolor{keyword}{const} \textcolor{keyword}{final} \{ this-\/>get().print(prefix); \}}
-\DoxyCodeLine{221 }
-\DoxyCodeLine{222   \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a72df3388c6dcd9f393d1a1d33df3b64f}{createCartesianWaypoint}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().createCartesianWaypoint(); \}}
-\DoxyCodeLine{223   \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a24858c86ff971903c141d25d79e25ca7}{createJointWaypoint}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().createJointWaypoint(); \}}
-\DoxyCodeLine{224   \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a36f0b99a899b0e7f8b801bc68dc57997}{createStateWaypoint}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().createStateWaypoint(); \}}
-\DoxyCodeLine{225 }
-\DoxyCodeLine{226 \textcolor{keyword}{private}:}
-\DoxyCodeLine{227   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{228   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
-\DoxyCodeLine{229   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{230   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a7651ed10b5d665f7d56164a3247afa7c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/})  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{231   \{}
-\DoxyCodeLine{232     ar\& boost::serialization::make\_nvp(\textcolor{stringliteral}{"{}base"{}}, boost::serialization::base\_object<BaseType>(*\textcolor{keyword}{this}));}
-\DoxyCodeLine{233   \}}
-\DoxyCodeLine{234 \};}
-\DoxyCodeLine{235 \}  \textcolor{comment}{// namespace tesseract\_planning::detail\_move\_instruction}}
-\DoxyCodeLine{236 }
-\DoxyCodeLine{237 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
-\DoxyCodeLine{238 \{}
-\DoxyCodeLine{239 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{MoveInstructionPolyBase}} = tesseract\_common::TypeErasureBase<\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{detail\_move\_instruction::MoveInstructionInterface}},}
-\DoxyCodeLine{240                                                                   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{detail\_move\_instruction::MoveInstructionInstance}}>;}
-\DoxyCodeLine{241 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}} : \mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{MoveInstructionPolyBase}}}
-\DoxyCodeLine{242 \{}
-\DoxyCodeLine{243   \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{MoveInstructionPolyBase::MoveInstructionPolyBase}};}
-\DoxyCodeLine{244 }
-\DoxyCodeLine{245   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a7b6f6f1c86c1620622641df043247fd5}{assignCartesianWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} waypoint);}
-\DoxyCodeLine{246   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a27cb5e9862537c9e759b3bf3ee612178}{assignJointWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} waypoint);}
-\DoxyCodeLine{247   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a94fd1b5ad0645b3abcd0c26e8bf7f7a3}{assignStateWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} waypoint);}
-\DoxyCodeLine{248   \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a37f8f257d3921e718b072afd9d4e2fbb}{getWaypoint}}();}
-\DoxyCodeLine{249   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a37f8f257d3921e718b072afd9d4e2fbb}{getWaypoint}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{250 }
-\DoxyCodeLine{251   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a65298da7d0a2c0d93adbca2902b3625a}{setManipulatorInfo}}(\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info);}
-\DoxyCodeLine{252   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a49c534f1858f62e5e39246e7c3cdd36c}{getManipulatorInfo}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{253   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a49c534f1858f62e5e39246e7c3cdd36c}{getManipulatorInfo}}();}
-\DoxyCodeLine{254 }
-\DoxyCodeLine{255   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac91bc4af1ad6199ab19c871d2a01ed3d}{setProfile}}(\textcolor{keyword}{const} std::string\& profile);}
-\DoxyCodeLine{256   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac2f2711904d9c9f1366059d4246153f1}{getProfile}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{257 }
-\DoxyCodeLine{258   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_af86ac37861b8ce384e0b26a21f627a6c}{setPathProfile}}(\textcolor{keyword}{const} std::string\& profile);}
-\DoxyCodeLine{259   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a8281aa041d63576a10621cd08b7c0be2}{getPathProfile}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{208   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a4193393127e9915f935d297da22c07b4}{BOOST\_CONCEPT\_ASSERT}}((\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionConcept}{MoveInstructionConcept<T>}}));}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210   \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a9250979685130b191fa0c47402c07941}{getUUID}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getUUID(); \}}
+\DoxyCodeLine{211   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_ae4b58598eff938dcc1a1e86108f82980}{regenerateUUID}}() final \{ this-\/>get().regenerateUUID(); \}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213   \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a2c88db467920b2f92f10ac24d2a4d3f6}{getParentUUID}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getParentUUID(); \}}
+\DoxyCodeLine{214   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_ae6a43936c00639113506f3d63f115d77}{setParentUUID}}(\textcolor{keyword}{const} boost::uuids::uuid\& uuid) \textcolor{keyword}{final} \{ this-\/>get().setParentUUID(uuid); \}}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a73c01c1e37b94c91171f1b000dbe7cd5}{assignCartesianWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} waypoint) \textcolor{keyword}{final}}
+\DoxyCodeLine{217   \{}
+\DoxyCodeLine{218     this-\/>get().assignCartesianWaypoint(std::move(waypoint));}
+\DoxyCodeLine{219   \}}
+\DoxyCodeLine{220   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a993cc4b4017124dd14d2168a72216918}{assignJointWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} waypoint) \textcolor{keyword}{final} \{ this-\/>get().assignJointWaypoint(std::move(waypoint)); \}}
+\DoxyCodeLine{221   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a0fe2461b762948e70f98439e96f82760}{assignStateWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} waypoint) \textcolor{keyword}{final} \{ this-\/>get().assignStateWaypoint(std::move(waypoint)); \}}
+\DoxyCodeLine{222   \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_ab609814a0495d690d245a3a5826fa5f4}{getWaypoint}}() final \{ \textcolor{keywordflow}{return} this-\/>get().getWaypoint(); \}}
+\DoxyCodeLine{223   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a0ea1878c8f49d3e382e33814607f1bdf}{getWaypoint}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getWaypoint(); \}}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a509ee3176d2a4e9d86a55d982845c296}{setManipulatorInfo}}(\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info) \textcolor{keyword}{final}}
+\DoxyCodeLine{226   \{}
+\DoxyCodeLine{227     this-\/>get().setManipulatorInfo(std::move(info));}
+\DoxyCodeLine{228   \}}
+\DoxyCodeLine{229   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_ad0f5b728877487c85d417c5369e9aa64}{getManipulatorInfo}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getManipulatorInfo(); \}}
+\DoxyCodeLine{230   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_aa9c7132e274f81c6d84cabbafeb70002}{getManipulatorInfo}}() final \{ \textcolor{keywordflow}{return} this-\/>get().getManipulatorInfo(); \}}
+\DoxyCodeLine{231 }
+\DoxyCodeLine{232   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a573c98a6e338e8071bf2dcb265923f55}{setProfile}}(\textcolor{keyword}{const} std::string\& profile) \textcolor{keyword}{final} \{ this-\/>get().setProfile(profile); \}}
+\DoxyCodeLine{233   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_abc219060cc401feef225e417b1ce93b6}{getProfile}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getProfile(); \}}
+\DoxyCodeLine{234 }
+\DoxyCodeLine{235   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a0ca7949bd6ce9f084a484f302b3166e6}{setPathProfile}}(\textcolor{keyword}{const} std::string\& profile) \textcolor{keyword}{final} \{ this-\/>get().setPathProfile(profile); \}}
+\DoxyCodeLine{236   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_aea90e2080dff64b37cc44fa5ed150e81}{getPathProfile}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getPathProfile(); \}}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_afbcb461c8d2df205dd7bf30502e9130e}{setMoveType}}(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} move\_type) \textcolor{keyword}{final} \{ this-\/>get().setMoveType(move\_type); \}}
+\DoxyCodeLine{239   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_aca3012ee26cb2b48c32c290b2605df8b}{getMoveType}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getMoveType(); \}}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{241   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a93aeeaade8622120288ab7a0b031580d}{getDescription}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().getDescription(); \}}
+\DoxyCodeLine{242   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_acc42c43c7ffb1897a652309415555536}{setDescription}}(\textcolor{keyword}{const} std::string\& description) \textcolor{keyword}{final} \{ this-\/>get().setDescription(description); \}}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a21285de0076009c4da83c88e322defde}{print}}(\textcolor{keyword}{const} std::string\& prefix) \textcolor{keyword}{const} \textcolor{keyword}{final} \{ this-\/>get().print(prefix); \}}
+\DoxyCodeLine{245 }
+\DoxyCodeLine{246   \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a72df3388c6dcd9f393d1a1d33df3b64f}{createCartesianWaypoint}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().createCartesianWaypoint(); \}}
+\DoxyCodeLine{247   \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a24858c86ff971903c141d25d79e25ca7}{createJointWaypoint}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().createJointWaypoint(); \}}
+\DoxyCodeLine{248   \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a36f0b99a899b0e7f8b801bc68dc57997}{createStateWaypoint}}() const final \{ \textcolor{keywordflow}{return} this-\/>get().createStateWaypoint(); \}}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250 \textcolor{keyword}{private}:}
+\DoxyCodeLine{251   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{252   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{253   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{254   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance_a7651ed10b5d665f7d56164a3247afa7c}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/})  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{255   \{}
+\DoxyCodeLine{256     ar\& boost::serialization::make\_nvp(\textcolor{stringliteral}{"{}base"{}}, boost::serialization::base\_object<BaseType>(*\textcolor{keyword}{this}));}
+\DoxyCodeLine{257   \}}
+\DoxyCodeLine{258 \};}
+\DoxyCodeLine{259 \}  \textcolor{comment}{// namespace tesseract\_planning::detail\_move\_instruction}}
 \DoxyCodeLine{260 }
-\DoxyCodeLine{261   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a69372d4053f6957117152e01a7212f70}{setMoveType}}(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} move\_type);}
-\DoxyCodeLine{262   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_aee6f863795ae90c7836148f9e65b3acc}{getMoveType}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{263 }
-\DoxyCodeLine{264   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a4de0fd01cbc446c79ecea6cfaf71b6db}{getDescription}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{265   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a7772abf0f0b1a7700b708f96d9da8562}{setDescription}}(\textcolor{keyword}{const} std::string\& description);}
-\DoxyCodeLine{266 }
-\DoxyCodeLine{267   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_aacfe472793825ace1519c625632d67b8}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
+\DoxyCodeLine{261 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{262 \{}
+\DoxyCodeLine{263 \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{MoveInstructionPolyBase}} = tesseract\_common::TypeErasureBase<\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{detail\_move\_instruction::MoveInstructionInterface}},}
+\DoxyCodeLine{264                                                                   \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInstance}{detail\_move\_instruction::MoveInstructionInstance}}>;}
+\DoxyCodeLine{265 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}} : \mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{MoveInstructionPolyBase}}}
+\DoxyCodeLine{266 \{}
+\DoxyCodeLine{267   \textcolor{keyword}{using }\mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{MoveInstructionPolyBase::MoveInstructionPolyBase}};}
 \DoxyCodeLine{268 }
-\DoxyCodeLine{269   \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_abe15dfe4522e94faecadc1f5ec83fbc3}{createCartesianWaypoint}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{270   \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a620be0767e63285bade769e98d45a29e}{createJointWaypoint}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{271   \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a7753c8bf408dc7f6f87c93659c07763e}{createStateWaypoint}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{272 }
-\DoxyCodeLine{273   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a3aa07506eb0d60cd8e9ba114ddb973c3}{isLinear}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{269   \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_acb6a90583dead25cd62d0d0c9f93fc52}{getUUID}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{270   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a7f69353f215d569fca6f192e434badc2}{regenerateUUID}}();}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{272   \textcolor{keyword}{const} boost::uuids::uuid\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a4addb2aba4902ee4de919b1a73471477}{getParentUUID}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{273   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a6c7ecb31fff6422713ca3529684a1768}{setParentUUID}}(\textcolor{keyword}{const} boost::uuids::uuid\& uuid);}
 \DoxyCodeLine{274 }
-\DoxyCodeLine{275   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac599c1152023c5e415b0f04e392ec2fd}{isFreespace}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{276 }
-\DoxyCodeLine{277   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ab1c4c451c9becd8c434925cc62e25444}{isCircular}}() \textcolor{keyword}{const};}
-\DoxyCodeLine{278 }
-\DoxyCodeLine{279   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a2544b4a27705ad6191eaa5ffec9f17b3}{isStart}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{275   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a7b6f6f1c86c1620622641df043247fd5}{assignCartesianWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} waypoint);}
+\DoxyCodeLine{276   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a27cb5e9862537c9e759b3bf3ee612178}{assignJointWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} waypoint);}
+\DoxyCodeLine{277   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a94fd1b5ad0645b3abcd0c26e8bf7f7a3}{assignStateWaypoint}}(\mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} waypoint);}
+\DoxyCodeLine{278   \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a37f8f257d3921e718b072afd9d4e2fbb}{getWaypoint}}();}
+\DoxyCodeLine{279   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1WaypointPoly}{WaypointPoly}}\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a37f8f257d3921e718b072afd9d4e2fbb}{getWaypoint}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{280 }
-\DoxyCodeLine{281 \textcolor{keyword}{private}:}
-\DoxyCodeLine{282   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{283   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{281   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a65298da7d0a2c0d93adbca2902b3625a}{setManipulatorInfo}}(\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info);}
+\DoxyCodeLine{282   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a49c534f1858f62e5e39246e7c3cdd36c}{getManipulatorInfo}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{283   \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a49c534f1858f62e5e39246e7c3cdd36c}{getManipulatorInfo}}();}
 \DoxyCodeLine{284 }
-\DoxyCodeLine{285   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{286   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ae2d99c77033c2155e98ac48c50fe43e3}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/});  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{287 \};}
-\DoxyCodeLine{288 }
-\DoxyCodeLine{289 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{285   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac91bc4af1ad6199ab19c871d2a01ed3d}{setProfile}}(\textcolor{keyword}{const} std::string\& profile);}
+\DoxyCodeLine{286   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac2f2711904d9c9f1366059d4246153f1}{getProfile}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{287 }
+\DoxyCodeLine{288   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_af86ac37861b8ce384e0b26a21f627a6c}{setPathProfile}}(\textcolor{keyword}{const} std::string\& profile);}
+\DoxyCodeLine{289   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a8281aa041d63576a10621cd08b7c0be2}{getPathProfile}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{290 }
-\DoxyCodeLine{291 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}})}
-\DoxyCodeLine{292 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}},}
-\DoxyCodeLine{293                      boost::serialization::track\_never)}
-\DoxyCodeLine{294 }
-\DoxyCodeLine{295 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{tesseract\_planning::MoveInstructionPolyBase}})}
-\DoxyCodeLine{296 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{tesseract\_planning::MoveInstructionPolyBase}}, boost::serialization::track\_never)}
-\DoxyCodeLine{297 }
-\DoxyCodeLine{298 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{tesseract\_planning::MoveInstructionPoly}})}
-\DoxyCodeLine{299 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{tesseract\_planning::MoveInstructionPoly}}, boost::serialization::track\_never);}
-\DoxyCodeLine{300 }
-\DoxyCodeLine{301 \mbox{\hyperlink{move__instruction__poly_8h_aacdf778ed64cb0a5ef4d2b476853c377}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, MoveInstructionPoly);}
+\DoxyCodeLine{291   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a69372d4053f6957117152e01a7212f70}{setMoveType}}(\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} move\_type);}
+\DoxyCodeLine{292   \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{MoveInstructionType}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_aee6f863795ae90c7836148f9e65b3acc}{getMoveType}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{293 }
+\DoxyCodeLine{294   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a4de0fd01cbc446c79ecea6cfaf71b6db}{getDescription}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{295   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a7772abf0f0b1a7700b708f96d9da8562}{setDescription}}(\textcolor{keyword}{const} std::string\& description);}
+\DoxyCodeLine{296 }
+\DoxyCodeLine{297   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_aacfe472793825ace1519c625632d67b8}{print}}(\textcolor{keyword}{const} std::string\& prefix = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{const};}
+\DoxyCodeLine{298 }
+\DoxyCodeLine{299   \mbox{\hyperlink{structtesseract__planning_1_1CartesianWaypointPoly}{CartesianWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_abe15dfe4522e94faecadc1f5ec83fbc3}{createCartesianWaypoint}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{300   \mbox{\hyperlink{structtesseract__planning_1_1JointWaypointPoly}{JointWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a620be0767e63285bade769e98d45a29e}{createJointWaypoint}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{301   \mbox{\hyperlink{structtesseract__planning_1_1StateWaypointPoly}{StateWaypointPoly}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a7753c8bf408dc7f6f87c93659c07763e}{createStateWaypoint}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{302 }
-\DoxyCodeLine{303 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_MOVE\_INSTRUCTION\_POLY\_H}}
+\DoxyCodeLine{303   \textcolor{comment}{// MoveInstructionPoly methods}}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{305   \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{MoveInstructionPoly}} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_aa274f259bd46f1373e5c9ca24f5823cb}{createChild}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{306 }
+\DoxyCodeLine{307   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a3aa07506eb0d60cd8e9ba114ddb973c3}{isLinear}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{309   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac599c1152023c5e415b0f04e392ec2fd}{isFreespace}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{310 }
+\DoxyCodeLine{311   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ab1c4c451c9becd8c434925cc62e25444}{isCircular}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{312 }
+\DoxyCodeLine{313   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a2544b4a27705ad6191eaa5ffec9f17b3}{isStart}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{314 }
+\DoxyCodeLine{315   \textcolor{keywordtype}{bool} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a48763f9bab295a475f5aa9241eb809a2}{isChild}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{316 }
+\DoxyCodeLine{317 \textcolor{keyword}{private}:}
+\DoxyCodeLine{318   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{319   \textcolor{keyword}{friend} \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_a9d42ad7bb40288a7ac1aad8d76809fe7}{tesseract\_common::Serialization}};}
+\DoxyCodeLine{320 }
+\DoxyCodeLine{321   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{322   \textcolor{keywordtype}{void} \mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly_ae2d99c77033c2155e98ac48c50fe43e3}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{comment}{/*version*/});  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{323 \};}
+\DoxyCodeLine{324 }
+\DoxyCodeLine{325 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{326 }
+\DoxyCodeLine{327 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}})}
+\DoxyCodeLine{328 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface}{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}},}
+\DoxyCodeLine{329                      boost::serialization::track\_never)}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{331 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{tesseract\_planning::MoveInstructionPolyBase}})}
+\DoxyCodeLine{332 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{namespacetesseract__planning_a5f936ba77043575a1c18ccbf50f20b18}{tesseract\_planning::MoveInstructionPolyBase}}, boost::serialization::track\_never)}
+\DoxyCodeLine{333 }
+\DoxyCodeLine{334 BOOST\_CLASS\_EXPORT\_KEY(\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{tesseract\_planning::MoveInstructionPoly}})}
+\DoxyCodeLine{335 \mbox{\hyperlink{instruction__poly_8h_a4815c4a47217aa8cfd68713deeb553e0}{BOOST\_CLASS\_TRACKING}}(\mbox{\hyperlink{structtesseract__planning_1_1MoveInstructionPoly}{tesseract\_planning::MoveInstructionPoly}}, boost::serialization::track\_never)}
+\DoxyCodeLine{336 }
+\DoxyCodeLine{337 \mbox{\hyperlink{instruction__poly_8h_a4dc28033f37b499d6d9e64b1d5767973}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, MoveInstructionPoly)}
+\DoxyCodeLine{338 }
+\DoxyCodeLine{339 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_MOVE\_INSTRUCTION\_POLY\_H}}
 
 \end{DoxyCode}
