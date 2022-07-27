@@ -44,8 +44,11 @@ public:
   InstructionsTrajectory(CompositeInstruction& program);
 
   const Eigen::VectorXd& getPosition(Eigen::Index i) const final;
+  Eigen::VectorXd& getPosition(Eigen::Index i) final;
   const Eigen::VectorXd& getVelocity(Eigen::Index i) const final;
+  Eigen::VectorXd& getVelocity(Eigen::Index i) final;
   const Eigen::VectorXd& getAcceleration(Eigen::Index i) const final;
+  Eigen::VectorXd& getAcceleration(Eigen::Index i) final;
   double getTimeFromStart(Eigen::Index i) const final;
 
   void setData(Eigen::Index i, const Eigen::VectorXd& velocity, const Eigen::VectorXd& acceleration, double time) final;

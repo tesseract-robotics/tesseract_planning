@@ -42,8 +42,11 @@ public:
   TesseractCommonTrajectory(tesseract_common::JointTrajectory& trajectory);
 
   const Eigen::VectorXd& getPosition(Eigen::Index i) const override final;
+  Eigen::VectorXd& getPosition(Eigen::Index i) override final;
   const Eigen::VectorXd& getVelocity(Eigen::Index i) const override final;
+  Eigen::VectorXd& getVelocity(Eigen::Index i) override final;
   const Eigen::VectorXd& getAcceleration(Eigen::Index i) const override final;
+  Eigen::VectorXd& getAcceleration(Eigen::Index i) override final;
   double getTimeFromStart(Eigen::Index i) const final;
 
   void setData(Eigen::Index i,

@@ -31,18 +31,26 @@
 namespace tesseract_planning
 {
 /** @brief Create TrajOpt Process Pipeline */
-TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input = true, bool post_collision_check = true);
+TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input = true,
+                                               bool post_collision_check = true,
+                                               bool post_smoothing = false);
 
 #ifdef TESSERACT_PROCESS_MANAGERS_HAS_TRAJOPT_IFOPT
 /** @brief Create TrajOpt IFOPT Process Pipeline */
-TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input = true, bool post_collision_check = true);
+TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input = true,
+                                                    bool post_collision_check = true,
+                                                    bool post_smoothing = false);
 #endif
 
 /** @brief Create OMPL Process Pipeline */
-TaskflowGenerator::UPtr createOMPLGenerator(bool check_input = true, bool post_collision_check = true);
+TaskflowGenerator::UPtr createOMPLGenerator(bool check_input = true,
+                                            bool post_collision_check = true,
+                                            bool post_smoothing = false);
 
 /** @brief Create Descartes Process Pipeline */
-TaskflowGenerator::UPtr createDescartesGenerator(bool check_input = true, bool post_collision_check = true);
+TaskflowGenerator::UPtr createDescartesGenerator(bool check_input = true,
+                                                 bool post_collision_check = true,
+                                                 bool post_smoothing = false);
 
 /**
  *  @brief Create Descartes Only Process Pipeline

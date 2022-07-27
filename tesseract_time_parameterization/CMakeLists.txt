@@ -13,6 +13,7 @@ find_package(console_bridge REQUIRED)
 find_package(tesseract_common REQUIRED)
 find_package(tesseract_command_language REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(ruckig REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -41,15 +42,17 @@ tesseract_variables()
 add_library(
   ${PROJECT_NAME}
   src/instructions_trajectory.cpp
-  src/iterative_spline_parameterization
-  src/time_optimal_trajectory_generation
+  src/iterative_spline_parameterization.cpp
+  src/ruckig_trajectory_smoothing.cpp
+  src/time_optimal_trajectory_generation.cpp
   src/tesseract_common_trajectory.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC tesseract::tesseract_common
          tesseract::tesseract_command_language
          console_bridge::console_bridge
-         Eigen3::Eigen)
+         Eigen3::Eigen
+         ruckig::ruckig)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})

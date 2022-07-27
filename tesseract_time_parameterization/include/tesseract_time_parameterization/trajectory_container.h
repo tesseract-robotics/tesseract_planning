@@ -54,6 +54,7 @@ public:
    * @return The position data
    */
   virtual const Eigen::VectorXd& getPosition(Eigen::Index i) const = 0;
+  virtual Eigen::VectorXd& getPosition(Eigen::Index i) = 0;
 
   /**
    * @brief Get the velocity data at a given index
@@ -61,6 +62,7 @@ public:
    * @return The velocity data
    */
   virtual const Eigen::VectorXd& getVelocity(Eigen::Index i) const = 0;
+  virtual Eigen::VectorXd& getVelocity(Eigen::Index i) = 0;
 
   /**
    * @brief Get the acceleration data at a given index
@@ -68,6 +70,7 @@ public:
    * @return The acceleration data
    */
   virtual const Eigen::VectorXd& getAcceleration(Eigen::Index i) const = 0;
+  virtual Eigen::VectorXd& getAcceleration(Eigen::Index i) = 0;
 
   /**
    * @brief Get the time from start at a given index
