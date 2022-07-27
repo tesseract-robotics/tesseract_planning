@@ -73,6 +73,19 @@ const Eigen::VectorXd& InstructionsTrajectory::getPosition(Eigen::Index i) const
       .as<StateWaypointPoly>()
       .getPosition();
 }
+
+Eigen::VectorXd& InstructionsTrajectory::getPosition(Eigen::Index i)
+{
+  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
+  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
+  return trajectory_[static_cast<std::size_t>(i)]
+      .get()
+      .as<MoveInstructionPoly>()
+      .getWaypoint()
+      .as<StateWaypointPoly>()
+      .getPosition();
+}
+
 const Eigen::VectorXd& InstructionsTrajectory::getVelocity(Eigen::Index i) const
 {
   assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
@@ -85,7 +98,31 @@ const Eigen::VectorXd& InstructionsTrajectory::getVelocity(Eigen::Index i) const
       .getVelocity();
 }
 
+Eigen::VectorXd& InstructionsTrajectory::getVelocity(Eigen::Index i)
+{
+  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
+  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
+  return trajectory_[static_cast<std::size_t>(i)]
+      .get()
+      .as<MoveInstructionPoly>()
+      .getWaypoint()
+      .as<StateWaypointPoly>()
+      .getVelocity();
+}
+
 const Eigen::VectorXd& InstructionsTrajectory::getAcceleration(Eigen::Index i) const
+{
+  assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
+  assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());
+  return trajectory_[static_cast<std::size_t>(i)]
+      .get()
+      .as<MoveInstructionPoly>()
+      .getWaypoint()
+      .as<StateWaypointPoly>()
+      .getAcceleration();
+}
+
+Eigen::VectorXd& InstructionsTrajectory::getAcceleration(Eigen::Index i)
 {
   assert(trajectory_[static_cast<std::size_t>(i)].get().isMoveInstruction());
   assert(trajectory_[static_cast<std::size_t>(i)].get().as<MoveInstructionPoly>().getWaypoint().isStateWaypoint());

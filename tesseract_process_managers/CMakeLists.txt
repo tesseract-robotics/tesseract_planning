@@ -70,6 +70,7 @@ add_library(
   src/task_generators/iterative_spline_parameterization_task_generator.cpp
   src/task_generators/motion_planner_task_generator.cpp
   src/task_generators/profile_switch_task_generator.cpp
+  src/task_generators/ruckig_trajectory_smoothing_task_generator.cpp
   src/task_generators/seed_min_length_task_generator.cpp
   src/task_generators/time_optimal_parameterization_task_generator.cpp
   src/task_generators/upsample_trajectory_task_generator.cpp

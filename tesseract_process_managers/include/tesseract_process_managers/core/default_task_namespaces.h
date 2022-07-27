@@ -47,6 +47,7 @@ static const std::string PROFILE_SWITCH_DEFAULT_NAMESPACE                    = "
 static const std::string SEED_MIN_LENGTH_DEFAULT_NAMESPACE                   = "SEED_MIN_LENGTH_CHECK";
 static const std::string TIME_OPTIMAL_PARAMETERIZATION_DEFAULT_NAMESPACE     = "TIME_OPTIMAL_PARAMETERIZATION";
 static const std::string UPSAMPLE_TRAJECTORY_DEFAULT_NAMESPACE               = "UPSAMPLE_TRAJECTORY";
+static const std::string RUCKIG_TRAJECTORY_SMOOTHING_DEFAULT_NAMESPACE       = "RUCKIG_TRAJECTORY_SMOOTHING";
 
 // clang-format on
 }  // namespace tesseract_planning::profile_ns

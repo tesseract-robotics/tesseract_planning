@@ -8,6 +8,7 @@ include(CMakeFindDependencyMacro)
 find_dependency(tesseract_common)
 find_dependency(tesseract_command_language)
 find_dependency(Eigen3)
+find_dependency(ruckig)
 find_dependency(console_bridge)
 
 if(NOT TARGET console_bridge::console_bridge)

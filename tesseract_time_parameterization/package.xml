@@ -13,6 +13,7 @@
   <depend>libconsole-bridge-dev</depend>
   <depend>tesseract_common</depend>
   <depend>tesseract_command_language</depend>
+  <depend>ruckig</depend>
   <build_depend>ros_industrial_cmake_boilerplate</build_depend>
 
   <build_depend>eigen</build_depend>
