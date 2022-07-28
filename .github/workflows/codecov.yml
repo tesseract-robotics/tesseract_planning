@@ -59,7 +59,7 @@ jobs:
         env:
           OS_NAME: ubuntu
           OS_CODE_NAME: focal
-          DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ env.ROS_DISTRO }}-0.13
+          DOCKER_IMAGE: ${{ env.REGISTRY }}/tesseract-robotics/tesseract:${{ env.ROS_DISTRO }}-master
           ROS_REPO: main
           UNDERLAY: /root//tesseract-robotics/tesseract_target_ws/install
           PREFIX: ${{ github.repository }}_
