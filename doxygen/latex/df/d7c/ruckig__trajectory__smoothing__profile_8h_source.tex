@@ -1,0 +1,66 @@
+\hypertarget{ruckig__trajectory__smoothing__profile_8h_source}{}\doxysection{ruckig\+\_\+trajectory\+\_\+smoothing\+\_\+profile.\+h}
+\label{ruckig__trajectory__smoothing__profile_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_profiles/ruckig\_trajectory\_smoothing\_profile.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_profiles/ruckig\_trajectory\_smoothing\_profile.h}}
+\mbox{\hyperlink{ruckig__trajectory__smoothing__profile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_RUCKIG\_TRAJECTORY\_SMOOTHING\_PROFILE\_H}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_RUCKIG\_TRAJECTORY\_SMOOTHING\_PROFILE\_H}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{28 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile}{RuckigTrajectorySmoothingCompositeProfile}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a64699260b96e96f335ad64a70fee5e4e}{Ptr}} = std::shared\_ptr<RuckigTrajectorySmoothingCompositeProfile>;}
+\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_afe0335a8c85631ecd4d687d4e41a8d52}{ConstPtr}} = std::shared\_ptr<const RuckigTrajectorySmoothingCompositeProfile>;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39   \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a2f8667577c408f2d312195a8d52bbf0d}{RuckigTrajectorySmoothingCompositeProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{40   \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a77859d91bb85b1397cce6db15573dc60}{RuckigTrajectorySmoothingCompositeProfile}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a5801822cf555b348f822f5cddc16a0bd}{duration\_extension\_fraction}},}
+\DoxyCodeLine{41                                             \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a5462a6aa93d5ba345cf01d33a5cd95ce}{max\_duration\_extension\_factor}},}
+\DoxyCodeLine{42                                             \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a0fb6550c086798acc998a1b6e25ce010}{max\_velocity\_scaling\_factor}},}
+\DoxyCodeLine{43                                             \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a9bf4cd1bdd401fcb5bce2d472ebdc864}{max\_acceleration\_scaling\_factor}})}
+\DoxyCodeLine{44     : \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a5801822cf555b348f822f5cddc16a0bd}{duration\_extension\_fraction}}(\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a5801822cf555b348f822f5cddc16a0bd}{duration\_extension\_fraction}})}
+\DoxyCodeLine{45     , \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a5462a6aa93d5ba345cf01d33a5cd95ce}{max\_duration\_extension\_factor}}(\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a5462a6aa93d5ba345cf01d33a5cd95ce}{max\_duration\_extension\_factor}})}
+\DoxyCodeLine{46     , \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a0fb6550c086798acc998a1b6e25ce010}{max\_velocity\_scaling\_factor}}(\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a0fb6550c086798acc998a1b6e25ce010}{max\_velocity\_scaling\_factor}})}
+\DoxyCodeLine{47     , \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a9bf4cd1bdd401fcb5bce2d472ebdc864}{max\_acceleration\_scaling\_factor}}(\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a9bf4cd1bdd401fcb5bce2d472ebdc864}{max\_acceleration\_scaling\_factor}})}
+\DoxyCodeLine{48   \{}
+\DoxyCodeLine{49   \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{52   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a5801822cf555b348f822f5cddc16a0bd}{duration\_extension\_fraction}}\{ 1.1 \};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{55   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a5462a6aa93d5ba345cf01d33a5cd95ce}{max\_duration\_extension\_factor}}\{ 10.0 \};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{58   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a0fb6550c086798acc998a1b6e25ce010}{max\_velocity\_scaling\_factor}}\{ 1.0 \};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{61   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_a9bf4cd1bdd401fcb5bce2d472ebdc864}{max\_acceleration\_scaling\_factor}}\{ 1.0 \};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{64   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile_adf06bd2cf28513e233e57ca395fbe34f}{max\_jerk\_scaling\_factor}}\{ 1.0 \};}
+\DoxyCodeLine{65 \};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile}{RuckigTrajectorySmoothingMoveProfile}}}
+\DoxyCodeLine{68 \{}
+\DoxyCodeLine{69   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a97e1bcef2738d96e1768c0d3fda39dd6}{Ptr}} = std::shared\_ptr<RuckigTrajectorySmoothingMoveProfile>;}
+\DoxyCodeLine{70   \textcolor{keyword}{using }\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a3ab3995c0ceac41c6d7d7165cd4e176b}{ConstPtr}} = std::shared\_ptr<const RuckigTrajectorySmoothingMoveProfile>;}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72   \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a385953840316d19dcedd50b8b89fdc85}{RuckigTrajectorySmoothingMoveProfile}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{73   \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_aa64b6c280f4a599a16884b4d51cc52d6}{RuckigTrajectorySmoothingMoveProfile}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a2ee62367f4f600764ba362c09769afed}{max\_velocity\_scaling\_factor}}, \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a78d33329296d4b04339c63cefa5338ea}{max\_acceleration\_scaling\_factor}})}
+\DoxyCodeLine{74     : \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a2ee62367f4f600764ba362c09769afed}{max\_velocity\_scaling\_factor}}(\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a2ee62367f4f600764ba362c09769afed}{max\_velocity\_scaling\_factor}})}
+\DoxyCodeLine{75     , \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a78d33329296d4b04339c63cefa5338ea}{max\_acceleration\_scaling\_factor}}(\mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a78d33329296d4b04339c63cefa5338ea}{max\_acceleration\_scaling\_factor}})}
+\DoxyCodeLine{76   \{}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{80   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a2ee62367f4f600764ba362c09769afed}{max\_velocity\_scaling\_factor}}\{ 1.0 \};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{83   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a78d33329296d4b04339c63cefa5338ea}{max\_acceleration\_scaling\_factor}}\{ 1.0 \};}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{86   \textcolor{keywordtype}{double} \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile_a55df2be0efb61550b3585431f0545ed8}{max\_jerk\_scaling\_factor}}\{ 1.0 \};}
+\DoxyCodeLine{87 \};}
+\DoxyCodeLine{88 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_RUCKIG\_TRAJECTORY\_SMOOTHING\_PROFILE\_H}}
+
+\end{DoxyCode}

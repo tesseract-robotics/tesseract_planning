@@ -28,42 +28,45 @@
 \DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{TrajectoryContainer}}\& operator=(\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{TrajectoryContainer}}\&\&) noexcept = default;}
 \DoxyCodeLine{50 }
 \DoxyCodeLine{56   virtual const Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_afcd7d25def666683f9c7c6127e4b3fb9}{getPosition}}(Eigen::Index i) const = 0;}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{63   virtual const Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a49d1701f3c4000a4208215c41020168c}{getVelocity}}(Eigen::Index i) const = 0;}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{70   virtual const Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a61bbe3c433e60e6bd4a34e953e2c67ec}{getAcceleration}}(Eigen::Index i) const = 0;}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{77   virtual \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}{getTimeFromStart}}(Eigen::Index i) const = 0;}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{86   virtual \textcolor{keywordtype}{void}}
-\DoxyCodeLine{87   \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a8c1ce5305755a8bc39f78d58865f7b06}{setData}}(Eigen::Index i, const Eigen::VectorXd\& velocity, const Eigen::VectorXd\& acceleration, \textcolor{keywordtype}{double} time) = 0;}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{90   virtual Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}{size}}() const = 0;}
+\DoxyCodeLine{57   virtual Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_afcd7d25def666683f9c7c6127e4b3fb9}{getPosition}}(Eigen::Index i) = 0;}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{64   virtual const Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a49d1701f3c4000a4208215c41020168c}{getVelocity}}(Eigen::Index i) const = 0;}
+\DoxyCodeLine{65   virtual Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a49d1701f3c4000a4208215c41020168c}{getVelocity}}(Eigen::Index i) = 0;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{72   virtual const Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a61bbe3c433e60e6bd4a34e953e2c67ec}{getAcceleration}}(Eigen::Index i) const = 0;}
+\DoxyCodeLine{73   virtual Eigen::VectorXd\& \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a61bbe3c433e60e6bd4a34e953e2c67ec}{getAcceleration}}(Eigen::Index i) = 0;}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{80   virtual \textcolor{keywordtype}{double} \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}{getTimeFromStart}}(Eigen::Index i) const = 0;}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{89   virtual \textcolor{keywordtype}{void}}
+\DoxyCodeLine{90   \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a8c1ce5305755a8bc39f78d58865f7b06}{setData}}(Eigen::Index i, const Eigen::VectorXd\& velocity, const Eigen::VectorXd\& acceleration, \textcolor{keywordtype}{double} time) = 0;}
 \DoxyCodeLine{91 }
-\DoxyCodeLine{93   virtual Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a4ee218a55ff4c8d8f01737627076378f}{dof}}() const = 0;}
+\DoxyCodeLine{93   virtual Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}{size}}() const = 0;}
 \DoxyCodeLine{94 }
-\DoxyCodeLine{96   virtual \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ada5c7d8dc47cbd55fe4628aed62ec01f}{empty}}() const = 0;}
+\DoxyCodeLine{96   virtual Eigen::Index \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a4ee218a55ff4c8d8f01737627076378f}{dof}}() const = 0;}
 \DoxyCodeLine{97 }
-\DoxyCodeLine{99   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a4441870f906bef42e6ea0a0af7deb72b}{isTimeStrictlyIncreasing}}()\textcolor{keyword}{ const}}
-\DoxyCodeLine{100 \textcolor{keyword}{  }\{}
-\DoxyCodeLine{101     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}{size}}() < 2)}
-\DoxyCodeLine{102       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{104     \textcolor{keywordtype}{double} t1 = \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}{getTimeFromStart}}(0);}
-\DoxyCodeLine{105     \textcolor{keywordflow}{for} (Eigen::Index i = 1; i < \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}{size}}() -\/ 1; ++i)}
-\DoxyCodeLine{106     \{}
-\DoxyCodeLine{107       \textcolor{keywordtype}{double} t2 = \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}{getTimeFromStart}}(i);}
-\DoxyCodeLine{108       \textcolor{keywordflow}{if} (t1 >= t2)}
-\DoxyCodeLine{109         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{111       t1 = t2;}
-\DoxyCodeLine{112     \}}
+\DoxyCodeLine{99   virtual \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ada5c7d8dc47cbd55fe4628aed62ec01f}{empty}}() const = 0;}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{102   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_a4441870f906bef42e6ea0a0af7deb72b}{isTimeStrictlyIncreasing}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{103 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{104     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}{size}}() < 2)}
+\DoxyCodeLine{105       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107     \textcolor{keywordtype}{double} t1 = \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}{getTimeFromStart}}(0);}
+\DoxyCodeLine{108     \textcolor{keywordflow}{for} (Eigen::Index i = 1; i < \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_adc826887175350caebdfed9e24c9a371}{size}}() -\/ 1; ++i)}
+\DoxyCodeLine{109     \{}
+\DoxyCodeLine{110       \textcolor{keywordtype}{double} t2 = \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer_ab23a1e76bdf1ad8045a6b7760d1c91f3}{getTimeFromStart}}(i);}
+\DoxyCodeLine{111       \textcolor{keywordflow}{if} (t1 >= t2)}
+\DoxyCodeLine{112         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{113 }
-\DoxyCodeLine{114     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{115   \}}
-\DoxyCodeLine{116 \};}
-\DoxyCodeLine{117 }
-\DoxyCodeLine{118 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{119 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TIME\_PARAMETERIZATION\_TRAJECTORY\_CONTAINER\_H}}
+\DoxyCodeLine{114       t1 = t2;}
+\DoxyCodeLine{115     \}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{118   \}}
+\DoxyCodeLine{119 \};}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_TIME\_PARAMETERIZATION\_TRAJECTORY\_CONTAINER\_H}}
 
 \end{DoxyCode}

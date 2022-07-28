@@ -1,0 +1,66 @@
+\hypertarget{ruckig__trajectory__smoothing__task__generator_8h_source}{}\doxysection{ruckig\+\_\+trajectory\+\_\+smoothing\+\_\+task\+\_\+generator.\+h}
+\label{ruckig__trajectory__smoothing__task__generator_8h_source}\index{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_generators/ruckig\_trajectory\_smoothing\_task\_generator.h@{tesseract\_process\_managers/include/tesseract\_process\_managers/task\_generators/ruckig\_trajectory\_smoothing\_task\_generator.h}}
+\mbox{\hyperlink{ruckig__trajectory__smoothing__task__generator_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifndef TESSERACT\_PROCESS\_MANAGERS\_RUCKIG\_TRAJECTORY\_SMOOTHING\_TASK\_GENERATOR\_H}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define TESSERACT\_PROCESS\_MANAGERS\_RUCKIG\_TRAJECTORY\_SMOOTHING\_TASK\_GENERATOR\_H}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <tesseract\_common/macros.h>}}
+\DoxyCodeLine{28 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_PUSH}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <boost/serialization/access.hpp>}}
+\DoxyCodeLine{30 TESSERACT\_COMMON\_IGNORE\_WARNINGS\_POP}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{task__generator_8h}{tesseract\_process\_managers/core/task\_generator.h}}>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{ruckig__trajectory__smoothing_8h}{tesseract\_time\_parameterization/ruckig\_trajectory\_smoothing.h}}>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{default__task__namespaces_8h}{tesseract\_process\_managers/core/default\_task\_namespaces.h}}>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator}{RuckigTrajectorySmoothingTaskGenerator}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator}{TaskGenerator}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{public}:}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskGenerator_a297d5a46275006503427ab1782f52a9a}{UPtr}} = std::unique\_ptr<RuckigTrajectorySmoothingTaskGenerator>;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator_a97b578a4f135e8fb46d53eda12ac856d}{RuckigTrajectorySmoothingTaskGenerator}}(std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_acac52ee3e1e036de3e7b5c588804997b}{profile\_ns::RUCKIG\_TRAJECTORY\_SMOOTHING\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator_a713412e52709fefc790692d81e10bef7}{\string~RuckigTrajectorySmoothingTaskGenerator}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{46   \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator_a350e75712ce38f4d2e350d4b984e24f7}{RuckigTrajectorySmoothingTaskGenerator}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator}{RuckigTrajectorySmoothingTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{47   \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator}{RuckigTrajectorySmoothingTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator_abab2655698a47af534a0900f20057ccc}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator}{RuckigTrajectorySmoothingTaskGenerator}}\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{48   \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator_a9d5e52a630479e781438b25a4ec9e529}{RuckigTrajectorySmoothingTaskGenerator}}(\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator}{RuckigTrajectorySmoothingTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator}{RuckigTrajectorySmoothingTaskGenerator}}\& \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator_a2ccf1b4f5bbef730d6bfad49c3d8b29f}{operator=}}(\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator}{RuckigTrajectorySmoothingTaskGenerator}}\&\&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51   \textcolor{keywordtype}{int} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator_a9602b5b5ecbbbfcebecff5a5215a530a}{conditionalProcess}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator_a2e79bcab6696b9edbbeac79cad661b8d}{process}}(\mbox{\hyperlink{structtesseract__planning_1_1TaskInput}{TaskInput}} input, std::size\_t unique\_id) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo}{RuckigTrajectorySmoothingTaskInfo}} : \textcolor{keyword}{public} \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo}{TaskInfo}}}
+\DoxyCodeLine{57 \{}
+\DoxyCodeLine{58 \textcolor{keyword}{public}:}
+\DoxyCodeLine{59   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a2ddc8ab5484c9af3ff7167200467bd3e}{Ptr}} = std::shared\_ptr<RuckigTrajectorySmoothingTaskInfo>;}
+\DoxyCodeLine{60   \textcolor{keyword}{using }\mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_ac5ee014c96bf27bdbd9a7696fbd28b3e}{ConstPtr}} = std::shared\_ptr<const RuckigTrajectorySmoothingTaskInfo>;}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo_a238da0b0beda53365622517513100d4c}{RuckigTrajectorySmoothingTaskInfo}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{63   \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo_a238da0b0beda53365622517513100d4c}{RuckigTrajectorySmoothingTaskInfo}}(std::size\_t \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a251f4620809e8e67bd97a182527892d7}{unique\_id}},}
+\DoxyCodeLine{64                                     std::string name = \mbox{\hyperlink{namespacetesseract__planning_1_1profile__ns_acac52ee3e1e036de3e7b5c588804997b}{profile\_ns::RUCKIG\_TRAJECTORY\_SMOOTHING\_DEFAULT\_NAMESPACE}});}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \mbox{\hyperlink{classtesseract__planning_1_1TaskInfo_a308e99c56cb3450f29de0878bdb6577d}{TaskInfo::UPtr}} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo_aa5ca8c04838e1147cb1edb4e7b11bc79}{clone}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo_a384a28205242822bfaa93699efe4c2b5}{operator==}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo}{RuckigTrajectorySmoothingTaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{69   \textcolor{keywordtype}{bool} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo_a8e7c7039ff840c368b772fd85709ace5}{operator!=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo}{RuckigTrajectorySmoothingTaskInfo}}\& rhs) \textcolor{keyword}{const};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{keyword}{private}:}
+\DoxyCodeLine{72   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{73   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{74   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo_add6ce1cf5ab7cff0b3dd516a80edcf43}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{75 \};}
+\DoxyCodeLine{76 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#include <boost/serialization/export.hpp>}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#include <boost/serialization/tracking.hpp>}}
+\DoxyCodeLine{80 BOOST\_CLASS\_EXPORT\_KEY2(\mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo}{tesseract\_planning::RuckigTrajectorySmoothingTaskInfo}}, \textcolor{stringliteral}{"{}RuckigTrajectorySmoothingTaskInfo"{}})}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_PROCESS\_MANAGERS\_RUCKIG\_TRAJECTORY\_SMOOTHING\_TASK\_GENERATOR\_H}}
+
+\end{DoxyCode}

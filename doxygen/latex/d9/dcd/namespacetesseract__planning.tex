@@ -200,6 +200,16 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1RRTConnectConfigurator}{RRT
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1RRTstarConfigurator}{RRTstar\+Configurator}}
 \item 
+class \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothing}{Ruckig\+Trajectory\+Smoothing}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingCompositeProfile}{Ruckig\+Trajectory\+Smoothing\+Composite\+Profile}}
+\item 
+struct \mbox{\hyperlink{structtesseract__planning_1_1RuckigTrajectorySmoothingMoveProfile}{Ruckig\+Trajectory\+Smoothing\+Move\+Profile}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskGenerator}{Ruckig\+Trajectory\+Smoothing\+Task\+Generator}}
+\item 
+class \mbox{\hyperlink{classtesseract__planning_1_1RuckigTrajectorySmoothingTaskInfo}{Ruckig\+Trajectory\+Smoothing\+Task\+Info}}
+\item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1SBLConfigurator}{SBLConfigurator}}
 \item 
 struct \mbox{\hyperlink{structtesseract__planning_1_1SeedMinLengthProfile}{Seed\+Min\+Length\+Profile}}
@@ -745,11 +755,11 @@ bool \mbox{\hyperlink{namespacetesseract__planning_aadb81bc948f8ba685cbbcdff2236
 \begin{DoxyCompactList}\small\item\em Create an example raster program with approach and departure along with dual transitions. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{Composite\+Instruction}} \mbox{\hyperlink{namespacetesseract__planning_abe65b6b7bdb9fd9cf5a28c4e44936c95}{raster\+WAADExample\+Program}} (const std\+::string \&freespace\+\_\+profile=\mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\+\_\+\+PROFILE\+\_\+\+KEY}}, const std\+::string \&approach\+\_\+profile=\char`\"{}APPROACH\char`\"{}, const std\+::string \&process\+\_\+profile=\char`\"{}PROCESS\char`\"{}, const std\+::string \&departure\+\_\+profile=\char`\"{}DEPARTURE\char`\"{})
 \begin{DoxyCompactList}\small\item\em Create an example raster program with approach and departure. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_ad2ef2cbf10c20d451ae06c295dbdf231}{create\+Traj\+Opt\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true)
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_ac7506a72ad0315495719f7672d8e697b}{create\+Traj\+Opt\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true, bool post\+\_\+smoothing=false)
 \begin{DoxyCompactList}\small\item\em Create Traj\+Opt Process Pipeline. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a9cc614fc5981fda16277e69b18ca086f}{create\+OMPLGenerator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true)
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_aeb7b4b775c3692731fffd5c495be77ed}{create\+OMPLGenerator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true, bool post\+\_\+smoothing=false)
 \begin{DoxyCompactList}\small\item\em Create OMPL Process Pipeline. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a46564372b1854ece4fb7bd82fea39a96}{create\+Descartes\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true)
+\mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_a9e264592757a0e8b59d8d9ff75731e6e}{create\+Descartes\+Generator}} (bool check\+\_\+input=true, bool post\+\_\+collision\+\_\+check=true, bool post\+\_\+smoothing=false)
 \begin{DoxyCompactList}\small\item\em Create Descartes Process Pipeline. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} \mbox{\hyperlink{namespacetesseract__planning_ab6299da3758d4581971338ef25a48048}{create\+Descartes\+Only\+Generator}} (bool check\+\_\+input=true)
 \begin{DoxyCompactList}\small\item\em Create Descartes Only Process Pipeline. \end{DoxyCompactList}\item 
@@ -828,6 +838,10 @@ static void \mbox{\hyperlink{namespacetesseract__planning_acc14f693683e3fa96949f
 static double \mbox{\hyperlink{namespacetesseract__planning_a055e94fcc3bfae45e8d095dd850cbd2a}{global\+\_\+adjustment\+\_\+factor}} (long n, double dt\mbox{[}$\,$\mbox{]}, const double x\mbox{[}$\,$\mbox{]}, double x1\mbox{[}$\,$\mbox{]}, double x2\mbox{[}$\,$\mbox{]}, const double max\+\_\+velocity\mbox{[}$\,$\mbox{]}, const double min\+\_\+velocity\mbox{[}$\,$\mbox{]}, const double max\+\_\+acceleration\mbox{[}$\,$\mbox{]}, const double min\+\_\+acceleration\mbox{[}$\,$\mbox{]})
 \item 
 void \mbox{\hyperlink{namespacetesseract__planning_a1c8c37247f78cf422a0065e7f1b0efba}{global\+Adjustment}} (std\+::vector$<$ \mbox{\hyperlink{structtesseract__planning_1_1SingleJointTrajectory}{Single\+Joint\+Trajectory}} $>$ \&t2, long num\+\_\+joints, long num\+\_\+points, std\+::vector$<$ double $>$ \&time\+\_\+diff)
+\item 
+void \mbox{\hyperlink{namespacetesseract__planning_ad1e10cfbbfef604cbdbf02ee695011f7}{get\+Next\+Ruckig\+Input}} (ruckig\+::\+Input\+Parameter$<$ ruckig\+::\+Dynamic\+DOFs $>$ \&ruckig\+\_\+input, \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&trajectory, Eigen\+::\+Index current\+\_\+index, Eigen\+::\+Index next\+\_\+index, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration)
+\item 
+void \mbox{\hyperlink{namespacetesseract__planning_a1080031c4ab64d14f36e2e4ce8ff3610}{initialize\+Ruckig\+State}} (ruckig\+::\+Input\+Parameter$<$ ruckig\+::\+Dynamic\+DOFs $>$ \&ruckig\+\_\+input, ruckig\+::\+Output\+Parameter$<$ ruckig\+::\+Dynamic\+DOFs $>$ \&ruckig\+\_\+output, \mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&trajectory, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+velocity, const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&max\+\_\+acceleration)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -1737,11 +1751,11 @@ Create Cartesian Process Pipeline.
 \doxysubsubsection{\texorpdfstring{createCollisionTermInfo()}{createCollisionTermInfo()}}
 {\footnotesize\ttfamily trajopt\+::\+Term\+Info\+::\+Ptr tesseract\+\_\+planning\+::create\+Collision\+Term\+Info (\begin{DoxyParamCaption}\item[{int}]{start\+\_\+index,  }\item[{int}]{end\+\_\+index,  }\item[{double}]{collision\+\_\+safety\+\_\+margin,  }\item[{double}]{collision\+\_\+safety\+\_\+margin\+\_\+buffer,  }\item[{trajopt\+::\+Collision\+Evaluator\+Type}]{evaluator\+\_\+type,  }\item[{bool}]{use\+\_\+weighted\+\_\+sum = {\ttfamily false},  }\item[{double}]{coeff = {\ttfamily 20.0},  }\item[{tesseract\+\_\+collision\+::\+Contact\+Test\+Type}]{contact\+\_\+test\+\_\+type = {\ttfamily tesseract\+\_\+collision\+:\+:ContactTestType\+:\+:ALL},  }\item[{double}]{longest\+\_\+valid\+\_\+segment\+\_\+length = {\ttfamily 0.5},  }\item[{trajopt\+::\+Term\+Type}]{type = {\ttfamily trajopt\+:\+:TermType\+:\+:TT\+\_\+COST} }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a46564372b1854ece4fb7bd82fea39a96}\label{namespacetesseract__planning_a46564372b1854ece4fb7bd82fea39a96}} 
+\mbox{\Hypertarget{namespacetesseract__planning_a9e264592757a0e8b59d8d9ff75731e6e}\label{namespacetesseract__planning_a9e264592757a0e8b59d8d9ff75731e6e}} 
 \index{tesseract\_planning@{tesseract\_planning}!createDescartesGenerator@{createDescartesGenerator}}
 \index{createDescartesGenerator@{createDescartesGenerator}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{createDescartesGenerator()}{createDescartesGenerator()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Descartes\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Descartes\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true},  }\item[{bool}]{post\+\_\+smoothing = {\ttfamily false} }\end{DoxyParamCaption})}
 
 
 
@@ -1829,11 +1843,11 @@ This will try trajopt first before OMPL, but if trajopt fails it runs OMPL follo
 \doxysubsubsection{\texorpdfstring{createNearJointStateTermInfo()}{createNearJointStateTermInfo()}}
 {\footnotesize\ttfamily trajopt\+::\+Term\+Info\+::\+Ptr tesseract\+\_\+planning\+::create\+Near\+Joint\+State\+Term\+Info (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{target,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{joint\+\_\+names,  }\item[{int}]{index,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{coeffs,  }\item[{trajopt\+::\+Term\+Type}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_a9cc614fc5981fda16277e69b18ca086f}\label{namespacetesseract__planning_a9cc614fc5981fda16277e69b18ca086f}} 
+\mbox{\Hypertarget{namespacetesseract__planning_aeb7b4b775c3692731fffd5c495be77ed}\label{namespacetesseract__planning_aeb7b4b775c3692731fffd5c495be77ed}} 
 \index{tesseract\_planning@{tesseract\_planning}!createOMPLGenerator@{createOMPLGenerator}}
 \index{createOMPLGenerator@{createOMPLGenerator}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{createOMPLGenerator()}{createOMPLGenerator()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+OMPLGenerator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+OMPLGenerator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true},  }\item[{bool}]{post\+\_\+smoothing = {\ttfamily false} }\end{DoxyParamCaption})}
 
 
 
@@ -2027,11 +2041,11 @@ Create Raster with Approach and Departures Process Pipeline.
 \doxysubsubsection{\texorpdfstring{createTolerancedJointWaypointTermInfo()}{createTolerancedJointWaypointTermInfo()}}
 {\footnotesize\ttfamily trajopt\+::\+Term\+Info\+::\+Ptr tesseract\+\_\+planning\+::create\+Toleranced\+Joint\+Waypoint\+Term\+Info (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{j\+\_\+wp,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{lower\+\_\+tol,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{upper\+\_\+tol,  }\item[{int}]{index,  }\item[{const Eigen\+::\+Vector\+Xd \&}]{coeffs,  }\item[{trajopt\+::\+Term\+Type}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacetesseract__planning_ad2ef2cbf10c20d451ae06c295dbdf231}\label{namespacetesseract__planning_ad2ef2cbf10c20d451ae06c295dbdf231}} 
+\mbox{\Hypertarget{namespacetesseract__planning_ac7506a72ad0315495719f7672d8e697b}\label{namespacetesseract__planning_ac7506a72ad0315495719f7672d8e697b}} 
 \index{tesseract\_planning@{tesseract\_planning}!createTrajOptGenerator@{createTrajOptGenerator}}
 \index{createTrajOptGenerator@{createTrajOptGenerator}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{createTrajOptGenerator()}{createTrajOptGenerator()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Traj\+Opt\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtesseract__planning_1_1TaskflowGenerator_a12a647db36094c3b2084e60bec0ad268}{Taskflow\+Generator\+::\+UPtr}} tesseract\+\_\+planning\+::create\+Traj\+Opt\+Generator (\begin{DoxyParamCaption}\item[{bool}]{check\+\_\+input = {\ttfamily true},  }\item[{bool}]{post\+\_\+collision\+\_\+check = {\ttfamily true},  }\item[{bool}]{post\+\_\+smoothing = {\ttfamily false} }\end{DoxyParamCaption})}
 
 
 
@@ -2484,6 +2498,12 @@ Get number of turns for joints that allow rotation beyond +-\/ 180 degrees.
 \begin{DoxyReturn}{Returns}
 The number of turns (as integers), in a vector 
 \end{DoxyReturn}
+\mbox{\Hypertarget{namespacetesseract__planning_ad1e10cfbbfef604cbdbf02ee695011f7}\label{namespacetesseract__planning_ad1e10cfbbfef604cbdbf02ee695011f7}} 
+\index{tesseract\_planning@{tesseract\_planning}!getNextRuckigInput@{getNextRuckigInput}}
+\index{getNextRuckigInput@{getNextRuckigInput}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{getNextRuckigInput()}{getNextRuckigInput()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::get\+Next\+Ruckig\+Input (\begin{DoxyParamCaption}\item[{ruckig\+::\+Input\+Parameter$<$ ruckig\+::\+Dynamic\+DOFs $>$ \&}]{ruckig\+\_\+input,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{trajectory,  }\item[{Eigen\+::\+Index}]{current\+\_\+index,  }\item[{Eigen\+::\+Index}]{next\+\_\+index,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}\label{namespacetesseract__planning_a133a28cdbbe2c494193b66f9f6507710}} 
 \index{tesseract\_planning@{tesseract\_planning}!getProfile@{getProfile}}
 \index{getProfile@{getProfile}!tesseract\_planning@{tesseract\_planning}}
@@ -2595,6 +2615,12 @@ One if seed exists, otherwise zero
 \index{init\_times@{init\_times}!tesseract\_planning@{tesseract\_planning}}
 \doxysubsubsection{\texorpdfstring{init\_times()}{init\_times()}}
 {\footnotesize\ttfamily static void tesseract\+\_\+planning\+::init\+\_\+times (\begin{DoxyParamCaption}\item[{long}]{n,  }\item[{double}]{dt\mbox{[}$\,$\mbox{]},  }\item[{const double}]{x\mbox{[}$\,$\mbox{]},  }\item[{const double}]{max\+\_\+velocity\mbox{[}$\,$\mbox{]},  }\item[{double}]{min\+\_\+velocity\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{namespacetesseract__planning_a1080031c4ab64d14f36e2e4ce8ff3610}\label{namespacetesseract__planning_a1080031c4ab64d14f36e2e4ce8ff3610}} 
+\index{tesseract\_planning@{tesseract\_planning}!initializeRuckigState@{initializeRuckigState}}
+\index{initializeRuckigState@{initializeRuckigState}!tesseract\_planning@{tesseract\_planning}}
+\doxysubsubsection{\texorpdfstring{initializeRuckigState()}{initializeRuckigState()}}
+{\footnotesize\ttfamily void tesseract\+\_\+planning\+::initialize\+Ruckig\+State (\begin{DoxyParamCaption}\item[{ruckig\+::\+Input\+Parameter$<$ ruckig\+::\+Dynamic\+DOFs $>$ \&}]{ruckig\+\_\+input,  }\item[{ruckig\+::\+Output\+Parameter$<$ ruckig\+::\+Dynamic\+DOFs $>$ \&}]{ruckig\+\_\+output,  }\item[{\mbox{\hyperlink{classtesseract__planning_1_1TrajectoryContainer}{Trajectory\+Container}} \&}]{trajectory,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+velocity,  }\item[{const Eigen\+::\+Ref$<$ const Eigen\+::\+Vector\+Xd $>$ \&}]{max\+\_\+acceleration }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}\label{namespacetesseract__planning_a71ea10c42f51ae6e4d014ad054c900f6}} 
 \index{tesseract\_planning@{tesseract\_planning}!interpolate@{interpolate}}
