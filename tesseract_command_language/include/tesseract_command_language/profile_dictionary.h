@@ -39,6 +39,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 /**
+ * This used to store specific profile mapping with the request
+ *
+ * For example say you have a profile named Raster in your command language. Say you have multiple Raster profiles
+ * for descartes {Raster, Raster1, Raster2}. This allows you to remap the meaning of Raster in the command language to
+ * say Raster2 for the specific planner Descartes by Map<Descartes, Map<Raster, Raster1>>.
+ */
+using ProfileRemapping = std::unordered_map<std::string, std::unordered_map<std::string, std::string>>;
+
+/**
  * @brief This class is used to store profiles for motion planning and process planning
  * @details This is a thread safe class
  *    A ProfileEntry<T> is a std::unordered_map<std::string, std::shared_ptr<const T>>

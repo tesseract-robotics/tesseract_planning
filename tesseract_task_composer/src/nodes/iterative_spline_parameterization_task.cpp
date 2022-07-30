@@ -1,5 +1,5 @@
 /**
- * @file iterative_spline_parameterization_task_generator.cpp
+ * @file iterative_spline_parameterization_task.cpp
  * @brief Perform iterative spline time parameterization
  *
  * @author Levi Armstrong
@@ -27,50 +27,56 @@
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <console_bridge/console.h>
+#include <boost/serialization/string.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
 #include <tesseract_motion_planners/planner_utils.h>
-#include <tesseract_process_managers/core/utils.h>
-#include <tesseract_process_managers/task_generators/iterative_spline_parameterization_task_generator.h>
-#include <tesseract_process_managers/task_profiles/interative_spline_parameterization_profile.h>
+//#include <tesseract_process_managers/core/utils.h>
+#include <tesseract_task_composer/nodes/iterative_spline_parameterization_task.h>
+#include <tesseract_task_composer/profiles/interative_spline_parameterization_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
 #include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_time_parameterization/instructions_trajectory.h>
 
 namespace tesseract_planning
 {
-IterativeSplineParameterizationTaskGenerator::IterativeSplineParameterizationTaskGenerator(bool add_points,
-                                                                                           std::string name)
-  : TaskGenerator(std::move(name)), solver_(add_points)
+IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::string input_key,
+                                                                         std::string output_key,
+                                                                         bool add_points,
+                                                                         std::string name)
+  : TaskComposerNode(std::move(name))
+  , input_key_(std::move(input_key))
+  , output_key_(std::move(output_key))
+  , solver_(add_points)
 {
 }
 
-int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput input, std::size_t unique_id) const
+int IterativeSplineParameterizationTask::run(TaskComposerInput& input) const
 {
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_unique<IterativeSplineParameterizationTaskInfo>(unique_id, name_);
+  auto info = std::make_unique<IterativeSplineParameterizationTaskInfo>(uuid_, name_);
   info->return_value = 0;
   tesseract_common::Timer timer;
   timer.start();
-  saveInputs(*info, input);
+  //  saveInputs(*info, input);
 
   // --------------------
   // Check that inputs are valid
   // --------------------
-  InstructionPoly* input_results = input.getResults();
-  if (!input_results->isCompositeInstruction())
+  auto input_data_poly = input.data_storage->getData(input_key_);
+  if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     CONSOLE_BRIDGE_logError("Input results to iterative spline parameterization must be a composite instruction");
-    saveOutputs(*info, input);
+    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     input.addTaskInfo(std::move(info));
     return 0;
   }
 
-  auto& ci = input_results->as<CompositeInstruction>();
+  auto& ci = input_data_poly.as<CompositeInstruction>();
   const tesseract_common::ManipulatorInfo& manip_info = ci.getManipulatorInfo();
   auto joint_group = input.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
@@ -80,7 +86,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<IterativeSplineParameterizationProfile>(
       name_, profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   // Create data structures for checking for plan profile overrides
   auto flattened = ci.flatten(moveFilter);
@@ -88,7 +94,7 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   {
     CONSOLE_BRIDGE_logWarn("Iterative spline time parameterization found no MoveInstructions to process");
     info->return_value = 1;
-    saveOutputs(*info, input);
+    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     input.addTaskInfo(std::move(info));
     return 1;
@@ -103,13 +109,13 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
   for (Eigen::Index idx = 0; idx < static_cast<Eigen::Index>(flattened.size()); idx++)
   {
     const auto& mi = flattened[static_cast<std::size_t>(idx)].get().as<MoveInstructionPoly>();
-    std::string plan_profile = mi.getProfile();
+    std::string move_profile = mi.getProfile();
 
     // Check for remapping of the plan profile
-    plan_profile = getProfileString(name_, profile, input.plan_profile_remapping);
+    move_profile = getProfileString(name_, profile, input.move_profile_remapping);
     auto cur_move_profile = getProfile<IterativeSplineParameterizationProfile>(
-        name_, plan_profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
-    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.getProfileOverrides());
+        name_, move_profile, *input.profiles, std::make_shared<IterativeSplineParameterizationProfile>());
+    //    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.profile_overrides);
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)
@@ -128,8 +134,8 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
                        acceleration_scaling_factors))
   {
     CONSOLE_BRIDGE_logInform("Failed to perform iterative spline time parameterization for process input: %s!",
-                             input_results->getDescription().c_str());
-    saveOutputs(*info, input);
+                             ci.getDescription().c_str());
+    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     input.addTaskInfo(std::move(info));
     return 0;
@@ -137,24 +143,27 @@ int IterativeSplineParameterizationTaskGenerator::conditionalProcess(TaskInput i
 
   CONSOLE_BRIDGE_logDebug("Iterative spline time parameterization succeeded");
   info->return_value = 1;
-  saveOutputs(*info, input);
+  //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
   input.addTaskInfo(std::move(info));
   return 1;
 }
 
-void IterativeSplineParameterizationTaskGenerator::process(TaskInput input, std::size_t unique_id) const
+template <class Archive>
+void IterativeSplineParameterizationTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  conditionalProcess(input, unique_id);
+  ar& BOOST_SERIALIZATION_NVP(input_key_);
+  ar& BOOST_SERIALIZATION_NVP(output_key_);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 
 IterativeSplineParameterizationTaskInfo::IterativeSplineParameterizationTaskInfo(boost::uuids::uuid uuid,
                                                                                  std::string name)
-  : TaskInfo(uuid, std::move(name))
+  : TaskComposerNodeInfo(uuid, std::move(name))
 {
 }
 
-TaskInfo::UPtr IterativeSplineParameterizationTaskInfo::clone() const
+TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTaskInfo::clone() const
 {
   return std::make_unique<IterativeSplineParameterizationTaskInfo>(*this);
 }
@@ -162,7 +171,7 @@ TaskInfo::UPtr IterativeSplineParameterizationTaskInfo::clone() const
 bool IterativeSplineParameterizationTaskInfo::operator==(const IterativeSplineParameterizationTaskInfo& rhs) const
 {
   bool equal = true;
-  equal &= TaskInfo::operator==(rhs);
+  equal &= TaskComposerNodeInfo::operator==(rhs);
   return equal;
 }
 bool IterativeSplineParameterizationTaskInfo::operator!=(const IterativeSplineParameterizationTaskInfo& rhs) const
@@ -173,10 +182,12 @@ bool IterativeSplineParameterizationTaskInfo::operator!=(const IterativeSplinePa
 template <class Archive>
 void IterativeSplineParameterizationTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskInfo);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
 }
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationTask)
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationTaskInfo)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationTaskInfo)

@@ -13,7 +13,7 @@ namespace tesseract_planning
 {
 // NOLINTNEXTLINE(modernize-pass-by-value)
 JointWaypoint::JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position)
-  : names_(std::move(names)), position_(position)
+  : names_(std::move(names)), position_(position), target_position_(position)
 {
   if (static_cast<Eigen::Index>(names_.size()) != position_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
@@ -23,7 +23,11 @@ JointWaypoint::JointWaypoint(std::vector<std::string> names,
                              const Eigen::VectorXd& position,   // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& lower_tol,  // NOLINT(modernize-pass-by-value)
                              const Eigen::VectorXd& upper_tol)  // NOLINT(modernize-pass-by-value)
-  : names_(std::move(names)), position_(position), lower_tolerance_(lower_tol), upper_tolerance_(upper_tol)
+  : names_(std::move(names))
+  , position_(position)
+  , target_position_(position)
+  , lower_tolerance_(lower_tol)
+  , upper_tolerance_(upper_tol)
 {
   if (static_cast<Eigen::Index>(names_.size()) != position_.size() || position_.size() != lower_tolerance_.size() ||
       position_.size() != upper_tolerance_.size())
@@ -55,6 +59,10 @@ void JointWaypoint::setPosition(const Eigen::VectorXd& position) { position_ = p
 Eigen::VectorXd& JointWaypoint::getPosition() { return position_; }
 const Eigen::VectorXd& JointWaypoint::getPosition() const { return position_; }
 
+void JointWaypoint::setTargetPosition(const Eigen::VectorXd& position) { target_position_ = position; }
+Eigen::VectorXd& JointWaypoint::getTargetPosition() { return target_position_; }
+const Eigen::VectorXd& JointWaypoint::getTargetPosition() const { return target_position_; }
+
 void JointWaypoint::setUpperTolerance(const Eigen::VectorXd& upper_tol) { upper_tolerance_ = upper_tol; }
 Eigen::VectorXd& JointWaypoint::getUpperTolerance() { return upper_tolerance_; }
 const Eigen::VectorXd& JointWaypoint::getUpperTolerance() const { return upper_tolerance_; }
@@ -73,8 +81,9 @@ bool JointWaypoint::operator==(const JointWaypoint& rhs) const
   static auto max_diff = static_cast<double>(std::numeric_limits<float>::epsilon());
 
   bool equal = true;
-  equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs.position_, max_diff);
   equal &= tesseract_common::isIdentical(names_, rhs.names_);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs.position_, max_diff);
+  equal &= tesseract_common::almostEqualRelativeAndAbs(target_position_, rhs.target_position_, max_diff);
   equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance_, rhs.lower_tolerance_, max_diff);
   equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance_, rhs.upper_tolerance_, max_diff);
   return equal;
@@ -86,6 +95,7 @@ void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(names_);
   ar& BOOST_SERIALIZATION_NVP(position_);
+  ar& BOOST_SERIALIZATION_NVP(target_position_);
   ar& BOOST_SERIALIZATION_NVP(upper_tolerance_);
   ar& BOOST_SERIALIZATION_NVP(lower_tolerance_);
 }
@@ -93,4 +103,4 @@ void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::JointWaypoint)
-TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::JointWaypoint);
+TESSERACT_JOINT_WAYPOINT_EXPORT_IMPLEMENT(tesseract_planning::JointWaypoint)

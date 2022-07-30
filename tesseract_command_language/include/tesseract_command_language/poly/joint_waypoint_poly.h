@@ -104,6 +104,15 @@ struct JointWaypointConcept  // NOLINT
     const Eigen::VectorXd& position_const_ref = c.getPosition();
     UNUSED(position_const_ref);
 
+    Eigen::VectorXd target_position;
+    c.setTargetPosition(target_position);
+
+    Eigen::VectorXd& target_position_ref = c.getTargetPosition();
+    UNUSED(target_position_ref);
+
+    const Eigen::VectorXd& target_position_const_ref = c.getTargetPosition();
+    UNUSED(target_position_const_ref);
+
     Eigen::VectorXd lower_tol;
     c.setLowerTolerance(lower_tol);
 
@@ -140,6 +149,10 @@ struct JointWaypointInterface : tesseract_common::TypeErasureInterface
   virtual Eigen::VectorXd& getPosition() = 0;
   virtual const Eigen::VectorXd& getPosition() const = 0;
 
+  virtual void setTargetPosition(const Eigen::VectorXd& position) = 0;
+  virtual Eigen::VectorXd& getTargetPosition() = 0;
+  virtual const Eigen::VectorXd& getTargetPosition() const = 0;
+
   virtual void setUpperTolerance(const Eigen::VectorXd& upper_tol) = 0;
   virtual Eigen::VectorXd& getUpperTolerance() = 0;
   virtual const Eigen::VectorXd& getUpperTolerance() const = 0;
@@ -174,6 +187,10 @@ struct JointWaypointInstance : tesseract_common::TypeErasureInstance<T, JointWay
   void setPosition(const Eigen::VectorXd& position) final { this->get().setPosition(position); }
   Eigen::VectorXd& getPosition() final { return this->get().getPosition(); }
   const Eigen::VectorXd& getPosition() const final { return this->get().getPosition(); }
+
+  void setTargetPosition(const Eigen::VectorXd& position) final { this->get().setTargetPosition(position); }
+  Eigen::VectorXd& getTargetPosition() final { return this->get().getTargetPosition(); }
+  const Eigen::VectorXd& getTargetPosition() const final { return this->get().getTargetPosition(); }
 
   void setUpperTolerance(const Eigen::VectorXd& upper_tol) final { this->get().setUpperTolerance(upper_tol); }
   Eigen::VectorXd& getUpperTolerance() final { return this->get().getUpperTolerance(); }
@@ -211,6 +228,11 @@ struct JointWaypointPoly : JointWaypointPolyBase
   void setPosition(const Eigen::VectorXd& position);
   Eigen::VectorXd& getPosition();
   const Eigen::VectorXd& getPosition() const;
+
+  // TargetPosition is only used if it is a toleranced joint waypoint
+  void setTargetPosition(const Eigen::VectorXd& position);
+  Eigen::VectorXd& getTargetPosition();
+  const Eigen::VectorXd& getTargetPosition() const;
 
   void setUpperTolerance(const Eigen::VectorXd& upper_tol);
   Eigen::VectorXd& getUpperTolerance();

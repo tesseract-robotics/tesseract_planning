@@ -63,6 +63,10 @@ public:
   Eigen::VectorXd& getPosition();
   const Eigen::VectorXd& getPosition() const;
 
+  void setTargetPosition(const Eigen::VectorXd& position);
+  Eigen::VectorXd& getTargetPosition();
+  const Eigen::VectorXd& getTargetPosition() const;
+
   void setUpperTolerance(const Eigen::VectorXd& upper_tol);
   Eigen::VectorXd& getUpperTolerance();
   const Eigen::VectorXd& getUpperTolerance() const;
@@ -81,6 +85,8 @@ protected:
   std::vector<std::string> names_;
   /** @brief The position of the joints */
   Eigen::VectorXd position_;
+  /** @brief The position of the joints */
+  Eigen::VectorXd target_position_;
   /** @brief Joint distance below position that is allowed. Each element should be <= 0 */
   Eigen::VectorXd lower_tolerance_;
   /** @brief Joint distance above position that is allowed. Each element should be >= 0 */
