@@ -232,10 +232,9 @@ int main(int /*argc*/, char** /*argv*/)
     request.profiles = profiles;
 
     // Solve Descartes Plan
-    PlannerResponse descartes_response;
     DescartesMotionPlannerD descartes_planner;
-    auto descartes_status = descartes_planner.solve(request, descartes_response);
-    assert(descartes_status);
+    PlannerResponse descartes_response = descartes_planner.solve(request);
+    assert(descartes_response);
 
     // Plot Descartes Trajectory
     if (plotter)
@@ -248,10 +247,9 @@ int main(int /*argc*/, char** /*argv*/)
     request.seed = descartes_response.results;
 
     // Solve TrajOpt Plan
-    PlannerResponse trajopt_response;
     TrajOptMotionPlanner trajopt_planner;
-    auto trajopt_status = trajopt_planner.solve(request, trajopt_response);
-    assert(trajopt_status);
+    PlannerResponse trajopt_response = trajopt_planner.solve(request);
+    assert(trajopt_response);
 
     if (plotter)
     {

@@ -36,7 +36,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/planner_utils.h>
 
-#include <tesseract_motion_planners/ompl/ompl_motion_planner_status_category.h>
 #include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
 #include <tesseract_motion_planners/ompl/continuous_motion_validator.h>
 #include <tesseract_motion_planners/ompl/discrete_motion_validator.h>
@@ -45,6 +44,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/core/utils.h>
 
 #include <tesseract_command_language/utils.h>
+
+constexpr auto SOLUTION_FOUND{ "Found valid solution" };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };
+constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 
 namespace tesseract_planning
 {
@@ -86,8 +89,7 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 }
 
 /** @brief Construct a basic planner */
-OMPLMotionPlanner::OMPLMotionPlanner(std::string name)
-  : name_(std::move(name)), status_category_(std::make_shared<const OMPLMotionPlannerStatusCategory>(name_))
+OMPLMotionPlanner::OMPLMotionPlanner(std::string name) : name_(std::move(name))
 {
   if (name_.empty())
     throw std::runtime_error("OMPLMotionPlanner name is empty!");
@@ -101,15 +103,14 @@ bool OMPLMotionPlanner::terminate()
   return false;
 }
 
-tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& request,
-                                                      PlannerResponse& response,
-                                                      bool verbose) const
+PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 {
+  PlannerResponse response;
   if (!checkUserInput(request))  // NOLINT
   {
-    response.status =
-        tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_INVALID_INPUT;
+    return response;
   }
   std::vector<OMPLProblem::Ptr> problem;
   if (request.data)
@@ -125,16 +126,16 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     catch (std::exception& e)
     {
       CONSOLE_BRIDGE_logError("OMPLPlanner failed to generate problem: %s.", e.what());
-      response.status =
-          tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-      return response.status;
+      response.successful = false;
+      response.message = ERROR_INVALID_INPUT;
+      return response;
     }
 
     response.data = std::make_shared<std::vector<OMPLProblem::Ptr>>(problem);
   }
 
   // If the verbose set the log level to debug.
-  if (verbose)
+  if (request.verbose)
     console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
 
   /// @todo: Need to expand this to support multiple motion plans leveraging taskflow
@@ -198,9 +199,9 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
 
     if (status != ompl::base::PlannerStatus::EXACT_SOLUTION)
     {
-      response.status = tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::ErrorFailedToFindValidSolution,
-                                                     status_category_);
-      return response.status;
+      response.successful = false;
+      response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
+      return response;
     }
 
     if (p->simplify)
@@ -287,8 +288,9 @@ tesseract_common::StatusCode OMPLMotionPlanner::solve(const PlannerRequest& requ
     }
   }
 
-  response.status = tesseract_common::StatusCode(OMPLMotionPlannerStatusCategory::SolutionFound, status_category_);
-  return response.status;
+  response.successful = true;
+  response.message = SOLUTION_FOUND;
+  return response;
 }
 
 void OMPLMotionPlanner::clear() { parallel_plan_ = nullptr; }

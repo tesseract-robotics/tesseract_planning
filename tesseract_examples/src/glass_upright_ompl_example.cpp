@@ -304,8 +304,7 @@ bool GlassUprightOMPLExample::run()
   CONSOLE_BRIDGE_logInform("glass upright plan OMPL example");
 
   ros::Time tStart = ros::Time::now();
-  tesseract_motion_planners::PlannerResponse ompl_planning_response;
-  tesseract_common::StatusCode status = ompl_planner.solve(ompl_planning_response);
+  tesseract_motion_planners::PlannerResponse ompl_planning_responseb = ompl_planner.solve(ompl_planning_request);
   CONSOLE_BRIDGE_logError("planning time: %.3f", (ros::Time::now() - tStart).toSec());
 
   double d = 0;

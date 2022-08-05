@@ -8,7 +8,6 @@ add_library(
   src/descartes_collision.cpp
   src/descartes_collision_edge_evaluator.cpp
   src/descartes_robot_sampler.cpp
-  src/descartes_motion_planner_status_category.cpp
   src/serialize.cpp
   src/deserialize.cpp
   src/descartes_utils.cpp

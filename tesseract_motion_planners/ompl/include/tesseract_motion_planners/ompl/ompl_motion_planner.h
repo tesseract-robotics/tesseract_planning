@@ -42,8 +42,6 @@ class ParallelPlan;
 
 namespace tesseract_planning
 {
-class OMPLMotionPlannerStatusCategory;
-
 /**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
  * take a start and end point and automate the generation of the OMPL problem.
@@ -75,9 +73,7 @@ public:
    * @param verbose Flag for printing more detailed planning information
    * @return true if valid solution was found
    */
-  tesseract_common::StatusCode solve(const PlannerRequest& request,
-                                     PlannerResponse& response,
-                                     bool verbose = false) const override;
+  PlannerResponse solve(const PlannerRequest& request) const override;
 
   bool terminate() override;
 
@@ -92,9 +88,6 @@ public:
 protected:
   /** @brief Name of planner */
   std::string name_;
-
-  /** @brief The planners status codes */
-  std::shared_ptr<const OMPLMotionPlannerStatusCategory> status_category_;
 
   /** @brief OMPL Parallel planner */
   std::shared_ptr<ompl::tools::ParallelPlan> parallel_plan_;

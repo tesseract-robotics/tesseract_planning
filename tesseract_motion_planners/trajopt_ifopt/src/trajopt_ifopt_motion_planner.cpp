@@ -41,41 +41,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/utils.h>
 
+constexpr auto SOLUTION_FOUND{ "Found valid solution" };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };
+constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
+
 using namespace trajopt_ifopt;
 
 namespace tesseract_planning
 {
-TrajOptIfoptMotionPlannerStatusCategory::TrajOptIfoptMotionPlannerStatusCategory(std::string name)
-  : name_(std::move(name))
-{
-}
-const std::string& TrajOptIfoptMotionPlannerStatusCategory::name() const noexcept { return name_; }
-std::string TrajOptIfoptMotionPlannerStatusCategory::message(int code) const
-{
-  switch (code)
-  {
-    case SolutionFound:
-    {
-      return "Found valid solution";
-    }
-    case ErrorInvalidInput:
-    {
-      return "Input to planner is invalid. Check that instructions and seed are compatible";
-    }
-    case FailedToFindValidSolution:
-    {
-      return "Failed to find valid solution";
-    }
-    default:
-    {
-      assert(false);
-      return "";
-    }
-  }
-}
-
-TrajOptIfoptMotionPlanner::TrajOptIfoptMotionPlanner(std::string name)
-  : name_(std::move(name)), status_category_(std::make_shared<const TrajOptIfoptMotionPlannerStatusCategory>(name_))
+TrajOptIfoptMotionPlanner::TrajOptIfoptMotionPlanner(std::string name) : name_(std::move(name))
 {
   if (name_.empty())
     throw std::runtime_error("TrajOptIfoptMotionPlanner name is empty!");
@@ -96,15 +70,14 @@ MotionPlanner::Ptr TrajOptIfoptMotionPlanner::clone() const
   return std::make_shared<TrajOptIfoptMotionPlanner>(name_);
 }
 
-tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request,
-                                                              PlannerResponse& response,
-                                                              bool verbose) const
+PlannerResponse TrajOptIfoptMotionPlanner::solve(const PlannerRequest& request) const
 {
+  PlannerResponse response;
   if (!checkUserInput(request))
   {
-    response.status =
-        tesseract_common::StatusCode(TrajOptIfoptMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_INVALID_INPUT;
+    return response;
   }
 
   std::shared_ptr<TrajOptIfoptProblem> problem;
@@ -121,9 +94,9 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
     catch (std::exception& e)
     {
       CONSOLE_BRIDGE_logError("TrajOptIfoptPlanner failed to generate problem: %s.", e.what());
-      response.status =
-          tesseract_common::StatusCode(TrajOptIfoptMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-      return response.status;
+      response.successful = false;
+      response.message = ERROR_INVALID_INPUT;
+      return response;
     }
 
     response.data = problem;
@@ -134,7 +107,7 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
   auto qp_solver = std::make_shared<trajopt_sqp::OSQPEigenSolver>();
   trajopt_sqp::TrustRegionSQPSolver solver(qp_solver);
   /** @todo Set these as the defaults in trajopt and allow setting */
-  qp_solver->solver_.settings()->setVerbosity(verbose);
+  qp_solver->solver_.settings()->setVerbosity(request.verbose);
   qp_solver->solver_.settings()->setWarmStart(true);
   qp_solver->solver_.settings()->setPolish(true);
   qp_solver->solver_.settings()->setAdaptiveRho(false);
@@ -149,15 +122,15 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
   }
 
   // solve
-  solver.verbose = verbose;
+  solver.verbose = request.verbose;
   solver.solve(problem->nlp);
 
   // Check success
   if (solver.getStatus() != trajopt_sqp::SQPStatus::NLP_CONVERGED)
   {
-    response.status = tesseract_common::StatusCode(TrajOptIfoptMotionPlannerStatusCategory::FailedToFindValidSolution,
-                                                   status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
+    return response;
   }
 
   // Get the results - This can likely be simplified if we get rid of the traj array
@@ -207,9 +180,9 @@ tesseract_common::StatusCode TrajOptIfoptMotionPlanner::solve(const PlannerReque
     }
   }
 
-  response.status =
-      tesseract_common::StatusCode(TrajOptIfoptMotionPlannerStatusCategory::SolutionFound, status_category_);
-  return response.status;
+  response.successful = true;
+  response.message = SOLUTION_FOUND;
+  return response;
 }
 
 bool TrajOptIfoptMotionPlanner::checkUserInput(const PlannerRequest& request)

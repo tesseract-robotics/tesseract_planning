@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <unordered_map>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_common/status_code.h>
 #include <tesseract_motion_planners/core/types.h>
 
 namespace tesseract_planning
@@ -58,14 +57,9 @@ public:
   /**
    * @brief Solve the planner request problem
    * @param request The planning request
-   * @param response The results from the planner
-   * @param check_type The type of validation check to be performed on the planned trajectory
-   * @param verbose Flag for printing more detailed planning information
-   * @return A code indicating the status of the planned trajectory
+   * @return A planner reponse
    */
-  virtual tesseract_common::StatusCode solve(const PlannerRequest& request,
-                                             PlannerResponse& response,
-                                             bool verbose = false) const = 0;
+  virtual PlannerResponse solve(const PlannerRequest& request) const = 0;
 
   /**
    * @brief If solve() is running, terminate the computation. Return false if termination not possible. No-op if

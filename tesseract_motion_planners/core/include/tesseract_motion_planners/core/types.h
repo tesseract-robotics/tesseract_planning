@@ -27,7 +27,6 @@
 #define TESSERACT_MOTION_PLANNERS_PLANNER_TYPES_H
 
 #include <tesseract_environment/environment.h>
-#include <tesseract_common/status_code.h>
 #include <tesseract_common/types.h>
 #include <tesseract_command_language/poly/instruction_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -84,6 +83,9 @@ struct PlannerRequest
    */
   PlannerProfileRemapping composite_profile_remapping{};
 
+  /** @brief Indicate if output should be verbose */
+  bool verbose{ false };
+
   /**
    * @brief data Planner specific data. For planners included in Tesseract_planning this is the planner problem that
    * will be used if it is not null
@@ -98,8 +100,10 @@ struct PlannerResponse
   // LCOV_EXCL_STOP
 
   CompositeInstruction results;
-  /** @brief The status information */
-  tesseract_common::StatusCode status;
+  /** @brief Indicate if planning was successful */
+  bool successful{ false };
+  /** @brief The status message */
+  std::string message;
   /** @brief Waypoints for which the planner succeeded */
   std::vector<std::reference_wrapper<InstructionPoly>> succeeded_instructions{};
   /** @brief Waypoints for which the planner failed */
@@ -107,6 +111,9 @@ struct PlannerResponse
   /** @brief Planner specific data. Planners in Tesseract_planning use this to store the planner problem that was solved
    */
   std::shared_ptr<void> data;
+
+  /** @brief This return true if successful */
+  explicit operator bool() const noexcept { return successful; }
 };
 
 }  // namespace tesseract_planning

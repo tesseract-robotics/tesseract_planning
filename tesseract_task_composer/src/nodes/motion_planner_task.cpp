@@ -166,17 +166,16 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   // --------------------
   // Fill out response
   // --------------------
-  PlannerResponse response;
 
-  bool verbose = false;
+  request.verbose = false;
   if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
-    verbose = true;
-  auto status = planner_->solve(request, response, verbose);
+    request.verbose = true;
+  PlannerResponse response = planner_->solve(request);
 
   // --------------------
   // Verify Success
   // --------------------
-  if (status)
+  if (response)
   {
     input.data_storage->setData("output_key_", response.results);
     CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
@@ -189,7 +188,7 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
 
   CONSOLE_BRIDGE_logInform("%s motion planning failed (%s) for process input: %s",
                            planner_->getName().c_str(),
-                           status.message().c_str(),
+                           response.message.c_str(),
                            instructions.getDescription().c_str());
   //  info->message = status.message();
   //  saveOutputs(*info, input);

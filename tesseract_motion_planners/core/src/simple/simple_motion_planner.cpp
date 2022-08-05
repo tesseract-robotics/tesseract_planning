@@ -39,36 +39,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_command_language/utils.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
+constexpr auto SOLUTION_FOUND{ "Found valid solution" };
+constexpr auto ERROR_INVALID_INPUT{ "Input to planner is invalid. Check that instructions and seed are compatible" };
+constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
+
 namespace tesseract_planning
 {
-SimpleMotionPlannerStatusCategory::SimpleMotionPlannerStatusCategory(std::string name) : name_(std::move(name)) {}
-const std::string& SimpleMotionPlannerStatusCategory::name() const noexcept { return name_; }
-std::string SimpleMotionPlannerStatusCategory::message(int code) const
-{
-  switch (code)
-  {
-    case SolutionFound:
-    {
-      return "Found valid solution";
-    }
-    case ErrorInvalidInput:
-    {
-      return "Input to planner is invalid. Check that instructions and seed are compatible";
-    }
-    case FailedToFindValidSolution:
-    {
-      return "Failed to find valid solution";
-    }
-    default:
-    {
-      assert(false);
-      return "";
-    }
-  }
-}
-
-SimpleMotionPlanner::SimpleMotionPlanner(std::string name)
-  : name_(std::move(name)), status_category_(std::make_shared<const SimpleMotionPlannerStatusCategory>(name_))
+SimpleMotionPlanner::SimpleMotionPlanner(std::string name) : name_(std::move(name))
 {
   if (name_.empty())
     throw std::runtime_error("SimpleMotionPlanner name is empty!");
@@ -86,15 +63,14 @@ void SimpleMotionPlanner::clear() {}
 
 MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<SimpleMotionPlanner>(name_); }
 
-tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& request,
-                                                        PlannerResponse& response,
-                                                        bool /*verbose*/) const
+PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
 {
+  PlannerResponse response;
   if (!checkUserInput(request))
   {
-    response.status =
-        tesseract_common::StatusCode(SimpleMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_INVALID_INPUT;
+    return response;
   }
 
   // Assume all the plan instructions have the same manipulator as the composite
@@ -126,9 +102,9 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   catch (std::exception& e)
   {
     CONSOLE_BRIDGE_logError("SimplePlanner failed to generate problem: %s.", e.what());
-    response.status =
-        tesseract_common::StatusCode(SimpleMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_INVALID_INPUT;
+    return response;
   }
 
   // Set seed start state
@@ -149,8 +125,9 @@ tesseract_common::StatusCode SimpleMotionPlanner::solve(const PlannerRequest& re
   }
 
   // Return success
-  response.status = tesseract_common::StatusCode(SimpleMotionPlannerStatusCategory::SolutionFound, status_category_);
-  return response.status;
+  response.successful = true;
+  response.message = SOLUTION_FOUND;
+  return response;
 }
 
 MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,

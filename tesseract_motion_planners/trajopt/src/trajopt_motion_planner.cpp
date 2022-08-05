@@ -44,38 +44,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/utils.h>
 
+constexpr auto SOLUTION_FOUND{ "Found valid solution" };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };
+constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
+
 using namespace trajopt;
 
 namespace tesseract_planning
 {
-TrajOptMotionPlannerStatusCategory::TrajOptMotionPlannerStatusCategory(std::string name) : name_(std::move(name)) {}
-const std::string& TrajOptMotionPlannerStatusCategory::name() const noexcept { return name_; }
-std::string TrajOptMotionPlannerStatusCategory::message(int code) const
-{
-  switch (code)
-  {
-    case SolutionFound:
-    {
-      return "Found valid solution";
-    }
-    case ErrorInvalidInput:
-    {
-      return "Input to planner is invalid. Check that instructions and seed are compatible";
-    }
-    case FailedToFindValidSolution:
-    {
-      return "Failed to find valid solution";
-    }
-    default:
-    {
-      assert(false);
-      return "";
-    }
-  }
-}
-
-TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name)
-  : name_(std::move(name)), status_category_(std::make_shared<const TrajOptMotionPlannerStatusCategory>(name_))
+TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name) : name_(std::move(name))
 {
   if (name_.empty())
     throw std::runtime_error("TrajOptMotionPlanner name is empty!");
@@ -93,15 +70,14 @@ void TrajOptMotionPlanner::clear() {}
 
 MotionPlanner::Ptr TrajOptMotionPlanner::clone() const { return std::make_shared<TrajOptMotionPlanner>(name_); }
 
-tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& request,
-                                                         PlannerResponse& response,
-                                                         bool verbose) const
+PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
 {
+  PlannerResponse response;
   if (!checkUserInput(request))
   {
-    response.status =
-        tesseract_common::StatusCode(TrajOptMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_INVALID_INPUT;
+    return response;
   }
 
   std::shared_ptr<trajopt::ProblemConstructionInfo> pci;
@@ -118,9 +94,9 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
     catch (std::exception& e)
     {
       CONSOLE_BRIDGE_logError("TrajOptPlanner failed to generate problem: %s.", e.what());
-      response.status =
-          tesseract_common::StatusCode(TrajOptMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-      return response.status;
+      response.successful = false;
+      response.message = ERROR_INVALID_INPUT;
+      return response;
     }
 
     response.data = pci;
@@ -130,7 +106,7 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   trajopt::TrajOptProb::Ptr problem = trajopt::ConstructProblem(*pci);
 
   // Set Log Level
-  if (verbose)
+  if (request.verbose)
     util::gLogLevel = util::LevelInfo;
   else
     util::gLogLevel = util::LevelWarn;
@@ -150,9 +126,9 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
   opt.optimize();
   if (opt.results().status != sco::OptStatus::OPT_CONVERGED)
   {
-    response.status =
-        tesseract_common::StatusCode(TrajOptMotionPlannerStatusCategory::FailedToFindValidSolution, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
+    return response;
   }
 
   // Get the results
@@ -199,8 +175,9 @@ tesseract_common::StatusCode TrajOptMotionPlanner::solve(const PlannerRequest& r
     }
   }
 
-  response.status = tesseract_common::StatusCode(TrajOptMotionPlannerStatusCategory::SolutionFound, status_category_);
-  return response.status;
+  response.successful = true;
+  response.message = SOLUTION_FOUND;
+  return response;
 }
 
 bool TrajOptMotionPlanner::checkUserInput(const PlannerRequest& request)

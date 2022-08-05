@@ -204,15 +204,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
 
   // Create Planner and solve
   OMPLMotionPlanner ompl_planner;
-  PlannerResponse planner_response;
-  auto status = ompl_planner.solve(request, planner_response);
+  PlannerResponse planner_response = ompl_planner.solve(request);
 
-  if (!status)
+  if (!planner_response)
   {
-    CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
+    CONSOLE_BRIDGE_logError("CI Error: %s", planner_response.message.c_str());
   }
 
-  EXPECT_TRUE(&status);
+  EXPECT_TRUE(&planner_response);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
   EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 21);  // 10 per segment + start a instruction
   EXPECT_EQ(planner_response.results.size(), 2);
@@ -249,8 +248,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   request.data = nullptr;  // Note: Nust clear the saved problem or it will use it instead.
 
   // Solve
-  status = ompl_planner.solve(request, planner_response);
-  EXPECT_FALSE(status);
+  planner_response = ompl_planner.solve(request);
+  EXPECT_FALSE(planner_response);
 
   // Check for end state in collision error
   swp = start_state;
@@ -283,8 +282,8 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   request.data = nullptr;  // Note: Nust clear the saved problem or it will use it instead.
 
   // Set new configuration and solve
-  status = ompl_planner.solve(request, planner_response);
-  EXPECT_FALSE(status);
+  planner_response = ompl_planner.solve(request);
+  EXPECT_FALSE(planner_response);
 }
 
 TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
@@ -364,14 +363,13 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
 
   // Create Planner and solve
   OMPLMotionPlanner ompl_planner;
-  PlannerResponse planner_response;
-  auto status = ompl_planner.solve(request, planner_response);
+  PlannerResponse planner_response = ompl_planner.solve(request);
 
-  if (!status)
+  if (!planner_response)
   {
-    CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
+    CONSOLE_BRIDGE_logError("CI Error: %s", planner_response.message.c_str());
   }
-  EXPECT_TRUE(&status);
+  EXPECT_TRUE(&planner_response);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
   EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
   EXPECT_TRUE(wp1.getPosition().isApprox(
@@ -460,15 +458,14 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 
   // Create Planner and solve
   OMPLMotionPlanner ompl_planner;
-  PlannerResponse planner_response;
-  auto status = ompl_planner.solve(request, planner_response);
+  PlannerResponse planner_response = ompl_planner.solve(request);
 
-  if (!status)
+  if (!planner_response)
   {
-    CONSOLE_BRIDGE_logError("CI Error: %s", status.message().c_str());
+    CONSOLE_BRIDGE_logError("CI Error: %s", planner_response.message.c_str());
   }
 
-  EXPECT_TRUE(&status);
+  EXPECT_TRUE(&planner_response);
   EXPECT_TRUE(planner_response.results.hasStartInstruction());
   EXPECT_EQ(planner_response.results.getMoveInstructionCount(), 11);
   EXPECT_TRUE(wp2.getPosition().isApprox(
@@ -521,8 +518,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
 //  // Set the planner configuration
 //  ompl_planner.setConfiguration(ompl_config);
 
-//  tesseract_motion_planners::PlannerResponse ompl_planning_response;
-//  tesseract_common::StatusCode status = ompl_planner.solve(ompl_planning_response);
+//  tesseract_motion_planners::PlannerResponse ompl_planning_response = ompl_planner.solve(ompl_planning_request);
 
 //  if (!status)
 //  {

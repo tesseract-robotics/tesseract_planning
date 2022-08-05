@@ -53,7 +53,6 @@ static CompositeInstruction generateSeed(const CompositeInstruction& instruction
   request.instructions = instructions;
   request.env_state = current_state;
   request.env = env;
-  PlannerResponse response;
 
   // Set up planner
   SimpleMotionPlanner planner;
@@ -76,7 +75,7 @@ static CompositeInstruction generateSeed(const CompositeInstruction& instruction
   request.profiles = profiles;
 
   // Solve
-  planner.solve(request, response);
+  PlannerResponse response = planner.solve(request);
 
   return response.results;
 }

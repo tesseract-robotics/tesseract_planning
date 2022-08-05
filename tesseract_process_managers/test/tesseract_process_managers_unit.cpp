@@ -136,9 +136,8 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerFixedSizeAssignPlan
   request.env_state = env_->getState();
   request.profiles = profiles;
 
-  PlannerResponse response;
-  auto status = interpolator->solve(request, response);
-  EXPECT_TRUE(status);
+  PlannerResponse response = interpolator->solve(request);
+  EXPECT_TRUE(response);
 
   auto pcnt = request.instructions.getMoveInstructionCount();
   auto mcnt = response.results.getMoveInstructionCount();
@@ -178,9 +177,8 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerLVSPlanProfileTest)
   request.env_state = env_->getState();
   request.profiles = profiles;
 
-  PlannerResponse response;
-  auto status = interpolator->solve(request, response);
-  EXPECT_TRUE(status);
+  PlannerResponse response = interpolator->solve(request);
+  EXPECT_TRUE(response);
 
   auto mcnt = response.results.getMoveInstructionCount();
 
@@ -219,9 +217,8 @@ TEST_F(TesseractProcessManagerUnit, RasterSimpleMotionPlannerDefaultLVSNoIKPlanP
   request.env_state = env_->getState();
   request.profiles = profiles;
 
-  PlannerResponse response;
-  auto status = interpolator->solve(request, response);
-  EXPECT_TRUE(status);
+  PlannerResponse response = interpolator->solve(request);
+  EXPECT_TRUE(response);
 
   auto mcnt = response.results.getMoveInstructionCount();
 
@@ -255,9 +252,8 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerFixedSizeAssignP
   request.env_state = env_->getState();
   request.profiles = profiles;
 
-  PlannerResponse response;
-  auto status = interpolator->solve(request, response);
-  EXPECT_TRUE(status);
+  PlannerResponse response = interpolator->solve(request);
+  EXPECT_TRUE(response);
 
   auto pcnt = request.instructions.getMoveInstructionCount();
   auto mcnt = response.results.getMoveInstructionCount();
@@ -292,9 +288,8 @@ TEST_F(TesseractProcessManagerUnit, FreespaceSimpleMotionPlannerDefaultLVSPlanPr
   request.env_state = env_->getState();
   request.profiles = profiles;
 
-  PlannerResponse response;
-  auto status = interpolator->solve(request, response);
-  EXPECT_TRUE(status);
+  PlannerResponse response = interpolator->solve(request);
+  EXPECT_TRUE(response);
 
   auto mcnt = response.results.getMoveInstructionCount();
 

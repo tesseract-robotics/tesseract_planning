@@ -8,7 +8,6 @@ set(OMPL_SRC
     src/continuous_motion_validator.cpp
     src/discrete_motion_validator.cpp
     src/weighted_real_vector_state_sampler.cpp
-    src/ompl_motion_planner_status_category.cpp
     src/ompl_planner_configurator.cpp
     src/ompl_problem.cpp
     src/profile/ompl_default_plan_profile.cpp

@@ -46,11 +46,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_command_language/utils.h>
 
+constexpr auto SOLUTION_FOUND{ "Found valid solution" };
+constexpr auto ERROR_INVALID_INPUT{ "Failed invalid input" };
+constexpr auto ERROR_FAILED_TO_BUILD_GRAPH{ "Failed to build graph" };
+constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
+
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name)
-  : name_(std::move(name)), status_category_(std::make_shared<const DescartesMotionPlannerStatusCategory>(name_))
+DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name) : name_(std::move(name))
 {
   if (name_.empty())
     throw std::runtime_error("DescartesMotionPlanner name is empty!");
@@ -63,10 +67,9 @@ const std::string& DescartesMotionPlanner<FloatType>::getName() const
 }
 
 template <typename FloatType>
-tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& request,
-                                                                      PlannerResponse& response,
-                                                                      const bool /*verbose*/) const
+PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& request) const
 {
+  PlannerResponse response;
   std::shared_ptr<DescartesProblem<FloatType>> problem;
   if (request.data)
   {
@@ -81,9 +84,9 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
     catch (std::exception& e)
     {
       CONSOLE_BRIDGE_logError("DescartesMotionPlanner failed to generate problem: %s.", e.what());
-      response.status =
-          tesseract_common::StatusCode(DescartesMotionPlannerStatusCategory::ErrorInvalidInput, status_category_);
-      return response.status;
+      response.successful = false;
+      response.message = ERROR_INVALID_INPUT;
+      return response;
     }
 
     response.data = problem;
@@ -98,9 +101,9 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
     if (descartes_result.trajectory.empty())
     {
       CONSOLE_BRIDGE_logError("Search for graph completion failed");
-      response.status = tesseract_common::StatusCode(
-          DescartesMotionPlannerStatusCategory::ErrorFailedToFindValidSolution, status_category_);
-      return response.status;
+      response.successful = false;
+      response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
+      return response;
     }
   }
   catch (...)
@@ -118,9 +121,9 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
     //                          response.failed_waypoints.end();
     //                 });
 
-    response.status =
-        tesseract_common::StatusCode(DescartesMotionPlannerStatusCategory::ErrorFailedToBuildGraph, status_category_);
-    return response.status;
+    response.successful = false;
+    response.message = ERROR_FAILED_TO_BUILD_GRAPH;
+    return response;
   }
 
   // Enforce limits
@@ -201,8 +204,9 @@ tesseract_common::StatusCode DescartesMotionPlanner<FloatType>::solve(const Plan
     }
   }
 
-  response.status = tesseract_common::StatusCode(DescartesMotionPlannerStatusCategory::SolutionFound, status_category_);
-  return response.status;
+  response.successful = true;
+  response.message = SOLUTION_FOUND;
+  return response;
 }
 
 template <typename FloatType>

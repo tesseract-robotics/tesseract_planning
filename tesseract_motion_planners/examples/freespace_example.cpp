@@ -131,10 +131,9 @@ int main(int /*argc*/, char** /*argv*/)
     request.profiles = profiles;
 
     // Solve OMPL Plan
-    PlannerResponse ompl_response;
     OMPLMotionPlanner ompl_planner;
-    auto ompl_status = ompl_planner.solve(request, ompl_response);
-    assert(ompl_status);
+    PlannerResponse ompl_response = ompl_planner.solve(request);
+    assert(ompl_response);
 
     // Plot OMPL Trajectory
     if (plotter)
@@ -147,10 +146,9 @@ int main(int /*argc*/, char** /*argv*/)
     request.seed = ompl_response.results;
 
     // Solve TrajOpt Plan
-    PlannerResponse trajopt_response;
     TrajOptMotionPlanner trajopt_planner;
-    auto trajopt_status = trajopt_planner.solve(request, trajopt_response);
-    assert(trajopt_status);
+    PlannerResponse trajopt_response = trajopt_planner.solve(request);
+    assert(trajopt_response);
 
     if (plotter)
     {

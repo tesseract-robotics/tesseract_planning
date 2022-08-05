@@ -148,9 +148,9 @@ void IterativeSplineParameterizationTaskGenerator::process(TaskInput input, std:
   conditionalProcess(input, unique_id);
 }
 
-IterativeSplineParameterizationTaskInfo::IterativeSplineParameterizationTaskInfo(boost::uuids::uuid uuid,
+IterativeSplineParameterizationTaskInfo::IterativeSplineParameterizationTaskInfo(std::size_t unique_id,
                                                                                  std::string name)
-  : TaskInfo(uuid, std::move(name))
+  : TaskInfo(unique_id, std::move(name))
 {
 }
 

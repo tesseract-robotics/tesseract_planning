@@ -132,9 +132,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
   request.env_state = cur_state;
   request.profiles = profiles;
 
-  PlannerResponse single_planner_response;
-  auto single_status = single_descartes_planner.solve(request, single_planner_response);
-  EXPECT_TRUE(&single_status);
+  PlannerResponse single_planner_response = single_descartes_planner.solve(request);
+  EXPECT_TRUE(&single_planner_response);
 
   CompositeInstruction official_results = single_planner_response.results;
 
@@ -150,8 +149,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
 
-    PlannerResponse planner_response;
-    auto status = descartes_planner.solve(request, planner_response);
+    PlannerResponse planner_response = descartes_planner.solve(request);
 
     if (DEBUG)
     {
@@ -165,7 +163,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPoses)  // NOLINT
       planner_response.results.print();
     }
 
-    EXPECT_TRUE(&status);
+    EXPECT_TRUE(&planner_response);
     EXPECT_EQ(official_results.size(), planner_response.results.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
@@ -257,9 +255,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
   EXPECT_EQ(problem->samplers.size(), 11);
   EXPECT_EQ(problem->edge_evaluators.size(), 10);
 
-  PlannerResponse single_planner_response;
-  auto single_status = single_descartes_planner.solve(request, single_planner_response);
-  EXPECT_TRUE(&single_status);
+  PlannerResponse single_planner_response = single_descartes_planner.solve(request);
+  EXPECT_TRUE(&single_planner_response);
 
   CompositeInstruction official_results = request.seed;
 
@@ -268,10 +265,9 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetric)  // NOLINT
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
 
-    PlannerResponse planner_response;
     request.seed = seed;  // reset seed to the original seed
-    auto status = descartes_planner.solve(request, planner_response);
-    EXPECT_TRUE(&status);
+    PlannerResponse planner_response = descartes_planner.solve(request);
+    EXPECT_TRUE(&planner_response);
     EXPECT_TRUE(official_results.size() == request.seed.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {
@@ -365,9 +361,8 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
   EXPECT_EQ(problem->edge_evaluators.size(), 2);
   EXPECT_EQ(problem->num_threads, 1);
 
-  PlannerResponse single_planner_response;
-  auto single_status = single_descartes_planner.solve(request, single_planner_response);
-  EXPECT_TRUE(&single_status);
+  PlannerResponse single_planner_response = single_descartes_planner.solve(request);
+  EXPECT_TRUE(&single_planner_response);
 
   CompositeInstruction official_results = request.seed;
 
@@ -376,10 +371,9 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluator)  
     DescartesMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
 
-    PlannerResponse planner_response;
     request.seed = seed;  // reset seed to the original seed
-    auto status = descartes_planner.solve(request, planner_response);
-    EXPECT_TRUE(&status);
+    PlannerResponse planner_response = descartes_planner.solve(request);
+    EXPECT_TRUE(&planner_response);
     EXPECT_TRUE(official_results.size() == request.seed.size());
     for (CompositeInstruction::size_type j = 0; j < official_results.size(); ++j)
     {

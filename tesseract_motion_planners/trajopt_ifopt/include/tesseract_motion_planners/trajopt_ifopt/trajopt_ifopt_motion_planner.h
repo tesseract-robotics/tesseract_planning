@@ -38,8 +38,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class TrajOptIfoptMotionPlannerStatusCategory;
-
 class TrajOptIfoptMotionPlanner : public MotionPlanner
 {
 public:
@@ -57,17 +55,7 @@ public:
   /** @brief Callback functions called on each iteration of the optimization (Optional) */
   std::vector<trajopt_sqp::SQPCallback::Ptr> callbacks;
 
-  /**
-   * @brief Sets up the optimizer and solves a SQP problem read from json with no callbacks and default parameters
-   * @param response The results of the optimization. Primary output is the optimized joint trajectory
-   * @param check_type The type of collision check to perform on the planned trajectory
-   * @param verbose Boolean indicating whether logging information about the motion planning solution should be printed
-   * to console
-   * @return true if optimization complete
-   */
-  tesseract_common::StatusCode solve(const PlannerRequest& request,
-                                     PlannerResponse& response,
-                                     bool verbose = false) const override;
+  PlannerResponse solve(const PlannerRequest& request) const override;
 
   bool terminate() override;
 
@@ -81,27 +69,6 @@ public:
 
 protected:
   /** @brief Name of planner */
-  std::string name_;
-
-  /** @brief The planners status codes */
-  std::shared_ptr<const TrajOptIfoptMotionPlannerStatusCategory> status_category_;
-};
-
-class TrajOptIfoptMotionPlannerStatusCategory : public tesseract_common::StatusCategory
-{
-public:
-  TrajOptIfoptMotionPlannerStatusCategory(std::string name);
-  const std::string& name() const noexcept override;
-  std::string message(int code) const override;
-
-  enum
-  {
-    SolutionFound = 0,
-    ErrorInvalidInput = -1,
-    FailedToFindValidSolution = -3,
-  };
-
-private:
   std::string name_;
 };
 
