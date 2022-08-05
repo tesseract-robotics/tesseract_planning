@@ -35,11 +35,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-MotionPlannerTask::MotionPlannerTask(MotionPlanner::Ptr planner, std::string input_key, std::string output_key)
+MotionPlannerTask::MotionPlannerTask(MotionPlanner::Ptr planner,
+                                     std::string input_key,
+                                     std::string output_key,
+                                     bool convert_output_to_input)
   : TaskComposerNode(planner->getName())
   , planner_(std::move(planner))
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
+  , convert_output_to_input_(convert_output_to_input)
 {
 }
 
@@ -48,10 +52,10 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   if (input.isAborted())
     return 0;
 
-  //  auto info = std::make_unique<MotionPlannerTaskInfo>(uuid, name_);
-  //  info->return_value = 0;
-  //  tesseract_common::Timer timer;
-  //  timer.start();
+  auto info = std::make_unique<MotionPlannerTaskInfo>(uuid_, name_);
+  info->return_value = 0;
+  tesseract_common::Timer timer;
+  timer.start();
   //  saveInputs(*info, input);
 
   auto input_data_poly = input.data_storage->getData(input_key_);
@@ -62,21 +66,21 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   // --------------------
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    //    info->message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
-    //    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
-    //    info->elapsed_time = timer.elapsedSeconds();
-    //    input.addTaskInfo(std::move(info));
+    info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
   if (result_data_poly.isNull() || result_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    //    info->message = "Input seed to MotionPlannerTask: " + name_ + " must be a composite instruction";
-    //    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    info->message = "Input seed to MotionPlannerTask: " + name_ + " must be a composite instruction";
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
-    //    info->elapsed_time = timer.elapsedSeconds();
-    //    input.addTaskInfo(std::move(info));
+    info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
   }
 
@@ -166,7 +170,6 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   // --------------------
   // Fill out response
   // --------------------
-
   request.verbose = false;
   if (console_bridge::getLogLevel() == console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG)
     request.verbose = true;
@@ -177,12 +180,47 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   // --------------------
   if (response)
   {
-    input.data_storage->setData("output_key_", response.results);
+    if (convert_output_to_input_)
+    {
+      std::vector<std::reference_wrapper<InstructionPoly>> input_vec = instructions.flatten(&moveFilter);
+      std::vector<std::reference_wrapper<InstructionPoly>> output_vec = response.results.flatten(&moveFilter);
+      assert(input_vec.size() == output_vec.size());
+      for (std::size_t i = 0; i < input_vec.size(); ++i)
+      {
+        auto& input_instr = input_vec[i].get().as<MoveInstructionPoly>();
+        auto& output_swp = output_vec[i].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
+        if (input_instr.getWaypoint().isCartesianWaypoint())
+        {
+          tesseract_common::JointState js(output_swp.getNames(), output_swp.getPosition());
+          js.velocity = output_swp.getVelocity();
+          js.acceleration = output_swp.getAcceleration();
+          js.effort = output_swp.getEffort();
+          js.time = output_swp.getTime();
+          input_instr.getWaypoint().as<CartesianWaypointPoly>().setSeed(js);
+        }
+        else if (input_instr.getWaypoint().isJointWaypoint())
+        {
+          auto& jwp = input_instr.getWaypoint().as<JointWaypointPoly>();
+          if (jwp.isToleranced())
+            input_instr.getWaypoint().as<JointWaypointPoly>().setPosition(output_swp.getPosition());
+        }
+        else
+        {
+          input_instr.assignStateWaypoint(output_swp);
+        }
+      }
+      input.data_storage->setData("output_key_", input_data_poly);
+    }
+    else
+    {
+      input.data_storage->setData("output_key_", response.results);
+    }
     CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
-    //    info->return_value = 1;
+    info->return_value = 1;
+    info->message = response.message;
     //    saveOutputs(*info, input);
-    //    info->elapsed_time = timer.elapsedSeconds();
-    //    input.addTaskInfo(std::move(info));
+    info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 1;
   }
 
@@ -190,18 +228,30 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
                            planner_->getName().c_str(),
                            response.message.c_str(),
                            instructions.getDescription().c_str());
-  //  info->message = status.message();
+  info->message = response.message;
   //  saveOutputs(*info, input);
-  //  info->elapsed_time = timer.elapsedSeconds();
-  //  input.addTaskInfo(std::move(info));
+  info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 0;
 }
+
+bool MotionPlannerTask::operator==(const MotionPlannerTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= (output_key_ == rhs.output_key_);
+  equal &= (convert_output_to_input_ == rhs.convert_output_to_input_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool MotionPlannerTask::operator!=(const MotionPlannerTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
 void MotionPlannerTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
+  ar& BOOST_SERIALIZATION_NVP(convert_output_to_input_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 

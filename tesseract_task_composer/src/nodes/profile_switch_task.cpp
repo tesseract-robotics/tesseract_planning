@@ -84,6 +84,15 @@ int ProfileSwitchTask::run(TaskComposerInput& input) const
   return cur_composite_profile->return_value;
 }
 
+bool ProfileSwitchTask::operator==(const ProfileSwitchTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool ProfileSwitchTask::operator!=(const ProfileSwitchTask& rhs) const { return !operator==(rhs); }
+
 template <class Archive>
 void ProfileSwitchTask::serialize(Archive& ar, const unsigned int /*version*/)
 {

@@ -155,6 +155,16 @@ void SeedMinLengthTask::subdivide(CompositeInstruction& composite,
   }
 }
 
+bool SeedMinLengthTask::operator==(const SeedMinLengthTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= (output_key_ == rhs.output_key_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool SeedMinLengthTask::operator!=(const SeedMinLengthTask& rhs) const { return !operator==(rhs); }
+
 template <class Archive>
 void SeedMinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
 {

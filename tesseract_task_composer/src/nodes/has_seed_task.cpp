@@ -76,6 +76,15 @@ int HasSeedTask::run(TaskComposerInput& input) const
   return 1;
 }
 
+bool HasSeedTask::operator==(const HasSeedTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool HasSeedTask::operator!=(const HasSeedTask& rhs) const { return !operator==(rhs); }
+
 template <class Archive>
 void HasSeedTask::serialize(Archive& ar, const unsigned int /*version*/)
 {

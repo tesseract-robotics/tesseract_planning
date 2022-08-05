@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
 #include <tesseract_motion_planners/planner_utils.h>
-//#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/nodes/time_optimal_parameterization_task.h>
 #include <tesseract_task_composer/profiles/time_optimal_parameterization_profile.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -256,6 +255,8 @@ CompositeInstruction TimeOptimalParameterizationTask::unflatten(const CompositeI
 bool TimeOptimalParameterizationTask::operator==(const TimeOptimalParameterizationTask& rhs) const
 {
   bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }

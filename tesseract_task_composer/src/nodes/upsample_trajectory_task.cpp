@@ -163,6 +163,8 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
 bool UpsampleTrajectoryTask::operator==(const UpsampleTrajectoryTask& rhs) const
 {
   bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }

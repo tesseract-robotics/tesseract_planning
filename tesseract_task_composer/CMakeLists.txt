@@ -60,6 +60,7 @@ add_library(
   src/nodes/ruckig_trajectory_smoothing_task.cpp
   src/nodes/seed_min_length_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
+  src/nodes/transition_mux_task.cpp
   src/nodes/upsample_trajectory_task.cpp)
 target_link_libraries(
   ${PROJECT_NAME}

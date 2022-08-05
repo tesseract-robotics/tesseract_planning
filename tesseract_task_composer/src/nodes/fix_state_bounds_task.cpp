@@ -190,6 +190,16 @@ int FixStateBoundsTask::run(TaskComposerInput& input) const
   return 1;
 }
 
+bool FixStateBoundsTask::operator==(const FixStateBoundsTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= (output_key_ == rhs.output_key_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool FixStateBoundsTask::operator!=(const FixStateBoundsTask& rhs) const { return !operator==(rhs); }
+
 template <class Archive>
 void FixStateBoundsTask::serialize(Archive& ar, const unsigned int /*version*/)
 {

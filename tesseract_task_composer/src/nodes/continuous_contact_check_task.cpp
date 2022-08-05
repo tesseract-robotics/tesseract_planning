@@ -112,6 +112,15 @@ int ContinuousContactCheckTask::run(TaskComposerInput& input) const
   return 1;
 }
 
+bool ContinuousContactCheckTask::operator==(const ContinuousContactCheckTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool ContinuousContactCheckTask::operator!=(const ContinuousContactCheckTask& rhs) const { return !operator==(rhs); }
+
 template <class Archive>
 void ContinuousContactCheckTask::serialize(Archive& ar, const unsigned int /*version*/)
 {

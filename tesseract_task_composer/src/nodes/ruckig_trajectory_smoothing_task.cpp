@@ -155,6 +155,19 @@ int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input) const
   return 1;
 }
 
+bool RuckigTrajectorySmoothingTask::operator==(const RuckigTrajectorySmoothingTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= (output_key_ == rhs.output_key_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool RuckigTrajectorySmoothingTask::operator!=(const RuckigTrajectorySmoothingTask& rhs) const
+{
+  return !operator==(rhs);
+}
+
 template <class Archive>
 void RuckigTrajectorySmoothingTask::serialize(Archive& ar, const unsigned int /*version*/)
 {

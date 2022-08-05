@@ -68,6 +68,15 @@ int CheckInputTask::run(TaskComposerInput& input) const
   return 1;
 }
 
+bool CheckInputTask::operator==(const CheckInputTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_keys_ == rhs.input_keys_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool CheckInputTask::operator!=(const CheckInputTask& rhs) const { return !operator==(rhs); }
+
 template <class Archive>
 void CheckInputTask::serialize(Archive& ar, const unsigned int /*version*/)
 {

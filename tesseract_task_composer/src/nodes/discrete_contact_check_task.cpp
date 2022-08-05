@@ -111,6 +111,15 @@ int DiscreteContactCheckTask::run(TaskComposerInput& input) const
   return 1;
 }
 
+bool DiscreteContactCheckTask::operator==(const DiscreteContactCheckTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool DiscreteContactCheckTask::operator!=(const DiscreteContactCheckTask& rhs) const { return !operator==(rhs); }
+
 template <class Archive>
 void DiscreteContactCheckTask::serialize(Archive& ar, const unsigned int /*version*/)
 {

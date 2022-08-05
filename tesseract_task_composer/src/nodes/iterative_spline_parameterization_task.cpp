@@ -149,6 +149,19 @@ int IterativeSplineParameterizationTask::run(TaskComposerInput& input) const
   return 1;
 }
 
+bool IterativeSplineParameterizationTask::operator==(const IterativeSplineParameterizationTask& rhs) const
+{
+  bool equal = true;
+  equal &= (input_key_ == rhs.input_key_);
+  equal &= (output_key_ == rhs.output_key_);
+  equal &= TaskComposerNode::operator==(rhs);
+  return equal;
+}
+bool IterativeSplineParameterizationTask::operator!=(const IterativeSplineParameterizationTask& rhs) const
+{
+  return !operator==(rhs);
+}
+
 template <class Archive>
 void IterativeSplineParameterizationTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
