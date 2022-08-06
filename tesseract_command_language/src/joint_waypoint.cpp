@@ -12,8 +12,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 // NOLINTNEXTLINE(modernize-pass-by-value)
-JointWaypoint::JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position)
-  : names_(std::move(names)), position_(position), target_position_(position)
+JointWaypoint::JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position, bool is_constrained)
+  : names_(std::move(names)), position_(position), is_constrained_(is_constrained)
 {
   if (static_cast<Eigen::Index>(names_.size()) != position_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
@@ -25,18 +25,21 @@ JointWaypoint::JointWaypoint(std::vector<std::string> names,
                              const Eigen::VectorXd& upper_tol)  // NOLINT(modernize-pass-by-value)
   : names_(std::move(names))
   , position_(position)
-  , target_position_(position)
   , lower_tolerance_(lower_tol)
   , upper_tolerance_(upper_tol)
+  , is_constrained_(true)
 {
   if (static_cast<Eigen::Index>(names_.size()) != position_.size() || position_.size() != lower_tolerance_.size() ||
       position_.size() != upper_tolerance_.size())
     throw std::runtime_error("JointWaypoint: parameters are not the same size!");
 }
 
-JointWaypoint::JointWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position)
+JointWaypoint::JointWaypoint(std::initializer_list<std::string> names,
+                             std::initializer_list<double> position,
+                             bool is_constrained)
   : JointWaypoint(names,
-                  Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())))
+                  Eigen::Map<const Eigen::VectorXd>(position.begin(), static_cast<Eigen::Index>(position.size())),
+                  is_constrained)
 {
 }
 
@@ -59,10 +62,6 @@ void JointWaypoint::setPosition(const Eigen::VectorXd& position) { position_ = p
 Eigen::VectorXd& JointWaypoint::getPosition() { return position_; }
 const Eigen::VectorXd& JointWaypoint::getPosition() const { return position_; }
 
-void JointWaypoint::setTargetPosition(const Eigen::VectorXd& position) { target_position_ = position; }
-Eigen::VectorXd& JointWaypoint::getTargetPosition() { return target_position_; }
-const Eigen::VectorXd& JointWaypoint::getTargetPosition() const { return target_position_; }
-
 void JointWaypoint::setUpperTolerance(const Eigen::VectorXd& upper_tol) { upper_tolerance_ = upper_tol; }
 Eigen::VectorXd& JointWaypoint::getUpperTolerance() { return upper_tolerance_; }
 const Eigen::VectorXd& JointWaypoint::getUpperTolerance() const { return upper_tolerance_; }
@@ -70,6 +69,9 @@ const Eigen::VectorXd& JointWaypoint::getUpperTolerance() const { return upper_t
 void JointWaypoint::setLowerTolerance(const Eigen::VectorXd& lower_tol) { lower_tolerance_ = lower_tol; }
 Eigen::VectorXd& JointWaypoint::getLowerTolerance() { return lower_tolerance_; }
 const Eigen::VectorXd& JointWaypoint::getLowerTolerance() const { return lower_tolerance_; }
+
+void JointWaypoint::setIsConstrained(bool value) { is_constrained_ = value; }
+bool JointWaypoint::isConstrained() const { return is_constrained_; }
 
 void JointWaypoint::print(const std::string& prefix) const
 {
@@ -83,9 +85,9 @@ bool JointWaypoint::operator==(const JointWaypoint& rhs) const
   bool equal = true;
   equal &= tesseract_common::isIdentical(names_, rhs.names_);
   equal &= tesseract_common::almostEqualRelativeAndAbs(position_, rhs.position_, max_diff);
-  equal &= tesseract_common::almostEqualRelativeAndAbs(target_position_, rhs.target_position_, max_diff);
   equal &= tesseract_common::almostEqualRelativeAndAbs(lower_tolerance_, rhs.lower_tolerance_, max_diff);
   equal &= tesseract_common::almostEqualRelativeAndAbs(upper_tolerance_, rhs.upper_tolerance_, max_diff);
+  equal &= (is_constrained_ == rhs.is_constrained_);
   return equal;
 }
 bool JointWaypoint::operator!=(const JointWaypoint& rhs) const { return !operator==(rhs); }
@@ -95,9 +97,9 @@ void JointWaypoint::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(names_);
   ar& BOOST_SERIALIZATION_NVP(position_);
-  ar& BOOST_SERIALIZATION_NVP(target_position_);
   ar& BOOST_SERIALIZATION_NVP(upper_tolerance_);
   ar& BOOST_SERIALIZATION_NVP(lower_tolerance_);
+  ar& BOOST_SERIALIZATION_NVP(is_constrained_);
 }
 }  // namespace tesseract_planning
 

@@ -60,19 +60,6 @@ const Eigen::VectorXd& tesseract_planning::JointWaypointPoly::getPosition() cons
   return getInterface().getPosition();
 }
 
-void tesseract_planning::JointWaypointPoly::setTargetPosition(const Eigen::VectorXd& position)
-{
-  getInterface().setTargetPosition(position);
-}
-Eigen::VectorXd& tesseract_planning::JointWaypointPoly::getTargetPosition()
-{
-  return getInterface().getTargetPosition();
-}
-const Eigen::VectorXd& tesseract_planning::JointWaypointPoly::getTargetPosition() const
-{
-  return getInterface().getTargetPosition();
-}
-
 void tesseract_planning::JointWaypointPoly::setUpperTolerance(const Eigen::VectorXd& upper_tol)
 {
   getInterface().setUpperTolerance(upper_tol);
@@ -98,6 +85,9 @@ const Eigen::VectorXd& tesseract_planning::JointWaypointPoly::getLowerTolerance(
 {
   return getInterface().getLowerTolerance();
 }
+
+void tesseract_planning::JointWaypointPoly::setIsConstrained(bool value) { getInterface().setIsConstrained(value); }
+bool tesseract_planning::JointWaypointPoly::isConstrained() const { return getInterface().isConstrained(); }
 
 void tesseract_planning::JointWaypointPoly::print(const std::string& prefix) const { getInterface().print(prefix); }
 

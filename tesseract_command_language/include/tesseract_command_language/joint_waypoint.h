@@ -44,12 +44,14 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
   JointWaypoint() = default;
-  JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position);
+  JointWaypoint(std::vector<std::string> names, const Eigen::VectorXd& position, bool is_constrained = true);
   JointWaypoint(std::vector<std::string> names,
                 const Eigen::VectorXd& position,
                 const Eigen::VectorXd& lower_tol,
                 const Eigen::VectorXd& upper_tol);
-  JointWaypoint(std::initializer_list<std::string> names, std::initializer_list<double> position);
+  JointWaypoint(std::initializer_list<std::string> names,
+                std::initializer_list<double> position,
+                bool is_constrained = true);
   JointWaypoint(std::initializer_list<std::string> names,
                 std::initializer_list<double> position,
                 std::initializer_list<double> lower_tol,
@@ -63,10 +65,6 @@ public:
   Eigen::VectorXd& getPosition();
   const Eigen::VectorXd& getPosition() const;
 
-  void setTargetPosition(const Eigen::VectorXd& position);
-  Eigen::VectorXd& getTargetPosition();
-  const Eigen::VectorXd& getTargetPosition() const;
-
   void setUpperTolerance(const Eigen::VectorXd& upper_tol);
   Eigen::VectorXd& getUpperTolerance();
   const Eigen::VectorXd& getUpperTolerance() const;
@@ -74,6 +72,9 @@ public:
   void setLowerTolerance(const Eigen::VectorXd& lower_tol);
   Eigen::VectorXd& getLowerTolerance();
   const Eigen::VectorXd& getLowerTolerance() const;
+
+  void setIsConstrained(bool value);
+  bool isConstrained() const;
 
   void print(const std::string& prefix = "") const;
 
@@ -85,12 +86,12 @@ protected:
   std::vector<std::string> names_;
   /** @brief The position of the joints */
   Eigen::VectorXd position_;
-  /** @brief The position of the joints */
-  Eigen::VectorXd target_position_;
   /** @brief Joint distance below position that is allowed. Each element should be <= 0 */
   Eigen::VectorXd lower_tolerance_;
   /** @brief Joint distance above position that is allowed. Each element should be >= 0 */
   Eigen::VectorXd upper_tolerance_;
+  /** @brief Indicates if it is constrained joint state */
+  bool is_constrained_{ false };
 
   friend class boost::serialization::access;
   template <class Archive>
@@ -98,6 +99,6 @@ protected:
 };
 }  // namespace tesseract_planning
 
-TESSERACT_JOINT_WAYPOINT_EXPORT_KEY(tesseract_planning, JointWaypoint);
+TESSERACT_JOINT_WAYPOINT_EXPORT_KEY(tesseract_planning, JointWaypoint)
 
 #endif  // TESSERACT_COMMAND_LANGUAGE_JOINT_WAYPOINT_H
