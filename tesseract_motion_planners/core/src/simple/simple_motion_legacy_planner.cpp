@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <tesseract_environment/utils.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_motion_planners/simple/simple_motion_planner.h>
+#include <tesseract_motion_planners/simple/simple_motion_legacy_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
@@ -45,25 +45,28 @@ constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 
 namespace tesseract_planning
 {
-SimpleMotionPlanner::SimpleMotionPlanner(std::string name) : name_(std::move(name))
+SimpleMotionLegacyPlanner::SimpleMotionLegacyPlanner(std::string name) : name_(std::move(name))
 {
   if (name_.empty())
     throw std::runtime_error("SimpleMotionPlanner name is empty!");
 }
 
-const std::string& SimpleMotionPlanner::getName() const { return name_; }
+const std::string& SimpleMotionLegacyPlanner::getName() const { return name_; }
 
-bool SimpleMotionPlanner::terminate()
+bool SimpleMotionLegacyPlanner::terminate()
 {
   CONSOLE_BRIDGE_logWarn("Termination of ongoing planning is not implemented yet");
   return false;
 }
 
-void SimpleMotionPlanner::clear() {}
+void SimpleMotionLegacyPlanner::clear() {}
 
-MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<SimpleMotionPlanner>(name_); }
+MotionPlanner::Ptr SimpleMotionLegacyPlanner::clone() const
+{
+  return std::make_shared<SimpleMotionLegacyPlanner>(name_);
+}
 
-PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
+PlannerResponse SimpleMotionLegacyPlanner::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
   if (!checkUserInput(request))
@@ -130,9 +133,10 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   return response;
 }
 
-MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerRequest& request,
-                                                             const tesseract_scene_graph::SceneState& current_state,
-                                                             const tesseract_kinematics::JointGroup& manip)
+MoveInstructionPoly
+SimpleMotionLegacyPlanner::getStartInstruction(const PlannerRequest& request,
+                                               const tesseract_scene_graph::SceneState& current_state,
+                                               const tesseract_kinematics::JointGroup& manip)
 {
   // Create start instruction
   if (request.instructions.hasStartInstruction())
@@ -182,10 +186,10 @@ MoveInstructionPoly SimpleMotionPlanner::getStartInstruction(const PlannerReques
   return start_instruction_seed;
 }
 
-CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
-                                                                      MoveInstructionPoly& prev_instruction,
-                                                                      MoveInstructionPoly& prev_seed,
-                                                                      const PlannerRequest& request) const
+CompositeInstruction SimpleMotionLegacyPlanner::processCompositeInstruction(const CompositeInstruction& instructions,
+                                                                            MoveInstructionPoly& prev_instruction,
+                                                                            MoveInstructionPoly& prev_seed,
+                                                                            const PlannerRequest& request) const
 {
   CompositeInstruction seed(instructions);
   seed.clear();
@@ -221,7 +225,8 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
         std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerPlanProfile>(
             name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
+        //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
+        //        base_instruction.profile_overrides);
       }
       else
       {
@@ -229,7 +234,8 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
             getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerPlanProfile>(
             name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
-        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
+        //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
+        //        base_instruction.profile_overrides);
       }
 
       if (!plan_profile)
@@ -241,9 +247,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
                                                                      next_instruction,
                                                                      request,
                                                                      request.instructions.getManipulatorInfo());
-
-      for (const auto& instr : instruction_seed)
-        seed.appendInstruction(instr);
+      seed.appendInstruction(instruction_seed);
 
       prev_instruction = base_instruction;
       prev_seed = instruction_seed.back().as<MoveInstructionPoly>();
@@ -256,7 +260,7 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
   return seed;
 }
 
-bool SimpleMotionPlanner::checkUserInput(const PlannerRequest& request)
+bool SimpleMotionLegacyPlanner::checkUserInput(const PlannerRequest& request)
 {
   // Check that parameters are valid
   if (request.env == nullptr)

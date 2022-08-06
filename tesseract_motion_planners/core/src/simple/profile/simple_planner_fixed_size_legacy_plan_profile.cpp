@@ -24,23 +24,23 @@
  * limitations under the License.
  */
 
-#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_legacy_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 namespace tesseract_planning
 {
-SimplePlannerFixedSizePlanProfile::SimplePlannerFixedSizePlanProfile(int freespace_steps, int linear_steps)
+SimplePlannerFixedSizeLegacyPlanProfile::SimplePlannerFixedSizeLegacyPlanProfile(int freespace_steps, int linear_steps)
   : freespace_steps(freespace_steps), linear_steps(linear_steps)
 {
 }
 
 CompositeInstruction
-SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                            const MoveInstructionPoly& /*prev_seed*/,
-                                            const MoveInstructionPoly& base_instruction,
-                                            const InstructionPoly& /*next_instruction*/,
-                                            const PlannerRequest& request,
-                                            const tesseract_common::ManipulatorInfo& global_manip_info) const
+SimplePlannerFixedSizeLegacyPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+                                                  const MoveInstructionPoly& /*prev_seed*/,
+                                                  const MoveInstructionPoly& base_instruction,
+                                                  const InstructionPoly& /*next_instruction*/,
+                                                  const PlannerRequest& request,
+                                                  const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
   KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
   KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
@@ -58,8 +58,8 @@ SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_inst
 }
 
 CompositeInstruction
-SimplePlannerFixedSizePlanProfile::stateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                           const KinematicGroupInstructionInfo& base) const
+SimplePlannerFixedSizeLegacyPlanProfile::stateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                                 const KinematicGroupInstructionInfo& base) const
 {
   // Calculate FK for start and end
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -85,26 +85,12 @@ SimplePlannerFixedSizePlanProfile::stateJointJointWaypoint(const KinematicGroupI
     throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
 
-  // Linearly interpolate in cartesian space if linear move
-  if (base.instruction.isLinear())
-  {
-    Eigen::Isometry3d p1_world = prev.calcCartesianPose(j1);
-    Eigen::Isometry3d p2_world = base.calcCartesianPose(j2);
-
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
-    for (auto& pose : poses)
-      pose = base.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
-  }
-
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction
-SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                          const KinematicGroupInstructionInfo& base) const
+SimplePlannerFixedSizeLegacyPlanProfile::stateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                                const KinematicGroupInstructionInfo& base) const
 {
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
 
@@ -142,26 +128,12 @@ SimplePlannerFixedSizePlanProfile::stateJointCartWaypoint(const KinematicGroupIn
     }
   }
 
-  // Linearly interpolate in cartesian space if linear move
-  if (base.instruction.isLinear())
-  {
-    Eigen::Isometry3d p1_world = prev.calcCartesianPose(j1);
-    Eigen::Isometry3d p2_world = base.extractCartesianPose();
-
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
-    for (auto& pose : poses)
-      pose = base.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
-  }
-
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction
-SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                          const KinematicGroupInstructionInfo& base) const
+SimplePlannerFixedSizeLegacyPlanProfile::stateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                                const KinematicGroupInstructionInfo& base) const
 {
   const Eigen::VectorXd& j2 = base.extractJointPosition();
   Eigen::VectorXd j1 = getClosestJointSolution(prev, j2);
@@ -198,25 +170,13 @@ SimplePlannerFixedSizePlanProfile::stateCartJointWaypoint(const KinematicGroupIn
     }
   }
 
-  // Linearly interpolate in cartesian space if linear move
-  if (base.instruction.isLinear())
-  {
-    Eigen::Isometry3d p1_world = prev.extractCartesianPose();
-    Eigen::Isometry3d p2_world = base.calcCartesianPose(j2);
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
-    for (auto& pose : poses)
-      pose = base.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
-  }
-
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                                              const KinematicGroupInstructionInfo& base,
-                                                                              const PlannerRequest& request) const
+CompositeInstruction
+SimplePlannerFixedSizeLegacyPlanProfile::stateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                               const KinematicGroupInstructionInfo& base,
+                                                               const PlannerRequest& request) const
 {
   // Get IK seed
   Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
@@ -275,21 +235,8 @@ CompositeInstruction SimplePlannerFixedSizePlanProfile::stateCartCartWaypoint(co
       throw std::runtime_error("SimplePlannerFixedSizePlanProfile: Unsupported MoveInstructionType!");
   }
 
-  // Linearly interpolate in cartesian space if linear move
-  if (base.instruction.isLinear())
-  {
-    Eigen::Isometry3d p1_world = prev.extractCartesianPose();
-    Eigen::Isometry3d p2_world = base.extractCartesianPose();
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
-    for (auto& pose : poses)
-      pose = base.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
-  }
-
   // Convert to MoveInstructions
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
 }
 
 }  // namespace tesseract_planning

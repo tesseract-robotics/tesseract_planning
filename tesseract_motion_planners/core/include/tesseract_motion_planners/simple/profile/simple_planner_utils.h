@@ -48,23 +48,32 @@ struct JointGroupInstructionInfo
   const MoveInstructionPoly& instruction;
   tesseract_kinematics::JointGroup::UPtr manip;
   std::string working_frame;
+  Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
   std::string tcp_frame;
   Eigen::Isometry3d tcp_offset{ Eigen::Isometry3d::Identity() };
   bool has_cartesian_waypoint{ false };
 
   /**
+   * @brief Get the working frame
+   * @return The working frame transfrom relative world
+   */
+  Eigen::Isometry3d getWorkingFrame() const;
+
+  /**
    * @brief Calculate the cartesian pose given the joint solution
    * @param jp The joint solution to calculate the pose
+   * @param in_world Indicate if the results should be in world or relative to working frame
    * @return The pose give the joint solution
    */
-  Eigen::Isometry3d calcCartesianPose(const Eigen::VectorXd& jp) const;
+  Eigen::Isometry3d calcCartesianPose(const Eigen::VectorXd& jp, bool in_world = true) const;
 
   /**
    * @brief Extract the cartesian pose from the instruction
    * @details If the instruction does not have a cartesian waypoint this throws an exception
+   * @param in_world Indicate if the results should be in world or relative to working frame
    * @return Cartesian pose
    */
-  Eigen::Isometry3d extractCartesianPose() const;
+  Eigen::Isometry3d extractCartesianPose(bool in_world = true) const;
 
   /**
    * @brief Extract the joint position from the instruction waypoint
@@ -84,6 +93,7 @@ struct KinematicGroupInstructionInfo
   const MoveInstructionPoly& instruction;
   tesseract_kinematics::KinematicGroup::UPtr manip;
   std::string working_frame;
+  Eigen::Isometry3d working_frame_transform{ Eigen::Isometry3d::Identity() };
   std::string tcp_frame;
   Eigen::Isometry3d tcp_offset{ Eigen::Isometry3d::Identity() };
   bool has_cartesian_waypoint{ false };
@@ -91,16 +101,18 @@ struct KinematicGroupInstructionInfo
   /**
    * @brief Calculate the cartesian pose given the joint solution
    * @param jp The joint solution to calculate the pose
+   * @param in_world Indicate if the results should be in world or relative to working frame
    * @return The pose give the joint solution
    */
-  Eigen::Isometry3d calcCartesianPose(const Eigen::VectorXd& jp) const;
+  Eigen::Isometry3d calcCartesianPose(const Eigen::VectorXd& jp, bool in_world = true) const;
 
   /**
    * @brief Extract the cartesian pose from the instruction
    * @details If the instruction does not have a cartesian waypoint this throws an exception
+   * @param in_world Indicate if the results should be in world or relative to working frame
    * @return Cartesian pose
    */
-  Eigen::Isometry3d extractCartesianPose() const;
+  Eigen::Isometry3d extractCartesianPose(bool in_world = true) const;
 
   /**
    * @brief Extract the joint position from the instruction waypoint
@@ -117,7 +129,30 @@ struct KinematicGroupInstructionInfo
  * @param base_instruction The base instruction used to extract profile and manipulator information from
  * @return The composite instruction
  */
+CompositeInstruction getInterpolatedCompositeLegacy(const std::vector<std::string>& joint_names,
+                                                    const Eigen::MatrixXd& states,
+                                                    const MoveInstructionPoly& base_instruction);
+
+/**
+ * @brief This takes the provided seed state for the base_instruction and create a corresponding composite instruction
+ * @param joint_names The joint names associated with the states
+ * @param states The joint states to populate the composite instruction with
+ * @param base_instruction The base instruction used to extract profile and manipulator information from
+ * @return The composite instruction
+ */
 CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
+                                              const Eigen::MatrixXd& states,
+                                              const MoveInstructionPoly& base_instruction);
+
+/**
+ * @brief This takes the provided seed state for the base_instruction and create a corresponding composite instruction
+ * @param joint_names The joint names associated with the states
+ * @param states The joint states to populate the composite instruction with
+ * @param base_instruction The base instruction used to extract profile and manipulator information from
+ * @return The composite instruction
+ */
+CompositeInstruction getInterpolatedComposite(const tesseract_common::VectorIsometry3d& poses,
+                                              const std::vector<std::string>& joint_names,
                                               const Eigen::MatrixXd& states,
                                               const MoveInstructionPoly& base_instruction);
 

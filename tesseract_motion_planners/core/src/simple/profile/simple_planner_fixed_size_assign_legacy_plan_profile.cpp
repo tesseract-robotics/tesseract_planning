@@ -24,23 +24,24 @@
  * limitations under the License.
  */
 
-#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_legacy_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 namespace tesseract_planning
 {
-SimplePlannerFixedSizeAssignPlanProfile::SimplePlannerFixedSizeAssignPlanProfile(int freespace_steps, int linear_steps)
+SimplePlannerFixedSizeAssignLegacyPlanProfile::SimplePlannerFixedSizeAssignLegacyPlanProfile(int freespace_steps,
+                                                                                             int linear_steps)
   : freespace_steps(freespace_steps), linear_steps(linear_steps)
 {
 }
 
-CompositeInstruction
-SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                                  const MoveInstructionPoly& /*prev_seed*/,
-                                                  const MoveInstructionPoly& base_instruction,
-                                                  const InstructionPoly& /*next_instruction*/,
-                                                  const PlannerRequest& request,
-                                                  const tesseract_common::ManipulatorInfo& global_manip_info) const
+CompositeInstruction SimplePlannerFixedSizeAssignLegacyPlanProfile::generate(
+    const MoveInstructionPoly& prev_instruction,
+    const MoveInstructionPoly& /*prev_seed*/,
+    const MoveInstructionPoly& base_instruction,
+    const InstructionPoly& /*next_instruction*/,
+    const PlannerRequest& request,
+    const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
   KinematicGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
   KinematicGroupInstructionInfo info2(base_instruction, request, global_manip_info);
@@ -89,30 +90,7 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
       throw std::runtime_error("stateJointJointWaypointFixedSize: Unsupported MoveInstructionType!");
   }
 
-  // Linearly interpolate in cartesian space if linear move
-  if (base_instruction.isLinear())
-  {
-    Eigen::Isometry3d p1_world;
-    if (info1.has_cartesian_waypoint)
-      p1_world = info1.extractCartesianPose();
-    else
-      p1_world = info1.calcCartesianPose(info1.extractJointPosition());
-
-    Eigen::Isometry3d p2_world;
-    if (info2.has_cartesian_waypoint)
-      p2_world = info2.extractCartesianPose();
-    else
-      p2_world = info2.calcCartesianPose(info2.extractJointPosition());
-
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, linear_steps);
-    for (auto& pose : poses)
-      pose = info2.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, info2.manip->getJointNames(), states, info2.instruction);
-  }
-
-  return getInterpolatedComposite(info2.manip->getJointNames(), states, info2.instruction);
+  return getInterpolatedCompositeLegacy(info2.manip->getJointNames(), states, info2.instruction);
 }
 
 }  // namespace tesseract_planning

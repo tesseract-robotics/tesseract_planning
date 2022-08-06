@@ -53,6 +53,7 @@ JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& 
 
   // Get Previous Instruction TCP and Working Frame
   working_frame = mi.working_frame;
+  working_frame_transform = request.env_state.link_transforms.at(working_frame);
   tcp_frame = mi.tcp_frame;
   tcp_offset = request.env->findTCPOffset(mi);
 
@@ -65,15 +66,23 @@ JointGroupInstructionInfo::JointGroupInstructionInfo(const MoveInstructionPoly& 
     throw std::runtime_error("Simple planner currently only supports State, Joint and Cartesian Waypoint types!");
 }
 
-Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp) const
+Eigen::Isometry3d JointGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
-  return manip->calcFwdKin(jp)[tcp_frame] * tcp_offset;
+  tesseract_common::TransformMap transforms = manip->calcFwdKin(jp);
+
+  if (in_world)
+    return transforms[tcp_frame] * tcp_offset;
+
+  return working_frame_transform.inverse() * (transforms[tcp_frame] * tcp_offset);
 }
 
-Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose() const
+Eigen::Isometry3d JointGroupInstructionInfo::extractCartesianPose(bool in_world) const
 {
   if (!instruction.getWaypoint().isCartesianWaypoint())
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
+
+  if (in_world)
+    return working_frame_transform * instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
 
   return instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
 }
@@ -106,6 +115,7 @@ KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructi
 
   // Get Previous Instruction TCP and Working Frame
   working_frame = mi.working_frame;
+  working_frame_transform = request.env_state.link_transforms.at(working_frame);
   tcp_frame = mi.tcp_frame;
   tcp_offset = request.env->findTCPOffset(mi);
 
@@ -118,15 +128,23 @@ KinematicGroupInstructionInfo::KinematicGroupInstructionInfo(const MoveInstructi
     throw std::runtime_error("Simple planner currently only supports State, Joint and Cartesian Waypoint types!");
 }
 
-Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp) const
+Eigen::Isometry3d KinematicGroupInstructionInfo::calcCartesianPose(const Eigen::VectorXd& jp, bool in_world) const
 {
-  return manip->calcFwdKin(jp)[tcp_frame] * tcp_offset;
+  tesseract_common::TransformMap transforms = manip->calcFwdKin(jp);
+
+  if (in_world)
+    return transforms[tcp_frame] * tcp_offset;
+
+  return working_frame_transform.inverse() * (transforms[tcp_frame] * tcp_offset);
 }
 
-Eigen::Isometry3d KinematicGroupInstructionInfo::extractCartesianPose() const
+Eigen::Isometry3d KinematicGroupInstructionInfo::extractCartesianPose(bool in_world) const
 {
   if (!instruction.getWaypoint().isCartesianWaypoint())
     throw std::runtime_error("Instruction waypoint type is not a CartesianWaypoint, unable to extract cartesian pose!");
+
+  if (in_world)
+    return working_frame_transform * instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
 
   return instruction.getWaypoint().as<CartesianWaypointPoly>().getTransform();
 }
@@ -136,9 +154,9 @@ const Eigen::VectorXd& KinematicGroupInstructionInfo::extractJointPosition() con
   return getJointPosition(instruction.getWaypoint());
 }
 
-CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
-                                              const Eigen::MatrixXd& states,
-                                              const MoveInstructionPoly& base_instruction)
+CompositeInstruction getInterpolatedCompositeLegacy(const std::vector<std::string>& joint_names,
+                                                    const Eigen::MatrixXd& states,
+                                                    const MoveInstructionPoly& base_instruction)
 {
   CompositeInstruction composite;
   composite.setManipulatorInfo(base_instruction.getManipulatorInfo());
@@ -167,6 +185,89 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
   swp.setPosition(states.col(states.cols() - 1));
   move_instruction.assignStateWaypoint(swp);
   composite.appendMoveInstruction(move_instruction);
+
+  return composite;
+}
+
+CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
+                                              const Eigen::MatrixXd& states,
+                                              const MoveInstructionPoly& base_instruction)
+{
+  CompositeInstruction composite;
+  composite.setManipulatorInfo(base_instruction.getManipulatorInfo());
+  composite.setDescription(base_instruction.getDescription());
+  composite.setProfile(base_instruction.getProfile());
+  //  composite.profile_overrides = base_instruction.profile_overrides;
+
+  // Convert to MoveInstructions
+  for (long i = 1; i < states.cols() - 1; ++i)
+  {
+    MoveInstructionPoly move_instruction = base_instruction.createChild();
+    JointWaypointPoly jwp = move_instruction.createJointWaypoint();
+    jwp.setNames(joint_names);
+    jwp.setPosition(states.col(i));
+    jwp.setIsConstrained(false);
+    move_instruction.assignJointWaypoint(jwp);
+    move_instruction.setProfile(base_instruction.getPathProfile());
+    move_instruction.setPathProfile(base_instruction.getPathProfile());
+    composite.appendMoveInstruction(move_instruction);
+  }
+
+  MoveInstructionPoly move_instruction{ base_instruction };
+  if (base_instruction.getWaypoint().isCartesianWaypoint())
+    move_instruction.getWaypoint().as<CartesianWaypointPoly>().setSeed(
+        tesseract_common::JointState(joint_names, states.col(states.cols() - 1)));
+
+  composite.appendMoveInstruction(move_instruction);
+  return composite;
+}
+
+CompositeInstruction getInterpolatedComposite(const tesseract_common::VectorIsometry3d& poses,
+                                              const std::vector<std::string>& joint_names,
+                                              const Eigen::MatrixXd& states,
+                                              const MoveInstructionPoly& base_instruction)
+{
+  CompositeInstruction composite;
+  composite.setManipulatorInfo(base_instruction.getManipulatorInfo());
+  composite.setDescription(base_instruction.getDescription());
+  composite.setProfile(base_instruction.getProfile());
+  //  composite.profile_overrides = base_instruction.profile_overrides;
+
+  // Convert to MoveInstructions
+  if (base_instruction.getWaypoint().isCartesianWaypoint())
+  {
+    for (long i = 1; i < states.cols() - 1; ++i)
+    {
+      MoveInstructionPoly move_instruction = base_instruction.createChild();
+      move_instruction.getWaypoint().as<CartesianWaypointPoly>().setTransform(poses[static_cast<std::size_t>(i)]);
+      move_instruction.getWaypoint().as<CartesianWaypointPoly>().setSeed(
+          tesseract_common::JointState(joint_names, states.col(i)));
+      move_instruction.setProfile(base_instruction.getPathProfile());
+      move_instruction.setPathProfile(base_instruction.getPathProfile());
+      composite.appendMoveInstruction(move_instruction);
+    }
+
+    MoveInstructionPoly move_instruction = base_instruction;
+    move_instruction.getWaypoint().as<CartesianWaypointPoly>().setSeed(
+        tesseract_common::JointState(joint_names, states.col(states.cols() - 1)));
+    composite.appendMoveInstruction(move_instruction);
+  }
+  else
+  {
+    for (long i = 1; i < states.cols() - 1; ++i)
+    {
+      MoveInstructionPoly move_instruction = base_instruction.createChild();
+      CartesianWaypointPoly cwp = move_instruction.createCartesianWaypoint();
+      cwp.setTransform(poses[static_cast<std::size_t>(i)]);
+      cwp.setSeed(tesseract_common::JointState(joint_names, states.col(i)));
+      move_instruction.assignCartesianWaypoint(cwp);
+      move_instruction.setProfile(base_instruction.getPathProfile());
+      move_instruction.setPathProfile(base_instruction.getPathProfile());
+      composite.appendMoveInstruction(move_instruction);
+    }
+
+    composite.appendMoveInstruction(base_instruction);
+  }
 
   return composite;
 }

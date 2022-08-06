@@ -24,16 +24,17 @@
  * limitations under the License.
  */
 
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_legacy_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 
 namespace tesseract_planning
 {
-SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_longest_valid_segment_length,
-                                                                 double translation_longest_valid_segment_length,
-                                                                 double rotation_longest_valid_segment_length,
-                                                                 int min_steps,
-                                                                 int max_steps)
+SimplePlannerLVSNoIKLegacyPlanProfile::SimplePlannerLVSNoIKLegacyPlanProfile(
+    double state_longest_valid_segment_length,
+    double translation_longest_valid_segment_length,
+    double rotation_longest_valid_segment_length,
+    int min_steps,
+    int max_steps)
   : state_longest_valid_segment_length(state_longest_valid_segment_length)
   , translation_longest_valid_segment_length(translation_longest_valid_segment_length)
   , rotation_longest_valid_segment_length(rotation_longest_valid_segment_length)
@@ -43,12 +44,12 @@ SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_lo
 }
 
 CompositeInstruction
-SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
-                                          const MoveInstructionPoly& /*prev_seed*/,
-                                          const MoveInstructionPoly& base_instruction,
-                                          const InstructionPoly& /*next_instruction*/,
-                                          const PlannerRequest& request,
-                                          const tesseract_common::ManipulatorInfo& global_manip_info) const
+SimplePlannerLVSNoIKLegacyPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
+                                                const MoveInstructionPoly& /*prev_seed*/,
+                                                const MoveInstructionPoly& base_instruction,
+                                                const InstructionPoly& /*next_instruction*/,
+                                                const PlannerRequest& request,
+                                                const tesseract_common::ManipulatorInfo& global_manip_info) const
 {
   JointGroupInstructionInfo info1(prev_instruction, request, global_manip_info);
   JointGroupInstructionInfo info2(base_instruction, request, global_manip_info);
@@ -66,8 +67,8 @@ SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instru
 }
 
 CompositeInstruction
-SimplePlannerLVSNoIKPlanProfile::stateJointJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                         const JointGroupInstructionInfo& base) const
+SimplePlannerLVSNoIKLegacyPlanProfile::stateJointJointWaypoint(const JointGroupInstructionInfo& prev,
+                                                               const JointGroupInstructionInfo& base) const
 {
   // Calculate FK for start and end
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -91,24 +92,12 @@ SimplePlannerLVSNoIKPlanProfile::stateJointJointWaypoint(const JointGroupInstruc
 
   // Linearly interpolate in joint space
   Eigen::MatrixXd states = interpolate(j1, j2, steps);
-
-  // Linearly interpolate in cartesian space if linear move
-  if (base.instruction.isLinear())
-  {
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
-    for (auto& pose : poses)
-      pose = base.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
-  }
-
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction
-SimplePlannerLVSNoIKPlanProfile::stateJointCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                        const JointGroupInstructionInfo& base) const
+SimplePlannerLVSNoIKLegacyPlanProfile::stateJointCartWaypoint(const JointGroupInstructionInfo& prev,
+                                                              const JointGroupInstructionInfo& base) const
 {
   // Calculate FK for start
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -130,24 +119,12 @@ SimplePlannerLVSNoIKPlanProfile::stateJointCartWaypoint(const JointGroupInstruct
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = j1.replicate(1, steps + 1);
-
-  // Linearly interpolate in cartesian space if linear move
-  if (base.instruction.isLinear())
-  {
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
-    for (auto& pose : poses)
-      pose = base.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
-  }
-
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
 }
 
 CompositeInstruction
-SimplePlannerLVSNoIKPlanProfile::stateCartJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                        const JointGroupInstructionInfo& base) const
+SimplePlannerLVSNoIKLegacyPlanProfile::stateCartJointWaypoint(const JointGroupInstructionInfo& prev,
+                                                              const JointGroupInstructionInfo& base) const
 {
   // Calculate FK for end
   const Eigen::VectorXd& j2 = base.extractJointPosition();
@@ -169,24 +146,12 @@ SimplePlannerLVSNoIKPlanProfile::stateCartJointWaypoint(const JointGroupInstruct
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = j2.replicate(1, steps + 1);
-
-  // Linearly interpolate in cartesian space if linear move
-  if (base.instruction.isLinear())
-  {
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
-    for (auto& pose : poses)
-      pose = base.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
-  }
-
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction SimplePlannerLVSNoIKPlanProfile::stateCartCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                                            const JointGroupInstructionInfo& base,
-                                                                            const PlannerRequest& request) const
+CompositeInstruction SimplePlannerLVSNoIKLegacyPlanProfile::stateCartCartWaypoint(const JointGroupInstructionInfo& prev,
+                                                                                  const JointGroupInstructionInfo& base,
+                                                                                  const PlannerRequest& request) const
 {
   // Get IK seed
   Eigen::VectorXd seed = request.env_state.getJointValues(base.manip->getJointNames());
@@ -208,18 +173,6 @@ CompositeInstruction SimplePlannerLVSNoIKPlanProfile::stateCartCartWaypoint(cons
 
   // Convert to MoveInstructions
   Eigen::MatrixXd states = seed.replicate(1, steps + 1);
-
-  // Linearly interpolate in cartesian space if linear move
-  if (base.instruction.isLinear())
-  {
-    tesseract_common::VectorIsometry3d poses = interpolate(p1_world, p2_world, steps);
-    for (auto& pose : poses)
-      pose = base.working_frame_transform.inverse() * pose;
-
-    assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
-  }
-
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedCompositeLegacy(base.manip->getJointNames(), states, base.instruction);
 }
 }  // namespace tesseract_planning
