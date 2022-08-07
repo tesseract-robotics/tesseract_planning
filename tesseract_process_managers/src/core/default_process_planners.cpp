@@ -42,13 +42,13 @@
 #include <tesseract_process_managers/task_generators/ruckig_trajectory_smoothing_task_generator.h>
 #include <tesseract_process_managers/task_generators/check_input_task_generator.h>
 
-#include <tesseract_motion_planners/simple/simple_motion_planner.h>
-#include <tesseract_motion_planners/trajopt/trajopt_motion_planner.h>
+#include <tesseract_motion_planners/simple/simple_motion_legacy_planner.h>
+#include <tesseract_motion_planners/trajopt/trajopt_legacy_motion_planner.h>
 #ifdef TESSERACT_PROCESS_MANAGERS_HAS_TRAJOPT_IFOPT
-#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_motion_planner.h>
+#include <tesseract_motion_planners/trajopt_ifopt/trajopt_ifopt_legacy_motion_planner.h>
 #endif
-#include <tesseract_motion_planners/ompl/ompl_motion_planner.h>
-#include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
+#include <tesseract_motion_planners/ompl/ompl_legacy_motion_planner.h>
+#include <tesseract_motion_planners/descartes/descartes_legacy_motion_planner.h>
 
 namespace tesseract_planning
 {
@@ -64,7 +64,7 @@ TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_colli
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
+  auto interpolator = std::make_shared<SimpleMotionLegacyPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -73,7 +73,7 @@ TaskflowGenerator::UPtr createTrajOptGenerator(bool check_input, bool post_colli
   int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
 
   // Setup TrajOpt
-  auto motion_planner = std::make_shared<TrajOptMotionPlanner>();
+  auto motion_planner = std::make_shared<TrajOptLegacyMotionPlanner>();
   int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
 
   // Setup post collision check
@@ -132,7 +132,7 @@ TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
+  auto interpolator = std::make_shared<SimpleMotionLegacyPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -141,7 +141,7 @@ TaskflowGenerator::UPtr createTrajOptIfoptGenerator(bool check_input, bool post_
   int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
 
   // Setup TrajOpt IFOPT
-  auto motion_planner = std::make_shared<TrajOptIfoptMotionPlanner>();
+  auto motion_planner = std::make_shared<TrajOptIfoptLegacyMotionPlanner>();
   int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
 
   // Setup post collision check
@@ -200,7 +200,7 @@ TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collisio
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
+  auto interpolator = std::make_shared<SimpleMotionLegacyPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -209,7 +209,7 @@ TaskflowGenerator::UPtr createOMPLGenerator(bool check_input, bool post_collisio
   int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
 
   // Setup OMPL
-  auto motion_planner = std::make_shared<OMPLMotionPlanner>();
+  auto motion_planner = std::make_shared<OMPLLegacyMotionPlanner>();
   int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
 
   // Setup post collision check
@@ -267,7 +267,7 @@ TaskflowGenerator::UPtr createDescartesGenerator(bool check_input, bool post_col
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
+  auto interpolator = std::make_shared<SimpleMotionLegacyPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -276,7 +276,7 @@ TaskflowGenerator::UPtr createDescartesGenerator(bool check_input, bool post_col
   int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
 
   // Setup Descartes
-  auto motion_planner = std::make_shared<DescartesMotionPlannerF>();
+  auto motion_planner = std::make_shared<DescartesLegacyMotionPlannerF>();
   int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
 
   // Setup post collision check
@@ -334,7 +334,7 @@ TaskflowGenerator::UPtr createDescartesOnlyGenerator(bool check_input)
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
+  auto interpolator = std::make_shared<SimpleMotionLegacyPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -343,7 +343,7 @@ TaskflowGenerator::UPtr createDescartesOnlyGenerator(bool check_input)
   int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
 
   // Setup Descartes
-  auto motion_planner = std::make_shared<DescartesMotionPlannerF>();
+  auto motion_planner = std::make_shared<DescartesLegacyMotionPlannerF>();
   int motion_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(motion_planner), true);
 
   if (check_input)
@@ -369,7 +369,7 @@ TaskflowGenerator::UPtr createCartesianGenerator(bool check_input)
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
+  auto interpolator = std::make_shared<SimpleMotionLegacyPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -378,11 +378,11 @@ TaskflowGenerator::UPtr createCartesianGenerator(bool check_input)
   int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
 
   // Setup Descartes
-  auto descartes_planner = std::make_shared<DescartesMotionPlannerF>();
+  auto descartes_planner = std::make_shared<DescartesLegacyMotionPlannerF>();
   int descartes_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(descartes_planner), true);
 
   // Setup TrajOpt
-  auto trajopt_planner = std::make_shared<TrajOptMotionPlanner>();
+  auto trajopt_planner = std::make_shared<TrajOptLegacyMotionPlanner>();
   int trajopt_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner), true);
 
   // Setup post collision check
@@ -417,7 +417,7 @@ TaskflowGenerator::UPtr createFreespaceGenerator(bool check_input)
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
+  auto interpolator = std::make_shared<SimpleMotionLegacyPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -426,11 +426,11 @@ TaskflowGenerator::UPtr createFreespaceGenerator(bool check_input)
   int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
 
   // Setup OMPL
-  auto ompl_planner = std::make_shared<OMPLMotionPlanner>();
+  auto ompl_planner = std::make_shared<OMPLLegacyMotionPlanner>();
   int ompl_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(ompl_planner), true);
 
   // Setup TrajOpt
-  auto trajopt_planner = std::make_shared<TrajOptMotionPlanner>();
+  auto trajopt_planner = std::make_shared<TrajOptLegacyMotionPlanner>();
   int trajopt_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner), true);
 
   // Setup post collision check
@@ -465,7 +465,7 @@ TaskflowGenerator::UPtr createFreespaceTrajOptFirstGenerator(bool check_input)
   int has_seed_task = tf->addNode(std::make_unique<HasSeedTaskGenerator>(), true);
 
   // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
+  auto interpolator = std::make_shared<SimpleMotionLegacyPlanner>();
   int interpolator_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(interpolator), true);
 
   // Setup Seed Min Length Process Generator
@@ -474,15 +474,15 @@ TaskflowGenerator::UPtr createFreespaceTrajOptFirstGenerator(bool check_input)
   int seed_min_length_task = tf->addNode(std::make_unique<SeedMinLengthTaskGenerator>());
 
   // Setup TrajOpt
-  auto trajopt_planner1 = std::make_shared<TrajOptMotionPlanner>();
+  auto trajopt_planner1 = std::make_shared<TrajOptLegacyMotionPlanner>();
   int trajopt_planner1_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner1), true);
 
   // Setup OMPL
-  auto ompl_planner = std::make_shared<OMPLMotionPlanner>();
+  auto ompl_planner = std::make_shared<OMPLLegacyMotionPlanner>();
   int ompl_planner_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(ompl_planner), true);
 
   // Setup TrajOpt
-  auto trajopt_planner2 = std::make_shared<TrajOptMotionPlanner>();
+  auto trajopt_planner2 = std::make_shared<TrajOptLegacyMotionPlanner>();
   int trajopt_planner2_task = tf->addNode(std::make_unique<MotionPlannerTaskGenerator>(trajopt_planner2), true);
 
   // Setup post collision check
