@@ -91,8 +91,16 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, JointCartesian
     const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(wp1.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
     EXPECT_FALSE(mi.getWaypoint().as<JointWaypointPoly>().isConstrained());
-    EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+      EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_TRUE(wp1.getPosition().isApprox(mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position, 1e-5));
@@ -126,8 +134,16 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
 
     const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
-    EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+      EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_TRUE(wp2.getPosition().isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
@@ -163,8 +179,16 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCarte
 
     const auto& mi = c.as<MoveInstructionPoly>();
     EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<JointWaypointPoly>().getPosition(), 1e-5));
-    EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(mi.getProfile(), instr2.getProfile());
+      EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(mi.getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_TRUE(position.isApprox(mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position, 1e-5));

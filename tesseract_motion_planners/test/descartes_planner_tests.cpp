@@ -466,7 +466,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerFixedPosesLegacy)  // NOL
       EXPECT_EQ(problem->edge_evaluators.size(), 10);
     }
 
-    DescartesMotionPlannerD descartes_planner;
+    DescartesLegacyMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
 
     PlannerResponse planner_response = descartes_planner.solve(request);
@@ -582,7 +582,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerAxialSymetricLegacy)  // 
 
   for (int i = 0; i < 10; ++i)
   {
-    DescartesMotionPlannerD descartes_planner;
+    DescartesLegacyMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
 
     request.seed = seed;  // reset seed to the original seed
@@ -688,7 +688,7 @@ TEST_F(TesseractPlanningDescartesUnit, DescartesPlannerCollisionEdgeEvaluatorLeg
 
   for (int i = 0; i < 10; ++i)
   {
-    DescartesMotionPlannerD descartes_planner;
+    DescartesLegacyMotionPlannerD descartes_planner;
     plan_profile->num_threads = 4;
 
     request.seed = seed;  // reset seed to the original seed

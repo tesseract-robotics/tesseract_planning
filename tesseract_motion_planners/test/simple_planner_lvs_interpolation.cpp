@@ -88,8 +88,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
     EXPECT_TRUE(c.isMoveInstruction());
     EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isJointWaypoint());
     EXPECT_FALSE(c.as<MoveInstructionPoly>().getWaypoint().as<JointWaypointPoly>().isConstrained());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -137,8 +145,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
     const auto& c = composite.at(i);
     EXPECT_TRUE(c.isMoveInstruction());
     EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isCartesianWaypoint());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -200,8 +216,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
     EXPECT_TRUE(c.isMoveInstruction());
     EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isJointWaypoint());
     EXPECT_FALSE(c.as<MoveInstructionPoly>().getWaypoint().as<JointWaypointPoly>().isConstrained());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -248,8 +272,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
     const auto& c = composite.at(i);
     EXPECT_TRUE(c.isMoveInstruction());
     EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isCartesianWaypoint());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -311,8 +343,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
     EXPECT_TRUE(c.isMoveInstruction());
     EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isJointWaypoint());
     EXPECT_FALSE(c.as<MoveInstructionPoly>().getWaypoint().as<JointWaypointPoly>().isConstrained());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -359,8 +399,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
     const auto& c = composite.at(i);
     EXPECT_TRUE(c.isMoveInstruction());
     EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isCartesianWaypoint());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -422,8 +470,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
     EXPECT_TRUE(c.isMoveInstruction());
     EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isJointWaypoint());
     EXPECT_FALSE(c.as<MoveInstructionPoly>().getWaypoint().as<JointWaypointPoly>().isConstrained());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
@@ -472,8 +528,16 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
     const auto& c = composite.at(i);
     EXPECT_TRUE(c.isMoveInstruction());
     EXPECT_TRUE(c.as<MoveInstructionPoly>().getWaypoint().isCartesianWaypoint());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
-    EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    if (instr2.getPathProfile().empty())
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
+    else
+    {
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getProfile(), instr2.getPathProfile());
+      EXPECT_EQ(c.as<MoveInstructionPoly>().getPathProfile(), instr2.getPathProfile());
+    }
   }
   const auto& mi = composite.back().as<MoveInstructionPoly>();
   EXPECT_EQ(mi.getProfile(), instr2.getProfile());
