@@ -126,16 +126,17 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
     return response;
   }
 
+  const std::vector<std::string> joint_names = problem->manip->getJointNames();
+  const Eigen::MatrixX2d joint_limits = problem->manip->getLimits().joint_limits;
+
   // Enforce limits
   std::vector<Eigen::VectorXd> solution{};
   solution.reserve(descartes_result.trajectory.size());
   for (const auto& js : descartes_result.trajectory)
   {
     solution.push_back(js->values.template cast<double>());
-    // Using 1e-6 because when using floats with descartes epsilon does not seem to be enough
-    assert(
-        tesseract_common::satisfiesPositionLimits<double>(solution.back(), problem->manip->getLimits().joint_limits));
-    tesseract_common::enforcePositionLimits<double>(solution.back(), problem->manip->getLimits().joint_limits);
+    assert(tesseract_common::satisfiesPositionLimits<double>(solution.back(), joint_limits));
+    tesseract_common::enforcePositionLimits<double>(solution.back(), joint_limits);
   }
 
   // Flatten the results to make them easier to process
@@ -150,23 +151,23 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
     assert((idx == 0) ? results_instructions.at(idx).get().isMoveInstruction() : true);
     if (results_instructions.at(idx).get().isMoveInstruction())
     {
-      auto& plan_instruction = results_instructions.at(idx).get().as<MoveInstructionPoly>();
-      if (plan_instruction.getWaypoint().isCartesianWaypoint())
+      auto& move_instruction = results_instructions.at(idx).get().as<MoveInstructionPoly>();
+      if (move_instruction.getWaypoint().isCartesianWaypoint())
       {
-        StateWaypointPoly swp = plan_instruction.createStateWaypoint();
-        swp.setNames(problem->manip->getJointNames());
+        StateWaypointPoly swp = move_instruction.createStateWaypoint();
+        swp.setNames(joint_names);
         swp.setPosition(solution[result_index++]);
-        plan_instruction.assignStateWaypoint(swp);
+        move_instruction.assignStateWaypoint(swp);
       }
-      else if (plan_instruction.getWaypoint().isJointWaypoint())
+      else if (move_instruction.getWaypoint().isJointWaypoint())
       {
-        auto& jwp = plan_instruction.getWaypoint().as<JointWaypointPoly>();
+        auto& jwp = move_instruction.getWaypoint().as<JointWaypointPoly>();
         if (jwp.isConstrained())
         {
-          StateWaypointPoly swp = plan_instruction.createStateWaypoint();
-          swp.setNames(problem->manip->getJointNames());
+          StateWaypointPoly swp = move_instruction.createStateWaypoint();
+          swp.setNames(joint_names);
           swp.setPosition(solution[result_index++]);
-          plan_instruction.assignStateWaypoint(swp);
+          move_instruction.assignStateWaypoint(swp);
           continue;
         }
 
@@ -188,13 +189,13 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
         Eigen::MatrixXd states = interpolate(start_state, end_state, cnt);
         for (Eigen::Index i = 0; i < cnt; ++i)
         {
-          StateWaypointPoly swp = plan_instruction.createStateWaypoint();
-          swp.setNames(problem->manip->getJointNames());
+          StateWaypointPoly swp = move_instruction.createStateWaypoint();
+          swp.setNames(joint_names);
           swp.setPosition(states.col(i + 1));
           results_instructions.at(idx++).get().as<MoveInstructionPoly>().assignStateWaypoint(swp);
         }
       }
-      else if (plan_instruction.getWaypoint().isStateWaypoint())
+      else if (move_instruction.getWaypoint().isStateWaypoint())
       {
         ++result_index;
       }
@@ -216,13 +217,19 @@ bool DescartesMotionPlanner<FloatType>::checkUserInput(const PlannerRequest& req
   // Check that parameters are valid
   if (request.env == nullptr)
   {
-    CONSOLE_BRIDGE_logError("In TrajOptPlannerUniversalConfig: env is a required parameter and has not been set");
+    CONSOLE_BRIDGE_logError("DescartesMotionPlanner: env is a required parameter and has not been set");
     return false;
   }
 
   if (request.instructions.empty())
   {
-    CONSOLE_BRIDGE_logError("TrajOptPlannerUniversalConfig requires at least one instruction");
+    CONSOLE_BRIDGE_logError("DescartesMotionPlanner requires at least one instruction");
+    return false;
+  }
+
+  if (!request.instructions.hasStartInstruction())
+  {
+    CONSOLE_BRIDGE_logError("DescartesMotionPlanner requires a start instruction");
     return false;
   }
 
@@ -264,9 +271,6 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
   if (composite_mi.manipulator.empty())
     throw std::runtime_error("Descartes, manipulator is empty!");
-
-  if (!request.instructions.hasStartInstruction())
-    throw std::runtime_error("Descartes, missing a start instruction!");
 
   // Get Manipulator Information
   try
@@ -324,7 +328,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
     //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
     //      plan_instruction.profile_overrides);
     if (!cur_plan_profile)
-      throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
+      throw std::runtime_error("DescartesMotionPlanner: Invalid profile");
 
     if (plan_instruction.getWaypoint().isCartesianWaypoint())
     {
@@ -351,7 +355,7 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
     }
     else
     {
-      throw std::runtime_error("DescartesMotionPlannerConfig: unknown waypoint type");
+      throw std::runtime_error("DescartesMotionPlanner: unknown waypoint type");
     }
   }
 

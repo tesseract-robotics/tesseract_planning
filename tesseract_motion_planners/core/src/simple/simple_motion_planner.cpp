@@ -113,6 +113,7 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
   response.results = seed;
 
   // Enforce limits
+  const Eigen::MatrixX2d joint_limits = manip->getLimits().joint_limits;
   auto results_flattened = response.results.flatten(&moveFilter);
   for (auto& inst : results_flattened)
   {
@@ -120,15 +121,15 @@ PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
     if (mi.getWaypoint().isJointWaypoint() || mi.getWaypoint().isStateWaypoint())
     {
       Eigen::VectorXd jp = getJointPosition(mi.getWaypoint());
-      assert(tesseract_common::satisfiesPositionLimits<double>(jp, manip->getLimits().joint_limits));
-      tesseract_common::enforcePositionLimits<double>(jp, manip->getLimits().joint_limits);
+      assert(tesseract_common::satisfiesPositionLimits<double>(jp, joint_limits));
+      tesseract_common::enforcePositionLimits<double>(jp, joint_limits);
       setJointPosition(mi.getWaypoint(), jp);
     }
     else if (mi.getWaypoint().isCartesianWaypoint())
     {
       Eigen::VectorXd& jp = mi.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-      assert(tesseract_common::satisfiesPositionLimits<double>(jp, manip->getLimits().joint_limits));
-      tesseract_common::enforcePositionLimits<double>(jp, manip->getLimits().joint_limits);
+      assert(tesseract_common::satisfiesPositionLimits<double>(jp, joint_limits));
+      tesseract_common::enforcePositionLimits<double>(jp, joint_limits);
     }
     else
       throw std::runtime_error("Unsupported waypoint type.");
@@ -251,6 +252,12 @@ bool SimpleMotionPlanner::checkUserInput(const PlannerRequest& request)
   if (request.instructions.empty())
   {
     CONSOLE_BRIDGE_logError("SimpleMotionPlanner requires at least one instruction");
+    return false;
+  }
+
+  if (!request.instructions.hasStartInstruction())
+  {
+    CONSOLE_BRIDGE_logError("SimpleMotionPlanner requires a start instruction");
     return false;
   }
 

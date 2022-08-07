@@ -242,9 +242,18 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
     assert(checkGoalState(p->simple_setup->getProblemDefinition(), traj.bottomRows(1).transpose(), p->extractor));
     assert(traj.rows() >= p->n_output_states);
 
+    const std::vector<std::string> joint_names = p->manip->getJointNames();
+    const Eigen::MatrixX2d joint_limits = p->manip->getLimits().joint_limits;
+
+    // Enforce limits
+    for (Eigen::Index i = 0; i < traj.rows(); i++)
+    {
+      assert(tesseract_common::satisfiesPositionLimits<double>(traj.row(i), joint_limits, 1e-4));
+      tesseract_common::enforcePositionLimits<double>(traj.row(i), joint_limits);
+    }
+
     bool found{ false };
     Eigen::Index row{ 0 };
-    std::vector<std::string> joint_names = p->manip->getJointNames();
     if (start_index == 0)
     {
       MoveInstructionPoly& mi = response.results.getStartInstruction();
@@ -346,13 +355,19 @@ bool OMPLMotionPlanner::checkUserInput(const PlannerRequest& request)
   // Check that parameters are valid
   if (request.env == nullptr)
   {
-    CONSOLE_BRIDGE_logError("In TrajOptPlannerUniversalConfig: env is a required parameter and has not been set");
+    CONSOLE_BRIDGE_logError("OMPLMotionPlanner: env is a required parameter and has not been set");
     return false;
   }
 
   if (request.instructions.empty())
   {
-    CONSOLE_BRIDGE_logError("TrajOptPlannerUniversalConfig requires at least one instruction");
+    CONSOLE_BRIDGE_logError("OMPLMotionPlanner requires at least one instruction");
+    return false;
+  }
+
+  if (!request.instructions.hasStartInstruction())
+  {
+    CONSOLE_BRIDGE_logError("OMPLMotionPlanner requires a start instruction");
     return false;
   }
 
@@ -377,7 +392,7 @@ OMPLProblemConfig OMPLMotionPlanner::createSubProblem(const PlannerRequest& requ
       getProfile<OMPLPlanProfile>(name_, profile, *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
   cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile, end_instruction.getProfileOverrides());
   if (!cur_plan_profile)
-    throw std::runtime_error("OMPLMotionPlannerDefaultConfig: Invalid profile");
+    throw std::runtime_error("OMPLMotionPlanner: Invalid profile");
 
   /** @todo Should check that the joint names match the order of the manipulator */
   OMPLProblemConfig config;
@@ -416,7 +431,7 @@ OMPLProblemConfig OMPLMotionPlanner::createSubProblem(const PlannerRequest& requ
     }
     else
     {
-      throw std::runtime_error("OMPLMotionPlannerDefaultConfig: unknown waypoint type");
+      throw std::runtime_error("OMPLMotionPlanner: unknown waypoint type");
     }
 
     return config;
@@ -445,7 +460,7 @@ OMPLProblemConfig OMPLMotionPlanner::createSubProblem(const PlannerRequest& requ
       }
       else
       {
-        throw std::runtime_error("OMPLMotionPlannerDefaultConfig: unknown waypoint type");
+        throw std::runtime_error("OMPLMotionPlanner: unknown waypoint type");
       }
     }
     else
@@ -457,7 +472,7 @@ OMPLProblemConfig OMPLMotionPlanner::createSubProblem(const PlannerRequest& requ
     return config;
   }
 
-  throw std::runtime_error("OMPLMotionPlannerDefaultConfig: unknown waypoint type");
+  throw std::runtime_error("OMPLMotionPlanner: unknown waypoint type");
 }
 std::vector<OMPLProblemConfig> OMPLMotionPlanner::createProblems(const PlannerRequest& request) const
 {
@@ -471,9 +486,6 @@ std::vector<OMPLProblemConfig> OMPLMotionPlanner::createProblems(const PlannerRe
   tesseract_kinematics::JointGroup::Ptr manip;
   if (composite_mi.manipulator.empty())
     throw std::runtime_error("OMPL, manipulator is empty!");
-
-  if (!request.instructions.hasStartInstruction())
-    throw std::runtime_error("OMPL, missing a start instruction!");
 
   try
   {

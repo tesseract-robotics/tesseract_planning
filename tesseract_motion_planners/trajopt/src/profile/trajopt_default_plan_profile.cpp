@@ -103,15 +103,13 @@ TrajOptDefaultPlanProfile::TrajOptDefaultPlanProfile(const tinyxml2::XMLElement&
 }
 void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
                                       const CartesianWaypointPoly& cartesian_waypoint,
-                                      const InstructionPoly& parent_instruction,
+                                      const MoveInstructionPoly& parent_instruction,
                                       const tesseract_common::ManipulatorInfo& manip_info,
                                       const std::vector<std::string>& active_links,
                                       int index) const
 {
-  assert(parent_instruction.isMoveInstruction());
-  const auto& base_instruction = parent_instruction.as<MoveInstructionPoly>();
-  assert(!(manip_info.empty() && base_instruction.getManipulatorInfo().empty()));
-  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(base_instruction.getManipulatorInfo());
+  assert(!(manip_info.empty() && parent_instruction.getManipulatorInfo().empty()));
+  tesseract_common::ManipulatorInfo mi = manip_info.getCombined(parent_instruction.getManipulatorInfo());
 
   if (mi.manipulator.empty())
     throw std::runtime_error("TrajOptPlanProfile, manipulator is empty!");
@@ -172,7 +170,7 @@ void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
 
 void TrajOptDefaultPlanProfile::apply(trajopt::ProblemConstructionInfo& pci,
                                       const JointWaypointPoly& joint_waypoint,
-                                      const InstructionPoly& /*parent_instruction*/,
+                                      const MoveInstructionPoly& /*parent_instruction*/,
                                       const tesseract_common::ManipulatorInfo& /*manip_info*/,
                                       const std::vector<std::string>& /*active_links*/,
                                       int index) const

@@ -208,8 +208,11 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
     jwp.setPosition(states.col(i));
     jwp.setIsConstrained(false);
     move_instruction.assignJointWaypoint(jwp);
-    move_instruction.setProfile(base_instruction.getPathProfile());
-    move_instruction.setPathProfile(base_instruction.getPathProfile());
+    if (!base_instruction.getPathProfile().empty())
+    {
+      move_instruction.setProfile(base_instruction.getPathProfile());
+      move_instruction.setPathProfile(base_instruction.getPathProfile());
+    }
     composite.appendMoveInstruction(move_instruction);
   }
 
@@ -242,8 +245,11 @@ CompositeInstruction getInterpolatedComposite(const tesseract_common::VectorIsom
       move_instruction.getWaypoint().as<CartesianWaypointPoly>().setTransform(poses[static_cast<std::size_t>(i)]);
       move_instruction.getWaypoint().as<CartesianWaypointPoly>().setSeed(
           tesseract_common::JointState(joint_names, states.col(i)));
-      move_instruction.setProfile(base_instruction.getPathProfile());
-      move_instruction.setPathProfile(base_instruction.getPathProfile());
+      if (!base_instruction.getPathProfile().empty())
+      {
+        move_instruction.setProfile(base_instruction.getPathProfile());
+        move_instruction.setPathProfile(base_instruction.getPathProfile());
+      }
       composite.appendMoveInstruction(move_instruction);
     }
 
@@ -261,8 +267,11 @@ CompositeInstruction getInterpolatedComposite(const tesseract_common::VectorIsom
       cwp.setTransform(poses[static_cast<std::size_t>(i)]);
       cwp.setSeed(tesseract_common::JointState(joint_names, states.col(i)));
       move_instruction.assignCartesianWaypoint(cwp);
-      move_instruction.setProfile(base_instruction.getPathProfile());
-      move_instruction.setPathProfile(base_instruction.getPathProfile());
+      if (!base_instruction.getPathProfile().empty())
+      {
+        move_instruction.setProfile(base_instruction.getPathProfile());
+        move_instruction.setPathProfile(base_instruction.getPathProfile());
+      }
       composite.appendMoveInstruction(move_instruction);
     }
 
