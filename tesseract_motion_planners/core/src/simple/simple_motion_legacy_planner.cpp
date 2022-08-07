@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/simple_motion_legacy_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_legacy_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_command_language/poly/waypoint_poly.h>
 #include <tesseract_command_language/composite_instruction.h>
@@ -224,7 +224,7 @@ CompositeInstruction SimpleMotionLegacyPlanner::processCompositeInstruction(cons
       {
         std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerPlanProfile>(
-            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKLegacyPlanProfile>());
         //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
         //        base_instruction.profile_overrides);
       }
@@ -233,7 +233,7 @@ CompositeInstruction SimpleMotionLegacyPlanner::processCompositeInstruction(cons
         std::string profile =
             getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerPlanProfile>(
-            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKPlanProfile>());
+            name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKLegacyPlanProfile>());
         //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
         //        base_instruction.profile_overrides);
       }

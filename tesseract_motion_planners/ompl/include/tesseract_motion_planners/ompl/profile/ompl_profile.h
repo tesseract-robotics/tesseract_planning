@@ -32,7 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_command_language/poly/instruction_poly.h>
+#include <tesseract_command_language/poly/move_instruction_poly.h>
 #include <tesseract_motion_planners/ompl/ompl_problem.h>
 
 namespace tesseract_planning
@@ -56,28 +56,28 @@ public:
 
   virtual void applyGoalStates(OMPLProblem& prob,
                                const Eigen::Isometry3d& cartesian_waypoint,
-                               const InstructionPoly& parent_instruction,
+                               const MoveInstructionPoly& parent_instruction,
                                const tesseract_common::ManipulatorInfo& manip_info,
                                const std::vector<std::string>& active_links,
                                int index) const = 0;
 
   virtual void applyGoalStates(OMPLProblem& prob,
                                const Eigen::VectorXd& joint_waypoint,
-                               const InstructionPoly& parent_instruction,
+                               const MoveInstructionPoly& parent_instruction,
                                const tesseract_common::ManipulatorInfo& manip_info,
                                const std::vector<std::string>& active_links,
                                int index) const = 0;
 
   virtual void applyStartStates(OMPLProblem& prob,
                                 const Eigen::Isometry3d& cartesian_waypoint,
-                                const InstructionPoly& parent_instruction,
+                                const MoveInstructionPoly& parent_instruction,
                                 const tesseract_common::ManipulatorInfo& manip_info,
                                 const std::vector<std::string>& active_links,
                                 int index) const = 0;
 
   virtual void applyStartStates(OMPLProblem& prob,
                                 const Eigen::VectorXd& joint_waypoint,
-                                const InstructionPoly& parent_instruction,
+                                const MoveInstructionPoly& parent_instruction,
                                 const tesseract_common::ManipulatorInfo& manip_info,
                                 const std::vector<std::string>& active_links,
                                 int index) const = 0;

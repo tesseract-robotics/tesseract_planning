@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_MOTION_PLANNERS_OMPL_MOTION_PLANNER_H
-#define TESSERACT_MOTION_PLANNERS_OMPL_MOTION_PLANNER_H
+#ifndef TESSERACT_MOTION_PLANNERS_OMPL_LEGACY_MOTION_PLANNER_H
+#define TESSERACT_MOTION_PLANNERS_OMPL_LEGACY_MOTION_PLANNER_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -42,22 +42,15 @@ class ParallelPlan;
 
 namespace tesseract_planning
 {
-struct OMPLProblemConfig
-{
-  OMPLProblem::Ptr problem;
-  boost::uuids::uuid start_uuid;
-  boost::uuids::uuid end_uuid;
-};
-
 /**
  * @brief This planner is intended to provide an easy to use interface to OMPL for freespace planning. It is made to
  * take a start and end point and automate the generation of the OMPL problem.
  */
-class OMPLMotionPlanner : public MotionPlanner
+class OMPLLegacyMotionPlanner : public MotionPlanner
 {
 public:
   /** @brief Construct a planner */
-  OMPLMotionPlanner(std::string name = profile_ns::OMPL_DEFAULT_NAMESPACE);
+  OMPLLegacyMotionPlanner(std::string name = profile_ns::OMPL_DEFAULT_NAMESPACE);
 
   const std::string& getName() const override;
 
@@ -90,7 +83,7 @@ public:
 
   static bool checkUserInput(const PlannerRequest& request);
 
-  virtual std::vector<OMPLProblemConfig> createProblems(const PlannerRequest& request) const;
+  virtual std::vector<OMPLProblem::Ptr> createProblems(const PlannerRequest& request) const;
 
 protected:
   /** @brief Name of planner */
@@ -98,16 +91,8 @@ protected:
 
   /** @brief OMPL Parallel planner */
   std::shared_ptr<ompl::tools::ParallelPlan> parallel_plan_;
-
-  OMPLProblemConfig createSubProblem(const PlannerRequest& request,
-                                     const tesseract_common::ManipulatorInfo& composite_mi,
-                                     const tesseract_kinematics::JointGroup::ConstPtr& manip,
-                                     const MoveInstructionPoly& start_instruction,
-                                     const MoveInstructionPoly& end_instruction,
-                                     int n_output_states,
-                                     int index) const;
 };
 
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_MOTION_PLANNERS_OMPL_MOTION_PLANNER_H
+#endif  // TESSERACT_MOTION_PLANNERS_OMPL_LEGACY_MOTION_PLANNER_H

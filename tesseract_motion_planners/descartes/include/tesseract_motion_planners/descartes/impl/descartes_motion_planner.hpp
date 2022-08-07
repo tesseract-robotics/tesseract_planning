@@ -300,60 +300,58 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
   for (std::size_t i = 0; i < move_instructions.size(); ++i)
   {
     const auto& instruction = move_instructions[i].get();
-    if (instruction.isMoveInstruction())
+
+    assert(instruction.isMoveInstruction());
+    const auto& plan_instruction = instruction.template as<MoveInstructionPoly>();
+
+    // If plan instruction has manipulator information then use it over the one provided by the composite.
+    tesseract_common::ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
+
+    if (mi.manipulator.empty())
+      throw std::runtime_error("Descartes, manipulator is empty!");
+
+    if (mi.tcp_frame.empty())
+      throw std::runtime_error("Descartes, tcp_frame is empty!");
+
+    if (mi.working_frame.empty())
+      throw std::runtime_error("Descartes, working_frame is empty!");
+
+    // Get Plan Profile
+    std::string profile = plan_instruction.getProfile();
+    profile = getProfileString(name_, profile, request.plan_profile_remapping);
+    auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
+        name_, profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
+    //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
+    //      plan_instruction.profile_overrides);
+    if (!cur_plan_profile)
+      throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
+
+    if (plan_instruction.getWaypoint().isCartesianWaypoint())
     {
-      assert(instruction.isMoveInstruction());
-      const auto& plan_instruction = instruction.template as<MoveInstructionPoly>();
-
-      // If plan instruction has manipulator information then use it over the one provided by the composite.
-      tesseract_common::ManipulatorInfo mi = composite_mi.getCombined(plan_instruction.getManipulatorInfo());
-
-      if (mi.manipulator.empty())
-        throw std::runtime_error("Descartes, manipulator is empty!");
-
-      if (mi.tcp_frame.empty())
-        throw std::runtime_error("Descartes, tcp_frame is empty!");
-
-      if (mi.working_frame.empty())
-        throw std::runtime_error("Descartes, working_frame is empty!");
-
-      // Get Plan Profile
-      std::string profile = plan_instruction.getProfile();
-      profile = getProfileString(name_, profile, request.plan_profile_remapping);
-      auto cur_plan_profile = getProfile<DescartesPlanProfile<FloatType>>(
-          name_, profile, *request.profiles, std::make_shared<DescartesDefaultPlanProfile<FloatType>>());
-      //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
-      //      plan_instruction.profile_overrides);
-      if (!cur_plan_profile)
-        throw std::runtime_error("DescartesMotionPlannerConfig: Invalid profile");
-
-      if (plan_instruction.getWaypoint().isCartesianWaypoint())
-      {
-        const auto& cur_wp = plan_instruction.getWaypoint().template as<CartesianWaypointPoly>();
-        cur_plan_profile->apply(*prob, cur_wp.getTransform(), plan_instruction, composite_mi, index);
-        ++index;
-      }
-      else if (plan_instruction.getWaypoint().isJointWaypoint())
-      {
-        if (plan_instruction.getWaypoint().as<JointWaypointPoly>().isConstrained())
-        {
-          assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
-          const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
-          cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, index);
-          ++index;
-        }
-      }
-      else if (plan_instruction.getWaypoint().isStateWaypoint())
+      const auto& cur_wp = plan_instruction.getWaypoint().template as<CartesianWaypointPoly>();
+      cur_plan_profile->apply(*prob, cur_wp.getTransform(), plan_instruction, composite_mi, index);
+      ++index;
+    }
+    else if (plan_instruction.getWaypoint().isJointWaypoint())
+    {
+      if (plan_instruction.getWaypoint().as<JointWaypointPoly>().isConstrained())
       {
         assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
         const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
         cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, index);
         ++index;
       }
-      else
-      {
-        throw std::runtime_error("DescartesMotionPlannerConfig: unknown waypoint type");
-      }
+    }
+    else if (plan_instruction.getWaypoint().isStateWaypoint())
+    {
+      assert(checkJointPositionFormat(joint_names, plan_instruction.getWaypoint()));
+      const Eigen::VectorXd& cur_position = getJointPosition(plan_instruction.getWaypoint());
+      cur_plan_profile->apply(*prob, cur_position, plan_instruction, composite_mi, index);
+      ++index;
+    }
+    else
+    {
+      throw std::runtime_error("DescartesMotionPlannerConfig: unknown waypoint type");
     }
   }
 

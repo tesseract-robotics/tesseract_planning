@@ -35,6 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/simple/simple_motion_planner.h>
+#include <tesseract_motion_planners/simple/simple_motion_legacy_planner.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_plan_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_no_ik_legacy_plan_profile.h>
 
@@ -96,7 +97,7 @@ inline CompositeInstruction generateSeedLegacy(const CompositeInstruction& instr
   request.env = env;
 
   // Set up planner
-  SimpleMotionPlanner planner;
+  SimpleMotionLegacyPlanner planner;
 
   auto profile = std::make_shared<SimplePlannerLVSNoIKLegacyPlanProfile>(state_longest_valid_segment_length,
                                                                          translation_longest_valid_segment_length,
