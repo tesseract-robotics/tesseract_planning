@@ -68,6 +68,7 @@ struct PlannerRequest
   /**
    * @brief This should be a one to one match with the instructions where the MoveInstruction is replaced with a
    * CompositeInstruction of MoveInstructions.
+   * @todo Remove when legacy planners are removed
    */
   CompositeInstruction seed;
 
