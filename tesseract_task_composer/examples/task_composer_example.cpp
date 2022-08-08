@@ -62,12 +62,6 @@ std::unique_ptr<tf::Taskflow> convertToTaskflow(TaskComposerGraph& task_composer
 {
   auto taskflow = std::make_unique<tf::Taskflow>(task_composer.getName());
 
-  // Add "Error" task
-  //  tf::Task error_task = taskflow->emplace([=]() { std::cout << "Failed!" << std::endl; }).name("Error Task");
-
-  // Add "Done" task
-  tf::Task done_task = taskflow->emplace([=]() { std::cout << "Successful!" << std::endl; }).name("Done Task");
-
   // Generate process tasks for each node
   std::vector<tf::Task> tasks;
   const auto& nodes = task_composer.getNodes();
@@ -90,22 +84,8 @@ std::unique_ptr<tf::Taskflow> convertToTaskflow(TaskComposerGraph& task_composer
     {
       if (idx >= 0)
         tasks.at(i).precede(tasks.at(static_cast<std::size_t>(idx)));
-      else if (idx == TaskComposerGraph::DONE_NODE)
-        tasks.at(i).precede(done_task);
-      //      else if (idx == TaskComposerPipeline::ERROR_NODE)
-      //        tasks.at(i).precede(error_task);
       else
         throw std::runtime_error("Invalid TaskComposerPipeline: Node specified with invalid edge");
-    }
-
-    // If no edges exist for the current node, make sure it precedes the done task (and error task if conditional)
-    if (edges.empty())
-    {
-      // Make sure the 0th connection of a conditional task goes to the error task
-      //      if (node.edges.size() > 1)
-      //        tasks.at(i).precede(error_task);
-
-      tasks.at(i).precede(done_task);
     }
   }
 

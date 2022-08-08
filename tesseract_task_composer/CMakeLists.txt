@@ -51,6 +51,8 @@ add_library(
   src/nodes/check_input_task.cpp
   src/nodes/continuous_contact_check_task.cpp
   src/nodes/discrete_contact_check_task.cpp
+  src/nodes/done_task.cpp
+  src/nodes/error_task.cpp
   src/nodes/fix_state_bounds_task.cpp
   src/nodes/fix_state_collision_task.cpp
   src/nodes/has_seed_task.cpp
