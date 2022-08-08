@@ -47,7 +47,7 @@ add_library(
   src/task_composer_input.cpp
   src/task_composer_node.cpp
   src/task_composer_node_info.cpp
-  src/task_composer_pipeline.cpp
+  src/task_composer_graph.cpp
   src/nodes/check_input_task.cpp
   src/nodes/continuous_contact_check_task.cpp
   src/nodes/discrete_contact_check_task.cpp

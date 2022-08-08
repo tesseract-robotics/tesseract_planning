@@ -38,7 +38,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class TaskComposerPipeline;
+class TaskComposerGraph;
+
+enum class TaskComposerNodeType
+{
+  TASK,
+  GRAPH
+};
 
 /** @brief Represents a node the pipeline to be executed */
 class TaskComposerNode
@@ -49,20 +55,23 @@ public:
   using UPtr = std::unique_ptr<TaskComposerNode>;
   using ConstUPtr = std::unique_ptr<const TaskComposerNode>;
 
-  TaskComposerNode(std::string name = "TaskComposerNode");
+  TaskComposerNode(std::string name = "TaskComposerNode", TaskComposerNodeType type = TaskComposerNodeType::TASK);
   virtual ~TaskComposerNode() = default;
   TaskComposerNode(const TaskComposerNode&) = delete;
   TaskComposerNode& operator=(const TaskComposerNode&) = delete;
   TaskComposerNode(TaskComposerNode&&) = delete;
   TaskComposerNode& operator=(TaskComposerNode&&) = delete;
 
-  /** @brief The name of the task */
+  /** @brief The name of the node */
   const std::string& getName() const;
+
+  /** @brief The node type TASK, GRAPH, etc */
+  TaskComposerNodeType getType() const;
 
   /** @brief The task uuid */
   const boost::uuids::uuid& getUUID() const;
 
-  /** @brief IDs of nodes (i.e. tasks) that should run after this node */
+  /** @brief IDs of nodes (i.e. node) that should run after this node */
   const std::vector<int>& getEdges() const;
 
   virtual int run(TaskComposerInput& input) const = 0;
@@ -71,7 +80,7 @@ public:
   bool operator!=(const TaskComposerNode& rhs) const;
 
 protected:
-  friend class TaskComposerPipeline;
+  friend class TaskComposerGraph;
   friend class tesseract_common::Serialization;
   friend class boost::serialization::access;
 
@@ -80,6 +89,9 @@ protected:
 
   /** @brief The name of the task */
   std::string name_;
+
+  /** @brief The node type */
+  TaskComposerNodeType type_;
 
   /** @brief The task uuid */
   boost::uuids::uuid uuid_;

@@ -37,11 +37,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskComposerNode::TaskComposerNode(std::string name) : name_(std::move(name)), uuid_(boost::uuids::random_generator()())
+TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type)
+  : name_(std::move(name)), type_(type), uuid_(boost::uuids::random_generator()())
 {
 }
 
 const std::string& TaskComposerNode::getName() const { return name_; }
+
+TaskComposerNodeType TaskComposerNode::getType() const { return type_; }
 
 const boost::uuids::uuid& TaskComposerNode::getUUID() const { return uuid_; }
 
@@ -51,6 +54,7 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
 {
   bool equal = true;
   equal &= name_ == rhs.name_;
+  equal &= type_ == rhs.type_;
   equal &= uuid_ == rhs.uuid_;
   equal &= edges_ == rhs.edges_;
   return equal;
@@ -61,6 +65,7 @@ template <class Archive>
 void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& boost::serialization::make_nvp("name", name_);
+  ar& boost::serialization::make_nvp("type", type_);
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("edges", edges_);
 }

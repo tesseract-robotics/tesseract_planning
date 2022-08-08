@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include <tesseract_common/utils.h>
-#include <tesseract_task_composer/task_composer_pipeline.h>
+#include <tesseract_task_composer/task_composer_graph.h>
 #include <taskflow/taskflow.hpp>
 
 using namespace tesseract_planning;
@@ -58,7 +58,7 @@ protected:
   std::string output_key_;
 };
 
-std::unique_ptr<tf::Taskflow> convertToTaskflow(TaskComposerPipeline& task_composer, TaskComposerInput::Ptr task_input)
+std::unique_ptr<tf::Taskflow> convertToTaskflow(TaskComposerGraph& task_composer, TaskComposerInput::Ptr task_input)
 {
   auto taskflow = std::make_unique<tf::Taskflow>(task_composer.getName());
 
@@ -90,7 +90,7 @@ std::unique_ptr<tf::Taskflow> convertToTaskflow(TaskComposerPipeline& task_compo
     {
       if (idx >= 0)
         tasks.at(i).precede(tasks.at(static_cast<std::size_t>(idx)));
-      else if (idx == TaskComposerPipeline::DONE_NODE)
+      else if (idx == TaskComposerGraph::DONE_NODE)
         tasks.at(i).precede(done_task);
       //      else if (idx == TaskComposerPipeline::ERROR_NODE)
       //        tasks.at(i).precede(error_task);
@@ -131,7 +131,7 @@ int main()
   auto task2 = std::make_unique<MultiplyTaskComposerNode>("a", "task1_output", "task2_output");
   auto task3 = std::make_unique<AddTaskComposerNode>("task2_output", "d", "task3_output");
 
-  TaskComposerPipeline task_composer;
+  TaskComposerGraph task_composer;
   int task1_id = task_composer.addNode(std::move(task1));
   int task2_id = task_composer.addNode(std::move(task2));
   int task3_id = task_composer.addNode(std::move(task3));

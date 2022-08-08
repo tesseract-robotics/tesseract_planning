@@ -1,6 +1,6 @@
 /**
- * @file task_composer_pipeline.h
- * @brief A task pipeline
+ * @file task_composer_graph.h
+ * @brief A task graph
  *
  * @author Levi Armstrong
  * @date July 29. 2022
@@ -23,8 +23,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PIPELINE_H
-#define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PIPELINE_H
+#ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H
+#define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -41,25 +41,20 @@ namespace tesseract_planning
  * @brief This class facilitates the composition of an arbitrary taskflow graph.
  * Tasks are nodes in the graph connected to each other in a configurable order by directed edges
  */
-class TaskComposerPipeline
+class TaskComposerGraph : public TaskComposerNode
 {
 public:
-  using UPtr = std::unique_ptr<TaskComposerPipeline>;
+  using Ptr = std::shared_ptr<TaskComposerGraph>;
+  using ConstPtr = std::shared_ptr<const TaskComposerGraph>;
+  using UPtr = std::unique_ptr<TaskComposerGraph>;
+  using ConstUPtr = std::unique_ptr<const TaskComposerGraph>;
 
-  /** @brief ID for the Done node */
-  const static int DONE_NODE = -1;
-  /** @brief ID for the Error node */
-  const static int ERROR_NODE = -2;
-
-  TaskComposerPipeline(std::string name = "TaskComposerPipeline");
-  virtual ~TaskComposerPipeline() = default;
-  TaskComposerPipeline(const TaskComposerPipeline&) = delete;
-  TaskComposerPipeline& operator=(const TaskComposerPipeline&) = delete;
-  TaskComposerPipeline(TaskComposerPipeline&&) = delete;
-  TaskComposerPipeline& operator=(TaskComposerPipeline&&) = delete;
-
-  /** @brief Get the name of the pipeline */
-  const std::string& getName() const;
+  TaskComposerGraph(std::string name = "TaskComposerGraph");
+  virtual ~TaskComposerGraph() = default;
+  TaskComposerGraph(const TaskComposerGraph&) = delete;
+  TaskComposerGraph& operator=(const TaskComposerGraph&) = delete;
+  TaskComposerGraph(TaskComposerGraph&&) = delete;
+  TaskComposerGraph& operator=(TaskComposerGraph&&) = delete;
 
   /**
    * @brief Add a node to the pipeline
@@ -83,10 +78,25 @@ public:
   /** @brief Get the nodes associated with the pipeline */
   std::vector<TaskComposerNode::ConstPtr> getNodes();
 
-private:
+  int run(TaskComposerInput& input) const override;
+
+  bool operator==(const TaskComposerGraph& rhs) const;
+  bool operator!=(const TaskComposerGraph& rhs) const;
+
+protected:
+  friend class tesseract_common::Serialization;
+  friend class boost::serialization::access;
+
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
   std::vector<TaskComposerNode::Ptr> nodes_;
-  std::string name_;
 };
 
 }  // namespace tesseract_planning
-#endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_PIPELINE_H
+
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerGraph, "TaskComposerGraph")
+
+#endif  // TESSERACT_TASK_COMPOSER_TASK_COMPOSER_GRAPH_H
