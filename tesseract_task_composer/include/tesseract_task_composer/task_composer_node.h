@@ -43,6 +43,7 @@ class TaskComposerGraph;
 enum class TaskComposerNodeType
 {
   TASK,
+  CONDITIONAL_TASK,
   GRAPH
 };
 

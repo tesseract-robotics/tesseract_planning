@@ -8,7 +8,6 @@ target_link_libraries(
   Taskflow::Taskflow
   console_bridge::console_bridge
   tesseract::tesseract_environment
-  # tesseract::tesseract_command_language
   tesseract::tesseract_support)
 target_compile_options(${PROJECT_NAME}_example PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE}
                                                        ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

@@ -69,7 +69,7 @@ std::unique_ptr<tf::Taskflow> convertToTaskflow(TaskComposerGraph& task_composer
   for (const auto& node : nodes)
   {
     auto edges = node->getEdges();
-    if (edges.size() > 1)
+    if (edges.size() > 1 && node->getType() == TaskComposerNodeType::CONDITIONAL_TASK)
       tasks.push_back(taskflow->emplace([node, task_input] { return node->run(*task_input); }).name(node->getName()));
     else
       tasks.push_back(taskflow->emplace([node, task_input] { node->run(*task_input); }).name(node->getName()));
