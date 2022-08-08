@@ -54,4 +54,43 @@ bool MotionPlanner::checkRequest(const PlannerRequest& request)
   return true;
 }
 
+void MotionPlanner::assignSolution(MoveInstructionPoly& mi,
+                                   const std::vector<std::string>& joint_names,
+                                   const Eigen::Ref<const Eigen::VectorXd>& joint_values,
+                                   bool format_result_as_input)
+{
+  if (format_result_as_input)
+  {
+    if (mi.getWaypoint().isStateWaypoint())
+      return;
+
+    if (mi.getWaypoint().isCartesianWaypoint())
+    {
+      auto& cwp = mi.getWaypoint().as<CartesianWaypointPoly>();
+      cwp.setSeed(tesseract_common::JointState(joint_names, joint_values));
+      return;
+    }
+
+    if (mi.getWaypoint().isJointWaypoint())
+    {
+      auto& jwp = mi.getWaypoint().as<JointWaypointPoly>();
+      if (!jwp.isConstrained() || (jwp.isConstrained() && jwp.isToleranced()))
+      {
+        jwp.setNames(joint_names);
+        jwp.setPosition(joint_values);
+      }
+      return;
+    }
+
+    throw std::runtime_error("Unsupported waypoint type!");
+  }
+  else
+  {
+    StateWaypointPoly swp = mi.createStateWaypoint();
+    swp.setNames(joint_names);
+    swp.setPosition(joint_values);
+    mi.assignStateWaypoint(swp);
+  }
+}
+
 }  // namespace tesseract_planning

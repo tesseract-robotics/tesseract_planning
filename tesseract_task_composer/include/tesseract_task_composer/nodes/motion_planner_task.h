@@ -49,7 +49,7 @@ public:
   MotionPlannerTask(MotionPlanner::Ptr planner,
                     std::string input_key,
                     std::string output_key,
-                    bool convert_output_to_input = true);
+                    bool format_result_as_input = true);
   ~MotionPlannerTask() = default;
 
   int run(TaskComposerInput& input) const override;
@@ -66,7 +66,7 @@ protected:
   MotionPlanner::Ptr planner_;
   std::string input_key_;
   std::string output_key_;
-  bool convert_output_to_input_;
+  bool format_result_as_input_;
 };
 
 class MotionPlannerTaskInfo : public TaskComposerNodeInfo

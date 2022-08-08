@@ -253,10 +253,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
       MoveInstructionPoly& mi = response.results.getStartInstruction();
       if (mi.getUUID() == pc.start_uuid)
       {
-        StateWaypointPoly swp = mi.createStateWaypoint();
-        swp.setNames(joint_names);
-        swp.setPosition(traj.row(row++));
-        mi.assignStateWaypoint(swp);
+        assignSolution(mi, joint_names, traj.row(row++), request.format_result_as_input);
         found = true;
       }
     }
@@ -276,16 +273,26 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
           for (; row < traj.rows() - 1; ++row)
           {
             MoveInstructionPoly child = mi.createChild();
-            StateWaypointPoly swp = mi.createStateWaypoint();
-            swp.setNames(joint_names);
-            swp.setPosition(traj.row(row));
-            child.assignStateWaypoint(swp);
+            if (request.format_result_as_input)
+            {
+              JointWaypointPoly jwp = mi.createJointWaypoint();
+              jwp.setIsConstrained(false);
+              jwp.setNames(joint_names);
+              jwp.setPosition(traj.row(row));
+              child.assignJointWaypoint(jwp);
+            }
+            else
+            {
+              StateWaypointPoly swp = mi.createStateWaypoint();
+              swp.setNames(joint_names);
+              swp.setPosition(traj.row(row));
+              child.assignStateWaypoint(swp);
+            }
+
             extra.push_back(child);
           }
-          StateWaypointPoly swp = mi.createStateWaypoint();
-          swp.setNames(joint_names);
-          swp.setPosition(traj.row(row));
-          mi.assignStateWaypoint(swp);
+
+          assignSolution(mi, joint_names, traj.row(row), request.format_result_as_input);
 
           if (!extra.empty())
             ci.insert(it, extra.begin(), extra.end());
@@ -295,12 +302,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
         }
 
         if (found)
-        {
-          StateWaypointPoly swp = mi.createStateWaypoint();
-          swp.setNames(joint_names);
-          swp.setPosition(traj.row(row++));
-          mi.assignStateWaypoint(swp);
-        }
+          assignSolution(mi, joint_names, traj.row(row++), request.format_result_as_input);
       }
 
       ++start_index;

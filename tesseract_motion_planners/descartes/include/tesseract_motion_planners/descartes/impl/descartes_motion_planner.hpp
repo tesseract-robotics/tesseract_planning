@@ -146,20 +146,14 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
       auto& move_instruction = results_instructions.at(idx).get().as<MoveInstructionPoly>();
       if (move_instruction.getWaypoint().isCartesianWaypoint())
       {
-        StateWaypointPoly swp = move_instruction.createStateWaypoint();
-        swp.setNames(joint_names);
-        swp.setPosition(solution[result_index++]);
-        move_instruction.assignStateWaypoint(swp);
+        assignSolution(move_instruction, joint_names, solution[result_index++], request.format_result_as_input);
       }
       else if (move_instruction.getWaypoint().isJointWaypoint())
       {
         auto& jwp = move_instruction.getWaypoint().as<JointWaypointPoly>();
         if (jwp.isConstrained())
         {
-          StateWaypointPoly swp = move_instruction.createStateWaypoint();
-          swp.setNames(joint_names);
-          swp.setPosition(solution[result_index++]);
-          move_instruction.assignStateWaypoint(swp);
+          assignSolution(move_instruction, joint_names, solution[result_index++], request.format_result_as_input);
           continue;
         }
 
@@ -181,10 +175,8 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
         Eigen::MatrixXd states = interpolate(start_state, end_state, cnt);
         for (Eigen::Index i = 0; i < cnt; ++i)
         {
-          StateWaypointPoly swp = move_instruction.createStateWaypoint();
-          swp.setNames(joint_names);
-          swp.setPosition(states.col(i + 1));
-          results_instructions.at(idx++).get().as<MoveInstructionPoly>().assignStateWaypoint(swp);
+          auto& interp_mi = results_instructions.at(idx++).get().as<MoveInstructionPoly>();
+          assignSolution(interp_mi, joint_names, solution[result_index++], request.format_result_as_input);
         }
       }
       else if (move_instruction.getWaypoint().isStateWaypoint())

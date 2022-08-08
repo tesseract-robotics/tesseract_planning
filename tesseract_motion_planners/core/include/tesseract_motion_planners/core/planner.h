@@ -77,6 +77,12 @@ public:
   /** @brief Check planning request */
   static bool checkRequest(const PlannerRequest& request);
 
+  /** @brief Assign a solution to the move instruction */
+  static void assignSolution(MoveInstructionPoly& mi,
+                             const std::vector<std::string>& joint_names,
+                             const Eigen::Ref<const Eigen::VectorXd>& joint_values,
+                             bool format_result_as_input);
+
 protected:
   std::string name_;
 };

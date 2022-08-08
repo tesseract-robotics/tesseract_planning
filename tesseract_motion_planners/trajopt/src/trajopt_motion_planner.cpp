@@ -145,10 +145,8 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
   for (std::size_t idx = 0; idx < results_instructions.size(); idx++)
   {
     auto& move_instruction = results_instructions.at(idx).get().as<MoveInstructionPoly>();
-    StateWaypointPoly swp = move_instruction.createStateWaypoint();
-    swp.setNames(joint_names);
-    swp.setPosition(traj.row(static_cast<Eigen::Index>(idx)));
-    move_instruction.assignStateWaypoint(swp);
+    assignSolution(
+        move_instruction, joint_names, traj.row(static_cast<Eigen::Index>(idx)), request.format_result_as_input);
   }
 
   response.successful = true;

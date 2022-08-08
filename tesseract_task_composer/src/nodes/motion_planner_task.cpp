@@ -38,12 +38,12 @@ namespace tesseract_planning
 MotionPlannerTask::MotionPlannerTask(MotionPlanner::Ptr planner,
                                      std::string input_key,
                                      std::string output_key,
-                                     bool convert_output_to_input)
+                                     bool format_result_as_input)
   : TaskComposerNode(planner->getName())
   , planner_(std::move(planner))
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
-  , convert_output_to_input_(convert_output_to_input)
+  , format_result_as_input_(format_result_as_input)
 {
 }
 
@@ -89,69 +89,6 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   assert(!(input.manip_info.empty() && input.manip_info.empty()));
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
 
-  //  // If the start and end waypoints need to be updated prior to planning
-  //  InstructionPoly start_instruction = input.getStartInstruction();
-  //  InstructionPoly end_instruction = input.getEndInstruction();
-
-  //  if (!start_instruction.isNull())
-  //  {
-  //    // add start
-  //    if (start_instruction.isCompositeInstruction())
-  //    {
-  //      // if provided a composite instruction as the start instruction it will extract the last move instruction
-  //      const auto& ci = start_instruction.as<CompositeInstruction>();
-  //      const auto* lmi = ci.getLastMoveInstruction();
-  //      assert(lmi != nullptr);
-  //      instructions.setStartInstruction(*lmi);
-  //      instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
-  //    }
-  //    else
-  //    {
-  //      assert(start_instruction.isMoveInstruction());
-  //      if (start_instruction.isMoveInstruction())
-  //      {
-  //        instructions.setStartInstruction(start_instruction.as<MoveInstructionPoly>());
-  //        instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
-  //      }
-  //    }
-  //  }
-  //  if (!end_instruction.isNull())
-  //  {
-  //    // add end
-  //    if (end_instruction.isCompositeInstruction())
-  //    {
-  //      // if provided a composite instruction as the end instruction it will extract the first move instruction
-  //      const auto& ci = end_instruction.as<CompositeInstruction>();
-  //      const auto* fmi = ci.getFirstMoveInstruction();
-  //      assert(fmi != nullptr);
-  //      if (fmi->getWaypoint().isCartesianWaypoint())
-  //        instructions.getLastMoveInstruction()->assignCartesianWaypoint(fmi->getWaypoint().as<CartesianWaypointPoly>());
-  //      else if (fmi->getWaypoint().isJointWaypoint())
-  //        instructions.getLastMoveInstruction()->assignJointWaypoint(fmi->getWaypoint().as<JointWaypointPoly>());
-  //      else if (fmi->getWaypoint().isStateWaypoint())
-  //        instructions.getLastMoveInstruction()->assignStateWaypoint(fmi->getWaypoint().as<StateWaypointPoly>());
-  //      else
-  //        throw std::runtime_error("Invalid waypoint type");
-  //    }
-  //    else
-  //    {
-  //      assert(end_instruction.isMoveInstruction());
-  //      auto* lpi = instructions.getLastMoveInstruction();
-  //      if (end_instruction.isMoveInstruction())
-  //      {
-  //        const auto& wp = end_instruction.as<MoveInstructionPoly>().getWaypoint();
-  //        if (wp.isCartesianWaypoint())
-  //          lpi->assignCartesianWaypoint(wp.as<CartesianWaypointPoly>());
-  //        else if (wp.isJointWaypoint())
-  //          lpi->assignJointWaypoint(wp.as<JointWaypointPoly>());
-  //        else if (wp.isStateWaypoint())
-  //          lpi->assignStateWaypoint(wp.as<StateWaypointPoly>());
-  //        else
-  //          throw std::runtime_error("Invalid waypoint type");
-  //      }
-  //    }
-  //  }
-
   // It should always have a start instruction which required by the motion planners
   assert(instructions.hasStartInstruction());
 
@@ -166,6 +103,7 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   request.profiles = input.profiles;
   request.plan_profile_remapping = input.move_profile_remapping;
   request.composite_profile_remapping = input.composite_profile_remapping;
+  request.format_result_as_input = format_result_as_input_;
 
   // --------------------
   // Fill out response
@@ -180,41 +118,8 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   // --------------------
   if (response)
   {
-    if (convert_output_to_input_)
-    {
-      std::vector<std::reference_wrapper<InstructionPoly>> input_vec = instructions.flatten(&moveFilter);
-      std::vector<std::reference_wrapper<InstructionPoly>> output_vec = response.results.flatten(&moveFilter);
-      assert(input_vec.size() == output_vec.size());
-      for (std::size_t i = 0; i < input_vec.size(); ++i)
-      {
-        auto& input_instr = input_vec[i].get().as<MoveInstructionPoly>();
-        auto& output_swp = output_vec[i].get().as<MoveInstructionPoly>().getWaypoint().as<StateWaypointPoly>();
-        if (input_instr.getWaypoint().isCartesianWaypoint())
-        {
-          tesseract_common::JointState js(output_swp.getNames(), output_swp.getPosition());
-          js.velocity = output_swp.getVelocity();
-          js.acceleration = output_swp.getAcceleration();
-          js.effort = output_swp.getEffort();
-          js.time = output_swp.getTime();
-          input_instr.getWaypoint().as<CartesianWaypointPoly>().setSeed(js);
-        }
-        else if (input_instr.getWaypoint().isJointWaypoint())
-        {
-          auto& jwp = input_instr.getWaypoint().as<JointWaypointPoly>();
-          if (jwp.isToleranced())
-            input_instr.getWaypoint().as<JointWaypointPoly>().setPosition(output_swp.getPosition());
-        }
-        else
-        {
-          input_instr.assignStateWaypoint(output_swp);
-        }
-      }
-      input.data_storage->setData("output_key_", input_data_poly);
-    }
-    else
-    {
-      input.data_storage->setData("output_key_", response.results);
-    }
+    input.data_storage->setData("output_key_", response.results);
+
     CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
     info->return_value = 1;
     info->message = response.message;
@@ -240,7 +145,7 @@ bool MotionPlannerTask::operator==(const MotionPlannerTask& rhs) const
   bool equal = true;
   equal &= (input_key_ == rhs.input_key_);
   equal &= (output_key_ == rhs.output_key_);
-  equal &= (convert_output_to_input_ == rhs.convert_output_to_input_);
+  equal &= (format_result_as_input_ == rhs.format_result_as_input_);
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }
@@ -251,7 +156,7 @@ void MotionPlannerTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
-  ar& BOOST_SERIALIZATION_NVP(convert_output_to_input_);
+  ar& BOOST_SERIALIZATION_NVP(format_result_as_input_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 
