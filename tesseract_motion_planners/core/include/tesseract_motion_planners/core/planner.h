@@ -42,6 +42,7 @@ public:
   using ConstPtr = std::shared_ptr<const MotionPlanner>;
   /** @brief Construct a basic planner */
   MotionPlanner() = default;
+  MotionPlanner(std::string name);
   virtual ~MotionPlanner() = default;
   MotionPlanner(const MotionPlanner&) = delete;
   MotionPlanner& operator=(const MotionPlanner&) = delete;
@@ -52,7 +53,7 @@ public:
    *  @brief Get the name of this planner
    *  @details This is also used as the namespace for the profiles in the profile dictionary
    */
-  virtual const std::string& getName() const = 0;
+  const std::string& getName() const;
 
   /**
    * @brief Solve the planner request problem
@@ -72,6 +73,12 @@ public:
 
   /** @brief Clone the motion planner */
   virtual MotionPlanner::Ptr clone() const = 0;
+
+  /** @brief Check planning request */
+  static bool checkRequest(const PlannerRequest& request);
+
+protected:
+  std::string name_;
 };
 }  // namespace tesseract_planning
 #endif  // TESSERACT_PLANNING_PLANNER_H

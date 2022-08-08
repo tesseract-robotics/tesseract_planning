@@ -52,13 +52,7 @@ using namespace trajopt;
 
 namespace tesseract_planning
 {
-TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name) : name_(std::move(name))
-{
-  if (name_.empty())
-    throw std::runtime_error("TrajOptMotionPlanner name is empty!");
-}
-
-const std::string& TrajOptMotionPlanner::getName() const { return name_; }
+TrajOptMotionPlanner::TrajOptMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
 bool TrajOptMotionPlanner::terminate()
 {
@@ -73,7 +67,7 @@ MotionPlanner::Ptr TrajOptMotionPlanner::clone() const { return std::make_shared
 PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
-  if (!checkUserInput(request))
+  if (!checkRequest(request))
   {
     response.successful = false;
     response.message = ERROR_INVALID_INPUT;
@@ -160,30 +154,6 @@ PlannerResponse TrajOptMotionPlanner::solve(const PlannerRequest& request) const
   response.successful = true;
   response.message = SOLUTION_FOUND;
   return response;
-}
-
-bool TrajOptMotionPlanner::checkUserInput(const PlannerRequest& request)
-{
-  // Check that parameters are valid
-  if (request.env == nullptr)
-  {
-    CONSOLE_BRIDGE_logError("In TrajOptMotionPlanner: env is a required parameter and has not been set");
-    return false;
-  }
-
-  if (request.instructions.empty())
-  {
-    CONSOLE_BRIDGE_logError("TrajOptMotionPlanner requires at least one instruction");
-    return false;
-  }
-
-  if (!request.instructions.hasStartInstruction())
-  {
-    CONSOLE_BRIDGE_logError("TrajOptMotionPlanner requires a start instruction");
-    return false;
-  }
-
-  return true;
 }
 
 std::shared_ptr<trajopt::ProblemConstructionInfo>

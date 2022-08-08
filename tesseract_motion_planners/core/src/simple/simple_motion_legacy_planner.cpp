@@ -45,13 +45,7 @@ constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 
 namespace tesseract_planning
 {
-SimpleMotionLegacyPlanner::SimpleMotionLegacyPlanner(std::string name) : name_(std::move(name))
-{
-  if (name_.empty())
-    throw std::runtime_error("SimpleMotionPlanner name is empty!");
-}
-
-const std::string& SimpleMotionLegacyPlanner::getName() const { return name_; }
+SimpleMotionLegacyPlanner::SimpleMotionLegacyPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
 bool SimpleMotionLegacyPlanner::terminate()
 {

@@ -49,13 +49,7 @@ using namespace trajopt_ifopt;
 
 namespace tesseract_planning
 {
-TrajOptIfoptLegacyMotionPlanner::TrajOptIfoptLegacyMotionPlanner(std::string name) : name_(std::move(name))
-{
-  if (name_.empty())
-    throw std::runtime_error("TrajOptIfoptMotionPlanner name is empty!");
-}
-
-const std::string& TrajOptIfoptLegacyMotionPlanner::getName() const { return name_; }
+TrajOptIfoptLegacyMotionPlanner::TrajOptIfoptLegacyMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
 bool TrajOptIfoptLegacyMotionPlanner::terminate()
 {

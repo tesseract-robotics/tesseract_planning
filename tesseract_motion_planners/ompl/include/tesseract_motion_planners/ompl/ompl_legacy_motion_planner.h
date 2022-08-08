@@ -52,8 +52,6 @@ public:
   /** @brief Construct a planner */
   OMPLLegacyMotionPlanner(std::string name = profile_ns::OMPL_DEFAULT_NAMESPACE);
 
-  const std::string& getName() const override;
-
   /**
    * @brief Sets up the OMPL problem then solves. It is intended to simplify setting up
    * and solving freespace motion problems.
@@ -86,9 +84,6 @@ public:
   virtual std::vector<OMPLProblem::Ptr> createProblems(const PlannerRequest& request) const;
 
 protected:
-  /** @brief Name of planner */
-  std::string name_;
-
   /** @brief OMPL Parallel planner */
   std::shared_ptr<ompl::tools::ParallelPlan> parallel_plan_;
 };

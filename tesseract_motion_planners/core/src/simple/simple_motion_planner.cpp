@@ -45,13 +45,7 @@ constexpr auto FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid solution" };
 
 namespace tesseract_planning
 {
-SimpleMotionPlanner::SimpleMotionPlanner(std::string name) : name_(std::move(name))
-{
-  if (name_.empty())
-    throw std::runtime_error("SimpleMotionPlanner name is empty!");
-}
-
-const std::string& SimpleMotionPlanner::getName() const { return name_; }
+SimpleMotionPlanner::SimpleMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
 bool SimpleMotionPlanner::terminate()
 {
@@ -66,7 +60,7 @@ MotionPlanner::Ptr SimpleMotionPlanner::clone() const { return std::make_shared<
 PlannerResponse SimpleMotionPlanner::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
-  if (!checkUserInput(request))
+  if (!checkRequest(request))
   {
     response.successful = false;
     response.message = ERROR_INVALID_INPUT;
@@ -238,30 +232,6 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
     }
   }  // for (const auto& instruction : instructions)
   return seed;
-}
-
-bool SimpleMotionPlanner::checkUserInput(const PlannerRequest& request)
-{
-  // Check that parameters are valid
-  if (request.env == nullptr)
-  {
-    CONSOLE_BRIDGE_logError("In SimpleMotionPlanner: env is a required parameter and has not been set");
-    return false;
-  }
-
-  if (request.instructions.empty())
-  {
-    CONSOLE_BRIDGE_logError("SimpleMotionPlanner requires at least one instruction");
-    return false;
-  }
-
-  if (!request.instructions.hasStartInstruction())
-  {
-    CONSOLE_BRIDGE_logError("SimpleMotionPlanner requires a start instruction");
-    return false;
-  }
-
-  return true;
 }
 
 }  // namespace tesseract_planning

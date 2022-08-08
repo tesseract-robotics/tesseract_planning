@@ -89,13 +89,7 @@ bool checkGoalStateLegacy(const ompl::base::ProblemDefinitionPtr& prob_def,
 }
 
 /** @brief Construct a basic planner */
-OMPLLegacyMotionPlanner::OMPLLegacyMotionPlanner(std::string name) : name_(std::move(name))
-{
-  if (name_.empty())
-    throw std::runtime_error("OMPLMotionPlanner name is empty!");
-}
-
-const std::string& OMPLLegacyMotionPlanner::getName() const { return name_; }
+OMPLLegacyMotionPlanner::OMPLLegacyMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
 bool OMPLLegacyMotionPlanner::terminate()
 {

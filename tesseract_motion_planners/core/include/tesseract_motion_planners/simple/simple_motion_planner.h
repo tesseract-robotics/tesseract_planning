@@ -60,11 +60,7 @@ public:
   SimpleMotionPlanner(SimpleMotionPlanner&&) = delete;
   SimpleMotionPlanner& operator=(SimpleMotionPlanner&&) = delete;
 
-  const std::string& getName() const override;
-
   PlannerResponse solve(const PlannerRequest& request) const override;
-
-  static bool checkUserInput(const PlannerRequest& request);
 
   bool terminate() override;
 
@@ -73,8 +69,6 @@ public:
   MotionPlanner::Ptr clone() const override;
 
 protected:
-  std::string name_;
-
   static MoveInstructionPoly getStartInstruction(const PlannerRequest& request,
                                                  const tesseract_scene_graph::SceneState& current_state,
                                                  const tesseract_kinematics::JointGroup& manip);

@@ -89,13 +89,7 @@ bool checkGoalState(const ompl::base::ProblemDefinitionPtr& prob_def,
 }
 
 /** @brief Construct a basic planner */
-OMPLMotionPlanner::OMPLMotionPlanner(std::string name) : name_(std::move(name))
-{
-  if (name_.empty())
-    throw std::runtime_error("OMPLMotionPlanner name is empty!");
-}
-
-const std::string& OMPLMotionPlanner::getName() const { return name_; }
+OMPLMotionPlanner::OMPLMotionPlanner(std::string name) : MotionPlanner(std::move(name)) {}
 
 bool OMPLMotionPlanner::terminate()
 {
@@ -106,7 +100,7 @@ bool OMPLMotionPlanner::terminate()
 PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 {
   PlannerResponse response;
-  if (!checkUserInput(request))  // NOLINT
+  if (!checkRequest(request))  // NOLINT
   {
     response.successful = false;
     response.message = ERROR_INVALID_INPUT;
@@ -349,30 +343,6 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
 void OMPLMotionPlanner::clear() { parallel_plan_ = nullptr; }
 
 MotionPlanner::Ptr OMPLMotionPlanner::clone() const { return std::make_shared<OMPLMotionPlanner>(name_); }
-
-bool OMPLMotionPlanner::checkUserInput(const PlannerRequest& request)
-{
-  // Check that parameters are valid
-  if (request.env == nullptr)
-  {
-    CONSOLE_BRIDGE_logError("OMPLMotionPlanner: env is a required parameter and has not been set");
-    return false;
-  }
-
-  if (request.instructions.empty())
-  {
-    CONSOLE_BRIDGE_logError("OMPLMotionPlanner requires at least one instruction");
-    return false;
-  }
-
-  if (!request.instructions.hasStartInstruction())
-  {
-    CONSOLE_BRIDGE_logError("OMPLMotionPlanner requires a start instruction");
-    return false;
-  }
-
-  return true;
-}
 
 OMPLProblemConfig OMPLMotionPlanner::createSubProblem(const PlannerRequest& request,
                                                       const tesseract_common::ManipulatorInfo& composite_mi,

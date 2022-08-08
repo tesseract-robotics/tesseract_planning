@@ -54,16 +54,8 @@ constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid soluti
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesLegacyMotionPlanner<FloatType>::DescartesLegacyMotionPlanner(std::string name) : name_(std::move(name))
+DescartesLegacyMotionPlanner<FloatType>::DescartesLegacyMotionPlanner(std::string name) : MotionPlanner(std::move(name))
 {
-  if (name_.empty())
-    throw std::runtime_error("DescartesMotionPlanner name is empty!");
-}
-
-template <typename FloatType>
-const std::string& DescartesLegacyMotionPlanner<FloatType>::getName() const
-{
-  return name_;
 }
 
 template <typename FloatType>

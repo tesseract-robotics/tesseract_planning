@@ -88,6 +88,14 @@ struct PlannerRequest
   bool verbose{ false };
 
   /**
+   * @brief Format the results as input for motion planning
+   * @details
+   *    - If true it uses the input waypoint but updates the seed component
+   *    - If false, it replace the input waypoint with a state waypoint
+   */
+  bool results_as_inputs{ false };
+
+  /**
    * @brief data Planner specific data. For planners included in Tesseract_planning this is the planner problem that
    * will be used if it is not null
    */

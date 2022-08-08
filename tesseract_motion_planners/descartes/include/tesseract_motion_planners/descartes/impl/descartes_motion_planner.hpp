@@ -54,16 +54,8 @@ constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid soluti
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name) : name_(std::move(name))
+DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name) : MotionPlanner(std::move(name))
 {
-  if (name_.empty())
-    throw std::runtime_error("DescartesMotionPlanner name is empty!");
-}
-
-template <typename FloatType>
-const std::string& DescartesMotionPlanner<FloatType>::getName() const
-{
-  return name_;
 }
 
 template <typename FloatType>
@@ -209,31 +201,6 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   response.successful = true;
   response.message = SOLUTION_FOUND;
   return response;
-}
-
-template <typename FloatType>
-bool DescartesMotionPlanner<FloatType>::checkUserInput(const PlannerRequest& request)
-{
-  // Check that parameters are valid
-  if (request.env == nullptr)
-  {
-    CONSOLE_BRIDGE_logError("DescartesMotionPlanner: env is a required parameter and has not been set");
-    return false;
-  }
-
-  if (request.instructions.empty())
-  {
-    CONSOLE_BRIDGE_logError("DescartesMotionPlanner requires at least one instruction");
-    return false;
-  }
-
-  if (!request.instructions.hasStartInstruction())
-  {
-    CONSOLE_BRIDGE_logError("DescartesMotionPlanner requires a start instruction");
-    return false;
-  }
-
-  return true;
 }
 
 template <typename FloatType>

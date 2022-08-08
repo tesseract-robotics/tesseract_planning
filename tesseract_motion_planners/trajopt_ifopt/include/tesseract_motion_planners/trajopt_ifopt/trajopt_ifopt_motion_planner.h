@@ -50,8 +50,6 @@ public:
   TrajOptIfoptMotionPlanner(TrajOptIfoptMotionPlanner&&) = delete;
   TrajOptIfoptMotionPlanner& operator=(TrajOptIfoptMotionPlanner&&) = delete;
 
-  const std::string& getName() const override;
-
   /** @brief Callback functions called on each iteration of the optimization (Optional) */
   std::vector<trajopt_sqp::SQPCallback::Ptr> callbacks;
 
@@ -64,12 +62,6 @@ public:
   MotionPlanner::Ptr clone() const override;
 
   virtual std::shared_ptr<TrajOptIfoptProblem> createProblem(const PlannerRequest& request) const;
-
-  static bool checkUserInput(const PlannerRequest& request);
-
-protected:
-  /** @brief Name of planner */
-  std::string name_;
 };
 
 }  // namespace tesseract_planning

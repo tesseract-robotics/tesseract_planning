@@ -27,8 +27,6 @@ public:
   DescartesLegacyMotionPlanner(DescartesLegacyMotionPlanner&&) noexcept = delete;
   DescartesLegacyMotionPlanner& operator=(DescartesLegacyMotionPlanner&&) noexcept = delete;
 
-  const std::string& getName() const override;
-
   PlannerResponse solve(const PlannerRequest& request) const override;
 
   bool checkUserInput(const PlannerRequest& request);
@@ -40,10 +38,6 @@ public:
   MotionPlanner::Ptr clone() const override;
 
   virtual std::shared_ptr<DescartesProblem<FloatType>> createProblem(const PlannerRequest& request) const;
-
-private:
-  /** @brief The planners status codes */
-  std::string name_;
 };
 
 using DescartesLegacyMotionPlannerD = DescartesLegacyMotionPlanner<double>;
