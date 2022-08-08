@@ -37,8 +37,7 @@ add_library(
   src/simple/profile/simple_planner_lvs_no_ik_legacy_plan_profile.cpp
   src/simple/profile/simple_planner_fixed_size_assign_legacy_plan_profile.cpp
   src/simple/profile/simple_planner_fixed_size_legacy_plan_profile.cpp
-  src/simple/profile/simple_planner_utils.cpp
-)
+  src/simple/profile/simple_planner_utils.cpp)
 target_link_libraries(${PROJECT_NAME}_simple PUBLIC ${PROJECT_NAME}_core Boost::boost)
 target_compile_options(${PROJECT_NAME}_simple PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME}_simple PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})

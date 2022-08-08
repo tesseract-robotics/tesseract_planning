@@ -88,7 +88,17 @@ target_code_coverage(
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                   "$<INSTALL_INTERFACE:include>")
 
-configure_package(NAMESPACE tesseract TARGETS ${PROJECT_NAME})
+configure_package(
+  NAMESPACE tesseract
+  TARGETS ${PROJECT_NAME}
+          DEPENDENCIES
+          "Boost COMPONENTS serialization"
+          console_bridge
+          tesseract_common
+          tesseract_command_language
+          tesseract_motion_planners
+          tesseract_time_parameterization
+          trajopt)
 
 # Mark header files for installation
 install(
