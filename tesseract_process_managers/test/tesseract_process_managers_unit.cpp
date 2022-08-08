@@ -71,7 +71,7 @@ TEST_F(TesseractProcessManagerUnit, SeedMinLengthTaskGeneratorTest)  // NOLINT
 
   // Define the Process Input
   auto cur_state = env_->getState();
-  CompositeInstruction seed = generateSeed(program, cur_state, env_);
+  CompositeInstruction seed = generateInterpolatedProgram(program, cur_state, env_);
 
   InstructionPoly program_instruction = program;
   InstructionPoly seed_instruction = seed;

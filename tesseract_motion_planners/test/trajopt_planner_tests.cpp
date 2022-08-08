@@ -130,7 +130,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsJointJoint)  // N
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program =
+      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -204,7 +205,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointJoint)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program =
+      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -283,7 +285,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceJointCart)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program =
+      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -366,7 +369,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartJoint)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program =
+      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -449,7 +453,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptFreespaceCartCart)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program =
+      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -532,7 +537,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptPlannerBooleanFlagsCartCart)  // NOL
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program =
+      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -623,7 +629,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointConstraint)  // NOLINT
   }
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program =
+      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();
@@ -691,7 +698,8 @@ TEST_F(TesseractPlanningTrajoptUnit, TrajoptArrayJointCost)  // NOLINT
   }
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program =
+      generateInterpolatedProgram(program, cur_state, env_, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<TrajOptDefaultPlanProfile>();

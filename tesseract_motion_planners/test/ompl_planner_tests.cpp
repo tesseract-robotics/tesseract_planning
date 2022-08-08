@@ -176,7 +176,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f2);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
@@ -247,7 +247,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a new seed
-  interpolated_program = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
 
   // Update Configuration
   request.instructions = interpolated_program;
@@ -280,7 +280,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespacePlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a new seed
-  interpolated_program = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
 
   // Update Configuration
   request.instructions = interpolated_program;
@@ -339,7 +339,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianGoalPlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();
@@ -433,7 +433,7 @@ TYPED_TEST(OMPLTestFixture, OMPLFreespaceCartesianStartPlannerUnit)  // NOLINT
   program.appendMoveInstruction(plan_f1);
 
   // Create a seed
-  CompositeInstruction interpolated_program = generateSeed(program, cur_state, env, 3.14, 1.0, 3.14, 10);
+  CompositeInstruction interpolated_program = generateInterpolatedProgram(program, cur_state, env, 3.14, 1.0, 3.14, 10);
 
   // Create Profiles
   auto plan_profile = std::make_shared<OMPLDefaultPlanProfile>();

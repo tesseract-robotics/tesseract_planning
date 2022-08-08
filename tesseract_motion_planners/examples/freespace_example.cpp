@@ -114,7 +114,7 @@ int main(int /*argc*/, char** /*argv*/)
     auto trajopt_composite_profile = std::make_shared<TrajOptDefaultCompositeProfile>();
 
     // Create a seed
-    CompositeInstruction seed = generateSeed(program, cur_state, env);
+    CompositeInstruction seed = generateInterpolatedProgram(program, cur_state, env);
 
     // Profile Dictionary
     auto profiles = std::make_shared<ProfileDictionary>();
