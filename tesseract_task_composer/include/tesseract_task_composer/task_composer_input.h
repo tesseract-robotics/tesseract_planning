@@ -95,12 +95,8 @@ struct TaskComposerInput
   /** @brief The location where task info is stored during execution */
   TaskComposerNodeInfoContainer task_infos;
 
-  //  /**
-  //   * @brief This indicates if a seed was provided
-  //   * @details In the case of the raster process planner a skeleton seed is provided which make it
-  //   * computationally intensive to determine if a seed was provide so this was added.
-  //   */
-  //  const bool has_seed{ false };
+  /** @brief This indicates if a seed was provided */
+  bool has_seed{ false };
 
   /** @brief If true the task will save the inputs and outputs to the TaskInfo*/
   bool save_io{ false };

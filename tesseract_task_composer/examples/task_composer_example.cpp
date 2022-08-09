@@ -2,7 +2,7 @@
 #include <iostream>
 #include <tesseract_common/utils.h>
 #include <tesseract_task_composer/task_composer_graph.h>
-#include <taskflow/taskflow.hpp>
+#include <tesseract_task_composer/taskflow_utils.h>
 
 using namespace tesseract_planning;
 
@@ -57,40 +57,6 @@ protected:
   std::string right_key_;
   std::string output_key_;
 };
-
-std::unique_ptr<tf::Taskflow> convertToTaskflow(TaskComposerGraph& task_composer, TaskComposerInput::Ptr task_input)
-{
-  auto taskflow = std::make_unique<tf::Taskflow>(task_composer.getName());
-
-  // Generate process tasks for each node
-  std::vector<tf::Task> tasks;
-  const auto& nodes = task_composer.getNodes();
-  tasks.reserve(nodes.size());
-  for (const auto& node : nodes)
-  {
-    auto edges = node->getEdges();
-    if (edges.size() > 1 && node->getType() == TaskComposerNodeType::CONDITIONAL_TASK)
-      tasks.push_back(taskflow->emplace([node, task_input] { return node->run(*task_input); }).name(node->getName()));
-    else
-      tasks.push_back(taskflow->emplace([node, task_input] { node->run(*task_input); }).name(node->getName()));
-  }
-
-  for (std::size_t i = 0; i < nodes.size(); ++i)
-  {
-    // Ensure the current task precedes the tasks that it is connected to
-    const auto& node = nodes[i];
-    auto edges = node->getEdges();
-    for (int idx : edges)
-    {
-      if (idx >= 0)
-        tasks.at(i).precede(tasks.at(static_cast<std::size_t>(idx)));
-      else
-        throw std::runtime_error("Invalid TaskComposerPipeline: Node specified with invalid edge");
-    }
-  }
-
-  return taskflow;
-}
 
 int main()
 {

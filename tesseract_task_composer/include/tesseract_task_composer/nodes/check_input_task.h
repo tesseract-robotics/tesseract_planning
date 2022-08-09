@@ -47,6 +47,7 @@ public:
   using ConstUPtr = std::unique_ptr<const CheckInputTask>;
 
   CheckInputTask() = default;  // Required for serialization
+  CheckInputTask(std::string input_key, std::string name = profile_ns::CHECK_INPUT_DEFAULT_NAMESPACE);
   CheckInputTask(std::vector<std::string> input_keys, std::string name = profile_ns::CHECK_INPUT_DEFAULT_NAMESPACE);
   ~CheckInputTask() override = default;
   CheckInputTask(const CheckInputTask&) = delete;

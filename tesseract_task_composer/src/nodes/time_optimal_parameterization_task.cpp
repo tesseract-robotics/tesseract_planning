@@ -46,7 +46,9 @@ namespace tesseract_planning
 TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string input_key,
                                                                  std::string output_key,
                                                                  std::string name)
-  : TaskComposerNode(std::move(name)), input_key_(std::move(input_key)), output_key_(std::move(output_key))
+  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK)
+  , input_key_(std::move(input_key))
+  , output_key_(std::move(output_key))
 {
 }
 

@@ -48,20 +48,25 @@ add_library(
   src/task_composer_node.cpp
   src/task_composer_node_info.cpp
   src/task_composer_graph.cpp
+  src/nodes/cartesian_motion_pipeline_task.cpp
   src/nodes/check_input_task.cpp
   src/nodes/continuous_contact_check_task.cpp
+  src/nodes/descartes_motion_pipeline_task.cpp
   src/nodes/discrete_contact_check_task.cpp
   src/nodes/done_task.cpp
   src/nodes/error_task.cpp
   src/nodes/fix_state_bounds_task.cpp
   src/nodes/fix_state_collision_task.cpp
+  src/nodes/freespace_motion_pipeline_task.cpp
   src/nodes/has_seed_task.cpp
   src/nodes/iterative_spline_parameterization_task.cpp
   src/nodes/motion_planner_task.cpp
+  src/nodes/ompl_motion_pipeline_task.cpp
   src/nodes/profile_switch_task.cpp
   src/nodes/ruckig_trajectory_smoothing_task.cpp
   src/nodes/seed_min_length_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
+  src/nodes/trajopt_motion_pipeline_task.cpp
   src/nodes/transition_mux_task.cpp
   src/nodes/upsample_trajectory_task.cpp)
 target_link_libraries(
@@ -70,6 +75,10 @@ target_link_libraries(
          tesseract::tesseract_common
          tesseract::tesseract_command_language
          tesseract::tesseract_motion_planners_core
+         tesseract::tesseract_motion_planners_simple
+         tesseract::tesseract_motion_planners_trajopt
+         tesseract::tesseract_motion_planners_ompl
+         tesseract::tesseract_motion_planners_descartes
          tesseract::tesseract_time_parameterization
          trajopt::trajopt
          Boost::boost

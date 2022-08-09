@@ -39,7 +39,7 @@ MotionPlannerTask::MotionPlannerTask(MotionPlanner::Ptr planner,
                                      std::string input_key,
                                      std::string output_key,
                                      bool format_result_as_input)
-  : TaskComposerNode(planner->getName())
+  : TaskComposerNode(planner->getName(), TaskComposerNodeType::CONDITIONAL_TASK)
   , planner_(std::move(planner))
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
@@ -59,7 +59,6 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   //  saveInputs(*info, input);
 
   auto input_data_poly = input.data_storage->getData(input_key_);
-  auto result_data_poly = input.data_storage->getData(output_key_);
 
   // --------------------
   // Check that inputs are valid
@@ -74,19 +73,9 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
     return 0;
   }
 
-  if (result_data_poly.isNull() || result_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
-  {
-    info->message = "Input seed to MotionPlannerTask: " + name_ + " must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    //    saveOutputs(*info, input);
-    info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
-  }
-
   // Make a non-const copy of the input instructions to update the start/end
   CompositeInstruction& instructions = input_data_poly.as<CompositeInstruction>();
-  assert(!(input.manip_info.empty() && input.manip_info.empty()));
+  assert(!(input.manip_info.empty() && instructions.getManipulatorInfo().empty()));
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
 
   // It should always have a start instruction which required by the motion planners
@@ -96,7 +85,6 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   // Fill out request
   // --------------------
   PlannerRequest request;
-  request.seed = result_data_poly.as<CompositeInstruction>();
   request.env_state = input.env->getState();
   request.env = input.env;
   request.instructions = instructions;
@@ -118,7 +106,7 @@ int MotionPlannerTask::run(TaskComposerInput& input) const
   // --------------------
   if (response)
   {
-    input.data_storage->setData("output_key_", response.results);
+    input.data_storage->setData(output_key_, response.results);
 
     CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
     info->return_value = 1;

@@ -39,7 +39,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 ProfileSwitchTask::ProfileSwitchTask(std::string input_key, std::string name)
-  : TaskComposerNode(std::move(name)), input_key_(std::move(input_key))
+  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK), input_key_(std::move(input_key))
 {
 }
 

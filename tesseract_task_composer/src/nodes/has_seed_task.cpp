@@ -37,49 +37,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-HasSeedTask::HasSeedTask(std::string input_key, std::string name)
-  : TaskComposerNode(std::move(name)), input_key_(std::move(input_key))
+HasSeedTask::HasSeedTask(std::string name) : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK)
 {
 }
 
-bool isCompositeEmpty(const CompositeInstruction& composite)
-{
-  if (composite.empty())
-    return true;
-
-  for (const auto& i : composite)
-  {
-    if (i.isCompositeInstruction())
-    {
-      const auto& sub_composite = i.as<CompositeInstruction>();
-      if (isCompositeEmpty(sub_composite))
-        return true;
-    }
-  }
-
-  return false;
-}
-
-int HasSeedTask::run(TaskComposerInput& input) const
-{
-  auto seed_data_poly = input.data_storage->getData(input_key_);
-  if (seed_data_poly.isNull() || seed_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
-    return 0;
-
-  const auto& composite = seed_data_poly.as<CompositeInstruction>();
-  if (isCompositeEmpty(composite))
-  {
-    CONSOLE_BRIDGE_logDebug("Seed is empty!");
-    return 0;
-  }
-
-  return 1;
-}
+int HasSeedTask::run(TaskComposerInput& input) const { return (input.has_seed) ? 1 : 0; }
 
 bool HasSeedTask::operator==(const HasSeedTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
   equal &= TaskComposerNode::operator==(rhs);
   return equal;
 }
@@ -88,7 +54,6 @@ bool HasSeedTask::operator!=(const HasSeedTask& rhs) const { return !operator==(
 template <class Archive>
 void HasSeedTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
 }
 

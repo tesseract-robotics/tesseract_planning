@@ -79,7 +79,7 @@ int MotionPlannerTaskGenerator::conditionalProcess(TaskInput input, std::size_t 
 
   // Make a non-const copy of the input instructions to update the start/end
   CompositeInstruction instructions = input_instruction->as<CompositeInstruction>();
-  assert(!(input.manip_info.empty() && input.manip_info.empty()));
+  assert(!(input.manip_info.empty() && instructions.getManipulatorInfo().empty()));
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
 
   // If the start and end waypoints need to be updated prior to planning

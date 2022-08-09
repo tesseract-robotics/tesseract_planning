@@ -80,7 +80,8 @@ int ContinuousContactCheckTask::run(TaskComposerInput& input) const
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   // Get state solver
-  tesseract_kinematics::JointGroup::UPtr manip = input.env->getJointGroup(input.manip_info.manipulator);
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input.manip_info);
+  tesseract_kinematics::JointGroup::UPtr manip = input.env->getJointGroup(manip_info.manipulator);
   tesseract_scene_graph::StateSolver::UPtr state_solver = input.env->getStateSolver();
 
   tesseract_collision::ContinuousContactManager::Ptr manager = input.env->getContinuousContactManager();

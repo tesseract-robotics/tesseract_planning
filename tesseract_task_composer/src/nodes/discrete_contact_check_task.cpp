@@ -41,7 +41,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 DiscreteContactCheckTask::DiscreteContactCheckTask(std::string input_key, std::string name)
-  : TaskComposerNode(std::move(name)), input_key_(std::move(input_key))
+  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK), input_key_(std::move(input_key))
 {
 }
 
@@ -79,7 +79,8 @@ int DiscreteContactCheckTask::run(TaskComposerInput& input) const
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   // Get state solver
-  tesseract_kinematics::JointGroup::UPtr manip = input.env->getJointGroup(input.manip_info.manipulator);
+  tesseract_common::ManipulatorInfo manip_info = ci.getManipulatorInfo().getCombined(input.manip_info);
+  tesseract_kinematics::JointGroup::UPtr manip = input.env->getJointGroup(manip_info.manipulator);
   tesseract_scene_graph::StateSolver::UPtr state_solver = input.env->getStateSolver();
   tesseract_collision::DiscreteContactManager::Ptr manager = input.env->getDiscreteContactManager();
 

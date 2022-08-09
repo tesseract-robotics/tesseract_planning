@@ -45,8 +45,7 @@ public:
   using UPtr = std::unique_ptr<HasSeedTask>;
   using ConstUPtr = std::unique_ptr<const HasSeedTask>;
 
-  HasSeedTask() = default;  // Required for serialization
-  HasSeedTask(std::string input_key, std::string name = profile_ns::HAS_SEED_DEFAULT_NAMESPACE);
+  HasSeedTask(std::string name = profile_ns::HAS_SEED_DEFAULT_NAMESPACE);
   ~HasSeedTask() override = default;
   HasSeedTask(const HasSeedTask&) = delete;
   HasSeedTask& operator=(const HasSeedTask&) = delete;
@@ -63,8 +62,6 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
-  std::string input_key_;
 };
 
 class HasSeedTaskInfo : public TaskComposerNodeInfo

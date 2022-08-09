@@ -39,7 +39,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 CheckInputTask::CheckInputTask(std::vector<std::string> input_keys, std::string name)
-  : TaskComposerNode(std::move(name)), input_keys_(std::move(input_keys))
+  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK), input_keys_(std::move(input_keys))
+{
+}
+
+CheckInputTask::CheckInputTask(std::string input_key, std::string name)
+  : CheckInputTask(std::vector<std::string>({ input_key }), name)
 {
 }
 

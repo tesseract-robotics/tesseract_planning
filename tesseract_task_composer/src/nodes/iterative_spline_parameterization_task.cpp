@@ -45,7 +45,7 @@ IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::st
                                                                          std::string output_key,
                                                                          bool add_points,
                                                                          std::string name)
-  : TaskComposerNode(std::move(name))
+  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK)
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
   , solver_(add_points)
