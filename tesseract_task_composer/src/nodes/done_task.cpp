@@ -34,7 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-DoneTask::DoneTask() : TaskComposerNode("DoneTask") {}
+DoneTask::DoneTask(bool is_conditional, std::string name) : TaskComposerTask(is_conditional, std::move(name)) {}
 
 int DoneTask::run(TaskComposerInput& input) const
 {
@@ -54,7 +54,7 @@ int DoneTask::run(TaskComposerInput& input) const
 bool DoneTask::operator==(const DoneTask& rhs) const
 {
   bool equal = true;
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool DoneTask::operator!=(const DoneTask& rhs) const { return !operator==(rhs); }
@@ -62,7 +62,7 @@ bool DoneTask::operator!=(const DoneTask& rhs) const { return !operator==(rhs); 
 template <class Archive>
 void DoneTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 DoneTaskInfo::DoneTaskInfo(boost::uuids::uuid uuid, std::string name) : TaskComposerNodeInfo(uuid, std::move(name)) {}

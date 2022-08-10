@@ -43,9 +43,10 @@ namespace tesseract_planning
 {
 IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::string input_key,
                                                                          std::string output_key,
+                                                                         bool is_conditional,
                                                                          bool add_points,
                                                                          std::string name)
-  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK)
+  : TaskComposerTask(is_conditional, std::move(name))
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
   , solver_(add_points)
@@ -154,7 +155,7 @@ bool IterativeSplineParameterizationTask::operator==(const IterativeSplineParame
   bool equal = true;
   equal &= (input_key_ == rhs.input_key_);
   equal &= (output_key_ == rhs.output_key_);
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool IterativeSplineParameterizationTask::operator!=(const IterativeSplineParameterizationTask& rhs) const
@@ -167,7 +168,7 @@ void IterativeSplineParameterizationTask::serialize(Archive& ar, const unsigned 
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 IterativeSplineParameterizationTaskInfo::IterativeSplineParameterizationTaskInfo(boost::uuids::uuid uuid,

@@ -31,13 +31,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/task_composer_node.h>
+#include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 
 namespace tesseract_planning
 {
-class HasSeedTask : public TaskComposerNode
+class HasSeedTask : public TaskComposerTask
 {
 public:
   using Ptr = std::shared_ptr<HasSeedTask>;
@@ -45,7 +45,7 @@ public:
   using UPtr = std::unique_ptr<HasSeedTask>;
   using ConstUPtr = std::unique_ptr<const HasSeedTask>;
 
-  HasSeedTask(std::string name = profile_ns::HAS_SEED_DEFAULT_NAMESPACE);
+  HasSeedTask(bool is_conditional = true, std::string name = profile_ns::HAS_SEED_DEFAULT_NAMESPACE);
   ~HasSeedTask() override = default;
   HasSeedTask(const HasSeedTask&) = delete;
   HasSeedTask& operator=(const HasSeedTask&) = delete;

@@ -38,8 +38,9 @@ namespace tesseract_planning
 MotionPlannerTask::MotionPlannerTask(MotionPlanner::Ptr planner,
                                      std::string input_key,
                                      std::string output_key,
-                                     bool format_result_as_input)
-  : TaskComposerNode(planner->getName(), TaskComposerNodeType::CONDITIONAL_TASK)
+                                     bool format_result_as_input,
+                                     bool is_conditional)
+  : TaskComposerTask(is_conditional, planner->getName())
   , planner_(std::move(planner))
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
@@ -134,7 +135,7 @@ bool MotionPlannerTask::operator==(const MotionPlannerTask& rhs) const
   equal &= (input_key_ == rhs.input_key_);
   equal &= (output_key_ == rhs.output_key_);
   equal &= (format_result_as_input_ == rhs.format_result_as_input_);
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool MotionPlannerTask::operator!=(const MotionPlannerTask& rhs) const { return !operator==(rhs); }
@@ -145,7 +146,7 @@ void MotionPlannerTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_NVP(format_result_as_input_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 MotionPlannerTaskInfo::MotionPlannerTaskInfo(boost::uuids::uuid uuid, std::string name)

@@ -29,7 +29,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/task_composer_node.h>
+#include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 
@@ -39,7 +39,7 @@ namespace tesseract_planning
  * @brief This task simply returns a value specified in the composite profile. This can be used to switch execution
  * based on the profile
  */
-class ProfileSwitchTask : public TaskComposerNode
+class ProfileSwitchTask : public TaskComposerTask
 {
 public:
   using Ptr = std::shared_ptr<ProfileSwitchTask>;
@@ -48,7 +48,9 @@ public:
   using ConstUPtr = std::unique_ptr<const ProfileSwitchTask>;
 
   ProfileSwitchTask() = default;  // Required for serialization
-  ProfileSwitchTask(std::string input_key, std::string name = profile_ns::PROFILE_SWITCH_DEFAULT_NAMESPACE);
+  ProfileSwitchTask(std::string input_key,
+                    bool is_conditional = true,
+                    std::string name = profile_ns::PROFILE_SWITCH_DEFAULT_NAMESPACE);
   ~ProfileSwitchTask() override = default;
   ProfileSwitchTask(const ProfileSwitchTask&) = delete;
   ProfileSwitchTask& operator=(const ProfileSwitchTask&) = delete;

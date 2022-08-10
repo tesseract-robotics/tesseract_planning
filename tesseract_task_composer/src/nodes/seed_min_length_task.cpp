@@ -41,8 +41,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-SeedMinLengthTask::SeedMinLengthTask(std::string input_key, std::string output_key, std::string name)
-  : TaskComposerNode(std::move(name)), input_key_(std::move(input_key)), output_key_(std::move(output_key))
+SeedMinLengthTask::SeedMinLengthTask(std::string input_key,
+                                     std::string output_key,
+                                     bool is_conditional,
+                                     std::string name)
+  : TaskComposerTask(is_conditional, std::move(name))
+  , input_key_(std::move(input_key))
+  , output_key_(std::move(output_key))
 {
 }
 
@@ -160,7 +165,7 @@ bool SeedMinLengthTask::operator==(const SeedMinLengthTask& rhs) const
   bool equal = true;
   equal &= (input_key_ == rhs.input_key_);
   equal &= (output_key_ == rhs.output_key_);
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool SeedMinLengthTask::operator!=(const SeedMinLengthTask& rhs) const { return !operator==(rhs); }
@@ -170,7 +175,7 @@ void SeedMinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 SeedMinLengthTaskInfo::SeedMinLengthTaskInfo(boost::uuids::uuid uuid, std::string name)

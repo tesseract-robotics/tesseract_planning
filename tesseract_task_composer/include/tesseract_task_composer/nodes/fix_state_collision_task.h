@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/task_composer_node.h>
+#include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 #include <tesseract_task_composer/profiles/fix_state_collision_profile.h>
@@ -44,7 +44,7 @@ namespace tesseract_planning
  *
  * First it uses TrajOpt to correct the waypoint. If that fails, it reverts to random sampling
  */
-class FixStateCollisionTask : public TaskComposerNode
+class FixStateCollisionTask : public TaskComposerTask
 {
 public:
   using Ptr = std::shared_ptr<FixStateCollisionTask>;
@@ -55,6 +55,7 @@ public:
   FixStateCollisionTask() = default;  // Required for serialization
   FixStateCollisionTask(std::string input_key,
                         std::string output_key,
+                        bool is_conditional = true,
                         std::string name = profile_ns::FIX_STATE_COLLISION_DEFAULT_NAMESPACE);
 
   ~FixStateCollisionTask() override = default;

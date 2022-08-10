@@ -31,14 +31,14 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/task_composer_node.h>
+#include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 #include <tesseract_time_parameterization/iterative_spline_parameterization.h>
 
 namespace tesseract_planning
 {
-class IterativeSplineParameterizationTask : public TaskComposerNode
+class IterativeSplineParameterizationTask : public TaskComposerTask
 {
 public:
   using Ptr = std::shared_ptr<IterativeSplineParameterizationTask>;
@@ -50,6 +50,7 @@ public:
   IterativeSplineParameterizationTask(
       std::string input_key,
       std::string output_key,
+      bool is_conditional = true,
       bool add_points = true,
       std::string name = profile_ns::ITERATIVE_SPLINE_PARAMETERIZATION_DEFAULT_NAMESPACE);
 

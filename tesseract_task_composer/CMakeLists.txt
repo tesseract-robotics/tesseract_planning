@@ -48,6 +48,7 @@ add_library(
   src/task_composer_node.cpp
   src/task_composer_node_info.cpp
   src/task_composer_graph.cpp
+  src/task_composer_task.cpp
   src/nodes/cartesian_motion_pipeline_task.cpp
   src/nodes/check_input_task.cpp
   src/nodes/continuous_contact_check_task.cpp

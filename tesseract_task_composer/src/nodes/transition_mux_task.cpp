@@ -38,8 +38,10 @@ namespace tesseract_planning
 TransitionMuxTask::TransitionMuxTask(std::string input_key,
                                      std::string input_prev_key,
                                      std::string input_next_key,
-                                     std::string output_key)
-  : TaskComposerNode("TransitionMuxTask")
+                                     std::string output_key,
+                                     bool is_conditional,
+                                     std::string name)
+  : TaskComposerTask(is_conditional, std::move(name))
   , input_key_(std::move(input_key))
   , input_prev_key_(std::move(input_prev_key))
   , input_next_key_(std::move(input_next_key))
@@ -133,7 +135,7 @@ bool TransitionMuxTask::operator==(const TransitionMuxTask& rhs) const
   equal &= (input_prev_key_ == rhs.input_prev_key_);
   equal &= (input_next_key_ == rhs.input_next_key_);
   equal &= (output_key_ == rhs.output_key_);
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool TransitionMuxTask::operator!=(const TransitionMuxTask& rhs) const { return !operator==(rhs); }
@@ -145,7 +147,7 @@ void TransitionMuxTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_NVP(input_prev_key_);
   ar& BOOST_SERIALIZATION_NVP(input_next_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 TransitionMuxTaskInfo::TransitionMuxTaskInfo(boost::uuids::uuid uuid, std::string name)

@@ -51,7 +51,7 @@ void TaskComposerGraph::addEdges(int source, std::vector<int> destinations)
   node->edges_.insert(node->edges_.end(), destinations.begin(), destinations.end());
 }
 
-std::vector<TaskComposerNode::ConstPtr> TaskComposerGraph::getNodes()
+std::vector<TaskComposerNode::ConstPtr> TaskComposerGraph::getNodes() const
 {
   return std::vector<TaskComposerNode::ConstPtr>{ nodes_.begin(), nodes_.end() };
 }

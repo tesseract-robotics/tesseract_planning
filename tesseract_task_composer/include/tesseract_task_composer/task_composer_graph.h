@@ -76,7 +76,7 @@ public:
   void addEdges(int source, std::vector<int> destinations);
 
   /** @brief Get the nodes associated with the pipeline */
-  std::vector<TaskComposerNode::ConstPtr> getNodes();
+  std::vector<TaskComposerNode::ConstPtr> getNodes() const;
 
   int run(TaskComposerInput& input) const override;
 

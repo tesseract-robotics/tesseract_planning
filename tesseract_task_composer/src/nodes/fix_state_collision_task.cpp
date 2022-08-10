@@ -299,8 +299,11 @@ bool applyCorrectionWorkflow(WaypointPoly& waypoint,
   return false;
 }
 
-FixStateCollisionTask::FixStateCollisionTask(std::string input_key, std::string output_key, std::string name)
-  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK)
+FixStateCollisionTask::FixStateCollisionTask(std::string input_key,
+                                             std::string output_key,
+                                             bool is_conditional,
+                                             std::string name)
+  : TaskComposerTask(is_conditional, std::move(name))
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
 {
@@ -597,7 +600,7 @@ bool FixStateCollisionTask::operator==(const FixStateCollisionTask& rhs) const
   bool equal = true;
   equal &= (input_key_ == rhs.input_key_);
   equal &= (output_key_ == rhs.output_key_);
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool FixStateCollisionTask::operator!=(const FixStateCollisionTask& rhs) const { return !operator==(rhs); }
@@ -607,7 +610,7 @@ void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 FixStateCollisionTaskInfo::FixStateCollisionTaskInfo(boost::uuids::uuid uuid, std::string name)

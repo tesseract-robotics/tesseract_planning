@@ -29,7 +29,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
-//#include <tesseract_process_managers/core/utils.h>
 #include <tesseract_task_composer/nodes/profile_switch_task.h>
 #include <tesseract_task_composer/profiles/profile_switch_profile.h>
 #include <tesseract_command_language/constants.h>
@@ -38,8 +37,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-ProfileSwitchTask::ProfileSwitchTask(std::string input_key, std::string name)
-  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK), input_key_(std::move(input_key))
+ProfileSwitchTask::ProfileSwitchTask(std::string input_key, bool is_conditional, std::string name)
+  : TaskComposerTask(is_conditional, std::move(name)), input_key_(std::move(input_key))
 {
 }
 
@@ -88,7 +87,7 @@ bool ProfileSwitchTask::operator==(const ProfileSwitchTask& rhs) const
 {
   bool equal = true;
   equal &= (input_key_ == rhs.input_key_);
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool ProfileSwitchTask::operator!=(const ProfileSwitchTask& rhs) const { return !operator==(rhs); }
@@ -97,7 +96,7 @@ template <class Archive>
 void ProfileSwitchTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 ProfileSwitchTaskInfo::ProfileSwitchTaskInfo(boost::uuids::uuid uuid, std::string name)

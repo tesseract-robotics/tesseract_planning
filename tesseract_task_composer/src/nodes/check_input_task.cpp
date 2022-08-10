@@ -38,13 +38,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-CheckInputTask::CheckInputTask(std::vector<std::string> input_keys, std::string name)
-  : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK), input_keys_(std::move(input_keys))
+CheckInputTask::CheckInputTask(std::vector<std::string> input_keys, bool is_conditional, std::string name)
+  : TaskComposerTask(is_conditional, std::move(name)), input_keys_(std::move(input_keys))
 {
 }
 
-CheckInputTask::CheckInputTask(std::string input_key, std::string name)
-  : CheckInputTask(std::vector<std::string>({ input_key }), name)
+CheckInputTask::CheckInputTask(std::string input_key, bool is_conditional, std::string name)
+  : CheckInputTask(std::vector<std::string>({ input_key }), is_conditional, name)
 {
 }
 
@@ -77,7 +77,7 @@ bool CheckInputTask::operator==(const CheckInputTask& rhs) const
 {
   bool equal = true;
   equal &= (input_keys_ == rhs.input_keys_);
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool CheckInputTask::operator!=(const CheckInputTask& rhs) const { return !operator==(rhs); }
@@ -86,7 +86,7 @@ template <class Archive>
 void CheckInputTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(input_keys_);
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 CheckInputTaskInfo::CheckInputTaskInfo(boost::uuids::uuid uuid, std::string name)

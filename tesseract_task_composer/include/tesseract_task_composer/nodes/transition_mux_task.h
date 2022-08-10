@@ -30,12 +30,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/task_composer_node.h>
+#include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
-class TransitionMuxTask : public TaskComposerNode
+class TransitionMuxTask : public TaskComposerTask
 {
 public:
   using Ptr = std::shared_ptr<TransitionMuxTask>;
@@ -47,7 +47,9 @@ public:
   TransitionMuxTask(std::string input_key,
                     std::string input_prev_key,
                     std::string input_next_key,
-                    std::string output_key);
+                    std::string output_key,
+                    bool is_conditional = false,
+                    std::string name = "TransitionMuxTask");
   ~TransitionMuxTask() = default;
 
   int run(TaskComposerInput& input) const override;

@@ -31,7 +31,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <boost/serialization/access.hpp>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/task_composer_node.h>
+#include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 
@@ -41,7 +41,7 @@ namespace tesseract_planning
  * @brief This task modifies the const input instructions in order to push waypoints that are outside of their
  * limits back within them.
  */
-class FixStateBoundsTask : public TaskComposerNode
+class FixStateBoundsTask : public TaskComposerTask
 {
 public:
   using Ptr = std::shared_ptr<FixStateBoundsTask>;
@@ -52,6 +52,7 @@ public:
   FixStateBoundsTask() = default;  // Required for serialization
   FixStateBoundsTask(std::string input_key,
                      std::string output_key,
+                     bool is_conditional = true,
                      std::string name = profile_ns::FIX_STATE_BOUNDS_DEFAULT_NAMESPACE);
   ~FixStateBoundsTask() override = default;
   FixStateBoundsTask(const FixStateBoundsTask&) = delete;

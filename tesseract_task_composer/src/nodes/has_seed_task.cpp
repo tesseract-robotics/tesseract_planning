@@ -33,20 +33,17 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/nodes/has_seed_task.h>
 #include <tesseract_command_language/composite_instruction.h>
-//#include <tesseract_process_managers/core/utils.h>
 
 namespace tesseract_planning
 {
-HasSeedTask::HasSeedTask(std::string name) : TaskComposerNode(std::move(name), TaskComposerNodeType::CONDITIONAL_TASK)
-{
-}
+HasSeedTask::HasSeedTask(bool is_conditional, std::string name) : TaskComposerTask(is_conditional, std::move(name)) {}
 
 int HasSeedTask::run(TaskComposerInput& input) const { return (input.has_seed) ? 1 : 0; }
 
 bool HasSeedTask::operator==(const HasSeedTask& rhs) const
 {
   bool equal = true;
-  equal &= TaskComposerNode::operator==(rhs);
+  equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
 bool HasSeedTask::operator!=(const HasSeedTask& rhs) const { return !operator==(rhs); }
@@ -54,7 +51,7 @@ bool HasSeedTask::operator!=(const HasSeedTask& rhs) const { return !operator==(
 template <class Archive>
 void HasSeedTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNode);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
 HasSeedTaskInfo::HasSeedTaskInfo(boost::uuids::uuid uuid, std::string name)
