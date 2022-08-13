@@ -1,5 +1,5 @@
 /**
- * @file transition_mux_task.h
+ * @file update_start_state_task.h
  *
  * @author Levi Armstrong
  * @date August 5, 2022
@@ -30,44 +30,40 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
-#include <tesseract_task_composer/nodes/transition_mux_task.h>
+#include <tesseract_task_composer/nodes/update_start_state_task.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
 {
-TransitionMuxTask::TransitionMuxTask(std::string input_prev_key,
-                                     std::string input_next_key,
-                                     std::string output_key,
-                                     bool is_conditional,
-                                     std::string name)
+UpdateStartStateTask::UpdateStartStateTask(std::string input_prev_key,
+                                           std::string output_key,
+                                           bool is_conditional,
+                                           std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
   , input_key_(uuid_str_)
   , input_prev_key_(std::move(input_prev_key))
-  , input_next_key_(std::move(input_next_key))
   , output_key_(std::move(output_key))
 {
 }
 
-TransitionMuxTask::TransitionMuxTask(std::string input_key,
-                                     std::string input_prev_key,
-                                     std::string input_next_key,
-                                     std::string output_key,
-                                     bool is_conditional,
-                                     std::string name)
+UpdateStartStateTask::UpdateStartStateTask(std::string input_key,
+                                           std::string input_prev_key,
+                                           std::string output_key,
+                                           bool is_conditional,
+                                           std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
   , input_key_(std::move(input_key))
   , input_prev_key_(std::move(input_prev_key))
-  , input_next_key_(std::move(input_next_key))
   , output_key_(std::move(output_key))
 {
 }
 
-int TransitionMuxTask::run(TaskComposerInput& input) const
+int UpdateStartStateTask::run(TaskComposerInput& input) const
 {
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_unique<TransitionMuxTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<UpdateStartStateTaskInfo>(uuid_, name_);
   info->return_value = 0;
   tesseract_common::Timer timer;
   timer.start();
@@ -75,14 +71,13 @@ int TransitionMuxTask::run(TaskComposerInput& input) const
 
   auto input_data_poly = input.data_storage->getData(input_key_);
   auto input_prev_data_poly = input.data_storage->getData(input_prev_key_);
-  auto input_next_data_poly = input.data_storage->getData(input_next_key_);
 
   // --------------------
   // Check that inputs are valid
   // --------------------
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "TransitionMuxTask: Input data for key '" + input_key_ + "' must be a composite instruction";
+    info->message = "UpdateStartStateTask: Input data for key '" + input_key_ + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -92,17 +87,8 @@ int TransitionMuxTask::run(TaskComposerInput& input) const
 
   if (input_prev_data_poly.isNull() || input_prev_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "TransitionMuxTask: Input data for key '" + input_prev_key_ + "' must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    //    saveOutputs(*info, input);
-    info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
-  }
-
-  if (input_next_data_poly.isNull() || input_next_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
-  {
-    info->message = "TransitionMuxTask: Input data for key '" + input_next_key_ + "' must be a composite instruction";
+    info->message =
+        "UpdateStartStateTask: Input data for key '" + input_prev_key_ + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -113,83 +99,68 @@ int TransitionMuxTask::run(TaskComposerInput& input) const
   // Make a non-const copy of the input instructions to update the start/end
   CompositeInstruction& instructions = input_data_poly.as<CompositeInstruction>();
   const auto* prev_last_move = input_prev_data_poly.as<CompositeInstruction>().getLastMoveInstruction();
-  const auto* next_start_move = input_next_data_poly.as<CompositeInstruction>().getFirstMoveInstruction();
 
   // Update start instruction
   instructions.setStartInstruction(*prev_last_move);
   instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
 
-  // Update end instruction
-  if (next_start_move->getWaypoint().isCartesianWaypoint())
-    instructions.getLastMoveInstruction()->assignCartesianWaypoint(
-        next_start_move->getWaypoint().as<CartesianWaypointPoly>());
-  else if (next_start_move->getWaypoint().isJointWaypoint())
-    instructions.getLastMoveInstruction()->assignJointWaypoint(next_start_move->getWaypoint().as<JointWaypointPoly>());
-  else if (next_start_move->getWaypoint().isStateWaypoint())
-    instructions.getLastMoveInstruction()->assignStateWaypoint(next_start_move->getWaypoint().as<StateWaypointPoly>());
-  else
-    throw std::runtime_error("Invalid waypoint type");
-
   // Store results
   input.data_storage->setData(output_key_, input_data_poly);
-  CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
   info->return_value = 1;
-  info->message = "TransitionMuxTask: Successful";
+  info->message = "UpdateStartStateTask: Successful";
   //    saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
   input.addTaskInfo(std::move(info));
   return 1;
 }
 
-bool TransitionMuxTask::operator==(const TransitionMuxTask& rhs) const
+bool UpdateStartStateTask::operator==(const UpdateStartStateTask& rhs) const
 {
   bool equal = true;
   equal &= (input_key_ == rhs.input_key_);
   equal &= (input_prev_key_ == rhs.input_prev_key_);
-  equal &= (input_next_key_ == rhs.input_next_key_);
   equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
-bool TransitionMuxTask::operator!=(const TransitionMuxTask& rhs) const { return !operator==(rhs); }
+bool UpdateStartStateTask::operator!=(const UpdateStartStateTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void TransitionMuxTask::serialize(Archive& ar, const unsigned int /*version*/)
+void UpdateStartStateTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(input_prev_key_);
-  ar& BOOST_SERIALIZATION_NVP(input_next_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TransitionMuxTaskInfo::TransitionMuxTaskInfo(boost::uuids::uuid uuid, std::string name)
+UpdateStartStateTaskInfo::UpdateStartStateTaskInfo(boost::uuids::uuid uuid, std::string name)
   : TaskComposerNodeInfo(uuid, std::move(name))
 {
 }
 
-TaskComposerNodeInfo::UPtr TransitionMuxTaskInfo::clone() const
+TaskComposerNodeInfo::UPtr UpdateStartStateTaskInfo::clone() const
 {
-  return std::make_unique<TransitionMuxTaskInfo>(*this);
+  return std::make_unique<UpdateStartStateTaskInfo>(*this);
 }
 
-bool TransitionMuxTaskInfo::operator==(const TransitionMuxTaskInfo& rhs) const
+bool UpdateStartStateTaskInfo::operator==(const UpdateStartStateTaskInfo& rhs) const
 {
   bool equal = true;
   equal &= TaskComposerNodeInfo::operator==(rhs);
   return equal;
 }
-bool TransitionMuxTaskInfo::operator!=(const TransitionMuxTaskInfo& rhs) const { return !operator==(rhs); }
+bool UpdateStartStateTaskInfo::operator!=(const UpdateStartStateTaskInfo& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void TransitionMuxTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+void UpdateStartStateTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
 }
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TransitionMuxTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TransitionMuxTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TransitionMuxTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TransitionMuxTaskInfo)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpdateStartStateTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpdateStartStateTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpdateStartStateTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpdateStartStateTaskInfo)

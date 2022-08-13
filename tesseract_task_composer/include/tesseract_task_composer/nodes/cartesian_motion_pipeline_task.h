@@ -38,7 +38,12 @@ public:
   using UPtr = std::unique_ptr<CartesianMotionPipelineTask>;
   using ConstUPtr = std::unique_ptr<const CartesianMotionPipelineTask>;
 
-  CartesianMotionPipelineTask() = default;  // Required for serialization
+  /**
+   * @brief CartesianMotionPipelineTask
+   * @details This will use the uuid as the input and output key
+   * @param name The name give to the task
+   */
+  CartesianMotionPipelineTask(std::string name = "CartesianMotionPipelineTask");
   CartesianMotionPipelineTask(std::string input_key,
                               std::string output_key,
                               std::string name = "CartesianMotionPipelineTask");

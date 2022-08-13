@@ -38,7 +38,12 @@ public:
   using UPtr = std::unique_ptr<FreespaceMotionPipelineTask>;
   using ConstUPtr = std::unique_ptr<const FreespaceMotionPipelineTask>;
 
-  FreespaceMotionPipelineTask() = default;  // Required for serialization
+  /**
+   * @brief FreespaceMotionPipelineTask
+   * @details This will use the uuid as the input and output key
+   * @param name The name give to the task
+   */
+  FreespaceMotionPipelineTask(std::string name = "FreespaceMotionPipelineTask");
   FreespaceMotionPipelineTask(std::string input_key,
                               std::string output_key,
                               std::string name = "FreespaceMotionPipelineTask");

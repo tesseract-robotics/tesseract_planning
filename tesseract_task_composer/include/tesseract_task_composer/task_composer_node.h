@@ -71,6 +71,9 @@ public:
   /** @brief The task uuid */
   const boost::uuids::uuid& getUUID() const;
 
+  /** @brief The task uuid */
+  const std::string& getUUIDString() const;
+
   /** @brief IDs of nodes (i.e. node) that should run after this node */
   const std::vector<boost::uuids::uuid>& getEdges() const;
 
@@ -95,6 +98,9 @@ protected:
 
   /** @brief The task uuid */
   boost::uuids::uuid uuid_;
+
+  /** @brief The uuid as string */
+  std::string uuid_str_;
 
   /** @brief IDs of nodes (i.e. tasks) that should run after this node */
   std::vector<boost::uuids::uuid> edges_;

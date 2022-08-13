@@ -71,6 +71,8 @@ add_library(
   src/nodes/time_optimal_parameterization_task.cpp
   src/nodes/trajopt_motion_pipeline_task.cpp
   src/nodes/transition_mux_task.cpp
+  src/nodes/update_end_state_task.cpp
+  src/nodes/update_start_state_task.cpp
   src/nodes/upsample_trajectory_task.cpp)
 target_link_libraries(
   ${PROJECT_NAME}

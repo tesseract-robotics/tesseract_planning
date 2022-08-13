@@ -38,7 +38,12 @@ public:
   using UPtr = std::unique_ptr<OMPLMotionPipelineTask>;
   using ConstUPtr = std::unique_ptr<const OMPLMotionPipelineTask>;
 
-  OMPLMotionPipelineTask() = default;  // Required for serialization
+  /**
+   * @brief OMPLMotionPipelineTask
+   * @details This will use the uuid as the input and output key
+   * @param name The name give to the task
+   */
+  OMPLMotionPipelineTask(std::string name = "OMPLMotionPipelineTask");
   OMPLMotionPipelineTask(std::string input_key, std::string output_key, std::string name = "OMPLMotionPipelineTask");
   OMPLMotionPipelineTask(std::string input_key,
                          std::string output_key,

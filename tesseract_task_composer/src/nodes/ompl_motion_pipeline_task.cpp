@@ -48,6 +48,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string name)
+  : TaskComposerGraph(name), input_key_(uuid_str_), output_key_(uuid_str_)
+{
+  ctor();
+}
+
 OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string input_key, std::string output_key, std::string name)
   : TaskComposerGraph(name), input_key_(std::move(input_key)), output_key_(std::move(output_key))
 {

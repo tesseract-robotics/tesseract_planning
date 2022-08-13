@@ -14,7 +14,7 @@ namespace tesseract_planning
 {
 inline void convertToTaskflowRecursive(tf::Taskflow& taskflow,
                                        const TaskComposerGraph& task_composer,
-                                       TaskComposerInput::Ptr task_input)
+                                       TaskComposerInput& task_input)
 {
   // Generate process tasks for each node
   std::map<boost::uuids::uuid, tf::Task> tasks;
@@ -27,11 +27,11 @@ inline void convertToTaskflowRecursive(tf::Taskflow& taskflow,
     {
       const auto& task = static_cast<const TaskComposerTask&>(*pair.second);
       if (edges.size() > 1 && task.isConditional())
-        tasks[pair.first] = taskflow.emplace([node = pair.second, task_input] { return node->run(*task_input); })
+        tasks[pair.first] = taskflow.emplace([node = pair.second, &task_input] { return node->run(task_input); })
                                 .name(pair.second->getName());
       else
         tasks[pair.first] =
-            taskflow.emplace([node = pair.second, task_input] { node->run(*task_input); }).name(pair.second->getName());
+            taskflow.emplace([node = pair.second, &task_input] { node->run(task_input); }).name(pair.second->getName());
     }
     else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
     {
@@ -54,7 +54,7 @@ inline void convertToTaskflowRecursive(tf::Taskflow& taskflow,
 }
 
 inline std::unique_ptr<tf::Taskflow> convertToTaskflow(const TaskComposerGraph& task_composer,
-                                                       TaskComposerInput::Ptr task_input)
+                                                       TaskComposerInput& task_input)
 {
   auto taskflow = std::make_unique<tf::Taskflow>(task_composer.getName());
   convertToTaskflowRecursive(*taskflow, task_composer, task_input);

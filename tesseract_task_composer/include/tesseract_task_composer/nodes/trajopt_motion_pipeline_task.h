@@ -38,7 +38,12 @@ public:
   using UPtr = std::unique_ptr<TrajOptMotionPipelineTask>;
   using ConstUPtr = std::unique_ptr<const TrajOptMotionPipelineTask>;
 
-  TrajOptMotionPipelineTask() = default;  // Required for serialization
+  /**
+   * @brief TrajOptMotionPipelineTask
+   * @details This will use the uuid as the input and output key
+   * @param name The name give to the task
+   */
+  TrajOptMotionPipelineTask(std::string name = "TrajOptMotionPipelineTask");
   TrajOptMotionPipelineTask(std::string input_key,
                             std::string output_key,
                             std::string name = "TrajOptMotionPipelineTask");

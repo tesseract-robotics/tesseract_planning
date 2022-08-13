@@ -48,6 +48,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string name)
+  : TaskComposerGraph(name), input_key_(uuid_str_), output_key_(uuid_str_)
+{
+  ctor();
+}
+
 DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string input_key,
                                                          std::string output_key,
                                                          std::string name)

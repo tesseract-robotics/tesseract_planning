@@ -38,7 +38,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 namespace tesseract_planning
 {
 TaskComposerNode::TaskComposerNode(std::string name, TaskComposerNodeType type)
-  : name_(std::move(name)), type_(type), uuid_(boost::uuids::random_generator()())
+  : name_(std::move(name))
+  , type_(type)
+  , uuid_(boost::uuids::random_generator()())
+  , uuid_str_(boost::uuids::to_string(uuid_))
 {
 }
 
@@ -48,6 +51,8 @@ TaskComposerNodeType TaskComposerNode::getType() const { return type_; }
 
 const boost::uuids::uuid& TaskComposerNode::getUUID() const { return uuid_; }
 
+const std::string& TaskComposerNode::getUUIDString() const { return uuid_str_; }
+
 const std::vector<boost::uuids::uuid>& TaskComposerNode::getEdges() const { return edges_; }
 
 bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
@@ -56,6 +61,7 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
   equal &= name_ == rhs.name_;
   equal &= type_ == rhs.type_;
   equal &= uuid_ == rhs.uuid_;
+  equal &= uuid_str_ == rhs.uuid_str_;
   equal &= edges_ == rhs.edges_;
   return equal;
 }
@@ -67,6 +73,7 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("name", name_);
   ar& boost::serialization::make_nvp("type", type_);
   ar& boost::serialization::make_nvp("uuid", uuid_);
+  ar& boost::serialization::make_nvp("uuid_str", uuid_str_);
   ar& boost::serialization::make_nvp("edges", edges_);
 }
 }  // namespace tesseract_planning

@@ -57,7 +57,7 @@ int main()
   TaskComposerGraph::UPtr task_composer =
       std::make_unique<TrajOptMotionPipelineTask>("input_program", "output_program");
 
-  std::unique_ptr<tf::Taskflow> taskflow = convertToTaskflow(*task_composer, task_input);
+  std::unique_ptr<tf::Taskflow> taskflow = convertToTaskflow(*task_composer, *task_input);
 
   std::ofstream out_data;
   out_data.open(tesseract_common::getTempPath() + "task_composer_trajopt_graph_example.dot");

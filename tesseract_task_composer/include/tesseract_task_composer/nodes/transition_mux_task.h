@@ -43,14 +43,21 @@ public:
   using UPtr = std::unique_ptr<TransitionMuxTask>;
   using ConstUPtr = std::unique_ptr<const TransitionMuxTask>;
 
-  TransitionMuxTask() = default;  // Required for serialization
+  TransitionMuxTask() = default;
+  /** @brief The input_key is the uuid string */
+  TransitionMuxTask(std::string input_prev_key,
+                    std::string input_next_key,
+                    std::string output_key,
+                    bool is_conditional = false,
+                    std::string name = "TransitionMuxTask");
+
   TransitionMuxTask(std::string input_key,
                     std::string input_prev_key,
                     std::string input_next_key,
                     std::string output_key,
                     bool is_conditional = false,
                     std::string name = "TransitionMuxTask");
-  ~TransitionMuxTask() = default;
+  ~TransitionMuxTask() override = default;
 
   int run(TaskComposerInput& input) const override;
 
