@@ -17,43 +17,39 @@ inline void convertToTaskflowRecursive(tf::Taskflow& taskflow,
                                        TaskComposerInput::Ptr task_input)
 {
   // Generate process tasks for each node
-  std::vector<tf::Task> tasks;
+  std::map<boost::uuids::uuid, tf::Task> tasks;
   const auto& nodes = task_composer.getNodes();
-  tasks.reserve(nodes.size());
-  for (auto& node : nodes)
+  //  tasks.reserve(nodes.size());
+  for (auto& pair : nodes)
   {
-    auto edges = node->getEdges();
-    if (node->getType() == TaskComposerNodeType::TASK)
+    auto edges = pair.second->getEdges();
+    if (pair.second->getType() == TaskComposerNodeType::TASK)
     {
-      const auto& task = static_cast<const TaskComposerTask&>(*node);
+      const auto& task = static_cast<const TaskComposerTask&>(*pair.second);
       if (edges.size() > 1 && task.isConditional())
-        tasks.push_back(taskflow.emplace([node, task_input] { return node->run(*task_input); }).name(node->getName()));
+        tasks[pair.first] = taskflow.emplace([node = pair.second, task_input] { return node->run(*task_input); })
+                                .name(pair.second->getName());
       else
-        tasks.push_back(taskflow.emplace([node, task_input] { node->run(*task_input); }).name(node->getName()));
+        tasks[pair.first] =
+            taskflow.emplace([node = pair.second, task_input] { node->run(*task_input); }).name(pair.second->getName());
     }
-    else if (node->getType() == TaskComposerNodeType::GRAPH)
+    else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
     {
-      const auto& graph = static_cast<const TaskComposerGraph&>(*node);
+      const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
       tf::Taskflow sub_taskflow;
       convertToTaskflowRecursive(sub_taskflow, graph, task_input);
-      tasks.push_back(taskflow.composed_of(sub_taskflow));
+      tasks[pair.first] = taskflow.composed_of(sub_taskflow);
     }
     else
       throw std::runtime_error("convertToTaskflow, unsupported node type!");
   }
 
-  for (std::size_t i = 0; i < nodes.size(); ++i)
+  for (const auto& pair : nodes)
   {
     // Ensure the current task precedes the tasks that it is connected to
-    const auto& node = nodes[i];
-    auto edges = node->getEdges();
-    for (int idx : edges)
-    {
-      if (idx >= 0)
-        tasks.at(i).precede(tasks.at(static_cast<std::size_t>(idx)));
-      else
-        throw std::runtime_error("Invalid TaskComposerGraph: Node specified with invalid edge");
-    }
+    auto edges = pair.second->getEdges();
+    for (const auto& e : edges)
+      tasks[pair.first].precede(tasks[e]);
   }
 }
 

@@ -25,6 +25,7 @@
  */
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
+#include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/unique_ptr.hpp>
 #include <boost/serialization/shared_ptr.hpp>
@@ -51,10 +52,8 @@ bool TaskComposerNodeInfo::operator==(const TaskComposerNodeInfo& rhs) const
   equal &= name == rhs.name;
   equal &= message == rhs.message;
   equal &= tesseract_common::almostEqualRelativeAndAbs(elapsed_time, rhs.elapsed_time, max_diff);
-  equal &= instructions_input == rhs.instructions_input;
-  equal &= instructions_output == rhs.instructions_output;
-  equal &= results_input == rhs.results_input;
-  equal &= results_output == rhs.results_output;
+  equal &= tesseract_common::isIdentical(input_keys, rhs.input_keys, false);
+  equal &= tesseract_common::isIdentical(output_keys, rhs.output_keys, false);
   return equal;
 }
 
@@ -71,10 +70,8 @@ void TaskComposerNodeInfo::serialize(Archive& ar, const unsigned int /*version*/
   ar& boost::serialization::make_nvp("message", message);
   ar& boost::serialization::make_nvp("elapsed_time", elapsed_time);
 
-  ar& boost::serialization::make_nvp("instructions_input", instructions_input);
-  ar& boost::serialization::make_nvp("instructions_output", instructions_output);
-  ar& boost::serialization::make_nvp("results_input", results_input);
-  ar& boost::serialization::make_nvp("results_output", results_output);
+  ar& boost::serialization::make_nvp("input_keys", input_keys);
+  ar& boost::serialization::make_nvp("output_keys", output_keys);
 
   //  ar& boost::serialization::make_nvp("environment", environment);
 }

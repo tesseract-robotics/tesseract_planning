@@ -78,9 +78,9 @@ int main()
   auto task3 = std::make_unique<AddTaskComposerNode>("task2_output", "d", "task3_output");
 
   TaskComposerGraph task_composer;
-  int task1_id = task_composer.addNode(std::move(task1));
-  int task2_id = task_composer.addNode(std::move(task2));
-  int task3_id = task_composer.addNode(std::move(task3));
+  boost::uuids::uuid task1_id = task_composer.addNode(std::move(task1));
+  boost::uuids::uuid task2_id = task_composer.addNode(std::move(task2));
+  boost::uuids::uuid task3_id = task_composer.addNode(std::move(task3));
   task_composer.addEdges(task1_id, { task2_id });
   task_composer.addEdges(task2_id, { task3_id });
 

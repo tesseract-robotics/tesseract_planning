@@ -31,6 +31,11 @@
 #include <tesseract_task_composer/task_composer_data_storage.h>
 #include <tesseract_task_composer/task_composer_node_info.h>
 
+namespace tf
+{
+class Executor;
+}
+
 namespace tesseract_planning
 {
 /**
@@ -91,6 +96,9 @@ struct TaskComposerInput
 
   /** @brief The location data is stored and retrieved during execution */
   const TaskComposerDataStorage::Ptr data_storage;
+
+  /** @brief The task executor */
+  const std::shared_ptr<tf::Executor> executor;
 
   /** @brief The location where task info is stored during execution */
   TaskComposerNodeInfoContainer task_infos;

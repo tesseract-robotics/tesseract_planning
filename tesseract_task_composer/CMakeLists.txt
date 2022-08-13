@@ -16,6 +16,7 @@ find_package(tesseract_motion_planners REQUIRED)
 find_package(tesseract_time_parameterization REQUIRED)
 find_package(trajopt REQUIRED)
 find_package(Boost REQUIRED COMPONENTS serialization)
+find_package(Taskflow REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -64,6 +65,7 @@ add_library(
   src/nodes/motion_planner_task.cpp
   src/nodes/ompl_motion_pipeline_task.cpp
   src/nodes/profile_switch_task.cpp
+  src/nodes/raster_motion_task.cpp
   src/nodes/ruckig_trajectory_smoothing_task.cpp
   src/nodes/seed_min_length_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
@@ -83,7 +85,8 @@ target_link_libraries(
          tesseract::tesseract_time_parameterization
          trajopt::trajopt
          Boost::boost
-         Boost::serialization)
+         Boost::serialization
+         Taskflow::Taskflow)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
@@ -108,7 +111,8 @@ configure_package(
           tesseract_command_language
           tesseract_motion_planners
           tesseract_time_parameterization
-          trajopt)
+          trajopt
+          Taskflow)
 
 # Mark header files for installation
 install(

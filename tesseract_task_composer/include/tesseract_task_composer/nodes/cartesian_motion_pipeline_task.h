@@ -1,5 +1,5 @@
 /**
- * @file cartesian_motion_planner_task.h
+ * @file cartesian_motion_pipeline_task.h
  * @brief Cartesian motion planning pipeline
  *
  * @author Levi Armstrong

@@ -71,41 +71,42 @@ TrajOptMotionPipelineTask::TrajOptMotionPipelineTask(std::string input_key,
 
 void TrajOptMotionPipelineTask::ctor()
 {
-  int done_task = addNode(std::make_unique<DoneTask>());
-  int error_task = addNode(std::make_unique<ErrorTask>());
+  boost::uuids::uuid done_task = addNode(std::make_unique<DoneTask>());
+  boost::uuids::uuid error_task = addNode(std::make_unique<ErrorTask>());
 
-  int check_input_task{ std::numeric_limits<int>::min() };
+  boost::uuids::uuid check_input_task;
   if (check_input_)
     check_input_task = addNode(std::make_unique<CheckInputTask>(input_key_));
 
   // Check if seed was provided
-  int has_seed_task = addNode(std::make_unique<HasSeedTask>());
+  boost::uuids::uuid has_seed_task = addNode(std::make_unique<HasSeedTask>());
 
   // Simple planner as interpolator
   auto interpolator = std::make_shared<SimpleMotionPlanner>();
-  int interpolator_task = addNode(std::make_unique<MotionPlannerTask>(interpolator, input_key_, output_key_));
+  boost::uuids::uuid interpolator_task =
+      addNode(std::make_unique<MotionPlannerTask>(interpolator, input_key_, output_key_));
 
   // Setup Seed Min Length Process Generator
   // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
   // to short.
-  int seed_min_length_task = addNode(std::make_unique<SeedMinLengthTask>(output_key_, output_key_));
+  boost::uuids::uuid seed_min_length_task = addNode(std::make_unique<SeedMinLengthTask>(output_key_, output_key_));
 
   // Setup TrajOpt
   auto motion_planner = std::make_shared<TrajOptMotionPlanner>();
-  int motion_planner_task =
+  boost::uuids::uuid motion_planner_task =
       addNode(std::make_unique<MotionPlannerTask>(motion_planner, output_key_, output_key_, false));
 
   // Setup post collision check
-  int contact_check_task{ std::numeric_limits<int>::min() };
+  boost::uuids::uuid contact_check_task;
   if (post_collision_check_)
     contact_check_task = addNode(std::make_unique<DiscreteContactCheckTask>(output_key_));
 
   // Setup time parameterization
-  int time_parameterization_task =
+  boost::uuids::uuid time_parameterization_task =
       addNode(std::make_unique<IterativeSplineParameterizationTask>(output_key_, output_key_));
 
   // Setup trajectory smoothing
-  int smoothing_task{ std::numeric_limits<int>::min() };
+  boost::uuids::uuid smoothing_task;
   if (post_smoothing_)
     smoothing_task = addNode(std::make_unique<RuckigTrajectorySmoothingTask>(output_key_, output_key_));
 

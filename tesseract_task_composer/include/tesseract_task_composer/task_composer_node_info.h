@@ -65,21 +65,20 @@ public:
   /** @brief The name */
   std::string name;
 
+  /** @brief Status message */
   std::string message;
 
   /** @brief elapsed_time Time spent in this task in seconds*/
   double elapsed_time{ 0 };
 
-  /** @brief Instructions passed to task (optionally set) */
-  InstructionPoly instructions_input;
-  /** @brief Instructions after running the task (optionally set)*/
-  InstructionPoly instructions_output;
-  /** @brief Seed/Results passed into the task (optionally set) */
-  InstructionPoly results_input;
-  /** @brief Seed/Results after running the task (optionally set)*/
-  InstructionPoly results_output;
-  /** @brief The environment at the beginning of the task (optionally set)*/
-  tesseract_environment::Environment::ConstPtr environment{ nullptr };
+  /** @brief The input keys */
+  std::vector<std::string> input_keys;
+
+  /** @brief The output keys */
+  std::vector<std::string> output_keys;
+
+  //  /** @brief The environment at the beginning of the task (optionally set)*/
+  //  tesseract_environment::Environment::ConstPtr environment{ nullptr };
 
   bool operator==(const TaskComposerNodeInfo& rhs) const;
   bool operator!=(const TaskComposerNodeInfo& rhs) const;

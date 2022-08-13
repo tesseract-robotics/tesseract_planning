@@ -48,7 +48,7 @@ TaskComposerNodeType TaskComposerNode::getType() const { return type_; }
 
 const boost::uuids::uuid& TaskComposerNode::getUUID() const { return uuid_; }
 
-const std::vector<int>& TaskComposerNode::getEdges() const { return edges_; }
+const std::vector<boost::uuids::uuid>& TaskComposerNode::getEdges() const { return edges_; }
 
 bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
 {

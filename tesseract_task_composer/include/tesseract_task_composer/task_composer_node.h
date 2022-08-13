@@ -72,7 +72,7 @@ public:
   const boost::uuids::uuid& getUUID() const;
 
   /** @brief IDs of nodes (i.e. node) that should run after this node */
-  const std::vector<int>& getEdges() const;
+  const std::vector<boost::uuids::uuid>& getEdges() const;
 
   virtual int run(TaskComposerInput& input) const = 0;
 
@@ -97,7 +97,7 @@ protected:
   boost::uuids::uuid uuid_;
 
   /** @brief IDs of nodes (i.e. tasks) that should run after this node */
-  std::vector<int> edges_;
+  std::vector<boost::uuids::uuid> edges_;
 };
 
 }  // namespace tesseract_planning
