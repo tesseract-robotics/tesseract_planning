@@ -55,6 +55,14 @@ const std::string& TaskComposerNode::getUUIDString() const { return uuid_str_; }
 
 const std::vector<boost::uuids::uuid>& TaskComposerNode::getEdges() const { return edges_; }
 
+void TaskComposerNode::dump(std::ostream& os) const
+{
+  const std::string tmp = toString(uuid_, "node_");
+  os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")\", color=black];\n";
+  for (const auto& edge : edges_)
+    os << tmp << " -> " << toString(edge, "node_") << ";\n";
+}
+
 bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
 {
   bool equal = true;
@@ -75,6 +83,23 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("uuid", uuid_);
   ar& boost::serialization::make_nvp("uuid_str", uuid_str_);
   ar& boost::serialization::make_nvp("edges", edges_);
+}
+
+std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)
+{
+  std::string result;
+  result.reserve(36);
+
+  std::size_t i = 0;
+  for (auto it_data = u.begin(); it_data != u.end(); ++it_data, ++i)
+  {
+    const size_t hi = ((*it_data) >> 4) & 0x0F;
+    result += boost::uuids::detail::to_char(hi);
+
+    const size_t lo = (*it_data) & 0x0F;
+    result += boost::uuids::detail::to_char(lo);
+  }
+  return (prefix + result);
 }
 }  // namespace tesseract_planning
 

@@ -78,6 +78,8 @@ public:
   /** @brief Get the nodes associated with the pipeline */
   std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> getNodes() const;
 
+  void dump(std::ostream& os) const override;
+
   int run(TaskComposerInput& input) const override;
 
   bool operator==(const TaskComposerGraph& rhs) const;
@@ -89,6 +91,8 @@ protected:
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  void dumpHelper(std::ostream& os, const TaskComposerGraph& parent) const;
 
   std::map<boost::uuids::uuid, TaskComposerNode::Ptr> nodes_;
 };

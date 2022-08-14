@@ -58,6 +58,8 @@ public:
 
   bool isConditional() const;
 
+  void dump(std::ostream& os) const override;
+
 protected:
   friend class tesseract_common::Serialization;
   friend class boost::serialization::access;

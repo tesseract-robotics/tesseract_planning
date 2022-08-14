@@ -59,6 +59,34 @@ std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr> TaskComposerGraph::getN
   return std::map<boost::uuids::uuid, TaskComposerNode::ConstPtr>{ nodes_.begin(), nodes_.end() };
 }
 
+void TaskComposerGraph::dump(std::ostream& os) const
+{
+  os << "digraph TaskComposer {\n";
+  dumpHelper(os, *this);
+  os << "}\n";
+}
+
+void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*parent*/) const
+{
+  const std::string tmp = toString(uuid_);
+  os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")\";";
+  for (const auto& pair : nodes_)
+  {
+    const auto& node = pair.second;
+    if (node->getType() == TaskComposerNodeType::TASK)
+      node->dump(os);
+    else if (node->getType() == TaskComposerNodeType::GRAPH)
+      static_cast<const TaskComposerGraph&>(*node).dumpHelper(os, *this);
+  }
+
+  for (const auto& edge : edges_)
+  {
+    os << "node_" << tmp << " -> " << toString(edge, "node_") << ";\n";
+  }
+
+  os << "}\n";
+}
+
 int TaskComposerGraph::run(TaskComposerInput& /*input*/) const
 {
   throw std::runtime_error("TaskComposerGraph, run is currently not implemented");

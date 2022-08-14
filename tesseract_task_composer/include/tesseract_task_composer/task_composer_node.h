@@ -77,6 +77,9 @@ public:
   /** @brief IDs of nodes (i.e. node) that should run after this node */
   const std::vector<boost::uuids::uuid>& getEdges() const;
 
+  /** @brief dump the task to dot */
+  virtual void dump(std::ostream& os) const;
+
   virtual int run(TaskComposerInput& input) const = 0;
 
   bool operator==(const TaskComposerNode& rhs) const;
@@ -104,6 +107,9 @@ protected:
 
   /** @brief IDs of nodes (i.e. tasks) that should run after this node */
   std::vector<boost::uuids::uuid> edges_;
+
+  /** @brief This will create a UUID string with no hyphens used when creating dot graph */
+  static std::string toString(const boost::uuids::uuid& u, const std::string& prefix = "");
 };
 
 }  // namespace tesseract_planning

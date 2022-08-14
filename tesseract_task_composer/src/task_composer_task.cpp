@@ -41,6 +41,28 @@ TaskComposerTask::TaskComposerTask(bool is_conditional, std::string name)
 
 bool TaskComposerTask::isConditional() const { return is_conditional_; }
 
+void TaskComposerTask::dump(std::ostream& os) const
+{
+  const std::string tmp = toString(uuid_, "node_");
+  if (is_conditional_)
+  {
+    os << std::endl
+       << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_
+       << ")\", color=black, fillcolor=aquamarine style=filled];\n";
+
+    for (std::size_t i = 0; i < edges_.size(); ++i)
+      os << tmp << " -> " << toString(edges_[i], "node_") << " [style=dashed, label=\"[" << std::to_string(i) << "]\""
+         << "];\n";
+  }
+  else
+  {
+    os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")\", color=black];\n";
+
+    for (const auto& edge : edges_)
+      os << tmp << " -> " << toString(edge, "node_") << ";\n";
+  }
+}
+
 bool TaskComposerTask::operator==(const TaskComposerTask& rhs) const
 {
   bool equal = true;
