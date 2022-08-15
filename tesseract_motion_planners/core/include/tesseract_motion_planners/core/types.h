@@ -45,6 +45,10 @@ using PlannerProfileRemapping = std::unordered_map<std::string, std::unordered_m
 
 struct PlannerRequest
 {
+  // LCOV_EXCL_START
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
+
   /** @brief The name of the process manager to use */
   std::string name;
 
@@ -89,6 +93,10 @@ struct PlannerRequest
 
 struct PlannerResponse
 {
+  // LCOV_EXCL_START
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
+
   CompositeInstruction results;
   /** @brief The status information */
   tesseract_common::StatusCode status;
