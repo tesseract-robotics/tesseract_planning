@@ -47,6 +47,10 @@ enum class TrajOptIfoptTermType
 
 struct TrajOptIfoptProblem
 {
+  // LCOV_EXCL_START
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
+
   // These are required for Tesseract to configure Descartes
   tesseract_environment::Environment::ConstPtr environment;
   tesseract_scene_graph::SceneState env_state;

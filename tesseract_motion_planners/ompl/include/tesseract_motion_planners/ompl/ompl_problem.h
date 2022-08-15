@@ -71,6 +71,10 @@ struct OMPLProblem
   using UPtr = std::unique_ptr<OMPLProblem>;
   using ConstUPtr = std::unique_ptr<const OMPLProblem>;
 
+  // LCOV_EXCL_START
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
+
   // These are required for Tesseract to configure ompl
   tesseract_environment::Environment::ConstPtr env;
   tesseract_scene_graph::SceneState env_state;

@@ -45,6 +45,10 @@ static const std::string PRIMARY_EXECUTOR_NAME = "primary";
 class ProcessPlanningRequest
 {
 public:
+  // LCOV_EXCL_START
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  // LCOV_EXCL_STOP
+
   /** @brief The name of the executor to use */
   std::string executor_name{ PRIMARY_EXECUTOR_NAME };
 
