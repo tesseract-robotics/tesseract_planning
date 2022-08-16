@@ -27,18 +27,22 @@
 \DoxyCodeLine{47 }
 \DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem}{TrajOptIfoptProblem}}}
 \DoxyCodeLine{49 \{}
-\DoxyCodeLine{50   \textcolor{comment}{// These are required for Tesseract to configure Descartes}}
-\DoxyCodeLine{51   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_aa04aee9862276b463ba831ce09f25528}{environment}};}
-\DoxyCodeLine{52   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a9e30d55f18257ea06c28bdfddd96a25d}{env\_state}};}
+\DoxyCodeLine{50   \textcolor{comment}{// LCOV\_EXCL\_START}}
+\DoxyCodeLine{51   EIGEN\_MAKE\_ALIGNED\_OPERATOR\_NEW}
+\DoxyCodeLine{52   \textcolor{comment}{// LCOV\_EXCL\_STOP}}
 \DoxyCodeLine{53 }
-\DoxyCodeLine{54   \textcolor{comment}{// Kinematic Objects}}
-\DoxyCodeLine{55   tesseract\_kinematics::JointGroup::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a71c88fb60b084fccbf7356264d4069fa}{manip}};}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57   trajopt\_sqp::QPProblem::Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_acb2cab13676af34abe96b021cd487980}{nlp}};}
-\DoxyCodeLine{58   std::vector<trajopt\_ifopt::JointPosition::ConstPtr> \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a1504a59e767c8df8b63e035834cd6e77}{vars}};}
-\DoxyCodeLine{59 \};}
+\DoxyCodeLine{54   \textcolor{comment}{// These are required for Tesseract to configure Descartes}}
+\DoxyCodeLine{55   tesseract\_environment::Environment::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_adec7ea2ca67dffbd6d884e905b95d0de}{environment}};}
+\DoxyCodeLine{56   tesseract\_scene\_graph::SceneState \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a9e30d55f18257ea06c28bdfddd96a25d}{env\_state}};}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58   \textcolor{comment}{// Kinematic Objects}}
+\DoxyCodeLine{59   tesseract\_kinematics::JointGroup::ConstPtr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a71c88fb60b084fccbf7356264d4069fa}{manip}};}
 \DoxyCodeLine{60 }
-\DoxyCodeLine{61 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_PROBLEM\_H}}
+\DoxyCodeLine{61   trajopt\_sqp::QPProblem::Ptr \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_acb2cab13676af34abe96b021cd487980}{nlp}};}
+\DoxyCodeLine{62   std::vector<trajopt\_ifopt::JointPosition::ConstPtr> \mbox{\hyperlink{structtesseract__planning_1_1TrajOptIfoptProblem_a1504a59e767c8df8b63e035834cd6e77}{vars}};}
+\DoxyCodeLine{63 \};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_MOTION\_PLANNERS\_DESCARTES\_PROBLEM\_H}}
 
 \end{DoxyCode}
