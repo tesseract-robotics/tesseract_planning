@@ -34,6 +34,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_process_managers/task_profiles/upsample_trajectory_profile.h>
 
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/interpolation.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning

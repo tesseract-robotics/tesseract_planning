@@ -26,6 +26,7 @@
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_legacy_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/interpolation.h>
 
 namespace tesseract_planning
 {

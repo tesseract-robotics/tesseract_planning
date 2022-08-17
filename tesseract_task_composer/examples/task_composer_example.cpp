@@ -84,15 +84,15 @@ int main()
   task_composer.addEdges(task1_id, { task2_id });
   task_composer.addEdges(task2_id, { task3_id });
 
-  std::unique_ptr<tf::Taskflow> taskflow = convertToTaskflow(task_composer, *task_input);
+  TaskComposerTaskflowContainer taskflow = convertToTaskflow(task_composer, *task_input);
 
   std::ofstream out_data;
   out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
-  taskflow->dump(out_data);  // dump the graph including dynamic tasks
+  taskflow.top->dump(out_data);  // dump the graph including dynamic tasks
   out_data.close();
 
   tf::Executor executor;
-  executor.run(*taskflow);
+  executor.run(*taskflow.top);
   executor.wait_for_all();
 
   std::cout << "Output: " << task_data->getData("task3_output").as<double>() << std::endl;

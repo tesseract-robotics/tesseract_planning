@@ -32,6 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/nodes/raster_motion_task.h>
+#include <tesseract_task_composer/nodes/start_task.h>
 #include <tesseract_task_composer/nodes/cartesian_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/transition_mux_task.h>
@@ -82,6 +83,11 @@ int RasterMotionTask::run(TaskComposerInput& input) const
   auto& program = input_data_poly.as<CompositeInstruction>();
   TaskComposerGraph task_graph;
 
+  tesseract_common::ManipulatorInfo program_manip_info = program.getManipulatorInfo().getCombined(input.manip_info);
+
+  auto start_task = std::make_unique<StartTask>();
+  auto start_uuid = task_graph.addNode(std::move(start_task));
+
   std::vector<std::pair<boost::uuids::uuid, std::string>> raster_tasks;
   raster_tasks.reserve(program.size());
 
@@ -91,6 +97,9 @@ int RasterMotionTask::run(TaskComposerInput& input) const
   {
     // Get Raster program
     auto raster_input = program[idx].as<CompositeInstruction>();
+
+    // Set the manipulator info
+    raster_input.setManipulatorInfo(raster_input.getManipulatorInfo().getCombined(program_manip_info));
 
     // Get Start Plan Instruction
     MoveInstructionPoly start_instruction;
@@ -123,6 +132,9 @@ int RasterMotionTask::run(TaskComposerInput& input) const
     auto raster_pipeline_uuid = task_graph.addNode(std::move(raster_pipeline_task));
     raster_tasks.push_back({ raster_pipeline_uuid, raster_pipeline_key });
     input.data_storage->setData(raster_pipeline_key, raster_input);
+
+    task_graph.addEdges(start_uuid, { raster_pipeline_uuid });
+
     raster_idx++;
   }
 
@@ -133,10 +145,13 @@ int RasterMotionTask::run(TaskComposerInput& input) const
   for (std::size_t idx = 2; idx < program.size() - 2; idx += 2)
   {
     // Get transition program
-    auto raster_input = program[idx].as<CompositeInstruction>();
+    auto transition_input = program[idx].as<CompositeInstruction>();
+
+    // Set the manipulator info
+    transition_input.setManipulatorInfo(transition_input.getManipulatorInfo().getCombined(program_manip_info));
 
     auto transition_pipeline_task = std::make_unique<FreespaceMotionPipelineTask>(
-        "Transition #" + std::to_string(transition_idx + 1) + ": " + raster_input.getDescription());
+        "Transition #" + std::to_string(transition_idx + 1) + ": " + transition_input.getDescription());
     std::string transition_pipeline_key = transition_pipeline_task->getUUIDString();
     auto transition_pipeline_uuid = task_graph.addNode(std::move(transition_pipeline_task));
     transition_keys.push_back(transition_pipeline_key);
@@ -148,7 +163,7 @@ int RasterMotionTask::run(TaskComposerInput& input) const
     std::string transition_mux_key = transition_mux_task->getUUIDString();
     auto transition_mux_uuid = task_graph.addNode(std::move(transition_mux_task));
 
-    input.data_storage->setData(transition_mux_key, raster_input);
+    input.data_storage->setData(transition_mux_key, transition_input);
 
     task_graph.addEdges(transition_mux_uuid, { transition_pipeline_uuid });
     task_graph.addEdges(prev.first, { transition_mux_uuid });
@@ -159,6 +174,9 @@ int RasterMotionTask::run(TaskComposerInput& input) const
 
   // Plan from_start - preceded by the first raster
   auto from_start_input = program[0].as<CompositeInstruction>();
+
+  from_start_input.setStartInstruction(program.getStartInstruction());
+  from_start_input.setManipulatorInfo(from_start_input.getManipulatorInfo().getCombined(program_manip_info));
 
   auto from_start_pipeline_task =
       std::make_unique<FreespaceMotionPipelineTask>("From Start: " + from_start_input.getDescription());
@@ -178,6 +196,8 @@ int RasterMotionTask::run(TaskComposerInput& input) const
   // Plan to_end - preceded by the last raster
   auto to_end_input = program.back().as<CompositeInstruction>();
 
+  to_end_input.setManipulatorInfo(to_end_input.getManipulatorInfo().getCombined(program_manip_info));
+
   auto to_end_pipeline_task = std::make_unique<FreespaceMotionPipelineTask>("To End: " + to_end_input.getDescription());
   std::string to_end_pipeline_key = to_end_pipeline_task->getUUIDString();
   auto to_end_pipeline_uuid = task_graph.addNode(std::move(to_end_pipeline_task));
@@ -192,8 +212,21 @@ int RasterMotionTask::run(TaskComposerInput& input) const
   task_graph.addEdges(update_start_state_uuid, { to_end_pipeline_uuid });
   task_graph.addEdges(raster_tasks.back().first, { update_start_state_uuid });
 
-  std::unique_ptr<tf::Taskflow> tf = convertToTaskflow(task_graph, input);
-  input.executor->run(*tf).wait();
+  // Debug remove
+  std::ofstream tc_out_data;
+  tc_out_data.open(tesseract_common::getTempPath() + "task_composer_raster_subgraph_example.dot");
+  task_graph.dump(tc_out_data);  // dump the graph including dynamic tasks
+  tc_out_data.close();
+
+  TaskComposerTaskflowContainer tf = convertToTaskflow(task_graph, input);
+
+  // Debug remove
+  std::ofstream out_data;
+  out_data.open(tesseract_common::getTempPath() + "task_composer_raster_subgraph_example_tf.dot");
+  tf.top->dump(out_data);  // dump the graph including dynamic tasks
+  out_data.close();
+
+  input.executor->run(*tf.top).wait();
 
   if (input.isAborted())
     return 0;

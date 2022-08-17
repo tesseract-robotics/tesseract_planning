@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_utils.h>
 
 namespace tesseract_planning
 {
@@ -61,20 +60,6 @@ public:
 
   /** @brief The number of steps to use for linear instruction */
   int linear_steps;
-
-protected:
-  CompositeInstruction stateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                               const KinematicGroupInstructionInfo& base) const;
-
-  CompositeInstruction stateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                              const KinematicGroupInstructionInfo& base) const;
-
-  CompositeInstruction stateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                              const KinematicGroupInstructionInfo& base) const;
-
-  CompositeInstruction stateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                             const KinematicGroupInstructionInfo& base,
-                                             const PlannerRequest& request) const;
 };
 
 }  // namespace tesseract_planning

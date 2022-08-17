@@ -37,6 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/profiles/seed_min_length_profile.h>
 
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/interpolation.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -75,35 +76,25 @@ int SeedMinLengthTask::run(TaskComposerInput& input) const
 
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
+  //  long cnt = ci.getMoveInstructionCount();
   std::string profile = ci.getProfile();
   profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<SeedMinLengthProfile>(name_, profile, *input.profiles, std::make_shared<SeedMinLengthProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
-  auto output_data_poly = input.data_storage->getData(output_key_);
-  auto& results = output_data_poly.as<CompositeInstruction>();
-  long cnt = results.getMoveInstructionCount();
-  if (cnt >= cur_composite_profile->min_length)
-  {
-    info->return_value = 1;
-    //    saveOutputs(*info, input);
-    info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 1;
-  }
+  CompositeInstruction new_results(ci);
 
-  InstructionPoly start_instruction = results.getStartInstruction();
-  auto subdivisions =
-      static_cast<int>(std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt))) +
-      1;
+  /** @todo LEVI Fix subdivide to work with new data struction */
+  //  InstructionPoly start_instruction = ci.getStartInstruction();
+  //  auto subdivisions =
+  //      static_cast<int>(std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt)))
+  //      + 1;
 
-  CompositeInstruction new_results(results);
-  new_results.clear();
+  //  new_results.clear();
+  //  subdivide(new_results, ci, start_instruction, subdivisions);
 
-  subdivide(new_results, results, start_instruction, subdivisions);
-  results = new_results;
-
+  input.data_storage->setData(output_key_, new_results);
   CONSOLE_BRIDGE_logDebug("Seed Min Length Task Succeeded!");
   info->return_value = 1;
   //  saveOutputs(*info, input);
@@ -134,13 +125,28 @@ void SeedMinLengthTask::subdivide(CompositeInstruction& composite,
       const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
       const auto& mi1 = i.as<MoveInstructionPoly>();
 
-      assert(mi0.getWaypoint().isStateWaypoint());
-      assert(mi1.getWaypoint().isStateWaypoint());
-      const auto& swp0 = mi0.getWaypoint().as<StateWaypointPoly>();
-      const auto& swp1 = mi1.getWaypoint().as<StateWaypointPoly>();
+      Eigen::VectorXd s0;
+      if (mi0.getWaypoint().isJointWaypoint())
+        s0 = mi0.getWaypoint().as<JointWaypointPoly>().getPosition();
+      else if (mi0.getWaypoint().isStateWaypoint())
+        s0 = mi0.getWaypoint().as<StateWaypointPoly>().getPosition();
+      else if (mi0.getWaypoint().isCartesianWaypoint())
+        s0 = mi0.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+      else
+        throw std::runtime_error("SeedMinLengthTask, unsupported waypoint type!");
+
+      Eigen::VectorXd s1;
+      if (mi1.getWaypoint().isJointWaypoint())
+        s1 = mi1.getWaypoint().as<JointWaypointPoly>().getPosition();
+      else if (mi1.getWaypoint().isStateWaypoint())
+        s1 = mi1.getWaypoint().as<StateWaypointPoly>().getPosition();
+      else if (mi1.getWaypoint().isCartesianWaypoint())
+        s1 = mi1.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
+      else
+        throw std::runtime_error("SeedMinLengthTask, unsupported waypoint type!");
 
       // Linearly interpolate in joint space
-      Eigen::MatrixXd states = interpolate(swp0.getPosition(), swp1.getPosition(), subdivisions);
+      Eigen::MatrixXd states = interpolate(s0, s1, subdivisions);
 
       // Convert to MoveInstructions
       for (long i = 1; i < states.cols(); ++i)

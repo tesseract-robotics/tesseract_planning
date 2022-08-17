@@ -42,6 +42,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_motion_planners/descartes/descartes_motion_planner.h>
 #include <tesseract_motion_planners/descartes/profile/descartes_default_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
+#include <tesseract_motion_planners/core/interpolation.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 #include <tesseract_command_language/utils.h>
