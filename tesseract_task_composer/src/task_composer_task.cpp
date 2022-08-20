@@ -50,15 +50,16 @@ void TaskComposerTask::dump(std::ostream& os) const
        << tmp << " [shape=diamond, label=\"" << name_ << "\\n(" << uuid_str_
        << ")\", color=black, fillcolor=aquamarine style=filled];\n";
 
-    for (std::size_t i = 0; i < edges_.size(); ++i)
-      os << tmp << " -> " << toString(edges_[i], "node_") << " [style=dashed, label=\"[" << std::to_string(i) << "]\""
+    for (std::size_t i = 0; i < outbound_edges_.size(); ++i)
+      os << tmp << " -> " << toString(outbound_edges_[i], "node_") << " [style=dashed, label=\"[" << std::to_string(i)
+         << "]\""
          << "];\n";
   }
   else
   {
     os << std::endl << tmp << " [label=\"" << name_ << "\\n(" << uuid_str_ << ")\", color=black];\n";
 
-    for (const auto& edge : edges_)
+    for (const auto& edge : outbound_edges_)
       os << tmp << " -> " << toString(edge, "node_") << ";\n";
   }
 }

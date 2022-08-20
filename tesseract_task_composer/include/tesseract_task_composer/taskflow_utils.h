@@ -72,7 +72,7 @@ inline TaskComposerTaskflowContainer convertToTaskflow(const TaskComposerGraph& 
   const auto& nodes = task_graph.getNodes();
   for (auto& pair : nodes)
   {
-    auto edges = pair.second->getEdges();
+    auto edges = pair.second->getOutboundEdges();
     if (pair.second->getType() == TaskComposerNodeType::TASK)
     {
       const auto& task = static_cast<const TaskComposerTask&>(*pair.second);
@@ -101,7 +101,7 @@ inline TaskComposerTaskflowContainer convertToTaskflow(const TaskComposerGraph& 
   for (const auto& pair : nodes)
   {
     // Ensure the current task precedes the tasks that it is connected to
-    auto edges = pair.second->getEdges();
+    auto edges = pair.second->getOutboundEdges();
     for (const auto& e : edges)
       tasks[pair.first].precede(tasks[e]);
   }

@@ -75,7 +75,10 @@ public:
   const std::string& getUUIDString() const;
 
   /** @brief IDs of nodes (i.e. node) that should run after this node */
-  const std::vector<boost::uuids::uuid>& getEdges() const;
+  const std::vector<boost::uuids::uuid>& getOutboundEdges() const;
+
+  /** @brief IDs of nodes (i.e. node) that should run before this node */
+  const std::vector<boost::uuids::uuid>& getInboundEdges() const;
 
   /** @brief dump the task to dot */
   virtual void dump(std::ostream& os) const;
@@ -106,7 +109,10 @@ protected:
   std::string uuid_str_;
 
   /** @brief IDs of nodes (i.e. tasks) that should run after this node */
-  std::vector<boost::uuids::uuid> edges_;
+  std::vector<boost::uuids::uuid> outbound_edges_;
+
+  /** @brief IDs of nodes (i.e. tasks) that should run before this node */
+  std::vector<boost::uuids::uuid> inbound_edges_;
 
   /** @brief This will create a UUID string with no hyphens used when creating dot graph */
   static std::string toString(const boost::uuids::uuid& u, const std::string& prefix = "");
