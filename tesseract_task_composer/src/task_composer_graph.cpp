@@ -68,6 +68,7 @@ void TaskComposerGraph::dump(std::ostream& os) const
 
 void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*parent*/) const
 {
+  std::ostringstream sub_graphs;
   const std::string tmp = toString(uuid_);
   os << "subgraph cluster_" << tmp << " {\n color=black;\n label = \"" << name_ << "\\n(" << uuid_str_ << ")\";";
   for (const auto& pair : nodes_)
@@ -76,7 +77,13 @@ void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*
     if (node->getType() == TaskComposerNodeType::TASK)
       node->dump(os);
     else if (node->getType() == TaskComposerNodeType::GRAPH)
-      static_cast<const TaskComposerGraph&>(*node).dumpHelper(os, *this);
+    {
+      const std::string tmp = toString(node->uuid_, "node_");
+      os << std::endl
+         << tmp << " [shape=box3d, label=\"Subgraph: " << node->name_ << "\\n(" << node->uuid_str_
+         << ")\", color=blue, margin=\"0.1\"];\n";
+      static_cast<const TaskComposerGraph&>(*node).dumpHelper(sub_graphs, *this);
+    }
   }
 
   for (const auto& edge : edges_)
@@ -85,6 +92,9 @@ void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*
   }
 
   os << "}\n";
+
+  // Dump subgraphs outside this subgraph
+  os << sub_graphs.str();
 }
 
 int TaskComposerGraph::run(TaskComposerInput& /*input*/) const

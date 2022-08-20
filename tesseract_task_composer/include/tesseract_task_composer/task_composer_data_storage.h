@@ -62,6 +62,7 @@ public:
 
   /**
    * @brief Get the data for the provided key
+   * @details If the key does not exist it will be null
    * @param key The key to retreive the data
    * @return The data associated with the key
    */

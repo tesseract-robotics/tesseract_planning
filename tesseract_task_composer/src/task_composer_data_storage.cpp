@@ -42,7 +42,11 @@ void TaskComposerDataStorage::setData(const std::string& key, tesseract_common::
 tesseract_common::Any TaskComposerDataStorage::getData(const std::string& key) const
 {
   std::shared_lock lock(mutex_);
-  return data_.at(key);
+  auto it = data_.find(key);
+  if (it == data_.end())
+    return {};
+
+  return it->second;
 }
 
 }  // namespace tesseract_planning

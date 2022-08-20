@@ -113,7 +113,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
       plan_f1.setDescription("transition_from_end_plan");
 
       CompositeInstruction transition(freespace_profile);
-      transition.setDescription("transition_from_end");
+      transition.setDescription("Transition #" + std::to_string(i + 1));
       transition.appendMoveInstruction(plan_f1);
       program.appendInstruction(transition);
     }
@@ -127,7 +127,7 @@ inline CompositeInstruction rasterExampleProgram(const std::string& freespace_pr
       plan_f1.setDescription("transition_from_end_plan");
 
       CompositeInstruction transition(freespace_profile);
-      transition.setDescription("transition_from_end");
+      transition.setDescription("Transition #" + std::to_string(i + 1));
       transition.appendMoveInstruction(plan_f1);
       program.appendInstruction(transition);
     }
@@ -208,7 +208,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       plan_f1.setDescription("transition_from_end_plan");
 
       CompositeInstruction transition(freespace_profile);
-      transition.setDescription("transition_from_end");
+      transition.setDescription("Transition #" + std::to_string(i + 1));
       transition.appendMoveInstruction(plan_f1);
       program.appendInstruction(transition);
     }
@@ -222,7 +222,7 @@ inline CompositeInstruction rasterOnlyExampleProgram(const std::string& freespac
       plan_f1.setDescription("transition_from_end_plan");
 
       CompositeInstruction transition(freespace_profile);
-      transition.setDescription("transition_from_end");
+      transition.setDescription("Transition #" + std::to_string(i + 1));
       transition.appendMoveInstruction(plan_f1);
       program.appendInstruction(transition);
     }
