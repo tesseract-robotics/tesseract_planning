@@ -69,11 +69,6 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  void subdivide(CompositeInstruction& composite,
-                 const CompositeInstruction& current_composite,
-                 InstructionPoly& start_instruction,
-                 int subdivisions) const;
-
   std::string input_key_;
   std::string output_key_;
 };

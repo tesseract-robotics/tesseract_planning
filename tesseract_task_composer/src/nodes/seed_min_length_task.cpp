@@ -38,6 +38,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/core/interpolation.h>
+#include <tesseract_motion_planners/simple/simple_motion_planner.h>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_plan_profile.h>
 #include <tesseract_motion_planners/planner_utils.h>
 
 namespace tesseract_planning
@@ -76,94 +78,66 @@ int SeedMinLengthTask::run(TaskComposerInput& input) const
 
   // Get Composite Profile
   const auto& ci = input_data_poly.as<CompositeInstruction>();
-  //  long cnt = ci.getMoveInstructionCount();
+  long cnt = ci.getMoveInstructionCount();
   std::string profile = ci.getProfile();
   profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile =
       getProfile<SeedMinLengthProfile>(name_, profile, *input.profiles, std::make_shared<SeedMinLengthProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
-  CompositeInstruction new_results(ci);
+  if (cnt < cur_composite_profile->min_length)
+  {
+    auto subdivisions =
+        static_cast<int>(std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt))) +
+        1;
 
-  /** @todo LEVI Fix subdivide to work with new data struction */
-  //  InstructionPoly start_instruction = ci.getStartInstruction();
-  //  auto subdivisions =
-  //      static_cast<int>(std::ceil(static_cast<double>(cur_composite_profile->min_length) / static_cast<double>(cnt)))
-  //      + 1;
+    // Fill out request and response
+    PlannerRequest request;
+    request.instructions = ci;
+    request.env_state = input.env->getState();
+    request.env = input.env;
 
-  //  new_results.clear();
-  //  subdivide(new_results, ci, start_instruction, subdivisions);
+    // Set up planner
+    SimpleMotionPlanner planner;
 
-  input.data_storage->setData(output_key_, new_results);
+    auto profile = std::make_shared<SimplePlannerFixedSizePlanProfile>(subdivisions, subdivisions);
+
+    // Create profile dictionary
+    auto profiles = std::make_shared<ProfileDictionary>();
+    profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), ci.getProfile(), profile);
+    auto flat = ci.flatten(&moveFilter);
+    for (const auto& i : flat)
+      profiles->addProfile<SimplePlannerPlanProfile>(
+          planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
+
+    // Assign profile dictionary
+    request.profiles = profiles;
+
+    // Solve
+    PlannerResponse response = planner.solve(request);
+
+    if (!response.successful)
+    {
+      CONSOLE_BRIDGE_logError("SeedMinLengthTask, failed to subdivid!");
+      //    saveOutputs(*info, input);
+      info->elapsed_time = timer.elapsedSeconds();
+      input.addTaskInfo(std::move(info));
+      return 0;
+    }
+
+    input.data_storage->setData(output_key_, response.results);
+  }
+  else
+  {
+    input.data_storage->setData(output_key_, ci);
+  }
+
   CONSOLE_BRIDGE_logDebug("Seed Min Length Task Succeeded!");
   info->return_value = 1;
   //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
   input.addTaskInfo(std::move(info));
   return 1;
-}
-
-void SeedMinLengthTask::subdivide(CompositeInstruction& composite,
-                                  const CompositeInstruction& current_composite,
-                                  InstructionPoly& start_instruction,
-                                  int subdivisions) const
-{
-  for (const InstructionPoly& i : current_composite)
-  {
-    if (i.isCompositeInstruction())
-    {
-      const auto& cc = i.as<CompositeInstruction>();
-      CompositeInstruction new_cc(cc);
-      new_cc.clear();
-
-      subdivide(new_cc, cc, start_instruction, subdivisions);
-      composite.appendInstruction(new_cc);
-    }
-    else if (i.isMoveInstruction())
-    {
-      assert(start_instruction.isMoveInstruction());
-      const auto& mi0 = start_instruction.as<MoveInstructionPoly>();
-      const auto& mi1 = i.as<MoveInstructionPoly>();
-
-      Eigen::VectorXd s0;
-      if (mi0.getWaypoint().isJointWaypoint())
-        s0 = mi0.getWaypoint().as<JointWaypointPoly>().getPosition();
-      else if (mi0.getWaypoint().isStateWaypoint())
-        s0 = mi0.getWaypoint().as<StateWaypointPoly>().getPosition();
-      else if (mi0.getWaypoint().isCartesianWaypoint())
-        s0 = mi0.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-      else
-        throw std::runtime_error("SeedMinLengthTask, unsupported waypoint type!");
-
-      Eigen::VectorXd s1;
-      if (mi1.getWaypoint().isJointWaypoint())
-        s1 = mi1.getWaypoint().as<JointWaypointPoly>().getPosition();
-      else if (mi1.getWaypoint().isStateWaypoint())
-        s1 = mi1.getWaypoint().as<StateWaypointPoly>().getPosition();
-      else if (mi1.getWaypoint().isCartesianWaypoint())
-        s1 = mi1.getWaypoint().as<CartesianWaypointPoly>().getSeed().position;
-      else
-        throw std::runtime_error("SeedMinLengthTask, unsupported waypoint type!");
-
-      // Linearly interpolate in joint space
-      Eigen::MatrixXd states = interpolate(s0, s1, subdivisions);
-
-      // Convert to MoveInstructions
-      for (long i = 1; i < states.cols(); ++i)
-      {
-        MoveInstructionPoly move_instruction(mi1);
-        move_instruction.getWaypoint().as<StateWaypointPoly>().getPosition() = states.col(i);
-        composite.appendMoveInstruction(move_instruction);
-      }
-
-      start_instruction = i;
-    }
-    else
-    {
-      assert(!i.isMoveInstruction());
-      composite.appendInstruction(i);
-    }
-  }
 }
 
 bool SeedMinLengthTask::operator==(const SeedMinLengthTask& rhs) const
