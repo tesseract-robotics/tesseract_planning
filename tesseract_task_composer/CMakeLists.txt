@@ -67,7 +67,7 @@ add_library(
   src/nodes/profile_switch_task.cpp
   src/nodes/raster_motion_task.cpp
   src/nodes/ruckig_trajectory_smoothing_task.cpp
-  src/nodes/seed_min_length_task.cpp
+  src/nodes/min_length_task.cpp
   src/nodes/start_task.cpp
   src/nodes/time_optimal_parameterization_task.cpp
   src/nodes/trajopt_motion_pipeline_task.cpp

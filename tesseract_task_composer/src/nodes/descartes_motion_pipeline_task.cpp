@@ -35,7 +35,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/nodes/motion_planner_task.h>
 #include <tesseract_task_composer/nodes/has_seed_task.h>
-#include <tesseract_task_composer/nodes/seed_min_length_task.h>
+#include <tesseract_task_composer/nodes/min_length_task.h>
 #include <tesseract_task_composer/nodes/discrete_contact_check_task.h>
 #include <tesseract_task_composer/nodes/iterative_spline_parameterization_task.h>
 #include <tesseract_task_composer/nodes/ruckig_trajectory_smoothing_task.h>
@@ -97,7 +97,7 @@ void DescartesMotionPipelineTask::ctor()
   // Setup Seed Min Length Process Generator
   // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
   // to short.
-  boost::uuids::uuid seed_min_length_task = addNode(std::make_unique<SeedMinLengthTask>(output_key_, output_key_));
+  boost::uuids::uuid seed_min_length_task = addNode(std::make_unique<MinLengthTask>(output_key_, output_key_));
 
   // Setup TrajOpt
   auto motion_planner = std::make_shared<DescartesMotionPlannerF>();

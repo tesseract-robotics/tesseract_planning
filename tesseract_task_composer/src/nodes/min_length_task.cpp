@@ -1,5 +1,5 @@
 /**
- * @file seed_length_task.cpp
+ * @file min_length_task.cpp
  * @brief Task for processing the seed so it meets a minimum length. Planners like trajopt need
  * at least 10 states in the trajectory to perform velocity, acceleration and jerk smoothing.
  *
@@ -32,8 +32,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
-//#include <tesseract_process_managers/core/utils.h>
-#include <tesseract_task_composer/nodes/seed_min_length_task.h>
+#include <tesseract_task_composer/nodes/min_length_task.h>
 #include <tesseract_task_composer/profiles/seed_min_length_profile.h>
 
 #include <tesseract_motion_planners/core/utils.h>
@@ -44,22 +43,19 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-SeedMinLengthTask::SeedMinLengthTask(std::string input_key,
-                                     std::string output_key,
-                                     bool is_conditional,
-                                     std::string name)
+MinLengthTask::MinLengthTask(std::string input_key, std::string output_key, bool is_conditional, std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
 {
 }
 
-int SeedMinLengthTask::run(TaskComposerInput& input) const
+int MinLengthTask::run(TaskComposerInput& input) const
 {
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_unique<SeedMinLengthTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<MinLengthTaskInfo>(uuid_, name_);
   info->return_value = 0;
   tesseract_common::Timer timer;
   timer.start();
@@ -140,7 +136,7 @@ int SeedMinLengthTask::run(TaskComposerInput& input) const
   return 1;
 }
 
-bool SeedMinLengthTask::operator==(const SeedMinLengthTask& rhs) const
+bool MinLengthTask::operator==(const MinLengthTask& rhs) const
 {
   bool equal = true;
   equal &= (input_key_ == rhs.input_key_);
@@ -148,43 +144,40 @@ bool SeedMinLengthTask::operator==(const SeedMinLengthTask& rhs) const
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
-bool SeedMinLengthTask::operator!=(const SeedMinLengthTask& rhs) const { return !operator==(rhs); }
+bool MinLengthTask::operator!=(const MinLengthTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void SeedMinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
+void MinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-SeedMinLengthTaskInfo::SeedMinLengthTaskInfo(boost::uuids::uuid uuid, std::string name)
+MinLengthTaskInfo::MinLengthTaskInfo(boost::uuids::uuid uuid, std::string name)
   : TaskComposerNodeInfo(uuid, std::move(name))
 {
 }
 
-TaskComposerNodeInfo::UPtr SeedMinLengthTaskInfo::clone() const
-{
-  return std::make_unique<SeedMinLengthTaskInfo>(*this);
-}
+TaskComposerNodeInfo::UPtr MinLengthTaskInfo::clone() const { return std::make_unique<MinLengthTaskInfo>(*this); }
 
-bool SeedMinLengthTaskInfo::operator==(const SeedMinLengthTaskInfo& rhs) const
+bool MinLengthTaskInfo::operator==(const MinLengthTaskInfo& rhs) const
 {
   bool equal = true;
   equal &= TaskComposerNodeInfo::operator==(rhs);
   return equal;
 }
-bool SeedMinLengthTaskInfo::operator!=(const SeedMinLengthTaskInfo& rhs) const { return !operator==(rhs); }
+bool MinLengthTaskInfo::operator!=(const MinLengthTaskInfo& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void SeedMinLengthTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+void MinLengthTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
 }
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SeedMinLengthTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SeedMinLengthTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::SeedMinLengthTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::SeedMinLengthTaskInfo)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MinLengthTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MinLengthTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MinLengthTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MinLengthTaskInfo)

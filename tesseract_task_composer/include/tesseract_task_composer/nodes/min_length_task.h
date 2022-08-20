@@ -1,5 +1,5 @@
 /**
- * @file seed_length_task.h
+ * @file min_length_task.h
  * @brief Task for processing the seed so it meets a minimum length. Planners like trajopt need
  * at least 10 states in the trajectory to perform velocity, acceleration and jerk smoothing.
  *
@@ -24,8 +24,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_SEED_MIN_LENGTH_TASK_H
-#define TESSERACT_TASK_COMPOSER_SEED_MIN_LENGTH_TASK_H
+#ifndef TESSERACT_TASK_COMPOSER_MIN_LENGTH_TASK_H
+#define TESSERACT_TASK_COMPOSER_MIN_LENGTH_TASK_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -39,29 +39,29 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class SeedMinLengthTask : public TaskComposerTask
+class MinLengthTask : public TaskComposerTask
 {
 public:
-  using Ptr = std::shared_ptr<SeedMinLengthTask>;
-  using ConstPtr = std::shared_ptr<const SeedMinLengthTask>;
-  using UPtr = std::unique_ptr<SeedMinLengthTask>;
-  using ConstUPtr = std::unique_ptr<const SeedMinLengthTask>;
+  using Ptr = std::shared_ptr<MinLengthTask>;
+  using ConstPtr = std::shared_ptr<const MinLengthTask>;
+  using UPtr = std::unique_ptr<MinLengthTask>;
+  using ConstUPtr = std::unique_ptr<const MinLengthTask>;
 
-  SeedMinLengthTask() = default;  // Required for serialization
-  SeedMinLengthTask(std::string input_key,
-                    std::string output_key,
-                    bool is_conditional = false,
-                    std::string name = profile_ns::SEED_MIN_LENGTH_DEFAULT_NAMESPACE);
-  ~SeedMinLengthTask() override = default;
-  SeedMinLengthTask(const SeedMinLengthTask&) = delete;
-  SeedMinLengthTask& operator=(const SeedMinLengthTask&) = delete;
-  SeedMinLengthTask(SeedMinLengthTask&&) = delete;
-  SeedMinLengthTask& operator=(SeedMinLengthTask&&) = delete;
+  MinLengthTask() = default;  // Required for serialization
+  MinLengthTask(std::string input_key,
+                std::string output_key,
+                bool is_conditional = false,
+                std::string name = profile_ns::MIN_LENGTH_DEFAULT_NAMESPACE);
+  ~MinLengthTask() override = default;
+  MinLengthTask(const MinLengthTask&) = delete;
+  MinLengthTask& operator=(const MinLengthTask&) = delete;
+  MinLengthTask(MinLengthTask&&) = delete;
+  MinLengthTask& operator=(MinLengthTask&&) = delete;
 
   int run(TaskComposerInput& input) const override final;
 
-  bool operator==(const SeedMinLengthTask& rhs) const;
-  bool operator!=(const SeedMinLengthTask& rhs) const;
+  bool operator==(const MinLengthTask& rhs) const;
+  bool operator!=(const MinLengthTask& rhs) const;
 
 protected:
   friend class tesseract_common::Serialization;
@@ -73,21 +73,21 @@ protected:
   std::string output_key_;
 };
 
-class SeedMinLengthTaskInfo : public TaskComposerNodeInfo
+class MinLengthTaskInfo : public TaskComposerNodeInfo
 {
 public:
-  using Ptr = std::shared_ptr<SeedMinLengthTaskInfo>;
-  using ConstPtr = std::shared_ptr<const SeedMinLengthTaskInfo>;
-  using UPtr = std::unique_ptr<SeedMinLengthTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const SeedMinLengthTaskInfo>;
+  using Ptr = std::shared_ptr<MinLengthTaskInfo>;
+  using ConstPtr = std::shared_ptr<const MinLengthTaskInfo>;
+  using UPtr = std::unique_ptr<MinLengthTaskInfo>;
+  using ConstUPtr = std::unique_ptr<const MinLengthTaskInfo>;
 
-  SeedMinLengthTaskInfo() = default;
-  SeedMinLengthTaskInfo(boost::uuids::uuid uuid, std::string name = profile_ns::SEED_MIN_LENGTH_DEFAULT_NAMESPACE);
+  MinLengthTaskInfo() = default;
+  MinLengthTaskInfo(boost::uuids::uuid uuid, std::string name = profile_ns::MIN_LENGTH_DEFAULT_NAMESPACE);
 
   TaskComposerNodeInfo::UPtr clone() const override;
 
-  bool operator==(const SeedMinLengthTaskInfo& rhs) const;
-  bool operator!=(const SeedMinLengthTaskInfo& rhs) const;
+  bool operator==(const MinLengthTaskInfo& rhs) const;
+  bool operator!=(const MinLengthTaskInfo& rhs) const;
 
 private:
   friend class boost::serialization::access;
@@ -98,6 +98,6 @@ private:
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::SeedMinLengthTask, "SeedMinLengthTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::SeedMinLengthTaskInfo, "SeedMinLengthTaskInfo")
-#endif  // TESSERACT_TASK_COMPOSER_SEED_MIN_LENGTH_TASK_H
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::MinLengthTask, "MinLengthTask")
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::MinLengthTaskInfo, "MinLengthTaskInfo")
+#endif  // TESSERACT_TASK_COMPOSER_MIN_LENGTH_TASK_H
