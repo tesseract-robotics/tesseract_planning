@@ -43,7 +43,7 @@ SimplePlannerLVSPlanProfile::SimplePlannerLVSPlanProfile(double state_longest_va
 {
 }
 
-CompositeInstruction
+std::vector<MoveInstructionPoly>
 SimplePlannerLVSPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
                                       const MoveInstructionPoly& /*prev_seed*/,
                                       const MoveInstructionPoly& base_instruction,

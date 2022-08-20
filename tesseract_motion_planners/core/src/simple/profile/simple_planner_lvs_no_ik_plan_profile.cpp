@@ -43,7 +43,7 @@ SimplePlannerLVSNoIKPlanProfile::SimplePlannerLVSNoIKPlanProfile(double state_lo
 {
 }
 
-CompositeInstruction
+std::vector<MoveInstructionPoly>
 SimplePlannerLVSNoIKPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
                                           const MoveInstructionPoly& /*prev_seed*/,
                                           const MoveInstructionPoly& base_instruction,

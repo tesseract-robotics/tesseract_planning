@@ -56,20 +56,22 @@ public:
 
   /**
    * @brief Generate a seed for the provided base_instruction
+   * @brief This should not include the prev_instruction but must include the base_instruction
    * @param prev_instruction The previous instruction
    * @param prev_seed The previous seed
    * @param base_instruction The base/current instruction to generate the seed for
    * @param next_instruction The next instruction. This will be a null instruction for the final instruction
    * @param request The planning request
    * @param global_manip_info The global manipulator information
-   * @return A composite instruction representing the seed for the base_instruction
+   * @return A vector of move instrucitons
    */
-  virtual CompositeInstruction generate(const MoveInstructionPoly& prev_instruction,
-                                        const MoveInstructionPoly& prev_seed,
-                                        const MoveInstructionPoly& base_instruction,
-                                        const InstructionPoly& next_instruction,
-                                        const PlannerRequest& request,
-                                        const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
+  virtual std::vector<MoveInstructionPoly>
+  generate(const MoveInstructionPoly& prev_instruction,
+           const MoveInstructionPoly& prev_seed,
+           const MoveInstructionPoly& base_instruction,
+           const InstructionPoly& next_instruction,
+           const PlannerRequest& request,
+           const tesseract_common::ManipulatorInfo& global_manip_info) const = 0;
 };
 
 class SimplePlannerCompositeProfile

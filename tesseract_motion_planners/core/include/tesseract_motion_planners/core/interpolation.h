@@ -122,31 +122,32 @@ struct KinematicGroupInstructionInfo
   const Eigen::VectorXd& extractJointPosition() const;
 };
 
-CompositeInstruction interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                   const KinematicGroupInstructionInfo& base,
-                                                   int linear_steps,
-                                                   int freespace_steps);
+std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                               const KinematicGroupInstructionInfo& base,
+                                                               int linear_steps,
+                                                               int freespace_steps);
 
-CompositeInstruction interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                  const KinematicGroupInstructionInfo& base,
-                                                  int linear_steps,
-                                                  int freespace_steps);
+std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                              const KinematicGroupInstructionInfo& base,
+                                                              int linear_steps,
+                                                              int freespace_steps);
 
-CompositeInstruction interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                  const KinematicGroupInstructionInfo& base,
-                                                  int linear_steps,
-                                                  int freespace_steps);
+std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                              const KinematicGroupInstructionInfo& base,
+                                                              int linear_steps,
+                                                              int freespace_steps);
 
-CompositeInstruction interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                 const KinematicGroupInstructionInfo& base,
-                                                 int linear_steps,
-                                                 int freespace_steps,
-                                                 const tesseract_scene_graph::SceneState& scene_state);
+std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                             const KinematicGroupInstructionInfo& base,
+                                                             int linear_steps,
+                                                             int freespace_steps,
+                                                             const tesseract_scene_graph::SceneState& scene_state);
 
 /**
  * @brief JointWaypoint to JointWaypoint
+ * @details This does not include the prev instruction but does include the base instruction
  *
- * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+ * This function interpolates the motion from start state to end state.
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
@@ -162,18 +163,19 @@ CompositeInstruction interpolateCartCartWaypoint(const KinematicGroupInstruction
  * @param rotation_lvs_length The maximum rotational distance between successive steps
  * @param min_steps The minimum number of steps for the plan
  * @param max_steps The maximum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
+ * @return A vector of move instruction
  **/
-CompositeInstruction interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                   const KinematicGroupInstructionInfo& base,
-                                                   double state_lvs_length,
-                                                   double translation_lvs_length,
-                                                   double rotation_lvs_length,
-                                                   int min_steps,
-                                                   int max_steps);
+std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                               const KinematicGroupInstructionInfo& base,
+                                                               double state_lvs_length,
+                                                               double translation_lvs_length,
+                                                               double rotation_lvs_length,
+                                                               int min_steps,
+                                                               int max_steps);
 
 /**
  * @brief JointWaypoint to CartesianWaypoint
+ * @details This does not include the prev instruction but does include the base instruction
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
@@ -193,20 +195,21 @@ CompositeInstruction interpolateJointJointWaypoint(const KinematicGroupInstructi
  * @param rotation_lvs_length The maximum rotational distance between successive steps
  * @param min_steps The minimum number of steps for the plan
  * @param max_steps The maximum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
+ * @return A vector of move instruction
  **/
-CompositeInstruction interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                  const KinematicGroupInstructionInfo& base,
-                                                  double state_lvs_length,
-                                                  double translation_lvs_length,
-                                                  double rotation_lvs_length,
-                                                  int min_steps,
-                                                  int max_steps);
+std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                              const KinematicGroupInstructionInfo& base,
+                                                              double state_lvs_length,
+                                                              double translation_lvs_length,
+                                                              double rotation_lvs_length,
+                                                              int min_steps,
+                                                              int max_steps);
 
 /**
  * @brief CartesianWaypoint to JointWaypoint
+ * @details This does not include the prev instruction but does include the base instruction
  *
- * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+ * This function interpolates the motion from start state to end state.
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
@@ -226,20 +229,21 @@ CompositeInstruction interpolateJointCartWaypoint(const KinematicGroupInstructio
  * @param rotation_lvs_length The maximum rotational distance between successive steps
  * @param min_steps The minimum number of steps for the plan
  * @param max_steps The maximum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
+ * @return A vector of move instruction
  **/
-CompositeInstruction interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                  const KinematicGroupInstructionInfo& base,
-                                                  double state_lvs_length,
-                                                  double translation_lvs_length,
-                                                  double rotation_lvs_length,
-                                                  int min_steps,
-                                                  int max_steps);
+std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                              const KinematicGroupInstructionInfo& base,
+                                                              double state_lvs_length,
+                                                              double translation_lvs_length,
+                                                              double rotation_lvs_length,
+                                                              int min_steps,
+                                                              int max_steps);
 
 /**
  * @brief CartesianWaypoint to CartesianWaypoint
+ * @details This does not include the prev instruction but does include the base instruction
  *
- * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+ * This function interpolates the motion from start state to end state.
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
@@ -263,21 +267,22 @@ CompositeInstruction interpolateCartJointWaypoint(const KinematicGroupInstructio
  * @param rotation_lvs_length The maximum rotational distance between successive steps
  * @param min_steps The minimum number of steps for the plan
  * @param max_steps The maximum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
+ * @return A vector of move instruction
  **/
-CompositeInstruction interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                 const KinematicGroupInstructionInfo& base,
-                                                 double state_lvs_length,
-                                                 double translation_lvs_length,
-                                                 double rotation_lvs_length,
-                                                 int min_steps,
-                                                 int max_steps,
-                                                 const tesseract_scene_graph::SceneState& scene_state);
+std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                             const KinematicGroupInstructionInfo& base,
+                                                             double state_lvs_length,
+                                                             double translation_lvs_length,
+                                                             double rotation_lvs_length,
+                                                             int min_steps,
+                                                             int max_steps,
+                                                             const tesseract_scene_graph::SceneState& scene_state);
 
 /**
  * @brief JointWaypoint to JointWaypoint
+ * @details This does not include the prev instruction but does include the base instruction
  *
- * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+ * This function interpolates the motion from start state to end state.
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
@@ -293,18 +298,19 @@ CompositeInstruction interpolateCartCartWaypoint(const KinematicGroupInstruction
  * @param rotation_lvs_length The maximum rotational distance between successive steps
  * @param min_steps The minimum number of steps for the plan
  * @param max_steps The maximum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
+ * @return A vector of move instruction
  **/
-CompositeInstruction interpolateJointJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                   const JointGroupInstructionInfo& base,
-                                                   double state_lvs_length,
-                                                   double translation_lvs_length,
-                                                   double rotation_lvs_length,
-                                                   int min_steps,
-                                                   int max_steps);
+std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const JointGroupInstructionInfo& prev,
+                                                               const JointGroupInstructionInfo& base,
+                                                               double state_lvs_length,
+                                                               double translation_lvs_length,
+                                                               double rotation_lvs_length,
+                                                               int min_steps,
+                                                               int max_steps);
 
 /**
  * @brief JointWaypoint to CartesianWaypoint
+ * @details This does not include the prev instruction but does include the base instruction
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
@@ -324,20 +330,21 @@ CompositeInstruction interpolateJointJointWaypoint(const JointGroupInstructionIn
  * @param rotation_lvs_length The maximum rotational distance between successive steps
  * @param min_steps The minimum number of steps for the plan
  * @param max_steps The maximum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
+ * @return A vector of move instruction
  **/
-CompositeInstruction interpolateJointCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                  const JointGroupInstructionInfo& base,
-                                                  double state_lvs_length,
-                                                  double translation_lvs_length,
-                                                  double rotation_lvs_length,
-                                                  int min_steps,
-                                                  int max_steps);
+std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const JointGroupInstructionInfo& prev,
+                                                              const JointGroupInstructionInfo& base,
+                                                              double state_lvs_length,
+                                                              double translation_lvs_length,
+                                                              double rotation_lvs_length,
+                                                              int min_steps,
+                                                              int max_steps);
 
 /**
  * @brief CartesianWaypoint to JointWaypoint
+ * @details This does not include the prev instruction but does include the base instruction
  *
- * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+ * This function interpolates the motion from start state to end state.
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
@@ -357,20 +364,21 @@ CompositeInstruction interpolateJointCartWaypoint(const JointGroupInstructionInf
  * @param rotation_lvs_length The maximum rotational distance between successive steps
  * @param min_steps The minimum number of steps for the plan
  * @param max_steps The maximum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
+ * @return A vector of move instruction
  **/
-CompositeInstruction interpolateCartJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                  const JointGroupInstructionInfo& base,
-                                                  double state_lvs_length,
-                                                  double translation_lvs_length,
-                                                  double rotation_lvs_length,
-                                                  int min_steps,
-                                                  int max_steps);
+std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const JointGroupInstructionInfo& prev,
+                                                              const JointGroupInstructionInfo& base,
+                                                              double state_lvs_length,
+                                                              double translation_lvs_length,
+                                                              double rotation_lvs_length,
+                                                              int min_steps,
+                                                              int max_steps);
 
 /**
  * @brief CartesianWaypoint to CartesianWaypoint
+ * @details This does not include the prev instruction but does include the base instruction
  *
- * This function interpolates the motion from start state to end state. Results are stored in StateWaypoint objects.
+ * This function interpolates the motion from start state to end state.
  *
  * - the number of steps for the plan will be calculated such that:
  *   - the translation distance between successive steps is no longer than translation_longest_valid_segment
@@ -394,16 +402,16 @@ CompositeInstruction interpolateCartJointWaypoint(const JointGroupInstructionInf
  * @param rotation_lvs_length The maximum rotational distance between successive steps
  * @param min_steps The minimum number of steps for the plan
  * @param max_steps The maximum number of steps for the plan
- * @return A composite instruction of move instruction with state waypoints
+ * @return A vector of move instruction
  **/
-CompositeInstruction interpolateCartCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                 const JointGroupInstructionInfo& base,
-                                                 double state_lvs_length,
-                                                 double translation_lvs_length,
-                                                 double rotation_lvs_length,
-                                                 int min_steps,
-                                                 int max_steps,
-                                                 const tesseract_scene_graph::SceneState& scene_state);
+std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const JointGroupInstructionInfo& prev,
+                                                             const JointGroupInstructionInfo& base,
+                                                             double state_lvs_length,
+                                                             double translation_lvs_length,
+                                                             double rotation_lvs_length,
+                                                             int min_steps,
+                                                             int max_steps,
+                                                             const tesseract_scene_graph::SceneState& scene_state);
 /**
  * @brief Interpolate between two transforms return a vector of Eigen::Isometry transforms.
  * @param start The Start Transform
@@ -447,27 +455,29 @@ CompositeInstruction getInterpolatedCompositeLegacy(const std::vector<std::strin
                                                     const MoveInstructionPoly& base_instruction);
 
 /**
- * @brief This takes the provided seed state for the base_instruction and create a corresponding composite instruction
+ * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
+ * @details This skips the first state
  * @param joint_names The joint names associated with the states
  * @param states The joint states to populate the composite instruction with
  * @param base_instruction The base instruction used to extract profile and manipulator information from
- * @return The composite instruction
+ * @return A vector of move instruction
  */
-CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
-                                              const Eigen::MatrixXd& states,
-                                              const MoveInstructionPoly& base_instruction);
+std::vector<MoveInstructionPoly> getInterpolatedInstructions(const std::vector<std::string>& joint_names,
+                                                             const Eigen::MatrixXd& states,
+                                                             const MoveInstructionPoly& base_instruction);
 
 /**
- * @brief This takes the provided seed state for the base_instruction and create a corresponding composite instruction
+ * @brief This takes the provided seed state for the base_instruction and create a vector of move instruction
+ * @details This skips the first state
  * @param joint_names The joint names associated with the states
  * @param states The joint states to populate the composite instruction with
  * @param base_instruction The base instruction used to extract profile and manipulator information from
- * @return The composite instruction
+ * @return A vector of move instruction
  */
-CompositeInstruction getInterpolatedComposite(const tesseract_common::VectorIsometry3d& poses,
-                                              const std::vector<std::string>& joint_names,
-                                              const Eigen::MatrixXd& states,
-                                              const MoveInstructionPoly& base_instruction);
+std::vector<MoveInstructionPoly> getInterpolatedInstructions(const tesseract_common::VectorIsometry3d& poses,
+                                                             const std::vector<std::string>& joint_names,
+                                                             const Eigen::MatrixXd& states,
+                                                             const MoveInstructionPoly& base_instruction);
 
 /**
  * @brief Find the closest joint solution for p to the provided seed

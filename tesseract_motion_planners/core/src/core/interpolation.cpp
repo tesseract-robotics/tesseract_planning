@@ -154,10 +154,10 @@ const Eigen::VectorXd& KinematicGroupInstructionInfo::extractJointPosition() con
   return getJointPosition(instruction.getWaypoint());
 }
 
-CompositeInstruction interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                   const KinematicGroupInstructionInfo& base,
-                                                   int linear_steps,
-                                                   int freespace_steps)
+std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                               const KinematicGroupInstructionInfo& base,
+                                                               int linear_steps,
+                                                               int freespace_steps)
 {
   // Calculate FK for start and end
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -194,16 +194,16 @@ CompositeInstruction interpolateJointJointWaypoint(const KinematicGroupInstructi
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                  const KinematicGroupInstructionInfo& base,
-                                                  int linear_steps,
-                                                  int freespace_steps)
+std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                              const KinematicGroupInstructionInfo& base,
+                                                              int linear_steps,
+                                                              int freespace_steps)
 {
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
 
@@ -258,16 +258,16 @@ CompositeInstruction interpolateJointCartWaypoint(const KinematicGroupInstructio
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                  const KinematicGroupInstructionInfo& base,
-                                                  int linear_steps,
-                                                  int freespace_steps)
+std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                              const KinematicGroupInstructionInfo& base,
+                                                              int linear_steps,
+                                                              int freespace_steps)
 {
   const Eigen::VectorXd& j2 = base.extractJointPosition();
 
@@ -321,17 +321,17 @@ CompositeInstruction interpolateCartJointWaypoint(const KinematicGroupInstructio
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                 const KinematicGroupInstructionInfo& base,
-                                                 int linear_steps,
-                                                 int freespace_steps,
-                                                 const tesseract_scene_graph::SceneState& scene_state)
+std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                             const KinematicGroupInstructionInfo& base,
+                                                             int linear_steps,
+                                                             int freespace_steps,
+                                                             const tesseract_scene_graph::SceneState& scene_state)
 {
   // Get IK seed
   Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
@@ -423,20 +423,20 @@ CompositeInstruction interpolateCartCartWaypoint(const KinematicGroupInstruction
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
   // Convert to MoveInstructions
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                   const KinematicGroupInstructionInfo& base,
-                                                   double state_lvs_length,
-                                                   double translation_lvs_length,
-                                                   double rotation_lvs_length,
-                                                   int min_steps,
-                                                   int max_steps)
+std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                               const KinematicGroupInstructionInfo& base,
+                                                               double state_lvs_length,
+                                                               double translation_lvs_length,
+                                                               double rotation_lvs_length,
+                                                               int min_steps,
+                                                               int max_steps)
 {
   // Calculate FK for start and end
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -461,13 +461,13 @@ CompositeInstruction interpolateJointJointWaypoint(const KinematicGroupInstructi
   return interpolateJointJointWaypoint(prev, base, steps, steps);
 }
 
-CompositeInstruction interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                  const KinematicGroupInstructionInfo& base,
-                                                  double state_lvs_length,
-                                                  double translation_lvs_length,
-                                                  double rotation_lvs_length,
-                                                  int min_steps,
-                                                  int max_steps)
+std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                              const KinematicGroupInstructionInfo& base,
+                                                              double state_lvs_length,
+                                                              double translation_lvs_length,
+                                                              double rotation_lvs_length,
+                                                              int min_steps,
+                                                              int max_steps)
 {
   // Calculate FK for start
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -512,10 +512,10 @@ CompositeInstruction interpolateJointCartWaypoint(const KinematicGroupInstructio
         pose = base.working_frame_transform.inverse() * pose;
 
       assert(poses.size() == states.cols());
-      return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+      return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
     }
 
-    return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
   }
 
   // Check min steps requirement
@@ -533,19 +533,19 @@ CompositeInstruction interpolateJointCartWaypoint(const KinematicGroupInstructio
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                  const KinematicGroupInstructionInfo& base,
-                                                  double state_lvs_length,
-                                                  double translation_lvs_length,
-                                                  double rotation_lvs_length,
-                                                  int min_steps,
-                                                  int max_steps)
+std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                              const KinematicGroupInstructionInfo& base,
+                                                              double state_lvs_length,
+                                                              double translation_lvs_length,
+                                                              double rotation_lvs_length,
+                                                              int min_steps,
+                                                              int max_steps)
 {
   // Calculate FK for end
   const Eigen::VectorXd& j2 = base.extractJointPosition();
@@ -590,10 +590,10 @@ CompositeInstruction interpolateCartJointWaypoint(const KinematicGroupInstructio
         pose = base.working_frame_transform.inverse() * pose;
 
       assert(poses.size() == states.cols());
-      return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+      return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
     }
 
-    return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
   }
 
   // Check min steps requirement
@@ -611,20 +611,20 @@ CompositeInstruction interpolateCartJointWaypoint(const KinematicGroupInstructio
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
-                                                 const KinematicGroupInstructionInfo& base,
-                                                 double state_lvs_length,
-                                                 double translation_lvs_length,
-                                                 double rotation_lvs_length,
-                                                 int min_steps,
-                                                 int max_steps,
-                                                 const tesseract_scene_graph::SceneState& scene_state)
+std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const KinematicGroupInstructionInfo& prev,
+                                                             const KinematicGroupInstructionInfo& base,
+                                                             double state_lvs_length,
+                                                             double translation_lvs_length,
+                                                             double rotation_lvs_length,
+                                                             int min_steps,
+                                                             int max_steps,
+                                                             const tesseract_scene_graph::SceneState& scene_state)
 {
   // Get IK seed
   Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
@@ -712,20 +712,20 @@ CompositeInstruction interpolateCartCartWaypoint(const KinematicGroupInstruction
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
   // Convert to MoveInstructions
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateJointJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                   const JointGroupInstructionInfo& base,
-                                                   double state_lvs_length,
-                                                   double translation_lvs_length,
-                                                   double rotation_lvs_length,
-                                                   int min_steps,
-                                                   int max_steps)
+std::vector<MoveInstructionPoly> interpolateJointJointWaypoint(const JointGroupInstructionInfo& prev,
+                                                               const JointGroupInstructionInfo& base,
+                                                               double state_lvs_length,
+                                                               double translation_lvs_length,
+                                                               double rotation_lvs_length,
+                                                               int min_steps,
+                                                               int max_steps)
 {
   // Calculate FK for start and end
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -758,19 +758,19 @@ CompositeInstruction interpolateJointJointWaypoint(const JointGroupInstructionIn
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateJointCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                  const JointGroupInstructionInfo& base,
-                                                  double state_lvs_length,
-                                                  double translation_lvs_length,
-                                                  double rotation_lvs_length,
-                                                  int min_steps,
-                                                  int max_steps)
+std::vector<MoveInstructionPoly> interpolateJointCartWaypoint(const JointGroupInstructionInfo& prev,
+                                                              const JointGroupInstructionInfo& base,
+                                                              double state_lvs_length,
+                                                              double translation_lvs_length,
+                                                              double rotation_lvs_length,
+                                                              int min_steps,
+                                                              int max_steps)
 {
   // Calculate FK for start
   const Eigen::VectorXd& j1 = prev.extractJointPosition();
@@ -811,19 +811,19 @@ CompositeInstruction interpolateJointCartWaypoint(const JointGroupInstructionInf
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateCartJointWaypoint(const JointGroupInstructionInfo& prev,
-                                                  const JointGroupInstructionInfo& base,
-                                                  double state_lvs_length,
-                                                  double translation_lvs_length,
-                                                  double rotation_lvs_length,
-                                                  int min_steps,
-                                                  int max_steps)
+std::vector<MoveInstructionPoly> interpolateCartJointWaypoint(const JointGroupInstructionInfo& prev,
+                                                              const JointGroupInstructionInfo& base,
+                                                              double state_lvs_length,
+                                                              double translation_lvs_length,
+                                                              double rotation_lvs_length,
+                                                              int min_steps,
+                                                              int max_steps)
 {
   // Calculate FK for end
   const Eigen::VectorXd& j2 = base.extractJointPosition();
@@ -864,20 +864,20 @@ CompositeInstruction interpolateCartJointWaypoint(const JointGroupInstructionInf
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
-CompositeInstruction interpolateCartCartWaypoint(const JointGroupInstructionInfo& prev,
-                                                 const JointGroupInstructionInfo& base,
-                                                 double state_lvs_length,
-                                                 double translation_lvs_length,
-                                                 double rotation_lvs_length,
-                                                 int min_steps,
-                                                 int max_steps,
-                                                 const tesseract_scene_graph::SceneState& scene_state)
+std::vector<MoveInstructionPoly> interpolateCartCartWaypoint(const JointGroupInstructionInfo& prev,
+                                                             const JointGroupInstructionInfo& base,
+                                                             double state_lvs_length,
+                                                             double translation_lvs_length,
+                                                             double rotation_lvs_length,
+                                                             int min_steps,
+                                                             int max_steps,
+                                                             const tesseract_scene_graph::SceneState& scene_state)
 {
   // Get IK seed
   Eigen::VectorXd seed = scene_state.getJointValues(base.manip->getJointNames());
@@ -920,10 +920,10 @@ CompositeInstruction interpolateCartCartWaypoint(const JointGroupInstructionInfo
       pose = base.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, base.manip->getJointNames(), states, base.instruction);
+    return getInterpolatedInstructions(poses, base.manip->getJointNames(), states, base.instruction);
   }
 
-  return getInterpolatedComposite(base.manip->getJointNames(), states, base.instruction);
+  return getInterpolatedInstructions(base.manip->getJointNames(), states, base.instruction);
 }
 
 tesseract_common::VectorIsometry3d interpolate(const Eigen::Isometry3d& start,
@@ -1050,17 +1050,12 @@ CompositeInstruction getInterpolatedCompositeLegacy(const std::vector<std::strin
   return composite;
 }
 
-CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& joint_names,
-                                              const Eigen::MatrixXd& states,
-                                              const MoveInstructionPoly& base_instruction)
+std::vector<MoveInstructionPoly> getInterpolatedInstructions(const std::vector<std::string>& joint_names,
+                                                             const Eigen::MatrixXd& states,
+                                                             const MoveInstructionPoly& base_instruction)
 {
-  CompositeInstruction composite;
-  composite.setManipulatorInfo(base_instruction.getManipulatorInfo());
-  composite.setDescription(base_instruction.getDescription());
-  composite.setProfile(base_instruction.getProfile());
-  //  composite.profile_overrides = base_instruction.profile_overrides;
-
   // Convert to MoveInstructions
+  std::vector<MoveInstructionPoly> move_instructions;
   for (long i = 1; i < states.cols() - 1; ++i)
   {
     MoveInstructionPoly move_instruction = base_instruction.createChild();
@@ -1074,7 +1069,7 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
       move_instruction.setProfile(base_instruction.getPathProfile());
       move_instruction.setPathProfile(base_instruction.getPathProfile());
     }
-    composite.appendMoveInstruction(move_instruction);
+    move_instructions.push_back(move_instruction);
   }
 
   MoveInstructionPoly move_instruction{ base_instruction };
@@ -1082,22 +1077,17 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
     move_instruction.getWaypoint().as<CartesianWaypointPoly>().setSeed(
         tesseract_common::JointState(joint_names, states.col(states.cols() - 1)));
 
-  composite.appendMoveInstruction(move_instruction);
-  return composite;
+  move_instructions.push_back(move_instruction);
+  return move_instructions;
 }
 
-CompositeInstruction getInterpolatedComposite(const tesseract_common::VectorIsometry3d& poses,
-                                              const std::vector<std::string>& joint_names,
-                                              const Eigen::MatrixXd& states,
-                                              const MoveInstructionPoly& base_instruction)
+std::vector<MoveInstructionPoly> getInterpolatedInstructions(const tesseract_common::VectorIsometry3d& poses,
+                                                             const std::vector<std::string>& joint_names,
+                                                             const Eigen::MatrixXd& states,
+                                                             const MoveInstructionPoly& base_instruction)
 {
-  CompositeInstruction composite;
-  composite.setManipulatorInfo(base_instruction.getManipulatorInfo());
-  composite.setDescription(base_instruction.getDescription());
-  composite.setProfile(base_instruction.getProfile());
-  //  composite.profile_overrides = base_instruction.profile_overrides;
-
   // Convert to MoveInstructions
+  std::vector<MoveInstructionPoly> move_instructions;
   if (base_instruction.getWaypoint().isCartesianWaypoint())
   {
     for (long i = 1; i < states.cols() - 1; ++i)
@@ -1111,13 +1101,13 @@ CompositeInstruction getInterpolatedComposite(const tesseract_common::VectorIsom
         move_instruction.setProfile(base_instruction.getPathProfile());
         move_instruction.setPathProfile(base_instruction.getPathProfile());
       }
-      composite.appendMoveInstruction(move_instruction);
+      move_instructions.push_back(move_instruction);
     }
 
     MoveInstructionPoly move_instruction = base_instruction;
     move_instruction.getWaypoint().as<CartesianWaypointPoly>().setSeed(
         tesseract_common::JointState(joint_names, states.col(states.cols() - 1)));
-    composite.appendMoveInstruction(move_instruction);
+    move_instructions.push_back(move_instruction);
   }
   else
   {
@@ -1133,13 +1123,13 @@ CompositeInstruction getInterpolatedComposite(const tesseract_common::VectorIsom
         move_instruction.setProfile(base_instruction.getPathProfile());
         move_instruction.setPathProfile(base_instruction.getPathProfile());
       }
-      composite.appendMoveInstruction(move_instruction);
+      move_instructions.push_back(move_instruction);
     }
 
-    composite.appendMoveInstruction(base_instruction);
+    move_instructions.push_back(base_instruction);
   }
 
-  return composite;
+  return move_instructions;
 }
 
 Eigen::VectorXd getClosestJointSolution(const KinematicGroupInstructionInfo& info, const Eigen::VectorXd& seed)

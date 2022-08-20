@@ -35,7 +35,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/default_planner_namespaces.h>
 #include <tesseract_motion_planners/core/planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_profile.h>
 
 namespace tesseract_planning
 {

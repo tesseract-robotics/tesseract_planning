@@ -35,7 +35,7 @@ SimplePlannerFixedSizeAssignPlanProfile::SimplePlannerFixedSizeAssignPlanProfile
 {
 }
 
-CompositeInstruction
+std::vector<MoveInstructionPoly>
 SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& prev_instruction,
                                                   const MoveInstructionPoly& /*prev_seed*/,
                                                   const MoveInstructionPoly& base_instruction,
@@ -110,10 +110,10 @@ SimplePlannerFixedSizeAssignPlanProfile::generate(const MoveInstructionPoly& pre
       pose = info2.working_frame_transform.inverse() * pose;
 
     assert(poses.size() == states.cols());
-    return getInterpolatedComposite(poses, info2.manip->getJointNames(), states, info2.instruction);
+    return getInterpolatedInstructions(poses, info2.manip->getJointNames(), states, info2.instruction);
   }
 
-  return getInterpolatedComposite(info2.manip->getJointNames(), states, info2.instruction);
+  return getInterpolatedInstructions(info2.manip->getJointNames(), states, info2.instruction);
 }
 
 }  // namespace tesseract_planning

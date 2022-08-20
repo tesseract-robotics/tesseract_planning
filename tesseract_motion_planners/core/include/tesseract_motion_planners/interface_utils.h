@@ -106,11 +106,11 @@ inline CompositeInstruction generateSeedLegacy(const CompositeInstruction& instr
 
   // Create profile dictionary
   auto profiles = std::make_shared<ProfileDictionary>();
-  profiles->addProfile<SimplePlannerPlanProfile>(planner.getName(), instructions.getProfile(), profile);
+  profiles->addProfile<SimplePlannerLegacyPlanProfile>(planner.getName(), instructions.getProfile(), profile);
   auto flat = flattenProgram(instructions);
   for (const auto& i : flat)
     if (i.get().isMoveInstruction())
-      profiles->addProfile<SimplePlannerPlanProfile>(
+      profiles->addProfile<SimplePlannerLegacyPlanProfile>(
           planner.getName(), i.get().as<MoveInstructionPoly>().getProfile(), profile);
 
   // Assign profile dictionary

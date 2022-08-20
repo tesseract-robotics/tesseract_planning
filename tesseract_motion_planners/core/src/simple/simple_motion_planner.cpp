@@ -213,18 +213,19 @@ CompositeInstruction SimpleMotionPlanner::processCompositeInstruction(const Comp
       if (!plan_profile)
         throw std::runtime_error("SimpleMotionPlanner: Invalid profile");
 
-      CompositeInstruction instruction_seed = plan_profile->generate(prev_instruction,
-                                                                     prev_seed,
-                                                                     base_instruction,
-                                                                     next_instruction,
-                                                                     request,
-                                                                     request.instructions.getManipulatorInfo());
+      std::vector<MoveInstructionPoly> instruction_seed =
+          plan_profile->generate(prev_instruction,
+                                 prev_seed,
+                                 base_instruction,
+                                 next_instruction,
+                                 request,
+                                 request.instructions.getManipulatorInfo());
 
       for (const auto& instr : instruction_seed)
         seed.appendInstruction(instr);
 
       prev_instruction = base_instruction;
-      prev_seed = instruction_seed.back().as<MoveInstructionPoly>();
+      prev_seed = instruction_seed.back();
     }
     else
     {

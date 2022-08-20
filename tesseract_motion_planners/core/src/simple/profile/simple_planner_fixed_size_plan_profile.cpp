@@ -35,7 +35,7 @@ SimplePlannerFixedSizePlanProfile::SimplePlannerFixedSizePlanProfile(int freespa
 {
 }
 
-CompositeInstruction
+std::vector<MoveInstructionPoly>
 SimplePlannerFixedSizePlanProfile::generate(const MoveInstructionPoly& prev_instruction,
                                             const MoveInstructionPoly& /*prev_seed*/,
                                             const MoveInstructionPoly& base_instruction,

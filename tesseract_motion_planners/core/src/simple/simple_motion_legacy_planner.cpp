@@ -213,11 +213,11 @@ CompositeInstruction SimpleMotionLegacyPlanner::processCompositeInstruction(cons
       }
 
       // If a path profile exists for the instruction it should use that instead of the termination profile
-      SimplePlannerPlanProfile::ConstPtr plan_profile;
+      SimplePlannerLegacyPlanProfile::ConstPtr plan_profile;
       if (base_instruction.getPathProfile().empty())
       {
         std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
-        plan_profile = getProfile<SimplePlannerPlanProfile>(
+        plan_profile = getProfile<SimplePlannerLegacyPlanProfile>(
             name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKLegacyPlanProfile>());
         //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
         //        base_instruction.profile_overrides);
@@ -226,7 +226,7 @@ CompositeInstruction SimpleMotionLegacyPlanner::processCompositeInstruction(cons
       {
         std::string profile =
             getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
-        plan_profile = getProfile<SimplePlannerPlanProfile>(
+        plan_profile = getProfile<SimplePlannerLegacyPlanProfile>(
             name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKLegacyPlanProfile>());
         //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
         //        base_instruction.profile_overrides);
