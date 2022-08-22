@@ -2,7 +2,7 @@
 #include <iostream>
 #include <tesseract_common/utils.h>
 #include <tesseract_task_composer/task_composer_graph.h>
-#include <tesseract_task_composer/taskflow_utils.h>
+#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
 using namespace tesseract_planning;
 
@@ -70,7 +70,8 @@ int main()
   task_data->setData("c", c);
   task_data->setData("d", d);
 
-  auto task_input = std::make_shared<TaskComposerInput>(task_data);
+  auto task_executor = std::make_shared<TaskflowTaskComposerExecutor>();
+  auto task_input = std::make_shared<TaskComposerInput>(task_data, task_executor);
 
   // result = a * (b + c) + d
   auto task1 = std::make_unique<AddTaskComposerNode>("b", "c", "task1_output");
@@ -84,16 +85,8 @@ int main()
   task_composer.addEdges(task1_id, { task2_id });
   task_composer.addEdges(task2_id, { task3_id });
 
-  TaskComposerTaskflowContainer taskflow = convertToTaskflow(task_composer, *task_input);
-
-  std::ofstream out_data;
-  out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
-  taskflow.top->dump(out_data);  // dump the graph including dynamic tasks
-  out_data.close();
-
-  tf::Executor executor;
-  executor.run(*taskflow.top);
-  executor.wait_for_all();
+  TaskComposerFuture::UPtr future = task_executor->run(task_composer, *task_input);
+  future->wait();
 
   std::cout << "Output: " << task_data->getData("task3_output").as<double>() << std::endl;
 }

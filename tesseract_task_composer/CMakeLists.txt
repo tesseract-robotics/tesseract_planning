@@ -45,6 +45,8 @@ tesseract_variables()
 add_library(
   ${PROJECT_NAME}
   src/task_composer_data_storage.cpp
+  src/task_composer_executor.cpp
+  src/task_composer_future.cpp
   src/task_composer_input.cpp
   src/task_composer_node.cpp
   src/task_composer_node_info.cpp
@@ -74,7 +76,9 @@ add_library(
   src/nodes/transition_mux_task.cpp
   src/nodes/update_end_state_task.cpp
   src/nodes/update_start_state_task.cpp
-  src/nodes/upsample_trajectory_task.cpp)
+  src/nodes/upsample_trajectory_task.cpp
+  src/taskflow/taskflow_task_composer_executor.cpp
+  src/taskflow/taskflow_task_composer_future.cpp)
 target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC console_bridge::console_bridge

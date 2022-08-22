@@ -1,6 +1,6 @@
 /**
  * @file task_composer_executor.h
- * @brief The executor for executig pipelines
+ * @brief The executor for executing task graphs
  *
  * @author Levi Armstrong
  * @date July 29. 2022
@@ -26,8 +26,15 @@
 #ifndef TESSERACT_TASK_COMPOSER_TASK_COMPOSER_EXECUTOR_H
 #define TESSERACT_TASK_COMPOSER_TASK_COMPOSER_EXECUTOR_H
 
+#include <tesseract_common/macros.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <memory>
-#include <tesseract_task_composer/task_compposer_pipeline.h>
+TESSERACT_COMMON_IGNORE_WARNINGS_POP
+
+#include <tesseract_task_composer/task_composer_graph.h>
+#include <tesseract_task_composer/task_composer_task.h>
+#include <tesseract_task_composer/task_composer_input.h>
+#include <tesseract_task_composer/task_composer_future.h>
 
 namespace tesseract_planning
 {
@@ -39,19 +46,48 @@ public:
   using UPtr = std::unique_ptr<TaskComposerExecutor>;
   using ConstUPtr = std::unique_ptr<const TaskComposerExecutor>;
 
-  TaskComposerExecutor(std::string name = "TaskComposerNode");
-  virtual ~TaskComposerExecutor();
+  TaskComposerExecutor(std::string name = "TaskComposerExecutor");
+  virtual ~TaskComposerExecutor() = default;
 
   /**
-  @brief runs the taskflow once
+   * @brief Execute the provided task graph
+   * @param task_graph The task graph to execute
+   * @param task_input The task input provided to every task
+   * @return The future associated with execution
+   */
+  virtual TaskComposerFuture::UPtr run(const TaskComposerGraph& task_graph, TaskComposerInput& task_input) = 0;
 
-  @param taskflow a tf::Taskflow object
+  /**
+   * @brief Execute the provided task
+   * @param task_graph The task to execute
+   * @param task_input The task input provided to task
+   * @return The future associated with execution
+   */
+  virtual TaskComposerFuture::UPtr run(const TaskComposerTask& task, TaskComposerInput& task_input) = 0;
 
-  @return a tf::Future that will holds the result of the execution
-  */
-  tf::Future<void> run(Tas& taskflow);
+  /** @brief Queries the number of workers (example: number of threads) */
+  virtual long getWorkerCount() const = 0;
+
+  /** @brief Queries the number of running tasks at the time of this call */
+  virtual long getTaskCount() const = 0;
+
+  bool operator==(const TaskComposerExecutor& rhs) const;
+  bool operator!=(const TaskComposerExecutor& rhs) const;
+
+protected:
+  friend class tesseract_common::Serialization;
+  friend class boost::serialization::access;
+
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  std::string name_;
 };
 }  // namespace tesseract_planning
+
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/tracking.hpp>
+BOOST_CLASS_EXPORT_KEY2(tesseract_planning::TaskComposerExecutor, "TaskComposerExecutor")
 
 // class Executor {
 

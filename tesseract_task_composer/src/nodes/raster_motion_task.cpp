@@ -31,6 +31,8 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
+#include <tesseract_task_composer/task_composer_future.h>
+#include <tesseract_task_composer/task_composer_executor.h>
 #include <tesseract_task_composer/nodes/raster_motion_task.h>
 #include <tesseract_task_composer/nodes/start_task.h>
 #include <tesseract_task_composer/nodes/cartesian_motion_pipeline_task.h>
@@ -38,7 +40,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/nodes/transition_mux_task.h>
 #include <tesseract_task_composer/nodes/update_end_state_task.h>
 #include <tesseract_task_composer/nodes/update_start_state_task.h>
-#include <tesseract_task_composer/taskflow_utils.h>
 #include <tesseract_command_language/composite_instruction.h>
 
 namespace tesseract_planning
@@ -218,18 +219,18 @@ int RasterMotionTask::run(TaskComposerInput& input) const
   task_graph.dump(tc_out_data);  // dump the graph including dynamic tasks
   tc_out_data.close();
 
-  TaskComposerTaskflowContainer tf = convertToTaskflow(task_graph, input);
-
-  // Debug remove
-  std::ofstream out_data;
-  out_data.open(tesseract_common::getTempPath() + "task_composer_raster_subgraph_example_tf.dot");
-  tf.top->dump(out_data);  // dump the graph including dynamic tasks
-  out_data.close();
-
-  input.executor->run(*tf.top).wait();
+  TaskComposerFuture::UPtr future = input.executor->run(task_graph, input);
+  future->wait();
 
   if (input.isAborted())
+  {
+    info->message = "Raster subgraph failed";
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    //    saveOutputs(*info, input);
+    info->elapsed_time = timer.elapsedSeconds();
+    input.addTaskInfo(std::move(info));
     return 0;
+  }
 
   program.clear();
   program.appendInstruction(input.data_storage->getData(from_start_pipeline_key).as<CompositeInstruction>());
@@ -243,6 +244,9 @@ int RasterMotionTask::run(TaskComposerInput& input) const
 
   input.data_storage->setData(output_key_, program);
 
+  //  saveOutputs(*info, input);
+  info->elapsed_time = timer.elapsedSeconds();
+  input.addTaskInfo(std::move(info));
   return 1;
 }
 

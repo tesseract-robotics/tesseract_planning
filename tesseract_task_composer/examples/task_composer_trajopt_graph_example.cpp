@@ -5,10 +5,10 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #include <numeric>
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
-#include <tesseract_task_composer/taskflow_utils.h>
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_data_storage.h>
 #include <tesseract_task_composer/nodes/trajopt_motion_pipeline_task.h>
+#include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 
 #include <tesseract_common/types.h>
 #include <tesseract_environment/environment.h>
@@ -52,26 +52,19 @@ int main()
   auto task_data = std::make_shared<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
 
-  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data);
+  auto task_executor = std::make_shared<TaskflowTaskComposerExecutor>();
 
-  TaskComposerGraph::UPtr task_composer =
-      std::make_unique<TrajOptMotionPipelineTask>("input_program", "output_program");
+  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data, task_executor);
+
+  TaskComposerGraph::UPtr task_graph = std::make_unique<TrajOptMotionPipelineTask>("input_program", "output_program");
 
   std::ofstream tc_out_data;
   tc_out_data.open(tesseract_common::getTempPath() + "task_composer_trajopt_graph_example.dot");
-  task_composer->dump(tc_out_data);  // dump the graph including dynamic tasks
+  task_graph->dump(tc_out_data);  // dump the graph including dynamic tasks
   tc_out_data.close();
 
-  TaskComposerTaskflowContainer taskflow = convertToTaskflow(*task_composer, *task_input);
-
-  std::ofstream out_data;
-  out_data.open(tesseract_common::getTempPath() + "task_composer_trajopt_graph_example_tf.dot");
-  taskflow.top->dump(out_data);  // dump the graph including dynamic tasks
-  out_data.close();
-
-  tf::Executor executor;
-  executor.run(*taskflow.top);
-  executor.wait_for_all();
+  TaskComposerFuture::UPtr future = task_executor->run(*task_graph, *task_input);
+  future->wait();
 
   // Solve process plan
   //  ProcessPlanningFuture response = planning_server.run(request);

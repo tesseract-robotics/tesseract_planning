@@ -110,12 +110,13 @@ struct TaskComposerNodeInfoContainer
   bool operator!=(const TaskComposerNodeInfoContainer& rhs) const;
 
 private:
-  mutable std::shared_mutex mutex_;
-  std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> info_map_;
-
+  friend class tesseract_common::Serialization;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  mutable std::shared_mutex mutex_;
+  std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> info_map_;
 };
 }  // namespace tesseract_planning
 

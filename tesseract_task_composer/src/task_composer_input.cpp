@@ -25,24 +25,26 @@
  */
 
 #include <tesseract_task_composer/task_composer_input.h>
-#include <taskflow/taskflow.hpp>
+#include <tesseract_task_composer/task_composer_executor.h>
 
 namespace tesseract_planning
 {
-TaskComposerInput::TaskComposerInput(TaskComposerDataStorage::Ptr data_storage)
-  : data_storage(std::move(data_storage)), executor(std::make_shared<tf::Executor>())
+TaskComposerInput::TaskComposerInput(TaskComposerDataStorage::Ptr data_storage,
+                                     std::shared_ptr<TaskComposerExecutor> executor)
+  : data_storage(std::move(data_storage)), executor(std::move(executor))
 {
 }
 
 TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
                                      tesseract_common::ManipulatorInfo manip_info,
                                      ProfileDictionary::ConstPtr profiles,
-                                     TaskComposerDataStorage::Ptr data_storage)
+                                     TaskComposerDataStorage::Ptr data_storage,
+                                     std::shared_ptr<TaskComposerExecutor> executor)
   : env(std::move(env))
   , manip_info(std::move(manip_info))
   , profiles(std::move(profiles))
   , data_storage(std::move(data_storage))
-  , executor(std::make_shared<tf::Executor>())
+  , executor(std::move(executor))
 {
 }
 
@@ -51,14 +53,15 @@ TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPt
                                      ProfileRemapping move_profile_remapping,
                                      ProfileRemapping composite_profile_remapping,
                                      ProfileDictionary::ConstPtr profiles,
-                                     TaskComposerDataStorage::Ptr data_storage)
+                                     TaskComposerDataStorage::Ptr data_storage,
+                                     std::shared_ptr<TaskComposerExecutor> executor)
   : env(std::move(env))
   , manip_info(std::move(manip_info))
   , move_profile_remapping(std::move(move_profile_remapping))
   , composite_profile_remapping(std::move(composite_profile_remapping))
   , profiles(std::move(profiles))
   , data_storage(std::move(data_storage))
-  , executor(std::make_shared<tf::Executor>())
+  , executor(std::move(executor))
 {
 }
 
@@ -66,23 +69,25 @@ TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPt
                                      ProfileRemapping move_profile_remapping,
                                      ProfileRemapping composite_profile_remapping,
                                      ProfileDictionary::ConstPtr profiles,
-                                     TaskComposerDataStorage::Ptr data_storage)
+                                     TaskComposerDataStorage::Ptr data_storage,
+                                     std::shared_ptr<TaskComposerExecutor> executor)
   : env(std::move(env))
   , move_profile_remapping(std::move(move_profile_remapping))
   , composite_profile_remapping(std::move(composite_profile_remapping))
   , profiles(std::move(profiles))
   , data_storage(std::move(data_storage))
-  , executor(std::make_shared<tf::Executor>())
+  , executor(std::move(executor))
 {
 }
 
 TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
                                      ProfileDictionary::ConstPtr profiles,
-                                     TaskComposerDataStorage::Ptr data_storage)
+                                     TaskComposerDataStorage::Ptr data_storage,
+                                     std::shared_ptr<TaskComposerExecutor> executor)
   : env(std::move(env))
   , profiles(std::move(profiles))
   , data_storage(std::move(data_storage))
-  , executor(std::make_shared<tf::Executor>())
+  , executor(std::move(executor))
 {
 }
 
