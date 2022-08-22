@@ -42,7 +42,7 @@ ProfileSwitchTask::ProfileSwitchTask(std::string input_key, bool is_conditional,
 {
 }
 
-int ProfileSwitchTask::run(TaskComposerInput& input) const
+int ProfileSwitchTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

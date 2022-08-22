@@ -60,7 +60,7 @@ public:
   IterativeSplineParameterizationTask(IterativeSplineParameterizationTask&&) = delete;
   IterativeSplineParameterizationTask& operator=(IterativeSplineParameterizationTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const IterativeSplineParameterizationTask& rhs) const;
   bool operator!=(const IterativeSplineParameterizationTask& rhs) const;

@@ -50,7 +50,7 @@ MinLengthTask::MinLengthTask(std::string input_key, std::string output_key, bool
 {
 }
 
-int MinLengthTask::run(TaskComposerInput& input) const
+int MinLengthTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

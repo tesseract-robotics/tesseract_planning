@@ -6,18 +6,18 @@
 
 using namespace tesseract_planning;
 
-class AddTaskComposerNode : public TaskComposerNode
+class AddTaskComposerNode : public TaskComposerTask
 {
 public:
   AddTaskComposerNode(std::string left_key, std::string right_key, std::string output_key)
-    : TaskComposerNode("AddTwoNumbers")
+    : TaskComposerTask("AddTwoNumbers")
     , left_key_(std::move(left_key))
     , right_key_(std::move(right_key))
     , output_key_(std::move(output_key))
   {
   }
 
-  int run(TaskComposerInput& input) const override final
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const override final
   {
     std::cout << name_ << std::endl;
     double result =
@@ -32,18 +32,18 @@ protected:
   std::string output_key_;
 };
 
-class MultiplyTaskComposerNode : public TaskComposerNode
+class MultiplyTaskComposerNode : public TaskComposerTask
 {
 public:
   MultiplyTaskComposerNode(std::string left_key, std::string right_key, std::string output_key)
-    : TaskComposerNode("MultiplyTwoNumbers")
+    : TaskComposerTask("MultiplyTwoNumbers")
     , left_key_(std::move(left_key))
     , right_key_(std::move(right_key))
     , output_key_(std::move(output_key))
   {
   }
 
-  int run(TaskComposerInput& input) const override final
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const override final
   {
     std::cout << name_ << std::endl;
     double result =
@@ -70,8 +70,7 @@ int main()
   task_data->setData("c", c);
   task_data->setData("d", d);
 
-  auto task_executor = std::make_shared<TaskflowTaskComposerExecutor>();
-  auto task_input = std::make_shared<TaskComposerInput>(task_data, task_executor);
+  auto task_input = std::make_shared<TaskComposerInput>(task_data);
 
   // result = a * (b + c) + d
   auto task1 = std::make_unique<AddTaskComposerNode>("b", "c", "task1_output");
@@ -85,6 +84,7 @@ int main()
   task_composer.addEdges(task1_id, { task2_id });
   task_composer.addEdges(task2_id, { task3_id });
 
+  auto task_executor = std::make_shared<TaskflowTaskComposerExecutor>();
   TaskComposerFuture::UPtr future = task_executor->run(task_composer, *task_input);
   future->wait();
 

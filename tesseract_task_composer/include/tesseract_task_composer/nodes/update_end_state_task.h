@@ -57,7 +57,7 @@ public:
                      std::string name = "UpdateEndStateTask");
   ~UpdateEndStateTask() override = default;
 
-  int run(TaskComposerInput& input) const override;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
   bool operator==(const UpdateEndStateTask& rhs) const;
   bool operator!=(const UpdateEndStateTask& rhs) const;

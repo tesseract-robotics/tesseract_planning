@@ -36,7 +36,7 @@ namespace tesseract_planning
 {
 DoneTask::DoneTask(bool is_conditional, std::string name) : TaskComposerTask(is_conditional, std::move(name)) {}
 
-int DoneTask::run(TaskComposerInput& input) const
+int DoneTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

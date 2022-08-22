@@ -58,7 +58,7 @@ UpdateStartStateTask::UpdateStartStateTask(std::string input_key,
 {
 }
 
-int UpdateStartStateTask::run(TaskComposerInput& input) const
+int UpdateStartStateTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

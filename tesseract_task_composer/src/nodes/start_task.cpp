@@ -36,7 +36,7 @@ namespace tesseract_planning
 {
 StartTask::StartTask(std::string name) : TaskComposerTask(false, std::move(name)) {}
 
-int StartTask::run(TaskComposerInput& input) const
+int StartTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

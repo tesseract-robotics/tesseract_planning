@@ -57,7 +57,7 @@ public:
                        std::string name = "UpdateStartStateTask");
   ~UpdateStartStateTask() override = default;
 
-  int run(TaskComposerInput& input) const override;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
   bool operator==(const UpdateStartStateTask& rhs) const;
   bool operator!=(const UpdateStartStateTask& rhs) const;

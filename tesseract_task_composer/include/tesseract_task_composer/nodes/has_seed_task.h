@@ -52,7 +52,7 @@ public:
   HasSeedTask(HasSeedTask&&) = delete;
   HasSeedTask& operator=(HasSeedTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const HasSeedTask& rhs) const;
   bool operator!=(const HasSeedTask& rhs) const;

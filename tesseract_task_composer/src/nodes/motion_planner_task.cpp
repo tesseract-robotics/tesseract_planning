@@ -48,7 +48,7 @@ MotionPlannerTask::MotionPlannerTask(MotionPlanner::Ptr planner,
 {
 }
 
-int MotionPlannerTask::run(TaskComposerInput& input) const
+int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

@@ -48,7 +48,7 @@ CheckInputTask::CheckInputTask(std::string input_key, bool is_conditional, std::
 {
 }
 
-int CheckInputTask::run(TaskComposerInput& input) const
+int CheckInputTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   // Get Composite Profile
   for (const auto& key : input_keys_)

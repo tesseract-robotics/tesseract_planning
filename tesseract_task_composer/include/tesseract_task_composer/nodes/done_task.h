@@ -46,7 +46,7 @@ public:
   DoneTask(bool is_conditional = false, std::string name = "DoneTask");
   ~DoneTask() = default;
 
-  int run(TaskComposerInput& input) const override;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const DoneTask& rhs) const;
   bool operator!=(const DoneTask& rhs) const;

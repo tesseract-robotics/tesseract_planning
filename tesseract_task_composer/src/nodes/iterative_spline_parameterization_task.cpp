@@ -53,7 +53,7 @@ IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::st
 {
 }
 
-int IterativeSplineParameterizationTask::run(TaskComposerInput& input) const
+int IterativeSplineParameterizationTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

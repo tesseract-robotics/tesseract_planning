@@ -54,7 +54,7 @@ public:
   RuckigTrajectorySmoothingTask(RuckigTrajectorySmoothingTask&&) = delete;
   RuckigTrajectorySmoothingTask& operator=(RuckigTrajectorySmoothingTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const RuckigTrajectorySmoothingTask& rhs) const;
   bool operator!=(const RuckigTrajectorySmoothingTask& rhs) const;

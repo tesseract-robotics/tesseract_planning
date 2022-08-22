@@ -46,7 +46,7 @@ public:
   StartTask(std::string name = "StartTask");
   ~StartTask() = default;
 
-  int run(TaskComposerInput& input) const override;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const StartTask& rhs) const;
   bool operator!=(const StartTask& rhs) const;

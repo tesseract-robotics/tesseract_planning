@@ -68,7 +68,7 @@ public:
   bool operator==(const RasterMotionTask& rhs) const;
   bool operator!=(const RasterMotionTask& rhs) const;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const override final;
 
 protected:
   friend class tesseract_common::Serialization;

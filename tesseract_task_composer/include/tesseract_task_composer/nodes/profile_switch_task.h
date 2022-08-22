@@ -57,7 +57,7 @@ public:
   ProfileSwitchTask(ProfileSwitchTask&&) = delete;
   ProfileSwitchTask& operator=(ProfileSwitchTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const ProfileSwitchTask& rhs) const;
   bool operator!=(const ProfileSwitchTask& rhs) const;

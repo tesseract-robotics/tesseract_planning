@@ -59,7 +59,7 @@ public:
                     std::string name = "TransitionMuxTask");
   ~TransitionMuxTask() override = default;
 
-  int run(TaskComposerInput& input) const override;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
   bool operator==(const TransitionMuxTask& rhs) const;
   bool operator!=(const TransitionMuxTask& rhs) const;

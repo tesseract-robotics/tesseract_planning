@@ -59,7 +59,7 @@ public:
   CheckInputTask(CheckInputTask&&) = delete;
   CheckInputTask& operator=(CheckInputTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const CheckInputTask& rhs) const;
   bool operator!=(const CheckInputTask& rhs) const;

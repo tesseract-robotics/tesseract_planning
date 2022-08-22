@@ -38,7 +38,10 @@ namespace tesseract_planning
 {
 HasSeedTask::HasSeedTask(bool is_conditional, std::string name) : TaskComposerTask(is_conditional, std::move(name)) {}
 
-int HasSeedTask::run(TaskComposerInput& input) const { return (input.has_seed) ? 1 : 0; }
+int HasSeedTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+{
+  return (input.has_seed) ? 1 : 0;
+}
 
 bool HasSeedTask::operator==(const HasSeedTask& rhs) const
 {

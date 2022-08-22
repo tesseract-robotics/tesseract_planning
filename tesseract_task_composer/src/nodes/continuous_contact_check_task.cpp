@@ -46,7 +46,7 @@ ContinuousContactCheckTask::ContinuousContactCheckTask(std::string input_key, bo
 {
 }
 
-int ContinuousContactCheckTask::run(TaskComposerInput& input) const
+int ContinuousContactCheckTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

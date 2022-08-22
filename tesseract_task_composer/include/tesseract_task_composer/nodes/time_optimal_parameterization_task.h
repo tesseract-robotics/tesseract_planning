@@ -57,7 +57,7 @@ public:
   TimeOptimalParameterizationTask(TimeOptimalParameterizationTask&&) = delete;
   TimeOptimalParameterizationTask& operator=(TimeOptimalParameterizationTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const TimeOptimalParameterizationTask& rhs) const;
   bool operator!=(const TimeOptimalParameterizationTask& rhs) const;

@@ -100,11 +100,6 @@ void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*
   os << sub_graphs.str();
 }
 
-int TaskComposerGraph::run(TaskComposerInput& /*input*/) const
-{
-  throw std::runtime_error("TaskComposerGraph, run is currently not implemented");
-}
-
 bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
 {
   bool equal = true;

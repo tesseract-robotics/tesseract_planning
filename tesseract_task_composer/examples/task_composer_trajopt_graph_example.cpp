@@ -52,9 +52,7 @@ int main()
   auto task_data = std::make_shared<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
 
-  auto task_executor = std::make_shared<TaskflowTaskComposerExecutor>();
-
-  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data, task_executor);
+  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data);
 
   TaskComposerGraph::UPtr task_graph = std::make_unique<TrajOptMotionPipelineTask>("input_program", "output_program");
 
@@ -63,6 +61,7 @@ int main()
   task_graph->dump(tc_out_data);  // dump the graph including dynamic tasks
   tc_out_data.close();
 
+  auto task_executor = std::make_shared<TaskflowTaskComposerExecutor>();
   TaskComposerFuture::UPtr future = task_executor->run(*task_graph, *task_input);
   future->wait();
 

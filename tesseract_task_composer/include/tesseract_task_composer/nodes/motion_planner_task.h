@@ -53,7 +53,7 @@ public:
                     bool is_conditional = true);
   ~MotionPlannerTask() = default;
 
-  int run(TaskComposerInput& input) const override;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
   bool operator==(const MotionPlannerTask& rhs) const;
   bool operator!=(const MotionPlannerTask& rhs) const;

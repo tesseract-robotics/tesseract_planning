@@ -43,7 +43,7 @@ TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() {}
 TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerGraph& task_graph,
                                                            TaskComposerInput& task_input)
 {
-  TaskComposerTaskflowContainer::ConstPtr taskflow = convertToTaskflow(task_graph, task_input);
+  TaskComposerTaskflowContainer::ConstPtr taskflow = convertToTaskflow(task_graph, task_input, *this);
   std::shared_future<void> f = executor_->run(*(taskflow->top));
 
   //  std::ofstream out_data;
@@ -56,7 +56,7 @@ TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerGra
 
 TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerTask& task, TaskComposerInput& task_input)
 {
-  TaskComposerTaskflowContainer::ConstPtr taskflow = convertToTaskflow(task, task_input);
+  TaskComposerTaskflowContainer::ConstPtr taskflow = convertToTaskflow(task, task_input, *this);
   std::shared_future<void> f = executor_->run(*(taskflow->top));
 
   //  std::ofstream out_data;

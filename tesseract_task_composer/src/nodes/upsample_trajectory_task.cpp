@@ -50,7 +50,7 @@ UpsampleTrajectoryTask::UpsampleTrajectoryTask(std::string input_key,
 {
 }
 
-int UpsampleTrajectoryTask::run(TaskComposerInput& input) const
+int UpsampleTrajectoryTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

@@ -49,7 +49,7 @@ RuckigTrajectorySmoothingTask::RuckigTrajectorySmoothingTask(std::string input_k
 {
 }
 
-int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input) const
+int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

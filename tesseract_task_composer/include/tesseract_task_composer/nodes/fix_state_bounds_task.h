@@ -60,7 +60,7 @@ public:
   FixStateBoundsTask(FixStateBoundsTask&&) = delete;
   FixStateBoundsTask& operator=(FixStateBoundsTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const FixStateBoundsTask& rhs) const;
   bool operator!=(const FixStateBoundsTask& rhs) const;

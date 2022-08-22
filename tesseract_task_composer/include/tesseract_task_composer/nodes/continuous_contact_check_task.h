@@ -55,7 +55,7 @@ public:
   ContinuousContactCheckTask(ContinuousContactCheckTask&&) = delete;
   ContinuousContactCheckTask& operator=(ContinuousContactCheckTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const ContinuousContactCheckTask& rhs) const;
   bool operator!=(const ContinuousContactCheckTask& rhs) const;

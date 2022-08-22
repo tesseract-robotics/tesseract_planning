@@ -37,6 +37,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
+class TaskComposerExecutor;
 class TaskComposerTask : public TaskComposerNode
 {
 public:
@@ -44,6 +45,9 @@ public:
   using ConstPtr = std::shared_ptr<const TaskComposerTask>;
   using UPtr = std::unique_ptr<TaskComposerTask>;
   using ConstUPtr = std::unique_ptr<const TaskComposerTask>;
+
+  /** @brief Most task will not require a executor so making it optional */
+  using OptionalTaskComposerExecutor = std::optional<std::reference_wrapper<TaskComposerExecutor>>;
 
   TaskComposerTask() = default;  // Required for serialization
   TaskComposerTask(bool is_conditional, std::string name = "TaskComposerTask");
@@ -59,6 +63,8 @@ public:
   bool isConditional() const;
 
   void dump(std::ostream& os) const override;
+
+  virtual int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
 
 protected:
   friend class tesseract_common::Serialization;

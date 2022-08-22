@@ -49,7 +49,7 @@ FixStateBoundsTask::FixStateBoundsTask(std::string input_key,
 {
 }
 
-int FixStateBoundsTask::run(TaskComposerInput& input) const
+int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

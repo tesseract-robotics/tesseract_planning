@@ -64,7 +64,7 @@ public:
   FixStateCollisionTask(FixStateCollisionTask&&) = delete;
   FixStateCollisionTask& operator=(FixStateCollisionTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const FixStateCollisionTask& rhs) const;
   bool operator!=(const FixStateCollisionTask& rhs) const;

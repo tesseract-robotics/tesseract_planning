@@ -62,7 +62,7 @@ public:
   UpsampleTrajectoryTask(UpsampleTrajectoryTask&&) = delete;
   UpsampleTrajectoryTask& operator=(UpsampleTrajectoryTask&&) = delete;
 
-  int run(TaskComposerInput& input) const override final;
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
   bool operator==(const UpsampleTrajectoryTask& rhs) const;
   bool operator!=(const UpsampleTrajectoryTask& rhs) const;

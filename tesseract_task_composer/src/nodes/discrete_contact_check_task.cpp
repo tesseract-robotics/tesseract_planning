@@ -45,7 +45,7 @@ DiscreteContactCheckTask::DiscreteContactCheckTask(std::string input_key, bool i
 {
 }
 
-int DiscreteContactCheckTask::run(TaskComposerInput& input) const
+int DiscreteContactCheckTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

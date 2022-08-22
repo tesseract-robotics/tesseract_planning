@@ -53,7 +53,7 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string inp
 {
 }
 
-int TimeOptimalParameterizationTask::run(TaskComposerInput& input) const
+int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

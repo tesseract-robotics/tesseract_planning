@@ -51,7 +51,7 @@ RasterMotionTask::RasterMotionTask(std::string input_key, std::string output_key
 {
 }
 
-int RasterMotionTask::run(TaskComposerInput& input) const
+int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
 {
   if (input.isAborted())
     return 0;
@@ -219,7 +219,7 @@ int RasterMotionTask::run(TaskComposerInput& input) const
   task_graph.dump(tc_out_data);  // dump the graph including dynamic tasks
   tc_out_data.close();
 
-  TaskComposerFuture::UPtr future = input.executor->run(task_graph, input);
+  TaskComposerFuture::UPtr future = executor.value().get().run(task_graph, input);
   future->wait();
 
   if (input.isAborted())

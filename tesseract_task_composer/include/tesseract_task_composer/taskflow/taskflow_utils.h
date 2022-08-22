@@ -9,6 +9,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_task_composer/task_composer_graph.h>
 #include <tesseract_task_composer/task_composer_task.h>
 #include <tesseract_task_composer/task_composer_input.h>
+#include <tesseract_task_composer/task_composer_executor.h>
 
 namespace tesseract_planning
 {
@@ -22,7 +23,8 @@ struct TaskComposerTaskflowContainer
 };
 
 inline TaskComposerTaskflowContainer::Ptr convertToTaskflow(const TaskComposerGraph& task_graph,
-                                                            TaskComposerInput& task_input)
+                                                            TaskComposerInput& task_input,
+                                                            TaskComposerExecutor& task_executor)
 {
   auto tf_container = std::make_shared<TaskComposerTaskflowContainer>();
   tf_container->top = std::make_unique<tf::Taskflow>(task_graph.getName());
@@ -35,19 +37,21 @@ inline TaskComposerTaskflowContainer::Ptr convertToTaskflow(const TaskComposerGr
     auto edges = pair.second->getOutboundEdges();
     if (pair.second->getType() == TaskComposerNodeType::TASK)
     {
-      const auto& task = static_cast<const TaskComposerTask&>(*pair.second);
-      if (edges.size() > 1 && task.isConditional())
+      auto task = std::static_pointer_cast<const TaskComposerTask>(pair.second);
+      if (edges.size() > 1 && task->isConditional())
         tasks[pair.first] =
-            tf_container->top->emplace([node = pair.second, &task_input] { return node->run(task_input); })
+            tf_container->top
+                ->emplace([task, &task_input, &task_executor] { return task->run(task_input, task_executor); })
                 .name(pair.second->getName());
       else
-        tasks[pair.first] = tf_container->top->emplace([node = pair.second, &task_input] { node->run(task_input); })
-                                .name(pair.second->getName());
+        tasks[pair.first] =
+            tf_container->top->emplace([task, &task_input, &task_executor] { task->run(task_input, task_executor); })
+                .name(pair.second->getName());
     }
     else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
     {
       const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
-      TaskComposerTaskflowContainer::Ptr sub_tf_container = convertToTaskflow(graph, task_input);
+      TaskComposerTaskflowContainer::Ptr sub_tf_container = convertToTaskflow(graph, task_input, task_executor);
       tasks[pair.first] = tf_container->top->composed_of(*sub_tf_container->top);
       tf_container->children.push_back(std::move(sub_tf_container->top));
       tf_container->children.insert(tf_container->children.end(),
@@ -69,11 +73,14 @@ inline TaskComposerTaskflowContainer::Ptr convertToTaskflow(const TaskComposerGr
   return tf_container;
 }
 
-inline TaskComposerTaskflowContainer::Ptr convertToTaskflow(const TaskComposerTask& task, TaskComposerInput& task_input)
+inline TaskComposerTaskflowContainer::Ptr convertToTaskflow(const TaskComposerTask& task,
+                                                            TaskComposerInput& task_input,
+                                                            TaskComposerExecutor& task_executor)
 {
   auto tf_container = std::make_shared<TaskComposerTaskflowContainer>();
   tf_container->top = std::make_unique<tf::Taskflow>(task.getName());
-  tf_container->top->emplace([&task, &task_input] { return task.run(task_input); }).name(task.getName());
+  tf_container->top->emplace([&task, &task_input, &task_executor] { return task.run(task_input, task_executor); })
+      .name(task.getName());
   return tf_container;
 }
 }  // namespace tesseract_planning

@@ -309,7 +309,7 @@ FixStateCollisionTask::FixStateCollisionTask(std::string input_key,
 {
 }
 
-int FixStateCollisionTask::run(TaskComposerInput& input) const
+int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

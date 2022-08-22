@@ -33,8 +33,6 @@
 
 namespace tesseract_planning
 {
-class TaskComposerExecutor;  // Avoid circular include
-
 /**
  * @brief This struct is passed as an input to each process in the decision tree
  *
@@ -46,34 +44,29 @@ struct TaskComposerInput
   using Ptr = std::shared_ptr<TaskComposerInput>;
   using ConstPtr = std::shared_ptr<const TaskComposerInput>;
 
-  TaskComposerInput(TaskComposerDataStorage::Ptr data_storage,
-                    std::shared_ptr<TaskComposerExecutor> executor = nullptr);
+  TaskComposerInput(TaskComposerDataStorage::Ptr data_storage);
 
   TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
                     tesseract_common::ManipulatorInfo manip_info,
                     ProfileDictionary::ConstPtr profiles,
-                    TaskComposerDataStorage::Ptr data_storage,
-                    std::shared_ptr<TaskComposerExecutor> executor = nullptr);
+                    TaskComposerDataStorage::Ptr data_storage);
 
   TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
                     tesseract_common::ManipulatorInfo manip_info,
                     ProfileRemapping move_profile_remapping,
                     ProfileRemapping composite_profile_remapping,
                     ProfileDictionary::ConstPtr profiles,
-                    TaskComposerDataStorage::Ptr data_storage,
-                    std::shared_ptr<TaskComposerExecutor> executor = nullptr);
+                    TaskComposerDataStorage::Ptr data_storage);
 
   TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
                     ProfileRemapping move_profile_remapping,
                     ProfileRemapping composite_profile_remapping,
                     ProfileDictionary::ConstPtr profiles,
-                    TaskComposerDataStorage::Ptr data_storage,
-                    std::shared_ptr<TaskComposerExecutor> executor = nullptr);
+                    TaskComposerDataStorage::Ptr data_storage);
 
   TaskComposerInput(tesseract_environment::Environment::ConstPtr env,
                     ProfileDictionary::ConstPtr profiles,
-                    TaskComposerDataStorage::Ptr data_storage,
-                    std::shared_ptr<TaskComposerExecutor> executor = nullptr);
+                    TaskComposerDataStorage::Ptr data_storage);
 
   /** @brief Tesseract associated with current state of the system */
   const tesseract_environment::Environment::ConstPtr env;
@@ -98,9 +91,6 @@ struct TaskComposerInput
 
   /** @brief The location data is stored and retrieved during execution */
   const TaskComposerDataStorage::Ptr data_storage;
-
-  /** @brief The task composer executor */
-  std::shared_ptr<TaskComposerExecutor> executor;
 
   /** @brief The location where task info is stored during execution */
   TaskComposerNodeInfoContainer task_infos;

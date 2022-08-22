@@ -62,7 +62,7 @@ TransitionMuxTask::TransitionMuxTask(std::string input_key,
 {
 }
 
-int TransitionMuxTask::run(TaskComposerInput& input) const
+int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
   if (input.isAborted())
     return 0;

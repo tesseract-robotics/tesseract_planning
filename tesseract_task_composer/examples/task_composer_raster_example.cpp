@@ -53,9 +53,7 @@ int main()
   auto task_data = std::make_shared<TaskComposerDataStorage>();
   task_data->setData("input_program", program);
 
-  auto task_executor = std::make_shared<TaskflowTaskComposerExecutor>();
-
-  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data, task_executor);
+  auto task_input = std::make_shared<TaskComposerInput>(env, profiles, task_data);
 
   TaskComposerTask::UPtr task = std::make_unique<RasterMotionTask>("input_program", "output_program");
 
@@ -64,6 +62,7 @@ int main()
   task->dump(tc_out_data);  // dump the graph including dynamic tasks
   tc_out_data.close();
 
+  auto task_executor = std::make_shared<TaskflowTaskComposerExecutor>();
   TaskComposerFuture::UPtr future = task_executor->run(*task, *task_input);
   future->wait();
 
