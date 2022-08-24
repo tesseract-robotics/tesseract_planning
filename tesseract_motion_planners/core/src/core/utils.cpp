@@ -288,14 +288,15 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
     throw std::runtime_error("contactCheckProgram was given an CollisionEvaluatorType that is inconsistent with the "
                              "ContactManager type (Continuous)");
   manager.applyContactManagerConfig(config.contact_manager_config);
+
+  // Flatten results
+  std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
+
   bool found = false;
 
   if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_CONTINUOUS)
   {
     assert(config.longest_valid_segment_length > 0);
-
-    // Flatten results
-    std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
 
     contacts.resize(mi.size() - 1);
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
@@ -394,11 +395,6 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   }
   else
   {
-    bool found = false;
-
-    // Flatten results
-    std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
-
     contacts.resize(mi.size() - 1);
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
     {
@@ -452,12 +448,12 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   manager.applyContactManagerConfig(config.contact_manager_config);
   bool found = false;
 
+  // Flatten results
+  std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
+
   if (config.type == tesseract_collision::CollisionEvaluatorType::LVS_DISCRETE)
   {
     assert(config.longest_valid_segment_length > 0);
-
-    // Flatten results
-    std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
 
     contacts.resize(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size(); ++iStep)
@@ -552,9 +548,6 @@ bool contactCheckProgram(std::vector<tesseract_collision::ContactResultMap>& con
   }
   else
   {
-    // Flatten results
-    std::vector<std::reference_wrapper<const InstructionPoly>> mi = program.flatten(moveFilter);
-
     contacts.resize(mi.size());
     for (std::size_t iStep = 0; iStep < mi.size() - 1; ++iStep)
     {
