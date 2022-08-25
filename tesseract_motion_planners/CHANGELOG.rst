@@ -2,8 +2,8 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.13.0 (2022-08-25)
+-------------------
 * Fixed bug that wouldn't pass through a 'found' flag
 * Add Eigen alignment macro to classes that contain SceneState
 * Update simple planners to leverage createChild method
