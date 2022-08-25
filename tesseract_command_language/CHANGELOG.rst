@@ -2,6 +2,25 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update type erasure benchmarks
+* Add UUID to the MoveInstructionPoly interface
+* Move most SWIG commands to tesseract_python package (`#227 <https://github.com/tesseract-robotics/tesseract_planning/issues/227>`_)
+* Switch to using TypeErasure isNull
+* Add appendInstruction to composite and remove push_back and insert methods
+* Move isCompositeInstruction into InstructionPoly
+* Remove NullWaypoint and NullInstruction
+* Rename tesseract_command_language core directory to poly
+* Rename Waypoint and Instruction to WaypointPoly and InstructionPoly
+* Add CartesianWaypointPoly, JointWaypointPoly and StateWaypointPoly
+* Refactor using MoveInstructionPoly
+* Remove plan instruction
+* Update unit tests
+* Update code based on clang-tidy-14
+* update to leverage limits utility function in tesseract_common
+* Contributors: John Wason, Levi Armstrong
+
 0.12.0 (2022-07-07)
 -------------------
 * Update ros_industrial_cmake_boilerplate to 0.3.0 (`#214 <https://github.com/tesseract-robotics/tesseract_planning/issues/214>`_)

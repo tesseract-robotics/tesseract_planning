@@ -2,6 +2,24 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fixed bug that wouldn't pass through a 'found' flag
+* Add Eigen alignment macro to classes that contain SceneState
+* Update simple planners to leverage createChild method
+* Move most SWIG commands to tesseract_python package (`#227 <https://github.com/tesseract-robotics/tesseract_planning/issues/227>`_)
+* Add appendInstruction to composite and remove push_back and insert methods
+* Move isCompositeInstruction into InstructionPoly
+* Remove NullWaypoint and NullInstruction
+* Rename tesseract_command_language core directory to poly
+* Rename Waypoint and Instruction to WaypointPoly and InstructionPoly
+* Add CartesianWaypointPoly, JointWaypointPoly and StateWaypointPoly
+* Refactor using MoveInstructionPoly
+* Remove plan instruction
+* Update code based on clang-tidy-14
+* update to leverage limits utility function in tesseract_common
+* Contributors: John Wason, Levi Armstrong, Matthew Powelson, Tyler Marr
+
 0.12.0 (2022-07-07)
 -------------------
 * Update ros_industrial_cmake_boilerplate to 0.3.0 (`#214 <https://github.com/tesseract-robotics/tesseract_planning/issues/214>`_)
