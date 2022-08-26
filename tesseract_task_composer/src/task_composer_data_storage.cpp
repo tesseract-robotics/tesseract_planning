@@ -27,6 +27,14 @@
 #include <tesseract_task_composer/task_composer_data_storage.h>
 namespace tesseract_planning
 {
+TaskComposerDataStorage::TaskComposerDataStorage(const TaskComposerDataStorage& other) { *this = other; }
+TaskComposerDataStorage& TaskComposerDataStorage::operator=(const TaskComposerDataStorage& other)
+{
+  std::shared_lock lock(other.mutex_);
+  data_ = other.data_;
+  return *this;
+}
+
 bool TaskComposerDataStorage::hasKey(const std::string& key)
 {
   std::shared_lock lock(mutex_);

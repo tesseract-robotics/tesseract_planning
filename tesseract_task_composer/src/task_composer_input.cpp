@@ -40,6 +40,7 @@ TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPt
   , manip_info(std::move(manip_info))
   , profiles(std::move(profiles))
   , data_storage(std::move(data_storage))
+  , original_data_storage_(std::make_shared<TaskComposerDataStorage>(*(this->data_storage)))
 {
 }
 
@@ -55,6 +56,7 @@ TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPt
   , composite_profile_remapping(std::move(composite_profile_remapping))
   , profiles(std::move(profiles))
   , data_storage(std::move(data_storage))
+  , original_data_storage_(std::make_shared<TaskComposerDataStorage>(*(this->data_storage)))
 {
 }
 
@@ -68,6 +70,7 @@ TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPt
   , composite_profile_remapping(std::move(composite_profile_remapping))
   , profiles(std::move(profiles))
   , data_storage(std::move(data_storage))
+  , original_data_storage_(std::make_shared<TaskComposerDataStorage>(*(this->data_storage)))
 {
 }
 
@@ -81,6 +84,12 @@ TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPt
 bool TaskComposerInput::isAborted() const { return aborted_; }
 
 void TaskComposerInput::abort() { aborted_ = true; }
+
+void TaskComposerInput::reset()
+{
+  aborted_ = false;
+  data_storage = std::make_shared<TaskComposerDataStorage>(*original_data_storage_);
+}
 
 void TaskComposerInput::addTaskInfo(TaskComposerNodeInfo::UPtr task_info) { task_infos.addInfo(std::move(task_info)); }
 

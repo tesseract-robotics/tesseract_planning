@@ -46,6 +46,12 @@ public:
   using UPtr = std::unique_ptr<TaskComposerDataStorage>;
   using ConstUPtr = std::unique_ptr<const TaskComposerDataStorage>;
 
+  TaskComposerDataStorage() = default;
+  TaskComposerDataStorage(const TaskComposerDataStorage&);
+  TaskComposerDataStorage& operator=(const TaskComposerDataStorage&);
+  TaskComposerDataStorage(TaskComposerDataStorage&&) = default;
+  TaskComposerDataStorage& operator=(TaskComposerDataStorage&&) = default;
+
   /**
    * @brief Check if key exists
    * @param key The key to check for
