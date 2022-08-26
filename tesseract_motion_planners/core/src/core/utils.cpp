@@ -608,7 +608,7 @@ void generateNaiveSeedHelper(CompositeInstruction& composite_instructions,
       ci.setProfile(base_instruction.getProfile());
       ci.setDescription(base_instruction.getDescription());
       ci.setManipulatorInfo(base_instruction.getManipulatorInfo());
-      //      ci.profile_overrides = base_instruction.profile_overrides;
+      ci.setProfileOverrides(base_instruction.getProfileOverrides());
 
       auto it = manip_joint_names.find(mi.manipulator);
       if (it == manip_joint_names.end())

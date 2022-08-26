@@ -144,7 +144,7 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
   composite.setManipulatorInfo(base_instruction.getManipulatorInfo());
   composite.setDescription(base_instruction.getDescription());
   composite.setProfile(base_instruction.getProfile());
-  //  composite.profile_overrides = base_instruction.profile_overrides;
+  composite.setProfileOverrides(base_instruction.getProfileOverrides());
 
   // Convert to MoveInstructions
   for (long i = 1; i < states.cols() - 1; ++i)
@@ -155,7 +155,9 @@ CompositeInstruction getInterpolatedComposite(const std::vector<std::string>& jo
     swp.setPosition(states.col(i));
     move_instruction.assignStateWaypoint(swp);
     move_instruction.setProfile(base_instruction.getPathProfile());
+    move_instruction.setProfileOverrides(base_instruction.getPathProfileOverrides());
     move_instruction.setPathProfile(base_instruction.getPathProfile());
+    move_instruction.setPathProfileOverrides(base_instruction.getPathProfileOverrides());
     composite.appendMoveInstruction(move_instruction);
   }
 
