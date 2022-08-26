@@ -78,7 +78,7 @@ int RuckigTrajectorySmoothingTaskGenerator::conditionalProcess(TaskInput input, 
   profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<RuckigTrajectorySmoothingCompositeProfile>(
       name_, profile, *input.profiles, std::make_shared<RuckigTrajectorySmoothingCompositeProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   RuckigTrajectorySmoothing solver(cur_composite_profile->duration_extension_fraction,
                                    cur_composite_profile->max_duration_extension_factor);
@@ -112,7 +112,7 @@ int RuckigTrajectorySmoothingTaskGenerator::conditionalProcess(TaskInput input, 
     plan_profile = getProfileString(name_, profile, input.plan_profile_remapping);
     auto cur_move_profile = getProfile<RuckigTrajectorySmoothingMoveProfile>(
         name_, plan_profile, *input.profiles, std::make_shared<RuckigTrajectorySmoothingMoveProfile>());
-    //    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.profile_overrides);
+    cur_move_profile = applyProfileOverrides(name_, profile, cur_move_profile, mi.getProfileOverrides());
 
     // If there is a move profile associated with it, override the parameters
     if (cur_move_profile)

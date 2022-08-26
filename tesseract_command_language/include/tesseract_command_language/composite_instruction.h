@@ -85,8 +85,8 @@ public:
   void setProfile(const std::string& profile);
   const std::string& getProfile() const;
 
-  /** @brief Dictionary of profiles that will override named profiles for a specific task*/
-  ProfileDictionary::Ptr profile_overrides;
+  void setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides);
+  ProfileDictionary::ConstPtr getProfileOverrides() const;
 
   void setManipulatorInfo(tesseract_common::ManipulatorInfo info);
   const tesseract_common::ManipulatorInfo& getManipulatorInfo() const;
@@ -370,6 +370,9 @@ private:
    * If it has a child composite instruction it uses the child composites profile for that section
    */
   std::string profile_{ DEFAULT_PROFILE_KEY };
+
+  /** @brief Dictionary of profiles that will override named profiles for a specific task*/
+  ProfileDictionary::ConstPtr profile_overrides_;
 
   /** @brief The order of the composite instruction */
   CompositeInstructionOrder order_{ CompositeInstructionOrder::ORDERED };

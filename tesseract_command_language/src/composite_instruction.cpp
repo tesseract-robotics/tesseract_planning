@@ -71,6 +71,12 @@ void CompositeInstruction::setProfile(const std::string& profile)
 }
 const std::string& CompositeInstruction::getProfile() const { return profile_; }
 
+void CompositeInstruction::setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides)
+{
+  profile_overrides_ = std::move(profile_overrides);
+}
+ProfileDictionary::ConstPtr CompositeInstruction::getProfileOverrides() const { return profile_overrides_; }
+
 void CompositeInstruction::setManipulatorInfo(tesseract_common::ManipulatorInfo info)
 {
   manipulator_info_ = std::move(info);

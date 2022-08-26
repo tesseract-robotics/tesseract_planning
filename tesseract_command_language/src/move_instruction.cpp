@@ -153,6 +153,18 @@ const std::string& MoveInstruction::getProfile() const { return profile_; }
 void MoveInstruction::setPathProfile(const std::string& profile) { path_profile_ = profile; }
 const std::string& MoveInstruction::getPathProfile() const { return path_profile_; }
 
+void MoveInstruction::setProfileOverrides(ProfileDictionary::ConstPtr profile_overrides)
+{
+  profile_overrides_ = std::move(profile_overrides);
+}
+ProfileDictionary::ConstPtr MoveInstruction::getProfileOverrides() const { return profile_overrides_; }
+
+void MoveInstruction::setPathProfileOverrides(ProfileDictionary::ConstPtr profile_overrides)
+{
+  path_profile_overrides_ = std::move(profile_overrides);
+}
+ProfileDictionary::ConstPtr MoveInstruction::getPathProfileOverrides() const { return path_profile_overrides_; }
+
 const std::string& MoveInstruction::getDescription() const { return description_; }
 
 void MoveInstruction::setDescription(const std::string& description) { description_ = description; }
@@ -176,6 +188,7 @@ bool MoveInstruction::operator==(const MoveInstruction& rhs) const
   equal &= (manipulator_info_ == rhs.manipulator_info_);
   equal &= (profile_ == rhs.profile_);            // NO LINT
   equal &= (path_profile_ == rhs.path_profile_);  // NO LINT
+  /** @todo Add profiles overrides when serialization is supported for profiles */
   return equal;
 }
 
@@ -192,6 +205,7 @@ void MoveInstruction::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("path_profile", path_profile_);
   ar& boost::serialization::make_nvp("waypoint", waypoint_);
   ar& boost::serialization::make_nvp("manipulator_info", manipulator_info_);
+  /** @todo Add profiles overrides when serialization is supported for profiles */
 }
 
 }  // namespace tesseract_planning
