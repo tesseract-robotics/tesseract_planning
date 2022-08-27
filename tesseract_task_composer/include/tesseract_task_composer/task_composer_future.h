@@ -83,10 +83,10 @@ public:
   waitUntil(const std::chrono::time_point<std::chrono::high_resolution_clock>& abs) const = 0;
 
   /**
-   * @brief Make a clone of the future
-   * @return A clone
+   * @brief Make a copy of the future
+   * @return A copy, for example to allow access from multiple thread
    */
-  virtual TaskComposerFuture::UPtr clone() const = 0;
+  virtual TaskComposerFuture::UPtr copy() const = 0;
 
   bool operator==(const TaskComposerFuture& rhs) const;
   bool operator!=(const TaskComposerFuture& rhs) const;

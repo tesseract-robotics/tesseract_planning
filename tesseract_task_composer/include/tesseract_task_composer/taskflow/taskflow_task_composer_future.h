@@ -57,7 +57,7 @@ public:
   std::future_status
   waitUntil(const std::chrono::time_point<std::chrono::high_resolution_clock>& abs) const override final;
 
-  TaskComposerFuture::UPtr clone() const override final;
+  TaskComposerFuture::UPtr copy() const override final;
 
   bool operator==(const TaskflowTaskComposerFuture& rhs) const;
   bool operator!=(const TaskflowTaskComposerFuture& rhs) const;

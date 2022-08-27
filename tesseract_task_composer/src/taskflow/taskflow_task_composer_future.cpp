@@ -47,12 +47,10 @@ TaskflowTaskComposerFuture::TaskflowTaskComposerFuture(
 
 TaskflowTaskComposerFuture::~TaskflowTaskComposerFuture() = default;
 
-// ProcessPlanningFuture::ProcessPlanningFuture() { clear(); }
-
 void TaskflowTaskComposerFuture::clear()
 {
-  //  interface = nullptr;
-  //  problem = std::make_shared<ProcessPlanningProblem>();
+  future_ = std::shared_future<void>();
+  container_ = nullptr;
 }
 
 bool TaskflowTaskComposerFuture::valid() const { return future_.valid(); }
@@ -75,7 +73,7 @@ TaskflowTaskComposerFuture::waitUntil(const std::chrono::time_point<std::chrono:
   return future_.wait_until(abs);
 }
 
-TaskComposerFuture::UPtr TaskflowTaskComposerFuture::clone() const
+TaskComposerFuture::UPtr TaskflowTaskComposerFuture::copy() const
 {
   auto clone = std::make_unique<TaskflowTaskComposerFuture>();
   clone->future_ = future_;
@@ -87,8 +85,6 @@ bool TaskflowTaskComposerFuture::operator==(const tesseract_planning::TaskflowTa
 {
   bool equal = true;
   equal &= future_.valid() == rhs.future_.valid();
-  //  equal &= tesseract_common::pointersEqual(problem, rhs.problem);
-  //  equal &= tesseract_common::pointersEqual(interface, rhs.interface);
   return equal;
 }
 
@@ -98,12 +94,9 @@ bool TaskflowTaskComposerFuture::operator!=(const tesseract_planning::TaskflowTa
 }
 
 template <class Archive>
-void TaskflowTaskComposerFuture::serialize(Archive& /*ar*/, const unsigned int /*version*/)
+void TaskflowTaskComposerFuture::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  //  ar& BOOST_SERIALIZATION_NVP(problem);
-  //  ar& BOOST_SERIALIZATION_NVP(interface);
-  // These are not currently serializable
-  //  ar& BOOST_SERIALIZATION_NVP(process_future);
+  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerFuture);
 }
 
 }  // namespace tesseract_planning
