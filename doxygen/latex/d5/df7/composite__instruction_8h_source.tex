@@ -57,7 +57,8 @@
 \DoxyCodeLine{85   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_aafe8d79d889017dfc95bca674b34ec9e}{setProfile}}(\textcolor{keyword}{const} std::string\& profile);}
 \DoxyCodeLine{86   \textcolor{keyword}{const} std::string\& \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a1f648ba485add98e6de2366c01d1fd4c}{getProfile}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{87 }
-\DoxyCodeLine{89   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_a6ca9e4457bcf32d459ca8d89121a963d}{ProfileDictionary::Ptr}} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a7c916dab2d5556694bb8166ddfe6d392}{profile\_overrides}};}
+\DoxyCodeLine{88   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ad8a6a415bb42dd80c20a8883441d6b67}{setProfileOverrides}}(\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} profile\_overrides);}
+\DoxyCodeLine{89   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ae0958291c87d8a5c905be1d4146e0079}{getProfileOverrides}}() \textcolor{keyword}{const};}
 \DoxyCodeLine{90 }
 \DoxyCodeLine{91   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a27301ab0b56cfeece8a5b881a5f4f09b}{setManipulatorInfo}}(\mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}} info);}
 \DoxyCodeLine{92   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_aa96fe6a7234303baeef3b4a8afcedfc4}{tesseract\_common::ManipulatorInfo}}\& \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a9d10759cea9e09ceea5030a61af54e70}{getManipulatorInfo}}() \textcolor{keyword}{const};}
@@ -193,66 +194,68 @@
 \DoxyCodeLine{366 }
 \DoxyCodeLine{372   std::string \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_abac4263968c835d4dd50b844e4845801}{profile\_}}\{ \mbox{\hyperlink{namespacetesseract__planning_a2c7f691c616d8edb55709be6ced8d565}{DEFAULT\_PROFILE\_KEY}} \};}
 \DoxyCodeLine{373 }
-\DoxyCodeLine{375   \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98d}{CompositeInstructionOrder}} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ada1b9e45e81fd8623d01e4d7588e8340}{order\_}}\{ \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98daabc458a817b34b4750413b587f536ac0}{CompositeInstructionOrder::ORDERED}} \};}
+\DoxyCodeLine{375   \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{ProfileDictionary::ConstPtr}} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_aa60b159bd2ddac42697e6de40d0afba2}{profile\_overrides\_}};}
 \DoxyCodeLine{376 }
-\DoxyCodeLine{383   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a6a81d6dcef858a1ab808bf270be30409}{start\_instruction\_}};}
-\DoxyCodeLine{384 }
-\DoxyCodeLine{385   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a0129a0a5241e8923e70826c6060eb515}{getFirstInstructionHelper}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
-\DoxyCodeLine{386                                                    \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
-\DoxyCodeLine{387                                                    \textcolor{keywordtype}{bool} process\_child\_composites,}
-\DoxyCodeLine{388                                                    \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
-\DoxyCodeLine{389 }
-\DoxyCodeLine{390   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a0129a0a5241e8923e70826c6060eb515}{getFirstInstructionHelper}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
-\DoxyCodeLine{391                                              \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
-\DoxyCodeLine{392                                              \textcolor{keywordtype}{bool} process\_child\_composites,}
-\DoxyCodeLine{393                                              \textcolor{keywordtype}{bool} first\_composite);}
-\DoxyCodeLine{394 }
-\DoxyCodeLine{395   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a4d31d6d4dbfd2ba17b2b83654eb36f34}{getLastInstructionHelper}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
-\DoxyCodeLine{396                                                   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
-\DoxyCodeLine{397                                                   \textcolor{keywordtype}{bool} process\_child\_composites,}
-\DoxyCodeLine{398                                                   \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
-\DoxyCodeLine{399 }
-\DoxyCodeLine{400   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a4d31d6d4dbfd2ba17b2b83654eb36f34}{getLastInstructionHelper}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
-\DoxyCodeLine{401                                             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
-\DoxyCodeLine{402                                             \textcolor{keywordtype}{bool} process\_child\_composites,}
-\DoxyCodeLine{403                                             \textcolor{keywordtype}{bool} first\_composite);}
-\DoxyCodeLine{404 }
-\DoxyCodeLine{405   \textcolor{keywordtype}{long} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a92478a163c83401be5ea2c9143f085fb}{getInstructionCountHelper}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
-\DoxyCodeLine{406                                  \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
-\DoxyCodeLine{407                                  \textcolor{keywordtype}{bool} process\_child\_composites,}
-\DoxyCodeLine{408                                  \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
-\DoxyCodeLine{409 }
-\DoxyCodeLine{417   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a370fa398bc7dff3afd6a8758afd7def0}{flattenHelper}}(std::vector<std::reference\_wrapper<InstructionPoly>>\& flattened,}
-\DoxyCodeLine{418                      \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
-\DoxyCodeLine{419                      \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flattenFilterFn}}\& filter,}
-\DoxyCodeLine{420                      \textcolor{keywordtype}{bool} first\_composite);}
-\DoxyCodeLine{421 }
-\DoxyCodeLine{429   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a370fa398bc7dff3afd6a8758afd7def0}{flattenHelper}}(std::vector<std::reference\_wrapper<const InstructionPoly>>\& flattened,}
-\DoxyCodeLine{430                      \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
-\DoxyCodeLine{431                      \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flattenFilterFn}}\& filter,}
-\DoxyCodeLine{432                      \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
-\DoxyCodeLine{433 }
-\DoxyCodeLine{442   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a23914ba467dad4c476e58a91fe498e22}{flattenToPatternHelper}}(std::vector<std::reference\_wrapper<InstructionPoly>>\& flattened,}
-\DoxyCodeLine{443                               \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
-\DoxyCodeLine{444                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& pattern,}
-\DoxyCodeLine{445                               \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flattenFilterFn}}\& filter,}
-\DoxyCodeLine{446                               \textcolor{keywordtype}{bool} first\_composite);}
-\DoxyCodeLine{447 }
-\DoxyCodeLine{456   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a23914ba467dad4c476e58a91fe498e22}{flattenToPatternHelper}}(std::vector<std::reference\_wrapper<const InstructionPoly>>\& flattened,}
-\DoxyCodeLine{457                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
-\DoxyCodeLine{458                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& pattern,}
-\DoxyCodeLine{459                               \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flattenFilterFn}}\& filter,}
-\DoxyCodeLine{460                               \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
-\DoxyCodeLine{461 }
-\DoxyCodeLine{462   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
-\DoxyCodeLine{463   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
-\DoxyCodeLine{464   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a8adc89fe501b242f2e3a132f846380b1}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
-\DoxyCodeLine{465 \};}
-\DoxyCodeLine{466 }
-\DoxyCodeLine{467 \}  \textcolor{comment}{// namespace tesseract\_planning}}
-\DoxyCodeLine{468 }
-\DoxyCodeLine{469 \mbox{\hyperlink{composite__instruction_8h_ad6faa5c5959e0ebd90aa6335ea95b859}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, CompositeInstruction);}
-\DoxyCodeLine{470 }
-\DoxyCodeLine{471 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_COMPOSITE\_INSTRUCTION\_H}}
+\DoxyCodeLine{378   \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98d}{CompositeInstructionOrder}} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ada1b9e45e81fd8623d01e4d7588e8340}{order\_}}\{ \mbox{\hyperlink{namespacetesseract__planning_a181d9233cb2a71d0ed0c23c55205f98daabc458a817b34b4750413b587f536ac0}{CompositeInstructionOrder::ORDERED}} \};}
+\DoxyCodeLine{379 }
+\DoxyCodeLine{386   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a6a81d6dcef858a1ab808bf270be30409}{start\_instruction\_}};}
+\DoxyCodeLine{387 }
+\DoxyCodeLine{388   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a0129a0a5241e8923e70826c6060eb515}{getFirstInstructionHelper}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
+\DoxyCodeLine{389                                                    \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
+\DoxyCodeLine{390                                                    \textcolor{keywordtype}{bool} process\_child\_composites,}
+\DoxyCodeLine{391                                                    \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
+\DoxyCodeLine{392 }
+\DoxyCodeLine{393   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a0129a0a5241e8923e70826c6060eb515}{getFirstInstructionHelper}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
+\DoxyCodeLine{394                                              \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
+\DoxyCodeLine{395                                              \textcolor{keywordtype}{bool} process\_child\_composites,}
+\DoxyCodeLine{396                                              \textcolor{keywordtype}{bool} first\_composite);}
+\DoxyCodeLine{397 }
+\DoxyCodeLine{398   \textcolor{keyword}{const} \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a4d31d6d4dbfd2ba17b2b83654eb36f34}{getLastInstructionHelper}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
+\DoxyCodeLine{399                                                   \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
+\DoxyCodeLine{400                                                   \textcolor{keywordtype}{bool} process\_child\_composites,}
+\DoxyCodeLine{401                                                   \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
+\DoxyCodeLine{402 }
+\DoxyCodeLine{403   \mbox{\hyperlink{structtesseract__planning_1_1InstructionPoly}{InstructionPoly}}* \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a4d31d6d4dbfd2ba17b2b83654eb36f34}{getLastInstructionHelper}}(\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
+\DoxyCodeLine{404                                             \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
+\DoxyCodeLine{405                                             \textcolor{keywordtype}{bool} process\_child\_composites,}
+\DoxyCodeLine{406                                             \textcolor{keywordtype}{bool} first\_composite);}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{408   \textcolor{keywordtype}{long} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a92478a163c83401be5ea2c9143f085fb}{getInstructionCountHelper}}(\textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite\_instruction,}
+\DoxyCodeLine{409                                  \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_af0e86a819d88eebe51c6023c1ad51d2f}{locateFilterFn}}\& locate\_filter,}
+\DoxyCodeLine{410                                  \textcolor{keywordtype}{bool} process\_child\_composites,}
+\DoxyCodeLine{411                                  \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
+\DoxyCodeLine{412 }
+\DoxyCodeLine{420   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a370fa398bc7dff3afd6a8758afd7def0}{flattenHelper}}(std::vector<std::reference\_wrapper<InstructionPoly>>\& flattened,}
+\DoxyCodeLine{421                      \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
+\DoxyCodeLine{422                      \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flattenFilterFn}}\& filter,}
+\DoxyCodeLine{423                      \textcolor{keywordtype}{bool} first\_composite);}
+\DoxyCodeLine{424 }
+\DoxyCodeLine{432   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a370fa398bc7dff3afd6a8758afd7def0}{flattenHelper}}(std::vector<std::reference\_wrapper<const InstructionPoly>>\& flattened,}
+\DoxyCodeLine{433                      \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
+\DoxyCodeLine{434                      \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flattenFilterFn}}\& filter,}
+\DoxyCodeLine{435                      \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
+\DoxyCodeLine{436 }
+\DoxyCodeLine{445   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a23914ba467dad4c476e58a91fe498e22}{flattenToPatternHelper}}(std::vector<std::reference\_wrapper<InstructionPoly>>\& flattened,}
+\DoxyCodeLine{446                               \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
+\DoxyCodeLine{447                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& pattern,}
+\DoxyCodeLine{448                               \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flattenFilterFn}}\& filter,}
+\DoxyCodeLine{449                               \textcolor{keywordtype}{bool} first\_composite);}
+\DoxyCodeLine{450 }
+\DoxyCodeLine{459   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a23914ba467dad4c476e58a91fe498e22}{flattenToPatternHelper}}(std::vector<std::reference\_wrapper<const InstructionPoly>>\& flattened,}
+\DoxyCodeLine{460                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& composite,}
+\DoxyCodeLine{461                               \textcolor{keyword}{const} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction}{CompositeInstruction}}\& pattern,}
+\DoxyCodeLine{462                               \textcolor{keyword}{const} \mbox{\hyperlink{namespacetesseract__planning_ae94f95a1810bd2a47f5bd854f3760672}{flattenFilterFn}}\& filter,}
+\DoxyCodeLine{463                               \textcolor{keywordtype}{bool} first\_composite) \textcolor{keyword}{const};}
+\DoxyCodeLine{464 }
+\DoxyCodeLine{465   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}};}
+\DoxyCodeLine{466   \textcolor{keyword}{template} <\textcolor{keyword}{class} Archive>}
+\DoxyCodeLine{467   \textcolor{keywordtype}{void} \mbox{\hyperlink{classtesseract__planning_1_1CompositeInstruction_a8adc89fe501b242f2e3a132f846380b1}{serialize}}(Archive\& ar, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} version);  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{468 \};}
+\DoxyCodeLine{469 }
+\DoxyCodeLine{470 \}  \textcolor{comment}{// namespace tesseract\_planning}}
+\DoxyCodeLine{471 }
+\DoxyCodeLine{472 \mbox{\hyperlink{composite__instruction_8h_ad6faa5c5959e0ebd90aa6335ea95b859}{TESSERACT\_INSTRUCTION\_EXPORT\_KEY}}(\mbox{\hyperlink{namespacetesseract__planning}{tesseract\_planning}}, CompositeInstruction);}
+\DoxyCodeLine{473 }
+\DoxyCodeLine{474 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TESSERACT\_COMMAND\_LANGUAGE\_COMPOSITE\_INSTRUCTION\_H}}
 
 \end{DoxyCode}

@@ -1,52 +1,52 @@
 <map id="tesseract_process_managers/src/core/process_planning_server.cpp" name="tesseract_process_managers/src/core/process_planning_server.cpp">
-<area shape="rect" id="node1" title="A process planning server with a default set of process planners." alt="" coords="2345,5,2538,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="2165,786,2355,813"/>
-<area shape="rect" id="node3" title=" " alt="" coords="3075,310,3243,337"/>
-<area shape="rect" id="node4" href="$dd/d0f/task__info_8h.html" title="Process Info." alt="" coords="985,503,1178,545"/>
-<area shape="rect" id="node18" href="$dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="770,109,979,151"/>
-<area shape="rect" id="node35" href="$d6/d3b/debug__observer_8h.html" title="Debug Taskflow Observer." alt="" coords="614,206,807,247"/>
-<area shape="rect" id="node36" href="$df/d74/default__process__planners_8h.html" title="The default process planners provided by Tesseract." alt="" coords="164,109,377,151"/>
-<area shape="rect" id="node37" href="$dd/db6/descartes__profile_8h.html" title=" " alt="" coords="2107,392,2290,448"/>
-<area shape="rect" id="node40" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="2808,496,2987,552"/>
-<area shape="rect" id="node42" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="1855,399,2033,441"/>
-<area shape="rect" id="node44" href="$df/df0/simple__planner__profile_8h.html" title=" " alt="" coords="2441,199,2620,255"/>
-<area shape="rect" id="node45" href="$d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="3292,206,3471,247"/>
-<area shape="rect" id="node49" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="4103,303,4302,344"/>
-<area shape="rect" id="node5" title=" " alt="" coords="593,786,661,813"/>
-<area shape="rect" id="node6" title=" " alt="" coords="903,607,1006,634"/>
-<area shape="rect" id="node7" title=" " alt="" coords="1030,607,1077,634"/>
-<area shape="rect" id="node8" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="3181,600,3379,641"/>
-<area shape="rect" id="node17" title=" " alt="" coords="1619,600,1773,641"/>
-<area shape="rect" id="node9" title=" " alt="" coords="3167,786,3222,813"/>
-<area shape="rect" id="node10" title=" " alt="" coords="4083,779,4210,820"/>
-<area shape="rect" id="node11" title=" " alt="" coords="4234,779,4361,820"/>
-<area shape="rect" id="node12" title=" " alt="" coords="4445,786,4616,813"/>
-<area shape="rect" id="node13" href="$d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="3586,689,3785,731"/>
-<area shape="rect" id="node15" title=" " alt="" coords="3845,786,4059,813"/>
-<area shape="rect" id="node16" title=" " alt="" coords="3659,779,3821,820"/>
-<area shape="rect" id="node14" title=" " alt="" coords="2739,786,2815,813"/>
-<area shape="rect" id="node19" title=" " alt="" coords="2315,607,2373,634"/>
-<area shape="rect" id="node20" title=" " alt="" coords="363,310,509,337"/>
-<area shape="rect" id="node21" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="1303,503,1502,545"/>
-<area shape="rect" id="node24" href="$d5/d51/process__environment__cache_8h.html" title="A process environment cache." alt="" coords="665,496,858,552"/>
-<area shape="rect" id="node25" href="$db/d75/taskflow__generator_8h.html" title="Taskflow generator." alt="" coords="43,303,237,344"/>
-<area shape="rect" id="node26" href="$dd/ddd/process__planning__request_8h.html" title="A process planning request and default planner names." alt="" coords="1159,206,1375,247"/>
-<area shape="rect" id="node34" href="$d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="383,206,590,247"/>
-<area shape="rect" id="node22" title=" " alt="" coords="1355,607,1397,634"/>
-<area shape="rect" id="node23" title=" " alt="" coords="1421,607,1493,634"/>
-<area shape="rect" id="node27" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2720,303,2899,344"/>
-<area shape="rect" id="node28" title=" " alt="" coords="3527,407,3705,433"/>
-<area shape="rect" id="node29" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="3153,399,3351,441"/>
-<area shape="rect" id="node30" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="3722,503,3921,545"/>
-<area shape="rect" id="node31" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="4062,600,4266,641"/>
-<area shape="rect" id="node33" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="3722,600,3921,641"/>
-<area shape="rect" id="node32" title=" " alt="" coords="4670,689,4831,731"/>
-<area shape="rect" id="node38" title=" " alt="" coords="2467,511,2581,537"/>
-<area shape="rect" id="node39" href="$d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="1931,503,2138,545"/>
-<area shape="rect" id="node41" title=" " alt="" coords="2701,607,2904,634"/>
-<area shape="rect" id="node43" href="$dd/d3c/ompl__problem_8h.html" title="Tesseract OMPL problem definition." alt="" coords="1677,503,1856,545"/>
-<area shape="rect" id="node46" title=" " alt="" coords="3520,303,3675,344"/>
-<area shape="rect" id="node47" title=" " alt="" coords="3699,303,3877,344"/>
-<area shape="rect" id="node48" title=" " alt="" coords="3902,303,4079,344"/>
-<area shape="rect" id="node50" title=" " alt="" coords="4176,407,4229,433"/>
+<area shape="rect" id="node1" title="A process planning server with a default set of process planners." alt="" coords="1814,5,2008,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1940,801,2130,827"/>
+<area shape="rect" id="node3" title=" " alt="" coords="2450,310,2618,337"/>
+<area shape="rect" id="node4" href="$dd/d0f/task__info_8h.html" title="Process Info." alt="" coords="865,503,1058,545"/>
+<area shape="rect" id="node18" href="$dc/dd9/process__planning__server_8h.html" title="A process planning server with a default set of process planners." alt="" coords="1017,109,1226,151"/>
+<area shape="rect" id="node35" href="$d6/d3b/debug__observer_8h.html" title="Debug Taskflow Observer." alt="" coords="58,206,252,247"/>
+<area shape="rect" id="node36" href="$df/d74/default__process__planners_8h.html" title="The default process planners provided by Tesseract." alt="" coords="372,109,586,151"/>
+<area shape="rect" id="node37" href="$dd/db6/descartes__profile_8h.html" title=" " alt="" coords="1817,392,2000,448"/>
+<area shape="rect" id="node40" href="$d4/d0d/trajopt__profile_8h.html" title=" " alt="" coords="2416,496,2595,552"/>
+<area shape="rect" id="node42" href="$d5/d9f/ompl__profile_8h.html" title="Tesseract OMPL profile." alt="" coords="1336,503,1515,545"/>
+<area shape="rect" id="node44" href="$df/df0/simple__planner__profile_8h.html" title=" " alt="" coords="1690,199,1868,255"/>
+<area shape="rect" id="node45" href="$d9/d8b/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2utils_8h.html" title="Planner utility functions." alt="" coords="2667,206,2846,247"/>
+<area shape="rect" id="node49" href="$d6/d75/tesseract__command__language_2include_2tesseract__command__language_2utils_8h.html" title=" " alt="" coords="3478,303,3677,344"/>
+<area shape="rect" id="node5" title=" " alt="" coords="538,801,606,827"/>
+<area shape="rect" id="node6" title=" " alt="" coords="885,711,988,738"/>
+<area shape="rect" id="node7" title=" " alt="" coords="712,615,758,641"/>
+<area shape="rect" id="node8" href="$d1/db1/instruction__poly_8h.html" title=" " alt="" coords="2736,607,2934,649"/>
+<area shape="rect" id="node17" title=" " alt="" coords="1407,704,1562,745"/>
+<area shape="rect" id="node9" title=" " alt="" coords="2641,801,2696,827"/>
+<area shape="rect" id="node10" title=" " alt="" coords="3298,793,3425,835"/>
+<area shape="rect" id="node11" title=" " alt="" coords="3112,793,3238,835"/>
+<area shape="rect" id="node12" title=" " alt="" coords="3780,801,3951,827"/>
+<area shape="rect" id="node13" href="$d3/dc4/waypoint__poly_8h.html" title=" " alt="" coords="3262,704,3461,745"/>
+<area shape="rect" id="node15" title=" " alt="" coords="4161,801,4376,827"/>
+<area shape="rect" id="node16" title=" " alt="" coords="3976,793,4137,835"/>
+<area shape="rect" id="node14" title=" " alt="" coords="3565,801,3641,827"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1914,615,1972,641"/>
+<area shape="rect" id="node20" title=" " alt="" coords="144,310,291,337"/>
+<area shape="rect" id="node21" href="$dd/dd6/profile__dictionary_8h.html" title="This is a profile dictionary for storing all profiles." alt="" coords="2958,607,3157,649"/>
+<area shape="rect" id="node24" href="$d5/d51/process__environment__cache_8h.html" title="A process environment cache." alt="" coords="986,600,1180,656"/>
+<area shape="rect" id="node25" href="$db/d75/taskflow__generator_8h.html" title="Taskflow generator." alt="" coords="316,303,509,344"/>
+<area shape="rect" id="node26" href="$dd/ddd/process__planning__request_8h.html" title="A process planning request and default planner names." alt="" coords="1184,206,1400,247"/>
+<area shape="rect" id="node34" href="$d9/d39/process__planning__future_8h.html" title="A process planning future." alt="" coords="444,206,650,247"/>
+<area shape="rect" id="node22" title=" " alt="" coords="3636,711,3679,738"/>
+<area shape="rect" id="node23" title=" " alt="" coords="3703,711,3775,738"/>
+<area shape="rect" id="node27" href="$d1/d6d/tesseract__motion__planners_2core_2include_2tesseract__motion__planners_2core_2types_8h.html" title=" " alt="" coords="2196,303,2375,344"/>
+<area shape="rect" id="node28" title=" " alt="" coords="2992,407,3171,433"/>
+<area shape="rect" id="node29" href="$d5/df7/composite__instruction_8h.html" title=" " alt="" coords="2669,399,2868,441"/>
+<area shape="rect" id="node30" href="$dc/df1/move__instruction__poly_8h.html" title="The move instruction interface." alt="" coords="3468,503,3666,545"/>
+<area shape="rect" id="node31" href="$d7/df9/cartesian__waypoint__poly_8h.html" title="The cartesian waypoint interface." alt="" coords="3761,607,3965,649"/>
+<area shape="rect" id="node33" href="$d1/d66/joint__waypoint__poly_8h.html" title="The joint waypoint interface." alt="" coords="3332,607,3530,649"/>
+<area shape="rect" id="node32" title=" " alt="" coords="4357,704,4518,745"/>
+<area shape="rect" id="node38" title=" " alt="" coords="2126,511,2240,537"/>
+<area shape="rect" id="node39" href="$d0/d7d/descartes__problem_8h.html" title=" " alt="" coords="1590,503,1797,545"/>
+<area shape="rect" id="node41" title=" " alt="" coords="2307,615,2510,641"/>
+<area shape="rect" id="node43" href="$dd/d3c/ompl__problem_8h.html" title="Tesseract OMPL problem definition." alt="" coords="1508,607,1687,649"/>
+<area shape="rect" id="node46" title=" " alt="" coords="2895,303,3050,344"/>
+<area shape="rect" id="node47" title=" " alt="" coords="3074,303,3252,344"/>
+<area shape="rect" id="node48" title=" " alt="" coords="3277,303,3454,344"/>
+<area shape="rect" id="node50" title=" " alt="" coords="3623,407,3676,433"/>
 </map>

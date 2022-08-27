@@ -59,6 +59,14 @@ virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruc
 \item 
 virtual const std\+::string \& \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_abca49142407e18492bac687883508d04}{get\+Path\+Profile}} () const =0
 \item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a31a78348bcd6a9a4f84fca2d102c8f75}{set\+Profile\+Overrides}} (\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} profile\+\_\+overrides)=0
+\item 
+virtual \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a3060364f284fe65c267f573ae94874e2}{get\+Profile\+Overrides}} () const =0
+\item 
+virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a2cbd473df3c629be29418ead45bf4a0c}{set\+Path\+Profile\+Overrides}} (\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} profile\+\_\+overrides)=0
+\item 
+virtual \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab5bd9f18d1f87b0543edd91d08cb1bf6}{get\+Path\+Profile\+Overrides}} () const =0
+\item 
 virtual void \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_adfb7e4ecfba797cdd6b7749ddef9ccc3}{set\+Move\+Type}} (\mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} move\+\_\+type)=0
 \item 
 virtual \mbox{\hyperlink{namespacetesseract__planning_acdeb2344747f1fe9d0825bf09e0da7ac}{Move\+Instruction\+Type}} \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ae3b36474f0be5a2074573be5d3ad4087}{get\+Move\+Type}} () const =0
@@ -164,11 +172,23 @@ struct \mbox{\hyperlink{structtesseract__planning_1_1detail__move__instruction_1
 \doxysubsubsection{\texorpdfstring{getPathProfile()}{getPathProfile()}}
 {\footnotesize\ttfamily virtual const std\+::string \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Path\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab5bd9f18d1f87b0543edd91d08cb1bf6}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ab5bd9f18d1f87b0543edd91d08cb1bf6}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getPathProfileOverrides@{getPathProfileOverrides}}
+\index{getPathProfileOverrides@{getPathProfileOverrides}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getPathProfileOverrides()}{getPathProfileOverrides()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Path\+Profile\+Overrides (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0962935360433c929cd4ee8bccf2642f}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a0962935360433c929cd4ee8bccf2642f}} 
 \index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getProfile@{getProfile}}
 \index{getProfile@{getProfile}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
 \doxysubsubsection{\texorpdfstring{getProfile()}{getProfile()}}
 {\footnotesize\ttfamily virtual const std\+::string \& tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a3060364f284fe65c267f573ae94874e2}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a3060364f284fe65c267f573ae94874e2}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getProfileOverrides@{getProfileOverrides}}
+\index{getProfileOverrides@{getProfileOverrides}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{getProfileOverrides()}{getProfileOverrides()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}} tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::get\+Profile\+Overrides (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ac8d3a8c809efc089a65141ef510ab98e}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_ac8d3a8c809efc089a65141ef510ab98e}} 
 \index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!getUUID@{getUUID}}
@@ -244,11 +264,23 @@ TESSERACT\+\_\+\+COMMON\+\_\+\+IGNORE\+\_\+\+WARNINGS\+\_\+\+PUSH TESSERACT\+\_\
 \doxysubsubsection{\texorpdfstring{setPathProfile()}{setPathProfile()}}
 {\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Path\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a2cbd473df3c629be29418ead45bf4a0c}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a2cbd473df3c629be29418ead45bf4a0c}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!setPathProfileOverrides@{setPathProfileOverrides}}
+\index{setPathProfileOverrides@{setPathProfileOverrides}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{setPathProfileOverrides()}{setPathProfileOverrides()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Path\+Profile\+Overrides (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}}}]{profile\+\_\+overrides }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
 \mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a741ddd569de1fbcf36f27d0ad42bc7af}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a741ddd569de1fbcf36f27d0ad42bc7af}} 
 \index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!setProfile@{setProfile}}
 \index{setProfile@{setProfile}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
 \doxysubsubsection{\texorpdfstring{setProfile()}{setProfile()}}
 {\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Profile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{profile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a31a78348bcd6a9a4f84fca2d102c8f75}\label{structtesseract__planning_1_1detail__move__instruction_1_1MoveInstructionInterface_a31a78348bcd6a9a4f84fca2d102c8f75}} 
+\index{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}!setProfileOverrides@{setProfileOverrides}}
+\index{setProfileOverrides@{setProfileOverrides}!tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface@{tesseract\_planning::detail\_move\_instruction::MoveInstructionInterface}}
+\doxysubsubsection{\texorpdfstring{setProfileOverrides()}{setProfileOverrides()}}
+{\footnotesize\ttfamily virtual void tesseract\+\_\+planning\+::detail\+\_\+move\+\_\+instruction\+::\+Move\+Instruction\+Interface\+::set\+Profile\+Overrides (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtesseract__planning_1_1ProfileDictionary_ab9e6bb9185d333d45264d7c17c636bb4}{Profile\+Dictionary\+::\+Const\+Ptr}}}]{profile\+\_\+overrides }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
