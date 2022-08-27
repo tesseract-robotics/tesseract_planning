@@ -26,7 +26,6 @@
 
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_executor.h>
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
-#include <tesseract_task_composer/taskflow/taskflow_utils.h>
 #include <taskflow/taskflow.hpp>
 
 namespace tesseract_planning
@@ -43,8 +42,8 @@ TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() {}
 TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerGraph& task_graph,
                                                            TaskComposerInput& task_input)
 {
-  TaskComposerTaskflowContainer::ConstPtr taskflow = convertToTaskflow(task_graph, task_input, *this);
-  std::shared_future<void> f = executor_->run(*(taskflow->top));
+  auto taskflow = convertToTaskflow(task_graph, task_input, *this);
+  std::shared_future<void> f = executor_->run(*(taskflow->front()));
 
   //  std::ofstream out_data;
   //  out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
@@ -56,8 +55,8 @@ TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerGra
 
 TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerTask& task, TaskComposerInput& task_input)
 {
-  TaskComposerTaskflowContainer::ConstPtr taskflow = convertToTaskflow(task, task_input, *this);
-  std::shared_future<void> f = executor_->run(*(taskflow->top));
+  auto taskflow = convertToTaskflow(task, task_input, *this);
+  std::shared_future<void> f = executor_->run(*(taskflow->front()));
 
   //  std::ofstream out_data;
   //  out_data.open(tesseract_common::getTempPath() + "task_composer_example.dot");
@@ -105,6 +104,70 @@ template <class Archive>
 void TaskflowTaskComposerExecutor::serialize(Archive& ar, const unsigned int version)
 {
   boost::serialization::split_member(ar, *this, version);
+}
+
+std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
+TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_graph,
+                                                TaskComposerInput& task_input,
+                                                TaskComposerExecutor& task_executor)
+{
+  auto tf_container = std::make_shared<std::vector<std::unique_ptr<tf::Taskflow>>>();
+  tf_container->emplace_back(std::make_unique<tf::Taskflow>(task_graph.getName()));
+
+  // Generate process tasks for each node
+  std::map<boost::uuids::uuid, tf::Task> tasks;
+  const auto& nodes = task_graph.getNodes();
+  for (auto& pair : nodes)
+  {
+    auto edges = pair.second->getOutboundEdges();
+    if (pair.second->getType() == TaskComposerNodeType::TASK)
+    {
+      auto task = std::static_pointer_cast<const TaskComposerTask>(pair.second);
+      if (edges.size() > 1 && task->isConditional())
+        tasks[pair.first] =
+            tf_container->front()
+                ->emplace([task, &task_input, &task_executor] { return task->run(task_input, task_executor); })
+                .name(pair.second->getName());
+      else
+        tasks[pair.first] = tf_container->front()
+                                ->emplace([task, &task_input, &task_executor] { task->run(task_input, task_executor); })
+                                .name(pair.second->getName());
+    }
+    else if (pair.second->getType() == TaskComposerNodeType::GRAPH)
+    {
+      const auto& graph = static_cast<const TaskComposerGraph&>(*pair.second);
+      auto sub_tf_container = convertToTaskflow(graph, task_input, task_executor);
+      tasks[pair.first] = tf_container->front()->composed_of(*sub_tf_container->front());
+      tf_container->insert(tf_container->end(),
+                           std::make_move_iterator(sub_tf_container->begin()),
+                           std::make_move_iterator(sub_tf_container->end()));
+    }
+    else
+      throw std::runtime_error("convertToTaskflow, unsupported node type!");
+  }
+
+  for (const auto& pair : nodes)
+  {
+    // Ensure the current task precedes the tasks that it is connected to
+    auto edges = pair.second->getOutboundEdges();
+    for (const auto& e : edges)
+      tasks[pair.first].precede(tasks[e]);
+  }
+
+  return tf_container;
+}
+
+std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
+TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerTask& task,
+                                                TaskComposerInput& task_input,
+                                                TaskComposerExecutor& task_executor)
+{
+  auto tf_container = std::make_shared<std::vector<std::unique_ptr<tf::Taskflow>>>();
+  tf_container->emplace_back(std::make_unique<tf::Taskflow>(task.getName()));
+  tf_container->front()
+      ->emplace([&task, &task_input, &task_executor] { return task.run(task_input, task_executor); })
+      .name(task.getName());
+  return tf_container;
 }
 
 }  // namespace tesseract_planning

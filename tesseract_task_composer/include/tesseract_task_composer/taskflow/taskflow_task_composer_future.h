@@ -28,6 +28,11 @@
 
 #include <tesseract_task_composer/task_composer_future.h>
 
+namespace tf
+{
+class Taskflow;
+}
+
 namespace tesseract_planning
 {
 struct TaskComposerTaskflowContainer;
@@ -36,7 +41,7 @@ class TaskflowTaskComposerFuture : public TaskComposerFuture
 public:
   TaskflowTaskComposerFuture() = default;
   TaskflowTaskComposerFuture(std::shared_future<void> future,
-                             std::shared_ptr<const TaskComposerTaskflowContainer> container);
+                             std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container);
   ~TaskflowTaskComposerFuture() override;
 
   void clear() override final;
@@ -58,6 +63,7 @@ public:
   bool operator!=(const TaskflowTaskComposerFuture& rhs) const;
 
 private:
+  friend struct tesseract_common::Serialization;
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
@@ -66,7 +72,7 @@ private:
   std::shared_future<void> future_;
 
   /** @brief Hold objects that must not go out of scope during execution */
-  std::shared_ptr<const TaskComposerTaskflowContainer> container_;
+  std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container_;
 };
 }  // namespace tesseract_planning
 

@@ -38,8 +38,9 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-TaskflowTaskComposerFuture::TaskflowTaskComposerFuture(std::shared_future<void> future,
-                                                       std::shared_ptr<const TaskComposerTaskflowContainer> container)
+TaskflowTaskComposerFuture::TaskflowTaskComposerFuture(
+    std::shared_future<void> future,
+    std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container)
   : future_(std::move(future)), container_(std::move(container))
 {
 }

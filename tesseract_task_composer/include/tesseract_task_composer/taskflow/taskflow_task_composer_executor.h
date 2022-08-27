@@ -32,11 +32,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_executor.h>
+#include <tesseract_task_composer/task_composer_graph.h>
+#include <tesseract_task_composer/task_composer_task.h>
+#include <tesseract_task_composer/task_composer_input.h>
 
 namespace tf
 {
 class Executor;
-}
+class Taskflow;
+}  // namespace tf
 
 namespace tesseract_planning
 {
@@ -78,6 +82,14 @@ protected:
 
   std::size_t num_threads_;
   std::unique_ptr<tf::Executor> executor_;
+
+  std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>> convertToTaskflow(const TaskComposerGraph& task_graph,
+                                                                                TaskComposerInput& task_input,
+                                                                                TaskComposerExecutor& task_executor);
+
+  std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>> convertToTaskflow(const TaskComposerTask& task,
+                                                                                TaskComposerInput& task_input,
+                                                                                TaskComposerExecutor& task_executor);
 };
 }  // namespace tesseract_planning
 
