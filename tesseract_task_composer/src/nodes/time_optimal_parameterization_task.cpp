@@ -48,9 +48,9 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string inp
                                                                  bool is_conditional,
                                                                  std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -67,7 +67,7 @@ int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskC
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     CONSOLE_BRIDGE_logError("Input results to TOTG must be a composite instruction");
@@ -180,6 +180,7 @@ int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskC
   }
 
   CONSOLE_BRIDGE_logDebug("TOTG succeeded");
+  input.data_storage->setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
   //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
@@ -257,14 +258,12 @@ CompositeInstruction TimeOptimalParameterizationTask::unflatten(const CompositeI
 
 TaskComposerNode::UPtr TimeOptimalParameterizationTask::clone() const
 {
-  return std::make_unique<TimeOptimalParameterizationTask>(input_key_, output_key_, is_conditional_, name_);
+  return std::make_unique<TimeOptimalParameterizationTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
 }
 
 bool TimeOptimalParameterizationTask::operator==(const TimeOptimalParameterizationTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -276,8 +275,6 @@ bool TimeOptimalParameterizationTask::operator!=(const TimeOptimalParameterizati
 template <class Archive>
 void TimeOptimalParameterizationTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

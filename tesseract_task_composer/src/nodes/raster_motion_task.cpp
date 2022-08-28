@@ -46,9 +46,9 @@ namespace tesseract_planning
 {
 RasterMotionTask::RasterMotionTask(std::string input_key, std::string output_key, bool is_conditional, std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
@@ -62,7 +62,7 @@ int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   timer.start();
   //  saveInputs(*info, input);
 
-  auto input_data_poly = input.data_storage->getData(input_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
 
   // --------------------
   // Check that inputs are valid
@@ -242,7 +242,7 @@ int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   }
   program.appendInstruction(input.data_storage->getData(to_end_pipeline_key).as<CompositeInstruction>());
 
-  input.data_storage->setData(output_key_, program);
+  input.data_storage->setData(output_keys_[0], program);
 
   //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
@@ -286,14 +286,12 @@ void RasterMotionTask::checkTaskInput(const tesseract_common::Any& input) const
 
 TaskComposerNode::UPtr RasterMotionTask::clone() const
 {
-  return std::make_unique<RasterMotionTask>(input_key_, output_key_, is_conditional_, name_);
+  return std::make_unique<RasterMotionTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
 }
 
 bool RasterMotionTask::operator==(const RasterMotionTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -302,8 +300,6 @@ bool RasterMotionTask::operator!=(const RasterMotionTask& rhs) const { return !o
 template <class Archive>
 void RasterMotionTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

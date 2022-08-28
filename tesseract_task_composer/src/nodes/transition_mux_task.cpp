@@ -41,11 +41,11 @@ TransitionMuxTask::TransitionMuxTask(std::string input_prev_key,
                                      bool is_conditional,
                                      std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(uuid_str_)
-  , input_prev_key_(std::move(input_prev_key))
-  , input_next_key_(std::move(input_next_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(uuid_str_);
+  input_keys_.push_back(std::move(input_prev_key));
+  input_keys_.push_back(std::move(input_next_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 TransitionMuxTask::TransitionMuxTask(std::string input_key,
@@ -55,11 +55,11 @@ TransitionMuxTask::TransitionMuxTask(std::string input_key,
                                      bool is_conditional,
                                      std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , input_prev_key_(std::move(input_prev_key))
-  , input_next_key_(std::move(input_next_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  input_keys_.push_back(std::move(input_prev_key));
+  input_keys_.push_back(std::move(input_next_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -73,16 +73,16 @@ int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
   timer.start();
   //  saveInputs(*info, input);
 
-  auto input_data_poly = input.data_storage->getData(input_key_);
-  auto input_prev_data_poly = input.data_storage->getData(input_prev_key_);
-  auto input_next_data_poly = input.data_storage->getData(input_next_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_prev_data_poly = input.data_storage->getData(input_keys_[1]);
+  auto input_next_data_poly = input.data_storage->getData(input_keys_[2]);
 
   // --------------------
   // Check that inputs are valid
   // --------------------
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "TransitionMuxTask: Input data for key '" + input_key_ + "' must be a composite instruction";
+    info->message = "TransitionMuxTask: Input data for key '" + input_keys_[0] + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -92,7 +92,7 @@ int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
 
   if (input_prev_data_poly.isNull() || input_prev_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "TransitionMuxTask: Input data for key '" + input_prev_key_ + "' must be a composite instruction";
+    info->message = "TransitionMuxTask: Input data for key '" + input_keys_[1] + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -102,7 +102,7 @@ int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
 
   if (input_next_data_poly.isNull() || input_next_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "TransitionMuxTask: Input data for key '" + input_next_key_ + "' must be a composite instruction";
+    info->message = "TransitionMuxTask: Input data for key '" + input_keys_[2] + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -131,7 +131,7 @@ int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
     throw std::runtime_error("Invalid waypoint type");
 
   // Store results
-  input.data_storage->setData(output_key_, input_data_poly);
+  input.data_storage->setData(output_keys_[0], input_data_poly);
   CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
   info->return_value = 1;
   info->message = "TransitionMuxTask: Successful";
@@ -144,16 +144,12 @@ int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
 TaskComposerNode::UPtr TransitionMuxTask::clone() const
 {
   return std::make_unique<TransitionMuxTask>(
-      input_key_, input_prev_key_, input_next_key_, output_key_, is_conditional_, name_);
+      input_keys_[0], input_keys_[1], input_keys_[2], output_keys_[0], is_conditional_, name_);
 }
 
 bool TransitionMuxTask::operator==(const TransitionMuxTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (input_prev_key_ == rhs.input_prev_key_);
-  equal &= (input_next_key_ == rhs.input_next_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -162,10 +158,6 @@ bool TransitionMuxTask::operator!=(const TransitionMuxTask& rhs) const { return 
 template <class Archive>
 void TransitionMuxTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(input_prev_key_);
-  ar& BOOST_SERIALIZATION_NVP(input_next_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

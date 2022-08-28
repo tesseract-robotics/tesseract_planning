@@ -57,6 +57,10 @@ const std::vector<boost::uuids::uuid>& TaskComposerNode::getOutboundEdges() cons
 
 const std::vector<boost::uuids::uuid>& TaskComposerNode::getInboundEdges() const { return inbound_edges_; }
 
+const std::vector<std::string>& TaskComposerNode::getInputKeys() const { return input_keys_; }
+
+const std::vector<std::string>& TaskComposerNode::getOutputKeys() const { return output_keys_; }
+
 void TaskComposerNode::dump(std::ostream& os) const
 {
   const std::string tmp = toString(uuid_, "node_");
@@ -74,6 +78,8 @@ bool TaskComposerNode::operator==(const TaskComposerNode& rhs) const
   equal &= uuid_str_ == rhs.uuid_str_;
   equal &= outbound_edges_ == rhs.outbound_edges_;
   equal &= inbound_edges_ == rhs.inbound_edges_;
+  equal &= input_keys_ == rhs.input_keys_;
+  equal &= output_keys_ == rhs.output_keys_;
   return equal;
 }
 bool TaskComposerNode::operator!=(const TaskComposerNode& rhs) const { return !operator==(rhs); }
@@ -87,6 +93,8 @@ void TaskComposerNode::serialize(Archive& ar, const unsigned int /*version*/)
   ar& boost::serialization::make_nvp("uuid_str", uuid_str_);
   ar& boost::serialization::make_nvp("outbound_edges", outbound_edges_);
   ar& boost::serialization::make_nvp("inbound_edges", inbound_edges_);
+  ar& boost::serialization::make_nvp("input_keys", input_keys_);
+  ar& boost::serialization::make_nvp("output_keys", output_keys_);
 }
 
 std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::string& prefix)

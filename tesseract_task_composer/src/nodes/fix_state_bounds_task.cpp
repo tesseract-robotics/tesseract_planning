@@ -44,9 +44,9 @@ FixStateBoundsTask::FixStateBoundsTask(std::string input_key,
                                        bool is_conditional,
                                        std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -63,7 +63,7 @@ int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input instruction to FixStateBounds must be a composite instruction";
@@ -74,7 +74,7 @@ int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
     return 0;
   }
 
-  const auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto& ci = input_data_poly.as<CompositeInstruction>();
   const tesseract_common::ManipulatorInfo& manip_info = input.manip_info;
   auto joint_group = input.env->getJointGroup(manip_info.manipulator);
   auto limits = joint_group->getLimits();
@@ -101,15 +101,14 @@ int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
   {
     case FixStateBoundsProfile::Settings::START_ONLY:
     {
-      const MoveInstructionPoly* instr_const_ptr = ci.getFirstMoveInstruction();
-      if (instr_const_ptr != nullptr)
+      MoveInstructionPoly* first_mi = ci.getFirstMoveInstruction();
+      if (first_mi != nullptr)
       {
-        auto* mutable_instruction = const_cast<MoveInstructionPoly*>(instr_const_ptr);  // NOLINT
-        if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits.joint_limits))
+        if (!isWithinJointLimits(first_mi->getWaypoint(), limits.joint_limits))
         {
-          CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the const input instructions");
+          CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
           if (!clampToJointLimits(
-                  mutable_instruction->getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
+                  first_mi->getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
           {
             //            saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -122,15 +121,14 @@ int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
     break;
     case FixStateBoundsProfile::Settings::END_ONLY:
     {
-      const MoveInstructionPoly* instr_const_ptr = ci.getLastMoveInstruction();
-      if (instr_const_ptr != nullptr)
+      MoveInstructionPoly* last_mi = ci.getLastMoveInstruction();
+      if (last_mi != nullptr)
       {
-        auto* mutable_instruction = const_cast<MoveInstructionPoly*>(instr_const_ptr);  // NOLINT
-        if (!isWithinJointLimits(mutable_instruction->getWaypoint(), limits.joint_limits))
+        if (!isWithinJointLimits(last_mi->getWaypoint(), limits.joint_limits))
         {
-          CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the const input instructions");
+          CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
           if (!clampToJointLimits(
-                  mutable_instruction->getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
+                  last_mi->getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
           {
             //            saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -163,12 +161,10 @@ int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
       if (inside_limits)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the const input instructions");
-      for (const auto& instruction : flattened)
+      CONSOLE_BRIDGE_logInform("FixStateBoundsTask is modifying the input instructions");
+      for (auto& instruction : flattened)
       {
-        const InstructionPoly* instr_const_ptr = &instruction.get();
-        auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
-        auto& plan = mutable_instruction->as<MoveInstructionPoly>();
+        auto& plan = instruction.get().as<MoveInstructionPoly>();
         if (!clampToJointLimits(plan.getWaypoint(), limits.joint_limits, cur_composite_profile->max_deviation_global))
         {
           //          saveOutputs(*info, input);
@@ -188,6 +184,7 @@ int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
   }
 
   CONSOLE_BRIDGE_logDebug("FixStateBoundsTask succeeded");
+  input.data_storage->setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
   //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
@@ -197,14 +194,12 @@ int FixStateBoundsTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
 
 TaskComposerNode::UPtr FixStateBoundsTask::clone() const
 {
-  return std::make_unique<FixStateBoundsTask>(input_key_, output_key_, is_conditional_, name_);
+  return std::make_unique<FixStateBoundsTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
 }
 
 bool FixStateBoundsTask::operator==(const FixStateBoundsTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -213,8 +208,6 @@ bool FixStateBoundsTask::operator!=(const FixStateBoundsTask& rhs) const { retur
 template <class Archive>
 void FixStateBoundsTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

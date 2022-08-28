@@ -73,8 +73,6 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  std::string input_key_;
-  std::string output_key_;
   bool add_points_;
   IterativeSplineParameterization solver_;
 };

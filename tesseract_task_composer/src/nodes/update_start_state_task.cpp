@@ -40,10 +40,10 @@ UpdateStartStateTask::UpdateStartStateTask(std::string input_prev_key,
                                            bool is_conditional,
                                            std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(uuid_str_)
-  , input_prev_key_(std::move(input_prev_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(uuid_str_);
+  input_keys_.push_back(std::move(input_prev_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 UpdateStartStateTask::UpdateStartStateTask(std::string input_key,
@@ -52,10 +52,10 @@ UpdateStartStateTask::UpdateStartStateTask(std::string input_key,
                                            bool is_conditional,
                                            std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , input_prev_key_(std::move(input_prev_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  input_keys_.push_back(std::move(input_prev_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int UpdateStartStateTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -69,15 +69,15 @@ int UpdateStartStateTask::run(TaskComposerInput& input, OptionalTaskComposerExec
   timer.start();
   //  saveInputs(*info, input);
 
-  auto input_data_poly = input.data_storage->getData(input_key_);
-  auto input_prev_data_poly = input.data_storage->getData(input_prev_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_prev_data_poly = input.data_storage->getData(input_keys_[1]);
 
   // --------------------
   // Check that inputs are valid
   // --------------------
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "UpdateStartStateTask: Input data for key '" + input_key_ + "' must be a composite instruction";
+    info->message = "UpdateStartStateTask: Input data for key '" + input_keys_[0] + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -87,8 +87,7 @@ int UpdateStartStateTask::run(TaskComposerInput& input, OptionalTaskComposerExec
 
   if (input_prev_data_poly.isNull() || input_prev_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message =
-        "UpdateStartStateTask: Input data for key '" + input_prev_key_ + "' must be a composite instruction";
+    info->message = "UpdateStartStateTask: Input data for key '" + input_keys_[1] + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -105,7 +104,7 @@ int UpdateStartStateTask::run(TaskComposerInput& input, OptionalTaskComposerExec
   instructions.getStartInstruction().setMoveType(MoveInstructionType::START);
 
   // Store results
-  input.data_storage->setData(output_key_, input_data_poly);
+  input.data_storage->setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
   info->message = "UpdateStartStateTask: Successful";
   //    saveOutputs(*info, input);
@@ -116,15 +115,13 @@ int UpdateStartStateTask::run(TaskComposerInput& input, OptionalTaskComposerExec
 
 TaskComposerNode::UPtr UpdateStartStateTask::clone() const
 {
-  return std::make_unique<UpdateStartStateTask>(input_key_, input_prev_key_, output_key_, is_conditional_, name_);
+  return std::make_unique<UpdateStartStateTask>(
+      input_keys_[0], input_keys_[1], output_keys_[0], is_conditional_, name_);
 }
 
 bool UpdateStartStateTask::operator==(const UpdateStartStateTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (input_prev_key_ == rhs.input_prev_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -133,9 +130,6 @@ bool UpdateStartStateTask::operator!=(const UpdateStartStateTask& rhs) const { r
 template <class Archive>
 void UpdateStartStateTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(input_prev_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

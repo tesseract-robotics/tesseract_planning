@@ -45,9 +45,9 @@ namespace tesseract_planning
 {
 MinLengthTask::MinLengthTask(std::string input_key, std::string output_key, bool is_conditional, std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int MinLengthTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -62,7 +62,7 @@ int MinLengthTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*
   //  saveInputs(*info, input);
 
   // Check that inputs are valid
-  auto input_data_poly = input.data_storage->getData(input_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     CONSOLE_BRIDGE_logError("Input seed to SeedMinLengthTask must be a composite instruction");
@@ -121,11 +121,11 @@ int MinLengthTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*
       return 0;
     }
 
-    input.data_storage->setData(output_key_, response.results);
+    input.data_storage->setData(output_keys_[0], response.results);
   }
   else
   {
-    input.data_storage->setData(output_key_, ci);
+    input.data_storage->setData(output_keys_[0], ci);
   }
 
   CONSOLE_BRIDGE_logDebug("Seed Min Length Task Succeeded!");
@@ -138,14 +138,12 @@ int MinLengthTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*
 
 TaskComposerNode::UPtr MinLengthTask::clone() const
 {
-  return std::make_unique<MinLengthTask>(input_key_, output_key_, is_conditional_, name_);
+  return std::make_unique<MinLengthTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
 }
 
 bool MinLengthTask::operator==(const MinLengthTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -154,8 +152,6 @@ bool MinLengthTask::operator!=(const MinLengthTask& rhs) const { return !operato
 template <class Archive>
 void MinLengthTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

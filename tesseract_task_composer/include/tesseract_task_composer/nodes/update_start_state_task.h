@@ -69,10 +69,6 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-
-  std::string input_key_;
-  std::string input_prev_key_;
-  std::string output_key_;
 };
 
 class UpdateStartStateTaskInfo : public TaskComposerNodeInfo

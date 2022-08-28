@@ -67,8 +67,6 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   MotionPlanner::Ptr planner_;
-  std::string input_key_;
-  std::string output_key_;
   bool format_result_as_input_;
 };
 

@@ -48,16 +48,15 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string name)
-  : TaskComposerGraph(name), input_key_(uuid_str_), output_key_(uuid_str_)
+OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string name) : TaskComposerGraph(name)
 {
-  ctor();
+  ctor(uuid_str_, uuid_str_);
 }
 
 OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string input_key, std::string output_key, std::string name)
-  : TaskComposerGraph(name), input_key_(std::move(input_key)), output_key_(std::move(output_key))
+  : TaskComposerGraph(name)
 {
-  ctor();
+  ctor(std::move(input_key), std::move(output_key));
 }
 OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string input_key,
                                                std::string output_key,
@@ -66,23 +65,24 @@ OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string input_key,
                                                bool post_smoothing,
                                                std::string name)
   : TaskComposerGraph(name)
-  , input_key_(std::move(input_key))
-  , output_key_(std::move(output_key))
   , check_input_(check_input)
   , post_collision_check_(post_collision_check)
   , post_smoothing_(post_smoothing)
 {
-  ctor();
+  ctor(std::move(input_key), std::move(output_key));
 }
 
-void OMPLMotionPipelineTask::ctor()
+void OMPLMotionPipelineTask::ctor(std::string input_key, std::string output_key)
 {
+  input_keys_.push_back(std::move(input_key));
+  output_keys_.push_back(std::move(output_key));
+
   boost::uuids::uuid done_task = addNode(std::make_unique<DoneTask>());
   boost::uuids::uuid error_task = addNode(std::make_unique<ErrorTask>());
 
   boost::uuids::uuid check_input_task;
   if (check_input_)
-    check_input_task = addNode(std::make_unique<CheckInputTask>(input_key_));
+    check_input_task = addNode(std::make_unique<CheckInputTask>(input_keys_[0]));
 
   // Check if seed was provided
   boost::uuids::uuid has_seed_task = addNode(std::make_unique<HasSeedTask>());
@@ -90,31 +90,31 @@ void OMPLMotionPipelineTask::ctor()
   // Simple planner as interpolator
   auto interpolator = std::make_shared<SimpleMotionPlanner>();
   boost::uuids::uuid interpolator_task =
-      addNode(std::make_unique<MotionPlannerTask>(interpolator, input_key_, output_key_));
+      addNode(std::make_unique<MotionPlannerTask>(interpolator, input_keys_[0], output_keys_[0]));
 
   // Setup Seed Min Length Process Generator
   // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
   // to short.
-  boost::uuids::uuid seed_min_length_task = addNode(std::make_unique<MinLengthTask>(output_key_, output_key_));
+  boost::uuids::uuid seed_min_length_task = addNode(std::make_unique<MinLengthTask>(output_keys_[0], output_keys_[0]));
 
   // Setup TrajOpt
   auto motion_planner = std::make_shared<OMPLMotionPlanner>();
   boost::uuids::uuid motion_planner_task =
-      addNode(std::make_unique<MotionPlannerTask>(motion_planner, output_key_, output_key_, false));
+      addNode(std::make_unique<MotionPlannerTask>(motion_planner, output_keys_[0], output_keys_[0], false));
 
   // Setup post collision check
   boost::uuids::uuid contact_check_task;
   if (post_collision_check_)
-    contact_check_task = addNode(std::make_unique<DiscreteContactCheckTask>(output_key_));
+    contact_check_task = addNode(std::make_unique<DiscreteContactCheckTask>(output_keys_[0]));
 
   // Setup time parameterization
   boost::uuids::uuid time_parameterization_task =
-      addNode(std::make_unique<IterativeSplineParameterizationTask>(output_key_, output_key_));
+      addNode(std::make_unique<IterativeSplineParameterizationTask>(output_keys_[0], output_keys_[0]));
 
   // Setup trajectory smoothing
   boost::uuids::uuid smoothing_task;
   if (post_smoothing_)
-    smoothing_task = addNode(std::make_unique<RuckigTrajectorySmoothingTask>(output_key_, output_key_));
+    smoothing_task = addNode(std::make_unique<RuckigTrajectorySmoothingTask>(output_keys_[0], output_keys_[0]));
 
   if (check_input_)
     addEdges(check_input_task, { error_task, has_seed_task });
@@ -147,14 +147,12 @@ void OMPLMotionPipelineTask::ctor()
 TaskComposerNode::UPtr OMPLMotionPipelineTask::clone() const
 {
   return std::make_unique<OMPLMotionPipelineTask>(
-      input_key_, output_key_, check_input_, post_collision_check_, post_smoothing_, name_);
+      input_keys_[0], output_keys_[0], check_input_, post_collision_check_, post_smoothing_, name_);
 }
 
 bool OMPLMotionPipelineTask::operator==(const OMPLMotionPipelineTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= (check_input_ == rhs.check_input_);
   equal &= (post_collision_check_ == rhs.post_collision_check_);
   equal &= (post_smoothing_ == rhs.post_smoothing_);
@@ -166,8 +164,6 @@ bool OMPLMotionPipelineTask::operator!=(const OMPLMotionPipelineTask& rhs) const
 template <class Archive>
 void OMPLMotionPipelineTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_NVP(check_input_);
   ar& BOOST_SERIALIZATION_NVP(post_collision_check_);
   ar& BOOST_SERIALIZATION_NVP(post_smoothing_);

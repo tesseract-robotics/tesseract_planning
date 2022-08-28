@@ -80,9 +80,6 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   void checkTaskInput(const tesseract_common::Any& input) const;
-
-  std::string input_key_;
-  std::string output_key_;
 };
 
 class RasterMotionTaskInfo : public TaskComposerNodeInfo

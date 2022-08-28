@@ -40,10 +40,10 @@ UpdateEndStateTask::UpdateEndStateTask(std::string input_next_key,
                                        bool is_conditional,
                                        std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(uuid_str_)
-  , input_next_key_(std::move(input_next_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(uuid_str_);
+  input_keys_.push_back(std::move(input_next_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 UpdateEndStateTask::UpdateEndStateTask(std::string input_key,
@@ -52,10 +52,10 @@ UpdateEndStateTask::UpdateEndStateTask(std::string input_key,
                                        bool is_conditional,
                                        std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , input_next_key_(std::move(input_next_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  input_keys_.push_back(std::move(input_next_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int UpdateEndStateTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -69,15 +69,15 @@ int UpdateEndStateTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
   timer.start();
   //  saveInputs(*info, input);
 
-  auto input_data_poly = input.data_storage->getData(input_key_);
-  auto input_next_data_poly = input.data_storage->getData(input_next_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
+  auto input_next_data_poly = input.data_storage->getData(input_keys_[1]);
 
   // --------------------
   // Check that inputs are valid
   // --------------------
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "UpdateEndStateTask: Input data for key '" + input_key_ + "' must be a composite instruction";
+    info->message = "UpdateEndStateTask: Input data for key '" + input_keys_[0] + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -87,7 +87,7 @@ int UpdateEndStateTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
 
   if (input_next_data_poly.isNull() || input_next_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "UpdateEndStateTask: Input data for key '" + input_next_key_ + "' must be a composite instruction";
+    info->message = "UpdateEndStateTask: Input data for key '" + input_keys_[1] + "' must be a composite instruction";
     CONSOLE_BRIDGE_logError("%s", info->message.c_str());
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
@@ -111,7 +111,7 @@ int UpdateEndStateTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
     throw std::runtime_error("Invalid waypoint type");
 
   // Store results
-  input.data_storage->setData(output_key_, input_data_poly);
+  input.data_storage->setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
   info->message = "UpdateEndStateTask: Successful";
   //    saveOutputs(*info, input);
@@ -122,15 +122,12 @@ int UpdateEndStateTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
 
 TaskComposerNode::UPtr UpdateEndStateTask::clone() const
 {
-  return std::make_unique<UpdateEndStateTask>(input_key_, input_next_key_, output_key_, is_conditional_, name_);
+  return std::make_unique<UpdateEndStateTask>(input_keys_[0], input_keys_[1], output_keys_[0], is_conditional_, name_);
 }
 
 bool UpdateEndStateTask::operator==(const UpdateEndStateTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (input_next_key_ == rhs.input_next_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -139,9 +136,6 @@ bool UpdateEndStateTask::operator!=(const UpdateEndStateTask& rhs) const { retur
 template <class Archive>
 void UpdateEndStateTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(input_next_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

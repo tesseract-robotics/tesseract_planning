@@ -42,10 +42,10 @@ MotionPlannerTask::MotionPlannerTask(MotionPlanner::Ptr planner,
                                      bool is_conditional)
   : TaskComposerTask(is_conditional, planner->getName())
   , planner_(std::move(planner))
-  , input_key_(std::move(input_key))
-  , output_key_(std::move(output_key))
   , format_result_as_input_(format_result_as_input)
 {
+  input_keys_.push_back(std::move(input_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -59,7 +59,7 @@ int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
   timer.start();
   //  saveInputs(*info, input);
 
-  auto input_data_poly = input.data_storage->getData(input_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
 
   // --------------------
   // Check that inputs are valid
@@ -107,7 +107,7 @@ int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
   // --------------------
   if (response)
   {
-    input.data_storage->setData(output_key_, response.results);
+    input.data_storage->setData(output_keys_[0], response.results);
 
     CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
     info->return_value = 1;
@@ -132,14 +132,12 @@ int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
 TaskComposerNode::UPtr MotionPlannerTask::clone() const
 {
   return std::make_unique<MotionPlannerTask>(
-      planner_, input_key_, output_key_, format_result_as_input_, is_conditional_);
+      planner_, input_keys_[0], output_keys_[0], format_result_as_input_, is_conditional_);
 }
 
 bool MotionPlannerTask::operator==(const MotionPlannerTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= (format_result_as_input_ == rhs.format_result_as_input_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
@@ -149,8 +147,6 @@ bool MotionPlannerTask::operator!=(const MotionPlannerTask& rhs) const { return 
 template <class Archive>
 void MotionPlannerTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_NVP(format_result_as_input_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }

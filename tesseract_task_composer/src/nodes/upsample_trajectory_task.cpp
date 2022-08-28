@@ -45,9 +45,9 @@ UpsampleTrajectoryTask::UpsampleTrajectoryTask(std::string input_key,
                                                bool is_conditional,
                                                std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int UpsampleTrajectoryTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -62,18 +62,8 @@ int UpsampleTrajectoryTask::run(TaskComposerInput& input, OptionalTaskComposerEx
   //  saveInputs(*info, input);
 
   // Check that inputs are valid
-  auto input_data_poly = input.data_storage->getData(input_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
-  {
-    CONSOLE_BRIDGE_logError("Input seed to UpsampleTrajectoryTask must be a composite instruction");
-    //    saveOutputs(*info, input);
-    info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
-  }
-
-  auto result_data_poly = input.data_storage->getData(output_key_);
-  if (result_data_poly.isNull() || result_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     CONSOLE_BRIDGE_logError("Input seed to UpsampleTrajectoryTask must be a composite instruction");
     //    saveOutputs(*info, input);
@@ -91,13 +81,13 @@ int UpsampleTrajectoryTask::run(TaskComposerInput& input, OptionalTaskComposerEx
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
-  auto& results = result_data_poly.as<CompositeInstruction>();
-  InstructionPoly start_instruction = results.getStartInstruction();
-  CompositeInstruction new_results(results);
+  CompositeInstruction results{ ci };
+  InstructionPoly start_instruction = ci.getStartInstruction();
+  CompositeInstruction new_results{ ci };
   new_results.clear();
 
   upsample(new_results, results, start_instruction, cur_composite_profile->longest_valid_segment_length);
-  results = new_results;
+  input.data_storage->setData(output_keys_[0], new_results);
 
   info->return_value = 1;
   //  saveOutputs(*info, input);
@@ -108,7 +98,7 @@ int UpsampleTrajectoryTask::run(TaskComposerInput& input, OptionalTaskComposerEx
 
 TaskComposerNode::UPtr UpsampleTrajectoryTask::clone() const
 {
-  return std::make_unique<UpsampleTrajectoryTask>(input_key_, output_key_, is_conditional_, name_);
+  return std::make_unique<UpsampleTrajectoryTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
 }
 
 void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
@@ -174,8 +164,6 @@ void UpsampleTrajectoryTask::upsample(CompositeInstruction& composite,
 bool UpsampleTrajectoryTask::operator==(const UpsampleTrajectoryTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -184,8 +172,6 @@ bool UpsampleTrajectoryTask::operator!=(const UpsampleTrajectoryTask& rhs) const
 template <class Archive>
 void UpsampleTrajectoryTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

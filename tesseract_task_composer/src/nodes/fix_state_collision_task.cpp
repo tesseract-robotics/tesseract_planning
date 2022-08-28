@@ -304,9 +304,9 @@ FixStateCollisionTask::FixStateCollisionTask(std::string input_key,
                                              bool is_conditional,
                                              std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
-  , input_key_(std::move(input_key))
-  , output_key_(std::move(output_key))
 {
+  input_keys_.push_back(std::move(input_key));
+  output_keys_.push_back(std::move(output_key));
 }
 
 int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
@@ -323,7 +323,7 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
   // --------------------
   // Check that inputs are valid
   // --------------------
-  auto input_data_poly = input.data_storage->getData(input_key_);
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input seed to FixStateCollision must be a composite instruction";
@@ -334,7 +334,7 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
     return 0;
   }
 
-  const auto& ci = input_data_poly.as<CompositeInstruction>();
+  auto& ci = input_data_poly.as<CompositeInstruction>();
 
   // Get Composite Profile
   std::string profile = ci.getProfile();
@@ -347,17 +347,15 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
   {
     case FixStateCollisionProfile::Settings::START_ONLY:
     {
-      const MoveInstructionPoly* instr_const_ptr = ci.getFirstMoveInstruction();
-      if (instr_const_ptr != nullptr)
+      MoveInstructionPoly* first_mi = ci.getFirstMoveInstruction();
+      if (first_mi != nullptr)
       {
-        auto* mutable_instruction = const_cast<MoveInstructionPoly*>(instr_const_ptr);  // NOLINT
         info->contact_results.resize(1);
-        if (waypointInCollision(
-                mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
+        if (waypointInCollision(first_mi->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
         {
-          CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the const input instructions");
+          CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
           if (!applyCorrectionWorkflow(
-                  mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
+                  first_mi->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
           {
             //            saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -370,17 +368,14 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
     break;
     case FixStateCollisionProfile::Settings::END_ONLY:
     {
-      const MoveInstructionPoly* instr_const_ptr = ci.getLastMoveInstruction();
-      if (instr_const_ptr != nullptr)
+      MoveInstructionPoly* last_mi = ci.getLastMoveInstruction();
+      if (last_mi != nullptr)
       {
-        auto* mutable_instruction = const_cast<MoveInstructionPoly*>(instr_const_ptr);  // NOLINT
         info->contact_results.resize(1);
-        if (waypointInCollision(
-                mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
+        if (waypointInCollision(last_mi->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
         {
-          CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the const input instructions");
-          if (!applyCorrectionWorkflow(
-                  mutable_instruction->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
+          CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
+          if (!applyCorrectionWorkflow(last_mi->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
           {
             //            saveOutputs(*info, input);
             info->elapsed_time = timer.elapsedSeconds();
@@ -424,14 +419,12 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
       if (!in_collision)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the const input instructions");
+      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
       for (std::size_t i = 1; i < flattened.size() - 1; i++)
       {
         if (in_collision_vec[i])
         {
-          const InstructionPoly* instr_const_ptr = &flattened[i].get();
-          auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
-          auto& plan = mutable_instruction->as<MoveInstructionPoly>();
+          auto& plan = flattened[i].get().as<MoveInstructionPoly>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
@@ -469,14 +462,12 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
       if (!in_collision)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the const input instructions");
+      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
       for (std::size_t i = 0; i < flattened.size(); i++)
       {
         if (in_collision_vec[i])
         {
-          const InstructionPoly* instr_const_ptr = &flattened[i].get();
-          auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
-          auto& plan = mutable_instruction->as<MoveInstructionPoly>();
+          auto& plan = flattened[i].get().as<MoveInstructionPoly>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
@@ -514,14 +505,12 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
       if (!in_collision)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the const input instructions");
+      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
       for (std::size_t i = 1; i < flattened.size(); i++)
       {
         if (in_collision_vec[i])
         {
-          const InstructionPoly* instr_const_ptr = &flattened[i].get();
-          auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
-          auto& plan = mutable_instruction->as<MoveInstructionPoly>();
+          auto& plan = flattened[i].get().as<MoveInstructionPoly>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
@@ -559,14 +548,12 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
       if (!in_collision)
         break;
 
-      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the const input instructions");
+      CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
       for (std::size_t i = 0; i < flattened.size() - 1; i++)
       {
         if (in_collision_vec[i])
         {
-          const InstructionPoly* instr_const_ptr = &flattened[i].get();
-          auto* mutable_instruction = const_cast<InstructionPoly*>(instr_const_ptr);  // NOLINT
-          auto& plan = mutable_instruction->as<MoveInstructionPoly>();
+          auto& plan = flattened[i].get().as<MoveInstructionPoly>();
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
@@ -588,6 +575,7 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
   }
 
   CONSOLE_BRIDGE_logDebug("FixStateCollisionTask succeeded");
+  input.data_storage->setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
   //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
@@ -597,14 +585,12 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
 
 TaskComposerNode::UPtr FixStateCollisionTask::clone() const
 {
-  return std::make_unique<FixStateCollisionTask>(input_key_, output_key_, is_conditional_, name_);
+  return std::make_unique<FixStateCollisionTask>(input_keys_[0], output_keys_[0], is_conditional_, name_);
 }
 
 bool FixStateCollisionTask::operator==(const FixStateCollisionTask& rhs) const
 {
   bool equal = true;
-  equal &= (input_key_ == rhs.input_key_);
-  equal &= (output_key_ == rhs.output_key_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -613,8 +599,6 @@ bool FixStateCollisionTask::operator!=(const FixStateCollisionTask& rhs) const {
 template <class Archive>
 void FixStateCollisionTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
-  ar& BOOST_SERIALIZATION_NVP(input_key_);
-  ar& BOOST_SERIALIZATION_NVP(output_key_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
