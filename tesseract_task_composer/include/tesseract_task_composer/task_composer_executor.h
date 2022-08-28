@@ -49,6 +49,9 @@ public:
   TaskComposerExecutor(std::string name = "TaskComposerExecutor");
   virtual ~TaskComposerExecutor() = default;
 
+  /** @brief Get the name of the executor */
+  const std::string& getName() const;
+
   /**
    * @brief Execute the provided task graph
    * @param task_graph The task graph to execute

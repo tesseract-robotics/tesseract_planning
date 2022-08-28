@@ -17,6 +17,7 @@ find_package(tesseract_time_parameterization REQUIRED)
 find_package(trajopt REQUIRED)
 find_package(Boost REQUIRED COMPONENTS serialization)
 find_package(Taskflow REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 if(NOT TARGET console_bridge::console_bridge)
   add_library(console_bridge::console_bridge INTERFACE IMPORTED)
@@ -42,6 +43,16 @@ add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDE})
 # Load variable for clang tidy args, compiler options and cxx version
 tesseract_variables()
 
+# Define compile-time default variables
+if(MSVC)
+  set(TESSERACT_TASK_COMPOSER_PLUGIN_PATH ${CMAKE_INSTALL_PREFIX}/bin)
+else()
+  set(TESSERACT_TASK_COMPOSER_PLUGIN_PATH ${CMAKE_INSTALL_PREFIX}/lib)
+endif()
+
+# Variable for task composer plugins
+set(TASK_COMPOSER_PLUGINS "")
+
 add_library(
   ${PROJECT_NAME}
   src/task_composer_data_storage.cpp
@@ -51,6 +62,7 @@ add_library(
   src/task_composer_node.cpp
   src/task_composer_node_info.cpp
   src/task_composer_graph.cpp
+  src/task_composer_plugin_factory.cpp
   src/task_composer_task.cpp
   src/nodes/cartesian_motion_pipeline_task.cpp
   src/nodes/check_input_task.cpp
@@ -93,10 +105,13 @@ target_link_libraries(
          trajopt::trajopt
          Boost::boost
          Boost::serialization
-         Taskflow::Taskflow)
+         Taskflow::Taskflow
+         yaml-cpp)
 target_compile_options(${PROJECT_NAME} PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
 target_compile_options(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+target_compile_definitions(${PROJECT_NAME}
+                           PRIVATE TESSERACT_TASK_COMPOSER_PLUGIN_PATH="${TESSERACT_TASK_COMPOSER_PLUGIN_PATH}")
 target_clang_tidy(${PROJECT_NAME} ENABLE ${TESSERACT_ENABLE_CLANG_TIDY})
 target_cxx_version(${PROJECT_NAME} PUBLIC VERSION ${TESSERACT_CXX_VERSION})
 target_code_coverage(
@@ -107,6 +122,14 @@ target_code_coverage(
   ENABLE ${TESSERACT_ENABLE_CODE_COVERAGE})
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                   "$<INSTALL_INTERFACE:include>")
+
+# Add compiler definition to core so it can find all plugins produced
+string(
+  REPLACE ";"
+          ":"
+          TASK_COMPOSER_PLUGINS_STRING
+          "${TASK_COMPOSER_PLUGINS}")
+target_compile_definitions(${PROJECT_NAME} PRIVATE TESSERACT_TASK_COMPOSER_PLUGINS="${TASK_COMPOSER_PLUGINS}")
 
 configure_package(
   NAMESPACE tesseract
@@ -119,7 +142,8 @@ configure_package(
           tesseract_motion_planners
           tesseract_time_parameterization
           trajopt
-          Taskflow)
+          Taskflow
+          yaml-cpp)
 
 # Mark header files for installation
 install(

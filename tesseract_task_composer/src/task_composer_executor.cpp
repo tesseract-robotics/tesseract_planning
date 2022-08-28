@@ -35,6 +35,8 @@ namespace tesseract_planning
 {
 TaskComposerExecutor::TaskComposerExecutor(std::string name) : name_(std::move(name)) {}
 
+const std::string& TaskComposerExecutor::getName() const { return name_; }
+
 bool TaskComposerExecutor::operator==(const TaskComposerExecutor& rhs) const { return (name_ == rhs.name_); }
 
 bool TaskComposerExecutor::operator!=(const TaskComposerExecutor& rhs) const { return !operator==(rhs); }

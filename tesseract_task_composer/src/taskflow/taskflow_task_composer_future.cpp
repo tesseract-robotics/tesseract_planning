@@ -34,7 +34,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/taskflow/taskflow_task_composer_future.h>
-#include <tesseract_task_composer/taskflow/taskflow_utils.h>
 
 namespace tesseract_planning
 {
