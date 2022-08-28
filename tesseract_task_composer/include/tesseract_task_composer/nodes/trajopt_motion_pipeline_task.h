@@ -59,6 +59,8 @@ public:
   TrajOptMotionPipelineTask(TrajOptMotionPipelineTask&&) = delete;
   TrajOptMotionPipelineTask& operator=(TrajOptMotionPipelineTask&&) = delete;
 
+  TaskComposerNode::UPtr clone() const override final;
+
   bool operator==(const TrajOptMotionPipelineTask& rhs) const;
   bool operator!=(const TrajOptMotionPipelineTask& rhs) const;
 

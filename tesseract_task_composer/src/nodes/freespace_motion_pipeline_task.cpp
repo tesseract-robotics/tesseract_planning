@@ -154,6 +154,12 @@ void FreespaceMotionPipelineTask::ctor()
   }
 }
 
+TaskComposerNode::UPtr FreespaceMotionPipelineTask::clone() const
+{
+  return std::make_unique<FreespaceMotionPipelineTask>(
+      input_key_, output_key_, check_input_, post_collision_check_, post_smoothing_, name_);
+}
+
 bool FreespaceMotionPipelineTask::operator==(const FreespaceMotionPipelineTask& rhs) const
 {
   bool equal = true;

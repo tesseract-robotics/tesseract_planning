@@ -49,6 +49,7 @@ IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::st
   : TaskComposerTask(is_conditional, std::move(name))
   , input_key_(std::move(input_key))
   , output_key_(std::move(output_key))
+  , add_points_(add_points)
   , solver_(add_points)
 {
 }
@@ -150,11 +151,18 @@ int IterativeSplineParameterizationTask::run(TaskComposerInput& input, OptionalT
   return 1;
 }
 
+TaskComposerNode::UPtr IterativeSplineParameterizationTask::clone() const
+{
+  return std::make_unique<IterativeSplineParameterizationTask>(
+      input_key_, output_key_, add_points_, is_conditional_, name_);
+}
+
 bool IterativeSplineParameterizationTask::operator==(const IterativeSplineParameterizationTask& rhs) const
 {
   bool equal = true;
   equal &= (input_key_ == rhs.input_key_);
   equal &= (output_key_ == rhs.output_key_);
+  equal &= (add_points_ == rhs.add_points_);
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
@@ -168,6 +176,7 @@ void IterativeSplineParameterizationTask::serialize(Archive& ar, const unsigned 
 {
   ar& BOOST_SERIALIZATION_NVP(input_key_);
   ar& BOOST_SERIALIZATION_NVP(output_key_);
+  ar& BOOST_SERIALIZATION_NVP(add_points_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 

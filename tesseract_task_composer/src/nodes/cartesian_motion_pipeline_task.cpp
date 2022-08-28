@@ -154,6 +154,12 @@ void CartesianMotionPipelineTask::ctor()
   }
 }
 
+TaskComposerNode::UPtr CartesianMotionPipelineTask::clone() const
+{
+  return std::make_unique<CartesianMotionPipelineTask>(
+      input_key_, output_key_, check_input_, post_collision_check_, post_smoothing_, name_);
+}
+
 bool CartesianMotionPipelineTask::operator==(const CartesianMotionPipelineTask& rhs) const
 {
   bool equal = true;

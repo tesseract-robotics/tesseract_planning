@@ -144,6 +144,12 @@ void TrajOptMotionPipelineTask::ctor()
   }
 }
 
+TaskComposerNode::UPtr TrajOptMotionPipelineTask::clone() const
+{
+  return std::make_unique<TrajOptMotionPipelineTask>(
+      input_key_, output_key_, check_input_, post_collision_check_, post_smoothing_, name_);
+}
+
 bool TrajOptMotionPipelineTask::operator==(const TrajOptMotionPipelineTask& rhs) const
 {
   bool equal = true;

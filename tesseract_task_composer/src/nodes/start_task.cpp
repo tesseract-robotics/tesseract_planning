@@ -51,6 +51,8 @@ int StartTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*exec
   return 1;
 }
 
+TaskComposerNode::UPtr StartTask::clone() const { return std::make_unique<StartTask>(name_); }
+
 bool StartTask::operator==(const StartTask& rhs) const
 {
   bool equal = true;

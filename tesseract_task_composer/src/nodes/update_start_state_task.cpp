@@ -114,6 +114,11 @@ int UpdateStartStateTask::run(TaskComposerInput& input, OptionalTaskComposerExec
   return 1;
 }
 
+TaskComposerNode::UPtr UpdateStartStateTask::clone() const
+{
+  return std::make_unique<UpdateStartStateTask>(input_key_, input_prev_key_, output_key_, is_conditional_, name_);
+}
+
 bool UpdateStartStateTask::operator==(const UpdateStartStateTask& rhs) const
 {
   bool equal = true;

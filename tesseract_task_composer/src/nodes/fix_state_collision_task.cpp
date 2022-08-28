@@ -595,6 +595,11 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
   return 1;
 }
 
+TaskComposerNode::UPtr FixStateCollisionTask::clone() const
+{
+  return std::make_unique<FixStateCollisionTask>(input_key_, output_key_, is_conditional_, name_);
+}
+
 bool FixStateCollisionTask::operator==(const FixStateCollisionTask& rhs) const
 {
   bool equal = true;

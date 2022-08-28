@@ -144,6 +144,12 @@ void OMPLMotionPipelineTask::ctor()
   }
 }
 
+TaskComposerNode::UPtr OMPLMotionPipelineTask::clone() const
+{
+  return std::make_unique<OMPLMotionPipelineTask>(
+      input_key_, output_key_, check_input_, post_collision_check_, post_smoothing_, name_);
+}
+
 bool OMPLMotionPipelineTask::operator==(const OMPLMotionPipelineTask& rhs) const
 {
   bool equal = true;

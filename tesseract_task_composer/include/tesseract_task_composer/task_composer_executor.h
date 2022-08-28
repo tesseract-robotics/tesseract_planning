@@ -53,6 +53,15 @@ public:
   const std::string& getName() const;
 
   /**
+   * @brief Execute the provided node
+   * @details It will call one of the pure virtual methods below based on the node type
+   * @param node The node to execute
+   * @param task_input The task input provided to every task
+   * @return The future associated with execution
+   */
+  virtual TaskComposerFuture::UPtr run(const TaskComposerNode& node, TaskComposerInput& task_input);
+
+  /**
    * @brief Execute the provided task graph
    * @param task_graph The task graph to execute
    * @param task_input The task input provided to every task

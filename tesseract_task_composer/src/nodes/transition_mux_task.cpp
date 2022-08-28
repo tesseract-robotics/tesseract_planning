@@ -141,6 +141,12 @@ int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
   return 1;
 }
 
+TaskComposerNode::UPtr TransitionMuxTask::clone() const
+{
+  return std::make_unique<TransitionMuxTask>(
+      input_key_, input_prev_key_, input_next_key_, output_key_, is_conditional_, name_);
+}
+
 bool TransitionMuxTask::operator==(const TransitionMuxTask& rhs) const
 {
   bool equal = true;

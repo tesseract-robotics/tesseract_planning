@@ -146,6 +146,12 @@ void DescartesMotionPipelineTask::ctor()
   }
 }
 
+TaskComposerNode::UPtr DescartesMotionPipelineTask::clone() const
+{
+  return std::make_unique<DescartesMotionPipelineTask>(
+      input_key_, output_key_, check_input_, post_collision_check_, post_smoothing_, name_);
+}
+
 bool DescartesMotionPipelineTask::operator==(const DescartesMotionPipelineTask& rhs) const
 {
   bool equal = true;

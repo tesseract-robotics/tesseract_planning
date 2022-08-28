@@ -49,6 +49,8 @@ int ErrorTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*exec
   return 0;
 }
 
+TaskComposerNode::UPtr ErrorTask::clone() const { return std::make_unique<ErrorTask>(is_conditional_, name_); }
+
 bool ErrorTask::operator==(const ErrorTask& rhs) const
 {
   bool equal = true;

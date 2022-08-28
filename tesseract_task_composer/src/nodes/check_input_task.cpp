@@ -73,6 +73,11 @@ int CheckInputTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /
   return 1;
 }
 
+TaskComposerNode::UPtr CheckInputTask::clone() const
+{
+  return std::make_unique<CheckInputTask>(input_keys_, is_conditional_, name_);
+}
+
 bool CheckInputTask::operator==(const CheckInputTask& rhs) const
 {
   bool equal = true;

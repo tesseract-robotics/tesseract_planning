@@ -100,6 +100,26 @@ void TaskComposerGraph::dumpHelper(std::ostream& os, const TaskComposerGraph& /*
   os << sub_graphs.str();
 }
 
+TaskComposerNode::UPtr TaskComposerGraph::clone() const
+{
+  auto clone_graph = std::make_unique<TaskComposerGraph>(name_);
+  std::map<boost::uuids::uuid, boost::uuids::uuid> clone_map;
+  for (const auto& node : nodes_)
+    clone_map[node.first] = clone_graph->addNode(node.second->clone());
+
+  for (const auto& node : nodes_)
+  {
+    std::vector<boost::uuids::uuid> cloned_edges;
+    cloned_edges.reserve(node.second->outbound_edges_.size());
+    for (const auto& edge : node.second->outbound_edges_)
+      cloned_edges.push_back(clone_map[edge]);
+
+    clone_graph->addEdges(clone_map[node.first], cloned_edges);
+  }
+
+  return clone_graph;
+}
+
 bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
 {
   bool equal = true;

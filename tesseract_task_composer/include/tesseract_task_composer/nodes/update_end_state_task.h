@@ -59,6 +59,8 @@ public:
 
   int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
+  TaskComposerNode::UPtr clone() const override final;
+
   bool operator==(const UpdateEndStateTask& rhs) const;
   bool operator!=(const UpdateEndStateTask& rhs) const;
 

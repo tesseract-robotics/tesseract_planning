@@ -255,6 +255,11 @@ CompositeInstruction TimeOptimalParameterizationTask::unflatten(const CompositeI
   return unflattened;
 }
 
+TaskComposerNode::UPtr TimeOptimalParameterizationTask::clone() const
+{
+  return std::make_unique<TimeOptimalParameterizationTask>(input_key_, output_key_, is_conditional_, name_);
+}
+
 bool TimeOptimalParameterizationTask::operator==(const TimeOptimalParameterizationTask& rhs) const
 {
   bool equal = true;

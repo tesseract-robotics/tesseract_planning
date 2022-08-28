@@ -120,6 +120,11 @@ int UpdateEndStateTask::run(TaskComposerInput& input, OptionalTaskComposerExecut
   return 1;
 }
 
+TaskComposerNode::UPtr UpdateEndStateTask::clone() const
+{
+  return std::make_unique<UpdateEndStateTask>(input_key_, input_next_key_, output_key_, is_conditional_, name_);
+}
+
 bool UpdateEndStateTask::operator==(const UpdateEndStateTask& rhs) const
 {
   bool equal = true;

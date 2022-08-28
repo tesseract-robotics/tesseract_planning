@@ -284,6 +284,11 @@ void RasterMotionTask::checkTaskInput(const tesseract_common::Any& input) const
     throw std::runtime_error("RasterMotionTask, to_end should be a composite");
 }
 
+TaskComposerNode::UPtr RasterMotionTask::clone() const
+{
+  return std::make_unique<RasterMotionTask>(input_key_, output_key_, is_conditional_, name_);
+}
+
 bool RasterMotionTask::operator==(const RasterMotionTask& rhs) const
 {
   bool equal = true;

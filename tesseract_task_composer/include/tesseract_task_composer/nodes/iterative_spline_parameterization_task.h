@@ -62,6 +62,8 @@ public:
 
   int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
+  TaskComposerNode::UPtr clone() const override final;
+
   bool operator==(const IterativeSplineParameterizationTask& rhs) const;
   bool operator!=(const IterativeSplineParameterizationTask& rhs) const;
 
@@ -73,6 +75,7 @@ protected:
 
   std::string input_key_;
   std::string output_key_;
+  bool add_points_;
   IterativeSplineParameterization solver_;
 };
 

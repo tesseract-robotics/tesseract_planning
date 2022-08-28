@@ -83,6 +83,9 @@ public:
   /** @brief dump the task to dot */
   virtual void dump(std::ostream& os) const;
 
+  /** @brief Create a deep copy of the node */
+  virtual TaskComposerNode::UPtr clone() const = 0;
+
   bool operator==(const TaskComposerNode& rhs) const;
   bool operator!=(const TaskComposerNode& rhs) const;
 

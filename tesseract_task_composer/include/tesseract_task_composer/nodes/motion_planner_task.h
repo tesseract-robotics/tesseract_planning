@@ -55,6 +55,8 @@ public:
 
   int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
+  TaskComposerNode::UPtr clone() const override final;
+
   bool operator==(const MotionPlannerTask& rhs) const;
   bool operator!=(const MotionPlannerTask& rhs) const;
 

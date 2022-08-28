@@ -157,6 +157,11 @@ int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input, OptionalTaskCom
   return 1;
 }
 
+TaskComposerNode::UPtr RuckigTrajectorySmoothingTask::clone() const
+{
+  return std::make_unique<RuckigTrajectorySmoothingTask>(input_key_, output_key_, is_conditional_, name_);
+}
+
 bool RuckigTrajectorySmoothingTask::operator==(const RuckigTrajectorySmoothingTask& rhs) const
 {
   bool equal = true;
