@@ -83,7 +83,7 @@ int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input, OptionalTaskCom
   profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<RuckigTrajectorySmoothingCompositeProfile>(
       name_, profile, *input.profiles, std::make_shared<RuckigTrajectorySmoothingCompositeProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   RuckigTrajectorySmoothing solver(cur_composite_profile->duration_extension_fraction,
                                    cur_composite_profile->max_duration_extension_factor);

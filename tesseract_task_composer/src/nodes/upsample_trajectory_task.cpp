@@ -78,7 +78,7 @@ int UpsampleTrajectoryTask::run(TaskComposerInput& input, OptionalTaskComposerEx
   profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile = getProfile<UpsampleTrajectoryProfile>(
       name_, profile, *input.profiles, std::make_shared<UpsampleTrajectoryProfile>());
-  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
+  cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   assert(cur_composite_profile->longest_valid_segment_length > 0);
   CompositeInstruction results{ ci };

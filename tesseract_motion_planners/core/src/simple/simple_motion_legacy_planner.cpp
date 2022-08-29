@@ -219,8 +219,7 @@ CompositeInstruction SimpleMotionLegacyPlanner::processCompositeInstruction(cons
         std::string profile = getProfileString(name_, base_instruction.getProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerLegacyPlanProfile>(
             name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKLegacyPlanProfile>());
-        //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
-        //        base_instruction.profile_overrides);
+        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getPathProfileOverrides());
       }
       else
       {
@@ -228,8 +227,7 @@ CompositeInstruction SimpleMotionLegacyPlanner::processCompositeInstruction(cons
             getProfileString(name_, base_instruction.getPathProfile(), request.plan_profile_remapping);
         plan_profile = getProfile<SimplePlannerLegacyPlanProfile>(
             name_, profile, *request.profiles, std::make_shared<SimplePlannerLVSNoIKLegacyPlanProfile>());
-        //        plan_profile = applyProfileOverrides(name_, profile, plan_profile,
-        //        base_instruction.profile_overrides);
+        plan_profile = applyProfileOverrides(name_, profile, plan_profile, base_instruction.getProfileOverrides());
       }
 
       if (!plan_profile)

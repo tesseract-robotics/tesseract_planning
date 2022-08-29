@@ -418,8 +418,8 @@ std::vector<OMPLProblem::Ptr> OMPLLegacyMotionPlanner::createProblems(const Plan
       profile = getProfileString(name_, profile, request.plan_profile_remapping);
       auto cur_plan_profile =
           getProfile<OMPLPlanProfile>(name_, profile, *request.profiles, std::make_shared<OMPLDefaultPlanProfile>());
-      //      cur_plan_profile = applyProfileOverrides(name_, profile, cur_plan_profile,
-      //      plan_instruction.profile_overrides);
+      cur_plan_profile =
+          applyProfileOverrides(name_, profile, cur_plan_profile, plan_instruction.getProfileOverrides());
       if (!cur_plan_profile)
         throw std::runtime_error("OMPLMotionPlannerDefaultConfig: Invalid profile");
 
