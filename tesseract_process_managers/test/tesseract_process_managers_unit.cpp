@@ -8,7 +8,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_motion_planners/core/types.h>
 #include <tesseract_motion_planners/simple/simple_motion_legacy_planner.h>
-#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_legacy_plan_profile.h>>
+#include <tesseract_motion_planners/simple/profile/simple_planner_fixed_size_assign_legacy_plan_profile.h>
 #include <tesseract_motion_planners/simple/profile/simple_planner_lvs_legacy_plan_profile.h>
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/interface_utils.h>

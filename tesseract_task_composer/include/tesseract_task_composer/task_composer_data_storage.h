@@ -47,10 +47,11 @@ public:
   using ConstUPtr = std::unique_ptr<const TaskComposerDataStorage>;
 
   TaskComposerDataStorage() = default;
+  ~TaskComposerDataStorage() = default;
   TaskComposerDataStorage(const TaskComposerDataStorage&);
   TaskComposerDataStorage& operator=(const TaskComposerDataStorage&);
-  TaskComposerDataStorage(TaskComposerDataStorage&&) = default;
-  TaskComposerDataStorage& operator=(TaskComposerDataStorage&&) = default;
+  TaskComposerDataStorage(TaskComposerDataStorage&&) = delete;
+  TaskComposerDataStorage& operator=(TaskComposerDataStorage&&) = delete;
 
   /**
    * @brief Check if key exists

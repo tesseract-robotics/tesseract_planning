@@ -53,7 +53,7 @@ public:
                             bool post_collision_check,
                             bool post_smoothing,
                             std::string name = "TrajOptMotionPipelineTask");
-  virtual ~TrajOptMotionPipelineTask() = default;
+  ~TrajOptMotionPipelineTask() override = default;
   TrajOptMotionPipelineTask(const TrajOptMotionPipelineTask&) = delete;
   TrajOptMotionPipelineTask& operator=(const TrajOptMotionPipelineTask&) = delete;
   TrajOptMotionPipelineTask(TrajOptMotionPipelineTask&&) = delete;

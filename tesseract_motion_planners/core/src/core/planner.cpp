@@ -84,13 +84,11 @@ void MotionPlanner::assignSolution(MoveInstructionPoly& mi,
 
     throw std::runtime_error("Unsupported waypoint type!");
   }
-  else
-  {
-    StateWaypointPoly swp = mi.createStateWaypoint();
-    swp.setNames(joint_names);
-    swp.setPosition(joint_values);
-    mi.assignStateWaypoint(swp);
-  }
+
+  StateWaypointPoly swp = mi.createStateWaypoint();
+  swp.setNames(joint_names);
+  swp.setPosition(joint_values);
+  mi.assignStateWaypoint(swp);
 }
 
 }  // namespace tesseract_planning

@@ -44,7 +44,7 @@ bool TaskComposerDataStorage::hasKey(const std::string& key)
 void TaskComposerDataStorage::setData(const std::string& key, tesseract_common::Any data)
 {
   std::unique_lock lock(mutex_);
-  data_[key] = data;
+  data_[key] = std::move(data);
 }
 
 tesseract_common::Any TaskComposerDataStorage::getData(const std::string& key) const

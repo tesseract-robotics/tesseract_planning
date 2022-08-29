@@ -10,7 +10,7 @@ class AddTaskComposerNode : public TaskComposerTask
 {
 public:
   AddTaskComposerNode(std::string left_key, std::string right_key, std::string output_key)
-    : TaskComposerTask("AddTwoNumbers")
+    : TaskComposerTask(false, "AddTwoNumbers")
     , left_key_(std::move(left_key))
     , right_key_(std::move(right_key))
     , output_key_(std::move(output_key))
@@ -41,7 +41,7 @@ class MultiplyTaskComposerNode : public TaskComposerTask
 {
 public:
   MultiplyTaskComposerNode(std::string left_key, std::string right_key, std::string output_key)
-    : TaskComposerTask("MultiplyTwoNumbers")
+    : TaskComposerTask(false, "MultiplyTwoNumbers")
     , left_key_(std::move(left_key))
     , right_key_(std::move(right_key))
     , output_key_(std::move(output_key))

@@ -44,7 +44,7 @@ public:
   using ConstUPtr = std::unique_ptr<const StartTask>;
 
   StartTask(std::string name = "StartTask");
-  ~StartTask() = default;
+  ~StartTask() override = default;
 
   int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 

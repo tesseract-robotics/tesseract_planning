@@ -55,7 +55,7 @@ constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid soluti
 namespace tesseract_planning
 {
 template <typename FloatType>
-DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name) : MotionPlanner(std::move(name))
+DescartesMotionPlanner<FloatType>::DescartesMotionPlanner(std::string name) : MotionPlanner(std::move(name))  // NOLINT
 {
 }
 
@@ -261,9 +261,9 @@ DescartesMotionPlanner<FloatType>::createProblem(const PlannerRequest& request) 
 
   // Transform plan instructions into descartes samplers
   int index = 0;
-  for (std::size_t i = 0; i < move_instructions.size(); ++i)
+  for (const auto& move_instruction : move_instructions)
   {
-    const auto& instruction = move_instructions[i].get();
+    const auto& instruction = move_instruction.get();
 
     assert(instruction.isMoveInstruction());
     const auto& plan_instruction = instruction.template as<MoveInstructionPoly>();

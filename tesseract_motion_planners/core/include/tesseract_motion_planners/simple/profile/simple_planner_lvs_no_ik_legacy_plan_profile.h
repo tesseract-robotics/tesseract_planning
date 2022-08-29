@@ -36,7 +36,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-class JointGroupInstructionInfo;
+struct JointGroupInstructionInfo;
 class SimplePlannerLVSNoIKLegacyPlanProfile : public SimplePlannerLegacyPlanProfile
 {
 public:

@@ -131,7 +131,7 @@ int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
         "Raster #" + std::to_string(raster_idx + 1) + ": " + raster_input.getDescription());
     std::string raster_pipeline_key = raster_pipeline_task->getUUIDString();
     auto raster_pipeline_uuid = task_graph.addNode(std::move(raster_pipeline_task));
-    raster_tasks.push_back({ raster_pipeline_uuid, raster_pipeline_key });
+    raster_tasks.emplace_back(raster_pipeline_uuid, raster_pipeline_key);
     input.data_storage->setData(raster_pipeline_key, raster_input);
 
     task_graph.addEdges(start_uuid, { raster_pipeline_uuid });
@@ -250,7 +250,7 @@ int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   return 1;
 }
 
-void RasterMotionTask::checkTaskInput(const tesseract_common::Any& input) const
+void RasterMotionTask::checkTaskInput(const tesseract_common::Any& input)
 {
   // -------------
   // Check Input

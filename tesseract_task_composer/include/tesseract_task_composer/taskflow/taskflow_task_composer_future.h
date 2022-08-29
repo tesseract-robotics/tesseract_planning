@@ -43,6 +43,10 @@ public:
   TaskflowTaskComposerFuture(std::shared_future<void> future,
                              std::shared_ptr<const std::vector<std::unique_ptr<tf::Taskflow>>> container);
   ~TaskflowTaskComposerFuture() override;
+  TaskflowTaskComposerFuture(const TaskflowTaskComposerFuture&) = default;
+  TaskflowTaskComposerFuture& operator=(const TaskflowTaskComposerFuture&) = default;
+  TaskflowTaskComposerFuture(TaskflowTaskComposerFuture&&) = default;
+  TaskflowTaskComposerFuture& operator=(TaskflowTaskComposerFuture&&) = default;
 
   void clear() override final;
 

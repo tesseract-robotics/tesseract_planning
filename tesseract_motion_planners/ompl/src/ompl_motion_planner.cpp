@@ -289,7 +289,7 @@ PlannerResponse OMPLMotionPlanner::solve(const PlannerRequest& request) const
               child.assignStateWaypoint(swp);
             }
 
-            extra.push_back(child);
+            extra.emplace_back(child);
           }
 
           assignSolution(mi, joint_names, traj.row(row), request.format_result_as_input);

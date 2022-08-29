@@ -53,7 +53,7 @@ public:
                               bool post_collision_check,
                               bool post_smoothing,
                               std::string name = "CartesianMotionPipelineTask");
-  virtual ~CartesianMotionPipelineTask() = default;
+  ~CartesianMotionPipelineTask() override = default;
   CartesianMotionPipelineTask(const CartesianMotionPipelineTask&) = delete;
   CartesianMotionPipelineTask& operator=(const CartesianMotionPipelineTask&) = delete;
   CartesianMotionPipelineTask(CartesianMotionPipelineTask&&) = delete;

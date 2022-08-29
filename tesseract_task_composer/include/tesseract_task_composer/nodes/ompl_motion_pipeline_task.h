@@ -51,7 +51,7 @@ public:
                          bool post_collision_check,
                          bool post_smoothing,
                          std::string name = "OMPLMotionPipelineTask");
-  virtual ~OMPLMotionPipelineTask() = default;
+  ~OMPLMotionPipelineTask() override = default;
   OMPLMotionPipelineTask(const OMPLMotionPipelineTask&) = delete;
   OMPLMotionPipelineTask& operator=(const OMPLMotionPipelineTask&) = delete;
   OMPLMotionPipelineTask(OMPLMotionPipelineTask&&) = delete;

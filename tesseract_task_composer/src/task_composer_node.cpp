@@ -103,7 +103,7 @@ std::string TaskComposerNode::toString(const boost::uuids::uuid& u, const std::s
   result.reserve(36);
 
   std::size_t i = 0;
-  for (auto it_data = u.begin(); it_data != u.end(); ++it_data, ++i)
+  for (const auto* it_data = u.begin(); it_data != u.end(); ++it_data, ++i)
   {
     const size_t hi = ((*it_data) >> 4) & 0x0F;
     result += boost::uuids::detail::to_char(hi);

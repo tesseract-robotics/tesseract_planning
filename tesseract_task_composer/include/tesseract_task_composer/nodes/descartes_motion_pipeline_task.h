@@ -53,7 +53,7 @@ public:
                               bool post_collision_check,
                               bool post_smoothing,
                               std::string name = "DescartesMotionPipelineTask");
-  virtual ~DescartesMotionPipelineTask() = default;
+  ~DescartesMotionPipelineTask() override = default;
   DescartesMotionPipelineTask(const DescartesMotionPipelineTask&) = delete;
   DescartesMotionPipelineTask& operator=(const DescartesMotionPipelineTask&) = delete;
   DescartesMotionPipelineTask(DescartesMotionPipelineTask&&) = delete;

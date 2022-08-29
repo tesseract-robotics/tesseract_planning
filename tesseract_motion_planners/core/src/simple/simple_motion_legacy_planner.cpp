@@ -100,7 +100,7 @@ PlannerResponse SimpleMotionLegacyPlanner::solve(const PlannerRequest& request) 
   {
     CONSOLE_BRIDGE_logError("SimplePlanner failed to generate problem: %s.", e.what());
     response.successful = false;
-    response.message = ERROR_INVALID_INPUT;
+    response.message = FAILED_TO_FIND_VALID_SOLUTION;
     return response;
   }
 

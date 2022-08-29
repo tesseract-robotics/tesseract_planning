@@ -51,7 +51,7 @@ public:
                     std::string output_key,
                     bool format_result_as_input = true,
                     bool is_conditional = true);
-  ~MotionPlannerTask() = default;
+  ~MotionPlannerTask() override = default;
 
   int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override;
 
@@ -67,7 +67,7 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   MotionPlanner::Ptr planner_;
-  bool format_result_as_input_;
+  bool format_result_as_input_{ true };
 };
 
 class MotionPlannerTaskInfo : public TaskComposerNodeInfo

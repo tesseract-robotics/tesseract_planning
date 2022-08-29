@@ -51,7 +51,7 @@ public:
 
   TaskComposerTask() = default;  // Required for serialization
   TaskComposerTask(bool is_conditional, std::string name = "TaskComposerTask");
-  virtual ~TaskComposerTask() = default;
+  ~TaskComposerTask() override = default;
   TaskComposerTask(const TaskComposerGraph&) = delete;
   TaskComposerTask& operator=(const TaskComposerGraph&) = delete;
   TaskComposerTask(TaskComposerGraph&&) = delete;

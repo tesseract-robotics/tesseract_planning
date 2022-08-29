@@ -53,7 +53,7 @@ public:
                               bool post_collision_check,
                               bool post_smoothing,
                               std::string name = "FreespaceMotionPipelineTask");
-  virtual ~FreespaceMotionPipelineTask() = default;
+  ~FreespaceMotionPipelineTask() override = default;
   FreespaceMotionPipelineTask(const FreespaceMotionPipelineTask&) = delete;
   FreespaceMotionPipelineTask& operator=(const FreespaceMotionPipelineTask&) = delete;
   FreespaceMotionPipelineTask(FreespaceMotionPipelineTask&&) = delete;

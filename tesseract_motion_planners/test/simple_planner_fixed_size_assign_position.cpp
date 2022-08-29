@@ -260,8 +260,8 @@ TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianJoint
   EXPECT_EQ(mi.getPathProfile(), instr2.getPathProfile());
 }
 
-TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit,
-       CartesianCartesian_AssignJointPositionLegacy)  // NOLINT
+// NOLINTNEXTLINE
+TEST_F(TesseractPlanningSimplePlannerFixedSizeAssignPositionUnit, CartesianCartesian_AssignJointPositionLegacy)
 {
   PlannerRequest request;
   request.env = env_;

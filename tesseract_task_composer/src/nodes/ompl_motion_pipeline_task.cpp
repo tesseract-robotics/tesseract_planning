@@ -48,13 +48,13 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string name) : TaskComposerGraph(name)
+OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string name) : TaskComposerGraph(std::move(name))
 {
   ctor(uuid_str_, uuid_str_);
 }
 
 OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string input_key, std::string output_key, std::string name)
-  : TaskComposerGraph(name)
+  : TaskComposerGraph(std::move(name))
 {
   ctor(std::move(input_key), std::move(output_key));
 }
@@ -64,7 +64,7 @@ OMPLMotionPipelineTask::OMPLMotionPipelineTask(std::string input_key,
                                                bool post_collision_check,
                                                bool post_smoothing,
                                                std::string name)
-  : TaskComposerGraph(name)
+  : TaskComposerGraph(std::move(name))
   , check_input_(check_input)
   , post_collision_check_(post_collision_check)
   , post_smoothing_(post_smoothing)
@@ -80,7 +80,7 @@ void OMPLMotionPipelineTask::ctor(std::string input_key, std::string output_key)
   boost::uuids::uuid done_task = addNode(std::make_unique<DoneTask>());
   boost::uuids::uuid error_task = addNode(std::make_unique<ErrorTask>());
 
-  boost::uuids::uuid check_input_task;
+  boost::uuids::uuid check_input_task{};
   if (check_input_)
     check_input_task = addNode(std::make_unique<CheckInputTask>(input_keys_[0]));
 
@@ -103,7 +103,7 @@ void OMPLMotionPipelineTask::ctor(std::string input_key, std::string output_key)
       addNode(std::make_unique<MotionPlannerTask>(motion_planner, output_keys_[0], output_keys_[0], false));
 
   // Setup post collision check
-  boost::uuids::uuid contact_check_task;
+  boost::uuids::uuid contact_check_task{};
   if (post_collision_check_)
     contact_check_task = addNode(std::make_unique<DiscreteContactCheckTask>(output_keys_[0]));
 
@@ -112,7 +112,7 @@ void OMPLMotionPipelineTask::ctor(std::string input_key, std::string output_key)
       addNode(std::make_unique<IterativeSplineParameterizationTask>(output_keys_[0], output_keys_[0]));
 
   // Setup trajectory smoothing
-  boost::uuids::uuid smoothing_task;
+  boost::uuids::uuid smoothing_task{};
   if (post_smoothing_)
     smoothing_task = addNode(std::make_unique<RuckigTrajectorySmoothingTask>(output_keys_[0], output_keys_[0]));
 

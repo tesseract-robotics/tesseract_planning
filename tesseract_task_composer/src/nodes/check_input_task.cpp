@@ -45,7 +45,7 @@ CheckInputTask::CheckInputTask(std::vector<std::string> input_keys, bool is_cond
 }
 
 CheckInputTask::CheckInputTask(std::string input_key, bool is_conditional, std::string name)
-  : CheckInputTask(std::vector<std::string>({ input_key }), is_conditional, name)
+  : CheckInputTask(std::vector<std::string>({ std::move(input_key) }), is_conditional, std::move(name))
 {
 }
 
@@ -68,7 +68,7 @@ int CheckInputTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /
         getProfile<CheckInputProfile>(name_, profile, *input.profiles, std::make_shared<CheckInputProfile>());
     cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.profile_overrides);
 
-    if (cur_composite_profile->isValid(input) == 0)
+    if (!cur_composite_profile->isValid(input))
       return 0;
   }
   return 1;

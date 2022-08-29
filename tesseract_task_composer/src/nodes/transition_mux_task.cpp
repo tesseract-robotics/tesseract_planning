@@ -111,7 +111,7 @@ int TransitionMuxTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
   }
 
   // Make a non-const copy of the input instructions to update the start/end
-  CompositeInstruction& instructions = input_data_poly.as<CompositeInstruction>();
+  auto& instructions = input_data_poly.as<CompositeInstruction>();
   const auto* prev_last_move = input_prev_data_poly.as<CompositeInstruction>().getLastMoveInstruction();
   const auto* next_start_move = input_next_data_poly.as<CompositeInstruction>().getFirstMoveInstruction();
 

@@ -44,7 +44,7 @@ public:
   using ConstUPtr = std::unique_ptr<const DoneTask>;
 
   DoneTask(bool is_conditional = false, std::string name = "DoneTask");
-  ~DoneTask() = default;
+  ~DoneTask() override = default;
 
   int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 

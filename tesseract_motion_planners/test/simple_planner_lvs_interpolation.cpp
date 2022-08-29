@@ -572,8 +572,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit,
-       InterpolateStateWaypoint_JointJoint_FreespaceLegacy)  // NOLINT
+// NOLINTNEXTLINE
+TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_JointJoint_FreespaceLegacy)
 {
   PlannerRequest request;
   request.env = env_;
@@ -679,8 +679,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit,
-       InterpolateStateWaypoint_JointCart_FreespaceLegacy)  // NOLINT
+// NOLINTNEXTLINE
+TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_JointCart_FreespaceLegacy)
 {
   PlannerRequest request;
   request.env = env_;
@@ -790,8 +790,8 @@ TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypo
   EXPECT_EQ(crl.size(), rot_steps);
 }
 
-TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit,
-       InterpolateStateWaypoint_CartJoint_FreespaceLegacy)  // NOLINT
+// NOLINTNEXTLINE
+TEST_F(TesseractPlanningSimplePlannerLVSInterpolationUnit, InterpolateStateWaypoint_CartJoint_FreespaceLegacy)
 {
   PlannerRequest request;
   request.env = env_;

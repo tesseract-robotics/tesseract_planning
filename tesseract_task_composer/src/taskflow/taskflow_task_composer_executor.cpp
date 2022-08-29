@@ -37,7 +37,7 @@ TaskflowTaskComposerExecutor::TaskflowTaskComposerExecutor(std::string name, siz
 {
 }
 
-TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() {}
+TaskflowTaskComposerExecutor::~TaskflowTaskComposerExecutor() = default;
 
 TaskComposerFuture::UPtr TaskflowTaskComposerExecutor::run(const TaskComposerGraph& task_graph,
                                                            TaskComposerInput& task_input)
@@ -117,7 +117,7 @@ TaskflowTaskComposerExecutor::convertToTaskflow(const TaskComposerGraph& task_gr
   // Generate process tasks for each node
   std::map<boost::uuids::uuid, tf::Task> tasks;
   const auto& nodes = task_graph.getNodes();
-  for (auto& pair : nodes)
+  for (const auto& pair : nodes)
   {
     auto edges = pair.second->getOutboundEdges();
     if (pair.second->getType() == TaskComposerNodeType::TASK)

@@ -130,7 +130,7 @@ bool TaskComposerGraph::operator==(const TaskComposerGraph& rhs) const
     {
       auto it = rhs.nodes_.find(pair.first);
       equal &= (it == rhs.nodes_.end());
-      if (equal == true)
+      if (equal)
         equal &= (*(pair.second) == *(it->second));
     }
   }

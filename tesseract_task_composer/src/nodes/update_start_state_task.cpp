@@ -96,7 +96,7 @@ int UpdateStartStateTask::run(TaskComposerInput& input, OptionalTaskComposerExec
   }
 
   // Make a non-const copy of the input instructions to update the start/end
-  CompositeInstruction& instructions = input_data_poly.as<CompositeInstruction>();
+  auto& instructions = input_data_poly.as<CompositeInstruction>();
   const auto* prev_last_move = input_prev_data_poly.as<CompositeInstruction>().getLastMoveInstruction();
 
   // Update start instruction

@@ -55,6 +55,7 @@ constexpr auto ERROR_FAILED_TO_FIND_VALID_SOLUTION{ "Failed to find valid soluti
 namespace tesseract_planning
 {
 template <typename FloatType>
+// NOLINTNEXTLINE
 DescartesLegacyMotionPlanner<FloatType>::DescartesLegacyMotionPlanner(std::string name) : MotionPlanner(std::move(name))
 {
 }

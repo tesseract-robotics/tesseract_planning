@@ -73,7 +73,7 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  bool add_points_;
+  bool add_points_{ true };
   IterativeSplineParameterization solver_;
 };
 

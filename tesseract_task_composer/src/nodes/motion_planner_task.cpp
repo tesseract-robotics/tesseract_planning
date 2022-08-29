@@ -75,7 +75,7 @@ int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
   }
 
   // Make a non-const copy of the input instructions to update the start/end
-  CompositeInstruction& instructions = input_data_poly.as<CompositeInstruction>();
+  auto& instructions = input_data_poly.as<CompositeInstruction>();
   assert(!(input.manip_info.empty() && instructions.getManipulatorInfo().empty()));
   instructions.setManipulatorInfo(instructions.getManipulatorInfo().getCombined(input.manip_info));
 

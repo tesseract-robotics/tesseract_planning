@@ -59,7 +59,7 @@ public:
                    std::string output_key,
                    bool is_conditional = true,
                    std::string name = "RasterMotionTask");
-  virtual ~RasterMotionTask() = default;
+  ~RasterMotionTask() override = default;
   RasterMotionTask(const RasterMotionTask&) = delete;
   RasterMotionTask& operator=(const RasterMotionTask&) = delete;
   RasterMotionTask(RasterMotionTask&&) = delete;
@@ -79,7 +79,7 @@ protected:
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
-  void checkTaskInput(const tesseract_common::Any& input) const;
+  static void checkTaskInput(const tesseract_common::Any& input);
 };
 
 class RasterMotionTaskInfo : public TaskComposerNodeInfo

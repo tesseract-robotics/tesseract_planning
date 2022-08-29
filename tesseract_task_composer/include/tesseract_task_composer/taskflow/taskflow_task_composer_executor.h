@@ -55,6 +55,10 @@ public:
   TaskflowTaskComposerExecutor(std::string name = "TaskflowTaskComposerExecutor",
                                size_t num_threads = std::thread::hardware_concurrency());
   ~TaskflowTaskComposerExecutor() override;
+  TaskflowTaskComposerExecutor(const TaskflowTaskComposerExecutor&) = delete;
+  TaskflowTaskComposerExecutor& operator=(const TaskflowTaskComposerExecutor&) = delete;
+  TaskflowTaskComposerExecutor(TaskflowTaskComposerExecutor&&) = delete;
+  TaskflowTaskComposerExecutor& operator=(TaskflowTaskComposerExecutor&&) = delete;
 
   TaskComposerFuture::UPtr run(const TaskComposerGraph& task_graph, TaskComposerInput& task_input) override final;
 
@@ -83,13 +87,13 @@ protected:
   std::size_t num_threads_;
   std::unique_ptr<tf::Executor> executor_;
 
-  std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>> convertToTaskflow(const TaskComposerGraph& task_graph,
-                                                                                TaskComposerInput& task_input,
-                                                                                TaskComposerExecutor& task_executor);
+  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
+  convertToTaskflow(const TaskComposerGraph& task_graph,
+                    TaskComposerInput& task_input,
+                    TaskComposerExecutor& task_executor);
 
-  std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>> convertToTaskflow(const TaskComposerTask& task,
-                                                                                TaskComposerInput& task_input,
-                                                                                TaskComposerExecutor& task_executor);
+  static std::shared_ptr<std::vector<std::unique_ptr<tf::Taskflow>>>
+  convertToTaskflow(const TaskComposerTask& task, TaskComposerInput& task_input, TaskComposerExecutor& task_executor);
 };
 }  // namespace tesseract_planning
 

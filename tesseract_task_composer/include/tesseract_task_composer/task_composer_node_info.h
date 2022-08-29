@@ -60,7 +60,7 @@ public:
   int return_value{ std::numeric_limits<int>::lowest() };
 
   /** @brief The task uuid */
-  boost::uuids::uuid uuid;
+  boost::uuids::uuid uuid{};
 
   /** @brief The name */
   std::string name;

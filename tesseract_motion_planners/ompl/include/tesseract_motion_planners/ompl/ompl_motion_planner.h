@@ -45,8 +45,8 @@ namespace tesseract_planning
 struct OMPLProblemConfig
 {
   OMPLProblem::Ptr problem;
-  boost::uuids::uuid start_uuid;
-  boost::uuids::uuid end_uuid;
+  boost::uuids::uuid start_uuid{};
+  boost::uuids::uuid end_uuid{};
 };
 
 /**

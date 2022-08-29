@@ -44,7 +44,7 @@ public:
   using ConstUPtr = std::unique_ptr<const ErrorTask>;
 
   ErrorTask(bool is_conditional = false, std::string name = "ErrorTask");
-  ~ErrorTask() = default;
+  ~ErrorTask() override = default;
 
   int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 
