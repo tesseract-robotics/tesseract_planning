@@ -2,8 +2,8 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.13.1 (2022-08-30)
+-------------------
 * Add back profile overrides to MoveInstruction
 * Contributors: Levi Armstrong
 
