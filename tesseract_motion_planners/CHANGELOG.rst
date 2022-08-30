@@ -2,6 +2,11 @@
 Changelog for package tesseract_motion_planners
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add back profile overrides to MoveInstruction
+* Contributors: Levi Armstrong
+
 0.13.0 (2022-08-25)
 -------------------
 * Fixed bug that wouldn't pass through a 'found' flag

@@ -2,6 +2,11 @@
 Changelog for package tesseract_command_language
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add back profile overrides to MoveInstruction
+* Contributors: Levi Armstrong
+
 0.13.0 (2022-08-25)
 -------------------
 * Update type erasure benchmarks

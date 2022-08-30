@@ -2,6 +2,11 @@
 Changelog for package tesseract_process_managers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add back profile overrides to MoveInstruction
+* Contributors: Levi Armstrong
+
 0.13.0 (2022-08-25)
 -------------------
 * Add Eigen alignment macro to classes that contain SceneState
