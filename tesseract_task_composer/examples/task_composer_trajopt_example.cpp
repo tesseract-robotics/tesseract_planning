@@ -65,10 +65,6 @@ int main()
   TaskComposerFuture::UPtr future = task_executor->run(*task_graph, *task_input);
   future->wait();
 
-  // Solve process plan
-  //  ProcessPlanningFuture response = planning_server.run(request);
-  //  planning_server.waitForAll();
-
   // Plot Process Trajectory
   auto output_program = task_data->getData("output_program").as<CompositeInstruction>();
   if (plotter != nullptr && plotter->isConnected())
