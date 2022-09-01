@@ -53,6 +53,20 @@ DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string name) : Tas
   ctor(uuid_str_, uuid_str_);
 }
 
+DescartesMotionPipelineTask::DescartesMotionPipelineTask(bool check_input,
+                                                         bool run_simple_planner,
+                                                         bool post_collision_check,
+                                                         bool post_smoothing,
+                                                         std::string name)
+  : TaskComposerGraph(std::move(name))
+  , check_input_(check_input)
+  , run_simple_planner_(run_simple_planner)
+  , post_collision_check_(post_collision_check)
+  , post_smoothing_(post_smoothing)
+{
+  ctor(uuid_str_, uuid_str_);
+}
+
 DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string input_key,
                                                          std::string output_key,
                                                          std::string name)
@@ -63,11 +77,13 @@ DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string input_key,
 DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string input_key,
                                                          std::string output_key,
                                                          bool check_input,
+                                                         bool run_simple_planner,
                                                          bool post_collision_check,
                                                          bool post_smoothing,
                                                          std::string name)
   : TaskComposerGraph(std::move(name))
   , check_input_(check_input)
+  , run_simple_planner_(run_simple_planner)
   , post_collision_check_(post_collision_check)
   , post_smoothing_(post_smoothing)
 {
@@ -76,7 +92,7 @@ DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string input_key,
 
 void DescartesMotionPipelineTask::ctor(std::string input_key, std::string output_key)
 {
-  input_keys_.push_back(std::move(input_key));
+  input_keys_.push_back(input_key);
   output_keys_.push_back(std::move(output_key));
 
   boost::uuids::uuid done_task = addNode(std::make_unique<DoneTask>());
@@ -86,18 +102,23 @@ void DescartesMotionPipelineTask::ctor(std::string input_key, std::string output
   if (check_input_)
     check_input_task = addNode(std::make_unique<CheckInputTask>(input_keys_[0]));
 
-  // Check if seed was provided
-  boost::uuids::uuid has_seed_task = addNode(std::make_unique<HasSeedTask>());
+  boost::uuids::uuid has_seed_task{};
+  boost::uuids::uuid simple_planner_task{};
+  if (run_simple_planner_)
+  {
+    // Check if seed was provided
+    has_seed_task = addNode(std::make_unique<HasSeedTask>());
 
-  // Simple planner as interpolator
-  auto interpolator = std::make_shared<SimpleMotionPlanner>();
-  boost::uuids::uuid interpolator_task =
-      addNode(std::make_unique<MotionPlannerTask>(interpolator, input_keys_[0], output_keys_[0]));
+    // Simple planner as interpolator
+    auto simple_planner = std::make_shared<SimpleMotionPlanner>();
+    simple_planner_task = addNode(std::make_unique<MotionPlannerTask>(simple_planner, input_key, output_keys_[0]));
+    input_key = output_keys_[0];
+  }
 
-  // Setup Seed Min Length Process Generator
+  // Setup Min Length Process Generator
   // This is required because trajopt requires a minimum length trajectory. This is used to correct the seed if it is
   // to short.
-  boost::uuids::uuid seed_min_length_task = addNode(std::make_unique<MinLengthTask>(output_keys_[0], output_keys_[0]));
+  boost::uuids::uuid min_length_task = addNode(std::make_unique<MinLengthTask>(input_key, output_keys_[0]));
 
   // Setup TrajOpt
   auto motion_planner = std::make_shared<DescartesMotionPlannerF>();
@@ -121,9 +142,13 @@ void DescartesMotionPipelineTask::ctor(std::string input_key, std::string output
   if (check_input_)
     addEdges(check_input_task, { error_task, has_seed_task });
 
-  addEdges(has_seed_task, { interpolator_task, seed_min_length_task });
-  addEdges(interpolator_task, { error_task, seed_min_length_task });
-  addEdges(seed_min_length_task, { motion_planner_task });
+  if (run_simple_planner_)
+  {
+    addEdges(has_seed_task, { simple_planner_task, min_length_task });
+    addEdges(simple_planner_task, { error_task, min_length_task });
+  }
+
+  addEdges(min_length_task, { motion_planner_task });
 
   if (post_collision_check_)
   {
@@ -148,14 +173,20 @@ void DescartesMotionPipelineTask::ctor(std::string input_key, std::string output
 
 TaskComposerNode::UPtr DescartesMotionPipelineTask::clone() const
 {
-  return std::make_unique<DescartesMotionPipelineTask>(
-      input_keys_[0], output_keys_[0], check_input_, post_collision_check_, post_smoothing_, name_);
+  return std::make_unique<DescartesMotionPipelineTask>(input_keys_[0],
+                                                       output_keys_[0],
+                                                       check_input_,
+                                                       run_simple_planner_,
+                                                       post_collision_check_,
+                                                       post_smoothing_,
+                                                       name_);
 }
 
 bool DescartesMotionPipelineTask::operator==(const DescartesMotionPipelineTask& rhs) const
 {
   bool equal = true;
   equal &= (check_input_ == rhs.check_input_);
+  equal &= (run_simple_planner_ == rhs.run_simple_planner_);
   equal &= (post_collision_check_ == rhs.post_collision_check_);
   equal &= (post_smoothing_ == rhs.post_smoothing_);
   equal &= TaskComposerGraph::operator==(rhs);
@@ -167,6 +198,7 @@ template <class Archive>
 void DescartesMotionPipelineTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(check_input_);
+  ar& BOOST_SERIALIZATION_NVP(run_simple_planner_);
   ar& BOOST_SERIALIZATION_NVP(post_collision_check_);
   ar& BOOST_SERIALIZATION_NVP(post_smoothing_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerGraph);

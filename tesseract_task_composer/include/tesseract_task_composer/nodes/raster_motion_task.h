@@ -1,6 +1,6 @@
 /**
  * @file raster_motion_task.h
- * @brief Raster motion pipeline
+ * @brief Raster motion task
  *
  * @author Levi Armstrong
  * @date July 29. 2022
@@ -57,6 +57,8 @@ public:
   RasterMotionTask() = default;  // Required for serialization
   RasterMotionTask(std::string input_key,
                    std::string output_key,
+                   bool cartesian_transition = false,
+                   bool run_simple_planner = true,
                    bool is_conditional = true,
                    std::string name = "RasterMotionTask");
   ~RasterMotionTask() override = default;
@@ -78,6 +80,9 @@ protected:
 
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  bool run_simple_planner_{ true };
+  bool cartesian_transition_{ false };
 
   static void checkTaskInput(const tesseract_common::Any& input);
 };

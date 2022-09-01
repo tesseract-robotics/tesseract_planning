@@ -44,10 +44,16 @@ public:
    * @param name The name give to the task
    */
   OMPLMotionPipelineTask(std::string name = "OMPLMotionPipelineTask");
+  OMPLMotionPipelineTask(bool check_input,
+                         bool run_simple_planner,
+                         bool post_collision_check,
+                         bool post_smoothing,
+                         std::string name = "OMPLMotionPipelineTask");
   OMPLMotionPipelineTask(std::string input_key, std::string output_key, std::string name = "OMPLMotionPipelineTask");
   OMPLMotionPipelineTask(std::string input_key,
                          std::string output_key,
                          bool check_input,
+                         bool run_simple_planner,
                          bool post_collision_check,
                          bool post_smoothing,
                          std::string name = "OMPLMotionPipelineTask");
@@ -72,6 +78,7 @@ protected:
   void ctor(std::string input_key, std::string output_key);
 
   bool check_input_{ true };
+  bool run_simple_planner_{ true };
   bool post_collision_check_{ true };
   bool post_smoothing_{ false };
 };

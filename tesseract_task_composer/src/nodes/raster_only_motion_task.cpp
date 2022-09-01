@@ -1,13 +1,13 @@
 /**
- * @file raster_motion_task.cpp
- * @brief Raster motion planning task
+ * @file raster_only_motion_task.cpp
+ * @brief Plans raster paths
  *
- * @author Levi Armstrong
- * @date July 29. 2022
+ * @author Matthew Powelson
+ * @date July 15, 2020
  * @version TODO
  * @bug No known bugs
  *
- * @copyright Copyright (c) 2022, Levi Armstrong
+ * @copyright Copyright (c) 2020, Southwest Research Institute
  *
  * @par License
  * Software License Agreement (Apache License)
@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_future.h>
 #include <tesseract_task_composer/task_composer_executor.h>
-#include <tesseract_task_composer/nodes/raster_motion_task.h>
+#include <tesseract_task_composer/nodes/raster_only_motion_task.h>
 #include <tesseract_task_composer/nodes/start_task.h>
 #include <tesseract_task_composer/nodes/cartesian_motion_pipeline_task.h>
 #include <tesseract_task_composer/nodes/freespace_motion_pipeline_task.h>
@@ -44,12 +44,12 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-RasterMotionTask::RasterMotionTask(std::string input_key,
-                                   std::string output_key,
-                                   bool cartesian_transition,
-                                   bool run_simple_planner,
-                                   bool is_conditional,
-                                   std::string name)
+RasterOnlyMotionTask::RasterOnlyMotionTask(std::string input_key,
+                                           std::string output_key,
+                                           bool cartesian_transition,
+                                           bool run_simple_planner,
+                                           bool is_conditional,
+                                           std::string name)
   : TaskComposerTask(is_conditional, std::move(name))
   , run_simple_planner_(run_simple_planner)
   , cartesian_transition_(cartesian_transition)
@@ -58,12 +58,12 @@ RasterMotionTask::RasterMotionTask(std::string input_key,
   output_keys_.push_back(std::move(output_key));
 }
 
-int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
+int RasterOnlyMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
 {
   if (input.isAborted())
     return 0;
 
-  auto info = std::make_unique<RasterMotionTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<RasterOnlyMotionTaskInfo>(uuid_, name_);
   info->return_value = 0;
   tesseract_common::Timer timer;
   timer.start();
@@ -101,7 +101,7 @@ int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
 
   // Generate all of the raster tasks. They don't depend on anything
   std::size_t raster_idx = 0;
-  for (std::size_t idx = 1; idx < program.size() - 1; idx += 2)
+  for (std::size_t idx = 0; idx < program.size(); idx += 2)
   {
     // Get Raster program
     auto raster_input = program[idx].as<CompositeInstruction>();
@@ -205,47 +205,6 @@ int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
     transition_idx++;
   }
 
-  // Plan from_start - preceded by the first raster
-  auto from_start_input = program[0].as<CompositeInstruction>();
-
-  from_start_input.setStartInstruction(program.getStartInstruction());
-  from_start_input.setManipulatorInfo(from_start_input.getManipulatorInfo().getCombined(program_manip_info));
-
-  auto from_start_pipeline_task = std::make_unique<FreespaceMotionPipelineTask>(
-      true, run_simple_planner_, true, false, "From Start: " + from_start_input.getDescription());
-  std::string from_start_pipeline_key = from_start_pipeline_task->getUUIDString();
-  auto from_start_pipeline_uuid = task_graph.addNode(std::move(from_start_pipeline_task));
-
-  auto update_end_state_task =
-      std::make_unique<UpdateEndStateTask>(raster_tasks[0].second, from_start_pipeline_key, false);
-  std::string update_end_state_key = update_end_state_task->getUUIDString();
-  auto update_end_state_uuid = task_graph.addNode(std::move(update_end_state_task));
-
-  input.data_storage->setData(update_end_state_key, from_start_input);
-
-  task_graph.addEdges(update_end_state_uuid, { from_start_pipeline_uuid });
-  task_graph.addEdges(raster_tasks[0].first, { update_end_state_uuid });
-
-  // Plan to_end - preceded by the last raster
-  auto to_end_input = program.back().as<CompositeInstruction>();
-
-  to_end_input.setManipulatorInfo(to_end_input.getManipulatorInfo().getCombined(program_manip_info));
-
-  auto to_end_pipeline_task = std::make_unique<FreespaceMotionPipelineTask>(
-      true, run_simple_planner_, true, false, "To End: " + to_end_input.getDescription());
-  std::string to_end_pipeline_key = to_end_pipeline_task->getUUIDString();
-  auto to_end_pipeline_uuid = task_graph.addNode(std::move(to_end_pipeline_task));
-
-  auto update_start_state_task =
-      std::make_unique<UpdateStartStateTask>(raster_tasks.back().second, to_end_pipeline_key, false);
-  std::string update_start_state_key = update_start_state_task->getUUIDString();
-  auto update_start_state_uuid = task_graph.addNode(std::move(update_start_state_task));
-
-  input.data_storage->setData(update_start_state_key, to_end_input);
-
-  task_graph.addEdges(update_start_state_uuid, { to_end_pipeline_uuid });
-  task_graph.addEdges(raster_tasks.back().first, { update_start_state_uuid });
-
   // Debug remove
   std::ofstream tc_out_data;
   tc_out_data.open(tesseract_common::getTempPath() + "task_composer_raster_subgraph_example.dot");
@@ -266,14 +225,12 @@ int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   }
 
   program.clear();
-  program.appendInstruction(input.data_storage->getData(from_start_pipeline_key).as<CompositeInstruction>());
   for (std::size_t i = 0; i < raster_tasks.size(); ++i)
   {
     program.appendInstruction(input.data_storage->getData(raster_tasks[i].second).as<CompositeInstruction>());
     if (i < raster_tasks.size() - 1)
       program.appendInstruction(input.data_storage->getData(transition_keys[i]).as<CompositeInstruction>());
   }
-  program.appendInstruction(input.data_storage->getData(to_end_pipeline_key).as<CompositeInstruction>());
 
   input.data_storage->setData(output_keys_[0], program);
 
@@ -283,47 +240,39 @@ int RasterMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor
   return 1;
 }
 
-void RasterMotionTask::checkTaskInput(const tesseract_common::Any& input)
+void RasterOnlyMotionTask::checkTaskInput(const tesseract_common::Any& input)
 {
   // -------------
   // Check Input
   // -------------
   if (input.isNull())
-    throw std::runtime_error("RasterMotionTask, input is null");
+    throw std::runtime_error("RasterOnlyMotionTask, input is null");
 
   if (input.getType() != std::type_index(typeid(CompositeInstruction)))
-    throw std::runtime_error("RasterMotionTask, input is not a composite instruction");
+    throw std::runtime_error("RasterOnlyMotionTask, input is not a composite instruction");
 
   const auto& composite = input.as<CompositeInstruction>();
 
   // Check that it has a start instruction
   if (!composite.hasStartInstruction())
-    throw std::runtime_error("RasterMotionTask, input should have a start instruction");
-
-  // Check from_start
-  if (!composite.at(0).isCompositeInstruction())
-    throw std::runtime_error("RasterMotionTask, from_start should be a composite");
+    throw std::runtime_error("RasterOnlyMotionTask, input should have a start instruction");
 
   // Check rasters and transitions
-  for (std::size_t index = 1; index < composite.size() - 1; index++)
+  for (std::size_t index = 0; index < composite.size(); index++)
   {
     // Both rasters and transitions should be a composite
     if (!composite.at(index).isCompositeInstruction())
-      throw std::runtime_error("RasterMotionTask, Both rasters and transitions should be a composite");
+      throw std::runtime_error("RasterOnlyMotionTask, Both rasters and transitions should be a composite");
   }
-
-  // Check to_end
-  if (!composite.back().isCompositeInstruction())
-    throw std::runtime_error("RasterMotionTask, to_end should be a composite");
 }
 
-TaskComposerNode::UPtr RasterMotionTask::clone() const
+TaskComposerNode::UPtr RasterOnlyMotionTask::clone() const
 {
-  return std::make_unique<RasterMotionTask>(
+  return std::make_unique<RasterOnlyMotionTask>(
       input_keys_[0], output_keys_[0], run_simple_planner_, cartesian_transition_, is_conditional_, name_);
 }
 
-bool RasterMotionTask::operator==(const RasterMotionTask& rhs) const
+bool RasterOnlyMotionTask::operator==(const RasterOnlyMotionTask& rhs) const
 {
   bool equal = true;
   equal &= (run_simple_planner_ == rhs.run_simple_planner_);
@@ -331,40 +280,43 @@ bool RasterMotionTask::operator==(const RasterMotionTask& rhs) const
   equal &= TaskComposerTask::operator==(rhs);
   return equal;
 }
-bool RasterMotionTask::operator!=(const RasterMotionTask& rhs) const { return !operator==(rhs); }
+bool RasterOnlyMotionTask::operator!=(const RasterOnlyMotionTask& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void RasterMotionTask::serialize(Archive& ar, const unsigned int /*version*/)
+void RasterOnlyMotionTask::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_NVP(run_simple_planner_);
   ar& BOOST_SERIALIZATION_NVP(cartesian_transition_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-RasterMotionTaskInfo::RasterMotionTaskInfo(boost::uuids::uuid uuid, std::string name)
+RasterOnlyMotionTaskInfo::RasterOnlyMotionTaskInfo(boost::uuids::uuid uuid, std::string name)
   : TaskComposerNodeInfo(uuid, std::move(name))
 {
 }
 
-TaskComposerNodeInfo::UPtr RasterMotionTaskInfo::clone() const { return std::make_unique<RasterMotionTaskInfo>(*this); }
+TaskComposerNodeInfo::UPtr RasterOnlyMotionTaskInfo::clone() const
+{
+  return std::make_unique<RasterOnlyMotionTaskInfo>(*this);
+}
 
-bool RasterMotionTaskInfo::operator==(const RasterMotionTaskInfo& rhs) const
+bool RasterOnlyMotionTaskInfo::operator==(const RasterOnlyMotionTaskInfo& rhs) const
 {
   bool equal = true;
   equal &= TaskComposerNodeInfo::operator==(rhs);
   return equal;
 }
-bool RasterMotionTaskInfo::operator!=(const RasterMotionTaskInfo& rhs) const { return !operator==(rhs); }
+bool RasterOnlyMotionTaskInfo::operator!=(const RasterOnlyMotionTaskInfo& rhs) const { return !operator==(rhs); }
 
 template <class Archive>
-void RasterMotionTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
+void RasterOnlyMotionTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
 {
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
 }
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterMotionTask)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterMotionTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterMotionTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterMotionTaskInfo)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterOnlyMotionTask)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterOnlyMotionTask)
+TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterOnlyMotionTaskInfo)
+BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterOnlyMotionTaskInfo)

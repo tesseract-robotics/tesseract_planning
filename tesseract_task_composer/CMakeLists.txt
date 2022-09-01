@@ -79,7 +79,10 @@ add_library(
   src/nodes/motion_planner_task.cpp
   src/nodes/ompl_motion_pipeline_task.cpp
   src/nodes/profile_switch_task.cpp
+  src/nodes/raster_global_pipeline_task.cpp
   src/nodes/raster_motion_task.cpp
+  src/nodes/raster_only_global_pipeline_task.cpp
+  src/nodes/raster_only_motion_task.cpp
   src/nodes/ruckig_trajectory_smoothing_task.cpp
   src/nodes/min_length_task.cpp
   src/nodes/start_task.cpp

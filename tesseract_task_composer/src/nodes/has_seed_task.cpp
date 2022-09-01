@@ -40,7 +40,7 @@ HasSeedTask::HasSeedTask(bool is_conditional, std::string name) : TaskComposerTa
 
 int HasSeedTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  return (input.has_seed) ? 1 : 0;
+  return (input.run_simple_planner) ? 0 : 1;
 }
 
 TaskComposerNode::UPtr HasSeedTask::clone() const { return std::make_unique<HasSeedTask>(is_conditional_, name_); }
