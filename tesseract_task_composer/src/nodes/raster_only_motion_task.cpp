@@ -111,14 +111,9 @@ int RasterOnlyMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExec
 
     // Get Start Plan Instruction
     MoveInstructionPoly start_instruction;
-    if (idx == 1)
+    if (idx == 0)
     {
-      const InstructionPoly& from_start_input_instruction = program[0];
-      assert(from_start_input_instruction.isCompositeInstruction());
-      const auto& ci = from_start_input_instruction.as<CompositeInstruction>();
-      const auto* li = ci.getLastMoveInstruction();
-      assert(li != nullptr);
-      start_instruction = *li;
+      start_instruction = program.getStartInstruction();
     }
     else
     {
@@ -154,7 +149,7 @@ int RasterOnlyMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExec
   std::vector<std::string> transition_keys;
   transition_keys.reserve(program.size());
   std::size_t transition_idx = 0;
-  for (std::size_t idx = 2; idx < program.size() - 2; idx += 2)
+  for (std::size_t idx = 1; idx < program.size() - 1; idx += 2)
   {
     // Get transition program
     auto transition_input = program[idx].as<CompositeInstruction>();

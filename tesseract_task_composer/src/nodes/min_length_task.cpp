@@ -33,7 +33,7 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 #include <tesseract_common/timer.h>
 
 #include <tesseract_task_composer/nodes/min_length_task.h>
-#include <tesseract_task_composer/profiles/seed_min_length_profile.h>
+#include <tesseract_task_composer/profiles/min_length_profile.h>
 
 #include <tesseract_motion_planners/core/utils.h>
 #include <tesseract_motion_planners/core/interpolation.h>
@@ -65,7 +65,7 @@ int MinLengthTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*
   auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    CONSOLE_BRIDGE_logError("Input seed to SeedMinLengthTask must be a composite instruction");
+    CONSOLE_BRIDGE_logError("Input seed to MinLengthTask must be a composite instruction");
     //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
     input.addTaskInfo(std::move(info));
@@ -78,7 +78,7 @@ int MinLengthTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*
   std::string profile = ci.getProfile();
   profile = getProfileString(name_, profile, input.composite_profile_remapping);
   auto cur_composite_profile =
-      getProfile<SeedMinLengthProfile>(name_, profile, *input.profiles, std::make_shared<SeedMinLengthProfile>());
+      getProfile<MinLengthProfile>(name_, profile, *input.profiles, std::make_shared<MinLengthProfile>());
   cur_composite_profile = applyProfileOverrides(name_, profile, cur_composite_profile, ci.getProfileOverrides());
 
   if (cnt < cur_composite_profile->min_length)
@@ -114,7 +114,7 @@ int MinLengthTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*
 
     if (!response.successful)
     {
-      CONSOLE_BRIDGE_logError("SeedMinLengthTask, failed to subdivid!");
+      CONSOLE_BRIDGE_logError("MinLengthTask, failed to subdivid!");
       //    saveOutputs(*info, input);
       info->elapsed_time = timer.elapsedSeconds();
       input.addTaskInfo(std::move(info));

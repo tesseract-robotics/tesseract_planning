@@ -57,4 +57,10 @@ tesseract_common::Any TaskComposerDataStorage::getData(const std::string& key) c
   return it->second;
 }
 
+void TaskComposerDataStorage::removeData(const std::string& key)
+{
+  std::unique_lock lock(mutex_);
+  data_.erase(key);
+}
+
 }  // namespace tesseract_planning

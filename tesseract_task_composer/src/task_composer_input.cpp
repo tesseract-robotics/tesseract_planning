@@ -83,6 +83,8 @@ TaskComposerInput::TaskComposerInput(tesseract_environment::Environment::ConstPt
 
 bool TaskComposerInput::isAborted() const { return aborted_; }
 
+bool TaskComposerInput::isSuccessful() const { return !aborted_; }
+
 void TaskComposerInput::abort() { aborted_ = true; }
 
 void TaskComposerInput::reset()

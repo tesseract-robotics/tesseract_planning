@@ -50,7 +50,14 @@ RasterOnlyGlobalPipelineTask::RasterOnlyGlobalPipelineTask(std::string input_key
   output_keys_.push_back(std::move(output_key));
 
   auto global_task = std::make_unique<DescartesMotionPipelineTask>(
-      input_keys_[0], output_keys_[0], true, true, false, false, "GlobalDescartesMotionPipelineTask");
+      input_keys_[0], output_keys_[0], true, true, false, false, false, "GlobalDescartesMotionPipelineTask");
+
+  // Save dot graph
+  std::ofstream tc_out_data;
+  tc_out_data.open(tesseract_common::getTempPath() + "task_composer_global_descartes_pipeline.dot");
+  global_task->dump(tc_out_data);  // dump the graph including dynamic tasks
+  tc_out_data.close();
+
   auto global_uuid = addNode(std::move(global_task));
 
   auto raster_task =

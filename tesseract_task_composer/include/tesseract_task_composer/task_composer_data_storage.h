@@ -75,6 +75,12 @@ public:
    */
   tesseract_common::Any getData(const std::string& key) const;
 
+  /**
+   * @brief Remove data for the provide key
+   * @param key The key to remove data for
+   */
+  void removeData(const std::string& key);
+
 protected:
   mutable std::shared_mutex mutex_;
   std::unordered_map<std::string, tesseract_common::Any> data_;

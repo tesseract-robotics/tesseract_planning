@@ -56,12 +56,14 @@ DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string name) : Tas
 DescartesMotionPipelineTask::DescartesMotionPipelineTask(bool check_input,
                                                          bool run_simple_planner,
                                                          bool post_collision_check,
+                                                         bool post_time_parameterization,
                                                          bool post_smoothing,
                                                          std::string name)
   : TaskComposerGraph(std::move(name))
   , check_input_(check_input)
   , run_simple_planner_(run_simple_planner)
   , post_collision_check_(post_collision_check)
+  , post_time_parameterization_(post_time_parameterization)
   , post_smoothing_(post_smoothing)
 {
   ctor(uuid_str_, uuid_str_);
@@ -79,12 +81,14 @@ DescartesMotionPipelineTask::DescartesMotionPipelineTask(std::string input_key,
                                                          bool check_input,
                                                          bool run_simple_planner,
                                                          bool post_collision_check,
+                                                         bool post_time_parameterization,
                                                          bool post_smoothing,
                                                          std::string name)
   : TaskComposerGraph(std::move(name))
   , check_input_(check_input)
   , run_simple_planner_(run_simple_planner)
   , post_collision_check_(post_collision_check)
+  , post_time_parameterization_(post_time_parameterization)
   , post_smoothing_(post_smoothing)
 {
   ctor(std::move(input_key), std::move(output_key));
@@ -130,22 +134,30 @@ void DescartesMotionPipelineTask::ctor(std::string input_key, std::string output
   if (post_collision_check_)
     contact_check_task = addNode(std::make_unique<DiscreteContactCheckTask>(output_keys_[0]));
 
-  // Setup time parameterization
-  boost::uuids::uuid time_parameterization_task =
-      addNode(std::make_unique<IterativeSplineParameterizationTask>(output_keys_[0], output_keys_[0]));
-
-  // Setup trajectory smoothing
+  // Setup time parameterization and smoothing
+  boost::uuids::uuid time_parameterization_task{};
   boost::uuids::uuid smoothing_task{};
-  if (post_smoothing_)
-    smoothing_task = addNode(std::make_unique<RuckigTrajectorySmoothingTask>(output_keys_[0], output_keys_[0]));
+  if (post_time_parameterization_)
+  {
+    time_parameterization_task =
+        addNode(std::make_unique<IterativeSplineParameterizationTask>(output_keys_[0], output_keys_[0]));
 
-  if (check_input_)
-    addEdges(check_input_task, { error_task, has_seed_task });
+    if (post_smoothing_)
+      smoothing_task = addNode(std::make_unique<RuckigTrajectorySmoothingTask>(output_keys_[0], output_keys_[0]));
+  }
 
   if (run_simple_planner_)
   {
+    if (check_input_)
+      addEdges(check_input_task, { error_task, has_seed_task });
+
     addEdges(has_seed_task, { simple_planner_task, min_length_task });
     addEdges(simple_planner_task, { error_task, min_length_task });
+  }
+  else
+  {
+    if (check_input_)
+      addEdges(check_input_task, { error_task, min_length_task });
   }
 
   addEdges(min_length_task, { motion_planner_task });
@@ -153,21 +165,30 @@ void DescartesMotionPipelineTask::ctor(std::string input_key, std::string output
   if (post_collision_check_)
   {
     addEdges(motion_planner_task, { error_task, contact_check_task });
-    addEdges(contact_check_task, { error_task, time_parameterization_task });
+    if (post_time_parameterization_)
+      addEdges(contact_check_task, { error_task, time_parameterization_task });
+    else
+      addEdges(contact_check_task, { error_task, done_task });
   }
   else
   {
-    addEdges(motion_planner_task, { error_task, time_parameterization_task });
+    if (post_time_parameterization_)
+      addEdges(motion_planner_task, { error_task, time_parameterization_task });
+    else
+      addEdges(motion_planner_task, { error_task, done_task });
   }
 
-  if (post_smoothing_)
+  if (post_time_parameterization_)
   {
-    addEdges(time_parameterization_task, { error_task, smoothing_task });
-    addEdges(smoothing_task, { done_task });
-  }
-  else
-  {
-    addEdges(time_parameterization_task, { error_task, done_task });
+    if (post_smoothing_)
+    {
+      addEdges(time_parameterization_task, { error_task, smoothing_task });
+      addEdges(smoothing_task, { done_task });
+    }
+    else
+    {
+      addEdges(time_parameterization_task, { error_task, done_task });
+    }
   }
 }
 
@@ -178,6 +199,7 @@ TaskComposerNode::UPtr DescartesMotionPipelineTask::clone() const
                                                        check_input_,
                                                        run_simple_planner_,
                                                        post_collision_check_,
+                                                       post_time_parameterization_,
                                                        post_smoothing_,
                                                        name_);
 }
@@ -188,6 +210,7 @@ bool DescartesMotionPipelineTask::operator==(const DescartesMotionPipelineTask& 
   equal &= (check_input_ == rhs.check_input_);
   equal &= (run_simple_planner_ == rhs.run_simple_planner_);
   equal &= (post_collision_check_ == rhs.post_collision_check_);
+  equal &= (post_time_parameterization_ == rhs.post_time_parameterization_);
   equal &= (post_smoothing_ == rhs.post_smoothing_);
   equal &= TaskComposerGraph::operator==(rhs);
   return equal;
@@ -200,6 +223,7 @@ void DescartesMotionPipelineTask::serialize(Archive& ar, const unsigned int /*ve
   ar& BOOST_SERIALIZATION_NVP(check_input_);
   ar& BOOST_SERIALIZATION_NVP(run_simple_planner_);
   ar& BOOST_SERIALIZATION_NVP(post_collision_check_);
+  ar& BOOST_SERIALIZATION_NVP(post_time_parameterization_);
   ar& BOOST_SERIALIZATION_NVP(post_smoothing_);
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerGraph);
 }

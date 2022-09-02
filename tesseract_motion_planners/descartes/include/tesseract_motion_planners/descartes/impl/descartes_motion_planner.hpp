@@ -174,10 +174,10 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
         const Eigen::VectorXd& end_state = solution[result_index++];
 
         Eigen::MatrixXd states = interpolate(start_state, end_state, cnt);
-        for (Eigen::Index i = 0; i < cnt; ++i)
+        for (Eigen::Index i = 1; i <= cnt; ++i)
         {
           auto& interp_mi = results_instructions.at(idx++).get().as<MoveInstructionPoly>();
-          assignSolution(interp_mi, joint_names, solution[result_index++], request.format_result_as_input);
+          assignSolution(interp_mi, joint_names, states.col(i), request.format_result_as_input);
         }
       }
       else if (move_instruction.getWaypoint().isStateWaypoint())

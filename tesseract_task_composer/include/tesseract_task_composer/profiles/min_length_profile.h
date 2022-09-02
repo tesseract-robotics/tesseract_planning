@@ -1,6 +1,6 @@
 /**
- * @file seed_length_profile.h
- * @brief Profile for task that processing the seed so it meets a minimum length. Planners like trajopt
+ * @file min_length_profile.h
+ * @brief Profile for task that processing the program so it meets a minimum length. Planners like trajopt
  * need at least the user defined number of states in the trajectory to perform velocity, acceleration and jerk
  * smoothing.
  *
@@ -25,8 +25,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef TESSERACT_TASK_COMPOSER_SEED_MIN_LENGTH_PROFILE_H
-#define TESSERACT_TASK_COMPOSER_SEED_MIN_LENGTH_PROFILE_H
+#ifndef TESSERACT_TASK_COMPOSER_MIN_LENGTH_PROFILE_H
+#define TESSERACT_TASK_COMPOSER_MIN_LENGTH_PROFILE_H
 
 #include <tesseract_common/macros.h>
 TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
@@ -35,16 +35,16 @@ TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 namespace tesseract_planning
 {
-struct SeedMinLengthProfile
+struct MinLengthProfile
 {
-  using Ptr = std::shared_ptr<SeedMinLengthProfile>;
-  using ConstPtr = std::shared_ptr<const SeedMinLengthProfile>;
+  using Ptr = std::shared_ptr<MinLengthProfile>;
+  using ConstPtr = std::shared_ptr<const MinLengthProfile>;
 
-  SeedMinLengthProfile() = default;
-  SeedMinLengthProfile(long min_length) : min_length(min_length) {}
+  MinLengthProfile() = default;
+  MinLengthProfile(long min_length) : min_length(min_length) {}
 
   long min_length{ 10 };
 };
 }  // namespace tesseract_planning
 
-#endif  // TESSERACT_TASK_COMPOSER_SEED_MIN_LENGTH_PROFILE_H
+#endif  // TESSERACT_TASK_COMPOSER_MIN_LENGTH_PROFILE_H

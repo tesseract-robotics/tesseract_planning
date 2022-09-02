@@ -96,7 +96,7 @@ struct TaskComposerInput
   TaskComposerNodeInfoContainer task_infos;
 
   /** @brief This indicates if simple planner should be ran */
-  bool run_simple_planner{ false };
+  bool run_simple_planner{ true };
 
   /** @brief If true the task will save the inputs and outputs to the TaskInfo*/
   bool save_io{ false };
@@ -115,6 +115,12 @@ struct TaskComposerInput
   bool isAborted() const;
 
   /**
+   * @brief If it was not aborted then it was successful
+   * @return True if successful, otherwise false
+   */
+  bool isSuccessful() const;
+
+  /**
    * @brief Abort the process input
    * @details This accesses the internal process interface class to abort the process
    */
@@ -128,7 +134,7 @@ struct TaskComposerInput
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getTaskInfoMap() const;
 
 protected:
-  mutable bool aborted_{ false };
+  mutable std::atomic<bool> aborted_{ false };
 
   /** @brief Store a copy of the original data storage for resolving using reset() */
   TaskComposerDataStorage::ConstPtr original_data_storage_;

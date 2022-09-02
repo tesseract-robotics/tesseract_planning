@@ -156,12 +156,15 @@ install(
   PATTERN "*.h"
   PATTERN ".svn" EXCLUDE)
 
-if(TESSERACT_ENABLE_EXAMPLES)
+#if(TESSERACT_ENABLE_EXAMPLES)
   add_subdirectory(examples)
-endif()
+#endif()
 
-# if(TESSERACT_ENABLE_TESTING) enable_testing() add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
-# add_subdirectory(test) endif()
+# if(TESSERACT_ENABLE_TESTING)
+enable_testing()
+add_run_tests_target(ENABLE ${TESSERACT_ENABLE_RUN_TESTING})
+add_subdirectory(test)
+#endif()
 
 if(TESSERACT_PACKAGE)
   tesseract_cpack(

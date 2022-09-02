@@ -26,8 +26,7 @@
 #ifndef TESSERACT_TASK_COMPOSER_RASTER_ONLY_GLOBAL_PIPELINE_TASK_H
 #define TESSERACT_TASK_COMPOSER_RASTER_ONLY_GLOBAL_PIPELINE_TASK_H
 
-#include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_common/any.h>
+#include <tesseract_task_composer/task_composer_graph.h>
 
 namespace tesseract_planning
 {

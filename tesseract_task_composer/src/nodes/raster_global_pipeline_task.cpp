@@ -50,7 +50,7 @@ RasterGlobalPipelineTask::RasterGlobalPipelineTask(std::string input_key,
   output_keys_.push_back(std::move(output_key));
 
   auto global_task = std::make_unique<DescartesMotionPipelineTask>(
-      input_keys_[0], output_keys_[0], true, true, false, false, "GlobalDescartesMotionPipelineTask");
+      input_keys_[0], output_keys_[0], true, true, false, false, false, "GlobalDescartesMotionPipelineTask");
   auto global_uuid = addNode(std::move(global_task));
 
   auto raster_task = std::make_unique<RasterMotionTask>(output_keys_[0], output_keys_[0], cartesian_transition, false);

@@ -145,13 +145,18 @@ void CartesianMotionPipelineTask::ctor(std::string input_key, std::string output
   if (post_smoothing_)
     smoothing_task = addNode(std::make_unique<RuckigTrajectorySmoothingTask>(output_keys_[0], output_keys_[0]));
 
-  if (check_input_)
-    addEdges(check_input_task, { error_task, has_seed_task });
-
   if (run_simple_planner_)
   {
+    if (check_input_)
+      addEdges(check_input_task, { error_task, has_seed_task });
+
     addEdges(has_seed_task, { simple_planner_task, min_length_task });
     addEdges(simple_planner_task, { error_task, min_length_task });
+  }
+  else
+  {
+    if (check_input_)
+      addEdges(check_input_task, { error_task, min_length_task });
   }
 
   addEdges(min_length_task, { descartes_planner_task });
