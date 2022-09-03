@@ -64,8 +64,6 @@ public:
   FixStateCollisionTask(FixStateCollisionTask&&) = delete;
   FixStateCollisionTask& operator=(FixStateCollisionTask&&) = delete;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const FixStateCollisionTask& rhs) const;
@@ -76,6 +74,9 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
 class FixStateCollisionTaskInfo : public TaskComposerNodeInfo

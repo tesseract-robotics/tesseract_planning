@@ -60,11 +60,11 @@ public:
   bool operator==(const TaskComposerTask& rhs) const;
   bool operator!=(const TaskComposerTask& rhs) const;
 
+  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const;
+
   bool isConditional() const;
 
   void dump(std::ostream& os) const override;
-
-  virtual int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
 
 protected:
   friend class tesseract_common::Serialization;
@@ -74,6 +74,9 @@ protected:
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
 
   bool is_conditional_{ true };
+
+  virtual TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                             OptionalTaskComposerExecutor executor = std::nullopt) const = 0;
 };
 
 }  // namespace tesseract_planning

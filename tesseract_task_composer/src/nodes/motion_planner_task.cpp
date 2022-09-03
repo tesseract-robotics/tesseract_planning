@@ -48,30 +48,31 @@ MotionPlannerTask::MotionPlannerTask(MotionPlanner::Ptr planner,
   output_keys_.push_back(std::move(output_key));
 }
 
-int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr MotionPlannerTask::runImpl(TaskComposerInput& input,
+                                                      OptionalTaskComposerExecutor /*executor*/) const
 {
-  if (input.isAborted())
-    return 0;
-
-  auto info = std::make_unique<MotionPlannerTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
   info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   tesseract_common::Timer timer;
   timer.start();
-  //  saveInputs(*info, input);
-
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
 
   // --------------------
   // Check that inputs are valid
   // --------------------
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
     info->message = "Input instructions to MotionPlannerTask: " + name_ + " must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    return info;
   }
 
   // Make a non-const copy of the input instructions to update the start/end
@@ -109,13 +110,11 @@ int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
   {
     input.data_storage->setData(output_keys_[0], response.results);
 
-    CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
     info->return_value = 1;
     info->message = response.message;
-    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 1;
+    CONSOLE_BRIDGE_logDebug("Motion Planner process succeeded");
+    return info;
   }
 
   CONSOLE_BRIDGE_logInform("%s motion planning failed (%s) for process input: %s",
@@ -123,10 +122,8 @@ int MotionPlannerTask::run(TaskComposerInput& input, OptionalTaskComposerExecuto
                            response.message.c_str(),
                            instructions.getDescription().c_str());
   info->message = response.message;
-  //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
-  input.addTaskInfo(std::move(info));
-  return 0;
+  return info;
 }
 
 TaskComposerNode::UPtr MotionPlannerTask::clone() const
@@ -151,33 +148,8 @@ void MotionPlannerTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-MotionPlannerTaskInfo::MotionPlannerTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
-{
-}
-
-TaskComposerNodeInfo::UPtr MotionPlannerTaskInfo::clone() const
-{
-  return std::make_unique<MotionPlannerTaskInfo>(*this);
-}
-
-bool MotionPlannerTaskInfo::operator==(const MotionPlannerTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool MotionPlannerTaskInfo::operator!=(const MotionPlannerTaskInfo& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void MotionPlannerTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MotionPlannerTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MotionPlannerTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::MotionPlannerTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::MotionPlannerTaskInfo)

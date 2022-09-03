@@ -53,16 +53,20 @@ TimeOptimalParameterizationTask::TimeOptimalParameterizationTask(std::string inp
   output_keys_.push_back(std::move(output_key));
 }
 
-int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTask::runImpl(TaskComposerInput& input,
+                                                                    OptionalTaskComposerExecutor /*executor*/) const
 {
-  if (input.isAborted())
-    return 0;
-
-  auto info = std::make_unique<TimeOptimalParameterizationTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
   info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   tesseract_common::Timer timer;
   timer.start();
-  //  saveInputs(*info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -70,11 +74,10 @@ int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskC
   auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    CONSOLE_BRIDGE_logError("Input results to TOTG must be a composite instruction");
-    //    saveOutputs(*info, input);
+    info->message = "Input results to TOTG must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    return info;
   }
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
@@ -93,12 +96,11 @@ int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskC
   auto flattened = ci.flatten(moveFilter);
   if (flattened.empty())
   {
-    CONSOLE_BRIDGE_logWarn("TOTG found no MoveInstructions to process");
+    info->message = "TOTG found no MoveInstructions to process";
     info->return_value = 1;
-    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 1;
+    CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+    return info;
   }
 
   double velocity_scaling_factor = cur_composite_profile->max_velocity_scaling_factor;
@@ -146,11 +148,10 @@ int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskC
                                 velocity_scaling_factor,
                                 acceleration_scaling_factor))
   {
-    CONSOLE_BRIDGE_logInform("Failed to perform TOTG for process input: %s!", ci.getDescription().c_str());
-    //    saveOutputs(*info, input);
+    info->message = "Failed to perform TOTG for process input: " + ci.getDescription();
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
+    return info;
   }
 
   // Unflatten
@@ -179,13 +180,12 @@ int TimeOptimalParameterizationTask::run(TaskComposerInput& input, OptionalTaskC
       ci[idx] = resampled[idx];
   }
 
-  CONSOLE_BRIDGE_logDebug("TOTG succeeded");
   input.data_storage->setData(output_keys_[0], input_data_poly);
+  info->message = "Successful";
   info->return_value = 1;
-  //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
-  input.addTaskInfo(std::move(info));
-  return 1;
+  CONSOLE_BRIDGE_logDebug("TOTG succeeded");
+  return info;
 }
 
 CompositeInstruction TimeOptimalParameterizationTask::unflatten(const CompositeInstruction& flattened_input,
@@ -278,36 +278,8 @@ void TimeOptimalParameterizationTask::serialize(Archive& ar, const unsigned int 
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-TimeOptimalParameterizationTaskInfo::TimeOptimalParameterizationTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
-{
-}
-
-TaskComposerNodeInfo::UPtr TimeOptimalParameterizationTaskInfo::clone() const
-{
-  return std::make_unique<TimeOptimalParameterizationTaskInfo>(*this);
-}
-
-bool TimeOptimalParameterizationTaskInfo::operator==(const TimeOptimalParameterizationTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool TimeOptimalParameterizationTaskInfo::operator!=(const TimeOptimalParameterizationTaskInfo& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void TimeOptimalParameterizationTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::TimeOptimalParameterizationTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::TimeOptimalParameterizationTaskInfo)

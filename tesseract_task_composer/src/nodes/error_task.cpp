@@ -36,17 +36,21 @@ namespace tesseract_planning
 {
 ErrorTask::ErrorTask(bool is_conditional, std::string name) : TaskComposerTask(is_conditional, std::move(name)) {}
 
-int ErrorTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr ErrorTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  CONSOLE_BRIDGE_logDebug("Error");
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+  info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   input.abort();
-  auto info = std::make_unique<ErrorTaskInfo>(uuid_, name_);
-  info->return_value = 1;
   info->message = "Error";
-  //    saveOutputs(*info, input);
-  info->elapsed_time = 0;
-  input.addTaskInfo(std::move(info));
-  return 0;
+  CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
+  return info;
 }
 
 TaskComposerNode::UPtr ErrorTask::clone() const { return std::make_unique<ErrorTask>(is_conditional_, name_); }
@@ -65,27 +69,8 @@ void ErrorTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-ErrorTaskInfo::ErrorTaskInfo(boost::uuids::uuid uuid, std::string name) : TaskComposerNodeInfo(uuid, std::move(name)) {}
-
-TaskComposerNodeInfo::UPtr ErrorTaskInfo::clone() const { return std::make_unique<ErrorTaskInfo>(*this); }
-
-bool ErrorTaskInfo::operator==(const ErrorTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool ErrorTaskInfo::operator!=(const ErrorTaskInfo& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void ErrorTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ErrorTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ErrorTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::ErrorTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::ErrorTaskInfo)

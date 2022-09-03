@@ -36,19 +36,21 @@ namespace tesseract_planning
 {
 DoneTask::DoneTask(bool is_conditional, std::string name) : TaskComposerTask(is_conditional, std::move(name)) {}
 
-int DoneTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr DoneTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  if (input.isAborted())
-    return 0;
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+  info->return_value = 0;
 
-  CONSOLE_BRIDGE_logDebug("Successful");
-  auto info = std::make_unique<DoneTaskInfo>(uuid_, name_);
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   info->return_value = 1;
   info->message = "Successful";
-  //    saveOutputs(*info, input);
-  info->elapsed_time = 0;
-  input.addTaskInfo(std::move(info));
-  return 1;
+  CONSOLE_BRIDGE_logDebug("%s", info->message.c_str());
+  return info;
 }
 
 TaskComposerNode::UPtr DoneTask::clone() const { return std::make_unique<DoneTask>(is_conditional_, name_); }
@@ -67,27 +69,8 @@ void DoneTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-DoneTaskInfo::DoneTaskInfo(boost::uuids::uuid uuid, std::string name) : TaskComposerNodeInfo(uuid, std::move(name)) {}
-
-TaskComposerNodeInfo::UPtr DoneTaskInfo::clone() const { return std::make_unique<DoneTaskInfo>(*this); }
-
-bool DoneTaskInfo::operator==(const DoneTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool DoneTaskInfo::operator!=(const DoneTaskInfo& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void DoneTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DoneTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DoneTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::DoneTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::DoneTaskInfo)

@@ -58,22 +58,25 @@ RasterOnlyMotionTask::RasterOnlyMotionTask(std::string input_key,
   output_keys_.push_back(std::move(output_key));
 }
 
-int RasterOnlyMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
+TaskComposerNodeInfo::UPtr RasterOnlyMotionTask::runImpl(TaskComposerInput& input,
+                                                         OptionalTaskComposerExecutor executor) const
 {
-  if (input.isAborted())
-    return 0;
-
-  auto info = std::make_unique<RasterOnlyMotionTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
   info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   tesseract_common::Timer timer;
   timer.start();
-  //  saveInputs(*info, input);
-
-  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
 
   // --------------------
   // Check that inputs are valid
   // --------------------
+  auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   try
   {
     checkTaskInput(input_data_poly);
@@ -81,11 +84,9 @@ int RasterOnlyMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExec
   catch (const std::exception& e)
   {
     info->message = e.what();
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    return info;
   }
 
   auto& program = input_data_poly.as<CompositeInstruction>();
@@ -211,12 +212,10 @@ int RasterOnlyMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExec
 
   if (input.isAborted())
   {
-    info->message = "Raster subgraph failed";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    //    saveOutputs(*info, input);
+    info->message = "Raster only subgraph failed";
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    return info;
   }
 
   program.clear();
@@ -229,10 +228,10 @@ int RasterOnlyMotionTask::run(TaskComposerInput& input, OptionalTaskComposerExec
 
   input.data_storage->setData(output_keys_[0], program);
 
-  //  saveOutputs(*info, input);
+  info->message = "Successful";
+  info->return_value = 1;
   info->elapsed_time = timer.elapsedSeconds();
-  input.addTaskInfo(std::move(info));
-  return 1;
+  return info;
 }
 
 void RasterOnlyMotionTask::checkTaskInput(const tesseract_common::Any& input)
@@ -285,33 +284,8 @@ void RasterOnlyMotionTask::serialize(Archive& ar, const unsigned int /*version*/
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-RasterOnlyMotionTaskInfo::RasterOnlyMotionTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
-{
-}
-
-TaskComposerNodeInfo::UPtr RasterOnlyMotionTaskInfo::clone() const
-{
-  return std::make_unique<RasterOnlyMotionTaskInfo>(*this);
-}
-
-bool RasterOnlyMotionTaskInfo::operator==(const RasterOnlyMotionTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool RasterOnlyMotionTaskInfo::operator!=(const RasterOnlyMotionTaskInfo& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void RasterOnlyMotionTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterOnlyMotionTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterOnlyMotionTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RasterOnlyMotionTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RasterOnlyMotionTaskInfo)

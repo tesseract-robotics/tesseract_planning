@@ -38,9 +38,21 @@ namespace tesseract_planning
 {
 HasSeedTask::HasSeedTask(bool is_conditional, std::string name) : TaskComposerTask(is_conditional, std::move(name)) {}
 
-int HasSeedTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr HasSeedTask::runImpl(TaskComposerInput& input,
+                                                OptionalTaskComposerExecutor /*executor*/) const
 {
-  return (input.run_simple_planner) ? 0 : 1;
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+  info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
+  info->return_value = (input.run_simple_planner) ? 0 : 1;
+  info->message = "Successful";
+  return info;
 }
 
 TaskComposerNode::UPtr HasSeedTask::clone() const { return std::make_unique<HasSeedTask>(is_conditional_, name_); }
@@ -59,30 +71,8 @@ void HasSeedTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-HasSeedTaskInfo::HasSeedTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
-{
-}
-
-TaskComposerNodeInfo::UPtr HasSeedTaskInfo::clone() const { return std::make_unique<HasSeedTaskInfo>(*this); }
-
-bool HasSeedTaskInfo::operator==(const HasSeedTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool HasSeedTaskInfo::operator!=(const HasSeedTaskInfo& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void HasSeedTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::HasSeedTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::HasSeedTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::HasSeedTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::HasSeedTaskInfo)

@@ -41,6 +41,14 @@ TaskComposerTask::TaskComposerTask(bool is_conditional, std::string name)
 
 bool TaskComposerTask::isConditional() const { return is_conditional_; }
 
+int TaskComposerTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const
+{
+  TaskComposerNodeInfo::UPtr results = runImpl(input, executor);
+  int value = results->return_value;
+  input.task_infos.addInfo(std::move(results));
+  return value;
+}
+
 void TaskComposerTask::dump(std::ostream& os) const
 {
   const std::string tmp = toString(uuid_, "node_");

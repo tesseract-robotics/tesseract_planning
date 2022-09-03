@@ -77,9 +77,6 @@ public:
   /** @brief The output keys */
   std::vector<std::string> output_keys;
 
-  //  /** @brief The environment at the beginning of the task (optionally set)*/
-  //  tesseract_environment::Environment::ConstPtr environment{ nullptr };
-
   bool operator==(const TaskComposerNodeInfo& rhs) const;
   bool operator!=(const TaskComposerNodeInfo& rhs) const;
 
@@ -99,12 +96,23 @@ struct TaskComposerNodeInfoContainer
   using UPtr = std::unique_ptr<TaskComposerNodeInfoContainer>;
   using ConstUPtr = std::unique_ptr<const TaskComposerNodeInfoContainer>;
 
+  /**
+   * @brief Add info to the container
+   * @param info The info to be added
+   */
   void addInfo(TaskComposerNodeInfo::UPtr info);
+
+  /**
+   * @brief Get node info provided the uuid
+   * @param key The uuid to retrieve the node info for
+   * @return The node info if the
+   */
+  const TaskComposerNodeInfo& getInfo(boost::uuids::uuid key) const;
 
   /** @brief Get a copy of the task_info_map_ in case it gets resized*/
   std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> getInfoMap() const;
 
-  TaskComposerNodeInfo::UPtr operator[](boost::uuids::uuid key) const;
+  const TaskComposerNodeInfo& operator[](boost::uuids::uuid key) const;
 
   bool operator==(const TaskComposerNodeInfoContainer& rhs) const;
   bool operator!=(const TaskComposerNodeInfoContainer& rhs) const;

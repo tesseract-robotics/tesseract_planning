@@ -36,19 +36,20 @@ namespace tesseract_planning
 {
 StartTask::StartTask(std::string name) : TaskComposerTask(false, std::move(name)) {}
 
-int StartTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr StartTask::runImpl(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
 {
-  if (input.isAborted())
-    return 0;
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+  info->return_value = 0;
 
-  CONSOLE_BRIDGE_logDebug("Successful");
-  auto info = std::make_unique<StartTaskInfo>(uuid_, name_);
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   info->return_value = 1;
   info->message = "Successful";
-  //    saveOutputs(*info, input);
-  info->elapsed_time = 0;
-  input.addTaskInfo(std::move(info));
-  return 1;
+  return info;
 }
 
 TaskComposerNode::UPtr StartTask::clone() const { return std::make_unique<StartTask>(name_); }
@@ -67,27 +68,8 @@ void StartTask::serialize(Archive& ar, const unsigned int /*version*/)
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-StartTaskInfo::StartTaskInfo(boost::uuids::uuid uuid, std::string name) : TaskComposerNodeInfo(uuid, std::move(name)) {}
-
-TaskComposerNodeInfo::UPtr StartTaskInfo::clone() const { return std::make_unique<StartTaskInfo>(*this); }
-
-bool StartTaskInfo::operator==(const StartTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool StartTaskInfo::operator!=(const StartTaskInfo& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void StartTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StartTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StartTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::StartTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::StartTaskInfo)

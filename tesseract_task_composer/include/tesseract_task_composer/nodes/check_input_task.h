@@ -33,7 +33,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 
 namespace tesseract_planning
@@ -59,8 +58,6 @@ public:
   CheckInputTask(CheckInputTask&&) = delete;
   CheckInputTask& operator=(CheckInputTask&&) = delete;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const CheckInputTask& rhs) const;
@@ -71,34 +68,15 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-class CheckInputTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<CheckInputTaskInfo>;
-  using ConstPtr = std::shared_ptr<const CheckInputTaskInfo>;
-  using UPtr = std::unique_ptr<CheckInputTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const CheckInputTaskInfo>;
-
-  CheckInputTaskInfo() = default;
-  CheckInputTaskInfo(boost::uuids::uuid uuid, std::string name = profile_ns::CHECK_INPUT_DEFAULT_NAMESPACE);
-
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const CheckInputTaskInfo& rhs) const;
-  bool operator!=(const CheckInputTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::CheckInputTask, "CheckInputTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::CheckInputTaskInfo, "CheckInputTaskInfo")
 
 #endif  // TESSERACT_TASK_COMPOSER_CHECK_INPUT_TASK_H

@@ -309,16 +309,20 @@ FixStateCollisionTask::FixStateCollisionTask(std::string input_key,
   output_keys_.push_back(std::move(output_key));
 }
 
-int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr FixStateCollisionTask::runImpl(TaskComposerInput& input,
+                                                          OptionalTaskComposerExecutor /*executor*/) const
 {
-  if (input.isAborted())
-    return 0;
-
   auto info = std::make_unique<FixStateCollisionTaskInfo>(uuid_, name_);
   info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   tesseract_common::Timer timer;
   timer.start();
-  //  saveInputs(*info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -326,12 +330,10 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
   auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    info->message = "Input seed to FixStateCollision must be a composite instruction";
-    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
-    //    saveOutputs(*info, input);
+    info->message = "Input to FixStateCollision must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    return info;
   }
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
@@ -357,10 +359,9 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
           if (!applyCorrectionWorkflow(
                   first_mi->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
           {
-            //            saveOutputs(*info, input);
+            info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
-            input.addTaskInfo(std::move(info));
-            return 0;
+            return info;
           }
         }
       }
@@ -377,10 +378,9 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
           CONSOLE_BRIDGE_logInform("FixStateCollisionTask is modifying the input instructions");
           if (!applyCorrectionWorkflow(last_mi->getWaypoint(), input, *cur_composite_profile, info->contact_results[0]))
           {
-            //            saveOutputs(*info, input);
+            info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
-            input.addTaskInfo(std::move(info));
-            return 0;
+            return info;
           }
         }
       }
@@ -392,18 +392,18 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTask found no MoveInstructions to process");
+        info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
-        input.addTaskInfo(std::move(info));
-        return 1;
+        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        return info;
       }
 
       if (flattened.size() <= 2)
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTask found intermediate MoveInstructions to process");
+        info->message = "FixStateCollisionTask found no intermediate MoveInstructions to process";
         info->return_value = 1;
-        input.addTaskInfo(std::move(info));
-        return 1;
+        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        return info;
       }
 
       bool in_collision = false;
@@ -428,10 +428,9 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
-            //            saveOutputs(*info, input);
+            info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
-            input.addTaskInfo(std::move(info));
-            return 0;
+            return info;
           }
         }
       }
@@ -443,10 +442,10 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTask found no MoveInstructions to process");
+        info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
-        input.addTaskInfo(std::move(info));
-        return 1;
+        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        return info;
       }
 
       bool in_collision = false;
@@ -468,13 +467,11 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
         if (in_collision_vec[i])
         {
           auto& plan = flattened[i].get().as<MoveInstructionPoly>();
-
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
-            //            saveOutputs(*info, input);
+            info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
-            input.addTaskInfo(std::move(info));
-            return 0;
+            return info;
           }
         }
       }
@@ -486,10 +483,10 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
       info->contact_results.resize(flattened.size());
       if (flattened.empty())
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTask found no MoveInstructions to process");
+        info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
-        input.addTaskInfo(std::move(info));
-        return 1;
+        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        return info;
       }
 
       bool in_collision = false;
@@ -514,10 +511,9 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
-            //            saveOutputs(*info, input);
+            info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
-            input.addTaskInfo(std::move(info));
-            return 0;
+            return info;
           }
         }
       }
@@ -529,10 +525,10 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
       info->contact_results.resize(flattened.size());
       if (flattened.size() <= 1)
       {
-        CONSOLE_BRIDGE_logWarn("FixStateCollisionTask found no MoveInstructions to process");
+        info->message = "FixStateCollisionTask found no MoveInstructions to process";
         info->return_value = 1;
-        input.addTaskInfo(std::move(info));
-        return 1;
+        CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+        return info;
       }
 
       bool in_collision = false;
@@ -557,30 +553,27 @@ int FixStateCollisionTask::run(TaskComposerInput& input, OptionalTaskComposerExe
 
           if (!applyCorrectionWorkflow(plan.getWaypoint(), input, *cur_composite_profile, info->contact_results[i]))
           {
-            //            saveOutputs(*info, input);
+            info->message = "Failed to correct state in collision";
             info->elapsed_time = timer.elapsedSeconds();
-            input.addTaskInfo(std::move(info));
-            return 0;
+            return info;
           }
         }
       }
     }
     break;
     case FixStateCollisionProfile::Settings::DISABLED:
+      info->message = "Successful, DISABLED";
       info->return_value = 1;
-      //      saveOutputs(*info, input);
       info->elapsed_time = timer.elapsedSeconds();
-      input.addTaskInfo(std::move(info));
-      return 1;
+      return info;
   }
 
-  CONSOLE_BRIDGE_logDebug("FixStateCollisionTask succeeded");
   input.data_storage->setData(output_keys_[0], input_data_poly);
+  info->message = "Successful";
   info->return_value = 1;
-  //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
-  input.addTaskInfo(std::move(info));
-  return 1;
+  CONSOLE_BRIDGE_logDebug("FixStateCollisionTask succeeded");
+  return info;
 }
 
 TaskComposerNode::UPtr FixStateCollisionTask::clone() const

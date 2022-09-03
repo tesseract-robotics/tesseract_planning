@@ -17,13 +17,16 @@ public:
   {
   }
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const override final
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor /*executor*/) const override final
   {
+    auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+    info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
         input.data_storage->getData(left_key_).as<double>() + input.data_storage->getData(right_key_).as<double>();
     input.data_storage->setData(output_key_, result);
-    return 0;
+    return info;
   }
 
   TaskComposerNode::UPtr clone() const override final
@@ -48,13 +51,16 @@ public:
   {
   }
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const override final
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor /*executor*/) const override final
   {
+    auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
+    info->return_value = 0;
     std::cout << name_ << std::endl;
     double result =
         input.data_storage->getData(left_key_).as<double>() * input.data_storage->getData(right_key_).as<double>();
     input.data_storage->setData(output_key_, result);
-    return 0;
+    return info;
   }
 
   TaskComposerNode::UPtr clone() const override final

@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 
 namespace tesseract_planning
@@ -60,8 +59,6 @@ public:
   FixStateBoundsTask(FixStateBoundsTask&&) = delete;
   FixStateBoundsTask& operator=(FixStateBoundsTask&&) = delete;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const FixStateBoundsTask& rhs) const;
@@ -72,33 +69,14 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-class FixStateBoundsTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<FixStateBoundsTaskInfo>;
-  using ConstPtr = std::shared_ptr<const FixStateBoundsTaskInfo>;
-  using UPtr = std::unique_ptr<FixStateBoundsTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const FixStateBoundsTaskInfo>;
-
-  FixStateBoundsTaskInfo() = default;
-  FixStateBoundsTaskInfo(boost::uuids::uuid uuid, std::string name = profile_ns::FIX_STATE_BOUNDS_DEFAULT_NAMESPACE);
-
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const FixStateBoundsTaskInfo& rhs) const;
-  bool operator!=(const FixStateBoundsTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateBoundsTask, "FixStateBoundsTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::FixStateBoundsTaskInfo, "FixStateBoundsTaskInfo")
 #endif  // TESSERACT_TASK_COMPOSER_FIX_STATE_BOUNDS_TASK_H

@@ -30,7 +30,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 
 namespace tesseract_planning
@@ -57,8 +56,6 @@ public:
   ProfileSwitchTask(ProfileSwitchTask&&) = delete;
   ProfileSwitchTask& operator=(ProfileSwitchTask&&) = delete;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const ProfileSwitchTask& rhs) const;
@@ -69,33 +66,14 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
+
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-class ProfileSwitchTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<ProfileSwitchTaskInfo>;
-  using ConstPtr = std::shared_ptr<const ProfileSwitchTaskInfo>;
-  using UPtr = std::unique_ptr<ProfileSwitchTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const ProfileSwitchTaskInfo>;
-
-  ProfileSwitchTaskInfo() = default;
-  ProfileSwitchTaskInfo(boost::uuids::uuid uuid, std::string name = profile_ns::PROFILE_SWITCH_DEFAULT_NAMESPACE);
-
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const ProfileSwitchTaskInfo& rhs) const;
-  bool operator!=(const ProfileSwitchTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ProfileSwitchTask, "ProfileSwitchTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ProfileSwitchTaskInfo, "ProfileSwitchTaskInfo")
 #endif  // TESSERACT_TASK_COMPOSER_PROFILE_SWITCH_TASK_H

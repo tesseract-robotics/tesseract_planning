@@ -65,8 +65,6 @@ public:
   RasterOnlyMotionTask(RasterOnlyMotionTask&&) = delete;
   RasterOnlyMotionTask& operator=(RasterOnlyMotionTask&&) = delete;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor) const override final;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const RasterOnlyMotionTask& rhs) const;
@@ -82,35 +80,16 @@ protected:
   bool run_simple_planner_{ true };
   bool cartesian_transition_{ false };
 
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor) const override final;
+
   static void checkTaskInput(const tesseract_common::Any& input);
 };
 
-class RasterOnlyMotionTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<RasterOnlyMotionTaskInfo>;
-  using ConstPtr = std::shared_ptr<const RasterOnlyMotionTaskInfo>;
-  using UPtr = std::unique_ptr<RasterOnlyMotionTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const RasterOnlyMotionTaskInfo>;
-
-  RasterOnlyMotionTaskInfo() = default;
-  RasterOnlyMotionTaskInfo(boost::uuids::uuid uuid, std::string name);
-
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const RasterOnlyMotionTaskInfo& rhs) const;
-  bool operator!=(const RasterOnlyMotionTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterOnlyMotionTask, "RasterOnlyMotionTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::RasterOnlyMotionTaskInfo, "RasterOnlyMotionTaskInfo")
 
 #endif  // TESSERACT_TASK_COMPOSER_RASTER_ONLY_MOTION_TASK_H

@@ -32,7 +32,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 #include <tesseract_time_parameterization/iterative_spline_parameterization.h>
 
@@ -60,8 +59,6 @@ public:
   IterativeSplineParameterizationTask(IterativeSplineParameterizationTask&&) = delete;
   IterativeSplineParameterizationTask& operator=(IterativeSplineParameterizationTask&&) = delete;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const IterativeSplineParameterizationTask& rhs) const;
@@ -75,34 +72,14 @@ protected:
 
   bool add_points_{ true };
   IterativeSplineParameterization solver_;
+
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-class IterativeSplineParameterizationTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<IterativeSplineParameterizationTaskInfo>;
-  using ConstPtr = std::shared_ptr<const IterativeSplineParameterizationTaskInfo>;
-
-  IterativeSplineParameterizationTaskInfo() = default;
-  IterativeSplineParameterizationTaskInfo(
-      boost::uuids::uuid uuid,
-      std::string name = profile_ns::ITERATIVE_SPLINE_PARAMETERIZATION_DEFAULT_NAMESPACE);
-
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const IterativeSplineParameterizationTaskInfo& rhs) const;
-  bool operator!=(const IterativeSplineParameterizationTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::IterativeSplineParameterizationTask, "IterativeSplineParameterizationTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::IterativeSplineParameterizationTaskInfo,
-                        "IterativeSplineParameterizationTaskInfo")
 #endif  // TESSERACT_TASK_COMPOSER_ITERATIVE_SPLINE_PARAMETERIZATION_TASK_H

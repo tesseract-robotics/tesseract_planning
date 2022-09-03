@@ -93,15 +93,4 @@ void TaskComposerInput::reset()
   data_storage = std::make_shared<TaskComposerDataStorage>(*original_data_storage_);
 }
 
-void TaskComposerInput::addTaskInfo(TaskComposerNodeInfo::UPtr task_info) { task_infos.addInfo(std::move(task_info)); }
-
-TaskComposerNodeInfo::UPtr TaskComposerInput::getTaskInfo(const boost::uuids::uuid& key) const
-{
-  return task_infos[key];
-}
-
-std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> TaskComposerInput::getTaskInfoMap() const
-{
-  return task_infos.getInfoMap();
-}
 }  // namespace tesseract_planning

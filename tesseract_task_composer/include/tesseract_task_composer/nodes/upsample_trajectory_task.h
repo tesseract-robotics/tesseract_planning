@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_info.h>
 #include <tesseract_task_composer/nodes/default_task_namespaces.h>
 #include <tesseract_command_language/composite_instruction.h>
 
@@ -62,8 +61,6 @@ public:
   UpsampleTrajectoryTask(UpsampleTrajectoryTask&&) = delete;
   UpsampleTrajectoryTask& operator=(UpsampleTrajectoryTask&&) = delete;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const UpsampleTrajectoryTask& rhs) const;
@@ -79,34 +76,14 @@ protected:
                 const CompositeInstruction& current_composite,
                 InstructionPoly& start_instruction,
                 double longest_valid_segment_length) const;
+
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
-class UpsampleTrajectoryTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<UpsampleTrajectoryTaskInfo>;
-  using ConstPtr = std::shared_ptr<const UpsampleTrajectoryTaskInfo>;
-  using UPtr = std::unique_ptr<UpsampleTrajectoryTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const UpsampleTrajectoryTaskInfo>;
-
-  UpsampleTrajectoryTaskInfo() = default;
-  UpsampleTrajectoryTaskInfo(boost::uuids::uuid uuid,
-                             std::string name = profile_ns::UPSAMPLE_TRAJECTORY_DEFAULT_NAMESPACE);
-
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const UpsampleTrajectoryTaskInfo& rhs) const;
-  bool operator!=(const UpsampleTrajectoryTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 }  // namespace tesseract_planning
 
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpsampleTrajectoryTask, "UpsampleTrajectoryTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpsampleTrajectoryTaskInfo, "UpsampleTrajectoryTaskInfo")
 #endif  // TESSERACT_TASK_COMPOSER_UPSAMPLE_TRAJECTORY_TASK_H

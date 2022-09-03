@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
@@ -46,8 +45,6 @@ public:
   ErrorTask(bool is_conditional = false, std::string name = "ErrorTask");
   ~ErrorTask() override = default;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override final;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const ErrorTask& rhs) const;
@@ -58,28 +55,9 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 
-class ErrorTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<ErrorTaskInfo>;
-  using ConstPtr = std::shared_ptr<const ErrorTaskInfo>;
-  using UPtr = std::unique_ptr<ErrorTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const ErrorTaskInfo>;
-
-  ErrorTaskInfo() = default;
-  ErrorTaskInfo(boost::uuids::uuid uuid, std::string name);
-
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const ErrorTaskInfo& rhs) const;
-  bool operator!=(const ErrorTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override final;
 };
 
 }  // namespace tesseract_planning
@@ -87,6 +65,5 @@ private:
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ErrorTask, "ErrorTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::ErrorTaskInfo, "ErrorTaskInfo")
 
 #endif  // TESSERACT_TASK_COMPOSER_ERROR_TASK_H

@@ -52,16 +52,20 @@ IterativeSplineParameterizationTask::IterativeSplineParameterizationTask(std::st
   output_keys_.push_back(std::move(output_key));
 }
 
-int IterativeSplineParameterizationTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTask::runImpl(TaskComposerInput& input,
+                                                                        OptionalTaskComposerExecutor /*executor*/) const
 {
-  if (input.isAborted())
-    return 0;
-
-  auto info = std::make_unique<IterativeSplineParameterizationTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
   info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   tesseract_common::Timer timer;
   timer.start();
-  //  saveInputs(*info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -69,11 +73,10 @@ int IterativeSplineParameterizationTask::run(TaskComposerInput& input, OptionalT
   auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    CONSOLE_BRIDGE_logError("Input results to iterative spline parameterization must be a composite instruction");
-    //    saveOutputs(*info, input);
+    info->message = "Input results to iterative spline parameterization must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    return info;
   }
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
@@ -92,12 +95,11 @@ int IterativeSplineParameterizationTask::run(TaskComposerInput& input, OptionalT
   auto flattened = ci.flatten(moveFilter);
   if (flattened.empty())
   {
-    CONSOLE_BRIDGE_logWarn("Iterative spline time parameterization found no MoveInstructions to process");
+    info->message = "Iterative spline time parameterization found no MoveInstructions to process";
     info->return_value = 1;
-    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 1;
+    CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+    return info;
   }
 
   Eigen::VectorXd velocity_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
@@ -133,21 +135,19 @@ int IterativeSplineParameterizationTask::run(TaskComposerInput& input, OptionalT
                        velocity_scaling_factors,
                        acceleration_scaling_factors))
   {
-    CONSOLE_BRIDGE_logInform("Failed to perform iterative spline time parameterization for process input: %s!",
-                             ci.getDescription().c_str());
-    //    saveOutputs(*info, input);
+    info->message =
+        "Failed to perform iterative spline time parameterization for process input: " + ci.getDescription();
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
+    return info;
   }
 
-  CONSOLE_BRIDGE_logDebug("Iterative spline time parameterization succeeded");
+  info->message = "Successful";
   input.data_storage->setData(output_keys_[0], input_data_poly);
   info->return_value = 1;
-  //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
-  input.addTaskInfo(std::move(info));
-  return 1;
+  CONSOLE_BRIDGE_logDebug("Iterative spline time parameterization succeeded");
+  return info;
 }
 
 TaskComposerNode::UPtr IterativeSplineParameterizationTask::clone() const
@@ -175,37 +175,8 @@ void IterativeSplineParameterizationTask::serialize(Archive& ar, const unsigned 
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-IterativeSplineParameterizationTaskInfo::IterativeSplineParameterizationTaskInfo(boost::uuids::uuid uuid,
-                                                                                 std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
-{
-}
-
-TaskComposerNodeInfo::UPtr IterativeSplineParameterizationTaskInfo::clone() const
-{
-  return std::make_unique<IterativeSplineParameterizationTaskInfo>(*this);
-}
-
-bool IterativeSplineParameterizationTaskInfo::operator==(const IterativeSplineParameterizationTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool IterativeSplineParameterizationTaskInfo::operator!=(const IterativeSplineParameterizationTaskInfo& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void IterativeSplineParameterizationTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::IterativeSplineParameterizationTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::IterativeSplineParameterizationTaskInfo)

@@ -49,16 +49,20 @@ RuckigTrajectorySmoothingTask::RuckigTrajectorySmoothingTask(std::string input_k
   output_keys_.push_back(std::move(output_key));
 }
 
-int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTask::runImpl(TaskComposerInput& input,
+                                                                  OptionalTaskComposerExecutor /*executor*/) const
 {
-  if (input.isAborted())
-    return 0;
-
-  auto info = std::make_unique<RuckigTrajectorySmoothingTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
   info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   tesseract_common::Timer timer;
   timer.start();
-  //  saveInputs(*info, input);
 
   // --------------------
   // Check that inputs are valid
@@ -66,11 +70,10 @@ int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input, OptionalTaskCom
   auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    CONSOLE_BRIDGE_logError("Input results to iterative spline parameterization must be a composite instruction");
-    //    saveOutputs(*info, input);
+    info->message = "Input results to ruckig trajectory smoothing must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    return info;
   }
 
   auto& ci = input_data_poly.as<CompositeInstruction>();
@@ -92,12 +95,11 @@ int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input, OptionalTaskCom
   auto flattened = ci.flatten(moveFilter);
   if (flattened.empty())
   {
-    CONSOLE_BRIDGE_logWarn("Ruckig trajectory smoothing found no MoveInstructions to process");
+    info->message = "Ruckig trajectory smoothing found no MoveInstructions to process";
     info->return_value = 1;
-    //    saveOutputs(*info, input);
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 1;
+    CONSOLE_BRIDGE_logWarn("%s", info->message.c_str());
+    return info;
   }
 
   Eigen::VectorXd velocity_scaling_factors = Eigen::VectorXd::Ones(static_cast<Eigen::Index>(flattened.size())) *
@@ -138,21 +140,18 @@ int RuckigTrajectorySmoothingTask::run(TaskComposerInput& input, OptionalTaskCom
                       acceleration_scaling_factors,
                       jerk_scaling_factors))
   {
-    CONSOLE_BRIDGE_logInform("Failed to perform ruckig trajectory smoothing for process input: %s!",
-                             ci.getDescription().c_str());
-    //    saveOutputs(*info, input);
+    info->message = "Failed to perform ruckig trajectory smoothing for process input: %s" + ci.getDescription();
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logInform("%s", info->message.c_str());
+    return info;
   }
 
-  CONSOLE_BRIDGE_logDebug("Ruckig trajectory smoothing succeeded");
   input.data_storage->setData(output_keys_[0], input_data_poly);
+  info->message = "Successful";
   info->return_value = 1;
-  //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
-  input.addTaskInfo(std::move(info));
-  return 1;
+  CONSOLE_BRIDGE_logDebug("Ruckig trajectory smoothing succeeded");
+  return info;
 }
 
 TaskComposerNode::UPtr RuckigTrajectorySmoothingTask::clone() const
@@ -177,36 +176,8 @@ void RuckigTrajectorySmoothingTask::serialize(Archive& ar, const unsigned int /*
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-RuckigTrajectorySmoothingTaskInfo::RuckigTrajectorySmoothingTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
-{
-}
-
-TaskComposerNodeInfo::UPtr RuckigTrajectorySmoothingTaskInfo::clone() const
-{
-  return std::make_unique<RuckigTrajectorySmoothingTaskInfo>(*this);
-}
-
-bool RuckigTrajectorySmoothingTaskInfo::operator==(const RuckigTrajectorySmoothingTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool RuckigTrajectorySmoothingTaskInfo::operator!=(const RuckigTrajectorySmoothingTaskInfo& rhs) const
-{
-  return !operator==(rhs);
-}
-
-template <class Archive>
-void RuckigTrajectorySmoothingTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RuckigTrajectorySmoothingTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RuckigTrajectorySmoothingTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::RuckigTrajectorySmoothingTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::RuckigTrajectorySmoothingTaskInfo)

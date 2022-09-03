@@ -82,10 +82,16 @@ void TaskComposerNodeInfoContainer::addInfo(TaskComposerNodeInfo::UPtr info)
   info_map_[info->uuid] = std::move(info);
 }
 
-TaskComposerNodeInfo::UPtr TaskComposerNodeInfoContainer::operator[](boost::uuids::uuid key) const
+const TaskComposerNodeInfo& TaskComposerNodeInfoContainer::getInfo(boost::uuids::uuid key) const
 {
   std::shared_lock<std::shared_mutex> lock(mutex_);
-  return info_map_.at(key)->clone();
+  return *info_map_.at(key);
+}
+
+const TaskComposerNodeInfo& TaskComposerNodeInfoContainer::operator[](boost::uuids::uuid key) const
+{
+  std::shared_lock<std::shared_mutex> lock(mutex_);
+  return *info_map_.at(key);
 }
 
 std::map<boost::uuids::uuid, TaskComposerNodeInfo::UPtr> TaskComposerNodeInfoContainer::getInfoMap() const

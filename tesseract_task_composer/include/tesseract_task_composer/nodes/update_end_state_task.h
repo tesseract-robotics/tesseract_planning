@@ -31,7 +31,6 @@ TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 TESSERACT_COMMON_IGNORE_WARNINGS_POP
 
 #include <tesseract_task_composer/task_composer_task.h>
-#include <tesseract_task_composer/task_composer_node_info.h>
 
 namespace tesseract_planning
 {
@@ -57,8 +56,6 @@ public:
                      std::string name = "UpdateEndStateTask");
   ~UpdateEndStateTask() override = default;
 
-  int run(TaskComposerInput& input, OptionalTaskComposerExecutor executor = std::nullopt) const override;
-
   TaskComposerNode::UPtr clone() const override final;
 
   bool operator==(const UpdateEndStateTask& rhs) const;
@@ -69,28 +66,9 @@ protected:
   friend class boost::serialization::access;
   template <class Archive>
   void serialize(Archive& ar, const unsigned int version);  // NOLINT
-};
 
-class UpdateEndStateTaskInfo : public TaskComposerNodeInfo
-{
-public:
-  using Ptr = std::shared_ptr<UpdateEndStateTaskInfo>;
-  using ConstPtr = std::shared_ptr<const UpdateEndStateTaskInfo>;
-  using UPtr = std::unique_ptr<UpdateEndStateTaskInfo>;
-  using ConstUPtr = std::unique_ptr<const UpdateEndStateTaskInfo>;
-
-  UpdateEndStateTaskInfo() = default;
-  UpdateEndStateTaskInfo(boost::uuids::uuid uuid, std::string name);
-
-  TaskComposerNodeInfo::UPtr clone() const override;
-
-  bool operator==(const UpdateEndStateTaskInfo& rhs) const;
-  bool operator!=(const UpdateEndStateTaskInfo& rhs) const;
-
-private:
-  friend class boost::serialization::access;
-  template <class Archive>
-  void serialize(Archive& ar, const unsigned int version);  // NOLINT
+  TaskComposerNodeInfo::UPtr runImpl(TaskComposerInput& input,
+                                     OptionalTaskComposerExecutor executor = std::nullopt) const override;
 };
 
 }  // namespace tesseract_planning
@@ -98,6 +76,5 @@ private:
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/tracking.hpp>
 BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpdateEndStateTask, "UpdateEndStateTask")
-BOOST_CLASS_EXPORT_KEY2(tesseract_planning::UpdateEndStateTaskInfo, "UpdateEndStateTaskInfo")
 
 #endif  // TESSERACT_TASK_COMPOSER_UPDATE_END_STATE_TASK_H

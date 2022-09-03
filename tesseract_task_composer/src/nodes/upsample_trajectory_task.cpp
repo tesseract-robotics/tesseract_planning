@@ -50,26 +50,29 @@ UpsampleTrajectoryTask::UpsampleTrajectoryTask(std::string input_key,
   output_keys_.push_back(std::move(output_key));
 }
 
-int UpsampleTrajectoryTask::run(TaskComposerInput& input, OptionalTaskComposerExecutor /*executor*/) const
+TaskComposerNodeInfo::UPtr UpsampleTrajectoryTask::runImpl(TaskComposerInput& input,
+                                                           OptionalTaskComposerExecutor /*executor*/) const
 {
-  if (input.isAborted())
-    return 0;
-
-  auto info = std::make_unique<UpsampleTrajectoryTaskInfo>(uuid_, name_);
+  auto info = std::make_unique<TaskComposerNodeInfo>(uuid_, name_);
   info->return_value = 0;
+
+  if (input.isAborted())
+  {
+    info->message = "Aborted";
+    return info;
+  }
+
   tesseract_common::Timer timer;
   timer.start();
-  //  saveInputs(*info, input);
 
   // Check that inputs are valid
   auto input_data_poly = input.data_storage->getData(input_keys_[0]);
   if (input_data_poly.isNull() || input_data_poly.getType() != std::type_index(typeid(CompositeInstruction)))
   {
-    CONSOLE_BRIDGE_logError("Input seed to UpsampleTrajectoryTask must be a composite instruction");
-    //    saveOutputs(*info, input);
+    info->message = "Input seed to UpsampleTrajectoryTask must be a composite instruction";
     info->elapsed_time = timer.elapsedSeconds();
-    input.addTaskInfo(std::move(info));
-    return 0;
+    CONSOLE_BRIDGE_logError("%s", info->message.c_str());
+    return info;
   }
 
   // Get Composite Profile
@@ -89,11 +92,10 @@ int UpsampleTrajectoryTask::run(TaskComposerInput& input, OptionalTaskComposerEx
   upsample(new_results, results, start_instruction, cur_composite_profile->longest_valid_segment_length);
   input.data_storage->setData(output_keys_[0], new_results);
 
+  info->message = "Successful";
   info->return_value = 1;
-  //  saveOutputs(*info, input);
   info->elapsed_time = timer.elapsedSeconds();
-  input.addTaskInfo(std::move(info));
-  return 1;
+  return info;
 }
 
 TaskComposerNode::UPtr UpsampleTrajectoryTask::clone() const
@@ -175,33 +177,8 @@ void UpsampleTrajectoryTask::serialize(Archive& ar, const unsigned int /*version
   ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerTask);
 }
 
-UpsampleTrajectoryTaskInfo::UpsampleTrajectoryTaskInfo(boost::uuids::uuid uuid, std::string name)
-  : TaskComposerNodeInfo(uuid, std::move(name))
-{
-}
-
-TaskComposerNodeInfo::UPtr UpsampleTrajectoryTaskInfo::clone() const
-{
-  return std::make_unique<UpsampleTrajectoryTaskInfo>(*this);
-}
-
-bool UpsampleTrajectoryTaskInfo::operator==(const UpsampleTrajectoryTaskInfo& rhs) const
-{
-  bool equal = true;
-  equal &= TaskComposerNodeInfo::operator==(rhs);
-  return equal;
-}
-bool UpsampleTrajectoryTaskInfo::operator!=(const UpsampleTrajectoryTaskInfo& rhs) const { return !operator==(rhs); }
-
-template <class Archive>
-void UpsampleTrajectoryTaskInfo::serialize(Archive& ar, const unsigned int /*version*/)
-{
-  ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(TaskComposerNodeInfo);
-}
 }  // namespace tesseract_planning
 
 #include <tesseract_common/serialization.h>
 TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpsampleTrajectoryTask)
 BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpsampleTrajectoryTask)
-TESSERACT_SERIALIZE_ARCHIVES_INSTANTIATE(tesseract_planning::UpsampleTrajectoryTaskInfo)
-BOOST_CLASS_EXPORT_IMPLEMENT(tesseract_planning::UpsampleTrajectoryTaskInfo)
